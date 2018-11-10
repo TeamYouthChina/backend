@@ -1,2 +1,4 @@
-# backend
-Backend of YouthChina based on Spring framework
+# YouthChina-Backend
+Backend of YouthChina based on Spring framework.
+
+
