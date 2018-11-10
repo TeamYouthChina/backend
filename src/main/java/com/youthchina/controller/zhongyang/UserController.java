@@ -1,4 +1,4 @@
-package com.youthchina.controller;
+package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.service.zhongyang.UserService;
