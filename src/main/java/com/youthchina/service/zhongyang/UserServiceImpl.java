@@ -1,8 +1,7 @@
 package com.youthchina.service.zhongyang;
 
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.mapper.zhongyang.UserMapper;
-import org.apache.ibatis.annotations.AutomapConstructor;
+import com.youthchina.dao.zhongyang.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

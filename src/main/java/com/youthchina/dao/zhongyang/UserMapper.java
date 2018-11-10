@@ -1,4 +1,4 @@
-package com.youthchina.mapper.zhongyang;
+package com.youthchina.dao.zhongyang;
 
 import com.youthchina.domain.zhongyang.User;
 import org.apache.ibatis.annotations.Mapper;
