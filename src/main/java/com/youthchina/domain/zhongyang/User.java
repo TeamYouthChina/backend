@@ -1,4 +1,6 @@
-package com.youthchina.zhongyang.model;
+package com.youthchina.domain.zhongyang;
+
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * Created by zhongyangwu on 11/8/18.
@@ -7,6 +9,10 @@ public class User {
     private Integer id;
     private String username;
     private String password;
+
+    public User(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;
