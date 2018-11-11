@@ -7,12 +7,11 @@
         </constructor>
         <result property="username" column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="createdDate" column="USER_DATE" javaType="java.lang.String" jdbcType="VARCHAR"/>
 
     </resultMap>
-    <select id="findOne" resultMap="User" parameterType="String">
+    <select id="findOne" resultMap="User" parameterType="Integer">
         SELECT *
         FROM SYS_USER
-        WHERE SYS_USER.USER_ID = #{id, jdbcType=VARCHAR}
+        WHERE SYS_USER.USER_ID = #{id, jdbcType=INTEGER}
     </select>
 </mapper>

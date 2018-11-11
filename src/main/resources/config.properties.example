@@ -1,2 +1,8 @@
 web.url=http://localhost:8080/api/v1
 web.url.prefix=/api/v1
+
+security.token.key=
+security.token.header=X-AUTHENTICATION
+security.token.prefix=
+# in seconds
+security.token.expirationtime=86400
