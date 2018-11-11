@@ -1,8 +1,9 @@
 USE youthchina;
 
-CREATE TABLE user
+CREATE TABLE SYS_USER
 (
-    id int PRIMARY KEY AUTO_INCREMENT,
-    username varchar(128),
-    password varchar(128)
+    USER_ID varchar(200) PRIMARY KEY,
+    USER_NAME VARCHAR(200),
+    USER_PASS VARCHAR(200),
+    USER_DATE VARCHAR(200)
 );

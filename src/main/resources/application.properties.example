@@ -6,3 +6,5 @@ spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 
 mybatis.type-aliases-package=com.youthchina.domain
 mybatis.mapper-locations=classpath:mapper/*/*.xml
+
+web.url.prefix=/api/v1

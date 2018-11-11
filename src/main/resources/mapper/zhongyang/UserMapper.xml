@@ -3,18 +3,16 @@
 <mapper namespace="com.youthchina.dao.zhongyang.UserMapper">
     <resultMap id="User" type="com.youthchina.domain.zhongyang.User">
         <constructor>
-            <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         </constructor>
-        <result property="username" column="username" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="password" column="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="username" column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="createdDate" column="USER_DATE" javaType="java.lang.String" jdbcType="VARCHAR"/>
 
     </resultMap>
-    <sql id="Base_Column_List">
-        id, username
-    </sql>
-    <select id="findOne" resultMap="User" parameterType="Integer">
+    <select id="findOne" resultMap="User" parameterType="String">
         SELECT *
-        FROM user
-        WHERE user.id = #{id, jdbcType=INTEGER}
+        FROM SYS_USER
+        WHERE SYS_USER.USER_ID = #{id, jdbcType=VARCHAR}
     </select>
 </mapper>
