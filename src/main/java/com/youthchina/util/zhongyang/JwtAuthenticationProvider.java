@@ -27,6 +27,9 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        if(authentication.isAuthenticated()){
+            return authentication;
+        }
         User intentUser = (User) authentication.getPrincipal();
         User actualUser = userService.get(intentUser.getId());
         if(actualUser == null){

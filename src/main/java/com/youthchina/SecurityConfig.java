@@ -52,13 +52,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
 
-                .anonymous().disable()
-
                 .authenticationProvider(jwtAuthenticationProvider)
 
                 .authorizeRequests()
                 .antMatchers(LOGIN_URL).permitAll()
-                .antMatchers("/*").authenticated()
+                .antMatchers("/**").authenticated()
                 .anyRequest().permitAll()
 
 
@@ -80,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private GetUserByJwtFilter getUserByJwtFilter() throws Exception {
-        return new GetUserByJwtFilter("*", authenticationManager(), jwtService);
+        return new GetUserByJwtFilter(jwtService);
     }
 
     private LoginFilter getLoginFilter() throws Exception {
