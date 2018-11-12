@@ -1,7 +1,7 @@
 package com.youthchina.service.zhongyang;
 
-import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dao.zhongyang.UserMapper;
+import com.youthchina.domain.zhongyang.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
-    UserMapper mapper;
+    private UserMapper mapper;
 
     @Autowired
     public UserServiceImpl(UserMapper mapper) {
