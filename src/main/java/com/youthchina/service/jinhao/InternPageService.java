@@ -1,6 +1,7 @@
 package com.youthchina.service.jinhao;
 
 import com.youthchina.domain.jinhao.Company;
+import com.youthchina.domain.jinhao.CompanyAndJob;
 import com.youthchina.domain.jinhao.Job;
 import com.youthchina.domain.jinhao.StuCollect;
 
@@ -8,6 +9,8 @@ import com.youthchina.domain.jinhao.StuCollect;
  * create by jinhaohu on 11/12/18
  */
 public interface InternPageService {
+
+    CompanyAndJob getCompanyAndJob(String company_id, String job_id);
 
     Job getJob(String job_id);
 
