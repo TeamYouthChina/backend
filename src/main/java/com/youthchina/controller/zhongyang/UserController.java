@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by zhongyangwu on 11/8/18.
  */
 @RestController
-@RequestMapping("${web.url.prefix}/users/")
+@RequestMapping("${web.url.prefix}/users/**")
 public class UserController {
 
     private UserService userService;
