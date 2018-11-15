@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.youthchina.dao.miaomiaozhang.CompanyHrMapper">
+    <insert id="insertHr" parameterType="com.youthchina.domain.miaomiaozhang.CompanyHr" resultType="java.lang.Integer">
+        INSERT INTO HR_INFO
+        (   HR_ID,
+            HR_NAME,
+            HR_GENDER,
+            HR_AGE,
+            HR_MAIL,
+            HR_PHONE,
+            HR_COMPANY_ID,
+            HR_ON_JOB,
+            HR_WORKINGCARDNUM)
+        VALUES
+            (
+                #{hr_id},
+                #{hr_name},
+                #{hr_gender},
+                #{hr_age},
+                #{hr_mail},
+                #{hr_phone},
+                #{hr_company_id},
+                #{hr_on_job},
+                #{hr_workingcardnum}
+            )
+    </insert>
+    <update id="updateHr" parameterType="java.lang.String" resultType="java.lang.Integer">
+        UPDATE hr_info
+        SET HR_NAME = #{hr_name},
+        HR_GENDER = #{hr_gender},
+        HR_AGE = #{hr_age},
+        HR_MAIL = #{hr_mail},
+        HR_PHONE = #{hr_phone},
+        HR_COMPANY_ID = #{hr_company_id},
+        HR_ON_JOB = #{hr_on_job},
+        HR_WORKINGCARDNUM = #{hr_workingcardnum}
+        WHERE
+            HR_ID = #{hr_id}
+    </update>
+
+    <select id="selectHr" parameterType="java.lang.String" resultType="com.youthchina.domain.miaomiaozhang.CompanyHr">
+        SELECT
+            HR_ID,
+            HR_NAME,
+            HR_GENDER,
+            HR_AGE,
+            HR_MAIL,
+            HR_PHONE,
+            HR_COMPANY_ID,
+            HR_ON_JOB,
+            HR_WORKINGCARDNUM
+        FROM
+            hr_info
+        WHERE
+            HR_ID =#{hr_id}
+    </select>
+</mapper>
