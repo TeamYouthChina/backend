@@ -1,6 +1,7 @@
 package com.youthchina.dao.miaomiaozhang;
 
 import com.youthchina.domain.miaomiaozhang.CompanyHr;
+import com.youthchina.domain.miaomiaozhang.CompanyInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -21,4 +22,14 @@ public interface CompanyHrMapper {
 
     /**select hr information*/
     CompanyHr selectHr(String hr_id);
+
+    /**select Enterprise Verification*/
+    CompanyInfo selectEnterpriseVerification(String hr_id);
+
+    /**update Personal Verification*/
+    Integer updatePersonalVerification(String hr_id);
+
+    /**select Personal Verification*/
+    CompanyHr selectPersonalVerification(String hr_id);
+
 }

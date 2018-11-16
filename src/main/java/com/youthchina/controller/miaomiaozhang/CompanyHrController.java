@@ -2,17 +2,13 @@ package com.youthchina.controller.miaomiaozhang;
 
 
 import com.youthchina.domain.miaomiaozhang.CompanyHr;
+import com.youthchina.domain.miaomiaozhang.CompanyInfo;
 import com.youthchina.service.miaomiaozhang.CompanyHrService;
 import com.youthchina.util.miaommiaozhang.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.Map;
-
 
 //Controller
 @RestController
@@ -28,7 +24,7 @@ public class CompanyHrController {
      * @param companyHr
      * @return
      */
-    @PostMapping
+    @PostMapping("/addHr")
     public Result addHr(CompanyHr companyHr ){
         try {
             Map<String, Object> resultMap = companyHrService.addHr(companyHr);
@@ -54,7 +50,7 @@ public class CompanyHrController {
      * @return
      */
 
-    @PutMapping
+    @PutMapping("/updateHr")
     public Result updateHr(String hr_id){
         try {
             Map<String, Object> resultMap = companyHrService.updateHr(hr_id);
@@ -62,6 +58,51 @@ public class CompanyHrController {
                 if ((boolean) resultMap.get("result")) {
                     return new Result<Map>().setCode(0).setMessage("修改成功");
                 } else {
+                    return new Result<Map>().setCode(400).setMessage("修改失败");
+                }
+            } else {
+                return new Result<Map>().setCode(500).setMessage("系统异常");
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage() + "updateHr");
+            return new Result<Map>().setCode(500).setMessage("系统异常");
+        }
+
+    }
+
+    @GetMapping("/selectHr")
+    public CompanyHr selectHr(String hr_id) {
+
+        CompanyHr companyHr = companyHrService.selectHr(hr_id);
+
+        return companyHr;
+    }
+
+
+    @GetMapping("/selectEnterpriseVerification")
+    public CompanyInfo selectEnterpriseVerification(String hr_id) {
+        CompanyInfo companyInfo = companyHrService.selectEnterpriseVerification(hr_id);
+
+        return companyInfo;
+    }
+
+    @GetMapping("/selectPersonalVerification")
+    public CompanyHr selectPersonalVerification(String hr_id){
+        CompanyHr companyHr=companyHrService.selectPersonalVerification(hr_id);
+        return companyHr;
+    }
+
+    @PutMapping("/updatePersonalVerification")
+    public Result updatePersonalVerification(String hr_id){
+
+        try {
+            Map<String, Object> resultMap = companyHrService.updatePersonalVerification(hr_id);
+            if (null != resultMap) {
+
+                if ((boolean) resultMap.get("result")) {
+                    return new Result<Map>().setCode(0).setMessage("修改成功 ");
+                } else {
+
                     return new Result<Map>().setCode(400).setMessage("修改失败");
                 }
             } else {
