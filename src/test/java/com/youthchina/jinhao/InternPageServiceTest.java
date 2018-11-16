@@ -1,6 +1,7 @@
 package com.youthchina.jinhao;
 
 import com.youthchina.domain.jinhao.Company;
+import com.youthchina.domain.jinhao.CompanyAndJob;
 import com.youthchina.domain.jinhao.Job;
 import com.youthchina.domain.jinhao.StuCollect;
 import com.youthchina.service.jinhao.InternPageService;
@@ -11,6 +12,15 @@ public class InternPageServiceTest extends BaseTest {
     @Autowired
     InternPageService internPageService;
 
+    @Test
+    public void testGetCompanyAndJob(){
+        CompanyAndJob companyAndJob = internPageService.getCompanyAndJob("1", "1");
+        if(companyAndJob == null){
+            System.out.println("fail");
+        }else {
+            System.out.println("success");
+        }
+    }
     @Test
     public void testGetJob(){
         Job job = internPageService.getJob("1");
