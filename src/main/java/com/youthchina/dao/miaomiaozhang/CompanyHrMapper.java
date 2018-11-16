@@ -31,5 +31,4 @@ public interface CompanyHrMapper {
 
     /**select Personal Verification*/
     CompanyHr selectPersonalVerification(String hr_id);
-
 }

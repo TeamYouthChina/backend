@@ -16,7 +16,6 @@ public class CompanyHrServiceImpl implements CompanyHrService {
 
     @Autowired
     CompanyHrMapper companyHrMapper;
-
     /**添加HR*/
     @Override
     public Map<String,Object> addHr(CompanyHr companyHr) {

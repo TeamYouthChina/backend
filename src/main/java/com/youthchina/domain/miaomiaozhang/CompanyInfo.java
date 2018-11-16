@@ -22,8 +22,5 @@ public class CompanyInfo {
     private String company_start_date;
     private String company_logo;
     private String company_license;
-
-
-
 }
 

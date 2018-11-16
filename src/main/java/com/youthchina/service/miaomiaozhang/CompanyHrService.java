@@ -29,6 +29,4 @@ public interface CompanyHrService {
 
     /**修改HR的个人资质认证*/
     Map<String,Object> updatePersonalVerification(String hr_id);
-
-
 }
