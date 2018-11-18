@@ -1,9 +1,8 @@
 package com.youthchina.dao.jinhao;
 
-import com.youthchina.domain.jinhao.Company;
-import com.youthchina.domain.jinhao.Job;
-import com.youthchina.domain.jinhao.StuCollect;
-import org.apache.ibatis.annotations.*;
+import com.youthchina.domain.jinhao.*;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * create by jinhaohu on 11/12/18
@@ -11,27 +10,29 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface InternPageMapper {
 
-    @Select("select * from JOB_INFO where job_id = #{job_id}")
-    Job getJob(@Param("job_id") String job_id);
+    Job getJob(Integer job_id);
 
-    @Select("select * from COMPANY_INFO where company_id = #{company_id}")
-    Company getCompany(@Param("company_id") String company_id);
+    HR getHR(Integer hr_id);
 
-    @Select("select * from STU_COLLECT where stu_id = #{stuCollect.stu_id} and job_id = #{stuCollect.job_id}")
-    StuCollect isJobCollected(@Param("stuCollect") StuCollect stuCollect);
+    Company getCompany(Integer company_id);
 
-    @Select("select * from STU_COLLECT where stu_id = #{stuCollect.stu_id} and company_id = #{stuCollect.company_id}")
-    StuCollect isCompanyCollected(@Param("stuCollect") StuCollect stuCollect);
+    JobCollect isJobCollected(@Param("user_id") Integer user_id, @Param("job_id") Integer job_id);
 
-    @Insert("insert into STU_COLLECT(stu_id, job_id) values(#{stuCollect.stu_id}, #{stuCollect.job_id})")
-    Integer collectJob(@Param("stuCollect") StuCollect stuCollect);
+    CompanyCollect isCompanyCollected(@Param("user_id") Integer user_id, @Param("company_id") Integer company_id);
 
-    @Insert("insert into STU_COLLECT(stu_id, company_id) values(#{stuCollect.stu_id}, #{stuCollect.company_id})")
-    Integer collectCompany(@Param("stuCollect") StuCollect stuCollect);
+    Integer collectJob(JobCollect jobCollect);
 
-    @Delete("delete from STU_COLLECT where stu_id = #{stuCollect.stu_id} and job_id = #{stuCollect.job_id}")
-    Integer cancelCollectJob(@Param("stuCollect") StuCollect stuCollect);
+    Integer createMapBetweenJobCollectAndUser(@Param("collect_id") Integer collect_id, @Param("user_id") Integer user_id);
 
-    @Delete("delete from STU_COLLECT where stu_id = #{stuCollect.stu_id} and company_id = #{stuCollect.company_id}")
-    Integer cancelCollectCompany(@Param("stuCollect") StuCollect stuCollect);
+    Integer collectCompany(CompanyCollect companyCollect);
+
+    Integer createMapBetweenCompanyCollectAndUser(@Param("collect_id") Integer collect_id, @Param("user_id") Integer user_id);
+
+    Integer cancelCollectJob(Integer collect_id);
+
+    Integer deleteMapBetweenJobCollectAndUser(Integer collect_id);
+
+    Integer cancelCollectCompany(Integer collect_id);
+
+    Integer deleteMapBetweenCompanyCollectAndUser(Integer collect_id);
 }

@@ -1,30 +1,29 @@
 package com.youthchina.service.jinhao;
 
-import com.youthchina.domain.jinhao.Company;
-import com.youthchina.domain.jinhao.CompanyAndJob;
-import com.youthchina.domain.jinhao.Job;
-import com.youthchina.domain.jinhao.StuCollect;
+import com.youthchina.domain.jinhao.*;
 
 /**
  * create by jinhaohu on 11/12/18
  */
 public interface InternPageService {
 
-    CompanyAndJob getCompanyAndJob(String company_id, String job_id);
+    InternPageInfo getCompanyAndJob(Integer company_id, Integer job_id, Integer user_id);
 
-    Job getJob(String job_id);
+    Job getJob(Integer job_id);
 
-    Company getCompany(String company_id);
+    Company getCompany(Integer company_id);
 
-    boolean isJobCollected(StuCollect job);
+    HR getHR(Integer hr_id);
 
-    boolean isCompanyCollected(StuCollect company);
+    boolean isJobCollected(Integer user_id, Integer job_id);
 
-    Integer collectCompany(StuCollect job);
+    boolean isCompanyCollected(Integer user_id, Integer company_id);
 
-    Integer collectJob(StuCollect company);
+    Integer collectCompany(CompanyCollect companyCollect, Integer user_id);
 
-    Integer cancelCollectCompany(StuCollect company);
+    Integer collectJob(JobCollect jobCollect, Integer user_id);
 
-    Integer cancelCollectJob(StuCollect job);
+    Integer cancelCollectCompany(Integer collect_id);
+
+    Integer cancelCollectJob(Integer collect_id);
 }
