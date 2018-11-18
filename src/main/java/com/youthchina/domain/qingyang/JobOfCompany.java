@@ -8,7 +8,7 @@ public class JobOfCompany {
      */
     private String company_id;
 
-//    /*
+       /*
 //     * 企业名称
 //     */
 //    private String company_name;
