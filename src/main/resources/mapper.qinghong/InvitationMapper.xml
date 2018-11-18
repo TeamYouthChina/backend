@@ -12,6 +12,10 @@
 
     </resultMap>
 
+    <resultMap id="" type="">
+
+    </resultMap>
+
     <select id="findInvitationMapper" resultMap="InvitationResultMap">
         SELECT t1.*,t2.*
         FROM HR_VIDEO_INVITATION t1,
