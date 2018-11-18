@@ -14,12 +14,4 @@ public class YouthchinaApplication {
         SpringApplication.run(YouthchinaApplication.class, args);
     }
 
-
- /*   <Bean id="" class="com.service.miaomiaozhang.ComcompanyHrService" />*/
-
-    /*@Bean
-    public CompanyHrService getCompanyHrService(){
-        return  new CompanyHrServiceImpl();
-    }*/
-
 }
