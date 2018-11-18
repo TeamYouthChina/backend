@@ -7,7 +7,6 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource("classpath:/config.properties")
-
 public class YouthchinaApplication {
 
     public static void main(String[] args) {
