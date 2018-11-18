@@ -9,7 +9,7 @@ public class Company {
      * 企业id
      * 主键
      */
-    private String company_id;
+    private Integer company_id;
 
     /*
      * 企业名称
@@ -25,26 +25,6 @@ public class Company {
      * 企业国别
      */
     private String company_country;
-
-    /*
-     * 企业所属行业1
-     */
-    private String company_indus_1;
-
-    /*
-     * 企业所属行业2
-     */
-    private String company_indus_2;
-
-    /*
-     * 企业所属行业3
-     */
-    private String company_indus_3;
-
-    /*
-     * 企业所属行业4
-     */
-    private String company_indus_4;
 
     /*
      * 企业简介
@@ -86,13 +66,10 @@ public class Company {
      */
     private String company_logo;
 
-    public String getCompany_id() {
-        return company_id;
-    }
-
-    public void setCompany_id(String company_id) {
-        this.company_id = company_id;
-    }
+    /*
+     * 企业认证
+     */
+    private Integer company_verify;
 
     public void setCompany_name(String company_name) {
         this.company_name = company_name;
@@ -104,22 +81,6 @@ public class Company {
 
     public void setCompany_country(String company_country) {
         this.company_country = company_country;
-    }
-
-    public void setCompany_indus_1(String company_indus_1) {
-        this.company_indus_1 = company_indus_1;
-    }
-
-    public void setCompany_indus_2(String company_indus_2) {
-        this.company_indus_2 = company_indus_2;
-    }
-
-    public void setCompany_indus_3(String company_indus_3) {
-        this.company_indus_3 = company_indus_3;
-    }
-
-    public void setCompany_indus_4(String company_indus_4) {
-        this.company_indus_4 = company_indus_4;
     }
 
     public void setIntroduc(String introduc) {
@@ -146,10 +107,6 @@ public class Company {
         this.company_website = company_website;
     }
 
-    public void setCompany_start_data(String company_start_data) {
-        this.company_start_data = company_start_data;
-    }
-
     public void setCompany_logo(String company_logo) {
         this.company_logo = company_logo;
     }
@@ -164,22 +121,6 @@ public class Company {
 
     public String getCompany_country() {
         return company_country;
-    }
-
-    public String getCompany_indus_1() {
-        return company_indus_1;
-    }
-
-    public String getCompany_indus_2() {
-        return company_indus_2;
-    }
-
-    public String getCompany_indus_3() {
-        return company_indus_3;
-    }
-
-    public String getCompany_indus_4() {
-        return company_indus_4;
     }
 
     public String getIntroduc() {
@@ -206,11 +147,31 @@ public class Company {
         return company_website;
     }
 
+    public String getCompany_logo() {
+        return company_logo;
+    }
+
+    public Integer getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(Integer company_id) {
+        this.company_id = company_id;
+    }
+
     public String getCompany_start_data() {
         return company_start_data;
     }
 
-    public String getCompany_logo() {
-        return company_logo;
+    public void setCompany_start_data(String company_start_data) {
+        this.company_start_data = company_start_data;
+    }
+
+    public Integer getCompany_verify() {
+        return company_verify;
+    }
+
+    public void setCompany_verify(Integer company_verify) {
+        this.company_verify = company_verify;
     }
 }

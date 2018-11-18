@@ -1,10 +1,12 @@
 package com.youthchina.jinhao;
 
 import com.youthchina.domain.jinhao.Company;
-import com.youthchina.domain.jinhao.CompanyAndJob;
+import com.youthchina.domain.jinhao.InternPageInfo;
 import com.youthchina.domain.jinhao.Job;
 import com.youthchina.domain.jinhao.StuCollect;
+import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.service.jinhao.InternPageService;
+import com.youthchina.service.jinhao.communityQA.CommunityQAService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,9 +14,12 @@ public class InternPageServiceTest extends BaseTest {
     @Autowired
     InternPageService internPageService;
 
+    @Autowired
+    CommunityQAService communityQAService;
+
     @Test
     public void testGetCompanyAndJob(){
-        CompanyAndJob companyAndJob = internPageService.getCompanyAndJob("1", "1");
+        InternPageInfo companyAndJob = internPageService.getCompanyAndJob("1", "1");
         if(companyAndJob == null){
             System.out.println("fail");
         }else {
@@ -113,5 +118,12 @@ public class InternPageServiceTest extends BaseTest {
         }else{
             System.out.println("fail");
         }
+    }
+    @Test
+    public void testAddQuestion(){
+        Question question = new Question();
+        question.setQues_abbre("222");
+        int a = communityQAService.addQuestion(question);
+        System.out.println(a);
     }
 }

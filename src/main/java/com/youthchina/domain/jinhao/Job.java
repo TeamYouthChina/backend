@@ -5,14 +5,9 @@ package com.youthchina.domain.jinhao;
  */
 public class Job {
     /*
-     * 主键,职位ID
+ * 主键,职位ID
      */
-    private String job_id;
-
-    /*
-     * 企业ID
-     */
-    private String company_id;
+    private Integer job_id;
 
     /*
      * 职位名称
@@ -20,12 +15,26 @@ public class Job {
     private String job_name;
 
     /*
-     * 职能分类
+     * 职位分类
      */
-    private String job_class;
+    private Integer job_class;
 
     /*
-     * 是否全职
+     * 行业分类
+     */
+    private Integer job_ind_class;
+
+    /*
+     * 职位起始时间
+     */
+    private String job_start_time;
+
+    /*
+     * 职位结束时间
+     */
+    private String job_end_time;
+    /*
+     *  是否全职
      */
     private String job_time;
 
@@ -42,7 +51,7 @@ public class Job {
     /*
      * 学历要求
      */
-    private String job_edu_req;
+    private String job_req;
 
     /*
      * 工作地点
@@ -59,30 +68,31 @@ public class Job {
      */
     private String job_salary;
 
-
     /*
      * 简历接收邮箱
      */
-    private String job_recei_mail;
+    private String cv_recei_mail;
 
-    public String getJob_id() {
-        return job_id;
-    }
+    /*
+     * 简历命名规则
+     */
+     private String cv_name_rule;
 
-    public void setJob_id(String job_id) {
-        this.job_id = job_id;
-    }
+     /*
+      * 职位发布者
+      */
+     private Integer job_pub_hr;
 
-    public void setCompany_id(String company_id) {
-        this.company_id = company_id;
-    }
+     /*
+      * 职位状态
+      */
+     private Integer job_active;
+
+
+
 
     public void setJob_name(String job_name) {
         this.job_name = job_name;
-    }
-
-    public void setJob_class(String job_class) {
-        this.job_class = job_class;
     }
 
     public void setJob_time(String job_time) {
@@ -97,10 +107,6 @@ public class Job {
         this.job_duty = job_duty;
     }
 
-    public void setJob_edu_req(String job_edu_req) {
-        this.job_edu_req = job_edu_req;
-    }
-
     public void setJob_location(String job_location) {
         this.job_location = job_location;
     }
@@ -113,22 +119,9 @@ public class Job {
         this.job_salary = job_salary;
     }
 
-    public void setJob_recei_mail(String job_recei_mail) {
-        this.job_recei_mail = job_recei_mail;
-    }
-
-    public String getCompany_id() {
-        return company_id;
-    }
-
     public String getJob_name() {
         return job_name;
     }
-
-    public String getJob_class() {
-        return job_class;
-    }
-
     public String getJob_time() {
         return job_time;
     }
@@ -139,10 +132,6 @@ public class Job {
 
     public String getJob_duty() {
         return job_duty;
-    }
-
-    public String getJob_edu_req() {
-        return job_edu_req;
     }
 
     public String getJob_location() {
@@ -157,7 +146,83 @@ public class Job {
         return job_salary;
     }
 
-    public String getJob_recei_mail() {
-        return job_recei_mail;
+    public Integer getJob_id() {
+        return job_id;
+    }
+
+    public void setJob_id(Integer job_id) {
+        this.job_id = job_id;
+    }
+
+    public Integer getJob_class() {
+        return job_class;
+    }
+
+    public void setJob_class(Integer job_class) {
+        this.job_class = job_class;
+    }
+
+    public Integer getJob_ind_class() {
+        return job_ind_class;
+    }
+
+    public void setJob_ind_class(Integer job_ind_class) {
+        this.job_ind_class = job_ind_class;
+    }
+
+    public String getJob_start_time() {
+        return job_start_time;
+    }
+
+    public void setJob_start_time(String job_start_time) {
+        this.job_start_time = job_start_time;
+    }
+
+    public String getJob_end_time() {
+        return job_end_time;
+    }
+
+    public void setJob_end_time(String job_end_time) {
+        this.job_end_time = job_end_time;
+    }
+
+    public String getJob_req() {
+        return job_req;
+    }
+
+    public void setJob_req(String job_req) {
+        this.job_req = job_req;
+    }
+
+    public String getCv_recei_mail() {
+        return cv_recei_mail;
+    }
+
+    public void setCv_recei_mail(String cv_recei_mail) {
+        this.cv_recei_mail = cv_recei_mail;
+    }
+
+    public String getCv_name_rule() {
+        return cv_name_rule;
+    }
+
+    public void setCv_name_rule(String cv_name_rule) {
+        this.cv_name_rule = cv_name_rule;
+    }
+
+    public Integer getJob_pub_hr() {
+        return job_pub_hr;
+    }
+
+    public void setJob_pub_hr(Integer job_pub_hr) {
+        this.job_pub_hr = job_pub_hr;
+    }
+
+    public Integer getJob_active() {
+        return job_active;
+    }
+
+    public void setJob_active(Integer job_active) {
+        this.job_active = job_active;
     }
 }

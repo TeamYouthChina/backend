@@ -1,6 +1,6 @@
 package com.youthchina.controller.jinhao;
 
-import com.youthchina.domain.jinhao.CompanyAndJob;
+import com.youthchina.domain.jinhao.InternPageInfo;
 import com.youthchina.domain.jinhao.StuCollect;
 import com.youthchina.service.jinhao.InternPageService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ public class InternPageController {
     InternPageService internPageService;
 
     @RequestMapping("/getcompanyandjob")
-    public CompanyAndJob getCompanyAndJob(String company_id, String job_id){
+    public InternPageInfo getCompanyAndJob(String company_id, String job_id){
         return internPageService.getCompanyAndJob(company_id, job_id);
     }
 
