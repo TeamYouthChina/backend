@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource("classpath:/config.properties")
-@MapperScan("com.youthchina.*.mapper")
+
 public class YouthchinaApplication {
 
     public static void main(String[] args) {
