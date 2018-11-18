@@ -1,5 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Resume {
@@ -16,6 +18,7 @@ public class Resume {
         this.id = id;
     }
 
+    @JsonProperty("basic_info")
     public BaseInfo getBaseInfo() {
         return baseInfo;
     }
@@ -24,6 +27,7 @@ public class Resume {
         this.baseInfo = baseInfo;
     }
 
+    @JsonProperty("education_info")
     public List<EducationInfo> getEducationInfos() {
         return educationInfos;
     }
@@ -32,6 +36,7 @@ public class Resume {
         this.educationInfos = educationInfos;
     }
 
+    @JsonProperty("work")
     public List<Work> getWorks() {
         return works;
     }

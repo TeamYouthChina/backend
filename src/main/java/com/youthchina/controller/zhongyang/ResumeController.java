@@ -1,10 +1,12 @@
 package com.youthchina.controller.zhongyang;
 
+import com.youthchina.domain.Qinghong.Resume;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotBelongException;
 import com.youthchina.service.zhongyang.ResumeService;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -48,13 +50,14 @@ public class ResumeController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> add(@AuthenticationPrincipal User user, @ResponseStatus Resume resume) {
+    public ResponseEntity<?> add(@AuthenticationPrincipal User user, @RequestBody Resume resume, @Value("${web.url}") String urlPrefix) {
         resume = resumeService.add(resume);
+        URI uri = null;
         try {
-            return ResponseEntity.created(new URI("")).build();
+            uri = new URI(urlPrefix + "/resume/" + resume.getId());
         } catch (URISyntaxException e) {
-            e.printStackTrace();
         }
+        return ResponseEntity.created(uri).build();
     }
 
 
