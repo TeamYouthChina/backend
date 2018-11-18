@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.qingyang.JobHrMapper">
-    <resultMap id="Job" type="com.youthchina.domain.qingyang.Job">
+    <resultMap id="JobMap" type="com.youthchina.domain.qingyang.Job_qingyang">
         <id property="job_id" column="JOB_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="company_id" column="COMPANY_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="job_name" column="JOB_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
