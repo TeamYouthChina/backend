@@ -25,7 +25,6 @@ hs_err_pid*
 .idea/*
 
 *.iml
-src/main/resources*.properties
 /target/
 .DS_Store
-src/main/resources/application.properties
+src/main/resources/*.properties
