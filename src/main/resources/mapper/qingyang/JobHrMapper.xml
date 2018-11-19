@@ -12,35 +12,14 @@
         <result property="job_time" column="JOB_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="job_description" column="JOB_DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="job_duty" column="JOB_DUTY" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="job_edu_req" column="JOB_EDU_REQ" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="job_location" column="JOB_LOCATION" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="job_highlight" column="JOB_HIGHLIGHT" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="job_salary" column="JOB_SALARY" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="cv_recei_mail" column="CV_RECEI_MAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="cv_name_rule" column="CV_NAME_RULE" javaType="java.lang.String" jdbcType="VARCHAR"/>
     </resultMap>
-    
-    <resultMap id="JobList" type="com.youthchina.domain.qingyang.JobOfCompany">
-        <result property="company_id" column="COMPANY_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <collection property="jobList" ofType="com.youthchina.domain.qingyang.Job">
-            <result property="job_name" column="JOB_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_class" column="JOB_CLASS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <result property="job_ind_class" column="JOB_IND_CLASS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <result property="job_start_time" column="JOB_START_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_end_time" column="JOB_END_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_time" column="JOB_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_description" column="JOB_DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_duty" column="JOB_DUTY" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_edu_req" column="JOB_EDU_REQ" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_location" column="JOB_LOCATION" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_highlight" column="JOB_HIGHLIGHT" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_salary" column="JOB_SALARY" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="cv_recei_mail" column="CV_RECEI_MAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="cv_name_rule" column="CV_NAME_RULE" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        </collection>
-    </resultMap>
 
-    <insert id="insertJob" parameterType="com.youthchina.domain.qingyang.Job">
+    <insert id="insertJob" parameterType="com.youthchina.domain.qingyang.Job_qingyang">
         INSERT INTO JOB_INFO
         (   JOB_ID,
             COMPANY_ID,
@@ -79,7 +58,7 @@
         )
     </insert>
 
-    <update id="updateJob" parameterType="com.youthchina.domain.qingyang.Job">
+    <update id="updateJob" parameterType="com.youthchina.domain.qingyang.Job_qingyang">
         UPDATE JOB_INFO
         SET
             COMPANY_ID = #{company_id},
@@ -100,24 +79,6 @@
         WHERE
             JOB_ID = #{job_id}
     </update>
-
-    <delete id="deleteJobByID" parameterType="java.lang.String">
-      DELETE FROM JOB_INFO
-      WHERE
-            JOB_ID = #{job_id}
-    </delete>
-
-    <select id="getJobByJobId" resultType="com.youthchina.domain.qingyang.Job" parameterType="java.lang.String">
-        SELECT * FROM JOB_INFO
-        WHERE
-            JOB_ID = #{job_id}
-    </select>
-
-    <select id="getJobByCompanyId" resultMap="JobList" parameterType="java.lang.String">
-        SELECT * FROM JOB_INFO
-        WHERE
-            JOB_ID = #{job_id}
-    </select>
 
 
 

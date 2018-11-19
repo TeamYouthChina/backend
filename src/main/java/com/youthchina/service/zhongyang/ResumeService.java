@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 /**
  * Created by zhongyangwu on 11/18/18.
  */
-@Service
 public interface ResumeService extends DomainCRUDService<Resume, String> {
 
     /**
