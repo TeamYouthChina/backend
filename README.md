@@ -5,3 +5,4 @@ Backend of YouthChina based on Spring framework.
  Copy `.properties.example` file and change the extension into `.properties`
  
  Fill the properties in those files.
+# test
