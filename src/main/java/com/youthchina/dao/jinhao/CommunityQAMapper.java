@@ -10,31 +10,52 @@ import java.util.List;
 @Mapper
 public interface CommunityQAMapper {
     //显示
-    List<Question> listAllQuestion();
+    List<Question> listQuestion();
 
-    List<Label> listAllQuesetionLabel(Question question);
 
     Integer countTheFollower(Question question);
 
-    List<QuestionAnswer> listAllQuestionAnswer(Question question);
+    List<QuestionAnswer> listAllQuestionAnswer(Integer ques_id);
 
-    Integer countAgreement(QuestionAnswer questionAnswer);
+    QuestionAnswer getAnswer(Integer answer_id);
+
+    Integer countAgreement(Integer answer_id);
 
     List<AnswerComment> listAllAnswerComment(QuestionAnswer questionAnswer);
 
     List<CommentDiscuss> listAllCommentDiscuss(AnswerComment answerComment);
     // 操作
+    StuInfo getStuInfo(Integer user_id);
+
+    //已写
     Integer addQuestion(Question question);
 
-    Integer createMapBetweenQuestionAndUser(@Param("question") Question question, @Param("user")User user);
+    Integer createMapBetweenQuestionAndUser(@Param("ques_id") Integer ques_id, @Param("user_id")Integer user_id);
 
-    Integer addLabels(@Param("labels") List<Label> labels, @Param("question") Question question);
+    Question getQuestion(Integer ques_id);
 
     Integer deleteQuestion(Question question);
 
     Integer editQuestion(Question question);
 
-    QuestionAttention isAttention(@Param("user") User user, @Param("question") Question question);
+    Integer addLabels(@Param("labels") List<Label> labels, @Param("ques_id") Integer ques_id);
+
+    List<Label> listAllQuesetionLabel(Integer ques_id);
+
+    Integer deleteQuestionLabel(Integer ques_id);
+
+    Integer addAnswerToQuestion(QuestionAnswer questionAnswer);
+
+    Integer createMapBetweenQuestionAndAnswer(@Param("ques_id") Integer ques_id,
+                                              @Param("answer_id") Integer answer_id);
+
+    Integer deleteAnswer(QuestionAnswer questionAnswer);
+
+    Integer editAnswer(QuestionAnswer questionAnswer);
+
+
+
+    QuestionAttention isQuestionAttention(@Param("user_id") Integer usr_id, @Param("ques_id") Integer ques_id);
 
     Integer addAttentionToQuestion(QuestionAttention questionAttention);
 
@@ -42,17 +63,8 @@ public interface CommunityQAMapper {
 
     Integer cancelAttention(QuestionAttention questionAttention);
 
-    Integer createMapBetweenAttentionAndQuestion(@Param("question") Question question,
+    Integer createMapBetweenAttentionAndQuestion(@Param("ques_id") Integer ques_id,
                                              @Param("questionAttention") QuestionAttention questionAttention);
-
-    Integer addAnswerToQuestion(QuestionAnswer questionAnswer);
-
-    Integer createMapBetweenQuestionAndAnswer(@Param("question") Question question,
-                                              @Param("questionAnswer") QuestionAnswer questionAnswer);
-
-    Integer deleteAnswer(QuestionAnswer questionAnswer);
-
-    Integer editAnswer(QuestionAnswer questionAnswer);
 
     AnswerAgree isAgreed(@Param("user") User user, @Param("questionAnswer") QuestionAnswer questionAnswer);
 

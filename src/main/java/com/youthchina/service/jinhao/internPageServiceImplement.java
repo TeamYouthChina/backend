@@ -24,7 +24,7 @@ public class internPageServiceImplement implements InternPageService {
      */
     @Override
     @Transactional(rollbackFor = SQLException.class)
-    public InternPageInfo getCompanyAndJob(Integer company_id, Integer job_id, Integer user_id) {
+    public InternPageInfo getInternPageInfo(Integer company_id, Integer job_id, Integer user_id) {
         Company company = getCompany(company_id);
         Job job = getJob(job_id);
         Integer hr_id = job.getJob_pub_hr();
@@ -72,7 +72,7 @@ public class internPageServiceImplement implements InternPageService {
      */
     @Override
     public boolean isJobCollected(Integer user_id, Integer job_id) {
-        return internPageMapper.isJobCollected(user_id, job_id) == null;
+        return internPageMapper.isJobCollected(user_id, job_id) != null;
     }
 
     /**
@@ -83,7 +83,7 @@ public class internPageServiceImplement implements InternPageService {
      */
     @Override
     public boolean isCompanyCollected(Integer user_id, Integer company_id) {
-        return internPageMapper.isCompanyCollected(user_id, company_id) == null;
+        return internPageMapper.isCompanyCollected(user_id, company_id) != null;
     }
 
 
@@ -96,7 +96,7 @@ public class internPageServiceImplement implements InternPageService {
     @Override
     @Transactional(rollbackFor = SQLException.class)
     public Integer collectJob(JobCollect jobCollect, Integer user_id){
-        if(getJob(jobCollect.getJob_id()) == null){
+        if(getJob(jobCollect.getJob_id()) == null || isJobCollected(user_id, jobCollect.getJob_id())){
             return 0;
         }else{
             internPageMapper.collectJob(jobCollect);
@@ -113,7 +113,7 @@ public class internPageServiceImplement implements InternPageService {
     @Override
     @Transactional(rollbackFor = SQLException.class)
     public Integer collectCompany(CompanyCollect companyCollect, Integer user_id) {
-        if(getCompany(companyCollect.getCompany_id()) == null){
+        if(getCompany(companyCollect.getCompany_id()) == null || isCompanyCollected(user_id, companyCollect.getCompany_id())){
             return 0;
         }else {
             internPageMapper.collectCompany(companyCollect);

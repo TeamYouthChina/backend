@@ -7,7 +7,7 @@ import com.youthchina.domain.jinhao.*;
  */
 public interface InternPageService {
 
-    InternPageInfo getCompanyAndJob(Integer company_id, Integer job_id, Integer user_id);
+    InternPageInfo getInternPageInfo(Integer company_id, Integer job_id, Integer user_id);
 
     Job getJob(Integer job_id);
 

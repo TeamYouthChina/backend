@@ -2,19 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.jinhao.CommunityQAMapper">
     <!-- 显示 -->
-    <!-- 列出所有问题 -->
-    <select id="listAllQuestion" resultType="com.youthchina.domain.jinhao.communityQA.Question">
-        select * from COM_QUESTION where ques_delete=0
+    <!-- 列出前十个问题 -->
+    <select id="listQuestion" resultType="com.youthchina.domain.jinhao.communityQA.Question">
+        select * from COM_QUESTION where ques_delete=0 order by ques_pub_time desc limit 10
     </select>
 
-    <!-- 列出某个问题的所有标签 -->
-    <select id="listAllQuesetionLabel" parameterType="com.youthchina.domain.jinhao.communityQA.Question"
-            resultType="com.youthchina.domain.jinhao.communityQA.Label">
-        select l.* from SYS_LABEL_CLASS l, COM_QUESTION_LABEL_MAP m
-        where m.ques_id = #{ques_id}
-        and m.lab_num = l.lab_num
-        and l.start_status = 1
-    </select>
 
     <!-- 列出某个问题的关注人数 -->
     <select id="countTheFollower" parameterType="com.youthchina.domain.jinhao.communityQA.Question"
@@ -26,7 +18,7 @@
     </select>
 
     <!-- 列出某个问题的所有回答 -->
-    <select id="listAllQuestionAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.Question"
+    <select id="listAllQuestionAnswer" parameterType="java.lang.Integer"
             resultType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
         select a.* from COM_QUESTION_ANSWER a, COM_QUESTION_ANSWER_MAP m
         where m.ques_id = #{ques_id}
@@ -34,9 +26,13 @@
         and a.answer_delete = 0
         order by m.answer_level asc
     </select>
-
+    <!--拿到某个回答-->
+    <select id="getAnswer" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
+        select * from COM_QUESTION_ANSWER where answer_id = #{answer_id}
+    </select>
     <!-- 列出某个回答的赞同数 -->
-    <select id="countAgreement" parameterType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer"
+    <select id="countAgreement" parameterType="java.lang.Integer"
             resultType="java.lang.Integer">
         select count(a.*) from COM_ANSWER_AGREE_MAP m, COM_ANSWER_AGREE a
         where m.answer_id = #{answer_id}
@@ -65,7 +61,10 @@
     </select>
 
 
-    <!-- 操作 -->
+
+
+
+
     <!-- 添加问题 -->
     <insert id="addQuestion" parameterType="com.youthchina.domain.jinhao.communityQA.Question" useGeneratedKeys="true"
     keyProperty="ques_id">
@@ -76,7 +75,7 @@
     <!-- 建立问题和用户的映射 -->
     <insert id="createMapBetweenQuestionAndUser">
         insert into COM_AUTHOR_QUESTION_MAP(user_id, ques_id)
-        values (#{user.id}, #{question.ques_id})
+        values (#{user_id}, #{ques_id})
     </insert>
 
     <!-- 给问题添加标签 -->
@@ -85,7 +84,7 @@
         values
         <foreach collection ="labels" item="label" index= "index" separator =",">
             (
-            #{question.ques_id}, #{label.label_num},
+            #{ques_id}, #{label.lab_num},
             )
         </foreach >
     </insert>
@@ -103,12 +102,58 @@
         where ques_id=#{ques_id}
     </update>
 
+    <!-- 拿到问题信息 -->
+    <select id="getQuestion" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.Question">
+        select * from COM_QUESTION where ques_id = #{ques_id}
+    </select>
 
-    <!-- 检查是否已经关注 -->
-    <select id="isAttention" resultType="com.youthchina.domain.jinhao.communityQA.QuestionAttention">
+    <!-- 列出某个问题的所有标签 -->
+    <select id="listAllQuesetionLabel" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.Label">
+        select l.* from SYS_LABEL_CLASS l, COM_QUESTION_LABEL_MAP m
+        where m.ques_id = #{ques_id}
+          and m.lab_num = l.lab_num
+          and l.start_status = 1
+    </select>
+
+    <!-- 问题删除时，要删除对应的标签映射 -->
+    <delete id="deleteQuestionLabel" parameterType="java.lang.Integer">
+        delete from COM_QUESTION_LABEL_MAP where ques_id = #{ques_id}
+    </delete>
+
+    <!-- 回答问题 -->
+    <insert id="addAnswerToQuestion" parameterType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer"
+            useGeneratedKeys="true" keyProperty="answer_id">
+        insert into COM_QUESTION_ANSWER (answer_content, user_id, user_anony, answer_pub_time, answer_edit_time,
+                                         answer_delete)
+        values (#{answer_content}, #{user_id}, #{user_anony}, #{answer_pub_time}, #{answer_edit_time}, #{answer_delete})
+    </insert>
+
+    <!-- 建立回答和问题的映射 -->
+    <insert id="createMapBetweenQuestionAndAnswer">
+        insert into COM_QUESTION_ANSWER_MAP (ques_id, answer_id) values (#{ques_id}, #{answer_id})
+    </insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 检查是否已经关注过 -->
+    <select id="isQuestionAttention" resultType="com.youthchina.domain.jinhao.communityQA.QuestionAttention">
         select a.* from COM_QUESTION_ATTENTION_MAP m, COM_QUESTION_ATTENTION a
-        where m.ques_id = #{question.ques_id}
-        and a.user_id = #{user.id}
+        where m.ques_id = #{ques_id}
+        and a.user_id = #{user_id}
         and m.atten_id = a.atten_id
     </select>
 
@@ -121,7 +166,7 @@
     <!-- 建立映射 -->
     <insert id="createMapBetweenAttentionAndQuestion">
         insert into COM_QUESTION_ATTENTION_MAP (ques_id, atten_id)
-        values (#{question.ques_id}, #{questionAttention.atten_id})
+        values (#{ques_id}, #{questionAttention.atten_id})
     </insert>
     
     <!-- 如果之前已经关注过，则更新字段 -->
@@ -136,18 +181,6 @@
         where atte_id=#{atten_id}
     </update>
 
-    <!-- 回答问题 -->
-    <insert id="addAnswerToQuestion" parameterType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer"
-    useGeneratedKeys="true" keyProperty="answer_id">
-        insert into COM_QUESTION_ANSWER (answer_content, user_id, user_anony, answer_pub_time, answer_edit_time,
-                answer_delete)
-        values (#{answer_content}, #{user_id}, #{user_anony}, #{answer_pub_time}, #{answer_edit_time}, #{answer_delete})
-    </insert>
-
-    <!-- 建立回答和问题的映射 -->
-    <insert id="createMapBetweenQuestionAndAnswer">
-        insert into COM_QUESTION_ANSWER_MAP (ques_id, answer_id) values (#{question.ques_id}, #{answer.answer_id})
-    </insert>
     
     <!-- 删除回答 -->
     <update id="deleteAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
@@ -277,4 +310,11 @@
         set discuss_delete = #{discuss_delete}, discuss_delete_time=#{disucss_delete_time}
         where discuss_id = #{discuss_id}
     </update>
+
+    <!-- 拿到学生基本信息 -->
+    <select id="getStuInfo" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.StuInfo">
+        select a.* from STU_INFO a, USER_STU_MAP m
+        where m.user_id = #{user_id}
+        and a.stu_id = m.stu_id
+    </select>
 </mapper>
