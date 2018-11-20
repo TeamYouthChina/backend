@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.Tianjian.UserMapper">
+    <resultMap id="User" type="com.youthchina.domain.Tianjian.User">
+        <constructor>
+            <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </constructor>
+        <result property="username" column="username" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="password" column="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, username
+    </sql>
+    <select id="findOne" resultMap="User" parameterType="Integer">
+        SELECT *
+        FROM user
+        WHERE user.id = #{id, jdbcType=INTEGER}
+    </select>
+
+    <!--    查询公司信息 -->
+    <select id="getCompanyInformation" resultType="com.youthchina.domain.Tianjian.CompanyInfo">
+   		select t.* from company_info t where t.company_id = #{company_id}
+   </select>
+
+    <!--    查询收藏的公司 -->
+    <select id="getFavoriteCompany" resultType="com.youthchina.domain.Tianjian.StuCollect">
+   		select t.* from stu_collect t where t.STU_ID = #{stu_id} and t.COMPANY_ID = #{company_id}
+   </select>
+
+    <!--    收藏公司 -->
+    <insert id="addFavoriteCompany" parameterType="com.youthchina.domain.Tianjian.StuCollect">
+	INSERT INTO stu_collect  (STU_ID, COMPANY_ID, COMPANY_COLL_TIME)
+		   values(#{stu_id},#{company_id},#{company_coll_time}
+		         )
+	</insert>
+
+    <!--    查询职位信息 -->
+    <select id="getJobInformation" resultType="com.youthchina.domain.Tianjian.JobInfo">
+   		select t.* from job_info t where t.JOB_ID = #{job_id}
+   </select>
+
+    <!--     根据ID单条删除收藏公司 -->
+    <delete id="deleteFavoriteCompany" parameterType="com.youthchina.domain.Tianjian.StuCollect">
+        DELETE FROM stu_collect
+        <where>
+            <if test="stu_id != null and stu_id != ''">
+                AND STU_ID = #{stu_id}
+            </if>
+            <if test="company_id != null and company_id != ''">
+                AND COMPANY_ID = #{company_id}
+            </if>
+        </where>
+    </delete>
+
+    <!--     根据stu_id 和 job_id 单条删除收藏职位 -->
+    <delete id="deleteFavoriteJob" parameterType="com.youthchina.domain.Tianjian.StuCollect">
+        DELETE FROM stu_collect
+        <where>
+            <if test="stu_id != null and stu_id != ''">
+                AND STU_ID = #{stu_id}
+            </if>
+            <if test="job_id != null and job_id != ''">
+                AND Job_ID = #{job_id}
+            </if>
+        </where>
+    </delete>
+
+    <!--    收藏职位 -->
+    <insert id="addFavoriteJob" parameterType="com.youthchina.domain.Tianjian.StuCollect">
+    INSERT INTO stu_collect  (STU_ID, JOB_ID, JOB_COLL_TIME)
+           values(#{stu_id},#{job_id},#{job_coll_time}
+                 )
+    </insert>
+
+    <!--    发布文章 -->
+    <insert id="addEssay" parameterType="com.youthchina.domain.Tianjian.ComEssay">
+    INSERT INTO com_essay  (ESSAY_ID, ESSAY_TITLE, ESSAY_ABBRE, ESSAY_BODY, ESSAY_PUB_TIME,ESSAY_EDIT_TIME,ESSAY_DELETE)
+           values(#{essay_id},#{essay_title},#{essay_abbre},#{essay_body},#{essay_pub_time},#{essay_edit_time},#{essay_delete}
+                 )
+    </insert>
+
+    <!--    更新文章 -->
+    <update id="updateEssay" parameterType="com.youthchina.domain.Tianjian.ComEssay">
+    update com_essay
+    set
+         ESSAY_TITLE = #{essay_title}, ESSAY_ABBRE = #{essay_abbre}, ESSAY_BODY = #{essay_body}, ESSAY_PUB_TIME = #{essay_pub_time},
+         ESSAY_EDIT_TIME = #{essay_edit_time},ESSAY_DELETE = #{essay_delete})
+    where
+        ESSAY_ID = #{essay_id}
+    </update>
+
+    <!--    删除文章通过更新删除那一列设置值为1 -->
+    <update id="deleteEssay" parameterType="java.lang.Integer">
+    update com_essay
+    set
+         ESSAY_DELETE = 1
+    where
+        ESSAY_ID = #{essay_id}
+    </update>
+
+    <!--    根据文章id查询文章 -->
+    <select id="getEssay" resultType="com.youthchina.domain.Tianjian.ComEssay">
+   		select t.* from com_essay t where t.ESSAY_ID = #{essay_id} and t.ESSAY_DELETE = 1
+   </select>
+
+    <!--    更新文章和作者映射关系 -->
+    <update id="updateEssayAuthor" >
+    update com_author_essay_map
+    set
+         USER_ID = #{user_id}, ESSAY_ID = #{essay_id})
+    where
+         ESSAY_ID = #{essay_id}
+    </update>
+
+    <!--    添加文章标签 -->
+    <insert id="addEssayLabel">
+        INSERT INTO com_essay_label  (LAB_NUM,ESSAY_ID)
+        values
+        <foreach collection ="java.util.List" item="lab_num" index= "index" separator =",">
+            (
+            #{lab_num}, #{essay_id},
+            )
+        </foreach >
+    </insert>
+
+    <!--    删除文章标签 -->
+    <delete id="deleteEssayLabel" >
+        DELETE FROM com_essay_label WHERE ESSAY_ID = #{essay_id}
+    </delete>
+
+    <!--    添加文章作者 -->
+    <insert id="addEssayAuthor">
+    INSERT INTO com_author_essay_map  (ESSAY_ID, USER_ID)
+           values(#{essay_id},#{user_id}
+                 )
+    </insert>
+
+    <!--    关注文章 -->
+    <insert id="addFavoriteEssay" parameterType="com.youthchina.domain.Tianjian.ComEssayAttention">
+    INSERT INTO com_essay_attention  (USER_ID, ATTEN_TIME, ATTEN_CANCEL,ATTEN_CANCEL_TIME)
+           values(#{user_id},#{atten_time},#{atten_cancel},#{atten_cancel_time}
+                 )
+    </insert>
+
+    <!--    添加文章关注id和文章映射关系 -->
+    <insert id="addFavoriteEssayMap">
+    INSERT INTO com_essay_attention  (ATTEN_ID, ESSAY_ID
+           values(#{atten_id},#{essay_id}
+                 )
+    </insert>
+
+    <!--    删除文章关注通过更新取消关注那一列设置值为1 -->
+    <update id="deleteFavoriteEssay">
+    update com_essay_attention AS t1 INNER JOIN com_essay_attention_map  AS t2 on t1.ATTEN_ID = t2.ATTEN_ID
+    set
+         t1.ATTEN_CANCEL = 1
+    where
+         t2.USER_ID = #{user_id} and t1.ESSAY_ID = #{essay_id}
+    </update>
+
+    <!--    获取文章是否被一个用户关注 -->
+    <select id="getFavoriteEssayWhetherAtten"  resultMap="com.youthchina.domain.Tianjian.ComEssayAttention">
+        select t1.* from com_essay_attention t1, com_essay_attention_map t2
+        where t1.ATTEN_ID = t2.ATTEN_ID and t2.ESSAY_ID = #{essay_id} and t1.USER_ID = #{user_id} and t1.ATTEN_CANCEL = 0
+     </select>
+
+    <!--    添加文章评论 -->
+    <insert id="addReply" parameterType="com.youthchina.domain.Tianjian.ComEssayReply">
+    INSERT INTO com_essay_answer (REPLY_CONTENT, USER_ID, USER_ANONY, REPLY_PUB_TIME, REPLY_EDIT_TIME, REPLY_DELETE, REPLY_DELETE_TIME)
+           values(#{reply_content},#{user_id},#{user_anony},#{reply_pub_time},#{reply_edit_time},#{reply_delete},#{reply_delete_time}
+                 )
+    </insert>
+
+    <!--    添加文章和回复id映射 -->
+    <insert id="addEssayReplyMap" >
+    INSERT INTO com_essay_answer_map (ESSAY_ID, REPLY_ID)
+           values(#{essay_id},#{reply_id}
+                 )
+    </insert>
+
+    <!--    更新文章评论 -->
+    <update id="updateReply">
+    update com_essay_reply AS t1 INNER JOIN com_essay_reply_map  AS t2 on t1.REPLY_ID = t2.REPLY_ID
+    set
+         t1.REPLY_CONTENT = #{reply_id},
+         t1.USER_ANONY = #{user_anony},
+         t1.REPLY_EDIT_TIME = #{reply_edit_time}
+    where
+         t2.USER_ID = #{user_id} and t1.ESSAY_ID = #{essay_id}
+    </update>
+
+    <!--    删除文章评论 -->
+    <update id="deleteReply">
+    update com_essay_reply AS t1 INNER JOIN com_essay_reply_map  AS t2 on t1.REPLY_ID = t2.REPLY_ID
+    set
+         t1.REPLY_DELETE = 1
+    where
+         t2.USER_ID = #{user_id} and t1.ESSAY_ID = #{essay_id}
+    </update>
+
+    <!--    获取一个文章所有评论 -->
+    <select id="getReply" parameterType="java.lang.Integer" resultMap="java.util.List">
+    SELECT t1.* FROM com_essay_reply t1, com_essay_reply_map t2
+         WHERE t1.REPLY_ID = t2.REPLY_ID and t1.ESSAY_ID = #{essay_id}
+    </select>
+
+    <!--    添加回复评论 -->
+    <insert id="addReplyEvaluate" parameterType="com.youthchina.domain.Tianjian.ComReplyEvaluate">
+    INSERT INTO com_reply_evaluate ( USER_ID, EVALUATE_TYPE, EVALUATE_TIME)
+           values(#{user_id},#{evaluate_type},#{evaluate_time}
+                 )
+    </insert>
+
+    <!--    添加回复评论映射关系 -->
+    <insert id="addReplyEvaluateMap">
+    INSERT INTO com_reply_evaluate_map (EVALUATE_ID, REPLY_ID)
+           values(#{evaluate_id},#{reply_id}
+                 )
+    </insert>
+
+    <!--    更新评论回复（点赞，反对，取消） -->
+    <update id="updateReplyEvaluate">
+    update com_reply_evaluate AS t1 INNER JOIN com_reply_evaluate_map  AS t2 on t1.EVALUATE_ID = t2.EVALUATE_ID
+    set
+         t1.EVALUATE_TYPE= #{evaluate_type}
+    where
+         t2.REPLY_ID = #{reply_id} and t1.USER_ID = #{user_id}
+    </update>
+
+    <!--    根据评论id查询所有它的评价 -->
+    <select id="getReplyEvaluate" resultType="java.util.List" parameterType="java.lang.Integer">
+        select t.* from com_reply_evaluate t,om_reply_evaluate_map k
+        where k.REPLY_ID = #{essay_id} and k.EVALUATE_ID = t.EVALUATE_ID
+    </select>
+
+    <!--    获取最新10个文章 -->
+    <select id="getEssayLatest" resultType="java.util.List">
+   		select t.* from com_essay t where t.REPLY_DELETE = 0 order by t.REPLY_EDIT_TIME desc limit 10
+   </select>
+
+    <!--    根据文章id集合查询所有回复 -->
+    <select id="getEssayReply" resultType="java.util.List" parameterType="java.lang.Integer">
+        select t.* from com_essay_reply t,com_essay_reply_map k
+        where k.REPLY_ID = t.REPLY_ID and k.ESSAY_ID = #{essay_id}
+    </select>
+
+</mapper>
