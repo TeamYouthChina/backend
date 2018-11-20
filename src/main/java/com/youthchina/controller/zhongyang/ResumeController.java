@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
 @RequestMapping("${web.url.prefix}/resume/**")
 public class ResumeController {
 
-    ResumeService resumeService;
+    private ResumeService resumeService;
 
     @Autowired
     public ResumeController(ResumeService resumeService) {

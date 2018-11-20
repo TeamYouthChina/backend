@@ -38,7 +38,7 @@ public class EmployerPageServiceImpl implements EmployerPageService {
         return employerPageMapper.findByLabelThree(talent_label_three);
     }
 
-    public List<Candidate> getByLabel(String talent_label){
+    public List<Candidate> getByLabel(String talent_label) {
         return employerPageMapper.findByLabel(talent_label);
     }
 
@@ -59,7 +59,7 @@ public class EmployerPageServiceImpl implements EmployerPageService {
         return employerPageMapper.findByIntentionThree(job_intention_three);
     }
 
-    public List<Candidate> getByIntention(String job_intention){
+    public List<Candidate> getByIntention(String job_intention) {
         return employerPageMapper.findByIntention(job_intention);
 
     }
@@ -103,6 +103,7 @@ public class EmployerPageServiceImpl implements EmployerPageService {
     public List<Candidate> getByLocationThree(String desire_location_three) {
         return employerPageMapper.findByLocationThree(desire_location_three);
     }
+
     @Override
     public List<Candidate> getByLocation(String desire_location) {
         return employerPageMapper.findByLocation(desire_location);
