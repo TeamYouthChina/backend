@@ -12,9 +12,24 @@
 
     </resultMap>
 
-    <resultMap id="" type="">
-
+    <resultMap id="BaseInfoMap" type="com.youthchina.domain.Qinghong.BaseInfo">
+        <id column="STU_ID" property="stu_id" jdbcType="INTEGER"/>
+        <result column="STU_IN_JOB" property="stu_in_job" jdbcType="VARCHAR"/>
+        <result column="STU_IN_JOB_COMP" property="stu_in_job_comp" jdbcType="VARCHAR"/>
     </resultMap>
+    <resultMap id="EduInfoMap" type="com.youthchina.domain.Qinghong.EducationInfo">
+        <id column="EDU_ID" property="EDU_id" jdbcType="VARCHAR"/>
+        <result column="EDU_DEGREE" property="edu_degree" jdbcType="INTEGER"/>
+        <result column="EDU_SCHOOL" property="edu_school" jdbcType="VARCHAR"/>
+        <result column="EDU_SCHOOL_COUNTRY" property="edu_school_country" jdbcType="VARCHAR"/>
+        <result column="EDU_SCHOOL_LOCATION" property="edu_school_location" jdbcType="INTEGER"/>
+        <result column="EDU_MAJOR" property="edu_major" jdbcType="INTEGER"/>
+        <result column="EDU_COLLEGE" property="edu_college" jdbcType="VARCHAR"/>
+        <result column="EDU_GPA" property="edu_gpa" jdbcType="DECIMAL"/>
+        <result column="EDU_END" property="edu_end" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
 
     <select id="findInvitationMapper" resultMap="InvitationResultMap">
         SELECT t1.*,t2.*
@@ -22,6 +37,7 @@
         HR_VIDEO_INVITATION_MAPPER t2
         WHERE t1.INVITE_ID={#id} AND t2.INVITE_ID={#id}
     </select>
+    <update id=""
 
 
 
