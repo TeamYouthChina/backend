@@ -31,7 +31,7 @@ public class CompanyHrServiceImpl implements CompanyHrService {
 
     /**更新HR信息*/
     @Override
-    public Map<String, Object> updateHr(String hr_id) {
+    public Map<String, Object> updateHr(Integer hr_id) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("result", true);
         Integer result = companyHrMapper.updateHr(hr_id);
@@ -43,25 +43,25 @@ public class CompanyHrServiceImpl implements CompanyHrService {
 
     /** 查询Hr信息*/
     @Override
-    public CompanyHr selectHr(String hr_id) {
+    public CompanyHr selectHr(Integer hr_id) {
         return companyHrMapper.selectHr(hr_id);
     }
 
     /**查询企业资质认证的信息*/
     @Override
-    public CompanyInfo selectEnterpriseVerification(String hr_id) {
+    public CompanyInfo selectEnterpriseVerification(Integer hr_id) {
         return companyHrMapper.selectEnterpriseVerification(hr_id);
     }
 
     /**查询个人资质认证的信息*/
     @Override
-    public CompanyHr selectPersonalVerification(String hr_id) {
+    public CompanyHr selectPersonalVerification(Integer hr_id) {
         return companyHrMapper.selectPersonalVerification(hr_id);
     }
 
     /**修改个人资质认证的信息*/
     @Override
-    public Map<String, Object> updatePersonalVerification(String hr_id) {
+    public Map<String, Object> updatePersonalVerification(Integer hr_id) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("result", true);
         Integer result = companyHrMapper.updatePersonalVerification(hr_id);

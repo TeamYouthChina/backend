@@ -1,6 +1,7 @@
 package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.zhongyang.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -23,7 +24,7 @@ public class UserController {
 
 
     @GetMapping("/{id}")
-    public User findUser(@PathVariable Integer id) {
+    public User findUser(@PathVariable Integer id) throws NotFoundException {
         return userService.get(id);
     }
 

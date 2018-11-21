@@ -16,17 +16,17 @@ public interface CompanyHrService {
     Map<String,Object> addHr(CompanyHr companyHr);
 
     /**修改HR信息*/
-    Map<String,Object> updateHr(String hr_id);
+    Map<String,Object> updateHr(Integer hr_id);
 
     /**查询HR信息*/
-    CompanyHr selectHr(String hr_id);
+    CompanyHr selectHr(Integer hr_id);
 
     /**查询HR的企业资质认证*/
-    CompanyInfo selectEnterpriseVerification(String hr_id);
+    CompanyInfo selectEnterpriseVerification(Integer hr_id);
 
     /**查询HR的个人资质认证*/
-    CompanyHr selectPersonalVerification(String hr_id);
+    CompanyHr selectPersonalVerification(Integer hr_id);
 
     /**修改HR的个人资质认证*/
-    Map<String,Object> updatePersonalVerification(String hr_id);
+    Map<String,Object> updatePersonalVerification(Integer hr_id);
 }
