@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.qingyang.JobHrMapper">
+    <resultMap id="JobMap" type="com.youthchina.domain.qingyang.Job_qingyang">
+        <id property="job_id" column="JOB_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="company_id" column="COMPANY_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_name" column="JOB_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_class" column="JOB_CLASS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="job_ind_class" column="JOB_IND_CLASS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="job_start_time" column="JOB_START_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_end_time" column="JOB_END_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_time" column="JOB_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_description" column="JOB_DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_duty" column="JOB_DUTY" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_location" column="JOB_LOCATION" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_highlight" column="JOB_HIGHLIGHT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_salary" column="JOB_SALARY" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="cv_recei_mail" column="CV_RECEI_MAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="cv_name_rule" column="CV_NAME_RULE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="insertJob" parameterType="com.youthchina.domain.qingyang.Job_qingyang">
+        INSERT INTO JOB_INFO
+        (   JOB_ID,
+            COMPANY_ID,
+            JOB_NAME,
+            JOB_CLASS,
+            JOB_IND_CLASS,
+            JOB_START_TIME,
+            JOB_END_TIME,
+            JOB_TIME,
+            JOB_DESCRIPTION,
+            JOB_DUTY,
+            JOB_EDU_REQ,
+            JOB_LOCATION,
+            JOB_HIGHLIGHT,
+            JOB_SALARY,
+            CV_RECEI_MAIL,
+            CV_NAME_RULE)
+        VALUES
+        (
+            #{job_id},
+            #{company_id},
+            #{job_name},
+            #{job_class},
+            #{job_ind_class},
+            #{job_start_time},
+            #{job_end_time},
+            #{job_time},
+            #{job_description},
+            #{job_duty},
+            #{job_edu_req},
+            #{job_location},
+            #{job_highlight},
+            #{job_salary},
+            #{cv_recei_mail},
+            #{cv_name_rule}
+        )
+    </insert>
+
+    <update id="updateJob" parameterType="com.youthchina.domain.qingyang.Job_qingyang">
+        UPDATE JOB_INFO
+        SET
+            COMPANY_ID = #{company_id},
+            JOB_NAME = #{job_name},
+            JOB_CLASS = #{job_class},
+            JOB_IND_CLASS = #{job_ind_class},
+            JOB_START_TIME = #{job_start_time},
+            JOB_END_TIME = #{job_end_time},
+            JOB_TIME = #{job_time},
+            JOB_DESCRIPTION = #{job_description},
+            JOB_DUTY = #{job_duty},
+            JOB_EDU_REQ = #{job_edu_req},
+            JOB_LOCATION = #{job_location},
+            JOB_HIGHLIGHT = #{job_highlight},
+            JOB_SALARY = #{job_salary},
+            CV_RECEI_MAIL = #{cv_recei_mail},
+            CV_NAME_RULE = #{cv_name_rule}
+        WHERE
+            JOB_ID = #{job_id}
+    </update>
+
+
+
+
+</mapper>
