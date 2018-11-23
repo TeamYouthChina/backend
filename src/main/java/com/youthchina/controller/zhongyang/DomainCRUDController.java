@@ -65,7 +65,7 @@ abstract class DomainCRUDController<T extends HasId<K>, K extends Serializable> 
 
 
     /**
-     * @param k primary key of domain model
+     * @param id primary key of domain model
      * @return URI which can be used to access the domain model with primary key equals to k
      * */
     abstract protected URI getUriForNewInstance(K id) throws URISyntaxException;
