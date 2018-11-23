@@ -3,8 +3,8 @@ package com.youthchina.controller.zhongyang;
 import com.youthchina.domain.Qinghong.Resume;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotBelongException;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.zhongyang.ResumeService;
-import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +44,7 @@ public class ResumeController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<?> update(@AuthenticationPrincipal User user, @RequestBody Resume resume) {
+    public ResponseEntity<?> update(@AuthenticationPrincipal User user, @RequestBody Resume resume) throws NotFoundException {
         resumeService.update(resume);
         return ResponseEntity.ok(resume);
     }
