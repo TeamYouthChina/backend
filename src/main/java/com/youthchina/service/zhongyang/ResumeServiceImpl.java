@@ -1,10 +1,9 @@
 package com.youthchina.service.zhongyang;
 
-import com.youthchina.controller.zhongyang.ResumeController;
 import com.youthchina.domain.Qinghong.Resume;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotBelongException;
-import org.apache.ibatis.javassist.NotFoundException;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
