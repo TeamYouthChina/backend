@@ -17,6 +17,8 @@ public class EmployerPageController {
     @Autowired
     private EmployerPageService employerPageService;
 
+
+
     @RequestMapping("/getCandidate")
     public Candidate getById(Integer id){
         return employerPageService.findCandidate(id);
