@@ -1,9 +1,14 @@
 package com.youthchina.domain.Qinghong;
 
+import java.util.Date;
+
 public class PreferJob {
     private int pre_job_id;
     private String pre_job;
     private String pre_avail_time;
+    private Integer stu_id;
+    private Boolean is_delete;
+    private Date is_delete_time;
 
     public int getPre_job_id() {
         return pre_job_id;
@@ -27,5 +32,29 @@ public class PreferJob {
 
     public void setPre_avail_time(String pre_avail_time) {
         this.pre_avail_time = pre_avail_time;
+    }
+
+    public Integer getStu_id() {
+        return stu_id;
+    }
+
+    public void setStu_id(Integer stu_id) {
+        this.stu_id = stu_id;
+    }
+
+    public Boolean getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(Boolean is_delete) {
+        this.is_delete = is_delete;
+    }
+
+    public Date getIs_delete_time() {
+        return is_delete_time;
+    }
+
+    public void setIs_delete_time(Date is_delete_time) {
+        this.is_delete_time = is_delete_time;
     }
 }

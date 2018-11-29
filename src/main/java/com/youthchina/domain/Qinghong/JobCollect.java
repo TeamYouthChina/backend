@@ -2,36 +2,42 @@ package com.youthchina.domain.Qinghong;
 
 import java.util.Date;
 
-public class PreferSalary {
-    private int pre_sala_id;
-    private int pre_sala_cap;
-    private int pre_sala_floor;
+/**
+ * @program: youthchina
+ * @description: 职位收藏实体
+ * @author: Qinghong Wang
+ * @create: 2018-11-29 16:59
+ **/
+public class JobCollect {
+    private Integer collect_id;
+    private Integer job_id;
+    private Date job_coll_time;
     private Integer stu_id;
     private Boolean is_delete;
     private Date is_delete_time;
 
-    public int getPre_sala_id() {
-        return pre_sala_id;
+    public Integer getCollect_id() {
+        return collect_id;
     }
 
-    public void setPre_sala_id(int pre_sala_id) {
-        this.pre_sala_id = pre_sala_id;
+    public void setCollect_id(Integer collect_id) {
+        this.collect_id = collect_id;
     }
 
-    public int getPre_sala_cap() {
-        return pre_sala_cap;
+    public Integer getJob_id() {
+        return job_id;
     }
 
-    public void setPre_sala_cap(int pre_sala_cap) {
-        this.pre_sala_cap = pre_sala_cap;
+    public void setJob_id(Integer job_id) {
+        this.job_id = job_id;
     }
 
-    public int getPre_sala_floor() {
-        return pre_sala_floor;
+    public Date getJob_coll_time() {
+        return job_coll_time;
     }
 
-    public void setPre_sala_floor(int pre_sala_floor) {
-        this.pre_sala_floor = pre_sala_floor;
+    public void setJob_coll_time(Date job_coll_time) {
+        this.job_coll_time = job_coll_time;
     }
 
     public Integer getStu_id() {
