@@ -1,123 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.qingyang.JobHrMapper">
-    <resultMap id="JobMap" type="com.youthchina.domain.qingyang.Job_qingyang">
-        <id property="job_id" column="JOB_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="company_id" column="COMPANY_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="job_name" column="JOB_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="job_class" column="JOB_CLASS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        <result property="job_ind_class" column="JOB_IND_CLASS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        <result property="job_start_time" column="JOB_START_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="job_end_time" column="JOB_END_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="job_time" column="JOB_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="job_description" column="JOB_DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="job_duty" column="JOB_DUTY" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="job_edu_req" column="JOB_EDU_REQ" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="job_location" column="JOB_LOCATION" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="job_highlight" column="JOB_HIGHLIGHT" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="job_salary" column="JOB_SALARY" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="cv_recei_mail" column="CV_RECEI_MAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="cv_name_rule" column="CV_NAME_RULE" javaType="java.lang.String" jdbcType="VARCHAR"/>
-    </resultMap>
-    
-    <resultMap id="JobList" type="com.youthchina.domain.qingyang.JobOfCompany">
-        <result property="company_id" column="COMPANY_ID" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <collection property="jobList" ofType="com.youthchina.domain.qingyang.Job">
-            <result property="job_name" column="JOB_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_class" column="JOB_CLASS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <result property="job_ind_class" column="JOB_IND_CLASS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <result property="job_start_time" column="JOB_START_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_end_time" column="JOB_END_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_time" column="JOB_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_description" column="JOB_DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_duty" column="JOB_DUTY" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_edu_req" column="JOB_EDU_REQ" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_location" column="JOB_LOCATION" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_highlight" column="JOB_HIGHLIGHT" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="job_salary" column="JOB_SALARY" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="cv_recei_mail" column="CV_RECEI_MAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
-            <result property="cv_name_rule" column="CV_NAME_RULE" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        </collection>
-    </resultMap>
 
-    <insert id="insertJob" parameterType="com.youthchina.domain.qingyang.Job">
+
+    <insert id="insertJob" parameterType="com.youthchina.domain.qingyang.Job_qingyang"
+            useGeneratedKeys="true" keyProperty="jobId">
         INSERT INTO JOB_INFO
-        (   JOB_ID,
-            COMPANY_ID,
-            JOB_NAME,
-            JOB_CLASS,
-            JOB_IND_CLASS,
-            JOB_START_TIME,
-            JOB_END_TIME,
-            JOB_TIME,
-            JOB_DESCRIPTION,
-            JOB_DUTY,
-            JOB_EDU_REQ,
-            JOB_LOCATION,
-            JOB_HIGHLIGHT,
-            JOB_SALARY,
-            CV_RECEI_MAIL,
-            CV_NAME_RULE)
+        (   JOB_ID,         COMPANY_ID,     HR_ID,        JOB_NAME,     JOB_PROF_NUM,
+            JOB_START_TIME, JOB_END_TIME,   JOB_TIME,     JOB_DESCRIPTION,
+            JOB_DUTY,       JOB_REQ,        JOB_LOCATION, JOB_HIGHLIGHT,
+            JOB_SALARY,     CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE)
         VALUES
         (
-            #{job_id},
-            #{company_id},
-            #{job_name},
-            #{job_class},
-            #{job_ind_class},
-            #{job_start_time},
-            #{job_end_time},
-            #{job_time},
-            #{job_description},
-            #{job_duty},
-            #{job_edu_req},
-            #{job_location},
-            #{job_highlight},
-            #{job_salary},
-            #{cv_recei_mail},
-            #{cv_name_rule}
+            #{jobId},       #{companyId},   #(hrId),       #{jobName},   #{jobProfNum},
+            #{jobStartTime},#{jobEndTime},  #{jobTime},   #{jobDescription},
+            #{jobDuty},     #{jobReq},      #{jobLocation},#{jobHighlight},
+            #{jobSalary},   #{cvReceiMail}, #{cvNameRule},  #{jobActive}
         )
     </insert>
 
-    <update id="updateJob" parameterType="com.youthchina.domain.qingyang.Job">
+    <update id="updateJob" parameterType="com.youthchina.domain.qingyang.Job_qingyang"
+            useGeneratedKeys="true" keyProperty="jobId">
         UPDATE JOB_INFO
         SET
-            COMPANY_ID = #{company_id},
-            JOB_NAME = #{job_name},
-            JOB_CLASS = #{job_class},
-            JOB_IND_CLASS = #{job_ind_class},
-            JOB_START_TIME = #{job_start_time},
-            JOB_END_TIME = #{job_end_time},
-            JOB_TIME = #{job_time},
-            JOB_DESCRIPTION = #{job_description},
-            JOB_DUTY = #{job_duty},
-            JOB_EDU_REQ = #{job_edu_req},
-            JOB_LOCATION = #{job_location},
-            JOB_HIGHLIGHT = #{job_highlight},
-            JOB_SALARY = #{job_salary},
-            CV_RECEI_MAIL = #{cv_recei_mail},
-            CV_NAME_RULE = #{cv_name_rule}
+            COMPANY_ID = #{companyId},
+            HR_ID = #{hrId},
+            JOB_NAME = #{jobName},
+            JOB_PROF_NUM = #{jobProfNum},
+            JOB_START_TIME = #{jobStartTime},
+            JOB_END_TIME = #{jobEndTime},
+            JOB_TIME = #{jobTime},
+            JOB_DESCRIPTION = #{jobDescription},
+            JOB_DUTY = #{jobDuty},
+            JOB_EDU_REQ = #{jobReq},
+            JOB_LOCATION = #{jobLocation},
+            JOB_HIGHLIGHT = #{jobHighlight},
+            JOB_SALARY = #{jobSalary},
+            CV_RECEI_MAIL = #{cvReceiMail},
+            CV_NAME_RULE = #{cvNameRule},
+            JOB_ACTIVE = #{jobActive},
+            IS_DELETE = 0
         WHERE
-            JOB_ID = #{job_id}
+            JOB_ID = #{jobId}
+        AND IS_DELETE = 0
     </update>
 
-    <delete id="deleteJobByID" parameterType="java.lang.String">
-      DELETE FROM JOB_INFO
+    <update id="deleteJobByID" parameterType="java.lang.Integer">
+      UPDATE JOB_INFO
+      SET
+          IS_DELETE = 1,
+          IS_DELETE_TIME = NOW()
       WHERE
-            JOB_ID = #{job_id}
-    </delete>
+          JOB_ID = #{jobId}
+      AND IS_DELETE = 0
+    </update>
 
-    <select id="getJobByJobId" resultType="com.youthchina.domain.qingyang.Job" parameterType="java.lang.String">
-        SELECT * FROM JOB_INFO
+
+    <resultMap id="job" type="com.youthchina.domain.qingyang.Job_qingyang">
+        <id property="jobId" column="JOB_ID"/>
+        <result property="jobName" column="JOB_NAME"/>
+        <result property="jobProfNum" column="JOB_PROF_NUM"/>
+        <result property="jobStartTime" column="JOB_START_TIME"/>
+        <result property="jobEndTime" column="JOB_END_TIME"/>
+        <result property="jobTime" column="JOB_TIME"/>
+        <result property="jobDescription" column="JOB_DESCRIPTION"/>
+        <result property="jobDuty" column="JOB_DUTY"/>
+        <result property="jobReq" column="JOB_REQ"/>
+        <result property="jobLocation" column="JOB_LOCATION"/>
+        <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
+        <result property="jobSalary" column="JOB_SALARY"/>
+        <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
+        <result property="cvNameRule" column="CV_NAME_RULE"/>
+        <result property="jobActive" column="JOB_ACTIVE"/>
+        <association property="company" javaType="com.youthchina.domain.qingyang.Company_qingyang">
+            <id property="company_id" column="COMPANY_ID"/>
+            <result property="companyName" column="COMPANY_NAME"/>
+            <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
+            <result property="companyLogo" column="COMPANY_LOGO"/>
+        </association>
+        <association property="hr" javaType="com.youthchina.domain.qingyang.Hr_qingyang">
+            <id property="hrId" column="HR_ID"/>
+        </association>
+    </resultMap>
+
+    <!--职位详情页, 含公司HR-->
+    <select id="getJobByJobId" resultType="job" parameterType="java.lang.Integer">
+        SELECT
+            j.JOB_ID as JOB_ID,
+            j.JOB_NAME as JOB_NAME,
+            j.JOB_PROF_NUM as JOB_PROF_NUM,
+            j.JOB_START_TIME as JOB_START_TIME,
+            j.JOB_END_TIME as JOB_END_TIME,
+            j.JOB_TIME as JOB_TIME,
+            j.JOB_DESCRIPTION as JOB_DESCRIPTION,
+            j.JOB_DUTY as JOB_DUTY,
+            j.JOB_REQ as JOB_REQ,
+            j.JOB_LOCATION as JOB_LOCATION,
+            j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
+            j.JOB_SALARY as JOB_SALARY,
+            j.CV_RECEI_MAIL as CV_RECEI_MAIL,
+            j.CV_NAME_RULE as CV_NAME_RULE,
+            j.JOB_ACTIVE as JOB_ACTIVE,
+            j.HR_ID as HR_ID,
+            j.COMPANY_ID as COMPANY_ID,
+            c.COMPANY_NAME as COMPANY_NAME,
+            c.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
+            c.COMPANY_LOGO as COMPANY_LOGO,
+        FROM JOB_INFO j
+             LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
+             LEFT OUTER JOIN COMPANY_INFO c ON j.COMPANY_ID = c.COMPANY_ID
         WHERE
-            JOB_ID = #{job_id}
+            j.JOB_ID = #{jobId}
+        AND j.IS_DELETE = 0 AND c.IS_DELETE = 0 AND h.IS_DELETE = 0
     </select>
 
-    <select id="getJobByCompanyId" resultMap="JobList" parameterType="java.lang.String">
+    <select id="getJobByCompanyId" resultType="job" parameterType="java.lang.Integer">
         SELECT * FROM JOB_INFO
         WHERE
-            JOB_ID = #{job_id}
+            COMPANY_ID = #{companyId}
+        AND IS_DELETE = 0
     </select>
+
+
+    <!--todo-->
+    <select id="selectByIndustryId" resultType="job" parameterType="java.util.List">
+
+    </select>
+    <select id="selectByIndustryString" resultType="job" parameterType="java.lang.String">
+
+    </select>
+
+
+
 
 
 
