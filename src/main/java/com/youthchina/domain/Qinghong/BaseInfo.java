@@ -1,9 +1,13 @@
 package com.youthchina.domain.Qinghong;
 
+import java.util.List;
+
 public class BaseInfo {
     private int stu_id;
     private String stu_in_job;
     private String stu_in_job_comp;
+    private List<EducationInfo> educationInfos;
+    private List<Work> works;
 
     public int getStu_id() {
         return stu_id;
@@ -27,5 +31,21 @@ public class BaseInfo {
 
     public void setStu_in_job_comp(String stu_in_job_comp) {
         this.stu_in_job_comp = stu_in_job_comp;
+    }
+
+    public List<EducationInfo> getEducationInfos() {
+        return educationInfos;
+    }
+
+    public void setEducationInfos(List<EducationInfo> educationInfos) {
+        this.educationInfos = educationInfos;
+    }
+
+    public List<Work> getWorks() {
+        return works;
+    }
+
+    public void setWorks(List<Work> works) {
+        this.works = works;
     }
 }

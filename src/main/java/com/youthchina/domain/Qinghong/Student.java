@@ -1,5 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.util.zhongyang.HasId;
+
 import java.util.List;
 
 /**
@@ -8,8 +10,8 @@ import java.util.List;
  * @author: Qinghong Wang
  * @create: 2018-11-29 17:08
  **/
-public class Student {
-    private int stu_id;
+public class Student implements HasId<Integer> {
+    private Integer stu_id;
     private String stu_in_job;
     private String stu_in_job_comp;
     private List<EducationInfo> educationInfos;
@@ -28,11 +30,11 @@ public class Student {
     private List<Notification> notifications;
     private List<JobApply> jobApplies;
 
-    public int getStu_id() {
+    public Integer getStu_id() {
         return stu_id;
     }
 
-    public void setStu_id(int stu_id) {
+    public void setStu_id(Integer stu_id) {
         this.stu_id = stu_id;
     }
 
@@ -170,5 +172,10 @@ public class Student {
 
     public void setJobApplies(List<JobApply> jobApplies) {
         this.jobApplies = jobApplies;
+    }
+
+    @Override
+    public Integer getId() {
+        return this.getStu_id();
     }
 }
