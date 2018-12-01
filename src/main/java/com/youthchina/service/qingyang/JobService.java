@@ -6,7 +6,7 @@ import com.youthchina.exception.zhongyang.NotBelongException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 
-public interface JobService extends DomainCRUDService<Job_qingyang, String>{
+public interface JobService extends DomainCRUDService<Job_qingyang, Integer>{
 
 
     /**HR删除Job信息*/

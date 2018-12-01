@@ -1,136 +1,194 @@
 package com.youthchina.domain.qingyang;
-/*
-* 企业ID		唯一标识符		COMPANY_ID	INTEGER		否
-企业名称				COMPANY_NAME	VARCHAR(200)	否
-企业三证号码				COMPANY_CODE	VARCHAR(200)		否
-企业国别				COMPANY_COUNTRY	VARCHAR(10)		否
-企业简介				COMPANY_INTRODUC	VARCHAR(200)		是
-企业规模				COMPANY_SCALE	VARCHAR(200)		否
-企业性质				COMPANY_NATURE	VARCHAR(200)		否
-企业所在地				COMPANY_LOCATION	VARCHAR(200)	否	否
-企业邮箱				COMPANY_MAIL	VARCHAR(200)		是
-企业官网				COMPANY_WEBSITE	VARCHAR(200)		是
-成立日期				COMPANY_START_DATE	VARCHAR(200)		是
-企业LOGO				COMPANY_LOGO	VARCHAR(200)		是
-企业认证				COMPANY_VERIFY	INTEGER		是*/
+
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.List;
 
 public class Company_qingyang {
-    private Integer company_id;
-    private String company_name;
-    private String company_code;
-    private String company_country;
-    private String company_introduc;
-    private String company_scale;
-    private String company_nature;
-    private String company_location;
-    private String company_mail;
-    private String company_website;
-    private String company_start_date;
-    private String company_logo;
-    private Integer company_verify;
+    private Integer companyId;
+    private String companyName;
+    private String companyCode;
+    private String companyCountry;
+    private String companyIntroduc;
+    private Integer companyScaleNum;
+    private String companyNature;
+    private String companyLocation;
+/*
+企业ID			COMPANY_ID	        INTEGER		否
+企业名称			COMPANY_NAME	    VARCHAR(200)否
+企业三证号码		COMPANY_CODE	    VARCHAR(200)否
+企业国别			COMPANY_COUNTRY	    VARCHAR(10) 否
+企业简介(可空)	COMPANY_INTRODUC    VARCHAR(200)是
+企业规模			COMPANY_SCALE_NUM	INTEGER		否
+企业性质			COMPANY_NATURE	    VARCHAR(200)否
+企业所在地		COMPANY_LOCATION	VARCHAR(200)否
+企业邮箱(可空)	COMPANY_MAIL	    VARCHAR(200)是
+企业官网(可空)	COMPANY_WEBSITE	    VARCHAR(200)是
+成立日期(可空)	COMPANY_START_DATE	DATE		是
+企业LOGO	(可空)	COMPANY_LOGO	    VARCHAR(200)是	暂定为存储路径
+企业认证(可空)	COMPANY_VERIFY	    INTEGER		是	0-1
+录入ID	!外键!	USER_ID	            INTEGER		否
+是否删除			IS_DELETE	        INTEGER		否	0-默认不删除
+删除时间(可空)	IS_DELETE_TIME	    TIMESTAMP	是	*/
+    private String companyMail;
+    private String companyWebsite;
+    private Date companyStartDate;
+    private String companyLogo;
+    private Integer companyVerify;
+    private Integer userId;
+    private Integer isDelete;
+    private Timestamp idDeleteTime;
 
+    /*行业信息*/
+    private List<Industry_qingyang> indList;
 
-    public Integer getCompany_id() {
-        return company_id;
+    /*认证信息*/
+    private List<CompanyVerification_qingyang> verificationList;
+
+    /*Setter and Getter*/
+
+    public List<Industry_qingyang> getIndList() {
+        return indList;
     }
 
-    public void setCompany_id(Integer company_id) {
-        this.company_id = company_id;
+    public void setIndList(List<Industry_qingyang> indList) {
+        this.indList = indList;
     }
 
-    public String getCompany_name() {
-        return company_name;
+    public List<CompanyVerification_qingyang> getVerificationList() {
+        return verificationList;
     }
 
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
+    public void setVerificationList(List<CompanyVerification_qingyang> verificationList) {
+        this.verificationList = verificationList;
     }
 
-    public String getCompany_code() {
-        return company_code;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
-    public void setCompany_code(String company_code) {
-        this.company_code = company_code;
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
-    public String getCompany_country() {
-        return company_country;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompany_country(String company_country) {
-        this.company_country = company_country;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public String getCompany_introduc() {
-        return company_introduc;
+    public String getCompanyCode() {
+        return companyCode;
     }
 
-    public void setCompany_introduc(String company_introduc) {
-        this.company_introduc = company_introduc;
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
     }
 
-    public String getCompany_scale() {
-        return company_scale;
+    public String getCompanyCountry() {
+        return companyCountry;
     }
 
-    public void setCompany_scale(String company_scale) {
-        this.company_scale = company_scale;
+    public void setCompanyCountry(String companyCountry) {
+        this.companyCountry = companyCountry;
     }
 
-    public String getCompany_nature() {
-        return company_nature;
+    public String getCompanyIntroduc() {
+        return companyIntroduc;
     }
 
-    public void setCompany_nature(String company_nature) {
-        this.company_nature = company_nature;
+    public void setCompanyIntroduc(String companyIntroduc) {
+        this.companyIntroduc = companyIntroduc;
     }
 
-    public String getCompany_location() {
-        return company_location;
+    public Integer getCompanyScaleNum() {
+        return companyScaleNum;
     }
 
-    public void setCompany_location(String company_location) {
-        this.company_location = company_location;
+    public void setCompanyScaleNum(Integer companyScaleNum) {
+        this.companyScaleNum = companyScaleNum;
     }
 
-    public String getCompany_mail() {
-        return company_mail;
+    public String getCompanyNature() {
+        return companyNature;
     }
 
-    public void setCompany_mail(String company_mail) {
-        this.company_mail = company_mail;
+    public void setCompanyNature(String companyNature) {
+        this.companyNature = companyNature;
     }
 
-    public String getCompany_website() {
-        return company_website;
+    public String getCompanyLocation() {
+        return companyLocation;
     }
 
-    public void setCompany_website(String company_website) {
-        this.company_website = company_website;
+    public void setCompanyLocation(String companyLocation) {
+        this.companyLocation = companyLocation;
     }
 
-    public String getCompany_start_date() {
-        return company_start_date;
+    public String getCompanyMail() {
+        return companyMail;
     }
 
-    public void setCompany_start_date(String company_start_date) {
-        this.company_start_date = company_start_date;
+    public void setCompanyMail(String companyMail) {
+        this.companyMail = companyMail;
     }
 
-    public String getCompany_logo() {
-        return company_logo;
+    public String getCompanyWebsite() {
+        return companyWebsite;
     }
 
-    public void setCompany_logo(String company_logo) {
-        this.company_logo = company_logo;
+    public void setCompanyWebsite(String companyWebsite) {
+        this.companyWebsite = companyWebsite;
     }
 
-    public Integer getCompany_verify() {
-        return company_verify;
+    public Date getCompanyStartDate() {
+        return companyStartDate;
     }
 
-    public void setCompany_verify(Integer company_verify) {
-        this.company_verify = company_verify;
+    public void setCompanyStartDate(Date companyStartDate) {
+        this.companyStartDate = companyStartDate;
+    }
+
+    public String getCompanyLogo() {
+        return companyLogo;
+    }
+
+    public void setCompanyLogo(String companyLogo) {
+        this.companyLogo = companyLogo;
+    }
+
+    public Integer getCompanyVerify() {
+        return companyVerify;
+    }
+
+    public void setCompanyVerify(Integer companyVerify) {
+        this.companyVerify = companyVerify;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public Timestamp getIdDeleteTime() {
+        return idDeleteTime;
+    }
+
+    public void setIdDeleteTime(Timestamp idDeleteTime) {
+        this.idDeleteTime = idDeleteTime;
     }
 }
