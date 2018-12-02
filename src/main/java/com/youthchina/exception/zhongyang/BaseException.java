@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class BaseException extends Throwable {
     public int code;
     public int statusCode;
-    public String message;
+    public String reason;
 
     public BaseException(int code, int statusCode, String message) {
         this.code = code;
         this.statusCode = statusCode;
-        this.message = message;
+        this.reason = message;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class BaseException extends Throwable {
         return "{" +
                 "code=" + code +
                 ", statusCode=" + statusCode +
-                ", message='" + message + '\'' +
+                ", reason='" + reason + '\'' +
                 '}';
     }
 }

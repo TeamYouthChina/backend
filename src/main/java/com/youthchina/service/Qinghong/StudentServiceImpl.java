@@ -2,6 +2,7 @@ package com.youthchina.service.Qinghong;
 
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author: Qinghong Wang
  * @create: 2018-11-29 17:11
  **/
+@Service
 public class StudentServiceImpl implements StudentService{
     @Override
     public Student get(Integer id) throws NotFoundException {
