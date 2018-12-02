@@ -1,6 +1,6 @@
 package com.youthchina.dao.qingyang;
 
-import com.youthchina.domain.qingyang.Job_qingyang;
+import com.youthchina.domain.qingyang.Job;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -11,26 +11,26 @@ import java.util.List;
 @Component
 public interface JobHrMapper {
     /**insert Job*/
-    Integer insertJob(Job_qingyang job);
+    Integer insertJob(Job job);
 
     /**update Job*/
-    Integer updateJob(Job_qingyang job);
+    Integer updateJob(Job job);
 
     /**delete Job*/
     Integer deleteJob(Integer job_id);
 
     /**select Job information by Job_ID*/
-    Job_qingyang selectJobByJobId(Integer job_id);
+    Job selectJobByJobId(Integer job_id);
 
     /**select Job information by Job_ID List*/
-    List<Job_qingyang> selectJobByJobIdList(List<Integer> id);
+    List<Job> selectJobByJobIdList(List<Integer> id);
 
     /**select Job information by Company_ID*/
-    List<Job_qingyang> selectJobByComId(Integer company_id);
+    List<Job> selectJobByComId(Integer company_id);
 
 
-    List<Job_qingyang> selectByIndustryId(List<Integer> indIds);
+    List<Job> selectByIndustryId(List<Integer> indIds);
 
-    List<Job_qingyang> selectByIndustryString(String ind);
+    List<Job> selectByIndustryString(String ind);
 }
 

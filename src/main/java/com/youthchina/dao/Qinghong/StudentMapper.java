@@ -1,7 +1,7 @@
 package com.youthchina.dao.Qinghong;
 
 import com.youthchina.domain.Qinghong.*;
-import com.youthchina.domain.qingyang.Job_qingyang;
+import com.youthchina.domain.qingyang.Job;
 
 import java.util.List;
 
@@ -54,5 +54,5 @@ public interface StudentMapper {
 
     List<JobApply> getAllJobApply(Integer stu_id);
 
-    Job_qingyang getByJobId(Integer job_id);
+    Job getByJobId(Integer job_id);
 }

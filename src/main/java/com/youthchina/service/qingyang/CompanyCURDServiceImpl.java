@@ -1,7 +1,7 @@
 package com.youthchina.service.qingyang;
 
 import com.youthchina.dao.qingyang.CompanyTestMapper;
-import com.youthchina.domain.qingyang.Company_qingyang;
+import com.youthchina.domain.qingyang.Company;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +14,12 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     CompanyTestMapper companyTestMapper;
 
     @Override
-    public Company_qingyang get(Integer id) throws NotFoundException {
+    public Company get(Integer id) throws NotFoundException {
         return companyTestMapper.selectCompany(id);
     }
 
     @Override
-    public List<Company_qingyang> get(List<Integer> id) throws NotFoundException {
+    public List<Company> get(List<Integer> id) throws NotFoundException {
         return companyTestMapper.selectCompanyByIdList(id);
     }
 
@@ -29,13 +29,13 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     }
 
     @Override
-    public Company_qingyang update(Company_qingyang company_qingyang) throws NotFoundException {
+    public Company update(Company company_qingyang) throws NotFoundException {
         Integer result = companyTestMapper.updateCompany(company_qingyang);
         return this.get(result);
     }
 
     @Override
-    public Company_qingyang add(Company_qingyang entity) {
+    public Company add(Company entity) {
         Integer result = companyTestMapper.insertCompany(entity);
         return companyTestMapper.selectCompany(result);
     }

@@ -3,32 +3,17 @@ package com.youthchina.dto;
 /**
  * Created by zhongyangwu on 12/2/18.
  */
-public class SearchDTO{
-    private String key;
-    private int page;
-    private int size;
+public interface SearchDTO extends RequestDTO {
 
-    public int getPage() {
-        return page;
-    }
+    int getPage();
 
-    public void setPage(int page) {
-        this.page = page;
-    }
+    void setPage(Integer i);
 
-    public int getSize() {
-        return size;
-    }
+    int getSize();
 
-    public void setSize(int size) {
-        this.size = size;
-    }
+    void setSize(Integer i);
 
-    public String getKey() {
-        return key;
-    }
+    String getKey();
 
-    public void setKey(String key) {
-        this.key = key;
-    }
+    void setKey(String key);
 }
