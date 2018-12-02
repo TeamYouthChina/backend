@@ -1,7 +1,7 @@
 package com.youthchina.service.qingyang;
 
 import com.youthchina.dao.qingyang.JobHrMapper;
-import com.youthchina.domain.qingyang.Job_qingyang;
+import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotBelongException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -18,7 +19,7 @@ public class JobServiceImpl implements JobService {
     @Resource
     JobHrMapper jobHrMapper;
 
-    public static Job_qingyang job;
+    public static Job job;
 
     //给前端的默认值
     public static void initialization(){
@@ -40,7 +41,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Job_qingyang getByHr(User user, Integer jobId) throws NotBelongException {
+    public Job getByHr(User user, Integer jobId) throws NotBelongException {
         //默认值
         //return job;
 
@@ -48,7 +49,18 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Job_qingyang get(Integer id) throws NotFoundException {
+    public Map<String, List<Job>> getJobByIndustries(List<String> industries) {
+        return null;
+    }
+
+    @Override
+    public Map<String, List<Job>> getJobByTag(List<String> tags) {
+        //todo: implement
+        return null;
+    }
+
+    @Override
+    public Job get(Integer id) throws NotFoundException {
 
         //默认值
         //return job;
@@ -58,8 +70,8 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public List<Job_qingyang> get(List<Integer> id) throws NotFoundException {
-        List<Job_qingyang> jobList = new ArrayList<>();
+    public List<Job> get(List<Integer> id) throws NotFoundException {
+        List<Job> jobList = new ArrayList<>();
 
         //默认值, 可注释掉
         //jobList.add(job);
@@ -76,24 +88,24 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Job_qingyang update(Job_qingyang job_qingyang) throws NotFoundException {
+    public Job update(Job job_qingyang) throws NotFoundException {
         Integer result = jobHrMapper.updateJob(job_qingyang);
         return this.get(result);
     }
 
     @Override
-    public Job_qingyang add(Job_qingyang entity) {
+    public Job add(Job entity) {
         Integer result = jobHrMapper.insertJob(entity);
         return jobHrMapper.selectJobByJobId(result);
     }
 
     /*通过行业Id List搜索*/
-    public List<Job_qingyang> getByIndustryId(List<Integer> indIds){
+    public List<Job> getByIndustryId(List<Integer> indIds){
         return jobHrMapper.selectByIndustryId(indIds);
     }
 
     /*通过行业名称搜索 完全匹配*/
-    public List<Job_qingyang> getByIndustryString(String ind){
+    public List<Job> getByIndustryString(String ind){
         return jobHrMapper.selectByIndustryString("^" + ind + "$");
     }
 

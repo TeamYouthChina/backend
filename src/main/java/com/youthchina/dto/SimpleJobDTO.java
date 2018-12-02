@@ -1,5 +1,7 @@
 package com.youthchina.dto;
 
+import com.youthchina.domain.qingyang.Job;
+
 import java.sql.Timestamp;
 
 /**
@@ -11,6 +13,13 @@ public class SimpleJobDTO {
     private OrganizationDTO organization;
     private LocationDTO location;
     private String type;
+
+    public SimpleJobDTO(Job job) {
+        this.id = job.getJobId();
+        this.name = job.getJobName();
+        this.organization = new OrganizationDTO(job.getCompany());
+        this.location = new LocationDTO();//todo: create location object
+    }
 
     public int getId() {
         return id;
