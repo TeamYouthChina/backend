@@ -9,7 +9,7 @@
 
 
     <!-- 列出某个问题的关注人数 -->
-    <select id="countTheFollower" parameterType="com.youthchina.domain.jinhao.communityQA.Question"
+    <select id="countTheFollower" parameterType="java.lang.Integer"
             resultType="java.lang.Integer">
         select count(a.*) from COM_QUESTION_ATTENTION a, COM_QUESTION_ATTENTION_MAP m
         where m.ques_id = #{ques_id}
@@ -34,20 +34,37 @@
     <!-- 列出某个回答的赞同数 -->
     <select id="countAgreement" parameterType="java.lang.Integer"
             resultType="java.lang.Integer">
-        select count(a.*) from COM_ANSWER_AGREE_MAP m, COM_ANSWER_AGREE a
+        select count(a.*) from COM_ANSWER_EVALUATE_MAP m, COM_ANSWER_EVALUATE a
         where m.answer_id = #{answer_id}
-        and a.agree_id = m.agree_id
-        and a.agree_cancel = 0
+        and a.evaluate_id = m.evaluate_id
+        and a.evaluate_type = 1
+    </select>
+
+    <!-- 列出某个回答的反对数 -->
+    <select id="countAgreement" parameterType="java.lang.Integer"
+            resultType="java.lang.Integer">
+        select count(a.*) from COM_ANSWER_EVALUATE_MAP m, COM_ANSWER_EVALUATE a
+        where m.answer_id = #{answer_id}
+          and a.evaluate_id = m.evaluate_id
+          and a.evaluate_type = 2
     </select>
 
     <!-- 列出某个回答的所有评论 -->
-    <select id="listAllAnswerComment" parameterType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer"
+    <select id="listAllAnswerComment" parameterType="java.lang.Integer"
             resultType="com.youthchina.domain.jinhao.communityQA.AnswerComment">
         select a.* from COM_ANSWER_COMMENT_MAP m, COM_ANSWER_COMMENT a
         where m.answer_id = #{answer_id}
         and m.comment_id = a.comment_id
         and a.comment_delete = 0
-        order by m.comment_level asc
+        order by a.comment_pub_time asc
+    </select>
+
+    <!-- 拿到某个评论-->
+    <select id="getComment" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.AnswerComment">
+        select * from COM_ANSWER_COMMENT
+        where comment_id = #{comment_id}
+        and comment_delete = 0
     </select>
 
     <!-- 列出某个评论的所有讨论 -->
@@ -57,13 +74,8 @@
         where m.comment_id = #{comment_id}
         and m.discuss_id = a.discuss_id
         and a.discuss_delete = 0
-        order by m.discuss_level asc
+        order by a.discuss_pub_time asc
     </select>
-
-
-
-
-
 
     <!-- 添加问题 -->
     <insert id="addQuestion" parameterType="com.youthchina.domain.jinhao.communityQA.Question" useGeneratedKeys="true"
@@ -134,27 +146,23 @@
         insert into COM_QUESTION_ANSWER_MAP (ques_id, answer_id) values (#{ques_id}, #{answer_id})
     </insert>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- 检查是否已经关注过 -->
-    <select id="isQuestionAttention" resultType="com.youthchina.domain.jinhao.communityQA.QuestionAttention">
-        select a.* from COM_QUESTION_ATTENTION_MAP m, COM_QUESTION_ATTENTION a
+    <select id="isQuestionEverAttention" resultType="java.lang.Integer">
+        select a.atten_id from COM_QUESTION_ATTENTION_MAP m, COM_QUESTION_ATTENTION a
         where m.ques_id = #{ques_id}
         and a.user_id = #{user_id}
         and m.atten_id = a.atten_id
+    </select>
+
+    <!-- 检查问题是否被关注 -->
+    <select id="isQuestionAttention" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select a.atten_cancel from COM_QUESTION_ATTENTION a
+        where a.atten_id = #{atten_id}
+    </select>
+
+    <!--得到关注-->
+    <select id="getAttention" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.QuestionAttention">
+        select * from COM_QUESTION_ATTENTION where atten_id = #{atten_id}
     </select>
 
     <!-- 如果第一次关注，则关注问题， 并且建立映射  -->
@@ -163,6 +171,7 @@
         insert into COM_QUESTION_ATTENTION (user_id, atten_time, atten_cancel)
         values (#{user_id}, #{atten_time}, #{atten_cancel})
     </insert>
+
     <!-- 建立映射 -->
     <insert id="createMapBetweenAttentionAndQuestion">
         insert into COM_QUESTION_ATTENTION_MAP (ques_id, atten_id)
@@ -172,7 +181,7 @@
     <!-- 如果之前已经关注过，则更新字段 -->
     <update id="reAddAttentionToQuestion" parameterType="com.youthchina.domain.jinhao.communityQA.QuestionAttention">
         update COM_QUESTION_ATTENTION set atten_cancel=#{atten_cancel}, atten_time=#{atten_time}
-        where atte_id=#{atten_id}
+        where atten_id=#{atten_id}
     </update>
 
     <!-- 取消关注 -->
@@ -181,7 +190,6 @@
         where atte_id=#{atten_id}
     </update>
 
-    
     <!-- 删除回答 -->
     <update id="deleteAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
         update COM_QUESTION_ANSWER set answer_delete=#{answer_delete}, answer_delete_time=#{answer_delete_time}
@@ -195,74 +203,38 @@
         where answer_id=#{answer_id}
     </update>
 
-    <!-- 检查是否赞同了回答 -->
-    <select id="isAgreed" resultType="com.youthchina.domain.jinhao.communityQA.AnswerAgree">
-        select a.* from COM_ANSWER_AGREE_MAP m, COM_ANSWER_AGREE a
-        where m.answer_id = #{questionAnswer.answer_id}
-        and a.user_id = #{user.id}
-        and m.agree_id = a.agree_id
+    <!-- 检查是否赞同或者反对过回答 -->
+    <select id="isEverEvaluate" resultType="java.lang.Integer">
+        select a.evaluate_id from COM_ANSWER_EVALUATE_MAP m, COM_ANSWER_EVALUATE a
+        where m.answer_id = #{answer_id}
+        and a.user_id = #{user_id}
+        and m.evaluate_id = a.evaluate_id
     </select>
 
-    <!-- 如果是第一次赞同回答，则插入赞同，并建立映射 -->
-    <insert id="addAgreeToAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.AnswerAgree"
+    <!-- 检查是赞同还是反对还是取消 -->
+    <select id="evaluateStatus" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select a.evaluate.type from COM_ANSWER_EVALUATE a
+        where a.evaluate_id = #{evaluate_id}
+    </select>
+
+    <!-- 如果是第一次评价回答，则插入评价，并建立映射 -->
+    <insert id="addEvaluateToAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.AnswerEvaluate"
             useGeneratedKeys="true" keyProperty="agree_id">
-        insert into COM_ANSWER_AGREE (user_id,agree_time,agree_cancel)
-        values (#{user_id}, #{agree_time}, #{agree_cancel})
+        insert into COM_ANSWER_EVALUATE (user_id, evaluate_type, evaluate_time)
+        values (#{user_id}, #{evaluate_type}, #{evaluate_time})
     </insert>
 
     <!-- 建立映射 -->
-    <insert id="createMapBetweenAnswerAndAgree">
-        insert into COM_ANSWER_AGREE_MAP (answer_id, agree_id)
-        values (#{questionAnswer.answer_id}, #{answerAgree.agree_id})
+    <insert id="createMapBetweenAnswerAndEvaluate">
+        insert into COM_ANSWER_EVALUATE_MAP (evaluate_id, answer_id)
+        values (#{evaluate_id}, #{answer_id})
     </insert>
 
-    <!-- 如果已经赞同过 -->
-    <update id="reAgreeAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.AnswerAgree">
-        update COM_ANSWER_AGREE
-        set agree_cancel=#{agree_cancel}, agree_time=#{agree_time}
-        where agree_id=#{agree_id}
-    </update>
-
-    <!-- 取消赞同 -->
-    <update id="cancelAgreeAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.AnswerAgree">
-        update COM_ANSWER_AGREE
-        set agree_cancel=#{agree_cancel}, agree_cancel_time=#{agree_cancel_time}
-        where agree_id=#{agree_id}
-    </update>
-
-    <!-- 检查是否反对了回答 -->
-    <select id="isDisAgreed" resultType="com.youthchina.domain.jinhao.communityQA.AnswerDisagree">
-        select a.* from COM_ANSWER_DISAGREE_MAP m, COM_ANSWER_DISAGREE a
-        where m.answer_id = #{questionAnswer.answer_id}
-        and a.user_id = #{user.id}
-        and m.disagree_id = a.disagree_id
-    </select>
-
-    <!-- 如果是第一次反对回答，则插入反对，并建立映射 -->
-    <insert id="addDisagreeToAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.AnswerDisagree"
-            useGeneratedKeys="true" keyProperty="disagree_id">
-        insert into COM_ANSWER_DISAGREE (user_id,disagree_time,disagree_cancel)
-        values (#{user_id}, #{disagree_time}, #{disagree_cancel})
-    </insert>
-
-    <!-- 建立映射 -->
-    <insert id="createMapBetweenAnswerAndDisagree">
-        insert into COM_ANSWER_DISAGREE (answer_id, disagree_id)
-        values (#{questionAnswer.answer_id}, #{answerDisagree.disagree_id})
-    </insert>
-
-    <!-- 如果已经反对过 -->
-    <update id="reDisagreeAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.AnswerDisagree">
-        update COM_ANSWER_DISAGREE
-        set disagree_cancel=#{disagree_cancel}, disagree_time=#{disagree_time}
-        where disagree_id=#{disagree_id}
-    </update>
-
-    <!-- 取消反对 -->
-    <update id="cancelDisagreeAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.AnswerDisagree">
-        update COM_ANSWER_DISAGREE
-        set disagree_cancel=#{disagree_cancel}, disagree_cancel_time=#{disagree_cancel_time}
-        where disagree_id=#{disagree_id}
+    <!-- 如果已经评价过 -->
+    <update id="reEvaluateAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.AnswerEvaluate">
+        update COM_ANSWER_EVALUATE
+        set evaluate_type = #{evaluate_type}, evaluate_time = #{evaluate_time}
+        where evaluate_id = #{evaluate_id}
     </update>
 
     <!-- 评论回答 -->
@@ -277,7 +249,7 @@
     <!-- 建立评论和回答的映射关系 -->
     <insert id="createMapBetweenAnswerAndComment">
         insert into COM_ANSWER_COMMENT_MAP (answer_id, comment_id)
-        values (#{questionAnswer.answer_id}, #{answerComment.comment_id})
+        values (#{answer_id}, #{comment_id})
     </insert>
 
     <!-- 删除评论 -->
@@ -287,21 +259,68 @@
         where comment_id=#{comment_id}
     </update>
 
+    <!-- 拿到某个评论的点赞数 -->
+    <select id="countCommentAgreement" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(m.*) from COM_COMMENT_EVALUATE_MAP m, COM_COMMENT_EVALUATE a
+        where m.comment_id = #{comment_id}
+        and m.evaluate_id = a.evaluate_id
+        and a.evaluate_type = 1
+    </select>
 
+    <!-- 查看用户是否评价过这个讨论 -->
+    <select id="isEverEvaluateComment" resultType="java.lang.Integer">
+        select a.evaluate_id from COM_COMMENT_EVALUATE_MAP m, COM_COMMENT_EVALUATE a
+        where m.comment_id = #{comment_id}
+          and a.user_id = #{user_id}
+          and m.evaluate_id = a.evaluate_id
+    </select>
+    <!-- 检查用户对此评论的评价状态 -->
+    <select id="commentEvaluateStatus" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select a.evaluate_type from COM_COMMENT_EVALUATE a
+        where a.evaluate_id = #{evaluate_id}
+    </select>
+
+    <!-- 如果是第一次评价评论，添加评价，并且建立映射-->
+    <insert id="addEvaluateToComment" parameterType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate"
+            useGeneratedKeys="true" keyProperty="evaluate_id">
+        insert into COM_COMMENT_EVALUATE(user_id, evaluate_type, evaluate_time)
+        values (#{user_id}, #{evaluate_type}, #{evaluate_time})
+    </insert>
+
+    <!-- 建立映射 -->
+    <insert id="createMapBetweenCommentAndEvaluate">
+        insert into COM_COMMENT_EVALUATE_MAP(evaluate_id, comment_id)
+        values (#{evaluate_id}, #{comment_id})
+    </insert>
+
+    <!-- 如果不是第一次评价，则更新字段 -->
+    <update id="reEvaluateComment" parameterType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
+        update COM_COMMENT_EVALUATE
+        set evaluate_type = #{evaluate_type}
+        and evaluate_time = #{evaluate_time}
+        where evaluate_id = #{evaluate_id}
+    </update>
+
+
+     <!--拿到某个讨论-->
+    <select id="getDiscuss" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.CommentDiscuss">
+        select * from COM_COMMENT_DISCUSS where discuss_id = #{discuss_id}
+    </select>
 
     <!-- 评论讨论 -->
-    <insert id="addDiscussToComment" parameterType="com.youthchina.domain.jinhao.communityQA.CommentDiscuss"
+    <insert id="addDiscuss" parameterType="com.youthchina.domain.jinhao.communityQA.CommentDiscuss"
             useGeneratedKeys="true" keyProperty="discuss_id">
-        insert into COM_COMMENT_DISCUSS (discuss_content, user_id, user_anony, discuss_pub_time, discuss_edit_time,
-                discuss_delete)
-        values (#{discuss_content}, #{user_id}, #{user_anony}, #{discuss_pub_time}, #{discuss_edit_time},
+        insert into COM_COMMENT_DISCUSS (discuss_content, discuss_target_id, user_id, user_anony, discuss_pub_time,
+                                         discuss_delete)
+        values (#{discuss_content}, #{discuss_target_id}, #{user_id}, #{user_anony}, #{discuss_pub_time},
                 #{discuss_delete})
     </insert>
 
     <!-- 建立讨论和评论的映射关系 -->
     <insert id="createMapBetweenDiscussAndComment">
-        insert into COM_COMMENT_DISCUSS_MAP (comment_id, discuss_target_id, discuss_id)
-        values (#{answerComment.comment_id}, #{targetDiscuss.discuss_id}, #{commentDiscuss.discuss_id})
+        insert into COM_COMMENT_DISCUSS_MAP (comment_id, discuss_id)
+        values (#{comment_id},  #{discuss_id})
     </insert>
 
     <!-- 删除讨论 -->
@@ -311,6 +330,45 @@
         where discuss_id = #{discuss_id}
     </update>
 
+    <!-- 拿到这个讨论的赞同数-->
+    <select id="countDiscussAgreement" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select a.count(*) from COM_DISCUSS_EVALUATE_MAP m, COM_DISCUSS_EVALUATE a
+        where m.discuss_id = #{discuss_id}
+        and m.evaluate_id = a.evaluate_id
+        and a.evaluate_type = 1
+    </select>
+
+    <!-- 是否评价过这个讨论 -->
+    <select id="isEverEvaluateDiscuss" resultType="java.lang.Integer">
+        select a.evaluate_id from COM_DISCUSS_EVALUATE_MAP m, COM_DISCUSS_EVALUATE a
+        where m.discuss_id = #{discuss_id}
+        and a.user_id = #{user_id}
+        and m.evaluate_id = a.evaluate_id
+    </select>
+
+     <!-- 这个评价的状态 -->
+    <select id="discussEvaluateStatus" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select evaluate_type from COM_DISCUSS_EVALUATE
+        where evaluate_id = #{evaluate_id}
+    </select>
+
+    <!-- 如果没有评价过这个讨论，则插入新的评价，并且建立映射-->
+    <insert id="addEvaluateToDiscuss" parameterType="com.youthchina.domain.jinhao.communityQA.DiscussEvaluate">
+        insert into COM_DISCUSS_EVALUATE(user_id, evaluate_type, evaluate_time)
+        values (#{user_id}, #{evaluate_type}, #{evaluate_time})
+    </insert>
+
+    <insert id="createMapBetweenDiscussAndEvaluate">
+        insert into COM_DISCUSS_EVALUATE_MAP(evaluate_id, discuss_id) values (#{evaluate_id}, #{discuss_id})
+    </insert>
+
+    <!-- 如果评价过，则更新字段 -->
+    <update id="reEvaluateDiscuss" parameterType="com.youthchina.domain.jinhao.communityQA.DiscussEvaluate">
+        update COM_DISCUSS_EVALUATE
+        set evaluate_type = #{evaluate_type}
+        and evaluate_time = #{evaluate_time}
+        where evaluate_id = #{evaluate_id}
+    </update>
     <!-- 拿到学生基本信息 -->
     <select id="getStuInfo" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.StuInfo">
         select a.* from STU_INFO a, USER_STU_MAP m

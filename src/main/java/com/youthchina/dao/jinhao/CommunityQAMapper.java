@@ -1,7 +1,6 @@
 package com.youthchina.dao.jinhao;
 
 import com.youthchina.domain.jinhao.communityQA.*;
-import com.youthchina.domain.zhongyang.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,7 +12,7 @@ public interface CommunityQAMapper {
     List<Question> listQuestion();
 
 
-    Integer countTheFollower(Question question);
+    Integer countTheFollower(Integer ques_id);
 
     List<QuestionAnswer> listAllQuestionAnswer(Integer ques_id);
 
@@ -21,9 +20,13 @@ public interface CommunityQAMapper {
 
     Integer countAgreement(Integer answer_id);
 
-    List<AnswerComment> listAllAnswerComment(QuestionAnswer questionAnswer);
+    Integer countDisagreement(Integer answer_id);
 
-    List<CommentDiscuss> listAllCommentDiscuss(AnswerComment answerComment);
+    List<AnswerComment> listAllAnswerComment(Integer answer_id);
+
+    AnswerComment getComment(Integer comment_id);
+
+    List<CommentDiscuss> listAllCommentDiscuss(Integer comment_id);
     // 操作
     StuInfo getStuInfo(Integer user_id);
 
@@ -55,7 +58,9 @@ public interface CommunityQAMapper {
 
 
 
-    QuestionAttention isQuestionAttention(@Param("user_id") Integer usr_id, @Param("ques_id") Integer ques_id);
+    Integer isQuestionEverAttention(@Param("user_id") Integer usr_id, @Param("ques_id") Integer ques_id);
+
+    Integer isQuestionAttention(Integer atten_id);
 
     Integer addAttentionToQuestion(QuestionAttention questionAttention);
 
@@ -65,48 +70,68 @@ public interface CommunityQAMapper {
 
     Integer createMapBetweenAttentionAndQuestion(@Param("ques_id") Integer ques_id,
                                              @Param("questionAttention") QuestionAttention questionAttention);
+    QuestionAttention getAttention(Integer atten_id);
 
-    AnswerAgree isAgreed(@Param("user") User user, @Param("questionAnswer") QuestionAnswer questionAnswer);
+    Integer isEverEvaluate(@Param("user_id") Integer user_id, @Param("answer_id") Integer answer_id);
 
-    Integer addAgreeToAnswer(AnswerAgree answerAgree);
+    Integer evaluateStatus(Integer evaluate_id);
 
-    Integer createMapBetweenAnswerAndAgree(@Param("answerAgree") AnswerAgree answerAgree,
-                                           @Param("questionAnswer") QuestionAnswer questionAnswer);
+    Integer addEvaluateToAnswer(AnswerEvaluate answerEvaluate);
 
-    Integer reAgreeAnswer(AnswerAgree answerAgree);
+    Integer createMapBetweenAnswerAndEvaluate(@Param("evaluate_id") Integer evaluate_id,
+                                           @Param("answer_id") Integer answer_id);
 
-    Integer cancelAgreeAnswer(AnswerAgree answerAgree);
+    Integer reEvaluateAnswer(AnswerEvaluate answerEvaluate);
 
-    AnswerDisagree isDisAgreed(@Param("user") User user, @Param("questionAnswer") QuestionAnswer questionAnswer);
 
-    Integer addDisagreeToAnswer(AnswerDisagree answerDisagree);
-
-    Integer createMapBetweenAnswerAndDisagree(@Param("answerDisagree") AnswerDisagree answerDisagree,
-                                                @Param("questionAnswer") QuestionAnswer questionAnswer);
-
-    Integer reDisagreeAnswer(AnswerDisagree answerDisagree);
-
-    Integer cancelDisagreeAnswer(AnswerDisagree answerDisagree);
 
     Integer addCommentToAnswer(AnswerComment answerComment);
 
-    Integer createMapBetweenAnswerAndComment(@Param("questionAnswer") QuestionAnswer questionAnswer,
-                                           @Param("answerComment") AnswerComment answerComment);
+    Integer createMapBetweenAnswerAndComment(@Param("answer_id") Integer answer_id,
+                                           @Param("comment_id") Integer comment_id);
 
     Integer deleteComment(AnswerComment answerComment);
+
+    Integer countCommentAgreement(Integer comment_id);
+
+    Integer isEverEvaluateComment(@Param("user_id") Integer user_id, @Param("comment_id") Integer comment_id);
+
+    Integer commentEvaluateStatus(Integer evaluate_id);
+
+    Integer addEvaluateToComment(CommentEvaluate commentEvaluate);
+
+    Integer createMapBetweenCommentAndEvaluate(@Param("evaluate_id") Integer evaluate_id,
+                                               @Param("comment_id") Integer comment_id);
+
+    Integer reEvaluateComment(CommentEvaluate commentEvaluate);
+
+
+    CommentDiscuss getDiscuss(Integer discuss_id);
+
+    Integer addDiscuss(CommentDiscuss commentDiscuss);
+
+    Integer createMapBetweenDiscussAndComment(@Param("discuss_id") Integer discuss_id,
+                                              @Param("comment_id") Integer comment_id);
+
+    Integer deleteDiscuss(CommentDiscuss commentDiscuss);
+
+    Integer countDiscussAgreement(Integer discuss_id);
+
+    Integer isEverEvaluateDiscuss(@Param("user_id") Integer user_id, @Param("discuss_id") Integer discuss_id);
+
+    Integer discussEvaluateStatus(Integer evaluate_id);
+
+    Integer addEvaluateToDiscuss(DiscussEvaluate discussEvaluate);
+
+    Integer createMapBetweenDiscussAndEvaluate(@Param("evaluate_id") Integer evaluate_id,
+                                               @Param("discuss_id") Integer discuss_id);
+
+    Integer reEvaluateDiscuss(DiscussEvaluate discussEvaluate);
 
 //    Integer addAgreeToComment(CommentAgree commentAgree);
 //
 //    Integer createMapBetweenCommentAndAgree(@Param("answerComment") AnswerComment answerComment,
 //                                            @Param("commentAgree") CommentAgree commentAgree);
-
-    Integer addDiscussToComment(CommentDiscuss commentDiscuss);
-
-    Integer createMapBetweenDiscussAndComment(@Param("commentDiscuss") CommentDiscuss commentDiscuss,
-                                              @Param("answerComment") AnswerComment answerComment,
-                                              @Param("targetDiscuss") CommentDiscuss targetDiscuss);
-
-    Integer deleteDiscuss(CommentDiscuss commentDiscuss);
 //    Integer addAgreeToDiscuss(DiscussAgree discussAgree);
 //
 //    Integer createMapBetweenDiscussAndAgree(@Param("discussAgree") DiscussAgree discussAgree,

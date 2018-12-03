@@ -114,6 +114,11 @@ public class InternPageServiceTest extends BaseTest {
             System.out.println("fail");
         }
     }
+
+    @Test
+    public void testIsEverEvaluate(){
+        System.out.println(communityQAService.isEverEvaluate(1,2));
+    }
 //    @Test
 //    public void testAddQuestion(){
 //        Question question = new Question();

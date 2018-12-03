@@ -1,15 +1,25 @@
 package com.youthchina.domain.qingyang;
 
-public class Job {
+public class Job_qingyang {
     /*
-     * 主键,职位ID
+     * 主键,职位ID (JOB_INFO)
      */
-    private String job_id;
+    private Integer job_id;
 
     /*
-     * 企业ID
+     * 企业ID (job_id -> COMPANY_JOB_MAP)
      */
-    private String company_id;
+    private Integer company_id;
+
+    /*
+     * 企业名称 (company_id -> COMPANY_INFO)
+     */
+    private String company_name;
+
+    /*
+     * 发布HR ID (HR_JOB_MAP: job_id -> hr_id)
+     */
+    private Integer hr_id;
 
     /*
      * 职位名称
@@ -54,7 +64,7 @@ public class Job {
     /*
      * 学历要求, NULL
      */
-    private String job_edu_req;
+    private String job_req;
 
     /*
      * 工作地点
@@ -78,24 +88,29 @@ public class Job {
     private String cv_recei_mail;
 
     /*
-     * 简历命名规则
+     * 简历命名规则, NULL
      */
     private String cv_name_rule;
 
-    public String getJob_id() {
+    /*
+     * 职位发布者
+     */
+    private Integer job_pub_hr;
+
+    /*
+     * 职位状态
+     */
+    private Integer job_active;
+
+
+
+
+    public Integer getJob_id() {
         return job_id;
     }
 
-    public void setJob_id(String job_id) {
+    public void setJob_id(Integer job_id) {
         this.job_id = job_id;
-    }
-
-    public String getCompany_id() {
-        return company_id;
-    }
-
-    public void setCompany_id(String company_id) {
-        this.company_id = company_id;
     }
 
     public String getJob_name() {
@@ -162,12 +177,12 @@ public class Job {
         this.job_duty = job_duty;
     }
 
-    public String getJob_edu_req() {
-        return job_edu_req;
+    public String getJob_req() {
+        return job_req;
     }
 
-    public void setJob_edu_req(String job_edu_req) {
-        this.job_edu_req = job_edu_req;
+    public void setJob_req(String job_req) {
+        this.job_req = job_req;
     }
 
     public String getJob_location() {
@@ -208,5 +223,21 @@ public class Job {
 
     public void setCv_name_rule(String cv_name_rule) {
         this.cv_name_rule = cv_name_rule;
+    }
+
+    public Integer getJob_pub_hr() {
+        return job_pub_hr;
+    }
+
+    public void setJob_pub_hr(Integer job_pub_hr) {
+        this.job_pub_hr = job_pub_hr;
+    }
+
+    public Integer getJob_active() {
+        return job_active;
+    }
+
+    public void setJob_active(Integer job_active) {
+        this.job_active = job_active;
     }
 }

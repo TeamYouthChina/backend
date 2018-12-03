@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.Qinghong.EmployerPageMapper">
+    <resultMap id="Candidate" type="com.youthchina.domain.Qinghong.Candidate">
+        <constructor>
+            <idArg column="CANDIDATE_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </constructor>
+        <result property="talent_label_one" column="TALENT_LABEL_1" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="talent_label_two" column="TALENT_LABEL_2" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="talent_label_three" column="TALENT_LABEL_3" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_intention_one" column="JOB_INTENTION_1" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_intention_two" column="JOB_INTENTION_2" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_intention_three" column="JOB_INTENTION_3" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="job_intention_four" column="JOB_INTENTION_4" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="duty_time" column="DUTY_TIME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="desire_industry_one" column="DESIRE_INDUSTRY_1" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
+        <result property="desire_industry_two" column="DESIRE_INDUSTRY_2" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
+        <result property="desire_industry_three" column="DESIRE_INDUSTRY_3" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
+        <result property="desire_industry_four" column="DESIRE_INDUSTRY_4" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
+        <result property="desire_location_one" column="DESIRE_LOCATION_1" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
+        <result property="desire_location_two" column="DESIRE_LOCATION_2" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
+        <result property="desire_location_three" column="DESIRE_LOCATION_3" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findCandidate" resultMap="Candidate" parameterType="Integer">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.CANDIDATE_ID = #{id, jdbcType=INTEGER}
+    </select>
+    <select id="findByLabelOne" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.TALENT_LABEL_1 = #{talent_label_one, jdbcType=VARCHAR}
+    </select>
+
+    <select id="findByLabelTwo" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.TALENT_LABEL_2 = #{talent_label_two, jdbcType=VARCHAR}
+    </select>
+    <select id="findByLabelThree" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.TALENT_LABEL_3 = #{talent_label_three, jdbcType=VARCHAR}
+    </select>
+    <select id="findByLabel" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.TALENT_LABEL_1 = #{talent_label, jdbcType=VARCHAR}
+           OR TABLE_CANDIDATE.TALENT_LABEL_1 = #{talent_label, jdbcType=VARCHAR}
+           OR TABLE_CANDIDATE.TALENT_LABEL_1 = #{talent_label, jdbcType=VARCHAR}
+    </select>
+    <select id="findByIntentionOne" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.JOB_INTENTION_1 = #{job_intention_one, jdbcType=VARCHAR}
+    </select>
+    <select id="findByIntentionTwo" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.JOB_INTENTION_2 = #{job_intention_two, jdbcType=VARCHAR}
+    </select>
+    <select id="findByIntentionThree" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.JOB_INTENTION_3 = #{job_intention_three, jdbcType=VARCHAR}
+    </select>
+    <select id="findByIntention" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.JOB_INTENTION_1 = #{job_intention, jdbcType=VARCHAR}
+           OR TABLE_CANDIDATE.JOB_INTENTION_2 = #{job_intention, jdbcType=VARCHAR}
+           OR TABLE_CANDIDATE.JOB_INTENTION_3 = #{job_intention, jdbcType=VARCHAR}
+           OR TABLE_CANDIDATE.JOB_INTENTION_4 = #{job_intention, jdbcType=VARCHAR}
+    </select>
+    <select id="findByTime" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.DUTY_TIME = #{duty_time, jdbcType=VARCHAR}
+    </select>
+    <select id="findByIndustryOne" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.DESIRE_INDUSTRY_1 = #{desire_industry_one, jdbcType=VARCHAR}
+    </select>
+    <select id="findByIndustryTwo" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.DESIRE_INDUSTRY_2 = #{desire_industry_two, jdbcType=VARCHAR}
+    </select>
+    <select id="findByIndustryThree" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.DESIRE_INDUSTRY_3 = #{desire_industry_three, jdbcType=VARCHAR}
+    </select>
+    <select id="findByIndustry" resultMap="Candidate" parameterType="String">
+        SELECT *
+        FROM TABLE_CANDIDATE
+        WHERE TABLE_CANDIDATE.DESIRE_INDUSTRY_1 = #{desire_industry, jdbcType=VARCHAR}
+           OR TABLE_CANDIDATE.DESIRE_INDUSTRY_2 = #{desire_industry, jdbcType=VARCHAR}
+           OR TABLE_CANDIDATE.DESIRE_INDUSTRY_3 = #{desire_industry, jdbcType=VARCHAR}
+           OR TABLE_CANDIDATE.DESIRE_INDUSTRY_4 = #{desire_industry, jdbcType=VARCHAR}
+    </select>
+    <insert id="insertCandidate" useGeneratedKeys="true" keyProperty="id">
+        insert into TABLE_CANDIDATE (talent_label_1,talent_label_2,talent_label_3,job_intention_1,
+        job_intention_2,job_intention_3,job_intention_4,duty_time,desire_industry_1,desire_industry_2,desire_industry_3,desire_industry_4,desire_location_1,desire_location_2,desire_location_3)
+        values (#{talent_label_one},#{talent_label_two},#{talent_label_three},#{job_intention_one},#{job_intention_two},#{job_intention_three},#{job_intention_four},#{duty_time},#{desire_industry_one},#{desire_industry_two},#{desire_industry_three},#{desire_industry_four},
+        #{desire_location_one},#{desire_location_two},#{desire_location_three})
+    </insert>
+    <update id="updateCandidate" parameterType="com.youthchina.domain.Qinghong.Candidate" flushCache="true"
+            statementType="PREPARED">
+        UPDATE TABLE_CANDIDATE
+        SET NAME = #{name}
+        WHERE CANDIDATE_ID = #{id}
+    </update>
+
+    <delete id="deleteCandidate">
+        delete from TABLE_CANDIDATE where CANDIDATE_ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <select id="getAllCandidate" resultMap="Candidate">
+        SELECT *
+        FROM TABLE_CANDIDATE
+    </select>
+    <select id="getAllCandidateCount" resultType="Integer">
+        SELECT count(1)
+        FROM TABLE_CANDIDATE
+    </select>
+    <select id="findByLocationOne" resultType="com.youthchina.domain.Qinghong.Candidate">
+        SELECT *
+        FROM TABLE_CANDIDATE
+    </select>
+    <select id="findByLocationTwo" resultType="com.youthchina.domain.Qinghong.Candidate">
+        SELECT *
+        FROM TABLE_CANDIDATE
+    </select>
+    <select id="findByLocationThree" resultType="com.youthchina.domain.Qinghong.Candidate">
+        SELECT *
+        FROM TABLE_CANDIDATE
+    </select>
+    <select id="findByLocation" resultType="com.youthchina.domain.Qinghong.Candidate">
+        SELECT *
+        FROM TABLE_CANDIDATE
+    </select>
+
+</mapper>

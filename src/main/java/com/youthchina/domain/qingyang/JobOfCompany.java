@@ -23,7 +23,7 @@ public class JobOfCompany {
     /*
      * 该企业的职位集合
      */
-    private List<Job> jobList;
+    private List<Job_qingyang> jobList;
 
     public String getCompany_id() {
         return company_id;
@@ -33,11 +33,11 @@ public class JobOfCompany {
         this.company_id = company_id;
     }
 
-    public List<Job> getJobList() {
+    public List<Job_qingyang> getJobList() {
         return jobList;
     }
 
-    public void setJobList(List<Job> jobList) {
+    public void setJobList(List<Job_qingyang> jobList) {
         this.jobList = jobList;
     }
 }
