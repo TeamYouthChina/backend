@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -36,6 +37,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void delete(User user, Integer jobId) throws NotFoundException {
+        //同user
         jobHrMapper.deleteJob(jobId);
     }
 
@@ -92,9 +94,21 @@ public class JobServiceImpl implements JobService {
         return jobHrMapper.selectByIndustryId(indIds);
     }
 
-    /*通过行业名称搜索 完全匹配*/
-    public List<Job_qingyang> getByIndustryString(String ind){
-        return jobHrMapper.selectByIndustryString("^" + ind + "$");
+    /*通过行业名称搜索 正则匹配*/
+    public List<Job_qingyang> getByIndustryString(List<String> ind){
+        //TODO
+        return null;
+    }
+
+    @Override
+    public Map<String, List<Job_qingyang>> getJobByIndustries(List<String> industries) {
+        return jobHrMapper.getJobByIndustries(industries);
+    }
+
+    @Override
+    public Map<String, List<Job_qingyang>> getJobByTag(List<String> tags) {
+        //todo: implement
+        return null;
     }
 
 }
