@@ -2,9 +2,11 @@ package com.youthchina.dao.qingyang;
 
 import com.youthchina.domain.qingyang.Job_qingyang;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
@@ -31,6 +33,14 @@ public interface JobHrMapper {
 
     List<Job_qingyang> selectByIndustryId(List<Integer> indIds);
 
-    List<Job_qingyang> selectByIndustryString(String ind);
+    //List<Job_qingyang> selectByIndustryString(String ind);
+
+    //TODO
+    Map<String, List<Job_qingyang>> getJobByIndustries(@Param("industries") List<String> industries);
+
+    //TODO
+    Map<String, List<Job_qingyang>> getJobByTag(@Param("tags") List<String> tags);
+
+
 }
 

@@ -32,7 +32,7 @@
             JOB_TIME = #{jobTime},
             JOB_DESCRIPTION = #{jobDescription},
             JOB_DUTY = #{jobDuty},
-            JOB_EDU_REQ = #{jobReq},
+            JOB_REQ = #{jobReq},
             JOB_LOCATION = #{jobLocation},
             JOB_HIGHLIGHT = #{jobHighlight},
             JOB_SALARY = #{jobSalary},
@@ -46,13 +46,14 @@
     </update>
 
     <update id="deleteJobByID" parameterType="java.lang.Integer">
-      UPDATE JOB_INFO
-      SET
-          IS_DELETE = 1,
-          IS_DELETE_TIME = NOW()
-      WHERE
-          JOB_ID = #{jobId}
-      AND IS_DELETE = 0
+      UPDATE JOB_INFO j SET j.IS_DELETE = 1, j.IS_DELETE_TIME = NOW()
+      WHERE j.JOB_ID = #{jobId}
+      UPDATE JOB_INDUSTRY i SET i.IS_DELETE = 1, i.IS_DELETE_TIME = NOW()
+      WHERE i.JOB_ID = #{jobId}
+      UPDATE STU_JOB_COLLECT co SET co.IS_DELETE = 1, co.IS_DELETE_TIME = NOW()
+      WHERE j.JOB_ID = #{jobId}
+      UPDATE STU_JOB_APPLY a SET a.IS_DELETE = 1, a.IS_DELETE_TIME = NOW()
+      WHERE j.JOB_ID = #{jobId}
     </update>
 
 
@@ -83,8 +84,14 @@
         </association>
     </resultMap>
 
-    <!--职位详情页, 含公司HR-->
-    <select id="getJobByJobId" resultType="job" parameterType="java.lang.Integer">
+    <resultMap id="jobListMap" type="java.util.HashMap">
+        <collection property="job">
+            <id property="indName" column="IND_NAME"/>
+        </collection>
+    </resultMap>
+
+    <!--职位详情页, 含公司和HR信息-->
+    <select id="getJobByJobId" resultMap="job" parameterType="java.lang.Integer">
         SELECT
             j.JOB_ID as JOB_ID,
             j.JOB_NAME as JOB_NAME,
@@ -103,18 +110,18 @@
             j.JOB_ACTIVE as JOB_ACTIVE,
             j.HR_ID as HR_ID,
             j.COMPANY_ID as COMPANY_ID,
-            c.COMPANY_NAME as COMPANY_NAME,
-            c.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-            c.COMPANY_LOGO as COMPANY_LOGO,
+            com.COMPANY_NAME as COMPANY_NAME,
+            com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
+            com.COMPANY_LOGO as COMPANY_LOGO
         FROM JOB_INFO j
              LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
-             LEFT OUTER JOIN COMPANY_INFO c ON j.COMPANY_ID = c.COMPANY_ID
+             LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
         WHERE
             j.JOB_ID = #{jobId}
         AND j.IS_DELETE = 0 AND c.IS_DELETE = 0 AND h.IS_DELETE = 0
     </select>
 
-    <select id="getJobByCompanyId" resultType="job" parameterType="java.lang.Integer">
+    <select id="getJobByCompanyId" resultMap="job" parameterType="java.lang.Integer">
         SELECT * FROM JOB_INFO
         WHERE
             COMPANY_ID = #{companyId}
@@ -122,18 +129,80 @@
     </select>
 
 
-    <!--todo-->
-    <select id="selectByIndustryId" resultType="job" parameterType="java.util.List">
+    <!--按行业Id的List查询Job的List, 中文名做返回的Map的Key-->
+    <select id="selectByIndustryId" resultMap="jobListMap">
+        SELECT
+        class.IND_CHN as IND_NAME
+        j.JOB_ID as JOB_ID,
+        j.JOB_NAME as JOB_NAME,
+        j.JOB_PROF_NUM as JOB_PROF_NUM,
+        j.JOB_START_TIME as JOB_START_TIME,
+        j.JOB_END_TIME as JOB_END_TIME,
+        j.JOB_TIME as JOB_TIME,
+        j.JOB_DESCRIPTION as JOB_DESCRIPTION,
+        j.JOB_DUTY as JOB_DUTY,
+        j.JOB_REQ as JOB_REQ,
+        j.JOB_LOCATION as JOB_LOCATION,
+        j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
+        j.JOB_SALARY as JOB_SALARY,
+        j.CV_RECEI_MAIL as CV_RECEI_MAIL,
+        j.CV_NAME_RULE as CV_NAME_RULE,
+        j.JOB_ACTIVE as JOB_ACTIVE,
+        j.HR_ID as HR_ID,
+        j.COMPANY_ID as COMPANY_ID,
+        com.COMPANY_NAME as COMPANY_NAME,
+        com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
+        com.COMPANY_LOGO as COMPANY_LOGO,
+        FROM SYS_IND_CLASS class
+        LEFT OUTER JOIN JOB_INDUSTRY ind ON class.IND_NUM = ind.JOB_IND_NUM
+        LEFT OUTER JOIN JOB_INFO j ON ind.JOB_ID = j.JOB_ID
+        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
+        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
 
+        WHERE class.IND_NUM in
+        <foreach item="id" collection="indIds" index="index" separator=",">
+            #{id}
+        </foreach>
+        AND class.IS_DELETE = 0 AND ind.IS_DELETE = 0
+        AND j.IS_DELETE = 0 AND c.IS_DELETE = 0 AND h.IS_DELETE = 0
     </select>
-    <select id="selectByIndustryString" resultType="job" parameterType="java.lang.String">
 
+    <!--按行业名称的List查询Job的List, 中文名做返回的Map的Key-->
+    <select id="selectByIndustryString" resultMap="jobListMap">
+        SELECT
+            class.IND_CHN as IND_NAME
+            j.JOB_ID as JOB_ID,
+            j.JOB_NAME as JOB_NAME,
+            j.JOB_PROF_NUM as JOB_PROF_NUM,
+            j.JOB_START_TIME as JOB_START_TIME,
+            j.JOB_END_TIME as JOB_END_TIME,
+            j.JOB_TIME as JOB_TIME,
+            j.JOB_DESCRIPTION as JOB_DESCRIPTION,
+            j.JOB_DUTY as JOB_DUTY,
+            j.JOB_REQ as JOB_REQ,
+            j.JOB_LOCATION as JOB_LOCATION,
+            j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
+            j.JOB_SALARY as JOB_SALARY,
+            j.CV_RECEI_MAIL as CV_RECEI_MAIL,
+            j.CV_NAME_RULE as CV_NAME_RULE,
+            j.JOB_ACTIVE as JOB_ACTIVE,
+            j.HR_ID as HR_ID,
+            j.COMPANY_ID as COMPANY_ID,
+            com.COMPANY_NAME as COMPANY_NAME,
+            com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
+            com.COMPANY_LOGO as COMPANY_LOGO,
+        FROM SYS_IND_CLASS class
+        LEFT OUTER JOIN JOB_INDUSTRY ind ON class.IND_NUM = ind.JOB_IND_NUM
+        LEFT OUTER JOIN JOB_INFO j ON ind.JOB_ID = j.JOB_ID
+        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
+        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
+
+        WHERE class.IND_CHN OR class.IND_ENG in
+            <foreach item="industry" collection="industries" index="index" separator=",">
+                    #{industry}
+            </foreach>
+        AND class.IS_DELETE = 0 AND ind.IS_DELETE = 0
+        AND j.IS_DELETE = 0 AND c.IS_DELETE = 0 AND h.IS_DELETE = 0
     </select>
-
-
-
-
-
-
 
 </mapper>
