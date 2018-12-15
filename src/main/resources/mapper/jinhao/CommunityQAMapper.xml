@@ -41,7 +41,7 @@
     </select>
 
     <!-- 列出某个回答的反对数 -->
-    <select id="countAgreement" parameterType="java.lang.Integer"
+    <select id="countDisAgreement" parameterType="java.lang.Integer"
             resultType="java.lang.Integer">
         select count(a.*) from COM_ANSWER_EVALUATE_MAP m, COM_ANSWER_EVALUATE a
         where m.answer_id = #{answer_id}
