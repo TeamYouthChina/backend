@@ -2,68 +2,116 @@ package com.youthchina.service.qingyang;
 
 import com.youthchina.dao.qingyang.JobHrMapper;
 import com.youthchina.domain.qingyang.Job_qingyang;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.youthchina.domain.zhongyang.User;
+import com.youthchina.exception.zhongyang.NotBelongException;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
+import javax.annotation.Resource;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class JobServiceImpl implements JobService {
 
-    @Autowired
+    @Resource
     JobHrMapper jobHrMapper;
-    /**添加Job*/
-    @Override
-    public Map<String,Object> insertJob(Job_qingyang job) {
-        //定义消息返回值
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", true);
-        Integer result = jobHrMapper.insertJob(job);
-        if (1!=result){
-            resultMap.put("result", false);
-        }
-        return resultMap;
+
+    public static Job_qingyang job;
+
+    //给前端的默认值
+    public static void initialization(){
+        job.setJobId(1);
+        job.setCompanyId(1);
+        job.setJobName("前端");
+        job.setJobStartTime(new Date(20181212));
+        job.setJobEndTime(new Date(20190101));
+        job.setJobDescription("吃苦耐劳");
+        job.setJobTime(1); // 全职1
+        job.setJobLocation("北京");
+        job.setCvReceiMail("test@test.test");
+        job.setJobActive(1); // 1，2，3,4,5
     }
 
-    /**更新Job信息*/
     @Override
-    public Map<String, Object> updateJob(Job_qingyang job) {
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", true);
-        Integer result = jobHrMapper.updateJob(job);
-        if (1!=result){
-            resultMap.put("result", false);
-        }
-        return resultMap;
+    public void delete(User user, Integer jobId) throws NotFoundException {
+        //同user
+        jobHrMapper.deleteJob(jobId);
     }
 
-    /**删除Job信息*/
     @Override
-    public Map<String, Object> deleteJob(String job_id) {
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", true);
-        Integer result = jobHrMapper.deleteJob(job_id);
-        if (1!=result){
-            resultMap.put("result", false);
-        }
-        return resultMap;
+    public Job_qingyang getByHr(User user, Integer jobId) throws NotBelongException {
+        //默认值
+        //return job;
+
+        return jobHrMapper.selectJobByJobId(jobId);
     }
 
-    /** 通过JobId查询Job信息*/
     @Override
-    public Job_qingyang getJobByJobId(String job_id) {
-        return jobHrMapper.selectJobByJobId(job_id);
+    public Job_qingyang get(Integer id) throws NotFoundException {
+
+        //默认值
+        //return job;
+
+        //implementation
+        return jobHrMapper.selectJobByJobId(id);
     }
 
-
-    /** 通过CompanyId查询Job信息*/
     @Override
-    public List<Job_qingyang> getJobByComId(String company_id){
-        return jobHrMapper.selectJobByComId(company_id);
+    public List<Job_qingyang> get(List<Integer> id) throws NotFoundException {
+        List<Job_qingyang> jobList = new ArrayList<>();
+
+        //默认值, 可注释掉
+        //jobList.add(job);
+
+        //implement
+        jobList = jobHrMapper.selectJobByJobIdList(id);
+
+        return jobList;
     }
+
+    @Override
+    public void delete(Integer id) throws NotFoundException {
+        jobHrMapper.deleteJob(id);
+    }
+
+    @Override
+    public Job_qingyang update(Job_qingyang job_qingyang) throws NotFoundException {
+        Integer result = jobHrMapper.updateJob(job_qingyang);
+        return this.get(result);
+    }
+
+    @Override
+    public Job_qingyang add(Job_qingyang entity) {
+        Integer result = jobHrMapper.insertJob(entity);
+        return jobHrMapper.selectJobByJobId(result);
+    }
+
+    /*通过行业Id List搜索*/
+    public List<Job_qingyang> getByIndustryId(List<Integer> indIds){
+        return jobHrMapper.selectByIndustryId(indIds);
+    }
+
+    /*通过行业名称搜索 正则匹配*/
+    public List<Job_qingyang> getByIndustryString(List<String> ind){
+        //TODO
+        return null;
+    }
+
+    @Override
+    public Map<String, List<Job_qingyang>> getJobByIndustries(List<String> industries) {
+        return jobHrMapper.getJobByIndustries(industries);
+    }
+
+    @Override
+    public Map<String, List<Job_qingyang>> getJobByTag(List<String> tags) {
+        //todo: implement
+        return null;
+    }
+
 }
+
+
 

@@ -5,6 +5,7 @@ public class Notification {
     private int notify_content;
     private int notify_time;
     private int notify_read;
+    private Integer stu_id;
 
     public int getNotify_id() {
         return notify_id;
@@ -36,5 +37,13 @@ public class Notification {
 
     public void setNotify_read(int notify_read) {
         this.notify_read = notify_read;
+    }
+
+    public Integer getStu_id() {
+        return stu_id;
+    }
+
+    public void setStu_id(Integer stu_id) {
+        this.stu_id = stu_id;
     }
 }

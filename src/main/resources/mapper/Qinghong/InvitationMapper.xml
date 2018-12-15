@@ -7,18 +7,24 @@
         <result column="INVITE_USER_ID" property="invite_user_id" jdbcType="INTEGER"/>
         <association property="inviationMapper" javaType="com.youthchina.domain.Qinghong.InviationMapper">
           <id column="INVITE_ID" property="invite_id" jdbcType="INTEGER" />
-          <result column="user_id" property="user_id" jdbcType="INTEGER" />
+          <result column="user_id" property="USER_ID" jdbcType="INTEGER" />
         </association>
 
     </resultMap>
 
+    <resultMap id="" type="">
+
+    </resultMap>
 
     <select id="findInvitationMapper" resultMap="InvitationResultMap">
         SELECT t1.*,t2.*
         FROM HR_VIDEO_INVITATION t1,
         HR_VIDEO_INVITATION_MAPPER t2
-        WHERE t1.INVITE_ID=#{id} AND t2.INVITE_ID=#{id}
+        WHERE t1.INVITE_ID={#id} AND t2.INVITE_ID={#id}
     </select>
+
+
+
 
 
 </mapper>

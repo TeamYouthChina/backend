@@ -1,5 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
+import java.util.Date;
+
 public class EducationInfo {
     private int edu_id;
     private String edu_degree;
@@ -11,6 +13,9 @@ public class EducationInfo {
     private String edu_gpa;
     private String edu_start;
     private String edu_end;
+    private Integer stu_id;
+    private Boolean is_delete;
+    private Date is_delete_time;
 
     public int getEdu_id() {
         return edu_id;
@@ -90,5 +95,29 @@ public class EducationInfo {
 
     public void setEdu_end(String edu_end) {
         this.edu_end = edu_end;
+    }
+
+    public Integer getStu_id() {
+        return stu_id;
+    }
+
+    public void setStu_id(Integer stu_id) {
+        this.stu_id = stu_id;
+    }
+
+    public Boolean getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(Boolean is_delete) {
+        this.is_delete = is_delete;
+    }
+
+    public Date getIs_delete_time() {
+        return is_delete_time;
+    }
+
+    public void setIs_delete_time(Date is_delete_time) {
+        this.is_delete_time = is_delete_time;
     }
 }

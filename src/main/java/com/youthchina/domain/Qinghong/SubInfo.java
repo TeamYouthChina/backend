@@ -1,5 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
+import java.util.Date;
+
 public class SubInfo {
     private int sub_id;
     private String sub_course;
@@ -11,6 +13,9 @@ public class SubInfo {
     private String sub_foreign;
     private String sub_interest;
     private String sub_activity;
+    private Integer stu_id;
+    private Boolean is_delete;
+    private Date is_delete_time;
 
     public int getSub_id() {
         return sub_id;
@@ -90,5 +95,29 @@ public class SubInfo {
 
     public void setSub_activity(String sub_activity) {
         this.sub_activity = sub_activity;
+    }
+
+    public Integer getStu_id() {
+        return stu_id;
+    }
+
+    public void setStu_id(Integer stu_id) {
+        this.stu_id = stu_id;
+    }
+
+    public Boolean getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(Boolean is_delete) {
+        this.is_delete = is_delete;
+    }
+
+    public Date getIs_delete_time() {
+        return is_delete_time;
+    }
+
+    public void setIs_delete_time(Date is_delete_time) {
+        this.is_delete_time = is_delete_time;
     }
 }
