@@ -64,5 +64,5 @@ public interface CommunityQAService {
 //    Integer replyAnswer(QuestionAnswer questionAnswer, AnswerComment answerReply);
 //    Integer agreeReply(AnswerComment answerReply, CommentAgree replyAgree);
 //    Integer replyReply(AnswerComment answerReply, AnswerComment answerReply1);
-    //    List<QuestionAndPopAnswer> listAllQuestionAndPopAnswer();
+        List<QuestionAndPopAnswer> listAllQuestionAndPopAnswer() throws NotFoundException;
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -14,33 +15,33 @@ public class ComminityQAServiceImplement implements CommunityQAService {
     @Resource
     CommunityQAMapper communityQAMapper;
 
-//    @Override
-//    @Transactional
-//    public List<QuestionAndPopAnswer> listAllQuestionAndPopAnswer() {
-//        List<Question> questions = listQuestion();
-//        List<QuestionAndPopAnswer> res = new LinkedList<>();
-//        for  (Question question : questions) {
-//            List<QuestionAnswer> answers = listAllAnswer(question.getQues_id());
-//            int max = 0;
-//            QuestionAnswer popAnswer = null;
-//            for (QuestionAnswer answer: answers) {
-//                int cur = countAgreement(answer.getAnswer_id());
-//                if(cur >= max){
-//                    max = cur;
-//                    popAnswer = answer;
-//                }
-//            }
-//            StuInfo stuInfo = null;
-//            if(popAnswer != null){
-//                int user_id = popAnswer.getUser_id();
-//                stuInfo = getStuInfo(user_id);
-//            }
-//
-//            QuestionAndPopAnswer questionAndPopAnswer = new QuestionAndPopAnswer(question, popAnswer, stuInfo, max);
-//            res.add(questionAndPopAnswer);
-//        }
-//        return res;
-//    }
+    @Override
+    @Transactional
+    public List<QuestionAndPopAnswer> listAllQuestionAndPopAnswer() throws NotFoundException{
+        List<Question> questions = listQuestion();
+        List<QuestionAndPopAnswer> res = new LinkedList<>();
+        for  (Question question : questions) {
+            List<QuestionAnswer> answers = listAllAnswer(question.getQues_id());
+            int max = 0;
+            QuestionAnswer popAnswer = null;
+            for (QuestionAnswer answer: answers) {
+                int cur = countAgreement(answer.getAnswer_id());
+                if(cur >= max){
+                    max = cur;
+                    popAnswer = answer;
+                }
+            }
+            StuInfo stuInfo = null;
+            if(popAnswer != null){
+                int user_id = popAnswer.getUser_id();
+                stuInfo = getStuInfo(user_id);
+            }
+
+            QuestionAndPopAnswer questionAndPopAnswer = new QuestionAndPopAnswer(question, popAnswer, stuInfo, max);
+            res.add(questionAndPopAnswer);
+        }
+        return res;
+    }
 
 
     /**
