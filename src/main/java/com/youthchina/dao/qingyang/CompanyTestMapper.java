@@ -1,7 +1,7 @@
 package com.youthchina.dao.qingyang;
 
 import com.youthchina.domain.qingyang.CompanyVerification_qingyang;
-import com.youthchina.domain.qingyang.Company_qingyang;
+import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Industry_qingyang;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -13,15 +13,15 @@ import java.util.List;
 @Component
 public interface CompanyTestMapper {
 
-    Company_qingyang selectCompany(Integer id);
+    Company selectCompany(Integer id);
 
-    List<Company_qingyang> selectCompanyByIdList(List<Integer> id);
+    List<Company> selectCompanyByIdList(List<Integer> id);
 
     Integer deleteCompany(Integer id);
 
-    Integer updateCompany(Company_qingyang company_qingyang);
+    Integer updateCompany(Company company_qingyang);
 
-    Integer insertCompany(Company_qingyang entity);
+    Integer insertCompany(Company entity);
 
     Industry_qingyang selectIndustry(Integer id);
 

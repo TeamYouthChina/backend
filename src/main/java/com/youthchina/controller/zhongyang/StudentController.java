@@ -1,20 +1,16 @@
 package com.youthchina.controller.zhongyang;
 
-import com.youthchina.domain.qingyang.Student;
+import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
-import com.youthchina.service.zhongyang.StudentService;
-import jdk.internal.jline.internal.Urls;
-import org.apache.ibatis.annotations.Delete;
+import com.youthchina.service.Qinghong.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -50,7 +46,7 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
 
     @PostMapping("/")
     public ResponseEntity<?> createStudentInfo(@AuthenticationPrincipal User user, @RequestBody Student student) {
-        student.setId(user.getId());
+        student.setStu_id(user.getId());
         return add(student);
     }
 

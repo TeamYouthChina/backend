@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Company_qingyang {
+public class Company {
     private Integer companyId;
     private String companyName;
     private String companyCode;
@@ -39,6 +39,7 @@ public class Company_qingyang {
     private Integer userId;
     private Integer isDelete;
     private Timestamp idDeleteTime;
+    private List<Job> jobs;
 
     /*行业信息*/
     private List<Industry_qingyang> indList;
@@ -190,5 +191,13 @@ public class Company_qingyang {
 
     public void setIdDeleteTime(Timestamp idDeleteTime) {
         this.idDeleteTime = idDeleteTime;
+    }
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
     }
 }

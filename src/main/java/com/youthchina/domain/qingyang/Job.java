@@ -3,7 +3,7 @@ package com.youthchina.domain.qingyang;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class Job_qingyang {
+public class Job {
     /*主键, 职位ID (JOB_INFO)*/
     private Integer jobId;
 
@@ -50,14 +50,14 @@ public class Job_qingyang {
     private Integer isDelete;
     private Timestamp isDeleteTime;
 
-    private Company_qingyang company;
+    private Company company;
     private Hr_qingyang hr;
 
-    public Company_qingyang getCompany() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompany(Company_qingyang company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
