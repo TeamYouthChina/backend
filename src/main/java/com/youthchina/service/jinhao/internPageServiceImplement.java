@@ -1,10 +1,7 @@
 package com.youthchina.service.jinhao;
 
 import com.youthchina.dao.jinhao.InternPageMapper;
-import com.youthchina.domain.jinhao.Company;
-import com.youthchina.domain.jinhao.CompanyAndJob;
-import com.youthchina.domain.jinhao.Job;
-import com.youthchina.domain.jinhao.StuCollect;
+import com.youthchina.domain.jinhao.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,103 +17,131 @@ public class internPageServiceImplement implements InternPageService {
     InternPageMapper internPageMapper;
 
     /**
-     * combine obtained Job object and Company object into a CompanyAndJob object, so that we can see the two select
-     * method as a transaction
-     * @param company_id id of company
-     * @param job_id id of job
-     * @return an object of CompanyAndJob, and if any one of the select methods fails, it returns null
+     * 把需要的信息整合起来返回给前端
+     * @param company_id 企业id
+     * @param job_id 职位id
+     * @return 返回所需信息组合成的一个对象
      */
     @Override
-    @Transactional(readOnly = true, rollbackFor = SQLException.class)
-    public CompanyAndJob getCompanyAndJob(String company_id, String job_id) {
-        return new CompanyAndJob(getCompany(company_id), getJob(job_id));
+    @Transactional(rollbackFor = SQLException.class)
+    public InternPageInfo getInternPageInfo(Integer company_id, Integer job_id, Integer user_id) {
+        Company company = getCompany(company_id);
+        Job job = getJob(job_id);
+        Integer hr_id = job.getJob_pub_hr();
+        HR hr = getHR(hr_id);
+        boolean ifJobCollected = isJobCollected(user_id, job_id);
+        boolean ifCompanyCollected = isCompanyCollected(user_id, company_id);
+        return new InternPageInfo(company, job, hr, ifJobCollected, ifCompanyCollected);
     }
 
     /**
-     * get detailed information of the specified job
-     * @param job_id id of job
-     * @return a Job object
+     * 拿到职位信息
+     * @param job_id 职位id
+     * @return 返回一个job对象
      */
     @Override
-    public Job getJob(String job_id) {
+    public Job getJob(Integer job_id) {
         return internPageMapper.getJob(job_id);
     }
 
     /**
-     * get detailed information of the specified company
-     * @param company_id id of company
-     * @return a Company object
+     * 拿到公司信息
+     * @param company_id 公司id
+     * @return 返回一个company对象
      */
     @Override
-    public Company getCompany(String company_id) {
+    public Company getCompany(Integer company_id) {
         return internPageMapper.getCompany(company_id);
     }
 
     /**
-     * check if the job is collected
-     * @param job a stuCollect object whose stu_id and job_id are specified
-     * @return a stuCollect object, and if the job has not been collected, the object equals to null
+     * 拿到HR信息
+     * @param hr_id HR id
+     * @return 返回一个HR对象
      */
     @Override
-    public boolean isJobCollected(StuCollect job) {
-        return internPageMapper.isJobCollected(job) == null;
+    public HR getHR(Integer hr_id) {
+        return internPageMapper.getHR(hr_id);
     }
 
     /**
-     * check if the company is collected
-     * @param company a stuCollect object whose stu_id and company_id are specified
-     * @return a stuCollect object, and if the job has not been collected, the object equals to null
+     * 检查工作是否被收藏
+     * @param user_id 用户id
+     * @param job_id 工作id
+     * @return 返回一个布尔值
      */
     @Override
-    public boolean isCompanyCollected(StuCollect company) {
-        return internPageMapper.isCompanyCollected(company) == null;
+    public boolean isJobCollected(Integer user_id, Integer job_id) {
+        return internPageMapper.isJobCollected(user_id, job_id) != null;
     }
 
     /**
-     * collect the job
-     * @param job a stuCollect object whose stu_id and job_id are specified
-     * @return return 1 if success, or if the jod does not exist or the jod cannot be insert successfully, return 0
+     * 检查公司是否被收藏
+     * @param user_id 用户id
+     * @param company_id 公司id
+     * @return 返回一个布尔值
      */
     @Override
-    public Integer collectJob(StuCollect job){
-        if(getJob(job.getJob_id()) == null){
+    public boolean isCompanyCollected(Integer user_id, Integer company_id) {
+        return internPageMapper.isCompanyCollected(user_id, company_id) != null;
+    }
+
+
+    /**
+     * 收藏工作
+     * @param jobCollect 工作收藏的对象，包含工作id和收藏时间
+     * @param user_id 用户id
+     * @return 如果收藏成功返回1
+     */
+    @Override
+    @Transactional(rollbackFor = SQLException.class)
+    public Integer collectJob(JobCollect jobCollect, Integer user_id){
+        if(getJob(jobCollect.getJob_id()) == null || isJobCollected(user_id, jobCollect.getJob_id())){
             return 0;
         }else{
-            return internPageMapper.collectJob(job);
+            internPageMapper.collectJob(jobCollect);
+            return internPageMapper.createMapBetweenJobCollectAndUser(jobCollect.getCollect_id(), user_id);
         }
     }
 
     /**
-     * collect the company
-     * @param company a stuCollect object whose stu_id and company_id are specified
-     * @return return 1 if success, or 0
+     * 收藏公司
+     * @param companyCollect 公司收藏的对象,包含公司id和收藏时间
+     * @param user_id 用户id
+     * @return 如果收藏成功返回1
      */
     @Override
-    public Integer collectCompany(StuCollect company) {
-        if(getCompany(company.getCompany_id()) == null){
+    @Transactional(rollbackFor = SQLException.class)
+    public Integer collectCompany(CompanyCollect companyCollect, Integer user_id) {
+        if(getCompany(companyCollect.getCompany_id()) == null || isCompanyCollected(user_id, companyCollect.getCompany_id())){
             return 0;
-        }else{
-            return internPageMapper.collectCompany(company);
+        }else {
+            internPageMapper.collectCompany(companyCollect);
+            return internPageMapper.createMapBetweenCompanyCollectAndUser(companyCollect.getCollect_id(), user_id);
         }
     }
 
     /**
-     * cancel collecting the job
-     * @param job a stuCollect object whose stu_id and job_id are specified
-     * @return return 1 if success, or 0
+     * 取消收藏工作
+     * @param collect_id 被取消的收藏的id
+     * @return 取消成功返回1
      */
     @Override
-    public Integer cancelCollectJob(StuCollect job) {
-        return internPageMapper.cancelCollectJob(job);
+    @Transactional(rollbackFor = SQLException.class)
+    public Integer cancelCollectJob(Integer collect_id) {
+        internPageMapper.cancelCollectJob(collect_id);
+        return internPageMapper.deleteMapBetweenJobCollectAndUser(collect_id);
     }
 
     /**
-     * cancel collecting the company
-     * @param company stuCollect a stuCollect object whose stu_id and company_id are specified
-     * @return return 1 if success, or 0
+     * 取消收藏公司
+     * @param collect_id 被取消的收藏的id
+     * @return 取消成功返回1
      */
     @Override
-    public Integer cancelCollectCompany(StuCollect company) {
-        return internPageMapper.cancelCollectCompany(company);
+    @Transactional(rollbackFor = SQLException.class)
+    public Integer cancelCollectCompany(Integer collect_id) {
+        internPageMapper.cancelCollectCompany(collect_id);
+        return internPageMapper.deleteMapBetweenCompanyCollectAndUser(collect_id);
     }
 }

@@ -2,8 +2,10 @@ package com.youthchina.dao.Tianjian;
 
 import com.youthchina.domain.Tianjian.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -12,69 +14,67 @@ import java.util.List;
 @Mapper
 @Component
 public interface UserMapper {
-    CompanyInfo getCompanyInformation(String company_id);
-
-    StuCollect getFavoriteCompany(StuCollect company);
-
-    int addFavoriteCompany(StuCollect s);
-
-    int deleteFavoriteCompany(StuCollect s);
-
-    JobInfo getJobInformation(String job_id);
-
-    int addFavoriteJob(StuCollect s);
-
-    int deleteFavoriteJob(StuCollect s);
-
+//    CompanyInfo getCompanyInformation(String company_id);
+//
+//    StuCollect getFavoriteCompany(StuCollect company);
+//
+//    int addFavoriteCompany(StuCollect s);
+//
+//    int deleteFavoriteCompany(StuCollect s);
+//
+//    JobInfo getJobInformation(String job_id);
+//
+//    int addFavoriteJob(StuCollect s);
+//
+//    int deleteFavoriteJob(StuCollect s);
 
     /**
      * 添加文章
      */
     int addEssay(ComEssay essay);
 
-    int deleteEssay(Integer essay_id);
+      int deleteEssay(@Param("essay_id")Integer essay_id, @Param("delete_time") Timestamp delete_time);
 
-    int updateEssay(ComEssay essay);
+       int updateEssay(ComEssay essay);
 
-    ComEssay getEssay(Integer essay_id);
+      ComEssay getEssay(Integer essay_id);
 
-    int updateEssayAuthor(Integer user_id, Integer essay_id);
+      int updateEssayAuthor(ComAuthorEssayMap caem);
 
-    int addEssayLabel(List<Integer> lab_num, Integer essay_id);
+     int addEssayLabel(List<ComEssayLabel> cel);
 
-    int deleteEssayLabel(Integer essay_id);
+     int deleteEssayLabel(Integer essay_id);
 
-    int addEssayAuthor(Integer essay_id, Integer user_id);
+    int addEssayAuthor(ComAuthorEssayMap caem);
 
-    int addFavoriteEssay(ComEssayAttention comessayattention);
+      int addFavoriteEssay(ComEssayAttention comessayattention);
 
-    int addFavoriteEssayMap(Integer atten_id, Integer essay_id);
+      int addFavoriteEssayMap(ComEssayAttentionMap ceam);
 
-    int deleteFavoriteEssay(Integer essay_id, Integer user_id);
+       int deleteFavoriteEssay(@Param("essay_id")Integer essay_id, @Param("user_id")Integer user_id);
 
-    ComEssayAttention getFavoriteEssayWhetherAtten(Integer essay_id, Integer user_id);
+        ComEssayAttention getFavoriteEssayWhetherAtten(@Param("essay_id")Integer essay_id, @Param("user_id")Integer user_id);
 
-    int addReply(ComEssayReply comessayanswer);
+       int addReply(ComEssayReply comessayanswer);
 
-    int addEssayReplyMap(Integer essay_id,Integer reply_id);
+       int addEssayReplyMap(ComEssayReplyMap cerm);
 
-    int updateReply(ComEssayReply comessayanswer, Integer essay_id);
+       int updateReply(@Param("comessayreply")ComEssayReply comessayreply,@Param("essay_id")Integer essay_id);
 
-    int deleteReply(Integer essay_id, Integer user_id);
+       int deleteReply(@Param("essay_id")Integer essay_id, @Param("user_id")Integer user_id,@Param("reply_level")Integer reply_level);
 
-    int getReply(Integer essay_id);
+       List<ComEssayReply> getReply(Integer essay_id);
 
-    int addReplyEvaluate(ComReplyEvaluate comreplyevaluate);
+       int addReplyEvaluate(ComReplyEvaluate comreplyevaluate);
 
-    int addReplyEvaluateMap(Integer evaluate_id, Integer reply_id);
+       int addReplyEvaluateMap(ComReplyEvaluateMap crem);
 
-    int updateReplyEvaluate(ComReplyEvaluate comreplyevaluate, Integer reply_id);
+       int updateReplyEvaluate(@Param("comreplyevaluate")ComReplyEvaluate comreplyevaluate, @Param("reply_id")Integer reply_id);
 
-    List<ComReplyEvaluate> getReplyEvaluate(Integer reply_id);
+       List<ComReplyEvaluate> getReplyEvaluate(Integer reply_id);
 
-    List<ComEssay> getEssayLatest();
+       List<ComEssay> getEssayLatest();
 
-    List<ComEssayReply> getEssayReply(Integer essay_id);
-
+       List<ComEssayReply> getEssayReply(Integer essay_id);
 
 }

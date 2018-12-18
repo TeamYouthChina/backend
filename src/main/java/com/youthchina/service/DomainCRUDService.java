@@ -1,5 +1,7 @@
 package com.youthchina.service;
 
+import com.youthchina.exception.zhongyang.NotFoundException;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,14 +13,30 @@ public interface DomainCRUDService<T, K extends Serializable> {
      * @param id id of domain
      * @return target
      */
-    T get(K id);
+    T get(K id) throws NotFoundException;
 
-    List<T> get(List<K> id);
+    /**
+     * @param id list of id
+     * @return target
+     */
+    List<T> get(List<K> id) throws NotFoundException;
 
-    void delete(K id);
+    /**
+     * @param id id
+     * @return <p>delete entity with target id</p>
+     */
+    void delete(K id) throws NotFoundException;
 
-    T update(T t);
+    /**
+     * @param id id
+     * @return <p>update id</p>
+     */
+    T update(T t) throws NotFoundException;
 
-    T add(T t);
+    /**
+     * @param entity target
+     *               <p>add Entity</p>
+     */
+    T add(T entity);
 
 }
