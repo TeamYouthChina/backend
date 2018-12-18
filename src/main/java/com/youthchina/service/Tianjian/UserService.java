@@ -6,7 +6,7 @@ import com.youthchina.service.DomainCRUDService;
 import java.util.List;
 
 /**
- * Created by Tianjian on 11/8/18.
+ * Created by mapper.Tianjian on 11/8/18.
  */
 public interface UserService extends DomainCRUDService<User, Integer> {
     public CompanyInfo getCompanyInformation(String company_id);

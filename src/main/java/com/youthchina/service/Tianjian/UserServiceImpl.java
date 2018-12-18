@@ -10,8 +10,9 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 11/8/18.
  */
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
+    @Autowired
     UserMapper mapper;
 
     @Autowired
