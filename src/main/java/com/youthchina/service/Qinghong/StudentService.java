@@ -13,4 +13,5 @@ public interface StudentService extends DomainCRUDService<Student,Integer> {
     public List<Project> getProjects(Integer id)throws NotFoundException;
     public JobApply jobApply(Integer job_id,Integer stu_id)throws NotFoundException;
     public List<JobApply> getJobApplies(Integer user_id)throws NotFoundException;
+    public UserInfo getContacts(Integer id) throws NotFoundException;
 }

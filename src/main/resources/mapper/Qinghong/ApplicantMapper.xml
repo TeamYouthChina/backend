@@ -75,6 +75,36 @@
             <result property="is_delete_time" column="IS_DELETE_TIME"/>
         </collection>
     </resultMap>
+    <resultMap id="ApplyMapper" type="com.youthchina.domain.Qinghong.JobApply">
+        <id property="apply_id" column="APPLY_ID"/>
+        <result property="stu_id" column="STU_ID"/>
+        <result property="job_id" column="JOB_ID"/>
+        <result property="job_cv_send" column="JOB_CV_SEND"/>
+        <result property="job_apply_time" column="JOB_APPLY_TIME"/>
+        <result property="job_apply_status" column="JOB_APPLY_STATUS"/>
+        <association property="job" javaType="com.youthchina.domain.qingyang.Job_qingyang">
+            <id property="jobId" column="JOB_ID"/>
+            <result property="jobName" column="JOB_NAME"/>
+            <result property="jobProfNum" column="JOB_PROF_NUM"/>
+            <result property="jobStartTime" column="JOB_START_TIME"/>
+            <result property="jobEndTime" column="JOB_END_TIME"/>
+            <result property="jobTime" column="JOB_TIME"/>
+            <result property="jobDescription" column="JOB_DESCRIPTION"/>
+            <result property="jobDuty" column="JOB_DUTY"/>
+            <result property="jobReq" column="JOB_REQ"/>
+            <result property="jobLocation" column="JOB_LOCATION"/>
+            <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
+            <result property="jobSalary" column="JOB_SALARY"/>
+            <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
+            <result property="cvNameRule" column="CV_NAME_RULE"/>
+            <result property="jobActive" column="JOB_ACTIVE"/>
+        </association>
+    </resultMap>
+    <select id="getUserInfo" resultType="com.youthchina.domain.Qinghong.UserInfo">
+        select *
+        from SYS_USER
+        where USER_ID=#{user_id}
+    </select>
     <select id="getStudentInfo" resultMap="com.youthchina.domain.Qinghong.Student">
         select a.*,b.*,c.*,d.*,e.*,f.*
         from STU_INFO a;
@@ -117,7 +147,7 @@
         LEFT JOIN STU_ACTIVITY b ON a.STU_ID=b.STU_ID
         WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
     </select>
-    <select id="getJobApplies" resultMap="com.youthchina.domain.Qinghong.JobApply">
+    <select id="getJobApplies" resultMap="ApplyMapper">
         SELECT a.*,b.*
         FROM STU_JOB_APPLY a
         LEFT JOIN JOB_INFO b.* ON a.JOB_ID=b.JOB_ID

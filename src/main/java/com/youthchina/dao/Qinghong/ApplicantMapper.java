@@ -14,4 +14,5 @@ public interface ApplicantMapper {
     Job_qingyang getJob(Integer job_id);
     Integer addApply(JobApply jobApply);
     List<JobApply> getJobApplies(Integer user_id);
+    UserInfo getUserInfo(Integer user_id);
 }
