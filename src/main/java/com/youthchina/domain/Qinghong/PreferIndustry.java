@@ -1,29 +1,29 @@
 package com.youthchina.domain.Qinghong;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class PreferIndustry {
-    private int pre_ind_id;
-    private String pre_ind;
+    private Integer pre_ind_id;
+    private Integer pre_ind_num;
     private Integer stu_id;
-    private Boolean is_delete;
-    private Date is_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
-
-    public int getPre_ind_id() {
+    public Integer getPre_ind_id() {
         return pre_ind_id;
     }
 
-    public void setPre_ind_id(int pre_ind_id) {
+    public void setPre_ind_id(Integer pre_ind_id) {
         this.pre_ind_id = pre_ind_id;
     }
 
-    public String getPre_ind() {
-        return pre_ind;
+    public Integer getPre_ind_num() {
+        return pre_ind_num;
     }
 
-    public void setPre_ind(String pre_ind) {
-        this.pre_ind = pre_ind;
+    public void setPre_ind_num(Integer pre_ind_num) {
+        this.pre_ind_num = pre_ind_num;
     }
 
     public Integer getStu_id() {
@@ -34,19 +34,19 @@ public class PreferIndustry {
         this.stu_id = stu_id;
     }
 
-    public Boolean getIs_delete() {
+    public Integer getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(Boolean is_delete) {
+    public void setIs_delete(Integer is_delete) {
         this.is_delete = is_delete;
     }
 
-    public Date getIs_delete_time() {
+    public Timestamp getIs_delete_time() {
         return is_delete_time;
     }
 
-    public void setIs_delete_time(Date is_delete_time) {
+    public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
 }
