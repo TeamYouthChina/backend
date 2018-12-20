@@ -9,13 +9,13 @@
         (   JOB_ID,         COMPANY_ID,     HR_ID,        JOB_NAME,     JOB_PROF_NUM,
             JOB_START_TIME, JOB_END_TIME,   JOB_TIME,     JOB_DESCRIPTION,
             JOB_DUTY,       JOB_REQ,        JOB_LOCATION, JOB_HIGHLIGHT,
-            JOB_SALARY,     CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE)
+            JOB_SALARY,     CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, IS_DELETE)
         VALUES
         (
-            #{jobId},       #{companyId},   #(hrId),       #{jobName},   #{jobProfNum},
-            #{jobStartTime},#{jobEndTime},  #{jobTime},   #{jobDescription},
-            #{jobDuty},     #{jobReq},      #{jobLocation},#{jobHighlight},
-            #{jobSalary},   #{cvReceiMail}, #{cvNameRule},  #{jobActive}
+            #{jobId},       #{companyId},   #(hrId),        #{jobName},   #{jobProfNum},
+            #{jobStartTime},#{jobEndTime},  #{jobTime},     #{jobDescription},
+            #{jobDuty},     #{jobReq},      #{jobLocation}, #{jobHighlight},
+            #{jobSalary},   #{cvReceiMail}, #{cvNameRule},  #{jobActive}, #{isDelete}
         )
     </insert>
 
@@ -39,7 +39,6 @@
             CV_RECEI_MAIL = #{cvReceiMail},
             CV_NAME_RULE = #{cvNameRule},
             JOB_ACTIVE = #{jobActive},
-            IS_DELETE = 0
         WHERE
             JOB_ID = #{jobId}
         AND IS_DELETE = 0
@@ -51,9 +50,9 @@
       UPDATE JOB_INDUSTRY i SET i.IS_DELETE = 1, i.IS_DELETE_TIME = NOW()
       WHERE i.JOB_ID = #{jobId}
       UPDATE STU_JOB_COLLECT co SET co.IS_DELETE = 1, co.IS_DELETE_TIME = NOW()
-      WHERE j.JOB_ID = #{jobId}
+      WHERE co.JOB_ID = #{jobId}
       UPDATE STU_JOB_APPLY a SET a.IS_DELETE = 1, a.IS_DELETE_TIME = NOW()
-      WHERE j.JOB_ID = #{jobId}
+      WHERE a.JOB_ID = #{jobId}
     </update>
 
 
