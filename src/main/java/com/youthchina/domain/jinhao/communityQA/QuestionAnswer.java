@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class QuestionAnswer {
     private Integer answer_id;
     private String answer_content;
-    private String user_id;
+    private Integer user_id;
     private Integer user_anony;
     private Timestamp answer_pub_time;
     private Timestamp answer_edit_time;
@@ -70,11 +70,11 @@ public class QuestionAnswer {
         this.answer_id = answer_id;
     }
 
-    public String getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(Integer user_id) {
         this.user_id = user_id;
     }
 }

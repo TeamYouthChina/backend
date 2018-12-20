@@ -4,11 +4,11 @@ import java.sql.Timestamp;
 
 public class CommentDiscuss {
     private Integer discuss_id;
+    private Integer discuss_target_id;
     private String discuss_content;
     private String user_id;
     private Integer user_anony;
     private Timestamp discuss_pub_time;
-    private Timestamp discuss_edit_time;
     private Integer discuss_delete;
     private Timestamp discuss_delete_time;
 
@@ -52,12 +52,12 @@ public class CommentDiscuss {
         this.discuss_pub_time = discuss_pub_time;
     }
 
-    public Timestamp getDiscuss_edit_time() {
-        return discuss_edit_time;
+    public Integer getDiscuss_target_id() {
+        return discuss_target_id;
     }
 
-    public void setDiscuss_edit_time(Timestamp discuss_edit_time) {
-        this.discuss_edit_time = discuss_edit_time;
+    public void setDiscuss_target_id(Integer discuss_target_id) {
+        this.discuss_target_id = discuss_target_id;
     }
 
     public Integer getDiscuss_delete() {

@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class QuestionAttention {
     private Integer atten_id;
-    private String user_id;
+    private Integer user_id;
     private Timestamp atten_time;
     private Integer atten_cancel;
     private Timestamp atten_cancel_time;
@@ -33,11 +33,11 @@ public class QuestionAttention {
         this.atten_id = atten_id;
     }
 
-    public String getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(Integer user_id) {
         this.user_id = user_id;
     }
 
