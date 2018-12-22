@@ -41,6 +41,8 @@ public interface JobHrMapper {
     //TODO
     Map<String, List<Job_qingyang>> getJobByTag(@Param("tags") List<String> tags);
 
+    List<Job_qingyang> getJobByMore(Integer jobId, String jobName, Integer comId, String comName, Integer location, Integer type, String deadline);
 
+    //TODO
 }
 

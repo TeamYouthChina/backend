@@ -1,37 +1,42 @@
 package com.youthchina.service.qingyang;
 
+import com.youthchina.dao.qingyang.CompanyTestMapper;
 import com.youthchina.domain.qingyang.Hr_qingyang;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class HrCURDServiceImpl implements HrCURDService{
-    //TODO!!!!
+    @Resource
+    CompanyTestMapper companyTestMapper;
 
     @Override
     public Hr_qingyang get(Integer id) throws NotFoundException {
-        return null;
+        return companyTestMapper.selectHr(id);
     }
 
     @Override
     public List<Hr_qingyang> get(List<Integer> id) throws NotFoundException {
-        return null;
+        return companyTestMapper.selectHrByIdList(id);
     }
 
     @Override
     public void delete(Integer id) throws NotFoundException {
-
+        companyTestMapper.deleteHr(id);
     }
 
     @Override
     public Hr_qingyang update(Hr_qingyang hr_qingyang) throws NotFoundException {
-        return null;
+        Integer result = companyTestMapper.updateHr(hr_qingyang);
+        return companyTestMapper.selectHr(result);
     }
 
     @Override
     public Hr_qingyang add(Hr_qingyang entity) {
-        return null;
+        Integer result = companyTestMapper.insertHr(entity);
+        return companyTestMapper.selectHr(result);
     }
 }

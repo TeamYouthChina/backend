@@ -111,6 +111,15 @@ public class JobServiceImpl implements JobService {
         return null;
     }
 
+    public List<Job_qingyang> getJobByMore(Integer jobId, String jobName,
+                                                        Integer comId, String comName,
+                                                        Integer location, Integer type,
+                                                        String deadline){
+
+
+        return jobHrMapper.getJobByMore(jobId, jobName, comId, comName, location, type, deadline);
+    }
+
 }
 
 
