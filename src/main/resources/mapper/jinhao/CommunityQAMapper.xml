@@ -26,11 +26,13 @@
         and a.answer_delete = 0
         order by m.answer_level asc
     </select>
+
     <!--拿到某个回答-->
     <select id="getAnswer" parameterType="java.lang.Integer"
             resultType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
         select * from COM_QUESTION_ANSWER where answer_id = #{answer_id}
     </select>
+
     <!-- 列出某个回答的赞同数 -->
     <select id="countAgreement" parameterType="java.lang.Integer"
             resultType="java.lang.Integer">
@@ -116,7 +118,7 @@
 
     <!-- 拿到问题信息 -->
     <select id="getQuestion" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.Question">
-        select * from COM_QUESTION where ques_id = #{ques_id}
+        select * from COM_QUESTION where ques_id = #{ques_id} and ques_delete = 0;
     </select>
 
     <!-- 列出某个问题的所有标签 -->
@@ -369,10 +371,37 @@
         and evaluate_time = #{evaluate_time}
         where evaluate_id = #{evaluate_id}
     </update>
+
     <!-- 拿到学生基本信息 -->
     <select id="getStuInfo" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.StuInfo">
         select a.* from STU_INFO a, USER_STU_MAP m
         where m.user_id = #{user_id}
         and a.stu_id = m.stu_id
     </select>
+
+    <!-- 邀请回答问题-->
+    <insert id="addInvitation" parameterType="com.youthchina.domain.jinhao.communityQA.AnswerInvitation"
+            useGeneratedKeys="true" keyProperty="discuss_id">
+        insert into COM_ANSWER_INVITATION (invit_time, invit_accept)
+        values (#{invit_time}, #{invit_accept})
+    </insert>
+
+    <!-- 建立邀请和问题的映射-->
+    <insert id="createMapBetweenInvitationAndQuestion">
+        insert into COM_ANSWER_INVITATION_MAP (invit_id, ques_id, invit_user_id, invited_user_id)
+        values (#{invit_id}, #{ques_id}, #{invit_user_id}, #{invited_user_id})
+    </insert>
+
+    <!-- 拿到某个邀请-->
+    <select id="COM_ANSWER_INVITATION_MAP" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.AnswerInvitation">
+        select * from COM_ANSWER_INVITATION
+        where invit_id = #{invit_id}
+    </select>
+    <!-- 接受或者拒绝邀请 -->
+    <update id="updateStatusOfInvitation" parameterType="com.youthchina.domain.jinhao.communityQA.AnswerInvitation">
+        update COM_ANSWER_INVITATION_MAP
+        set invit_accept = #{invit_accept}
+        where invit_id = #{invit_id}
+    </update>
 </mapper>

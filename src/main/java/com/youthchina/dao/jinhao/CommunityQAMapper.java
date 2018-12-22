@@ -128,13 +128,11 @@ public interface CommunityQAMapper {
 
     Integer reEvaluateDiscuss(DiscussEvaluate discussEvaluate);
 
-//    Integer addAgreeToComment(CommentAgree commentAgree);
-//
-//    Integer createMapBetweenCommentAndAgree(@Param("answerComment") AnswerComment answerComment,
-//                                            @Param("commentAgree") CommentAgree commentAgree);
-//    Integer addAgreeToDiscuss(DiscussAgree discussAgree);
-//
-//    Integer createMapBetweenDiscussAndAgree(@Param("discussAgree") DiscussAgree discussAgree,
-//                                            @Param("commentDiscuss") CommentDiscuss commentDiscuss);
+    Integer addInvitation(AnswerInvitation answerInvitation);
 
+    Integer createMapBetweenInvitationAndQuestion(Integer invit_id, Integer ques_id, Integer invit_user_id,
+                                                  Integer invited_user_id);
+    Integer updateStatusOfInvitation(AnswerInvitation answerInvitation);
+
+    AnswerInvitation getInvitation(Integer invit_id);
 }
