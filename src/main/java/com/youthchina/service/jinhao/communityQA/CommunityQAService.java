@@ -54,6 +54,11 @@ public interface CommunityQAService {
     Integer discussEvaluateStatus(Integer evaluate_id);
     Integer evaluateDiscuss(Integer discuss_id, DiscussEvaluate discussEvaluate) throws NotFoundException;
 
+    Integer invitToAnswer(AnswerInvitation answerInvitation, Integer ques_id,
+                          Integer invit_user_id, Integer invited_user_id) throws NotFoundException;
+    AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
+    Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;
+
     List<Question> listQuestion();
     StuInfo getStuInfo(Integer user_id);
     //功能服务

@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class ComminityQAServiceImplement implements CommunityQAService {
+public class CommunityQAServiceImplement implements CommunityQAService {
     @Resource
     CommunityQAMapper communityQAMapper;
 
@@ -594,7 +594,54 @@ public class ComminityQAServiceImplement implements CommunityQAService {
         return evaluate_id;
     }
 
+    /**
+     * 邀请某人回答问题
+     * @param answerInvitation 邀请的对象
+     * @param ques_id 问题的id
+     * @param invit_user_id 邀请人的id
+     * @param invited_user_id 被邀请人的id
+     * @return 邀请成功返回1
+     * @throws NotFoundException
+     */
+    @Override
+    @Transactional
+    public Integer invitToAnswer(AnswerInvitation answerInvitation, Integer ques_id,
+                                 Integer invit_user_id, Integer invited_user_id) throws NotFoundException{
+        getQuestion(ques_id);
+        communityQAMapper.addInvitation(answerInvitation);
+        communityQAMapper.createMapBetweenInvitationAndQuestion(answerInvitation.getInvit_id(),
+                ques_id,invit_user_id,invited_user_id);
+        return 1;
+    }
 
+    /**
+     * 得到某个邀请
+     * @param invit_id 邀请的id
+     * @return 如果没找到，则抛出异常，如果找到了，返回找到的邀请
+     * @throws NotFoundException
+     */
+    @Override
+    public AnswerInvitation getInvitation(Integer invit_id) throws NotFoundException{
+        AnswerInvitation answerInvitation = communityQAMapper.getInvitation(invit_id);
+        if(answerInvitation == null){
+            throw new NotFoundException(404,404,"没有找到该邀请");
+        }else {
+            return answerInvitation;
+        }
+    }
+
+    /**
+     * 接受或者拒绝某个邀请
+     * @param answerInvitation 邀请的对象
+     * @return 更改成功返回1, 没找到邀请，抛出异常
+     * @throws NotFoundException
+     */
+    @Override
+    public Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException{
+        getInvitation(answerInvitation.getInvit_id());
+        communityQAMapper.updateStatusOfInvitation(answerInvitation);
+        return 1;
+    }
 
     /**
      * 根据角色id拿到对应的用户信息
@@ -614,4 +661,5 @@ public class ComminityQAServiceImplement implements CommunityQAService {
     public List<Question> listQuestion() {
         return communityQAMapper.listQuestion();
     }
+
 }
