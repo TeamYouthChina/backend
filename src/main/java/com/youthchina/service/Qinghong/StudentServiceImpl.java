@@ -126,6 +126,22 @@ public class StudentServiceImpl implements StudentService {
         }
 
     }
+    /**
+    * @Description: 通过user_id找到该id下所有的认证信息
+    * @Param: [id]
+    * @return: java.util.List<com.youthchina.domain.Qinghong.Certificate>
+    * @Author: Qinghong Wang
+    * @Date: 2018/12/22
+    */
+    public List<Certificate> getCertificates(Integer id) throws NotFoundException{
+        UserInfo userInfo=applicantMapper.getUserInfo(id);
+        if(userInfo==null){
+            throw new NotFoundException(404,404,"不能找到该user_id");
+        }else{
+            List<Certificate> certificates=applicantMapper.getCertificates(id);
+            return certificates;
+        }
+    }
 
     /**
      * @Description: 通过user_id找到该id下所有的项目经历
@@ -186,7 +202,21 @@ public class StudentServiceImpl implements StudentService {
             List<JobApply> jobApplies = applicantMapper.getJobApplies(user_id);
             return jobApplies;
         }
+    }
+    /** 
+    * @Description: 通过collect_id删除收藏的信息，通过假删除实现
+    * @Param: [id] 
+    * @return: java.lang.Integer 
+    * @Author: Qinghong Wang 
+    * @Date: 2018/12/21 
+    */
 
-
+    public Integer deleteCollect(Integer id) throws NotFoundException{
+        Integer num1=applicantMapper.deleteJobCollect(id);
+        Integer num2=applicantMapper.deleteCompCollect(id);
+        if(num1==0&&num2==0){
+            throw new NotFoundException(404, 404, "没有删除任何一条收藏信息");
+        }
+        else return num1+num2;
     }
 }
