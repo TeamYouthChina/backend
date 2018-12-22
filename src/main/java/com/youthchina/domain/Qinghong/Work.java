@@ -1,9 +1,10 @@
 package com.youthchina.domain.Qinghong;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Work {
-    private int work_id;
+    private Integer work_id;
     private String work_company;
     private String work_location;
     private String work_position;
@@ -13,14 +14,14 @@ public class Work {
     private String work_duty;
     private String work_nature;
     private Integer stu_id;
-    private Boolean is_delete;
-    private Date is_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
-    public int getWork_id() {
+    public Integer getWork_id() {
         return work_id;
     }
 
-    public void setWork_id(int work_id) {
+    public void setWork_id(Integer work_id) {
         this.work_id = work_id;
     }
 
@@ -96,19 +97,19 @@ public class Work {
         this.stu_id = stu_id;
     }
 
-    public Boolean getIs_delete() {
+    public Integer getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(Boolean is_delete) {
+    public void setIs_delete(Integer is_delete) {
         this.is_delete = is_delete;
     }
 
-    public Date getIs_delete_time() {
+    public Timestamp getIs_delete_time() {
         return is_delete_time;
     }
 
-    public void setIs_delete_time(Date is_delete_time) {
+    public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
 }

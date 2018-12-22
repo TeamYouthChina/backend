@@ -1,5 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * @create: 2018-11-29 17:08
  **/
 public class Student {
-    private int stu_id;
+    private Integer stu_id;
     private String stu_in_job;
     private String stu_in_job_comp;
     private List<EducationInfo> educationInfos;
@@ -27,12 +28,15 @@ public class Student {
     private IntroductionVideo introductionVideo;
     private List<Notification> notifications;
     private List<JobApply> jobApplies;
+    private Integer user_id;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
-    public int getStu_id() {
+    public Integer getStu_id() {
         return stu_id;
     }
 
-    public void setStu_id(int stu_id) {
+    public void setStu_id(Integer stu_id) {
         this.stu_id = stu_id;
     }
 
@@ -170,5 +174,29 @@ public class Student {
 
     public void setJobApplies(List<JobApply> jobApplies) {
         this.jobApplies = jobApplies;
+    }
+
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
+    }
+
+    public Integer getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(Integer is_delete) {
+        this.is_delete = is_delete;
+    }
+
+    public Timestamp getIs_delete_time() {
+        return is_delete_time;
+    }
+
+    public void setIs_delete_time(Timestamp is_delete_time) {
+        this.is_delete_time = is_delete_time;
     }
 }

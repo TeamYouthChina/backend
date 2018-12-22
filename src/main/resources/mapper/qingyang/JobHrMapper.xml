@@ -9,13 +9,13 @@
         (   JOB_ID,         COMPANY_ID,     HR_ID,        JOB_NAME,     JOB_PROF_NUM,
             JOB_START_TIME, JOB_END_TIME,   JOB_TIME,     JOB_DESCRIPTION,
             JOB_DUTY,       JOB_REQ,        JOB_LOCATION, JOB_HIGHLIGHT,
-            JOB_SALARY,     CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE)
+            JOB_SALARY,     CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, IS_DELETE)
         VALUES
         (
-            #{jobId},       #{companyId},   #(hrId),       #{jobName},   #{jobProfNum},
-            #{jobStartTime},#{jobEndTime},  #{jobTime},   #{jobDescription},
-            #{jobDuty},     #{jobReq},      #{jobLocation},#{jobHighlight},
-            #{jobSalary},   #{cvReceiMail}, #{cvNameRule},  #{jobActive}
+            #{jobId},       #{companyId},   #(hrId),        #{jobName},   #{jobProfNum},
+            #{jobStartTime},#{jobEndTime},  #{jobTime},     #{jobDescription},
+            #{jobDuty},     #{jobReq},      #{jobLocation}, #{jobHighlight},
+            #{jobSalary},   #{cvReceiMail}, #{cvNameRule},  #{jobActive}, #{isDelete}
         )
     </insert>
 
@@ -39,7 +39,6 @@
             CV_RECEI_MAIL = #{cvReceiMail},
             CV_NAME_RULE = #{cvNameRule},
             JOB_ACTIVE = #{jobActive},
-            IS_DELETE = 0
         WHERE
             JOB_ID = #{jobId}
         AND IS_DELETE = 0
@@ -51,9 +50,9 @@
       UPDATE JOB_INDUSTRY i SET i.IS_DELETE = 1, i.IS_DELETE_TIME = NOW()
       WHERE i.JOB_ID = #{jobId}
       UPDATE STU_JOB_COLLECT co SET co.IS_DELETE = 1, co.IS_DELETE_TIME = NOW()
-      WHERE j.JOB_ID = #{jobId}
+      WHERE co.JOB_ID = #{jobId}
       UPDATE STU_JOB_APPLY a SET a.IS_DELETE = 1, a.IS_DELETE_TIME = NOW()
-      WHERE j.JOB_ID = #{jobId}
+      WHERE a.JOB_ID = #{jobId}
     </update>
 
 
@@ -118,7 +117,7 @@
              LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
         WHERE
             j.JOB_ID = #{jobId}
-        AND j.IS_DELETE = 0 AND c.IS_DELETE = 0 AND h.IS_DELETE = 0
+        AND j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0
     </select>
 
     <select id="getJobByCompanyId" resultMap="job" parameterType="java.lang.Integer">
@@ -132,7 +131,7 @@
     <!--按行业Id的List查询Job的List, 中文名做返回的Map的Key-->
     <select id="selectByIndustryId" resultMap="jobListMap">
         SELECT
-        class.IND_CHN as IND_NAME
+        class.IND_CHN as IND_NAME,
         j.JOB_ID as JOB_ID,
         j.JOB_NAME as JOB_NAME,
         j.JOB_PROF_NUM as JOB_PROF_NUM,
@@ -152,7 +151,7 @@
         j.COMPANY_ID as COMPANY_ID,
         com.COMPANY_NAME as COMPANY_NAME,
         com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-        com.COMPANY_LOGO as COMPANY_LOGO,
+        com.COMPANY_LOGO as COMPANY_LOGO
         FROM SYS_IND_CLASS class
         LEFT OUTER JOIN JOB_INDUSTRY ind ON class.IND_NUM = ind.JOB_IND_NUM
         LEFT OUTER JOIN JOB_INFO j ON ind.JOB_ID = j.JOB_ID
@@ -164,13 +163,13 @@
             #{id}
         </foreach>
         AND class.IS_DELETE = 0 AND ind.IS_DELETE = 0
-        AND j.IS_DELETE = 0 AND c.IS_DELETE = 0 AND h.IS_DELETE = 0
+        AND j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0
     </select>
 
     <!--按行业名称的List查询Job的List, 中文名做返回的Map的Key-->
     <select id="selectByIndustryString" resultMap="jobListMap">
         SELECT
-            class.IND_CHN as IND_NAME
+            class.IND_CHN as IND_NAME,
             j.JOB_ID as JOB_ID,
             j.JOB_NAME as JOB_NAME,
             j.JOB_PROF_NUM as JOB_PROF_NUM,
@@ -190,7 +189,7 @@
             j.COMPANY_ID as COMPANY_ID,
             com.COMPANY_NAME as COMPANY_NAME,
             com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-            com.COMPANY_LOGO as COMPANY_LOGO,
+            com.COMPANY_LOGO as COMPANY_LOGO
         FROM SYS_IND_CLASS class
         LEFT OUTER JOIN JOB_INDUSTRY ind ON class.IND_NUM = ind.JOB_IND_NUM
         LEFT OUTER JOIN JOB_INFO j ON ind.JOB_ID = j.JOB_ID
@@ -202,7 +201,59 @@
                     #{industry}
             </foreach>
         AND class.IS_DELETE = 0 AND ind.IS_DELETE = 0
-        AND j.IS_DELETE = 0 AND c.IS_DELETE = 0 AND h.IS_DELETE = 0
+        AND j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0
     </select>
+
+
+    <select id="getJobByMore" resultMap="job">
+        SELECT
+        j.JOB_ID as JOB_ID,
+        j.JOB_NAME as JOB_NAME,
+        j.JOB_PROF_NUM as JOB_PROF_NUM,
+        j.JOB_START_TIME as JOB_START_TIME,
+        j.JOB_END_TIME as JOB_END_TIME,
+        j.JOB_TIME as JOB_TIME,
+        j.JOB_DESCRIPTION as JOB_DESCRIPTION,
+        j.JOB_DUTY as JOB_DUTY,
+        j.JOB_REQ as JOB_REQ,
+        j.JOB_LOCATION as JOB_LOCATION,
+        j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
+        j.JOB_SALARY as JOB_SALARY,
+        j.CV_RECEI_MAIL as CV_RECEI_MAIL,
+        j.CV_NAME_RULE as CV_NAME_RULE,
+        j.JOB_ACTIVE as JOB_ACTIVE,
+        j.HR_ID as HR_ID,
+        j.COMPANY_ID as COMPANY_ID,
+        com.COMPANY_NAME as COMPANY_NAME,
+        com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
+        com.COMPANY_LOGO as COMPANY_LOGO
+        FROM JOB_INFO j
+        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
+        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
+        WHERE
+            j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0
+            <if test="jobId != null">
+                AND j.JOB_ID =  #{jobId}
+            </if>
+            <if test="jobName != null">
+                AND j.JOB_NAME =  #{jobName}
+            </if>
+            <if test="comId != null">
+                AND j.COMPANY_ID = #{comId}
+            </if>
+            <if test="comName != null">
+                AND com.COMPANY_NAME = #{comName}
+            </if>
+            <if test="location != null">
+                AND j.JOB_LOCATION = #{location}
+            </if>
+            <if test="type != null">
+                AND j.JOB_TIME = #{type}
+            </if>
+            <if test="deadline != null">
+                AND j.JOB_END_TIME = #{deadline}
+            </if>
+    </select>
+
 
 </mapper>
