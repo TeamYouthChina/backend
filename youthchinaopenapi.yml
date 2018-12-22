@@ -527,9 +527,158 @@ paths:
       responses:
         '204':
           description: delete target collection
-      
-      
+  '/questions':
+    post:
+      tags:
+      - Question
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+      responses:
+        '201':
+          description: create question
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  question:
+                      $ref: '#/components/schemas/Question'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '400':
+          description: cannot create question due to user's error
+  '/questions/{id}':
+    get:
+      tags:
+      - Question
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: question id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target question
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  question:
+                      $ref: '#/components/schemas/Question'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: target question does not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorStatus'
+    delete:
+      tags:
+      - Question
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: question id
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: deleted successed.
+        '404':
+          description: target question does not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorStatus'
+    put:
+      tags:
+      - Question
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: id of the question
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+      responses:
+        '204':
+          description: updated success
+  '/questions/{id}/answers':
+    get:
+      tags:
+      - Question
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: the answer list of target question
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Answer'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/question/{id}/invite':
+    post:
+      tags:
+      - Question
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+      responses:
+        '201':
+          description: invitation send successfully.
+  '/answers/{id}':
+    get:
+      tags:
+      - Answer
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: target answer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Answer'
 
+        
 components:
   schemas:
     Status:
@@ -540,6 +689,11 @@ components:
           format: int64
         reason:
           type: string
+    ErrorStatus:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
     JobSearch:
       type: object
       required:
@@ -819,6 +973,11 @@ components:
     AnswerBasic:
         type: object
         required:
+        - id
+        - creator
+        - body
+        - is_anonymous
+        - create_at
         properties:
           id:
             type: integer
@@ -869,8 +1028,5 @@ components:
         - $ref: '#/components/schemas/AnswerBasic'
         - type: object
           properties:
-            answer:
+            question:
               $ref: '#/components/schemas/Question'
-          
-        
-             
