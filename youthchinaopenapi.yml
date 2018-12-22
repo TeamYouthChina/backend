@@ -1,0 +1,876 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: YouthChina
+  license:
+    name: MIT
+servers:
+  - url: 'http://youthchina.io/api/v1'
+paths:
+  '/job/{id}':
+    get:
+      tags:
+        - Job
+      summary: get job info
+      description: get job info by id
+      operationId: getJob
+      parameters:
+        - in: query
+          name: detailLevel
+          required: true
+          schema:
+            type: integer
+            default: 1
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: job info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+  '/job/search':
+    post:
+      tags:
+        - Job
+      summary: job search
+      description: search job by complex conditions
+      operationId: searchJob
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+      responses:
+        '201':
+          description: search result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  searchResult:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Job'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/applicant/{id}':
+    get:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicantResponse'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required: 
+                - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+    post:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Applicant'
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - status
+                - applicant
+                properties:
+                  applicant:
+                    $ref: '#/components/schemas/Applicant'
+                  status:
+                    $ref: '#/components/schemas/Status'               
+        
+  '/applicant/{id}/contacts':
+    get:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target user's contacts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactResponse'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required: 
+                - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+  '/applicant/{id}/educations':
+    get:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target user's educations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  educations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EducationInfo'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required: 
+                - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+  '/applicant/{id}/projects':
+    get:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target user's projects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required: 
+                - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+  '/applicant/{id}/experiences':
+    get:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target user's works
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  experiences:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WorkExperienceInfo'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required: 
+                - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+  '/applicant/{id}/certificates':
+    get:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target user's works
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificate:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Certification'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required: 
+                - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+  '/applicant/{id}/extracurriculars':
+    get:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target user's works
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  extracurricular:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Extracurricular'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required: 
+                - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+  '/job/{id}/apply':
+    post:
+      tags:
+        - Application
+      parameters:
+        - name: id
+          in: path
+          description: id of the job
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: apply successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '404':
+          description: job not found
+          content:
+            application/json:
+              schema:
+                type: object
+                required: 
+                - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4042
+                  reason: 'Cannot find job with id 124'
+        '403':
+          description: cannot apply for job
+          content:
+            application/json:
+              schema:
+                type: object
+                required: 
+                - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4032
+                  reason: 'cannot apply for job because it has passed deadline'
+  '/user/{id}/applications':
+    get:
+      tags:
+      - Application
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - name: type
+          in: query
+          description: job type
+          schema:
+            type: string
+        - name: includeExpired
+          in: query
+          schema:
+            type: boolean
+            default: false
+          description: whether to inclued expired application
+        - name: companyId
+          in: query
+          schema:
+            type: integer
+          description: search for application of certain company
+        - name: jobId
+          in: query
+          schema:
+            type: integer
+          description: search for application of certain company
+      responses:
+        '200':
+          description: return the application of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  applications:
+                    type: array
+                    items: 
+                      $ref: '#/components/schemas/Application'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: user not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+  '/job/{id}/collect':
+    post:
+      tags:
+        - Collection
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '201':
+          description: collect successful
+        '400':
+          description: cannot collect this job, maybe the job has already deleted
+  '/user/{id}/collections':
+    get:
+      tags:
+        - Collection
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum:
+            - job
+            - company
+      responses:
+        '200':
+          description: return users' Collection
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companies:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CompanyCollections'
+                  jobs:
+                    type: array
+                    items: 
+                      $ref: '#/components/schemas/CompanyCollections'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/collections/{id}':
+    delete:
+      tags:
+      - Collection
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+          description: id of collection
+      responses:
+        '204':
+          description: delete target collection
+      
+      
+
+components:
+  schemas:
+    Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int64
+        reason:
+          type: string
+    JobSearch:
+      type: object
+      required:
+        - page
+        - size
+      properties:
+        key:
+          type: string
+        industry:
+          type: string
+        tagList:
+          type: array
+          items:
+            type: string
+        page:
+          type: integer
+        size:
+          type: integer
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          description: name of job
+        organization:
+          $ref: '#/components/schemas/Organization'
+        location:
+          type: integer
+        type:
+          type: string
+          enum:
+            - full-time
+            - part-time
+            - internship
+        deadLine:
+          type: string
+    Organization:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        avatarUrl:
+          type: string
+          pattern: '(http|https)://(.?)*'
+    User:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          format: int64
+    ContactInfo:
+      type: object
+      required:
+        - emails
+        - phonenumbers
+      properties:
+        emails:
+          type: array
+          items:
+            type: string
+            pattern: (.?)*@(.?)*
+        phonenumbers:
+          type: array
+          items:
+            type: string
+    EducationInfo:
+      type: object
+      required:
+        - university
+        - major
+        - degree
+        - duration
+        - location
+      properties: 
+        university:
+          type: string
+        major:
+          type: string
+        degree:
+          type: string
+        duration:
+          $ref: '#/components/schemas/Duration'
+        location:
+          type: string
+        note:
+          type: string
+    WorkExperienceInfo:
+      type: object
+      required:
+        - employer
+        - position
+        - duration
+        - location
+      properties:
+        employer:
+          type: string
+        position:
+          type: string
+        duration:
+          $ref: '#/components/schemas/Duration'
+        location:
+          type: string
+        note:
+          type: string
+    Certification:
+      type: object
+      required:
+      - name
+      - duration
+      properties:
+        name: 
+          type: string
+        authority:
+          type: string
+        duration:
+          $ref: '#/components/schemas/Status'
+        note:
+          type: string
+    Extracurricular:
+      type: object
+      required:
+      - name
+      - role
+      - organization
+      - duration
+      - location
+      properties:
+        name: 
+          type: string
+        role:
+          type: string
+        organization:
+          type: string
+        duration:
+          $ref: '#/components/schemas/Duration'
+        location:
+          type: string
+        note:
+          type: string
+    Project:
+      type: object
+      required:
+      - name
+      - role
+      - duration
+      properties:
+        name:
+          type: string
+        role:
+          type: string
+        duration:
+          $ref: '#/components/schemas/Duration'
+        note:
+          type: string
+    Duration:
+      type: object
+      properties:
+        begin:
+          type: string
+          pattern: timestamp
+        end:
+          type: string
+          pattern: timestamp
+    Applicant:
+      type: object
+      required: 
+        - id
+        - name
+        - avatarUrl
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        avatarUrl:
+          type: string
+        educations:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationInfo'
+        contacts:
+            $ref: '#/components/schemas/ContactInfo'
+        works:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkExperienceInfo'
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+        extracurriculars:
+          type: array
+          items:
+            $ref: '#/components/schemas/Extracurricular'
+        certifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Certification'
+    JobResponse:
+      allOf:
+        - $ref: '#/components/schemas/Job'
+        - type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/Status'
+    ApplicantResponse:
+      allOf:
+        - $ref: '#/components/schemas/Applicant'
+        - type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/Status'
+    ContactResponse:
+      allOf:
+        - $ref: '#/components/schemas/ContactInfo'
+        - type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/Status'
+    Company:
+     allOf:
+      - $ref: '#/components/schemas/Organization'
+      - type: object
+    Application:
+      type: object
+      required:
+      - id
+      - companyId
+      - positionId
+      - status
+      properties:
+        id:
+          type: integer
+        companyId:
+          type: integer
+        positionId:
+          type: integer
+        status:
+          type: string
+    CompanyCollections:
+      type: object
+      required:
+      - id
+      - company
+      - status
+      properties:
+        id:
+          type: integer
+        company:
+           $ref: '#/components/schemas/Company'
+        status:
+          $ref: '#/components/schemas/CollectionStatus'
+    JobCollections:
+      type: object
+      required:
+      - id
+      - job
+      - status
+      properties:
+        id:
+          type: integer
+        job:
+            $ref: '#/components/schemas/Job'
+        status:
+          $ref: '#/components/schemas/CollectionStatus'
+    CollectionStatus:
+      type: string
+      enum:
+      - active
+      - inactive
+    AnswerBasic:
+        type: object
+        required:
+        properties:
+          id:
+            type: integer
+            description: answer id
+          creator:
+            $ref: '#/components/schemas/User'
+          body:
+            type: string
+            description: answer body
+          is_anonymous:
+            type: boolean
+            default: false
+          create_at:
+            type: integer
+            description: create time of answer
+    Question:
+      type: object
+      required:
+      - id
+      - creator
+      - title
+      - is_anonymous
+      - create_at
+      properties:
+        id:
+          type: integer
+          description: question id
+        creator:
+          $ref: '#/components/schemas/User'
+        title:
+          type: string
+          description: question title
+        body:
+          type: string
+          description: question body
+        is_anonymous:
+          type: boolean
+          default: flase
+        create_at:
+          type: integer
+          description: create time of question
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnswerBasic'
+    Answer:
+      allOf:
+        - $ref: '#/components/schemas/AnswerBasic'
+        - type: object
+          properties:
+            answer:
+              $ref: '#/components/schemas/Question'
+          
+        
+             
