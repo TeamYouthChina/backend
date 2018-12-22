@@ -135,4 +135,12 @@ public interface CommunityQAMapper {
     Integer updateStatusOfInvitation(AnswerInvitation answerInvitation);
 
     AnswerInvitation getInvitation(Integer invit_id);
+
+    Integer addVideo(Video video);
+
+    Integer createMapBetweenVedioAndUser(Integer video_id, Integer user_id);
+
+    Video getVideo(Integer video_id);
+
+    Integer deleteVideo(Video video);
 }

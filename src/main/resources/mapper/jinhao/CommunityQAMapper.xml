@@ -404,4 +404,31 @@
         set invit_accept = #{invit_accept}
         where invit_id = #{invit_id}
     </update>
+
+    <!-- 发布视频 -->
+    <insert id="addVideo" parameterType="com.youthchina.domain.jinhao.communityQA.Video" useGeneratedKeys="true"
+            keyProperty="video_Id">
+        insert into COM_USER_VIDEO (video_title, video_path, video_upload_time, is_delete, is_delete_time)
+        values (#{video_title}, #{video_path}, #{video_upload_time}, #{is_delete}, #{is_delete_time})
+    </insert>
+
+    <!-- 建立用户和视频的映射 -->
+    <insert id="createMapBetweenVedioAndUser">
+        insert into COM_USER_VIDEO_MAP (vedio_id, user_id)
+        values (#{vedio_id}, #{user_id})
+    </insert>
+
+    <!-- 拿到某个视频 -->
+    <select id="getVideo" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.Video">
+        select * from COM_USER_VIDEO
+        where video_id = #{video_id}
+    </select>
+
+    <!-- 删除某个视频 -->
+    <update id="deleteVideo" parameterType="com.youthchina.domain.jinhao.communityQA.Video">
+        update COM_USER_VIDEO
+        set is_delete = #{is_delete}
+        and is_delete_time = #{is_delete_time}
+        where vedio_id = #{vedio_id}
+    </update>
 </mapper>

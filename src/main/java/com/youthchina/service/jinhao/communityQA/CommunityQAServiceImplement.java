@@ -644,6 +644,50 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
     /**
+     * 发布视频
+     * @param video 要发布的视频对象
+     * @param user_id 发布视频的用户的id
+     * @return 发布成功返回1
+     */
+    @Override
+    @Transactional
+    public Integer addVideo(Video video, Integer user_id) {
+        communityQAMapper.addVideo(video);
+        communityQAMapper.createMapBetweenVedioAndUser(video.getVideo_id(), user_id);
+        return 1;
+    }
+
+    /**
+     * 拿到某个视频，如果视频不存在，则抛出异常
+     * @param video_id 视频的id
+     * @return 返回得到的视频对象
+     * @throws NotFoundException
+     */
+    @Override
+    public Video getVideo(Integer video_id) throws NotFoundException {
+        Video video = communityQAMapper.getVideo(video_id);
+        if(video == null){
+            throw new NotFoundException(404, 404, "没有找到该视频");
+        }else {
+            return video;
+        }
+    }
+
+    /**
+     * 删除某个视频，如果视频不存在，则抛出异常
+     * @param video 要删除的视频对象
+     * @return 删除成功返回1
+     * @throws NotFoundException
+     */
+    @Override
+    @Transactional
+    public Integer deleteVideo(Video video) throws NotFoundException{
+        getVideo(video.getVideo_id());
+        communityQAMapper.deleteVideo(video);
+        return 1;
+    }
+
+    /**
      * 根据角色id拿到对应的用户信息
      * @param user_id 角色id
      * @return 返回一个用户信息的对象

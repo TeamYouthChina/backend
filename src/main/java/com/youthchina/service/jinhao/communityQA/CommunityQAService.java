@@ -59,15 +59,11 @@ public interface CommunityQAService {
     AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
     Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;
 
+    Integer addVideo(Video video, Integer user_id);
+    Video getVideo(Integer video_id) throws NotFoundException;
+    Integer deleteVideo(Video video) throws NotFoundException;
+
     List<Question> listQuestion();
     StuInfo getStuInfo(Integer user_id);
-    //功能服务
-//    Integer question(Question question, User user);
-//    Integer answerQuestion(Question question, QuestionAnswer questionAnswer);
-//    Integer agreeAnswer(QuestionAnswer questionAnswer, AnswerAgree answerAgree);
-//    Integer disagreeAnswer(QuestionAnswer questionAnswer, AnswerDisagree answerDisagree);
-//    Integer replyAnswer(QuestionAnswer questionAnswer, AnswerComment answerReply);
-//    Integer agreeReply(AnswerComment answerReply, CommentAgree replyAgree);
-//    Integer replyReply(AnswerComment answerReply, AnswerComment answerReply1);
-        List<QuestionAndPopAnswer> listAllQuestionAndPopAnswer() throws NotFoundException;
+    List<QuestionAndPopAnswer> listAllQuestionAndPopAnswer() throws NotFoundException;
 }
