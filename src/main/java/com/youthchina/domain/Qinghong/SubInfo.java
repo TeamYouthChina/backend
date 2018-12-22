@@ -1,9 +1,10 @@
 package com.youthchina.domain.Qinghong;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class SubInfo {
-    private int sub_id;
+    private Integer sub_id;
     private String sub_course;
     private String sub_honor;
     private String sub_award;
@@ -14,14 +15,14 @@ public class SubInfo {
     private String sub_interest;
     private String sub_activity;
     private Integer stu_id;
-    private Boolean is_delete;
-    private Date is_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
-    public int getSub_id() {
+    public Integer getSub_id() {
         return sub_id;
     }
 
-    public void setSub_id(int sub_id) {
+    public void setSub_id(Integer sub_id) {
         this.sub_id = sub_id;
     }
 
@@ -105,19 +106,19 @@ public class SubInfo {
         this.stu_id = stu_id;
     }
 
-    public Boolean getIs_delete() {
+    public Integer getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(Boolean is_delete) {
+    public void setIs_delete(Integer is_delete) {
         this.is_delete = is_delete;
     }
 
-    public Date getIs_delete_time() {
+    public Timestamp getIs_delete_time() {
         return is_delete_time;
     }
 
-    public void setIs_delete_time(Date is_delete_time) {
+    public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
 }

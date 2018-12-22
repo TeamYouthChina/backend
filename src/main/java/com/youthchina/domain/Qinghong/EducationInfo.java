@@ -1,9 +1,10 @@
 package com.youthchina.domain.Qinghong;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class EducationInfo {
-    private int edu_id;
+    private Integer edu_id;
     private String edu_degree;
     private String edu_school;
     private String edu_school_country;
@@ -14,14 +15,14 @@ public class EducationInfo {
     private String edu_start;
     private String edu_end;
     private Integer stu_id;
-    private Boolean is_delete;
-    private Date is_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
-    public int getEdu_id() {
+    public Integer getEdu_id() {
         return edu_id;
     }
 
-    public void setEdu_id(int edu_id) {
+    public void setEdu_id(Integer edu_id) {
         this.edu_id = edu_id;
     }
 
@@ -105,19 +106,19 @@ public class EducationInfo {
         this.stu_id = stu_id;
     }
 
-    public Boolean getIs_delete() {
+    public Integer getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(Boolean is_delete) {
+    public void setIs_delete(Integer is_delete) {
         this.is_delete = is_delete;
     }
 
-    public Date getIs_delete_time() {
+    public Timestamp getIs_delete_time() {
         return is_delete_time;
     }
 
-    public void setIs_delete_time(Date is_delete_time) {
+    public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
 }

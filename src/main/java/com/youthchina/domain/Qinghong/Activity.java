@@ -1,9 +1,10 @@
 package com.youthchina.domain.Qinghong;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Activity {
-    private int act_id;
+    private Integer act_id;
     private String act_name;
     private String act_organization;
     private String act_role;
@@ -11,14 +12,14 @@ public class Activity {
     private String act_end_time;
     private String act_detail;
     private Integer stu_id;
-    private Boolean is_delete;
-    private Date is_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
-    public int getAct_id() {
+    public Integer getAct_id() {
         return act_id;
     }
 
-    public void setAct_id(int act_id) {
+    public void setAct_id(Integer act_id) {
         this.act_id = act_id;
     }
 
@@ -78,19 +79,19 @@ public class Activity {
         this.stu_id = stu_id;
     }
 
-    public Boolean getIs_delete() {
+    public Integer getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(Boolean is_delete) {
+    public void setIs_delete(Integer is_delete) {
         this.is_delete = is_delete;
     }
 
-    public Date getIs_delete_time() {
+    public Timestamp getIs_delete_time() {
         return is_delete_time;
     }
 
-    public void setIs_delete_time(Date is_delete_time) {
+    public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
 }
