@@ -644,6 +644,26 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
     /**
+     * 根据角色id拿到对应的用户信息
+     * @param user_id 角色id
+     * @return 返回一个用户信息的对象
+     */
+    @Override
+    public StuInfo getStuInfo(Integer user_id) {
+        return communityQAMapper.getStuInfo(user_id);
+    }
+
+    /**
+     * 拿到前10个问题的基本信息，问答板块主页要用
+     * @return 返回问题对象的list
+     */
+    @Override
+    public List<Question> listQuestion() {
+        return communityQAMapper.listQuestion();
+    }
+
+
+    /**
      * 发布视频
      * @param video 要发布的视频对象
      * @param user_id 发布视频的用户的id
@@ -688,22 +708,229 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
     /**
-     * 根据角色id拿到对应的用户信息
-     * @param user_id 角色id
-     * @return 返回一个用户信息的对象
+     * 判断用户是否关注过视频
+     * @param video_id 视频的id
+     * @param user_id 用户的id
+     * @return 如果关注过，则返回关注的id,否则返回0
      */
     @Override
-    public StuInfo getStuInfo(Integer user_id) {
-        return communityQAMapper.getStuInfo(user_id);
+    public Integer isVideoEverAttention(Integer video_id, Integer user_id) {
+        Integer atten_id = communityQAMapper.isEverAttentionVideo(video_id, user_id);
+        if(atten_id == null){
+            return 0;
+        }else {
+            return atten_id;
+        }
     }
 
     /**
-     * 拿到前10个问题的基本信息，问答板块主页要用
-     * @return 返回问题对象的list
+     * 判断用户是否关注了视频
+     * @param atten_id 关注的id
+     * @return 如果关注，返回0，否则返回1
      */
     @Override
-    public List<Question> listQuestion() {
-        return communityQAMapper.listQuestion();
+    public Integer isVideoAttention(Integer atten_id) {
+        return communityQAMapper.videoAttentionStatus(atten_id);
     }
 
+    /**
+     * 关注视频，如果用户从没关注过，则添加新关注，并且建立映射，否则重新关注
+     * @param videoAttention 视频关注对象
+     * @param video_id 视频id
+     * @return 返回关注id
+     */
+    @Override
+    @Transactional
+    public Integer attentionVideo(VideoAttention videoAttention, Integer video_id) throws NotFoundException{
+        getVideo(video_id);
+        Integer atten_id = videoAttention.getAtten_id();
+        if(atten_id == null){
+            communityQAMapper.addAttentionToVideo(videoAttention);
+            atten_id = videoAttention.getAtten_id();
+            communityQAMapper.createMapBetweenAttentionAndVideo(atten_id, video_id);
+        }else{
+            communityQAMapper.reAddAttentionToVideo(videoAttention);
+        }
+        return atten_id;
+    }
+
+    /**
+     * 拿到某个视频关注
+     * @param atten_id 关注id
+     * @return 如果找到了，返回找到的视频关注对象，否则抛出异常
+     * @throws NotFoundException
+     */
+    @Override
+    public VideoAttention getVideoAttetion(Integer atten_id) throws NotFoundException{
+        VideoAttention videoAttention = communityQAMapper.getVideoAttention(atten_id);
+        if(videoAttention == null){
+            throw new NotFoundException(404, 404, "没有找到这个视频关注");
+        }else {
+            return videoAttention;
+        }
+    }
+
+    /**
+     * 取消关注某个视频，如果该关注对象不存在，则抛出异常
+     * @param videoAttention 视频关注对象
+     * @return 取消成功，返回1
+     * @throws NotFoundException
+     */
+    @Override
+    @Transactional
+    public Integer cancelAttenVideo(VideoAttention videoAttention) throws NotFoundException{
+        getVideoAttetion(videoAttention.getAtten_id());
+        communityQAMapper.cancelAttentionVideo(videoAttention);
+        return 1;
+    }
+
+    /**
+     * 评论视频，如果视频不存在，抛出异常
+     * @param videoComment 视频评论对象
+     * @param video_id 视频id
+     * @return 评论成功，返回1
+     * @throws NotFoundException
+     */
+    @Override
+    public Integer commentVideo(VideoComment videoComment, Integer video_id) throws NotFoundException{
+        getVideo(video_id);
+        communityQAMapper.addCommentToVideo(videoComment);
+        communityQAMapper.createMapBetweenCommentAndVideo(videoComment.getComment_id(), video_id);
+        return 1;
+    }
+
+    /**
+     * 拿到某条视频评论，如果没找到，抛出异常
+     * @param comment_id 评论的id
+     * @return 返回找到的评论对象
+     * @throws NotFoundException
+     */
+    @Override
+    public VideoComment getVideoComment(Integer comment_id) throws NotFoundException{
+        VideoComment videoComment = communityQAMapper.getVideoComment(comment_id);
+        if(videoComment == null){
+            throw new NotFoundException(404, 404, "没找到这条视频评论");
+        }else {
+            return videoComment;
+        }
+    }
+
+    /**
+     * 删除某条视频评论，如果该条评论不存在，抛出异常
+     * @param videoComment 要删除的视频评论对象
+     * @return 删除成功返回1
+     * @throws NotFoundException
+     */
+    @Override
+    @Transactional
+    public Integer deleteVideoComment(VideoComment videoComment) throws NotFoundException{
+        getVideoComment(videoComment.getComment_id());
+        communityQAMapper.deleteVideoComment(videoComment);
+        return 1;
+    }
+
+    /**
+     * 判断用户是否评价过视频
+     * @param video_id 视频的id
+     * @param user_id 用户的id
+     * @return 如果评价过，返回评价id,如果没有，返回0
+     */
+    @Override
+    public Integer isVideoEverEvaluate(Integer video_id, Integer user_id) {
+        Integer evaluate_id = communityQAMapper.isEverEvaluateVideo(video_id, user_id);
+        if(evaluate_id == null){
+            return 0;
+        }else {
+            return evaluate_id;
+        }
+    }
+
+    /**
+     * 返回用户的评价状态
+     * @param evaluate_id 评价id
+     * @return 如果赞同，返回1；反对，返回2； 取消。返回3
+     */
+    @Override
+    public Integer videoEvaluateStatus(Integer evaluate_id) {
+        return communityQAMapper.videoEvaluateStatus(evaluate_id);
+    }
+
+    /**
+     * 找到某个视频评价
+     * @param evaluate_id 评价id
+     * @return 返回找到的视频评价
+     * @throws NotFoundException
+     */
+    @Override
+    public VideoEvaluate getVideoEvaluate(Integer evaluate_id) throws NotFoundException{
+        VideoEvaluate videoEvaluate = communityQAMapper.getVideoEvaluate(evaluate_id);
+        if(videoEvaluate == null){
+            throw new NotFoundException(404, 404, "没有找到这个视频评价");
+        }else {
+            return videoEvaluate;
+        }
+    }
+
+    /**
+     * 评价视频，如果没有评价过，则添加评价并且建立映射，否则直接重新评价
+     * @param videoEvaluate 视频评价对象
+     * @param video_id 视频的id
+     * @return 返回评价id
+     * @throws NotFoundException
+     */
+    @Transactional
+    @Override
+    public Integer evaluateVideo(VideoEvaluate videoEvaluate, Integer video_id) throws NotFoundException {
+        getVideo(video_id);
+        Integer evaluate_id = videoEvaluate.getEvaluate_id();
+        if(evaluate_id == null){
+            communityQAMapper.addEvaluationToVideo(videoEvaluate);
+            evaluate_id = videoEvaluate.getEvaluate_id();
+            communityQAMapper.createMapBetweenEvaluationAndVideo(evaluate_id, video_id);
+        }else{
+            getVideoEvaluate(evaluate_id);
+            communityQAMapper.reEvaluateVideo(videoEvaluate);
+        }
+        return evaluate_id;
+    }
+
+    /**
+     * 拿到某个视频的关注数
+     * @param video_id 视频的id
+     * @return 返回视频的关注数
+     */
+    @Override
+    public Integer countVideoFollower(Integer video_id) {
+        return communityQAMapper.countVideoFollwers(video_id);
+    }
+
+    /**
+     * 拿到某个视频等等评论数
+     * @param video_id 视频的id
+     * @return 返回视频的评论数
+     */
+    @Override
+    public Integer countVideoComments(Integer video_id) {
+        return communityQAMapper.countVideoComments(video_id);
+    }
+
+    /**
+     * 拿到某个视屏的赞同数
+     * @param video_id 视频iid
+     * @return 返回视频的赞同数
+     */
+    @Override
+    public Integer countVideoAgreement(Integer video_id) {
+        return communityQAMapper.countVideoAgreement(video_id);
+    }
+
+    /**
+     * 拿到某个视频的不赞同数
+     * @param video_id 视频的id
+     * @return 返回视频的反对
+     */
+    @Override
+    public Integer countVideoDisAgreement(Integer video_id) {
+        return communityQAMapper.countVideoDisagreement(video_id);
+    }
 }

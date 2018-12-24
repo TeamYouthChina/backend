@@ -269,13 +269,14 @@
         and a.evaluate_type = 1
     </select>
 
-    <!-- 查看用户是否评价过这个讨论 -->
+    <!-- 查看用户是否评价过这个评论 -->
     <select id="isEverEvaluateComment" resultType="java.lang.Integer">
         select a.evaluate_id from COM_COMMENT_EVALUATE_MAP m, COM_COMMENT_EVALUATE a
         where m.comment_id = #{comment_id}
           and a.user_id = #{user_id}
           and m.evaluate_id = a.evaluate_id
     </select>
+
     <!-- 检查用户对此评论的评价状态 -->
     <select id="commentEvaluateStatus" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select a.evaluate_type from COM_COMMENT_EVALUATE a
@@ -294,7 +295,12 @@
         insert into COM_COMMENT_EVALUATE_MAP(evaluate_id, comment_id)
         values (#{evaluate_id}, #{comment_id})
     </insert>
-
+    <!-- 拿到评论的评价 -->
+    <select id="getCommentEvaluate" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
+        select * from COM_COMMENT_EVALUATE
+        where evaluate_id = #{evaluate_id}
+    </select>
     <!-- 如果不是第一次评价，则更新字段 -->
     <update id="reEvaluateComment" parameterType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
         update COM_COMMENT_EVALUATE
@@ -364,6 +370,12 @@
         insert into COM_DISCUSS_EVALUATE_MAP(evaluate_id, discuss_id) values (#{evaluate_id}, #{discuss_id})
     </insert>
 
+    <!-- 拿到讨论的评价 -->
+    <select id="getDiscussEvaluate" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.DiscussEvaluate">
+        select * from COM_DISCUSS_EVALUATE where evaluate_id = #{evaluate_id}
+    </select>
+
     <!-- 如果评价过，则更新字段 -->
     <update id="reEvaluateDiscuss" parameterType="com.youthchina.domain.jinhao.communityQA.DiscussEvaluate">
         update COM_DISCUSS_EVALUATE
@@ -422,6 +434,7 @@
     <select id="getVideo" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.Video">
         select * from COM_USER_VIDEO
         where video_id = #{video_id}
+        and is_delete = 0
     </select>
 
     <!-- 删除某个视频 -->
@@ -431,4 +444,157 @@
         and is_delete_time = #{is_delete_time}
         where vedio_id = #{vedio_id}
     </update>
+
+    <!-- 检查是否关注过某个视频 -->
+    <select id="isEverAttentionVideo" resultType="java.lang.Integer">
+        select a.atten_id from COM_VIDEO_ATTENTION a, COM_VIDEO_ATTENTION_MAP m
+        where a.user_id = #{user_id}
+        and m.video_id = #{video_id}
+        and a.atten_id = m.atten_id
+    </select>
+
+    <!-- 查看用户是否关注了这个视频 -->
+    <select id="videoAttentionStatus" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select atten_cancel from COM_VIDEO_ATTENTION
+        where atten_id = #{atten_id}
+    </select>
+
+    <!-- 重新关注某个视频 -->
+    <update id="reAddAttentionToVideo" parameterType="com.youthchina.domain.jinhao.communityQA.VideoAttention">
+        update COM_VIDEO_ATTENTION
+        set atten_cancel = #{atten_cancel}
+        and atten_time = #{atten_time}
+        where atten_id = #{atten_id}
+    </update>
+
+    <!-- 关注某个视频 -->
+    <insert id="addAttentionToVideo" parameterType="com.youthchina.domain.jinhao.communityQA.VideoAttention"
+            useGeneratedKeys="true" keyProperty="atten_id">
+        insert into COM_VIDEO_ATTENTION(user_id, atten_time, atten_cancel, atten_cancel_time)
+        values (#{user_id}, #{atten_time}, #{atten_cancel}, #{atten_cancel_time})
+    </insert>
+
+    <!-- 建立关注和视频的映射 -->
+    <insert id="createMapBetweenAttentionAndVideo">
+        insert into COM_VIDEO_ATTENTION_MAP(atten_id, video_id)
+        values (#{atten_id}, #{video_id})
+    </insert>
+
+    <!-- 拿到某个视频关注 -->
+    <select id="getVideoAttention" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.VideoAttention">
+        select * from COM_VIDEO_ATTENTION where atten_id = #{atten_id} and antten_cancel = 0
+    </select>
+
+    <!-- 取消关注视频 -->
+    <update id="cancelAttentionVideo" parameterType="com.youthchina.domain.jinhao.communityQA.VideoAttention">
+        update COM_VIDEO_ATTENTION
+        set atten_cancel = #{atten_cancel}
+        and atten_cancel_time = #{atten_cancel_time}
+        where atten_id = #{atten_id}
+    </update>
+
+    <!-- 评论视频 -->
+    <insert id="addCommentToVideo" parameterType="com.youthchina.domain.jinhao.communityQA.VideoComment"
+            useGeneratedKeys="true" keyProperty="comment_id">
+        insert into COM_VIDEO_COMMENT(comment_content, user_id, user_anony, comment_public_time, comment_edit_time,
+                comment_delete)
+        values (#{comment_content}, #{user_id}, #{user_anony}, #{comment_public_time}, #{comment_edit_time},
+                #{comment_delete})
+    </insert>
+
+    <!-- 建立视频评论和视频的映射 -->
+    <insert id="createMapBetweenCommentAndVideo">
+        insert into COM_VIDEO_COMMENT_MAP(comment_id, video_id)
+        values (#{comment_id}, #{video_id})
+    </insert>
+
+    <!-- 拿到某个评论 -->
+    <select id="getVideoComment" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.VideoComment">
+        select * from COM_VIDEO_COMMENT
+        where comment_id = #{comment_id}
+        and comment_delete = 0;
+    </select>
+
+    <!-- 删除某个评论 -->
+    <update id="deleteVideoComment" parameterType="com.youthchina.domain.jinhao.communityQA.VideoComment">
+        update COM_VIDEO_COMMENT
+        set comment_delete = #{comment_delete}
+        and comment_delete_time = #{comment_delete_time}
+        where comment_id = #{comment_id}
+    </update>
+
+    <!-- 检查是否评价过视频 -->
+    <select id="isEverEvaluateVideo" resultType="java.lang.Integer">
+        select a.evaluate_id from COM_VIDEO_EVALUATE a, COM_VIDEO_EVALUATE_MAP m
+        where a.user_id = #{user_id}
+        and m.video_id = #{video_id}
+        and a.evaluate_id = m.evaluate_id
+    </select>
+
+    <!-- 查看用户对视频的评价状态 -->
+    <select id="videoEvaluateStatus" resultType="java.lang.Integer">
+        select evaluate_type from COM_VIDEO_EVALUATE
+        where evaluate_id = #{evaluate_id}
+    </select>
+
+    <!-- 对视频评价 -->
+    <insert id="addEvaluationToVideo" parameterType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate"
+    useGeneratedKeys="true" keyProperty="evaluate_id">
+        insert into COM_VIDEO_EVALUATE(user_id, evaluate_type, evaluate_time)
+        values (#{user_id}, #{evaluate_type}, #{evaluate_time})
+    </insert>
+
+    <!-- 建立评价和视频的映射 -->
+    <insert id="createMapBetweenEvaluationAndVideo">
+        insert into COM_VIDEO_EVALUATE_MAP(evaluate_id, video_id)
+        values (evaluate_id, video_id)
+    </insert>
+
+    <!-- 拿到某个评价 -->
+    <select id="getVideoEvaluate" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate">
+        select * from COM_VIDEO_EVALUATE
+        where evaluate_id = #{evaluate_id}
+    </select>
+
+    <!-- 重新评价视频 -->
+    <update id="reEvaluateVideo" parameterType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate">
+        update COM_VIDEO_EVALUATE
+        set evaluate_type = #{evaluate_type}
+        and evaluate_time = #{evaluate_time}
+        where evaluate_id = #{evaluate_id}
+    </update>
+
+    <!-- 拿到某个视频的关注数 -->
+    <select id="countVideoFollwers" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+        select count(m.*) from COM_VIDEO_ATTENTION_MAP m, COM_VIDEO_ATTENTION a
+        where m.video_id = #{video_id}
+        and a.atten_id = m.atten_id
+        and a.atten_cancel = 0
+    </select>
+
+    <!-- 拿到某视频的评论数 -->
+    <select id="countVideoComments" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(m.*) from COM_VIDEO_COMMENT_MAP m, COM_VIDEO_COMMENT a
+        where m.video_id = #{video_id}
+        and a.comment_id = m.comment_id
+        and a.comment_delete = 0
+    </select>
+
+    <!-- 拿到某个视频的赞同数 -->
+    <select id="countVideoAgreement" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(m.*) from COM_VIDEO_EVALUATE_MAP m, COM_VIDEO_EVALUATE a
+        where m.video_id = #{video_id}
+        and m.evaluate_id = a.evaluate_id
+        and a.evaluate_type = 1
+    </select>
+
+    <!-- 拿到某个视频的不赞同数 -->
+    <select id="countVideoDisagreement" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(m.*) from COM_VIDEO_EVALUATE_MAP m, COM_VIDEO_EVALUATE a
+        where m.video_id = #{video_id}
+        and m.evaluate_id = a.evaluate_id
+        and a.evaluate_type = 2
+    </select>
 </mapper>

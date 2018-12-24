@@ -103,6 +103,8 @@ public interface CommunityQAMapper {
     Integer createMapBetweenCommentAndEvaluate(@Param("evaluate_id") Integer evaluate_id,
                                                @Param("comment_id") Integer comment_id);
 
+    CommentEvaluate getCommentEvaluate(Integer evaluate_id);
+
     Integer reEvaluateComment(CommentEvaluate commentEvaluate);
 
 
@@ -126,21 +128,67 @@ public interface CommunityQAMapper {
     Integer createMapBetweenDiscussAndEvaluate(@Param("evaluate_id") Integer evaluate_id,
                                                @Param("discuss_id") Integer discuss_id);
 
+    DiscussEvaluate getDiscussEvaluate(Integer evaluate_id);
+
     Integer reEvaluateDiscuss(DiscussEvaluate discussEvaluate);
 
     Integer addInvitation(AnswerInvitation answerInvitation);
 
-    Integer createMapBetweenInvitationAndQuestion(Integer invit_id, Integer ques_id, Integer invit_user_id,
-                                                  Integer invited_user_id);
+    Integer createMapBetweenInvitationAndQuestion(@Param("invit_id") Integer invit_id, @Param("ques_id") Integer ques_id,
+                                                  @Param("invit_user_id") Integer invit_user_id,
+                                                  @Param("invited_user_id") Integer invited_user_id);
     Integer updateStatusOfInvitation(AnswerInvitation answerInvitation);
 
     AnswerInvitation getInvitation(Integer invit_id);
 
     Integer addVideo(Video video);
 
-    Integer createMapBetweenVedioAndUser(Integer video_id, Integer user_id);
+    Integer createMapBetweenVedioAndUser(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
 
     Video getVideo(Integer video_id);
 
     Integer deleteVideo(Video video);
+
+    Integer isEverAttentionVideo(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
+
+    Integer videoAttentionStatus(Integer atten_id);
+
+    Integer reAddAttentionToVideo(VideoAttention videoAttention);
+
+    Integer addAttentionToVideo(VideoAttention videoAttention);
+
+    Integer createMapBetweenAttentionAndVideo(@Param("atten_id") Integer atten_id, @Param("video_id") Integer video_id);
+
+    VideoAttention getVideoAttention(Integer atten_id);
+
+    Integer cancelAttentionVideo(VideoAttention videoAttention);
+
+    Integer addCommentToVideo(VideoComment videoComment);
+
+    Integer createMapBetweenCommentAndVideo(@Param("comment_id") Integer comment_id, @Param("video_id") Integer video_id);
+
+    VideoComment getVideoComment(Integer comment_id);
+
+    Integer deleteVideoComment(VideoComment videoComment);
+
+    Integer isEverEvaluateVideo(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
+
+    Integer videoEvaluateStatus(Integer evaluate_id);
+
+    Integer addEvaluationToVideo(VideoEvaluate videoEvaluate);
+
+    Integer createMapBetweenEvaluationAndVideo(@Param("evaluate_id") Integer evaluate_id,
+                                               @Param("video_id") Integer video_id);
+
+    VideoEvaluate getVideoEvaluate(Integer evaluate_id);
+
+    Integer reEvaluateVideo(VideoEvaluate videoEvaluate);
+
+    Integer countVideoFollwers(Integer video_id);
+
+    Integer countVideoAgreement(Integer video_id);
+
+    Integer countVideoDisagreement(Integer video_id);
+
+    Integer countVideoComments(Integer video_id);
 }
