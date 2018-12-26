@@ -2,6 +2,7 @@ package com.youthchina.domain.qingyang;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Job_qingyang {
     /*主键, 职位ID (JOB_INFO)*/
@@ -22,7 +23,6 @@ public class Job_qingyang {
 职位描述		    JOB_DESCRIPTION	VARCHAR(200)		否
 职责描述(可空)    JOB_DUTY	    VARCHAR(200)		是
 学历要求(可空)    JOB_REQ	        VARCHAR(200)		是
-工作地点         JOB_LOCATION	VARCHAR(200)		否
 职位亮点(可空)    JOB_HIGHLIGHT	VARCHAR(200)		是
 职位薪资(可空)	JOB_SALARY	    VARCHAR(200)		是
 简历接收邮箱      CV_RECEI_MAIL	VARCHAR(200)		否
@@ -38,7 +38,7 @@ public class Job_qingyang {
     private String  jobDescription;
     private String  jobDuty;
     private String  jobReq;
-    private String  jobLocation;
+
     private String  jobHighlight;
     private String  jobSalary;
     private String  cvReceiMail;
@@ -52,6 +52,8 @@ public class Job_qingyang {
 
     private Company_qingyang company;
     private Hr_qingyang hr;
+
+    private List<JobLocation> jobLocation;
 
     public Company_qingyang getCompany() {
         return company;
@@ -141,14 +143,6 @@ public class Job_qingyang {
         this.jobReq = jobReq;
     }
 
-    public String getJobLocation() {
-        return jobLocation;
-    }
-
-    public void setJobLocation(String jobLocation) {
-        this.jobLocation = jobLocation;
-    }
-
     public String getJobHighlight() {
         return jobHighlight;
     }
@@ -219,5 +213,13 @@ public class Job_qingyang {
 
     public void setIsDeleteTime(Timestamp isDeleteTime) {
         this.isDeleteTime = isDeleteTime;
+    }
+
+    public List<JobLocation> getJobLocation() {
+        return jobLocation;
+    }
+
+    public void setJobLocation(List<JobLocation> jobLocation) {
+        this.jobLocation = jobLocation;
     }
 }

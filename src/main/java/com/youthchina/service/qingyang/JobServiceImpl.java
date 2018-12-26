@@ -30,7 +30,6 @@ public class JobServiceImpl implements JobService {
         job.setJobEndTime(new Date(20190101));
         job.setJobDescription("吃苦耐劳");
         job.setJobTime(1); // 全职1
-        job.setJobLocation("北京");
         job.setCvReceiMail("test@test.test");
         job.setJobActive(1); // 1，2，3,4,5
     }

@@ -34,7 +34,7 @@
             COMPANY_START_DATE = #{companyStartDate},
             COMPANY_LOGO = #{companyLogo},
             COMPANY_VERIFY = #{companyVerify},
-            USER_ID = #{userId},
+            USER_ID = #{userId}
         WHERE
             COMPANY_ID = #{companyId}
           AND IS_DELETE = 0
@@ -124,7 +124,7 @@
                  LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_NUM = i.IND_NUM
         WHERE
             com.COMPANY_ID = #{companyId}
-          AND com.IS_DELETE = 0 AND v.IS_DELETE = 0 AND i.IS_DELETE = 0 AND class.IS_DELETE = 0
+        AND com.IS_DELETE = 0 AND v.IS_DELETE = 0 AND i.IS_DELETE = 0 AND class.IS_DELETE = 0
     </select>
 
 
