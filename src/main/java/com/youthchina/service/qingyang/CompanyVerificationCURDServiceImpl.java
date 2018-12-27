@@ -20,8 +20,8 @@ public class CompanyVerificationCURDServiceImpl implements CompanyVerificationCU
     }
 
     @Override
-    public List<CompanyVerification_qingyang> get(List<Integer> id) throws NotFoundException {
-        return companyTestMapper.selectCompanyVerficationByIdList(id);
+    public List<CompanyVerification_qingyang> get(List<Integer> ids) throws NotFoundException {
+        return companyTestMapper.selectCompanyVerficationByIdList(ids);
     }
 
     @Override

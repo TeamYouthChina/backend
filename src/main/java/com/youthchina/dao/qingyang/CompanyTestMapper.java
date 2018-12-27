@@ -16,7 +16,7 @@ public interface CompanyTestMapper {
 
     Company_qingyang selectCompany(Integer id);
 
-    List<Company_qingyang> selectCompanyByIdList(List<Integer> id);
+    List<Company_qingyang> selectCompanyByIdList(List<Integer> ids);
 
     Integer deleteCompany(Integer id);
 
@@ -26,9 +26,9 @@ public interface CompanyTestMapper {
 
     Industry_qingyang selectIndustry(Integer id);
 
-    List<Industry_qingyang> selectIndustryByIdList(List<Integer> id);
+    List<Industry_qingyang> selectIndustryByIdList(List<Integer> ids);
 
-    Integer deleteIndustry();
+    Integer deleteIndustry(Integer id);
 
     Integer updateIndustry(Industry_qingyang industry_qingyang);
 
@@ -36,7 +36,7 @@ public interface CompanyTestMapper {
     
     CompanyVerification_qingyang selectCompanyVerfication(Integer id);
 
-    List<CompanyVerification_qingyang> selectCompanyVerficationByIdList(List<Integer> id);
+    List<CompanyVerification_qingyang> selectCompanyVerficationByIdList(List<Integer> ids);
 
     Integer deleteCompanyVerfication(Integer id);
 
@@ -46,7 +46,7 @@ public interface CompanyTestMapper {
 
     Hr_qingyang selectHr(Integer id);
 
-    List<Hr_qingyang> selectHrByIdList(List<Integer> id);
+    List<Hr_qingyang> selectHrByIdList(List<Integer> ids);
 
     Integer deleteHr(Integer id);
 

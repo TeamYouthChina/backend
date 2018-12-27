@@ -19,8 +19,8 @@ public class HrCURDServiceImpl implements HrCURDService{
     }
 
     @Override
-    public List<Hr_qingyang> get(List<Integer> id) throws NotFoundException {
-        return companyTestMapper.selectHrByIdList(id);
+    public List<Hr_qingyang> get(List<Integer> ids) throws NotFoundException {
+        return companyTestMapper.selectHrByIdList(ids);
     }
 
     @Override

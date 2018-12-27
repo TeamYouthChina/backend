@@ -259,6 +259,52 @@
             </if>
     </select>
 
+    <insert id="insertJobLocation" parameterType="com.youthchina.domain.qingyang.JobLocation"
+            useGeneratedKeys="true" keyProperty="jobRegionId">
+        INSERT INTO JOB_LOCATION
+        (   JOB_REGION_ID,    JOB_REGION_NUM,   JOB_ID,     IS_DELETE)
+        VALUES
+        (
+            #{jobRegionId},   #(jobRegionNum),   #{jobId},  #{isDelete}
+        )
+    </insert>
+
+    <update id="updateJobLocation" parameterType="com.youthchina.domain.qingyang.JobLocation"
+            useGeneratedKeys="true" keyProperty="jobRegionId">
+        UPDATE JOB_LOCATION
+        SET
+            JOB_REGION_NUM = #{jobRegionNum},
+            JOB_ID = #{jobId}
+        WHERE
+            JOB_REGION_ID = #{jobRegionId}
+        AND IS_DELETE = 0
+    </update>
+
+    <update id="deleteJobLocation" parameterType="java.lang.Integer">
+      UPDATE JOB_LOCATION SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+      WHERE JOB_REGION_ID = #{jobRegionId}
+    </update>
+
+    <select id="getJobLocation" resultMap="com.youthchina.domain.qingyang.JobLocation"
+            parameterType="java.lang.Integer">
+        SELECT
+            JOB_REGION_ID,  JOB_REGION_NUM,   JOB_ID
+        FROM JOB_LOCATION
+        WHERE
+            JOB_REGION_ID = #{jobRegionId}
+        AND IS_DELETE = 0
+    </select>
+
+    <select id="getJobLocationList" resultMap="com.youthchina.domain.qingyang.JobLocation">
+        SELECT
+            JOB_REGION_ID,  JOB_REGION_NUM,   JOB_ID
+        FROM JOB_LOCATION
+        WHERE JOB_REGION_ID in
+        <foreach item="id" collection="ids" index="index" separator=",">
+            #{id}
+        </foreach>
+        AND IS_DELETE = 0
+    </select>
 
 
 </mapper>

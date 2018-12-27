@@ -18,8 +18,8 @@ public class JobLocationCURDServiceImpl implements JobLocationCURDService{
     }
 
     @Override
-    public List<JobLocation> get(List<Integer> id) throws NotFoundException {
-        return jobHrMapper.getJobLocationList(id);
+    public List<JobLocation> get(List<Integer> ids) throws NotFoundException {
+        return jobHrMapper.getJobLocationList(ids);
     }
 
     @Override

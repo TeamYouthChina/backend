@@ -19,8 +19,8 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     }
 
     @Override
-    public List<Company_qingyang> get(List<Integer> id) throws NotFoundException {
-        return companyTestMapper.selectCompanyByIdList(id);
+    public List<Company_qingyang> get(List<Integer> ids) throws NotFoundException {
+        return companyTestMapper.selectCompanyByIdList(ids);
     }
 
     @Override
