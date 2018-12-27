@@ -2,9 +2,13 @@ package com.youthchina.dao.Qinghong;
 
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Job;
+import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Mapper
+@Component
 public interface StudentMapper {
     List<Integer> addEducationInfos(List<EducationInfo> educationInfos);
 

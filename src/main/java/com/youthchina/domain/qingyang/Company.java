@@ -1,10 +1,12 @@
 package com.youthchina.domain.qingyang;
 
-
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * Created by zhong on 2018/12/27.
+ */
 public class Company {
     private Integer companyId;
     private String companyName;
@@ -14,23 +16,23 @@ public class Company {
     private Integer companyScaleNum;
     private String companyNature;
     private String companyLocation;
-/*
-企业ID			COMPANY_ID	        INTEGER		否
-企业名称			COMPANY_NAME	    VARCHAR(200)否
-企业三证号码		COMPANY_CODE	    VARCHAR(200)否
-企业国别			COMPANY_COUNTRY	    VARCHAR(10) 否
-企业简介(可空)	COMPANY_INTRODUC    VARCHAR(200)是
-企业规模			COMPANY_SCALE_NUM	INTEGER		否
-企业性质			COMPANY_NATURE	    VARCHAR(200)否
-企业所在地		COMPANY_LOCATION	VARCHAR(200)否
-企业邮箱(可空)	COMPANY_MAIL	    VARCHAR(200)是
-企业官网(可空)	COMPANY_WEBSITE	    VARCHAR(200)是
-成立日期(可空)	COMPANY_START_DATE	DATE		是
-企业LOGO	(可空)	COMPANY_LOGO	    VARCHAR(200)是	暂定为存储路径
-企业认证(可空)	COMPANY_VERIFY	    INTEGER		是	0-1
-录入ID	!外键!	USER_ID	            INTEGER		否
-是否删除			IS_DELETE	        INTEGER		否	0-默认不删除
-删除时间(可空)	IS_DELETE_TIME	    TIMESTAMP	是	*/
+    /*
+    企业ID			COMPANY_ID	        INTEGER		否
+    企业名称			COMPANY_NAME	    VARCHAR(200)否
+    企业三证号码		COMPANY_CODE	    VARCHAR(200)否
+    企业国别			COMPANY_COUNTRY	    VARCHAR(10) 否
+    企业简介(可空)	COMPANY_INTRODUC    VARCHAR(200)是
+    企业规模			COMPANY_SCALE_NUM	INTEGER		否
+    企业性质			COMPANY_NATURE	    VARCHAR(200)否
+    企业所在地		COMPANY_LOCATION	VARCHAR(200)否
+    企业邮箱(可空)	COMPANY_MAIL	    VARCHAR(200)是
+    企业官网(可空)	COMPANY_WEBSITE	    VARCHAR(200)是
+    成立日期(可空)	COMPANY_START_DATE	DATE		是
+    企业LOGO	(可空)	COMPANY_LOGO	    VARCHAR(200)是	暂定为存储路径
+    企业认证(可空)	COMPANY_VERIFY	    INTEGER		是	0-1
+    录入ID	!外键!	USER_ID	            INTEGER		否
+    是否删除			IS_DELETE	        INTEGER		否	0-默认不删除
+    删除时间(可空)	IS_DELETE_TIME	    TIMESTAMP	是	*/
     private String companyMail;
     private String companyWebsite;
     private Date companyStartDate;

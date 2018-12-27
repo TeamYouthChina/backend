@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.Qinghong.ApplicantMapper">
+    <resultMap id="studentResultMap" type="com.youthchina.domain.Qinghong.Student">
+        <id property="stu_id" column="STU_ID"/>
+        <result property="stu_in_job" column="STU_IN_JOB"/>
+        <result property="stu_in_job_comp" column="STU_IN_JOB_COMP"/>
+        <result property="user_id" column="USER_ID"/>
+        <result property="is_delete" column="IS_DELETE"/>
+        <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        <association property="subInfo" javaType="com.youthchina.domain.Qinghong.SubInfo">
+            <id property="sub_id" column="SUB_ID"/>
+            <result property="sub_course" column="SUB_COURSE"/>
+            <result property="sub_honor" column="SUB_HONOR"/>
+            <result property="sub_award" column="SUB_AWARD"/>
+            <result property="sub_skill" column="SUB_SKILL"/>
+            <result property="sub_foreign" column="SUB_FOREIGN"/>
+            <result property="sub_interest" column="SUB_INTEREST"/>
+            <result property="sub_introduction" column="SUB_INTRODUCTION"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        </association>
+        <collection property="educationInfos" ofType="com.youthchina.domain.Qinghong.EducationInfo">
+            <id property="edu_id" column="EDU_ID"/>
+            <result property="edu_degree" column="EDU_DEGREE"/>
+            <result property="edu_school" column="EDU_SCHOOL"/>
+            <result property="edu_school_country" column="EDU_SCHOOL_COUNTRY"/>
+            <result property="edu_school_location" column="EDU_SCHOOL_LOCATION"/>
+            <result property="edu_major" column="EDU_MAJOR"/>
+            <result property="edu_college" column="EDU_COLLEGE"/>
+            <result property="edu_gpa" column="EDU_GPA"/>
+            <result property="edu_start" column="EDU_START"/>
+            <result property="edu_end" column="EDU_END"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        </collection>
+        <collection property="certificates" ofType="com.youthchina.domain.Qinghong.Certificate">
+            <id property="certificate_id" column="CERTIFICATE_ID"/>
+            <result property="certificate_name" column="CERTIFICATE_NAME"/>
+            <result property="certificate_insti" column="CERTIFICATE_INSTI"/>
+            <result property="certificate_grant_date" column="CERTIFICATE_GRANT_DATE"/>
+            <result property="certificate_expir_date" column="CERTIFICATE_EXPIR_DATE"/>
+            <result property="certificate_url" column="CERTIFICATE_URL"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        </collection>
+        <collection property="works" ofType="com.youthchina.domain.Qinghong.Work">
+            <id property="work_id" column="WORK_ID"/>
+            <result property="work_company" column="WORK_COMPANY"/>
+            <result property="work_position" column="WORK_POSITION"/>
+            <result property="work_location" column="WORK_LOCATION"/>
+            <result property="work_sector" column="WORK_SECTOR"/>
+            <result property="work_start_time" column="WORK_START_TIME"/>
+            <result property="work_end_time" column="WORK_END_TIME"/>
+            <result property="work_duty" column="WORK_DUTY"/>
+            <result property="WORK_NATURE" column="WORK_NATURE"/>
+        </collection>
+        <collection property="projects" ofType="com.youthchina.domain.Qinghong.Project">
+            <id property="proj_id" column="PROJ_ID"/>
+            <result property="proj_name" column="PROJ_NAME"/>
+            <result property="proj_role" column="PROJ_ROLE"/>
+            <result property="proj_start_time" column="PROJ_START_TIME"/>
+            <result property="proj_end_time" column="PROJ_END_TIME"/>
+            <result property="proj_deliver" column="PROJ_DELIVER"/>
+            <result property="delever_publish" column="DELEVER_PUBLISH"/>
+            <result property="delever_pub_insti" column="DELEVER_PUB_INSTI"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        </collection>
+        <collection property="activities" ofType="com.youthchina.domain.Qinghong.Activity">
+            <id property="act_id" column="ACT_ID"/>
+            <result property="act_name" column="ACT_NAME"/>
+            <result property="act_organization" column="ACT_ORGANIZATION"/>
+            <result property="act_role" column="ACT_ROLE"/>
+            <result property="act_start_time" column="ACT_START_TIME"/>
+            <result property="act_end_time" column="ACT_END_TIME"/>
+            <result property="act_detail" column="ACT_DETAIL"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        </collection>
+    </resultMap>
+    <resultMap id="ApplyMapper" type="com.youthchina.domain.Qinghong.JobApply">
+        <id property="apply_id" column="APPLY_ID"/>
+        <result property="stu_id" column="STU_ID"/>
+        <result property="job_id" column="JOB_ID"/>
+        <result property="job_cv_send" column="JOB_CV_SEND"/>
+        <result property="job_apply_time" column="JOB_APPLY_TIME"/>
+        <result property="job_apply_status" column="JOB_APPLY_STATUS"/>
+        <association property="job" javaType="com.youthchina.domain.qingyang.Job_qingyang">
+            <id property="jobId" column="JOB_ID"/>
+            <result property="jobName" column="JOB_NAME"/>
+            <result property="jobProfNum" column="JOB_PROF_NUM"/>
+            <result property="jobStartTime" column="JOB_START_TIME"/>
+            <result property="jobEndTime" column="JOB_END_TIME"/>
+            <result property="jobTime" column="JOB_TIME"/>
+            <result property="jobDescription" column="JOB_DESCRIPTION"/>
+            <result property="jobDuty" column="JOB_DUTY"/>
+            <result property="jobReq" column="JOB_REQ"/>
+            <result property="jobLocation" column="JOB_LOCATION"/>
+            <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
+            <result property="jobSalary" column="JOB_SALARY"/>
+            <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
+            <result property="cvNameRule" column="CV_NAME_RULE"/>
+            <result property="jobActive" column="JOB_ACTIVE"/>
+        </association>
+    </resultMap>
+
+    <!--获取用户所有基本信息-->
+    <select id="getUserInfo" resultType="com.youthchina.domain.Qinghong.UserInfo">
+        select *
+        from SYS_USER
+        where USER_ID=#{user_id}
+    </select>
+
+    <!--获取申请者的信息-->
+    <select id="getStudentInfo" resultMap="com.youthchina.domain.Qinghong.Student">
+        select a.*,b.*,c.*,d.*,e.*,f.*,g.*
+        from STU_INFO a;
+        LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID
+        LEFT JOIN STU_SUB_INFO c ON a.STU_ID=c.STU_ID
+        LEFT JOIN STU_PROJECT d ON a.STU_ID=d.STU_ID
+        LEFT JOIN STU_WORK e ON a.STU_ID=e.STU_ID
+        LEFT JOIN STU_ACTIVITY f ON a.STU_ID=f.STU_ID
+        LEFT JOIN STU_CERTIFICATE g ON a.STU_ID=g.STU_ID
+        WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
+        AND c.IS_DELETE=0 AND d.IS_DELETE=0 AND e.IS_DELETE=0 AND f.IS_DELETE=0 AND g.IS_DELETE=0
+    </select>
+
+    <!--获取申请者的项目信息-->
+    <select id="getProjects" resultType="com.youthchina.domain.Qinghong.Project">
+        SELECT b.*
+        FROM STU_INFO a
+        LEFT JOIN STU_PROJECT b ON a.STU_ID=b.STU_ID
+        WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
+    </select>
+
+    <!--获取申请者的教育信息-->
+    <select id="getEducations" resultType="com.youthchina.domain.Qinghong.EducationInfo">
+        SELECT b.*
+        FROM STU_INFO a
+        LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID
+        WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
+    </select>
+
+    <!--获取申请者的工作经历信息-->
+    <select id="getWorks" resultType="com.youthchina.domain.Qinghong.Work">
+        SELECT b.*
+        FROM STU_INFO a
+        LEFT JOIN STU_WORK b ON a.STU_ID=b.STU_ID
+        WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
+    </select>
+
+    <!--获取申请者的认证信息-->
+    <select id="getCertificates" resultType="com.youthchina.domain.Qinghong.">
+        SELECT b.*
+        FROM STU_INFO a
+        LEFT JOIN STU_CERTIFICATE b ON a.STU_ID=b.STU_ID
+        WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
+    </select>
+
+    <!--获取申请者的活动信息-->
+    <select id="getActivities" resultType="com.youthchina.domain.Qinghong.Activity">
+        SELECT b.*
+        FROM STU_INFO a
+        LEFT JOIN STU_ACTIVITY b ON a.STU_ID=b.STU_ID
+        WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
+    </select>
+
+    <!--获取申请者的所有申请职位信息-->
+    <select id="getJobApplies" resultMap="ApplyMapper">
+        SELECT a.*,b.*
+        FROM STU_JOB_APPLY a
+        LEFT JOIN JOB_INFO b.* ON a.JOB_ID=b.JOB_ID
+        WHERE a.STU_ID=#{stu_id}
+    </select>
+
+    <!--申请职位-->
+    <insert id="addApply" useGeneratedKeys="true" keyProperty="apply_id">
+        insert into STU_JOB_APPLY
+        (JOB_CV_SEND,JOB_APPLY_TIME,JOB_APPLY_STATUS,STU_ID,JOB_ID)
+        values
+        (#{job_cv_send},#{job_apply_time},#{job_apply_status},#{stu_id},#{job_id})
+    </insert>
+
+    <!--删除应聘者信息-->
+    <update id="deleteStuInfo">
+        update STU_INFO set
+        IS_DELETE=1
+        WHERE STU_ID=#{stu_id}
+    </update>
+
+    <!--删除应聘者教育信息-->
+    <update id="deleteEduInfo">
+        update STU_EDU_INFO set
+        IS_DELETE=1
+        WHERE EDU_ID=#{edu_id}
+    </update>
+
+    <!--删除应聘者附加信息-->
+    <update id="deleteSubInfo">
+        update STU_INFO set
+        IS_DELETE=1
+        WHERE SUB_ID=#{sub_id}
+    </update>
+
+    <!--删除应聘者项目信息-->
+    <update id="deleteProject">
+        update STU_PROJECT set
+        IS_DELETE=1
+        WHERE PROJ_ID=#{proj_id}
+    </update>
+
+    <!--删除应聘者工作经验-->
+    <update id="deleteWork">
+        update STU_WORK set
+        IS_DELETE=1
+        WHERE WORK_ID=#{work_id}
+    </update>
+
+    <!--删除应聘者活动信息-->
+    <update id="deleteActivity">
+        update STU_Activity set
+        IS_DELETE=1
+        WHERE ACT_ID=#{act_id}
+    </update>
+
+    <!--删除应聘者项目信息-->
+    <update id="deleteProject">
+        update STU_PROJECT set
+        IS_DELETE=1
+        WHERE PROJ_ID=#{proj_id}
+    </update>
+
+    <!--删除应聘者优势标签-->
+    <update id="deleteLabel">
+        update STU_ADVAN_LABEL set
+        IS_DELETE=1
+        WHERE LABEL_ID=#{label_id}
+    </update>
+
+    <!--删除应聘者意向职位-->
+    <update id="deleteLabel">
+        update STU_PREFER_PROF set
+        IS_DELETE=1
+        WHERE PRE_PROF_ID=#{pre_prof_id}
+    </update>
+
+    <!--删除应聘者意向行业表-->
+    <update id="deleteIndustry">
+        update STU_PREFER_INDUSTRY set
+        IS_DELETE=1
+        WHERE PRE_IND_ID=#{pre_ind_id}
+    </update>
+
+    <!--删除应聘者意向行业表-->
+    <update id="deleteCity">
+        update STU_PREFER_CITY set
+        IS_DELETE=1
+        WHERE PRE_CITY_ID=#{pre_city_id}
+    </update>
+
+    <!--删除应聘者薪资表-->
+    <update id="deleteVideo">
+        update STU_INTRODUCTION_VIDEO set
+        IS_DELETE=1
+        WHERE PRE_VIDEO_ID=#{pre_video_id}
+    </update>
+
+    <!--删除应聘者薪资表-->
+    <update id="deleteSalary">
+        update STU_PREFER_SALARY set
+        IS_DELETE=1
+        WHERE PRE_SALA_ID=#{pre_sala_id}
+    </update>
+
+    <!--删除职位收藏-->
+    <update id="deleteJobCollect">
+        update STU_JOB_COLLECT set
+        IS_DELETE=1
+        WHERE COLLECT_ID=#{collect_id}
+    </update>
+
+
+    <!--删除公司收藏-->
+    <update id="deleteCompCollect">
+        update STU_JOB_COLLECT set
+        IS_DELETE=1
+        WHERE COLLECT_ID=#{collect_id}
+    </update>
+
+</mapper>
