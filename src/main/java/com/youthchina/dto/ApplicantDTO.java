@@ -1,6 +1,7 @@
 package com.youthchina.dto;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.youthchina.domain.Qinghong.Project;
@@ -56,6 +57,7 @@ public class ApplicantDTO {
         this.educations = educations;
     }
 
+    @JsonIgnore
     public List<String> getEmails() {
         return emails;
     }
@@ -64,9 +66,11 @@ public class ApplicantDTO {
         this.emails = emails;
     }
 
+    @JsonIgnore
     public List<String> getPhonenumbers() {
         return phonenumbers;
     }
+
 
     public void setPhonenumbers(List<String> phonenumbers) {
         this.phonenumbers = phonenumbers;
