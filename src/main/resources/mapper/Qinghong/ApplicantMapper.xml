@@ -91,7 +91,7 @@
         <result property="job_cv_send" column="JOB_CV_SEND"/>
         <result property="job_apply_time" column="JOB_APPLY_TIME"/>
         <result property="job_apply_status" column="JOB_APPLY_STATUS"/>
-        <association property="job" javaType="com.youthchina.domain.qingyang.Job_qingyang">
+        <association property="job" javaType="com.youthchina.domain.qingyang.Job">
             <id property="jobId" column="JOB_ID"/>
             <result property="jobName" column="JOB_NAME"/>
             <result property="jobProfNum" column="JOB_PROF_NUM"/>
@@ -156,7 +156,7 @@
     </select>
 
     <!--获取申请者的认证信息-->
-    <select id="getCertificates" resultType="com.youthchina.domain.Qinghong.">
+    <select id="getCertificates" resultType="com.youthchina.domain.Qinghong.Certificate">
         SELECT b.*
         FROM STU_INFO a
         LEFT JOIN STU_CERTIFICATE b ON a.STU_ID=b.STU_ID
@@ -192,97 +192,6 @@
         update STU_INFO set
         IS_DELETE=1
         WHERE STU_ID=#{stu_id}
-    </update>
-
-    <!--删除应聘者教育信息-->
-    <update id="deleteEduInfo">
-        update STU_EDU_INFO set
-        IS_DELETE=1
-        WHERE EDU_ID=#{edu_id}
-    </update>
-
-    <!--删除应聘者附加信息-->
-    <update id="deleteSubInfo">
-        update STU_INFO set
-        IS_DELETE=1
-        WHERE SUB_ID=#{sub_id}
-    </update>
-
-    <!--删除应聘者项目信息-->
-    <update id="deleteProject">
-        update STU_PROJECT set
-        IS_DELETE=1
-        WHERE PROJ_ID=#{proj_id}
-    </update>
-
-    <!--删除应聘者工作经验-->
-    <update id="deleteWork">
-        update STU_WORK set
-        IS_DELETE=1
-        WHERE WORK_ID=#{work_id}
-    </update>
-
-    <!--删除应聘者活动信息-->
-    <update id="deleteActivity">
-        update STU_Activity set
-        IS_DELETE=1
-        WHERE ACT_ID=#{act_id}
-    </update>
-
-    <!--删除应聘者项目信息-->
-    <update id="deleteProject">
-        update STU_PROJECT set
-        IS_DELETE=1
-        WHERE PROJ_ID=#{proj_id}
-    </update>
-
-    <!--删除应聘者优势标签-->
-    <update id="deleteLabel">
-        update STU_ADVAN_LABEL set
-        IS_DELETE=1
-        WHERE LABEL_ID=#{label_id}
-    </update>
-
-    <!--删除应聘者意向职位-->
-    <update id="deleteLabel">
-        update STU_PREFER_PROF set
-        IS_DELETE=1
-        WHERE PRE_PROF_ID=#{pre_prof_id}
-    </update>
-
-    <!--删除应聘者意向行业表-->
-    <update id="deleteIndustry">
-        update STU_PREFER_INDUSTRY set
-        IS_DELETE=1
-        WHERE PRE_IND_ID=#{pre_ind_id}
-    </update>
-
-    <!--删除应聘者意向行业表-->
-    <update id="deleteCity">
-        update STU_PREFER_CITY set
-        IS_DELETE=1
-        WHERE PRE_CITY_ID=#{pre_city_id}
-    </update>
-
-    <!--删除应聘者薪资表-->
-    <update id="deleteVideo">
-        update STU_INTRODUCTION_VIDEO set
-        IS_DELETE=1
-        WHERE PRE_VIDEO_ID=#{pre_video_id}
-    </update>
-
-    <!--删除应聘者薪资表-->
-    <update id="deleteSalary">
-        update STU_PREFER_SALARY set
-        IS_DELETE=1
-        WHERE PRE_SALA_ID=#{pre_sala_id}
-    </update>
-
-    <!--删除职位收藏-->
-    <update id="deleteJobCollect">
-        update STU_JOB_COLLECT set
-        IS_DELETE=1
-        WHERE COLLECT_ID=#{collect_id}
     </update>
 
 

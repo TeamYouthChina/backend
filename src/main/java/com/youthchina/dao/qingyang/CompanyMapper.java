@@ -2,7 +2,7 @@ package com.youthchina.dao.qingyang;
 
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.CompanyVerification_qingyang;
-import com.youthchina.domain.qingyang.Industry_qingyang;
+import com.youthchina.domain.qingyang.Industry;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -23,15 +23,15 @@ public interface CompanyMapper {
 
     Integer insertCompany(Company entity);
 
-    Industry_qingyang selectIndustry(Integer id);
+    Industry selectIndustry(Integer id);
 
-    List<Industry_qingyang> selectIndustryByIdList(List<Integer> id);
+    List<Industry> selectIndustryByIdList(List<Integer> id);
 
     Integer deleteIndustry();
 
-    Integer updateIndustry(Industry_qingyang industry_qingyang);
+    Integer updateIndustry(Industry industry_);
 
-    Integer insertIndustry(Industry_qingyang entity);
+    Integer insertIndustry(Industry entity);
     
     CompanyVerification_qingyang selectCompanyVerfication(Integer id);
 

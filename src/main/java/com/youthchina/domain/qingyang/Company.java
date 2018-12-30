@@ -44,18 +44,18 @@ public class Company {
     private List<Job> jobs;
 
     /*行业信息*/
-    private List<Industry_qingyang> indList;
+    private List<Industry> indList;
 
     /*认证信息*/
     private List<CompanyVerification_qingyang> verificationList;
 
     /*Setter and Getter*/
 
-    public List<Industry_qingyang> getIndList() {
+    public List<Industry> getIndList() {
         return indList;
     }
 
-    public void setIndList(List<Industry_qingyang> indList) {
+    public void setIndList(List<Industry> indList) {
         this.indList = indList;
     }
 

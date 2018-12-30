@@ -42,19 +42,19 @@
 
     <update id="deleteCompany" parameterType="java.lang.Integer">
         UPDATE COMPANY_INFO         SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE COMPANY_ID = #{id}
+        WHERE COMPANY_ID = #{id};
 
         UPDATE COMPANY_INDUSTRY	    SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE COMPANY_ID = #{id}
+        WHERE COMPANY_ID = #{id};
 
         UPDATE COMPANY_VERIFICAITON SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE COMPANY_ID = #{id}
+        WHERE COMPANY_ID = #{id};
 
         UPDATE JOB_INFO			    SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE COMPANY_ID = #{id}
+        WHERE COMPANY_ID = #{id};
 
         UPDATE HR_INFO				SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE COMPANY_ID = #{id}
+        WHERE COMPANY_ID = #{id};
     </update>
 
     <resultMap id="company" type="com.youthchina.domain.qingyang.Company">
@@ -72,7 +72,7 @@
         <result property="companyLogo" column="COMPANY_LOGO"/>
         <result property="companyVerify" column="COMPANY_VERIFY"/>
         <result property="userId" column="USER_ID"/>
-        <collection property="indList" ofType="com.youthchina.domain.qingyang.Industry_qingyang">
+        <collection property="indList" ofType="com.youthchina.domain.qingyang.Industry">
             <id property="indNum" column="IND_NUM"/>
             <result property="indChn" column="IND_CHN"/>
             <result property="indEng" column="IND_ENG"/>
@@ -176,8 +176,12 @@
             COMPANY_ID,   IS_DELETE)
         VALUES
         (
-            #{verifyId},   #(verifyTime),   #{verifyEndTime},  #{operUserId}
-            #{companyId},   #(isDelete)
+            #{verifyId},
+            #{verifyTime},
+            #{verifyEndTime},
+            #{operUserId}
+            #{companyId},
+            0
         )
     </insert>
 
@@ -223,7 +227,7 @@
     </select>
 
     <!--Industry CURD-->
-    <insert id="insertIndustry" parameterType="com.youthchina.domain.qingyang.Industry_qingyang"
+    <insert id="insertIndustry" parameterType="com.youthchina.domain.qingyang.Industry"
             useGeneratedKeys="true" keyProperty="indNum">
         INSERT INTO SYS_IND_CLASS
         (   IND_NUM,    IND_CHN,   IND_ENG,    IND_LEVEL,
@@ -235,7 +239,7 @@
         )
     </insert>
 
-    <update id="updateIndustry" parameterType="com.youthchina.domain.qingyang.Industry_qingyang"
+    <update id="updateIndustry" parameterType="com.youthchina.domain.qingyang.Industry"
             useGeneratedKeys="true" keyProperty="indNum">
         UPDATE SYS_IND_CLASS
         SET
@@ -254,7 +258,7 @@
       WHERE IND_NUM = #{id}
     </update>
 
-    <select id="selectIndustry" resultMap="com.youthchina.domain.qingyang.Industry_qingyang"
+    <select id="selectIndustry" resultMap="com.youthchina.domain.qingyang.Industry"
             parameterType="java.lang.Integer">
         SELECT
             IND_NUM,    IND_CHN,   IND_ENG,    IND_LEVEL,
@@ -265,7 +269,7 @@
         AND IS_DELETE = 0
     </select>
 
-    <select id="selectIndustryByIdList" resultMap="com.youthchina.domain.qingyang.Industry_qingyang">
+    <select id="selectIndustryByIdList" resultMap="com.youthchina.domain.qingyang.Industry">
         SELECT
             IND_NUM,    IND_CHN,   IND_ENG,    IND_LEVEL,
             IND_PARENT_NUM,   START_DATE
@@ -325,12 +329,5 @@
         </foreach>
         AND IS_DELETE = 0
     </select>
-
-
-
-
-
-
-
 
 </mapper>

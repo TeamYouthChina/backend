@@ -1,7 +1,5 @@
 package com.youthchina.domain.Qinghong;
 
-import com.sun.tools.corba.se.idl.constExpr.Times;
-
 import java.sql.Timestamp;
 
 /**

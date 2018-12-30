@@ -3,7 +3,7 @@
 <mapper namespace="com.youthchina.dao.qingyang.JobHrMapper">
 
 
-    <insert id="insertJob" parameterType="com.youthchina.domain.qingyang.Job_qingyang"
+    <insert id="insertJob" parameterType="com.youthchina.domain.qingyang.Job"
             useGeneratedKeys="true" keyProperty="jobId">
         INSERT INTO JOB_INFO
         (   JOB_ID,         COMPANY_ID,     HR_ID,        JOB_NAME,     JOB_PROF_NUM,
@@ -19,7 +19,7 @@
         )
     </insert>
 
-    <update id="updateJob" parameterType="com.youthchina.domain.qingyang.Job_qingyang"
+    <update id="updateJob" parameterType="com.youthchina.domain.qingyang.Job"
             useGeneratedKeys="true" keyProperty="jobId">
         UPDATE JOB_INFO
         SET
@@ -57,7 +57,7 @@
     </update>
 
 
-    <resultMap id="job" type="com.youthchina.domain.qingyang.Job_qingyang">
+    <resultMap id="job" type="com.youthchina.domain.qingyang.Job">
         <id property="jobId" column="JOB_ID"/>
         <result property="jobName" column="JOB_NAME"/>
         <result property="jobProfNum" column="JOB_PROF_NUM"/>

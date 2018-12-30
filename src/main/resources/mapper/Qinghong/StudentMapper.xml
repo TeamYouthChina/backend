@@ -5,6 +5,36 @@
         <id property="stu_id" column="STU_ID"/>
         <result property="stu_in_job" column="STU_IN_JOB"/>
         <result property="stu_in_job_comp" column="stu_in_job_comp"/>
+        <association property="subInfo" javaType="com.youthchina.domain.Qinghong.SubInfo">
+            <id property="sub_id" column="SUB_ID"/>
+            <result property="sub_course" column="SUB_COURSE"/>
+            <result property="sub_honor" column="SUB_HONOR"/>
+            <result property="sub_award" column="SUB_AWARD"/>
+            <result property="sub_skill" column="SUB_SKILL"/>
+            <result property="sub_certificate" column="SUB_CERTIFICATE"/>
+            <result property="sub_certif_url" column="SUB_CERTIF_URL"/>
+            <result property="sub_foreign" column="SUB_FOREIGN"/>
+            <result property="sub_interest" column="SUB_INTEREST"/>
+            <result property="sub_activity" column="SUB_ACTIVITY"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        </association>
+        <association property="prefersalary" javaType="com.youthchina.domain.Qinghong.PreferSalary">
+            <id property="pre_sala_id" column="PRE_SALA_ID"/>
+            <result property="pre_sala_cap" column="pre_sala_cap"/>
+            <result property="pre_sala_floor" column="PRE_SALA_FLOOR"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        </association>
+        <association property="introducationVideo" javaType="com.youthchina.domain.Qinghong.IntroductionVideo">
+            <id property="intro_video_id" column="INTRO_VIDEO_ID"/>
+            <result property="intro_video_path" column="INTRO_VIDEO_PATH"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_time"/>
+        </association>
         <collection property="EducationInfos" ofType="com.youthchina.domain.Qinghong.EducationInfo">
             <id property="edu_id" column="EDU_ID"/>
             <result property="edu_degree" column="EDU_DEGREE"/>
@@ -28,22 +58,6 @@
             <result property="work_duty" column="WORK_DUTY"/>
             <result property="WORK_NATURE" column="WORK_NATURE"/>
         </collection>
-        <association property="subInfo" javaType="com.youthchina.domain.Qinghong.SubInfo">
-            <id property="sub_id" column="SUB_ID"/>
-            <result property="sub_course" column="SUB_COURSE"/>
-            <result property="sub_honor" column="SUB_HONOR"/>
-            <result property="sub_award" column="SUB_AWARD"/>
-            <result property="sub_skill" column="SUB_SKILL"/>
-            <result property="sub_certificate" column="SUB_CERTIFICATE"/>
-            <result property="sub_certif_url" column="SUB_CERTIF_URL"/>
-            <result property="sub_foreign" column="SUB_FOREIGN"/>
-            <result property="sub_interest" column="SUB_INTEREST"/>
-            <result property="sub_activity" column="SUB_ACTIVITY"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
-
-        </association>
         <collection property="projects" ofType="com.youthchina.domain.Qinghong.Project">
             <id property="proj_id" column="PROJ_ID"/>
             <result property="proj_name" column="PROJ_NAME"/>
@@ -86,8 +100,6 @@
             <result property="stu_id" column="STU_ID"/>
             <result property="is_delete" column="IS_DELETE"/>
             <result property="is_delete_time" column="IS_DELETE_TIME"/>
-
-
         </collection>
         <collection property="advantageLabels" ofType="com.youthchina.domain.Qinghong.AdvantageLabel">
             <id property="label_id" column="LABEL_ID"/>
@@ -121,32 +133,14 @@
             <result property="stu_id" column="STU_ID"/>
             <result property="is_delete" column="IS_DELETE"/>
             <result property="is_delete_time" column="IS_DELETE_TIME"/>
-
         </collection>
-        <association property="prefersalary" javaType="com.youthchina.domain.Qinghong.PreferSalary">
-            <id property="pre_sala_id" column="PRE_SALA_ID"/>
-            <result property="pre_sala_cap" column="pre_sala_cap"/>
-            <result property="pre_sala_floor" column="PRE_SALA_FLOOR"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
 
-        </association>
-        <association property="introducationVideo" javaType="com.youthchina.domain.Qinghong.IntroductionVideo">
-            <id property="intro_video_id" column="INTRO_VIDEO_ID"/>
-            <result property="intro_video_path" column="INTRO_VIDEO_PATH"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_time"/>
-
-        </association>
         <collection property="notifications" ofType="com.youthchina.domain.Qinghong.Notification">
             <id property="notify_id" column="NOTIFY_ID"/>
             <result property="notify_content" column="NOTIFY_CONTENT"/>
             <result property="notify_time" column="NOTIFY_TIME"/>
             <result property="notify_read" column="NOTIFY_READ"/>
             <result property="stu_Id" column="STU_ID"/>
-
         </collection>
         <collection property="jobApplies" ofType="com.youthchina.domain.Qinghong.JobApply">
             <id property="apply_id" column="APPLY_ID"/>
@@ -180,25 +174,7 @@
         <result property="job_cv_send" column="JOB_CV_SEND"/>
         <result property="job_apply_time" column="JOB_APPLY_TIME"/>
         <result property="job_apply_status" column="JOB_APPLY_STATUS"/>
-        <association property="job" javaType="com.youthchina.domain.Qinghong.Job">
-            <association property="company" javaType="com.youthchina.domain.Qinghong.Company">
-
-            </association>
-        </association>
     </resultMap>
-    <resultMap id="jobInfo" type="com.youthchina.domain.Qinghong.Job">
-        <association property="company" javaType="com.youthchina.domain.Qinghong.Company">
-
-        </association>
-        <association property="hr" javaType="com.youthchina.domain.Qinghong.HrInfo">
-
-        </association>
-    </resultMap>
-    <select id="getByJobId" resultMap="jobInfo">
-        select *
-        from JOB_INFO
-        where JOB_ID = #{job_id}
-    </select>
     <select id="getAllJobApply" resultMap="jobApplyMap">
         select a.*, j.*, c.*
         from STU_JOB_APPLY a.*
@@ -223,27 +199,39 @@
                n.*,
                o.*,
                p.*
-        from STU_INFO a;
-        LEFT JOIN STU_EDU_INFO b ON a.STU_ID = b.STU_ID
-        LEFT JOIN STU_SUB_INFO c ON a.STU_ID = c.STU_ID
-        LEFT JOIN STU_PROJECT d ON a.STU_ID = d.STU_ID
-        LEFT JOIN STU_WORK e ON a.STU_ID = e.STU_ID
-        LEFT JOIN STU_ACTIVITY f ON a.STU_ID = f.STU_ID
-        LEFT JOIN STU_JOB_COLLECT g ON a.STU_ID = g.STU_ID
-        LEFT JOIN STU_COMP_COLLECT h ON a.STU_ID = h.STU_ID
-        LEFT JOIN STU_ADVAN_LABEL i ON a.STU_ID = i.STU_ID
-        LEFT JOIN STU_PREFER_JOB j ON a.STU_ID = j.STU_ID
-        LEFT JOIN STU_PREFER_INDUSTRY k ON a.STU_ID = k.STU_ID
-        LEFT JOIN STU_PREFER_CITY l ON a.STU_ID = l.PRE_STU_ID
-        LEFT JOIN STU_PREFER_SALARY m ON a.STU_ID = m.STU_ID
-        LEFT JOIN STU_PREFER_INTRODUCTION_VIDEO n ON a.STU_ID = n.STU_ID
-        LEFT JOIN STU_PREFER_NOTIFICATION o ON a.STU_ID = o.STU_ID
-        LEFT JOIN STU_JOB_APPLY p ON a.STU_ID = p.STU_ID
-        WHERE a.USER_ID = #{user_id} AND a.IS_DELETE = 0 AND b.IS_DELETE = 0
-        AND c.IS_DELETE = 0 AND d.IS_DELETE = 0 AND e.IS_DELETE = 0 AND f.IS_DELETE = 0
-        AND g.IS_DELETE = 0 AND h.IS_DELETE = 0 AND i.IS_DELETE = 0 AND j.IS_DELETE = 0
-        AND k.IS_DELETE = 0 AND l.IS_DELETE = 0 AND m.IS_DELETE = 0 AND n.IS_DELETE = 0
-        AND o.IS_DELETE = 0 AND p.IS_DELETE = 0
+        from STU_INFO a
+                 LEFT JOIN STU_EDU_INFO b ON a.STU_ID = b.STU_ID
+                 LEFT JOIN STU_SUB_INFO c ON a.STU_ID = c.STU_ID
+                 LEFT JOIN STU_PROJECT d ON a.STU_ID = d.STU_ID
+                 LEFT JOIN STU_WORK e ON a.STU_ID = e.STU_ID
+                 LEFT JOIN STU_ACTIVITY f ON a.STU_ID = f.STU_ID
+                 LEFT JOIN STU_JOB_COLLECT g ON a.STU_ID = g.STU_ID
+                 LEFT JOIN STU_COMP_COLLECT h ON a.STU_ID = h.STU_ID
+                 LEFT JOIN STU_ADVAN_LABEL i ON a.STU_ID = i.STU_ID
+                 LEFT JOIN STU_PREFER_JOB j ON a.STU_ID = j.STU_ID
+                 LEFT JOIN STU_PREFER_INDUSTRY k ON a.STU_ID = k.STU_ID
+                 LEFT JOIN STU_PREFER_CITY l ON a.STU_ID = l.PRE_STU_ID
+                 LEFT JOIN STU_PREFER_SALARY m ON a.STU_ID = m.STU_ID
+                 LEFT JOIN STU_PREFER_INTRODUCTION_VIDEO n ON a.STU_ID = n.STU_ID
+                 LEFT JOIN STU_PREFER_NOTIFICATION o ON a.STU_ID = o.STU_ID
+                 LEFT JOIN STU_JOB_APPLY p ON a.STU_ID = p.STU_ID
+        WHERE a.USER_ID = #{user_id}
+          AND a.IS_DELETE = 0
+          AND b.IS_DELETE = 0
+          AND c.IS_DELETE = 0
+          AND d.IS_DELETE = 0
+          AND e.IS_DELETE = 0
+          AND f.IS_DELETE = 0
+          AND g.IS_DELETE = 0
+          AND h.IS_DELETE = 0
+          AND i.IS_DELETE = 0
+          AND j.IS_DELETE = 0
+          AND k.IS_DELETE = 0
+          AND l.IS_DELETE = 0
+          AND m.IS_DELETE = 0
+          AND n.IS_DELETE = 0
+          AND o.IS_DELETE = 0
+          AND p.IS_DELETE = 0
     </select>
     <select id="getOneCompCollect" resultMap="CompCollect">
         select *
@@ -348,10 +336,6 @@
         <foreach collection="jobCollects" item="item" separator=",">
             (#{item.job_id},#{item.job_coll_time},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})
         </foreach>
-
-    </insert>
-    <insert id="addCompCollects">
-        inse
 
     </insert>
     <insert id="addLabels" useGeneratedKeys="true" keyProperty="label_id">
