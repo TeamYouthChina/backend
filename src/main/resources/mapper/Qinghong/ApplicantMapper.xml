@@ -47,7 +47,7 @@
             <result property="is_delete" column="IS_DELETE"/>
             <result property="is_delete_time" column="IS_DELETE_TIME"/>
         </collection>
-        <collection property="works" ofType="com.youthchina.domain.Qinghong.Work">
+        <collection property="experiences" ofType="com.youthchina.domain.Qinghong.Work">
             <id property="work_id" column="WORK_ID"/>
             <result property="work_company" column="WORK_COMPANY"/>
             <result property="work_position" column="WORK_POSITION"/>

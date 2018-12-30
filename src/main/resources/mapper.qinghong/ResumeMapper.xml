@@ -21,7 +21,7 @@
             <result property="edu_start" column="EDU_START"/>
             <result property="edu_end" column="edu_end"/>
         </collection>
-        <collection property="works" ofType="com.youthchina.domain.Qinghong.Work">
+        <collection property="experiences" ofType="com.youthchina.domain.Qinghong.Work">
             <id property="work_id" column="WORK_ID"/>
             <result property="work_company" column="WORK_COMPANY"/>
             <result property="work_position" column="WORK_POSITION"/>

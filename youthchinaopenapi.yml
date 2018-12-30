@@ -32,7 +32,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JobResponse'
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Job'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/job/search':
     post:
       tags:
@@ -53,10 +58,13 @@ paths:
               schema:
                 type: object
                 properties:
-                  searchResult:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Job'
+                  content:
+                    type: object
+                    properties:
+                      searchResult:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Job'
                   status:
                     $ref: '#/components/schemas/Status'
   '/applicant/{id}':
@@ -76,7 +84,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApplicantResponse'
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Applicant'
+                  status:
+                    $ref: '#/components/schemas/Status'
         '404':
           description: cannot find
           content:
@@ -118,7 +131,7 @@ paths:
                 - status
                 - applicant
                 properties:
-                  applicant:
+                  content:
                     $ref: '#/components/schemas/Applicant'
                   status:
                     $ref: '#/components/schemas/Status'
@@ -140,7 +153,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContactResponse'
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/ContactInfo'
+                  status:
+                    $ref: '#/components/schemas/Status'
         '404':
           description: cannot find
           content:
@@ -175,7 +193,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  educations:
+                  content:
                     type: array
                     items:
                       $ref: '#/components/schemas/EducationInfo'
@@ -215,7 +233,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  projects:
+                  content:
                     type: array
                     items:
                       $ref: '#/components/schemas/Project'
@@ -255,7 +273,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  experiences:
+                  content:
                     type: array
                     items:
                       $ref: '#/components/schemas/WorkExperienceInfo'
@@ -295,7 +313,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  certificate:
+                  content:
                     type: array
                     items:
                       $ref: '#/components/schemas/Certification'
@@ -335,7 +353,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  extracurricular:
+                  content:
                     type: array
                     items:
                       $ref: '#/components/schemas/Extracurricular'
@@ -373,7 +391,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Application'
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Application'
+                  status:
+                    $ref: '#/components/schemas/Status'
         '404':
           description: job not found
           content:
@@ -444,7 +467,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  applications:
+                  content:
                     type: array
                     items:
                       $ref: '#/components/schemas/Application'
@@ -503,14 +526,17 @@ paths:
               schema:
                 type: object
                 properties:
-                  companies:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CompanyCollections'
-                  jobs:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CompanyCollections'
+                  content:
+                    type: object
+                    properties:
+                      companies:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CompanyCollections'
+                      jobs:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/JobCollections'
                   status:
                     $ref: '#/components/schemas/Status'
   '/collections/{id}':
@@ -544,7 +570,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  question:
+                  content:
                     $ref: '#/components/schemas/Question'
                   status:
                     $ref: '#/components/schemas/Status'
@@ -569,7 +595,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  question:
+                  content:
                     $ref: '#/components/schemas/Question'
                   status:
                     $ref: '#/components/schemas/Status'
@@ -634,7 +660,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  answers:
+                  content:
                     type: array
                     items:
                       $ref: '#/components/schemas/Answer'
@@ -676,7 +702,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Answer'
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Answer'
+                  status:
+                    $ref: '#/components/schemas/Status'
 
 
 components:

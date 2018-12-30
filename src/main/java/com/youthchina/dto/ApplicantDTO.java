@@ -2,9 +2,7 @@ package com.youthchina.dto;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.youthchina.domain.Qinghong.Project;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +18,7 @@ public class ApplicantDTO {
     private List<EducationDTO> educations;
     private List<String> emails;
     private List<String> phonenumbers;
-    private List<WorkDTO> works;
+    private List<WorkDTO> experiences;
     private List<ProjectDTO> projects;
     private List<ExtracurricularDTO> extracurriculars;
     private List<CertificateDTO> certificates;
@@ -76,12 +74,12 @@ public class ApplicantDTO {
         this.phonenumbers = phonenumbers;
     }
 
-    public List<WorkDTO> getWorks() {
-        return works;
+    public List<WorkDTO> getExperiences() {
+        return experiences;
     }
 
-    public void setWorks(List<WorkDTO> works) {
-        this.works = works;
+    public void setExperiences(List<WorkDTO> experiences) {
+        this.experiences = experiences;
     }
 
     public List<ProjectDTO> getProjects() {

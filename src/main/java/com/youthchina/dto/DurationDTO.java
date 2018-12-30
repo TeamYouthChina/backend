@@ -9,6 +9,16 @@ public class DurationDTO {
     private Timestamp begin;
     private Timestamp end;
 
+    public DurationDTO(long begin, long end) {
+        this.begin = new Timestamp(begin);
+        this.end = new Timestamp(end);
+    }
+
+    public DurationDTO(Timestamp begin, Timestamp end) {
+        this.begin = begin;
+        this.end = end;
+    }
+
     public Timestamp getBegin() {
         return begin;
     }

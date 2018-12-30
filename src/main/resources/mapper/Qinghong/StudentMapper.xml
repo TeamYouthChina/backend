@@ -312,7 +312,7 @@
         (WORK_COMPANY,WORK_LOCATION,WORK_POSITION,WORK_SECTOR,
         WORK_START_TIME,WORK_END_TIME,WORK_DUTY,WORK_NATURE,STU_ID,IS_DELETE,IS_DELETE_TIME)
         values
-        <foreach collection="works" item="item" separator=",">
+        <foreach collection="experiences" item="item" separator=",">
             (#{item.work_company},#{item.work_location},#{item.work_position},
             #{item.work_sector},#{item.work_end_time},#{item.work_end_time},
             #{item.work_duty},#{item.work_nature},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})
