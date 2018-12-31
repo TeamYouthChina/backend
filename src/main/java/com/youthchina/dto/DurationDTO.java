@@ -1,5 +1,6 @@
 package com.youthchina.dto;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
@@ -17,6 +18,17 @@ public class DurationDTO {
     public DurationDTO(Timestamp begin, Timestamp end) {
         this.begin = begin;
         this.end = end;
+    }
+
+    public DurationDTO(String begin, String end) {
+        this.begin = new Timestamp(Date.valueOf(begin).getTime());
+        this.end = new Timestamp(Date.valueOf(end).getTime());
+
+    }
+
+    public DurationDTO(Date begin, Date end){
+        this.begin = new Timestamp(begin.getTime());
+        this.end = new Timestamp(end.getTime());
     }
 
     public Timestamp getBegin() {

@@ -3,7 +3,7 @@ package com.youthchina.dto;
 /**
  * Created by zhong on 2018/12/30.
  */
-public class Response {
+public class Response implements ResponseDTO {
     private Object content;
     private StatusDTO status;
 
@@ -11,17 +11,17 @@ public class Response {
         this.status = new StatusDTO(2000, "");
     }
 
-    public Response(Object content){
+    public Response(Object content) {
         super();
         this.content = content;
     }
 
-    public Response(Object content, StatusDTO status){
+    public Response(Object content, StatusDTO status) {
         this.content = content;
         this.status = status;
     }
 
-    public Response(Object content, int code, String reason){
+    public Response(Object content, int code, String reason) {
         this.content = content;
         this.status = new StatusDTO(code, reason);
     }

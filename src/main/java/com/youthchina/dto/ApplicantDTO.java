@@ -3,7 +3,11 @@ package com.youthchina.dto;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.youthchina.domain.Qinghong.*;
+import com.youthchina.domain.zhongyang.User;
 
+import java.nio.file.AccessDeniedException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +25,35 @@ public class ApplicantDTO {
     private List<WorkDTO> experiences;
     private List<ProjectDTO> projects;
     private List<ExtracurricularDTO> extracurriculars;
-    private List<CertificateDTO> certificates;
+    private List<CertificateDTO> certificates;//todo: fixme
+
+    public ApplicantDTO() {
+    }
+
+    public ApplicantDTO(Student student, User user) {
+        this.id = student.getId();
+        this.name = user.getUsername();
+        this.educations = new ArrayList<>(student.getEducationInfos().size());
+        for (EducationInfo educationInfo : student.getEducationInfos()) {
+            this.educations.add(new EducationDTO(educationInfo));
+        }
+        this.emails = new ArrayList<>();
+        this.emails.add(user.getEmail());
+        this.phonenumbers = new ArrayList<>();
+        this.phonenumbers.add(user.getPhonenumber());
+        this.experiences = new ArrayList<>(student.getWorks().size());
+        for (Work work : student.getWorks()) {
+            this.experiences.add(new WorkDTO(work));
+        }
+        this.projects = new ArrayList<>(student.getProjects().size());
+        for (Project project : student.getProjects()) {
+            this.projects.add(new ProjectDTO(project));
+        }
+        this.extracurriculars = new ArrayList<>(student.getActivities().size());
+        for (Activity activity : student.getActivities()) {
+            this.extracurriculars.add(new ExtracurricularDTO(activity));
+        }
+    }
 
     public Integer getId() {
         return id;

@@ -1,5 +1,7 @@
 package com.youthchina.dto;
 
+import com.youthchina.domain.Qinghong.Certificate;
+
 /**
  * Created by zhong on 2018/12/30.
  */
@@ -8,6 +10,15 @@ public class CertificateDTO {
     private String authority;
     private DurationDTO duration;
     private String note;
+
+    public CertificateDTO() {
+    }
+
+    public CertificateDTO(Certificate certificate) {
+        this.name = certificate.getCertificate_name();
+        this.authority = certificate.getCertificate_insti();
+        this.duration = new DurationDTO(certificate.getCertificate_grant_date(), certificate.getCertificate_expir_date());
+    }
 
     public String getName() {
         return name;

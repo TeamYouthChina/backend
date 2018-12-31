@@ -1,5 +1,7 @@
 package com.youthchina.dto;
 
+import com.youthchina.domain.Qinghong.Activity;
+
 /**
  * Created by zhong on 2018/12/30.
  */
@@ -10,6 +12,16 @@ public class ExtracurricularDTO {
     private DurationDTO duration;
     private String location;
     private String note;
+
+    public ExtracurricularDTO() {
+    }
+
+    public ExtracurricularDTO(Activity activity) {
+        this.name = activity.getAct_name();
+        this.role = activity.getAct_role();
+        this.organization = activity.getAct_organization();
+        this.duration = new DurationDTO(activity.getAct_start_time(), activity.getAct_end_time());
+    }
 
     public String getName() {
         return name;
