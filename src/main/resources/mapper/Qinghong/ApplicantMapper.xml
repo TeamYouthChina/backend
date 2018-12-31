@@ -47,7 +47,7 @@
             <result property="is_delete" column="IS_DELETE"/>
             <result property="is_delete_time" column="IS_DELETE_TIME"/>
         </collection>
-        <collection property="experiences" ofType="com.youthchina.domain.Qinghong.Work">
+        <collection property="works" ofType="com.youthchina.domain.Qinghong.Work">
             <id property="work_id" column="WORK_ID"/>
             <result property="work_company" column="WORK_COMPANY"/>
             <result property="work_position" column="WORK_POSITION"/>
@@ -118,7 +118,7 @@
     </select>
 
     <!--获取申请者的信息-->
-    <select id="getStudentInfo" resultMap="com.youthchina.domain.Qinghong.Student">
+    <select id="getStudentInfo" resultType="com.youthchina.domain.Qinghong.Student">
         select a.*,b.*,c.*,d.*,e.*,f.*,g.*
         from STU_INFO a;
         LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID
@@ -135,7 +135,7 @@
     <select id="getProjects" resultType="com.youthchina.domain.Qinghong.Project">
         SELECT b.*
         FROM STU_INFO a
-        LEFT JOIN STU_PROJECT b ON a.STU_ID=b.STU_ID
+                 LEFT JOIN STU_PROJECT b ON a.STU_ID=b.STU_ID
         WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
     </select>
 
@@ -143,7 +143,7 @@
     <select id="getEducations" resultType="com.youthchina.domain.Qinghong.EducationInfo">
         SELECT b.*
         FROM STU_INFO a
-        LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID
+                 LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID
         WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
     </select>
 
@@ -151,7 +151,7 @@
     <select id="getWorks" resultType="com.youthchina.domain.Qinghong.Work">
         SELECT b.*
         FROM STU_INFO a
-        LEFT JOIN STU_WORK b ON a.STU_ID=b.STU_ID
+                 LEFT JOIN STU_WORK b ON a.STU_ID=b.STU_ID
         WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
     </select>
 
@@ -159,7 +159,7 @@
     <select id="getCertificates" resultType="com.youthchina.domain.Qinghong.Certificate">
         SELECT b.*
         FROM STU_INFO a
-        LEFT JOIN STU_CERTIFICATE b ON a.STU_ID=b.STU_ID
+                 LEFT JOIN STU_CERTIFICATE b ON a.STU_ID=b.STU_ID
         WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
     </select>
 
@@ -167,7 +167,7 @@
     <select id="getActivities" resultType="com.youthchina.domain.Qinghong.Activity">
         SELECT b.*
         FROM STU_INFO a
-        LEFT JOIN STU_ACTIVITY b ON a.STU_ID=b.STU_ID
+                 LEFT JOIN STU_ACTIVITY b ON a.STU_ID=b.STU_ID
         WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
     </select>
 
@@ -175,30 +175,107 @@
     <select id="getJobApplies" resultMap="ApplyMapper">
         SELECT a.*,b.*
         FROM STU_JOB_APPLY a
-        LEFT JOIN JOB_INFO b.* ON a.JOB_ID=b.JOB_ID
-        WHERE a.STU_ID=#{stu_id}
+                 LEFT JOIN JOB_INFO b.* ON a.JOB_ID=b.JOB_ID
+                WHERE a.STU_ID=#{stu_id}
     </select>
 
     <!--申请职位-->
     <insert id="addApply" useGeneratedKeys="true" keyProperty="apply_id">
         insert into STU_JOB_APPLY
-        (JOB_CV_SEND,JOB_APPLY_TIME,JOB_APPLY_STATUS,STU_ID,JOB_ID)
+                (JOB_CV_SEND,JOB_APPLY_TIME,JOB_APPLY_STATUS,STU_ID,JOB_ID)
         values
-        (#{job_cv_send},#{job_apply_time},#{job_apply_status},#{stu_id},#{job_id})
+               (#{job_cv_send},#{job_apply_time},#{job_apply_status},#{stu_id},#{job_id})
     </insert>
 
     <!--删除应聘者信息-->
     <update id="deleteStuInfo">
         update STU_INFO set
-        IS_DELETE=1
+                            IS_DELETE=1
         WHERE STU_ID=#{stu_id}
+    </update>
+
+    <!--删除应聘者教育信息-->
+    <update id="deleteEduInfo">
+        update STU_EDU_INFO set
+                                IS_DELETE=1
+        WHERE EDU_ID=#{edu_id}
+    </update>
+
+    <!--删除应聘者附加信息-->
+    <update id="deleteSubInfo">
+        update STU_INFO set
+                            IS_DELETE=1
+        WHERE SUB_ID=#{sub_id}
+    </update>
+
+    <!--删除应聘者项目信息-->
+    <update id="deleteProject">
+        update STU_PROJECT set
+                               IS_DELETE=1
+        WHERE PROJ_ID=#{proj_id}
+    </update>
+
+    <!--删除应聘者工作经验-->
+    <update id="deleteWork">
+        update STU_WORK set
+                            IS_DELETE=1
+        WHERE WORK_ID=#{work_id}
+    </update>
+
+    <!--删除应聘者活动信息-->
+    <update id="deleteActivity">
+        update STU_Activity set
+                                IS_DELETE=1
+        WHERE ACT_ID=#{act_id}
+    </update>
+
+    <!--删除应聘者意向职位-->
+    <update id="deleteLabel">
+        update STU_PREFER_PROF set
+                                   IS_DELETE=1
+        WHERE PRE_PROF_ID=#{pre_prof_id}
+    </update>
+
+    <!--删除应聘者意向行业表-->
+    <update id="deleteIndustry">
+        update STU_PREFER_INDUSTRY set
+                                       IS_DELETE=1
+        WHERE PRE_IND_ID=#{pre_ind_id}
+    </update>
+
+    <!--删除应聘者意向行业表-->
+    <update id="deleteCity">
+        update STU_PREFER_CITY set
+                                   IS_DELETE=1
+        WHERE PRE_CITY_ID=#{pre_city_id}
+    </update>
+
+    <!--删除应聘者薪资表-->
+    <update id="deleteVideo">
+        update STU_INTRODUCTION_VIDEO set
+                                          IS_DELETE=1
+        WHERE PRE_VIDEO_ID=#{pre_video_id}
+    </update>
+
+    <!--删除应聘者薪资表-->
+    <update id="deleteSalary">
+        update STU_PREFER_SALARY set
+                                     IS_DELETE=1
+        WHERE PRE_SALA_ID=#{pre_sala_id}
+    </update>
+
+    <!--删除职位收藏-->
+    <update id="deleteJobCollect">
+        update STU_JOB_COLLECT set
+                                   IS_DELETE=1
+        WHERE COLLECT_ID=#{collect_id}
     </update>
 
 
     <!--删除公司收藏-->
     <update id="deleteCompCollect">
         update STU_JOB_COLLECT set
-        IS_DELETE=1
+                                   IS_DELETE=1
         WHERE COLLECT_ID=#{collect_id}
     </update>
 
