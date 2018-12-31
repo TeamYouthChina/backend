@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 启用时间		    START_DATE	    TIMESTAMP	否	系统时间戳
 是否删除			IS_DELETE	    INTEGER		否	0-默认不删除
 删除时间(可空)	IS_DELETE_TIME	TIMESTAMP	是	*/
-public class Industry_qingyang {
+public class Industry {
     private Integer indNum;
     private String indChn; //中文名
     private String indEng;
