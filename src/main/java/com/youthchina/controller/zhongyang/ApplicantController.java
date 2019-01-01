@@ -9,10 +9,7 @@ import com.youthchina.service.Qinghong.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by zhong on 2018/12/30.
@@ -33,4 +30,5 @@ public class ApplicantController {
         ApplicantDTO applicantDTO = new ApplicantDTO(student, user);
         return ResponseEntity.ok(new Response(applicantDTO));
     }
+
 }

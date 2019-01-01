@@ -266,7 +266,7 @@
         (   JOB_REGION_ID,    JOB_REGION_NUM,   JOB_ID,     IS_DELETE)
         VALUES
         (
-            #{jobRegionId},   #(jobRegionNum),   #{jobId},  #{isDelete}
+            #{jobRegionId},   #{jobRegionNum},   #{jobId},  #{isDelete}
         )
     </insert>
 
