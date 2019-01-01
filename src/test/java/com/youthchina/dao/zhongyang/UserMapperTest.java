@@ -20,7 +20,6 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DbUnitConfiguration(databaseConnection = "mysqlTestSource")
 @DatabaseSetup({"classpath:users.xml"})
 public class UserMapperTest {
     @Autowired
@@ -30,6 +29,7 @@ public class UserMapperTest {
     public void testGetUser() {
         User user = userMapper.findOne(1);
         Assert.assertNotNull(user);
+
     }
 
 }
