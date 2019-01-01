@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.0.0
+  version: 1.1.1
   title: YouthChina
   license:
     name: MIT
@@ -105,6 +105,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
+  '/applicant':
     post:
       tags:
       - Applicant

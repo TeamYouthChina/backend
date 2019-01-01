@@ -1,5 +1,7 @@
 package com.youthchina.dto;
 
+import com.youthchina.domain.Qinghong.EducationInfo;
+
 /**
  * Created by zhong on 2018/12/30.
  */
@@ -10,6 +12,18 @@ public class EducationDTO {
     private DurationDTO duration;
     private LocationDTO location;
     private String note;
+
+    public EducationDTO() {
+    }
+
+    public EducationDTO(EducationInfo educationInfo){
+        this.university = educationInfo.getEdu_college();
+        this.major = educationInfo.getEdu_major();
+        this.degree = educationInfo.getEdu_degree();
+        this.duration = new DurationDTO(educationInfo.getEdu_start(), educationInfo.getEdu_end());
+        this.location = new LocationDTO();//todo: fixme
+
+    }
 
     public String getUniversity() {
         return university;

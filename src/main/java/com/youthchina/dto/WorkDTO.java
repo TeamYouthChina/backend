@@ -1,5 +1,7 @@
 package com.youthchina.dto;
 
+import com.youthchina.domain.Qinghong.Work;
+
 /**
  * Created by zhong on 2018/12/30.
  */
@@ -9,6 +11,17 @@ public class WorkDTO {
     private DurationDTO duration;
     private String location;
     private String note;
+
+    public WorkDTO() {
+    }
+
+    public WorkDTO(Work work) {
+        this.employer = work.getWork_company();
+        this.position = work.getWork_position();
+        this.duration = new DurationDTO(work.getWork_start_time(), work.getWork_end_time());
+        this.location = work.getWork_location();
+
+    }
 
     public String getEmployer() {
         return employer;

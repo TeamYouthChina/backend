@@ -7,11 +7,70 @@
         </constructor>
         <result property="username" column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
-
+        <result property="age" column="USER_AGE" javaType="java.lang.Integer"/>
+        <result property="email" column="USER_EMAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
+        <result column="USER_REGIST_DATE" property="registerDate" jdbcType="VARCHAR"/>
+        <result column="USER_REAL_NAME" property="realName" jdbcType="VARCHAR"/>
+        <result column="USER_NATION" property="nation" jdbcType="VARCHAR"/>
+        <result column="USER_PHOTO" property="avatarUrl" jdbcType="VARCHAR"/>
+        <result property="gender" column="USER_GENDER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="role" javaType="java.lang.Integer" column="ROLE_TYPE"/>
     </resultMap>
+    <sql id="userTable">
+        FROM sys_user
+        JOIN sys_user_role r on sys_user.ROLE_ID = r.ROLE_ID AND r.IS_DELETE = 0
+        JOIN sys_role_permission srp on sys_user.PERMI_ID = srp.PERMI_ID AND srp.IS_DELETE = 0
+    </sql>
+    <sql id="active">
+        SYS_USER.IS_DELETE = 0
+    </sql>
     <select id="findOne" resultMap="User" parameterType="Integer">
         SELECT *
-        FROM SYS_USER
-        WHERE SYS_USER.USER_ID = #{id, jdbcType=INTEGER}
+        <include refid="userTable"/>
+        WHERE SYS_USER.USER_ID = #{id, jdbcType=INTEGER} AND
+        <include refid="active"/>
     </select>
+    <insert id="insert" parameterType="com.youthchina.domain.zhongyang.User">
+        INSERT INTO sys_user (USER_ID,
+                              USER_NAME,
+                              USER_PASS,
+                              USER_REGIST_DATE,
+                              USER_REAL_NAME,
+                              USER_GENDER,
+                              USER_AGE,
+                              USER_NATION,
+                              USER_MAIL,
+                              USER_PHONE,
+                              USER_PHOTO,
+                              USER_LOCATION,
+                              USER_NICKNAME,
+                              ROLE_ID,
+                              PERMI_ID,
+                              IS_DELETE,
+                              IS_DELETE_TIME)
+        VALUES (#{id},
+                #{name},
+                #{password},
+                #{registerDate},
+                #{realName},
+                #{gender},
+                #{age},
+                #{nation},
+                #{email},
+                #{phonenumber},
+                #{avatarUrl},
+                '',
+                '',
+                #{role},
+                0,
+                0,
+                NULL)
+    </insert>
+    <update id="delete" parameterType="java.lang.Integer">
+        UPDATE sys_user
+        SET IS_DELETE      = 1,
+            IS_DELETE_TIME = NOW()
+        WHERE sys_user.USER_ID = #{id}
+    </update>
 </mapper>

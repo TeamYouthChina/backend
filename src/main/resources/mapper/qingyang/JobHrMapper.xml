@@ -127,6 +127,7 @@
     </select>
 
 
+
     <!--按行业Id的List查询Job的List, 中文名做返回的Map的Key-->
     <select id="selectByIndustryId" resultMap="jobListMap">
         SELECT
@@ -265,7 +266,7 @@
         (   JOB_REGION_ID,    JOB_REGION_NUM,   JOB_ID,     IS_DELETE)
         VALUES
         (
-            #{jobRegionId},   #(jobRegionNum),   #{jobId},  #{isDelete}
+            #{jobRegionId},   #{jobRegionNum},   #{jobId},  #{isDelete}
         )
     </insert>
 
@@ -285,7 +286,7 @@
       WHERE JOB_REGION_ID = #{jobRegionId}
     </update>
 
-    <select id="getJobLocation" resultMap="com.youthchina.domain.qingyang.JobLocation"
+    <select id="getJobLocation" resultType="com.youthchina.domain.qingyang.JobLocation"
             parameterType="java.lang.Integer">
         SELECT
             JOB_REGION_ID,  JOB_REGION_NUM,   JOB_ID
@@ -295,7 +296,7 @@
         AND IS_DELETE = 0
     </select>
 
-    <select id="getJobLocationList" resultMap="com.youthchina.domain.qingyang.JobLocation">
+    <select id="getJobLocationList" resultType="com.youthchina.domain.qingyang.JobLocation">
         SELECT
             JOB_REGION_ID,  JOB_REGION_NUM,   JOB_ID
         FROM JOB_LOCATION

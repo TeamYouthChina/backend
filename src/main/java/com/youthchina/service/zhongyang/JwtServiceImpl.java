@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.Response;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,7 +59,7 @@ public class JwtServiceImpl implements JwtService {
                 .compact();
         response.addHeader(HEADER, TOKEN_PREFIX + " " + token);
         try {
-            String responseBody = objectMapper.writeValueAsString(user);
+            String responseBody = objectMapper.writeValueAsString(new Response(user));
             response.getWriter().write(responseBody);
         } catch (IOException e) {
             e.printStackTrace();

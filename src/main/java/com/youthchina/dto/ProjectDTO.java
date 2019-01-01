@@ -1,5 +1,7 @@
 package com.youthchina.dto;
 
+import com.youthchina.domain.Qinghong.Project;
+
 /**
  * Created by zhong on 2018/12/30.
  */
@@ -8,6 +10,15 @@ public class ProjectDTO {
     private String role;
     private DurationDTO duration;
     private String note;
+
+    public ProjectDTO() {
+    }
+
+    public ProjectDTO(Project project) {
+        this.name = project.getProj_name();
+        this.role = project.getProj_role();
+        this.duration = new DurationDTO(project.getProj_start_time(), project.getProj_end_time());
+    }
 
     public String getName() {
         return name;

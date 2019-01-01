@@ -203,7 +203,7 @@
       WHERE VERIFY_ID = #{verifyId}
     </update>
 
-    <select id="selectCompanyVerfication" resultMap="com.youthchina.domain.qingyang.CompanyVerification_qingyang"
+    <select id="selectCompanyVerfication" resultType="com.youthchina.domain.qingyang.CompanyVerification_qingyang"
             parameterType="java.lang.Integer">
         SELECT
             VERIFY_ID,    VERIFY_TIME,   VERIFY_END_TIME,    OPER_USER_ID,
@@ -214,7 +214,7 @@
         AND IS_DELETE = 0
     </select>
 
-    <select id="selectCompanyVerficationByIdList" resultMap="com.youthchina.domain.qingyang.CompanyVerification_qingyang">
+    <select id="selectCompanyVerficationByIdList" resultType="com.youthchina.domain.qingyang.CompanyVerification_qingyang">
         SELECT
           VERIFY_ID,    VERIFY_TIME,   VERIFY_END_TIME,    OPER_USER_ID,
           COMPANY_ID
@@ -258,7 +258,7 @@
       WHERE IND_NUM = #{id}
     </update>
 
-    <select id="selectIndustry" resultMap="com.youthchina.domain.qingyang.Industry"
+    <select id="selectIndustry" resultType="com.youthchina.domain.qingyang.Industry"
             parameterType="java.lang.Integer">
         SELECT
             IND_NUM,    IND_CHN,   IND_ENG,    IND_LEVEL,
@@ -269,7 +269,7 @@
         AND IS_DELETE = 0
     </select>
 
-    <select id="selectIndustryByIdList" resultMap="com.youthchina.domain.qingyang.Industry">
+    <select id="selectIndustryByIdList" resultType="com.youthchina.domain.qingyang.Industry">
         SELECT
             IND_NUM,    IND_CHN,   IND_ENG,    IND_LEVEL,
             IND_PARENT_NUM,   START_DATE
@@ -309,7 +309,7 @@
       WHERE IND_NUM = #{id}
     </update>
 
-    <select id="selectHr" resultMap="com.youthchina.domain.qingyang.Hr_qingyang"
+    <select id="selectHr" resultType="com.youthchina.domain.qingyang.Hr_qingyang"
             parameterType="java.lang.Integer">
         SELECT
             HR_ID,    COMPANY_ID,   HR_ON_JOB,    USER_ID
@@ -319,7 +319,7 @@
         AND IS_DELETE = 0
     </select>
 
-    <select id="selectHrByIdList" resultMap="com.youthchina.domain.qingyang.Hr_qingyang">
+    <select id="selectHrByIdList" resultType="com.youthchina.domain.qingyang.Hr_qingyang">
         SELECT
             HR_ID,    COMPANY_ID,   HR_ON_JOB,    USER_ID
         FROM HR_INFO
