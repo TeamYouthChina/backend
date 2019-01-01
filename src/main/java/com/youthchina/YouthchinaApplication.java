@@ -35,7 +35,6 @@ public class YouthchinaApplication {
         ds.setUrl(env.getProperty("spring.datasource.url") + "?useUnicode=yes&characterEncoding=UTF-8");
         ds.setUsername(env.getProperty("spring.datasource.username"));
         ds.setPassword(env.getProperty("spring.datasource.password"));
-        ds.setSchema("youthchina");
         return ds;
     }
 
