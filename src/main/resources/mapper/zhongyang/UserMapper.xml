@@ -18,16 +18,15 @@
         <result property="role" javaType="java.lang.Integer" column="ROLE_TYPE"/>
     </resultMap>
     <sql id="userTable">
-         sys_user
-        JOIN sys_user_role r on sys_user.ROLE_ID = r.ROLE_ID
-        JOIN sys_role_permission srp on sys_user.PERMI_ID = srp.PERMI_ID
+        FROM sys_user
+        JOIN sys_user_role r on sys_user.ROLE_ID = r.ROLE_ID AND r.IS_DELETE = 0
+        JOIN sys_role_permission srp on sys_user.PERMI_ID = srp.PERMI_ID AND srp.IS_DELETE = 0
     </sql>
     <sql id="active">
-        SYS_USER.IS_DELETE = 0 AND sys_user_role.IS_DELETE = 0 AND sys_role_permission.IS_DELETE = 0
+        SYS_USER.IS_DELETE = 0
     </sql>
     <select id="findOne" resultMap="User" parameterType="Integer">
         SELECT *
-        FROM
         <include refid="userTable"/>
         WHERE SYS_USER.USER_ID = #{id, jdbcType=INTEGER} AND
         <include refid="active"/>

@@ -113,6 +113,11 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+    @Override
+    public Student addStudent(Student student) {
+        return null;
+    }
+
     /**
      * @Description: 通过user_id找到该id下的所有课外活动经历
      * @Param: [id]
