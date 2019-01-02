@@ -27,15 +27,5 @@ public class YouthchinaApplication {
     }
 
 
-    @Bean(name = "dataSource")
-    @Primary
-    public DataSource dataSource() {
-        DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl(env.getProperty("spring.datasource.url") + "?useUnicode=yes&characterEncoding=UTF-8");
-        ds.setUsername(env.getProperty("spring.datasource.username"));
-        ds.setPassword(env.getProperty("spring.datasource.password"));
-        return ds;
-    }
 
 }

@@ -18,9 +18,9 @@
         <result property="role" javaType="java.lang.Integer" column="ROLE_TYPE"/>
     </resultMap>
     <sql id="userTable">
-        FROM sys_user
-        JOIN sys_user_role r on sys_user.ROLE_ID = r.ROLE_ID AND r.IS_DELETE = 0
-        JOIN sys_role_permission srp on sys_user.PERMI_ID = srp.PERMI_ID AND srp.IS_DELETE = 0
+        FROM SYS_USER
+        JOIN SYS_USER_ROLE r on SYS_USER.ROLE_ID = r.ROLE_ID AND r.IS_DELETE = 0
+        JOIN SYS_ROLE_PERMISSION srp on SYS_USER.PERMI_ID = srp.PERMI_ID AND srp.IS_DELETE = 0
     </sql>
     <sql id="active">
         SYS_USER.IS_DELETE = 0
@@ -31,8 +31,16 @@
         WHERE SYS_USER.USER_ID = #{id, jdbcType=INTEGER} AND
         <include refid="active"/>
     </select>
-    <insert id="insert" parameterType="com.youthchina.domain.zhongyang.User">
-        INSERT INTO sys_user (USER_ID,
+    <select id="findAll" parameterType="java.util.List" resultMap="User">
+        SELECT *
+        <include refid="userTable"/>
+        WHERE SYS_USER.USER_ID IN
+        <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+    <insert id="insert" parameterType="com.youthchina.domain.zhongyang.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO SYS_USER (
                               USER_NAME,
                               USER_PASS,
                               USER_REGIST_DATE,
@@ -49,8 +57,8 @@
                               PERMI_ID,
                               IS_DELETE,
                               IS_DELETE_TIME)
-        VALUES (#{id},
-                #{name},
+        VALUES (
+                #{username},
                 #{password},
                 #{registerDate},
                 #{realName},
@@ -60,17 +68,17 @@
                 #{email},
                 #{phonenumber},
                 #{avatarUrl},
-                '',
+                0,
                 '',
                 #{role},
-                0,
+                1,
                 0,
                 NULL)
     </insert>
     <update id="delete" parameterType="java.lang.Integer">
-        UPDATE sys_user
+        UPDATE SYS_USER
         SET IS_DELETE      = 1,
             IS_DELETE_TIME = NOW()
-        WHERE sys_user.USER_ID = #{id}
+        WHERE SYS_USER.USER_ID = #{id}
     </update>
 </mapper>
