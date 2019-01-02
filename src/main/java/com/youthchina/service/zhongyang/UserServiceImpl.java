@@ -32,12 +32,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> get(List<Integer> id) {
-        return null;
+        return mapper.findAll(id);
     }
 
     @Override
     public void delete(Integer id) {
-
+        mapper.delete(id);
     }
 
     @Override
