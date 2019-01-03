@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -37,7 +38,9 @@ public class StudentMapperTest {
     @Test
     public void testGetEducations(){
         List<EducationInfo> educationInfos=applicantMapper.getEducations(1);
-        Assert.assertNotNull(educationInfos);
+        if (educationInfos!=null){
+            System.out.print("测试成功");
+        }
     }
 
     @Test
@@ -75,35 +78,55 @@ public class StudentMapperTest {
 
     }
 
-    @Test
-    public void testGetJob(){
-        Job job=applicantMapper.getJob(1);
-        Assert.assertNotNull(job);
-
-    }
 
     @Test
     public void testAddApply(){
+        JobApply jobApply=new JobApply();
+        jobApply.setJob_cv_send(2);
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        jobApply.setJob_apply_time(d);
+        jobApply.setJob_apply_status("success");
+        jobApply.setStu_id(2);
+        jobApply.setJob_id(2);
+
+        Integer key=applicantMapper.addApply(jobApply);
+        if(key!=0){
+            System.out.print("测试成功");
+        }
+
+
 
     }
 
     @Test
     public void testGetJobApplies(){
+        List<JobApply> jobApplies=applicantMapper.getJobApplies(1);
+        Assert.assertNotNull(jobApplies);
 
     }
 
     @Test
     public void testGetUserInfo(){
+        UserInfo userInfo=applicantMapper.getUserInfo(1);
+        Assert.assertNotNull(userInfo);
 
     }
 
     @Test
     public void testDeleteJobCollect(){
+        Integer key=applicantMapper.deleteJobCollect(1);
+        if(key!=0){
+            System.out.print("测试成功");
+        }
 
     }
 
     @Test
     public void testDeleteCompCollect(){
+        Integer key=applicantMapper.deleteCompCollect(1);
+        if(key!=0){
+            System.out.print("测试成功");
+        }
 
     }
 

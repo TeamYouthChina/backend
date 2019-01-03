@@ -18,7 +18,7 @@ public interface ApplicantMapper {
     Student getStudentInfo(Integer id);
     Job getJob(Integer job_id);
     Integer addApply(JobApply jobApply);
-    List<JobApply> getJobApplies(Integer user_id);
+    List<JobApply> getJobApplies(Integer stu_id);
     UserInfo getUserInfo(Integer user_id);
     Integer deleteJobCollect(Integer collect_id);
     Integer deleteCompCollect(Integer collect_id);

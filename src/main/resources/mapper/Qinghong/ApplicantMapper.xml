@@ -104,7 +104,7 @@
             <result property="jobLocation" column="JOB_LOCATION"/>
             <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
             <result property="jobSalary" column="JOB_SALARY"/>
-            <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
+            <result property="cvReceiveMail" column="CV_RECEI_MAIL"/>
             <result property="cvNameRule" column="CV_NAME_RULE"/>
             <result property="jobActive" column="JOB_ACTIVE"/>
         </association>
@@ -118,7 +118,7 @@
     </select>
 
     <!--获取申请者的信息-->
-    <select id="getStudentInfo" resultType="com.youthchina.domain.Qinghong.Student">
+    <select id="getStudentInfo" resultMap="studentResultMap">
         select a.*,b.*,c.*,d.*,e.*,f.*,g.*
         from STU_INFO a;
         LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID
@@ -134,9 +134,8 @@
     <!--获取申请者的项目信息-->
     <select id="getProjects" resultType="com.youthchina.domain.Qinghong.Project">
         SELECT b.*
-        FROM STU_INFO a
-                 LEFT JOIN STU_PROJECT b ON a.STU_ID=b.STU_ID
-        WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
+        FROM STU_INFO a,STU_PROJECT b
+        WHERE a.USER_ID=#{user_id} AND a.STU_ID=b.STU_ID AND a.IS_DELETE=0 AND b.IS_DELETE=0
     </select>
 
     <!--获取申请者的教育信息-->
@@ -149,9 +148,8 @@
     <!--获取申请者的工作经历信息-->
     <select id="getWorks" resultType="com.youthchina.domain.Qinghong.Work">
         SELECT b.*
-        FROM STU_INFO a
-                 LEFT JOIN STU_WORK b ON a.STU_ID=b.STU_ID
-        WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
+        FROM STU_INFO a,STU_WORK b
+        WHERE a.USER_ID=#{user_id} AND a.STU_ID=b.STU_ID AND a.IS_DELETE=0 AND b.IS_DELETE=0
     </select>
 
     <!--获取申请者的认证信息-->
@@ -165,16 +163,16 @@
     <!--获取申请者的活动信息-->
     <select id="getActivities" resultType="com.youthchina.domain.Qinghong.Activity">
         SELECT b.*
-        FROM STU_INFO a
-                 LEFT JOIN STU_ACTIVITY b ON a.STU_ID=b.STU_ID
-        WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
+        FROM STU_INFO a,STU_ACTIVITY b
+        WHERE a.USER_ID=#{user_id} AND a.STU_ID=b.STU_ID AND a.IS_DELETE=0 AND b.IS_DELETE=0
     </select>
+
 
     <!--获取申请者的所有申请职位信息-->
     <select id="getJobApplies" resultMap="ApplyMapper">
         SELECT a.*,b.*
         FROM STU_JOB_APPLY a
-                 LEFT JOIN JOB_INFO b.* ON a.JOB_ID=b.JOB_ID
+                 LEFT JOIN JOB_INFO b ON a.JOB_ID=b.JOB_ID
                 WHERE a.STU_ID=#{stu_id}
     </select>
 
@@ -267,7 +265,7 @@
     <update id="deleteJobCollect">
         update STU_JOB_COLLECT set
                                    IS_DELETE=1
-        WHERE COLLECT_ID=#{collect_id}
+        WHERE COLEECT_ID=#{collect_id}
     </update>
 
 
@@ -275,7 +273,7 @@
     <update id="deleteCompCollect">
         update STU_JOB_COLLECT set
                                    IS_DELETE=1
-        WHERE COLLECT_ID=#{collect_id}
+        WHERE COLEECT_ID=#{collect_id}
     </update>
 
 </mapper>

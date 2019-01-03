@@ -19,12 +19,9 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
 
+    @Autowired
     private ApplicantMapper applicantMapper;
 
-    @Autowired
-    public StudentServiceImpl(ApplicantMapper applicantMapper) {
-        this.applicantMapper = applicantMapper;
-    }
 
     /**
      * @Description: 通过user_id获得学生的所有信息，如何该id为空，则抛出异常
