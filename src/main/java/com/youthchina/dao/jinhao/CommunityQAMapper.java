@@ -3,10 +3,12 @@ package com.youthchina.dao.jinhao;
 import com.youthchina.domain.jinhao.communityQA.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Mapper
+@Component
 public interface CommunityQAMapper {
     //显示
     List<Question> listQuestion();
@@ -191,4 +193,6 @@ public interface CommunityQAMapper {
     Integer countVideoDisagreement(Integer video_id);
 
     Integer countVideoComments(Integer video_id);
+
+    List<Question> getMyQuestions(Integer user_id);
 }

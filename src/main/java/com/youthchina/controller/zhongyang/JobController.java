@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * Created by zhongyangwu on 12/2/18.
  */
@@ -32,7 +30,7 @@ public class JobController {
         Job job = this.jobService.get(jobId);
         if (detailLevel == 1) {
             JobSearchResultDTO<SimpleJobDTO> resultDTO = new JobSearchResultDTO<>();
-            resultDTO.setSearchResult(List.of(new SimpleJobDTO(job)));
+//            resultDTO.setSearchResult(List.of(new SimpleJobDTO(job)));
             return ResponseEntity.ok(resultDTO);
         }
         throw new BaseException();

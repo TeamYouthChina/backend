@@ -597,4 +597,14 @@
         and m.evaluate_id = a.evaluate_id
         and a.evaluate_type = 2
     </select>
+
+    <!--拿到用户提出的问题-->
+    <select id="getMyQuestions" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.Question">
+        select a.* from COM_AUTHOR_QUESTION_MAP m, COM_QUESTION a
+        where m.user_id = #{user_id}
+        and a.ques_id = m.ques_id
+        and a.ques_delete = 0
+        order by a.ques_edit_time desc
+    </select>
 </mapper>

@@ -1,0 +1,9 @@
+<dataset>
+    <COM_QUESTION QUES_ID="1" QUES_TITLE="第一个问题" QUES_ABBRE="第一个问题的描述" QUES_BODY="第一个问题的正文"
+                  QUES_PUB_TIME="2018-12-04 13:32:40" QUES_EDIT_TIME="2018-12-04 13:32:40" QUES_DELETE="0"
+                  QUES_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_QUESTION QUES_ID="2" QUES_TITLE="第二个问题" QUES_ABBRE="第二个问题的描述" QUES_BODY="第二个问题的正文"
+                  QUES_PUB_TIME="2018-12-05 13:32:40" QUES_EDIT_TIME="2018-12-05 13:32:40" QUES_DELETE="0"
+                  QUES_DELETE_TIME="2018-12-05 13:32:40"/>
+    <COM_AUTHOR_QUESTION_MAP QUES_ID="1" USER_ID="1"/>
+</dataset>
