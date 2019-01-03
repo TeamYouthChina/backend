@@ -32,7 +32,7 @@ public class JobController {
         Job job = this.jobService.get(jobId);
         if (detailLevel == 1) {
             JobSearchResultDTO<SimpleJobDTO> resultDTO = new JobSearchResultDTO<>();
-            resultDTO.setSearchResult(List.of(new SimpleJobDTO(job)));
+//            resultDTO.setSearchResult(List.of(new SimpleJobDTO(job)));
             return ResponseEntity.ok(resultDTO);
         }
         throw new BaseException();

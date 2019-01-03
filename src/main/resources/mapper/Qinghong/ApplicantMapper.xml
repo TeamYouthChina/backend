@@ -142,9 +142,8 @@
     <!--获取申请者的教育信息-->
     <select id="getEducations" resultType="com.youthchina.domain.Qinghong.EducationInfo">
         SELECT b.*
-        FROM STU_INFO a
-                 LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID
-        WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
+        FROM STU_INFO a,STU_EDU_INFO b
+        WHERE a.USER_ID=#{user_id} AND a.STU_ID=b.STU_ID AND a.IS_DELETE=0 AND b.IS_DELETE=0
     </select>
 
     <!--获取申请者的工作经历信息-->
