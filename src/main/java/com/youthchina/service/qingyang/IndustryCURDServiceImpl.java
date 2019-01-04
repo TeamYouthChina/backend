@@ -25,7 +25,7 @@ public class IndustryCURDServiceImpl implements IndustryCURDService{
 
     @Override
     public void delete(Integer id) throws NotFoundException {
-        companyMapper.deleteIndustry();
+        companyMapper.deleteIndustry(id);
     }
 
     @Override

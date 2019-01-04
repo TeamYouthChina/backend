@@ -1,6 +1,6 @@
 <dataset>
    <SYS_IND_CLASS IND_NUM="2" IND_CHN="chn" IND_ENG="eng" IND_LEVEL="2" IND_PARENT_NUM="3"
                    START_DATE="2018-10-11 11:11:22" IS_DELETE="0"/>
-    <SYS_IND_CLASS IND_NUM="1" IND_CHN="chn1" IND_ENG="eng1" IND_LEVEL="2" IND_PARENT_NUM="3"
+   <SYS_IND_CLASS IND_NUM="1" IND_CHN="chn1" IND_ENG="eng1" IND_LEVEL="2" IND_PARENT_NUM="3"
                    START_DATE="2018-10-11 11:11:22" IS_DELETE="0"/>
 </dataset>

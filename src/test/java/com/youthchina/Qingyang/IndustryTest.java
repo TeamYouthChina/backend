@@ -41,10 +41,9 @@ public class IndustryTest {
     @Test
     public void testIndustryInsert() {
         Industry industry = new Industry();
-        industry.setIndChn("招");
+        industry.setIndChn("招669");
         industry.setIndEng("r4");
         industry.setIndLevel(1);
-        industry.setIndNum(666);
         industry.setIndParentNum(3);
         industry.setStartDate(Timestamp.valueOf("2012-12-12 12:12:12"));
         companyMapper.insertIndustry(industry);
@@ -77,6 +76,13 @@ public class IndustryTest {
         Industry newInd = companyMapper.selectIndustry(id);
         //Assert.assertEquals("upc", newInd.getIndChn());
     }
+
+    @Test
+    public void testDeleteIndustry(){
+        companyMapper.deleteIndustry(1);
+    }
+
+
 
 
 
