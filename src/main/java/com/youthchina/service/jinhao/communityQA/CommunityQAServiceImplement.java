@@ -1,7 +1,9 @@
 package com.youthchina.service.jinhao.communityQA;
 
 import com.youthchina.dao.jinhao.CommunityQAMapper;
+import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.jinhao.communityQA.*;
+import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +17,19 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Resource
     CommunityQAMapper communityQAMapper;
 
+    @Resource
+    UserMapper userMapper;
+
+    /**
+     * 列出前十个问题，并且拿到每个问题的热门回答以及热门回答的作者，如果没有问题，抛出异常
+     * @return 返回得到的question的结果
+     * @throws NotFoundException
+     */
     @Override
     @Transactional
-    public List<QuestionAndPopAnswer> listAllQuestionAndPopAnswer() throws NotFoundException{
+    public List<Question> listAllQuestionAndPopAnswer() throws NotFoundException{
+        List<Question> res = new LinkedList<>();
         List<Question> questions = listQuestion();
-        List<QuestionAndPopAnswer> res = new LinkedList<>();
         for  (Question question : questions) {
             List<QuestionAnswer> answers = listAllAnswer(question.getQues_id());
             int max = 0;
@@ -31,17 +41,19 @@ public class CommunityQAServiceImplement implements CommunityQAService {
                     popAnswer = answer;
                 }
             }
-            StuInfo stuInfo = null;
+            User answer_user = null;
             if(popAnswer != null){
                 int user_id = popAnswer.getUser_id();
-                stuInfo = getStuInfo(user_id);
+                answer_user = userMapper.findOne(user_id);
             }
 
-            QuestionAndPopAnswer questionAndPopAnswer = new QuestionAndPopAnswer(question, popAnswer, stuInfo, max);
-            res.add(questionAndPopAnswer);
+            question.setTopAnswer(popAnswer);
+            res.add(question);
         }
         return res;
     }
+
+
 
 
     /**
@@ -53,7 +65,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addQuestion(Question question, Integer user_id, List<Label> labels) {
+    public Integer addQuestion(Question question, Integer user_id, List<Integer> labels) {
         communityQAMapper.addQuestion(question);
         communityQAMapper.addLabels(labels, question.getQues_id());
         communityQAMapper.createMapBetweenQuestionAndUser(question.getQues_id(), user_id);
@@ -73,22 +85,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
             throw new NotFoundException(404, 404, "没有找到问题");
         }else {
             return question;
-        }
-    }
-
-    /**
-     * 拿到问题的标签，如果标签不存在，抛出异常
-     * @param ques_id
-     * @return 包含所有标签的list
-     * @throws NotFoundException
-     */
-    @Override
-    public List<Label> getLabels(Integer ques_id) throws NotFoundException{
-        List<Label> labels = communityQAMapper.listAllQuesetionLabel(ques_id);
-        if(labels == null){
-            throw new NotFoundException(404, 404, "没有找到该问题的标签");
-        }else{
-            return labels;
         }
     }
 
@@ -121,6 +117,39 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
     /**
+     * 列出某用户提出过的问题,如果没提出过问题，抛出异常
+     * @param user_id 用户的id
+     * @return 返回问题的list
+     * @throws NotFoundException
+     */
+    @Override
+    public List<Question> listMyQuestions(Integer user_id) throws NotFoundException{
+        List<Question> questions = communityQAMapper.getMyQuestions(user_id);
+        if(questions == null){
+            throw new NotFoundException(404, 404, "用户还没有提出过问题");
+        }else {
+            return questions;
+        }
+    }
+
+    /**
+     * 拿到问题的标签，如果标签不存在，抛出异常
+     * @param ques_id
+     * @return 包含所有标签的list
+     * @throws NotFoundException
+     */
+    @Override
+    public List<Label> getLabels(Integer ques_id) throws NotFoundException{
+        List<Label> labels = communityQAMapper.listAllQuesetionLabel(ques_id);
+        if(labels == null){
+            throw new NotFoundException(404, 404, "该问题没有标签");
+        }else{
+            return labels;
+        }
+    }
+
+
+    /**
      * 拿到某个问题的所有回答，如果问题不存在，则抛出异常，如果没有找到任何回答，也抛出异常
      * @param ques_id
      * @return 包含所有回答的list
@@ -145,9 +174,9 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addAnswer(QuestionAnswer questionAnswer, Integer ques_id) {
+    public Integer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level) {
         communityQAMapper.addAnswerToQuestion(questionAnswer);
-        communityQAMapper.createMapBetweenQuestionAndAnswer(ques_id, questionAnswer.getAnswer_id());
+        communityQAMapper.createMapBetweenQuestionAndAnswer(ques_id, questionAnswer.getAnswer_id(), answer_level);
         return 1;
     }
 
@@ -196,29 +225,45 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
     /**
-     * 检查是否关注过问题(这个步骤一般都是和拿到回答一起出现，所以没有判断回答是否存在)
-     * @param user_id 用户id
-     * @param ques_id 问题id
-     * @return 如果关注过，返回关注id，如果没有关注过，返回0
+     * 得到问题收到的回答的条数
+     * @param ques_id 问题的id
+     * @return 返回回答的条数
      */
     @Override
-    public Integer isQuestionEverAttention(Integer user_id, Integer ques_id){
-        Integer atten_id = communityQAMapper.isQuestionEverAttention(user_id, ques_id);
-        if(atten_id == null){
-            return 0;
+    public Integer countAnswer(Integer ques_id) {
+        return communityQAMapper.countAnswer(ques_id);
+    }
+
+    /**
+     * 列出用户做出过的回答，如果没有，抛出异常
+     * @param user_id 用户的id
+     * @return 返回回答的list
+     * @throws NotFoundException
+     */
+    @Override
+    public List<QuestionAnswer> listMyAnswers(Integer user_id) throws NotFoundException{
+        List<QuestionAnswer> questionAnswers = communityQAMapper.listMyAnswer(user_id);
+        if(questionAnswers == null){
+            throw new NotFoundException(404,404,"用户没有回答过问题");
         }else {
-            return atten_id;
+            return questionAnswers;
         }
     }
 
     /**
-     * 检查是否被关注
-     * @param atten_id 关注的id
-     * @return 如果关注返回1，如果没有返回0
+     * 检查用户是否关注这个问题，如果关注，QuestionAttention的atten_canecl字段为1，如果用户从来没关注过问题，则返回null
+     * @param user_id 用户id
+     * @param ques_id 问题id
+     * @return 返回问题关注对象
      */
     @Override
-    public Integer isQestionAttention(Integer atten_id) {
-        return communityQAMapper.isQuestionAttention(atten_id);
+    public QuestionAttention isQuestionAttention(Integer user_id, Integer ques_id) throws NotFoundException {
+        QuestionAttention questionAttention =  communityQAMapper.isQuestionAttention(user_id, ques_id);
+        if(questionAttention == null){
+            throw new NotFoundException(404, 404, "用户没有关注过这个问题");
+        }else {
+            return questionAttention;
+        }
     }
 
     /**
@@ -239,9 +284,9 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         }else {
             communityQAMapper.addAttentionToQuestion(questionAttention);
             atten_id = questionAttention.getAtten_id();
-            communityQAMapper.createMapBetweenAttentionAndQuestion(ques_id, questionAttention);
+            communityQAMapper.createMapBetweenAttentionAndQuestion(ques_id, atten_id);
         }
-        return atten_id;
+        return 1;
     }
 
     /**
@@ -275,6 +320,22 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
     /**
+     * 列出用户关注的问题，如果没有抛出异常
+     * @param user_id 用户的id
+     * @return 返回关注的问题的list
+     * @throws NotFoundException
+     */
+    @Override
+    public List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException{
+       List<Question> questions = communityQAMapper.listMyAttenQuestion(user_id);
+       if(questions == null){
+           throw new NotFoundException(404,404,"该用户没有关注的问题");
+       }else {
+           return questions;
+       }
+    }
+
+    /**
      * 拿到某个问题的关注数
      * @param ques_id  问题的id
      * @return 返回关注的人数
@@ -305,29 +366,35 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
     /**
-     * 判断用户是否评价过这个回答
+     * 查看用户对这个回答的评价状态，evaluate_type：1是赞同，2是反对，3是取消；如果没有评价过抛出异常
      * @param user_id 用户id
      * @param answer_id 回答id
-     * @return 如果评价过返回评价的id，如果没有，返回0
+     * @return 返回回答评价对象
      */
     @Override
-    public Integer isEverEvaluate(Integer user_id, Integer answer_id) {
-        Integer evaluate_id = communityQAMapper.isEverEvaluate(user_id, answer_id);
-        if(evaluate_id == null){
-            return 0;
+    public AnswerEvaluate evaluateStatus(Integer user_id, Integer answer_id) throws NotFoundException{
+        AnswerEvaluate answerEvaluate = communityQAMapper.evaluateStatus(user_id, answer_id);
+        if(answerEvaluate == null){
+            throw new NotFoundException(404,404,"该用户没有评价过这个回答");
         }else {
-            return evaluate_id;
+            return answerEvaluate;
         }
     }
 
     /**
-     * 查看用户对这个回答的评价状态
+     * 拿到某个回答评价，如果没有，抛出异常
      * @param evaluate_id 评价的id
-     * @return 赞同返回1，不赞同返回2，取消返回3
+     * @return 返回得到的回答评价
+     * @throws NotFoundException
      */
     @Override
-    public Integer evaluateStatus(Integer evaluate_id){
-        return communityQAMapper.evaluateStatus(evaluate_id);
+    public AnswerEvaluate getAnswerEvaluate(Integer evaluate_id) throws NotFoundException{
+        AnswerEvaluate answerEvaluate = communityQAMapper.getAnswerEvaluate(evaluate_id);
+        if(answerEvaluate == null){
+            throw new NotFoundException(404, 404, "没有找到该答案评价");
+        }else{
+            return answerEvaluate;
+        }
     }
 
     /**
@@ -343,6 +410,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         getAnswer(answer_id);
         Integer evaluate_id = answerEvaluate.getEvaluate_id();
         if(evaluate_id != null){
+            getAnswerEvaluate(evaluate_id);
             communityQAMapper.reEvaluateAnswer(answerEvaluate);
         }else {
             communityQAMapper.addEvaluateToAnswer(answerEvaluate);
@@ -350,6 +418,22 @@ public class CommunityQAServiceImplement implements CommunityQAService {
             communityQAMapper.createMapBetweenAnswerAndEvaluate(answerEvaluate.getEvaluate_id(), answer_id);
         }
         return evaluate_id;
+    }
+
+    /**
+     * 得到用户赞同过的回答,没有的话抛出异常
+     * @param user_id 用户的id
+     * @return 返回用户赞同过的回答的list
+     * @throws NotFoundException
+     */
+    @Override
+    public List<QuestionAnswer> listMyAgreeAnswer(Integer user_id) throws NotFoundException {
+        List<QuestionAnswer> questionAnswers = communityQAMapper.listMyAgreeAnswer(user_id);
+        if(questionAnswers == null){
+            throw new NotFoundException(404,404,"该用户没有赞同的回答");
+        }else {
+            return questionAnswers;
+        }
     }
 
     /**
@@ -394,10 +478,11 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addCommentToAnswer(Integer answer_id, AnswerComment answerComment) throws NotFoundException{
+    public Integer addCommentToAnswer(Integer answer_id, AnswerComment answerComment, Integer comment_level)
+            throws NotFoundException{
         getAnswer(answer_id);
         communityQAMapper.addCommentToAnswer(answerComment);
-        communityQAMapper.createMapBetweenAnswerAndComment(answer_id, answerComment.getComment_id());
+        communityQAMapper.createMapBetweenAnswerAndComment(answer_id, answerComment.getComment_id(),comment_level);
         return 1;
     }
 
@@ -426,36 +511,27 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
     /**
-     * 检查用户是否评价过这个评论
-     * @param user_id 用户的id
+     * 查看用户对这个评论的评价状态，如果没有评价过，抛出异常
+     * @param user_id 用户id
      * @param comment_id 评论的id
-     * @return 如果评价过，则返回评价的id，如果没有返回0
+     * @return 返回评价对象
+     * @throws NotFoundException
      */
     @Override
-    public Integer isEverEvaluateComment(Integer user_id, Integer comment_id) {
-        Integer evaluate_id = communityQAMapper.isEverEvaluateComment(user_id, comment_id);
-        if(evaluate_id == null){
-            return 0;
+    public CommentEvaluate commentEvaluateStatus(Integer user_id, Integer comment_id) throws NotFoundException{
+        CommentEvaluate commentEvaluate = communityQAMapper.commentEvaluateStatus(user_id, comment_id);
+        if(commentEvaluate == null){
+            throw new NotFoundException(404,404,"用户没有评价过这个评论");
         }else {
-            return evaluate_id;
+            return commentEvaluate;
         }
-    }
-
-    /**
-     * 查看用户对该评论的评价状态
-     * @param evaluate_id 评价的id
-     * @return 1是赞同，2是返回，3是取消
-     */
-    @Override
-    public Integer commentEvaluateStatus(Integer evaluate_id) {
-        return communityQAMapper.commentEvaluateStatus(evaluate_id);
     }
 
     /**
      * 评价评论，如果评价对象里面的评价id为空，说明没有评价过，则插入评价并且建立映射，如果不为空，说明评价过，则更新字段
      * @param comment_id 评论的id
      * @param commentEvaluate 评价的对象
-     * @return 返回评价id
+     * @return 评价成功返回1
      * @throws NotFoundException
      */
     @Override
@@ -468,9 +544,10 @@ public class CommunityQAServiceImplement implements CommunityQAService {
             evaluate_id = commentEvaluate.getEvaluate_id();
             communityQAMapper.createMapBetweenCommentAndEvaluate(evaluate_id, comment_id);
         }else {
+            communityQAMapper.getCommentEvaluate(evaluate_id);
             communityQAMapper.reEvaluateComment(commentEvaluate);
         }
-        return evaluate_id;
+        return 1;
     }
 
     /**
@@ -641,16 +718,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         getInvitation(answerInvitation.getInvit_id());
         communityQAMapper.updateStatusOfInvitation(answerInvitation);
         return 1;
-    }
-
-    /**
-     * 根据角色id拿到对应的用户信息
-     * @param user_id 角色id
-     * @return 返回一个用户信息的对象
-     */
-    @Override
-    public StuInfo getStuInfo(Integer user_id) {
-        return communityQAMapper.getStuInfo(user_id);
     }
 
     /**

@@ -9,27 +9,24 @@ public class QuestionAnswer {
     private Integer user_anony;
     private Timestamp answer_pub_time;
     private Timestamp answer_edit_time;
-    private Integer answer_delete;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
-    public Integer getAnswer_delete() {
-        return answer_delete;
+    public Integer getIs_delete() {
+        return is_delete;
     }
 
-    public void setAnswer_delete(Integer answer_delete) {
-        this.answer_delete = answer_delete;
+    public void setIs_delete(Integer is_delete) {
+        this.is_delete = is_delete;
     }
 
-    public Timestamp getAnswer_delete_time() {
-        return answer_delete_time;
+    public Timestamp getIs_delete_time() {
+        return is_delete_time;
     }
 
-    public void setAnswer_delete_time(Timestamp answer_delete_time) {
-        this.answer_delete_time = answer_delete_time;
+    public void setIs_delete_time(Timestamp is_delete_time) {
+        this.is_delete_time = is_delete_time;
     }
-
-    private Timestamp answer_delete_time;
-
-
     public String getAnswer_content() {
         return answer_content;
     }

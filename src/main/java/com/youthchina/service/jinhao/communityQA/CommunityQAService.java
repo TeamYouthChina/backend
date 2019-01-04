@@ -8,40 +8,44 @@ import java.util.List;
 
 public interface CommunityQAService {
 
-    Integer addQuestion(Question question, Integer user_id, List<Label> labels);
+    Integer addQuestion(Question question, Integer user_id, List<Integer> labels);
     Question getQuestion(Integer ques_id) throws NotFoundException;
     List<Label> getLabels(Integer ques_id) throws NotFoundException;
     Integer updateQuestion(Question question) throws NotFoundException;
     Integer deleteQuesiton(Question question) throws NotFoundException;
+    List<Question> listMyQuestions(Integer user_id) throws NotFoundException;
 
     List<QuestionAnswer> listAllAnswer(Integer ques_id) throws NotFoundException;
 
-    Integer addAnswer(QuestionAnswer questionAnswer, Integer ques_id);
+    Integer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level);
     QuestionAnswer getAnswer(Integer answer_id) throws NotFoundException;
     Integer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
     Integer deleteAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
+    Integer countAnswer(Integer ques_id);
+    List<QuestionAnswer> listMyAnswers(Integer user_id) throws NotFoundException;
 
-    Integer isQuestionEverAttention(Integer user_id, Integer ques_id);
-    Integer isQestionAttention(Integer atten_id);
+    QuestionAttention isQuestionAttention(Integer user_id, Integer ques_id) throws NotFoundException;
     Integer attentionQuestion(Integer ques_id, QuestionAttention questionAttention) throws NotFoundException;
     Integer cancelAttentionQuestion(QuestionAttention questionAttention) throws NotFoundException;
     QuestionAttention getAttention(Integer atten_id) throws NotFoundException;
+    List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException;
     Integer countFollwers(Integer ques_id);
 
     Integer countAgreement(Integer answer_id);
     Integer countDisagreement(Integer answer_id);
-    Integer isEverEvaluate(Integer user_id, Integer answer_id);
-    Integer evaluateStatus(Integer evaluate_id);
+    AnswerEvaluate evaluateStatus(Integer user_id, Integer answer_id) throws NotFoundException;
+    AnswerEvaluate getAnswerEvaluate(Integer evaluate_id) throws NotFoundException;
     Integer evaluateAnswer(Integer answer_id, AnswerEvaluate answerEvaluate) throws NotFoundException;
+    List<QuestionAnswer> listMyAgreeAnswer(Integer user_id) throws NotFoundException;
 
     List<AnswerComment> getAllAnswerComments(Integer answer_id) throws NotFoundException;
     AnswerComment getComment(Integer comment_id) throws NotFoundException;
-    Integer addCommentToAnswer(Integer answer_id, AnswerComment answerComment) throws NotFoundException;
+    Integer addCommentToAnswer(Integer answer_id, AnswerComment answerComment, Integer comment_level)
+            throws NotFoundException;
     Integer deleteComment(AnswerComment answerComment) throws NotFoundException;
 
     Integer countAgreementOfComment(Integer comment_id);
-    Integer isEverEvaluateComment(Integer user_id, Integer comment_id);
-    Integer commentEvaluateStatus(Integer evalaute_id);
+    CommentEvaluate commentEvaluateStatus(Integer user_id, Integer comment_id) throws NotFoundException;
     Integer evaluateComment(Integer comment_id, CommentEvaluate commentEvaluate) throws NotFoundException;
 
     List<CommentDiscuss> listAllCommentDiscuss(Integer comment_id) throws NotFoundException;
@@ -84,6 +88,6 @@ public interface CommunityQAService {
     Integer countVideoComments(Integer video_id);
 
     List<Question> listQuestion();
-    StuInfo getStuInfo(Integer user_id);
-    List<QuestionAndPopAnswer> listAllQuestionAndPopAnswer() throws NotFoundException;
+    List<Question> listAllQuestionAndPopAnswer() throws NotFoundException;
+    //Question getIntoQuestion(Integer ques_id) throws NotFoundException;
 }

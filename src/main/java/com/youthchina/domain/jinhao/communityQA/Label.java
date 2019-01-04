@@ -1,17 +1,17 @@
 package com.youthchina.domain.jinhao.communityQA;
 
 public class Label {
-    private Integer laber_num;
+    private Integer lab_num;
     private String lab_chn;
     private String lab_eng;
     private String start_date;
 
-    public Integer getLaber_num() {
-        return laber_num;
+    public Integer getLab_num() {
+        return lab_num;
     }
 
-    public void setLaber_num(Integer laber_num) {
-        this.laber_num = laber_num;
+    public void setLab_num(Integer lab_num) {
+        this.lab_num = lab_num;
     }
 
     public String getLab_chn() {

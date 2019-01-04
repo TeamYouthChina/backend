@@ -9,8 +9,8 @@ public class VideoComment {
     private Integer user_anony;
     private Timestamp comment_pub_time;
     private Timestamp comment_edit_time;
-    private Integer comment_delete;
-    private Timestamp comment_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
     public Integer getComment_id() {
         return comment_id;
@@ -60,19 +60,19 @@ public class VideoComment {
         this.comment_edit_time = comment_edit_time;
     }
 
-    public Integer getComment_delete() {
-        return comment_delete;
+    public Integer getis_delete() {
+        return is_delete;
     }
 
-    public void setComment_delete(Integer comment_delete) {
-        this.comment_delete = comment_delete;
+    public void setis_delete(Integer is_delete) {
+        this.is_delete = is_delete;
     }
 
-    public Timestamp getComment_delete_time() {
-        return comment_delete_time;
+    public Timestamp getis_delete_time() {
+        return is_delete_time;
     }
 
-    public void setComment_delete_time(Timestamp comment_delete_time) {
-        this.comment_delete_time = comment_delete_time;
+    public void setis_delete_time(Timestamp is_delete_time) {
+        this.is_delete_time = is_delete_time;
     }
 }

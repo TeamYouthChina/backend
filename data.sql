@@ -890,9 +890,9 @@ create table IF NOT EXISTS `COM_QUESTION`
     COMMENT '发布时间',
   `QUES_EDIT_TIME` TIMESTAMP      NOT NULL
     COMMENT '编辑时间'                     DEFAULT NOW(),
-  `QUES_DELETE`      INTEGER             DEFAULT '0'
+  `IS_DELETE`      INTEGER             DEFAULT '0'
     COMMENT '是否删除',
-  `QUES_DELETE_TIME` TIMESTAMP      NULL DEFAULT NULL
+  `IS_DELETE_TIME` TIMESTAMP      NULL DEFAULT NULL
     COMMENT '删除时间',
   PRIMARY KEY (`QUES_ID`)
 )

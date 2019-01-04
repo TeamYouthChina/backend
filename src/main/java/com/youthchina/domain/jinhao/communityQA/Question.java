@@ -1,6 +1,9 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.domain.zhongyang.User;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Question {
     private Integer ques_id;
@@ -9,23 +12,77 @@ public class Question {
     private String ques_body;
     private Timestamp ques_pub_time;
     private Timestamp ques_edit_time;
-    private Integer ques_delete;
-    private Timestamp ques_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
+    private User user;
+    private QuestionAnswer topAnswer;
+    private Integer answerAmount;
+    private Integer followers;
+    private List<QuestionAnswer> answers;
+    private List<Label> labels;
 
-    public Integer getQues_delete() {
-        return ques_delete;
+    public Integer getAnswerAmount() {
+        return answerAmount;
     }
 
-    public void setQues_delete(Integer ques_delete) {
-        this.ques_delete = ques_delete;
+    public void setAnswerAmount(Integer answerAmount) {
+        this.answerAmount = answerAmount;
     }
 
-    public Timestamp getQues_delete_time() {
-        return ques_delete_time;
+    public Integer getFollowers() {
+        return followers;
     }
 
-    public void setQues_delete_time(Timestamp ques_delete_time) {
-        this.ques_delete_time = ques_delete_time;
+    public void setFollowers(Integer followers) {
+        this.followers = followers;
+    }
+
+    public List<QuestionAnswer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<QuestionAnswer> answers) {
+        this.answers = answers;
+    }
+
+    public List<Label> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(List<Label> labels) {
+        this.labels = labels;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public QuestionAnswer getTopAnswer() {
+        return topAnswer;
+    }
+
+    public void setTopAnswer(QuestionAnswer topAnswer) {
+        this.topAnswer = topAnswer;
+    }
+
+    public Integer getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(Integer is_delete) {
+        this.is_delete = is_delete;
+    }
+
+    public Timestamp getIs_delete_time() {
+        return is_delete_time;
+    }
+
+    public void setIs_delete_time(Timestamp is_delete_time) {
+        this.is_delete_time = is_delete_time;
     }
 
     public Integer getQues_id() {

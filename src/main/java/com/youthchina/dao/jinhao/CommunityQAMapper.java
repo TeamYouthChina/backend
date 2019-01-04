@@ -10,29 +10,6 @@ import java.util.List;
 @Mapper
 @Component
 public interface CommunityQAMapper {
-    //显示
-    List<Question> listQuestion();
-
-
-    Integer countTheFollower(Integer ques_id);
-
-    List<QuestionAnswer> listAllQuestionAnswer(Integer ques_id);
-
-    QuestionAnswer getAnswer(Integer answer_id);
-
-    Integer countAgreement(Integer answer_id);
-
-    Integer countDisagreement(Integer answer_id);
-
-    List<AnswerComment> listAllAnswerComment(Integer answer_id);
-
-    AnswerComment getComment(Integer comment_id);
-
-    List<CommentDiscuss> listAllCommentDiscuss(Integer comment_id);
-    // 操作
-    StuInfo getStuInfo(Integer user_id);
-
-    //已写
     Integer addQuestion(Question question);
 
     Integer createMapBetweenQuestionAndUser(@Param("ques_id") Integer ques_id, @Param("user_id")Integer user_id);
@@ -43,72 +20,97 @@ public interface CommunityQAMapper {
 
     Integer editQuestion(Question question);
 
-    Integer addLabels(@Param("labels") List<Label> labels, @Param("ques_id") Integer ques_id);
+    List<Question> getMyQuestions(Integer user_id); // 列出用户提出的问题
+
+    List<Question> listQuestion(); //只是简单地根据发布时间列出前十个问题
 
     List<Label> listAllQuesetionLabel(Integer ques_id);
 
-    Integer deleteQuestionLabel(Integer ques_id);
+    Integer addLabels(@Param("labels") List<Integer> labels, @Param("ques_id") Integer ques_id);
 
-    Integer addAnswerToQuestion(QuestionAnswer questionAnswer);
+    QuestionAttention getAttention(Integer atten_id);
 
-    Integer createMapBetweenQuestionAndAnswer(@Param("ques_id") Integer ques_id,
-                                              @Param("answer_id") Integer answer_id);
-
-    Integer deleteAnswer(QuestionAnswer questionAnswer);
-
-    Integer editAnswer(QuestionAnswer questionAnswer);
-
-
-
-    Integer isQuestionEverAttention(@Param("user_id") Integer usr_id, @Param("ques_id") Integer ques_id);
-
-    Integer isQuestionAttention(Integer atten_id);
+    QuestionAttention isQuestionAttention(@Param("user_id") Integer user_id, @Param("ques_id") Integer ques_id);
 
     Integer addAttentionToQuestion(QuestionAttention questionAttention);
+
+    Integer createMapBetweenAttentionAndQuestion(@Param("ques_id") Integer ques_id,
+                                                 @Param("atten_id") Integer atten_id);
+
+    List<Question> listMyAttenQuestion(Integer user_id);
 
     Integer reAddAttentionToQuestion(QuestionAttention questionAttention);
 
     Integer cancelAttention(QuestionAttention questionAttention);
 
-    Integer createMapBetweenAttentionAndQuestion(@Param("ques_id") Integer ques_id,
-                                             @Param("questionAttention") QuestionAttention questionAttention);
-    QuestionAttention getAttention(Integer atten_id);
+    Integer countTheFollower(Integer ques_id);
 
-    Integer isEverEvaluate(@Param("user_id") Integer user_id, @Param("answer_id") Integer answer_id);
+    Integer addAnswerToQuestion(QuestionAnswer questionAnswer);
 
-    Integer evaluateStatus(Integer evaluate_id);
+    List<QuestionAnswer> listAllQuestionAnswer(Integer ques_id);
+
+    QuestionAnswer getAnswer(Integer answer_id);
+
+    Integer createMapBetweenQuestionAndAnswer(@Param("ques_id") Integer ques_id,
+                                              @Param("answer_id") Integer answer_id,
+                                              @Param("answer_level") Integer answer_level);
+
+    Integer deleteAnswer(QuestionAnswer questionAnswer);
+
+    Integer editAnswer(QuestionAnswer questionAnswer);
+
+    Integer countAnswer(Integer ques_id);
+
+    List<QuestionAnswer> listMyAnswer(Integer user_id);
+
+    AnswerEvaluate evaluateStatus(@Param("user_id") Integer user_id, @Param("answer_id") Integer answer_id);
+
+    AnswerEvaluate getAnswerEvaluate(Integer evaluate_id);
 
     Integer addEvaluateToAnswer(AnswerEvaluate answerEvaluate);
 
     Integer createMapBetweenAnswerAndEvaluate(@Param("evaluate_id") Integer evaluate_id,
-                                           @Param("answer_id") Integer answer_id);
+                                              @Param("answer_id") Integer answer_id);
 
     Integer reEvaluateAnswer(AnswerEvaluate answerEvaluate);
 
+    List<QuestionAnswer>  listMyAgreeAnswer(Integer user_id);
 
+    Integer countAgreement(Integer answer_id);
+
+    Integer countDisagreement(Integer answer_id);
+
+    List<AnswerComment> listAllAnswerComment(Integer answer_id);
+
+    AnswerComment getComment(Integer comment_id);
 
     Integer addCommentToAnswer(AnswerComment answerComment);
 
     Integer createMapBetweenAnswerAndComment(@Param("answer_id") Integer answer_id,
-                                           @Param("comment_id") Integer comment_id);
-
+                                             @Param("comment_id") Integer comment_id,
+                                             @Param("comment_level") Integer comment_level);
     Integer deleteComment(AnswerComment answerComment);
 
-    Integer countCommentAgreement(Integer comment_id);
 
-    Integer isEverEvaluateComment(@Param("user_id") Integer user_id, @Param("comment_id") Integer comment_id);
-
-    Integer commentEvaluateStatus(Integer evaluate_id);
+    CommentEvaluate commentEvaluateStatus(@Param("user_id") Integer user_id, @Param("comment_id") Integer comment_id);
 
     Integer addEvaluateToComment(CommentEvaluate commentEvaluate);
 
     Integer createMapBetweenCommentAndEvaluate(@Param("evaluate_id") Integer evaluate_id,
                                                @Param("comment_id") Integer comment_id);
 
+    Integer countCommentAgreement(Integer comment_id);
+
     CommentEvaluate getCommentEvaluate(Integer evaluate_id);
 
     Integer reEvaluateComment(CommentEvaluate commentEvaluate);
 
+
+
+
+    List<CommentDiscuss> listAllCommentDiscuss(Integer comment_id);
+
+    Integer deleteQuestionLabel(Integer ques_id);
 
     CommentDiscuss getDiscuss(Integer discuss_id);
 
@@ -133,6 +135,8 @@ public interface CommunityQAMapper {
     DiscussEvaluate getDiscussEvaluate(Integer evaluate_id);
 
     Integer reEvaluateDiscuss(DiscussEvaluate discussEvaluate);
+
+
 
     Integer addInvitation(AnswerInvitation answerInvitation);
 
@@ -194,5 +198,4 @@ public interface CommunityQAMapper {
 
     Integer countVideoComments(Integer video_id);
 
-    List<Question> getMyQuestions(Integer user_id);
 }
