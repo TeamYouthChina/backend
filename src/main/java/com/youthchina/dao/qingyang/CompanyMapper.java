@@ -25,11 +25,11 @@ public interface CompanyMapper {
 
     Industry selectIndustry(Integer id);
 
-    List<Industry> selectIndustryByIdList(List<Integer> id);
+    List<Industry> selectIndustryByIdList(List<Integer> ids);
 
     Integer deleteIndustry();
 
-    Integer updateIndustry(Industry industry_);
+    Integer updateIndustry(Industry industry);
 
     Integer insertIndustry(Industry entity);
     
