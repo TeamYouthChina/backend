@@ -34,15 +34,15 @@ public class IndustryTest {
     @Test
     public void testGetIndustry() {
         Industry industry = companyMapper.selectIndustry(2);
-        Assert.assertEquals("chn", industry.getIndChn());
+        Assert.assertEquals("农", industry.getIndChn());
     }
 
 
     @Test
     public void testIndustryInsert() {
         Industry industry = new Industry();
-        industry.setIndChn("招669");
-        industry.setIndEng("r4");
+        industry.setIndChn("商");
+        industry.setIndEng("business");
         industry.setIndLevel(1);
         industry.setIndParentNum(3);
         industry.setStartDate(Timestamp.valueOf("2012-12-12 12:12:12"));
@@ -65,34 +65,13 @@ public class IndustryTest {
 
     @Test
     public void testUpdateIndustry(){
-        Industry industry = new Industry();
-        industry.setIndChn("upc");
-        industry.setIndEng("upe");
-        industry.setIndLevel(1);
-        industry.setIndNum(2);
-        industry.setIndParentNum(3);
-        industry.setStartDate(Timestamp.valueOf("2012-12-12 12:12:59"));
-        Integer id = companyMapper.updateIndustry(industry);
-        Industry newInd = companyMapper.selectIndustry(id);
-        //Assert.assertEquals("upc", newInd.getIndChn());
+        Industry industry = companyMapper.selectIndustry(2);
+        industry.setIndChn("互联网");
+        companyMapper.updateIndustry(industry);
     }
 
     @Test
     public void testDeleteIndustry(){
         companyMapper.deleteIndustry(1);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

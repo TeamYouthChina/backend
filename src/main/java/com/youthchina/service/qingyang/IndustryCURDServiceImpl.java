@@ -29,9 +29,9 @@ public class IndustryCURDServiceImpl implements IndustryCURDService{
     }
 
     @Override
-    public Industry update(Industry industry_) throws NotFoundException {
-        Integer result = companyMapper.updateIndustry(industry_);
-        return  this.get(result);
+    public Industry update(Industry industry) throws NotFoundException {
+        Integer result = companyMapper.updateIndustry(industry);
+        return  this.get(industry.getIndNum());
     }
 
     @Override
