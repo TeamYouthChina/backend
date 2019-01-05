@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 企业ID		外键		COMPANY_ID	    INTEGER	否
 是否删除				IS_DELETE	    INTEGER	否	0-默认不删除
 删除时间(可空)		IS_DELETE_TIME	TIMESTAMP是	*/
-public class CompanyVerification_qingyang {
+public class CompanyVerification {
 
     private Integer verifyId;
     private Date verifyTime;
