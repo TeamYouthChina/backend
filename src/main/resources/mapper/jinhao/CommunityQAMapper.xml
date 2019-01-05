@@ -524,7 +524,7 @@
     <!-- 建立评价和视频的映射 -->
     <insert id="createMapBetweenEvaluationAndVideo">
         insert into COM_VIDEO_EVALUATE_MAP(evaluate_id, video_id)
-        values (evaluate_id, video_id)
+        values (#{evaluate_id}, #{video_id})
     </insert>
 
     <!-- 拿到某个评价 -->

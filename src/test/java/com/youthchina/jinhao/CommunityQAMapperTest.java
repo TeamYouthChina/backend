@@ -900,5 +900,45 @@ public class CommunityQAMapperTest extends BaseTest{
         VideoEvaluate videoEvaluate1 = communityQAMapper.videoEvaluateStatus(3,1);
         Assert.assertNull(videoEvaluate1);
     }
+
+    //测试能不能拿到视频评价
+    @Test
+    public void getVideoEvaluate(){
+        VideoEvaluate videoEvaluate = communityQAMapper.getVideoEvaluate(1);
+        Assert.assertEquals(Timestamp.valueOf("2019-1-12 11:11:22"), videoEvaluate.getEvaluate_time());
+    }
+
+    //测试能不能添加视频评价
+    @Test
+    public void addVideoEvaluate(){
+        VideoEvaluate videoEvaluate = new VideoEvaluate();
+        videoEvaluate.setUser_id(1);
+        videoEvaluate.setEvaluate_type(1);
+        videoEvaluate.setEvaluate_time(Timestamp.valueOf("2019-1-12 11:11:22"));
+        communityQAMapper.addEvaluationToVideo(videoEvaluate);
+        Assert.assertNotNull(videoEvaluate);
+        VideoEvaluate videoEvaluate1 = communityQAMapper.getVideoEvaluate(videoEvaluate.getEvaluate_id());
+        Assert.assertNotNull(videoEvaluate1);
+    }
+
+    //测试能不能建立映射
+    @Test
+    public void createVideoEvaluateMap(){
+        communityQAMapper.createMapBetweenEvaluationAndVideo(7,1);
+        Integer expect = 4;
+        Assert.assertEquals(expect, communityQAMapper.countVideoAgreement(1));
+    }
+
+    //测试能不能重新评价
+    @Test
+    public void reEvalauteVideo(){
+        VideoEvaluate videoEvaluate = communityQAMapper.getVideoEvaluate(1);
+        videoEvaluate.setEvaluate_type(2);
+        communityQAMapper.reEvaluateVideo(videoEvaluate);
+        Integer agreement = 2;
+        Integer disagreement = 3;
+        Assert.assertEquals(agreement, communityQAMapper.countVideoAgreement(1));
+        Assert.assertEquals(disagreement, communityQAMapper.countVideoDisagreement(1));
+    }
 }
 
