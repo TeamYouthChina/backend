@@ -19,21 +19,20 @@ public class JobServiceImpl implements JobService {
     @Resource
     JobMapper jobMapper;
 
-    public static Job job;
-
-    //给前端的默认值
-    public static void initialization(){
-        job.setJobId(1);
-        job.setCompanyId(1);
-        job.setJobName("前端");
-        job.setJobStartTime(new Date(20181212));
-        job.setJobEndTime(new Date(20190101));
-        job.setJobDescription("吃苦耐劳");
-        job.setJobTime(1); // 全职1
-        job.setJobLocation("北京");
-        job.setCvReceiMail("test@test.test");
-        job.setJobActive(1); // 1，2，3,4,5
-    }
+//    public static Job job;
+//
+//    //给前端的默认值
+//    public static void initialization(){
+//        job.setJobId(1);
+//        job.setJobName("前端");
+//        job.setJobStartTime(new Date(20181212));
+//        job.setJobEndTime(new Date(20190101));
+//        job.setJobDescription("吃苦耐劳");
+//        job.setJobTime(1); // 全职1
+//        job.setJobLocation("北京");
+//        job.setCvReceiMail("test@test.test");
+//        job.setJobActive(1); // 1，2，3,4,5
+//    }
 
     @Override
     public void delete(User user, Integer jobId) throws NotFoundException {

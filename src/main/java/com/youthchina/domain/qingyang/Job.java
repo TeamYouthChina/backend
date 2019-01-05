@@ -45,8 +45,6 @@ public class Job {
     private String  cvNameRule;
     private Integer jobActive;
 
-    private Integer companyId;
-    private Integer hrId;
     private Integer isDelete;
     private Timestamp isDeleteTime;
 
@@ -187,22 +185,6 @@ public class Job {
 
     public void setJobActive(Integer jobActive) {
         this.jobActive = jobActive;
-    }
-
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
-
-    public Integer getHrId() {
-        return hrId;
-    }
-
-    public void setHrId(Integer hrId) {
-        this.hrId = hrId;
     }
 
     public Integer getIsDelete() {

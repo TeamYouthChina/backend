@@ -8,13 +8,13 @@
         (   COMPANY_NAME,       COMPANY_CODE,     COMPANY_COUNTRY,
             COMPANY_INTRODUC,   COMPANY_SCALE_NUM,  COMPANY_NATURE,   COMPANY_LOCATION,
             COMPANY_MAIL,       COMPANY_WEBSITE,  COMPANY_START_DATE,
-            COMPANY_VERIFY,     USER_ID,          IS_DELETE,
+            COMPANY_LOGO,       COMPANY_VERIFY,     USER_ID,          IS_DELETE,
             IS_DELETE_TIME)
         VALUES
         (   #{companyName},     #{companyCode},   #{companyCountry},
             #{companyIntroduc}, #{companyScaleNum}, #{companyNature},   #{companyLocation},
             #{companyMail},     #{companyWebsite}, #{companyStartDate},
-            #{companyVerify},   #{userId},          0,
+            #{companyLogo},     #{companyVerify},   #{userId},          0,
             NULL)
     </insert>
 
