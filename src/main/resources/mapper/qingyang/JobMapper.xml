@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.youthchina.dao.qingyang.JobHrMapper">
+<mapper namespace="com.youthchina.dao.qingyang.JobMapper">
 
 
     <insert id="insertJob" parameterType="com.youthchina.domain.qingyang.Job"
@@ -78,7 +78,7 @@
             <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
             <result property="companyLogo" column="COMPANY_LOGO"/>
         </association>
-        <association property="hr" javaType="com.youthchina.domain.qingyang.Hr_qingyang">
+        <association property="hr" javaType="com.youthchina.domain.qingyang.Hr">
             <id property="hrId" column="HR_ID"/>
         </association>
         <collection property="jobLocationList" ofType="com.youthchina.domain.qingyang.JobLocation">

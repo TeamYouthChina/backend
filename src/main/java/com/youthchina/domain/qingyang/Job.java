@@ -51,7 +51,7 @@ public class Job {
     private Timestamp isDeleteTime;
 
     private Company company;
-    private Hr_qingyang hr;
+    private Hr hr;
 
     public Company getCompany() {
         return company;
@@ -61,11 +61,11 @@ public class Job {
         this.company = company;
     }
 
-    public Hr_qingyang getHr() {
+    public Hr getHr() {
         return hr;
     }
 
-    public void setHr(Hr_qingyang hr) {
+    public void setHr(Hr hr) {
         this.hr = hr;
     }
 
