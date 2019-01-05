@@ -592,10 +592,10 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addDiscuss(Integer comment_id, CommentDiscuss commentDiscuss) throws NotFoundException{
+    public Integer addDiscuss(Integer comment_id, CommentDiscuss commentDiscuss, Integer discuss_level) throws NotFoundException{
         getComment(comment_id);
         communityQAMapper.addDiscuss(commentDiscuss);
-        communityQAMapper.createMapBetweenDiscussAndComment(commentDiscuss.getDiscuss_id(), comment_id);
+        communityQAMapper.createMapBetweenDiscussAndComment(commentDiscuss.getDiscuss_id(), comment_id,discuss_level);
         return 1;
     }
 
@@ -624,30 +624,22 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
     /**
-     * 检查是否评价过这个讨论
+     * 检查用户对该讨论的评价状态
      * @param user_id 用户的id
      * @param discuss_id 讨论的id
-     * @return 如果没有评价过，返回0；否则返回评价的id
+     * @return 返回评价对象
+     * @throws NotFoundException 没有评价过。抛出异常
      */
     @Override
-    public Integer isEverEvaluateDiscuss(Integer user_id, Integer discuss_id) {
-        Integer evaluate_id = communityQAMapper.isEverEvaluateDiscuss(user_id,discuss_id);
-        if(evaluate_id == null){
-            return 0;
+    public DiscussEvaluate discussEvaluateStatus(Integer user_id, Integer discuss_id) throws NotFoundException {
+        DiscussEvaluate discussEvaluate = communityQAMapper.discussEvaluateStatus(user_id, discuss_id);
+        if(discussEvaluate == null){
+            throw new NotFoundException(404,404,"没有评价过");
         }else {
-            return evaluate_id;
+            return discussEvaluate;
         }
     }
 
-    /**
-     *  返回评价的状态
-     * @param evaluate_id 评价的id
-     * @return 如果赞同返回1，取消，返回3
-     */
-    @Override
-    public Integer discussEvaluateStatus(Integer evaluate_id) {
-        return communityQAMapper.discussEvaluateStatus(evaluate_id);
-    }
 
     /**
      * 评价这个讨论，如果没有评价过，则添加评价并且建立映射；如果评价过，则更新字段
@@ -672,10 +664,42 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
     /**
+     * 列出用户收到的邀请
+     * @param user_id 用户的id
+     * @return 返回收到的邀请的list
+     * @throws NotFoundException 如果没有，抛出异常
+     */
+    @Override
+    public List<AnswerInvitation> listInvitationGot(Integer user_id) throws NotFoundException {
+        List<AnswerInvitation> answerInvitations = communityQAMapper.listInvitationGot(user_id);
+        if(answerInvitations == null){
+            throw new NotFoundException(404,404,"还没有邀请");
+        }else {
+            return answerInvitations;
+        }
+    }
+
+    /**
+     * 列出用户邀请过的来回答这个问题的其他用户的id
+     * @param user_id 用户id
+     * @param ques_id 问题id
+     * @return 返回已经被邀请过的用户的id
+     * @throws NotFoundException 如果没有邀请过任何用户，抛出异常
+     */
+    @Override
+    public List<Integer> listUsersInvitedByMeToQuestion(Integer user_id, Integer ques_id) throws NotFoundException{
+        List<Integer> usersInvited = communityQAMapper.listUsersInvitedByMeToQuestion(user_id, ques_id);
+        if(usersInvited == null){
+            throw new NotFoundException(404,404,"你还没有邀请过用户回答这问题");
+        }else {
+            return usersInvited;
+        }
+    }
+
+    /**
      * 邀请某人回答问题
      * @param answerInvitation 邀请的对象
      * @param ques_id 问题的id
-     * @param invit_user_id 邀请人的id
      * @param invited_user_id 被邀请人的id
      * @return 邀请成功返回1
      * @throws NotFoundException
@@ -683,11 +707,11 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Override
     @Transactional
     public Integer invitToAnswer(AnswerInvitation answerInvitation, Integer ques_id,
-                                 Integer invit_user_id, Integer invited_user_id) throws NotFoundException{
+                                 Integer invited_user_id) throws NotFoundException{
         getQuestion(ques_id);
         communityQAMapper.addInvitation(answerInvitation);
         communityQAMapper.createMapBetweenInvitationAndQuestion(answerInvitation.getInvit_id(),
-                ques_id,invit_user_id,invited_user_id);
+                invited_user_id);
         return 1;
     }
 
@@ -725,10 +749,44 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      * @return 返回问题对象的list
      */
     @Override
-    public List<Question> listQuestion() {
-        return communityQAMapper.listQuestion();
+    public List<Question> listQuestion() throws NotFoundException{
+        List<Question> questions =  communityQAMapper.listQuestion();
+        if(questions == null){
+            throw new NotFoundException(404,404,"没有任何问题");
+        }else {
+            return questions;
+        }
     }
 
+
+    /**
+     * 拿到前十个视频
+     * @return 返回前十个视频的list
+     * @throws NotFoundException 没有找到抛出异常
+     */
+    @Override
+    public List<Video> listFirstTenVideos() throws NotFoundException{
+        List<Video> videos= communityQAMapper.listFirstTenVideos();
+        if(videos == null){
+            throw new NotFoundException(404,404,"没有任何视频");
+        }else {return videos;}
+    }
+
+    /**
+     * 拿到该用户发布的所有视频
+     * @param user_id 用户的id
+     * @return 返回视频的list
+     * @throws NotFoundException 没有发布过视频抛出异常
+     */
+    @Override
+    public List<Video> listAllMyVideos(Integer user_id) throws NotFoundException{
+        List<Video> videos = communityQAMapper.listAllMyVideos(user_id);
+        if(videos == null){
+            throw new NotFoundException(404,404,"该用户没有发过视频");
+        }else {
+            return videos;
+        }
+    }
 
     /**
      * 发布视频
@@ -740,7 +798,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Transactional
     public Integer addVideo(Video video, Integer user_id) {
         communityQAMapper.addVideo(video);
-        communityQAMapper.createMapBetweenVedioAndUser(video.getVideo_id(), user_id);
+        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), user_id);
         return 1;
     }
 
@@ -775,29 +833,21 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
     /**
-     * 判断用户是否关注过视频
+     * 查看用户对该视频的关注状态
      * @param video_id 视频的id
      * @param user_id 用户的id
-     * @return 如果关注过，则返回关注的id,否则返回0
+     * @return 返回视频关注对象
+     * @throws NotFoundException 没有关注过。抛出异常
      */
     @Override
-    public Integer isVideoEverAttention(Integer video_id, Integer user_id) {
-        Integer atten_id = communityQAMapper.isEverAttentionVideo(video_id, user_id);
-        if(atten_id == null){
-            return 0;
-        }else {
-            return atten_id;
-        }
-    }
+    public VideoAttention videoAttentionStatus(Integer video_id, Integer user_id) throws NotFoundException{
+        VideoAttention videoAttention = communityQAMapper.videoAttentionStatus(video_id, user_id);
+        if(videoAttention == null){
+            throw new NotFoundException(404,404,"用户没有关注过这个视频");
 
-    /**
-     * 判断用户是否关注了视频
-     * @param atten_id 关注的id
-     * @return 如果关注，返回0，否则返回1
-     */
-    @Override
-    public Integer isVideoAttention(Integer atten_id) {
-        return communityQAMapper.videoAttentionStatus(atten_id);
+        }else {
+            return videoAttention;
+        }
     }
 
     /**
@@ -855,14 +905,15 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      * 评论视频，如果视频不存在，抛出异常
      * @param videoComment 视频评论对象
      * @param video_id 视频id
+     * @param comment_level 评论的楼层
      * @return 评论成功，返回1
      * @throws NotFoundException
      */
     @Override
-    public Integer commentVideo(VideoComment videoComment, Integer video_id) throws NotFoundException{
+    public Integer commentVideo(VideoComment videoComment, Integer video_id, Integer comment_level) throws NotFoundException{
         getVideo(video_id);
         communityQAMapper.addCommentToVideo(videoComment);
-        communityQAMapper.createMapBetweenCommentAndVideo(videoComment.getComment_id(), video_id);
+        communityQAMapper.createMapBetweenCommentAndVideo(videoComment.getComment_id(), video_id, comment_level);
         return 1;
     }
 
@@ -897,29 +948,20 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
     /**
-     * 判断用户是否评价过视频
+     * 查看用户对该视频的评价状态
      * @param video_id 视频的id
      * @param user_id 用户的id
-     * @return 如果评价过，返回评价id,如果没有，返回0
+     * @return 返回评价对象
+     * @throws NotFoundException 没有评价过 抛出异常
      */
     @Override
-    public Integer isVideoEverEvaluate(Integer video_id, Integer user_id) {
-        Integer evaluate_id = communityQAMapper.isEverEvaluateVideo(video_id, user_id);
-        if(evaluate_id == null){
-            return 0;
+    public VideoEvaluate videoEvaluateStatus(Integer video_id, Integer user_id) throws NotFoundException{
+        VideoEvaluate videoEvaluate = communityQAMapper.videoEvaluateStatus(video_id, user_id);
+        if(videoEvaluate == null){
+            throw new NotFoundException(404,404,"用户没有评价过着视频");
         }else {
-            return evaluate_id;
+            return videoEvaluate;
         }
-    }
-
-    /**
-     * 返回用户的评价状态
-     * @param evaluate_id 评价id
-     * @return 如果赞同，返回1；反对，返回2； 取消。返回3
-     */
-    @Override
-    public Integer videoEvaluateStatus(Integer evaluate_id) {
-        return communityQAMapper.videoEvaluateStatus(evaluate_id);
     }
 
     /**

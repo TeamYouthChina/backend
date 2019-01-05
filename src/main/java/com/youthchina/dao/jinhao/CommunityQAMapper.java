@@ -105,27 +105,22 @@ public interface CommunityQAMapper {
 
     Integer reEvaluateComment(CommentEvaluate commentEvaluate);
 
-
-
-
     List<CommentDiscuss> listAllCommentDiscuss(Integer comment_id);
-
-    Integer deleteQuestionLabel(Integer ques_id);
 
     CommentDiscuss getDiscuss(Integer discuss_id);
 
     Integer addDiscuss(CommentDiscuss commentDiscuss);
 
     Integer createMapBetweenDiscussAndComment(@Param("discuss_id") Integer discuss_id,
-                                              @Param("comment_id") Integer comment_id);
+                                              @Param("comment_id") Integer comment_id,
+                                              @Param("discuss_level") Integer discuss_level);
 
     Integer deleteDiscuss(CommentDiscuss commentDiscuss);
 
     Integer countDiscussAgreement(Integer discuss_id);
 
-    Integer isEverEvaluateDiscuss(@Param("user_id") Integer user_id, @Param("discuss_id") Integer discuss_id);
 
-    Integer discussEvaluateStatus(Integer evaluate_id);
+    DiscussEvaluate discussEvaluateStatus(@Param("user_id") Integer user_id, @Param("discuss_id") Integer discuss_id);
 
     Integer addEvaluateToDiscuss(DiscussEvaluate discussEvaluate);
 
@@ -136,28 +131,32 @@ public interface CommunityQAMapper {
 
     Integer reEvaluateDiscuss(DiscussEvaluate discussEvaluate);
 
+    List<AnswerInvitation> listInvitationGot(Integer user_id);
 
+    List<Integer> listUsersInvitedByMeToQuestion(@Param("user_id") Integer user_id, @Param("ques_id") Integer ques_id);
 
     Integer addInvitation(AnswerInvitation answerInvitation);
 
-    Integer createMapBetweenInvitationAndQuestion(@Param("invit_id") Integer invit_id, @Param("ques_id") Integer ques_id,
-                                                  @Param("invit_user_id") Integer invit_user_id,
+    Integer createMapBetweenInvitationAndQuestion(@Param("invit_id") Integer invit_id,
                                                   @Param("invited_user_id") Integer invited_user_id);
     Integer updateStatusOfInvitation(AnswerInvitation answerInvitation);
 
     AnswerInvitation getInvitation(Integer invit_id);
 
+
+    List<Video> listFirstTenVideos();
+
+    List<Video> listAllMyVideos(Integer user_id);
+
     Integer addVideo(Video video);
 
-    Integer createMapBetweenVedioAndUser(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
+    Integer createMapBetweenVideoAndUser(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
 
     Video getVideo(Integer video_id);
 
     Integer deleteVideo(Video video);
 
-    Integer isEverAttentionVideo(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
-
-    Integer videoAttentionStatus(Integer atten_id);
+    VideoAttention videoAttentionStatus(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
 
     Integer reAddAttentionToVideo(VideoAttention videoAttention);
 
@@ -169,17 +168,17 @@ public interface CommunityQAMapper {
 
     Integer cancelAttentionVideo(VideoAttention videoAttention);
 
+
     Integer addCommentToVideo(VideoComment videoComment);
 
-    Integer createMapBetweenCommentAndVideo(@Param("comment_id") Integer comment_id, @Param("video_id") Integer video_id);
+    Integer createMapBetweenCommentAndVideo(@Param("comment_id") Integer comment_id, @Param("video_id") Integer video_id,
+                                            @Param("comment_level") Integer comment_level);
 
     VideoComment getVideoComment(Integer comment_id);
 
     Integer deleteVideoComment(VideoComment videoComment);
 
-    Integer isEverEvaluateVideo(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
-
-    Integer videoEvaluateStatus(Integer evaluate_id);
+    VideoEvaluate videoEvaluateStatus(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
 
     Integer addEvaluationToVideo(VideoEvaluate videoEvaluate);
 
@@ -197,5 +196,8 @@ public interface CommunityQAMapper {
     Integer countVideoDisagreement(Integer video_id);
 
     Integer countVideoComments(Integer video_id);
+
+    Integer deleteQuestionLabel(Integer ques_id);
+
 
 }

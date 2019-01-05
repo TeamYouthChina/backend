@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class VideoComment {
     private Integer comment_id;
     private String comment_content;
-    private String user_id;
+    private Integer user_id;
     private Integer user_anony;
     private Timestamp comment_pub_time;
     private Timestamp comment_edit_time;
@@ -28,12 +28,28 @@ public class VideoComment {
         this.comment_content = comment_content;
     }
 
-    public String getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(Integer user_id) {
         this.user_id = user_id;
+    }
+
+    public Integer getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(Integer is_delete) {
+        this.is_delete = is_delete;
+    }
+
+    public Timestamp getIs_delete_time() {
+        return is_delete_time;
+    }
+
+    public void setIs_delete_time(Timestamp is_delete_time) {
+        this.is_delete_time = is_delete_time;
     }
 
     public Integer getUser_anony() {
@@ -60,19 +76,4 @@ public class VideoComment {
         this.comment_edit_time = comment_edit_time;
     }
 
-    public Integer getis_delete() {
-        return is_delete;
-    }
-
-    public void setis_delete(Integer is_delete) {
-        this.is_delete = is_delete;
-    }
-
-    public Timestamp getis_delete_time() {
-        return is_delete_time;
-    }
-
-    public void setis_delete_time(Timestamp is_delete_time) {
-        this.is_delete_time = is_delete_time;
-    }
 }
