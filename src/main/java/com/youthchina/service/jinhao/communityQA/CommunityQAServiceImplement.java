@@ -47,7 +47,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
                 answer_user = userMapper.findOne(user_id);
             }
 
-            question.setTopAnswer(popAnswer);
             res.add(question);
         }
         return res;

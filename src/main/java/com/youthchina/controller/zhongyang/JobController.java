@@ -1,5 +1,6 @@
 package com.youthchina.controller.zhongyang;
 
+import com.sun.tools.javac.util.List;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.JobSearchDTO;
 import com.youthchina.dto.JobSearchResultDTO;
@@ -30,7 +31,7 @@ public class JobController {
         Job job = this.jobService.get(jobId);
         if (detailLevel == 1) {
             JobSearchResultDTO<SimpleJobDTO> resultDTO = new JobSearchResultDTO<>();
-//            resultDTO.setSearchResult(List.of(new SimpleJobDTO(job)));
+            resultDTO.setSearchResult(List.of(new SimpleJobDTO(job)));
             return ResponseEntity.ok(resultDTO);
         }
         throw new BaseException();

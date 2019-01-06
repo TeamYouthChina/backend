@@ -200,4 +200,7 @@ public interface CommunityQAMapper {
     Integer deleteQuestionLabel(Integer ques_id);
 
 
+
+
+    Question getQuestoinAndItsAnswer(Integer quse_id);
 }

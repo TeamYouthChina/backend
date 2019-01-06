@@ -638,4 +638,20 @@
         and a.invit_user_id = #{user_id}
         and a.invit_id = m.invit_id
     </select>
+
+
+    <select id="getQuestoinAndItsAnswer" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.Question">
+        select q.*, a.* from COM_QUESTION q, COM_QUESTION_ANSWER_MAP m
+        left join COM_QUESTION_ANSWER a on a.answer_id = m.answer_id
+        where q.ques_id = #{ques_id}
+        and m.ques_id = q.ques_id
+        order by (
+        select count(d.evaluate_id) from COM_ANSWER_EVALUATE_MAP m1, COM_ANSWER_EVALUATE d
+        where m1.answer_id = a.answer_id
+        and d.evaluate_id = m1.evaluate_id
+        and d.evaluate_type = 1
+        )
+        limit 1
+    </select>
 </mapper>

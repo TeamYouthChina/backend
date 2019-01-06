@@ -15,19 +15,9 @@ public class Question {
     private Integer is_delete;
     private Timestamp is_delete_time;
     private User user;
-    private QuestionAnswer topAnswer;
-    private Integer answerAmount;
     private Integer followers;
-    private List<QuestionAnswer> answers;
+    private QuestionAnswer answer;
     private List<Label> labels;
-
-    public Integer getAnswerAmount() {
-        return answerAmount;
-    }
-
-    public void setAnswerAmount(Integer answerAmount) {
-        this.answerAmount = answerAmount;
-    }
 
     public Integer getFollowers() {
         return followers;
@@ -37,12 +27,12 @@ public class Question {
         this.followers = followers;
     }
 
-    public List<QuestionAnswer> getAnswers() {
-        return answers;
+    public QuestionAnswer getAnswer() {
+        return answer;
     }
 
-    public void setAnswers(List<QuestionAnswer> answers) {
-        this.answers = answers;
+    public void setAnswer(QuestionAnswer answer) {
+        this.answer = answer;
     }
 
     public List<Label> getLabels() {
@@ -59,14 +49,6 @@ public class Question {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public QuestionAnswer getTopAnswer() {
-        return topAnswer;
-    }
-
-    public void setTopAnswer(QuestionAnswer topAnswer) {
-        this.topAnswer = topAnswer;
     }
 
     public Integer getIs_delete() {

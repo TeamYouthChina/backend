@@ -940,5 +940,11 @@ public class CommunityQAMapperTest extends BaseTest{
         Assert.assertEquals(agreement, communityQAMapper.countVideoAgreement(1));
         Assert.assertEquals(disagreement, communityQAMapper.countVideoDisagreement(1));
     }
+
+
+    @Test
+    public void test(){
+        Question question = communityQAMapper.getQuestoinAndItsAnswer(1);
+    }
 }
 
