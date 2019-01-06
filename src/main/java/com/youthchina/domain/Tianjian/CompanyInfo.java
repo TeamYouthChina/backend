@@ -1,7 +1,7 @@
-package com.youthchina.domain.Tianjian;
+package com.youthchina.domain.tianjian;
 
 /**
- * Created by mapper.Tianjian on 11/10/18.
+ * Created by mapper.tianjian on 11/10/18.
  */
 public class CompanyInfo {
     private String company_id;

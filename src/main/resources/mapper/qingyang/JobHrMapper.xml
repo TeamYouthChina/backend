@@ -8,14 +8,14 @@
         INSERT INTO JOB_INFO
         (   JOB_ID,         COMPANY_ID,     HR_ID,        JOB_NAME,     JOB_PROF_NUM,
             JOB_START_TIME, JOB_END_TIME,   JOB_TIME,     JOB_DESCRIPTION,
-            JOB_DUTY,       JOB_REQ,        JOB_LOCATION, JOB_HIGHLIGHT,
-            JOB_SALARY,     CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE)
+            JOB_DUTY,       JOB_REQ,        JOB_HIGHLIGHT,
+            JOB_SALARY,     CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, IS_DELETE)
         VALUES
         (
-            #{jobId},       #{companyId},   #(hrId),       #{jobName},   #{jobProfNum},
-            #{jobStartTime},#{jobEndTime},  #{jobTime},   #{jobDescription},
-            #{jobDuty},     #{jobReq},      #{jobLocation},#{jobHighlight},
-            #{jobSalary},   #{cvReceiMail}, #{cvNameRule},  #{jobActive}
+            #{jobId},       #{companyId},   #(hrId),        #{jobName},   #{jobProfNum},
+            #{jobStartTime},#{jobEndTime},  #{jobTime},     #{jobDescription},
+            #{jobDuty},     #{jobReq},      #{jobHighlight},
+            #{jobSalary},   #{cvReceiMail}, #{cvNameRule},  #{jobActive}, #{isDelete}
         )
     </insert>
 
@@ -33,13 +33,11 @@
             JOB_DESCRIPTION = #{jobDescription},
             JOB_DUTY = #{jobDuty},
             JOB_REQ = #{jobReq},
-            JOB_LOCATION = #{jobLocation},
             JOB_HIGHLIGHT = #{jobHighlight},
             JOB_SALARY = #{jobSalary},
             CV_RECEI_MAIL = #{cvReceiMail},
             CV_NAME_RULE = #{cvNameRule},
-            JOB_ACTIVE = #{jobActive},
-            IS_DELETE = 0
+            JOB_ACTIVE = #{jobActive}
         WHERE
             JOB_ID = #{jobId}
         AND IS_DELETE = 0
@@ -47,13 +45,15 @@
 
     <update id="deleteJobByID" parameterType="java.lang.Integer">
       UPDATE JOB_INFO j SET j.IS_DELETE = 1, j.IS_DELETE_TIME = NOW()
-      WHERE j.JOB_ID = #{jobId}
+      WHERE j.JOB_ID = #{jobId};
       UPDATE JOB_INDUSTRY i SET i.IS_DELETE = 1, i.IS_DELETE_TIME = NOW()
-      WHERE i.JOB_ID = #{jobId}
+      WHERE i.JOB_ID = #{jobId};
       UPDATE STU_JOB_COLLECT co SET co.IS_DELETE = 1, co.IS_DELETE_TIME = NOW()
-      WHERE j.JOB_ID = #{jobId}
+      WHERE co.JOB_ID = #{jobId};
       UPDATE STU_JOB_APPLY a SET a.IS_DELETE = 1, a.IS_DELETE_TIME = NOW()
-      WHERE j.JOB_ID = #{jobId}
+      WHERE a.JOB_ID = #{jobId};
+      UPDATE JOB_LOCATION loc SET loc.IS_DELETE = 1, loc.IS_DELETE_TIME = NOW()
+      WHERE loc.JOB_ID = #{jobId}
     </update>
 
 
@@ -67,7 +67,6 @@
         <result property="jobDescription" column="JOB_DESCRIPTION"/>
         <result property="jobDuty" column="JOB_DUTY"/>
         <result property="jobReq" column="JOB_REQ"/>
-        <result property="jobLocation" column="JOB_LOCATION"/>
         <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
         <result property="jobSalary" column="JOB_SALARY"/>
         <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
@@ -82,6 +81,10 @@
         <association property="hr" javaType="com.youthchina.domain.qingyang.Hr_qingyang">
             <id property="hrId" column="HR_ID"/>
         </association>
+        <collection property="jobLocationList" ofType="com.youthchina.domain.qingyang.JobLocation">
+            <id property="jobRegionId" column="JOB_REGION_ID"/>
+            <result property="jobRegionNum" column="JOB_REGION_NUM"/>
+        </collection>
     </resultMap>
 
     <resultMap id="jobListMap" type="java.util.HashMap">
@@ -102,85 +105,6 @@
             j.JOB_DESCRIPTION as JOB_DESCRIPTION,
             j.JOB_DUTY as JOB_DUTY,
             j.JOB_REQ as JOB_REQ,
-            j.JOB_LOCATION as JOB_LOCATION,
-            j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
-            j.JOB_SALARY as JOB_SALARY,
-            j.CV_RECEI_MAIL as CV_RECEI_MAIL,
-            j.CV_NAME_RULE as CV_NAME_RULE,
-            j.JOB_ACTIVE as JOB_ACTIVE,
-            j.HR_ID as HR_ID,
-            j.COMPANY_ID as COMPANY_ID,
-            com.COMPANY_NAME as COMPANY_NAME,
-            com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-            com.COMPANY_LOGO as COMPANY_LOGO
-        FROM JOB_INFO j
-             LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
-             LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
-        WHERE
-            j.JOB_ID = #{jobId}
-        AND j.IS_DELETE = 0 AND c.IS_DELETE = 0 AND h.IS_DELETE = 0
-    </select>
-
-    <select id="getJobByCompanyId" resultMap="job" parameterType="java.lang.Integer">
-        SELECT * FROM JOB_INFO
-        WHERE
-            COMPANY_ID = #{companyId}
-        AND IS_DELETE = 0
-    </select>
-
-
-    <!--按行业Id的List查询Job的List, 中文名做返回的Map的Key-->
-    <select id="selectByIndustryId" resultMap="jobListMap">
-        SELECT
-        class.IND_CHN as IND_NAME
-        j.JOB_ID as JOB_ID,
-        j.JOB_NAME as JOB_NAME,
-        j.JOB_PROF_NUM as JOB_PROF_NUM,
-        j.JOB_START_TIME as JOB_START_TIME,
-        j.JOB_END_TIME as JOB_END_TIME,
-        j.JOB_TIME as JOB_TIME,
-        j.JOB_DESCRIPTION as JOB_DESCRIPTION,
-        j.JOB_DUTY as JOB_DUTY,
-        j.JOB_REQ as JOB_REQ,
-        j.JOB_LOCATION as JOB_LOCATION,
-        j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
-        j.JOB_SALARY as JOB_SALARY,
-        j.CV_RECEI_MAIL as CV_RECEI_MAIL,
-        j.CV_NAME_RULE as CV_NAME_RULE,
-        j.JOB_ACTIVE as JOB_ACTIVE,
-        j.HR_ID as HR_ID,
-        j.COMPANY_ID as COMPANY_ID,
-        com.COMPANY_NAME as COMPANY_NAME,
-        com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-        com.COMPANY_LOGO as COMPANY_LOGO,
-        FROM SYS_IND_CLASS class
-        LEFT OUTER JOIN JOB_INDUSTRY ind ON class.IND_NUM = ind.JOB_IND_NUM
-        LEFT OUTER JOIN JOB_INFO j ON ind.JOB_ID = j.JOB_ID
-        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
-        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
-
-        WHERE class.IND_NUM in
-        <foreach item="id" collection="indIds" index="index" separator=",">
-            #{id}
-        </foreach>
-        AND class.IS_DELETE = 0 AND ind.IS_DELETE = 0
-        AND j.IS_DELETE = 0 AND c.IS_DELETE = 0 AND h.IS_DELETE = 0
-    </select>
-
-    <!--按行业名称的List查询Job的List, 中文名做返回的Map的Key-->
-    <select id="selectByIndustryString" resultMap="jobListMap">
-        SELECT
-            class.IND_CHN as IND_NAME
-            j.JOB_ID as JOB_ID,
-            j.JOB_NAME as JOB_NAME,
-            j.JOB_PROF_NUM as JOB_PROF_NUM,
-            j.JOB_START_TIME as JOB_START_TIME,
-            j.JOB_END_TIME as JOB_END_TIME,
-            j.JOB_TIME as JOB_TIME,
-            j.JOB_DESCRIPTION as JOB_DESCRIPTION,
-            j.JOB_DUTY as JOB_DUTY,
-            j.JOB_REQ as JOB_REQ,
-            j.JOB_LOCATION as JOB_LOCATION,
             j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
             j.JOB_SALARY as JOB_SALARY,
             j.CV_RECEI_MAIL as CV_RECEI_MAIL,
@@ -191,18 +115,196 @@
             com.COMPANY_NAME as COMPANY_NAME,
             com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
             com.COMPANY_LOGO as COMPANY_LOGO,
+            loc.JOB_REGION_ID as JOB_REGION_ID,
+            loc.JOB_REGION_NUM as JOB_REGION_NUM
+        FROM JOB_INFO j
+             LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
+             LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
+             LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID
+        WHERE
+            j.JOB_ID = #{jobId}
+        AND j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0
+    </select>
+
+
+    <!--按行业Id的List查询Job的List, 中文名做返回的Map的Key-->
+    <select id="selectByIndustryId" resultMap="jobListMap">
+        SELECT
+        class.IND_CHN as IND_NAME,
+        j.JOB_ID as JOB_ID,
+        j.JOB_NAME as JOB_NAME,
+        j.JOB_PROF_NUM as JOB_PROF_NUM,
+        j.JOB_START_TIME as JOB_START_TIME,
+        j.JOB_END_TIME as JOB_END_TIME,
+        j.JOB_TIME as JOB_TIME,
+        j.JOB_DESCRIPTION as JOB_DESCRIPTION,
+        j.JOB_DUTY as JOB_DUTY,
+        j.JOB_REQ as JOB_REQ,
+        j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
+        j.JOB_SALARY as JOB_SALARY,
+        j.CV_RECEI_MAIL as CV_RECEI_MAIL,
+        j.CV_NAME_RULE as CV_NAME_RULE,
+        j.JOB_ACTIVE as JOB_ACTIVE,
+        j.HR_ID as HR_ID,
+        j.COMPANY_ID as COMPANY_ID,
+        com.COMPANY_NAME as COMPANY_NAME,
+        com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
+        com.COMPANY_LOGO as COMPANY_LOGO,
+        loc.JOB_REGION_ID as JOB_REGION_ID,
+        loc.JOB_REGION_NUM as JOB_REGION_NUM
         FROM SYS_IND_CLASS class
         LEFT OUTER JOIN JOB_INDUSTRY ind ON class.IND_NUM = ind.JOB_IND_NUM
         LEFT OUTER JOIN JOB_INFO j ON ind.JOB_ID = j.JOB_ID
         LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
         LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
+        LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID
+
+        WHERE class.IND_NUM in
+        <foreach item="id" collection="indIds" index="index" separator=",">
+            #{id}
+        </foreach>
+        AND class.IS_DELETE = 0 AND ind.IS_DELETE = 0
+        AND j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0 AND loc.IS_DELETE = 0
+    </select>
+
+    <!--按行业名称的List查询Job的List, 中文名做返回的Map的Key-->
+    <select id="selectByIndustryString" resultMap="jobListMap">
+        SELECT
+            class.IND_CHN as IND_NAME,
+            j.JOB_ID as JOB_ID,
+            j.JOB_NAME as JOB_NAME,
+            j.JOB_PROF_NUM as JOB_PROF_NUM,
+            j.JOB_START_TIME as JOB_START_TIME,
+            j.JOB_END_TIME as JOB_END_TIME,
+            j.JOB_TIME as JOB_TIME,
+            j.JOB_DESCRIPTION as JOB_DESCRIPTION,
+            j.JOB_DUTY as JOB_DUTY,
+            j.JOB_REQ as JOB_REQ,
+            j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
+            j.JOB_SALARY as JOB_SALARY,
+            j.CV_RECEI_MAIL as CV_RECEI_MAIL,
+            j.CV_NAME_RULE as CV_NAME_RULE,
+            j.JOB_ACTIVE as JOB_ACTIVE,
+            j.HR_ID as HR_ID,
+            j.COMPANY_ID as COMPANY_ID,
+            com.COMPANY_NAME as COMPANY_NAME,
+            com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
+            com.COMPANY_LOGO as COMPANY_LOGO,
+            loc.JOB_REGION_ID as JOB_REGION_ID,
+            loc.JOB_REGION_NUM as JOB_REGION_NUM
+        FROM SYS_IND_CLASS class
+        LEFT OUTER JOIN JOB_INDUSTRY ind ON class.IND_NUM = ind.JOB_IND_NUM
+        LEFT OUTER JOIN JOB_INFO j ON ind.JOB_ID = j.JOB_ID
+        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
+        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
+        LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID
 
         WHERE class.IND_CHN OR class.IND_ENG in
             <foreach item="industry" collection="industries" index="index" separator=",">
                     #{industry}
             </foreach>
         AND class.IS_DELETE = 0 AND ind.IS_DELETE = 0
-        AND j.IS_DELETE = 0 AND c.IS_DELETE = 0 AND h.IS_DELETE = 0
+        AND j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0 AND loc.IS_DELETE = 0
     </select>
+
+
+    <select id="getJobByMore" resultMap="job">
+        SELECT
+        j.JOB_ID as JOB_ID,
+        j.JOB_NAME as JOB_NAME,
+        j.JOB_PROF_NUM as JOB_PROF_NUM,
+        j.JOB_START_TIME as JOB_START_TIME,
+        j.JOB_END_TIME as JOB_END_TIME,
+        j.JOB_TIME as JOB_TIME,
+        j.JOB_DESCRIPTION as JOB_DESCRIPTION,
+        j.JOB_DUTY as JOB_DUTY,
+        j.JOB_REQ as JOB_REQ,
+        j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
+        j.JOB_SALARY as JOB_SALARY,
+        j.CV_RECEI_MAIL as CV_RECEI_MAIL,
+        j.CV_NAME_RULE as CV_NAME_RULE,
+        j.JOB_ACTIVE as JOB_ACTIVE,
+        j.HR_ID as HR_ID,
+        j.COMPANY_ID as COMPANY_ID,
+        com.COMPANY_NAME as COMPANY_NAME,
+        com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
+        com.COMPANY_LOGO as COMPANY_LOGO
+        FROM JOB_INFO j
+        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
+        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
+        LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID
+
+        WHERE
+            j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0 AND loc.IS_DELETE = 0
+            <if test="jobId != null">
+                AND j.JOB_ID =  #{jobId}
+            </if>
+            <if test="jobName != null">
+                AND j.JOB_NAME =  #{jobName}
+            </if>
+            <if test="comId != null">
+                AND j.COMPANY_ID = #{comId}
+            </if>
+            <if test="comName != null">
+                AND com.COMPANY_NAME = #{comName}
+            </if>
+            <if test="location != null">
+                AND loc.JOB_REGION_NUM = #{location}
+            </if>
+            <if test="type != null">
+                AND j.JOB_TIME = #{type}
+            </if>
+            <if test="deadline != null">
+                AND j.JOB_END_TIME = #{deadline}
+            </if>
+    </select>
+
+    <insert id="insertJobLocation" parameterType="com.youthchina.domain.qingyang.JobLocation"
+            useGeneratedKeys="true" keyProperty="jobRegionId">
+        INSERT INTO JOB_LOCATION
+        (   JOB_REGION_ID,    JOB_REGION_NUM,   JOB_ID,     IS_DELETE)
+        VALUES
+        (
+            #{jobRegionId},   #(jobRegionNum),   #{jobId},  #{isDelete}
+        )
+    </insert>
+
+    <update id="updateJobLocation" parameterType="com.youthchina.domain.qingyang.JobLocation"
+            useGeneratedKeys="true" keyProperty="jobRegionId">
+        UPDATE JOB_LOCATION
+        SET
+            JOB_REGION_NUM = #{jobRegionNum},
+            JOB_ID = #{jobId}
+        WHERE
+            JOB_REGION_ID = #{jobRegionId}
+        AND IS_DELETE = 0
+    </update>
+
+    <update id="deleteJobLocation" parameterType="java.lang.Integer">
+      UPDATE JOB_LOCATION SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+      WHERE JOB_REGION_ID = #{jobRegionId}
+    </update>
+
+    <select id="getJobLocation" resultMap="com.youthchina.domain.qingyang.JobLocation"
+            parameterType="java.lang.Integer">
+        SELECT
+            JOB_REGION_ID,  JOB_REGION_NUM,   JOB_ID
+        FROM JOB_LOCATION
+        WHERE
+            JOB_REGION_ID = #{jobRegionId}
+        AND IS_DELETE = 0
+    </select>
+
+    <select id="getJobLocationList" resultMap="com.youthchina.domain.qingyang.JobLocation">
+        SELECT
+            JOB_REGION_ID,  JOB_REGION_NUM,   JOB_ID
+        FROM JOB_LOCATION
+        WHERE JOB_REGION_ID in
+        <foreach item="id" collection="ids" index="index" separator=",">
+            #{id}
+        </foreach>
+        AND IS_DELETE = 0
+    </select>
+
 
 </mapper>

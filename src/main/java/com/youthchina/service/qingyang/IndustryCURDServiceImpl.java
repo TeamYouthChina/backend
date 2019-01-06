@@ -19,13 +19,13 @@ public class IndustryCURDServiceImpl implements IndustryCURDService{
     }
 
     @Override
-    public List<Industry_qingyang> get(List<Integer> id) throws NotFoundException {
-        return companyTestMapper.selectIndustryByIdList(id);
+    public List<Industry_qingyang> get(List<Integer> ids) throws NotFoundException {
+        return companyTestMapper.selectIndustryByIdList(ids);
     }
 
     @Override
     public void delete(Integer id) throws NotFoundException {
-        companyTestMapper.deleteIndustry();
+        companyTestMapper.deleteIndustry(id);
     }
 
     @Override

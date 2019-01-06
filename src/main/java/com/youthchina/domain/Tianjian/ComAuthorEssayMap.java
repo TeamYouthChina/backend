@@ -1,4 +1,4 @@
-package com.youthchina.domain.Tianjian;
+package com.youthchina.domain.tianjian;
 
 public class ComAuthorEssayMap {
     public Integer getUser_id() {

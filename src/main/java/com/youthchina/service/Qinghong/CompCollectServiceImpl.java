@@ -77,7 +77,6 @@ public class CompCollectServiceImpl implements CompCollectService {
             studentMapper.addOneCompCollect(compCollect);
         }
         return  compCollect;
-
     }
 
 }

@@ -1,8 +1,335 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.qingyang.CompanyTestMapper">
+    <!--Company CURD-->
+    <insert id="insertCompany" parameterType="com.youthchina.domain.qingyang.Company_qingyang"
+            useGeneratedKeys="true" keyProperty="companyId">
+        INSERT INTO COMPANY_INFO
+        (   COMPANY_ID,         COMPANY_NAME,       COMPANY_CODE,     COMPANY_COUNTRY,
+            COMPANY_INTRODUC,   COMPANY_SCALE_NUM,  COMPANY_NATURE,   COMPANY_LOCATION,
+            COMPANY_MAIL,       COMPANY_WEBSITE,    COMPANY_START_DATE,
+            COMPANY_LOGO,       COMPANY_VERIFY,     USER_ID,          IS_DELETE
+        )
+        VALUES
+        (   #{companyId},       #{companyName},     #(companyCode),     #{companyCountry},
+            #{companyIntroduc}, #{companyScaleNum}, #{companyNature},   #{companyLocation},
+            #{companyMail},     #{companyWebsite},  #{companyStartDate},
+            #{companyLogo},     #{companyVerify},   #{userId},          #{isDelete}
+        )
+    </insert>
 
-<!--TODO-->
+    <update id="updateCompany" parameterType="com.youthchina.domain.qingyang.Company_qingyang"
+            useGeneratedKeys="true" keyProperty="companyId">
+        UPDATE COMPANY_INFO
+        SET
+            COMPANY_NAME = #{companyName},
+            COMPANY_CODE = #{companyCode},
+            COMPANY_COUNTRY = #{companyCountry},
+            COMPANY_INTRODUC = #{companyIntroduc},
+            COMPANY_SCALE_NUM = #{companyScaleNum},
+            COMPANY_NATURE = #{companyNature},
+            COMPANY_LOCATION = #{companyLocation},
+            COMPANY_MAIL = #{companyMail},
+            COMPANY_WEBSITE = #{companyWebsite},
+            COMPANY_START_DATE = #{companyStartDate},
+            COMPANY_LOGO = #{companyLogo},
+            COMPANY_VERIFY = #{companyVerify},
+            USER_ID = #{userId}
+        WHERE
+            COMPANY_ID = #{companyId}
+          AND IS_DELETE = 0
+    </update>
+
+    <update id="deleteCompany" parameterType="java.lang.Integer">
+        UPDATE COMPANY_INFO         SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+
+        UPDATE COMPANY_INDUSTRY	    SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+
+        UPDATE COMPANY_VERIFICAITON SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+
+        UPDATE JOB_INFO			    SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+
+        UPDATE HR_INFO				SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+    <resultMap id="company" type="com.youthchina.domain.qingyang.Company_qingyang">
+        <id property="companyId" column="COMPANY_ID"/>
+        <result property="companyName" column="COMPANY_NAME"/>
+        <result property="companyCode" column="COMPANY_CODE"/>
+        <result property="companyCountry" column="COMPANY_COUNTRY"/>
+        <result property="companyIntroduc" column="COMPANY_INTRODUC"/>
+        <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
+        <result property="companyNature" column="COMPANY_NATURE"/>
+        <result property="companyLocation" column="COMPANY_LOCATION"/>
+        <result property="companyMail" column="COMPANY_MAIL"/>
+        <result property="companyWebsite" column="COMPANY_WEBSITE"/>
+        <result property="companyStartDate" column="COMPANY_START_DATE"/>
+        <result property="companyLogo" column="COMPANY_LOGO"/>
+        <result property="companyVerify" column="COMPANY_VERIFY"/>
+        <result property="userId" column="USER_ID"/>
+        <collection property="indList" ofType="com.youthchina.domain.qingyang.Industry_qingyang">
+            <id property="indNum" column="IND_NUM"/>
+            <result property="indChn" column="IND_CHN"/>
+            <result property="indEng" column="IND_ENG"/>
+            <result property="indLevel" column="IND_LEVEL"/>
+            <result property="indParentNum" column="IND_PARENT_NUM"/>
+            <result property="startDate" column="START_DATE"/>
+        </collection>
+        <collection property="verificationList" ofType="com.youthchina.domain.qingyang.CompanyVerification_qingyang">
+            <id property="verifyId" column="VERIFY_ID"/>
+            <result property="verifyTime" column="VERIFY_TIME"/>
+            <result property="verifyEndTime" column="VERIFY_END_TIME"/>
+            <result property="operUserId" column="OPER_USER_ID"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectCompany" resultMap="company" parameterType="java.lang.Integer">
+        SELECT
+              com.COMPANY_ID as COMPANY_ID,
+              com.COMPANY_NAME as COMPANY_NAME,
+              com.COMPANY_CODE as COMPANY_CODE,
+              com.COMPANY_COUNTRY as COMPANY_COUNTRY,
+              com.COMPANY_INTRODUC as COMPANY_INTRODUC,
+              com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
+              com.COMPANY_NATURE as COMPANY_NATURE,
+              com.COMPANY_LOCATION as COMPANY_LOCATION,
+              com.COMPANY_MAIL as COMPANY_MAIL,
+              com.COMPANY_WEBSITE as COMPANY_WEBSITE,
+              com.COMPANY_START_DATE as COMPANY_START_DATE,
+              com.COMPANY_LOGO as COMPANY_LOGO,
+              com.COMPANY_VERIFY as COMPANY_VERIFY,
+              com.USER_ID as USER_ID,
+
+              v.VERIFY_ID as VERIFY_ID,
+              v.VERIFY_TIME as VERIFY_TIME,
+              v.VERIFY_END_TIME as VERIFY_END_TIME,
+              v.OPER_USER_ID as OPER_USER_ID,
+
+              i.IND_NUM as IND_NUM,
+
+              class.IND_CHN as IND_CHN,
+              class.IND_ENG as IND_ENG,
+              class.IND_LEVEL as IND_LEVEL,
+              class.IND_PARENT_NUM as IND_PARENT_NUM,
+              class.START_DATE as START_DATE
+
+        FROM COMPANY_INFO com
+                 LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID
+                 LEFT OUTER JOIN COMPANY_INDUSTRY i ON i.COMPANY_ID = com.COMPANY_ID
+                 LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_NUM = i.IND_NUM
+        WHERE
+            com.COMPANY_ID = #{id}
+        AND com.IS_DELETE = 0 AND v.IS_DELETE = 0 AND i.IS_DELETE = 0 AND class.IS_DELETE = 0
+    </select>
+
+    <select id="selectCompanyByIdList" resultMap="company" >
+        SELECT
+              com.COMPANY_ID as COMPANY_ID,
+              com.COMPANY_NAME as COMPANY_NAME,
+              com.COMPANY_CODE as COMPANY_CODE,
+              com.COMPANY_COUNTRY as COMPANY_COUNTRY,
+              com.COMPANY_INTRODUC as COMPANY_INTRODUC,
+              com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
+              com.COMPANY_NATURE as COMPANY_NATURE,
+              com.COMPANY_LOCATION as COMPANY_LOCATION,
+              com.COMPANY_MAIL as COMPANY_MAIL,
+              com.COMPANY_WEBSITE as COMPANY_WEBSITE,
+              com.COMPANY_START_DATE as COMPANY_START_DATE,
+              com.COMPANY_LOGO as COMPANY_LOGO,
+              com.COMPANY_VERIFY as COMPANY_VERIFY,
+              com.USER_ID as USER_ID,
+
+              v.VERIFY_ID as VERIFY_ID,
+              v.VERIFY_TIME as VERIFY_TIME,
+              v.VERIFY_END_TIME as VERIFY_END_TIME,
+              v.OPER_USER_ID as OPER_USER_ID,
+
+              i.IND_NUM as IND_NUM,
+
+              class.IND_CHN as IND_CHN,
+              class.IND_ENG as IND_ENG,
+              class.IND_LEVEL as IND_LEVEL,
+              class.IND_PARENT_NUM as IND_PARENT_NUM,
+              class.START_DATE as START_DATE
+
+        FROM COMPANY_INFO com
+                 LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID
+                 LEFT OUTER JOIN COMPANY_INDUSTRY i ON i.COMPANY_ID = com.COMPANY_ID
+                 LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_NUM = i.IND_NUM
+        WHERE COMPANY_ID in
+            <foreach item="id" collection="ids" index="index" separator=",">
+                #{id}
+            </foreach>
+        AND com.IS_DELETE = 0 AND v.IS_DELETE = 0 AND i.IS_DELETE = 0 AND class.IS_DELETE = 0
+    </select>
+
+    <!--CompanyVerfication CURD-->
+    <insert id="insertCompanyVerfication" parameterType="com.youthchina.domain.qingyang.CompanyVerification_qingyang"
+            useGeneratedKeys="true" keyProperty="verifyId">
+        INSERT INTO COMPANY_VERIFICAITON
+        (   VERIFY_ID,    VERIFY_TIME,   VERIFY_END_TIME,    OPER_USER_ID,
+            COMPANY_ID,   IS_DELETE)
+        VALUES
+        (
+            #{verifyId},   #(verifyTime),   #{verifyEndTime},  #{operUserId}
+            #{companyId},   #(isDelete)
+        )
+    </insert>
+
+    <update id="updateCompanyVerification" parameterType="com.youthchina.domain.qingyang.CompanyVerification_qingyang"
+            useGeneratedKeys="true" keyProperty="verifyId">
+        UPDATE COMPANY_VERIFICAITON
+        SET
+            VERIFY_TIME = #{verifyTime},
+            VERIFY_END_TIME = #{verifyEndTime},
+            OPER_USER_ID = #{operUserId},
+            COMPANY_ID = #{companyId}
+        WHERE
+            VERIFY_ID = #{verifyId}
+        AND IS_DELETE = 0
+    </update>
+
+    <update id="deleteCompanyVerfication" parameterType="java.lang.Integer">
+      UPDATE COMPANY_VERIFICAITON SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+      WHERE VERIFY_ID = #{verifyId}
+    </update>
+
+    <select id="selectCompanyVerfication" resultMap="com.youthchina.domain.qingyang.CompanyVerification_qingyang"
+            parameterType="java.lang.Integer">
+        SELECT
+            VERIFY_ID,    VERIFY_TIME,   VERIFY_END_TIME,    OPER_USER_ID,
+            COMPANY_ID
+        FROM COMPANY_VERIFICAITON
+        WHERE
+            VERIFY_ID = #{id}
+        AND IS_DELETE = 0
+    </select>
+
+    <select id="selectCompanyVerficationByIdList" resultMap="com.youthchina.domain.qingyang.CompanyVerification_qingyang">
+        SELECT
+          VERIFY_ID,    VERIFY_TIME,   VERIFY_END_TIME,    OPER_USER_ID,
+          COMPANY_ID
+        FROM COMPANY_VERIFICAITON
+        WHERE VERIFY_ID in
+        <foreach item="id" collection="ids" index="index" separator=",">
+            #{id}
+        </foreach>
+        AND IS_DELETE = 0
+    </select>
+
+    <!--Industry CURD-->
+    <insert id="insertIndustry" parameterType="com.youthchina.domain.qingyang.Industry_qingyang"
+            useGeneratedKeys="true" keyProperty="indNum">
+        INSERT INTO SYS_IND_CLASS
+        (   IND_NUM,    IND_CHN,   IND_ENG,    IND_LEVEL,
+            IND_PARENT_NUM,   START_DATE, IS_DELETE)
+        VALUES
+        (
+            #{indNum},   #(indChn),   #{indEng},  #{indLevel}
+            #{indParentNum},   #(startDate), #(isDelete)
+        )
+    </insert>
+
+    <update id="updateIndustry" parameterType="com.youthchina.domain.qingyang.Industry_qingyang"
+            useGeneratedKeys="true" keyProperty="indNum">
+        UPDATE SYS_IND_CLASS
+        SET
+            IND_CHN = #{indChn},
+            IND_ENG = #{indEng},
+            IND_LEVEL = #{indLevel},
+            IND_PARENT_NUM = #{indParentNum},
+            START_DATE = #{startDate}
+        WHERE
+            IND_NUM = #{indNum}
+        AND IS_DELETE = 0
+    </update>
+
+    <update id="deleteIndustry" parameterType="java.lang.Integer">
+      UPDATE SYS_IND_CLASS SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+      WHERE IND_NUM = #{id}
+    </update>
+
+    <select id="selectIndustry" resultMap="com.youthchina.domain.qingyang.Industry_qingyang"
+            parameterType="java.lang.Integer">
+        SELECT
+            IND_NUM,    IND_CHN,   IND_ENG,    IND_LEVEL,
+            IND_PARENT_NUM,   START_DATE
+        FROM SYS_IND_CLASS
+        WHERE
+            IND_NUM = #{id}
+        AND IS_DELETE = 0
+    </select>
+
+    <select id="selectIndustryByIdList" resultMap="com.youthchina.domain.qingyang.Industry_qingyang">
+        SELECT
+            IND_NUM,    IND_CHN,   IND_ENG,    IND_LEVEL,
+            IND_PARENT_NUM,   START_DATE
+        FROM SYS_IND_CLASS
+        WHERE IND_NUM in
+        <foreach item="id" collection="ids" index="index" separator=",">
+            #{id}
+        </foreach>
+        AND IS_DELETE = 0
+    </select>
+
+    <!--Hr CURD-->
+    <insert id="insertHr" parameterType="com.youthchina.domain.qingyang.Hr_qingyang"
+            useGeneratedKeys="true" keyProperty="hrId">
+        INSERT INTO HR_INFO
+        (   HR_ID,    COMPANY_ID,   HR_ON_JOB,    USER_ID,  IS_DELETE)
+        VALUES
+        (
+            #{hrId},   #(companyId),   #{hrOnJob},  #{userId}, #(isDelete)
+        )
+    </insert>
+
+    <update id="updateHr" parameterType="com.youthchina.domain.qingyang.Hr_qingyang"
+            useGeneratedKeys="true" keyProperty="hrId">
+        UPDATE HR_INFO
+        SET
+            COMPANY_ID = #{companyId},
+            HR_ON_JOB = #{hrOnJob},
+            USER_ID = #{userId}
+        WHERE
+            HR_ID = #{hrId}
+        AND IS_DELETE = 0
+    </update>
+
+    <update id="deleteHr" parameterType="java.lang.Integer">
+      UPDATE HR_INFO			 SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+      WHERE IND_NUM = #{id}
+    </update>
+
+    <select id="selectHr" resultMap="com.youthchina.domain.qingyang.Hr_qingyang"
+            parameterType="java.lang.Integer">
+        SELECT
+            HR_ID,    COMPANY_ID,   HR_ON_JOB,    USER_ID
+        FROM HR_INFO
+        WHERE
+            HR_ID = #{id}
+        AND IS_DELETE = 0
+    </select>
+
+    <select id="selectHrByIdList" resultMap="com.youthchina.domain.qingyang.Hr_qingyang">
+        SELECT
+            HR_ID,    COMPANY_ID,   HR_ON_JOB,    USER_ID
+        FROM HR_INFO
+        WHERE HR_ID in
+        <foreach item="id" collection="ids" index="index" separator=",">
+            #{id}
+        </foreach>
+        AND IS_DELETE = 0
+    </select>
+
+
+
+
+
 
 
 

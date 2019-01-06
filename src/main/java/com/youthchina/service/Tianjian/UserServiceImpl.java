@@ -1,7 +1,6 @@
-package com.youthchina.service.Tianjian;
+package com.youthchina.service.tianjian;
 
-import com.youthchina.dao.Tianjian.UserMapper;
-import com.youthchina.domain.Tianjian.*;
+import com.youthchina.domain.tianjian.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package com.youthchina.domain.Tianjian;
+package com.youthchina.domain.tianjian;
 
 public class StuCollect {
     private String stu_id;

@@ -1,13 +1,13 @@
-package com.youthchina.service.Tianjian;
+package com.youthchina.service.tianjian;
 
-import com.youthchina.domain.Tianjian.*;
+import com.youthchina.domain.tianjian.*;
 import com.youthchina.service.DomainCRUDService;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * Created by mapper.Tianjian on 11/8/18.
+ * Created by mapper.tianjian on 11/8/18.
  */
 public interface UserService extends DomainCRUDService<User, Integer> {
 //    public CompanyInfo getCompanyInformation(String company_id);

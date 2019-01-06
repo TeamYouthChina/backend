@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.Qinghong.StudentMapper">
-    <resultMap id="studentResultMap" type="com.youthchina.domain.Qinghong.BaseInfo">
+    <resultMap id="studentResultMap" type="com.youthchina.domain.Qinghong.Student">
         <id property="stu_id" column="STU_ID"/>
         <result property="stu_in_job" column="STU_IN_JOB"/>
         <result property="stu_in_job_comp" column="stu_in_job_comp"/>
+        <result property=""
         <collection property="EducationInfos" ofType="com.youthchina.domain.Qinghong.EducationInfo">
             <id property="edu_id" column="EDU_ID"/>
             <result property="edu_degree" column="EDU_DEGREE"/>
@@ -29,45 +30,133 @@
             <result property="WORK_NATURE" column="WORK_NATURE"/>
         </collection>
         <association property="subInfo" javaType="com.youthchina.domain.Qinghong.SubInfo">
+            <id property="sub_id" column="SUB_ID"/>
+            <result property="sub_course" column="SUB_COURSE"/>
+            <result property="sub_honor" column="SUB_HONOR"/>
+            <result property="sub_award" column="SUB_AWARD"/>
+            <result property="sub_skill" column="SUB_SKILL"/>
+            <result property="sub_certificate" column="SUB_CERTIFICATE"/>
+            <result property="sub_certif_url" column="SUB_CERTIF_URL"/>
+            <result property="sub_foreign" column="SUB_FOREIGN"/>
+            <result property="sub_interest" column="SUB_INTEREST"/>
+            <result property="sub_activity" column="SUB_ACTIVITY"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
 
         </association>
         <collection property="projects" ofType="com.youthchina.domain.Qinghong.Project">
-
+            <id property="proj_id" column="PROJ_ID"/>
+            <result property="proj_name" column="PROJ_NAME"/>
+            <result property="proj_role" column="PROJ_ROLE"/>
+            <result property="proj_start_time" column="PROJ_START_TIME"/>
+            <result property="proj_end_time" column="PROJ_END_TIME"/>
+            <result property="proj_deliver" column="PROJ_DELIVER"/>
+            <result property="delever_publish" column="DELEVER_PUBLISH"/>
+            <result property="delever_pub_insti" column="DELEVER_PUB_INSTI"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
         </collection>
         <collection property="activities" ofType="com.youthchina.domain.Qinghong.Activity">
-
+            <id property="act_id" column="ACT_ID"/>
+            <result property="act_name" column="ACT_NAME"/>
+            <result property="act_organization" column="ACT_ORGANIZATION"/>
+            <result property="act_role" column="ACT_ROLE"/>
+            <result property="act_start_time" column="ACT_START_TIME"/>
+            <result property="act_end_time" column="ACT_END_TIME"/>
+            <result property="act_detail" column="ACT_DETAIL"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
         </collection>
         <collection property="jobCollects" ofType="com.youthchina.domain.Qinghong.JobCollect">
+            <id property="collect_id" column="COLLECT_ID"/>
+            <result property="job_Id" column="JOB_ID"/>
+            <result property="job_coll_time" column="JOB_COLL_TIME"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+
 
         </collection>
         <collection property="compCollects" ofType="com.youthchina.domain.Qinghong.CompCollect">
+            <id property="collect_id" column="COLLECT_ID"/>
+            <result property="company_id" column="COMPANY_ID"/>
+            <result property="company_coll_time" column="COMPANY_COLL_TIME"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+
 
         </collection>
         <collection property="advantageLabels" ofType="com.youthchina.domain.Qinghong.AdvantageLabel">
+            <id property="label_id" column="LABEL_ID"/>
+            <result property="label_num" column="LABEL_NUM"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
 
         </collection>
         <collection property="preferJobs" ofType="com.youthchina.domain.Qinghong.PreferJob">
+            <id property="pre_prof_id" column="PRE_PRO_ID"/>
+            <result property="pre_prof_num" column="PRE_PROF_NUM"/>
+            <result property="pre_avail_time" column="PRE_AVAIL_TIME"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+
 
         </collection>
         <collection property="preferIndustries" ofType="com.youthchina.domain.Qinghong.PreferIndustry">
+            <id property="pre_ind_id" column="PRE_IND_ID"/>
+            <result property="pre_ind_num" column="PRE_IND_NUM"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
 
         </collection>
         <collection property="preferCities" ofType="com.youthchina.domain.Qinghong.PreferCity">
+            <id property="pre_city_id" column="PRE_CITY_ID"/>
+            <result property="pre_region_num" column="PRE_REGION_NUM"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
 
         </collection>
         <association property="prefersalary" javaType="com.youthchina.domain.Qinghong.PreferSalary">
+            <id property="pre_sala_id" column="PRE_SALA_ID"/>
+            <result property="pre_sala_cap" column="pre_sala_cap"/>
+            <result property="pre_sala_floor" column="PRE_SALA_FLOOR"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
 
         </association>
         <association property="introducationVideo" javaType="com.youthchina.domain.Qinghong.IntroductionVideo">
+            <id property="intro_video_id" column="INTRO_VIDEO_ID"/>
+            <result property="intro_video_path" column="INTRO_VIDEO_PATH"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_time"/>
 
         </association>
         <collection property="notifications" ofType="com.youthchina.domain.Qinghong.Notification">
+            <id property="notify_id" column="NOTIFY_ID"/>
+            <result property="notify_content" column="NOTIFY_CONTENT"/>
+            <result property="notify_time" column="NOTIFY_TIME"/>
+            <result property="notify_read" column="NOTIFY_READ"/>
+            <result property="stu_Id" column="STU_ID"/>
 
         </collection>
         <collection property="jobApplies" ofType="com.youthchina.domain.Qinghong.JobApply">
-
+            <id property="apply_id" column="APPLY_ID"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="job_id" column="JOB_ID"/>
+            <result property="job_cv_send" column="JOB_CV_SEND"/>
+            <result property="job_apply_time" column="JOB_APPLY_TIME"/>
+            <result property="job_apply_status" column="JOB_APPLY_STATUS"/>
         </collection>
-
     </resultMap>
     <resultMap id="companyCollectMap" type="com.youthchina.domain.Qinghong.CompCollect">
         <id property="collect_id" column="COLLECT_ID"/>
@@ -136,7 +225,7 @@
         LEFT JOIN STU_PREFER_INTRODUCTION_VIDEO n ON a.STU_ID=n.STU_ID
         LEFT JOIN STU_PREFER_NOTIFICATION o ON a.STU_ID=o.STU_ID
         LEFT JOIN STU_JOB_APPLY p ON a.STU_ID=p.STU_ID
-        WHERE a.stu_id=#{stu_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
+        WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
         AND c.IS_DELETE=0 AND d.IS_DELETE=0 AND e.IS_DELETE=0 AND f.IS_DELETE=0
         AND g.IS_DELETE=0 AND h.IS_DELETE=0 AND i.IS_DELETE=0 AND j.IS_DELETE=0
         AND k.IS_DELETE=0 AND l.IS_DELETE=0 AND m.IS_DELETE=0 AND n.IS_DELETE=0
