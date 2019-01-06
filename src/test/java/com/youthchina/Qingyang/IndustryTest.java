@@ -25,7 +25,7 @@ import com.youthchina.dao.qingyang.CompanyMapper;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:industry.xml"})
+@DatabaseSetup({"classpath:company.xml"})
 public class IndustryTest {
 
     @Autowired
