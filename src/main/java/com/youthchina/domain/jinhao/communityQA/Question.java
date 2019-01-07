@@ -14,25 +14,25 @@ public class Question {
     private Timestamp ques_edit_time;
     private Integer is_delete;
     private Timestamp is_delete_time;
-    private User user;
-    private Integer followers;
-    private QuestionAnswer answer;
+    private User ques_user;
+    private List<QuestionAttention> questionAttentions;
+    private List<QuestionAnswer> questionAnswers;
     private List<Label> labels;
 
-    public Integer getFollowers() {
-        return followers;
+    public List<QuestionAttention> getQuestionAttentions() {
+        return questionAttentions;
     }
 
-    public void setFollowers(Integer followers) {
-        this.followers = followers;
+    public void setQuestionAttentions(List<QuestionAttention> questionAttentions) {
+        this.questionAttentions = questionAttentions;
     }
 
-    public QuestionAnswer getAnswer() {
-        return answer;
+    public List<QuestionAnswer> getQuestionAnswers() {
+        return questionAnswers;
     }
 
-    public void setAnswer(QuestionAnswer answer) {
-        this.answer = answer;
+    public void setQuestionAnswers(List<QuestionAnswer> questionAnswers) {
+        this.questionAnswers = questionAnswers;
     }
 
     public List<Label> getLabels() {
@@ -43,12 +43,12 @@ public class Question {
         this.labels = labels;
     }
 
-    public User getUser() {
-        return user;
+    public User getQues_user() {
+        return ques_user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setQues_user(User ques_user) {
+        this.ques_user = ques_user;
     }
 
     public Integer getIs_delete() {

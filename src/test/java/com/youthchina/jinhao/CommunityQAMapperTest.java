@@ -4,6 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.jinhao.CommunityQAMapper;
 import com.youthchina.domain.jinhao.communityQA.*;
+import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +23,7 @@ import java.util.List;
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:questions.xml","classpath:answers.xml","classpath:comments.xml", "classpath:discuss.xml",
-        "classpath:videos.xml"})
+        "classpath:videos.xml","classpath:users.xml"})
 public class CommunityQAMapperTest extends BaseTest{
     @Autowired
     CommunityQAMapper communityQAMapper;
@@ -116,11 +117,11 @@ public class CommunityQAMapperTest extends BaseTest{
     //测试能不能给问题添加标签
     @Test
     public void addLabels(){
-        List<Integer> label_nums = new LinkedList<>();
-        label_nums.add(2);
-        label_nums.add(1);
-        label_nums.add(3);
-        communityQAMapper.addLabels(label_nums, 2);
+        List<Integer> lab_nums = new LinkedList<>();
+        lab_nums.add(2);
+        lab_nums.add(1);
+        lab_nums.add(3);
+        communityQAMapper.addLabels(lab_nums, 2);
         List<Label> labels = communityQAMapper.listAllQuesetionLabel(2);
         Assert.assertEquals(3, labels.size());
         for(Label label : labels){
@@ -943,8 +944,39 @@ public class CommunityQAMapperTest extends BaseTest{
 
 
     @Test
-    public void test(){
-        Question question = communityQAMapper.getQuestoinAndItsAnswer(1);
+    public void testGetQuesitionById(){
+        Question question = communityQAMapper.getQuestionById(1);
+        Assert.assertNotNull(question);
+        User user = question.getQues_user();
+        System.out.println(user.getUsername());
+        List<QuestionAttention> questionAttentions = question.getQuestionAttentions();
+        System.out.println(questionAttentions.size());
+        System.out.println(questionAttentions.get(0).getUser_id());
+        List<Label> labels = question.getLabels();
+        for(Label label : labels){
+            System.out.print(label.getLab_chn() + "   ");
+        }
+        System.out.println();
+        List<QuestionAnswer> questionAnswers = question.getQuestionAnswers();
+        System.out.println(questionAnswers.size());
+        for(QuestionAnswer questionAnswer : questionAnswers){
+            System.out.print(questionAnswer.getAnswer_id() + "  ");
+            System.out.print(questionAnswer.getAnswer_content() + "   ");
+        }
+    }
+
+    @Test
+    public void getAnswerById(){
+        QuestionAnswer questionAnswer = communityQAMapper.getAnswerById(1);
+        List<AnswerEvaluate> answerEvaluates = questionAnswer.getAnswerEvaluates();
+        System.out.println(answerEvaluates.size());
+        for(AnswerEvaluate answerEvaluate : answerEvaluates){
+            System.out.print(answerEvaluate.getEvaluate_id() + "   ");
+        }
+        System.out.println();
+        List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
+        System.out.println(answerComments.size());
+        System.out.println(questionAnswer.getAnswerEvaluates().size());
     }
 }
 

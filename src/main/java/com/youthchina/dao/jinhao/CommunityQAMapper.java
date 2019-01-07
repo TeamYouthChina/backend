@@ -203,4 +203,6 @@ public interface CommunityQAMapper {
 
 
     Question getQuestoinAndItsAnswer(Integer quse_id);
+    Question getQuestionById(Integer ques_id);
+    QuestionAnswer getAnswerById(Integer answer_id);
 }

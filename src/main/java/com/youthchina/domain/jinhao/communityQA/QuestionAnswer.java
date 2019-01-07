@@ -1,6 +1,9 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.domain.zhongyang.User;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class QuestionAnswer {
     private Integer answer_id;
@@ -11,6 +14,33 @@ public class QuestionAnswer {
     private Timestamp answer_edit_time;
     private Integer is_delete;
     private Timestamp is_delete_time;
+    private User answer_user;
+    private List<AnswerEvaluate> answerEvaluates;
+    private List<AnswerComment> answerComments;
+
+    public User getAnswer_user() {
+        return answer_user;
+    }
+
+    public void setAnswer_user(User answer_user) {
+        this.answer_user = answer_user;
+    }
+
+    public List<AnswerEvaluate> getAnswerEvaluates() {
+        return answerEvaluates;
+    }
+
+    public void setAnswerEvaluates(List<AnswerEvaluate> answerEvaluates) {
+        this.answerEvaluates = answerEvaluates;
+    }
+
+    public List<AnswerComment> getAnswerComments() {
+        return answerComments;
+    }
+
+    public void setAnswerComments(List<AnswerComment> answerComments) {
+        this.answerComments = answerComments;
+    }
 
     public Integer getIs_delete() {
         return is_delete;

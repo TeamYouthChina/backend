@@ -42,11 +42,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
                 }
             }
             User answer_user = null;
-            if(popAnswer != null){
-                int user_id = popAnswer.getUser_id();
-                answer_user = userMapper.findOne(user_id);
-            }
-
             res.add(question);
         }
         return res;
