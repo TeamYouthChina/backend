@@ -38,5 +38,6 @@ public class IndustryCURDServiceImpl implements IndustryCURDService{
     public Industry add(Industry entity) {
         Integer result = companyMapper.insertIndustry(entity);
         return companyMapper.selectIndustry(result);
+        //return new Industry();
     }
 }

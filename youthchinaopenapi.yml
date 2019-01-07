@@ -5,27 +5,27 @@ info:
   license:
     name: MIT
 servers:
-- url: 'http://youthchina.io/api/v1'
+  - url: 'http://youthchina.io/api/v1'
 paths:
   '/job/{id}':
     get:
       tags:
-      - Job
+        - Job
       summary: get job info
       description: get job info by id
       operationId: getJob
       parameters:
-      - in: query
-        name: detailLevel
-        required: true
-        schema:
-          type: integer
-          default: 1
-      - in: path
-        name: id
-        required: true
-        schema:
-          type: integer
+        - in: query
+          name: detailLevel
+          required: true
+          schema:
+            type: integer
+            default: 1
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: job info
@@ -41,7 +41,7 @@ paths:
   '/job/search':
     post:
       tags:
-      - Job
+        - Job
       summary: job search
       description: search job by complex conditions
       operationId: searchJob
@@ -70,14 +70,14 @@ paths:
   '/applicant/{id}':
     get:
       tags:
-      - Applicant
+        - Applicant
       parameters:
-      - name: id
-        in: path
-        description: user id
-        required: true
-        schema:
-          type: integer
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: return target user
@@ -97,7 +97,7 @@ paths:
               schema:
                 type: object
                 required:
-                - status
+                  - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -108,14 +108,14 @@ paths:
   '/applicant':
     post:
       tags:
-      - Applicant
+        - Applicant
       parameters:
-      - name: id
-        in: path
-        description: user id
-        required: true
-        schema:
-          type: integer
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
       requestBody:
         content:
           application/json:
@@ -129,8 +129,8 @@ paths:
               schema:
                 type: object
                 required:
-                - status
-                - applicant
+                  - status
+                  - applicant
                 properties:
                   content:
                     $ref: '#/components/schemas/Applicant'
@@ -140,14 +140,14 @@ paths:
   '/applicant/{id}/contacts':
     get:
       tags:
-      - Applicant
+        - Applicant
       parameters:
-      - name: id
-        in: path
-        description: user id
-        required: true
-        schema:
-          type: integer
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: return target user's contacts
@@ -167,7 +167,7 @@ paths:
               schema:
                 type: object
                 required:
-                - status
+                  - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -178,14 +178,14 @@ paths:
   '/applicant/{id}/educations':
     get:
       tags:
-      - Applicant
+        - Applicant
       parameters:
-      - name: id
-        in: path
-        description: user id
-        required: true
-        schema:
-          type: integer
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: return target user's educations
@@ -207,7 +207,7 @@ paths:
               schema:
                 type: object
                 required:
-                - status
+                  - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -218,14 +218,14 @@ paths:
   '/applicant/{id}/projects':
     get:
       tags:
-      - Applicant
+        - Applicant
       parameters:
-      - name: id
-        in: path
-        description: user id
-        required: true
-        schema:
-          type: integer
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: return target user's projects
@@ -247,7 +247,7 @@ paths:
               schema:
                 type: object
                 required:
-                - status
+                  - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -258,14 +258,14 @@ paths:
   '/applicant/{id}/experiences':
     get:
       tags:
-      - Applicant
+        - Applicant
       parameters:
-      - name: id
-        in: path
-        description: user id
-        required: true
-        schema:
-          type: integer
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: return target user's works
@@ -287,7 +287,7 @@ paths:
               schema:
                 type: object
                 required:
-                - status
+                  - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -298,14 +298,14 @@ paths:
   '/applicant/{id}/certificates':
     get:
       tags:
-      - Applicant
+        - Applicant
       parameters:
-      - name: id
-        in: path
-        description: user id
-        required: true
-        schema:
-          type: integer
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: return target user's works
@@ -327,7 +327,7 @@ paths:
               schema:
                 type: object
                 required:
-                - status
+                  - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -338,14 +338,14 @@ paths:
   '/applicant/{id}/extracurriculars':
     get:
       tags:
-      - Applicant
+        - Applicant
       parameters:
-      - name: id
-        in: path
-        description: user id
-        required: true
-        schema:
-          type: integer
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: return target user's works
@@ -367,7 +367,7 @@ paths:
               schema:
                 type: object
                 required:
-                - status
+                  - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -378,14 +378,14 @@ paths:
   '/job/{id}/apply':
     post:
       tags:
-      - Application
+        - Application
       parameters:
-      - name: id
-        in: path
-        description: id of the job
-        required: true
-        schema:
-          type: integer
+        - name: id
+          in: path
+          description: id of the job
+          required: true
+          schema:
+            type: integer
       responses:
         '201':
           description: apply successful
@@ -405,7 +405,7 @@ paths:
               schema:
                 type: object
                 required:
-                - status
+                  - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -420,7 +420,7 @@ paths:
               schema:
                 type: object
                 required:
-                - status
+                  - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -428,38 +428,38 @@ paths:
                 status:
                   code: 4032
                   reason: 'cannot apply for job because it has passed deadline'
-  '/user/{id}/applications':
+  '/applicant/{id}/applications':
     get:
       tags:
-      - Application
+        - Application
       parameters:
-      - name: id
-        in: path
-        description: user id
-        required: true
-        schema:
-          type: integer
-      - name: type
-        in: query
-        description: job type
-        schema:
-          type: string
-      - name: includeExpired
-        in: query
-        schema:
-          type: boolean
-          default: false
-        description: whether to inclued expired application
-      - name: companyId
-        in: query
-        schema:
-          type: integer
-        description: search for application of certain company
-      - name: jobId
-        in: query
-        schema:
-          type: integer
-        description: search for application of certain company
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - name: type
+          in: query
+          description: job type
+          schema:
+            type: string
+        - name: includeExpired
+          in: query
+          schema:
+            type: boolean
+            default: false
+          description: whether to inclued expired application
+        - name: companyId
+          in: query
+          schema:
+            type: integer
+          description: search for application of certain company
+        - name: jobId
+          in: query
+          schema:
+            type: integer
+          description: search for application of certain company
       responses:
         '200':
           description: return the application of users
@@ -490,13 +490,13 @@ paths:
   '/job/{id}/collect':
     post:
       tags:
-      - Collection
+        - Collection
       parameters:
-      - name: id
-        in: path
-        schema:
-          type: integer
-        required: true
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
       responses:
         '201':
           description: collect successful
@@ -505,20 +505,20 @@ paths:
   '/user/{id}/collections':
     get:
       tags:
-      - Collection
+        - Collection
       parameters:
-      - name: id
-        in: path
-        schema:
-          type: integer
-        required: true
-      - name: type
-        in: query
-        schema:
-          type: string
-          enum:
-          - job
-          - company
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum:
+              - job
+              - company
       responses:
         '200':
           description: return users' Collection
@@ -543,21 +543,21 @@ paths:
   '/collections/{id}':
     delete:
       tags:
-      - Collection
+        - Collection
       parameters:
-      - name: id
-        required: true
-        in: path
-        schema:
-          type: integer
-        description: id of collection
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+          description: id of collection
       responses:
         '204':
           description: delete target collection
   '/questions':
     post:
       tags:
-      - Question
+        - Question
       requestBody:
         content:
           application/json:
@@ -580,14 +580,14 @@ paths:
   '/questions/{id}':
     get:
       tags:
-      - Question
+        - Question
       parameters:
-      - name: id
-        required: true
-        in: path
-        description: question id
-        schema:
-          type: integer
+        - name: id
+          required: true
+          in: path
+          description: question id
+          schema:
+            type: integer
       responses:
         '200':
           description: return target question
@@ -608,14 +608,14 @@ paths:
                 $ref: '#/components/schemas/ErrorStatus'
     delete:
       tags:
-      - Question
+        - Question
       parameters:
-      - name: id
-        required: true
-        in: path
-        description: question id
-        schema:
-          type: integer
+        - name: id
+          required: true
+          in: path
+          description: question id
+          schema:
+            type: integer
       responses:
         '204':
           description: deleted successed.
@@ -627,14 +627,14 @@ paths:
                 $ref: '#/components/schemas/ErrorStatus'
     put:
       tags:
-      - Question
+        - Question
       parameters:
-      - name: id
-        required: true
-        in: path
-        description: id of the question
-        schema:
-          type: integer
+        - name: id
+          required: true
+          in: path
+          description: id of the question
+          schema:
+            type: integer
       requestBody:
         content:
           application/json:
@@ -646,13 +646,13 @@ paths:
   '/questions/{id}/answers':
     get:
       tags:
-      - Question
+        - Question
       parameters:
-      - name: id
-        required: true
-        in: path
-        schema:
-          type: integer
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
       responses:
         '200':
           description: the answer list of target question
@@ -670,13 +670,13 @@ paths:
   '/question/{id}/invite':
     post:
       tags:
-      - Question
+        - Question
       parameters:
-      - name: id
-        required: true
-        in: path
-        schema:
-          type: integer
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
       requestBody:
         content:
           application/json:
@@ -690,13 +690,13 @@ paths:
   '/answers/{id}':
     get:
       tags:
-      - Answer
+        - Answer
       parameters:
-      - name: id
-        required: true
-        in: path
-        schema:
-          type: integer
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
       responses:
         '200':
           description: target answer
@@ -709,6 +709,36 @@ paths:
                     $ref: '#/components/schemas/Answer'
                   status:
                     $ref: '#/components/schemas/Status'
+  '/login':
+    post:
+      tags:
+        - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - password
+              properties:
+                id:
+                  type: integer
+                password:
+                  type: string
+      responses:
+        '200':
+          description: login success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/User'
+                  status:
+                    $ref: '#/components/schemas/Status'
+
 
 
 components:
@@ -729,8 +759,8 @@ components:
     JobSearch:
       type: object
       required:
-      - page
-      - size
+        - page
+        - size
       properties:
         key:
           type: string
@@ -759,9 +789,9 @@ components:
         type:
           type: string
           enum:
-          - full-time
-          - part-time
-          - internship
+            - full-time
+            - part-time
+            - internship
         deadLine:
           type: string
     Organization:
@@ -777,16 +807,57 @@ components:
     User:
       type: object
       required:
-      - id
+        - id
+        - username
+        - email
+        - phonenumber
+        - register_date
+        - real_name
+        - gender
+        - nation
       properties:
         id:
           type: integer
           format: int64
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        phonenumber:
+          type: string
+        register_date:
+          type: string
+        real_name:
+          type: string
+        gender:
+          type: string
+          enum:
+            - male
+            - female
+        nation:
+          type: string
+        avatar_url:
+          type: string
+        role:
+          type: string
+        age:
+          type: integer
+    NewUser:
+      allOf:
+        - $ref: '#/components/schemas/User'
+        - type: object
+          required:
+            - password
+          properties:
+            password:
+              type: string
+
     ContactInfo:
       type: object
       required:
-      - emails
-      - phonenumbers
+        - emails
+        - phonenumbers
       properties:
         emails:
           type: array
@@ -800,11 +871,11 @@ components:
     EducationInfo:
       type: object
       required:
-      - university
-      - major
-      - degree
-      - duration
-      - location
+        - university
+        - major
+        - degree
+        - duration
+        - location
       properties:
         university:
           type: string
@@ -821,10 +892,10 @@ components:
     WorkExperienceInfo:
       type: object
       required:
-      - employer
-      - position
-      - duration
-      - location
+        - employer
+        - position
+        - duration
+        - location
       properties:
         employer:
           type: string
@@ -839,8 +910,8 @@ components:
     Certification:
       type: object
       required:
-      - name
-      - duration
+        - name
+        - duration
       properties:
         name:
           type: string
@@ -853,11 +924,11 @@ components:
     Extracurricular:
       type: object
       required:
-      - name
-      - role
-      - organization
-      - duration
-      - location
+        - name
+        - role
+        - organization
+        - duration
+        - location
       properties:
         name:
           type: string
@@ -874,9 +945,9 @@ components:
     Project:
       type: object
       required:
-      - name
-      - role
-      - duration
+        - name
+        - role
+        - duration
       properties:
         name:
           type: string
@@ -898,9 +969,9 @@ components:
     Applicant:
       type: object
       required:
-      - id
-      - name
-      - avatarUrl
+        - id
+        - name
+        - avatarUrl
       properties:
         id:
           type: integer
@@ -932,36 +1003,36 @@ components:
             $ref: '#/components/schemas/Certification'
     JobResponse:
       allOf:
-      - $ref: '#/components/schemas/Job'
-      - type: object
-        properties:
-          status:
-            $ref: '#/components/schemas/Status'
+        - $ref: '#/components/schemas/Job'
+        - type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/Status'
     ApplicantResponse:
       allOf:
-      - $ref: '#/components/schemas/Applicant'
-      - type: object
-        properties:
-          status:
-            $ref: '#/components/schemas/Status'
+        - $ref: '#/components/schemas/Applicant'
+        - type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/Status'
     ContactResponse:
       allOf:
-      - $ref: '#/components/schemas/ContactInfo'
-      - type: object
-        properties:
-          status:
-            $ref: '#/components/schemas/Status'
+        - $ref: '#/components/schemas/ContactInfo'
+        - type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/Status'
     Company:
       allOf:
-      - $ref: '#/components/schemas/Organization'
-      - type: object
+        - $ref: '#/components/schemas/Organization'
+        - type: object
     Application:
       type: object
       required:
-      - id
-      - companyId
-      - positionId
-      - status
+        - id
+        - companyId
+        - positionId
+        - status
       properties:
         id:
           type: integer
@@ -974,9 +1045,9 @@ components:
     CompanyCollections:
       type: object
       required:
-      - id
-      - company
-      - status
+        - id
+        - company
+        - status
       properties:
         id:
           type: integer
@@ -987,9 +1058,9 @@ components:
     JobCollections:
       type: object
       required:
-      - id
-      - job
-      - status
+        - id
+        - job
+        - status
       properties:
         id:
           type: integer
@@ -1000,16 +1071,16 @@ components:
     CollectionStatus:
       type: string
       enum:
-      - active
-      - inactive
+        - active
+        - inactive
     AnswerBasic:
       type: object
       required:
-      - id
-      - creator
-      - body
-      - is_anonymous
-      - create_at
+        - id
+        - creator
+        - body
+        - is_anonymous
+        - create_at
       properties:
         id:
           type: integer
@@ -1028,11 +1099,11 @@ components:
     QuestionBasic:
       type: object
       required:
-      - id
-      - creator
-      - title
-      - is_anonymous
-      - create_at
+        - id
+        - creator
+        - title
+        - is_anonymous
+        - create_at
       properties:
         id:
           type: integer
@@ -1053,17 +1124,17 @@ components:
           description: create time of question
     Question:
       allOf:
-      - $ref: '#/components/schemas/QuestionBasic'
-      - type: object
-        properties:
-          answers:
-            type: array
-            items:
-              $ref: '#/components/schemas/AnswerBasic'
+        - $ref: '#/components/schemas/QuestionBasic'
+        - type: object
+          properties:
+            answers:
+              type: array
+              items:
+                $ref: '#/components/schemas/AnswerBasic'
     Answer:
       allOf:
-      - $ref: '#/components/schemas/AnswerBasic'
-      - type: object
-        properties:
-          question:
-            $ref: '#/components/schemas/QuestionBasic'
+        - $ref: '#/components/schemas/AnswerBasic'
+        - type: object
+          properties:
+            question:
+              $ref: '#/components/schemas/QuestionBasic'

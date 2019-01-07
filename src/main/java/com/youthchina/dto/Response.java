@@ -12,7 +12,7 @@ public class Response implements ResponseDTO {
     }
 
     public Response(Object content) {
-        super();
+        this();
         this.content = content;
     }
 

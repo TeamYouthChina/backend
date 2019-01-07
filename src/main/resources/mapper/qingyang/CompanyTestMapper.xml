@@ -227,15 +227,24 @@
     </select>
 
     <!--Industry CURD-->
+    <resultMap id="Industry" type="com.youthchina.domain.qingyang.Industry">
+        <result property="indNum" column="IND_NUM" javaType="java.lang.Integer"/>
+        <result property="indChn" column="IND_CHN" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="indEng" column="IND_ENG" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="indLevel" column="IND_LEVEL" javaType="java.lang.Integer"/>
+        <result property="indParentNum" column="IND_PARENT_NUM" javaType="java.lang.Integer" jdbcType="VARCHAR"/>
+        <result property="startDate" column="START_DATE" javaType="java.sql.Timestamp"/>
+    </resultMap>
+
     <insert id="insertIndustry" parameterType="com.youthchina.domain.qingyang.Industry"
             useGeneratedKeys="true" keyProperty="indNum">
         INSERT INTO SYS_IND_CLASS
         (   IND_NUM,    IND_CHN,   IND_ENG,    IND_LEVEL,
-            IND_PARENT_NUM,   START_DATE, IS_DELETE)
+            IND_PARENT_NUM,   START_DATE, IS_DELETE, IS_DELETE_TIME)
         VALUES
         (
-            #{indNum},   #(indChn),   #{indEng},  #{indLevel}
-            #{indParentNum},   #(startDate), #(isDelete)
+            #{indNum},   #{indChn},   #{indEng},  #{indLevel},
+            #{indParentNum},  #{startDate}, 0, NULL
         )
     </insert>
 
@@ -258,24 +267,24 @@
       WHERE IND_NUM = #{id}
     </update>
 
-    <select id="selectIndustry" resultType="com.youthchina.domain.qingyang.Industry"
-            parameterType="java.lang.Integer">
+    <select id="selectIndustry" resultMap="Industry"
+            parameterType="Integer">
         SELECT
             IND_NUM,    IND_CHN,   IND_ENG,    IND_LEVEL,
             IND_PARENT_NUM,   START_DATE
         FROM SYS_IND_CLASS
         WHERE
-            IND_NUM = #{id}
+            IND_NUM = #{id, jdbcType=INTEGER}
         AND IS_DELETE = 0
     </select>
 
-    <select id="selectIndustryByIdList" resultType="com.youthchina.domain.qingyang.Industry">
+    <select id="selectIndustryByIdList" parameterType="java.util.List" resultMap="Industry">
         SELECT
             IND_NUM,    IND_CHN,   IND_ENG,    IND_LEVEL,
             IND_PARENT_NUM,   START_DATE
         FROM SYS_IND_CLASS
         WHERE IND_NUM in
-        <foreach item="id" collection="ids" index="index" separator=",">
+        <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
             #{id}
         </foreach>
         AND IS_DELETE = 0

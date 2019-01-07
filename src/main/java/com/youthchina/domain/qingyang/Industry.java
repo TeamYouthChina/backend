@@ -20,6 +20,10 @@ public class Industry {
     private Integer isDelete;
     private Timestamp isDeleteTime;
 
+    public Industry(){
+
+    }
+
     public Integer getIndNum() {
         return indNum;
     }

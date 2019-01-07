@@ -4,6 +4,8 @@ import com.youthchina.domain.zhongyang.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by zhongyangwu on 11/10/18.
  */
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserMapper {
     User findOne(Integer id);
+
+    List<User> findAll(List<Integer> ids);
 
     void insert(User user);
 
