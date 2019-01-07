@@ -6,8 +6,8 @@
 
         <association property="BaseInfo" javaType="com.youthchina.domain.Qinghong.BaseInfo">
             <id property="stu_id" column="STU_ID"/>
-            <result property="stu_in_job" column="STU_IN_JOB"/>
-            <result property="stu_in_job_comp" column="stu_in_job_comp"/>
+            <result property="isInJob" column="STU_IN_JOB"/>
+            <result property="currentCompanyName" column="currentCompanyName"/>
         </association>
         <collection property="educationInfos"  ofType="com.youthchina.domain.Qinghong.EducationInfo">
             <id property="edu_id" column="EDU_ID"/>
@@ -44,7 +44,7 @@
 
     <insert id="insertBaseInfo" useGeneratedKeys="true" keyProperty="STU_ID">
         insert into STU_INFO(STU_IN_JOB,STU_IN_JOB_COMP)
-        values (#{stu_id_job},#{stu_in_job_comp})
+        values (#{stu_id_job},#{currentCompanyName})
     </insert>
     <insert id="insertEducationInfo" useGeneratedKeys="true" keyProperty="EDU_ID">
         insert into STU_EDU_INFO(EDU_DEGREE,EDU_SCHOOL,EDU_SCHOOL_COUNTRY,EDU_SCHOOL_LOCATION,EDU_MAJOR,EDU_COLLEGE,EDU_GPA,EDU_START,EDU_END)
@@ -58,7 +58,7 @@
     <update id="updateBaseInfo">
         update STU_INFO set
         STU_IN_JOB=#{stu_id_job},
-        STU_IN_JOB_COMP=#{stu_in_job_comp}
+        STU_IN_JOB_COMP=#{currentCompanyName}
         where STU_ID=#{stu_id}
     </update>
     <update id="updateEducationInfo">
