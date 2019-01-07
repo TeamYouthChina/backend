@@ -2,7 +2,7 @@ package com.youthchina.domain.qingyang;
 
 import java.sql.Timestamp;
 
-public class Hr_qingyang {
+public class Hr {
 /*
 招聘者ID		主键		HR_ID	    INTEGER		否
 所属企业				COMPANY_ID	INTEGER		否	企业ID

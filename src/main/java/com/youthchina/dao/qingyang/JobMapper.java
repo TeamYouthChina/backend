@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 @Component
-public interface JobHrMapper {
+public interface JobMapper {
     /**insert Job*/
     Integer insertJob(Job job);
 
@@ -17,17 +17,15 @@ public interface JobHrMapper {
     Integer updateJob(Job job);
 
     /**delete Job*/
-    Integer deleteJob(Integer job_id);
+    Integer deleteJob(Integer id);
 
     /**select Job information by Job_ID*/
-    Job selectJobByJobId(Integer job_id);
+    Job selectJobByJobId(Integer id);
 
     /**select Job information by Job_ID List*/
-    List<Job> selectJobByJobIdList(List<Integer> id);
+    List<Job> selectJobByJobIdList(List<Integer> ids);
 
-    /**select Job information by Company_ID*/
-    List<Job> selectJobByComId(Integer company_id);
-
+    List<Job> getJobByMore(Integer jobId, String jobName, Integer comId, String comName, Integer location, Integer type, String deadline);
 
     List<Job> selectByIndustryId(List<Integer> indIds);
 

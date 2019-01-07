@@ -1,6 +1,6 @@
 package com.youthchina.service.qingyang;
 
-import com.youthchina.domain.qingyang.Hr_qingyang;
+import com.youthchina.domain.qingyang.Hr;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +11,12 @@ public class HrCURDServiceImpl implements HrCURDService{
     //TODO!!!!
 
     @Override
-    public Hr_qingyang get(Integer id) throws NotFoundException {
+    public Hr get(Integer id) throws NotFoundException {
         return null;
     }
 
     @Override
-    public List<Hr_qingyang> get(List<Integer> id) throws NotFoundException {
+    public List<Hr> get(List<Integer> id) throws NotFoundException {
         return null;
     }
 
@@ -26,12 +26,12 @@ public class HrCURDServiceImpl implements HrCURDService{
     }
 
     @Override
-    public Hr_qingyang update(Hr_qingyang hr_qingyang) throws NotFoundException {
+    public Hr update(Hr hr_) throws NotFoundException {
         return null;
     }
 
     @Override
-    public Hr_qingyang add(Hr_qingyang entity) {
+    public Hr add(Hr entity) {
         return null;
     }
 }

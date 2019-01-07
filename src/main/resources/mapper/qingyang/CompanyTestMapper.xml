@@ -5,21 +5,21 @@
     <insert id="insertCompany" parameterType="com.youthchina.domain.qingyang.Company"
             useGeneratedKeys="true" keyProperty="companyId">
         INSERT INTO COMPANY_INFO
-        (   COMPANY_ID,         COMPANY_NAME,       COMPANY_CODE,     COMPANY_COUNTRY,
+        (   COMPANY_NAME,       COMPANY_CODE,     COMPANY_COUNTRY,
             COMPANY_INTRODUC,   COMPANY_SCALE_NUM,  COMPANY_NATURE,   COMPANY_LOCATION,
-            COMPANY_MAIL,       COMPANY_WEBSITE,    COMPANY_START_DATE,
-            COMPANY_LOGO,       COMPANY_VERIFY,     USER_ID,          IS_DELETE
-        )
+            COMPANY_MAIL,       COMPANY_WEBSITE,  COMPANY_START_DATE,
+            COMPANY_LOGO,       COMPANY_VERIFY,     USER_ID,          IS_DELETE,
+            IS_DELETE_TIME)
         VALUES
-        (   #{companyId},       #{companyName},     #(companyCode),     #{companyCountry},
+        (   #{companyName},     #{companyCode},   #{companyCountry},
             #{companyIntroduc}, #{companyScaleNum}, #{companyNature},   #{companyLocation},
-            #{companyMail},     #{companyWebsite},  #{companyStartDate},
-            #{companyLogo},     #{companyVerify},   #{userId},          #{isDelete}
-        )
+            #{companyMail},     #{companyWebsite}, #{companyStartDate},
+            #{companyLogo},     #{companyVerify},   #{userId},          0,
+            NULL)
     </insert>
 
     <update id="updateCompany" parameterType="com.youthchina.domain.qingyang.Company"
-            useGeneratedKeys="true" keyProperty="companyId">
+            keyProperty="companyId">
         UPDATE COMPANY_INFO
         SET
             COMPANY_NAME = #{companyName},
@@ -42,19 +42,7 @@
 
     <update id="deleteCompany" parameterType="java.lang.Integer">
         UPDATE COMPANY_INFO         SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE COMPANY_ID = #{id};
-
-        UPDATE COMPANY_INDUSTRY	    SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE COMPANY_ID = #{id};
-
-        UPDATE COMPANY_VERIFICAITON SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE COMPANY_ID = #{id};
-
-        UPDATE JOB_INFO			    SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE COMPANY_ID = #{id};
-
-        UPDATE HR_INFO				SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE COMPANY_ID = #{id};
+        WHERE COMPANY_ID = #{id}
     </update>
 
     <resultMap id="company" type="com.youthchina.domain.qingyang.Company">
@@ -80,7 +68,7 @@
             <result property="indParentNum" column="IND_PARENT_NUM"/>
             <result property="startDate" column="START_DATE"/>
         </collection>
-        <collection property="verificationList" ofType="com.youthchina.domain.qingyang.CompanyVerification_qingyang">
+        <collection property="verificationList" ofType="com.youthchina.domain.qingyang.CompanyVerification">
             <id property="verifyId" column="VERIFY_ID"/>
             <result property="verifyTime" column="VERIFY_TIME"/>
             <result property="verifyEndTime" column="VERIFY_END_TIME"/>
@@ -127,7 +115,7 @@
         AND com.IS_DELETE = 0 AND v.IS_DELETE = 0 AND i.IS_DELETE = 0 AND class.IS_DELETE = 0
     </select>
 
-    <select id="selectCompanyByIdList" resultMap="company" >
+    <select id="selectCompanyByIdList" parameterType="java.util.List" resultMap="company" >
         SELECT
               com.COMPANY_ID as COMPANY_ID,
               com.COMPANY_NAME as COMPANY_NAME,
@@ -158,35 +146,39 @@
               class.START_DATE as START_DATE
 
         FROM COMPANY_INFO com
-                 LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID
-                 LEFT OUTER JOIN COMPANY_INDUSTRY i ON i.COMPANY_ID = com.COMPANY_ID
-                 LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_NUM = i.IND_NUM
-        WHERE COMPANY_ID in
-            <foreach item="id" collection="ids" index="index" separator=",">
-                #{id}
-            </foreach>
-        AND com.IS_DELETE = 0 AND v.IS_DELETE = 0 AND i.IS_DELETE = 0 AND class.IS_DELETE = 0
+                 LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0 AND v.IS_DELETE = 0
+                 LEFT OUTER JOIN COMPANY_INDUSTRY i ON i.COMPANY_ID = com.COMPANY_ID AND i.IS_DELETE = 0
+                 LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_NUM = i.IND_NUM AND class.IS_DELETE = 0
+        WHERE com.COMPANY_ID in
+          <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
+              #{id}
+          </foreach>
     </select>
 
-    <!--CompanyVerfication CURD-->
-    <insert id="insertCompanyVerfication" parameterType="com.youthchina.domain.qingyang.CompanyVerification_qingyang"
+
+
+    <!--CompanyVerification CURD-->
+    <resultMap id="CompanyVerification" type="com.youthchina.domain.qingyang.CompanyVerification">
+        <id property="verifyId" column="VERIFY_ID"/>
+        <result property="verifyTime" column="VERIFY_TIME"/>
+        <result property="verifyEndTime" column="VERIFY_END_TIME"/>
+        <result property="operUserId" column="OPER_USER_ID"/>
+        <result property="companyId" column="COMPANY_ID"/>
+    </resultMap>
+
+    <insert id="insertCompanyVerification" parameterType="com.youthchina.domain.qingyang.CompanyVerification"
             useGeneratedKeys="true" keyProperty="verifyId">
         INSERT INTO COMPANY_VERIFICAITON
-        (   VERIFY_ID,    VERIFY_TIME,   VERIFY_END_TIME,    OPER_USER_ID,
-            COMPANY_ID,   IS_DELETE)
+        (   VERIFY_TIME,   VERIFY_END_TIME,    OPER_USER_ID,
+            COMPANY_ID,   IS_DELETE, IS_DELETE_TIME)
         VALUES
         (
-            #{verifyId},
-            #{verifyTime},
-            #{verifyEndTime},
-            #{operUserId}
-            #{companyId},
-            0
-        )
+            #{verifyTime},  #{verifyEndTime},   #{operUserId},
+            #{companyId}, 0, NULL)
     </insert>
 
-    <update id="updateCompanyVerification" parameterType="com.youthchina.domain.qingyang.CompanyVerification_qingyang"
-            useGeneratedKeys="true" keyProperty="verifyId">
+    <update id="updateCompanyVerification" parameterType="com.youthchina.domain.qingyang.CompanyVerification"
+            keyProperty="verifyId">
         UPDATE COMPANY_VERIFICAITON
         SET
             VERIFY_TIME = #{verifyTime},
@@ -198,12 +190,12 @@
         AND IS_DELETE = 0
     </update>
 
-    <update id="deleteCompanyVerfication" parameterType="java.lang.Integer">
+    <update id="deleteCompanyVerification" parameterType="java.lang.Integer">
       UPDATE COMPANY_VERIFICAITON SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
       WHERE VERIFY_ID = #{verifyId}
     </update>
 
-    <select id="selectCompanyVerfication" resultType="com.youthchina.domain.qingyang.CompanyVerification_qingyang"
+    <select id="selectCompanyVerification" resultMap="CompanyVerification"
             parameterType="java.lang.Integer">
         SELECT
             VERIFY_ID,    VERIFY_TIME,   VERIFY_END_TIME,    OPER_USER_ID,
@@ -214,13 +206,13 @@
         AND IS_DELETE = 0
     </select>
 
-    <select id="selectCompanyVerficationByIdList" resultType="com.youthchina.domain.qingyang.CompanyVerification_qingyang">
+    <select id="selectCompanyVerificationByIdList" parameterType="java.util.List" resultMap="CompanyVerification">
         SELECT
           VERIFY_ID,    VERIFY_TIME,   VERIFY_END_TIME,    OPER_USER_ID,
           COMPANY_ID
         FROM COMPANY_VERIFICAITON
         WHERE VERIFY_ID in
-        <foreach item="id" collection="ids" index="index" separator=",">
+        <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
             #{id}
         </foreach>
         AND IS_DELETE = 0
@@ -239,17 +231,17 @@
     <insert id="insertIndustry" parameterType="com.youthchina.domain.qingyang.Industry"
             useGeneratedKeys="true" keyProperty="indNum">
         INSERT INTO SYS_IND_CLASS
-        (   IND_NUM,    IND_CHN,   IND_ENG,    IND_LEVEL,
+        (   IND_CHN,   IND_ENG,    IND_LEVEL,
             IND_PARENT_NUM,   START_DATE, IS_DELETE, IS_DELETE_TIME)
         VALUES
         (
-            #{indNum},   #{indChn},   #{indEng},  #{indLevel},
+            #{indChn},   #{indEng},  #{indLevel},
             #{indParentNum},  #{startDate}, 0, NULL
         )
     </insert>
 
     <update id="updateIndustry" parameterType="com.youthchina.domain.qingyang.Industry"
-            useGeneratedKeys="true" keyProperty="indNum">
+            keyProperty="indNum">
         UPDATE SYS_IND_CLASS
         SET
             IND_CHN = #{indChn},
@@ -289,54 +281,4 @@
         </foreach>
         AND IS_DELETE = 0
     </select>
-
-    <!--Hr CURD-->
-    <insert id="insertHr" parameterType="com.youthchina.domain.qingyang.Hr_qingyang"
-            useGeneratedKeys="true" keyProperty="hrId">
-        INSERT INTO HR_INFO
-        (   HR_ID,    COMPANY_ID,   HR_ON_JOB,    USER_ID,  IS_DELETE)
-        VALUES
-        (
-            #{hrId},   #(companyId),   #{hrOnJob},  #{userId}, #(isDelete)
-        )
-    </insert>
-
-    <update id="updateHr" parameterType="com.youthchina.domain.qingyang.Hr_qingyang"
-            useGeneratedKeys="true" keyProperty="hrId">
-        UPDATE HR_INFO
-        SET
-            COMPANY_ID = #{companyId},
-            HR_ON_JOB = #{hrOnJob},
-            USER_ID = #{userId}
-        WHERE
-            HR_ID = #{hrId}
-        AND IS_DELETE = 0
-    </update>
-
-    <update id="deleteHr" parameterType="java.lang.Integer">
-      UPDATE HR_INFO			 SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-      WHERE IND_NUM = #{id}
-    </update>
-
-    <select id="selectHr" resultType="com.youthchina.domain.qingyang.Hr_qingyang"
-            parameterType="java.lang.Integer">
-        SELECT
-            HR_ID,    COMPANY_ID,   HR_ON_JOB,    USER_ID
-        FROM HR_INFO
-        WHERE
-            HR_ID = #{id}
-        AND IS_DELETE = 0
-    </select>
-
-    <select id="selectHrByIdList" resultType="com.youthchina.domain.qingyang.Hr_qingyang">
-        SELECT
-            HR_ID,    COMPANY_ID,   HR_ON_JOB,    USER_ID
-        FROM HR_INFO
-        WHERE HR_ID in
-        <foreach item="id" collection="ids" index="index" separator=",">
-            #{id}
-        </foreach>
-        AND IS_DELETE = 0
-    </select>
-
 </mapper>
