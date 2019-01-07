@@ -40,14 +40,14 @@ public class Company {
     private Integer companyVerify;
     private Integer userId;
     private Integer isDelete;
-    private Timestamp idDeleteTime;
+    private Timestamp isDeleteTime;
     private List<Job> jobs;
 
     /*行业信息*/
     private List<Industry> indList;
 
     /*认证信息*/
-    private List<CompanyVerification_qingyang> verificationList;
+    private List<CompanyVerification> verificationList;
 
     /*Setter and Getter*/
 
@@ -59,11 +59,11 @@ public class Company {
         this.indList = indList;
     }
 
-    public List<CompanyVerification_qingyang> getVerificationList() {
+    public List<CompanyVerification> getVerificationList() {
         return verificationList;
     }
 
-    public void setVerificationList(List<CompanyVerification_qingyang> verificationList) {
+    public void setVerificationList(List<CompanyVerification> verificationList) {
         this.verificationList = verificationList;
     }
 
@@ -187,12 +187,12 @@ public class Company {
         this.isDelete = isDelete;
     }
 
-    public Timestamp getIdDeleteTime() {
-        return idDeleteTime;
+    public Timestamp getIsDeleteTime() {
+        return isDeleteTime;
     }
 
-    public void setIdDeleteTime(Timestamp idDeleteTime) {
-        this.idDeleteTime = idDeleteTime;
+    public void setIsDeleteTime(Timestamp isDeleteTime) {
+        this.isDeleteTime = isDeleteTime;
     }
 
     public List<Job> getJobs() {

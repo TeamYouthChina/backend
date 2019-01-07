@@ -45,13 +45,11 @@ public class Job {
     private String  cvNameRule;
     private Integer jobActive;
 
-    private Integer companyId;
-    private Integer hrId;
     private Integer isDelete;
     private Timestamp isDeleteTime;
 
     private Company company;
-    private Hr_qingyang hr;
+    private Hr hr;
 
     public Company getCompany() {
         return company;
@@ -61,11 +59,11 @@ public class Job {
         this.company = company;
     }
 
-    public Hr_qingyang getHr() {
+    public Hr getHr() {
         return hr;
     }
 
-    public void setHr(Hr_qingyang hr) {
+    public void setHr(Hr hr) {
         this.hr = hr;
     }
 
@@ -187,22 +185,6 @@ public class Job {
 
     public void setJobActive(Integer jobActive) {
         this.jobActive = jobActive;
-    }
-
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
-
-    public Integer getHrId() {
-        return hrId;
-    }
-
-    public void setHrId(Integer hrId) {
-        this.hrId = hrId;
     }
 
     public Integer getIsDelete() {

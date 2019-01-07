@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.qingyang.HrMapper">
+
+    <resultMap id="Hr" type="com.youthchina.domain.qingyang.Hr">
+        <id property="hrId" column="HR_ID"/>
+        <result property="companyId" column="COMPANY_ID"/>
+        <result property="hrOnJob" column="HR_ON_JOB"/>
+        <result property="userId" column="USER_ID"/>
+    </resultMap>
+
+    <insert id="insertHr" parameterType="com.youthchina.domain.qingyang.Hr"
+            useGeneratedKeys="true" keyProperty="hrId">
+        INSERT INTO HR_INFO
+        (   COMPANY_ID,   HR_ON_JOB,    USER_ID,  IS_DELETE, IS_DELETE_TIME)
+        VALUES
+        (
+            #{companyId},   #{hrOnJob},  #{userId}, 0, NULL
+        )
+    </insert>
+
+    <update id="updateHr" parameterType="com.youthchina.domain.qingyang.Hr">
+        UPDATE HR_INFO
+        SET
+            COMPANY_ID = #{companyId},
+            HR_ON_JOB = #{hrOnJob},
+            USER_ID = #{userId}
+        WHERE
+            HR_ID = #{hrId}
+        AND IS_DELETE = 0
+    </update>
+
+    <update id="deleteHr" parameterType="java.lang.Integer">
+      UPDATE HR_INFO	SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+      WHERE HR_ID = #{id}
+    </update>
+
+    <select id="selectHrById" resultMap="Hr"
+            parameterType="java.lang.Integer">
+        SELECT
+            HR_ID, COMPANY_ID,   HR_ON_JOB,    USER_ID
+        FROM HR_INFO
+        WHERE
+            HR_ID = #{id}
+        AND IS_DELETE = 0
+    </select>
+
+    <select id="selectHrByIdList" parameterType="java.util.List" resultMap="Hr">
+        SELECT
+        HR_ID,    COMPANY_ID,   HR_ON_JOB,    USER_ID
+        FROM HR_INFO
+        WHERE HR_ID in
+        <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        AND IS_DELETE = 0
+    </select>
+
+
+</mapper>

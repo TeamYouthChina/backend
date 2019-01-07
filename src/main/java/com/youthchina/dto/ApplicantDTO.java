@@ -30,17 +30,17 @@ public class ApplicantDTO {
     public ApplicantDTO() {
     }
 
-    public ApplicantDTO(Student student, User user) {
+    public ApplicantDTO(Student student) {
         this.id = student.getId();
-        this.name = user.getUsername();
+        this.name = student.getUsername();
         this.educations = new ArrayList<>(student.getEducationInfos().size());
         for (EducationInfo educationInfo : student.getEducationInfos()) {
             this.educations.add(new EducationDTO(educationInfo));
         }
         this.emails = new ArrayList<>();
-        this.emails.add(user.getEmail());
+        this.emails.add(student.getEmail());
         this.phonenumbers = new ArrayList<>();
-        this.phonenumbers.add(user.getPhonenumber());
+        this.phonenumbers.add(student.getPhonenumber());
         this.experiences = new ArrayList<>(student.getWorks().size());
         for (Work work : student.getWorks()) {
             this.experiences.add(new WorkDTO(work));

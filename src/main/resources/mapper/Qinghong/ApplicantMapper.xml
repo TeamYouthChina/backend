@@ -3,8 +3,8 @@
 <mapper namespace="com.youthchina.dao.Qinghong.ApplicantMapper">
     <resultMap id="studentResultMap" type="com.youthchina.domain.Qinghong.Student">
         <id property="stu_id" column="STU_ID"/>
-        <result property="stu_in_job" column="STU_IN_JOB"/>
-        <result property="stu_in_job_comp" column="STU_IN_JOB_COMP"/>
+        <result property="isInJob" column="STU_IN_JOB"/>
+        <result property="currentCompanyName" column="STU_IN_JOB_COMP"/>
         <result property="user_id" column="USER_ID"/>
         <result property="is_delete" column="IS_DELETE"/>
         <result property="is_delete_time" column="IS_DELETE_TIME"/>
