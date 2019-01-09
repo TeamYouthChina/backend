@@ -120,7 +120,7 @@
     <!--获取申请者的信息-->
     <select id="getStudentInfo" resultMap="studentResultMap">
         select a.*,b.*,c.*,d.*,e.*,f.*,g.*
-        from STU_INFO a;
+        from STU_INFO a
         LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID
         LEFT JOIN STU_SUB_INFO c ON a.STU_ID=c.STU_ID
         LEFT JOIN STU_PROJECT d ON a.STU_ID=d.STU_ID
