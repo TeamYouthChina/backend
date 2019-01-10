@@ -1,5 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.domain.qingyang.Company;
+
 import java.util.Date;
 
 /**
@@ -15,6 +17,8 @@ public class CompCollect {
     private Integer stu_id;
     private Boolean is_delete;
     private Date is_delete_time;
+    private Company company;
+
 
     public Integer getCollect_id() {
         return collect_id;
@@ -62,5 +66,13 @@ public class CompCollect {
 
     public void setIs_delete_time(Date is_delete_time) {
         this.is_delete_time = is_delete_time;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

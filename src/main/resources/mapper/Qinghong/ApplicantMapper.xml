@@ -93,6 +93,7 @@
             <result property="is_delete_time" column="IS_DELETE_TIME"/>
         </collection>
     </resultMap>
+
     <resultMap id="ApplyMapper" type="com.youthchina.domain.Qinghong.JobApply">
         <id property="apply_id" column="APPLY_ID"/>
         <result property="stu_id" column="STU_ID"/>
@@ -117,6 +118,60 @@
             <result property="cvNameRule" column="CV_NAME_RULE"/>
             <result property="jobActive" column="JOB_ACTIVE"/>
         </association>
+    </resultMap>
+
+    <resultMap id="getJobCollectResultMap" type="com.youthchina.domain.Qinghong.JobCollect">
+        <id property="collect_id" column="COLEECT_ID"/>
+        <result property="job_id" column="job_ID"/>
+        <result property="job_coll_time" column="job_COLL_TIME"/>
+        <result property="stu_id" column="STU_ID"/>
+        <result property="is_delete" column="IS_DELETE"/>
+        <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        <association property="job" javaType="com.youthchina.domain.qingyang.Job">
+            <id property="jobId" column="JOB_ID"/>
+            <result property="jobName" column="JOB_NAME"/>
+            <result property="jobProfNum" column="JOB_PROF_NUM"/>
+            <result property="jobStartTime" column="JOB_START_TIME"/>
+            <result property="jobEndTime" column="JOB_END_TIME"/>
+            <result property="jobTime" column="JOB_TIME"/>
+            <result property="jobDescription" column="JOB_DESCRIPTION"/>
+            <result property="jobDuty" column="JOB_DUTY"/>
+            <result property="jobReq" column="JOB_REQ"/>
+            <result property="jobLocation" column="JOB_LOCATION"/>
+            <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
+            <result property="jobSalary" column="JOB_SALARY"/>
+            <result property="cvReceiveMail" column="CV_RECEI_MAIL"/>
+            <result property="cvNameRule" column="CV_NAME_RULE"/>
+            <result property="jobActive" column="JOB_ACTIVE"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="getCompCollectResultMap" type="com.youthchina.domain.Qinghong.CompCollect">
+        <id property="collect_id" column="COLEECT_ID"/>
+        <result property="company_id" column="COMPANY_ID"/>
+        <result property="company_coll_time" column="COMPANY_COLL_TIME"/>
+        <result property="stu_id" column="STU_ID"/>
+        <result property="is_delete" column="IS_DELETE"/>
+        <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        <association property="company" javaType="com.youthchina.domain.qingyang.Company">
+            <id property="companyId" column="COMPANY_ID"/>
+            <result property="companyName" column="COMPANY_NAME"/>
+            <result property="companyCode" column="COMPANY_CODE"/>
+            <result property="companyCountry" column="COMPANY_COUNTRY"/>
+            <result property="companyIntroduc" column="COMPANY_INTRODUC"/>
+            <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
+            <result property="companyNature" column="COMPANY_NATURE"/>
+            <result property="companyLocation" column="COMPANY_LOCATION"/>
+            <result property="companyMail" column="COMPANY_MAIL"/>
+            <result property="companyWebsite" column="COMPANY_WEBSITE"/>
+            <result property="companyStartDate" column="COMPANY_START_DATE"/>
+            <result property="companyLogo" column="COMPANY_LOGO"/>
+            <result property="companyVerify" column="COMPANY_VERIFY"/>
+            <result property="userId" column="USER_ID"/>
+            <result property="isDelete" column="IS_DELETE"/>
+            <result property="isDeleteTime" column="IS_DELETE_TIME"/>
+        </association>
+
     </resultMap>
 
     <!--获取用户所有基本信息-->
@@ -192,6 +247,39 @@
         values
                (#{job_cv_send},#{job_apply_time},#{job_apply_status},#{stu_id},#{job_id})
     </insert>
+
+
+    <!--获得所有的职位收藏信息-->
+    <select id="getJobCollects" resultMap="getJobCollectResultMap">
+        SELECT a.*,b.*
+        FROM STU_INFO c,
+        STU_JOB_COLLECT a LEFT JOIN JOB_INFO b ON a.JOB_ID=b.JOB_ID AND b.IS_DELETE=0
+        WHERE c.USER_ID=#{user_id} AND c.STU_ID=a.STU_ID AND c.IS_DELETE=0 AND a.IS_DELETE=0
+    </select>
+
+    <!--获取所有的公司收藏信息-->
+    <select id="getCompCollects" resultMap="getCompCollectResultMap">
+        SELECT a.*,b.*
+        FROM STU_INFO c, STU_COMP_COLLECT a
+        LEFT JOIN COMPANY_INFO  b ON a.COMPANY_ID=b.COMPANY_ID AND b.IS_DELETE=0
+        WHERE c.USER_ID=#{user_id} AND c.STU_ID=a.STU_ID AND c.IS_DELETE=0 AND a.IS_DELETE=0
+    </select>
+
+    <!--获取一个职位收藏-->
+    <select id="getOneJobCollect" resultType="com.youthchina.domain.Qinghong.JobCollect">
+        SELECT a.*
+        FROM STU_JOB_COLLECT a
+        WHERE a.JOB_ID=#{job_id} AND a.IS_DELETE=0;
+    </select>
+
+    <!--添加一个职位收藏-->
+    <insert id="addJobCollect" parameterType="com.youthchina.domain.Qinghong.JobCollect" useGeneratedKeys="true" keyProperty="coleect_id">
+        INSERT INTO STU_JOB_COLLECT
+        (JOB_ID,JOB_COLL_TIME,STU_ID,IS_DELETE,IS_DELETE_TIME)
+        VALUES
+        (#{job_id},#{job_coll_time},#{stu_id},#{is_delete},#{is_delete_time})
+    </insert>
+
 
     <!--删除应聘者信息-->
     <update id="deleteStuInfo">

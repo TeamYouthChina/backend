@@ -12,13 +12,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -130,6 +133,44 @@ public class StudentMapperTest {
         }
 
     }
+
+    @Test
+    public void testGetJobCollect(){
+        List<JobCollect> jobCollects=applicantMapper.getJobCollects(1);
+        Assert.assertNotNull(jobCollects);
+    }
+
+    @Test
+    public void testGetCompCollect(){
+        List<CompCollect> compCollects=applicantMapper.getCompCollects(1);
+        Assert.assertNotNull(compCollects);
+    }
+
+    @Test
+    public void testGetOneJobCollect(){
+        JobCollect jobCollect=applicantMapper.getOneJobCollect(1);
+        System.out.print(jobCollect.getJob_id());
+        Assert.assertNotNull(jobCollect);
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void testAddJobCollect(){
+        JobCollect jobCollect=new JobCollect();
+        jobCollect.setJob_id(3);
+        jobCollect.setStu_id(3);
+        jobCollect.setJob_coll_time(new Date());
+        jobCollect.setIs_delete(1);
+        Timestamp d = new Timestamp(System.currentTimeMillis());
+        jobCollect.setIs_delete_time(d);
+        Integer integer=applicantMapper.addJobCollect(jobCollect);
+        JobCollect jobCollect1=applicantMapper.getOneJobCollect(3);
+
+
+
+    }
+
 
 
 }

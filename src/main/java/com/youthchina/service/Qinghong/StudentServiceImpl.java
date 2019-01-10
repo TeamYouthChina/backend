@@ -273,7 +273,7 @@ public class StudentServiceImpl implements StudentService {
                     jobCollect1.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
                     jobCollect1.setJob_id(job_id);
                     jobCollect1.setJob_coll_time(new Date());
-                    jobCollect1.setIs_delete(Boolean.FALSE);
+                    jobCollect1.setIs_delete(0);
                     Integer integer=applicantMapper.addJobCollect(jobCollect1);
                     return integer;
 
