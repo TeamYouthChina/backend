@@ -154,7 +154,6 @@ public class StudentMapperTest {
     }
 
     @Test
-    @Transactional
     @Rollback
     public void testAddJobCollect(){
         JobCollect jobCollect=new JobCollect();
