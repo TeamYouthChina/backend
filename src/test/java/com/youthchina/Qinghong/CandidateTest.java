@@ -1,6 +1,7 @@
 package com.youthchina.Qinghong;
 
 import com.youthchina.dao.Qinghong.ApplicantMapper;
+import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -27,6 +28,9 @@ public class CandidateTest {
     @Mock
     private ApplicantMapper applicantMapper;
 
+    @Mock
+    private JobMapper jobMapper;
+
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
@@ -34,7 +38,7 @@ public class CandidateTest {
 
     @Test
     public void getEducations() throws NotFoundException {
-        UserInfo userInfo=null;
+        UserInfo userInfo=new UserInfo();
         List<EducationInfo> educationInfos=new ArrayList<>();
         Mockito.when(applicantMapper.getUserInfo(0)).thenReturn(userInfo);
         Mockito.when(applicantMapper.getEducations(0)).thenReturn(educationInfos);
@@ -42,7 +46,7 @@ public class CandidateTest {
     }
     @Test
     public void getWorks() throws NotFoundException {
-        UserInfo userInfo=null;
+        UserInfo userInfo=new UserInfo();
         List<Work> works=new ArrayList<>();
         Mockito.when(applicantMapper.getUserInfo(0)).thenReturn(userInfo);
         Mockito.when(applicantMapper.getWorks(0)).thenReturn(works);
@@ -52,7 +56,7 @@ public class CandidateTest {
 
     @Test
     public void getActivities() throws NotFoundException {
-        UserInfo userInfo=null;
+        UserInfo userInfo=new UserInfo();
         List<Activity> activities=new ArrayList<>();
         Mockito.when(applicantMapper.getUserInfo(0)).thenReturn(userInfo);
         Mockito.when(applicantMapper.getActivities(0)).thenReturn(activities);
@@ -83,8 +87,14 @@ public class CandidateTest {
     public void addJobApply() throws NotFoundException {
         Job job=new Job();
         Mockito.when(applicantMapper.getJob(0)).thenReturn(job);
-        job.setJobEndTime(new Date(2018,12,30));
-        Assert.assertEquals(studentService.jobApply(0,0),job);
+        job.setJobEndTime(new Date(2019,12,30));
+        JobApply jobApply=new JobApply();
+        Mockito.when(applicantMapper.addApply(jobApply)).thenReturn(0);
+        if(studentService.jobApply(0,0)==0){
+            System.out.print("测试成功");
+        }else{
+            System.out.print("测试失败");
+        }
 
 
 
@@ -117,6 +127,44 @@ public class CandidateTest {
         if(num==num1+num2){
             System.out.print("测试成功");
         }else{
+            System.out.print("测试失败");
+        }
+
+    }
+
+    @Test
+    public void getJobCollect() throws NotFoundException{
+        UserInfo userInfo=new UserInfo();
+        List<JobCollect> jobCollects=new ArrayList<>();
+        Mockito.when(applicantMapper.getUserInfo(0)).thenReturn(userInfo);
+        Mockito.when(applicantMapper.getJobCollects(0)).thenReturn(jobCollects);
+        Assert.assertEquals(studentService.getJobCollect(0),jobCollects);
+    }
+
+    @Test
+    public void getCompCollect() throws NotFoundException{
+        UserInfo userInfo=new UserInfo();
+        List<CompCollect> compCollects=new ArrayList<>();
+        Mockito.when(applicantMapper.getUserInfo(0)).thenReturn(userInfo);
+        Mockito.when(applicantMapper.getCompCollects(0)).thenReturn(compCollects);
+        Assert.assertEquals(studentService.getCompCollect(0),compCollects);
+    }
+
+    @Test
+    public void addJobCollect() throws NotFoundException{
+        UserInfo userInfo=new UserInfo();
+        Mockito.when(applicantMapper.getUserInfo(0)).thenReturn(userInfo);
+        JobCollect jobCollect=null;
+        Mockito.when(applicantMapper.getOneJobCollect(0)).thenReturn(jobCollect);
+        Job job=new Job();
+        job.setIsDelete(0);
+        Mockito.when(jobMapper.selectJobByJobId(0)).thenReturn(job);
+        JobCollect jobCollect1=new JobCollect();
+        Mockito.when(applicantMapper.getStudentInfo(0)).thenReturn(new Student());
+        Mockito.when(applicantMapper.addJobCollect(jobCollect1)).thenReturn(0);
+        if(studentService.addJobCollection(0,0)==0){
+            System.out.print("测试成功");
+        }else {
             System.out.print("测试失败");
         }
 

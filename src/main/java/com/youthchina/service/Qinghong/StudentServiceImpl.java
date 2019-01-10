@@ -1,6 +1,7 @@
 package com.youthchina.service.Qinghong;
 
 import com.youthchina.dao.Qinghong.ApplicantMapper;
+import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -21,6 +22,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private ApplicantMapper applicantMapper;
+
+    @Autowired
+    private JobMapper jobMapper;
 
 
     /**
@@ -175,7 +179,7 @@ public class StudentServiceImpl implements StudentService {
      * @Author: Qinghong Wang
      * @Date: 2018/12/19
      */
-    public JobApply jobApply(Integer job_id, Integer stu_id) throws NotFoundException {
+    public Integer jobApply(Integer job_id, Integer stu_id) throws NotFoundException {
         Job job = applicantMapper.getJob(job_id);
         if (job == null) {
             throw new NotFoundException(404, 404, "不能找到该job_id下的职位信息");
@@ -188,8 +192,8 @@ public class StudentServiceImpl implements StudentService {
                 jobApply.setJob_id(job.getJobId());
                 jobApply.setStu_id(stu_id);
                 jobApply.setJob_cv_send(1);
-                applicantMapper.addApply(jobApply);
-                return jobApply;
+                Integer integer=applicantMapper.addApply(jobApply);
+                return integer;
             }
         }
     }
@@ -210,6 +214,76 @@ public class StudentServiceImpl implements StudentService {
             return jobApplies;
         }
     }
+
+    /**
+    * @Description: 通过user_id找到该id下所有的职位收藏信息
+    * @Param: [user_id]
+    * @return: java.util.List<com.youthchina.domain.Qinghong.JobCollect>
+    * @Author: Qinghong Wang
+    * @Date: 2019/1/9
+    */
+    public List<JobCollect> getJobCollect(Integer user_id) throws NotFoundException{
+        UserInfo userInfo=applicantMapper.getUserInfo(user_id);
+        if(userInfo==null){
+            throw new NotFoundException(404,404,"不能找到该user_id");
+        }else {
+            List<JobCollect> jobCollects=applicantMapper.getJobCollects(user_id);
+            return jobCollects;
+        }
+    }
+
+    /**
+    * @Description: 通过user_id找到该id下所有的公司收藏信息
+    * @Param: [user_id]
+    * @return: java.util.List<com.youthchina.domain.Qinghong.CompCollect>
+    * @Author: Qinghong Wang
+    * @Date: 2019/1/9
+    */
+    public List<CompCollect> getCompCollect(Integer user_id) throws NotFoundException{
+        UserInfo userInfo=applicantMapper.getUserInfo(user_id);
+        if(userInfo==null){
+            throw new NotFoundException(404,404,"不能找到该user_id");
+        }else {
+            List<CompCollect> compCollects=applicantMapper.getCompCollects(user_id);
+            return compCollects;
+        }
+    }
+
+    /**
+    * @Description: 通过job_id user_id添加一个职位收藏
+    * @Param: [job_id, user_id]
+    * @return: java.lang.Integer
+    * @Author: Qinghong Wang
+    * @Date: 2019/1/9
+    */
+    public Integer addJobCollection(Integer job_id,Integer user_id) throws NotFoundException{
+        UserInfo userInfo=applicantMapper.getUserInfo(user_id);
+        if(userInfo==null){
+            throw new  NotFoundException(404,404,"不能找到该user_id");
+        }else{
+            JobCollect jobCollect=applicantMapper.getOneJobCollect(job_id);
+            if(jobCollect!=null){
+                throw new NotFoundException(404,404,"不能收藏该职位，因为已经收藏");
+            }else{
+                Job job=jobMapper.selectJobByJobId(job_id);
+                if(job.getIsDelete()==1){
+                    throw new NotFoundException(404,404,"不能收藏该职位，因为该职位已经被删除");
+                }else {
+                    JobCollect jobCollect1=new JobCollect();
+                    jobCollect1.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
+                    jobCollect1.setJob_id(job_id);
+                    jobCollect1.setJob_coll_time(new Date());
+                    jobCollect1.setIs_delete(Boolean.FALSE);
+                    Integer integer=applicantMapper.addJobCollect(jobCollect1);
+                    return integer;
+
+                }
+            }
+        }
+
+    }
+
+
 
     /**
      * @Description: 通过collect_id删除收藏的信息，通过假删除实现

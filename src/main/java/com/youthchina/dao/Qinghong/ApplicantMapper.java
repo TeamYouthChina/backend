@@ -20,6 +20,10 @@ public interface ApplicantMapper {
     Integer addApply(JobApply jobApply);
     List<JobApply> getJobApplies(Integer stu_id);
     UserInfo getUserInfo(Integer user_id);
+    List<JobCollect> getJobCollects(Integer user_id);
+    List<CompCollect> getCompCollects(Integer user_id);
+    JobCollect getOneJobCollect(Integer job_id);
+    Integer addJobCollect(JobCollect jobCollect);
     Integer deleteJobCollect(Integer collect_id);
     Integer deleteCompCollect(Integer collect_id);
 }

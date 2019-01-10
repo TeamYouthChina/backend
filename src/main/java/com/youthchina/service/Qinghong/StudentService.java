@@ -17,7 +17,7 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
 
     List<Project> getProjects(Integer id) throws NotFoundException;
 
-    JobApply jobApply(Integer job_id, Integer stu_id) throws NotFoundException;
+    Integer jobApply(Integer job_id, Integer stu_id) throws NotFoundException;
 
     List<JobApply> getJobApplies(Integer user_id) throws NotFoundException;
 
@@ -26,4 +26,7 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
     Integer deleteCollect(Integer id) throws NotFoundException;
 
     List<Certificate> getCertificates(Integer id) throws NotFoundException;
+    List<JobCollect> getJobCollect(Integer user_id) throws NotFoundException;
+    List<CompCollect> getCompCollect(Integer user_id) throws NotFoundException;
+    Integer addJobCollection(Integer job_id,Integer user_id) throws NotFoundException;
 }
