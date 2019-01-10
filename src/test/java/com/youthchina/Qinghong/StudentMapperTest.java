@@ -75,6 +75,7 @@ public class StudentMapperTest {
     public void testGetStudentInfo(){
         Student student=applicantMapper.getStudentInfo(1);
         Assert.assertNotNull(student);
+        System.out.print(student.getUsername());
 
     }
 

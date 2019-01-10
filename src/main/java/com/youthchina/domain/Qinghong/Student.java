@@ -30,6 +30,7 @@ public class Student extends User implements HasId<Integer> {
     private IntroductionVideo introductionVideo;
     private List<Notification> notifications;
     private List<JobApply> jobApplies;
+    private List<Certificate> certificates;
 
 
     public Integer getStu_id() {
@@ -182,5 +183,13 @@ public class Student extends User implements HasId<Integer> {
 
     public void setJobApplies(List<JobApply> jobApplies) {
         this.jobApplies = jobApplies;
+    }
+
+    public List<Certificate> getCertificates() {
+        return certificates;
+    }
+
+    public void setCertificates(List<Certificate> certificates) {
+        this.certificates = certificates;
     }
 }

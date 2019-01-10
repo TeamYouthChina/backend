@@ -8,8 +8,9 @@ public class Project {
     private String proj_role;
     private String proj_start_time;
     private String proj_end_time;
-    private String proj_delivery;
-    private String delevery_publish;
+    private String proj_deliver;
+    private String delever_publish;
+    private String delever_pub_insti;
     private Integer stu_id;
     private Boolean is_delete;
     private Date is_delete_time;
@@ -54,20 +55,20 @@ public class Project {
         this.proj_end_time = proj_end_time;
     }
 
-    public String getProj_delivery() {
-        return proj_delivery;
+    public String getProj_deliver() {
+        return proj_deliver;
     }
 
-    public void setProj_delivery(String proj_delivery) {
-        this.proj_delivery = proj_delivery;
+    public void setProj_deliver(String proj_deliver) {
+        this.proj_deliver = proj_deliver;
     }
 
-    public String getDelevery_publish() {
-        return delevery_publish;
+    public String getDelever_publish() {
+        return delever_publish;
     }
 
-    public void setDelevery_publish(String delevery_publish) {
-        this.delevery_publish = delevery_publish;
+    public void setDelever_publish(String delever_publish) {
+        this.delever_publish = delever_publish;
     }
 
     public Integer getStu_id() {
@@ -92,5 +93,13 @@ public class Project {
 
     public void setIs_delete_time(Date is_delete_time) {
         this.is_delete_time = is_delete_time;
+    }
+
+    public String getDelever_pub_insti() {
+        return delever_pub_insti;
+    }
+
+    public void setDelever_pub_insti(String delever_pub_insti) {
+        this.delever_pub_insti = delever_pub_insti;
     }
 }

@@ -111,4 +111,5 @@ public class Work {
     public void setIs_delete_time(Date is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
+
 }
