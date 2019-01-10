@@ -785,9 +785,9 @@
               COM_QUESTION_LABEL_MAP qlm,
               COM_QUESTION_ANSWER_MAP qasm
               )
-              left join SYS_USER u on u.USER_ID = aqm.USER_ID
-              left join COM_QUESTION_ATTENTION qa on qa.ATTEN_ID = qam.ATTEN_ID
-              left join COM_LABEL_CLASS lc on lc.LAB_NUM = qlm.LAB_NUM
+              left join SYS_USER u on u.USER_ID = aqm.USER_ID and u.IS_DELETE = 0
+              left join COM_QUESTION_ATTENTION qa on qa.ATTEN_ID = qam.ATTEN_ID and qa.ATTEN_ID = 0
+              left join COM_LABEL_CLASS lc on lc.LAB_NUM = qlm.LAB_NUM and lc.START_STATUS = 1
               left join (
                    select qas.*, ae.* from
                    (
@@ -796,7 +796,8 @@
                    )
                    left join COM_ANSWER_EVALUATE ae on ae.EVALUATE_ID = asem.EVALUATE_ID
                    where asem.ANSWER_ID = qas.ANSWER_ID
-              ) as newqas on newqas.ANSWER_ID = qasm.ANSWER_ID
+
+              ) as newqas on newqas.ANSWER_ID = qasm.ANSWER_ID and newqas.IS_DELETE = 0
               where q.QUES_ID = aqm.QUES_ID
               and qam.QUES_ID = q.QUES_ID
               and qlm.QUES_ID = q.QUES_ID
@@ -811,8 +812,8 @@
               COM_ANSWER_COMMENT_MAP acm,
               COM_ANSWER_EVALUATE_MAP aem
               )
-              left join SYS_USER u on u.USER_ID = qas.USER_ID
-              left join COM_ANSWER_COMMENT ac on ac.COMMENT_ID = acm.COMMENT_ID
+              left join SYS_USER u on u.USER_ID = qas.USER_ID and u.IS_DELETE = 0
+              left join COM_ANSWER_COMMENT ac on ac.COMMENT_ID = acm.COMMENT_ID and ac.IS_DELETE = 0
               left join COM_ANSWER_EVALUATE ae on ae.EVALUATE_ID = aem.EVALUATE_ID
               where acm.ANSWER_ID = qas.ANSWER_ID
               and aem.ANSWER_ID = qas.ANSWER_ID
