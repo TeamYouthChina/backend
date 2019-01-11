@@ -42,7 +42,7 @@
     <collection property="questionAnswers" ofType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
         <id property="answer_id" column="ANSWER_ID"/>
         <result property="answer_content" column="ANSWER_CONTENT"/>
-        <result property="user_id" column="USER_ID"/>
+        <result property="answer_user_id" column="ANSWER_USER_ID"/>
         <result property="user_anony" column="USER_ANONY"/>
         <result property="answer_pub_time" column="ANSWER_PUB_TIME"/>
         <result property="answer_edit_time" column="ANSWER_EDIT_TIME"/>
@@ -119,6 +119,124 @@
         <result property="comment_edit_time" column="COMMENT_EDIT_TIME"/>
         <result property="is_delete" column="IS_DELETE"/>
         <result property="is_delete_time" column="IS_DELETE_TIME"/>
+    </collection>
+</resultMap>
+
+<resultMap id="commentInfo" type="com.youthchina.domain.jinhao.communityQA.AnswerComment">
+    <id property="comment_id" column="COMMENT_ID"/>
+    <result property="comment_content" column="COMMENT_CONTENT"/>
+    <result property="user_id" column="USER_ID"/>
+    <result property="user_anony" column="USER_ANONY"/>
+    <result property="comment_pub_time" column="COMMENT_PUB_TIME"/>
+    <result property="comment_edit_time" column="COMMENT_EDIT_TIME"/>
+    <result property="is_delete" column="IS_DELETE"/>
+    <result property="is_delete_time" column="IS_DELETE_TIME"/>
+    <association property="user" javaType="com.youthchina.domain.zhongyang.User">
+        <id property="id" column="USER_ID"/>
+        <result property="username" column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="age" column="USER_AGE" javaType="java.lang.Integer"/>
+        <result property="email" column="USER_EMAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
+        <result column="USER_REGIST_DATE" property="registerDate" jdbcType="VARCHAR"/>
+        <result column="USER_REAL_NAME" property="realName" jdbcType="VARCHAR"/>
+        <result column="USER_NATION" property="nation" jdbcType="VARCHAR"/>
+        <result column="USER_PHOTO" property="avatarUrl" jdbcType="VARCHAR"/>
+        <result property="gender" column="USER_GENDER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="role" javaType="java.lang.Integer" column="ROLE_TYPE"/>
+    </association>
+    <collection property="commentDiscusses" ofType="com.youthchina.domain.jinhao.communityQA.CommentDiscuss">
+        <id property="discuss_id" column="DISCUSS_ID"/>
+        <result property="discuss_content" column="DISCUSS_CONTENT"/>
+        <result property="user_id" column="USER_ID"/>
+        <result property="user_anony" column="USER_ANONY"/>
+        <result property="discuss_pub_time" column="DISCUSS_PUB_TIME"/>
+        <result property="is_delete" column="is_delete"/>
+        <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        <result property="discuss_target_id" column="DISCUSS_TARGET_ID"/>
+    </collection>
+    <collection property="commentEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
+        <id property="evaluate_id" column="EVALUATE_ID"/>
+        <result property="user_id" column="USER_ID"/>
+        <result property="evaluate_type" column="EVALUATE_TYPE"/>
+        <result property="evaluate_time" column="EVALUATE_TIME"/>
+    </collection>
+</resultMap>
+
+<resultMap id="discussInfo" type="com.youthchina.domain.jinhao.communityQA.CommentDiscuss">
+    <id property="discuss_id" column="DISCUSS_ID"/>
+    <result property="discuss_content" column="DISCUSS_CONTENT"/>
+    <result property="user_id" column="USER_ID"/>
+    <result property="user_anony" column="USER_ANONY"/>
+    <result property="discuss_pub_time" column="DISCUSS_PUB_TIME"/>
+    <result property="is_delete" column="is_delete_time"/>
+    <result property="is_delete_time" column="IS_DELETE_TIME"/>
+    <result property="discuss_target_id" column="DISCUSS_TARGET_ID"/>
+    <association property="user" javaType="com.youthchina.domain.zhongyang.User">
+        <id property="id" column="USER_ID"/>
+        <result property="username" column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="age" column="USER_AGE" javaType="java.lang.Integer"/>
+        <result property="email" column="USER_EMAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
+        <result column="USER_REGIST_DATE" property="registerDate" jdbcType="VARCHAR"/>
+        <result column="USER_REAL_NAME" property="realName" jdbcType="VARCHAR"/>
+        <result column="USER_NATION" property="nation" jdbcType="VARCHAR"/>
+        <result column="USER_PHOTO" property="avatarUrl" jdbcType="VARCHAR"/>
+        <result property="gender" column="USER_GENDER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="role" javaType="java.lang.Integer" column="ROLE_TYPE"/>
+    </association>
+    <collection property="discussEvaluateList" ofType="com.youthchina.domain.jinhao.communityQA.DiscussEvaluate">
+        <id property="evaluate_id" column="EVALUATE_ID"/>
+        <result property="user_id" column="USER_ID"/>
+        <result property="evaluate_type" column="EVALUATE_TYPE"/>
+        <result property="evaluate_time" column="EVALUATE_TIME"/>
+    </collection>
+</resultMap>
+
+<resultMap id="videoInfo" type="com.youthchina.domain.jinhao.communityQA.Video">
+    <id property="video_id" column="VIDEO_ID"/>
+    <result property="video_title" column="VIDEO_TITLE"/>
+    <result property="video_path" column="VIDEO_PATH"/>
+    <result property="video_upload_time" column="VIDEO_UPLOAD_TIME"/>
+    <result property="is_delete" column="IS_DELETE"/>
+    <result property="is_delete_time" column="IS_DELETE_TIME"/>
+    <association property="user" javaType="com.youthchina.domain.zhongyang.User">
+        <id property="id" column="USER_ID"/>
+        <result property="username" column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="age" column="USER_AGE" javaType="java.lang.Integer"/>
+        <result property="email" column="USER_EMAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
+        <result column="USER_REGIST_DATE" property="registerDate" jdbcType="VARCHAR"/>
+        <result column="USER_REAL_NAME" property="realName" jdbcType="VARCHAR"/>
+        <result column="USER_NATION" property="nation" jdbcType="VARCHAR"/>
+        <result column="USER_PHOTO" property="avatarUrl" jdbcType="VARCHAR"/>
+        <result property="gender" column="USER_GENDER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="role" javaType="java.lang.Integer" column="ROLE_TYPE"/>
+    </association>
+    <collection property="videoAttentions" ofType="com.youthchina.domain.jinhao.communityQA.VideoAttention">
+        <id property="atten_id" column="ATTEN_ID"/>
+        <result property="user_id" column="USER_ID"/>
+        <result property="atten_time" column="ATTEN_TIME"/>
+        <result property="atten_cancel" column="ATTEN_CANCEL"/>
+        <result property="atten_cancel_time" column="ATTEN_CANCEL_TIME"/>
+    </collection>
+    <collection property="videoComments" ofType="com.youthchina.domain.jinhao.communityQA.VideoComment">
+        <id property="comment_id" column="COMMENT_ID"/>
+        <result property="comment_content" column="COMMENT_CONTENT"/>
+        <result property="user_id" column="USER_ID"/>
+        <result property="user_anony" column="USER_ANONY"/>
+        <result property="comment_pub_time" column="COMMENT_PUB_TIME"/>
+        <result property="comment_edit_time" column="COMMENT_EDIT_TIME"/>
+        <result property="is_delete" column="IS_DELETE"/>
+        <result property="is_delete_time" column="IS_DELETE_TIME"/>
+    </collection>
+    <collection property="videoEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate">
+        <id property="evaluate_id" column="EVALUATE_ID"/>
+        <result property="user_id" column="USER_ID"/>
+        <result property="evaluate_type" column="EVALUATE_TYPE"/>
+        <result property="evaluate_time" column="EVALUATE_TIME"/>
     </collection>
 </resultMap>
     <!-- 列出前十个问题 -->
@@ -758,65 +876,59 @@
         and a.invit_id = m.invit_id
     </select>
 
-
-    <select id="getQuestoinAndItsAnswer" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.jinhao.communityQA.Question">
-        select q.*, a.* from COM_QUESTION q, COM_QUESTION_ANSWER_MAP m
-        left join COM_QUESTION_ANSWER a on a.answer_id = m.answer_id
-        where q.ques_id = #{ques_id}
-        and m.ques_id = q.ques_id
-        order by (
-        select count(d.evaluate_id) from COM_ANSWER_EVALUATE_MAP m1, COM_ANSWER_EVALUATE d
-        where m1.answer_id = a.answer_id
-        and d.evaluate_id = m1.evaluate_id
-        and d.evaluate_type = 1
-        )
-        limit 1
-    </select>
-
-
-    <!--有问题-->
     <select id="getQuestionById" resultMap="questionInfo" parameterType="java.lang.Integer">
-        select q.*, u.*, qa.*, lc.*, newqas.* from
-              (
-              COM_QUESTION q,
-              COM_AUTHOR_QUESTION_MAP aqm,
-              COM_QUESTION_ATTENTION_MAP qam,
-              COM_QUESTION_LABEL_MAP qlm,
-              COM_QUESTION_ANSWER_MAP qasm
-              )
-              left join SYS_USER u on u.USER_ID = aqm.USER_ID and u.IS_DELETE = 0
-              left join COM_QUESTION_ATTENTION qa on qa.ATTEN_ID = qam.ATTEN_ID and qa.ATTEN_ID = 0
-              left join COM_LABEL_CLASS lc on lc.LAB_NUM = qlm.LAB_NUM and lc.START_STATUS = 1
-              left join (
-                   select qas.*, ae.* from
-                   (
-                   COM_QUESTION_ANSWER qas,
-                   COM_ANSWER_EVALUATE_MAP asem
-                   )
-                   left join COM_ANSWER_EVALUATE ae on ae.EVALUATE_ID = asem.EVALUATE_ID
-                   where asem.ANSWER_ID = qas.ANSWER_ID
-
-              ) as newqas on newqas.ANSWER_ID = qasm.ANSWER_ID and newqas.IS_DELETE = 0
-              where q.QUES_ID = aqm.QUES_ID
-              and qam.QUES_ID = q.QUES_ID
-              and qlm.QUES_ID = q.QUES_ID
-              and qasm.QUES_ID = q.QUES_ID
-              and q.QUES_ID = #{ques_id}
+        select q.*, u.*, qa.*, lc.*, qas.* from COM_QUESTION q
+              left join (SYS_USER u, COM_AUTHOR_QUESTION_MAP aqm)
+                      on q.QUES_ID = aqm.QUES_ID and u.USER_ID = aqm.USER_ID and u.IS_DELETE = 0
+              left join (COM_QUESTION_ATTENTION qa, COM_QUESTION_ATTENTION_MAP qam)
+                      on qam.QUES_ID = q.QUES_ID and qa.ATTEN_ID = qam.ATTEN_ID and qa.ATTEN_CANCEL = 0
+              left join (COM_LABEL_CLASS lc, COM_QUESTION_LABEL_MAP qlm)
+                      on qlm.QUES_ID = q.QUES_ID and lc.LAB_NUM = qlm.LAB_NUM and lc.START_STATUS = 1
+              left join (COM_QUESTION_ANSWER qas, COM_QUESTION_ANSWER_MAP qasm)
+                      on qasm.QUES_ID = q.QUES_ID and qas.ANSWER_ID = qasm.ANSWER_ID and qas.IS_DELETE = 0
+              where q.QUES_ID = #{ques_id} and q.IS_DELETE = 0
     </select>
 
     <select id="getAnswerById" resultMap="answerInfo" parameterType="java.lang.Integer">
-        select qas.*, u.*, ac.*, ae.* from
-              (
-              COM_QUESTION_ANSWER qas,
-              COM_ANSWER_COMMENT_MAP acm,
-              COM_ANSWER_EVALUATE_MAP aem
-              )
+        select qas.*, u.*, ac.*, ae.* from COM_QUESTION_ANSWER qas
               left join SYS_USER u on u.USER_ID = qas.USER_ID and u.IS_DELETE = 0
-              left join COM_ANSWER_COMMENT ac on ac.COMMENT_ID = acm.COMMENT_ID and ac.IS_DELETE = 0
-              left join COM_ANSWER_EVALUATE ae on ae.EVALUATE_ID = aem.EVALUATE_ID
-              where acm.ANSWER_ID = qas.ANSWER_ID
-              and aem.ANSWER_ID = qas.ANSWER_ID
-              and qas.ANSWER_ID = #{answer_id}
+              left join (COM_ANSWER_COMMENT ac, COM_ANSWER_COMMENT_MAP acm)
+                      on acm.ANSWER_ID = qas.ANSWER_ID and ac.COMMENT_ID = acm.COMMENT_ID and ac.IS_DELETE = 0
+              left join (COM_ANSWER_EVALUATE ae, COM_ANSWER_EVALUATE_MAP aem)
+                      on ae.EVALUATE_ID = aem.EVALUATE_ID and aem.ANSWER_ID = qas.ANSWER_ID
+              where qas.ANSWER_ID = #{answer_id} and qas.IS_DELETE = 0
     </select>
+
+    <select id="getAnswerCommentById" resultMap="commentInfo" parameterType="java.lang.Integer">
+        select ac.*, u.*, ace.*, acd.* from COM_ANSWER_COMMENT ac
+              left join SYS_USER u on u.USER_ID = ac.USER_ID and u.IS_DELETE = 0
+              left join (COM_COMMENT_DISCUSS acd, COM_COMMENT_DISCUSS_MAP cdm)
+                      on cdm.COMMENT_ID = ac.COMMENT_ID and acd.DISCUSS_ID = cdm.DISCUSS_ID and acd.IS_DELETE = 0
+              left join (COM_COMMENT_EVALUATE ace, COM_COMMENT_EVALUATE_MAP cem)
+                      on cem.COMMENT_ID = ac.COMMENT_ID and ace.EVALUATE_ID = cem.EVALUATE_ID
+              where ac.COMMENT_ID = #{comment_id} and ac.IS_DELETE = 0
+    </select>
+    
+    <select id="getAnswerDiscussById" resultMap="discussInfo" parameterType="java.lang.Integer">
+        select cd.*, u.*, de.* from COM_COMMENT_DISCUSS cd
+        left join SYS_USER u
+                on u.USER_ID = cd.USER_ID and u.IS_DELETE = 0
+        left join (COM_DISCUSS_EVALUATE de, COM_DISCUSS_EVALUATE_MAP dem)
+                on dem.DISCUSS_ID = cd.DISCUSS_ID and de.EVALUATE_ID = dem.EVALUATE_ID
+        where cd.DISCUSS_ID = #{discuss_id} and cd.IS_DELETE = 0
+    </select>
+
+    <select id="getVideoById" resultMap="videoInfo" parameterType="java.lang.Integer">
+        select v.*, u.*, ve.*, vc.*, va.* from COM_USER_VIDEO v
+        left join (SYS_USER u, COM_USER_VIDEO_MAP uvm)
+                on uvm.VIDEO_ID = v.VIDEO_ID and uvm.USER_ID = u.USER_ID and u.IS_DELETE = 0
+        left join (COM_VIDEO_ATTENTION va, COM_VIDEO_ATTENTION_MAP vam)
+                on vam.VIDEO_ID = v.VIDEO_ID and vam.ATTEN_ID = va.ATTEN_ID and va.ATTEN_CANCEL = 0
+        left join (COM_VIDEO_COMMENT vc, COM_VIDEO_COMMENT_MAP vcm)
+                on vcm.VIDEO_ID = v.VIDEO_ID and vcm.COMMENT_ID = vc.COMMENT_ID and vc.IS_DELETE = 0
+        left join (COM_VIDEO_EVALUATE ve, COM_VIDEO_EVALUATE_MAP vem)
+                on vem.VIDEO_ID = v.VIDEO_ID and vem.EVALUATE_ID = ve.EVALUATE_ID
+        where v.VIDEO_ID = #{video_id} and v.IS_DELETE = 0
+    </select>
+
 </mapper>

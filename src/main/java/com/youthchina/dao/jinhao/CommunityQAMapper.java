@@ -200,9 +200,9 @@ public interface CommunityQAMapper {
     Integer deleteQuestionLabel(Integer ques_id);
 
 
-
-
-    Question getQuestoinAndItsAnswer(Integer quse_id);
     Question getQuestionById(Integer ques_id);
     QuestionAnswer getAnswerById(Integer answer_id);
+    AnswerComment getAnswerCommentById(Integer comment_id);
+    CommentDiscuss getAnswerDiscussById(Integer discuss_id);
+    Video getVideoById(Integer video_id);
 }

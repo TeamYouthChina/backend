@@ -968,6 +968,8 @@ public class CommunityQAMapperTest extends BaseTest{
     @Test
     public void getAnswerById(){
         QuestionAnswer questionAnswer = communityQAMapper.getAnswerById(1);
+        User user = questionAnswer.getAnswer_user();
+        System.out.println(user.getUsername());
         List<AnswerEvaluate> answerEvaluates = questionAnswer.getAnswerEvaluates();
         System.out.println(answerEvaluates.size());
         for(AnswerEvaluate answerEvaluate : answerEvaluates){
@@ -976,7 +978,51 @@ public class CommunityQAMapperTest extends BaseTest{
         System.out.println();
         List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
         System.out.println(answerComments.size());
+        for(AnswerComment answerComment : answerComments){
+            System.out.print(answerComment.getComment_id());
+        }
+        System.out.println();
         System.out.println(questionAnswer.getAnswerEvaluates().size());
+    }
+
+    @Test
+    public void getCommentById(){
+        AnswerComment answerComment = communityQAMapper.getAnswerCommentById(1);
+        User user = answerComment.getUser();
+        System.out.println(user.getUsername());
+        List<CommentEvaluate> commentEvaluates = answerComment.getCommentEvaluates();
+        System.out.println(commentEvaluates.size());
+        for(CommentEvaluate commentEvaluate : commentEvaluates){
+            System.out.print(commentEvaluate.getEvaluate_id() + " ");
+        }
+        System.out.println();
+        List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
+        System.out.println(commentDiscusses.size());
+        for(CommentDiscuss commentDiscuss : commentDiscusses){
+            System.out.print(commentDiscuss.getDiscuss_id());
+        }
+        System.out.println();
+    }
+
+    @Test
+    public void getVideoById(){
+        Video video = communityQAMapper.getVideoById(1);
+        User user = video.getUser();
+        System.out.println(user.getId());
+        List<VideoAttention> videoAttentions = video.getVideoAttentions();
+        List<VideoEvaluate> videoEvaluates = video.getVideoEvaluates();
+        List<VideoComment> videoComments = video.getVideoComments();
+        for(VideoAttention videoAttention : videoAttentions){
+            System.out.print(videoAttention.getAtten_id());
+        }
+        System.out.println();
+        for(VideoEvaluate videoEvaluate : videoEvaluates){
+            System.out.print(videoEvaluate.getEvaluate_id());
+        }
+        System.out.println();
+        for(VideoComment videoComment : videoComments){
+            System.out.print(videoComment.getComment_id());
+        }
     }
 }
 
