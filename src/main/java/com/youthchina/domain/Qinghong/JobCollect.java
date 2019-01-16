@@ -1,5 +1,8 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.domain.qingyang.Job;
+
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -9,19 +12,21 @@ import java.util.Date;
  * @create: 2018-11-29 16:59
  **/
 public class JobCollect {
-    private Integer collect_id;
+    private Integer coleect_id;
     private Integer job_id;
     private Date job_coll_time;
     private Integer stu_id;
-    private Boolean is_delete;
-    private Date is_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
+    private Job job;
 
-    public Integer getCollect_id() {
-        return collect_id;
+
+    public Integer getColeect_id() {
+        return coleect_id;
     }
 
-    public void setCollect_id(Integer collect_id) {
-        this.collect_id = collect_id;
+    public void setColeect_id(Integer coleect_id) {
+        this.coleect_id = coleect_id;
     }
 
     public Integer getJob_id() {
@@ -48,19 +53,28 @@ public class JobCollect {
         this.stu_id = stu_id;
     }
 
-    public Boolean getIs_delete() {
+    public Integer getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(Boolean is_delete) {
+    public void setIs_delete(Integer is_delete) {
         this.is_delete = is_delete;
     }
 
-    public Date getIs_delete_time() {
+    public Timestamp getIs_delete_time() {
         return is_delete_time;
     }
 
-    public void setIs_delete_time(Date is_delete_time) {
+    public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
 }
