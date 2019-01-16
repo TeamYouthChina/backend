@@ -41,6 +41,7 @@ public class StudentMapperTest {
     @Test
     public void testGetEducations(){
         List<EducationInfo> educationInfos=applicantMapper.getEducations(1);
+        System.out.print(educationInfos.get(0));
         if (educationInfos!=null){
             System.out.print("测试成功");
         }
