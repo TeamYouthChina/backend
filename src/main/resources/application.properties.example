@@ -1,0 +1,9 @@
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/youthchina
+# todo: change credential & database name
+spring.datasource.username=dbuser
+spring.datasource.password=dbpass
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.hikari.schema=youthchina
+
+mybatis.type-aliases-package=com.youthchina.domain
+mybatis.mapper-locations=classpath:mapper/**/*.xml
