@@ -13,7 +13,7 @@ import java.net.URISyntaxException;
 /**
  * Created by zhongyangwu on 11/21/18.
  */
-abstract class DomainCRUDController<T extends HasId<K>, K extends Serializable> {
+abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializable> {
 
     /**
      * @return DomainCRUDService to access the domain model
@@ -67,6 +67,6 @@ abstract class DomainCRUDController<T extends HasId<K>, K extends Serializable> 
     /**
      * @param id primary key of domain model
      * @return URI which can be used to access the domain model with primary key equals to k
-     * */
+     */
     abstract protected URI getUriForNewInstance(K id) throws URISyntaxException;
 }
