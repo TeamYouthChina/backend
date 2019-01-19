@@ -19,6 +19,7 @@ public class Industry {
     private Timestamp startDate;
     private Integer isDelete;
     private Timestamp isDeleteTime;
+    private Integer companyId;
 
     public Industry(){
 
@@ -86,5 +87,13 @@ public class Industry {
 
     public void setIsDeleteTime(Timestamp isDeleteTime) {
         this.isDeleteTime = isDeleteTime;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }

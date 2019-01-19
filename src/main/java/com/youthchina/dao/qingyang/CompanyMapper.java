@@ -42,5 +42,9 @@ public interface CompanyMapper {
     Integer updateCompanyVerification(CompanyVerification companyVerification);
 
     Integer insertCompanyVerification(CompanyVerification entity);
+
+    void deleteCompanyInd(Integer id);
+
+    Integer insertCompanyInd(List<Industry> industries);
 }
 

@@ -67,6 +67,7 @@
             <result property="indLevel" column="IND_LEVEL"/>
             <result property="indParentNum" column="IND_PARENT_NUM"/>
             <result property="startDate" column="START_DATE"/>
+            <result property="companyId" column="COMPANY_ID"/>
         </collection>
         <collection property="verificationList" ofType="com.youthchina.domain.qingyang.CompanyVerification">
             <id property="verifyId" column="VERIFY_ID"/>
@@ -281,4 +282,25 @@
         </foreach>
         AND IS_DELETE = 0
     </select>
+
+
+    <!--CompanyIndustry CURD-->
+
+
+    <!--insert Company's Industries By Company's List of Industry-->
+    <insert id="insertCompanyInd" useGeneratedKeys="true" keyProperty="companyIndusId">
+        INSERT INTO COMPANY_INDUSTRY
+        (   IND_NUM,   COMPANY_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES
+          <foreach item="ind" collection="list" separator=",">
+            (#{ind.indNum}, #{ind.companyId}, 0, NULL)
+          </foreach>
+    </insert>
+
+    <!--delete Company's Industries By CompanyID-->
+    <update id="deleteCompanyInd" parameterType="java.lang.Integer">
+      UPDATE COMPANY_INDUSTRY SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+      WHERE IND_NUM = #{id}
+    </update>
+
 </mapper>
