@@ -2,6 +2,7 @@ package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.StudentDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
@@ -19,7 +20,7 @@ import java.net.URISyntaxException;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/students/**")
-public class StudentController extends DomainCRUDController<Student, Integer> {
+public class StudentController extends DomainCRUDController<StudentDTO, Student, Integer> {
     private String url;
     private StudentService studentService;
 
