@@ -92,8 +92,8 @@
 
     <!--    添加文章评论 -->
     <insert id="addReply" parameterType="com.youthchina.domain.tianjian.ComEssayReply" useGeneratedKeys="true" keyProperty="reply_id">
-    INSERT INTO com_essay_reply (REPLY_CONTENT, USER_ID, USER_ANONY, REPLY_PUB_TIME, REPLY_EDIT_TIME, REPLY_DELETE, REPLY_DELETE_TIME)
-           values(#{reply_content},#{user_id},#{user_anony},#{reply_pub_time},#{reply_edit_time},#{reply_delete},#{reply_delete_time}
+    INSERT INTO com_essay_reply (REPLY_CONTENT, USER_ID, USER_ANONY, REPLY_PUB_TIME, REPLY_EDIT_TIME, IS_DELETE, IS_DELETE_TIME)
+           values(#{reply_content},#{user_id},#{user_anony},#{reply_pub_time},#{reply_edit_time},#{is_delete},#{is_delete_time}
                  )
     </insert>
 
@@ -119,7 +119,7 @@
     <update id="deleteReply">
     update com_essay_reply t1,com_essay_reply_map t2
     set
-         t1.REPLY_DELETE = 1
+         t1.IS_DELETE = 1
     where
          t1.USER_ID = #{user_id} and t2.ESSAY_ID = #{essay_id} and t2.REPLY_LEVEL = #{reply_level} and t1.REPLY_ID = t2.REPLY_ID
     </update>
@@ -127,7 +127,7 @@
     <!--    获取一个文章所有评论 -->
     <select id="getReply" parameterType="java.lang.Integer" resultType="com.youthchina.domain.tianjian.ComEssayReply">
     SELECT t1.* FROM com_essay_reply t1, com_essay_reply_map t2
-         WHERE t1.REPLY_ID = t2.REPLY_ID and t2.ESSAY_ID = #{essay_id} and t1.REPLY_DELETE = 0
+         WHERE t1.REPLY_ID = t2.REPLY_ID and t2.ESSAY_ID = #{essay_id} and t1.IS_DELETE = 0
     </select>
 
     <!--    添加回复评论 -->

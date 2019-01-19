@@ -149,7 +149,7 @@ public class CommunityMapperTest {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comessayanswer.setReply_pub_time(time);
         comessayanswer.setReply_edit_time(time);
-        comessayanswer.setReply_delete(0);
+        comessayanswer.setIs_delete(0);
         userMapper.addReply(comessayanswer);
         Assert.assertNotNull(comessayanswer.getReply_id());
     }
@@ -171,7 +171,7 @@ public class CommunityMapperTest {
         comessayreply.setReply_content("update");
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comessayreply.setReply_edit_time(time);
-        comessayreply.setReply_delete(0);
+        comessayreply.setIs_delete(0);
         comessayreply.setUser_anony(1);
         userMapper.updateReply(comessayreply,1);
     }

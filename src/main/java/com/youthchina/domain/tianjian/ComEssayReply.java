@@ -9,8 +9,8 @@ public class ComEssayReply {
     private Integer user_anony;
     private Timestamp reply_pub_time;
     private Timestamp reply_edit_time;
-    private Integer reply_delete;
-    private Timestamp reply_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
     public Integer getReply_id() {
         return reply_id;
@@ -60,19 +60,19 @@ public class ComEssayReply {
         this.reply_edit_time = reply_edit_time;
     }
 
-    public Integer getReply_delete() {
-        return reply_delete;
+    public Integer getIs_delete() {
+        return is_delete;
     }
 
-    public void setReply_delete(Integer reply_delete) {
-        this.reply_delete = reply_delete;
+    public void setIs_delete(Integer is_delete) {
+        this.is_delete = is_delete;
     }
 
-    public Timestamp getReply_delete_time() {
-        return reply_delete_time;
+    public Timestamp getIs_delete_time() {
+        return is_delete_time;
     }
 
-    public void setReply_delete_time(Timestamp reply_delete_time) {
-        this.reply_delete_time = reply_delete_time;
+    public void setIs_delete_time(Timestamp is_delete_time) {
+        this.is_delete_time = is_delete_time;
     }
 }
