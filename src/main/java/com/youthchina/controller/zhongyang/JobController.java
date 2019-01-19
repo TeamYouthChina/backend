@@ -1,5 +1,6 @@
 package com.youthchina.controller.zhongyang;
 
+import com.sun.tools.javac.util.List;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.JobSearchDTO;
 import com.youthchina.dto.JobSearchResultDTO;
@@ -9,9 +10,8 @@ import com.youthchina.service.qingyang.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by zhongyangwu on 12/2/18.

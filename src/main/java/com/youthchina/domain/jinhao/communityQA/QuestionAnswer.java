@@ -1,6 +1,9 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.domain.zhongyang.User;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class QuestionAnswer {
     private Integer answer_id;
@@ -9,27 +12,51 @@ public class QuestionAnswer {
     private Integer user_anony;
     private Timestamp answer_pub_time;
     private Timestamp answer_edit_time;
-    private Integer answer_delete;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
+    private User answer_user;
+    private List<AnswerEvaluate> answerEvaluates;
+    private List<AnswerComment> answerComments;
 
-    public Integer getAnswer_delete() {
-        return answer_delete;
+    public User getAnswer_user() {
+        return answer_user;
     }
 
-    public void setAnswer_delete(Integer answer_delete) {
-        this.answer_delete = answer_delete;
+    public void setAnswer_user(User answer_user) {
+        this.answer_user = answer_user;
     }
 
-    public Timestamp getAnswer_delete_time() {
-        return answer_delete_time;
+    public List<AnswerEvaluate> getAnswerEvaluates() {
+        return answerEvaluates;
     }
 
-    public void setAnswer_delete_time(Timestamp answer_delete_time) {
-        this.answer_delete_time = answer_delete_time;
+    public void setAnswerEvaluates(List<AnswerEvaluate> answerEvaluates) {
+        this.answerEvaluates = answerEvaluates;
     }
 
-    private Timestamp answer_delete_time;
+    public List<AnswerComment> getAnswerComments() {
+        return answerComments;
+    }
 
+    public void setAnswerComments(List<AnswerComment> answerComments) {
+        this.answerComments = answerComments;
+    }
 
+    public Integer getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(Integer is_delete) {
+        this.is_delete = is_delete;
+    }
+
+    public Timestamp getIs_delete_time() {
+        return is_delete_time;
+    }
+
+    public void setIs_delete_time(Timestamp is_delete_time) {
+        this.is_delete_time = is_delete_time;
+    }
     public String getAnswer_content() {
         return answer_content;
     }
