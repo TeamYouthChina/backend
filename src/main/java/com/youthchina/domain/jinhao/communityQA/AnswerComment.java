@@ -1,6 +1,9 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.domain.zhongyang.User;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class AnswerComment {
     private Integer comment_id;
@@ -11,7 +14,25 @@ public class AnswerComment {
     private Timestamp comment_edit_time;
     private Integer is_delete;
     private Timestamp is_delete_time;
+    private User user;
+    private List<CommentDiscuss> commentDiscusses;
+    private List<CommentEvaluate> commentEvaluates;
 
+    public List<CommentDiscuss> getCommentDiscusses() {
+        return commentDiscusses;
+    }
+
+    public void setCommentDiscusses(List<CommentDiscuss> commentDiscusses) {
+        this.commentDiscusses = commentDiscusses;
+    }
+
+    public List<CommentEvaluate> getCommentEvaluates() {
+        return commentEvaluates;
+    }
+
+    public void setCommentEvaluates(List<CommentEvaluate> commentEvaluates) {
+        this.commentEvaluates = commentEvaluates;
+    }
 
     public Integer getIs_delete() {
         return is_delete;
@@ -75,5 +96,13 @@ public class AnswerComment {
 
     public void setComment_edit_time(Timestamp comment_edit_time) {
         this.comment_edit_time = comment_edit_time;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

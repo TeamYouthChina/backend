@@ -201,6 +201,9 @@ public interface CommunityQAMapper {
 
 
     Question getQuestionById(Integer ques_id);
+    List<QuestionAnswer> getAnswersByQuestionId(Integer ques_id);
+    List<AnswerComment> getCommentsByAnswerId(Integer answer_id);
+    List<CommentDiscuss> getDiscussesByCommentId(Integer comment_id);
     QuestionAnswer getAnswerById(Integer answer_id);
     AnswerComment getAnswerCommentById(Integer comment_id);
     CommentDiscuss getAnswerDiscussById(Integer discuss_id);

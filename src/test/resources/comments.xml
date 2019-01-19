@@ -4,7 +4,7 @@
                         is_delete="0" is_delete_time="2018-12-04 13:32:40"/>
     <COM_ANSWER_COMMENT comment_id="2" comment_content="你这也回答的太好了吧！2" user_id="1" user_anony="0"
                         comment_pub_time="2018-12-04 13:32:40" comment_edit_time="2018-12-04 13:32:40"
-                        is_delete="1" is_delete_time="2018-12-04 13:32:40"/>
+                        is_delete="0" is_delete_time="2018-12-04 13:32:40"/>
     <COM_ANSWER_COMMENT comment_id="3" comment_content="你这也回答的太好了吧！3" user_id="1" user_anony="0"
                         comment_pub_time="2018-12-04 13:32:40" comment_edit_time="2018-12-04 13:32:40"
                         is_delete="0" is_delete_time="2018-12-04 13:32:40"/>
@@ -18,10 +18,10 @@
                         comment_pub_time="2018-12-04 13:32:40" comment_edit_time="2018-12-04 13:32:40"
                         is_delete="0" is_delete_time="2018-12-04 13:32:40"/>
     <COM_ANSWER_COMMENT_MAP COMMENT_ID="1" COMMENT_LEVEL="1" ANSWER_ID="1"/>
-    <COM_ANSWER_COMMENT_MAP COMMENT_ID="2" COMMENT_LEVEL="2" ANSWER_ID="1"/>
+    <COM_ANSWER_COMMENT_MAP COMMENT_ID="2" COMMENT_LEVEL="2" ANSWER_ID="2"/>
     <COM_ANSWER_COMMENT_MAP COMMENT_ID="3" COMMENT_LEVEL="3" ANSWER_ID="1"/>
-    <COM_ANSWER_COMMENT_MAP COMMENT_ID="4" COMMENT_LEVEL="1" ANSWER_ID="2"/>
-    <COM_ANSWER_COMMENT_MAP COMMENT_ID="5" COMMENT_LEVEL="2" ANSWER_ID="2"/>
+    <COM_ANSWER_COMMENT_MAP COMMENT_ID="4" COMMENT_LEVEL="4" ANSWER_ID="2"/>
+    <COM_ANSWER_COMMENT_MAP COMMENT_ID="5" COMMENT_LEVEL="5" ANSWER_ID="1"/>
 
 
     <COM_COMMENT_EVALUATE EVALUATE_ID="1" USER_ID="1" EVALUATE_TYPE="1" EVALUATE_TIME="2018-12-04 13:32:40"/>

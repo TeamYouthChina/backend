@@ -962,7 +962,33 @@ public class CommunityQAMapperTest extends BaseTest{
         for(QuestionAnswer questionAnswer : questionAnswers){
             System.out.print(questionAnswer.getAnswer_id() + "  ");
             System.out.print(questionAnswer.getAnswer_content() + "   ");
+            System.out.print(questionAnswer.getAnswer_user().getUsername() + "  ");
+            System.out.print(questionAnswer.getAnswerEvaluates().size() + "  ");
+            List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
+            for(AnswerComment answerComment : answerComments){
+                System.out.print(answerComment.getComment_content() + "  ");
+                System.out.print(answerComment.getUser().getUsername() + "  ");
+                List<CommentEvaluate> commentEvaluates = answerComment.getCommentEvaluates();
+                for(CommentEvaluate commentEvaluate : commentEvaluates){
+//                    if(commentEvaluate != null) count++;
+                    System.out.print(commentEvaluate.getEvaluate_id() + " ");
+                }
+                System.out.print("接下来是discuss" + " ");
+                List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
+                for(CommentDiscuss commentDiscuss : commentDiscusses){
+                    System.out.print(commentDiscuss.getDiscuss_content() + "  ");
+                    System.out.print(commentDiscuss.getUser().getUsername() + "  ");
+                    List<DiscussEvaluate> discussEvaluates = commentDiscuss.getDiscussEvaluateList();
+                    for(DiscussEvaluate discussEvaluate : discussEvaluates){
+                        System.out.print(discussEvaluate.getEvaluate_id() + " ");
+                    }
+                }
+                System.out.println("结束");
+            }
+            System.out.println();
         }
+        System.out.println();
+
     }
 
     @Test
@@ -987,7 +1013,7 @@ public class CommunityQAMapperTest extends BaseTest{
 
     @Test
     public void getCommentById(){
-        AnswerComment answerComment = communityQAMapper.getAnswerCommentById(1);
+        AnswerComment answerComment = communityQAMapper.getAnswerCommentById(2);
         User user = answerComment.getUser();
         System.out.println(user.getUsername());
         List<CommentEvaluate> commentEvaluates = answerComment.getCommentEvaluates();
@@ -1002,6 +1028,11 @@ public class CommunityQAMapperTest extends BaseTest{
             System.out.print(commentDiscuss.getDiscuss_id());
         }
         System.out.println();
+    }
+
+    @Test
+    public void getDiscussById(){
+        CommentDiscuss commentDiscuss = communityQAMapper.getAnswerDiscussById(1);
     }
 
     @Test
