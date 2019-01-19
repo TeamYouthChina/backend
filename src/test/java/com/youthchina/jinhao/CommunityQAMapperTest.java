@@ -144,7 +144,7 @@ public class CommunityQAMapperTest extends BaseTest{
     public void isEverAttentionQuestion(){
         QuestionAttention questionAttention = communityQAMapper.isQuestionAttention(1,1);
         Assert.assertNotNull(questionAttention);
-        QuestionAttention questionAttention1 = communityQAMapper.isQuestionAttention(1,2);
+        QuestionAttention questionAttention1 = communityQAMapper.isQuestionAttention(1,3);
         Assert.assertNull(questionAttention1);
     }
 
@@ -298,7 +298,7 @@ public class CommunityQAMapperTest extends BaseTest{
         AnswerEvaluate answerEvaluate = communityQAMapper.evaluateStatus(1, 1);
         Integer evaluate_type = 1;
         Assert.assertEquals(evaluate_type, answerEvaluate.getEvaluate_type());
-        AnswerEvaluate answerEvaluate1 = communityQAMapper.evaluateStatus(1, 5);
+        AnswerEvaluate answerEvaluate1 = communityQAMapper.evaluateStatus(1, 6);
         Assert.assertNull(answerEvaluate1);
     }
 
@@ -327,12 +327,12 @@ public class CommunityQAMapperTest extends BaseTest{
     //测试能不能建立回答和评价的映射以及能不能列出用户赞同过的回答
     @Test
     public void createAnswerEvaluateMap(){
-        communityQAMapper.createMapBetweenAnswerAndEvaluate(7,3);
+        communityQAMapper.createMapBetweenAnswerAndEvaluate(10,6);
         List<QuestionAnswer> questionAnswers = communityQAMapper.listMyAgreeAnswer(1);
-        Assert.assertEquals(3, questionAnswers.size());
+        Assert.assertEquals(4, questionAnswers.size());
         for(QuestionAnswer questionAnswer : questionAnswers){
-            if(questionAnswer.getAnswer_id() != 1 && questionAnswer.getAnswer_id() != 3 &&
-            questionAnswer.getAnswer_id() != 4){
+            if(questionAnswer.getAnswer_id() != 1 && questionAnswer.getAnswer_id() != 5 &&
+            questionAnswer.getAnswer_id() != 4 && questionAnswer.getAnswer_id() != 6){
                 Assert.fail();
             }
         }
@@ -392,9 +392,9 @@ public class CommunityQAMapperTest extends BaseTest{
     @Test
     public void getAllComment(){
         List<AnswerComment> answerComments = communityQAMapper.listAllAnswerComment(1);
-        Assert.assertEquals(2, answerComments.size());
+        Assert.assertEquals(3, answerComments.size());
         for(AnswerComment answerComment : answerComments){
-            if(answerComment.getComment_id() != 1 && answerComment.getComment_id() != 3){
+            if(answerComment.getComment_id() != 1 && answerComment.getComment_id() != 3 && answerComment.getComment_id() != 5){
                 Assert.fail();
             }
         }
@@ -406,7 +406,7 @@ public class CommunityQAMapperTest extends BaseTest{
         List<AnswerComment> answerComments = communityQAMapper.listAllAnswerComment(2);
         Assert.assertEquals(3, answerComments.size());
         for(AnswerComment answerComment : answerComments){
-            if(answerComment.getComment_id() != 4 && answerComment.getComment_id() != 5 && answerComment.getComment_id()
+            if(answerComment.getComment_id() != 4 && answerComment.getComment_id() != 2 && answerComment.getComment_id()
             != 6){
                 Assert.fail();
             }
@@ -593,7 +593,7 @@ public class CommunityQAMapperTest extends BaseTest{
         Assert.assertEquals(expect, communityQAMapper.countDiscussAgreement(2));
     }
 
-    //测试嫩不能重新价
+    //测试能不能重新价
     @Test
     public void deleteEvaluate(){
         DiscussEvaluate discussEvaluate = communityQAMapper.getDiscussEvaluate(1);
@@ -703,9 +703,9 @@ public class CommunityQAMapperTest extends BaseTest{
     @Test
     public void getUserAllVideo(){
         List<Video> videos = communityQAMapper.listAllMyVideos(1);
-        Assert.assertEquals(4, videos.size());
+        Assert.assertEquals(3, videos.size());
         for(Video video : videos){
-            if(video.getVideo_id() != 3 && video.getVideo_id() != 7 && video.getVideo_id() != 9
+            if(video.getVideo_id() != 7 && video.getVideo_id() != 9
             && video.getVideo_id() != 11){
                 Assert.fail();
             }
@@ -735,12 +735,12 @@ public class CommunityQAMapperTest extends BaseTest{
     //测试能不能建立映射
     @Test
     public void createUserVideoMap(){
-        communityQAMapper.createMapBetweenVideoAndUser(1,1);
+        communityQAMapper.createMapBetweenVideoAndUser(2,1);
         List<Video> videos = communityQAMapper.listAllMyVideos(1);
-        Assert.assertEquals(5, videos.size());
+        Assert.assertEquals(4, videos.size());
         for(Video video : videos){
-            if(video.getVideo_id() != 3 && video.getVideo_id() != 7 && video.getVideo_id() != 9
-                    && video.getVideo_id() != 11 && video.getVideo_id() != 1){
+            if(video.getVideo_id() != 2 && video.getVideo_id() != 7 && video.getVideo_id() != 9
+                    && video.getVideo_id() != 11){
                 Assert.fail();
             }
         }
@@ -809,7 +809,7 @@ public class CommunityQAMapperTest extends BaseTest{
     //测试能不能重新关注视频
     @Test
     public void reAttentionVideo(){
-        VideoAttention videoAttention = communityQAMapper.getVideoAttention(6);
+        VideoAttention videoAttention = communityQAMapper.getVideoAttention(5);
         videoAttention.setAtten_cancel(0);
         communityQAMapper.reAddAttentionToVideo(videoAttention);
         Integer atten = communityQAMapper.countVideoFollwers(1);
@@ -831,7 +831,7 @@ public class CommunityQAMapperTest extends BaseTest{
     //测试能不能拿到视频的评论数
     @Test
     public void countVideoComments(){
-        Integer expect = 3;
+        Integer expect = 2;
         Assert.assertEquals(expect, communityQAMapper.countVideoComments(1));
     }
 
@@ -863,7 +863,7 @@ public class CommunityQAMapperTest extends BaseTest{
     @Test
     public void createVideoCommentMap(){
         communityQAMapper.createMapBetweenCommentAndVideo(4,1,4);
-        Integer expect = 4;
+        Integer expect = 3;
         Assert.assertEquals(expect, communityQAMapper.countVideoComments(1));
     }
 
@@ -880,22 +880,22 @@ public class CommunityQAMapperTest extends BaseTest{
     //测试能不能得到视频的点赞数
     @Test
     public void countVideoAgreement(){
-        Integer expect = 3;
+        Integer expect = 2;
         Assert.assertEquals(expect, communityQAMapper.countVideoAgreement(1));
     }
     //测试能不能拿到视频的不赞同数
     @Test
     public void  countVideoDisagreement(){
-        Integer expect = 2;
+        Integer expect = 1;
         Assert.assertEquals(expect, communityQAMapper.countVideoDisagreement(1));
     }
 
     //测试能不能拿到用户对该视频的评价状态
     @Test
     public void videoEvaluateStatus(){
-        VideoEvaluate videoEvaluate = communityQAMapper.videoEvaluateStatus(1,2);
+        VideoEvaluate videoEvaluate = communityQAMapper.videoEvaluateStatus(1,1);
         Integer e = 1;
-        Integer id = 2;
+        Integer id = 1;
         Assert.assertEquals(e, videoEvaluate.getEvaluate_type());
         Assert.assertEquals(id, videoEvaluate.getEvaluate_id());
         VideoEvaluate videoEvaluate1 = communityQAMapper.videoEvaluateStatus(3,1);
@@ -926,7 +926,7 @@ public class CommunityQAMapperTest extends BaseTest{
     @Test
     public void createVideoEvaluateMap(){
         communityQAMapper.createMapBetweenEvaluationAndVideo(7,1);
-        Integer expect = 4;
+        Integer expect = 3;
         Assert.assertEquals(expect, communityQAMapper.countVideoAgreement(1));
     }
 
@@ -936,8 +936,8 @@ public class CommunityQAMapperTest extends BaseTest{
         VideoEvaluate videoEvaluate = communityQAMapper.getVideoEvaluate(1);
         videoEvaluate.setEvaluate_type(2);
         communityQAMapper.reEvaluateVideo(videoEvaluate);
-        Integer agreement = 2;
-        Integer disagreement = 3;
+        Integer agreement = 1;
+        Integer disagreement = 2;
         Assert.assertEquals(agreement, communityQAMapper.countVideoAgreement(1));
         Assert.assertEquals(disagreement, communityQAMapper.countVideoDisagreement(1));
     }

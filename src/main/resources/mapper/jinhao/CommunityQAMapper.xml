@@ -277,7 +277,7 @@
 
     <!-- 给问题添加标签 -->
     <insert id="addLabels">
-        insert into COM_QUESTION_LAB_MAP(ques_id, lab_num)
+        insert into COM_QUESTION_LABEL_MAP(ques_id, lab_num)
         values
         <foreach collection ="labels" item="label" index= "index" separator =",">
             (
@@ -307,7 +307,7 @@
     <!-- 列出某个问题的所有标签 -->
     <select id="listAllQuesetionLabel" parameterType="java.lang.Integer"
             resultType="com.youthchina.domain.jinhao.communityQA.Label">
-        select l.* from COM_LAB_CLASS l, COM_QUESTION_LAB_MAP m
+        select l.* from SYS_COM_LABEL_CLASS l, COM_QUESTION_LABEL_MAP m
         where m.ques_id = #{ques_id}
           and m.lab_num = l.lab_num
           and l.start_status = 1
@@ -315,7 +315,7 @@
 
     <!-- 问题删除时，要删除对应的标签映射 -->
     <delete id="deleteQuestionLabel" parameterType="java.lang.Integer">
-        delete from COM_QUESTION_LAB_MAP where ques_id = #{ques_id}
+        delete from COM_QUESTION_LABEL_MAP where ques_id = #{ques_id}
     </delete>
 
     <!-- 回答问题 -->
@@ -792,7 +792,7 @@
         and a.evaluate_type = 1
         and a.evaluate_id = m.evaluate_id
         and s.answer_id = m.answer_id
-        and s.id_delete = 0
+        and s.is_delete = 0
     </select>
 
     <!-- 得到问题的回答数 -->
@@ -828,7 +828,7 @@
                       on q.QUES_ID = aqm.QUES_ID and u.USER_ID = aqm.USER_ID and u.IS_DELETE = 0
               left join (COM_QUESTION_ATTENTION qa, COM_QUESTION_ATTENTION_MAP qam)
                       on qam.QUES_ID = q.QUES_ID and qa.ATTEN_ID = qam.ATTEN_ID and qa.ATTEN_CANCEL = 0
-              left join (COM_LABEL_CLASS lc, COM_QUESTION_LABEL_MAP qlm)
+              left join (SYS_COM_LABEL_CLASS lc, COM_QUESTION_LABEL_MAP qlm)
                       on qlm.QUES_ID = q.QUES_ID and lc.LAB_NUM = qlm.LAB_NUM and lc.START_STATUS = 1
               left join (COM_QUESTION_ANSWER qas, COM_QUESTION_ANSWER_MAP qasm)
                       on qasm.QUES_ID = q.QUES_ID and qas.ANSWER_ID = qasm.ANSWER_ID and qas.IS_DELETE = 0
