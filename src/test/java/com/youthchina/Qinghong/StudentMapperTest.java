@@ -87,12 +87,12 @@ public class StudentMapperTest {
     @Test
     public void testAddApply(){
         JobApply jobApply=new JobApply();
-        jobApply.setJob_cv_send(2);
+        jobApply.setJob_cv_send(1);
         Timestamp d = new Timestamp(System.currentTimeMillis());
         jobApply.setJob_apply_time(d);
         jobApply.setJob_apply_status("success");
-        jobApply.setStu_id(2);
-        jobApply.setJob_id(2);
+        jobApply.setStu_id(1);
+        jobApply.setJob_id(1);
 
         Integer key=applicantMapper.addApply(jobApply);
         if(key!=0){
@@ -158,14 +158,14 @@ public class StudentMapperTest {
     @Rollback
     public void testAddJobCollect(){
         JobCollect jobCollect=new JobCollect();
-        jobCollect.setJob_id(3);
-        jobCollect.setStu_id(3);
+        jobCollect.setJob_id(1);
+        jobCollect.setStu_id(1);
         jobCollect.setJob_coll_time(new Date());
         jobCollect.setIs_delete(1);
         Timestamp d = new Timestamp(System.currentTimeMillis());
         jobCollect.setIs_delete_time(d);
         Integer integer=applicantMapper.addJobCollect(jobCollect);
-        JobCollect jobCollect1=applicantMapper.getOneJobCollect(3);
+        JobCollect jobCollect1=applicantMapper.getOneJobCollect(1);
 
 
 

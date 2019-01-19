@@ -1,4 +1,5 @@
 #######################################一期数据表###############################################
+use YouthChina;
 create table IF NOT EXISTS `STU_INFO`
 (
   `STU_ID`          INT AUTO_INCREMENT
@@ -472,7 +473,7 @@ create table IF NOT EXISTS `HR_VIDEO_INVITATION`
 
 create table IF NOT EXISTS `STU_JOB_COLLECT`
 (
-  `COLEECT_ID`     INT AUTO_INCREMENT
+  `COLLECT_ID`     INT AUTO_INCREMENT
     COMMENT '收藏ID',
   `JOB_ID`         INTEGER   NOT NULL
     COMMENT '职位ID',
@@ -484,13 +485,13 @@ create table IF NOT EXISTS `STU_JOB_COLLECT`
     COMMENT '是否删除',
   `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
     COMMENT '删除时间',
-  PRIMARY KEY (`COLEECT_ID`)
+  PRIMARY KEY (`COLLECT_ID`)
 )
   COMMENT = '职位信息收藏表';
 
 create table IF NOT EXISTS `STU_COMP_COLLECT`
 (
-  `COLEECT_ID`        INT AUTO_INCREMENT
+  `COLLECT_ID`        INT AUTO_INCREMENT
     COMMENT '收藏ID',
   `COMPANY_ID`        INTEGER   NOT NULL
     COMMENT '企业ID',
@@ -502,7 +503,7 @@ create table IF NOT EXISTS `STU_COMP_COLLECT`
     COMMENT '是否删除',
   `IS_DELETE_TIME`    TIMESTAMP NULL DEFAULT NULL
     COMMENT '删除时间',
-  PRIMARY KEY (`COLEECT_ID`)
+  PRIMARY KEY (`COLLECT_ID`)
 )
   COMMENT = '企业信息收藏表';
 
@@ -514,9 +515,9 @@ create table IF NOT EXISTS `STU_JOB_APPLY`
     COMMENT '应聘者ID',
   `JOB_ID`           INTEGER      NOT NULL
     COMMENT '职位ID',
-  `JOB_CV_SEND`      TIMESTAMP    NOT NULL
+  `JOB_CV_SEND`      INTEGER    NOT NULL
     COMMENT '简历是否发送',
-  `JOB_APPLY_TIME`   INTEGER      NOT NULL
+  `JOB_APPLY_TIME`   TIMESTAMP      NOT NULL
     COMMENT '职位申请时间',
   `JOB_APPLY_STATUS` VARCHAR(200) NOT NULL
     COMMENT '职位申请状态',
