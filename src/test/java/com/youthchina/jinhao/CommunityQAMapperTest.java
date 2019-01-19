@@ -973,6 +973,7 @@ public class CommunityQAMapperTest extends BaseTest{
 //                    if(commentEvaluate != null) count++;
                     System.out.print(commentEvaluate.getEvaluate_id() + " ");
                 }
+
                 System.out.print("接下来是discuss" + " ");
                 List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
                 for(CommentDiscuss commentDiscuss : commentDiscusses){
