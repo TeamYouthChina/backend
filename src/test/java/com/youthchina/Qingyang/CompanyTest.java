@@ -5,6 +5,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.CompanyVerification;
+import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -102,7 +103,14 @@ public class CompanyTest {
         company.setCompanyLogo("1");
         company.setCompanyVerify(1);
         company.setUserId(1);
+        List<Industry> industryList = new ArrayList<>();
+        Industry industry = new Industry();
+        industry.setCompanyId(1);
+        industry.setIndNum(1);
+        industryList.add(industry);
+        company.setIndList(industryList);
         companyMapper.insertCompany(company);
+        companyMapper.insertCompanyInd(company.getIndList());
     }
 
     @Test
@@ -125,10 +133,13 @@ public class CompanyTest {
         Company company = companyMapper.selectCompany(1);
         company.setCompanyName("QQ");
         companyMapper.updateCompany(company);
+        companyMapper.deleteCompanyInd(company.getCompanyId());
+        companyMapper.insertCompanyInd(company.getIndList());
     }
 
     @Test
     public void testDeleteCompany() {
+        companyMapper.deleteCompanyInd(1);
         companyMapper.deleteCompany(1);
     }
 

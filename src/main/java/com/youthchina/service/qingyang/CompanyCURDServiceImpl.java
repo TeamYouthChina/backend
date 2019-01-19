@@ -26,17 +26,33 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Override
     public void delete(Integer id) throws NotFoundException {
         companyMapper.deleteCompany(id);
+        companyMapper.deleteCompanyInd(id); // CompanyID
     }
 
     @Override
-    public Company update(Company company_qingyang) throws NotFoundException {
-        Integer result = companyMapper.updateCompany(company_qingyang);
-        return this.get(result);
+    public Company update(Company company) throws NotFoundException {
+        Integer result = companyMapper.updateCompany(company);
+        this.updateInd(company);
+        return companyMapper.selectCompany(company.getCompanyId());
     }
 
     @Override
     public Company add(Company entity) {
         Integer result = companyMapper.insertCompany(entity);
+        this.addInd(entity);
         return companyMapper.selectCompany(result);
+    }
+
+    public void addInd(Company company) {
+        companyMapper.insertCompanyInd(company.getIndList());
+    }
+
+    public void deleteInd(Company company) throws NotFoundException {
+        companyMapper.deleteCompanyInd(company.getCompanyId());
+    }
+
+    public void updateInd(Company company) throws NotFoundException {
+        this.deleteInd(company);
+        this.addInd(company);
     }
 }
