@@ -97,9 +97,9 @@ public class UserServiceImpl implements UserService {
     public int addEssay(ComEssay essay, List<Integer> lab_num, Integer user_id) {
         mapper.addEssay(essay);
         int essayid = essay.getEssay_id();
-        List<ComEssayLabel> l = new ArrayList<ComEssayLabel>();
+        List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
         for( int i = 0 ; i < lab_num.size() ; i++) {
-            ComEssayLabel cel = new ComEssayLabel();
+            ComEssayLabelMap cel = new ComEssayLabelMap();
             cel.setEssay_id(essayid);
             cel.setLab_num(lab_num.get(i));
             l.add(cel);
@@ -127,9 +127,9 @@ public class UserServiceImpl implements UserService {
          mapper.updateEssayAuthor(caem);
          mapper.deleteEssayLabel(essay.getEssay_id());
 
-         List<ComEssayLabel> l = new ArrayList<ComEssayLabel>();
+         List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
         for( int i = 0 ; i < lab_num.size() ; i++) {
-            ComEssayLabel cel = new ComEssayLabel();
+            ComEssayLabelMap cel = new ComEssayLabelMap();
             cel.setEssay_id(essay.getEssay_id());
             cel.setLab_num(lab_num.get(i));
             l.add(cel);

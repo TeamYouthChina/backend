@@ -28,7 +28,6 @@ import java.util.List;
 public class CommunityMapperTest {
     @Autowired
     private CommunityMapper userMapper;
-
     @Test
     public void testGetEssay() {
         ComEssay comEssay = userMapper.getEssay(1);
@@ -81,15 +80,15 @@ public class CommunityMapperTest {
 
     @Test
     public void testAddEssayLabel() {
-        List<ComEssayLabel> cel = new ArrayList<ComEssayLabel>();
-        ComEssayLabel comEssayLabel = new ComEssayLabel();
-        comEssayLabel.setEssay_id(1);
-        comEssayLabel.setLab_num(1);
-        ComEssayLabel comEssayLabel1 = new ComEssayLabel();
-        comEssayLabel1.setEssay_id(1);
-        comEssayLabel1.setLab_num(2);
-        cel.add(comEssayLabel);
-        cel.add(comEssayLabel1);
+        List<ComEssayLabelMap> cel = new ArrayList<ComEssayLabelMap>();
+        ComEssayLabelMap comEssayLabelMap = new ComEssayLabelMap();
+        comEssayLabelMap.setEssay_id(1);
+        comEssayLabelMap.setLab_num(1);
+        ComEssayLabelMap comEssayLabelMap1 = new ComEssayLabelMap();
+        comEssayLabelMap1.setEssay_id(1);
+        comEssayLabelMap1.setLab_num(2);
+        cel.add(comEssayLabelMap);
+        cel.add(comEssayLabelMap1);
         userMapper.addEssayLabel(cel);
     }
 

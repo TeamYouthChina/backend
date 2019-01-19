@@ -1,8 +1,17 @@
 package com.youthchina.domain.tianjian;
 
-public class ComEssayLabel {
+public class ComEssayLabelMap {
+    Integer lab_id;
     Integer lab_num;
     Integer essay_id;
+
+    public Integer getLab_id() {
+        return lab_id;
+    }
+
+    public void setLab_id(Integer lab_id) {
+        this.lab_id = lab_id;
+    }
 
     public Integer getLab_num() {
         return lab_num;

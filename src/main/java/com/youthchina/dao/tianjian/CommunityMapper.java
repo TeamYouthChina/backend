@@ -24,7 +24,7 @@ public interface CommunityMapper {
 
     int updateEssayAuthor(ComAuthorEssayMap caem);
 
-    int addEssayLabel(List<ComEssayLabel> cel);
+    int addEssayLabel(List<ComEssayLabelMap> cel);
 
     int deleteEssayLabel(Integer essay_id);
 

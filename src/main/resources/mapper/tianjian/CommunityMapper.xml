@@ -43,16 +43,16 @@
 
     <!--    添加文章标签 -->
     <insert id="addEssayLabel">
-        INSERT INTO com_essay_label  (LAB_NUM,ESSAY_ID)
+        INSERT INTO com_essay_label_map  (LAB_ID,LAB_NUM,ESSAY_ID)
         values
         <foreach collection ="list" item="item" index= "index" separator =",">
-            ( #{item.lab_num}, #{item.essay_id})
+            (#{item.lab_id}, #{item.lab_num}, #{item.essay_id})
         </foreach >
     </insert>
 
     <!--    删除文章标签 -->
     <delete id="deleteEssayLabel" >
-        DELETE FROM com_essay_label WHERE ESSAY_ID = #{essay_id}
+        DELETE FROM com_essay_label_map WHERE ESSAY_ID = #{essay_id}
     </delete>
 
     <!--    添加文章作者 -->
