@@ -28,7 +28,11 @@ public class FriendsServiceImpl implements FriendsService {
 
     @Override
     public int deleteFriend(ComFriendRelation comFriendRelation, Integer own_Id) {
-        return friendsMapper.deleteFriend(comFriendRelation,own_Id);
+        ComFriendRelation comFriendRelationAnother= new ComFriendRelation();
+        comFriendRelationAnother.setUser_id(own_Id);
+        comFriendRelationAnother.setIs_delete_time(comFriendRelation.getIs_delete_time());
+        friendsMapper.deleteFriend(comFriendRelation,own_Id);
+        return friendsMapper.deleteFriend(comFriendRelationAnother,comFriendRelation.getUser_id());
     }
 
     @Override
