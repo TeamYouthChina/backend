@@ -8,6 +8,7 @@ import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -272,7 +273,8 @@ public class StudentServiceImpl implements StudentService {
                     JobCollect jobCollect1=new JobCollect();
                     jobCollect1.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
                     jobCollect1.setJob_id(job_id);
-                    jobCollect1.setJob_coll_time(new Date());
+                    Timestamp d = new Timestamp(System.currentTimeMillis());
+                    jobCollect1.setJob_coll_time(d);
                     jobCollect1.setIs_delete(0);
                     Integer integer=applicantMapper.addJobCollect(jobCollect1);
                     return integer;

@@ -173,9 +173,9 @@ public class StudentMapperTest {
         JobCollect jobCollect=new JobCollect();
         jobCollect.setJob_id(1);
         jobCollect.setStu_id(1);
-        jobCollect.setJob_coll_time(new Date());
         jobCollect.setIs_delete(1);
         Timestamp d = new Timestamp(System.currentTimeMillis());
+        jobCollect.setJob_coll_time(d);
         jobCollect.setIs_delete_time(d);
         Integer integer=applicantMapper.addJobCollect(jobCollect);
         JobCollect jobCollect1=applicantMapper.getOneJobCollect(1);

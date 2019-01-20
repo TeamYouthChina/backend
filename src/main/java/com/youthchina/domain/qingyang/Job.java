@@ -2,6 +2,7 @@ package com.youthchina.domain.qingyang;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Job {
     /*主键, 职位ID (JOB_INFO)*/
@@ -13,37 +14,42 @@ public class Job {
     private Date    jobEndTime;
 
 /*                                                      允许空值
-职位ID 主键       JOB_ID	        INTEGER		        否
-职位名称        JOB_NAME	        VARCHAR(200)		否
-职位类别编号        JOB_PROF_NUM	INTEGER		        否
-职位起始时间       JOB_START_TIME	DATE		        否
-职位截止时间		   JOB_END_TIME	DATE		        否
-是否全职			  JOB_TIME	    INTEGER		        否	0-否，1-是
-职位描述		    JOB_DESCRIPTION	VARCHAR(200)		否
-职责描述(可空)    JOB_DUTY	    VARCHAR(200)		是
-学历要求(可空)    JOB_REQ	        VARCHAR(200)		是
-工作地点         JOB_LOCATION	VARCHAR(200)		否
-职位亮点(可空)    JOB_HIGHLIGHT	VARCHAR(200)		是
-职位薪资(可空)	JOB_SALARY	    VARCHAR(200)		是
-简历接收邮箱      CV_RECEI_MAIL	VARCHAR(200)		否
-简历命名规则(可空)  CV_NAME_RULE	VARCHAR(200)		是
-职位状态			JOB_ACTIVE	    INTEGER		        否	1，2，3,4,5
-招聘者ID		外键		HR_ID	    INTEGER	        	否
-企业ID		外键		COMPANY_ID	INTEGER	            否
-是否删除				IS_DELETE	INTEGER	            否	0-默认不删除
-删除时间				IS_DELETE_TIME	TIMESTAMP	    是
+职位ID		主键		JOB_ID	INTEGER	是	否
+职位名称				JOB_NAME	VARCHAR(200)	否	否
+职位类别编号			JOB_PROF_NUM	INTEGER	否	否
+职位起始日期			JOB_START_TIME	DATE	否	否
+职位截止日期			JOB_END_TIME	DATE	否	否
+职位性质				JOB_TIME	INTEGER	否	否	1-实习，2-兼职，3-全职
+职位描述				JOB_DESCRIPTION	VARCHAR(200)	否	否
+职责描述				JOB_DUTY	VARCHAR(200)	否	是
+职位亮点				JOB_HIGHLIGHT	VARCHAR(200)	否	是
+职位薪资下限			JOB_SALARY_FLOOR	INTEGER	否	是
+职位薪资上限			JOB_SALARY_CAP	INTEGER	否	是
+职位链接				JOB_LINK	VARCHAR(500)	否	是
+简历接收邮箱			CV_RECEI_MAIL	VARCHAR(200)	否	否
+简历命名规则			CV_NAME_RULE	VARCHAR(200)	否	是
+职位状态				JOB_ACTIVE	INTEGER	否	否	1，2，3,4,5
+问答ID		外键		QUES_ID	INTEGER	否	否
+招聘者ID		外键		HR_ID	INTEGER	否	否
+企业ID		外键		COMPANY_ID	INTEGER	否	否
+是否删除		0	    IS_DELETE	INTEGER	否	否	0-默认不删除
+删除时间		NULL	IS_DELETE_TIME	TIMESTAMP	否	是
 */
 
     private Integer jobTime;
     private String  jobDescription;
     private String  jobDuty;
-    private String  jobReq;
-    private String  jobLocation;
     private String  jobHighlight;
-    private String  jobSalary;
+    private Integer jobSalaryFloor;
+    private Integer jobSalaryCap;
     private String  cvReceiMail;
     private String  cvNameRule;
     private Integer jobActive;
+    private List<JobLocation> jobLocationList;
+    private List<Integer> jobReqList;
+    private List<Industry> industries;
+
+
 
     private Integer isDelete;
     private Timestamp isDeleteTime;
@@ -131,20 +137,20 @@ public class Job {
         this.jobDuty = jobDuty;
     }
 
-    public String getJobReq() {
-        return jobReq;
+    public List<Integer> getJobReqList() {
+        return jobReqList;
     }
 
-    public void setJobReq(String jobReq) {
-        this.jobReq = jobReq;
+    public void setJobReqList(List<Integer> jobReqList) {
+        this.jobReqList = jobReqList;
     }
 
-    public String getJobLocation() {
-        return jobLocation;
+    public List<JobLocation> getJobLocationList() {
+        return jobLocationList;
     }
 
-    public void setJobLocation(String jobLocation) {
-        this.jobLocation = jobLocation;
+    public void setJobLocationList(List<JobLocation> jobLocationList) {
+        this.jobLocationList = jobLocationList;
     }
 
     public String getJobHighlight() {
@@ -155,12 +161,20 @@ public class Job {
         this.jobHighlight = jobHighlight;
     }
 
-    public String getJobSalary() {
-        return jobSalary;
+    public Integer getJobSalaryFloor() {
+        return jobSalaryFloor;
     }
 
-    public void setJobSalary(String jobSalary) {
-        this.jobSalary = jobSalary;
+    public void setJobSalaryFloor(Integer jobSalaryFloor) {
+        this.jobSalaryFloor = jobSalaryFloor;
+    }
+
+    public Integer getJobSalaryCap() {
+        return jobSalaryCap;
+    }
+
+    public void setJobSalaryCap(Integer jobSalaryCap) {
+        this.jobSalaryCap = jobSalaryCap;
     }
 
     public String getCvReceiMail() {
@@ -185,6 +199,14 @@ public class Job {
 
     public void setJobActive(Integer jobActive) {
         this.jobActive = jobActive;
+    }
+
+    public List<Industry> getIndustries() {
+        return industries;
+    }
+
+    public void setIndustries(List<Industry> industries) {
+        this.industries = industries;
     }
 
     public Integer getIsDelete() {
