@@ -1,6 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.ApplicantDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.util.List;
@@ -31,6 +32,11 @@ public class Student extends User implements HasId<Integer> {
     private List<Notification> notifications;
     private List<JobApply> jobApplies;
     private List<Certificate> certificates;
+
+    public Student(ApplicantDTO applicantDTO) {
+        this.stu_id = applicantDTO.getId();
+        //fixme
+    }
 
 
     public Integer getStu_id() {
