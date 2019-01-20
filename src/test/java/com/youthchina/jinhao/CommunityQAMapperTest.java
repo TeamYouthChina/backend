@@ -55,7 +55,7 @@ public class CommunityQAMapperTest extends BaseTest{
     //测试能不能成功建立映射以及能不能通过映射拿到某个用户提出的所有问题
     @Test
     public void testGetMyQuestionAndCreateMapBetweenUserAndQuestion(){
-        communityQAMapper.createMapBetweenQuestionAndUser(3, 1);
+        communityQAMapper.createMapBetweenQuestionAndUser(3, 1, 2,3);
         List<Question> questionList = communityQAMapper.getMyQuestions(1);
         Assert.assertEquals(3, questionList.size());
         for(Question question : questionList){
@@ -1055,6 +1055,12 @@ public class CommunityQAMapperTest extends BaseTest{
         for(VideoComment videoComment : videoComments){
             System.out.print(videoComment.getComment_id());
         }
+    }
+
+    @Test
+    public void getQuestionReleTypeAndReleId(){
+        QuestionReleTypeAndId questionReleTypeAndId = communityQAMapper.getQuestionReleTypeAndReleId(1);
+        System.out.println(questionReleTypeAndId.getRele_id() + " " + questionReleTypeAndId.getRele_type());
     }
 }
 

@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface CommunityQAService {
 
-    Integer addQuestion(Question question, Integer user_id, List<Integer> labels);
+    Question getQuestionInfoById(Integer ques_id) throws NotFoundException;
+    Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rele_type, Integer rele_id);
     Question getQuestion(Integer ques_id) throws NotFoundException;
     List<Label> getLabels(Integer ques_id) throws NotFoundException;
     Integer updateQuestion(Question question) throws NotFoundException;

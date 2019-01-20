@@ -1,5 +1,7 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 
 import java.sql.Timestamp;
@@ -18,6 +20,24 @@ public class Question {
     private List<QuestionAttention> questionAttentions;
     private List<QuestionAnswer> questionAnswers;
     private List<Label> labels;
+    private Job job;
+    private Company company;
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
     public List<QuestionAttention> getQuestionAttentions() {
         return questionAttentions;

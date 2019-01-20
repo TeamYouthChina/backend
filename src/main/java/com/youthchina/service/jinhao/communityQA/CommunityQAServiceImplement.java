@@ -1,8 +1,11 @@
 package com.youthchina.service.jinhao.communityQA;
 
 import com.youthchina.dao.jinhao.CommunityQAMapper;
-import com.youthchina.dao.zhongyang.UserMapper;
+import com.youthchina.dao.qingyang.CompanyMapper;
+import com.youthchina.dao.qingyang.JobHrMapper;
 import com.youthchina.domain.jinhao.communityQA.*;
+import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -18,7 +21,29 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     CommunityQAMapper communityQAMapper;
 
     @Resource
-    UserMapper userMapper;
+    CompanyMapper companyMapper;
+
+    @Resource
+    JobHrMapper jobHrMapper;
+
+
+    @Override
+    @Transactional
+    public Question getQuestionInfoById(Integer ques_id) throws NotFoundException {
+        Question question = communityQAMapper.getQuestionById(ques_id);
+        if(question == null){
+            throw new NotFoundException(404,404,"没有找到这个问题");
+        }
+        QuestionReleTypeAndId questionReleTypeAndId = communityQAMapper.getQuestionReleTypeAndReleId(ques_id);
+        if(questionReleTypeAndId.getRele_type() == 2){
+            Company company = companyMapper.selectCompany(questionReleTypeAndId.getRele_id());
+            question.setCompany(company);
+        }else if(questionReleTypeAndId.getRele_type() == 3){
+            Job job = jobHrMapper.selectJobByJobId(questionReleTypeAndId.getRele_id());
+            question.setJob(job);
+        }
+        return question;
+    }
 
     /**
      * 列出前十个问题，并且拿到每个问题的热门回答以及热门回答的作者，如果没有问题，抛出异常
@@ -59,10 +84,10 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addQuestion(Question question, Integer user_id, List<Integer> labels) {
+    public Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rele_type, Integer rele_id) {
         communityQAMapper.addQuestion(question);
         communityQAMapper.addLabels(labels, question.getQues_id());
-        communityQAMapper.createMapBetweenQuestionAndUser(question.getQues_id(), user_id);
+        communityQAMapper.createMapBetweenQuestionAndUser(question.getQues_id(), user_id, rele_type, rele_id);
         return 1;
     }
 
