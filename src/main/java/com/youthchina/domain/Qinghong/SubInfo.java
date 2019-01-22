@@ -8,9 +8,11 @@ public class SubInfo {
     private String sub_honor;
     private String sub_award;
     private String sub_skill;
+    private String sub_certificate;
+    private String sub_certif_url;
     private String sub_foreign;
     private String sub_interest;
-    private String sub_introduction;
+    private String sub_activity;
     private Integer stu_id;
     private Boolean is_delete;
     private Date is_delete_time;
@@ -55,6 +57,22 @@ public class SubInfo {
         this.sub_skill = sub_skill;
     }
 
+    public String getSub_certificate() {
+        return sub_certificate;
+    }
+
+    public void setSub_certificate(String sub_certificate) {
+        this.sub_certificate = sub_certificate;
+    }
+
+    public String getSub_certif_url() {
+        return sub_certif_url;
+    }
+
+    public void setSub_certif_url(String sub_certif_url) {
+        this.sub_certif_url = sub_certif_url;
+    }
+
     public String getSub_foreign() {
         return sub_foreign;
     }
@@ -71,12 +89,12 @@ public class SubInfo {
         this.sub_interest = sub_interest;
     }
 
-    public String getSub_introduction() {
-        return sub_introduction;
+    public String getSub_activity() {
+        return sub_activity;
     }
 
-    public void setSub_introduction(String sub_introduction) {
-        this.sub_introduction = sub_introduction;
+    public void setSub_activity(String sub_activity) {
+        this.sub_activity = sub_activity;
     }
 
     public Integer getStu_id() {

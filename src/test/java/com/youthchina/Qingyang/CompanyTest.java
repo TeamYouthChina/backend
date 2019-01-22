@@ -105,7 +105,6 @@ public class CompanyTest {
         company.setUserId(1);
         List<Industry> industryList = new ArrayList<>();
         Industry industry = new Industry();
-        industry.setCompanyId(1);
         industry.setIndNum(1);
         industryList.add(industry);
         company.setIndList(industryList);

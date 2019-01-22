@@ -41,11 +41,12 @@ public class IndustryTest {
     @Test
     public void testIndustryInsert() {
         Industry industry = new Industry();
+        industry.setIndCode("A");
         industry.setIndChn("商");
         industry.setIndEng("business");
         industry.setIndLevel(1);
-        industry.setIndParentNum(3);
-        industry.setStartDate(Timestamp.valueOf("2012-12-12 12:12:12"));
+        industry.setIndParentCode("A3");
+        industry.setStartTime(Timestamp.valueOf("2012-12-12 12:12:12"));
         companyMapper.insertIndustry(industry);
     }
 

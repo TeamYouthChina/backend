@@ -114,14 +114,14 @@
             <result property="jobLocation" column="JOB_LOCATION"/>
             <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
             <result property="jobSalary" column="JOB_SALARY"/>
-            <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
+            <result property="cvReceiveMail" column="CV_RECEI_MAIL"/>
             <result property="cvNameRule" column="CV_NAME_RULE"/>
             <result property="jobActive" column="JOB_ACTIVE"/>
         </association>
     </resultMap>
 
     <resultMap id="getJobCollectResultMap" type="com.youthchina.domain.Qinghong.JobCollect">
-        <id property="collect_id" column="COLLECT_ID"/>
+        <id property="collect_id" column="COLEECT_ID"/>
         <result property="job_id" column="job_ID"/>
         <result property="job_coll_time" column="job_COLL_TIME"/>
         <result property="stu_id" column="STU_ID"/>
@@ -140,14 +140,14 @@
             <result property="jobLocation" column="JOB_LOCATION"/>
             <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
             <result property="jobSalary" column="JOB_SALARY"/>
-            <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
+            <result property="cvReceiveMail" column="CV_RECEI_MAIL"/>
             <result property="cvNameRule" column="CV_NAME_RULE"/>
             <result property="jobActive" column="JOB_ACTIVE"/>
         </association>
     </resultMap>
 
     <resultMap id="getCompCollectResultMap" type="com.youthchina.domain.Qinghong.CompCollect">
-        <id property="collect_id" column="COLLECT_ID"/>
+        <id property="collect_id" column="COLEECT_ID"/>
         <result property="company_id" column="COMPANY_ID"/>
         <result property="company_coll_time" column="COMPANY_COLL_TIME"/>
         <result property="stu_id" column="STU_ID"/>
@@ -362,7 +362,7 @@
     <update id="deleteJobCollect">
         update STU_JOB_COLLECT set
                                    IS_DELETE=1
-        WHERE COLLECT_ID=#{collect_id}
+        WHERE COLEECT_ID=#{collect_id}
     </update>
 
 
@@ -370,7 +370,7 @@
     <update id="deleteCompCollect">
         update STU_JOB_COLLECT set
                                    IS_DELETE=1
-        WHERE COLLECT_ID=#{collect_id}
+        WHERE COLEECT_ID=#{collect_id}
     </update>
 
 </mapper>

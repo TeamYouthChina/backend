@@ -62,12 +62,12 @@
         <result property="userId" column="USER_ID"/>
         <collection property="indList" ofType="com.youthchina.domain.qingyang.Industry">
             <id property="indNum" column="IND_NUM"/>
+            <result property="indCode" column="IND_CODE"/>
             <result property="indChn" column="IND_CHN"/>
             <result property="indEng" column="IND_ENG"/>
             <result property="indLevel" column="IND_LEVEL"/>
-            <result property="indParentNum" column="IND_PARENT_NUM"/>
-            <result property="startDate" column="START_DATE"/>
-            <result property="companyId" column="COMPANY_ID"/>
+            <result property="indParentCode" column="IND_PARENT_CODE"/>
+            <result property="startTime" column="START_TIME"/>
         </collection>
         <collection property="verificationList" ofType="com.youthchina.domain.qingyang.CompanyVerification">
             <id property="verifyId" column="VERIFY_ID"/>
@@ -104,8 +104,6 @@
               class.IND_CHN as IND_CHN,
               class.IND_ENG as IND_ENG,
               class.IND_LEVEL as IND_LEVEL,
-              class.IND_PARENT_NUM as IND_PARENT_NUM,
-              class.START_DATE as START_DATE
 
         FROM COMPANY_INFO com
                  LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID
@@ -140,16 +138,18 @@
 
               i.IND_NUM as IND_NUM,
 
+              class.IND_NUM as C_IND_NUM,
+              class.IND_CODE as IND_CODE,
               class.IND_CHN as IND_CHN,
               class.IND_ENG as IND_ENG,
               class.IND_LEVEL as IND_LEVEL,
-              class.IND_PARENT_NUM as IND_PARENT_NUM,
-              class.START_DATE as START_DATE
+              class.IND_PARENT_CODE as IND_PARENT_CODE,
+              class.START_TIME as START_TIME
 
         FROM COMPANY_INFO com
                  LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0 AND v.IS_DELETE = 0
                  LEFT OUTER JOIN COMPANY_INDUSTRY i ON i.COMPANY_ID = com.COMPANY_ID AND i.IS_DELETE = 0
-                 LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_NUM = i.IND_NUM AND class.IS_DELETE = 0
+                 LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_CODE = i.IND_NUM AND class.IS_DELETE = 0
         WHERE com.COMPANY_ID in
           <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
               #{id}
