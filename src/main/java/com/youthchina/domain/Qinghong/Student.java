@@ -38,6 +38,8 @@ public class Student extends User implements HasId<Integer> {
         //fixme
     }
 
+    public Student(){}
+
 
     public Integer getStu_id() {
         return stu_id;

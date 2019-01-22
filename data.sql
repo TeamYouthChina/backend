@@ -13,8 +13,8 @@ create table IF NOT EXISTS `STU_INFO` (
   PRIMARY KEY (`STU_ID`)
 )
   COMMENT = '应聘者基本信息表';
-
-
+  
+  
 create table IF NOT EXISTS `STU_EDU_INFO` (
   `EDU_ID`              INT               AUTO_INCREMENT
   COMMENT '教育ID',
@@ -43,8 +43,8 @@ create table IF NOT EXISTS `STU_EDU_INFO` (
   PRIMARY KEY (`EDU_ID`)
 )
   COMMENT = '应聘者教育信息表';
-
-
+  
+  
 create table IF NOT EXISTS `STU_SUB_INFO` (
   `SUB_ID`          INT            AUTO_INCREMENT
   COMMENT '附加信息ID',
@@ -82,7 +82,7 @@ PRIMARY KEY (`CERTIFICATE_ID`)
 )
 COMMENT = '技能证书表';
 
-
+  
 create table IF NOT EXISTS `STU_PROJECT` (
   `PROJ_ID`           INT               AUTO_INCREMENT
   COMMENT '项目ID',
@@ -107,8 +107,8 @@ create table IF NOT EXISTS `STU_PROJECT` (
   PRIMARY KEY (`PROJ_ID`)
 )
   COMMENT = '相关研究表';
-
-
+  
+  
 create table IF NOT EXISTS `STU_WORK` (
   `WORK_ID`         INT               AUTO_INCREMENT
   COMMENT '工作ID',
@@ -135,8 +135,8 @@ create table IF NOT EXISTS `STU_WORK` (
   PRIMARY KEY (`WORK_ID`)
 )
   COMMENT = '工作经验表';
-
-
+  
+  
 create table IF NOT EXISTS `STU_ACTIVITY` (
   `ACT_ID`           INT               AUTO_INCREMENT
   COMMENT '活动ID',
@@ -160,8 +160,8 @@ create table IF NOT EXISTS `STU_ACTIVITY` (
   PRIMARY KEY (`ACT_ID`)
 )
   COMMENT = '组织活动表';
-
-
+  
+  
 /*CREATE TABLE IF NOT EXISTS `STU_VERIFICATION`(
   `VERIFICATION_ID` INT AUTO_INCREMENT
   COMMENT '认证ID',
@@ -177,7 +177,7 @@ create table IF NOT EXISTS `STU_ACTIVITY` (
 )
   COMMENT = '应聘者认证表';
   */
-
+  
 create table IF NOT EXISTS `STU_JOB_COLLECT` (
   `COLLECT_ID`     INT            AUTO_INCREMENT
   COMMENT '收藏ID',
@@ -194,8 +194,8 @@ create table IF NOT EXISTS `STU_JOB_COLLECT` (
   PRIMARY KEY (`COLLECT_ID`)
 )
   COMMENT = '职位信息收藏表';
-
-
+  
+  
 create table IF NOT EXISTS `STU_COMP_COLLECT` (
   `COLLECT_ID`        INT   AUTO_INCREMENT
   COMMENT '收藏ID',
@@ -212,8 +212,8 @@ create table IF NOT EXISTS `STU_COMP_COLLECT` (
   PRIMARY KEY (`COLLECT_ID`)
 )
   COMMENT = '企业信息收藏表';
-
-
+  
+  
 create table IF NOT EXISTS `STU_ADVAN_LABEL` (
   `LABEL_ID`       INT    AUTO_INCREMENT
   COMMENT '标签ID',
@@ -228,8 +228,8 @@ create table IF NOT EXISTS `STU_ADVAN_LABEL` (
   PRIMARY KEY (`LABEL_ID`)
 )
   COMMENT = '应聘者优势标签表';
-
-
+  
+  
 create table IF NOT EXISTS `STU_PREFER_PROF` (
   `PRE_PROF_ID`    INT    AUTO_INCREMENT
   COMMENT '意向ID',
@@ -246,8 +246,8 @@ create table IF NOT EXISTS `STU_PREFER_PROF` (
   PRIMARY KEY (`PRE_PROF_ID`)
 )
   COMMENT = '应聘者意向职业表';
-
-
+  
+  
 create table IF NOT EXISTS `STU_PREFER_INDUSTRY` (
   `PRE_IND_ID`     INT    AUTO_INCREMENT
   COMMENT '意向ID',
@@ -262,8 +262,8 @@ create table IF NOT EXISTS `STU_PREFER_INDUSTRY` (
   PRIMARY KEY (`PRE_IND_ID`)
 )
   COMMENT = '应聘者意向行业表';
-
-
+  
+  
 create table IF NOT EXISTS `STU_PREFER_CITY` (
   `PRE_CITY_ID`    INT    AUTO_INCREMENT
   COMMENT '意向ID',
@@ -278,8 +278,8 @@ create table IF NOT EXISTS `STU_PREFER_CITY` (
   PRIMARY KEY (`PRE_CITY_ID`)
 )
   COMMENT = '应聘者意向城市表';
-
-
+  
+  
 create table IF NOT EXISTS `STU_PREFER_SALARY` (
   `PRE_SALA_ID`    INT    AUTO_INCREMENT
   COMMENT '薪资ID',
@@ -295,8 +295,8 @@ create table IF NOT EXISTS `STU_PREFER_SALARY` (
   PRIMARY KEY (`PRE_SALA_ID`)
 )
   COMMENT = '应聘者意向薪资';
-
-
+  
+  
 create table IF NOT EXISTS `STU_INTRODUCTION_VIDEO` (
   `INTRO_VIDEO_ID`   INT    AUTO_INCREMENT
   COMMENT '视频ID',
@@ -311,8 +311,8 @@ create table IF NOT EXISTS `STU_INTRODUCTION_VIDEO` (
   PRIMARY KEY (`INTRO_VIDEO_ID`)
 )
   COMMENT = '应聘者介绍视频表';
-
-
+  
+  
 create table IF NOT EXISTS `STU_RESUME_TEMPLATE` (
   `TEMPLATE_ID`    INT     AUTO_INCREMENT
   COMMENT '模板ID',
@@ -329,8 +329,8 @@ create table IF NOT EXISTS `STU_RESUME_TEMPLATE` (
   PRIMARY KEY (`TEMPLATE_ID`)
 )
   COMMENT = '应聘者简历模板表';
-
-
+  
+ 
 ##简历存储表
 create table IF NOT EXISTS `STU_RESUME`(
 `RESUME_ID` INT AUTO_INCREMENT COMMENT '简历ID',
@@ -342,7 +342,7 @@ create table IF NOT EXISTS `STU_RESUME`(
 PRIMARY KEY (`RESUME_ID`)
 )COMMENT = '简历存储表';
 
-
+ 
 create table IF NOT EXISTS `STU_NOTIFICATION` (
   `NOTIFY_ID`      INT  AUTO_INCREMENT
   COMMENT '通知ID',
@@ -357,8 +357,8 @@ create table IF NOT EXISTS `STU_NOTIFICATION` (
   PRIMARY KEY (`NOTIFY_ID`)
 )
   COMMENT = '应聘者通知表';
-
-
+  
+  
 create table IF NOT EXISTS `HR_INFO` (
   `HR_ID`          INT            AUTO_INCREMENT
   COMMENT '招聘者ID',
@@ -375,8 +375,8 @@ create table IF NOT EXISTS `HR_INFO` (
   PRIMARY KEY (`HR_ID`)
 )
   COMMENT = '招聘者基本信息表';
-
-
+  
+  
 create table IF NOT EXISTS `COMPANY_INFO` (
   `COMPANY_ID`         INT               AUTO_INCREMENT
   COMMENT '企业ID',
@@ -408,8 +408,8 @@ create table IF NOT EXISTS `COMPANY_INFO` (
   PRIMARY KEY (`COMPANY_ID`)
 )
   COMMENT = '企业基本信息表';
-
-
+  
+  
 create table IF NOT EXISTS `COMPANY_INDUSTRY` (
   `COMPANY_INDUS_ID` INT            AUTO_INCREMENT
   COMMENT '企业所属行业ID',
@@ -424,8 +424,8 @@ create table IF NOT EXISTS `COMPANY_INDUSTRY` (
   PRIMARY KEY (`COMPANY_INDUS_ID`)
 )
   COMMENT = '企业所属行业表';
-
-
+ 
+ 
 create table IF NOT EXISTS `COMPANY_VERIFICAITON` (
   `VERIFY_ID`       INT            AUTO_INCREMENT
   COMMENT '认证ID',
@@ -444,7 +444,7 @@ create table IF NOT EXISTS `COMPANY_VERIFICAITON` (
   PRIMARY KEY (`VERIFY_ID`)
 )
   COMMENT = '企业认证表';
-
+  
 
 ##企业评价表
 
@@ -548,8 +548,6 @@ create table IF NOT EXISTS `JOB_INFO` (
   `CV_NAME_RULE`    VARCHAR(200) COMMENT '简历命名规则',
   `JOB_ACTIVE`      INTEGER      NOT NULL
   COMMENT '职位状态',
-  `QUES_ID`         INTEGER      NOT NULL
-  COMMENT '问答ID',
   `HR_ID`           INTEGER      NOT NULL
   COMMENT '招聘者ID',
   `COMPANY_ID`      INTEGER      NOT NULL
@@ -601,7 +599,7 @@ PRIMARY KEY (`JOB_REGION_ID`)
 )
   COMMENT = '职位工作地点表';
 
-
+  
 create table IF NOT EXISTS `JOB_INDUSTRY` (
   `JOB_IND_ID`     INT            AUTO_INCREMENT
   COMMENT '行业ID',
@@ -616,8 +614,8 @@ create table IF NOT EXISTS `JOB_INDUSTRY` (
   PRIMARY KEY (`JOB_IND_ID`)
 )
   COMMENT = '职位行业表';
-
-
+  
+  
 create table IF NOT EXISTS `HR_VIDEO_INVITATION` (
   `INVITE_ID`     INT AUTO_INCREMENT
   COMMENT '邀请ID',
@@ -630,7 +628,7 @@ create table IF NOT EXISTS `HR_VIDEO_INVITATION` (
   PRIMARY KEY (`INVITE_ID`)
 )
   COMMENT = '视频邀请表';
-
+  
 
 create table IF NOT EXISTS `STU_JOB_APPLY` (
   `APPLY_ID`         INT AUTO_INCREMENT
@@ -648,8 +646,8 @@ create table IF NOT EXISTS `STU_JOB_APPLY` (
   PRIMARY KEY (`APPLY_ID`)
 )
   COMMENT = '职位申请记录表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_MAJOR` (
   `MAJOR_NUM`      INT               AUTO_INCREMENT
   COMMENT '专业编号',
@@ -669,8 +667,8 @@ create table IF NOT EXISTS `SYS_MAJOR` (
   PRIMARY KEY (`MAJOR_NUM`)
 )
   COMMENT = '专业分类表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_DEGREE` (
   `DEGREE_NUM` INT AUTO_INCREMENT
   COMMENT '学位编号',
@@ -683,8 +681,8 @@ create table IF NOT EXISTS `SYS_DEGREE` (
   PRIMARY KEY (`DEGREE_NUM`)
 )
   COMMENT = '学位表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_LABEL_CLASS` (
   `LABEL_NUM`      INT               AUTO_INCREMENT
   COMMENT '标签编号',
@@ -701,8 +699,8 @@ create table IF NOT EXISTS `SYS_LABEL_CLASS` (
   PRIMARY KEY (`LABEL_NUM`)
 )
   COMMENT = '优势标签表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_PROF_CLASS` (
   `PROF_NUM`       INT               AUTO_INCREMENT
   COMMENT '职业编号',
@@ -719,8 +717,8 @@ create table IF NOT EXISTS `SYS_PROF_CLASS` (
   PRIMARY KEY (`PROF_NUM`)
 )
   COMMENT = '职业信息分类表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_IND_CLASS` (
   `IND_NUM`        INT               AUTO_INCREMENT
   COMMENT '行业编号',
@@ -743,8 +741,8 @@ create table IF NOT EXISTS `SYS_IND_CLASS` (
   PRIMARY KEY (`IND_NUM`)
 )
   COMMENT = '行业信息分类表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_COMPANY_SCALE` (
   `SCALE_NUM`  INT AUTO_INCREMENT
   COMMENT '规模编号',
@@ -757,8 +755,8 @@ create table IF NOT EXISTS `SYS_COMPANY_SCALE` (
   PRIMARY KEY (`SCALE_NUM`)
 )
   COMMENT = '企业规模表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_COMPANY_NATURE` (
   `NATURE_NUM` INT AUTO_INCREMENT
   COMMENT '性质编号',
@@ -773,8 +771,8 @@ create table IF NOT EXISTS `SYS_COMPANY_NATURE` (
   PRIMARY KEY (`NATURE_NUM`)
 )
   COMMENT = '企业性质表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_COUNTRY` (
   `COUNTRY_ABBRE`  VARCHAR(10) NOT NULL
   COMMENT '国家简称',
@@ -791,8 +789,8 @@ create table IF NOT EXISTS `SYS_COUNTRY` (
   PRIMARY KEY (`COUNTRY_ABBRE`)
 )
   COMMENT = '国别表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_CHN_REGION` (
   `REGION_NUM`        INT               AUTO_INCREMENT
   COMMENT '区划编号',
@@ -813,8 +811,8 @@ create table IF NOT EXISTS `SYS_CHN_REGION` (
   PRIMARY KEY (`REGION_NUM`)
 )
   COMMENT = '中国行政区划表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_USA_STATE` (
   `STATE_NUM`        INT               AUTO_INCREMENT
   COMMENT '州编号',
@@ -831,8 +829,8 @@ create table IF NOT EXISTS `SYS_USA_STATE` (
   PRIMARY KEY (`STATE_NUM`)
 )
   COMMENT = '美国地区表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_USER_ROLE` (
   `ROLE_ID`          INT AUTO_INCREMENT
   COMMENT '角色ID',
@@ -847,8 +845,8 @@ create table IF NOT EXISTS `SYS_USER_ROLE` (
   PRIMARY KEY (`ROLE_ID`)
 )
   COMMENT = '用户角色表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_ROLE_PERMISSION` (
   `PERMI_ID`          INT AUTO_INCREMENT
   COMMENT '权限ID',
@@ -865,8 +863,8 @@ create table IF NOT EXISTS `SYS_ROLE_PERMISSION` (
   PRIMARY KEY (`PERMI_ID`)
 )
   COMMENT = '用户权限表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_USER` (
   `USER_ID`          INT               AUTO_INCREMENT
   COMMENT '用户ID',
@@ -902,8 +900,8 @@ create table IF NOT EXISTS `SYS_USER` (
   PRIMARY KEY (`USER_ID`)
 )
   COMMENT = '用户注册信息表';
-
-
+  
+  
 create table IF NOT EXISTS `SYS_HR_CONFIGURATION` (
   `HR_ID`                    INT AUTO_INCREMENT
   COMMENT '招聘者ID',
@@ -912,8 +910,8 @@ create table IF NOT EXISTS `SYS_HR_CONFIGURATION` (
   PRIMARY KEY (`HR_ID`)
 )
   COMMENT = '招聘者个人设置表';
-
-
+  
+  
 ##应聘者个人设置表
 
 create table IF NOT EXISTS `SYS_STU_CONFIGURATION`(
@@ -950,7 +948,7 @@ PRIMARY KEY (`STU_ID`)
 COMMENT = '应聘者个人设置表'
 ;
 
-
+  
 
 #######################################一期数据表外键约束###############################################
 ALTER TABLE STU_INFO
@@ -1557,3 +1555,4 @@ PRIMARY KEY ( `EVALUATE_ID` )
 
 ALTER TABLE JOB_INFO
   ADD CONSTRAINT `JOB_QUES_ID` FOREIGN KEY (`QUES_ID`) REFERENCES `COM_QUESTION` (`QUES_ID`);
+
