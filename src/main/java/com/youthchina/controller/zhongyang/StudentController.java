@@ -3,7 +3,6 @@ package com.youthchina.controller.zhongyang;
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ApplicantDTO;
-import com.youthchina.dto.StudentDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
