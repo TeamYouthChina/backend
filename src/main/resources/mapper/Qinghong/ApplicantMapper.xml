@@ -139,7 +139,9 @@
             <result property="jobReq" column="JOB_REQ"/>
             <result property="jobLocation" column="JOB_LOCATION"/>
             <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
-            <result property="jobSalary" column="JOB_SALARY"/>
+            <result property="jobSalaryFloor" column="JOB_SALARY_FLOOR"/>
+            <result property="jobSalaryCap" column="JOB_SALARY_CAP"/>
+            <result property="jobLink" column="JOB_LINK"/>
             <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
             <result property="cvNameRule" column="CV_NAME_RULE"/>
             <result property="jobActive" column="JOB_ACTIVE"/>
