@@ -74,8 +74,8 @@
             <result property="proj_start_time" column="PROJ_START_TIME"/>
             <result property="proj_end_time" column="PROJ_END_TIME"/>
             <result property="proj_deliver" column="PROJ_DELIVER"/>
-            <result property="delever_publish" column="DELEVER_PUBLISH"/>
-            <result property="delever_pub_insti" column="DELEVER_PUB_INSTI"/>
+            <result property="deliver_publish" column="DELIVER_PUBLISH"/>
+            <result property="deliver_pub_insti" column="DELIVER_PUB_INSTI"/>
             <result property="stu_id" column="STU_ID"/>
             <result property="is_delete" column="IS_DELETE"/>
             <result property="is_delete_time" column="IS_DELETE_TIME"/>

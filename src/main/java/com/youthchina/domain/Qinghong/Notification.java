@@ -7,7 +7,7 @@ public class Notification {
     private String notify_content;
     private Timestamp notify_time;
     private Integer notify_read;
-    private Integer stu_id;
+    private Integer user_id;
 
     public Integer getNotify_id() {
         return notify_id;
@@ -41,11 +41,11 @@ public class Notification {
         this.notify_read = notify_read;
     }
 
-    public Integer getStu_id() {
-        return stu_id;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setStu_id(Integer stu_id) {
-        this.stu_id = stu_id;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 }

@@ -10,8 +10,8 @@ public class Project {
     private Date proj_start_time;
     private Date proj_end_time;
     private String proj_deliver;
-    private Integer delever_publish;
-    private String delever_pub_insti;
+    private Integer deliver_publish;
+    private String deliver_pub_insti;
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
@@ -65,20 +65,20 @@ public class Project {
         this.proj_deliver = proj_deliver;
     }
 
-    public Integer getDelever_publish() {
-        return delever_publish;
+    public Integer getDeliver_publish() {
+        return deliver_publish;
     }
 
-    public void setDelever_publish(Integer delever_publish) {
-        this.delever_publish = delever_publish;
+    public void setDeliver_publish(Integer deliver_publish) {
+        this.deliver_publish = deliver_publish;
     }
 
-    public String getDelever_pub_insti() {
-        return delever_pub_insti;
+    public String getDeliver_pub_insti() {
+        return deliver_pub_insti;
     }
 
-    public void setDelever_pub_insti(String delever_pub_insti) {
-        this.delever_pub_insti = delever_pub_insti;
+    public void setDeliver_pub_insti(String deliver_pub_insti) {
+        this.deliver_pub_insti = deliver_pub_insti;
     }
 
     public Integer getStu_id() {

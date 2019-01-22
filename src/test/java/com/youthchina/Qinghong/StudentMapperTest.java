@@ -68,7 +68,7 @@ public class StudentMapperTest {
     public void testGetProjects(){
         List<Project> projects=applicantMapper.getProjects(1);
         Assert.assertNotNull(projects);
-        System.out.print(projects.get(0).getDelever_pub_insti());
+        System.out.print(projects.get(0).getDeliver_pub_insti());
 
     }
 
