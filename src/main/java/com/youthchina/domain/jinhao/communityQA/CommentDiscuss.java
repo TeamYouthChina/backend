@@ -1,16 +1,21 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.domain.zhongyang.User;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class CommentDiscuss {
     private Integer discuss_id;
     private Integer discuss_target_id;
     private String discuss_content;
-    private String user_id;
+    private Integer user_id;
     private Integer user_anony;
     private Timestamp discuss_pub_time;
-    private Integer discuss_delete;
-    private Timestamp discuss_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
+    private User user;
+    private List<DiscussEvaluate> discussEvaluateList;
 
     public Integer getDiscuss_id() {
         return discuss_id;
@@ -28,11 +33,11 @@ public class CommentDiscuss {
         this.discuss_content = discuss_content;
     }
 
-    public String getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(Integer user_id) {
         this.user_id = user_id;
     }
 
@@ -60,19 +65,35 @@ public class CommentDiscuss {
         this.discuss_target_id = discuss_target_id;
     }
 
-    public Integer getDiscuss_delete() {
-        return discuss_delete;
+    public Integer getIs_delete() {
+        return is_delete;
     }
 
-    public void setDiscuss_delete(Integer discuss_delete) {
-        this.discuss_delete = discuss_delete;
+    public void setIs_delete(Integer is_delete) {
+        this.is_delete = is_delete;
     }
 
-    public Timestamp getDiscuss_delete_time() {
-        return discuss_delete_time;
+    public Timestamp getIs_delete_time() {
+        return is_delete_time;
     }
 
-    public void setDiscuss_delete_time(Timestamp discuss_delete_time) {
-        this.discuss_delete_time = discuss_delete_time;
+    public void setIs_delete_time(Timestamp is_delete_time) {
+        this.is_delete_time = is_delete_time;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<DiscussEvaluate> getDiscussEvaluateList() {
+        return discussEvaluateList;
+    }
+
+    public void setDiscussEvaluateList(List<DiscussEvaluate> discussEvaluateList) {
+        this.discussEvaluateList = discussEvaluateList;
     }
 }

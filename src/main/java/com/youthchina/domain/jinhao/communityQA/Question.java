@@ -1,6 +1,11 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Job;
+import com.youthchina.domain.zhongyang.User;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Question {
     private Integer ques_id;
@@ -9,23 +14,77 @@ public class Question {
     private String ques_body;
     private Timestamp ques_pub_time;
     private Timestamp ques_edit_time;
-    private Integer ques_delete;
-    private Timestamp ques_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
+    private User ques_user;
+    private List<QuestionAttention> questionAttentions;
+    private List<QuestionAnswer> questionAnswers;
+    private List<Label> labels;
+    private Job job;
+    private Company company;
 
-    public Integer getQues_delete() {
-        return ques_delete;
+    public Job getJob() {
+        return job;
     }
 
-    public void setQues_delete(Integer ques_delete) {
-        this.ques_delete = ques_delete;
+    public void setJob(Job job) {
+        this.job = job;
     }
 
-    public Timestamp getQues_delete_time() {
-        return ques_delete_time;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setQues_delete_time(Timestamp ques_delete_time) {
-        this.ques_delete_time = ques_delete_time;
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public List<QuestionAttention> getQuestionAttentions() {
+        return questionAttentions;
+    }
+
+    public void setQuestionAttentions(List<QuestionAttention> questionAttentions) {
+        this.questionAttentions = questionAttentions;
+    }
+
+    public List<QuestionAnswer> getQuestionAnswers() {
+        return questionAnswers;
+    }
+
+    public void setQuestionAnswers(List<QuestionAnswer> questionAnswers) {
+        this.questionAnswers = questionAnswers;
+    }
+
+    public List<Label> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(List<Label> labels) {
+        this.labels = labels;
+    }
+
+    public User getQues_user() {
+        return ques_user;
+    }
+
+    public void setQues_user(User ques_user) {
+        this.ques_user = ques_user;
+    }
+
+    public Integer getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(Integer is_delete) {
+        this.is_delete = is_delete;
+    }
+
+    public Timestamp getIs_delete_time() {
+        return is_delete_time;
+    }
+
+    public void setIs_delete_time(Timestamp is_delete_time) {
+        this.is_delete_time = is_delete_time;
     }
 
     public Integer getQues_id() {
