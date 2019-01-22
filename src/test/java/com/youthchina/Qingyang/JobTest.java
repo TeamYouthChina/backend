@@ -67,10 +67,7 @@ public class JobTest {
         job.setJobTime(1);
         job.setJobDescription("fullStack");
         job.setJobDuty("fullStack");
-//        job.setJobReq("fullStack");
-//        job.setJobLocation("北京");
         job.setJobHighlight("80K");
-//        job.setJobSalary("80K");
         job.setCvReceiMail("youth@china");
         job.setCvNameRule("rule");
         job.setJobActive(1);

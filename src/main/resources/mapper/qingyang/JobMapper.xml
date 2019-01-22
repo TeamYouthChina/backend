@@ -73,20 +73,31 @@
         <association property="company" javaType="com.youthchina.domain.qingyang.Company">
             <id property="companyId" column="COMPANY_ID"/>
             <result property="companyName" column="COMPANY_NAME"/>
+            <result property="companyCode" column="COMPANY_CODE"/>
+            <result property="companyCountry" column="COMPANY_COUNTRY"/>
+            <result property="companyIntroduc" column="COMPANY_INTRODUC"/>
             <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
+            <result property="companyNature" column="COMPANY_NATURE"/>
+            <result property="companyLocation" column="COMPANY_LOCATION"/>
+            <result property="companyMail" column="COMPANY_MAIL"/>
+            <result property="companyWebsite" column="COMPANY_WEBSITE"/>
+            <result property="companyStartDate" column="COMPANY_START_DATE"/>
             <result property="companyLogo" column="COMPANY_LOGO"/>
+            <result property="companyVerify" column="COMPANY_VERIFY"/>
         </association>
         <association property="hr" javaType="com.youthchina.domain.qingyang.Hr">
             <id property="hrId" column="HR_ID"/>
+            <result property="hrOnJob" column="HR_ON_JOB"/>
+            <result property="companyId" column="COMPANY_ID"/>
         </association>
         <collection property="industries" ofType="com.youthchina.domain.qingyang.Industry">
-            <id property="indNum" column="IND_NUM"/>
+            <id property="indNum" column="C_IND_NUM"/>
+            <result property="indCode" column="IND_CODE"/>
             <result property="indChn" column="IND_CHN"/>
             <result property="indEng" column="IND_ENG"/>
             <result property="indLevel" column="IND_LEVEL"/>
-            <result property="indParentNum" column="IND_PARENT_NUM"/>
-            <result property="startDate" column="START_DATE"/>
-            <result property="companyId" column="COMPANY_ID"/>
+            <result property="indParentCode" column="IND_PARENT_CODE"/>
+            <result property="startTime" column="START_TIME"/>
         </collection>
         <collection property="jobLocationList" ofType="com.youthchina.domain.qingyang.JobLocation">
             <id property="jobRegionId" column="JOB_REGION_ID"/>
@@ -117,10 +128,10 @@
             j.JOB_TIME as JOB_TIME,
             j.JOB_DESCRIPTION as JOB_DESCRIPTION,
             j.JOB_DUTY as JOB_DUTY,
-            j.JOB_REQ as JOB_REQ,
-            j.JOB_LOCATION as JOB_LOCATION,
             j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
-            j.JOB_SALARY as JOB_SALARY,
+            j.JOB_SALARY_FLOOR as JOB_SALARY_FLOOR,
+            j.JOB_SALARY_CAP as JOB_SALARY_CAP,
+            j.JOB_LINK as JOB_LINK,
             j.CV_RECEI_MAIL as CV_RECEI_MAIL,
             j.CV_NAME_RULE as CV_NAME_RULE,
             j.JOB_ACTIVE as JOB_ACTIVE,
@@ -128,8 +139,19 @@
             j.COMPANY_ID as COMPANY_ID,
 
             com.COMPANY_NAME as COMPANY_NAME,
+            com.COMPANY_CODE as COMPANY_CODE,
+            com.COMPANY_COUNTRY as COMPANY_COUNTRY,
+            com.COMPANY_INTRODUC as COMPANY_INTRODUC,
             com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-            com.COMPANY_LOGO as COMPANY_LOGO
+            com.COMPANY_NATURE as COMPANY_NATURE,
+            com.COMPANY_LOCATION as COMPANY_LOCATION,
+            com.COMPANY_MAIL as COMPANY_MAIL,
+            com.COMPANY_WEBSITE as COMPANY_WEBSITE,
+            com.COMPANY_START_DATE as COMPANY_START_DATE,
+            com.COMPANY_LOGO as COMPANY_LOGO,
+            com.COMPANY_VERIFY as COMPANY_VERIFY,
+
+            h.HR_ON_JOB as HR_ON_JOB
         FROM JOB_INFO j
              LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
              LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
