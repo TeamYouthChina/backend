@@ -1,6 +1,5 @@
 package com.youthchina.controller.zhongyang;
 
-import com.sun.tools.javac.util.List;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.JobSearchDTO;
 import com.youthchina.dto.JobSearchResultDTO;

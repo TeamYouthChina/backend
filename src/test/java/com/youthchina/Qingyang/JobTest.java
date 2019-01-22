@@ -67,23 +67,13 @@ public class JobTest {
         job.setJobTime(1);
         job.setJobDescription("fullStack");
         job.setJobDuty("fullStack");
-        job.setJobReq("fullStack");
-        job.setJobLocation("北京");
         job.setJobHighlight("80K");
-        job.setJobSalary("80K");
         job.setCvReceiMail("youth@china");
         job.setCvNameRule("rule");
         job.setJobActive(1);
         jobMapper.insertJob(job);
     }
 
-    @Test
-    public void testUpdateJob(){
-        Job job = jobMapper.selectJobByJobId(1);
-        Assert.assertEquals("Beijing", job.getJobLocation());
-        job.getCompany().setCompanyId(2);
-        jobMapper.updateJob(job);
-    }
 
     @Test
     public void testDeleteJob(){

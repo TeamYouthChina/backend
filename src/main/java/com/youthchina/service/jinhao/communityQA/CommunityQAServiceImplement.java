@@ -2,7 +2,7 @@ package com.youthchina.service.jinhao.communityQA;
 
 import com.youthchina.dao.jinhao.CommunityQAMapper;
 import com.youthchina.dao.qingyang.CompanyMapper;
-import com.youthchina.dao.qingyang.JobHrMapper;
+import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
@@ -24,7 +24,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     CompanyMapper companyMapper;
 
     @Resource
-    JobHrMapper jobHrMapper;
+    JobMapper jobHrMapper;
 
 
     @Override
