@@ -3,8 +3,8 @@
 <mapper namespace="com.youthchina.dao.Qinghong.StudentMapper">
     <resultMap id="studentResultMap" type="com.youthchina.domain.Qinghong.Student">
         <id property="stu_id" column="STU_ID"/>
-        <result property="stu_in_job" column="STU_IN_JOB"/>
-        <result property="stu_in_job_comp" column="stu_in_job_comp"/>
+        <result property="isInJob" column="STU_IN_JOB"/>
+        <result property="currentCompanyName" column="currentCompanyName"/>
         <association property="prefersalary" javaType="com.youthchina.domain.Qinghong.PreferSalary">
             <id property="pre_sala_id" column="PRE_SALA_ID"/>
             <result property="pre_sala_cap" column="pre_sala_cap"/>
@@ -204,7 +204,7 @@
             <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
             <result property="companyLogo" column="COMPANY_LOGO"/>
         </association>
-        <association property="hr" javaType="com.youthchina.domain.qingyang.Hr_qingyang">
+        <association property="hr" javaType="com.youthchina.domain.qingyang.Hr">
             <id property="hrId" column="HR_ID"/>
         </association>
         <collection property="jobLocationList" ofType="com.youthchina.domain.qingyang.JobLocation">
@@ -311,7 +311,7 @@
     </insert>
     <insert id="add" useGeneratedKeys="true" keyProperty="stu_id">
         INSERT into STU_INFO (STU_IN_JOB, STU_IN_JOB_COMP, USER_ID, IS_DELETE, IS_DELETE_TIME)
-        values (#{stu_in_job}, #{stu_in_job_comp}, #{user_id}, #{is_delete}, #{is_delete_time})
+        values (#{isInJob}, #{currentCompanyName}, #{user_id}, #{is_delete}, #{is_delete_time})
 
     </insert>
     <insert id="addEducationInfos" useGeneratedKeys="true" keyProperty="sub_id">
