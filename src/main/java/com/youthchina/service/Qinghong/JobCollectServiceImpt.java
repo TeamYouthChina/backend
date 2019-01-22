@@ -8,6 +8,7 @@ import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -87,7 +88,8 @@ public class JobCollectServiceImpt implements JobCollectService {
 
             jobCollect.setJob_id(job_id);
             jobCollect.setStu_id(stu_id);
-            jobCollect.setJob_coll_time(new Date());
+            Timestamp d = new Timestamp(System.currentTimeMillis());
+            jobCollect.setJob_coll_time(d);
             studentMapper.addOneJobCollect(jobCollect);
         }
         return jobCollect;

@@ -1,26 +1,27 @@
 package com.youthchina.domain.Qinghong;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Work {
-    private int work_id;
+    private Integer work_id;
     private String work_company;
-    private String work_location;
+    private Integer work_location;
     private String work_position;
     private String work_sector;
-    private String work_start_time;
-    private String work_end_time;
+    private Date work_start_time;
+    private Date work_end_time;
     private String work_duty;
-    private String work_nature;
+    private Integer work_nature;
     private Integer stu_id;
-    private Boolean is_delete;
-    private Date is_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
-    public int getWork_id() {
+    public Integer getWork_id() {
         return work_id;
     }
 
-    public void setWork_id(int work_id) {
+    public void setWork_id(Integer work_id) {
         this.work_id = work_id;
     }
 
@@ -32,11 +33,11 @@ public class Work {
         this.work_company = work_company;
     }
 
-    public String getWork_location() {
+    public Integer getWork_location() {
         return work_location;
     }
 
-    public void setWork_location(String work_location) {
+    public void setWork_location(Integer work_location) {
         this.work_location = work_location;
     }
 
@@ -56,19 +57,19 @@ public class Work {
         this.work_sector = work_sector;
     }
 
-    public String getWork_start_time() {
+    public Date getWork_start_time() {
         return work_start_time;
     }
 
-    public void setWork_start_time(String work_start_time) {
+    public void setWork_start_time(Date work_start_time) {
         this.work_start_time = work_start_time;
     }
 
-    public String getWork_end_time() {
+    public Date getWork_end_time() {
         return work_end_time;
     }
 
-    public void setWork_end_time(String work_end_time) {
+    public void setWork_end_time(Date work_end_time) {
         this.work_end_time = work_end_time;
     }
 
@@ -80,11 +81,11 @@ public class Work {
         this.work_duty = work_duty;
     }
 
-    public String getWork_nature() {
+    public Integer getWork_nature() {
         return work_nature;
     }
 
-    public void setWork_nature(String work_nature) {
+    public void setWork_nature(Integer work_nature) {
         this.work_nature = work_nature;
     }
 
@@ -96,20 +97,19 @@ public class Work {
         this.stu_id = stu_id;
     }
 
-    public Boolean getIs_delete() {
+    public Integer getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(Boolean is_delete) {
+    public void setIs_delete(Integer is_delete) {
         this.is_delete = is_delete;
     }
 
-    public Date getIs_delete_time() {
+    public Timestamp getIs_delete_time() {
         return is_delete_time;
     }
 
-    public void setIs_delete_time(Date is_delete_time) {
+    public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
-
 }
