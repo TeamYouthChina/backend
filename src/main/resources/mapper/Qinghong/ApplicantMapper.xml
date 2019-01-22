@@ -175,6 +175,12 @@
         </association>
 
     </resultMap>
+    <!--获取地区信息字典表-->
+    <select id="getLocation" resultType="com.youthchina.domain.Qinghong.Location">
+        SELECT a.* OR b.*
+        FROM SYS_CHN_REGION a,SYS_USA_REGION b
+        WHERE (a.REGION_NUM=#{region.num} AND a.is_delete=0) OR (b.REGION_NUM=#{region.num} AND b.is_delete=0)
+    </select>
 
     <!--获取用户所有基本信息-->
     <select id="getUserInfo" resultType="com.youthchina.domain.Qinghong.UserInfo">
