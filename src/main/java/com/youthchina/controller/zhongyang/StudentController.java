@@ -2,6 +2,7 @@ package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.ApplicantDTO;
 import com.youthchina.dto.StudentDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -20,7 +21,7 @@ import java.net.URISyntaxException;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/students/**")
-public class StudentController extends DomainCRUDController<StudentDTO, Student, Integer> {
+public class StudentController extends DomainCRUDController<ApplicantDTO, Student, Integer> {
     private String url;
     private StudentService studentService;
 
@@ -36,6 +37,16 @@ public class StudentController extends DomainCRUDController<StudentDTO, Student,
     }
 
     @Override
+    protected ApplicantDTO convertDomainToDto(Student domain) {
+        return new ApplicantDTO(domain);
+    }
+
+    @Override
+    protected Student convertDtoToDomain(ApplicantDTO applicantDTO) {
+        return new Student(applicantDTO);
+    }
+
+    @Override
     protected URI getUriForNewInstance(Integer id) throws URISyntaxException {
         return new URI(this.url + id.toString());
     }
@@ -46,14 +57,14 @@ public class StudentController extends DomainCRUDController<StudentDTO, Student,
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createStudentInfo(@AuthenticationPrincipal User user, @RequestBody Student student) {
-        student.setStu_id(user.getId());
-        return add(student);
+    public ResponseEntity<?> createStudentInfo(@AuthenticationPrincipal User user, @RequestBody ApplicantDTO applicant) {
+        applicant.setId(user.getId());
+        return add(applicant);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateStudentInfo(@RequestBody Student student) throws NotFoundException {
-        return update(student);
+    public ResponseEntity<?> updateStudentInfo(@RequestBody ApplicantDTO applicant) throws NotFoundException {
+        return update(applicant);
     }
 
     @DeleteMapping("/{id}")
