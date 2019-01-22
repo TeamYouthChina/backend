@@ -9,8 +9,9 @@ import com.youthchina.service.qingyang.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by zhongyangwu on 12/2/18.
