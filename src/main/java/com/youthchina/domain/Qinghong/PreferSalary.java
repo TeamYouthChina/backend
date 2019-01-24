@@ -7,7 +7,7 @@ public class PreferSalary {
     private Integer pre_sala_id;
     private Integer pre_sala_cap;
     private Integer pre_sala_floor;
-    private Integer pre_prof_id;
+    private Integer pre_prof_code;
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
@@ -36,12 +36,12 @@ public class PreferSalary {
         this.pre_sala_floor = pre_sala_floor;
     }
 
-    public Integer getPre_prof_id() {
-        return pre_prof_id;
+    public Integer getPre_prof_code() {
+        return pre_prof_code;
     }
 
-    public void setPre_prof_id(Integer pre_prof_id) {
-        this.pre_prof_id = pre_prof_id;
+    public void setPre_prof_code(Integer pre_prof_code) {
+        this.pre_prof_code = pre_prof_code;
     }
 
     public Integer getStu_id() {
