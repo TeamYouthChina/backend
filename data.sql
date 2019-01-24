@@ -30,7 +30,7 @@ create table IF NOT EXISTS `STU_EDU_INFO`
   `EDU_MAJOR`           INTEGER      NOT NULL
     COMMENT '专业',
   `EDU_COLLEGE`         VARCHAR(200) COMMENT '学院（选填）',
-  `EDU_GPA`             DECIMAL COMMENT 'GPA（选填）',
+  `EDU_GPA`             DECIMAL(2,3) COMMENT 'GPA（选填）',
   `EDU_START`           DATE         NOT NULL
     COMMENT '入学时间',
   `EDU_END`             DATE         NOT NULL
