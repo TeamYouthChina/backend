@@ -1,7 +1,9 @@
 package com.youthchina.dao.zhongyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,6 +25,7 @@ import java.util.List;
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:users.xml"})
+@DatabaseTearDown(value = {"classpath:users.xml"}, type = DatabaseOperation.DELETE)
 public class UserMapperTest {
     @Autowired
     private UserMapper userMapper;

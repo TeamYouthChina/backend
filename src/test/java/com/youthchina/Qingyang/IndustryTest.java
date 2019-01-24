@@ -1,7 +1,9 @@
 package com.youthchina.Qingyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
@@ -26,6 +28,7 @@ import com.youthchina.dao.qingyang.CompanyMapper;
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:company.xml"})
+@DatabaseTearDown(value = {"classpath:company.xml"}, type = DatabaseOperation.DELETE)
 public class IndustryTest {
 
     @Autowired

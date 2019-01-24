@@ -1,7 +1,9 @@
 package com.youthchina.tianjian;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.youthchina.dao.tianjian.CommunityMapper;
 import com.youthchina.domain.tianjian.*;
 import org.junit.Assert;
@@ -25,6 +27,7 @@ import java.util.List;
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:essay.xml"})
+@DatabaseTearDown(value = {"classpath:essay.xml"}, type = DatabaseOperation.DELETE)
 public class CommunityMapperTest {
     @Autowired
     private CommunityMapper userMapper;

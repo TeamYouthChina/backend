@@ -1,7 +1,9 @@
 package com.youthchina.controller;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import org.apache.catalina.core.ApplicationContext;
 import org.apache.commons.collections4.map.LinkedMap;
 import org.junit.Before;
@@ -35,6 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:users.xml"})
+@DatabaseTearDown(value = {"classpath:users.xml"}, type = DatabaseOperation.DELETE)
 @WebAppConfiguration
 public class UserControllerTest {
     @Autowired

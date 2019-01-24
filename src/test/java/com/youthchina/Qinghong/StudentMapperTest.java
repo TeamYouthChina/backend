@@ -1,7 +1,9 @@
 package com.youthchina.Qinghong;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.youthchina.dao.Qinghong.ApplicantMapper;
 import com.youthchina.dao.Qinghong.StudentMapper;
 import com.youthchina.dao.zhongyang.UserMapper;
@@ -34,6 +36,7 @@ import java.util.List;
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:applicant.xml"})
+@DatabaseTearDown(value = {"classpath:applicant.xml"}, type = DatabaseOperation.DELETE)
 public class StudentMapperTest {
     @Autowired
     ApplicantMapper applicantMapper;
