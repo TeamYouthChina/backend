@@ -39,7 +39,6 @@ public class JobTest {
         Assert.assertEquals(Integer.valueOf(111), job.getJobLocationList().get(0).getJobRegionNum());
     }
 
-
     @Test
     public void testGetJobByList() {
         List<Integer> ids = new ArrayList<>();

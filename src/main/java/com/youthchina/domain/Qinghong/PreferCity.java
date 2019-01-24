@@ -4,26 +4,26 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class PreferCity {
-    private Integer pre_citt_id;
-    private Integer pre_city_num;
+    private Integer pre_city_id;
+    private String pre_city_code;
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public Integer getPre_citt_id() {
-        return pre_citt_id;
+    public Integer getPre_city_id() {
+        return pre_city_id;
     }
 
-    public void setPre_citt_id(Integer pre_citt_id) {
-        this.pre_citt_id = pre_citt_id;
+    public void setPre_city_id(Integer pre_city_id) {
+        this.pre_city_id = pre_city_id;
     }
 
-    public Integer getPre_city_num() {
-        return pre_city_num;
+    public String getPre_city_code() {
+        return pre_city_code;
     }
 
-    public void setPre_city_num(Integer pre_city_num) {
-        this.pre_city_num = pre_city_num;
+    public void setPre_city_code(String pre_city_code) {
+        this.pre_city_code = pre_city_code;
     }
 
     public Integer getStu_id() {

@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class PreferJob {
     private Integer pre_job_id;
-    private Integer pre_job_num;
+    private String pre_job_code;
     private Date pre_avail_time;
     private Integer stu_id;
     private Integer is_delete;
@@ -19,12 +19,12 @@ public class PreferJob {
         this.pre_job_id = pre_job_id;
     }
 
-    public Integer getPre_job_num() {
-        return pre_job_num;
+    public String getPre_job_code() {
+        return pre_job_code;
     }
 
-    public void setPre_job_num(Integer pre_job_num) {
-        this.pre_job_num = pre_job_num;
+    public void setPre_job_code(String pre_job_code) {
+        this.pre_job_code = pre_job_code;
     }
 
     public Date getPre_avail_time() {

@@ -78,6 +78,7 @@ comment '职位基本信息表';
         return hr;
     }
 
+
     public void setHr(Hr hr) {
         this.hr = hr;
     }

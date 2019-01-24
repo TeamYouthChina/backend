@@ -10,7 +10,7 @@ public class EducationInfo {
     private String edu_school;
     private String edu_school_country;
     private Integer edu_school_location;
-    private Integer edu_major;
+    private String edu_major;
     private String edu_college;
     private Float edu_gpa;
     private Date edu_start;
@@ -59,11 +59,11 @@ public class EducationInfo {
         this.edu_school_location = edu_school_location;
     }
 
-    public Integer getEdu_major() {
+    public String getEdu_major() {
         return edu_major;
     }
 
-    public void setEdu_major(Integer edu_major) {
+    public void setEdu_major(String edu_major) {
         this.edu_major = edu_major;
     }
 

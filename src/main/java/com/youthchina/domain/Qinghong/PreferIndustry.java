@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class PreferIndustry {
     private Integer pre_ind_id;
-    private Integer pre_ind_num;
+    private String pre_ind_code;
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
@@ -19,12 +19,12 @@ public class PreferIndustry {
         this.pre_ind_id = pre_ind_id;
     }
 
-    public Integer getPre_ind_num() {
-        return pre_ind_num;
+    public String getPre_ind_code() {
+        return pre_ind_code;
     }
 
-    public void setPre_ind_num(Integer pre_ind_num) {
-        this.pre_ind_num = pre_ind_num;
+    public void setPre_ind_code(String pre_ind_code) {
+        this.pre_ind_code = pre_ind_code;
     }
 
     public Integer getStu_id() {
