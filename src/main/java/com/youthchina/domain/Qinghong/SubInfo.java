@@ -1,25 +1,28 @@
 package com.youthchina.domain.Qinghong;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class SubInfo {
-    private int sub_id;
+    private Integer sub_id;
     private String sub_course;
     private String sub_honor;
     private String sub_award;
     private String sub_skill;
+    private String sub_certificate;
+    private String sub_certif_url;
     private String sub_foreign;
     private String sub_interest;
-    private String sub_introduction;
+    private String sub_activity;
     private Integer stu_id;
-    private Boolean is_delete;
-    private Date is_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
-    public int getSub_id() {
+    public Integer getSub_id() {
         return sub_id;
     }
 
-    public void setSub_id(int sub_id) {
+    public void setSub_id(Integer sub_id) {
         this.sub_id = sub_id;
     }
 
@@ -55,6 +58,22 @@ public class SubInfo {
         this.sub_skill = sub_skill;
     }
 
+    public String getSub_certificate() {
+        return sub_certificate;
+    }
+
+    public void setSub_certificate(String sub_certificate) {
+        this.sub_certificate = sub_certificate;
+    }
+
+    public String getSub_certif_url() {
+        return sub_certif_url;
+    }
+
+    public void setSub_certif_url(String sub_certif_url) {
+        this.sub_certif_url = sub_certif_url;
+    }
+
     public String getSub_foreign() {
         return sub_foreign;
     }
@@ -71,12 +90,12 @@ public class SubInfo {
         this.sub_interest = sub_interest;
     }
 
-    public String getSub_introduction() {
-        return sub_introduction;
+    public String getSub_activity() {
+        return sub_activity;
     }
 
-    public void setSub_introduction(String sub_introduction) {
-        this.sub_introduction = sub_introduction;
+    public void setSub_activity(String sub_activity) {
+        this.sub_activity = sub_activity;
     }
 
     public Integer getStu_id() {
@@ -87,19 +106,19 @@ public class SubInfo {
         this.stu_id = stu_id;
     }
 
-    public Boolean getIs_delete() {
+    public Integer getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(Boolean is_delete) {
+    public void setIs_delete(Integer is_delete) {
         this.is_delete = is_delete;
     }
 
-    public Date getIs_delete_time() {
+    public Timestamp getIs_delete_time() {
         return is_delete_time;
     }
 
-    public void setIs_delete_time(Date is_delete_time) {
+    public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
 }

@@ -34,6 +34,9 @@ public class JobTest {
     public void testGetJob() {
         Job job = jobMapper.selectJobByJobId(1);
         Assert.assertEquals("大疆", job.getCompany().getCompanyName());
+        Assert.assertEquals(1, job.getIndustries().size());
+        Assert.assertEquals("A", job.getIndustries().get(0).getIndCode());
+        Assert.assertEquals(Integer.valueOf(111), job.getJobLocationList().get(0).getJobRegionNum());
     }
 
 
@@ -61,16 +64,13 @@ public class JobTest {
         company.setCompanyId(1);
         job.setCompany(company);
         job.setJobName("全栈");
-        job.setJobProfNum(1);
+        job.setJobProfCode("1");
         job.setJobStartTime(Date.valueOf("2019-1-1"));
         job.setJobEndTime(Date.valueOf("2020-1-1"));
         job.setJobTime(1);
         job.setJobDescription("fullStack");
         job.setJobDuty("fullStack");
-        job.setJobReq("fullStack");
-        job.setJobLocation("北京");
         job.setJobHighlight("80K");
-        job.setJobSalary("80K");
         job.setCvReceiMail("youth@china");
         job.setCvNameRule("rule");
         job.setJobActive(1);
@@ -80,7 +80,7 @@ public class JobTest {
     @Test
     public void testUpdateJob(){
         Job job = jobMapper.selectJobByJobId(1);
-        Assert.assertEquals("Beijing", job.getJobLocation());
+//        Assert.assertEquals("Beijing", job.getJobLocation());
         job.getCompany().setCompanyId(2);
         jobMapper.updateJob(job);
     }

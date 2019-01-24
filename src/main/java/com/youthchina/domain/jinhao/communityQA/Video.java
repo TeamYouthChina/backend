@@ -1,6 +1,9 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.domain.zhongyang.User;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Video {
     private Integer video_id;
@@ -9,6 +12,42 @@ public class Video {
     private Timestamp video_upload_time;
     private Integer is_delete;
     private Timestamp is_delete_time;
+    private User user;
+    private List<VideoAttention> videoAttentions;
+    private List<VideoComment> videoComments;
+    private List<VideoEvaluate> videoEvaluates;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<VideoAttention> getVideoAttentions() {
+        return videoAttentions;
+    }
+
+    public void setVideoAttentions(List<VideoAttention> videoAttentions) {
+        this.videoAttentions = videoAttentions;
+    }
+
+    public List<VideoComment> getVideoComments() {
+        return videoComments;
+    }
+
+    public void setVideoComments(List<VideoComment> videoComments) {
+        this.videoComments = videoComments;
+    }
+
+    public List<VideoEvaluate> getVideoEvaluates() {
+        return videoEvaluates;
+    }
+
+    public void setVideoEvaluates(List<VideoEvaluate> videoEvaluates) {
+        this.videoEvaluates = videoEvaluates;
+    }
 
     public Integer getVideo_id() {
         return video_id;

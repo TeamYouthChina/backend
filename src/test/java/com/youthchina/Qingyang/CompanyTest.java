@@ -83,6 +83,7 @@ public class CompanyTest {
     @Test
     public void GetCompany() {
         Company company = companyMapper.selectCompany(1);
+        System.out.println(company.getCompanyName());
         Assert.assertEquals("大疆", company.getCompanyName());
     }
 
@@ -103,13 +104,17 @@ public class CompanyTest {
         company.setCompanyLogo("1");
         company.setCompanyVerify(1);
         company.setUserId(1);
+
+
+        companyMapper.insertCompany(company);
+
         List<Industry> industryList = new ArrayList<>();
         Industry industry = new Industry();
-        industry.setCompanyId(1);
-        industry.setIndNum(1);
+        industry.setIndCode("AAA");
+        industry.setCompanyId(company.getCompanyId());
         industryList.add(industry);
         company.setIndList(industryList);
-        companyMapper.insertCompany(company);
+
         companyMapper.insertCompanyInd(company.getIndList());
     }
 

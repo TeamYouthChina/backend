@@ -20,6 +20,10 @@ abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializa
      */
     protected abstract DomainCRUDService<T, K> getService();
 
+    protected abstract DTO convertDomainToDto(T domain);
+
+    protected abstract T convertDtoToDomain(DTO dto);
+
     /**
      * @param key key of domain model
      * @return 200 if found
@@ -27,16 +31,16 @@ abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializa
      */
     protected ResponseEntity<?> get(K key) throws NotFoundException {
         T t = getService().get(key);
-        return ResponseEntity.ok(t);
+        return ResponseEntity.ok(convertDomainToDto(t));
     }
 
     /**
-     * @param t domain model
+     * @param dto Data Transfer Model
      * @return 200 if updated
      * @throws NotFoundException cannot find domain model based on the key
      */
-    protected ResponseEntity<?> update(T t) throws NotFoundException {
-        T updatedT = getService().update(t);
+    protected ResponseEntity<?> update(DTO dto) throws NotFoundException {
+        T updatedT = getService().update(convertDtoToDomain(dto));
         return ResponseEntity.ok().build();
     }
 
@@ -51,13 +55,13 @@ abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializa
     }
 
     /**
-     * @param t domain model to add
+     * @param dto data transfer model
      * @return 201 if added
      */
-    protected ResponseEntity<?> add(T t) {
-        T created = getService().add(t);
+    protected ResponseEntity<?> add(DTO dto) {
+        T created = getService().add(convertDtoToDomain(dto));
         try {
-            return ResponseEntity.created(getUriForNewInstance(t.getId())).build();
+            return ResponseEntity.created(getUriForNewInstance(created.getId())).build();
         } catch (URISyntaxException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
