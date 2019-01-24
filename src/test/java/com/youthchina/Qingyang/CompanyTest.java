@@ -29,7 +29,6 @@ import java.util.List;
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:company.xml"})
-@DatabaseTearDown(value = {"classpath:company.xml"}, type = DatabaseOperation.DELETE)
 public class CompanyTest {
 
     @Autowired

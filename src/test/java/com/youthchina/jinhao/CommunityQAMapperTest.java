@@ -26,7 +26,7 @@ import java.util.List;
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:questions.xml", "classpath:answers.xml", "classpath:comments.xml", "classpath:discuss.xml", "classpath:videos.xml"})
-@DatabaseTearDown(value = {"classpath:questions.xml", "classpath:answers.xml", "classpath:comments.xml", "classpath:discuss.xml", "classpath:videos.xml"}, type = DatabaseOperation.DELETE)
+
 public class CommunityQAMapperTest extends BaseTest {
     @Autowired
     CommunityQAMapper communityQAMapper;

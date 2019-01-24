@@ -28,7 +28,6 @@ import com.youthchina.dao.qingyang.CompanyMapper;
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:company.xml"})
-@DatabaseTearDown(value = {"classpath:company.xml"}, type = DatabaseOperation.DELETE)
 public class IndustryTest {
 
     @Autowired

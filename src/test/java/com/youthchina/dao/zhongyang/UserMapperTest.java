@@ -25,7 +25,6 @@ import java.util.List;
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:users.xml"})
-@DatabaseTearDown(value = {"classpath:users.xml"}, type = DatabaseOperation.DELETE)
 public class UserMapperTest {
     @Autowired
     private UserMapper userMapper;

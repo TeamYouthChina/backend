@@ -8,13 +8,18 @@ import com.youthchina.service.jinhao.communityQA.CommunityQAServiceImplement;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class DemoTest {
 
     @InjectMocks

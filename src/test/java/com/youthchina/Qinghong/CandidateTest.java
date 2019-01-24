@@ -10,16 +10,20 @@ import com.youthchina.service.Qinghong.StudentServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class CandidateTest {
 
     @InjectMocks

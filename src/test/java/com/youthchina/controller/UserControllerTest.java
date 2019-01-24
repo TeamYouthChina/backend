@@ -37,7 +37,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:users.xml"})
-@DatabaseTearDown(value = {"classpath:users.xml"}, type = DatabaseOperation.DELETE)
 @WebAppConfiguration
 public class UserControllerTest {
     @Autowired

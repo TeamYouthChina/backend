@@ -36,7 +36,6 @@ import java.util.List;
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:applicant.xml"})
-@DatabaseTearDown(value = {"classpath:applicant.xml"}, type = DatabaseOperation.DELETE)
 public class StudentMapperTest {
     @Autowired
     ApplicantMapper applicantMapper;
