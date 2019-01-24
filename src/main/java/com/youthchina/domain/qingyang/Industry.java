@@ -29,6 +29,10 @@ public class Industry {
     private Integer isDelete;
     private Timestamp isDeleteTime;
 
+    // For insert
+    private Integer companyId;
+    private Integer jobId;
+
     public Industry(){
 
     }
@@ -103,5 +107,21 @@ public class Industry {
 
     public void setIsDeleteTime(Timestamp isDeleteTime) {
         this.isDeleteTime = isDeleteTime;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
+    public Integer getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Integer jobId) {
+        this.jobId = jobId;
     }
 }

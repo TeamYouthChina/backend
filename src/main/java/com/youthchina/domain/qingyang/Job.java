@@ -9,37 +9,46 @@ public class Job {
     private Integer jobId;
 
     private String  jobName;
-    private Integer jobProfNum;
+    private String  jobProfCode;
     private Date    jobStartTime;
     private Date    jobEndTime;
-
-/*                                                      允许空值
-职位ID		主键		JOB_ID	INTEGER	是	否
-职位名称				JOB_NAME	VARCHAR(200)	否	否
-职位类别编号			JOB_PROF_NUM	INTEGER	否	否
-职位起始日期			JOB_START_TIME	DATE	否	否
-职位截止日期			JOB_END_TIME	DATE	否	否
-职位性质				JOB_TIME	INTEGER	否	否	1-实习，2-兼职，3-全职
-职位描述				JOB_DESCRIPTION	VARCHAR(200)	否	否
-职责描述				JOB_DUTY	VARCHAR(200)	否	是
-职位亮点				JOB_HIGHLIGHT	VARCHAR(200)	否	是
-职位薪资下限			JOB_SALARY_FLOOR	INTEGER	否	是
-职位薪资上限			JOB_SALARY_CAP	INTEGER	否	是
-职位链接				JOB_LINK	VARCHAR(500)	否	是
-简历接收邮箱			CV_RECEI_MAIL	VARCHAR(200)	否	否
-简历命名规则			CV_NAME_RULE	VARCHAR(200)	否	是
-职位状态				JOB_ACTIVE	INTEGER	否	否	1，2，3,4,5
-问答ID		外键		QUES_ID	INTEGER	否	否
-招聘者ID		外键		HR_ID	INTEGER	否	否
-企业ID		外键		COMPANY_ID	INTEGER	否	否
-是否删除		0	    IS_DELETE	INTEGER	否	否	0-默认不删除
-删除时间		NULL	IS_DELETE_TIME	TIMESTAMP	否	是
-*/
-
     private Integer jobTime;
     private String  jobDescription;
     private String  jobDuty;
     private String  jobHighlight;
+
+/*
+create table JOB_INFO
+(
+	JOB_ID int auto_increment comment '职位ID'
+		primary key,
+	JOB_NAME varchar(200) not null comment '职位名称',
+	JOB_PROF_CODE varchar(20) not null comment '职位类别编号',
+	JOB_START_TIME date not null comment '职位起始时间',
+	JOB_END_TIME date not null comment '职位截止时间',
+	JOB_TIME int not null comment '职位性质',
+	JOB_DESCRIPTION varchar(200) not null comment '职位描述',
+	JOB_DUTY varchar(200) null comment '职责描述',
+	JOB_HIGHLIGHT varchar(200) null comment '职位亮点',
+	JOB_SALARY_FLOOR int null comment '职位薪资下限',
+	JOB_SALARY_CAP int null comment '职位薪资上限',
+	JOB_LINK varchar(500) null comment '职位链接',
+	CV_RECEI_MAIL varchar(200) not null comment '简历接收邮箱',
+	CV_NAME_RULE varchar(200) null comment '简历命名规则',
+	JOB_ACTIVE int not null comment '职位状态',
+	HR_ID int not null comment '招聘者ID',
+	COMPANY_ID int not null comment '企业ID',
+	IS_DELETE int default 0 null comment '是否删除',
+	IS_DELETE_TIME timestamp null comment '删除时间',
+	constraint JOB_COMPANY_ID
+		foreign key (COMPANY_ID) references COMPANY_INFO (company_id),
+	constraint JOB_HR_ID
+		foreign key (HR_ID) references HR_INFO (hr_id)
+)
+comment '职位基本信息表';
+*/
+
+
     private Integer jobSalaryFloor;
     private Integer jobSalaryCap;
     private String  jobLink;
@@ -89,12 +98,12 @@ public class Job {
         this.jobName = jobName;
     }
 
-    public Integer getJobProfNum() {
-        return jobProfNum;
+    public String getJobProfCode() {
+        return jobProfCode;
     }
 
-    public void setJobProfNum(Integer jobProfNum) {
-        this.jobProfNum = jobProfNum;
+    public void setJobProfCode(String jobProfCode) {
+        this.jobProfCode = jobProfCode;
     }
 
     public Date getJobStartTime() {

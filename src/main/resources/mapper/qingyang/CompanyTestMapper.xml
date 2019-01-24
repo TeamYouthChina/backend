@@ -68,6 +68,7 @@
             <result property="indLevel" column="IND_LEVEL"/>
             <result property="indParentCode" column="IND_PARENT_CODE"/>
             <result property="startTime" column="START_TIME"/>
+            <result property="companyId" column="COMPANY_ID"/>
         </collection>
         <collection property="verificationList" ofType="com.youthchina.domain.qingyang.CompanyVerification">
             <id property="verifyId" column="VERIFY_ID"/>
@@ -99,7 +100,7 @@
               v.VERIFY_END_TIME as VERIFY_END_TIME,
               v.OPER_USER_ID as OPER_USER_ID,
 
-              i.IND_NUM as IND_NUM,
+              i.COMPANY_IND_CODE as COMPANY_IND_CODE,
 
               class.IND_NUM as C_IND_NUM,
               class.IND_CODE as IND_CODE,
@@ -110,12 +111,11 @@
               class.START_TIME as START_TIME
 
         FROM COMPANY_INFO com
-                 LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID
-                 LEFT OUTER JOIN COMPANY_INDUSTRY i ON i.COMPANY_ID = com.COMPANY_ID
-                 LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_CODE = i.IND_NUM
+                 LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0 AND v.IS_DELETE = 0
+                 LEFT OUTER JOIN COMPANY_INDUSTRY i ON i.COMPANY_ID = com.COMPANY_ID AND i.IS_DELETE = 0
+                 LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_CODE = i.COMPANY_IND_CODE AND class.IS_DELETE = 0
         WHERE
             com.COMPANY_ID = #{id}
-        AND com.IS_DELETE = 0 AND v.IS_DELETE = 0 AND i.IS_DELETE = 0 AND class.IS_DELETE = 0
     </select>
 
     <select id="selectCompanyByIdList" parameterType="java.util.List" resultMap="company" >
@@ -140,7 +140,7 @@
               v.VERIFY_END_TIME as VERIFY_END_TIME,
               v.OPER_USER_ID as OPER_USER_ID,
 
-              i.IND_NUM as IND_NUM,
+              i.COMPANY_IND_CODE as COMPANY_IND_CODE,
 
               class.IND_NUM as C_IND_NUM,
               class.IND_CODE as IND_CODE,
@@ -153,7 +153,7 @@
         FROM COMPANY_INFO com
                  LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0 AND v.IS_DELETE = 0
                  LEFT OUTER JOIN COMPANY_INDUSTRY i ON i.COMPANY_ID = com.COMPANY_ID AND i.IS_DELETE = 0
-                 LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_CODE = i.IND_NUM AND class.IS_DELETE = 0
+                 LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_CODE = i.COMPANY_IND_CODE AND class.IS_DELETE = 0
         WHERE com.COMPANY_ID in
           <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
               #{id}
@@ -231,7 +231,7 @@
         <result property="indEng" column="IND_ENG" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="indLevel" column="IND_LEVEL" javaType="java.lang.Integer"/>
         <result property="indParentCode" column="IND_PARENT_CODE" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="startDate" column="START_TIME" javaType="java.sql.Timestamp"/>
+        <result property="startTime" column="START_TIME" javaType="java.sql.Timestamp"/>
     </resultMap>
 
     <insert id="insertIndustry" parameterType="com.youthchina.domain.qingyang.Industry"
@@ -291,15 +291,13 @@
 
 
     <!--CompanyIndustry CURD-->
-
-
     <!--insert Company's Industries By Company's List of Industry-->
     <insert id="insertCompanyInd" useGeneratedKeys="true" keyProperty="companyIndusId">
         INSERT INTO COMPANY_INDUSTRY
-        (   IND_NUM,   COMPANY_ID, IS_DELETE, IS_DELETE_TIME)
+        (   COMPANY_IND_CODE,   COMPANY_ID, IS_DELETE, IS_DELETE_TIME)
         VALUES
           <foreach item="ind" collection="list" separator=",">
-            (#{ind.indNum}, #{ind.companyId}, 0, NULL)
+            (#{ind.indCode}, #{ind.companyId}, 0, NULL)
           </foreach>
     </insert>
 
