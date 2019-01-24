@@ -61,7 +61,7 @@ public class JobTest {
         company.setCompanyId(1);
         job.setCompany(company);
         job.setJobName("全栈");
-        job.setJobProfNum(1);
+        job.setJobProfCode("111aa");
         job.setJobStartTime(Date.valueOf("2019-1-1"));
         job.setJobEndTime(Date.valueOf("2020-1-1"));
         job.setJobTime(1);

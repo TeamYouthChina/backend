@@ -104,7 +104,7 @@
         <association property="job" javaType="com.youthchina.domain.qingyang.Job">
             <id property="jobId" column="JOB_ID"/>
             <result property="jobName" column="JOB_NAME"/>
-            <result property="jobProfNum" column="JOB_PROF_NUM"/>
+            <result property="jobProfCode" column="JOB_PROF_CODE"/>
             <result property="jobStartTime" column="JOB_START_TIME"/>
             <result property="jobEndTime" column="JOB_END_TIME"/>
             <result property="jobTime" column="JOB_TIME"/>
@@ -130,7 +130,7 @@
         <association property="job" javaType="com.youthchina.domain.qingyang.Job">
             <id property="jobId" column="JOB_ID"/>
             <result property="jobName" column="JOB_NAME"/>
-            <result property="jobProfNum" column="JOB_PROF_NUM"/>
+            <result property="jobProfCode" column="JOB_PROF_CODE"/>
             <result property="jobStartTime" column="JOB_START_TIME"/>
             <result property="jobEndTime" column="JOB_END_TIME"/>
             <result property="jobTime" column="JOB_TIME"/>
