@@ -12,7 +12,7 @@ import java.util.Date;
  * @create: 2018-11-29 16:59
  **/
 public class JobCollect {
-    private Integer collect_id;
+    private Integer coleect_id;
     private Integer job_id;
     private Timestamp job_coll_time;
     private Integer stu_id;
@@ -21,12 +21,12 @@ public class JobCollect {
     private Job job;
 
 
-    public Integer getCollect_id() {
-        return collect_id;
+    public Integer getColeect_id() {
+        return coleect_id;
     }
 
-    public void setCollect_id(Integer collect_id) {
-        this.collect_id = collect_id;
+    public void setColeect_id(Integer coleect_id) {
+        this.coleect_id = coleect_id;
     }
 
     public Integer getJob_id() {

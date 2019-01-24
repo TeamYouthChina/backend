@@ -6,18 +6,19 @@
     <insert id="insertJob" parameterType="com.youthchina.domain.qingyang.Job"
             useGeneratedKeys="true" keyProperty="jobId">
         INSERT INTO JOB_INFO
-        (   COMPANY_ID,     HR_ID,          JOB_NAME,     JOB_PROF_NUM,
+        (
+            COMPANY_ID,     HR_ID,          JOB_NAME,     JOB_PROF_CODE,
             JOB_START_TIME, JOB_END_TIME,   JOB_TIME,     JOB_DESCRIPTION,
-            JOB_DUTY,       JOB_REQ,        JOB_LOCATION, JOB_HIGHLIGHT,
-            JOB_SALARY,     CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, IS_DELETE,
+            JOB_DUTY,       JOB_HIGHLIGHT, JOB_SALARY_FLOOR, JOB_SALARY_CAP,
+            JOB_LINK,   CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, IS_DELETE,
             IS_DELETE_TIME
         )
         VALUES
         (
-            #{company.companyId},   #{hr.hrId},       #{jobName},     #{jobProfNum},
+            #{company.companyId},   #{hr.hrId},       #{jobName},     #{jobProfCode},
             #{jobStartTime},#{jobEndTime},  #{jobTime},     #{jobDescription},
-            #{jobDuty},     #{jobReq},      #{jobLocation},  #{jobHighlight},
-            #{jobSalary},   #{cvReceiMail}, #{cvNameRule},  #{jobActive}, 0,
+            #{jobDuty},   #{jobHighlight},  #{jobSalaryFloor}, #{jobSalaryCap},
+            #{jobLink},  #{cvReceiMail}, #{cvNameRule},  #{jobActive}, 0,
             NULL
         )
     </insert>
@@ -29,16 +30,16 @@
             COMPANY_ID = #{company.companyId},
             HR_ID = #{hr.hrId},
             JOB_NAME = #{jobName},
-            JOB_PROF_NUM = #{jobProfNum},
+            JOB_PROF_CODE = #{jobProfCode},
             JOB_START_TIME = #{jobStartTime},
             JOB_END_TIME = #{jobEndTime},
             JOB_TIME = #{jobTime},
             JOB_DESCRIPTION = #{jobDescription},
             JOB_DUTY = #{jobDuty},
-            JOB_REQ = #{jobReq},
-            JOB_LOCATION = #{jobLocation},
             JOB_HIGHLIGHT = #{jobHighlight},
-            JOB_SALARY = #{jobSalary},
+            JOB_SALARY_FLOOR = #{jobSalaryFloor},
+            JOB_SALARY_CAP = #{jobSalaryCap},
+            JOB_LINK = #{jobLink},
             CV_RECEI_MAIL = #{cvReceiMail},
             CV_NAME_RULE = #{cvNameRule},
             JOB_ACTIVE = #{jobActive}
@@ -56,28 +57,58 @@
     <resultMap id="job" type="com.youthchina.domain.qingyang.Job">
         <id property="jobId" column="JOB_ID"/>
         <result property="jobName" column="JOB_NAME"/>
-        <result property="jobProfNum" column="JOB_PROF_NUM"/>
+        <result property="jobProfCode" column="JOB_PROF_CODE"/>
         <result property="jobStartTime" column="JOB_START_TIME"/>
         <result property="jobEndTime" column="JOB_END_TIME"/>
         <result property="jobTime" column="JOB_TIME"/>
         <result property="jobDescription" column="JOB_DESCRIPTION"/>
         <result property="jobDuty" column="JOB_DUTY"/>
-        <result property="jobReq" column="JOB_REQ"/>
-        <result property="jobLocation" column="JOB_LOCATION"/>
         <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
-        <result property="jobSalary" column="JOB_SALARY"/>
+        <result property="jobSalaryFloor" column="JOB_SALARY_FLOOR"/>
+        <result property="jobSalaryCap" column="JOB_SALARY_CAP"/>
+        <result property="jobLink" column="JOB_LINK"/>
         <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
         <result property="cvNameRule" column="CV_NAME_RULE"/>
         <result property="jobActive" column="JOB_ACTIVE"/>
         <association property="company" javaType="com.youthchina.domain.qingyang.Company">
             <id property="companyId" column="COMPANY_ID"/>
             <result property="companyName" column="COMPANY_NAME"/>
+            <result property="companyCode" column="COMPANY_CODE"/>
+            <result property="companyCountry" column="COMPANY_COUNTRY"/>
+            <result property="companyIntroduc" column="COMPANY_INTRODUC"/>
             <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
+            <result property="companyNature" column="COMPANY_NATURE"/>
+            <result property="companyLocation" column="COMPANY_LOCATION"/>
+            <result property="companyMail" column="COMPANY_MAIL"/>
+            <result property="companyWebsite" column="COMPANY_WEBSITE"/>
+            <result property="companyStartDate" column="COMPANY_START_DATE"/>
             <result property="companyLogo" column="COMPANY_LOGO"/>
+            <result property="companyVerify" column="COMPANY_VERIFY"/>
         </association>
         <association property="hr" javaType="com.youthchina.domain.qingyang.Hr">
             <id property="hrId" column="HR_ID"/>
+            <result property="hrOnJob" column="HR_ON_JOB"/>
+            <result property="companyId" column="COMPANY_ID"/>
         </association>
+        <collection property="industries" ofType="com.youthchina.domain.qingyang.Industry">
+            <id property="indNum" column="C_IND_NUM"/>
+            <result property="indCode" column="IND_CODE"/>
+            <result property="indChn" column="IND_CHN"/>
+            <result property="indEng" column="IND_ENG"/>
+            <result property="indLevel" column="IND_LEVEL"/>
+            <result property="indParentCode" column="IND_PARENT_CODE"/>
+            <result property="startTime" column="START_TIME"/>
+        </collection>
+        <collection property="jobLocationList" ofType="com.youthchina.domain.qingyang.JobLocation">
+            <id property="jobRegionId" column="JOB_REGION_ID"/>
+            <result property="jobRegionNum" column="JOB_REGION_NUM"/>
+            <result property="jobId" column="JOB_ID"/>
+        </collection>
+        <collection property="jobReqList" ofType="com.youthchina.domain.qingyang.JobRequest">
+            <id property="jobRequireId" column="JOB_REQUIRE_ID"/>
+            <result property="jobDegreeNum" column="JOB_DEGREE_NUM"/>
+            <result property="jobId" column="JOB_ID"/>
+        </collection>
     </resultMap>
 
     <resultMap id="jobListMap" type="java.util.HashMap">
@@ -91,16 +122,16 @@
         SELECT
             j.JOB_ID as JOB_ID,
             j.JOB_NAME as JOB_NAME,
-            j.JOB_PROF_NUM as JOB_PROF_NUM,
+            j.JOB_PROF_CODE as JOB_PROF_CODE,
             j.JOB_START_TIME as JOB_START_TIME,
             j.JOB_END_TIME as JOB_END_TIME,
             j.JOB_TIME as JOB_TIME,
             j.JOB_DESCRIPTION as JOB_DESCRIPTION,
             j.JOB_DUTY as JOB_DUTY,
-            j.JOB_REQ as JOB_REQ,
-            j.JOB_LOCATION as JOB_LOCATION,
             j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
-            j.JOB_SALARY as JOB_SALARY,
+            j.JOB_SALARY_FLOOR as JOB_SALARY_FLOOR,
+            j.JOB_SALARY_CAP as JOB_SALARY_CAP,
+            j.JOB_LINK as JOB_LINK,
             j.CV_RECEI_MAIL as CV_RECEI_MAIL,
             j.CV_NAME_RULE as CV_NAME_RULE,
             j.JOB_ACTIVE as JOB_ACTIVE,
@@ -108,37 +139,81 @@
             j.COMPANY_ID as COMPANY_ID,
 
             com.COMPANY_NAME as COMPANY_NAME,
+            com.COMPANY_CODE as COMPANY_CODE,
+            com.COMPANY_COUNTRY as COMPANY_COUNTRY,
+            com.COMPANY_INTRODUC as COMPANY_INTRODUC,
             com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-            com.COMPANY_LOGO as COMPANY_LOGO
+            com.COMPANY_NATURE as COMPANY_NATURE,
+            com.COMPANY_LOCATION as COMPANY_LOCATION,
+            com.COMPANY_MAIL as COMPANY_MAIL,
+            com.COMPANY_WEBSITE as COMPANY_WEBSITE,
+            com.COMPANY_START_DATE as COMPANY_START_DATE,
+            com.COMPANY_LOGO as COMPANY_LOGO,
+            com.COMPANY_VERIFY as COMPANY_VERIFY,
+
+            h.HR_ON_JOB as HR_ON_JOB,
+
+            class.IND_NUM as C_IND_NUM,
+            class.IND_CODE as IND_CODE,
+            class.IND_CHN as IND_CHN,
+            class.IND_ENG as IND_ENG,
+            class.IND_LEVEL as IND_LEVEL,
+            class.IND_PARENT_CODE as IND_PARENT_CODE,
+            class.START_TIME as START_TIME,
+
+            loc.JOB_REGION_ID as JOB_REGION_ID,
+            loc.JOB_REGION_NUM as JOB_REGION_NUM,
+
+            req.JOB_REQUIRE_ID as JOB_REQUIRE_ID,
+            req.JOB_DEGREE_NUM as JOB_DEGREE_NUM
+
         FROM JOB_INFO j
-             LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
-             LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
+             LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
+             LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0
+             LEFT OUTER JOIN JOB_INDUSTRY i ON j.JOB_ID = i.JOB_ID AND i.IS_DELETE = 0
+             LEFT OUTER JOIN SYS_IND_CLASS class ON i.JOB_IND_CODE = class.IND_CODE AND class.IS_DELETE = 0
+             LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
+             LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = loc.JOB_ID AND req.IS_DELETE = 0
+
         WHERE
             j.JOB_ID = #{jobId}
-        AND j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0
+
     </select>
 
     <select id="selectJobByJobIdList" resultMap="job" parameterType="java.util.List">
         SELECT
-            j.JOB_ID as JOB_ID,
-            j.JOB_NAME as JOB_NAME,
-            j.JOB_PROF_NUM as JOB_PROF_NUM,
-            j.JOB_START_TIME as JOB_START_TIME,
-            j.JOB_END_TIME as JOB_END_TIME,
-            j.JOB_TIME as JOB_TIME,
-            j.JOB_DESCRIPTION as JOB_DESCRIPTION,
-            j.JOB_DUTY as JOB_DUTY,
-            j.JOB_REQ as JOB_REQ,
-            j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
-            j.JOB_SALARY as JOB_SALARY,
-            j.CV_RECEI_MAIL as CV_RECEI_MAIL,
-            j.CV_NAME_RULE as CV_NAME_RULE,
-            j.JOB_ACTIVE as JOB_ACTIVE,
-            j.HR_ID as HR_ID,
-            j.COMPANY_ID as COMPANY_ID,
-            com.COMPANY_NAME as COMPANY_NAME,
-            com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-            com.COMPANY_LOGO as COMPANY_LOGO
+        j.JOB_ID as JOB_ID,
+        j.JOB_NAME as JOB_NAME,
+        j.JOB_PROF_CODE as JOB_PROF_CODE,
+        j.JOB_START_TIME as JOB_START_TIME,
+        j.JOB_END_TIME as JOB_END_TIME,
+        j.JOB_TIME as JOB_TIME,
+        j.JOB_DESCRIPTION as JOB_DESCRIPTION,
+        j.JOB_DUTY as JOB_DUTY,
+        j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
+        j.JOB_SALARY_FLOOR as JOB_SALARY_FLOOR,
+        j.JOB_SALARY_CAP as JOB_SALARY_CAP,
+        j.JOB_LINK as JOB_LINK,
+        j.CV_RECEI_MAIL as CV_RECEI_MAIL,
+        j.CV_NAME_RULE as CV_NAME_RULE,
+        j.JOB_ACTIVE as JOB_ACTIVE,
+        j.HR_ID as HR_ID,
+        j.COMPANY_ID as COMPANY_ID,
+
+        com.COMPANY_NAME as COMPANY_NAME,
+        com.COMPANY_CODE as COMPANY_CODE,
+        com.COMPANY_COUNTRY as COMPANY_COUNTRY,
+        com.COMPANY_INTRODUC as COMPANY_INTRODUC,
+        com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
+        com.COMPANY_NATURE as COMPANY_NATURE,
+        com.COMPANY_LOCATION as COMPANY_LOCATION,
+        com.COMPANY_MAIL as COMPANY_MAIL,
+        com.COMPANY_WEBSITE as COMPANY_WEBSITE,
+        com.COMPANY_START_DATE as COMPANY_START_DATE,
+        com.COMPANY_LOGO as COMPANY_LOGO,
+        com.COMPANY_VERIFY as COMPANY_VERIFY,
+
+        h.HR_ON_JOB as HR_ON_JOB
         FROM JOB_INFO j
              LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
              LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0
@@ -156,7 +231,7 @@
         class.IND_CHN as IND_NAME,
         j.JOB_ID as JOB_ID,
         j.JOB_NAME as JOB_NAME,
-        j.JOB_PROF_NUM as JOB_PROF_NUM,
+        j.JOB_PROF_CODE as JOB_PROF_CODE,
         j.JOB_START_TIME as JOB_START_TIME,
         j.JOB_END_TIME as JOB_END_TIME,
         j.JOB_TIME as JOB_TIME,
@@ -196,7 +271,7 @@
             class.IND_CHN as IND_NAME,
             j.JOB_ID as JOB_ID,
             j.JOB_NAME as JOB_NAME,
-            j.JOB_PROF_NUM as JOB_PROF_NUM,
+            j.JOB_PROF_CODE as JOB_PROF_CODE,
             j.JOB_START_TIME as JOB_START_TIME,
             j.JOB_END_TIME as JOB_END_TIME,
             j.JOB_TIME as JOB_TIME,
@@ -235,7 +310,7 @@
         SELECT
         j.JOB_ID as JOB_ID,
         j.JOB_NAME as JOB_NAME,
-        j.JOB_PROF_NUM as JOB_PROF_NUM,
+        j.JOB_PROF_CODE as JOB_PROF_CODE,
         j.JOB_START_TIME as JOB_START_TIME,
         j.JOB_END_TIME as JOB_END_TIME,
         j.JOB_TIME as JOB_TIME,
