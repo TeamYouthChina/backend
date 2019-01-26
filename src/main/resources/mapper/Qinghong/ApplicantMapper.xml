@@ -156,23 +156,24 @@
         <result property="stu_id" column="STU_ID"/>
         <result property="is_delete" column="IS_DELETE"/>
         <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        <!--<association property="company" column="COMPANY_ID" javaType="com.youthchina.domain.qingyang.Company" resultMap="resources.mapper.qingyang.CompanyTestMapper.company"/>-->
         <association property="company" javaType="com.youthchina.domain.qingyang.Company">
             <id property="companyId" column="COMPANY_ID"/>
             <result property="companyName" column="COMPANY_NAME"/>
             <result property="companyCode" column="COMPANY_CODE"/>
-            <result property="companyCountry" column="COMPANY_COUNTRY"/>
-            <result property="companyIntroduc" column="COMPANY_INTRODUC"/>
-            <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
-            <result property="companyNature" column="COMPANY_NATURE"/>
-            <result property="companyLocation" column="COMPANY_LOCATION"/>
-            <result property="companyMail" column="COMPANY_MAIL"/>
-            <result property="companyWebsite" column="COMPANY_WEBSITE"/>
-            <result property="companyStartDate" column="COMPANY_START_DATE"/>
-            <result property="companyLogo" column="COMPANY_LOGO"/>
-            <result property="companyVerify" column="COMPANY_VERIFY"/>
-            <result property="userId" column="USER_ID"/>
-            <result property="isDelete" column="IS_DELETE"/>
-            <result property="isDeleteTime" column="IS_DELETE_TIME"/>
+            <!--<result property="companyCountry" column="COMPANY_COUNTRY"/>-->
+            <!--<result property="companyIntroduc" column="COMPANY_INTRODUC"/>-->
+            <!--<result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>-->
+            <!--<result property="companyNature" column="COMPANY_NATURE"/>-->
+            <!--<result property="companyLocation" column="COMPANY_LOCATION"/>-->
+            <!--<result property="companyMail" column="COMPANY_MAIL"/>-->
+            <!--<result property="companyWebsite" column="COMPANY_WEBSITE"/>-->
+            <!--<result property="companyStartDate" column="COMPANY_START_DATE"/>-->
+            <!--<result property="companyLogo" column="COMPANY_LOGO"/>-->
+            <!--<result property="companyVerify" column="COMPANY_VERIFY"/>-->
+            <!--<result property="userId" column="USER_ID"/>-->
+            <!--<result property="isDelete" column="IS_DELETE"/>-->
+            <!--<result property="isDeleteTime" column="IS_DELETE_TIME"/>-->
         </association>
 
     </resultMap>
