@@ -979,6 +979,10 @@ components:
           type: string
         avatarUrl:
           type: string
+        isInJob:
+          type: boolean
+        currentCompany:
+          $ref: '#/components/schemas/Company'
         educations:
           type: array
           items:

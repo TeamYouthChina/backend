@@ -1,36 +1,57 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.domain.zhongyang.User;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class AnswerComment {
     private Integer comment_id;
     private String comment_content;
-    private String user_id;
+    private Integer user_id;
     private Integer user_anony;
     private Timestamp comment_pub_time;
     private Timestamp comment_edit_time;
-    private Integer comment_delete;
-    private Timestamp comment_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
+    private User user;
+    private List<CommentDiscuss> commentDiscusses;
+    private List<CommentEvaluate> commentEvaluates;
 
+    public List<CommentDiscuss> getCommentDiscusses() {
+        return commentDiscusses;
+    }
+
+    public void setCommentDiscusses(List<CommentDiscuss> commentDiscusses) {
+        this.commentDiscusses = commentDiscusses;
+    }
+
+    public List<CommentEvaluate> getCommentEvaluates() {
+        return commentEvaluates;
+    }
+
+    public void setCommentEvaluates(List<CommentEvaluate> commentEvaluates) {
+        this.commentEvaluates = commentEvaluates;
+    }
+
+    public Integer getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(Integer is_delete) {
+        this.is_delete = is_delete;
+    }
+
+    public Timestamp getIs_delete_time() {
+        return is_delete_time;
+    }
+
+    public void setIs_delete_time(Timestamp is_delete_time) {
+        this.is_delete_time = is_delete_time;
+    }
 
     public Integer getComment_id() {
         return comment_id;
-    }
-
-    public Integer getComment_delete() {
-        return comment_delete;
-    }
-
-    public void setComment_delete(Integer comment_delete) {
-        this.comment_delete = comment_delete;
-    }
-
-    public Timestamp getComment_delete_time() {
-        return comment_delete_time;
-    }
-
-    public void setComment_delete_time(Timestamp comment_delete_time) {
-        this.comment_delete_time = comment_delete_time;
     }
 
     public void setComment_id(Integer comment_id) {
@@ -45,11 +66,11 @@ public class AnswerComment {
         this.comment_content = comment_content;
     }
 
-    public String getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(Integer user_id) {
         this.user_id = user_id;
     }
 
@@ -75,5 +96,13 @@ public class AnswerComment {
 
     public void setComment_edit_time(Timestamp comment_edit_time) {
         this.comment_edit_time = comment_edit_time;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -1,35 +1,37 @@
 package com.youthchina.domain.Qinghong;
 
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 public class EducationInfo {
-    private int edu_id;
-    private String edu_degree;
+    private Integer edu_id;
+    private Integer edu_degree;
     private String edu_school;
     private String edu_school_country;
-    private String edu_school_location;
+    private Integer edu_school_location;
     private String edu_major;
     private String edu_college;
-    private String edu_gpa;
-    private String edu_start;
-    private String edu_end;
+    private Float edu_gpa;
+    private Date edu_start;
+    private Date edu_end;
     private Integer stu_id;
-    private Boolean is_delete;
-    private Date is_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
-    public int getEdu_id() {
+    public Integer getEdu_id() {
         return edu_id;
     }
 
-    public void setEdu_id(int edu_id) {
+    public void setEdu_id(Integer edu_id) {
         this.edu_id = edu_id;
     }
 
-    public String getEdu_degree() {
+    public Integer getEdu_degree() {
         return edu_degree;
     }
 
-    public void setEdu_degree(String edu_degree) {
+    public void setEdu_degree(Integer edu_degree) {
         this.edu_degree = edu_degree;
     }
 
@@ -49,11 +51,11 @@ public class EducationInfo {
         this.edu_school_country = edu_school_country;
     }
 
-    public String getEdu_school_location() {
+    public Integer getEdu_school_location() {
         return edu_school_location;
     }
 
-    public void setEdu_school_location(String edu_school_location) {
+    public void setEdu_school_location(Integer edu_school_location) {
         this.edu_school_location = edu_school_location;
     }
 
@@ -73,27 +75,27 @@ public class EducationInfo {
         this.edu_college = edu_college;
     }
 
-    public String getEdu_gpa() {
+    public Float getEdu_gpa() {
         return edu_gpa;
     }
 
-    public void setEdu_gpa(String edu_gpa) {
+    public void setEdu_gpa(Float edu_gpa) {
         this.edu_gpa = edu_gpa;
     }
 
-    public String getEdu_start() {
+    public Date getEdu_start() {
         return edu_start;
     }
 
-    public void setEdu_start(String edu_start) {
+    public void setEdu_start(Date edu_start) {
         this.edu_start = edu_start;
     }
 
-    public String getEdu_end() {
+    public Date getEdu_end() {
         return edu_end;
     }
 
-    public void setEdu_end(String edu_end) {
+    public void setEdu_end(Date edu_end) {
         this.edu_end = edu_end;
     }
 
@@ -105,19 +107,19 @@ public class EducationInfo {
         this.stu_id = stu_id;
     }
 
-    public Boolean getIs_delete() {
+    public Integer getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(Boolean is_delete) {
+    public void setIs_delete(Integer is_delete) {
         this.is_delete = is_delete;
     }
 
-    public Date getIs_delete_time() {
+    public Timestamp getIs_delete_time() {
         return is_delete_time;
     }
 
-    public void setIs_delete_time(Date is_delete_time) {
+    public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
 }

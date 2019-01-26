@@ -7,6 +7,15 @@ public class AnswerInvitation {
     private Timestamp invit_time;
     private Integer invit_accept;
     private Integer invit_ques_id;
+    private Integer invit_user_id;
+
+    public Integer getInvit_user_id() {
+        return invit_user_id;
+    }
+
+    public void setInvit_user_id(Integer invit_user_id) {
+        this.invit_user_id = invit_user_id;
+    }
 
     public Integer getInvit_id() {
         return invit_id;

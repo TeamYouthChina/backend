@@ -1,8 +1,9 @@
 package com.youthchina.dao.zhongyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DbUnitConfiguration;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
 import org.junit.Test;

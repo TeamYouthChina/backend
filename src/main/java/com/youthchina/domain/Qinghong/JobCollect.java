@@ -12,21 +12,21 @@ import java.util.Date;
  * @create: 2018-11-29 16:59
  **/
 public class JobCollect {
-    private Integer coleect_id;
+    private Integer collect_id;
     private Integer job_id;
-    private Date job_coll_time;
+    private Timestamp job_coll_time;
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
     private Job job;
 
 
-    public Integer getColeect_id() {
-        return coleect_id;
+    public Integer getCollect_id() {
+        return collect_id;
     }
 
-    public void setColeect_id(Integer coleect_id) {
-        this.coleect_id = coleect_id;
+    public void setCollect_id(Integer collect_id) {
+        this.collect_id = collect_id;
     }
 
     public Integer getJob_id() {
@@ -37,11 +37,11 @@ public class JobCollect {
         this.job_id = job_id;
     }
 
-    public Date getJob_coll_time() {
+    public Timestamp getJob_coll_time() {
         return job_coll_time;
     }
 
-    public void setJob_coll_time(Date job_coll_time) {
+    public void setJob_coll_time(Timestamp job_coll_time) {
         this.job_coll_time = job_coll_time;
     }
 
@@ -52,6 +52,8 @@ public class JobCollect {
     public void setStu_id(Integer stu_id) {
         this.stu_id = stu_id;
     }
+
+
 
     public Integer getIs_delete() {
         return is_delete;
@@ -76,5 +78,4 @@ public class JobCollect {
     public void setJob(Job job) {
         this.job = job;
     }
-
 }
