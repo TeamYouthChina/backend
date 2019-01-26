@@ -13,11 +13,11 @@ public class Company {
     private Integer companyId;
     private String companyName;
     private String companyCode;
-    private String companyCountry;
     private String companyIntroduc;
-    private Integer companyScaleNum;
-    private String companyNature;
+    private CompanyNature companyNature;
+    private CompanyScale companyScale;
     private Location location;
+    private Country country;
     /*
     企业ID			COMPANY_ID	        INTEGER		否
     企业名称			COMPANY_NAME	    VARCHAR(200)否
@@ -39,7 +39,7 @@ public class Company {
     private String companyWebsite;
     private Date companyStartDate;
     private String companyLogo;
-    private Integer companyVerify;
+    private CompanyVerification companyVerification;
     private Integer userId;
     private Integer isDelete;
     private Timestamp isDeleteTime;
@@ -93,13 +93,6 @@ public class Company {
         this.companyCode = companyCode;
     }
 
-    public String getCompanyCountry() {
-        return companyCountry;
-    }
-
-    public void setCompanyCountry(String companyCountry) {
-        this.companyCountry = companyCountry;
-    }
 
     public String getCompanyIntroduc() {
         return companyIntroduc;
@@ -109,20 +102,20 @@ public class Company {
         this.companyIntroduc = companyIntroduc;
     }
 
-    public Integer getCompanyScaleNum() {
-        return companyScaleNum;
-    }
-
-    public void setCompanyScaleNum(Integer companyScaleNum) {
-        this.companyScaleNum = companyScaleNum;
-    }
-
-    public String getCompanyNature() {
+    public CompanyNature getCompanyNature() {
         return companyNature;
     }
 
-    public void setCompanyNature(String companyNature) {
+    public void setCompanyNature(CompanyNature companyNature) {
         this.companyNature = companyNature;
+    }
+
+    public CompanyScale getCompanyScale() {
+        return companyScale;
+    }
+
+    public void setCompanyScale(CompanyScale companyScale) {
+        this.companyScale = companyScale;
     }
 
     public Location getLocation() {
@@ -131,6 +124,14 @@ public class Company {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public String getCompanyMail() {
@@ -165,12 +166,12 @@ public class Company {
         this.companyLogo = companyLogo;
     }
 
-    public Integer getCompanyVerify() {
-        return companyVerify;
+    public CompanyVerification getCompanyVerification() {
+        return companyVerification;
     }
 
-    public void setCompanyVerify(Integer companyVerify) {
-        this.companyVerify = companyVerify;
+    public void setCompanyVerification(CompanyVerification companyVerification) {
+        this.companyVerification = companyVerification;
     }
 
     public Integer getUserId() {

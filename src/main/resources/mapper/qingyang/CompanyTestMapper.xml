@@ -11,10 +11,10 @@
             COMPANY_LOGO,       COMPANY_VERIFY,     USER_ID,          IS_DELETE,
             IS_DELETE_TIME)
         VALUES
-        (   #{companyName},     #{companyCode},   #{companyCountry},
-            #{companyIntroduc}, #{companyScaleNum}, #{companyNature},   #{companyLocation},
+        (   #{companyName},     #{companyCode},   #{country.countryAbbre},
+            #{companyIntroduc}, #{companyScale.scaleNum}, #{companyNature.natureNum},   #{location.region_num},
             #{companyMail},     #{companyWebsite}, #{companyStartDate},
-            #{companyLogo},     #{companyVerify},   #{userId},          0,
+            #{companyLogo},     #{companyVerification.verifyId},   #{userId},          0,
             NULL)
     </insert>
 
@@ -24,16 +24,16 @@
         SET
             COMPANY_NAME = #{companyName},
             COMPANY_CODE = #{companyCode},
-            COMPANY_COUNTRY = #{companyCountry},
+            COMPANY_COUNTRY = #{country.countryAbbre},
             COMPANY_INTRODUC = #{companyIntroduc},
-            COMPANY_SCALE_NUM = #{companyScaleNum},
-            COMPANY_NATURE = #{companyNature},
-            COMPANY_LOCATION = #{companyLocation},
+            COMPANY_SCALE_NUM = #{companyScale.scaleNum},
+            COMPANY_NATURE = #{companyNature.natureNum},
+            COMPANY_LOCATION = #{location.region_num},
             COMPANY_MAIL = #{companyMail},
             COMPANY_WEBSITE = #{companyWebsite},
             COMPANY_START_DATE = #{companyStartDate},
             COMPANY_LOGO = #{companyLogo},
-            COMPANY_VERIFY = #{companyVerify},
+            COMPANY_VERIFY = #{companyVerification.verifyId},
             USER_ID = #{userId}
         WHERE
             COMPANY_ID = #{companyId}
@@ -49,17 +49,39 @@
         <id property="companyId" column="COMPANY_ID"/>
         <result property="companyName" column="COMPANY_NAME"/>
         <result property="companyCode" column="COMPANY_CODE"/>
-        <result property="companyCountry" column="COMPANY_COUNTRY"/>
         <result property="companyIntroduc" column="COMPANY_INTRODUC"/>
-        <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
-        <result property="companyNature" column="COMPANY_NATURE"/>
-        <result property="companyLocation" column="COMPANY_LOCATION"/>
         <result property="companyMail" column="COMPANY_MAIL"/>
         <result property="companyWebsite" column="COMPANY_WEBSITE"/>
         <result property="companyStartDate" column="COMPANY_START_DATE"/>
         <result property="companyLogo" column="COMPANY_LOGO"/>
-        <result property="companyVerify" column="COMPANY_VERIFY"/>
         <result property="userId" column="USER_ID"/>
+        <association property="companyNature" javaType="com.youthchina.domain.qingyang.CompanyNature">
+            <id property="companyId" column="NATURE_NUM"/>
+            <result property="natureChn" column="NATURE_CHN"/>
+            <result property="natureEng" column="NATURE_ENG"/>
+            <result property="natureDetail" column="NATURE_DETAIL"/>
+            <result property="startTime" column="NATURE_START_TIME"/>
+        </association>
+        <association property="companyScale" javaType="com.youthchina.domain.qingyang.CompanyScale">
+            <id property="scaleNum" column="SCALE_NUM"/>
+            <result property="scaleChn" column="SCALE_CHN"/>
+            <result property="scaleEng" column="SCALE_ENG"/>
+            <result property="startTime" column="SCALE_START_TIME"/>
+        </association>
+        <association property="country" javaType="com.youthchina.domain.qingyang.Country">
+            <id property="countryAbbre" column="COUNTRY_ABBRE"/>
+            <result property="countryChn" column="COUNTRY_CHN"/>
+            <result property="countryEng" column="COUNTRY_ENG"/>
+            <result property="startTime" column="COUNTRY_START_TIME"/>
+        </association>
+        <association property="country" javaType="com.youthchina.domain.Qinghong.Location">
+            <id property="region_num" column="REGION_NUM"/>
+            <result property="region_chn" column="REGION_CHN"/>
+            <result property="region_eng" column="REGION_ENG"/>
+            <result property="region_level" column="REGION_LEVEL"/>
+            <result property="region_parent_num" column="REGION_PARENT_NUM"/>
+            <result property="start_date" column="REGION_START_TIME"/>
+        </association>
         <collection property="indList" ofType="com.youthchina.domain.qingyang.Industry">
             <id property="indNum" column="C_IND_NUM"/>
             <result property="indCode" column="IND_CODE"/>
