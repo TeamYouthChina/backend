@@ -39,6 +39,7 @@ public class JobTest {
         Assert.assertEquals(1, job.getIndustries().size());
         Assert.assertEquals("A", job.getIndustries().get(0).getIndCode());
         Assert.assertEquals(Integer.valueOf(111), job.getJobLocationList().get(0).getJobRegionNum());
+        Assert.assertEquals("前端", job.getProfessionList().get(0).getProfChn());
     }
 
 
