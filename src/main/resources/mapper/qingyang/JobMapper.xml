@@ -176,7 +176,7 @@
              LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = loc.JOB_ID AND req.IS_DELETE = 0
 
         WHERE
-            j.JOB_ID = #{jobId}
+            j.JOB_ID = #{id}
 
     </select>
 
@@ -213,10 +213,30 @@
         com.COMPANY_LOGO as COMPANY_LOGO,
         com.COMPANY_VERIFY as COMPANY_VERIFY,
 
-        h.HR_ON_JOB as HR_ON_JOB
+        h.HR_ON_JOB as HR_ON_JOB,
+
+        class.IND_NUM as C_IND_NUM,
+        class.IND_CODE as IND_CODE,
+        class.IND_CHN as IND_CHN,
+        class.IND_ENG as IND_ENG,
+        class.IND_LEVEL as IND_LEVEL,
+        class.IND_PARENT_CODE as IND_PARENT_CODE,
+        class.START_TIME as START_TIME,
+
+        loc.JOB_REGION_ID as JOB_REGION_ID,
+        loc.JOB_REGION_NUM as JOB_REGION_NUM,
+
+        req.JOB_REQUIRE_ID as JOB_REQUIRE_ID,
+        req.JOB_DEGREE_NUM as JOB_DEGREE_NUM
+
         FROM JOB_INFO j
-             LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
-             LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0
+        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
+        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0
+        LEFT OUTER JOIN JOB_INDUSTRY i ON j.JOB_ID = i.JOB_ID AND i.IS_DELETE = 0
+        LEFT OUTER JOIN SYS_IND_CLASS class ON i.JOB_IND_CODE = class.IND_CODE AND class.IS_DELETE = 0
+        LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
+        LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = loc.JOB_ID AND req.IS_DELETE = 0
+
         WHERE j.JOB_ID in
         <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
             #{id}

@@ -1,7 +1,9 @@
 package com.youthchina.Qinghong;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.youthchina.dao.Qinghong.ApplicantMapper;
 import com.youthchina.dao.Qinghong.StudentMapper;
 import com.youthchina.dao.zhongyang.UserMapper;

@@ -1,7 +1,9 @@
 package com.youthchina.Qingyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.youthchina.dao.qingyang.HrMapper;
 import com.youthchina.domain.qingyang.Hr;
 import org.junit.Assert;
