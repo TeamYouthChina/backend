@@ -6,13 +6,11 @@ import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
-import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -49,36 +47,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         }
         return question;
     }
-
-    /**
-     * 列出前十个问题，并且拿到每个问题的热门回答以及热门回答的作者，如果没有问题，抛出异常
-     * @return 返回得到的question的结果
-     * @throws NotFoundException
-     */
-    @Override
-    @Transactional
-    public List<Question> listAllQuestionAndPopAnswer() throws NotFoundException{
-        List<Question> res = new LinkedList<>();
-        List<Question> questions = listQuestion();
-        for  (Question question : questions) {
-            List<QuestionAnswer> answers = listAllAnswer(question.getQues_id());
-            int max = 0;
-            QuestionAnswer popAnswer = null;
-            for (QuestionAnswer answer: answers) {
-                int cur = countAgreement(answer.getAnswer_id());
-                if(cur >= max){
-                    max = cur;
-                    popAnswer = answer;
-                }
-            }
-            User answer_user = null;
-            res.add(question);
-        }
-        return res;
-    }
-
-
-
 
     /**
      * 添加问题，建立问题和用户的映射，建立问题和标签的映射

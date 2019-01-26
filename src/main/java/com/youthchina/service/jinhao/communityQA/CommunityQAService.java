@@ -90,7 +90,6 @@ public interface CommunityQAService {
     Integer countVideoComments(Integer video_id);
 
     List<Question> listQuestion() throws NotFoundException;
-    List<Question> listAllQuestionAndPopAnswer() throws NotFoundException;
 
     boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id);
 }
