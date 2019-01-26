@@ -39,7 +39,7 @@ public class Company {
     private String companyWebsite;
     private Date companyStartDate;
     private String companyLogo;
-    private CompanyVerification companyVerification;
+    private Integer companyVerify;
     private Integer userId;
     private Integer isDelete;
     private Timestamp isDeleteTime;
@@ -166,12 +166,12 @@ public class Company {
         this.companyLogo = companyLogo;
     }
 
-    public CompanyVerification getCompanyVerification() {
-        return companyVerification;
+    public Integer getCompanyVerify() {
+        return companyVerify;
     }
 
-    public void setCompanyVerification(CompanyVerification companyVerification) {
-        this.companyVerification = companyVerification;
+    public void setCompanyVerify(Integer companyVerify) {
+        this.companyVerify = companyVerify;
     }
 
     public Integer getUserId() {
