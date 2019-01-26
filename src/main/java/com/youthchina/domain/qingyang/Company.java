@@ -1,5 +1,7 @@
 package com.youthchina.domain.qingyang;
 
+import com.youthchina.domain.Qinghong.Location;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -15,7 +17,7 @@ public class Company {
     private String companyIntroduc;
     private Integer companyScaleNum;
     private String companyNature;
-    private String companyLocation;
+    private Location location;
     /*
     企业ID			COMPANY_ID	        INTEGER		否
     企业名称			COMPANY_NAME	    VARCHAR(200)否
@@ -123,12 +125,12 @@ public class Company {
         this.companyNature = companyNature;
     }
 
-    public String getCompanyLocation() {
-        return companyLocation;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setCompanyLocation(String companyLocation) {
-        this.companyLocation = companyLocation;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getCompanyMail() {

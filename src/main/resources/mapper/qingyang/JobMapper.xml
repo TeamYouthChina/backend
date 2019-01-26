@@ -109,6 +109,14 @@
             <result property="jobDegreeNum" column="JOB_DEGREE_NUM"/>
             <result property="jobId" column="JOB_ID"/>
         </collection>
+        <collection property="professionList" ofType="com.youthchina.domain.qingyang.Profession">
+            <id property="profNum" column="PROF_NUM"/>
+            <result property="profCode" column="PROF_CODE"/>
+            <result property="profParentCode" column="PROF_PARENT_CODE"/>
+            <result property="profChn" column="PROF_CHN"/>
+            <result property="profEng" column="PROF_ENG"/>
+            <result property="startTime" column="START_TIME"/>
+        </collection>
     </resultMap>
 
     <resultMap id="jobListMap" type="java.util.HashMap">
@@ -165,7 +173,14 @@
             loc.JOB_REGION_NUM as JOB_REGION_NUM,
 
             req.JOB_REQUIRE_ID as JOB_REQUIRE_ID,
-            req.JOB_DEGREE_NUM as JOB_DEGREE_NUM
+            req.JOB_DEGREE_NUM as JOB_DEGREE_NUM,
+
+            prof.PROF_NUM as PROF_NUM,
+            prof.PROF_CODE as PROF_CODE,
+            prof.PROF_PARENT_CODE as PROF_PARENT_CODE,
+            prof.PROF_CHN as PROF_CHN,
+            prof.PROF_ENG as PROF_ENG,
+            prof.START_TIME as START_TIME
 
         FROM JOB_INFO j
              LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
@@ -174,6 +189,7 @@
              LEFT OUTER JOIN SYS_IND_CLASS class ON i.JOB_IND_CODE = class.IND_CODE AND class.IS_DELETE = 0
              LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
              LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = loc.JOB_ID AND req.IS_DELETE = 0
+             LEFT OUTER JOIN SYS_PROF_CLASS prof ON j.JOB_PROF_CODE = prof.PROF_CODE AND prof.IS_DELETE = 0
 
         WHERE
             j.JOB_ID = #{id}

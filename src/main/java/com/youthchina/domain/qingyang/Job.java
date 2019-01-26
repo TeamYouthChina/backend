@@ -58,6 +58,7 @@ comment '职位基本信息表';
     private List<JobLocation> jobLocationList;
     private List<JobRequest> jobReqList;
     private List<Industry> industries;
+    private List<Profession> professionList;
 
 
     private Integer isDelete;
@@ -225,6 +226,14 @@ comment '职位基本信息表';
 
     public void setIndustries(List<Industry> industries) {
         this.industries = industries;
+    }
+
+    public List<Profession> getProfessionList() {
+        return professionList;
+    }
+
+    public void setProfessionList(List<Profession> professionList) {
+        this.professionList = professionList;
     }
 
     public Integer getIsDelete() {
