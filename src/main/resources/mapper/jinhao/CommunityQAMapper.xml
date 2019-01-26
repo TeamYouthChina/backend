@@ -943,4 +943,10 @@
         select aqm.rele_type, aqm.rele_id from COM_AUTHOR_QUESTION_MAP aqm
         where aqm.QUES_ID = #{ques_id}
     </select>
+
+    <select id="isAnswerBelongToQuestion" resultType="java.lang.Boolean">
+        select count(ANSWER_ID) from COM_QUESTION_ANSWER_MAP
+        where ANSWER_ID = #{answer_id}
+        and QUES_ID = #{ques_id}
+    </select>
 </mapper>

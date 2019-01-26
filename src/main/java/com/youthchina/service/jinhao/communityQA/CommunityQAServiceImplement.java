@@ -28,6 +28,11 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
 
     @Override
+    public boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id) {
+        return communityQAMapper.isAnswerBelongToQuestion(answer_id, ques_id);
+    }
+
+    @Override
     @Transactional
     public Question getQuestionInfoById(Integer ques_id) throws NotFoundException {
         Question question = communityQAMapper.getQuestionById(ques_id);

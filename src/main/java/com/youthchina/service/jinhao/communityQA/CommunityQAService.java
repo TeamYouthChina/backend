@@ -91,5 +91,6 @@ public interface CommunityQAService {
 
     List<Question> listQuestion() throws NotFoundException;
     List<Question> listAllQuestionAndPopAnswer() throws NotFoundException;
-    //Question getIntoQuestion(Integer ques_id) throws NotFoundException;
+
+    boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id);
 }

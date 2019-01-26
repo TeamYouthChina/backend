@@ -1078,5 +1078,13 @@ public class CommunityQAMapperTest extends BaseTest {
         QuestionReleTypeAndId questionReleTypeAndId = communityQAMapper.getQuestionReleTypeAndReleId(1);
         System.out.println(questionReleTypeAndId.getRele_id() + " " + questionReleTypeAndId.getRele_type());
     }
+
+    @Test
+    public void isAnswerBelongToQuestion(){
+        Boolean b1 = communityQAMapper.isAnswerBelongToQuestion(1,1);
+        System.out.println(b1);
+        System.out.println(communityQAMapper.isAnswerBelongToQuestion(1,2));
+        System.out.println(communityQAMapper.isAnswerBelongToQuestion(5,2));
+    }
 }
 
