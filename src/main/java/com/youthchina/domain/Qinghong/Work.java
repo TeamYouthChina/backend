@@ -6,7 +6,7 @@ import java.util.Date;
 public class Work {
     private Integer work_id;
     private String work_company;
-    private Integer work_location;
+    private Location location;
     private String work_position;
     private String work_sector;
     private Date work_start_time;
@@ -33,12 +33,12 @@ public class Work {
         this.work_company = work_company;
     }
 
-    public Integer getWork_location() {
-        return work_location;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setWork_location(Integer work_location) {
-        this.work_location = work_location;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getWork_position() {
