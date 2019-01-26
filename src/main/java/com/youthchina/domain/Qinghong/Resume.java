@@ -2,46 +2,62 @@ package com.youthchina.domain.Qinghong;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class Resume {
-    private int id;
-    private BaseInfo baseInfo;
-    private List<EducationInfo> educationInfos;
-    private List<Work> works;
+    private Integer resume_id;
+    private String resume_url;
+    private Timestamp resume_upload_time;
+    private Integer stu_id;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
-    public int getId() {
-        return id;
+    public Integer getResume_id() {
+        return resume_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setResume_id(Integer resume_id) {
+        this.resume_id = resume_id;
     }
 
-    @JsonProperty("basic_info")
-    public BaseInfo getBaseInfo() {
-        return baseInfo;
+    public String getResume_url() {
+        return resume_url;
     }
 
-    public void setBaseInfo(BaseInfo baseInfo) {
-        this.baseInfo = baseInfo;
+    public void setResume_url(String resume_url) {
+        this.resume_url = resume_url;
     }
 
-    @JsonProperty("education_info")
-    public List<EducationInfo> getEducationInfos() {
-        return educationInfos;
+    public Timestamp getResume_upload_time() {
+        return resume_upload_time;
     }
 
-    public void setEducationInfos(List<EducationInfo> educationInfos) {
-        this.educationInfos = educationInfos;
+    public void setResume_upload_time(Timestamp resume_upload_time) {
+        this.resume_upload_time = resume_upload_time;
     }
 
-    @JsonProperty("work")
-    public List<Work> getWorks() {
-        return works;
+    public Integer getStu_id() {
+        return stu_id;
     }
 
-    public void setWorks(List<Work> works) {
-        this.works = works;
+    public void setStu_id(Integer stu_id) {
+        this.stu_id = stu_id;
+    }
+
+    public Integer getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(Integer is_delete) {
+        this.is_delete = is_delete;
+    }
+
+    public Timestamp getIs_delete_time() {
+        return is_delete_time;
+    }
+
+    public void setIs_delete_time(Timestamp is_delete_time) {
+        this.is_delete_time = is_delete_time;
     }
 }

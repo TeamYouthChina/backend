@@ -1,19 +1,20 @@
 package com.youthchina.domain.Qinghong;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class IntroductionVideo {
-    private int intro_video_id;
+    private Integer intro_video_id;
     private String intro_video_path;
     private Integer stu_id;
-    private Boolean is_delete;
-    private Date is_delete_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
 
-    public int getIntro_video_id() {
+    public Integer getIntro_video_id() {
         return intro_video_id;
     }
 
-    public void setIntro_video_id(int intro_video_id) {
+    public void setIntro_video_id(Integer intro_video_id) {
         this.intro_video_id = intro_video_id;
     }
 
@@ -33,19 +34,19 @@ public class IntroductionVideo {
         this.stu_id = stu_id;
     }
 
-    public Boolean getIs_delete() {
+    public Integer getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(Boolean is_delete) {
+    public void setIs_delete(Integer is_delete) {
         this.is_delete = is_delete;
     }
 
-    public Date getIs_delete_time() {
+    public Timestamp getIs_delete_time() {
         return is_delete_time;
     }
 
-    public void setIs_delete_time(Date is_delete_time) {
+    public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
 }

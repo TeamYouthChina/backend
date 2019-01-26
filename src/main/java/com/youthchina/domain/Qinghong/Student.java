@@ -1,5 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.ApplicantDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.util.List;
@@ -10,10 +12,10 @@ import java.util.List;
  * @author: Qinghong Wang
  * @create: 2018-11-29 17:08
  **/
-public class Student implements HasId<Integer> {
+public class Student extends User implements HasId<Integer> {
     private Integer stu_id;
-    private String stu_in_job;
-    private String stu_in_job_comp;
+    private Boolean isInJob;
+    private String currentCompanyName;
     private List<EducationInfo> educationInfos;
     private SubInfo subInfo;
     private List<Project> projects;
@@ -29,6 +31,15 @@ public class Student implements HasId<Integer> {
     private IntroductionVideo introductionVideo;
     private List<Notification> notifications;
     private List<JobApply> jobApplies;
+    private List<Certificate> certificates;
+
+    public Student(ApplicantDTO applicantDTO) {
+        this.stu_id = applicantDTO.getId();
+        //fixme
+    }
+
+    public Student(){}
+
 
     public Integer getStu_id() {
         return stu_id;
@@ -38,20 +49,28 @@ public class Student implements HasId<Integer> {
         this.stu_id = stu_id;
     }
 
-    public String getStu_in_job() {
-        return stu_in_job;
+    public Boolean getInJob() {
+        return isInJob;
     }
 
-    public void setStu_in_job(String stu_in_job) {
-        this.stu_in_job = stu_in_job;
+    public void setInJob(Boolean inJob) {
+        isInJob = inJob;
     }
 
-    public String getStu_in_job_comp() {
-        return stu_in_job_comp;
+    public Boolean getIsInJob() {
+        return isInJob;
     }
 
-    public void setStu_in_job_comp(String stu_in_job_comp) {
-        this.stu_in_job_comp = stu_in_job_comp;
+    public void setIsInJob(Boolean isInJob) {
+        this.isInJob = isInJob;
+    }
+
+    public String getCurrentCompanyName() {
+        return currentCompanyName;
+    }
+
+    public void setCurrentCompanyName(String currentCompanyName) {
+        this.currentCompanyName = currentCompanyName;
     }
 
     public List<EducationInfo> getEducationInfos() {
@@ -174,8 +193,11 @@ public class Student implements HasId<Integer> {
         this.jobApplies = jobApplies;
     }
 
-    @Override
-    public Integer getId() {
-        return this.getStu_id();
+    public List<Certificate> getCertificates() {
+        return certificates;
+    }
+
+    public void setCertificates(List<Certificate> certificates) {
+        this.certificates = certificates;
     }
 }

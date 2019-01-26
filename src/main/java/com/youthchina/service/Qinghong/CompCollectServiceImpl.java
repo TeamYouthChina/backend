@@ -8,6 +8,7 @@ import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -83,7 +84,8 @@ public class CompCollectServiceImpl implements CompCollectService {
         if (studentMapper.getOneCompCollect(stu_id, comp_id) == null) {
             compCollect.setCompany_id(comp_id);
             compCollect.setStu_id(stu_id);
-            compCollect.setCompany_coll_time(new Date());
+            Timestamp d = new Timestamp(System.currentTimeMillis());
+            compCollect.setCompany_coll_time(d);
             studentMapper.addOneCompCollect(compCollect);
         }
         return compCollect;

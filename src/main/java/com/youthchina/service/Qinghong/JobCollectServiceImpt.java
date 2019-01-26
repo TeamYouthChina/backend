@@ -1,14 +1,14 @@
 package com.youthchina.service.Qinghong;
 
 import com.youthchina.dao.Qinghong.StudentMapper;
-import com.youthchina.dao.qingyang.JobHrMapper;
+import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.JobCollect;
-import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 @Service
 public class JobCollectServiceImpt implements JobCollectService {
     private StudentMapper studentMapper;
-    private JobHrMapper jobHrMapper;
+    private JobMapper jobMapper;
 
     @Autowired
     public JobCollectServiceImpt(StudentMapper studentMapper) {
@@ -67,7 +67,7 @@ public class JobCollectServiceImpt implements JobCollectService {
         for (JobCollect item : jobCollects) {
             key.add(item.getJob_id());
         }
-        List<Job> result = jobHrMapper.selectJobByJobIdList(key);
+        List<Job> result = jobMapper.selectJobByJobIdList(key);
         return result;
     }
 
@@ -88,7 +88,8 @@ public class JobCollectServiceImpt implements JobCollectService {
 
             jobCollect.setJob_id(job_id);
             jobCollect.setStu_id(stu_id);
-            jobCollect.setJob_coll_time(new Date());
+            Timestamp d = new Timestamp(System.currentTimeMillis());
+            jobCollect.setJob_coll_time(d);
             studentMapper.addOneJobCollect(jobCollect);
         }
         return jobCollect;

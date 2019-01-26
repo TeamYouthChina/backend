@@ -6,6 +6,7 @@ import com.youthchina.dto.ApplicantDTO;
 import com.youthchina.dto.Response;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.Qinghong.StudentService;
+import com.youthchina.service.zhongyang.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("${web.url.prefix}/applicant/**")
 public class ApplicantController {
     private StudentService studentService;
+    private UserService userService;
 
     @Autowired
     public ApplicantController(StudentService studentService) {
@@ -25,9 +27,9 @@ public class ApplicantController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public ResponseEntity<Response> getApplicant(@PathVariable("id") Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<Response> getApplicant(@PathVariable("id") Integer id) throws NotFoundException {
         Student student = studentService.get(id);
-        ApplicantDTO applicantDTO = new ApplicantDTO(student, user);
+        ApplicantDTO applicantDTO = new ApplicantDTO(student);
         return ResponseEntity.ok(new Response(applicantDTO));
     }
 
