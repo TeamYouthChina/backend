@@ -1,7 +1,9 @@
 package com.youthchina.Qingyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
@@ -41,11 +43,12 @@ public class IndustryTest {
     @Test
     public void testIndustryInsert() {
         Industry industry = new Industry();
+        industry.setIndCode("A");
         industry.setIndChn("商");
         industry.setIndEng("business");
         industry.setIndLevel(1);
-        industry.setIndParentNum(3);
-        industry.setStartDate(Timestamp.valueOf("2012-12-12 12:12:12"));
+        industry.setIndParentCode("A3");
+        industry.setStartTime(Timestamp.valueOf("2012-12-12 12:12:12"));
         companyMapper.insertIndustry(industry);
     }
 

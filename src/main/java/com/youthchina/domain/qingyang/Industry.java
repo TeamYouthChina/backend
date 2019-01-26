@@ -2,23 +2,36 @@ package com.youthchina.domain.qingyang;
 
 import java.sql.Timestamp;
 
-/*行业编号		IND_NUM	        INTEGER	    否	行业分类编号
-行业中文名称		IND_CHN	        VARCHAR(100)否
-行业英文名称		IND_ENG	        VARCHAR(100)否
-行业分类级别		IND_LEVEL	    INTEGER	    否
-上级行业代码		IND_PARENT_NUM	INTEGER	    否
-启用时间		    START_DATE	    TIMESTAMP	否	系统时间戳
-是否删除			IS_DELETE	    INTEGER		否	0-默认不删除
-删除时间(可空)	IS_DELETE_TIME	TIMESTAMP	是	*/
+/*
+create table SYS_IND_CLASS
+(
+	IND_NUM int auto_increment comment '行业编号'
+		primary key,
+	IND_CODE varchar(10) not null comment '行业代码',
+	IND_CHN varchar(100) not null comment '行业中文名称',
+	IND_ENG varchar(100) not null comment '行业英文名称',
+	IND_LEVEL int not null comment '行业分类级别',
+	IND_PARENT_CODE varchar(10) not null comment '上级行业代码',
+	START_TIME timestamp not null comment '启用时间',
+	IS_DELETE int default 0 null comment '是否删除',
+	IS_DELETE_TIME timestamp null comment '删除时间'
+)
+comment '行业信息分类表';
+*/
 public class Industry {
     private Integer indNum;
+    private String indCode;
     private String indChn; //中文名
     private String indEng;
     private Integer indLevel;
-    private Integer indParentNum;
-    private Timestamp startDate;
+    private String indParentCode;
+    private Timestamp startTime;
     private Integer isDelete;
     private Timestamp isDeleteTime;
+
+    // For insert
+    private Integer companyId;
+    private Integer jobId;
 
     public Industry(){
 
@@ -56,20 +69,28 @@ public class Industry {
         this.indLevel = indLevel;
     }
 
-    public Integer getIndParentNum() {
-        return indParentNum;
+    public String getIndParentCode() {
+        return indParentCode;
     }
 
-    public void setIndParentNum(Integer indParentNum) {
-        this.indParentNum = indParentNum;
+    public void setIndParentCode(String indParentCode) {
+        this.indParentCode = indParentCode;
     }
 
-    public Timestamp getStartDate() {
-        return startDate;
+    public String getIndCode() {
+        return indCode;
     }
 
-    public void setStartDate(Timestamp startDate) {
-        this.startDate = startDate;
+    public void setIndCode(String indCode) {
+        this.indCode = indCode;
+    }
+
+    public Timestamp getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
     }
 
     public Integer getIsDelete() {
@@ -86,5 +107,21 @@ public class Industry {
 
     public void setIsDeleteTime(Timestamp isDeleteTime) {
         this.isDeleteTime = isDeleteTime;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
+    public Integer getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Integer jobId) {
+        this.jobId = jobId;
     }
 }

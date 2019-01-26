@@ -15,6 +15,11 @@ public class DurationDTO {
         this.end = new Timestamp(end);
     }
 
+    public DurationDTO(java.util.Date begin, java.util.Date end){
+        this.begin = new Timestamp(begin.getTime());
+        this.end = new Timestamp(end.getTime());
+    }
+
     public DurationDTO(Timestamp begin, Timestamp end) {
         this.begin = begin;
         this.end = end;
@@ -26,7 +31,7 @@ public class DurationDTO {
 
     }
 
-    public DurationDTO(Date begin, Date end){
+    public DurationDTO(java.sql.Date begin, java.sql.Date end){
         this.begin = new Timestamp(begin.getTime());
         this.end = new Timestamp(end.getTime());
     }

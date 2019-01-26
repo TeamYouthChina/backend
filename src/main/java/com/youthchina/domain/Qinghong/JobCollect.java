@@ -14,7 +14,7 @@ import java.util.Date;
 public class JobCollect {
     private Integer collect_id;
     private Integer job_id;
-    private Date job_coll_time;
+    private Timestamp job_coll_time;
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
@@ -37,11 +37,11 @@ public class JobCollect {
         this.job_id = job_id;
     }
 
-    public Date getJob_coll_time() {
+    public Timestamp getJob_coll_time() {
         return job_coll_time;
     }
 
-    public void setJob_coll_time(Date job_coll_time) {
+    public void setJob_coll_time(Timestamp job_coll_time) {
         this.job_coll_time = job_coll_time;
     }
 
@@ -52,6 +52,8 @@ public class JobCollect {
     public void setStu_id(Integer stu_id) {
         this.stu_id = stu_id;
     }
+
+
 
     public Integer getIs_delete() {
         return is_delete;
@@ -76,5 +78,4 @@ public class JobCollect {
     public void setJob(Job job) {
         this.job = job;
     }
-
 }
