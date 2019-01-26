@@ -14,8 +14,8 @@ jobs:
 
     steps:
       - checkout
-      - run: cp .circleci/application.properties application.properties
-      - run : cp .circleci/config.properties config.properties
+      - run: cp ~/repo/.circleci/application.properties ~/repo/application.properties
+      - run : cp ~/repo/.circleci/config.properties ~/repo/config.properties
       # Download and cache dependencies
       - restore_cache:
           keys:
