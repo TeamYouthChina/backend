@@ -35,7 +35,6 @@
             <result property="edu_degree" column="EDU_DEGREE"/>
             <result property="edu_school" column="EDU_SCHOOL"/>
             <result property="edu_school_country" column="EDU_SCHOOL_COUNTRY"/>
-            <result property="edu_school_location" column="EDU_SCHOOL_LOCATION"/>
             <result property="edu_major" column="EDU_MAJOR"/>
             <result property="edu_college" column="EDU_COLLEGE"/>
             <result property="edu_gpa" column="EDU_GPA"/>
@@ -44,6 +43,7 @@
             <result property="stu_id" column="STU_ID"/>
             <result property="is_delete" column="IS_DELETE"/>
             <result property="is_delete_time" column="IS_DELETE_TIME"/>
+            <association property="location" column="EDU_SCHOOL_LOCATION" javaType="com.youthchina.domain.Qinghong.Location" resultMap="getLocation"/>
         </collection>
         <collection property="certificates" ofType="com.youthchina.domain.Qinghong.Certificate">
             <id property="certificate_id" column="CERTIFICATE_ID"/>
@@ -60,12 +60,12 @@
             <id property="work_id" column="WORK_ID"/>
             <result property="work_company" column="WORK_COMPANY"/>
             <result property="work_position" column="WORK_POSITION"/>
-            <result property="work_location" column="WORK_LOCATION"/>
             <result property="work_sector" column="WORK_SECTOR"/>
             <result property="work_start_time" column="WORK_START_TIME"/>
             <result property="work_end_time" column="WORK_END_TIME"/>
             <result property="work_duty" column="WORK_DUTY"/>
             <result property="work_nature" column="WORK_NATURE"/>
+            <association property="location" column="WORK_LOCATION" javaType="com.youthchina.domain.Qinghong.Location" resultMap="getLocation"/>
         </collection>
         <collection property="projects" ofType="com.youthchina.domain.Qinghong.Project">
             <id property="proj_id" column="PROJ_ID"/>
@@ -101,6 +101,7 @@
         <result property="job_cv_send" column="JOB_CV_SEND"/>
         <result property="job_apply_time" column="JOB_APPLY_TIME"/>
         <result property="job_apply_status" column="JOB_APPLY_STATUS"/>
+        <!--<association property="job" column="job_id" javaType="com.youthchina.domain.qingyang.Job" resultMap="com.youthchina.resources.qingyang.JobMapper.jobReuse"/>-->
         <association property="job" javaType="com.youthchina.domain.qingyang.Job">
             <id property="jobId" column="JOB_ID"/>
             <result property="jobName" column="JOB_NAME"/>
@@ -175,12 +176,23 @@
         </association>
 
     </resultMap>
-    <!--获取地区信息字典表-->
-    <select id="getLocation" resultType="com.youthchina.domain.Qinghong.Location">
-        SELECT a.* OR b.*
-        FROM SYS_CHN_REGION a,SYS_USA_REGION b
-        WHERE (a.REGION_NUM=#{region.num} AND a.is_delete=0) OR (b.REGION_NUM=#{region.num} AND b.is_delete=0)
-    </select>
+
+    <resultMap id="getLocation" type="com.youthchina.domain.Qinghong.Location">
+        <id property="region_num" column="REGION_NUM"/>
+        <result property="region_chn" column="REGION_CHN"/>
+        <result property="region_eng" column="REGION_ENG"/>
+        <result property="region_level" column="REGION_LEVEL"/>
+        <result property="region_parent_num" column="REGION_PARENT_NUM"/>
+        <result property="start_time" column="START_TIME"/>
+        <result property="is_delete" column="IS_DELETE"/>
+        <result property="is_delete_time" column="IS_DELETE_TIME"/>
+    </resultMap>
+    <!--&lt;!&ndash;获取地区信息字典表&ndash;&gt;-->
+    <!--<select id="getLocation" resultType="com.youthchina.domain.Qinghong.Location">-->
+        <!--SELECT a.* OR b.*-->
+        <!--FROM SYS_CHN_REGION a,SYS_USA_REGION b-->
+        <!--WHERE (a.REGION_NUM=#{region.num} AND a.is_delete=0) OR (b.REGION_NUM=#{region.num} AND b.is_delete=0)-->
+    <!--</select>-->
 
     <!--获取用户所有基本信息-->
     <select id="getUserInfo" resultType="com.youthchina.domain.Qinghong.UserInfo">
@@ -191,10 +203,11 @@
 
     <!--获取申请者的信息-->
     <select id="getStudentInfo" resultMap="studentResultMap">
-        select a.*,b.*,c.*,d.*,e.*,f.*,g.*,z.*
+        select a.*,b.*,c.*,d.*,e.*,f.*,g.*,z.*,m.*
         from STU_INFO a
         LEFT JOIN SYS_USER z ON a.USER_ID=z.USER_ID AND z.IS_DELETE=0
         LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID AND b.IS_DELETE=0
+        LEFT JOIN SYS_CHN_REGION m ON b.EDU_SCHOOL_LOCATION=m.REGION_NUM AND m.IS_DELETE=0
         LEFT JOIN STU_SUB_INFO c ON a.STU_ID=c.STU_ID AND c.IS_DELETE=0
         LEFT JOIN STU_PROJECT d ON a.STU_ID=d.STU_ID AND d.IS_DELETE=0
         LEFT JOIN STU_WORK e ON a.STU_ID=e.STU_ID AND e.IS_DELETE=0
