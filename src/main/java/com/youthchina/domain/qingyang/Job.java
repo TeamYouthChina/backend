@@ -1,5 +1,7 @@
 package com.youthchina.domain.qingyang;
 
+import com.youthchina.domain.Qinghong.Location;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -55,10 +57,10 @@ comment '职位基本信息表';
     private String  cvReceiMail;
     private String  cvNameRule;
     private Integer jobActive;
-    private List<JobLocation> jobLocationList;
-    private List<JobRequest> jobReqList;
+    private List<Location> jobLocationList;
+    private List<Degree> jobReqList;
     private List<Industry> industries;
-    private List<Profession> professionList;
+    private Profession profession;
 
 
     private Integer isDelete;
@@ -148,19 +150,19 @@ comment '职位基本信息表';
         this.jobDuty = jobDuty;
     }
 
-    public List<JobRequest> getJobReqList() {
+    public List<Degree> getJobReqList() {
         return jobReqList;
     }
 
-    public void setJobReqList(List<JobRequest> jobReqList) {
+    public void setJobReqList(List<Degree> jobReqList) {
         this.jobReqList = jobReqList;
     }
 
-    public List<JobLocation> getJobLocationList() {
+    public List<Location> getJobLocationList() {
         return jobLocationList;
     }
 
-    public void setJobLocationList(List<JobLocation> jobLocationList) {
+    public void setJobLocationList(List<Location> jobLocationList) {
         this.jobLocationList = jobLocationList;
     }
 
@@ -228,12 +230,12 @@ comment '职位基本信息表';
         this.industries = industries;
     }
 
-    public List<Profession> getProfessionList() {
-        return professionList;
+    public Profession getProfession() {
+        return profession;
     }
 
-    public void setProfessionList(List<Profession> professionList) {
-        this.professionList = professionList;
+    public void setProfession(Profession profession) {
+        this.profession = profession;
     }
 
     public Integer getIsDelete() {
