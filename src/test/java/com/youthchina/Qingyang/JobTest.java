@@ -73,7 +73,7 @@ public class JobTest {
         job.setJobProfCode("1");
         job.setJobStartTime(Date.valueOf("2019-1-1"));
         job.setJobEndTime(Date.valueOf("2020-1-1"));
-        job.setJobTime(1);
+        job.setJobType(1);
         job.setJobDescription("fullStack");
         job.setJobDuty("fullStack");
         job.setJobHighlight("80K");
