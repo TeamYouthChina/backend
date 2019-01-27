@@ -32,6 +32,7 @@ jobs:
 
       - run: docker-compose down -v
       - run: docker-compose up -d
+      - run: sleep 10 # wait for docker
 
       # run tests!
       - run: mvn integration-test
