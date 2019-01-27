@@ -156,11 +156,11 @@
         <result property="stu_id" column="STU_ID"/>
         <result property="is_delete" column="IS_DELETE"/>
         <result property="is_delete_time" column="IS_DELETE_TIME"/>
-        <!--<association property="company" column="COMPANY_ID" javaType="com.youthchina.domain.qingyang.Company" resultMap="resources.mapper.qingyang.CompanyTestMapper.company"/>-->
-        <association property="company" javaType="com.youthchina.domain.qingyang.Company">
-            <id property="companyId" column="COMPANY_ID"/>
-            <result property="companyName" column="COMPANY_NAME"/>
-            <result property="companyCode" column="COMPANY_CODE"/>
+        <association property="company" column="COMPANY_NATURE" javaType="com.youthchina.domain.qingyang.Company" resultMap="com.youthchina.dao.qingyang.CompanyMapper.company"/>
+        <!--<association property="company" javaType="com.youthchina.domain.qingyang.Company">-->
+            <!--<id property="companyId" column="COMPANY_ID"/>-->
+            <!--<result property="companyName" column="COMPANY_NAME"/>-->
+            <!--<result property="companyCode" column="COMPANY_CODE"/>-->
             <!--<result property="companyCountry" column="COMPANY_COUNTRY"/>-->
             <!--<result property="companyIntroduc" column="COMPANY_INTRODUC"/>-->
             <!--<result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>-->
@@ -174,7 +174,7 @@
             <!--<result property="userId" column="USER_ID"/>-->
             <!--<result property="isDelete" column="IS_DELETE"/>-->
             <!--<result property="isDeleteTime" column="IS_DELETE_TIME"/>-->
-        </association>
+        <!--</association>-->
 
     </resultMap>
 
@@ -281,9 +281,10 @@
 
     <!--获取所有的公司收藏信息-->
     <select id="getCompCollects" resultMap="getCompCollectResultMap">
-        SELECT a.*,b.*
+        SELECT a.*,b.*,d.*
         FROM STU_INFO c, STU_COMP_COLLECT a
         LEFT JOIN COMPANY_INFO  b ON a.COMPANY_ID=b.COMPANY_ID AND b.IS_DELETE=0
+        LEFT JOIN SYS_COMPANY_NATURE d ON d.NATURE_NUM=b.COMPANY_NATURE
         WHERE c.USER_ID=#{user_id} AND c.STU_ID=a.STU_ID AND c.IS_DELETE=0 AND a.IS_DELETE=0
     </select>
 

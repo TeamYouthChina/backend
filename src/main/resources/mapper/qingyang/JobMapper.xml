@@ -70,21 +70,22 @@
         <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
         <result property="cvNameRule" column="CV_NAME_RULE"/>
         <result property="jobActive" column="JOB_ACTIVE"/>
-        <association property="company" javaType="com.youthchina.domain.qingyang.Company">
-            <id property="companyId" column="COMPANY_ID"/>
-            <result property="companyName" column="COMPANY_NAME"/>
-            <result property="companyCode" column="COMPANY_CODE"/>
-            <result property="companyCountry" column="COMPANY_COUNTRY"/>
-            <result property="companyIntroduc" column="COMPANY_INTRODUC"/>
-            <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
-            <result property="companyNature" column="COMPANY_NATURE"/>
-            <result property="companyLocation" column="COMPANY_LOCATION"/>
-            <result property="companyMail" column="COMPANY_MAIL"/>
-            <result property="companyWebsite" column="COMPANY_WEBSITE"/>
-            <result property="companyStartDate" column="COMPANY_START_DATE"/>
-            <result property="companyLogo" column="COMPANY_LOGO"/>
-            <result property="companyVerify" column="COMPANY_VERIFY"/>
-        </association>
+        <association property="company" column="COMPANY_ID" javaType="com.youthchina.domain.qingyang.Company" resultMap="com.youthchina.dao.qingyang.CompanyMapper.company"/>
+        <!--<association property="company" javaType="com.youthchina.domain.qingyang.Company">-->
+            <!--<id property="companyId" column="COMPANY_ID"/>-->
+            <!--<result property="companyName" column="COMPANY_NAME"/>-->
+            <!--<result property="companyCode" column="COMPANY_CODE"/>-->
+            <!--<result property="companyCountry" column="COMPANY_COUNTRY"/>-->
+            <!--<result property="companyIntroduc" column="COMPANY_INTRODUC"/>-->
+            <!--<result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>-->
+            <!--<result property="companyNature" column="COMPANY_NATURE"/>-->
+            <!--<result property="companyLocation" column="COMPANY_LOCATION"/>-->
+            <!--<result property="companyMail" column="COMPANY_MAIL"/>-->
+            <!--<result property="companyWebsite" column="COMPANY_WEBSITE"/>-->
+            <!--<result property="companyStartDate" column="COMPANY_START_DATE"/>-->
+            <!--<result property="companyLogo" column="COMPANY_LOGO"/>-->
+            <!--<result property="companyVerify" column="COMPANY_VERIFY"/>-->
+        <!--</association>-->
         <association property="hr" javaType="com.youthchina.domain.qingyang.Hr">
             <id property="hrId" column="HR_ID"/>
             <result property="hrOnJob" column="HR_ON_JOB"/>
