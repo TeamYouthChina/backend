@@ -56,7 +56,7 @@
         <result property="companyLogo" column="COMPANY_LOGO"/>
         <result property="userId" column="USER_ID"/>
         <association property="companyNature" javaType="com.youthchina.domain.qingyang.CompanyNature">
-            <id property="companyId" column="NATURE_NUM"/>
+            <id property="natureNum" column="NATURE_NUM"/>
             <result property="natureChn" column="NATURE_CHN"/>
             <result property="natureEng" column="NATURE_ENG"/>
             <result property="natureDetail" column="NATURE_DETAIL"/>
