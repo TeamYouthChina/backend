@@ -60,7 +60,7 @@
         <result property="jobProfCode" column="JOB_PROF_CODE"/>
         <result property="jobStartTime" column="JOB_START_TIME"/>
         <result property="jobEndTime" column="JOB_END_TIME"/>
-        <result property="jobTime" column="JOB_TIME"/>
+        <result property="jobType" column="JOB_TYPE"/>
         <result property="jobDescription" column="JOB_DESCRIPTION"/>
         <result property="jobDuty" column="JOB_DUTY"/>
         <result property="jobHighlight" column="JOB_HIGHLIGHT"/>

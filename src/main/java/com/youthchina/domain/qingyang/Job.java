@@ -12,7 +12,7 @@ public class Job {
     private String  jobProfCode;
     private Date    jobStartTime;
     private Date    jobEndTime;
-    private Integer jobTime;
+    private Integer jobType;
     private String  jobDescription;
     private String  jobDuty;
     private String  jobHighlight;
@@ -124,12 +124,12 @@ comment '职位基本信息表';
         this.jobEndTime = jobEndTime;
     }
 
-    public Integer getJobTime() {
-        return jobTime;
+    public Integer getJobType() {
+        return jobType;
     }
 
-    public void setJobTime(Integer jobTime) {
-        this.jobTime = jobTime;
+    public void setJobType(Integer jobType) {
+        this.jobType = jobType;
     }
 
     public String getJobDescription() {
