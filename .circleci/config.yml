@@ -32,10 +32,8 @@ jobs:
 
       - run: docker-compose down -v
       - run: docker-compose up -d
-      - run: sleep 10 # wait for docker
 
-      # run tests!
-      - run: mvn integration-test
+#      - run: mvn integration-test
 
       # This line is to be able to access failing screenshots in the
       # artifacts section in CircleCI
