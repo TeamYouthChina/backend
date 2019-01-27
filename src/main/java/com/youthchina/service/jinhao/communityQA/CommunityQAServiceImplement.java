@@ -24,12 +24,23 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Resource
     JobMapper jobHrMapper;
 
-
+    /**
+     * Judge if an answer is belong to a question
+     * @param answer_id id of answer
+     * @param ques_id id of question
+     * @return true or false
+     */
     @Override
     public boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id) {
         return communityQAMapper.isAnswerBelongToQuestion(answer_id, ques_id);
     }
 
+    /**
+     * Get all the information of a question by its id
+     * @param ques_id id of question
+     * @return Question object
+     * @throws NotFoundException if the question dose not exist, throw exception
+     */
     @Override
     @Transactional
     public Question getQuestionInfoById(Integer ques_id) throws NotFoundException {

@@ -25,38 +25,6 @@
         <result property="gender" column="USER_GENDER" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="role" javaType="java.lang.Integer" column="ROLE_TYPE"/>
     </association>
-    <association property="company" javaType="com.youthchina.domain.qingyang.Company">
-        <id property="companyId" column="COMPANY_ID"/>
-        <result property="companyName" column="COMPANY_NAME"/>
-        <result property="companyCode" column="COMPANY_CODE"/>
-        <result property="companyCountry" column="COMPANY_COUNTRY"/>
-        <result property="companyIntroduc" column="COMPANY_INTRODUC"/>
-        <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
-        <result property="companyNature" column="COMPANY_NATURE"/>
-        <result property="companyLocation" column="COMPANY_LOCATION"/>
-        <result property="companyMail" column="COMPANY_MAIL"/>
-        <result property="companyWebsite" column="COMPANY_WEBSITE"/>
-        <result property="companyStartDate" column="COMPANY_START_DATE"/>
-        <result property="companyLogo" column="COMPANY_LOGO"/>
-        <result property="companyVerify" column="COMPANY_VERIFY"/>
-        <result property="userId" column="USER_ID"/>
-    </association>
-    <association property="job" javaType="com.youthchina.domain.qingyang.Job">
-        <id property="jobId" column="JOB_ID"/>
-        <result property="jobName" column="JOB_NAME"/>
-        <result property="jobProfNum" column="JOB_PROF_NUM"/>
-        <result property="jobStartTime" column="JOB_START_TIME"/>
-        <result property="jobEndTime" column="JOB_END_TIME"/>
-        <result property="jobTime" column="JOB_TIME"/>
-        <result property="jobDescription" column="JOB_DESCRIPTION"/>
-        <result property="jobDuty" column="JOB_DUTY"/>
-        <result property="jobReq" column="JOB_REQ"/>
-        <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
-        <result property="jobSalary" column="JOB_SALARY"/>
-        <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
-        <result property="cvNameRule" column="CV_NAME_RULE"/>
-        <result property="jobActive" column="JOB_ACTIVE"/>
-    </association>
     <collection property="questionAttentions" ofType="com.youthchina.domain.jinhao.communityQA.QuestionAttention">
         <id property="atten_id" column="ATTEN_ID"/>
         <result property="user_id" column="USER_ID"/>
