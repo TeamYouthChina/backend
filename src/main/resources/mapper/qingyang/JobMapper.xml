@@ -8,7 +8,7 @@
         INSERT INTO JOB_INFO
         (
             COMPANY_ID,     HR_ID,          JOB_NAME,     JOB_PROF_CODE,
-            JOB_START_TIME, JOB_END_TIME,   JOB_TIME,     JOB_DESCRIPTION,
+            JOB_START_TIME, JOB_END_TIME,   JOB_TYPE,     JOB_DESCRIPTION,
             JOB_DUTY,       JOB_HIGHLIGHT, JOB_SALARY_FLOOR, JOB_SALARY_CAP,
             JOB_LINK,   CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, IS_DELETE,
             IS_DELETE_TIME
@@ -16,7 +16,7 @@
         VALUES
         (
             #{company.companyId},   #{hr.hrId},       #{jobName},     #{jobProfCode},
-            #{jobStartTime},#{jobEndTime},  #{jobTime},     #{jobDescription},
+            #{jobStartTime},#{jobEndTime},  #{jobType},     #{jobDescription},
             #{jobDuty},   #{jobHighlight},  #{jobSalaryFloor}, #{jobSalaryCap},
             #{jobLink},  #{cvReceiMail}, #{cvNameRule},  #{jobActive}, 0,
             NULL
@@ -33,7 +33,7 @@
             JOB_PROF_CODE = #{jobProfCode},
             JOB_START_TIME = #{jobStartTime},
             JOB_END_TIME = #{jobEndTime},
-            JOB_TIME = #{jobTime},
+            JOB_TYPE = #{jobType},
             JOB_DESCRIPTION = #{jobDescription},
             JOB_DUTY = #{jobDuty},
             JOB_HIGHLIGHT = #{jobHighlight},
@@ -140,7 +140,7 @@
             j.JOB_PROF_CODE as JOB_PROF_CODE,
             j.JOB_START_TIME as JOB_START_TIME,
             j.JOB_END_TIME as JOB_END_TIME,
-            j.JOB_TIME as JOB_TIME,
+            j.JOB_TYPE as JOB_TYPE,
             j.JOB_DESCRIPTION as JOB_DESCRIPTION,
             j.JOB_DUTY as JOB_DUTY,
             j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
@@ -301,7 +301,7 @@
                 AND loc.JOB_REGION_NUM = #{location}
             </if>
             <if test="type != null">
-                AND j.JOB_TIME = #{type}
+                AND j.JOB_TYPE = #{type}
             </if>
             <if test="deadline != null">
                 AND j.JOB_END_TIME = #{deadline}

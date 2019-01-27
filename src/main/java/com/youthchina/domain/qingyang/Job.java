@@ -28,7 +28,7 @@ create table JOB_INFO
 	JOB_PROF_CODE varchar(20) not null comment '职位类别编号',
 	JOB_START_TIME date not null comment '职位起始时间',
 	JOB_END_TIME date not null comment '职位截止时间',
-	JOB_TIME int not null comment '职位性质',
+	JOB_TYPE int not null comment '职位性质',
 	JOB_DESCRIPTION varchar(200) not null comment '职位描述',
 	JOB_DUTY varchar(200) null comment '职责描述',
 	JOB_HIGHLIGHT varchar(200) null comment '职位亮点',
@@ -48,6 +48,8 @@ create table JOB_INFO
 		foreign key (HR_ID) references HR_INFO (hr_id)
 )
 comment '职位基本信息表';
+
+
 */
 
 
