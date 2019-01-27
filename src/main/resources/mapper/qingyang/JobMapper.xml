@@ -70,21 +70,22 @@
         <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
         <result property="cvNameRule" column="CV_NAME_RULE"/>
         <result property="jobActive" column="JOB_ACTIVE"/>
-        <association property="company" javaType="com.youthchina.domain.qingyang.Company">
-            <id property="companyId" column="COMPANY_ID"/>
-            <result property="companyName" column="COMPANY_NAME"/>
-            <result property="companyCode" column="COMPANY_CODE"/>
-            <result property="companyCountry" column="COMPANY_COUNTRY"/>
-            <result property="companyIntroduc" column="COMPANY_INTRODUC"/>
-            <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
-            <result property="companyNature" column="COMPANY_NATURE"/>
-            <result property="companyLocation" column="COMPANY_LOCATION"/>
-            <result property="companyMail" column="COMPANY_MAIL"/>
-            <result property="companyWebsite" column="COMPANY_WEBSITE"/>
-            <result property="companyStartDate" column="COMPANY_START_DATE"/>
-            <result property="companyLogo" column="COMPANY_LOGO"/>
-            <result property="companyVerify" column="COMPANY_VERIFY"/>
-        </association>
+        <association property="company" column="COMPANY_ID" javaType="com.youthchina.domain.qingyang.Company" resultMap="com.youthchina.dao.qingyang.CompanyMapper.company"/>
+        <!--<association property="company" javaType="com.youthchina.domain.qingyang.Company">-->
+            <!--<id property="companyId" column="COMPANY_ID"/>-->
+            <!--<result property="companyName" column="COMPANY_NAME"/>-->
+            <!--<result property="companyCode" column="COMPANY_CODE"/>-->
+            <!--<result property="companyCountry" column="COMPANY_COUNTRY"/>-->
+            <!--<result property="companyIntroduc" column="COMPANY_INTRODUC"/>-->
+            <!--<result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>-->
+            <!--<result property="companyNature" column="COMPANY_NATURE"/>-->
+            <!--<result property="companyLocation" column="COMPANY_LOCATION"/>-->
+            <!--<result property="companyMail" column="COMPANY_MAIL"/>-->
+            <!--<result property="companyWebsite" column="COMPANY_WEBSITE"/>-->
+            <!--<result property="companyStartDate" column="COMPANY_START_DATE"/>-->
+            <!--<result property="companyLogo" column="COMPANY_LOGO"/>-->
+            <!--<result property="companyVerify" column="COMPANY_VERIFY"/>-->
+        <!--</association>-->
         <association property="hr" javaType="com.youthchina.domain.qingyang.Hr">
             <id property="hrId" column="HR_ID"/>
             <result property="hrOnJob" column="HR_ON_JOB"/>
@@ -108,6 +109,14 @@
             <id property="jobRequireId" column="JOB_REQUIRE_ID"/>
             <result property="jobDegreeNum" column="JOB_DEGREE_NUM"/>
             <result property="jobId" column="JOB_ID"/>
+        </collection>
+        <collection property="professionList" ofType="com.youthchina.domain.qingyang.Profession">
+            <id property="profNum" column="PROF_NUM"/>
+            <result property="profCode" column="PROF_CODE"/>
+            <result property="profParentCode" column="PROF_PARENT_CODE"/>
+            <result property="profChn" column="PROF_CHN"/>
+            <result property="profEng" column="PROF_ENG"/>
+            <result property="startTime" column="START_TIME"/>
         </collection>
     </resultMap>
 
@@ -165,7 +174,14 @@
             loc.JOB_REGION_NUM as JOB_REGION_NUM,
 
             req.JOB_REQUIRE_ID as JOB_REQUIRE_ID,
-            req.JOB_DEGREE_NUM as JOB_DEGREE_NUM
+            req.JOB_DEGREE_NUM as JOB_DEGREE_NUM,
+
+            prof.PROF_NUM as PROF_NUM,
+            prof.PROF_CODE as PROF_CODE,
+            prof.PROF_PARENT_CODE as PROF_PARENT_CODE,
+            prof.PROF_CHN as PROF_CHN,
+            prof.PROF_ENG as PROF_ENG,
+            prof.START_TIME as START_TIME
 
         FROM JOB_INFO j
              LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
@@ -174,9 +190,10 @@
              LEFT OUTER JOIN SYS_IND_CLASS class ON i.JOB_IND_CODE = class.IND_CODE AND class.IS_DELETE = 0
              LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
              LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = loc.JOB_ID AND req.IS_DELETE = 0
+             LEFT OUTER JOIN SYS_PROF_CLASS prof ON j.JOB_PROF_CODE = prof.PROF_CODE AND prof.IS_DELETE = 0
 
         WHERE
-            j.JOB_ID = #{jobId}
+            j.JOB_ID = #{id}
 
     </select>
 
@@ -213,10 +230,30 @@
         com.COMPANY_LOGO as COMPANY_LOGO,
         com.COMPANY_VERIFY as COMPANY_VERIFY,
 
-        h.HR_ON_JOB as HR_ON_JOB
+        h.HR_ON_JOB as HR_ON_JOB,
+
+        class.IND_NUM as C_IND_NUM,
+        class.IND_CODE as IND_CODE,
+        class.IND_CHN as IND_CHN,
+        class.IND_ENG as IND_ENG,
+        class.IND_LEVEL as IND_LEVEL,
+        class.IND_PARENT_CODE as IND_PARENT_CODE,
+        class.START_TIME as START_TIME,
+
+        loc.JOB_REGION_ID as JOB_REGION_ID,
+        loc.JOB_REGION_NUM as JOB_REGION_NUM,
+
+        req.JOB_REQUIRE_ID as JOB_REQUIRE_ID,
+        req.JOB_DEGREE_NUM as JOB_DEGREE_NUM
+
         FROM JOB_INFO j
-             LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
-             LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0
+        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
+        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0
+        LEFT OUTER JOIN JOB_INDUSTRY i ON j.JOB_ID = i.JOB_ID AND i.IS_DELETE = 0
+        LEFT OUTER JOIN SYS_IND_CLASS class ON i.JOB_IND_CODE = class.IND_CODE AND class.IS_DELETE = 0
+        LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
+        LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = loc.JOB_ID AND req.IS_DELETE = 0
+
         WHERE j.JOB_ID in
         <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
             #{id}

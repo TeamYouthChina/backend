@@ -9,7 +9,7 @@ public class EducationInfo {
     private Integer edu_degree;
     private String edu_school;
     private String edu_school_country;
-    private Integer edu_school_location;
+    private Location location;
     private String edu_major;
     private String edu_college;
     private Float edu_gpa;
@@ -51,12 +51,12 @@ public class EducationInfo {
         this.edu_school_country = edu_school_country;
     }
 
-    public Integer getEdu_school_location() {
-        return edu_school_location;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setEdu_school_location(Integer edu_school_location) {
-        this.edu_school_location = edu_school_location;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getEdu_major() {

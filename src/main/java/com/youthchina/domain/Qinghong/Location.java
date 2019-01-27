@@ -14,7 +14,7 @@ public class Location {
     private String region_eng;
     private Integer region_level;
     private Integer region_parent_num;
-    private Timestamp start_date;
+    private Timestamp start_time;
     private Integer is_delete;
     private Timestamp is_delete_time;
 
@@ -58,12 +58,12 @@ public class Location {
         this.region_parent_num = region_parent_num;
     }
 
-    public Timestamp getStart_date() {
-        return start_date;
+    public Timestamp getStart_time() {
+        return start_time;
     }
 
-    public void setStart_date(Timestamp start_date) {
-        this.start_date = start_date;
+    public void setStart_time(Timestamp start_time) {
+        this.start_time = start_time;
     }
 
     public Integer getIs_delete() {
@@ -80,5 +80,10 @@ public class Location {
 
     public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
+    }
+
+    @Override
+    public String toString() {
+        return region_chn.toString();
     }
 }
