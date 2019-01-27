@@ -86,6 +86,8 @@ public class CompanyTest {
         Company company = companyMapper.selectCompany(1);
         System.out.println(company.getCompanyName());
         Assert.assertEquals("大疆", company.getCompanyName());
+        Assert.assertEquals(Integer.valueOf(1), company.getCompanyVerify());
+
     }
 
 
