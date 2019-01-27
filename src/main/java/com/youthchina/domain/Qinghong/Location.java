@@ -18,6 +18,17 @@ public class Location {
     private Integer is_delete;
     private Timestamp is_delete_time;
 
+    //for insert to JOB_LOCATION
+    private Integer jobId;
+
+    public Integer getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Integer jobId) {
+        this.jobId = jobId;
+    }
+
     public Integer getRegion_num() {
         return region_num;
     }
