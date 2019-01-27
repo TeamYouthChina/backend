@@ -217,7 +217,7 @@ create table IF NOT EXISTS `STU_COMP_COLLECT` (
 create table IF NOT EXISTS `STU_ADVAN_LABEL` (
   `LABEL_ID`       INT    AUTO_INCREMENT
   COMMENT '标签ID',
-  `LABEL_NUM`      INTEGER   NOT NULL
+  `LABLE_CODE`      VARCHAR(20)  NOT NULL
   COMMENT '优势标签',
   `STU_ID`         INTEGER   NOT NULL
   COMMENT '应聘者ID',
@@ -488,7 +488,7 @@ create table IF NOT EXISTS `JOB_INFO` (
   COMMENT '职位起始时间',
   `JOB_END_TIME`    DATE         NOT NULL
   COMMENT '职位截止时间',
-  `JOB_TIME`        INTEGER      NOT NULL
+  `JOB_TYPE`        INTEGER      NOT NULL
   COMMENT '职位性质',
   `JOB_DESCRIPTION` VARCHAR(200) NOT NULL
   COMMENT '职位描述',
@@ -623,9 +623,15 @@ create table IF NOT EXISTS `SYS_DEGREE` (
   COMMENT = '学位表';
   
   
-create table IF NOT EXISTS `SYS_LABEL_CLASS` (
-  `LABEL_NUM`      INT               AUTO_INCREMENT
+create table IF NOT EXISTS `SYS_ADVAN_LABEL_CLASS` (
+  `LABEL_ID`      INT               AUTO_INCREMENT
   COMMENT '标签编号',
+  `LABEL_LEVEL`    INTEGER      NOT NULL
+  COMMENT '标签分级',
+  `LABLE_CODE`     VARCHAR(20)  NOT NULL
+  COMMENT '标签代码',
+  `LABEL_PARENT_CODE`      VARCHAR(20)  NOT NULL
+  COMMENT '上级标签代码',
   `LABEL_CHN`      VARCHAR(100) NOT NULL
   COMMENT '中文描述',
   `LABEL_ENG`      VARCHAR(100) NOT NULL
@@ -636,7 +642,7 @@ create table IF NOT EXISTS `SYS_LABEL_CLASS` (
   COMMENT '是否删除',
   `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
   COMMENT '删除时间',
-  PRIMARY KEY (`LABEL_NUM`)
+  PRIMARY KEY (`LABEL_ID`)
 )
   COMMENT = '优势标签表';
   
