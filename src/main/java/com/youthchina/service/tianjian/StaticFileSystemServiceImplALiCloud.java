@@ -3,6 +3,8 @@ import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.*;
+import com.youthchina.dao.tianjian.CommunityMapper;
+import com.youthchina.dao.tianjian.StaticFileSystemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,9 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
     @Autowired
     FileNameGenerate fileNameGenerate;
 
+    @Autowired
+    StaticFileSystemMapper mapper;
+
     public void printOSSExceptionMessage(OSSException oe) {
         System.out.println("Caught an OSSException, which means your request made it to OSS, "
                 + "but was rejected with an error response for some reason.");
@@ -50,38 +55,38 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
     }
 
     @Override
-    public long uploadFile(String fileName) {
+    public long uploadFile(String fileName,File file,String format) {
         OSSClient ossClient = new OSSClient(endPoint, accessKeyId, accessKeySecret);
+        long localId=0;
         try {
             /*
              * Upload an object
              */
-          /*  InputStream input = new FileInputStream(file);
+            InputStream input = new FileInputStream(file);
             byte[] inputByte = new byte[input.available()];
-            input.read(inputByte);*/
-            String content = "Hello OSS";
-            ossClient.putObject(bucketName, "nihao", new ByteArrayInputStream(content.getBytes()));
-            boolean isExist = ossClient.doesObjectExist(bucketName, fileName);
-            if(isExist==true){
-
-            }else{
-                //    System.out.println("Uploading a new object to OSS from a file\n");
-                //    ossClient.putObject(new PutObjectRequest(bucketName, filename, new ByteArrayInputStream(inputByte)));
+            input.read(inputByte);
+            String fileNameInDataBase = fileNameGenerate.generateFileName();
+            while( ossClient.doesObjectExist(bucketName, fileName)){
+                fileNameInDataBase = fileNameGenerate.generateFileName();
             }
+            System.out.println("Uploading a new object to OSS from a file\n");
+            ossClient.putObject(new PutObjectRequest(bucketName, fileNameInDataBase, new ByteArrayInputStream(inputByte)));
+            localId = snowFlakeIdGenerate.nextId();
+            mapper.saveFileInfo(fileName,format,fileNameInDataBase ,String.valueOf(localId),"123");
 
         } catch (OSSException oe) {
             printOSSExceptionMessage(oe);
         } catch (ClientException ce) {
             System.out.println("Error Message: " + ce.getMessage());
-        }/* catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } */finally {
+        } finally {
             ossClient.shutdown();
         }
-        long myId = snowFlakeIdGenerate.nextId();
-        return myId;
+
+        return localId;
     }
 
     @Override
@@ -90,7 +95,7 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
         URL url = null;
         try {
             Date expiration = new Date(new Date().getTime() + 3600 * 1000);// 生成URL
-            url = ossClient.generatePresignedUrl(bucketName, accessKeyId, expiration);
+            url = ossClient.generatePresignedUrl(bucketName, fileName, expiration);
             return url;
         } catch (OSSException oe) {
             printOSSExceptionMessage(oe);
@@ -106,7 +111,6 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
     public boolean verifyFile(String fileName) {
         OSSClient ossClient = new OSSClient(endPoint, accessKeyId, accessKeySecret);
         boolean found = false;
-        List<OSSObjectSummary> fileList = null;
         try {
             found = ossClient.doesObjectExist(bucketName, fileName);
         } catch (OSSException oe) {
