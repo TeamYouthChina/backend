@@ -5,15 +5,7 @@
 version: 2
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
+    machine: true
     working_directory: ~/repo
 
     environment:
@@ -22,7 +14,8 @@ jobs:
 
     steps:
       - checkout
-
+      - run: mv ~/repo/.circleci/spring.application.properties ~/repo/src/main/resources/application.properties
+      - run : mv ~/repo/.circleci/spring.config.properties ~/repo/src/main/resources/config.properties
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -37,6 +30,14 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
+      - run: docker-compose down -v
+      - run: docker-compose up -d
+
       # run tests!
       - run: mvn integration-test
+
+      # This line is to be able to access failing screenshots in the
+      # artifacts section in CircleCI
+      - store_artifacts:
+          path: ~/repo/features/fail-screenshots
 
