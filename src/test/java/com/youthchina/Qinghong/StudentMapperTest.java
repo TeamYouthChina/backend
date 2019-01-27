@@ -152,6 +152,7 @@ public class StudentMapperTest {
         List<JobCollect> jobCollects=applicantMapper.getJobCollects(1);
         Assert.assertNotNull(jobCollects);
         System.out.print(jobCollects.get(0).getJob_id());
+
     }
 
     @Test
