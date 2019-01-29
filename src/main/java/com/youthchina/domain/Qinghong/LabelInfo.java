@@ -1,5 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -17,7 +18,7 @@ public class LabelInfo {
     private String label_eng;
     private Date start_time;
     private Integer is_delete;
-    private Integer is_delete_time;
+    private Timestamp is_delete_time;
 
     public Integer getLabel_id() {
         return label_id;
@@ -83,11 +84,11 @@ public class LabelInfo {
         this.is_delete = is_delete;
     }
 
-    public Integer getIs_delete_time() {
+    public Timestamp getIs_delete_time() {
         return is_delete_time;
     }
 
-    public void setIs_delete_time(Integer is_delete_time) {
+    public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
 }
