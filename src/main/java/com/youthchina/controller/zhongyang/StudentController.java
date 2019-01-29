@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
  * Created by zhongyangwu on 11/21/18.
  */
 @RestController
-@RequestMapping("${web.url.prefix}/students/**")
+@RequestMapping("${web.url.prefix}/applicants/**")
 public class StudentController extends DomainCRUDController<ApplicantDTO, Student, Integer> {
     private String url;
     private StudentService studentService;
@@ -27,7 +27,7 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     @Autowired
     public StudentController(StudentService studentService, @Value("${web.url.prefix}") String prefix) {
         this.studentService = studentService;
-        this.url = prefix + "/student/";
+        this.url = prefix + "/applicants/";
     }
 
     @Override
@@ -36,12 +36,12 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     }
 
     @Override
-    protected ApplicantDTO convertDomainToDto(Student domain) {
+    protected ApplicantDTO DomainToDto(Student domain) {
         return new ApplicantDTO(domain);
     }
 
     @Override
-    protected Student convertDtoToDomain(ApplicantDTO applicantDTO) {
+    protected Student DtoToDomain(ApplicantDTO applicantDTO) {
         return new Student(applicantDTO);
     }
 

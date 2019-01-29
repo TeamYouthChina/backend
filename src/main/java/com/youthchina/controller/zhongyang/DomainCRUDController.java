@@ -13,16 +13,16 @@ import java.net.URISyntaxException;
 /**
  * Created by zhongyangwu on 11/21/18.
  */
-abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializable> {
+abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializable> extends ResponseController<DTO, T, K> {
 
     /**
      * @return DomainCRUDService to access the domain model
      */
     protected abstract DomainCRUDService<T, K> getService();
 
-    protected abstract DTO convertDomainToDto(T domain);
+    protected abstract DTO DomainToDto(T domain);
 
-    protected abstract T convertDtoToDomain(DTO dto);
+    protected abstract T DtoToDomain(DTO dto);
 
     /**
      * @param key key of domain model
@@ -31,7 +31,7 @@ abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializa
      */
     protected ResponseEntity<?> get(K key) throws NotFoundException {
         T t = getService().get(key);
-        return ResponseEntity.ok(convertDomainToDto(t));
+        return ResponseEntity.ok(DtoToResponse(DomainToDto(t)));
     }
 
     /**
@@ -40,8 +40,8 @@ abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializa
      * @throws NotFoundException cannot find domain model based on the key
      */
     protected ResponseEntity<?> update(DTO dto) throws NotFoundException {
-        T updatedT = getService().update(convertDtoToDomain(dto));
-        return ResponseEntity.ok().build();
+        T updatedT = getService().update(DtoToDomain(dto));
+        return ResponseEntity.ok(DtoToResponse());
     }
 
     /**
@@ -51,7 +51,7 @@ abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializa
      */
     protected ResponseEntity<?> delete(K key) throws NotFoundException {
         getService().delete(key);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(DtoToResponse());
     }
 
     /**
@@ -59,9 +59,9 @@ abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializa
      * @return 201 if added
      */
     protected ResponseEntity<?> add(DTO dto) {
-        T created = getService().add(convertDtoToDomain(dto));
+        T created = getService().add(DtoToDomain(dto));
         try {
-            return ResponseEntity.created(getUriForNewInstance(created.getId())).build();
+            return ResponseEntity.created(getUriForNewInstance(created.getId())).body(DtoToResponse(DomainToDto(created)));
         } catch (URISyntaxException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

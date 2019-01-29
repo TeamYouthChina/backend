@@ -1,6 +1,8 @@
 package com.youthchina.domain.zhongyang;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.youthchina.dto.UserDTO;
+import com.youthchina.util.zhongyang.HasId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +14,7 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 11/8/18.
  */
-public class User implements UserDetails {
+public class User implements UserDetails, HasId<Integer> {
     private Integer id;
     private String username;
     private String password;
@@ -28,6 +30,21 @@ public class User implements UserDetails {
 
     public User() {
 
+    }
+
+    public User(UserDTO userDTO) {
+        this.id = userDTO.getId();
+        this.username = userDTO.getUsername();
+        this.password = userDTO.getPassword();
+        this.email = userDTO.getEmail();
+        this.phonenumber = userDTO.getPhonenumber();
+        this.registerDate = userDTO.getRegisterDate();
+        this.realName = userDTO.getRealName();
+        this.gender = userDTO.getGender();
+        this.nation = userDTO.getNation();
+        this.avatarUrl = userDTO.getAvatarUrl();
+        this.role = userDTO.getRole();
+        this.age = userDTO.getAge();
     }
 
     public User(Integer id) {
