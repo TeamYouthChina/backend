@@ -5,20 +5,23 @@ import com.youthchina.dto.JobSearchDTO;
 import com.youthchina.dto.JobSearchResultDTO;
 import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.exception.zhongyang.BaseException;
+import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.qingyang.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Created by zhongyangwu on 12/2/18.
  */
 @RestController
-@RequestMapping("${web.url.prefix}/job/**")
-public class JobController {
+@RequestMapping("${web.url.prefix}/jobs/**")
+public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integer>{
+
 
     private JobService jobService;
 
@@ -28,7 +31,7 @@ public class JobController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getJobDetail(@PathVariable Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
+    public ResponseEntity<?> getJobDetail(@PathVariable("id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
         Job job = this.jobService.get(jobId);
         if (detailLevel == 1) {
             JobSearchResultDTO<SimpleJobDTO> resultDTO = new JobSearchResultDTO<>();
@@ -41,5 +44,24 @@ public class JobController {
     public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO) throws BaseException {
         //todo: continue
         throw new BaseException();
+    }
+
+    @Override
+    protected DomainCRUDService<Job, Integer> getService() {
+        return null;
+    }
+
+    @Override
+    protected SimpleJobDTO DomainToDto(Job domain) {
+        return new SimpleJobDTO(domain);
+    }
+
+    @Override
+    protected Job DtoToDomain(SimpleJobDTO simpleJobDTO) {
+        return null;
+    }
+
+    @Override
+    protected URI getUriForNewInstance(Integer id) throws URISyntaxException {
     }
 }
