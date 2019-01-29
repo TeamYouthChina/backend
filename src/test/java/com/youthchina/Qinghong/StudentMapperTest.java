@@ -86,7 +86,7 @@ public class StudentMapperTest {
     public void testGetStudentInfo(){
         Student student=applicantMapper.getStudentInfo(1);
         Assert.assertNotNull(student);
-        System.out.print(student.getUsername());
+        System.out.print(student.getLabelInfos().get(0).getLabel_chn());
 
     }
 
@@ -152,13 +152,14 @@ public class StudentMapperTest {
         List<JobCollect> jobCollects=applicantMapper.getJobCollects(1);
         Assert.assertNotNull(jobCollects);
         System.out.print(jobCollects.get(0).getJob_id());
+
     }
 
     @Test
     public void testGetCompCollect(){
         List<CompCollect> compCollects=applicantMapper.getCompCollects(1);
         Assert.assertNotNull(compCollects);
-        System.out.print(compCollects.get(0).getCompany_id());
+        System.out.print(compCollects.get(0).getCompany().getCompanyNature().getNatureDetail());
     }
 
     @Test

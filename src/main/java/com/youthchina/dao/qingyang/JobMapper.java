@@ -1,5 +1,8 @@
 package com.youthchina.dao.qingyang;
 
+import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.domain.qingyang.Degree;
+import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.qingyang.Job;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -30,5 +33,17 @@ public interface JobMapper {
     List<Job> selectByIndustryId(List<Integer> indIds);
 
     List<Job> selectByIndustryString(String ind);
+
+    void insertJobIndustry(List<Industry> industries);
+
+    void insertJobDegree(List<Degree> degrees);
+
+    void insertJobLocation(List<Location> locations);
+
+    void deleteJobLocation(Integer jobId);
+
+    void deleteJobIndustry(Integer jobId);
+
+    void deleteJobDegree(Integer jobId);
 }
 
