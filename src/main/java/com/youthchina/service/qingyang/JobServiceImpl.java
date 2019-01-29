@@ -19,21 +19,6 @@ public class JobServiceImpl implements JobService {
     @Resource
     JobMapper jobMapper;
 
-//    public static Job job;
-//
-//    //给前端的默认值
-//    public static void initialization(){
-//        job.setJobId(1);
-//        job.setJobName("前端");
-//        job.setJobStartTime(new Date(20181212));
-//        job.setJobEndTime(new Date(20190101));
-//        job.setJobDescription("吃苦耐劳");
-//        job.setJobTime(1); // 全职1
-//        job.setJobLocation("北京");
-//        job.setCvReceiMail("test@test.test");
-//        job.setJobActive(1); // 1，2，3,4,5
-//    }
-
     @Override
     public void delete(User user, Integer jobId) throws NotFoundException {
         jobMapper.deleteJob(jobId);
@@ -41,9 +26,6 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Job getByHr(User user, Integer jobId) throws NotBelongException {
-        //默认值
-        //return job;
-
         return jobMapper.selectJobByJobId(jobId);
     }
 
@@ -70,31 +52,37 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public List<Job> get(List<Integer> id) throws NotFoundException {
-        List<Job> jobList = new ArrayList<>();
-
-        //默认值, 可注释掉
-        //jobList.add(job);
-
-        //implement
-        jobList = jobMapper.selectJobByJobIdList(id);
-
+        List<Job> jobList = jobMapper.selectJobByJobIdList(id);
         return jobList;
     }
 
     @Override
     public void delete(Integer id) throws NotFoundException {
         jobMapper.deleteJob(id);
+        jobMapper.deleteJobDegree(id);
+        jobMapper.deleteJobIndustry(id);
+        jobMapper.deleteJobLocation(id);
+        jobMapper.deleteJob(id);
     }
 
     @Override
-    public Job update(Job job_qingyang) throws NotFoundException {
-        Integer result = jobMapper.updateJob(job_qingyang);
-        return this.get(result);
+    public Job update(Job job) throws NotFoundException {
+        jobMapper.updateJob(job);
+        jobMapper.deleteJobLocation(job.getJobId());
+        jobMapper.insertJobLocation(job.getJobLocationList());
+        jobMapper.deleteJobIndustry(job.getJobId());
+        jobMapper.insertJobIndustry(job.getIndustries());
+        jobMapper.deleteJobDegree(job.getJobId());
+        jobMapper.insertJobDegree(job.getJobReqList());
+        return jobMapper.selectJobByJobId(job.getJobId());
     }
 
     @Override
     public Job add(Job entity) {
         Integer result = jobMapper.insertJob(entity);
+        jobMapper.insertJobIndustry(entity.getIndustries());
+        jobMapper.insertJobDegree(entity.getJobReqList());
+        jobMapper.insertJobLocation(entity.getJobLocationList());
         return jobMapper.selectJobByJobId(result);
     }
 
