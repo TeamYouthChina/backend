@@ -3,7 +3,6 @@ package com.youthchina.jinhao;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.jinhao.InfluenceMapper;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,9 +18,4 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 public class InfluenceTest {
     @Autowired
     InfluenceMapper influenceMapper;
-
-    @Test
-    public void getInfluenceByUserId(){
-        influenceMapper.getInfluenceByUserId(1);
-    }
 }
