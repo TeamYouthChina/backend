@@ -1,7 +1,7 @@
 package com.youthchina.service.tianjian;
 
 import com.youthchina.dao.tianjian.PersonInfluenceMapper;
-import com.youthchina.domain.tianjian.PersonInfluence;
+import com.youthchina.domain.tianjian.PersonInfluencePoint;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /*
@@ -21,10 +21,10 @@ public class CaculatePersonInfluencePoint {
     PersonInfluenceMapper personInfluenceMapper;
 
 
-    private PersonInfluence personInfluence;
+    private PersonInfluencePoint personInfluencePoint;
 
     public CaculatePersonInfluencePoint(){
-        personInfluence = new PersonInfluence();
+        personInfluencePoint = new PersonInfluencePoint();
     }
     public int caculatePersonInfluencePoint(Integer user_id){
         return 0;

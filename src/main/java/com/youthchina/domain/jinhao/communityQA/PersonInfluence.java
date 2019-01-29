@@ -4,6 +4,7 @@ package com.youthchina.domain.jinhao.communityQA;
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.tianjian.ComReplyEvaluate;
+import com.youthchina.domain.tianjian.PersonInfluencePoint;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class PersonInfluence {
     private Integer pers_posi_evaluate;
     private Student student;
     private List<ComFriendRelation> comFriendRelations;
-    private List<PersonInfluence> personInfluences;
+    private List<PersonInfluencePoint> personInfluences;
     private List<AnswerEvaluate> answerEvaluates;
     private List<CommentEvaluate> commentEvaluates;
     private List<DiscussEvaluate> discussEvaluates;
@@ -124,11 +125,11 @@ public class PersonInfluence {
         this.comFriendRelations = comFriendRelations;
     }
 
-    public List<PersonInfluence> getPersonInfluences() {
+    public List<PersonInfluencePoint> getPersonInfluences() {
         return personInfluences;
     }
 
-    public void setPersonInfluences(List<PersonInfluence> personInfluences) {
+    public void setPersonInfluences(List<PersonInfluencePoint> personInfluences) {
         this.personInfluences = personInfluences;
     }
 

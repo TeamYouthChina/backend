@@ -14,7 +14,7 @@ import java.util.List;
  **/
 public class Student extends User implements HasId<Integer> {
     private Integer stu_id;
-    private Boolean isInJob;
+    private String isInJob;
     private String currentCompanyName;
     private List<EducationInfo> educationInfos;
     private SubInfo subInfo;
@@ -50,19 +50,12 @@ public class Student extends User implements HasId<Integer> {
         this.stu_id = stu_id;
     }
 
-    public Boolean getInJob() {
+
+    public String getIsInJob() {
         return isInJob;
     }
 
-    public void setInJob(Boolean inJob) {
-        isInJob = inJob;
-    }
-
-    public Boolean getIsInJob() {
-        return isInJob;
-    }
-
-    public void setIsInJob(Boolean isInJob) {
+    public void setIsInJob(String isInJob) {
         this.isInJob = isInJob;
     }
 

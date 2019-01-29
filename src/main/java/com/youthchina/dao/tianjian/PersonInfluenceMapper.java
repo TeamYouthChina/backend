@@ -3,11 +3,7 @@ package com.youthchina.dao.tianjian;
 import com.youthchina.domain.Qinghong.UserInfo;
 import com.youthchina.domain.tianjian.*;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 /**
  * Created by zhongyangwu on 11/10/18.
@@ -15,11 +11,11 @@ import java.util.List;
 @Mapper
 @Component
 public interface PersonInfluenceMapper {
-   int savePersonInfluence(PersonInfluence personInfluence);
+   int savePersonInfluence(PersonInfluencePoint personInfluencePoint);
 
-   int updatePersonInfluence(PersonInfluence personInfluence);
+   int updatePersonInfluence(PersonInfluencePoint personInfluencePoint);
 
-   PersonInfluence getPersonInfluence(Integer user_id);
+   PersonInfluencePoint getPersonInfluence(Integer user_id);
 
    UserInfo getUserInfo(Integer user_id);
 }
