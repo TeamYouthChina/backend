@@ -124,4 +124,67 @@ public class JobTest {
         jobMapper.deleteJobLocation(job.getJobId());
         jobMapper.deleteJob(job.getJobId());
     }
+
+    @Test
+    public void testJobSearch(){
+
+
+        List<Job> jobList = jobMapper.getJobByMore(null,"front",null,"大疆",
+                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
+                "北京", null, null);
+        Assert.assertEquals(1, jobList.size());
+        Assert.assertEquals("大疆", jobList.get(0).getCompany().getCompanyName());
+
+        //Location test
+        jobList = jobMapper.getJobByMore(null,null,null,null,
+                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
+                "北京", null, null);
+        Assert.assertEquals(1, jobList.size());
+
+        jobList = jobMapper.getJobByMore(null,null,null,null,
+                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
+                "", null, null);
+        Assert.assertEquals(2, jobList.size());
+
+        //Degree test
+        List<Degree> degreeList = new ArrayList<>();
+        Degree degree = new Degree();
+        degree.setDegreeNum(1);
+        degreeList.add(degree);
+        jobList = jobMapper.getJobByMore(null,null,null,null,
+                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
+                "", degreeList, null);
+        Assert.assertEquals(1, jobList.size());
+
+        Degree degree2 = new Degree();
+        degree2.setDegreeNum(2);
+        degreeList.add(degree2);
+        jobList = jobMapper.getJobByMore(null,null,null,null,
+                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
+                "", degreeList, null);
+        Assert.assertEquals(2, jobList.size());
+
+        // Industry Test
+        List<Industry> industryList = new ArrayList<>();
+        Industry industry = new Industry();
+        industry.setIndCode("A");
+        industryList.add(industry);
+        jobList = jobMapper.getJobByMore(null,null,null,null,
+                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
+                "", degreeList, industryList);
+        Assert.assertEquals(1, jobList.size());
+
+        Industry industry2 = new Industry();
+        industry2.setIndCode("B");
+        industryList.add(industry2);
+        jobList = jobMapper.getJobByMore(null,null,null,null,
+                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
+                "", degreeList, industryList);
+        Assert.assertEquals(2, jobList.size());
+
+
+
+
+
+    }
 }
