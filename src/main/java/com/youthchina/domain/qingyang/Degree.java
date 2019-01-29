@@ -18,6 +18,17 @@ comment '学位表';
     private String degreeEng;
     private Timestamp startDate;
 
+    // for insert
+    private Integer jobId;
+
+    public Integer getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Integer jobId) {
+        this.jobId = jobId;
+    }
+
     public Integer getDegreeNum() {
         return degreeNum;
     }

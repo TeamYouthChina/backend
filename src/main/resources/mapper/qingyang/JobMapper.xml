@@ -8,7 +8,7 @@
         INSERT INTO JOB_INFO
         (
             COMPANY_ID,     HR_ID,          JOB_NAME,     JOB_PROF_CODE,
-            JOB_START_TIME, JOB_END_TIME,   JOB_TIME,     JOB_DESCRIPTION,
+            JOB_START_TIME, JOB_END_TIME,   JOB_TYPE,     JOB_DESCRIPTION,
             JOB_DUTY,       JOB_HIGHLIGHT, JOB_SALARY_FLOOR, JOB_SALARY_CAP,
             JOB_LINK,   CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, IS_DELETE,
             IS_DELETE_TIME
@@ -16,7 +16,7 @@
         VALUES
         (
             #{company.companyId},   #{hr.hrId},       #{jobName},     #{jobProfCode},
-            #{jobStartTime},#{jobEndTime},  #{jobTime},     #{jobDescription},
+            #{jobStartTime},#{jobEndTime},  #{jobType},     #{jobDescription},
             #{jobDuty},   #{jobHighlight},  #{jobSalaryFloor}, #{jobSalaryCap},
             #{jobLink},  #{cvReceiMail}, #{cvNameRule},  #{jobActive}, 0,
             NULL
@@ -33,7 +33,7 @@
             JOB_PROF_CODE = #{jobProfCode},
             JOB_START_TIME = #{jobStartTime},
             JOB_END_TIME = #{jobEndTime},
-            JOB_TIME = #{jobTime},
+            JOB_TYPE = #{jobType},
             JOB_DESCRIPTION = #{jobDescription},
             JOB_DUTY = #{jobDuty},
             JOB_HIGHLIGHT = #{jobHighlight},
@@ -60,7 +60,7 @@
         <result property="jobProfCode" column="JOB_PROF_CODE"/>
         <result property="jobStartTime" column="JOB_START_TIME"/>
         <result property="jobEndTime" column="JOB_END_TIME"/>
-        <result property="jobTime" column="JOB_TIME"/>
+        <result property="jobType" column="JOB_TYPE"/>
         <result property="jobDescription" column="JOB_DESCRIPTION"/>
         <result property="jobDuty" column="JOB_DUTY"/>
         <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
@@ -91,33 +91,41 @@
             <result property="hrOnJob" column="HR_ON_JOB"/>
             <result property="companyId" column="COMPANY_ID"/>
         </association>
-        <collection property="industries" ofType="com.youthchina.domain.qingyang.Industry">
-            <id property="indNum" column="C_IND_NUM"/>
-            <result property="indCode" column="IND_CODE"/>
-            <result property="indChn" column="IND_CHN"/>
-            <result property="indEng" column="IND_ENG"/>
-            <result property="indLevel" column="IND_LEVEL"/>
-            <result property="indParentCode" column="IND_PARENT_CODE"/>
-            <result property="startTime" column="START_TIME"/>
-        </collection>
-        <collection property="jobLocationList" ofType="com.youthchina.domain.qingyang.JobLocation">
-            <id property="jobRegionId" column="JOB_REGION_ID"/>
-            <result property="jobRegionNum" column="JOB_REGION_NUM"/>
-            <result property="jobId" column="JOB_ID"/>
-        </collection>
-        <collection property="jobReqList" ofType="com.youthchina.domain.qingyang.JobRequest">
-            <id property="jobRequireId" column="JOB_REQUIRE_ID"/>
-            <result property="jobDegreeNum" column="JOB_DEGREE_NUM"/>
-            <result property="jobId" column="JOB_ID"/>
-        </collection>
-        <collection property="professionList" ofType="com.youthchina.domain.qingyang.Profession">
+        <association property="profession" javaType="com.youthchina.domain.qingyang.Profession">
             <id property="profNum" column="PROF_NUM"/>
             <result property="profCode" column="PROF_CODE"/>
             <result property="profParentCode" column="PROF_PARENT_CODE"/>
             <result property="profChn" column="PROF_CHN"/>
             <result property="profEng" column="PROF_ENG"/>
-            <result property="startTime" column="START_TIME"/>
+            <result property="startTime" column="PROF_START_TIME"/>
+        </association>
+        <collection property="industries" ofType="com.youthchina.domain.qingyang.Industry">
+            <id property="indNum" column="C_IND_NUM"/>
+            <result property="jobId" column="JOB_ID"/>
+            <result property="indCode" column="IND_CODE"/>
+            <result property="indChn" column="IND_CHN"/>
+            <result property="indEng" column="IND_ENG"/>
+            <result property="indLevel" column="IND_LEVEL"/>
+            <result property="indParentCode" column="IND_PARENT_CODE"/>
+            <result property="startTime" column="IND_START_TIME"/>
         </collection>
+        <collection property="jobLocationList" ofType="com.youthchina.domain.Qinghong.Location">
+            <id property="region_num" column="REGION_NUM"/>
+            <result property="jobId" column="JOB_ID"/>
+            <result property="region_chn" column="REGION_CHN"/>
+            <result property="region_eng" column="REGION_ENG"/>
+            <result property="region_level" column="REGION_LEVEL"/>
+            <result property="region_parent_num" column="REGION_PARENT_NUM"/>
+            <result property="start_time" column="REGION_START_TIME"/>
+        </collection>
+        <collection property="jobReqList" ofType="com.youthchina.domain.qingyang.Degree">
+            <id property="degreeNum" column="DEGREE_NUM"/>
+            <result property="jobId" column="JOB_ID"/>
+            <result property="degreeChn" column="DEGREE_CHN"/>
+            <result property="degreeEng" column="DEGREE_ENG"/>
+            <result property="startDate" column="DEGREE_START_DATE"/>
+        </collection>
+
     </resultMap>
 
     <resultMap id="jobListMap" type="java.util.HashMap">
@@ -126,15 +134,13 @@
         </collection>
     </resultMap>
 
-    <!--职位详情页, 含公司和HR信息-->
-    <select id="selectJobByJobId" resultMap="job" parameterType="java.lang.Integer">
-        SELECT
+    <sql id="jobSelect">
             j.JOB_ID as JOB_ID,
             j.JOB_NAME as JOB_NAME,
             j.JOB_PROF_CODE as JOB_PROF_CODE,
             j.JOB_START_TIME as JOB_START_TIME,
             j.JOB_END_TIME as JOB_END_TIME,
-            j.JOB_TIME as JOB_TIME,
+            j.JOB_TYPE as JOB_TYPE,
             j.JOB_DESCRIPTION as JOB_DESCRIPTION,
             j.JOB_DUTY as JOB_DUTY,
             j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
@@ -149,16 +155,23 @@
 
             com.COMPANY_NAME as COMPANY_NAME,
             com.COMPANY_CODE as COMPANY_CODE,
-            com.COMPANY_COUNTRY as COMPANY_COUNTRY,
             com.COMPANY_INTRODUC as COMPANY_INTRODUC,
-            com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-            com.COMPANY_NATURE as COMPANY_NATURE,
-            com.COMPANY_LOCATION as COMPANY_LOCATION,
             com.COMPANY_MAIL as COMPANY_MAIL,
             com.COMPANY_WEBSITE as COMPANY_WEBSITE,
             com.COMPANY_START_DATE as COMPANY_START_DATE,
             com.COMPANY_LOGO as COMPANY_LOGO,
             com.COMPANY_VERIFY as COMPANY_VERIFY,
+
+            nature.NATURE_NUM as NATURE_NUM,
+            nature.NATURE_CHN as NATURE_CHN,
+            nature.NATURE_ENG as NATURE_ENG,
+            nature.NATURE_DETAIL as NATURE_DETAIL,
+            nature.START_TIME as NATURE_START_TIME,
+
+            scale.SCALE_NUM as SCALE_NUM,
+            scale.SCALE_CHN as SCALE_CHN,
+            scale.SCALE_ENG as SCALE_ENG,
+            scale.START_TIME as SCALE_START_TIME,
 
             h.HR_ON_JOB as HR_ON_JOB,
 
@@ -168,92 +181,58 @@
             class.IND_ENG as IND_ENG,
             class.IND_LEVEL as IND_LEVEL,
             class.IND_PARENT_CODE as IND_PARENT_CODE,
-            class.START_TIME as START_TIME,
+            class.START_TIME as IND_START_TIME,
 
-            loc.JOB_REGION_ID as JOB_REGION_ID,
-            loc.JOB_REGION_NUM as JOB_REGION_NUM,
+            region.REGION_NUM as REGION_NUM,
+            region.REGION_CHN as REGION_CHN,
+            region.REGION_ENG as REGION_ENG,
+            region.REGION_LEVEL as REGION_LEVEL,
+            region.REGION_PARENT_NUM as REGION_PARENT_NUM,
+            region.START_TIME as REGION_START_TIME,
 
             req.JOB_REQUIRE_ID as JOB_REQUIRE_ID,
             req.JOB_DEGREE_NUM as JOB_DEGREE_NUM,
+
+            degree.DEGREE_NUM as DEGREE_NUM,
+            degree.DEGREE_CHN as DEGREE_CHN,
+            degree.DEGREE_ENG as DEGREE_ENG,
+            degree.START_DATE as DEGREE_START_DATE,
 
             prof.PROF_NUM as PROF_NUM,
             prof.PROF_CODE as PROF_CODE,
             prof.PROF_PARENT_CODE as PROF_PARENT_CODE,
             prof.PROF_CHN as PROF_CHN,
             prof.PROF_ENG as PROF_ENG,
-            prof.START_TIME as START_TIME
-
+            prof.START_TIME as PROF_START_TIME
+    </sql>
+    <sql id="jobJoin">
+        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
+        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0
+        LEFT OUTER JOIN SYS_COMPANY_NATURE	nature ON com.COMPANY_NATURE = nature.NATURE_NUM
+        LEFT OUTER JOIN SYS_COMPANY_SCALE	scale ON com.COMPANY_SCALE_NUM = scale.SCALE_NUM
+        LEFT OUTER JOIN JOB_INDUSTRY i ON j.JOB_ID = i.JOB_ID AND i.IS_DELETE = 0
+        LEFT OUTER JOIN SYS_IND_CLASS class ON i.JOB_IND_CODE = class.IND_CODE AND class.IS_DELETE = 0
+        LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
+        LEFT OUTER JOIN SYS_CHN_REGION region ON loc.JOB_REGION_NUM = region.REGION_NUM AND region.IS_DELETE = 0
+        LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = req.JOB_ID AND req.IS_DELETE = 0
+        LEFT OUTER JOIN SYS_DEGREE degree ON req.JOB_DEGREE_NUM = degree.DEGREE_NUM
+        LEFT OUTER JOIN SYS_PROF_CLASS prof ON j.JOB_PROF_CODE = prof.PROF_CODE AND prof.IS_DELETE = 0
+    </sql>
+    <!--职位详情页, 含公司和HR信息-->
+    <select id="selectJobByJobId" resultMap="job" parameterType="java.lang.Integer">
+        SELECT
+            <include refid="jobSelect"/>
         FROM JOB_INFO j
-             LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
-             LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0
-             LEFT OUTER JOIN JOB_INDUSTRY i ON j.JOB_ID = i.JOB_ID AND i.IS_DELETE = 0
-             LEFT OUTER JOIN SYS_IND_CLASS class ON i.JOB_IND_CODE = class.IND_CODE AND class.IS_DELETE = 0
-             LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
-             LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = loc.JOB_ID AND req.IS_DELETE = 0
-             LEFT OUTER JOIN SYS_PROF_CLASS prof ON j.JOB_PROF_CODE = prof.PROF_CODE AND prof.IS_DELETE = 0
-
+            <include refid="jobJoin"/>
         WHERE
             j.JOB_ID = #{id}
-
     </select>
 
     <select id="selectJobByJobIdList" resultMap="job" parameterType="java.util.List">
         SELECT
-        j.JOB_ID as JOB_ID,
-        j.JOB_NAME as JOB_NAME,
-        j.JOB_PROF_CODE as JOB_PROF_CODE,
-        j.JOB_START_TIME as JOB_START_TIME,
-        j.JOB_END_TIME as JOB_END_TIME,
-        j.JOB_TIME as JOB_TIME,
-        j.JOB_DESCRIPTION as JOB_DESCRIPTION,
-        j.JOB_DUTY as JOB_DUTY,
-        j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
-        j.JOB_SALARY_FLOOR as JOB_SALARY_FLOOR,
-        j.JOB_SALARY_CAP as JOB_SALARY_CAP,
-        j.JOB_LINK as JOB_LINK,
-        j.CV_RECEI_MAIL as CV_RECEI_MAIL,
-        j.CV_NAME_RULE as CV_NAME_RULE,
-        j.JOB_ACTIVE as JOB_ACTIVE,
-        j.HR_ID as HR_ID,
-        j.COMPANY_ID as COMPANY_ID,
-
-        com.COMPANY_NAME as COMPANY_NAME,
-        com.COMPANY_CODE as COMPANY_CODE,
-        com.COMPANY_COUNTRY as COMPANY_COUNTRY,
-        com.COMPANY_INTRODUC as COMPANY_INTRODUC,
-        com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-        com.COMPANY_NATURE as COMPANY_NATURE,
-        com.COMPANY_LOCATION as COMPANY_LOCATION,
-        com.COMPANY_MAIL as COMPANY_MAIL,
-        com.COMPANY_WEBSITE as COMPANY_WEBSITE,
-        com.COMPANY_START_DATE as COMPANY_START_DATE,
-        com.COMPANY_LOGO as COMPANY_LOGO,
-        com.COMPANY_VERIFY as COMPANY_VERIFY,
-
-        h.HR_ON_JOB as HR_ON_JOB,
-
-        class.IND_NUM as C_IND_NUM,
-        class.IND_CODE as IND_CODE,
-        class.IND_CHN as IND_CHN,
-        class.IND_ENG as IND_ENG,
-        class.IND_LEVEL as IND_LEVEL,
-        class.IND_PARENT_CODE as IND_PARENT_CODE,
-        class.START_TIME as START_TIME,
-
-        loc.JOB_REGION_ID as JOB_REGION_ID,
-        loc.JOB_REGION_NUM as JOB_REGION_NUM,
-
-        req.JOB_REQUIRE_ID as JOB_REQUIRE_ID,
-        req.JOB_DEGREE_NUM as JOB_DEGREE_NUM
-
+            <include refid="jobSelect"/>
         FROM JOB_INFO j
-        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
-        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0
-        LEFT OUTER JOIN JOB_INDUSTRY i ON j.JOB_ID = i.JOB_ID AND i.IS_DELETE = 0
-        LEFT OUTER JOIN SYS_IND_CLASS class ON i.JOB_IND_CODE = class.IND_CODE AND class.IS_DELETE = 0
-        LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
-        LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = loc.JOB_ID AND req.IS_DELETE = 0
-
+            <include refid="jobJoin"/>
         WHERE j.JOB_ID in
         <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
             #{id}
@@ -265,35 +244,13 @@
     <!--按行业Id的List查询Job的List, 中文名做返回的Map的Key-->
     <select id="selectByIndustryId" resultMap="jobListMap">
         SELECT
-        class.IND_CHN as IND_NAME,
-        j.JOB_ID as JOB_ID,
-        j.JOB_NAME as JOB_NAME,
-        j.JOB_PROF_CODE as JOB_PROF_CODE,
-        j.JOB_START_TIME as JOB_START_TIME,
-        j.JOB_END_TIME as JOB_END_TIME,
-        j.JOB_TIME as JOB_TIME,
-        j.JOB_DESCRIPTION as JOB_DESCRIPTION,
-        j.JOB_DUTY as JOB_DUTY,
-        j.JOB_REQ as JOB_REQ,
-        j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
-        j.JOB_SALARY as JOB_SALARY,
-        j.CV_RECEI_MAIL as CV_RECEI_MAIL,
-        j.CV_NAME_RULE as CV_NAME_RULE,
-        j.JOB_ACTIVE as JOB_ACTIVE,
-        j.HR_ID as HR_ID,
-        j.COMPANY_ID as COMPANY_ID,
-        com.COMPANY_NAME as COMPANY_NAME,
-        com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-        com.COMPANY_LOGO as COMPANY_LOGO,
-        loc.JOB_REGION_ID as JOB_REGION_ID,
-        loc.JOB_REGION_NUM as JOB_REGION_NUM
+            <include refid="jobSelect"/>
         FROM SYS_IND_CLASS class
         LEFT OUTER JOIN JOB_INDUSTRY ind ON class.IND_NUM = ind.JOB_IND_NUM
         LEFT OUTER JOIN JOB_INFO j ON ind.JOB_ID = j.JOB_ID
         LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
         LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
         LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID
-
         WHERE class.IND_NUM in
         <foreach item="id" collection="indIds" index="index" separator=",">
             #{id}
@@ -305,35 +262,13 @@
     <!--按行业名称的List查询Job的List, 中文名做返回的Map的Key-->
     <select id="selectByIndustryString" resultMap="jobListMap">
         SELECT
-            class.IND_CHN as IND_NAME,
-            j.JOB_ID as JOB_ID,
-            j.JOB_NAME as JOB_NAME,
-            j.JOB_PROF_CODE as JOB_PROF_CODE,
-            j.JOB_START_TIME as JOB_START_TIME,
-            j.JOB_END_TIME as JOB_END_TIME,
-            j.JOB_TIME as JOB_TIME,
-            j.JOB_DESCRIPTION as JOB_DESCRIPTION,
-            j.JOB_DUTY as JOB_DUTY,
-            j.JOB_REQ as JOB_REQ,
-            j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
-            j.JOB_SALARY as JOB_SALARY,
-            j.CV_RECEI_MAIL as CV_RECEI_MAIL,
-            j.CV_NAME_RULE as CV_NAME_RULE,
-            j.JOB_ACTIVE as JOB_ACTIVE,
-            j.HR_ID as HR_ID,
-            j.COMPANY_ID as COMPANY_ID,
-            com.COMPANY_NAME as COMPANY_NAME,
-            com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-            com.COMPANY_LOGO as COMPANY_LOGO,
-            loc.JOB_REGION_ID as JOB_REGION_ID,
-            loc.JOB_REGION_NUM as JOB_REGION_NUM
+            <include refid="jobSelect"/>
         FROM SYS_IND_CLASS class
         LEFT OUTER JOIN JOB_INDUSTRY ind ON class.IND_NUM = ind.JOB_IND_NUM
         LEFT OUTER JOIN JOB_INFO j ON ind.JOB_ID = j.JOB_ID
         LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
         LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
         LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID
-
         WHERE class.IND_CHN OR class.IND_ENG in
             <foreach item="industry" collection="industries" index="index" separator=",">
                     #{industry}
@@ -345,30 +280,9 @@
 
     <select id="getJobByMore" resultMap="job">
         SELECT
-        j.JOB_ID as JOB_ID,
-        j.JOB_NAME as JOB_NAME,
-        j.JOB_PROF_CODE as JOB_PROF_CODE,
-        j.JOB_START_TIME as JOB_START_TIME,
-        j.JOB_END_TIME as JOB_END_TIME,
-        j.JOB_TIME as JOB_TIME,
-        j.JOB_DESCRIPTION as JOB_DESCRIPTION,
-        j.JOB_DUTY as JOB_DUTY,
-        j.JOB_REQ as JOB_REQ,
-        j.JOB_HIGHLIGHT as JOB_HIGHLIGHT,
-        j.JOB_SALARY as JOB_SALARY,
-        j.CV_RECEI_MAIL as CV_RECEI_MAIL,
-        j.CV_NAME_RULE as CV_NAME_RULE,
-        j.JOB_ACTIVE as JOB_ACTIVE,
-        j.HR_ID as HR_ID,
-        j.COMPANY_ID as COMPANY_ID,
-        com.COMPANY_NAME as COMPANY_NAME,
-        com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-        com.COMPANY_LOGO as COMPANY_LOGO
+            <include refid="jobSelect"/>
         FROM JOB_INFO j
-        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
-        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
-        LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID
-
+            <include refid="jobJoin"/>
         WHERE
             j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0 AND loc.IS_DELETE = 0
             <if test="jobId != null">
@@ -387,59 +301,60 @@
                 AND loc.JOB_REGION_NUM = #{location}
             </if>
             <if test="type != null">
-                AND j.JOB_TIME = #{type}
+                AND j.JOB_TYPE = #{type}
             </if>
             <if test="deadline != null">
                 AND j.JOB_END_TIME = #{deadline}
             </if>
     </select>
 
-    <insert id="insertJobLocation" parameterType="com.youthchina.domain.qingyang.JobLocation"
-            useGeneratedKeys="true" keyProperty="jobRegionId">
-        INSERT INTO JOB_LOCATION
-        (   JOB_REGION_ID,    JOB_REGION_NUM,   JOB_ID,     IS_DELETE)
-        VALUES
-        (
-            #{jobRegionId},   #{jobRegionNum},   #{jobId},  #{isDelete}
-        )
-    </insert>
 
-    <update id="updateJobLocation" parameterType="com.youthchina.domain.qingyang.JobLocation"
-            useGeneratedKeys="true" keyProperty="jobRegionId">
-        UPDATE JOB_LOCATION
-        SET
-            JOB_REGION_NUM = #{jobRegionNum},
-            JOB_ID = #{jobId}
-        WHERE
-            JOB_REGION_ID = #{jobRegionId}
-        AND IS_DELETE = 0
-    </update>
+    <insert id="insertJobLocation" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO JOB_LOCATION
+        (   JOB_REGION_NUM,   JOB_ID,     IS_DELETE)
+        VALUES
+        <foreach item="item" collection="list" separator=",">
+        (   #{item.region_num}, #{item.jobId}, 0)
+        </foreach>
+    </insert>
 
     <update id="deleteJobLocation" parameterType="java.lang.Integer">
       UPDATE JOB_LOCATION SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-      WHERE JOB_REGION_ID = #{jobRegionId}
+      WHERE JOB_ID = #{ids}
     </update>
 
-    <select id="getJobLocation" resultType="com.youthchina.domain.qingyang.JobLocation"
-            parameterType="java.lang.Integer">
-        SELECT
-            JOB_REGION_ID,  JOB_REGION_NUM,   JOB_ID
-        FROM JOB_LOCATION
-        WHERE
-            JOB_REGION_ID = #{jobRegionId}
-        AND IS_DELETE = 0
-    </select>
-
-    <select id="getJobLocationList" resultType="com.youthchina.domain.qingyang.JobLocation">
-        SELECT
-            JOB_REGION_ID,  JOB_REGION_NUM,   JOB_ID
-        FROM JOB_LOCATION
-        WHERE JOB_REGION_ID in
-        <foreach item="id" collection="ids" index="index" separator=",">
-            #{id}
+    <insert id="insertJobIndustry" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO JOB_INDUSTRY
+        (   JOB_IND_CODE,   JOB_ID,     IS_DELETE)
+        VALUES
+        <foreach item="item" collection="list" separator=",">
+            (   #{item.indCode}, #{item.jobId}, 0)
         </foreach>
-        AND IS_DELETE = 0
-    </select>
+    </insert>
+
+    <update id="deleteJobIndustry" parameterType="java.lang.Integer">
+      UPDATE JOB_INDUSTRY SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+      WHERE JOB_ID = #{ids}
+    </update>
+
+    <insert id="insertJobDegree" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO JOB_DEGREE_REQUIRE
+        (   JOB_DEGREE_NUM,   JOB_ID,     IS_DELETE)
+        VALUES
+        <foreach item="item" collection="list" separator=",">
+            (   #{item.degreeNum}, #{item.jobId}, 0)
+        </foreach>
+    </insert>
+
+    <update id="deleteJobDegree" parameterType="java.lang.Integer">
+      UPDATE JOB_DEGREE_REQUIRE SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+      WHERE JOB_ID = #{ids}
+    </update>
+
+
 
 
 </mapper>
