@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.tianjian.StaticFileSystemMapper">
+    <!--    保存文件信息进入数据库 -->
+    <insert id="saveFileInfo" parameterType="com.youthchina.domain.tianjian.ComMediaDocument" useGeneratedKeys="true" keyProperty="docu_id">
+    INSERT INTO COM_MEDIA_DOCUMENT  (DOCU_ID, DOCU_LOCAL_ID, DOCU_LOCAL_NAME, DOCU_LOCAL_FORMAT,DOCU_SERVER_ALI_ID,DOCU_SERVER_AWS_ID,CREATE_TIME,IS_DELETE,IS_DELETE_TIME)
+           values(#{docu_id},#{docu_local_id},#{docu_local_name},#{docu_local_format},#{docu_server_ali_id},#{docu_server_aws_id},#{create_time}#{is_delete}#{s_delete_time}
+                 )
+    </insert>
+
+
+</mapper>
