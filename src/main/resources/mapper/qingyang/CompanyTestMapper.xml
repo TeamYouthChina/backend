@@ -11,8 +11,8 @@
             COMPANY_LOGO,       COMPANY_VERIFY,     USER_ID,          IS_DELETE,
             IS_DELETE_TIME)
         VALUES
-        (   #{companyName},     #{companyCode},   #{companyCountry},
-            #{companyIntroduc}, #{companyScaleNum}, #{companyNature},   #{companyLocation},
+        (   #{companyName},     #{companyCode},   #{country.countryAbbre},
+            #{companyIntroduc}, #{companyScale.scaleNum}, #{companyNature.natureNum},   #{location.region_num},
             #{companyMail},     #{companyWebsite}, #{companyStartDate},
             #{companyLogo},     #{companyVerify},   #{userId},          0,
             NULL)
@@ -24,11 +24,11 @@
         SET
             COMPANY_NAME = #{companyName},
             COMPANY_CODE = #{companyCode},
-            COMPANY_COUNTRY = #{companyCountry},
+            COMPANY_COUNTRY = #{country.countryAbbre},
             COMPANY_INTRODUC = #{companyIntroduc},
-            COMPANY_SCALE_NUM = #{companyScaleNum},
-            COMPANY_NATURE = #{companyNature},
-            COMPANY_LOCATION = #{companyLocation},
+            COMPANY_SCALE_NUM = #{companyScale.scaleNum},
+            COMPANY_NATURE = #{companyNature.natureNum},
+            COMPANY_LOCATION = #{location.region_num},
             COMPANY_MAIL = #{companyMail},
             COMPANY_WEBSITE = #{companyWebsite},
             COMPANY_START_DATE = #{companyStartDate},
@@ -49,17 +49,40 @@
         <id property="companyId" column="COMPANY_ID"/>
         <result property="companyName" column="COMPANY_NAME"/>
         <result property="companyCode" column="COMPANY_CODE"/>
-        <result property="companyCountry" column="COMPANY_COUNTRY"/>
         <result property="companyIntroduc" column="COMPANY_INTRODUC"/>
-        <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
-        <result property="companyNature" column="COMPANY_NATURE"/>
-        <result property="companyLocation" column="COMPANY_LOCATION"/>
         <result property="companyMail" column="COMPANY_MAIL"/>
         <result property="companyWebsite" column="COMPANY_WEBSITE"/>
         <result property="companyStartDate" column="COMPANY_START_DATE"/>
         <result property="companyLogo" column="COMPANY_LOGO"/>
         <result property="companyVerify" column="COMPANY_VERIFY"/>
         <result property="userId" column="USER_ID"/>
+        <association property="companyNature" javaType="com.youthchina.domain.qingyang.CompanyNature">
+            <id property="natureNum" column="NATURE_NUM"/>
+            <result property="natureChn" column="NATURE_CHN"/>
+            <result property="natureEng" column="NATURE_ENG"/>
+            <result property="natureDetail" column="NATURE_DETAIL"/>
+            <result property="startTime" column="NATURE_START_TIME"/>
+        </association>
+        <association property="companyScale" javaType="com.youthchina.domain.qingyang.CompanyScale">
+            <id property="scaleNum" column="SCALE_NUM"/>
+            <result property="scaleChn" column="SCALE_CHN"/>
+            <result property="scaleEng" column="SCALE_ENG"/>
+            <result property="startTime" column="SCALE_START_TIME"/>
+        </association>
+        <association property="country" javaType="com.youthchina.domain.qingyang.Country">
+            <id property="countryAbbre" column="COUNTRY_ABBRE"/>
+            <result property="countryChn" column="COUNTRY_CHN"/>
+            <result property="countryEng" column="COUNTRY_ENG"/>
+            <result property="startTime" column="COUNTRY_START_TIME"/>
+        </association>
+        <association property="location" javaType="com.youthchina.domain.Qinghong.Location">
+            <id property="region_num" column="REGION_NUM"/>
+            <result property="region_chn" column="REGION_CHN"/>
+            <result property="region_eng" column="REGION_ENG"/>
+            <result property="region_level" column="REGION_LEVEL"/>
+            <result property="region_parent_num" column="REGION_PARENT_NUM"/>
+            <result property="start_time" column="REGION_START_TIME"/>
+        </association>
         <collection property="indList" ofType="com.youthchina.domain.qingyang.Industry">
             <id property="indNum" column="C_IND_NUM"/>
             <result property="indCode" column="IND_CODE"/>
@@ -78,16 +101,11 @@
         </collection>
     </resultMap>
 
-    <select id="selectCompany" resultMap="company" parameterType="java.lang.Integer">
-        SELECT
+    <sql id="companySelect">
               com.COMPANY_ID as COMPANY_ID,
               com.COMPANY_NAME as COMPANY_NAME,
               com.COMPANY_CODE as COMPANY_CODE,
-              com.COMPANY_COUNTRY as COMPANY_COUNTRY,
               com.COMPANY_INTRODUC as COMPANY_INTRODUC,
-              com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-              com.COMPANY_NATURE as COMPANY_NATURE,
-              com.COMPANY_LOCATION as COMPANY_LOCATION,
               com.COMPANY_MAIL as COMPANY_MAIL,
               com.COMPANY_WEBSITE as COMPANY_WEBSITE,
               com.COMPANY_START_DATE as COMPANY_START_DATE,
@@ -108,56 +126,60 @@
               class.IND_ENG as IND_ENG,
               class.IND_LEVEL as IND_LEVEL,
               class.IND_PARENT_CODE as IND_PARENT_CODE,
-              class.START_TIME as START_TIME
+              class.START_TIME as START_TIME,
 
-        FROM COMPANY_INFO com
-                 LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0 AND v.IS_DELETE = 0
+              nature.NATURE_NUM as NATURE_NUM,
+              nature.NATURE_CHN as NATURE_CHN,
+              nature.NATURE_ENG as NATURE_ENG,
+              nature.NATURE_DETAIL as NATURE_DETAIL,
+              nature.START_TIME as NATURE_START_TIME,
+
+              scale.SCALE_NUM as SCALE_NUM,
+              scale.SCALE_CHN as SCALE_CHN,
+              scale.SCALE_ENG as SCALE_ENG,
+              scale.START_TIME as SCALE_START_TIME,
+
+              country.COUNTRY_ABBRE as COUNTRY_ABBRE,
+              country.COUNTRY_CHN as COUNTRY_CHN,
+              country.COUNTRY_ENG as COUNTRY_ENG,
+              country.START_TIME as COUNTRY_START_TIME,
+
+              region.REGION_NUM as REGION_NUM,
+              region.REGION_CHN as REGION_CHN,
+              region.REGION_ENG as REGION_ENG,
+              region.REGION_LEVEL as REGION_LEVEL,
+              region.REGION_PARENT_NUM as REGION_PARENT_NUM,
+              region.START_TIME as REGION_START_TIME
+    </sql>
+
+    <sql id="companyJoin">
+        LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0 AND v.IS_DELETE = 0
                  LEFT OUTER JOIN COMPANY_INDUSTRY i ON i.COMPANY_ID = com.COMPANY_ID AND i.IS_DELETE = 0
                  LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_CODE = i.COMPANY_IND_CODE AND class.IS_DELETE = 0
+                 LEFT OUTER JOIN SYS_COMPANY_NATURE	nature ON com.COMPANY_NATURE = nature.NATURE_NUM
+                 LEFT OUTER JOIN SYS_COMPANY_SCALE	scale ON com.COMPANY_SCALE_NUM = scale.SCALE_NUM
+                 LEFT OUTER JOIN SYS_COUNTRY	country ON com.COMPANY_COUNTRY = country.COUNTRY_ABBRE AND country.IS_DELETE = 0
+                 LEFT OUTER JOIN SYS_CHN_REGION	region ON com.COMPANY_LOCATION = region.REGION_NUM AND region.IS_DELETE = 0
+    </sql>
+
+    <select id="selectCompany" resultMap="company" parameterType="java.lang.Integer">
+        SELECT
+            <include refid="companySelect"/>
+        FROM COMPANY_INFO com
+            <include refid="companyJoin"/>
         WHERE
             com.COMPANY_ID = #{id}
     </select>
 
     <select id="selectCompanyByIdList" parameterType="java.util.List" resultMap="company" >
         SELECT
-              com.COMPANY_ID as COMPANY_ID,
-              com.COMPANY_NAME as COMPANY_NAME,
-              com.COMPANY_CODE as COMPANY_CODE,
-              com.COMPANY_COUNTRY as COMPANY_COUNTRY,
-              com.COMPANY_INTRODUC as COMPANY_INTRODUC,
-              com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-              com.COMPANY_NATURE as COMPANY_NATURE,
-              com.COMPANY_LOCATION as COMPANY_LOCATION,
-              com.COMPANY_MAIL as COMPANY_MAIL,
-              com.COMPANY_WEBSITE as COMPANY_WEBSITE,
-              com.COMPANY_START_DATE as COMPANY_START_DATE,
-              com.COMPANY_LOGO as COMPANY_LOGO,
-              com.COMPANY_VERIFY as COMPANY_VERIFY,
-              com.USER_ID as USER_ID,
-
-              v.VERIFY_ID as VERIFY_ID,
-              v.VERIFY_TIME as VERIFY_TIME,
-              v.VERIFY_END_TIME as VERIFY_END_TIME,
-              v.OPER_USER_ID as OPER_USER_ID,
-
-              i.COMPANY_IND_CODE as COMPANY_IND_CODE,
-
-              class.IND_NUM as C_IND_NUM,
-              class.IND_CODE as IND_CODE,
-              class.IND_CHN as IND_CHN,
-              class.IND_ENG as IND_ENG,
-              class.IND_LEVEL as IND_LEVEL,
-              class.IND_PARENT_CODE as IND_PARENT_CODE,
-              class.START_TIME as START_TIME
-
+            <include refid="companySelect"/>
         FROM COMPANY_INFO com
-                 LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0 AND v.IS_DELETE = 0
-                 LEFT OUTER JOIN COMPANY_INDUSTRY i ON i.COMPANY_ID = com.COMPANY_ID AND i.IS_DELETE = 0
-                 LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_CODE = i.COMPANY_IND_CODE AND class.IS_DELETE = 0
+            <include refid="companyJoin"/>
         WHERE com.COMPANY_ID in
-          <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
-              #{id}
-          </foreach>
+            <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
+                #{id}
+            </foreach>
     </select>
 
 

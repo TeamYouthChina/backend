@@ -5,9 +5,8 @@ import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.youthchina.dao.qingyang.CompanyMapper;
-import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.CompanyVerification;
-import com.youthchina.domain.qingyang.Industry;
+import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.domain.qingyang.*;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -87,6 +86,8 @@ public class CompanyTest {
         Company company = companyMapper.selectCompany(1);
         System.out.println(company.getCompanyName());
         Assert.assertEquals("大疆", company.getCompanyName());
+        Assert.assertEquals(Integer.valueOf(1), company.getCompanyVerify());
+
     }
 
 
@@ -95,11 +96,26 @@ public class CompanyTest {
         Company company = new Company();
         company.setCompanyName("百度");
         company.setCompanyCode("3");
-        company.setCompanyCountry("China");
+
+        Country country = new Country();
+        country.setCountryAbbre("CHN");
+        company.setCountry(country);
+
         company.setCompanyIntroduc("baidu");
-        company.setCompanyScaleNum(1);
-        company.setCompanyNature("nature");
-        company.setCompanyLocation("1");
+
+        CompanyScale companyScale = new CompanyScale();
+        companyScale.setScaleNum(1);
+        company.setCompanyScale(companyScale);
+
+        CompanyNature companyNature = new CompanyNature();
+        companyNature.setNatureNum(1);
+        company.setCompanyNature(companyNature);
+
+        Location location = new Location();
+        location.setRegion_num(1);
+        company.setLocation(location);
+
+
         company.setCompanyMail("baidu@com");
         company.setCompanyWebsite("baidu.com");
         company.setCompanyStartDate(Date.valueOf("2006-1-20"));
