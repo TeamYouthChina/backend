@@ -158,7 +158,7 @@ public class StudentMapperTest {
     public void testGetCompCollect(){
         List<CompCollect> compCollects=applicantMapper.getCompCollects(1);
         Assert.assertNotNull(compCollects);
-        System.out.print(compCollects.get(0).getCompany_id());
+        System.out.print(compCollects.get(0).getCompany().getCompanyNature().getNatureDetail());
     }
 
     @Test

@@ -16,6 +16,7 @@ public class JobLocation {
     private Timestamp isDeleteTime;
 
 
+
     public Integer getJobRegionId() {
         return jobRegionId;
     }
