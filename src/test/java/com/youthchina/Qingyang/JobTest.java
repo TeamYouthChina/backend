@@ -4,10 +4,10 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
+import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
-import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.Hr;
-import com.youthchina.domain.qingyang.Job;
+import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.domain.qingyang.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,14 +31,17 @@ public class JobTest {
 
     @Autowired
     private JobMapper jobMapper;
+    private CompanyMapper companyMapper;
 
     @Test
     public void testGetJob() {
         Job job = jobMapper.selectJobByJobId(1);
         Assert.assertEquals("大疆", job.getCompany().getCompanyName());
+        Assert.assertEquals("国企", job.getCompany().getCompanyNature().getNatureChn());
         Assert.assertEquals(1, job.getIndustries().size());
         Assert.assertEquals("A", job.getIndustries().get(0).getIndCode());
-        Assert.assertEquals(Integer.valueOf(111), job.getJobLocationList().get(0).getJobRegionNum());
+        Assert.assertEquals("北京", job.getJobLocationList().get(0).getRegion_chn());
+        Assert.assertEquals("前端", job.getProfession().getProfChn());
     }
 
 
@@ -70,7 +73,7 @@ public class JobTest {
         job.setJobProfCode("1");
         job.setJobStartTime(Date.valueOf("2019-1-1"));
         job.setJobEndTime(Date.valueOf("2020-1-1"));
-        job.setJobTime(1);
+        job.setJobType(1);
         job.setJobDescription("fullStack");
         job.setJobDuty("fullStack");
         job.setJobHighlight("80K");
@@ -78,18 +81,47 @@ public class JobTest {
         job.setCvNameRule("rule");
         job.setJobActive(1);
         jobMapper.insertJob(job);
+        List<Industry> industries = new ArrayList<>();
+        Industry industry = new Industry();
+        industry.setIndCode("1");
+        industry.setJobId(job.getJobId());
+        industries.add(industry);
+        jobMapper.insertJobIndustry(industries);
+        List<Degree> degrees = new ArrayList<>();
+        Degree degree = new Degree();
+        degree.setDegreeNum(1);
+        degree.setJobId(job.getJobId());
+        degrees.add(degree);
+        jobMapper.insertJobDegree(degrees);
+        List<Location> locations = new ArrayList<>();
+        Location location = new Location();
+        location.setRegion_num(1);
+        location.setJobId(job.getJobId());
+        locations.add(location);
+        jobMapper.insertJobLocation(locations);
     }
 
     @Test
     public void testUpdateJob(){
         Job job = jobMapper.selectJobByJobId(1);
-//        Assert.assertEquals("Beijing", job.getJobLocation());
+        Assert.assertEquals("Beijing", job.getJobLocationList().get(0).getRegion_eng());
         job.getCompany().setCompanyId(2);
         jobMapper.updateJob(job);
+        jobMapper.deleteJobLocation(job.getJobId());
+        jobMapper.insertJobLocation(job.getJobLocationList());
+        jobMapper.deleteJobIndustry(job.getJobId());
+        jobMapper.insertJobIndustry(job.getIndustries());
+        jobMapper.deleteJobDegree(job.getJobId());
+        jobMapper.insertJobDegree(job.getJobReqList());
     }
 
     @Test
     public void testDeleteJob(){
-        jobMapper.deleteJob(1);
+        Job job = new Job();
+        job.setJobId(1);
+        jobMapper.deleteJobDegree(job.getJobId());
+        jobMapper.deleteJobIndustry(job.getJobId());
+        jobMapper.deleteJobLocation(job.getJobId());
+        jobMapper.deleteJob(job.getJobId());
     }
 }

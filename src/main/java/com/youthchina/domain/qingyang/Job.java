@@ -1,5 +1,7 @@
 package com.youthchina.domain.qingyang;
 
+import com.youthchina.domain.Qinghong.Location;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -12,7 +14,7 @@ public class Job {
     private String  jobProfCode;
     private Date    jobStartTime;
     private Date    jobEndTime;
-    private Integer jobTime;
+    private Integer jobType;
     private String  jobDescription;
     private String  jobDuty;
     private String  jobHighlight;
@@ -26,7 +28,7 @@ create table JOB_INFO
 	JOB_PROF_CODE varchar(20) not null comment '职位类别编号',
 	JOB_START_TIME date not null comment '职位起始时间',
 	JOB_END_TIME date not null comment '职位截止时间',
-	JOB_TIME int not null comment '职位性质',
+	JOB_TYPE int not null comment '职位性质',
 	JOB_DESCRIPTION varchar(200) not null comment '职位描述',
 	JOB_DUTY varchar(200) null comment '职责描述',
 	JOB_HIGHLIGHT varchar(200) null comment '职位亮点',
@@ -46,6 +48,8 @@ create table JOB_INFO
 		foreign key (HR_ID) references HR_INFO (hr_id)
 )
 comment '职位基本信息表';
+
+
 */
 
 
@@ -55,9 +59,10 @@ comment '职位基本信息表';
     private String  cvReceiMail;
     private String  cvNameRule;
     private Integer jobActive;
-    private List<JobLocation> jobLocationList;
-    private List<JobRequest> jobReqList;
+    private List<Location> jobLocationList;
+    private List<Degree> jobReqList;
     private List<Industry> industries;
+    private Profession profession;
 
 
     private Integer isDelete;
@@ -123,12 +128,12 @@ comment '职位基本信息表';
         this.jobEndTime = jobEndTime;
     }
 
-    public Integer getJobTime() {
-        return jobTime;
+    public Integer getJobType() {
+        return jobType;
     }
 
-    public void setJobTime(Integer jobTime) {
-        this.jobTime = jobTime;
+    public void setJobType(Integer jobType) {
+        this.jobType = jobType;
     }
 
     public String getJobDescription() {
@@ -147,19 +152,19 @@ comment '职位基本信息表';
         this.jobDuty = jobDuty;
     }
 
-    public List<JobRequest> getJobReqList() {
+    public List<Degree> getJobReqList() {
         return jobReqList;
     }
 
-    public void setJobReqList(List<JobRequest> jobReqList) {
+    public void setJobReqList(List<Degree> jobReqList) {
         this.jobReqList = jobReqList;
     }
 
-    public List<JobLocation> getJobLocationList() {
+    public List<Location> getJobLocationList() {
         return jobLocationList;
     }
 
-    public void setJobLocationList(List<JobLocation> jobLocationList) {
+    public void setJobLocationList(List<Location> jobLocationList) {
         this.jobLocationList = jobLocationList;
     }
 
@@ -225,6 +230,14 @@ comment '职位基本信息表';
 
     public void setIndustries(List<Industry> industries) {
         this.industries = industries;
+    }
+
+    public Profession getProfession() {
+        return profession;
+    }
+
+    public void setProfession(Profession profession) {
+        this.profession = profession;
     }
 
     public Integer getIsDelete() {

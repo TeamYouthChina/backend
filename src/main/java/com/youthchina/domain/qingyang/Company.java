@@ -1,5 +1,7 @@
 package com.youthchina.domain.qingyang;
 
+import com.youthchina.domain.Qinghong.Location;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -11,11 +13,11 @@ public class Company {
     private Integer companyId;
     private String companyName;
     private String companyCode;
-    private String companyCountry;
     private String companyIntroduc;
-    private Integer companyScaleNum;
-    private String companyNature;
-    private String companyLocation;
+    private CompanyNature companyNature;
+    private CompanyScale companyScale;
+    private Location location;
+    private Country country;
     /*
     企业ID			COMPANY_ID	        INTEGER		否
     企业名称			COMPANY_NAME	    VARCHAR(200)否
@@ -91,13 +93,6 @@ public class Company {
         this.companyCode = companyCode;
     }
 
-    public String getCompanyCountry() {
-        return companyCountry;
-    }
-
-    public void setCompanyCountry(String companyCountry) {
-        this.companyCountry = companyCountry;
-    }
 
     public String getCompanyIntroduc() {
         return companyIntroduc;
@@ -107,28 +102,36 @@ public class Company {
         this.companyIntroduc = companyIntroduc;
     }
 
-    public Integer getCompanyScaleNum() {
-        return companyScaleNum;
-    }
-
-    public void setCompanyScaleNum(Integer companyScaleNum) {
-        this.companyScaleNum = companyScaleNum;
-    }
-
-    public String getCompanyNature() {
+    public CompanyNature getCompanyNature() {
         return companyNature;
     }
 
-    public void setCompanyNature(String companyNature) {
+    public void setCompanyNature(CompanyNature companyNature) {
         this.companyNature = companyNature;
     }
 
-    public String getCompanyLocation() {
-        return companyLocation;
+    public CompanyScale getCompanyScale() {
+        return companyScale;
     }
 
-    public void setCompanyLocation(String companyLocation) {
-        this.companyLocation = companyLocation;
+    public void setCompanyScale(CompanyScale companyScale) {
+        this.companyScale = companyScale;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public String getCompanyMail() {

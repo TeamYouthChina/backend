@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class AdvantageLabel {
     private Integer label_id;
-    private Integer label_num;
+    private String label_code;
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
@@ -18,12 +18,12 @@ public class AdvantageLabel {
         this.label_id = label_id;
     }
 
-    public Integer getLabel_num() {
-        return label_num;
+    public String getLabel_code() {
+        return label_code;
     }
 
-    public void setLabel_num(Integer label_num) {
-        this.label_num = label_num;
+    public void setLabel_code(String label_code) {
+        this.label_code = label_code;
     }
 
     public Integer getStu_id() {
