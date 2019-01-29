@@ -136,7 +136,6 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
             for (String object : deletedObjects) {
                 System.out.println("\t" + object);
             }
-
         } catch (OSSException oe) {
             printOSSExceptionMessage(oe);
         } catch (ClientException ce) {

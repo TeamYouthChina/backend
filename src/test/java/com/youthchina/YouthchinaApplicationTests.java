@@ -24,10 +24,16 @@ public class YouthchinaApplicationTests {
     StaticFileSystemServiceImplALiCloud staticFileSystemServiceImplALiCloud;
 
     @Test
-    public void contextLoads() {
-
-       long i = staticFileSystemServiceImplALiCloud.uploadFile("youthchinatest");
+    public void testupLoadFile() {
+       File file = new File("");
+       long i = staticFileSystemServiceImplALiCloud.uploadFile("youthchinatest",file ,"mp4");
        System.out.println(i);
+    }
+
+    @Test
+    public void verifyFile() {
+
+        System.out.println( staticFileSystemServiceImplALiCloud.verifyFile("nihaouip"));
     }
 
     @Test
