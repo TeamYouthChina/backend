@@ -714,6 +714,51 @@ paths:
                     $ref: '#/components/schemas/Answer'
                   status:
                     $ref: '#/components/schemas/Status'
+  '/applicants/resgister':
+    post:
+      tags:
+        - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - date_of_birth
+                - phonenumber
+                - email
+                - current_city
+                - prefer_industry
+                - prefer_city
+              properties:
+                name:
+                  type: string
+                date_of_birth:
+                  type: string
+                phonenumber:
+                  type: string
+                email: 
+                  type: string
+                current_city:
+                  type: integer
+                prefer_industry:
+                  type: integer
+                prefer_city:
+                  type: integer
+      responses:
+        '201':
+          description: register success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Applicant'
+                  status:
+                    $ref: '#/components/schemas/Status'
+                
   '/login':
     post:
       tags:
