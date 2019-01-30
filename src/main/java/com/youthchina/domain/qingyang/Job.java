@@ -1,12 +1,14 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.dto.SimpleJobDTO;
+import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Job {
+public class Job implements HasId<Integer> {
     /*主键, 职位ID (JOB_INFO)*/
     private Integer jobId;
 
@@ -70,6 +72,16 @@ comment '职位基本信息表';
 
     private Company company;
     private Hr hr;
+
+    public Job(SimpleJobDTO simpleJobDTO) {
+        this.jobId = simpleJobDTO.getId();
+    }
+
+    public Job() {}
+
+    public Integer getId() {
+        return jobId;
+    }
 
     public Company getCompany() {
         return company;
