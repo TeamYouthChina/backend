@@ -23,7 +23,7 @@ public class Student extends User implements HasId<Integer> {
     private List<Activity> activities;
     private List<JobCollect> jobCollects;
     private List<CompCollect> compCollects;
-    private List<AdvantageLabel> advantageLabels;
+    private List<AdvantageLabel> advantageLabels;//优势标签
     private List<PreferJob> preferJobs;
     private List<PreferIndustry> preferIndustries;
     private List<PreferCity> preferCities;
@@ -31,7 +31,7 @@ public class Student extends User implements HasId<Integer> {
     private IntroductionVideo introductionVideo;
     private List<Notification> notifications;
     private List<JobApply> jobApplies;
-    private List<Certificate> certificates;
+    private List<Certificate> certificates;//技能证书表 certificate
     private List<LabelInfo> labelInfos;
 
     public Student(ApplicantDTO applicantDTO) {
@@ -48,14 +48,6 @@ public class Student extends User implements HasId<Integer> {
 
     public void setStu_id(Integer stu_id) {
         this.stu_id = stu_id;
-    }
-
-    public Boolean getInJob() {
-        return isInJob;
-    }
-
-    public void setInJob(Boolean inJob) {
-        isInJob = inJob;
     }
 
     public Boolean getIsInJob() {
