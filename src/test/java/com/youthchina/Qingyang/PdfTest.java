@@ -16,6 +16,26 @@ public class PdfTest {
     private static String mail = null;
     private static String address = null;
 
+    public static void setResume(String resume) {
+        PdfTest.resume = resume;
+    }
+
+    public static void setName(String name) {
+        PdfTest.name = name;
+    }
+
+    public static void setPhone(String phone) {
+        PdfTest.phone = phone;
+    }
+
+    public static void setMail(String mail) {
+        PdfTest.mail = mail;
+    }
+
+    public static void setAddress(String address) {
+        PdfTest.address = address;
+    }
+
     public void readResume(File file) throws IOException {
         PDDocument document = PDDocument.load(file);
 
@@ -71,7 +91,6 @@ public class PdfTest {
         //^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\\d{8}$";//China
 
         PHONE_REG = "[()\\d\\-]{7,20}";
-        Pattern p = Pattern.compile(PHONE_REG);
         return regexMatch(PHONE_REG);
     }
 
@@ -141,6 +160,27 @@ public class PdfTest {
         File file2 = new File("src/test/resources/Resume/乔布堂经典医药代表简历模板.pdf");
         pdfTest2.readResume(file2);
         pdfTest2.resumeExtract();
+
+        //Test phone No. which contains ()-
+        PdfTest pdfTest = new PdfTest();
+        String phoneTest = "asdfasdf(001)-(202)-202-2202asdf";
+        String PHONE_REG = "[()\\d\\-]{7,20}";
+        Pattern p = Pattern.compile(PHONE_REG);
+        Matcher m = p.matcher(phoneTest);
+        if(m.find()){
+            System.out.println(m.group());
+        } else {
+            System.out.println("Not found");
+        }
+
+        //Test
+
+
+
+
+
+
+
 
     }
 }
