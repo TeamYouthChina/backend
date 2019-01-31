@@ -10,4 +10,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("${web.url.prefix}/questions/**")
 public class QuestionController {
 
+
 }

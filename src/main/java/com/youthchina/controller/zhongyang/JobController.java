@@ -38,12 +38,12 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     }
 
     @Override
-    protected SimpleJobDTO convertDomainToDto(Job domain) {
+    protected SimpleJobDTO DomainToDto(Job domain) {
         return new SimpleJobDTO(domain);
     }
 
     @Override
-    protected Job convertDtoToDomain(SimpleJobDTO simpleJobDTO) {
+    protected Job DtoToDomain(SimpleJobDTO simpleJobDTO) {
         return new Job(simpleJobDTO);
     }
 
