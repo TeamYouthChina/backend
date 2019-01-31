@@ -2,12 +2,19 @@ package com.youthchina.Qingyang;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class PdfTest {
 
     private static String resume = null;
@@ -46,10 +53,10 @@ public class PdfTest {
         resume = pdfStripper.getText(document);
     }
 
-    public static String regexMatch(String regex){
+    public static String regexMatch(String regex) {
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(resume);
-        if(m.find()){
+        if (m.find()) {
             return m.group(0);
         }
 
@@ -57,7 +64,7 @@ public class PdfTest {
         return null;
     }
 
-    public String nameSearch(){
+    public String nameSearch() {
         String NAME_REG = "";
         /*Error : 实 [习[经历] */
 //        NAME_REG = "[王|李|张|刘|陈|杨|黄|赵|吴|周|徐|孙|马|朱|胡|郭|何|高|林|罗|郑|梁|谢|宋|唐|许" +
@@ -86,7 +93,7 @@ public class PdfTest {
         return regexMatch(NAME_REG);
     }
 
-    public String phoneSearch(){
+    public String phoneSearch() {
         String PHONE_REG = "";
         //^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\\d{8}$";//China
 
@@ -99,11 +106,11 @@ public class PdfTest {
         return regexMatch(MAIL_REG);
     }
 
-    public String addressSearch(){
+    public String addressSearch() {
         // China Address
         String ADDR_REG = "([\\u4E00-\\u9FA5A-Za-z0-9_]+(省|市|区|县|道|路|街|号)){2,}";
         String address = regexMatch(ADDR_REG);
-        if(address != null){
+        if (address != null) {
             return address;
         }
 
@@ -112,42 +119,44 @@ public class PdfTest {
         return regexMatch(ADDR_REG);
     }
 
-    public void resumeExtract(){
+    public void resumeExtract() {
         PdfTest pdfTest = new PdfTest();
         //PDF Resume Test
         name = pdfTest.nameSearch();
-        if(name != null){
+        if (name != null) {
             System.out.println("姓名: " + name);
         } else {
-            System.out.println("姓名未找到");
+            Assert.fail();
         }
 
         phone = pdfTest.phoneSearch();
-        if(phone != null){
+        if (phone != null) {
             System.out.println("电话: " + phone);
+
         } else {
-            System.out.println("电话未找到");
+            Assert.fail();
         }
 
 
         mail = pdfTest.mailSearch();
-        if(mail != null){
+        if (mail != null) {
             System.out.println("邮箱: " + mail);
         } else {
-            System.out.println("邮箱未找到");
+            Assert.fail();
         }
 
         address = pdfTest.addressSearch();
-        if(address != null){
+        if (address != null) {
             System.out.println("地址: " + address);
         } else {
-            System.out.println("地址未找到");
+            Assert.fail();
         }
 
         System.out.println();
     }
 
-    public static void main(String[] args) throws IOException{
+    @Test
+    public void testReadPDF() throws IOException {
         PdfTest pdfTest1 = new PdfTest();
 
         //Read File
@@ -158,7 +167,9 @@ public class PdfTest {
 
         PdfTest pdfTest2 = new PdfTest();
         File file2 = new File("src/test/resources/Resume/乔布堂经典医药代表简历模板.pdf");
+
         pdfTest2.readResume(file2);
+
         pdfTest2.resumeExtract();
 
         //Test phone No. which contains ()-
@@ -167,19 +178,13 @@ public class PdfTest {
         String PHONE_REG = "[()\\d\\-]{7,20}";
         Pattern p = Pattern.compile(PHONE_REG);
         Matcher m = p.matcher(phoneTest);
-        if(m.find()){
+        if (m.find()) {
             System.out.println(m.group());
         } else {
-            System.out.println("Not found");
+            Assert.fail();
         }
 
         //Test
-
-
-
-
-
-
 
 
     }
