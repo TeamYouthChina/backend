@@ -171,6 +171,15 @@
             com.COMPANY_ID = #{id}
     </select>
 
+    <select id="selectCompanyByName" resultMap="company" parameterType="java.lang.String">
+        SELECT
+        <include refid="companySelect"/>
+        FROM COMPANY_INFO com
+        <include refid="companyJoin"/>
+        WHERE
+        com.COMPANY_NAME like "%"#{comName}"%"
+    </select>
+
     <select id="selectCompanyByIdList" parameterType="java.util.List" resultMap="company" >
         SELECT
             <include refid="companySelect"/>
