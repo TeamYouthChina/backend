@@ -26,8 +26,8 @@ public class YouthchinaApplicationTests {
     @Test
     public void contextLoads() {
 
-       long i = staticFileSystemServiceImplALiCloud.uploadFile("youthchinatest");
-       System.out.println(i);
+      // long i = staticFileSystemServiceImplALiCloud.uploadFile("youthchinatest");
+      // System.out.println(i);
     }
 
     @Test
