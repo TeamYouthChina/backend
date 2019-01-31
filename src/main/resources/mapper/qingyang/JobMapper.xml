@@ -240,44 +240,6 @@
     </select>
 
 
-
-    <!--按行业Id的List查询Job的List, 中文名做返回的Map的Key-->
-    <select id="selectByIndustryId" resultMap="jobListMap">
-        SELECT
-            <include refid="jobSelect"/>
-        FROM SYS_IND_CLASS class
-        LEFT OUTER JOIN JOB_INDUSTRY ind ON class.IND_NUM = ind.JOB_IND_NUM
-        LEFT OUTER JOIN JOB_INFO j ON ind.JOB_ID = j.JOB_ID
-        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
-        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
-        LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID
-        WHERE class.IND_NUM in
-        <foreach item="id" collection="indIds" index="index" separator=",">
-            #{id}
-        </foreach>
-        AND class.IS_DELETE = 0 AND ind.IS_DELETE = 0
-        AND j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0 AND loc.IS_DELETE = 0
-    </select>
-
-    <!--按行业名称的List查询Job的List, 中文名做返回的Map的Key-->
-    <select id="selectByIndustryString" resultMap="jobListMap">
-        SELECT
-            <include refid="jobSelect"/>
-        FROM SYS_IND_CLASS class
-        LEFT OUTER JOIN JOB_INDUSTRY ind ON class.IND_NUM = ind.JOB_IND_NUM
-        LEFT OUTER JOIN JOB_INFO j ON ind.JOB_ID = j.JOB_ID
-        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
-        LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
-        LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID
-        WHERE class.IND_CHN OR class.IND_ENG in
-            <foreach item="industry" collection="industries" index="index" separator=",">
-                    #{industry}
-            </foreach>
-        AND class.IS_DELETE = 0 AND ind.IS_DELETE = 0
-        AND j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0 AND loc.IS_DELETE = 0
-    </select>
-
-
     <select id="getJobByMore" resultMap="job">
         SELECT
             <include refid="jobSelect"/>
@@ -297,15 +259,40 @@
             <if test="comName != null">
                 AND com.COMPANY_NAME = #{comName}
             </if>
-            <if test="location != null">
-                AND loc.JOB_REGION_NUM = #{location}
+            <if test="startTime != null">
+                AND j.JOB_START_TIME <![CDATA[ >= ]]> #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND j.JOB_END_TIME <![CDATA[ <= ]]> #{endTime}
             </if>
             <if test="type != null">
                 AND j.JOB_TYPE = #{type}
             </if>
-            <if test="deadline != null">
-                AND j.JOB_END_TIME = #{deadline}
+            <if test="salaryFloor != null">
+                AND j.JOB_SALARY_FLOOR <![CDATA[ >= ]]> #{salaryFloor}
             </if>
+            <if test="salaryCap != null">
+                AND j.JOB_SALARY_CAP <![CDATA[ <= ]]> #{salaryCap}
+            </if>
+            <if test="active != null">
+                AND j.JOB_ACTIVE = #{active}
+            </if>
+            <if test="location != null">
+                AND  ( region.REGION_CHN like "%"#{location}"%" OR region.REGION_ENG like "%"#{location}"%" )
+            </if>
+            <if test="jobReqList != null">
+                AND degree.DEGREE_NUM IN
+                <foreach collection="jobReqList" index="index" item="item" open="(" separator="," close=")">
+                    #{item.degreeNum}
+                </foreach>
+            </if>
+            <if test="industryList != null">
+                AND class.IND_CODE IN
+                <foreach collection="industryList" index="index" item="item" open="(" separator="," close=")">
+                    #{item.indCode}
+                </foreach>
+            </if>
+
     </select>
 
 
