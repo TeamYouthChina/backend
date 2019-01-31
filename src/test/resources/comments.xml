@@ -17,11 +17,18 @@
     <COM_ANSWER_COMMENT comment_id="6" comment_content="你这也回答的太好了吧！6" user_id="1" user_anony="0"
                         comment_pub_time="2018-12-04 13:32:40" comment_edit_time="2018-12-04 13:32:40"
                         is_delete="0" is_delete_time="2018-12-04 13:32:40"/>
+    <COM_ANSWER_COMMENT comment_id="7" comment_content="你这也回答的太好了吧！7" user_id="2" user_anony="0"
+                        comment_pub_time="2018-12-04 13:32:40" comment_edit_time="2018-12-04 13:32:40"
+                        is_delete="0" is_delete_time="2018-12-04 13:32:40"/>
+    <COM_ANSWER_COMMENT comment_id="8" comment_content="你这也回答的太好了吧！7" user_id="1" user_anony="0"
+                        comment_pub_time="2018-12-04 13:32:40" comment_edit_time="2018-12-04 13:32:40"
+                        is_delete="0" is_delete_time="2018-12-04 13:32:40"/>
     <COM_ANSWER_COMMENT_MAP COMMENT_ID="1" COMMENT_LEVEL="1" ANSWER_ID="1"/>
     <COM_ANSWER_COMMENT_MAP COMMENT_ID="2" COMMENT_LEVEL="2" ANSWER_ID="2"/>
     <COM_ANSWER_COMMENT_MAP COMMENT_ID="3" COMMENT_LEVEL="3" ANSWER_ID="1"/>
     <COM_ANSWER_COMMENT_MAP COMMENT_ID="4" COMMENT_LEVEL="4" ANSWER_ID="2"/>
     <COM_ANSWER_COMMENT_MAP COMMENT_ID="5" COMMENT_LEVEL="5" ANSWER_ID="1"/>
+    <COM_ANSWER_COMMENT_MAP COMMENT_ID="8" COMMENT_LEVEL="1" ANSWER_ID="3"/>
 
 
     <COM_COMMENT_EVALUATE EVALUATE_ID="1" USER_ID="1" EVALUATE_TYPE="1" EVALUATE_TIME="2018-12-04 13:32:40"/>
@@ -29,8 +36,10 @@
     <COM_COMMENT_EVALUATE EVALUATE_ID="3" USER_ID="3" EVALUATE_TYPE="3" EVALUATE_TIME="2018-12-04 13:32:40"/>
     <COM_COMMENT_EVALUATE EVALUATE_ID="4" USER_ID="4" EVALUATE_TYPE="1" EVALUATE_TIME="2018-12-04 13:32:40"/>
     <COM_COMMENT_EVALUATE EVALUATE_ID="5" USER_ID="1" EVALUATE_TYPE="1" EVALUATE_TIME="2018-12-04 13:32:40"/>
+    <COM_COMMENT_EVALUATE EVALUATE_ID="6" USER_ID="1" EVALUATE_TYPE="1" EVALUATE_TIME="2018-12-04 13:32:40"/>
     <COM_COMMENT_EVALUATE_MAP EVALUATE_ID="1" COMMENT_ID="1"/>
     <COM_COMMENT_EVALUATE_MAP EVALUATE_ID="2" COMMENT_ID="1"/>
     <COM_COMMENT_EVALUATE_MAP EVALUATE_ID="3" COMMENT_ID="1"/>
     <COM_COMMENT_EVALUATE_MAP EVALUATE_ID="4" COMMENT_ID="1"/>
+    <COM_COMMENT_EVALUATE_MAP EVALUATE_ID="6" COMMENT_ID="7"/>
 </dataset>

@@ -1084,5 +1084,6 @@ public class CommunityQAMapperTest extends BaseTest {
         System.out.println(communityQAMapper.isAnswerBelongToQuestion(1,2));
         System.out.println(communityQAMapper.isAnswerBelongToQuestion(5,2));
     }
+
 }
 

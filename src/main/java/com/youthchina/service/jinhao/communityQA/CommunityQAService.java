@@ -70,7 +70,6 @@ public interface CommunityQAService {
     Integer deleteVideo(Video video) throws NotFoundException;
     List<Video> listFirstTenVideos() throws NotFoundException;
     List<Video> listAllMyVideos(Integer user_id) throws NotFoundException;
-
     VideoAttention videoAttentionStatus(Integer video_id, Integer user_id) throws NotFoundException;
     Integer attentionVideo(VideoAttention videoAttention, Integer video_id) throws NotFoundException;
     VideoAttention getVideoAttetion(Integer atten_id) throws NotFoundException;
