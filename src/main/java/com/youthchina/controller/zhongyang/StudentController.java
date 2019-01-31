@@ -3,9 +3,12 @@ package com.youthchina.controller.zhongyang;
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ApplicantDTO;
+import com.youthchina.dto.Response;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
+import io.swagger.annotations.ApiParam;
+import org.hibernate.validator.constraints.ParameterScriptAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -69,5 +72,46 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteStudentInfo(@PathVariable Integer id) throws NotFoundException {
         return delete(id);
+    }
+
+    @GetMapping("/{id}/contacts")
+    public ResponseEntity<?> getApplicantsContacts(@PathVariable Integer id) throws NotFoundException {
+        Student student= getService().get(id);
+        ApplicantDTO applicantDTO = this.DomainToDto(student);
+        return ResponseEntity.ok(new Response(applicantDTO.getContact()));
+    }
+
+    @GetMapping("/{id}/educations")
+    public ResponseEntity<?> getApplicantsEducations(@PathVariable Integer id) throws NotFoundException {
+        ApplicantDTO applicantDTO = this.getDto(id);
+        return ResponseEntity.ok(new Response(applicantDTO.getEducations()));
+    }
+
+    @GetMapping("/{id}/projects")
+    public ResponseEntity<?> getApplicantsProjects(@PathVariable Integer id) throws NotFoundException {
+        ApplicantDTO applicantDTO = this.getDto(id);
+        return ResponseEntity.ok(new Response(applicantDTO.getProjects()));
+    }
+
+    @GetMapping("/{id}/experiences")
+    public ResponseEntity<?> getApplicantsExperiences(@PathVariable Integer id) throws NotFoundException {
+        ApplicantDTO applicantDTO = this.getDto(id);
+        return ResponseEntity.ok(new Response(applicantDTO.getExperiences()));
+    }
+
+    @GetMapping("/{id}/certificates")
+    public ResponseEntity<?> getApplicantsCertificates(@PathVariable Integer id) throws NotFoundException {
+        ApplicantDTO applicantDTO = this.getDto(id);
+        return ResponseEntity.ok(new Response(applicantDTO.getCertificates()));
+    }
+
+    @GetMapping("/{id}/extracurriculars")
+    public ResponseEntity<?> getApplicantsExtracurriculars(@PathVariable Integer id) throws NotFoundException {
+        ApplicantDTO applicantDTO = this.getDto(id);
+        return ResponseEntity.ok(new Response(applicantDTO.getExtracurriculars()));
+    }
+
+    private ApplicantDTO getDto(Integer id) throws NotFoundException {
+        return this.DomainToDto(this.getService().get(id));
     }
 }
