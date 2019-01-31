@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by mapper.tianjian on 11/8/18.
  */
-public interface UserService extends DomainCRUDService<User, Integer> {
+public interface EssayService extends DomainCRUDService<User, Integer> {
 //    public CompanyInfo getCompanyInformation(String company_id);
 //
 //    public StuCollect getFavoriteCompany(StuCollect company);

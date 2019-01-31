@@ -16,12 +16,12 @@ import java.util.List;
  */
 @Service("userService")
 @Transactional
-public class UserServiceImpl implements UserService {
+public class EssayServiceImpl implements EssayService {
     @Autowired
     CommunityMapper mapper;
 
     @Autowired
-    public UserServiceImpl(CommunityMapper mapper) {
+    public EssayServiceImpl(CommunityMapper mapper) {
         this.mapper = mapper;
     }
 

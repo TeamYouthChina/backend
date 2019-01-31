@@ -1,10 +1,13 @@
 package com.youthchina.service.qingyang;
 
 import com.youthchina.dao.qingyang.JobMapper;
+import com.youthchina.domain.qingyang.Degree;
+import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotBelongException;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,16 +32,6 @@ public class JobServiceImpl implements JobService {
         return jobMapper.selectJobByJobId(jobId);
     }
 
-    @Override
-    public Map<String, List<Job>> getJobByIndustries(List<String> industries) {
-        return null;
-    }
-
-    @Override
-    public Map<String, List<Job>> getJobByTag(List<String> tags) {
-        //todo: implement
-        return null;
-    }
 
     @Override
     public Job get(Integer id) throws NotFoundException {
@@ -86,14 +79,14 @@ public class JobServiceImpl implements JobService {
         return jobMapper.selectJobByJobId(result);
     }
 
-    /*通过行业Id List搜索*/
-    public List<Job> getByIndustryId(List<Integer> indIds){
-        return jobMapper.selectByIndustryId(indIds);
-    }
-
-    /*通过行业名称搜索 完全匹配*/
-    public List<Job> getByIndustryString(String ind){
-        return jobMapper.selectByIndustryString("^" + ind + "$");
+    /*Job Advanced Search*/
+    @Override
+    public List<Job> getJobByMore(Integer jobId, String jobName, Integer comId, String comName,
+                                  Date startTime, Date endTime, Integer type, Integer salaryFloor, Integer salaryCap,
+                                  Integer active, String location, List<Degree> jobReqList,
+                                  List<Industry> industryList) throws NotFoundException {
+        return jobMapper.getJobByMore(jobId, jobName, comId, comName, startTime, endTime, type,
+                salaryFloor, salaryCap, active, location, jobReqList, industryList);
     }
 
 }
