@@ -1,8 +1,10 @@
 package com.youthchina.dto;
 
+import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Job;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by zhongyangwu on 12/2/18.
@@ -11,14 +13,16 @@ public class SimpleJobDTO {
     private int id;
     private String name;
     private OrganizationDTO organization;
-    private LocationDTO location;
     private String type;
+    private List<LocationDTO> LocationList;
 
     public SimpleJobDTO(Job job) {
         this.id = job.getJobId();
         this.name = job.getJobName();
         this.organization = new OrganizationDTO(job.getCompany());
-        this.location = new LocationDTO();//todo: create location object
+        for(int i =0; i < job.getJobLocationList().size(); i++){
+            this.LocationList.add(new LocationDTO(job.getJobLocationList().get(i)));  //todo: create location object
+        }
     }
 
     public int getId() {
@@ -45,12 +49,12 @@ public class SimpleJobDTO {
         this.organization = organization;
     }
 
-    public LocationDTO getLocation() {
-        return location;
+    public List<LocationDTO> getLocationList() {
+        return LocationList;
     }
 
-    public void setLocation(LocationDTO location) {
-        this.location = location;
+    public void setLocationList(List<LocationDTO> jobLocationList) {
+        this.LocationList = LocationList;
     }
 
     public String getType() {

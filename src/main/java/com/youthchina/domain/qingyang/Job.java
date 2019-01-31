@@ -1,12 +1,16 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.dto.LocationDTO;
+import com.youthchina.dto.OrganizationDTO;
+import com.youthchina.dto.SimpleJobDTO;
+import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Job {
+public class Job implements HasId<Integer> {
     /*主键, 职位ID (JOB_INFO)*/
     private Integer jobId;
 
@@ -51,8 +55,6 @@ comment '职位基本信息表';
 
 
 */
-
-
     private Integer jobSalaryFloor;
     private Integer jobSalaryCap;
     private String  jobLink;
@@ -70,6 +72,23 @@ comment '职位基本信息表';
 
     private Company company;
     private Hr hr;
+
+    public Integer getId(){
+        return jobId;
+    }
+
+    public Job(){}
+
+    public Job(SimpleJobDTO simpleJobDTO) {
+
+        this.jobId = simpleJobDTO.getId();
+        this.jobName = simpleJobDTO.getName();
+        this.company= new Company(simpleJobDTO.getOrganization());
+        for(int i =0; i < simpleJobDTO.getLocationList().size(); i++){
+            this.jobLocationList.add(new Location(simpleJobDTO.getLocationList().get(i)));  //todo: create location object
+        }
+    }
+
 
     public Company getCompany() {
         return company;

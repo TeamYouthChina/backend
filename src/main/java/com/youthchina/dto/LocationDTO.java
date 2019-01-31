@@ -1,38 +1,23 @@
 package com.youthchina.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.youthchina.domain.Qinghong.Location;
 
 /**
  * Created by zhongyangwu on 12/2/18.
  */
 public class LocationDTO {
-    private String country;
-    private String provinceOrState;
-    private String cityOrRegion;
+    private Integer locationID;
 
-    public String getCountry() {
-        return country;
+    public LocationDTO(Location location){
+        this.locationID = location.getRegion_num();
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public Integer getlocationID() {
+        return locationID;
     }
 
-    @JsonProperty("province/state")
-    public String getProvinceOrState() {
-        return provinceOrState;
-    }
-
-    public void setProvinceOrState(String provinceOrState) {
-        this.provinceOrState = provinceOrState;
-    }
-
-    @JsonProperty("city/region")
-    public String getCityOrRegion() {
-        return cityOrRegion;
-    }
-
-    public void setCityOrRegion(String cityOrRegion) {
-        this.cityOrRegion = cityOrRegion;
+    public void setCountry(Integer locationID) {
+        this.locationID = locationID;
     }
 }

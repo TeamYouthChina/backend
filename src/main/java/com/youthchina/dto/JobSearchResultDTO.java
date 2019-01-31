@@ -9,15 +9,16 @@ import java.util.List;
  */
 public class JobSearchResultDTO<T extends SimpleJobDTO> implements ResponseDTO {
     private List<T> searchResult;
+    private StatusDTO status;
 
     @Override
     public StatusDTO getStatus() {
-        return null;
+        return status;
     }
 
     @Override
     public void setStatus(StatusDTO status) {
-
+        this.status = status;
     }
 
     public List<T> getSearchResult() {

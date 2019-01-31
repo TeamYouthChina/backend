@@ -6,6 +6,7 @@ import com.youthchina.domain.qingyang.Company;
  * Created by zhongyangwu on 12/2/18.
  */
 public class OrganizationDTO {
+
     private int id;
     private String name;
     private String avatarUrl;
@@ -15,7 +16,6 @@ public class OrganizationDTO {
         this.name = company.getCompanyName();
         this.avatarUrl = company.getCompanyLogo();
     }
-
 
     public int getId() {
         return id;
