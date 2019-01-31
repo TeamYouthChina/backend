@@ -5,6 +5,7 @@ import com.youthchina.dto.JobSearchDTO;
 import com.youthchina.dto.JobSearchResultDTO;
 import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.exception.zhongyang.BaseException;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.qingyang.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,26 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     @Override
     protected URI getUriForNewInstance(Integer id) throws URISyntaxException {
         return new URI(this.url + id.toString());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getJob(@PathVariable Integer id) throws NotFoundException {
+        return get(id);
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<?> createJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) {
+        return add(simpleJobDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) throws NotFoundException {
+        return update(simpleJobDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteJobInfo(@PathVariable Integer id) throws NotFoundException {
+        return delete(id);
     }
 
 
