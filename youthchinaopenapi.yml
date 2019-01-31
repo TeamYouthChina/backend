@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.1.1
+  version: 1.1.2
   title: YouthChina
   license:
     name: MIT
@@ -67,7 +67,7 @@ paths:
                           $ref: '#/components/schemas/Job'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/applicant/{id}':
+  '/applicants/{id}':
     get:
       tags:
         - Applicant
@@ -105,7 +105,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-  '/applicant':
+  '/applicants':
     post:
       tags:
         - Applicant
@@ -137,7 +137,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
 
-  '/applicant/{id}/contacts':
+  '/applicants/{id}/contacts':
     get:
       tags:
         - Applicant
@@ -175,7 +175,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-  '/applicant/{id}/educations':
+  '/applicants/{id}/educations':
     get:
       tags:
         - Applicant
@@ -215,7 +215,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-  '/applicant/{id}/projects':
+  '/applicants/{id}/projects':
     get:
       tags:
         - Applicant
@@ -255,7 +255,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-  '/applicant/{id}/experiences':
+  '/applicants/{id}/experiences':
     get:
       tags:
         - Applicant
@@ -295,7 +295,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-  '/applicant/{id}/certificates':
+  '/applicants/{id}/certificates':
     get:
       tags:
         - Applicant
@@ -335,7 +335,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-  '/applicant/{id}/extracurriculars':
+  '/applicants/{id}/extracurriculars':
     get:
       tags:
         - Applicant
@@ -375,7 +375,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-  '/job/{id}/apply':
+  '/jobs/{id}/apply':
     post:
       tags:
         - Application
@@ -428,7 +428,7 @@ paths:
                 status:
                   code: 4032
                   reason: 'cannot apply for job because it has passed deadline'
-  '/applicant/{id}/applications':
+  '/applicants/{id}/applications':
     get:
       tags:
         - Application
@@ -487,7 +487,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-  '/job/{id}/collect':
+  '/jobs/{id}/collect':
     post:
       tags:
         - Collection
@@ -502,7 +502,7 @@ paths:
           description: collect successful
         '400':
           description: cannot collect this job, maybe the job has already deleted
-  '/user/{id}/collections':
+  '/users/{id}/collections':
     get:
       tags:
         - Collection
@@ -662,12 +662,15 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Answer'
+                    type: object
+                    properties:
+                      answers:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Answer'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/question/{id}/invite':
+  '/questions/{id}/invite':
     post:
       tags:
         - Question
@@ -675,15 +678,17 @@ paths:
         - name: id
           required: true
           in: path
-          schema:
-            type: integer
+          
       requestBody:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                type: integer
+              type: object
+              properties:
+                invited:
+                  type: array
+                  items:
+                    type: integer
       responses:
         '201':
           description: invitation send successfully.
@@ -709,6 +714,51 @@ paths:
                     $ref: '#/components/schemas/Answer'
                   status:
                     $ref: '#/components/schemas/Status'
+  '/applicants/resgister':
+    post:
+      tags:
+        - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - date_of_birth
+                - phonenumber
+                - email
+                - current_city
+                - prefer_industry
+                - prefer_city
+              properties:
+                name:
+                  type: string
+                date_of_birth:
+                  type: string
+                phonenumber:
+                  type: string
+                email: 
+                  type: string
+                current_city:
+                  type: integer
+                prefer_industry:
+                  type: integer
+                prefer_city:
+                  type: integer
+      responses:
+        '201':
+          description: register success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Applicant'
+                  status:
+                    $ref: '#/components/schemas/Status'
+                
   '/login':
     post:
       tags:

@@ -6,12 +6,10 @@ security.token.header=X-AUTHENTICATION
 security.token.prefix=YouthChina
 # in seconds
 security.token.expirationtime=86400
-
 snowflake.work.id=256
 snowflake.version=1
 
-
 staticfile.endPoint=oss-cn-shanghai.aliyuncs.com
 staticfile.bucketName=youthchinatest
-staticfile.accessKeyId=23ljLKSD89FL8dlksfh
-staticfile.accessKeySecret=LHKH342KLR8nlkweyrf8l
+staticfile.accessKeyId=
+staticfile.accessKeySecret=
