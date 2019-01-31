@@ -53,6 +53,11 @@ public class ApplicantDTO {
         for (Activity activity : student.getActivities()) {
             this.extracurriculars.add(new ExtracurricularDTO(activity));
         }
+        List<CertificateDTO> certificates = new ArrayList<>(student.getCertificates().size());
+        for(Certificate certificate: student.getCertificates()){
+            certificates.add(new CertificateDTO(certificate));
+        }
+        this.setCertificates(certificates);
     }
 
     public Integer getId() {

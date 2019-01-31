@@ -86,7 +86,7 @@ public class StudentMapperTest {
     public void testGetStudentInfo(){
         Student student=applicantMapper.getStudentInfo(1);
         Assert.assertNotNull(student);
-        System.out.print(student.getUsername());
+        System.out.print(student.getIsInJob());
 
     }
 
@@ -152,6 +152,7 @@ public class StudentMapperTest {
         List<JobCollect> jobCollects=applicantMapper.getJobCollects(1);
         Assert.assertNotNull(jobCollects);
         System.out.print(jobCollects.get(0).getJob_id());
+
     }
 
     @Test

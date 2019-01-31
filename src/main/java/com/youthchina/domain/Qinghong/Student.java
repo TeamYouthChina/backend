@@ -14,7 +14,7 @@ import java.util.List;
  **/
 public class Student extends User implements HasId<Integer> {
     private Integer stu_id;
-    private Boolean isInJob;
+    private String isInJob;
     private String currentCompanyName;
     private List<EducationInfo> educationInfos;
     private SubInfo subInfo;
@@ -32,6 +32,7 @@ public class Student extends User implements HasId<Integer> {
     private List<Notification> notifications;
     private List<JobApply> jobApplies;
     private List<Certificate> certificates;
+    private List<LabelInfo> labelInfos;
 
     public Student(ApplicantDTO applicantDTO) {
         this.stu_id = applicantDTO.getId();
@@ -49,19 +50,11 @@ public class Student extends User implements HasId<Integer> {
         this.stu_id = stu_id;
     }
 
-    public Boolean getInJob() {
+    public String getIsInJob() {
         return isInJob;
     }
 
-    public void setInJob(Boolean inJob) {
-        isInJob = inJob;
-    }
-
-    public Boolean getIsInJob() {
-        return isInJob;
-    }
-
-    public void setIsInJob(Boolean isInJob) {
+    public void setIsInJob(String isInJob) {
         this.isInJob = isInJob;
     }
 
@@ -199,5 +192,13 @@ public class Student extends User implements HasId<Integer> {
 
     public void setCertificates(List<Certificate> certificates) {
         this.certificates = certificates;
+    }
+
+    public List<LabelInfo> getLabelInfos() {
+        return labelInfos;
+    }
+
+    public void setLabelInfos(List<LabelInfo> labelInfos) {
+        this.labelInfos = labelInfos;
     }
 }
