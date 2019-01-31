@@ -42,7 +42,7 @@ public class SnowFlakeIdGenerate {
      * @param workerIdBean 机器ID (0~1023)
      *
      */
-    public SnowFlakeIdGenerate(@Value("${workerId}")String workerIdBean,@Value("${versionNum}")String versionNum) {
+    public SnowFlakeIdGenerate(@Value("${snowflake.work.id}")String workerIdBean,@Value("${snowflake.version}")String versionNum) {
         this.version = Long.parseLong(versionNum)<<39;
         this.workerId = Long.parseLong(workerIdBean);
     }
