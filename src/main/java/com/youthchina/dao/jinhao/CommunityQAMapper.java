@@ -151,7 +151,8 @@ public interface CommunityQAMapper {
 
     Integer addVideo(Video video);
 
-    Integer createMapBetweenVideoAndUser(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
+    Integer createMapBetweenVideoAndUser(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id,
+                                         @Param("rele_type") Integer rele_type, @Param("rele_id") Integer rele_id);
 
     Video getVideo(Integer video_id);
 

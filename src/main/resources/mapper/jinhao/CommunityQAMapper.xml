@@ -161,6 +161,7 @@
         <result property="gender" column="USER_GENDER" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="role" javaType="java.lang.Integer" column="ROLE_TYPE"/>
     </association>
+    <association property="company" resultMap=""
     <collection property="videoAttentions" ofType="com.youthchina.domain.jinhao.communityQA.VideoAttention">
         <id property="atten_id" column="ATTEN_ID"/>
         <result property="user_id" column="USER_ID"/>
@@ -601,8 +602,8 @@
 
     <!-- 建立用户和视频的映射 -->
     <insert id="createMapBetweenVideoAndUser">
-        insert into COM_USER_VIDEO_MAP (video_id, user_id)
-        values (#{video_id}, #{user_id})
+        insert into COM_USER_VIDEO_MAP (video_id, user_id, RELE_TYPE, RELE_ID)
+        values (#{video_id}, #{user_id}, #{rele_type}, #{rele_id})
     </insert>
 
     <!-- 拿到某个视频 -->

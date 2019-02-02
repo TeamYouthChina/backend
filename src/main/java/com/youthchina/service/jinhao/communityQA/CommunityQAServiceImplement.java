@@ -48,6 +48,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         if(question == null){
             throw new NotFoundException(404,404,"没有找到这个问题");
         }
+        //judge whether the question is relative to company or job
         QuestionReleTypeAndId questionReleTypeAndId = communityQAMapper.getQuestionReleTypeAndReleId(ques_id);
         if(questionReleTypeAndId.getRele_type() == 2){
             Company company = companyMapper.selectCompany(questionReleTypeAndId.getRele_id());
@@ -77,7 +78,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
     /**
      * 拿到问题，如果问题不存在，抛出异常
-     * @param ques_id
+     * @param ques_id id of question
      * @return 返回一个问题的对象
      * @throws NotFoundException
      */
@@ -799,9 +800,9 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addVideo(Video video, Integer user_id) {
+    public Integer addVideo(Video video, Integer user_id, Integer rele_type, Integer rele_id) {
         communityQAMapper.addVideo(video);
-        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), user_id);
+        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), user_id, rele_type, rele_id);
         return 1;
     }
 

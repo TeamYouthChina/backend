@@ -65,7 +65,7 @@ public interface CommunityQAService {
     AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
     Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;
 
-    Integer addVideo(Video video, Integer user_id);
+    Integer addVideo(Video video, Integer user_id, Integer rele_type, Integer rele_id);
     Video getVideo(Integer video_id) throws NotFoundException;
     Integer deleteVideo(Video video) throws NotFoundException;
     List<Video> listFirstTenVideos() throws NotFoundException;
@@ -91,4 +91,6 @@ public interface CommunityQAService {
     List<Question> listQuestion() throws NotFoundException;
 
     boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id);
+//    Integer getQuestionIdByTitleOrCompany(String searchContent) throws NotFoundException;
+//    Integer getVideoByTitleOrCompany(String searchContent) throws NotFoundException;
 }
