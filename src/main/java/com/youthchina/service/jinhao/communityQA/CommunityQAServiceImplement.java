@@ -799,9 +799,9 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addVideo(Video video, Integer user_id) {
+    public Integer addVideo(Video video, Integer user_id, Integer rele_type, Integer rele_id) {
         communityQAMapper.addVideo(video);
-        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), user_id);
+        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), user_id, rele_type, rele_id);
         return 1;
     }
 

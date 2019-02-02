@@ -601,8 +601,8 @@
 
     <!-- 建立用户和视频的映射 -->
     <insert id="createMapBetweenVideoAndUser">
-        insert into COM_USER_VIDEO_MAP (video_id, user_id)
-        values (#{video_id}, #{user_id})
+        insert into COM_USER_VIDEO_MAP (video_id, user_id, RELE_TYPE, RELE_ID)
+        values (#{video_id}, #{user_id}, #{rele_type}, #{rele_id})
     </insert>
 
     <!-- 拿到某个视频 -->
