@@ -123,6 +123,7 @@ public class CaculatePersonInfluencePoint {
     public Integer caculatePersonInfluencePointUniversity(Student student){
         return pers_university;
     }
+
     public Integer caculatePersonInfluencePointWork(Student student){
 
         return pers_work;

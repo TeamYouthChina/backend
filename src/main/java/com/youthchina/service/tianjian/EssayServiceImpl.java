@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by zhongyangwu on 11/8/18.
+ * Created by tianjian chen
  */
-@Service("userService")
+@Service("essayService")
 @Transactional
 public class EssayServiceImpl implements EssayService {
     @Autowired
