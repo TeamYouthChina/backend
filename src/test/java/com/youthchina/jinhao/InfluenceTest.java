@@ -3,6 +3,7 @@ package com.youthchina.jinhao;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.jinhao.InfluenceMapper;
+import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.tianjian.ComFriendRelation;
@@ -17,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -122,6 +124,36 @@ public class InfluenceTest {
                 Assert.fail();
             }
         }
+    }
+
+    @Test
+    public void getBestEducation(){
+        EducationInfo educationInfo1 = new EducationInfo();
+        EducationInfo educationInfo2 = new EducationInfo();
+        EducationInfo educationInfo3 = new EducationInfo();
+        EducationInfo educationInfo4 = new EducationInfo();
+        EducationInfo educationInfo5 = new EducationInfo();
+        EducationInfo educationInfo6 = new EducationInfo();
+        educationInfo1.setEdu_school("清华大学");
+        educationInfo2.setEdu_school("北京大学");
+        educationInfo3.setEdu_school("alili");
+        educationInfo4.setEdu_school("弟弟");
+        educationInfo5.setEdu_school("gege");
+        educationInfo6.setEdu_school("激光管");
+        List<EducationInfo> educationInfos = new LinkedList<>();
+        educationInfos.add(educationInfo1);
+        educationInfos.add(educationInfo2);
+        educationInfos.add(educationInfo3);
+        Integer rank = influenceMapper.getBestEducation(educationInfos);
+        Assert.assertEquals(rank, Integer.valueOf(1));
+        List<EducationInfo> new_educationInfos = new LinkedList<>();
+        new_educationInfos.add(educationInfo3);
+        new_educationInfos.add(educationInfo4);
+        new_educationInfos.add(educationInfo5);
+        new_educationInfos.add(educationInfo6);
+        Integer newrank = influenceMapper.getBestEducation(new_educationInfos);
+        Assert.assertEquals(Integer.valueOf(3), newrank);
+
     }
 
 }

@@ -13,7 +13,7 @@ public interface CommunityQAMapper {
     Integer addQuestion(Question question);
 
     Integer createMapBetweenQuestionAndUser(@Param("ques_id") Integer ques_id, @Param("user_id")Integer user_id,
-                                            @Param("rele_type") Integer rele_type, @Param("rele_id") Integer rele_id);
+                                            @Param("rela_type") Integer rela_type, @Param("rela_id") Integer rela_id);
 
     Question getQuestion(Integer ques_id);
 
@@ -152,7 +152,7 @@ public interface CommunityQAMapper {
     Integer addVideo(Video video);
 
     Integer createMapBetweenVideoAndUser(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id,
-                                         @Param("rele_type") Integer rele_type, @Param("rele_id") Integer rele_id);
+                                         @Param("rela_type") Integer rela_type, @Param("rela_id") Integer rela_id);
 
     Video getVideo(Integer video_id);
 
@@ -206,7 +206,7 @@ public interface CommunityQAMapper {
     List<QuestionAnswer> getAnswersByQuestionId(Integer ques_id);
     List<AnswerComment> getCommentsByAnswerId(Integer answer_id);
     List<CommentDiscuss> getDiscussesByCommentId(Integer comment_id);
-    QuestionReleTypeAndId getQuestionReleTypeAndReleId(Integer ques_id);
+    QuestionRelaTypeAndId getQuestionRelaTypeAndRelaId(Integer ques_id);
     QuestionAnswer getAnswerById(Integer answer_id);
     AnswerComment getAnswerCommentById(Integer comment_id);
     CommentDiscuss getAnswerDiscussById(Integer discuss_id);

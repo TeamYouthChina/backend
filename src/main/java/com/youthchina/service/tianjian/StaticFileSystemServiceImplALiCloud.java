@@ -2,8 +2,9 @@ package com.youthchina.service.tianjian;
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
-import com.aliyun.oss.model.*;
-import com.youthchina.dao.tianjian.CommunityMapper;
+import com.aliyun.oss.model.DeleteObjectsRequest;
+import com.aliyun.oss.model.DeleteObjectsResult;
+import com.aliyun.oss.model.PutObjectRequest;
 import com.youthchina.dao.tianjian.StaticFileSystemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,7 +48,7 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
         System.out.println("Host ID:           " + oe.getHostId());
     }
 
-    public StaticFileSystemServiceImplALiCloud(@Value("${endPoint}")String endPoint, @Value("${accessKeyId}")String accessKeyId, @Value("${accessKeySecret}")String accessKeySecret,@Value("${bucketName}")String bucketName){
+    public StaticFileSystemServiceImplALiCloud(@Value("${staticfile.endPoint}")String endPoint, @Value("${staticfile.accessKeyId}")String accessKeyId, @Value("${staticfile.accessKeySecret}")String accessKeySecret,@Value("${staticfile.bucketName}")String bucketName){
         this.endPoint = endPoint;
         this.accessKeyId = accessKeyId;
         this.accessKeySecret = accessKeySecret;

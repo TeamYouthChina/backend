@@ -53,53 +53,7 @@
             <id property="reply_id" column="REPLY_ID"/>
         </collection>
     </resultMap>
-    <select id="agreementGotInAnswer" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.jinhao.communityQA.AnswerEvaluate">
-          select ae.* from COM_QUESTION_ANSWER qa, COM_ANSWER_EVALUATE ae, COM_ANSWER_EVALUATE_MAP aem
-          where qa.USER_ID = #{user_id}
-          and qa.IS_DELETE = 0
-          and qa.ANSWER_ID = aem.ANSWER_ID
-          and aem.EVALUATE_ID = ae.EVALUATE_ID
-          and ae.EVALUATE_TYPE = 1
-    </select>
-    <select id="agreementGotInComment" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
-        select ce.* from COM_ANSWER_COMMENT ac, COM_COMMENT_EVALUATE ce, COM_COMMENT_EVALUATE_MAP cem
-        where ac.USER_ID = #{user_id}
-        and ac.IS_DELETE = 0
-        and ac.COMMENT_ID = cem.COMMENT_ID
-        and cem.EVALUATE_ID = ce.EVALUATE_id
-        and ce.EVALUATE_TYPE = 1
-    </select>
-    <select id="agreementGotInDiscuss" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.jinhao.communityQA.DiscussEvaluate">
-        select de.* from COM_COMMENT_DISCUSS cd, COM_DISCUSS_EVALUATE de, COM_DISCUSS_EVALUATE_MAP dem
-        where cd.USER_ID = #{user_id}
-        and cd.IS_DELETE = 0
-        and cd.DISCUSS_ID = dem.DISCUSS_ID
-        and dem.EVALUATE_ID = de.EVALUATE_id
-        and de.EVALUATE_TYPE = 1
-    </select>
-    <select id="agreeementGotInVideo" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate">
-        select ve.* from COM_USER_VIDEO v, COM_USER_VIDEO_MAP vm, COM_VIDEO_EVALUATE ve, COM_VIDEO_EVALUATE_MAP vem
-        where vm.USER_ID = #{user_id}
-        and vm.VIDEO_ID = v.VIDEO_ID
-        and v.IS_DELETE = 0
-        and vem.VIDEO_ID = v.VIDEO_ID
-        and vem.EVALUATE_ID = ve.EVALUATE_ID
-        and ve.EVALUATE_TYPE = 1
-    </select>
-    <select id="agreementGotInEssayReply" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.tianjian.ComReplyEvaluate">
-        select re.* from COM_ESSAY_REPLY er, COM_REPLY_EVALUATE re, COM_REPLY_EVALUATE_MAP rem
-        where er.USER_ID = #{user_id}
-        and er.IS_DELETE = 0
-        and rem.REPLY_ID = er.REPLY_ID
-        and re.EVALUATE_ID = rem.EVALUATE_ID
-        and re.EVALUATE_TYPE = 1
-    </select>
-    
+
     <select id="getInfluenceByUserId" parameterType="java.lang.Integer" resultMap="influence">
         select u.USER_ID,
                newce.EVALUATE_ID as C_EVALUATE_ID,
@@ -211,5 +165,20 @@
                                                       and er.IS_DELETE = 0) as newer on newer.NEW_ESSAY_USER_ID = u.USER_ID
         where u.USER_ID = #{friend_user_id}
     </select>
+    <select id="getBestEducation" resultType="java.lang.Integer">
+        select ur.UNIVERS_RANK from SYS_UNIVERSITY_RANK_USNEWS ur where ur.UNIVERS_CHN
+        in
+        <foreach collection="educationInfos" item="educationInfo" index="index" open="(" close=")" separator=",">
+            #{educationInfo.edu_school}
+        </foreach>
+        or ur.UNIVERS_ENG
+        in
+        <foreach collection="educationInfos" item="educationInfo" index="index" open="(" close=")" separator=",">
+            #{educationInfo.edu_school}
+        </foreach>
+        order by ur.UNIVERS_RANK asc
+        limit 1
+    </select>
+
 
 </mapper>
