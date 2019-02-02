@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -23,6 +24,62 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
     @Resource
     JobMapper jobHrMapper;
+
+    /**
+     * search questions by its title or relative company or job name
+     * @param searchContent title or company name
+     * @return list of questions
+     * @throws NotFoundException if the result of search is null, throw exception
+     */
+    @Override
+    @Transactional
+    public List<Question> searchQuestionByTitleOrCompanyName(String searchContent) throws NotFoundException{
+        List<Integer> question_ids = getQuestionIdByTitleOrCompanyName(searchContent);
+        if(question_ids.size() == 0) throw new NotFoundException(404,404,"没有搜索到相关的问题");
+        List<Question> questions = new LinkedList<>();
+        for(Integer ques_id : question_ids){
+            questions.add(communityQAMapper.getQuestionById(ques_id));
+        }
+        return questions;
+    }
+
+    /**
+     * get question id  by its title or relative company or job name
+     * @param searchContent title or company or job name
+     * @return list of question ids
+     */
+    @Override
+    public List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent) {
+        return communityQAMapper.getQuestionIdByTitleOrCompanyName(searchContent);
+    }
+
+    /**
+     * search videos by its title or relative company name
+     * @param searchContent title or company or name
+     * @return list of videos
+     * @throws NotFoundException if the result of search is null, throw exception
+     */
+    @Override
+    @Transactional
+    public List<Video> searchVideoByTitleOrCompanyName(String searchContent) throws NotFoundException{
+        List<Integer> video_ids = getVideoIdByTitleOrCompanyName(searchContent);
+        if(video_ids.size() == 0) throw new NotFoundException(404,404,"没有搜索到相关的视频");
+        List<Video> videos = new LinkedList<>();
+        for(Integer video_id : video_ids){
+            videos.add(communityQAMapper.getVideoById(video_id));
+        }
+        return videos;
+    }
+
+    /**
+     * get video id by its title or relative company name
+     * @param searchContent title or company name
+     * @return list of video ids
+     */
+    @Override
+    public List<Integer> getVideoIdByTitleOrCompanyName(String searchContent) {
+        return communityQAMapper.getVideoIdByTitleOrCompanyName(searchContent);
+    }
 
     /**
      * Judge if an answer is belong to a question
@@ -48,12 +105,12 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         if(question == null){
             throw new NotFoundException(404,404,"没有找到这个问题");
         }
-        QuestionReleTypeAndId questionReleTypeAndId = communityQAMapper.getQuestionReleTypeAndReleId(ques_id);
-        if(questionReleTypeAndId.getRele_type() == 2){
-            Company company = companyMapper.selectCompany(questionReleTypeAndId.getRele_id());
+        QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(ques_id);
+        if(questionRelaTypeAndId.getRela_type() == 2){
+            Company company = companyMapper.selectCompany(questionRelaTypeAndId.getRela_id());
             question.setCompany(company);
-        }else if(questionReleTypeAndId.getRele_type() == 3){
-            Job job = jobHrMapper.selectJobByJobId(questionReleTypeAndId.getRele_id());
+        }else if(questionRelaTypeAndId.getRela_type() == 3){
+            Job job = jobHrMapper.selectJobByJobId(questionRelaTypeAndId.getRela_id());
             question.setJob(job);
         }
         return question;
@@ -68,10 +125,10 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rele_type, Integer rele_id) {
+    public Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rela_type, Integer rela_id) {
         communityQAMapper.addQuestion(question);
         communityQAMapper.addLabels(labels, question.getQues_id());
-        communityQAMapper.createMapBetweenQuestionAndUser(question.getQues_id(), user_id, rele_type, rele_id);
+        communityQAMapper.createMapBetweenQuestionAndUser(question.getQues_id(), user_id, rela_type, rela_id);
         return 1;
     }
 
@@ -799,9 +856,9 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addVideo(Video video, Integer user_id, Integer rele_type, Integer rele_id) {
+    public Integer addVideo(Video video, Integer user_id, Integer rela_type, Integer rela_id) {
         communityQAMapper.addVideo(video);
-        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), user_id, rele_type, rele_id);
+        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), user_id, rela_type, rela_id);
         return 1;
     }
 

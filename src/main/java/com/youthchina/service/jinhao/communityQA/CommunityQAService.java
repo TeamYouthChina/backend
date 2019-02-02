@@ -9,7 +9,7 @@ import java.util.List;
 public interface CommunityQAService {
 
     Question getQuestionInfoById(Integer ques_id) throws NotFoundException;
-    Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rele_type, Integer rele_id);
+    Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rela_type, Integer rela_id);
     Question getQuestion(Integer ques_id) throws NotFoundException;
     List<Label> getLabels(Integer ques_id) throws NotFoundException;
     Integer updateQuestion(Question question) throws NotFoundException;
@@ -65,7 +65,7 @@ public interface CommunityQAService {
     AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
     Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;
 
-    Integer addVideo(Video video, Integer user_id, Integer rele_type, Integer rele_id);
+    Integer addVideo(Video video, Integer user_id, Integer rela_type, Integer rela_id);
     Video getVideo(Integer video_id) throws NotFoundException;
     Integer deleteVideo(Video video) throws NotFoundException;
     List<Video> listFirstTenVideos() throws NotFoundException;
@@ -92,4 +92,8 @@ public interface CommunityQAService {
     List<Question> listQuestion() throws NotFoundException;
 
     boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id);
+    List<Question> searchQuestionByTitleOrCompanyName(String searchContent) throws NotFoundException;
+    List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent);
+    List<Video> searchVideoByTitleOrCompanyName(String searchContent) throws NotFoundException;
+    List<Integer> getVideoIdByTitleOrCompanyName(String searchContent);
 }

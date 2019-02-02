@@ -1077,9 +1077,9 @@ public class CommunityQAMapperTest extends BaseTest {
     }
 
     @Test
-    public void getQuestionReleTypeAndReleId() {
-        QuestionReleTypeAndId questionReleTypeAndId = communityQAMapper.getQuestionReleTypeAndReleId(1);
-        System.out.println(questionReleTypeAndId.getRele_id() + " " + questionReleTypeAndId.getRele_type());
+    public void getQuestionRelaTypeAndRelaId() {
+        QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(1);
+        System.out.println(questionRelaTypeAndId.getRela_id() + " " + questionRelaTypeAndId.getRela_type());
     }
 
     @Test
@@ -1088,6 +1088,51 @@ public class CommunityQAMapperTest extends BaseTest {
         System.out.println(b1);
         System.out.println(communityQAMapper.isAnswerBelongToQuestion(1,2));
         System.out.println(communityQAMapper.isAnswerBelongToQuestion(5,2));
+    }
+
+    @Test
+    public void getQuestionIdByTitleOrCompanyName(){
+        List<Integer> quesids = communityQAMapper.getQuestionIdByTitleOrCompanyName("第二个");
+        Assert.assertEquals(1, quesids.size());
+        for(Integer ques_id : quesids){
+            if(ques_id != 2){
+                Assert.fail();
+            }
+        }
+        List<Integer> c_quesids = communityQAMapper.getQuestionIdByTitleOrCompanyName("百度");
+        Assert.assertEquals(1, c_quesids.size());
+        for(Integer ques_id : c_quesids){
+            if(ques_id != 3){
+                Assert.fail();
+            }
+        }
+        List<Integer> j_quesids = communityQAMapper.getQuestionIdByTitleOrCompanyName("front");
+        Assert.assertEquals(1, j_quesids.size());
+        for(Integer ques_id : j_quesids){
+            if(ques_id != 2){
+                Assert.fail();
+            }
+        }
+    }
+
+    @Test
+    public void getVideoIdByTitleOrCompanyName(){
+        List<Integer> videoids = communityQAMapper.getVideoIdByTitleOrCompanyName("2");
+        Assert.assertEquals(1, videoids.size());
+        for(Integer video_id : videoids){
+            if(video_id != 2){
+                Assert.fail();
+            }
+        }
+        List<Integer> c_videoids = communityQAMapper.getVideoIdByTitleOrCompanyName("大疆");
+        Assert.assertEquals(1, c_videoids.size());
+        for(Integer video_id : c_videoids){
+            if(video_id != 1){
+                Assert.fail();
+            }
+        }
+        List<Integer> noids = communityQAMapper.getVideoIdByTitleOrCompanyName("郭德纲");
+        Assert.assertEquals(0, noids.size());
     }
 }
 
