@@ -47,7 +47,7 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
         System.out.println("Host ID:           " + oe.getHostId());
     }
 
-    public StaticFileSystemServiceImplALiCloud(@Value("${endPoint}")String endPoint, @Value("${accessKeyId}")String accessKeyId, @Value("${accessKeySecret}")String accessKeySecret,@Value("${bucketName}")String bucketName){
+    public StaticFileSystemServiceImplALiCloud(@Value("${staticfile.endPoint}")String endPoint, @Value("${staticfile.accessKeyId}")String accessKeyId, @Value("${staticfile.accessKeySecret}")String accessKeySecret,@Value("${staticfile.bucketName}")String bucketName){
         this.endPoint = endPoint;
         this.accessKeyId = accessKeyId;
         this.accessKeySecret = accessKeySecret;
