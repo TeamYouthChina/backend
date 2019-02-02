@@ -1,11 +1,13 @@
 package com.youthchina.domain.jinhao.communityQA;
 
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.SimpleAnswerDTO;
+import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-public class QuestionAnswer {
+public class QuestionAnswer implements HasId<Integer> {
     private Integer answer_id;
     private String answer_content;
     private Integer user_id;
@@ -17,6 +19,19 @@ public class QuestionAnswer {
     private User answer_user;
     private List<AnswerEvaluate> answerEvaluates;
     private List<AnswerComment> answerComments;
+
+    public QuestionAnswer(SimpleAnswerDTO simpleAnswerDTO){
+        this.answer_id = simpleAnswerDTO.getId();
+        this.answer_user = simpleAnswerDTO.getCreator();
+        this.answer_content = simpleAnswerDTO.getBody();
+        this.answer_pub_time = simpleAnswerDTO.getCreatAt();
+        this.user_anony = (simpleAnswerDTO.getAnonymous() == true)?1:0;
+
+    }
+
+    public Integer getId(){
+        return answer_id;
+    }
 
     public User getAnswer_user() {
         return answer_user;

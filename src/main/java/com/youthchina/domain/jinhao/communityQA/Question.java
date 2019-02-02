@@ -3,11 +3,13 @@ package com.youthchina.domain.jinhao.communityQA;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.QuestionDTO;
+import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Question {
+public class Question implements HasId<Integer> {
     private Integer ques_id;
     private String ques_title;
     private String ques_abbre;
@@ -22,6 +24,22 @@ public class Question {
     private List<Label> labels;
     private Job job;
     private Company company;
+    private AnswerInvitation answerInvitation;
+
+    public Question(QuestionDTO questionDTO){
+        this.ques_id = questionDTO.getId();
+        this.ques_body = questionDTO.getBody();
+        this.ques_title = questionDTO.getTitle();
+        this.ques_user = questionDTO.getCreator();
+        this.ques_pub_time = questionDTO.getCreateAt();
+        for(int i =0; i < questionDTO.getAnswers().size(); i++){
+            this.questionAnswers.add(new QuestionAnswer(questionDTO.getAnswers().get(i)));
+        }
+        this.answerInvitation = questionDTO.getAnswerInvitation();
+
+    }
+
+    public Integer getId(){ return  ques_id; }
 
     public Job getJob() {
         return job;
@@ -29,6 +47,14 @@ public class Question {
 
     public void setJob(Job job) {
         this.job = job;
+    }
+
+    public AnswerInvitation getAnswerInvitation() {
+        return answerInvitation;
+    }
+
+    public void setJob(AnswerInvitation answerInvitation) {
+        this.answerInvitation = answerInvitation;
     }
 
     public Company getCompany() {

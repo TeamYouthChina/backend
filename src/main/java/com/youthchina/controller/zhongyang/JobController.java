@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,8 +29,9 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     private JobService jobService;
 
     @Autowired
-    public JobController(JobService jobService) {
+    public JobController(JobService jobService, @Value("${web.url.prefix}") String prefix) {
         this.jobService = jobService;
+        this.url = prefix + "/job/";
     }
 
     @Override
@@ -88,7 +90,6 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     public ResponseEntity<?> deleteJobInfo(@PathVariable Integer id) throws NotFoundException {
         return delete(id);
     }
-
 
 
 }

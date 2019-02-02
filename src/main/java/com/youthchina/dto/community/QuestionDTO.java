@@ -1,5 +1,7 @@
 package com.youthchina.dto.community;
 
+import com.youthchina.domain.jinhao.communityQA.AnswerInvitation;
+import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.domain.zhongyang.User;
 
 import java.sql.Timestamp;
@@ -16,6 +18,20 @@ public class QuestionDTO {
     private Boolean isAnonymous;
     private Timestamp createAt;
     private List<SimpleAnswerDTO> answers;
+    private AnswerInvitation answerInvitation;
+
+    public QuestionDTO(Question question){
+        this.id = question.getQues_id();
+        this.creator= question.getQues_user();
+        this.title = question.getQues_title();
+        this.body =question.getQues_body();
+        //this.isAnonymous = question.
+        this.createAt = question.getQues_pub_time();
+        for(int i =0; i < question.getQuestionAnswers().size(); i++){
+            this.answers.add(new SimpleAnswerDTO(question.getQuestionAnswers().get(i)));
+        }
+        this.answerInvitation = question.getAnswerInvitation();
+    }
 
     public Integer getId() {
         return id;
@@ -72,4 +88,8 @@ public class QuestionDTO {
     public void setAnswers(List<SimpleAnswerDTO> answers) {
         this.answers = answers;
     }
+
+    public AnswerInvitation getAnswerInvitation() { return answerInvitation; }
+
+    public void setJob(AnswerInvitation answerInvitation) { this.answerInvitation = answerInvitation; }
 }
