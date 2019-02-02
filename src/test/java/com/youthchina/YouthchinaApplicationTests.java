@@ -59,4 +59,11 @@ public class YouthchinaApplicationTests {
 
     }
 
+    @Test
+    public void testGenerateId() {
+        Long i = snowFlakeIdGenerate.nextId();
+        System.out.println(i);
+
+    }
+
 }
