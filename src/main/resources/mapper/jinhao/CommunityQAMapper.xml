@@ -949,4 +949,5 @@
           and vm.RELA_TYPE = 2
           and vm.VIDEO_ID = v.VIDEO_ID
     </select>
+
 </mapper>
