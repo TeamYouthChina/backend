@@ -33,7 +33,7 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private TemplateEngine templateEngine;
 
-    @Value("hmgswqh@cfcsse.org")
+    @Value("hmgswqh@cfcsse.com")
     private String from;
 
     @Override
