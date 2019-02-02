@@ -9,6 +9,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EmailTests {
@@ -41,6 +44,14 @@ public class EmailTests {
         String recId="00011";
         String recPath="/Users/wangqinghong/Desktop/YouthChina resume/picture.jpeg";
         mailService.sendInlineResourceMail("hmgswqh@gmail.com","test inline mail","hello this is a inline mail",recPath,recId);
+    }
+    @Test
+    public void testRegisterMail() throws Exception{
+        Map<String, Object> valueMap = new HashMap<>();
+        valueMap.put("to", "hmgswqh@gmail.com");
+        valueMap.put("object", "申请账户邮件");
+        valueMap.put("email","hmgswqh@gmail.com");
+        mailService.sendUserRegisterEmail(valueMap);
     }
 
 

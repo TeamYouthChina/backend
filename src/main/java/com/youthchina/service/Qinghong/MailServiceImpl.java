@@ -9,10 +9,13 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
+import java.util.Map;
 
 /**
  * @program: email
@@ -26,6 +29,9 @@ public class MailServiceImpl implements MailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+    @Autowired
+    private TemplateEngine templateEngine;
 
     @Value("hmgswqh@cfcsse.org")
     private String from;
@@ -101,6 +107,26 @@ public class MailServiceImpl implements MailService {
             logger.error("发送带附件的邮件时发送异常",e);
 
         }
+    }
+
+    @Override
+    public void sendUserRegisterEmail(Map<String, Object> valueMap) {
+        MimeMessage mimeMessage=javaMailSender.createMimeMessage();
+        try{
+            MimeMessageHelper helper=new MimeMessageHelper(mimeMessage,true);
+            helper.setFrom(from);
+            helper.setTo(valueMap.get("to").toString());
+            helper.setSubject(valueMap.get("object").toString());
+            Context context=new Context();
+            context.setVariables(valueMap);
+            String content=templateEngine.process("registerEmail",context);
+            helper.setText(content);
+            javaMailSender.send(mimeMessage);
+
+        }catch (MessagingException e){
+            logger.error("发送邮件异常");
+        }
+
     }
 }
 
