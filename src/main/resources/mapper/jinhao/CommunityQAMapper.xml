@@ -161,6 +161,8 @@
         <result property="gender" column="USER_GENDER" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="role" javaType="java.lang.Integer" column="ROLE_TYPE"/>
     </association>
+    <association property="company" javaType="com.youthchina.domain.qingyang.Company"
+                 resultMap="com.youthchina.dao.qingyang.CompanyMapper.company"/>
     <collection property="videoAttentions" ofType="com.youthchina.domain.jinhao.communityQA.VideoAttention">
         <id property="atten_id" column="ATTEN_ID"/>
         <result property="user_id" column="USER_ID"/>
@@ -865,7 +867,7 @@
     </select>
 
     <select id="getVideoById" resultMap="videoInfo" parameterType="java.lang.Integer">
-        select v.*, u.*, ve.*, vc.*, va.* from COM_USER_VIDEO v
+        select v.*, u.*, ve.*, vc.*, va.*, c.* from COM_USER_VIDEO v
         left join (SYS_USER u, COM_USER_VIDEO_MAP uvm)
                 on uvm.VIDEO_ID = v.VIDEO_ID and uvm.USER_ID = u.USER_ID and u.IS_DELETE = 0
         left join (COM_VIDEO_ATTENTION va, COM_VIDEO_ATTENTION_MAP vam)
@@ -874,6 +876,8 @@
                 on vcm.VIDEO_ID = v.VIDEO_ID and vcm.COMMENT_ID = vc.COMMENT_ID and vc.IS_DELETE = 0
         left join (COM_VIDEO_EVALUATE ve, COM_VIDEO_EVALUATE_MAP vem)
                 on vem.VIDEO_ID = v.VIDEO_ID and vem.EVALUATE_ID = ve.EVALUATE_ID
+        left join (COMPANY_INFO c, COM_USER_VIDEO_MAP newuvm)
+                on newuvm.VIDEO_ID = v.VIDEO_ID and newuvm.RELE_TYPE = 1 and newuvm.RELE_ID = c.COMPANY_ID
         where v.VIDEO_ID = #{video_id} and v.IS_DELETE = 0
     </select>
 

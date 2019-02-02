@@ -4,6 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.jinhao.CommunityQAMapper;
 import com.youthchina.domain.jinhao.communityQA.*;
+import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.After;
 import org.junit.Assert;
@@ -747,7 +748,7 @@ public class CommunityQAMapperTest extends BaseTest {
     //测试能不能建立映射
     @Test
     public void createUserVideoMap() {
-        communityQAMapper.createMapBetweenVideoAndUser(2, 1);
+        communityQAMapper.createMapBetweenVideoAndUser(2, 1, 1,2);
         List<Video> videos = communityQAMapper.listAllMyVideos(1);
         Assert.assertEquals(4, videos.size());
         for (Video video : videos) {
@@ -1069,6 +1070,10 @@ public class CommunityQAMapperTest extends BaseTest {
         for (VideoComment videoComment : videoComments) {
             System.out.print(videoComment.getComment_id());
         }
+        Company company = video.getCompany();
+        Assert.assertNotNull(company);
+        Integer id = 1;
+        Assert.assertEquals(id, company.getCompanyId());
     }
 
     @Test
