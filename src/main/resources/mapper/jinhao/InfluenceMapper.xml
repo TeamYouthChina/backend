@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.jinhao.InfluenceMapper">
+    <resultMap id="influence" type="com.youthchina.domain.jinhao.communityQA.Influence">
+        <id property="user_id" column="USER_ID"/>
+        <association property="student" column="user_id"
+                     select="com.youthchina.dao.Qinghong.ApplicantMapper.getStudentInfo"/>
+        <collection property="comFriendRelations" column="user_id"
+                    select="com.youthchina.dao.tianjian.CommunityMapper.getFriend"/>
+        <collection property="answerEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.AnswerEvaluate">
+            <id property="evaluate_id" column="A_EVALUATE_ID"/>
+        </collection>
+        <collection property="commentEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
+            <id property="evaluate_id" column="C_EVALUATE_ID"/>
+        </collection>
+        <collection property="discussEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.DiscussEvaluate">
+            <id property="evaluate_id" column="D_EVALUATE_ID"/>
+        </collection>
+        <collection property="videoEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate">
+            <id property="evaluate_id" column="V_EVALUATE_ID"/>
+        </collection>
+        <collection property="comReplyEvaluates" ofType="com.youthchina.domain.tianjian.ComReplyEvaluate">
+            <id property="evaluate_id" column="R_EVALUATE_ID"/>
+        </collection>
+    </resultMap>
+    <resultMap id="influenceOfInteraction" type="com.youthchina.domain.jinhao.communityQA.Influence">
+        <id property="user_id" column="USER_ID"/>
+        <collection property="answerEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.AnswerEvaluate">
+            <id property="evaluate_id" column="I_A_EVALUATE_ID"/>
+        </collection>
+        <collection property="commentEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
+            <id property="evaluate_id" column="I_C_EVALUATE_ID"/>
+        </collection>
+        <collection property="discussEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.DiscussEvaluate">
+            <id property="evaluate_id" column="I_D_EVALUATE_ID"/>
+        </collection>
+        <collection property="videoEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate">
+            <id property="evaluate_id" column="I_V_EVALUATE_ID"/>
+        </collection>
+        <collection property="comReplyEvaluates" ofType="com.youthchina.domain.tianjian.ComReplyEvaluate">
+            <id property="evaluate_id" column="I_R_EVALUATE_ID"/>
+        </collection>
+        <collection property="questionAnswers" ofType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
+            <id property="answer_id" column="ANSWER_ID"/>
+        </collection>
+        <collection property="answerComments" ofType="com.youthchina.domain.jinhao.communityQA.AnswerComment">
+            <id property="comment_id" column="COMMENT_ID"/>
+        </collection>
+        <collection property="videoComments" ofType="com.youthchina.domain.jinhao.communityQA.VideoComment">
+            <id property="comment_id" column="VIDEO_COMMENT_ID"/>
+        </collection>
+        <collection property="comEssayReplies" ofType="com.youthchina.domain.tianjian.ComReplyEvaluate">
+            <id property="reply_id" column="REPLY_ID"/>
+        </collection>
+    </resultMap>
+    <select id="agreementGotInAnswer" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.AnswerEvaluate">
+          select ae.* from COM_QUESTION_ANSWER qa, COM_ANSWER_EVALUATE ae, COM_ANSWER_EVALUATE_MAP aem
+          where qa.USER_ID = #{user_id}
+          and qa.IS_DELETE = 0
+          and qa.ANSWER_ID = aem.ANSWER_ID
+          and aem.EVALUATE_ID = ae.EVALUATE_ID
+          and ae.EVALUATE_TYPE = 1
+    </select>
+    <select id="agreementGotInComment" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
+        select ce.* from COM_ANSWER_COMMENT ac, COM_COMMENT_EVALUATE ce, COM_COMMENT_EVALUATE_MAP cem
+        where ac.USER_ID = #{user_id}
+        and ac.IS_DELETE = 0
+        and ac.COMMENT_ID = cem.COMMENT_ID
+        and cem.EVALUATE_ID = ce.EVALUATE_id
+        and ce.EVALUATE_TYPE = 1
+    </select>
+    <select id="agreementGotInDiscuss" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.DiscussEvaluate">
+        select de.* from COM_COMMENT_DISCUSS cd, COM_DISCUSS_EVALUATE de, COM_DISCUSS_EVALUATE_MAP dem
+        where cd.USER_ID = #{user_id}
+        and cd.IS_DELETE = 0
+        and cd.DISCUSS_ID = dem.DISCUSS_ID
+        and dem.EVALUATE_ID = de.EVALUATE_id
+        and de.EVALUATE_TYPE = 1
+    </select>
+    <select id="agreeementGotInVideo" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate">
+        select ve.* from COM_USER_VIDEO v, COM_USER_VIDEO_MAP vm, COM_VIDEO_EVALUATE ve, COM_VIDEO_EVALUATE_MAP vem
+        where vm.USER_ID = #{user_id}
+        and vm.VIDEO_ID = v.VIDEO_ID
+        and v.IS_DELETE = 0
+        and vem.VIDEO_ID = v.VIDEO_ID
+        and vem.EVALUATE_ID = ve.EVALUATE_ID
+        and ve.EVALUATE_TYPE = 1
+    </select>
+    <select id="agreementGotInEssayReply" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.tianjian.ComReplyEvaluate">
+        select re.* from COM_ESSAY_REPLY er, COM_REPLY_EVALUATE re, COM_REPLY_EVALUATE_MAP rem
+        where er.USER_ID = #{user_id}
+        and er.IS_DELETE = 0
+        and rem.REPLY_ID = er.REPLY_ID
+        and re.EVALUATE_ID = rem.EVALUATE_ID
+        and re.EVALUATE_TYPE = 1
+    </select>
+    
+    <select id="getInfluenceByUserId" parameterType="java.lang.Integer" resultMap="influence">
+        select u.USER_ID,
+               newce.EVALUATE_ID as C_EVALUATE_ID,
+               newae.EVALUATE_ID as A_EVALUATE_ID,
+               newde.EVALUATE_ID as D_EVALUATE_ID,
+               newve.EVALUATE_ID as V_EVALUATE_ID,
+               newre.EVALUATE_ID as R_EVALUATE_ID
+               from SYS_USER u
+                                          left join (select ce.*, ac.USER_ID as NEW_USER_ID from COM_ANSWER_COMMENT ac, COM_COMMENT_EVALUATE ce, COM_COMMENT_EVALUATE_MAP cem
+                                                     where ac.IS_DELETE = 0
+                                                       and ac.COMMENT_ID = cem.COMMENT_ID
+                                                       and cem.EVALUATE_ID = ce.EVALUATE_id
+                                                       and ce.EVALUATE_TYPE = 1) as newce on newce.NEW_USER_ID = u.USER_ID
+                                          left join (select ae.*, qa.USER_ID as NEW_QA_USER_ID from COM_QUESTION_ANSWER qa, COM_ANSWER_EVALUATE ae, COM_ANSWER_EVALUATE_MAP aem
+                                                      where qa.IS_DELETE = 0
+                                                      and qa.ANSWER_ID = aem.ANSWER_ID
+                                                      and aem.EVALUATE_ID = ae.EVALUATE_ID
+                                                      and ae.EVALUATE_TYPE = 1) as newae on newae.NEW_QA_USER_ID = u.USER_ID
+                                          left join (select de.*, cd.USER_ID as NEW_DIS_USER_ID from COM_COMMENT_DISCUSS cd, COM_DISCUSS_EVALUATE de, COM_DISCUSS_EVALUATE_MAP dem
+                                                      where cd.IS_DELETE = 0
+                                                      and cd.DISCUSS_ID = dem.DISCUSS_ID
+                                                      and dem.EVALUATE_ID = de.EVALUATE_id
+                                                      and de.EVALUATE_TYPE = 1) as newde on newde.NEW_DIS_USER_ID = u.USER_ID
+                                          left join (select ve.*, vm.USER_ID as NEW_VIDEO_USER_ID from COM_USER_VIDEO v, COM_USER_VIDEO_MAP vm, COM_VIDEO_EVALUATE ve, COM_VIDEO_EVALUATE_MAP vem
+                                                      where vm.VIDEO_ID = v.VIDEO_ID
+                                                      and v.IS_DELETE = 0
+                                                      and vem.VIDEO_ID = v.VIDEO_ID
+                                                      and vem.EVALUATE_ID = ve.EVALUATE_ID
+                                                      and ve.EVALUATE_TYPE = 1) as newve on newve.NEW_VIDEO_USER_ID = u.USER_ID
+                                          left join (select re.*, er.USER_ID as NEW_ESSAY_USER_ID from COM_ESSAY_REPLY er, COM_REPLY_EVALUATE re, COM_REPLY_EVALUATE_MAP rem
+                                                      where er.IS_DELETE = 0
+                                                      and rem.REPLY_ID = er.REPLY_ID
+                                                      and re.EVALUATE_ID = rem.EVALUATE_ID
+                                                      and re.EVALUATE_TYPE = 1) as newre on newre.NEW_ESSAY_USER_ID = u.USER_ID
+        where u.USER_ID = #{user_id}
+    </select>
+    <select id="getFriendInfluencePoints" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select PERS_TOTAL from PERSON_INFLUENCE where USER_ID = #{user_id}
+    </select>
+    <select id="getInteraction" resultMap="influenceOfInteraction">
+        select u.USER_ID,
+               newce.EVALUATE_ID as I_C_EVALUATE_ID,
+               newae.EVALUATE_ID as I_A_EVALUATE_ID,
+               newde.EVALUATE_ID as I_D_EVALUATE_ID,
+               newve.EVALUATE_ID as I_V_EVALUATE_ID,
+               newre.EVALUATE_ID as I_R_EVALUATE_ID,
+               newqa.ANSWER_ID,
+               newac.COMMENT_ID,
+               newvc.COMMENT_ID as VIDEO_COMMENT_ID,
+               newer.REPLY_ID
+               from SYS_USER u
+                                          left join (select ce.*, ac.USER_ID as NEW_USER_ID from COM_ANSWER_COMMENT ac, COM_COMMENT_EVALUATE ce, COM_COMMENT_EVALUATE_MAP cem
+                                                     where ac.IS_DELETE = 0
+                                                       and ac.COMMENT_ID = cem.COMMENT_ID
+                                                       and cem.EVALUATE_ID = ce.EVALUATE_id
+                                                       and ce.EVALUATE_TYPE = 1
+                                                       and ce.USER_ID = #{user_id}) as newce on newce.NEW_USER_ID = u.USER_ID
+                                          left join (select ae.*, qa.USER_ID as NEW_QA_USER_ID from COM_QUESTION_ANSWER qa, COM_ANSWER_EVALUATE ae, COM_ANSWER_EVALUATE_MAP aem
+                                                      where qa.IS_DELETE = 0
+                                                      and qa.ANSWER_ID = aem.ANSWER_ID
+                                                      and aem.EVALUATE_ID = ae.EVALUATE_ID
+                                                      and ae.EVALUATE_TYPE = 1
+                                                      and ae.USER_ID = #{user_id}) as newae on newae.NEW_QA_USER_ID = u.USER_ID
+                                          left join (select de.*, cd.USER_ID as NEW_DIS_USER_ID from COM_COMMENT_DISCUSS cd, COM_DISCUSS_EVALUATE de, COM_DISCUSS_EVALUATE_MAP dem
+                                                      where cd.IS_DELETE = 0
+                                                      and cd.DISCUSS_ID = dem.DISCUSS_ID
+                                                      and dem.EVALUATE_ID = de.EVALUATE_id
+                                                      and de.EVALUATE_TYPE = 1
+                                                      and de.USER_ID = #{user_id}) as newde on newde.NEW_DIS_USER_ID = u.USER_ID
+                                          left join (select ve.*, vm.USER_ID as NEW_VIDEO_USER_ID from COM_USER_VIDEO v, COM_USER_VIDEO_MAP vm, COM_VIDEO_EVALUATE ve, COM_VIDEO_EVALUATE_MAP vem
+                                                      where vm.VIDEO_ID = v.VIDEO_ID
+                                                      and v.IS_DELETE = 0
+                                                      and vem.VIDEO_ID = v.VIDEO_ID
+                                                      and vem.EVALUATE_ID = ve.EVALUATE_ID
+                                                      and ve.EVALUATE_TYPE = 1
+                                                      and ve.USER_ID = #{user_id}) as newve on newve.NEW_VIDEO_USER_ID = u.USER_ID
+                                          left join (select re.*, er.USER_ID as NEW_ESSAY_USER_ID from COM_ESSAY_REPLY er, COM_REPLY_EVALUATE re, COM_REPLY_EVALUATE_MAP rem
+                                                      where er.IS_DELETE = 0
+                                                      and rem.REPLY_ID = er.REPLY_ID
+                                                      and re.EVALUATE_ID = rem.EVALUATE_ID
+                                                      and re.EVALUATE_TYPE = 1
+                                                      and re.USER_ID = #{user_id}) as newre on newre.NEW_ESSAY_USER_ID = u.USER_ID
+                                          left join (select qa.*, aqm.USER_ID as NEW_Q_USER_ID from COM_AUTHOR_QUESTION_MAP aqm, COM_QUESTION q, COM_QUESTION_ANSWER qa, COM_QUESTION_ANSWER_MAP qam
+                                                      where q.IS_DELETE = 0
+                                                      and aqm.QUES_ID = q.QUES_ID
+                                                      and q.QUES_ID = qam.QUES_ID
+                                                      and qam.ANSWER_ID = qa.ANSWER_ID
+                                                      and qa.USER_ID = #{user_id}
+                                                      and qa.IS_DELETE = 0) as newqa on newqa.NEW_Q_USER_ID = u.USER_ID
+                                          left join (select ac.*, a.USER_ID as NEW_COMMENT_ANSWER_USER_ID from COM_QUESTION_ANSWER a, COM_ANSWER_COMMENT ac, COM_ANSWER_COMMENT_MAP acm
+                                                      where a.IS_DELETE = 0
+                                                      and a.ANSWER_ID = acm.ANSWER_ID
+                                                      and acm.COMMENT_ID = ac.COMMENT_ID
+                                                      and ac.USER_ID = #{user_id}
+                                                      and ac.IS_DELETE = 0) as newac on newac.NEW_COMMENT_ANSWER_USER_ID = u.USER_ID
+                                          left join (select vc.*, uvm.USER_ID as NEW_COMMENT_VIDEO_ID from COM_USER_VIDEO_MAP uvm, COM_USER_VIDEO v, COM_VIDEO_COMMENT vc, COM_VIDEO_COMMENT_MAP vcm
+                                                      where uvm.VIDEO_ID = v.VIDEO_ID
+                                                      and v.IS_DELETE = 0
+                                                      and v.VIDEO_ID = vcm.VIDEO_ID
+                                                      and vcm.COMMENT_ID = vc.COMMENT_ID
+                                                      and vc.USER_ID = #{user_id}
+                                                      and vc.IS_DELETE = 0) as newvc on newvc.NEW_COMMENT_VIDEO_ID = u.USER_ID
+                                          left join (select er.*, em.USER_ID as NEW_ESSAY_USER_ID from COM_AUTHOR_ESSAY_MAP em, COM_ESSAY e, COM_ESSAY_REPLY er, COM_ESSAY_REPLY_MAP erm
+                                                      where em.ESSAY_ID = e.ESSAY_ID
+                                                      and e.IS_DELETE = 0
+                                                      and e.ESSAY_ID = erm.ESSAY_ID
+                                                      and erm.REPLY_ID = er.REPLY_ID
+                                                      and er.USER_ID = #{user_id}
+                                                      and er.IS_DELETE = 0) as newer on newer.NEW_ESSAY_USER_ID = u.USER_ID
+        where u.USER_ID = #{friend_user_id}
+    </select>
+
+</mapper>
