@@ -35,7 +35,6 @@ public class YouthchinaApplicationTests {
 
     @Test
     public void verifyFile() {
-
         System.out.println( staticFileSystemServiceImplALiCloud.verifyFile("nihaouip"));
     }
 
@@ -66,7 +65,6 @@ public class YouthchinaApplicationTests {
     public void testGenerateId() {
         Long i = snowFlakeIdGenerate.nextId();
         System.out.println(i);
-
     }
 
     @Test

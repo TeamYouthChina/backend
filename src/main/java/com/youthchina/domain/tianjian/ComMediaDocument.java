@@ -1,21 +1,23 @@
 package com.youthchina.domain.tianjian;
 
+import java.sql.Timestamp;
+
 public class ComMediaDocument {
-  private String docu_id;
+  private Integer docu_id;
   private String docu_local_id;
   private String docu_local_name;
   private String docu_local_format;
   private String docu_server_ali_id;
   private String docu_server_aws_id;
-  private String create_time;
-  private String is_delete;
-  private String is_delete_time;
+  private Timestamp create_time;
+  private Integer is_delete;
+  private Timestamp is_delete_time;
 
-    public String getDocu_id() {
+    public Integer getDocu_id() {
         return docu_id;
     }
 
-    public void setDocu_id(String docu_id) {
+    public void setDocu_id(Integer docu_id) {
         this.docu_id = docu_id;
     }
 
@@ -59,27 +61,27 @@ public class ComMediaDocument {
         this.docu_server_aws_id = docu_server_aws_id;
     }
 
-    public String getCreate_time() {
+    public Timestamp getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(String create_time) {
+    public void setCreate_time(Timestamp create_time) {
         this.create_time = create_time;
     }
 
-    public String getIs_delete() {
+    public Integer getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(String is_delete) {
+    public void setIs_delete(Integer is_delete) {
         this.is_delete = is_delete;
     }
 
-    public String getIs_delete_time() {
+    public Timestamp getIs_delete_time() {
         return is_delete_time;
     }
 
-    public void setIs_delete_time(String is_delete_time) {
+    public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
 }
