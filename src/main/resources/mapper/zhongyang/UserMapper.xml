@@ -9,7 +9,7 @@
         <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="age" column="USER_AGE" javaType="java.lang.Integer"/>
         <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
-        <result column="USER_REGIST_DATE" property="registerDate" jdbcType="VARCHAR"/>
+        <result column="USER_REGIST_TIME" property="registerDate" jdbcType="VARCHAR"/>
         <result column="USER_REAL_NAME" property="realName" jdbcType="VARCHAR"/>
         <result column="USER_NATION" property="nation" jdbcType="VARCHAR"/>
         <result column="USER_PHOTO" property="avatarUrl" jdbcType="VARCHAR"/>
@@ -20,7 +20,7 @@
     <sql id="userColumn">
         USER_NAME,
         USER_PASS,
-        USER_REGIST_DATE,
+        USER_REGIST_TIME,
         USER_REAL_NAME,
         USER_GENDER,
         USER_AGE,
@@ -125,7 +125,7 @@
         UPDATE SYS_USER
         SET USER_NAME        = #{username},
             USER_PASS        = #{password},
-            USER_REGIST_DATE = #{registerDate},
+            USER_REGIST_TIME = #{registerDate},
             USER_REAL_NAME   = #{realName},
             USER_GENDER      = #{gender},
             USER_AGE         = #{age},
