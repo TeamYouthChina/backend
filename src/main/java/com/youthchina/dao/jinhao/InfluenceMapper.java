@@ -1,9 +1,13 @@
 package com.youthchina.dao.jinhao;
 
+import com.youthchina.domain.Qinghong.EducationInfo;
+import com.youthchina.domain.Qinghong.Work;
 import com.youthchina.domain.jinhao.communityQA.Influence;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Mapper
 @Component
@@ -15,4 +19,7 @@ public interface InfluenceMapper {
     //拿到和好友的互动
     Influence getInteraction(@Param("user_id")Integer user_id,
                              @Param("friend_user_id")Integer friend_user_id);
+    Integer getBestEducation(@Param("educationInfos") List<EducationInfo> educationInfos);
+
+    Integer getBestWorkExperience(@Param("work")List<Work> works);
 }

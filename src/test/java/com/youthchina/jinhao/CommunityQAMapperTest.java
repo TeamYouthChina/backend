@@ -747,7 +747,7 @@ public class CommunityQAMapperTest extends BaseTest {
     //测试能不能建立映射
     @Test
     public void createUserVideoMap() {
-        communityQAMapper.createMapBetweenVideoAndUser(2, 1);
+        communityQAMapper.createMapBetweenVideoAndUser(2, 1, 2,1);
         List<Video> videos = communityQAMapper.listAllMyVideos(1);
         Assert.assertEquals(4, videos.size());
         for (Video video : videos) {
@@ -1072,9 +1072,9 @@ public class CommunityQAMapperTest extends BaseTest {
     }
 
     @Test
-    public void getQuestionReleTypeAndReleId() {
-        QuestionReleTypeAndId questionReleTypeAndId = communityQAMapper.getQuestionReleTypeAndReleId(1);
-        System.out.println(questionReleTypeAndId.getRele_id() + " " + questionReleTypeAndId.getRele_type());
+    public void getQuestionRelaTypeAndRelaId() {
+        QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(1);
+        System.out.println(questionRelaTypeAndId.getRela_id() + " " + questionRelaTypeAndId.getRela_type());
     }
 
     @Test

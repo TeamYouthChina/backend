@@ -48,12 +48,13 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         if(question == null){
             throw new NotFoundException(404,404,"没有找到这个问题");
         }
-        QuestionReleTypeAndId questionReleTypeAndId = communityQAMapper.getQuestionReleTypeAndReleId(ques_id);
-        if(questionReleTypeAndId.getRele_type() == 2){
-            Company company = companyMapper.selectCompany(questionReleTypeAndId.getRele_id());
+        //judge whether the question is relative to company or job
+        QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(ques_id);
+        if(questionRelaTypeAndId.getRela_type() == 2){
+            Company company = companyMapper.selectCompany(questionRelaTypeAndId.getRela_id());
             question.setCompany(company);
-        }else if(questionReleTypeAndId.getRele_type() == 3){
-            Job job = jobHrMapper.selectJobByJobId(questionReleTypeAndId.getRele_id());
+        }else if(questionRelaTypeAndId.getRela_type() == 3){
+            Job job = jobHrMapper.selectJobByJobId(questionRelaTypeAndId.getRela_id());
             question.setJob(job);
         }
         return question;
@@ -68,16 +69,16 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rele_type, Integer rele_id) {
+    public Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rela_type, Integer rela_id) {
         communityQAMapper.addQuestion(question);
         communityQAMapper.addLabels(labels, question.getQues_id());
-        communityQAMapper.createMapBetweenQuestionAndUser(question.getQues_id(), user_id, rele_type, rele_id);
+        communityQAMapper.createMapBetweenQuestionAndUser(question.getQues_id(), user_id, rela_type, rela_id);
         return 1;
     }
 
     /**
      * 拿到问题，如果问题不存在，抛出异常
-     * @param ques_id
+     * @param ques_id id of question
      * @return 返回一个问题的对象
      * @throws NotFoundException
      */
@@ -799,9 +800,9 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addVideo(Video video, Integer user_id) {
+    public Integer addVideo(Video video, Integer user_id, Integer rela_type, Integer rela_id) {
         communityQAMapper.addVideo(video);
-        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), user_id);
+        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), user_id, rela_type, rela_id);
         return 1;
     }
 
