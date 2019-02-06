@@ -49,7 +49,7 @@
         <collection property="videoComments" ofType="com.youthchina.domain.jinhao.communityQA.VideoComment">
             <id property="comment_id" column="VIDEO_COMMENT_ID"/>
         </collection>
-        <collection property="comEssayReplies" ofType="com.youthchina.domain.tianjian.ComReplyEvaluate">
+        <collection property="comEssayReplies" ofType="com.youthchina.domain.tianjian.ComEssayReply">
             <id property="reply_id" column="REPLY_ID"/>
         </collection>
     </resultMap>
