@@ -267,8 +267,8 @@
     <!-- 添加问题 -->
     <insert id="addQuestion" parameterType="com.youthchina.domain.jinhao.communityQA.Question" useGeneratedKeys="true"
     keyProperty="ques_id">
-        insert into COM_QUESTION(ques_title,ques_abbre,ques_body,ques_pub_time,ques_edit_time,is_delete)
-        values (#{ques_title},#{ques_abbre},#{ques_body},#{ques_pub_time},#{ques_edit_time},#{is_delete})
+        insert into COM_QUESTION(ques_title,ques_abbre,ques_body,ques_pub_time,ques_edit_time,is_delete, user_anony)
+        values (#{ques_title},#{ques_abbre},#{ques_body},#{ques_pub_time},#{ques_edit_time},#{is_delete},#{user_anony})
     </insert>
 
     <!-- 建立问题和用户的映射 -->
@@ -297,7 +297,7 @@
     <!-- 编辑问题 -->
     <update id="editQuestion" parameterType="com.youthchina.domain.jinhao.communityQA.Question">
         update COM_QUESTION set ques_title=#{ques_title}, ques_abbre=#{ques_abbre}, ques_body=#{ques_body},
-                                ques_edit_time=#{ques_edit_time}
+                                ques_edit_time=#{ques_edit_time}, user_anony = #{user_anony}
         where ques_id=#{ques_id}
     </update>
 
