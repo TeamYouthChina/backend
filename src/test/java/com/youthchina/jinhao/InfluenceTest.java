@@ -5,6 +5,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.jinhao.InfluenceMapper;
 import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.domain.Qinghong.Student;
+import com.youthchina.domain.Qinghong.Work;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.tianjian.ComReplyEvaluate;
@@ -153,7 +154,14 @@ public class InfluenceTest {
         new_educationInfos.add(educationInfo6);
         Integer newrank = influenceMapper.getBestEducation(new_educationInfos);
         Assert.assertEquals(Integer.valueOf(3), newrank);
-
     }
 
+    @Test
+    public void getBestWork(){
+        Work work1 = new Work();
+        Work work2 = new Work();
+        Work work3 = new Work();
+        Work work4 = new Work();
+        work1.setWork_company("Google");
+    }
 }

@@ -67,9 +67,6 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
             byte[] inputByte = new byte[input.available()];
             input.read(inputByte);
             String fileNameInDataBase = fileNameGenerate.generateFileName();
-            while( ossClient.doesObjectExist(bucketName, fileName)){
-                fileNameInDataBase = fileNameGenerate.generateFileName();
-            }
             System.out.println("Uploading a new object to OSS from a file\n");
             ossClient.putObject(new PutObjectRequest(bucketName, fileNameInDataBase, new ByteArrayInputStream(inputByte)));
             localId = snowFlakeIdGenerate.nextId();

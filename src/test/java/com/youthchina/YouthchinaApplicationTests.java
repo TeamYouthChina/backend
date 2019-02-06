@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
-import java.util.*;
-import java.util.concurrent.Executor;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -28,8 +28,8 @@ public class YouthchinaApplicationTests {
 
     @Test
     public void testupLoadFile() {
-       File file = new File("");
-       long i = staticFileSystemServiceImplALiCloud.uploadFile("youthchinatest",file ,"mp4");
+       File file = new File("/Users/dreamer/Documents/youthchinaFile/1549464123400025.mp4");
+       long i = staticFileSystemServiceImplALiCloud.uploadFile("shipin",file ,"mp4");
        System.out.println(i);
     }
 
