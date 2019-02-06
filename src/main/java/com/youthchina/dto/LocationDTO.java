@@ -8,6 +8,10 @@ import com.youthchina.domain.Qinghong.Location;
 public class LocationDTO {
     private Integer region_num;
 
+    public LocationDTO() {
+
+    }
+
     public LocationDTO(Location location) {
         this.region_num = location.getRegion_num();
     }
