@@ -26,6 +26,43 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Resource
     JobMapper jobHrMapper;
 
+    @Override
+    public Question get(Integer id) throws NotFoundException {
+        Question question = communityQAMapper.getQuestionById(id);
+        if(question == null){
+            throw new NotFoundException(404,404,"没有找到这个问题");
+        }
+        QuestionReleTypeAndId questionReleTypeAndId = communityQAMapper.getQuestionReleTypeAndReleId(id);
+        if(questionReleTypeAndId.getRele_type() == 2){
+            Company company = companyMapper.selectCompany(questionReleTypeAndId.getRele_id());
+            question.setCompany(company);
+        }else if(questionReleTypeAndId.getRele_type() == 3){
+            Job job = jobHrMapper.selectJobByJobId(questionReleTypeAndId.getRele_id());
+            question.setJob(job);
+        }
+        return question;
+    }
+
+    @Override
+    public List<Question> get(List<Integer> id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public void delete(Integer id) throws NotFoundException {
+
+    }
+
+    @Override
+    public Question update(Question question) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public Question add(Question entity) {
+        return null;
+    }
+
 
     @Override
     public boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id) {

@@ -83,6 +83,8 @@ comment '职位基本信息表';
         }
     }
 
+    public Job(){}
+
     public Integer getId() {
         return jobId;
     }

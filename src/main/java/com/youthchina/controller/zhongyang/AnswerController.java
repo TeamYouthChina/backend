@@ -1,8 +1,8 @@
 package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.jinhao.communityQA.Question;
-import com.youthchina.dto.Response;
-import com.youthchina.dto.community.QuestionDTO;
+import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
+import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.jinhao.communityQA.CommunityQAService;
@@ -15,18 +15,19 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * Created by zhongyangwu on 1/2/19.
+ * Created by hongshengzhang on 2/2/19.
  */
+
 @RestController
-@RequestMapping("${web.url.prefix}/questions/**")
-public class QuestionController extends DomainCRUDController<QuestionDTO, Question, Integer>{
+@RequestMapping("${web.url.prefix}/answers/**")
+public class AnswerController extends DomainCRUDController<SimpleAnswerDTO, QuestionAnswer, Integer> {
     private String url;
     private CommunityQAService communityQAService;
 
     @Autowired
     public QuestionController(CommunityQAService communityQAService, @Value("${web.url.prefix}") String prefix) {
         this.communityQAService = communityQAService;
-        this.url = prefix + "/questions/";
+        this.url = prefix + "/answers/";
     }
 
     @Override
@@ -35,13 +36,13 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @Override
-    protected QuestionDTO DomainToDto(Question domain) {
-        return new QuestionDTO(domain);
+    protected SimpleAnswerDTO DomainToDto(Question domain) {
+        return new SimpleAnswerDTO(domain);
     }
 
     @Override
-    protected Question DtoToDomain(QuestionDTO questionDTO) {
-        return new Question(questionDTO);
+    protected QuestionAnswer DtoToDomain(SimpleAnswerDTO simpleAnswerDTO) {
+        return new QuestionAnswer(questionDTO);
     }
 
     @Override
@@ -56,6 +57,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
 
     @PostMapping("/")
     public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO) {
+        questionDTO.setInvitation();
         return add(questionDTO);
     }
 
@@ -67,26 +69,5 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteQuestionInfo(@PathVariable Integer id) throws NotFoundException {
         return delete(id);
-    }
-
-    @GetMapping("/{id}/answer")
-    public ResponseEntity<?> getAnswers(@PathVariable Integer id) throws NotFoundException{
-        QuestionDTO questionDTO = getDto(id);
-        return ResponseEntity.ok(new Response(questionDTO.getAnswers()));
-    }
-
-    @PostMapping("/{id}/invite")
-    public ResponseEntity<?> createInviteInfo(@RequestBody QuestionDTO questionDTO) {
-        return add(questionDTO);
-    }
-
-    @GetMapping("/{id}/answer/{answerId}")
-    public ResponseEntity<?> getAnswer(@PathVariable Integer id, @PathVariable Integer answerId) throws NotFoundException{
-
-        return getAnswer(answerId);
-    }
-
-    private QuestionDTO getDto(Integer id) throws NotFoundException {
-        return this.DomainToDto(this.getService().get(id));
     }
 }
