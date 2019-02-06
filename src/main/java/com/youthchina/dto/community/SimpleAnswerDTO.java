@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 /**
  * Created by zhongyangwu on 1/2/19.
  */
-public class AnswerDTO {
+public class SimpleAnswerDTO {
     private Integer id;
     private User creator;
     private String body;
