@@ -1,6 +1,6 @@
 package com.youthchina.domain.tianjian;
 
-public class PersonInfluencePoint {
+public class PersonInfluence {
     private Integer user_id;
     private Float pers_profile;
     private Float pers_ident_verify;

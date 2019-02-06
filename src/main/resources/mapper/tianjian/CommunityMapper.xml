@@ -32,6 +32,14 @@
    		select t.* from COM_ESSAY t where t.ESSAY_ID = #{essay_id} and t.IS_DELETE = 0
    </select>
 
+    <!--    根据文章id查询文章作者 -->
+    <select id="getEssayAuthor" resultType="com.youthchina.domain.tianjian.ComAuthorEssayMap">
+        select t1.*
+        from COM_AUTHOR_ESSAY_MAP t1, COM_ESSAY t2
+        where
+           t1.ESSAY_ID = #{essay_id} and t1.ESSAY_ID = t2.ESSAY_ID and t2.IS_DELETE = 0
+    </select>
+
     <!--    更新文章和作者映射关系 -->
     <update id="updateEssayAuthor" parameterType="com.youthchina.domain.tianjian.ComAuthorEssayMap">
     update COM_AUTHOR_ESSAY_MAP
@@ -57,8 +65,8 @@
 
     <!--    添加文章作者 -->
     <insert id="addEssayAuthor" parameterType="com.youthchina.domain.tianjian.ComAuthorEssayMap">
-    INSERT INTO COM_AUTHOR_ESSAY_MAP (ESSAY_ID, USER_ID)
-           values(#{essay_id},#{user_id}
+    INSERT INTO COM_AUTHOR_ESSAY_MAP (ESSAY_ID, USER_ID, RELA_TYPE, RELA_ID)
+           values(#{essay_id},#{user_id},#{rela_type},#{rela_type}
                  )
     </insert>
 
@@ -230,4 +238,5 @@
         and
         t1.GROUP_ID = t2.GROUP_ID
     </select>
+
 </mapper>

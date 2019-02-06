@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface PersonInfluenceMapper {
-   int savePersonInfluence(PersonInfluencePoint personInfluencePoint);
+   int savePersonInfluence(PersonInfluence personInfluence);
 
-   int updatePersonInfluence(PersonInfluencePoint personInfluencePoint);
+   int updatePersonInfluence(PersonInfluence personInfluence);
 
-   PersonInfluencePoint getPersonInfluence(Integer user_id);
+   PersonInfluence getPersonInfluence(Integer user_id);
 
    UserInfo getUserInfo(Integer user_id);
 }

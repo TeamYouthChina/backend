@@ -1,11 +1,11 @@
 package com.youthchina.service.tianjian;
 
-import com.youthchina.domain.tianjian.PersonInfluencePoint;
+import com.youthchina.domain.tianjian.PersonInfluence;
 
 public interface PersonInfluenceService {
-    public int savePersonInfluence(PersonInfluencePoint personInfluencePoint);
+    public int savePersonInfluence(PersonInfluence personInfluence);
 
-    public int updatePersonInfluence(PersonInfluencePoint personInfluencePoint);
+    public int updatePersonInfluence(PersonInfluence personInfluence);
 
     public int getPersonInfluence(Integer user_id);
 }

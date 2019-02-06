@@ -94,7 +94,7 @@ public class EssayServiceImpl implements EssayService {
 //    }
 
     @Override
-    public int addEssay(ComEssay essay, List<Integer> lab_num, Integer user_id) {
+    public int addEssay(ComEssay essay, List<Integer> lab_num, Integer user_id, Integer rela_type, Integer rela_id) {
         mapper.addEssay(essay);
         int essayid = essay.getEssay_id();
         List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
@@ -109,6 +109,8 @@ public class EssayServiceImpl implements EssayService {
         ComAuthorEssayMap caem = new ComAuthorEssayMap();
         caem.setEssay_id(essayid);
         caem.setUser_id(user_id);
+        caem.setRela_type(rela_type);
+        caem.setRela_id(rela_id);
         mapper.addEssayAuthor(caem);
         return 1;
     }
@@ -141,6 +143,11 @@ public class EssayServiceImpl implements EssayService {
     @Override
     public ComEssay getEssay(Integer essay_id) {
         return mapper.getEssay(essay_id);
+    }
+
+    @Override
+    public ComAuthorEssayMap getEssayAuthor(Integer essay_id) {
+        return mapper.getEssayAuthor(essay_id);
     }
 
     @Override
