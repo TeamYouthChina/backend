@@ -22,4 +22,5 @@ public interface InfluenceMapper {
     Integer getBestEducation(@Param("educationInfos") List<EducationInfo> educationInfos);
 
     Integer getBestWorkExperience(@Param("work")List<Work> works);
+
 }
