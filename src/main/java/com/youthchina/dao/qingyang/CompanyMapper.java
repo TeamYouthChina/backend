@@ -46,5 +46,7 @@ public interface CompanyMapper {
     void deleteCompanyInd(Integer id);
 
     Integer insertCompanyInd(List<Industry> industries);
+
+    List<Company> selectCompanyByName(String comName);
 }
 
