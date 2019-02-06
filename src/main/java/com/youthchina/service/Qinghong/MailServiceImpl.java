@@ -8,6 +8,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -24,6 +25,7 @@ import java.util.Map;
  * @create: 2019-01-27 15:27
  **/
 @Service
+@Component
 public class MailServiceImpl implements MailService {
     private final Logger logger= LoggerFactory.getLogger(this.getClass());
 
@@ -33,7 +35,7 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private TemplateEngine templateEngine;
 
-    @Value("hmgswqh@cfcsse.com")
+    @Value("hmgswqh@gmail.com")
     private String from;
 
     @Override
@@ -64,6 +66,7 @@ public class MailServiceImpl implements MailService {
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(content,true);
+            javaMailSender.send(message);
             logger.info("html邮件发送成功");
         }catch (MessagingException e){
             logger.error("发送html邮件发生异常！",e);
@@ -120,7 +123,7 @@ public class MailServiceImpl implements MailService {
             Context context=new Context();
             context.setVariables(valueMap);
             String content=templateEngine.process("registerEmail",context);
-            helper.setText(content);
+            helper.setText(content,true);
             javaMailSender.send(mimeMessage);
 
         }catch (MessagingException e){

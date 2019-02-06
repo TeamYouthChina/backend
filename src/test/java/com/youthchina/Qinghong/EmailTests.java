@@ -36,7 +36,7 @@ public class EmailTests {
         Context context=new Context();
         context.setVariable("id","006");
         String emailContent=templateEngine.process("emailtemplates",context);
-        mailService.sendSimpleMail("hmgswqh@gmail.com","test template mail",emailContent);
+        mailService.sendtemplateMail("hmgswqh@gmail.com","test template mail",emailContent);
     }
 
     @Test
