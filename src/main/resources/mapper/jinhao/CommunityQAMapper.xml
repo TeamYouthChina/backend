@@ -143,7 +143,7 @@
 <resultMap id="videoInfo" type="com.youthchina.domain.jinhao.communityQA.Video">
     <id property="video_id" column="VIDEO_ID"/>
     <result property="video_title" column="VIDEO_TITLE"/>
-    <result property="video_path" column="VIDEO_PATH"/>
+    <result property="video_name" column="VIDEO_NAME"/>
     <result property="video_upload_time" column="VIDEO_UPLOAD_TIME"/>
     <result property="is_delete" column="IS_DELETE"/>
     <result property="is_delete_time" column="IS_DELETE_TIME"/>
@@ -597,8 +597,8 @@
     <!-- 发布视频 -->
     <insert id="addVideo" parameterType="com.youthchina.domain.jinhao.communityQA.Video" useGeneratedKeys="true"
             keyProperty="video_id">
-        insert into COM_USER_VIDEO (video_title, video_path, video_upload_time, is_delete, is_delete_time)
-        values (#{video_title}, #{video_path}, #{video_upload_time}, #{is_delete}, #{is_delete_time})
+        insert into COM_USER_VIDEO (video_title, video_name, video_upload_time, is_delete, is_delete_time)
+        values (#{video_title}, #{video_name}, #{video_upload_time}, #{is_delete}, #{is_delete_time})
     </insert>
 
     <!-- 建立用户和视频的映射 -->
@@ -877,7 +877,7 @@
         left join (COM_VIDEO_EVALUATE ve, COM_VIDEO_EVALUATE_MAP vem)
                 on vem.VIDEO_ID = v.VIDEO_ID and vem.EVALUATE_ID = ve.EVALUATE_ID
         left join (COMPANY_INFO c, COM_USER_VIDEO_MAP newuvm)
-                on newuvm.VIDEO_ID = v.VIDEO_ID and newuvm.RELA_TYPE = 1 and newuvm.RELA_ID = c.COMPANY_ID
+                on newuvm.VIDEO_ID = v.VIDEO_ID and newuvm.RELA_TYPE = 2 and newuvm.RELA_ID = c.COMPANY_ID
         where v.VIDEO_ID = #{video_id} and v.IS_DELETE = 0
     </select>
 

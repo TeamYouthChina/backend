@@ -22,6 +22,6 @@ public class InfluenceTest {
 
     @Test
     public void getInfluenceByUserId(){
-        influenceMapper.getInfluenceByUserId(1);
+
     }
 }

@@ -53,6 +53,7 @@ public class CommunityQAMapperTest extends BaseTest {
         question.setQues_edit_time(Timestamp.valueOf("2018-10-11 11:11:11"));
         question.setIs_delete(0);
         question.setIs_delete_time(Timestamp.valueOf("2018-10-11 11:11:11"));
+        question.setUser_anony(1);
         communityQAMapper.addQuestion(question);
         Assert.assertNotNull(question.getQues_id());
         Question createQuestion = communityQAMapper.getQuestion(question.getQues_id());
@@ -64,9 +65,10 @@ public class CommunityQAMapperTest extends BaseTest {
     public void testGetMyQuestionAndCreateMapBetweenUserAndQuestion() {
         communityQAMapper.createMapBetweenQuestionAndUser(3, 1, 2, 3);
         List<Question> questionList = communityQAMapper.getMyQuestions(1);
-        Assert.assertEquals(3, questionList.size());
+        Assert.assertEquals(4, questionList.size());
         for (Question question : questionList) {
-            if (question.getQues_id() != 1 && question.getQues_id() != 2 && question.getQues_id() != 3) {
+            if (question.getQues_id() != 1 && question.getQues_id() != 2 && question.getQues_id() != 3
+            && question.getQues_id() != 4) {
                 Assert.fail();
             }
         }
@@ -736,7 +738,7 @@ public class CommunityQAMapperTest extends BaseTest {
         Video video = new Video();
         video.setIs_delete(0);
         video.setIs_delete_time(Timestamp.valueOf("2018-11-11 11:11:22"));
-        video.setVideo_path("important");
+        video.setVideo_name("important");
         video.setVideo_title("first");
         video.setVideo_upload_time(Timestamp.valueOf("2018-11-11 11:11:22"));
         communityQAMapper.addVideo(video);
@@ -1102,7 +1104,7 @@ public class CommunityQAMapperTest extends BaseTest {
         List<Integer> c_quesids = communityQAMapper.getQuestionIdByTitleOrCompanyName("百度");
         Assert.assertEquals(1, c_quesids.size());
         for(Integer ques_id : c_quesids){
-            if(ques_id != 3){
+            if(ques_id != 4){
                 Assert.fail();
             }
         }
