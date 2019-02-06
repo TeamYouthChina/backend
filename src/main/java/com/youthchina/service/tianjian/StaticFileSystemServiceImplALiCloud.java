@@ -58,7 +58,7 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
     }
 
     @Override
-    public long uploadFile(String fileName,File file,String format) {
+    public long uploadFile(String fileName,File file,String format,Integer user_id) {
         OSSClient ossClient = new OSSClient(endPoint, accessKeyId, accessKeySecret);
         long localId=0;
         try {
@@ -83,6 +83,7 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
             comMediaDocument.setCreate_time(time);
             comMediaDocument.setIs_delete(0);
             comMediaDocument.setIs_delete_time(null);
+            comMediaDocument.setUser_id(user_id);
             mapper.saveFileInfo(comMediaDocument);
 
         } catch (OSSException oe) {
