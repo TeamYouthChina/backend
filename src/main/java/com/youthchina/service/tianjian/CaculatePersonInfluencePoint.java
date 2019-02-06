@@ -286,10 +286,10 @@ public class CaculatePersonInfluencePoint {
         pers_profile = caculatePersonInfluencePointPersonalProfile(influence.getStudent()) * pers_profile_rate;
         pers_ident_verify = caculatePersonInfluencePointIdentifyValidation(influence.getStudent()) * pers_ident_verify_rate;
 
-        Integer universityRank = new Integer(0);
+        Integer universityRank = influenceMapper.getBestEducation(influence.getStudent().getEducationInfos());
         pers_university = caculatePersonInfluencePointUniversity(universityRank) * pers_university_rate;
 
-        Integer companyRank = new Integer(0);
+        Integer companyRank = influenceMapper.getBestWork(influence.getStudent().getWorks());
         pers_work= caculatePersonInfluencePointWork(companyRank) * pers_work_rate;
         pers_friend_count = caculatePersonInfluenceFriendCount(influence.getComFriendRelations()) * pers_friend_count_rate;
 

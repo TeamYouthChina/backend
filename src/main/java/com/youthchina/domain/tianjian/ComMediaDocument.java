@@ -3,7 +3,7 @@ package com.youthchina.domain.tianjian;
 import java.sql.Timestamp;
 
 public class ComMediaDocument {
-  private String docu_id;
+  private Integer docu_id;
   private String docu_local_id;
   private String docu_local_name;
   private String docu_local_format;
@@ -13,11 +13,11 @@ public class ComMediaDocument {
   private Integer is_delete;
   private Timestamp is_delete_time;
 
-    public String getDocu_id() {
+    public Integer getDocu_id() {
         return docu_id;
     }
 
-    public void setDocu_id(String docu_id) {
+    public void setDocu_id(Integer docu_id) {
         this.docu_id = docu_id;
     }
 

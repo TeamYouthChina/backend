@@ -70,7 +70,21 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
             System.out.println("Uploading a new object to OSS from a file\n");
             ossClient.putObject(new PutObjectRequest(bucketName, fileNameInDataBase, new ByteArrayInputStream(inputByte)));
             localId = snowFlakeIdGenerate.nextId();
-            mapper.saveFileInfo(fileName,format,fileNameInDataBase ,String.valueOf(localId),"123");
+            System.out.println("Uploading a new object to OSS from a file\n");
+            ossClient.putObject(new PutObjectRequest(bucketName, String.valueOf(localId), new ByteArrayInputStream(inputByte)));
+
+
+            ComMediaDocument comMediaDocument = new ComMediaDocument();
+            comMediaDocument.setDocu_local_id( String.valueOf(localId));
+            comMediaDocument.setDocu_local_name(fileName);
+            comMediaDocument.setDocu_local_format(format);
+            comMediaDocument.setDocu_server_ali_id(String.valueOf(localId));
+            comMediaDocument.setDocu_server_aws_id(String.valueOf(localId));
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            comMediaDocument.setCreate_time(time);
+            comMediaDocument.setIs_delete(0);
+            comMediaDocument.setIs_delete_time(null);
+            mapper.saveFileInfo(comMediaDocument);
 
         } catch (OSSException oe) {
             printOSSExceptionMessage(oe);
