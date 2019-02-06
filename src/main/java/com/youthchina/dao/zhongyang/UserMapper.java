@@ -19,4 +19,6 @@ public interface UserMapper {
     void insert(User user);
 
     void delete(Integer id);
+
+    void update(User user);
 }

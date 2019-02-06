@@ -1,7 +1,7 @@
 package com.youthchina.service.tianjian;
 
 import com.youthchina.dao.tianjian.PersonInfluenceMapper;
-import com.youthchina.domain.tianjian.PersonInfluencePoint;
+import com.youthchina.domain.tianjian.PersonInfluence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +10,15 @@ public class PersonInfluenceServiceImpl implements PersonInfluenceService {
     @Autowired
     PersonInfluenceMapper personInfluenceMapper;
     @Override
-    public int savePersonInfluence(PersonInfluencePoint personInfluencePoint) {
-        personInfluenceMapper.savePersonInfluence(personInfluencePoint);
+    public int savePersonInfluence(PersonInfluence personInfluence) {
+        personInfluenceMapper.savePersonInfluence(personInfluence);
         return 0;
     }
 
 
     @Override
-    public int updatePersonInfluence(PersonInfluencePoint personInfluencePoint) {
-        personInfluenceMapper.updatePersonInfluence(personInfluencePoint);
+    public int updatePersonInfluence(PersonInfluence personInfluence) {
+        personInfluenceMapper.updatePersonInfluence(personInfluence);
         return 0;
     }
 

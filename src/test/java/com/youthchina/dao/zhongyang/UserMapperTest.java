@@ -65,10 +65,31 @@ public class UserMapperTest {
         List<User> users = userMapper.findAll(ids);
         Assert.assertEquals(2, users.size());
         for (User user : users) {
-            if(user.getId() != 1 && user.getId() != 2){
+            if (user.getId() != 1 && user.getId() != 2) {
                 Assert.fail();
             }
         }
+    }
+
+    @Test
+    public void testDeleteUser() {
+        User user = userMapper.findOne(1);
+        Assert.assertNotNull(user);
+        userMapper.delete(1);
+        user = userMapper.findOne(1);
+        Assert.assertNull(user);
+    }
+
+    @Test
+    public void testUpdateUser() {
+        User user = userMapper.findOne(1);
+        Assert.assertNotNull(user);
+        Assert.assertEquals("China", user.getNation());
+        Assert.assertNotNull(user.getEmail());
+        user.setNation("US");
+        userMapper.update(user);
+        user = userMapper.findOne(1);
+        Assert.assertEquals("US", user.getNation());
     }
 
 }

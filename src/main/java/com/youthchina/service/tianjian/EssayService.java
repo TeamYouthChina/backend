@@ -1,9 +1,6 @@
 package com.youthchina.service.tianjian;
 
-import com.youthchina.domain.tianjian.ComEssay;
-import com.youthchina.domain.tianjian.ComEssayAttention;
-import com.youthchina.domain.tianjian.ComEssayReply;
-import com.youthchina.domain.tianjian.ComReplyEvaluate;
+import com.youthchina.domain.tianjian.*;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.service.DomainCRUDService;
 
@@ -13,7 +10,7 @@ import java.util.List;
 /**
  * Created by mapper.tianjian on 11/8/18.
  */
-public interface UserService extends DomainCRUDService<User, Integer> {
+public interface EssayService extends DomainCRUDService<User, Integer> {
 //    public CompanyInfo getCompanyInformation(String company_id);
 //
 //    public StuCollect getFavoriteCompany(StuCollect company);
@@ -32,7 +29,7 @@ public interface UserService extends DomainCRUDService<User, Integer> {
      * param ComEssay essay, List<Integer> lab_num, Integer user_id
      * return 0 or 1
      */
-    public int addEssay(ComEssay essay, List<Integer> lab_num, Integer user_id);
+    public int addEssay(ComEssay essay, List<Integer> lab_num, Integer user_id, Integer rela_type, Integer rela_id);
     /**
      * 删除文章
      * param Integer essay_id
@@ -55,6 +52,13 @@ public interface UserService extends DomainCRUDService<User, Integer> {
      * return ComEssay
      */
        public ComEssay getEssay(Integer essay_id);
+
+    /**
+     * 根据文章id获取文章作者
+     * param Integer essay_id
+     * return ComEssayMap
+     */
+      public ComAuthorEssayMap getEssayAuthor(Integer essay_id);
 
      /**
      * 添加文章关注

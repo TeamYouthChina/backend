@@ -5,7 +5,7 @@ import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.tianjian.ComEssayReply;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.tianjian.ComReplyEvaluate;
-import com.youthchina.domain.tianjian.PersonInfluencePoint;
+import com.youthchina.domain.tianjian.PersonInfluence;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class Influence {
     private Integer user_id;
     private Student student;
     private List<ComFriendRelation> comFriendRelations;
-    private List<PersonInfluencePoint> personInfluences;
+    private List<PersonInfluence> personInfluences;
     private List<AnswerEvaluate> answerEvaluates;
     private List<CommentEvaluate> commentEvaluates;
     private List<DiscussEvaluate> discussEvaluates;
@@ -81,11 +81,11 @@ public class Influence {
         this.comFriendRelations = comFriendRelations;
     }
 
-    public List<PersonInfluencePoint> getPersonInfluences() {
+    public List<PersonInfluence> getPersonInfluences() {
         return personInfluences;
     }
 
-    public void setPersonInfluences(List<PersonInfluencePoint> personInfluences) {
+    public void setPersonInfluences(List<PersonInfluence> personInfluences) {
         this.personInfluences = personInfluences;
     }
 

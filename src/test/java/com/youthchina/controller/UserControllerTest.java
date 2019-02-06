@@ -56,7 +56,7 @@ public class UserControllerTest {
     public void testLogin() throws Exception {
         this.mvc.perform(post(this.urlPrefix + "/login").param("id", "1").param("password", "123456"))
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"username\":\"yihao guo\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
                 .andExpect(header().exists("X-AUTHENTICATION"))
         ;
 

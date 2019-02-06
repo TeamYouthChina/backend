@@ -90,7 +90,7 @@
                                                       and re.EVALUATE_TYPE = 1) as newre on newre.NEW_ESSAY_USER_ID = u.USER_ID
         where u.USER_ID = #{user_id}
     </select>
-    <select id="getFriendInfluencePoints" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="getFriendInfluencePoints" parameterType="java.lang.Integer" resultType="java.lang.Float">
         select PERS_TOTAL from PERSON_INFLUENCE where USER_ID = #{user_id}
     </select>
     <select id="getInteraction" resultMap="influenceOfInteraction">
@@ -194,4 +194,5 @@
         order by cr.COMPANY_RANK asc
         limit 1
     </select>
+
 </mapper>

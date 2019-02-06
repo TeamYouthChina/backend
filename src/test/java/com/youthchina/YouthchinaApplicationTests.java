@@ -1,6 +1,7 @@
 package com.youthchina;
 
 import com.youthchina.service.tianjian.Idtest;
+import com.youthchina.service.tianjian.LocalFileManage;
 import com.youthchina.service.tianjian.SnowFlakeIdGenerate;
 import com.youthchina.service.tianjian.StaticFileSystemServiceImplALiCloud;
 import org.junit.Test;
@@ -22,6 +23,8 @@ public class YouthchinaApplicationTests {
     SnowFlakeIdGenerate snowFlakeIdGenerate;
     @Autowired
     StaticFileSystemServiceImplALiCloud staticFileSystemServiceImplALiCloud;
+    @Autowired
+    LocalFileManage localFileManage;
 
     @Test
     public void testupLoadFile() {
@@ -58,5 +61,20 @@ public class YouthchinaApplicationTests {
         System.out.println("end");
 
     }
+
+    @Test
+    public void testGenerateId() {
+        Long i = snowFlakeIdGenerate.nextId();
+        System.out.println(i);
+
+    }
+
+    @Test
+    public void testuploadFiletoLocal() {
+
+
+    }
+
+
 
 }

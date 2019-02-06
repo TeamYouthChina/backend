@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by zhongyangwu on 11/8/18.
+ * Created by tianjian chen
  */
-@Service("userService")
+@Service("essayService")
 @Transactional
-public class UserServiceImpl implements UserService {
+public class EssayServiceImpl implements EssayService {
     @Autowired
     CommunityMapper mapper;
 
     @Autowired
-    public UserServiceImpl(CommunityMapper mapper) {
+    public EssayServiceImpl(CommunityMapper mapper) {
         this.mapper = mapper;
     }
 
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public int addEssay(ComEssay essay, List<Integer> lab_num, Integer user_id) {
+    public int addEssay(ComEssay essay, List<Integer> lab_num, Integer user_id, Integer rela_type, Integer rela_id) {
         mapper.addEssay(essay);
         int essayid = essay.getEssay_id();
         List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
@@ -109,6 +109,8 @@ public class UserServiceImpl implements UserService {
         ComAuthorEssayMap caem = new ComAuthorEssayMap();
         caem.setEssay_id(essayid);
         caem.setUser_id(user_id);
+        caem.setRela_type(rela_type);
+        caem.setRela_id(rela_id);
         mapper.addEssayAuthor(caem);
         return 1;
     }
@@ -141,6 +143,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public ComEssay getEssay(Integer essay_id) {
         return mapper.getEssay(essay_id);
+    }
+
+    @Override
+    public ComAuthorEssayMap getEssayAuthor(Integer essay_id) {
+        return mapper.getEssayAuthor(essay_id);
     }
 
     @Override
