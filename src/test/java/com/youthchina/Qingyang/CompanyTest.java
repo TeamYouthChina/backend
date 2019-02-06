@@ -166,4 +166,15 @@ public class CompanyTest {
         companyMapper.deleteCompany(1);
     }
 
+    @Test
+    public void testGetCompanyByName(){
+        List<Company> companyList = companyMapper.selectCompanyByName("腾讯");
+        Assert.assertEquals(2, companyList.size());
+        Assert.assertEquals("腾讯", companyList.get(0).getCompanyName());
+        Assert.assertEquals("腾讯深圳总公司", companyList.get(1).getCompanyName());
+
+        companyList = companyMapper.selectCompanyByName("腾牛讯");
+        Assert.assertEquals(1, companyList.size());
+    }
+
 }
