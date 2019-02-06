@@ -49,7 +49,7 @@ public class SimpleJobDTO {
         this.organization = organization;
     }
 
-    public List<LocationDTO> getLocationList() {
+    public List<LocationDTO> getJobLocationList() {
         return LocationList;
     }
 

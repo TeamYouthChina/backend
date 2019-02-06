@@ -1,25 +1,24 @@
 package com.youthchina.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.youthchina.domain.Qinghong.Location;
 
 /**
  * Created by zhongyangwu on 12/2/18.
  */
 public class LocationDTO {
-    private Integer locationID;
+    private Integer region_num;
 
-    public LocationDTO(Location location){
-        this.locationID = location.getRegion_num();
+    public LocationDTO(Location location) {
+        this.region_num = location.getRegion_num();
     }
 
     public LocationDTO(){}
 
-    public Integer getlocationID() {
-        return locationID;
+    public void setRegion_num(Integer region_num) {
+        this.region_num = region_num;
     }
 
-    public void setCountry(Integer locationID) {
-        this.locationID = locationID;
+    public Integer getRegion_num() {
+        return region_num;
     }
 }

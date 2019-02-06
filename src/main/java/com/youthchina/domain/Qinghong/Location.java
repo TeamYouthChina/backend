@@ -24,7 +24,7 @@ public class Location {
     private Integer jobId;
 
     public Location(LocationDTO locationDTO){
-        this.region_num = locationDTO.getlocationID();
+        this.region_num = locationDTO.getRegion_num();
     }
 
     public Location(){}
