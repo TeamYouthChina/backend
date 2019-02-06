@@ -15,7 +15,7 @@ public class QuestionDTO {
     private String body;
     private Boolean isAnonymous;
     private Timestamp createAt;
-    private List<AnswerDTO> answers;
+    private List<SimpleAnswerDTO> answers;
 
     public Integer getId() {
         return id;
@@ -65,11 +65,11 @@ public class QuestionDTO {
         this.createAt = createAt;
     }
 
-    public List<AnswerDTO> getAnswers() {
+    public List<SimpleAnswerDTO> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<AnswerDTO> answers) {
+    public void setAnswers(List<SimpleAnswerDTO> answers) {
         this.answers = answers;
     }
 }
