@@ -54,14 +54,16 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createQuestion1Info(@RequestBody QuestionDTO questionDTO) {
+    public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO) {
         return add(questionDTO);
     }
 
-    @PostMapping("/{id}/invite")
-    public ResponseEntity<?> createQuestionInfo(@PathVariable Integer id, @RequestBody QuestionDTO questionDTO) {
-        return add(questionDTO);
-    }
+//    @PostMapping("/{id}/invite")
+//    public ResponseEntity<?> inviteUserAnswer(@PathVariable Integer id, @RequestBody Integer[] userid) {
+//
+//        communityQAService.invitToAnswer(,id);
+//        return add();
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateQuestionInfo(@RequestBody QuestionDTO questionDTO) throws NotFoundException {
