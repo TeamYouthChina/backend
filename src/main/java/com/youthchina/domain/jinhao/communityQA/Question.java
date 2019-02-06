@@ -39,6 +39,8 @@ public class Question implements HasId<Integer> {
 
     }
 
+    public Question(){}
+
     public Integer getId(){ return  ques_id; }
 
     public Job getJob() {

@@ -27,6 +27,8 @@ public class Location {
         this.region_num = locationDTO.getlocationID();
     }
 
+    public Location(){}
+
     public Integer getJobId() {
         return jobId;
     }

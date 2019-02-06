@@ -29,6 +29,8 @@ public class QuestionAnswer implements HasId<Integer> {
 
     }
 
+    public QuestionAnswer(){}
+
     public Integer getId(){
         return answer_id;
     }

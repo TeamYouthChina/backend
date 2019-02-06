@@ -60,6 +60,8 @@ public class Company {
         this.companyLogo = organizationDTO.getAvatarUrl();
     }
 
+    public Company(){}
+
     public List<Industry> getIndList() {
         return indList;
     }

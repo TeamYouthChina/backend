@@ -13,6 +13,8 @@ public class LocationDTO {
         this.locationID = location.getRegion_num();
     }
 
+    public LocationDTO(){}
+
     public Integer getlocationID() {
         return locationID;
     }
