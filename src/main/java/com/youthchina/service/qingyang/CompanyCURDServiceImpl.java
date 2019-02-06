@@ -43,6 +43,8 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         return companyMapper.selectCompany(result);
     }
 
+
+
     public void addInd(Company company) {
         companyMapper.insertCompanyInd(company.getIndList());
     }
@@ -54,5 +56,11 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     public void updateInd(Company company) throws NotFoundException {
         this.deleteInd(company);
         this.addInd(company);
+    }
+
+
+    @Override
+    public List<Company> getByName(String comName) {
+        return companyMapper.selectCompanyByName(comName);
     }
 }

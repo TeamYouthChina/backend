@@ -52,15 +52,13 @@ public class Company {
     /*认证信息*/
     private List<CompanyVerification> verificationList;
 
-    /*Setter and Getter*/
-
-    public Company(OrganizationDTO organizationDTO){
+    public Company(OrganizationDTO organizationDTO) {
         this.companyId = organizationDTO.getId();
         this.companyName = organizationDTO.getName();
         this.companyLogo = organizationDTO.getAvatarUrl();
     }
 
-    public Company(){}
+    public  Company() {}
 
     public List<Industry> getIndList() {
         return indList;

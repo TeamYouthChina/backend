@@ -19,6 +19,10 @@ public class QuestionDTO {
     private Timestamp createAt;
     private List<SimpleAnswerDTO> answers;
     private AnswerInvitation answerInvitation;
+    private List<Integer> lables;
+    private Integer rele_type;
+    private Integer rele_id;
+
 
     public QuestionDTO(Question question){
         this.id = question.getQues_id();

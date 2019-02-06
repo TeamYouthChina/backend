@@ -71,10 +71,10 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         return ResponseEntity.ok(jobSearchDTO);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getJob(@PathVariable Integer id) throws NotFoundException {
-        return get(id);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<?> getJob(@PathVariable Integer id) throws NotFoundException {
+//        return get(id);
+//    }
 
     @PostMapping("/")
     public ResponseEntity<?> createStudentInfo(@RequestBody SimpleJobDTO simpleJobDTO) {
