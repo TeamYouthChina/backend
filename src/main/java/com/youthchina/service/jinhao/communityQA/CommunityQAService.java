@@ -60,7 +60,7 @@ public interface CommunityQAService {
 
     List<AnswerInvitation> listInvitationGot(Integer user_id) throws NotFoundException;
     List<Integer> listUsersInvitedByMeToQuestion(Integer user_id, Integer ques_id) throws NotFoundException;
-    Integer invitToAnswer(AnswerInvitation answerInvitation, Integer ques_id,
+    Integer invitToAnswer(Integer invit_user_id, Integer ques_id,
                           Integer invited_user_id) throws NotFoundException;
     AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
     Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;

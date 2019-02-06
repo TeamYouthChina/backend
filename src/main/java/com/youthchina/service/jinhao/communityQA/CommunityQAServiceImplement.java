@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -756,19 +757,25 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         }
     }
 
+
     /**
-     * 邀请某人回答问题
-     * @param answerInvitation 邀请的对象
-     * @param ques_id 问题的id
-     * @param invited_user_id 被邀请人的id
-     * @return 邀请成功返回1
-     * @throws NotFoundException
+     * add invitation
+     * @param invit_user_id id of user who send the invitation
+     * @param ques_id id of question to which the user invite others
+     * @param invited_user_id id of user who is invited
+     * @return return 1 if success
+     * @throws NotFoundException if the question
      */
     @Override
     @Transactional
-    public Integer invitToAnswer(AnswerInvitation answerInvitation, Integer ques_id,
+    public Integer invitToAnswer(Integer invit_user_id, Integer ques_id,
                                  Integer invited_user_id) throws NotFoundException{
         getQuestion(ques_id);
+        AnswerInvitation answerInvitation = new AnswerInvitation();
+        answerInvitation.setInvit_user_id(invit_user_id);
+        answerInvitation.setInvit_accept(0);
+        answerInvitation.setInvit_ques_id(ques_id);
+        answerInvitation.setInvit_time(new Timestamp(System.currentTimeMillis()));
         communityQAMapper.addInvitation(answerInvitation);
         communityQAMapper.createMapBetweenInvitationAndQuestion(answerInvitation.getInvit_id(),
                 invited_user_id);
