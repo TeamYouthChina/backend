@@ -335,7 +335,7 @@
     <!--delete Company's Industries By CompanyID-->
     <update id="deleteCompanyInd" parameterType="java.lang.Integer">
       UPDATE COMPANY_INDUSTRY SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-      WHERE COMPANY_INDUS_ID = #{id}
+      WHERE COMPANY_ID = #{id}
     </update>
 
 </mapper>
