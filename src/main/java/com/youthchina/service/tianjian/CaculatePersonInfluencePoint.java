@@ -11,6 +11,7 @@ import com.youthchina.domain.tianjian.PersonInfluence;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +29,7 @@ import java.util.List;
 * 点赞数 The answers or articles are liked by others 10%
 * 公司&职位评价 Evaluation of company or job 10%
 * */
+@Service
 public class CaculatePersonInfluencePoint {
     @Autowired
     PersonInfluenceMapper personInfluenceMapper;
@@ -85,36 +87,41 @@ public class CaculatePersonInfluencePoint {
      * */
     public static Integer caculatePersonInfluencePointPersonalProfile(Student student){
         Integer pers_profile_in = new Integer(0);
-        if(student.getIsInJob()!=null){
-            pers_profile_in++;
+        if(student!=null){
+            if(student.getIsInJob()!=null){
+                pers_profile_in++;
+            }
+            if (student.getCurrentCompanyName()!=null||student.getCurrentCompanyName()!=""){
+                pers_profile_in++;
+            }
+            if(student.getActivities()!=null){
+                pers_profile_in++;
+            }
+            if(student.getCertificates()!=null){
+                pers_profile_in++;
+            }
+            if(student.getAdvantageLabels()!=null){
+                pers_profile_in++;
+            }
+            if(student.getSubInfo()!=null){
+                pers_profile_in++;
+            }
+            if(student.getWorks()!=null){
+                pers_profile_in++;
+            }
+            if(student.getProjects()!=null){
+                pers_profile_in++;
+            }
+            if(student.getEducationInfos()!=null){
+                pers_profile_in++;
+            }
+            if(student.getIntroductionVideo()!=null){
+                pers_profile_in++;
+            }
+        }else{
+            pers_profile_in = 0;
         }
-        if (student.getCurrentCompanyName()!=null||student.getCurrentCompanyName()!=""){
-            pers_profile_in++;
-        }
-        if(student.getActivities()!=null){
-            pers_profile_in++;
-        }
-        if(student.getCertificates()!=null){
-            pers_profile_in++;
-        }
-        if(student.getAdvantageLabels()!=null){
-            pers_profile_in++;
-        }
-        if(student.getSubInfo()!=null){
-            pers_profile_in++;
-        }
-        if(student.getWorks()!=null){
-            pers_profile_in++;
-        }
-        if(student.getProjects()!=null){
-            pers_profile_in++;
-        }
-        if(student.getEducationInfos()!=null){
-            pers_profile_in++;
-        }
-        if(student.getIntroductionVideo()!=null){
-            pers_profile_in++;
-        }
+
         return pers_profile_in * 10;
     }
 
@@ -123,11 +130,13 @@ public class CaculatePersonInfluencePoint {
     * */
     public static Integer caculatePersonInfluencePointIdentifyValidation(Student student){
         Integer pers_ident_verify_in = new Integer(0);
-        if(student.getPhonenumber()!=null){
-            pers_ident_verify_in += 50;
-        }
-        if(student.getEmail()!=null){
-            pers_ident_verify_in += 50;
+        if(student!=null){
+            if(student.getPhonenumber()!=null){
+                pers_ident_verify_in += 50;
+            }
+            if(student.getEmail()!=null){
+                pers_ident_verify_in += 50;
+            }
         }
             return pers_ident_verify_in;
     }
@@ -137,30 +146,32 @@ public class CaculatePersonInfluencePoint {
     * */
     public static Integer caculatePersonInfluencePointUniversity(Integer universityRank){
         Integer pers_university_in = new Integer(0);
-        if(universityRank<=20&&universityRank>0){
-            pers_university_in = 100;
-        }else if(universityRank<=100&&universityRank>20){
-            pers_university_in = 95;
-        }else if(universityRank<=200&&universityRank>100){
-            pers_university_in = 90;
-        }else if(universityRank<=300&&universityRank>200){
-            pers_university_in = 85;
-        }else if(universityRank<=400&&universityRank>300){
-            pers_university_in = 80;
-        }else if(universityRank<=500&&universityRank>400){
-            pers_university_in = 75;
-        }else if(universityRank<=600&&universityRank>500){
-            pers_university_in = 70;
-        }else if(universityRank<=700&&universityRank>600){
-            pers_university_in = 65;
-        }else if(universityRank<=800&&universityRank>700){
-            pers_university_in = 60;
-        }else if(universityRank<=1000&&universityRank>800){
-            pers_university_in = 55;
-        }else if(universityRank<=1250&&universityRank>1000){
-            pers_university_in = 50;
-        }else {
-            pers_university_in = 40;
+        if(universityRank!=null){
+            if(universityRank<=20&&universityRank>0){
+                pers_university_in = 100;
+            }else if(universityRank<=100&&universityRank>20){
+                pers_university_in = 95;
+            }else if(universityRank<=200&&universityRank>100){
+                pers_university_in = 90;
+            }else if(universityRank<=300&&universityRank>200){
+                pers_university_in = 85;
+            }else if(universityRank<=400&&universityRank>300){
+                pers_university_in = 80;
+            }else if(universityRank<=500&&universityRank>400){
+                pers_university_in = 75;
+            }else if(universityRank<=600&&universityRank>500){
+                pers_university_in = 70;
+            }else if(universityRank<=700&&universityRank>600){
+                pers_university_in = 65;
+            }else if(universityRank<=800&&universityRank>700){
+                pers_university_in = 60;
+            }else if(universityRank<=1000&&universityRank>800){
+                pers_university_in = 55;
+            }else if(universityRank<=1250&&universityRank>1000){
+                pers_university_in = 50;
+            }else {
+                pers_university_in = 40;
+            }
         }
 
         return pers_university_in;
@@ -171,24 +182,26 @@ public class CaculatePersonInfluencePoint {
     * */
     public static Integer caculatePersonInfluencePointWork(Integer comanyRank){
         Integer pers_work_in = new Integer(0);
-        if(comanyRank<=10&&comanyRank>0){
-            pers_work_in = 100;
-        }else if(comanyRank<=20&&comanyRank>10){
-            pers_work_in = 95;
-        }else if(comanyRank<=50&&comanyRank>20){
-            pers_work_in = 90;
-        }else if(comanyRank<=100&&comanyRank>50){
-            pers_work_in = 85;
-        }else if(comanyRank<=200&&comanyRank>100){
-            pers_work_in = 80;
-        }else if(comanyRank<=300&&comanyRank>200){
-            pers_work_in = 75;
-        }else if(comanyRank<=400&&comanyRank>300){
-            pers_work_in = 70;
-        }else if(comanyRank<=500&&comanyRank>400){
-            pers_work_in = 65;
-        }else{
-            pers_work_in = 50;
+        if(comanyRank!=null){
+            if(comanyRank<=10&&comanyRank>0){
+                pers_work_in = 100;
+            }else if(comanyRank<=20&&comanyRank>10){
+                pers_work_in = 95;
+            }else if(comanyRank<=50&&comanyRank>20){
+                pers_work_in = 90;
+            }else if(comanyRank<=100&&comanyRank>50){
+                pers_work_in = 85;
+            }else if(comanyRank<=200&&comanyRank>100){
+                pers_work_in = 80;
+            }else if(comanyRank<=300&&comanyRank>200){
+                pers_work_in = 75;
+            }else if(comanyRank<=400&&comanyRank>300){
+                pers_work_in = 70;
+            }else if(comanyRank<=500&&comanyRank>400){
+                pers_work_in = 65;
+            }else{
+                pers_work_in = 50;
+            }
         }
 
         return pers_work_in;
@@ -200,13 +213,14 @@ public class CaculatePersonInfluencePoint {
     public static Integer caculatePersonInfluenceFriendCount(List<ComFriendRelation> friendRelationList){
         Integer pers_friend_count_in = new Integer(0);
         if(friendRelationList!=null){
-            if(friendRelationList.size()<100){
-                pers_friend_count_in = friendRelationList.size();
-            }else{
-                pers_friend_count_in = 100;
+            if(friendRelationList!=null){
+                if(friendRelationList.size()<100){
+                    pers_friend_count_in = friendRelationList.size();
+                }else{
+                    pers_friend_count_in = 100;
+                }
             }
         }
-       
         return pers_friend_count_in;
     }
 
