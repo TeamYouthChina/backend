@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -128,7 +129,4 @@ public class StudentControllerTest {
                 .andExpect(content().json("{\"content\":[{\"name\":\"volunteer\",\"role\":\"worker\",\"organization\":\"gwu\",\"duration\":{\"begin\":\"2018-10-11T04:00:00.000+0000\",\"end\":\"2018-10-12T04:00:00.000+0000\"},\"location\":null,\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}\n"))
         ;
     }
-    
-
-
 }
