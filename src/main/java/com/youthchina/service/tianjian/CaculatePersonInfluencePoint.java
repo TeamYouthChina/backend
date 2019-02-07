@@ -2,6 +2,7 @@ package com.youthchina.service.tianjian;
 
 import com.youthchina.dao.jinhao.InfluenceMapper;
 import com.youthchina.dao.tianjian.PersonInfluenceMapper;
+import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.tianjian.ComEssayReply;
@@ -309,8 +310,8 @@ public class CaculatePersonInfluencePoint {
         List<Influence> influenceInteraction = new ArrayList<Influence>();
         pers_profile = caculatePersonInfluencePointPersonalProfile(influence.getStudent()) * pers_profile_rate;
         pers_ident_verify = caculatePersonInfluencePointIdentifyValidation(influence.getStudent()) * pers_ident_verify_rate;
-
-        Integer universityRank = influenceMapper.getBestEducation(influence.getStudent().getEducationInfos());
+        List<EducationInfo> educationInfos = influence.getStudent().getEducationInfos();
+        Integer universityRank = influenceMapper.getBestEducation(educationInfos);
         pers_university = caculatePersonInfluencePointUniversity(universityRank) * pers_university_rate;
 
         Integer companyRank = influenceMapper.getBestWork(influence.getStudent().getWorks());
