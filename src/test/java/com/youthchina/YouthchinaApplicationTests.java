@@ -26,6 +26,7 @@ public class YouthchinaApplicationTests {
     @Autowired
     LocalFileManage localFileManage;
 
+
     @Test
     public void testupLoadFile() {
        File file = new File("D:\\LocalFileStore\\video.mp4");
@@ -73,8 +74,9 @@ public class YouthchinaApplicationTests {
 
     @Test
     public void testuploadFiletoLocal() {
+        File file = new File("D:\\video.mp4");
+        String path = localFileManage.uploadFileToLocal(file,".mp4");
+        System.out.println(path);
     }
-
-
 
 }

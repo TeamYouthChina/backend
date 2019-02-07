@@ -80,7 +80,7 @@
         =
         0
     </sql>
-    <select id="findOne" resultMap="User" parameterType="Integer">
+    <select id="findOne" resultMap="User" parameterType="java.lang.Integer">
         SELECT *
         <include refid="userTable"/>
         WHERE SYS_USER.USER_ID = #{id, jdbcType=INTEGER} AND
