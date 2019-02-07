@@ -1,23 +1,26 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.dto.LocationDTO;
+import com.youthchina.dto.SimpleJobDTO;
+import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Job {
+public class Job implements HasId<Integer> {
     /*主键, 职位ID (JOB_INFO)*/
     private Integer jobId;
 
-    private String  jobName;
-    private String  jobProfCode;
-    private Date    jobStartTime;
-    private Date    jobEndTime;
+    private String jobName;
+    private String jobProfCode;
+    private Date jobStartTime;
+    private Date jobEndTime;
     private Integer jobType;
-    private String  jobDescription;
-    private String  jobDuty;
-    private String  jobHighlight;
+    private String jobDescription;
+    private String jobDuty;
+    private String jobHighlight;
 
 /*
 create table JOB_INFO
@@ -55,9 +58,9 @@ comment '职位基本信息表';
 
     private Integer jobSalaryFloor;
     private Integer jobSalaryCap;
-    private String  jobLink;
-    private String  cvReceiMail;
-    private String  cvNameRule;
+    private String jobLink;
+    private String cvReceiMail;
+    private String cvNameRule;
     private Integer jobActive;
     private List<Location> jobLocationList;
     private List<Degree> jobReqList;
@@ -70,6 +73,22 @@ comment '职位基本信息表';
 
     private Company company;
     private Hr hr;
+
+    public Job() {
+    }
+
+    public Job(SimpleJobDTO simpleJobDTO) {
+        this.jobId = simpleJobDTO.getId();
+        this.jobName = simpleJobDTO.getName();
+        this.company = new Company(simpleJobDTO.getOrganization());
+        for (LocationDTO locationDTO : simpleJobDTO.getJobLoationList()) {
+            this.jobLocationList.add(new Location(locationDTO));
+        }
+    }
+
+    public Integer getId() {
+        return jobId;
+    }
 
     public Company getCompany() {
         return company;

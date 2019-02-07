@@ -1,5 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.dto.LocationDTO;
+
 import java.sql.Timestamp;
 
 /**
@@ -20,6 +22,12 @@ public class Location {
 
     //for insert to JOB_LOCATION
     private Integer jobId;
+
+    public Location(LocationDTO locationDTO) {
+        this.region_num = locationDTO.getRegion_num();
+    }
+
+    public Location() {};
 
     public Integer getJobId() {
         return jobId;

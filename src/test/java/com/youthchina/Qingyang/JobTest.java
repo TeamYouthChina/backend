@@ -180,7 +180,12 @@ public class JobTest {
                 "", degreeList, industryList);
         Assert.assertEquals(2, jobList.size());
 
-
+        //Search Job by Name
+        jobList = jobMapper.getJobByMore(null,"front",null,null,
+                null, null, null, null, null, null,
+                null, null, null);
+        Assert.assertEquals(1, jobList.size());
+        
 
     }
 }

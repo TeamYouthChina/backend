@@ -4,6 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.jinhao.CommunityQAMapper;
 import com.youthchina.domain.jinhao.communityQA.*;
+import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.After;
 import org.junit.Assert;
@@ -52,6 +53,7 @@ public class CommunityQAMapperTest extends BaseTest {
         question.setQues_edit_time(Timestamp.valueOf("2018-10-11 11:11:11"));
         question.setIs_delete(0);
         question.setIs_delete_time(Timestamp.valueOf("2018-10-11 11:11:11"));
+        question.setUser_anony(1);
         communityQAMapper.addQuestion(question);
         Assert.assertNotNull(question.getQues_id());
         Question createQuestion = communityQAMapper.getQuestion(question.getQues_id());
@@ -63,9 +65,10 @@ public class CommunityQAMapperTest extends BaseTest {
     public void testGetMyQuestionAndCreateMapBetweenUserAndQuestion() {
         communityQAMapper.createMapBetweenQuestionAndUser(3, 1, 2, 3);
         List<Question> questionList = communityQAMapper.getMyQuestions(1);
-        Assert.assertEquals(3, questionList.size());
+        Assert.assertEquals(4, questionList.size());
         for (Question question : questionList) {
-            if (question.getQues_id() != 1 && question.getQues_id() != 2 && question.getQues_id() != 3) {
+            if (question.getQues_id() != 1 && question.getQues_id() != 2 && question.getQues_id() != 3
+            && question.getQues_id() != 4) {
                 Assert.fail();
             }
         }
@@ -735,7 +738,7 @@ public class CommunityQAMapperTest extends BaseTest {
         Video video = new Video();
         video.setIs_delete(0);
         video.setIs_delete_time(Timestamp.valueOf("2018-11-11 11:11:22"));
-        video.setVideo_path("important");
+        video.setVideo_name("important");
         video.setVideo_title("first");
         video.setVideo_upload_time(Timestamp.valueOf("2018-11-11 11:11:22"));
         communityQAMapper.addVideo(video);
@@ -747,7 +750,7 @@ public class CommunityQAMapperTest extends BaseTest {
     //测试能不能建立映射
     @Test
     public void createUserVideoMap() {
-        communityQAMapper.createMapBetweenVideoAndUser(2, 1, 2,1);
+        communityQAMapper.createMapBetweenVideoAndUser(2, 1, 1,2);
         List<Video> videos = communityQAMapper.listAllMyVideos(1);
         Assert.assertEquals(4, videos.size());
         for (Video video : videos) {
@@ -1069,6 +1072,10 @@ public class CommunityQAMapperTest extends BaseTest {
         for (VideoComment videoComment : videoComments) {
             System.out.print(videoComment.getComment_id());
         }
+        Company company = video.getCompany();
+        Assert.assertNotNull(company);
+        Integer id = 1;
+        Assert.assertEquals(id, company.getCompanyId());
     }
 
     @Test
@@ -1085,5 +1092,49 @@ public class CommunityQAMapperTest extends BaseTest {
         System.out.println(communityQAMapper.isAnswerBelongToQuestion(5,2));
     }
 
+    @Test
+    public void getQuestionIdByTitleOrCompanyName(){
+        List<Integer> quesids = communityQAMapper.getQuestionIdByTitleOrCompanyName("第二个");
+        Assert.assertEquals(1, quesids.size());
+        for(Integer ques_id : quesids){
+            if(ques_id != 2){
+                Assert.fail();
+            }
+        }
+        List<Integer> c_quesids = communityQAMapper.getQuestionIdByTitleOrCompanyName("百度");
+        Assert.assertEquals(1, c_quesids.size());
+        for(Integer ques_id : c_quesids){
+            if(ques_id != 4){
+                Assert.fail();
+            }
+        }
+        List<Integer> j_quesids = communityQAMapper.getQuestionIdByTitleOrCompanyName("front");
+        Assert.assertEquals(1, j_quesids.size());
+        for(Integer ques_id : j_quesids){
+            if(ques_id != 2){
+                Assert.fail();
+            }
+        }
+    }
+
+    @Test
+    public void getVideoIdByTitleOrCompanyName(){
+        List<Integer> videoids = communityQAMapper.getVideoIdByTitleOrCompanyName("2");
+        Assert.assertEquals(1, videoids.size());
+        for(Integer video_id : videoids){
+            if(video_id != 2){
+                Assert.fail();
+            }
+        }
+        List<Integer> c_videoids = communityQAMapper.getVideoIdByTitleOrCompanyName("大疆");
+        Assert.assertEquals(1, c_videoids.size());
+        for(Integer video_id : c_videoids){
+            if(video_id != 1){
+                Assert.fail();
+            }
+        }
+        List<Integer> noids = communityQAMapper.getVideoIdByTitleOrCompanyName("郭德纲");
+        Assert.assertEquals(0, noids.size());
+    }
 }
 
