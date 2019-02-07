@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -23,6 +25,62 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
     @Resource
     JobMapper jobHrMapper;
+
+    /**
+     * search questions by its title or relative company or job name
+     * @param searchContent title or company name
+     * @return list of questions
+     * @throws NotFoundException if the result of search is null, throw exception
+     */
+    @Override
+    @Transactional
+    public List<Question> searchQuestionByTitleOrCompanyName(String searchContent) throws NotFoundException{
+        List<Integer> question_ids = getQuestionIdByTitleOrCompanyName(searchContent);
+        if(question_ids.size() == 0) throw new NotFoundException(404,404,"没有搜索到相关的问题");
+        List<Question> questions = new LinkedList<>();
+        for(Integer ques_id : question_ids){
+            questions.add(communityQAMapper.getQuestionById(ques_id));
+        }
+        return questions;
+    }
+
+    /**
+     * get question id  by its title or relative company or job name
+     * @param searchContent title or company or job name
+     * @return list of question ids
+     */
+    @Override
+    public List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent) {
+        return communityQAMapper.getQuestionIdByTitleOrCompanyName(searchContent);
+    }
+
+    /**
+     * search videos by its title or relative company name
+     * @param searchContent title or company or name
+     * @return list of videos
+     * @throws NotFoundException if the result of search is null, throw exception
+     */
+    @Override
+    @Transactional
+    public List<Video> searchVideoByTitleOrCompanyName(String searchContent) throws NotFoundException{
+        List<Integer> video_ids = getVideoIdByTitleOrCompanyName(searchContent);
+        if(video_ids.size() == 0) throw new NotFoundException(404,404,"没有搜索到相关的视频");
+        List<Video> videos = new LinkedList<>();
+        for(Integer video_id : video_ids){
+            videos.add(communityQAMapper.getVideoById(video_id));
+        }
+        return videos;
+    }
+
+    /**
+     * get video id by its title or relative company name
+     * @param searchContent title or company name
+     * @return list of video ids
+     */
+    @Override
+    public List<Integer> getVideoIdByTitleOrCompanyName(String searchContent) {
+        return communityQAMapper.getVideoIdByTitleOrCompanyName(searchContent);
+    }
 
     /**
      * Judge if an answer is belong to a question
@@ -48,7 +106,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         if(question == null){
             throw new NotFoundException(404,404,"没有找到这个问题");
         }
-        //judge whether the question is relative to company or job
         QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(ques_id);
         if(questionRelaTypeAndId.getRela_type() == 2){
             Company company = companyMapper.selectCompany(questionRelaTypeAndId.getRela_id());
@@ -78,7 +135,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
     /**
      * 拿到问题，如果问题不存在，抛出异常
-     * @param ques_id id of question
+     * @param ques_id
      * @return 返回一个问题的对象
      * @throws NotFoundException
      */
@@ -700,19 +757,25 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         }
     }
 
+
     /**
-     * 邀请某人回答问题
-     * @param answerInvitation 邀请的对象
-     * @param ques_id 问题的id
-     * @param invited_user_id 被邀请人的id
-     * @return 邀请成功返回1
-     * @throws NotFoundException
+     * add invitation
+     * @param invit_user_id id of user who send the invitation
+     * @param ques_id id of question to which the user invite others
+     * @param invited_user_id id of user who is invited
+     * @return return 1 if success
+     * @throws NotFoundException if the question
      */
     @Override
     @Transactional
-    public Integer invitToAnswer(AnswerInvitation answerInvitation, Integer ques_id,
+    public Integer invitToAnswer(Integer invit_user_id, Integer ques_id,
                                  Integer invited_user_id) throws NotFoundException{
         getQuestion(ques_id);
+        AnswerInvitation answerInvitation = new AnswerInvitation();
+        answerInvitation.setInvit_user_id(invit_user_id);
+        answerInvitation.setInvit_accept(0);
+        answerInvitation.setInvit_ques_id(ques_id);
+        answerInvitation.setInvit_time(new Timestamp(System.currentTimeMillis()));
         communityQAMapper.addInvitation(answerInvitation);
         communityQAMapper.createMapBetweenInvitationAndQuestion(answerInvitation.getInvit_id(),
                 invited_user_id);

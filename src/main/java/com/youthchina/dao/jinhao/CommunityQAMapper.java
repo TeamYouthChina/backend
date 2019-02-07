@@ -212,4 +212,6 @@ public interface CommunityQAMapper {
     CommentDiscuss getAnswerDiscussById(Integer discuss_id);
     Video getVideoById(Integer video_id);
     boolean isAnswerBelongToQuestion(@Param("answer_id") Integer answer_id, @Param("ques_id") Integer ques_id);
+    List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent);
+    List<Integer> getVideoIdByTitleOrCompanyName(String searchContent);
 }

@@ -1,6 +1,7 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.dto.OrganizationDTO;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -50,6 +51,14 @@ public class Company {
 
     /*认证信息*/
     private List<CompanyVerification> verificationList;
+
+    public Company(OrganizationDTO organizationDTO) {
+        this.companyId = organizationDTO.getId();
+        this.companyName = organizationDTO.getName();
+        this.companyLogo = organizationDTO.getAvatarUrl();
+    }
+
+    public  Company() {}
 
     /*Setter and Getter*/
 

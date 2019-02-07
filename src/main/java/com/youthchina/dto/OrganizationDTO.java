@@ -16,7 +16,6 @@ public class OrganizationDTO {
         this.avatarUrl = company.getCompanyLogo();
     }
 
-
     public int getId() {
         return id;
     }
