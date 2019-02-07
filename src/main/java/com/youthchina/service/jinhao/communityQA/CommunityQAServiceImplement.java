@@ -6,12 +6,12 @@ import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
-import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +26,68 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Resource
     JobMapper jobHrMapper;
 
+    /**
+     * search questions by its title or relative company or job name
+     * @param searchContent title or company name
+     * @return list of questions
+     * @throws NotFoundException if the result of search is null, throw exception
+     */
+    @Override
+    @Transactional
+    public List<Question> searchQuestionByTitleOrCompanyName(String searchContent) throws NotFoundException{
+        List<Integer> question_ids = getQuestionIdByTitleOrCompanyName(searchContent);
+        if(question_ids.size() == 0) throw new NotFoundException(404,404,"没有搜索到相关的问题");
+        List<Question> questions = new LinkedList<>();
+        for(Integer ques_id : question_ids){
+            questions.add(communityQAMapper.getQuestionById(ques_id));
+        }
+        return questions;
+    }
+
+    /**
+     * get question id  by its title or relative company or job name
+     * @param searchContent title or company or job name
+     * @return list of question ids
+     */
+    @Override
+    public List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent) {
+        return communityQAMapper.getQuestionIdByTitleOrCompanyName(searchContent);
+    }
+
+    /**
+     * search videos by its title or relative company name
+     * @param searchContent title or company or name
+     * @return list of videos
+     * @throws NotFoundException if the result of search is null, throw exception
+     */
+    @Override
+    @Transactional
+    public List<Video> searchVideoByTitleOrCompanyName(String searchContent) throws NotFoundException{
+        List<Integer> video_ids = getVideoIdByTitleOrCompanyName(searchContent);
+        if(video_ids.size() == 0) throw new NotFoundException(404,404,"没有搜索到相关的视频");
+        List<Video> videos = new LinkedList<>();
+        for(Integer video_id : video_ids){
+            videos.add(communityQAMapper.getVideoById(video_id));
+        }
+        return videos;
+    }
+
+    /**
+     * get video id by its title or relative company name
+     * @param searchContent title or company name
+     * @return list of video ids
+     */
+    @Override
+    public List<Integer> getVideoIdByTitleOrCompanyName(String searchContent) {
+        return communityQAMapper.getVideoIdByTitleOrCompanyName(searchContent);
+    }
+
+    /**
+     * Judge if an answer is belong to a question
+     * @param answer_id id of answer
+     * @param ques_id id of question
+     * @return true or false
+     */
     @Override
     public Question get(Integer id) throws NotFoundException {
         Question question = communityQAMapper.getQuestionById(id);
@@ -69,6 +131,12 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         return communityQAMapper.isAnswerBelongToQuestion(answer_id, ques_id);
     }
 
+    /**
+     * Get all the information of a question by its id
+     * @param ques_id id of question
+     * @return Question object
+     * @throws NotFoundException if the question dose not exist, throw exception
+     */
     @Override
     @Transactional
     public Question getQuestionInfoById(Integer ques_id) throws NotFoundException {
@@ -76,46 +144,16 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         if(question == null){
             throw new NotFoundException(404,404,"没有找到这个问题");
         }
-        QuestionReleTypeAndId questionReleTypeAndId = communityQAMapper.getQuestionReleTypeAndReleId(ques_id);
-        if(questionReleTypeAndId.getRele_type() == 2){
-            Company company = companyMapper.selectCompany(questionReleTypeAndId.getRele_id());
+        QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(ques_id);
+        if(questionRelaTypeAndId.getRela_type() == 2){
+            Company company = companyMapper.selectCompany(questionRelaTypeAndId.getRela_id());
             question.setCompany(company);
-        }else if(questionReleTypeAndId.getRele_type() == 3){
-            Job job = jobHrMapper.selectJobByJobId(questionReleTypeAndId.getRele_id());
+        }else if(questionRelaTypeAndId.getRela_type() == 3){
+            Job job = jobHrMapper.selectJobByJobId(questionRelaTypeAndId.getRela_id());
             question.setJob(job);
         }
         return question;
     }
-
-    /**
-     * 列出前十个问题，并且拿到每个问题的热门回答以及热门回答的作者，如果没有问题，抛出异常
-     * @return 返回得到的question的结果
-     * @throws NotFoundException
-     */
-    @Override
-    @Transactional
-    public List<Question> listAllQuestionAndPopAnswer() throws NotFoundException{
-        List<Question> res = new LinkedList<>();
-        List<Question> questions = listQuestion();
-        for  (Question question : questions) {
-            List<QuestionAnswer> answers = listAllAnswer(question.getQues_id());
-            int max = 0;
-            QuestionAnswer popAnswer = null;
-            for (QuestionAnswer answer: answers) {
-                int cur = countAgreement(answer.getAnswer_id());
-                if(cur >= max){
-                    max = cur;
-                    popAnswer = answer;
-                }
-            }
-            User answer_user = null;
-            res.add(question);
-        }
-        return res;
-    }
-
-
-
 
     /**
      * 添加问题，建立问题和用户的映射，建立问题和标签的映射
@@ -126,10 +164,10 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rele_type, Integer rele_id) {
+    public Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rela_type, Integer rela_id) {
         communityQAMapper.addQuestion(question);
         communityQAMapper.addLabels(labels, question.getQues_id());
-        communityQAMapper.createMapBetweenQuestionAndUser(question.getQues_id(), user_id, rele_type, rele_id);
+        communityQAMapper.createMapBetweenQuestionAndUser(question.getQues_id(), user_id, rela_type, rela_id);
         return 1;
     }
 
@@ -757,19 +795,25 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         }
     }
 
+
     /**
-     * 邀请某人回答问题
-     * @param answerInvitation 邀请的对象
-     * @param ques_id 问题的id
-     * @param invited_user_id 被邀请人的id
-     * @return 邀请成功返回1
-     * @throws NotFoundException
+     * add invitation
+     * @param invit_user_id id of user who send the invitation
+     * @param ques_id id of question to which the user invite others
+     * @param invited_user_id id of user who is invited
+     * @return return 1 if success
+     * @throws NotFoundException if the question
      */
     @Override
     @Transactional
-    public Integer invitToAnswer(AnswerInvitation answerInvitation, Integer ques_id,
+    public Integer invitToAnswer(Integer invit_user_id, Integer ques_id,
                                  Integer invited_user_id) throws NotFoundException{
         getQuestion(ques_id);
+        AnswerInvitation answerInvitation = new AnswerInvitation();
+        answerInvitation.setInvit_user_id(invit_user_id);
+        answerInvitation.setInvit_accept(0);
+        answerInvitation.setInvit_ques_id(ques_id);
+        answerInvitation.setInvit_time(new Timestamp(System.currentTimeMillis()));
         communityQAMapper.addInvitation(answerInvitation);
         communityQAMapper.createMapBetweenInvitationAndQuestion(answerInvitation.getInvit_id(),
                 invited_user_id);
@@ -857,9 +901,9 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addVideo(Video video, Integer user_id) {
+    public Integer addVideo(Video video, Integer user_id, Integer rela_type, Integer rela_id) {
         communityQAMapper.addVideo(video);
-        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), user_id);
+        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), user_id, rela_type, rela_id);
         return 1;
     }
 
