@@ -199,11 +199,14 @@ public class CaculatePersonInfluencePoint {
     * */
     public static Integer caculatePersonInfluenceFriendCount(List<ComFriendRelation> friendRelationList){
         Integer pers_friend_count_in = new Integer(0);
-        if(friendRelationList.size()<100){
-            pers_friend_count_in = friendRelationList.size();
-        }else{
-            pers_friend_count_in = 100;
+        if(friendRelationList!=null){
+            if(friendRelationList.size()<100){
+                pers_friend_count_in = friendRelationList.size();
+            }else{
+                pers_friend_count_in = 100;
+            }
         }
+       
         return pers_friend_count_in;
     }
 
@@ -212,12 +215,15 @@ public class CaculatePersonInfluencePoint {
     * */
     public static Float caculatePersonInfluenceFriendQuality(List<Float> TotalFriendInfluenceList){
             Float pers_friend_quality_in = new Float(0.00);
-            Iterator it = TotalFriendInfluenceList.iterator();
-            while(it.hasNext()){
-                Float i = (Float) it.next();
-                pers_friend_quality_in += i;
+            if(TotalFriendInfluenceList!=null){
+                Iterator it = TotalFriendInfluenceList.iterator();
+                while(it.hasNext()){
+                    Float i = (Float) it.next();
+                    pers_friend_quality_in += i;
+                }
+                pers_friend_quality_in = pers_friend_quality_in / TotalFriendInfluenceList.size();
             }
-               pers_friend_quality_in = pers_friend_quality_in / TotalFriendInfluenceList.size();
+
         return pers_friend_quality_in;
     }
 
@@ -232,17 +238,28 @@ public class CaculatePersonInfluencePoint {
                                                       List<QuestionAnswer> questionAnswersList,
                                                       List<AnswerComment> answerCommentList,
                                                       List<VideoComment> videoCommentList,
-                                                      List<ComEssayReply> comEssayReplyListss){
+                                                      List<ComEssayReply> comEssayReplyList){
         Integer pers_interaction_in = new Integer(0);
-        pers_interaction_in += AnswerEvaluateList.size();
-        pers_interaction_in += commentEvaluateList.size();
-        pers_interaction_in += discussEvaluatesList.size();
-        pers_interaction_in += videoEvaluateList.size();
-        pers_interaction_in += comReplyEvaluateList.size();
-        pers_interaction_in += questionAnswersList.size();
-        pers_interaction_in += answerCommentList.size();
-        pers_interaction_in += videoCommentList.size();
-        pers_interaction_in += comEssayReplyListss.size();
+
+        if(AnswerEvaluateList!=null){
+            pers_interaction_in += AnswerEvaluateList.size();
+        }else if(commentEvaluateList!=null){
+            pers_interaction_in += commentEvaluateList.size();
+        }else if(discussEvaluatesList!=null){
+            pers_interaction_in += discussEvaluatesList.size();
+        }else if(videoEvaluateList!=null){
+            pers_interaction_in += videoEvaluateList.size();
+        }else if(comReplyEvaluateList!=null){
+            pers_interaction_in += comReplyEvaluateList.size();
+        }else if(questionAnswersList!=null){
+            pers_interaction_in += questionAnswersList.size();
+        }else if(answerCommentList!=null){
+            pers_interaction_in += answerCommentList.size();
+        }else if(videoCommentList!=null){
+            pers_interaction_in += videoCommentList.size();
+        }else if(comEssayReplyList!=null){
+            pers_interaction_in += comEssayReplyList.size();
+        }
 
         return pers_interaction_in;
     }
@@ -250,17 +267,23 @@ public class CaculatePersonInfluencePoint {
     /*
     * 计算被点赞数得分
     * */
-    public static Integer caculatePersonInfluenceLikeCount(List<AnswerEvaluate> AnswerEvaluateList,
+    public static Integer caculatePersonInfluenceLikeCount(List<AnswerEvaluate> answerEvaluateList,
                                                       List<CommentEvaluate> commentEvaluateList,
                                                       List<DiscussEvaluate> discussEvaluatesList,
                                                       List<VideoEvaluate> videoEvaluateList,
                                                       List<ComReplyEvaluate> comReplyEvaluateList){
         Integer pers_like_count_in = new Integer(0);
-        pers_like_count_in += AnswerEvaluateList.size();
-        pers_like_count_in += commentEvaluateList.size();
-        pers_like_count_in += discussEvaluatesList.size();
-        pers_like_count_in += videoEvaluateList.size();
-        pers_like_count_in += comReplyEvaluateList.size();
+        if(answerEvaluateList!=null){
+            pers_like_count_in += answerEvaluateList.size();
+        }else if(commentEvaluateList!=null){
+            pers_like_count_in += commentEvaluateList.size();
+        }else if(discussEvaluatesList!=null){
+            pers_like_count_in += discussEvaluatesList.size();
+        }else if(videoEvaluateList!=null){
+            pers_like_count_in += videoEvaluateList.size();
+        }else if(comReplyEvaluateList!=null){
+            pers_like_count_in += comReplyEvaluateList.size();
+        }
 
         if(pers_like_count_in<100){
             return pers_like_count_in;

@@ -3,8 +3,8 @@
 <mapper namespace="com.youthchina.dao.tianjian.CommunityMapper">
     <!--    发布文章 -->
     <insert id="addEssay" parameterType="com.youthchina.domain.tianjian.ComEssay" useGeneratedKeys="true" keyProperty="essay_id">
-    INSERT INTO COM_ESSAY  (ESSAY_TITLE, ESSAY_ABBRE, ESSAY_BODY, ESSAY_PUB_TIME,ESSAY_EDIT_TIME,IS_DELETE)
-           values(#{essay_title},#{essay_abbre},#{essay_body},#{essay_pub_time},#{essay_edit_time},#{is_delete}
+    INSERT INTO COM_ESSAY  (ESSAY_TITLE, ESSAY_ABBRE, ESSAY_BODY, ESSAY_PUB_TIME,ESSAY_EDIT_TIME,IS_DELETE,USER_ANONY)
+           values(#{essay_title},#{essay_abbre},#{essay_body},#{essay_pub_time},#{essay_edit_time},#{is_delete},#{user_anony}
                  )
 
     </insert>
@@ -14,7 +14,7 @@
     update COM_ESSAY
     set
          ESSAY_TITLE = #{essay_title}, ESSAY_ABBRE = #{essay_abbre}, ESSAY_BODY = #{essay_body}, ESSAY_PUB_TIME = #{essay_pub_time},
-         ESSAY_EDIT_TIME = #{essay_edit_time},IS_DELETE = #{is_delete}
+         ESSAY_EDIT_TIME = #{essay_edit_time},IS_DELETE = #{is_delete},USER_ANONY=#{user_anony}
     where
          ESSAY_ID = #{essay_id}
     </update>
