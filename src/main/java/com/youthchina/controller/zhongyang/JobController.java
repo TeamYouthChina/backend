@@ -55,7 +55,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getJobDetail(@PathVariable Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
+    public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
         Job job = this.jobService.get(jobId);
         if (detailLevel == 1) {
             return ResponseEntity.ok(job);
