@@ -228,8 +228,8 @@ public class CaculatePersonInfluencePoint {
     * 计算所有好友影响力得分
     * */
     public static Float caculatePersonInfluenceFriendQuality(List<Float> TotalFriendInfluenceList){
-            Float pers_friend_quality_in = new Float(0.00);
-            if(TotalFriendInfluenceList!=null){
+            Float pers_friend_quality_in = new Float(0);
+            if(TotalFriendInfluenceList.size() != 0){
                 Iterator it = TotalFriendInfluenceList.iterator();
                 while(it.hasNext()){
                     Float i = (Float) it.next();
@@ -257,21 +257,29 @@ public class CaculatePersonInfluencePoint {
 
         if(AnswerEvaluateList!=null){
             pers_interaction_in += AnswerEvaluateList.size();
-        }else if(commentEvaluateList!=null){
+        }
+        if(commentEvaluateList!=null){
             pers_interaction_in += commentEvaluateList.size();
-        }else if(discussEvaluatesList!=null){
+        }
+        if(discussEvaluatesList!=null){
             pers_interaction_in += discussEvaluatesList.size();
-        }else if(videoEvaluateList!=null){
+        }
+        if(videoEvaluateList!=null){
             pers_interaction_in += videoEvaluateList.size();
-        }else if(comReplyEvaluateList!=null){
+        }
+        if(comReplyEvaluateList!=null){
             pers_interaction_in += comReplyEvaluateList.size();
-        }else if(questionAnswersList!=null){
+        }
+        if(questionAnswersList!=null){
             pers_interaction_in += questionAnswersList.size();
-        }else if(answerCommentList!=null){
+        }
+        if(answerCommentList!=null){
             pers_interaction_in += answerCommentList.size();
-        }else if(videoCommentList!=null){
+        }
+        if(videoCommentList!=null){
             pers_interaction_in += videoCommentList.size();
-        }else if(comEssayReplyList!=null){
+        }
+        if(comEssayReplyList!=null){
             pers_interaction_in += comEssayReplyList.size();
         }
 
@@ -289,13 +297,17 @@ public class CaculatePersonInfluencePoint {
         Integer pers_like_count_in = new Integer(0);
         if(answerEvaluateList!=null){
             pers_like_count_in += answerEvaluateList.size();
-        }else if(commentEvaluateList!=null){
+        }
+        if(commentEvaluateList!=null){
             pers_like_count_in += commentEvaluateList.size();
-        }else if(discussEvaluatesList!=null){
+        }
+        if(discussEvaluatesList!=null){
             pers_like_count_in += discussEvaluatesList.size();
-        }else if(videoEvaluateList!=null){
+        }
+        if(videoEvaluateList!=null){
             pers_like_count_in += videoEvaluateList.size();
-        }else if(comReplyEvaluateList!=null){
+        }
+        if(comReplyEvaluateList!=null){
             pers_like_count_in += comReplyEvaluateList.size();
         }
 

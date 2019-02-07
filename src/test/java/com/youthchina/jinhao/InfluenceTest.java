@@ -185,7 +185,20 @@ public class InfluenceTest {
 
     @Test
     public void calculatePoints() {
+        Influence influence = influenceMapper.getInfluenceByUserId(1);
+        Student student = influence.getStudent();
+        System.out.println(student.getPhonenumber());
+        System.out.println(student.getEmail());
         PersonInfluence personInfluence = caculatePersonInfluencePoint.caculatePersonInfluencePoint(1);
+        System.out.println(personInfluence.getPers_friend_count());
+        System.out.println(personInfluence.getPers_friend_quality());
+        System.out.println(personInfluence.getPers_ident_verify());
+        System.out.println(personInfluence.getPers_interaction());
+        System.out.println(personInfluence.getPers_like_count());
+        System.out.println(personInfluence.getPers_posi_evaluate());
+        System.out.println(personInfluence.getPers_profile());
+        System.out.println(personInfluence.getPers_university());
+        System.out.println(personInfluence.getPers_work());
         System.out.println(personInfluence.getPers_total());
     }
 }
