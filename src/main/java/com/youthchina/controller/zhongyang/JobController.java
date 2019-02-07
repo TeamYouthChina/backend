@@ -2,7 +2,6 @@ package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.JobSearchDTO;
-import com.youthchina.dto.JobSearchResultDTO;
 import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -55,14 +54,13 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         return new URI(this.url + id.toString());
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<?> getJob(@PathVariable Integer id) throws NotFoundException {
-//        return get(id);
-//    }
-
-    @PostMapping("/")
-    public ResponseEntity<?> createJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) {
-        return add(simpleJobDTO);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getJobDetail(@PathVariable Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
+        Job job = this.jobService.get(jobId);
+        if (detailLevel == 1) {
+            return ResponseEntity.ok(job);
+        }
+        throw new BaseException();
     }
 
     @PutMapping("/{id}")
@@ -75,26 +73,9 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         return delete(id);
     }
 
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getJobDetail(@PathVariable Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
-        Job job = this.jobService.get(jobId);
-        if (detailLevel == 1) {
-            JobSearchResultDTO<SimpleJobDTO> resultDTO = new JobSearchResultDTO<>();
-            return ResponseEntity.ok(resultDTO);
-        }
-        throw new BaseException();
-    }
-
-    @PostMapping("/search")
-    public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
-        //todo: continue
-
-        if (detailLevel == 1) {
+    @PostMapping("/{id}/search")
+    public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, Authentication authentication) throws BaseException {
             return ResponseEntity.ok(jobSearchDTO);
-        }
-        throw new BaseException();
     }
-
 
 }

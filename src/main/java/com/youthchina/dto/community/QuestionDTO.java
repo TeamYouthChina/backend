@@ -37,6 +37,18 @@ public class QuestionDTO {
         this.answerInvitation = question.getAnswerInvitation();
     }
 
+    public List<Integer> getLables(){ return lables; }
+
+    public void setLables(List<Integer> lables){this.lables = lables;}
+
+    public Integer getRele_type(){ return rele_type; }
+
+    public void setRele_type(Integer rele_type){ this.rele_type = rele_type; }
+
+    public Integer getRele_id(){return rele_id;}
+
+    public void setRele_id(Integer rele_id){this.rele_id = rele_id;}
+
     public Integer getId() {
         return id;
     }
