@@ -9,7 +9,7 @@ import java.util.List;
 public interface CommunityQAService extends DomainCRUDService<Question, Integer>{
 
     Question getQuestionInfoById(Integer ques_id) throws NotFoundException;
-    Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rele_type, Integer rele_id);
+    Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rela_type, Integer rela_id);
     Question getQuestion(Integer ques_id) throws NotFoundException;
     List<Label> getLabels(Integer ques_id) throws NotFoundException;
     Integer updateQuestion(Question question) throws NotFoundException;
@@ -60,12 +60,12 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
     List<AnswerInvitation> listInvitationGot(Integer user_id) throws NotFoundException;
     List<Integer> listUsersInvitedByMeToQuestion(Integer user_id, Integer ques_id) throws NotFoundException;
-    Integer invitToAnswer(AnswerInvitation answerInvitation, Integer ques_id,
+    Integer invitToAnswer(Integer invit_user_id, Integer ques_id,
                           Integer invited_user_id) throws NotFoundException;
     AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
     Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;
 
-    Integer addVideo(Video video, Integer user_id);
+    Integer addVideo(Video video, Integer user_id, Integer rela_type, Integer rela_id);
     Video getVideo(Integer video_id) throws NotFoundException;
     Integer deleteVideo(Video video) throws NotFoundException;
     List<Video> listFirstTenVideos() throws NotFoundException;
@@ -90,7 +90,10 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
     Integer countVideoComments(Integer video_id);
 
     List<Question> listQuestion() throws NotFoundException;
-    List<Question> listAllQuestionAndPopAnswer() throws NotFoundException;
 
     boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id);
+    List<Question> searchQuestionByTitleOrCompanyName(String searchContent) throws NotFoundException;
+    List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent);
+    List<Video> searchVideoByTitleOrCompanyName(String searchContent) throws NotFoundException;
+    List<Integer> getVideoIdByTitleOrCompanyName(String searchContent);
 }

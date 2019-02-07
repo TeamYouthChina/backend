@@ -18,6 +18,7 @@ public class Question implements HasId<Integer> {
     private Timestamp ques_edit_time;
     private Integer is_delete;
     private Timestamp is_delete_time;
+    private Integer user_anony;
     private User ques_user;
     private List<QuestionAttention> questionAttentions;
     private List<QuestionAnswer> questionAnswers;
@@ -42,6 +43,14 @@ public class Question implements HasId<Integer> {
     public Question(){}
 
     public Integer getId(){ return  ques_id; }
+
+    public Integer getUser_anony() {
+        return user_anony;
+    }
+
+    public void setUser_anony(Integer user_anony) {
+        this.user_anony = user_anony;
+    }
 
     public Job getJob() {
         return job;

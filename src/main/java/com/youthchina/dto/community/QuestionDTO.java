@@ -20,8 +20,8 @@ public class QuestionDTO {
     private List<SimpleAnswerDTO> answers;
     private AnswerInvitation answerInvitation;
     private List<Integer> lables;
-    private Integer rele_type;
-    private Integer rele_id;
+    private Integer rela_type;
+    private Integer rela_id;
 
 
     public QuestionDTO(Question question){
@@ -41,13 +41,13 @@ public class QuestionDTO {
 
     public void setLables(List<Integer> lables){this.lables = lables;}
 
-    public Integer getRele_type(){ return rele_type; }
+    public Integer getRele_type(){ return rela_type; }
 
-    public void setRele_type(Integer rele_type){ this.rele_type = rele_type; }
+    public void setRele_type(Integer rele_type){ this.rela_type = rele_type; }
 
-    public Integer getRele_id(){return rele_id;}
+    public Integer getRele_id(){return rela_id;}
 
-    public void setRele_id(Integer rele_id){this.rele_id = rele_id;}
+    public void setRele_id(Integer rele_id){this.rela_id = rele_id;}
 
     public Integer getId() {
         return id;

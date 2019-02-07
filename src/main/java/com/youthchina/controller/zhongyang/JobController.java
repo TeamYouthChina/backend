@@ -75,7 +75,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
 
     @PostMapping("/{id}/search")
     public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, Authentication authentication) throws BaseException {
-            return ResponseEntity.ok(jobSearchDTO);
+        return ResponseEntity.ok(jobSearchDTO);
     }
 
 }
