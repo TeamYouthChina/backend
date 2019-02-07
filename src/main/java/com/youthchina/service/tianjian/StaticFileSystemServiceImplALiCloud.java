@@ -1,4 +1,5 @@
 package com.youthchina.service.tianjian;
+
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
@@ -6,12 +7,14 @@ import com.aliyun.oss.model.DeleteObjectsRequest;
 import com.aliyun.oss.model.DeleteObjectsResult;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.youthchina.dao.tianjian.StaticFileSystemMapper;
+import com.youthchina.domain.tianjian.ComMediaDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
