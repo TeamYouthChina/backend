@@ -8,9 +8,9 @@ import com.youthchina.domain.tianjian.ComEssayReply;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.tianjian.ComReplyEvaluate;
 import com.youthchina.domain.tianjian.PersonInfluence;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +28,7 @@ import java.util.List;
 * 点赞数 The answers or articles are liked by others 10%
 * 公司&职位评价 Evaluation of company or job 10%
 * */
+@Service
 public class CaculatePersonInfluencePoint {
     @Autowired
     PersonInfluenceMapper personInfluenceMapper;

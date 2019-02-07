@@ -9,6 +9,8 @@ import com.youthchina.domain.Qinghong.Work;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.tianjian.ComReplyEvaluate;
+import com.youthchina.domain.tianjian.PersonInfluence;
+import com.youthchina.service.tianjian.CaculatePersonInfluencePoint;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +32,8 @@ public class InfluenceTest {
     @Autowired
     InfluenceMapper influenceMapper;
 
+    @Autowired
+    CaculatePersonInfluencePoint caculatePersonInfluencePoint;
     @Test
     public void getInfluenceById(){
         Influence influence = influenceMapper.getInfluenceByUserId(1);
@@ -163,5 +167,21 @@ public class InfluenceTest {
         Work work3 = new Work();
         Work work4 = new Work();
         work1.setWork_company("Google");
+        work2.setWork_company("Facebook");
+        work3.setWork_company("腾讯");
+        work4.setWork_company("华为");
+        List<Work> works = new LinkedList<>();
+        works.add(work3);
+        works.add(work4);
+        works.add(work1);
+        works.add(work2);
+        Integer bestRank = influenceMapper.getBestWork(works);
+        Assert.assertEquals(Integer.valueOf(1), bestRank);
+    }
+
+    @Test
+    public void calculatePoints(){
+        PersonInfluence personInfluence = caculatePersonInfluencePoint.caculatePersonInfluencePoint(1);
+        System.out.println(personInfluence.getPers_total());
     }
 }
