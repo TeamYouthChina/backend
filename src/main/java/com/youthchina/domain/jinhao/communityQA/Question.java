@@ -23,6 +23,24 @@ public class Question {
     private List<Label> labels;
     private Job job;
     private Company company;
+    private Integer rela_type;
+    private List<Integer> labelIds;
+
+    public List<Integer> getLabelIds() {
+        return labelIds;
+    }
+
+    public void setLabelIds(List<Integer> labelIds) {
+        this.labelIds = labelIds;
+    }
+
+    public Integer getRela_type() {
+        return rela_type;
+    }
+
+    public void setRela_type(Integer rela_type) {
+        this.rela_type = rela_type;
+    }
 
     public Integer getUser_anony() {
         return user_anony;

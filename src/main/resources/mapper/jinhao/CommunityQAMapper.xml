@@ -187,10 +187,7 @@
         <result property="evaluate_time" column="EVALUATE_TIME"/>
     </collection>
 </resultMap>
-    <!-- 列出前十个问题 -->
-    <select id="listQuestion" resultType="com.youthchina.domain.jinhao.communityQA.Question">
-        select * from COM_QUESTION where is_delete=0 order by ques_pub_time desc limit 10
-    </select>
+
 
 
     <!-- 列出某个问题的关注人数 -->

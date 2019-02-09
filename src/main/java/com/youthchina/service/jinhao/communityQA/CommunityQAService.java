@@ -3,21 +3,18 @@ package com.youthchina.service.jinhao.communityQA;
 
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.DomainCRUDService;
 
 import java.util.List;
 
-public interface CommunityQAService {
+public interface CommunityQAService extends DomainCRUDService<Question, Integer> {
 
-    Question getQuestionInfoById(Integer ques_id) throws NotFoundException;
-    Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rela_type, Integer rela_id);
-    Question getQuestion(Integer ques_id) throws NotFoundException;
-    List<Label> getLabels(Integer ques_id) throws NotFoundException;
-    Integer updateQuestion(Question question) throws NotFoundException;
-    Integer deleteQuesiton(Question question) throws NotFoundException;
+    QuestionAttention attentionQuestion(Integer ques_id, Integer user_id) throws NotFoundException;
+    void cancelAttentionQuestion(Integer ques_id, Integer user_id) throws NotFoundException;
+    QuestionAttention getAttention(Integer atten_id) throws NotFoundException;
+    List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException;
+
     List<Question> listMyQuestions(Integer user_id) throws NotFoundException;
-
-    List<QuestionAnswer> listAllAnswer(Integer ques_id) throws NotFoundException;
-
     Integer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level);
     QuestionAnswer getAnswer(Integer answer_id) throws NotFoundException;
     Integer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
@@ -25,11 +22,7 @@ public interface CommunityQAService {
     Integer countAnswer(Integer ques_id);
     List<QuestionAnswer> listMyAnswers(Integer user_id) throws NotFoundException;
 
-    QuestionAttention isQuestionAttention(Integer user_id, Integer ques_id) throws NotFoundException;
-    Integer attentionQuestion(Integer ques_id, QuestionAttention questionAttention) throws NotFoundException;
-    Integer cancelAttentionQuestion(QuestionAttention questionAttention) throws NotFoundException;
-    QuestionAttention getAttention(Integer atten_id) throws NotFoundException;
-    List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException;
+
     Integer countFollwers(Integer ques_id);
 
     Integer countAgreement(Integer answer_id);
@@ -89,7 +82,6 @@ public interface CommunityQAService {
     Integer countVideoDisAgreement(Integer video_id);
     Integer countVideoComments(Integer video_id);
 
-    List<Question> listQuestion() throws NotFoundException;
 
     boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id);
     List<Question> searchQuestionByTitleOrCompanyName(String searchContent) throws NotFoundException;

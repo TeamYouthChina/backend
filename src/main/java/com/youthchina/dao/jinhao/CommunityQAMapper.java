@@ -23,7 +23,7 @@ public interface CommunityQAMapper {
 
     List<Question> getMyQuestions(Integer user_id); // 列出用户提出的问题
 
-    List<Question> listQuestion(); //只是简单地根据发布时间列出前十个问题
+
 
     List<Label> listAllQuesetionLabel(Integer ques_id);
 
