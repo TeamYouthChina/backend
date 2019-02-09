@@ -195,12 +195,12 @@ public class EssayServiceImpl implements EssayService {
     public int deleteReply(Integer essay_id, Integer user_id,Integer reply_level) {
         return mapper.deleteReply(essay_id,user_id,reply_level);
     }
-//
+
     @Override
     public  List<ComEssayReply> getReply(Integer essay_id) {
         return mapper.getReply(essay_id);
     }
-//
+
     @Override
     public int addReplyEvaluate(ComReplyEvaluate comreplyevaluate, Integer reply_id) {
 
