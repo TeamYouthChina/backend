@@ -8,6 +8,7 @@ spring.datasource.hikari.schema=youthchina
 mybatis.type-aliases-package=com.youthchina.domain
 mybatis.mapper-locations=classpath:mapper/**/*.xml
 
+<<<<<<< HEAD
 
 #邮件发送的配置
 spring.mail.host=smtp.gmail.com
@@ -29,3 +30,6 @@ spring.thymeleaf.prefix=classpath:/templates/
 spring.thymeleaf.encoding=UTF-8
 spring.thymeleaf.mode=LEGACYHTML5
 spring.thymeleaf.suffix=.html
+=======
+logging.level.org.dbunit=ERROR
+>>>>>>> 703733068030e1f06afceeaa65c24fd85a71465a

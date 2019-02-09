@@ -30,9 +30,9 @@ public interface JobMapper {
     /**select Job information by Job_ID List*/
     List<Job> selectJobByJobIdList(List<Integer> ids);
 
-    List<Job> getJobByMore(Integer jobId, String jobName, Integer comId, String comName,
-                           Date startTime, Date endTime, Integer type, Integer salaryFloor, Integer salaryCap,
-                           Integer active, String location, @Param("jobReqList")List<Degree> jobReqList,
+    List<Job> getJobByMore(@Param("jobId")Integer jobId, @Param("jobName")String jobName, @Param("comId")Integer comId, @Param("comName")String comName,
+                           @Param("startTime")Date startTime, @Param("endTime")Date endTime, @Param("type")Integer type, @Param("salaryFloor")Integer salaryFloor, @Param("salaryCap")Integer salaryCap,
+                           @Param("active")Integer active, @Param("location")String location, @Param("jobReqList")List<Degree> jobReqList,
                            @Param("industryList")List<Industry> industryList);
 
     /*create table JOB_INFO
@@ -64,11 +64,7 @@ public interface JobMapper {
 )
 comment '职位基本信息表';
 */
-
-    List<Job> selectByIndustryId(List<Integer> indIds);
-
-    List<Job> selectByIndustryString(String ind);
-
+    
     void insertJobIndustry(List<Industry> industries);
 
     void insertJobDegree(List<Degree> degrees);
