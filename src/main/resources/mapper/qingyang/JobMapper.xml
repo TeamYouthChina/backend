@@ -251,7 +251,7 @@
                 AND j.JOB_ID =  #{jobId}
             </if>
             <if test="jobName != null">
-                AND j.JOB_NAME = #{jobName}
+                AND j.JOB_NAME like "%"#{jobName}"%"
             </if>
             <if test="comId != null">
                 AND j.COMPANY_ID = #{comId}
