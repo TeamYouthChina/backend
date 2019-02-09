@@ -229,18 +229,13 @@ public class CaculatePersonInfluencePoint {
     * */
     public static Float caculatePersonInfluenceFriendQuality(List<Float> TotalFriendInfluenceList){
             Float pers_friend_quality_in = new Float(0);
-
-            if(TotalFriendInfluenceList.size()!=0) {
-
-                if (TotalFriendInfluenceList.size() != 0) {
-
-                    Iterator it = TotalFriendInfluenceList.iterator();
-                    while (it.hasNext()) {
-                        Float i = (Float) it.next();
-                        pers_friend_quality_in += i;
-                    }
-                    pers_friend_quality_in = pers_friend_quality_in / TotalFriendInfluenceList.size();
+            if(TotalFriendInfluenceList != null){
+                Iterator it = TotalFriendInfluenceList.iterator();
+                while(it.hasNext()){
+                    Float i = (Float) it.next();
+                    pers_friend_quality_in += i;
                 }
+                pers_friend_quality_in = pers_friend_quality_in / TotalFriendInfluenceList.size();
             }
 
         return pers_friend_quality_in;
@@ -315,6 +310,7 @@ public class CaculatePersonInfluencePoint {
         if(comReplyEvaluateList!=null){
             pers_like_count_in += comReplyEvaluateList.size();
         }
+
         if(pers_like_count_in<100){
             return pers_like_count_in;
         }else{

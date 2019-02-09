@@ -27,7 +27,8 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:questions.xml", "classpath:answers.xml", "classpath:comments.xml", "classpath:discuss.xml", "classpath:videos.xml"})
+@DatabaseSetup({"classpath:questions.xml", "classpath:answers.xml", "classpath:comments.xml", "classpath:discuss.xml", "classpath:videos.xml",
+"classpath:rank.xml"})
 public class InfluenceTest {
     @Autowired
     InfluenceMapper influenceMapper;
@@ -60,12 +61,7 @@ public class InfluenceTest {
         List<DiscussEvaluate> discussEvaluates = influence.getDiscussEvaluates();
         Assert.assertEquals(8, discussEvaluates.size());
         List<VideoEvaluate> videoEvaluates = influence.getVideoEvaluates();
-        Assert.assertEquals(2, videoEvaluates.size());
-        for(VideoEvaluate videoEvaluate : videoEvaluates){
-            if(videoEvaluate.getEvaluate_id() != 2 && videoEvaluate.getEvaluate_id() != 5){
-                Assert.fail();
-            }
-        }
+        Assert.assertEquals(0, videoEvaluates.size());
         List<ComReplyEvaluate> comReplyEvaluates = influence.getComReplyEvaluates();
         Assert.assertEquals(0,comReplyEvaluates.size());
     }
@@ -187,8 +183,6 @@ public class InfluenceTest {
     public void calculatePoints() {
         Influence influence = influenceMapper.getInfluenceByUserId(1);
         Student student = influence.getStudent();
-        System.out.println(student.getPhonenumber());
-        System.out.println(student.getEmail());
         PersonInfluence personInfluence = caculatePersonInfluencePoint.caculatePersonInfluencePoint(1);
         System.out.println(personInfluence.getPers_friend_count());
         System.out.println(personInfluence.getPers_friend_quality());

@@ -1,9 +1,7 @@
 package com.youthchina.tianjian;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.youthchina.dao.tianjian.CommunityMapper;
 import com.youthchina.domain.tianjian.*;
 import org.junit.Assert;
@@ -42,6 +40,7 @@ public class CommunityMapperTest {
         comEssay.setEssay_title("title1");
         comEssay.setEssay_abbre("this essay describe ...");
         comEssay.setEssay_body("body");
+        comEssay.setUser_anony(0);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setEssay_pub_time(time);
         comEssay.setEssay_edit_time(time);
@@ -65,6 +64,7 @@ public class CommunityMapperTest {
         comEssay.setEssay_title("title1");
         comEssay.setEssay_abbre("this essay describe ...");
         comEssay.setEssay_body("body");
+        comEssay.setUser_anony(0);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setEssay_pub_time(time);
         comEssay.setEssay_edit_time(time);
