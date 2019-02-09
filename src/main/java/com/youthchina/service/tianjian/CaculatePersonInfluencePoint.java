@@ -229,7 +229,7 @@ public class CaculatePersonInfluencePoint {
     * */
     public static Float caculatePersonInfluenceFriendQuality(List<Float> TotalFriendInfluenceList){
             Float pers_friend_quality_in = new Float(0);
-            if(TotalFriendInfluenceList != null){
+            if(TotalFriendInfluenceList != null && TotalFriendInfluenceList.size() != 0){
                 Iterator it = TotalFriendInfluenceList.iterator();
                 while(it.hasNext()){
                     Float i = (Float) it.next();
@@ -348,9 +348,14 @@ public class CaculatePersonInfluencePoint {
         while(it.hasNext()){
             ComFriendRelation comFriendRelation = (ComFriendRelation) it.next();
             Integer friendId = comFriendRelation.getUser_id();
-            
-            friendInfluenceTotal.add(influenceMapper.getFriendInfluencePoints(friendId));
-            influenceInteraction.add(influenceMapper.getInteraction(user_id,friendId));
+            Float friendtotal = influenceMapper.getFriendInfluencePoints(friendId);
+            if(friendtotal != null){
+                friendInfluenceTotal.add(friendtotal);
+            }
+            Influence influence1 = influenceMapper.getInteraction(user_id,friendId);
+            if(influence1 != null){
+                influenceInteraction.add(influence1);
+            }
         }
 
         pers_friend_quality = caculatePersonInfluenceFriendQuality(friendInfluenceTotal) * pers_friend_quality_rate;
