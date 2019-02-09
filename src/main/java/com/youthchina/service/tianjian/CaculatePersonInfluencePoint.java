@@ -2,13 +2,13 @@ package com.youthchina.service.tianjian;
 
 import com.youthchina.dao.jinhao.InfluenceMapper;
 import com.youthchina.dao.tianjian.PersonInfluenceMapper;
+import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.tianjian.ComEssayReply;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.tianjian.ComReplyEvaluate;
 import com.youthchina.domain.tianjian.PersonInfluence;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -229,7 +229,7 @@ public class CaculatePersonInfluencePoint {
     * */
     public static Float caculatePersonInfluenceFriendQuality(List<Float> TotalFriendInfluenceList){
             Float pers_friend_quality_in = new Float(0);
-            if(TotalFriendInfluenceList.size()!=0){
+            if(TotalFriendInfluenceList.size() != 0){
                 Iterator it = TotalFriendInfluenceList.iterator();
                 while(it.hasNext()){
                     Float i = (Float) it.next();
@@ -310,6 +310,7 @@ public class CaculatePersonInfluencePoint {
         if(comReplyEvaluateList!=null){
             pers_like_count_in += comReplyEvaluateList.size();
         }
+
         if(pers_like_count_in<100){
             return pers_like_count_in;
         }else{
@@ -333,8 +334,8 @@ public class CaculatePersonInfluencePoint {
         List<Influence> influenceInteraction = new ArrayList<Influence>();
         pers_profile = caculatePersonInfluencePointPersonalProfile(influence.getStudent()) * pers_profile_rate;
         pers_ident_verify = caculatePersonInfluencePointIdentifyValidation(influence.getStudent()) * pers_ident_verify_rate;
-
-        Integer universityRank = influenceMapper.getBestEducation(influence.getStudent().getEducationInfos());
+        List<EducationInfo> educationInfos = influence.getStudent().getEducationInfos();
+        Integer universityRank = influenceMapper.getBestEducation(educationInfos);
         pers_university = caculatePersonInfluencePointUniversity(universityRank) * pers_university_rate;
 
         Integer companyRank = influenceMapper.getBestWork(influence.getStudent().getWorks());

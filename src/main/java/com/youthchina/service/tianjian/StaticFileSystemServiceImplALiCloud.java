@@ -1,4 +1,5 @@
 package com.youthchina.service.tianjian;
+
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
@@ -68,6 +69,9 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
             InputStream input = new FileInputStream(file);
             byte[] inputByte = new byte[input.available()];
             input.read(inputByte);
+            String fileNameInDataBase = fileNameGenerate.generateFileName();
+            System.out.println("Uploading a new object to OSS from a file\n");
+            ossClient.putObject(new PutObjectRequest(bucketName, fileNameInDataBase, new ByteArrayInputStream(inputByte)));
             localId = snowFlakeIdGenerate.nextId();
             System.out.println("Uploading a new object to OSS from a file\n");
             ossClient.putObject(new PutObjectRequest(bucketName, String.valueOf(localId), new ByteArrayInputStream(inputByte)));
