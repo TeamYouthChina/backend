@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service("StaticFileSystemService")
 public interface StaticFileSystemService {
-    public long uploadFile(String fileName, File file,String format);
+    public long uploadFile(String fileName, File file,String format,Integer user_id);
 
     public URL downloadFile(String fileName);
 

@@ -1,6 +1,7 @@
 package com.youthchina;
 
 import com.youthchina.service.tianjian.Idtest;
+import com.youthchina.service.tianjian.LocalFileManage;
 import com.youthchina.service.tianjian.SnowFlakeIdGenerate;
 import com.youthchina.service.tianjian.StaticFileSystemServiceImplALiCloud;
 import org.junit.Test;
@@ -22,12 +23,25 @@ public class YouthchinaApplicationTests {
     SnowFlakeIdGenerate snowFlakeIdGenerate;
     @Autowired
     StaticFileSystemServiceImplALiCloud staticFileSystemServiceImplALiCloud;
+    @Autowired
+    LocalFileManage localFileManage;
+
+
+   /* @Test
+    public void testupLoadFile() {
+       File file = new File("D:\\LocalFileStore\\video.mp4");
+       long i = staticFileSystemServiceImplALiCloud.uploadFile("video",file ,"mp4",1);
+       System.out.println(i);
+    }*/
 
     @Test
-    public void contextLoads() {
+    public void verifyFile() {
+        System.out.println( staticFileSystemServiceImplALiCloud.verifyFile("nihaouip"));
+    }
 
-      // long i = staticFileSystemServiceImplALiCloud.uploadFile("youthchinatest");
-      // System.out.println(i);
+    @Test
+    public void downloadFile() {
+        System.out.println( staticFileSystemServiceImplALiCloud.downloadFile("2848699711584473088"));
     }
 
     @Test
@@ -50,7 +64,19 @@ public class YouthchinaApplicationTests {
         }
         System.out.println(testtable.size());
         System.out.println("end");
+    }
 
+    @Test
+    public void testGenerateId() {
+        Long i = snowFlakeIdGenerate.nextId();
+        System.out.println(i);
+    }
+
+    @Test
+    public void testuploadFiletoLocal() {
+        File file = new File("D:\\video.mp4");
+        String path = localFileManage.uploadFileToLocal(file,".mp4");
+        System.out.println(path);
     }
 
 }
