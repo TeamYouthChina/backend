@@ -27,12 +27,12 @@ public class YouthchinaApplicationTests {
     LocalFileManage localFileManage;
 
 
-    @Test
+   /* @Test
     public void testupLoadFile() {
        File file = new File("D:\\LocalFileStore\\video.mp4");
        long i = staticFileSystemServiceImplALiCloud.uploadFile("video",file ,"mp4",1);
        System.out.println(i);
-    }
+    }*/
 
     @Test
     public void verifyFile() {
