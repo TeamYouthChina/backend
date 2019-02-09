@@ -11,19 +11,25 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
     QuestionAttention attentionQuestion(Integer ques_id, Integer user_id) throws NotFoundException;
     void cancelAttentionQuestion(Integer ques_id, Integer user_id) throws NotFoundException;
-    QuestionAttention getAttention(Integer atten_id) throws NotFoundException;
     List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException;
-
     List<Question> listMyQuestions(Integer user_id) throws NotFoundException;
+
+    List<AnswerInvitation> listInvitationGot(Integer user_id) throws NotFoundException;
+    List<Integer> listUsersInvitedByMeToQuestion(Integer user_id, Integer ques_id) throws NotFoundException;
+    Integer invitUsersToAnswer(Integer invit_user_id, Integer ques_id,
+                          List<Integer> invited_user_ids) throws NotFoundException;
+    AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
+    Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;
+
+
+
     Integer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level);
     QuestionAnswer getAnswer(Integer answer_id) throws NotFoundException;
     Integer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
     Integer deleteAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
-    Integer countAnswer(Integer ques_id);
     List<QuestionAnswer> listMyAnswers(Integer user_id) throws NotFoundException;
 
 
-    Integer countFollwers(Integer ques_id);
 
     Integer countAgreement(Integer answer_id);
     Integer countDisagreement(Integer answer_id);
@@ -51,12 +57,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
     DiscussEvaluate discussEvaluateStatus(Integer user_id, Integer discuss_id) throws NotFoundException;
     Integer evaluateDiscuss(Integer discuss_id, DiscussEvaluate discussEvaluate) throws NotFoundException;
 
-    List<AnswerInvitation> listInvitationGot(Integer user_id) throws NotFoundException;
-    List<Integer> listUsersInvitedByMeToQuestion(Integer user_id, Integer ques_id) throws NotFoundException;
-    Integer invitToAnswer(Integer invit_user_id, Integer ques_id,
-                          Integer invited_user_id) throws NotFoundException;
-    AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
-    Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;
+
 
     Integer addVideo(Video video, Integer user_id, Integer rela_type, Integer rela_id);
     Video getVideo(Integer video_id) throws NotFoundException;

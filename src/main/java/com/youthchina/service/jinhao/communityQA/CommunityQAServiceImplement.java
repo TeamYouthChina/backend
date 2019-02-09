@@ -120,14 +120,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         return questionAttention;
     }
 
-    /**
-     * 得到指定关注id的关注记录，如果不存在，抛出异常
-     * @param atten_id 关注的id
-     * @return 返回指定id的关注对象
-     * @throws NotFoundException
-     */
-    @Override
-    public QuestionAttention getAttention(Integer atten_id) throws NotFoundException{
+    private QuestionAttention getAttention(Integer atten_id) throws NotFoundException{
         QuestionAttention questionAttention= communityQAMapper.getAttention(atten_id);
         if(questionAttention == null){
             throw new NotFoundException(404, 404, "该关注不存在");
@@ -136,12 +129,39 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         }
     }
 
+    @Override
+    @Transactional
+    public void cancelAttentionQuestion(Integer ques_id, Integer user_id) throws NotFoundException{
+        QuestionAttention questionAttention = communityQAMapper.isQuestionAttention(ques_id, user_id);
+        questionAttention.setAtten_cancel(1);
+        questionAttention.setAtten_cancel_time(new Timestamp(System.currentTimeMillis()));
+    }
 
     @Override
     @Transactional
-    public void cancelAttentionQuestion(Integer ques_id, Integer atten_id) throws NotFoundException{
-
+    public Integer invitUsersToAnswer(Integer invit_user_id, Integer ques_id, List<Integer> invited_user_ids)
+            throws NotFoundException{
+        getQuestion(ques_id);
+        for(Integer invited_user_id : invited_user_ids){
+            invitUserToAnswer(invit_user_id, ques_id, invited_user_id);
+        }
+        return 1;
     }
+
+
+    private void invitUserToAnswer(Integer invit_user_id, Integer ques_id,
+                                   Integer invited_user_id) {
+        AnswerInvitation answerInvitation = new AnswerInvitation();
+        answerInvitation.setInvit_user_id(invit_user_id);
+        answerInvitation.setInvit_accept(0);
+        answerInvitation.setInvit_ques_id(ques_id);
+        answerInvitation.setInvit_time(new Timestamp(System.currentTimeMillis()));
+        communityQAMapper.addInvitation(answerInvitation);
+        communityQAMapper.createMapBetweenInvitationAndQuestion(answerInvitation.getInvit_id(),
+                invited_user_id);
+    }
+
+
 
     /**
      * 列出用户关注的问题，如果没有抛出异常
@@ -302,15 +322,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         return 1;
     }
 
-    /**
-     * 得到问题收到的回答的条数
-     * @param ques_id 问题的id
-     * @return 返回回答的条数
-     */
-    @Override
-    public Integer countAnswer(Integer ques_id) {
-        return communityQAMapper.countAnswer(ques_id);
-    }
+
 
     /**
      * 列出用户做出过的回答，如果没有，抛出异常
@@ -329,17 +341,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
 
-
-
-    /**
-     * 拿到某个问题的关注数
-     * @param ques_id  问题的id
-     * @return 返回关注的人数
-     */
-    @Override
-    public Integer countFollwers(Integer ques_id) {
-        return communityQAMapper.countTheFollower(ques_id);
-    }
 
     /**
      * 拿到某个回答的点赞数
@@ -692,30 +693,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         }
     }
 
-
-    /**
-     * add invitation
-     * @param invit_user_id id of user who send the invitation
-     * @param ques_id id of question to which the user invite others
-     * @param invited_user_id id of user who is invited
-     * @return return 1 if success
-     * @throws NotFoundException if the question
-     */
-    @Override
-    @Transactional
-    public Integer invitToAnswer(Integer invit_user_id, Integer ques_id,
-                                 Integer invited_user_id) throws NotFoundException{
-        getQuestion(ques_id);
-        AnswerInvitation answerInvitation = new AnswerInvitation();
-        answerInvitation.setInvit_user_id(invit_user_id);
-        answerInvitation.setInvit_accept(0);
-        answerInvitation.setInvit_ques_id(ques_id);
-        answerInvitation.setInvit_time(new Timestamp(System.currentTimeMillis()));
-        communityQAMapper.addInvitation(answerInvitation);
-        communityQAMapper.createMapBetweenInvitationAndQuestion(answerInvitation.getInvit_id(),
-                invited_user_id);
-        return 1;
-    }
 
     /**
      * 得到某个邀请
