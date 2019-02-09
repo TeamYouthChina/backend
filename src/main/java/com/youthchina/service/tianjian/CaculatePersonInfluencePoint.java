@@ -229,7 +229,7 @@ public class CaculatePersonInfluencePoint {
     * */
     public static Float caculatePersonInfluenceFriendQuality(List<Float> TotalFriendInfluenceList){
             Float pers_friend_quality_in = new Float(0);
-            if(TotalFriendInfluenceList.size() != 0){
+            if(TotalFriendInfluenceList != null){
                 Iterator it = TotalFriendInfluenceList.iterator();
                 while(it.hasNext()){
                     Float i = (Float) it.next();
