@@ -16,12 +16,21 @@ public class Question {
     private Timestamp ques_edit_time;
     private Integer is_delete;
     private Timestamp is_delete_time;
+    private Integer user_anony;
     private User ques_user;
     private List<QuestionAttention> questionAttentions;
     private List<QuestionAnswer> questionAnswers;
     private List<Label> labels;
     private Job job;
     private Company company;
+
+    public Integer getUser_anony() {
+        return user_anony;
+    }
+
+    public void setUser_anony(Integer user_anony) {
+        this.user_anony = user_anony;
+    }
 
     public Job getJob() {
         return job;

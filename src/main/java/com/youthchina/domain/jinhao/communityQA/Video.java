@@ -1,5 +1,6 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
 
 import java.sql.Timestamp;
@@ -8,7 +9,7 @@ import java.util.List;
 public class Video {
     private Integer video_id;
     private String video_title;
-    private String video_path;
+    private String video_name;
     private Timestamp video_upload_time;
     private Integer is_delete;
     private Timestamp is_delete_time;
@@ -16,6 +17,15 @@ public class Video {
     private List<VideoAttention> videoAttentions;
     private List<VideoComment> videoComments;
     private List<VideoEvaluate> videoEvaluates;
+    private Company company;
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
     public User getUser() {
         return user;
@@ -65,12 +75,12 @@ public class Video {
         this.video_title = video_title;
     }
 
-    public String getVideo_path() {
-        return video_path;
+    public String getVideo_name() {
+        return video_name;
     }
 
-    public void setVideo_path(String video_path) {
-        this.video_path = video_path;
+    public void setVideo_name(String video_name) {
+        this.video_name = video_name;
     }
 
     public Timestamp getVideo_upload_time() {

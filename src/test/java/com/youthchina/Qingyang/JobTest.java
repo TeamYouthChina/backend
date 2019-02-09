@@ -128,7 +128,7 @@ public class JobTest {
     @Test
     public void testJobSearch(){
 
-
+        //Base Test
         List<Job> jobList = jobMapper.getJobByMore(null,"front",null,"大疆",
                 Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
                 "北京", null, null);
@@ -144,7 +144,7 @@ public class JobTest {
         jobList = jobMapper.getJobByMore(null,null,null,null,
                 Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
                 "", null, null);
-        Assert.assertEquals(2, jobList.size());
+        Assert.assertEquals(4, jobList.size());
 
         //Degree test
         List<Degree> degreeList = new ArrayList<>();
@@ -154,7 +154,7 @@ public class JobTest {
         jobList = jobMapper.getJobByMore(null,null,null,null,
                 Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
                 "", degreeList, null);
-        Assert.assertEquals(1, jobList.size());
+        Assert.assertEquals(2, jobList.size());
 
         Degree degree2 = new Degree();
         degree2.setDegreeNum(2);
@@ -162,7 +162,13 @@ public class JobTest {
         jobList = jobMapper.getJobByMore(null,null,null,null,
                 Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
                 "", degreeList, null);
-        Assert.assertEquals(2, jobList.size());
+        Assert.assertEquals(4, jobList.size());
+
+        degreeList.remove(0);
+        jobList = jobMapper.getJobByMore(null,null,null,null,
+                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
+                "", degreeList, null);
+        Assert.assertEquals(3, jobList.size());
 
         // Industry Test
         List<Industry> industryList = new ArrayList<>();
@@ -171,7 +177,7 @@ public class JobTest {
         industryList.add(industry);
         jobList = jobMapper.getJobByMore(null,null,null,null,
                 Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
-                "", degreeList, industryList);
+                "", null, industryList);
         Assert.assertEquals(1, jobList.size());
 
         Industry industry2 = new Industry();
@@ -179,7 +185,30 @@ public class JobTest {
         industryList.add(industry2);
         jobList = jobMapper.getJobByMore(null,null,null,null,
                 Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
-                "", degreeList, industryList);
+                "", null, industryList);
+        Assert.assertEquals(4, jobList.size());
+
+        //Search Job by Name
+        jobList = jobMapper.getJobByMore(null,"front",null,null,
+                null, null, null, null, null, null,
+                null, null, null);
+        Assert.assertEquals(2, jobList.size());
+
+        jobList = jobMapper.getJobByMore(null,"前端",null,null,
+                null, null, null, null, null, null,
+                null, null, null);
+        Assert.assertEquals(1, jobList.size());
+
+        //All job
+        jobList = jobMapper.getJobByMore(null,null,null,null,
+                null, null, null, null, null, null,
+                null, null, null);
+        Assert.assertEquals(4, jobList.size());
+
+        //Job Salary
+        jobList = jobMapper.getJobByMore(null,null,null,null,
+                null, null, null, null, 6500, null,
+                null, null, null);
         Assert.assertEquals(2, jobList.size());
 
 
