@@ -74,17 +74,12 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         QuestionDTO questionDTO = getDto(id);
         return ResponseEntity.ok(new Response(questionDTO.getAnswers()));
     }
-
+/*
     @PostMapping("/{id}/invite")
-    public ResponseEntity<?> createInviteInfo(@RequestBody QuestionDTO questionDTO) {
-        return add(questionDTO);
+    public ResponseEntity<?> createInviteInfo(@RequestBody Integer) {
+        return ;
     }
-
-    @GetMapping("/{id}/answer/{answerId}")
-    public ResponseEntity<?> getAnswer(@PathVariable Integer id, @PathVariable Integer answerId) throws NotFoundException{
-
-        return getAnswer(answerId);
-    }
+*/
 
     private QuestionDTO getDto(Integer id) throws NotFoundException {
         return this.DomainToDto(this.getService().get(id));

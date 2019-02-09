@@ -74,9 +74,6 @@ comment '职位基本信息表';
     private Company company;
     private Hr hr;
 
-    public Job() {
-    }
-
     public Job(SimpleJobDTO simpleJobDTO) {
         this.jobId = simpleJobDTO.getId();
         this.jobName = simpleJobDTO.getName();

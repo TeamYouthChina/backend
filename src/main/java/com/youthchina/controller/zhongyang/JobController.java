@@ -55,10 +55,12 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         return new URI(this.url + id.toString());
     }
 
+    /*
     @GetMapping("/{id}")
     public ResponseEntity<?> getJob(@PathVariable Integer id) throws NotFoundException {
         return get(id);
     }
+    */
 
     @PostMapping("/")
     public ResponseEntity<?> createJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) {
@@ -77,11 +79,10 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getJobDetail(@PathVariable Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
+    public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
         Job job = this.jobService.get(jobId);
         if (detailLevel == 1) {
-            JobSearchResultDTO<SimpleJobDTO> resultDTO = new JobSearchResultDTO<>();
-            return ResponseEntity.ok(resultDTO);
+            return ResponseEntity.ok(job);
         }
         throw new BaseException();
     }

@@ -84,8 +84,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
     /**
      * Judge if an answer is belong to a question
-     * @param answer_id id of answer
-     * @param ques_id id of question
+     * @param id id of answer
      * @return true or false
      */
     @Override
@@ -94,12 +93,12 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         if(question == null){
             throw new NotFoundException(404,404,"没有找到这个问题");
         }
-        QuestionReleTypeAndId questionReleTypeAndId = communityQAMapper.getQuestionReleTypeAndReleId(id);
-        if(questionReleTypeAndId.getRele_type() == 2){
-            Company company = companyMapper.selectCompany(questionReleTypeAndId.getRele_id());
+        QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(id);
+        if(questionRelaTypeAndId.getRela_type() == 2){
+            Company company = companyMapper.selectCompany(questionRelaTypeAndId.getRela_id());
             question.setCompany(company);
-        }else if(questionReleTypeAndId.getRele_type() == 3){
-            Job job = jobHrMapper.selectJobByJobId(questionReleTypeAndId.getRele_id());
+        }else if(questionRelaTypeAndId.getRela_type() == 3){
+            Job job = jobHrMapper.selectJobByJobId(questionRelaTypeAndId.getRela_id());
             question.setJob(job);
         }
         return question;
