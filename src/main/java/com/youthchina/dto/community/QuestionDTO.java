@@ -15,7 +15,7 @@ public class QuestionDTO {
     private User creator;
     private String title;
     private String body;
-    private Boolean isAnonymous;
+    private Integer isAnonymous;
     private Timestamp createAt;
     private List<SimpleAnswerDTO> answers;
     private AnswerInvitation answerInvitation;
@@ -29,12 +29,19 @@ public class QuestionDTO {
         this.creator= question.getQues_user();
         this.title = question.getQues_title();
         this.body =question.getQues_body();
-        //this.isAnonymous = question.
+        this.isAnonymous = question.getUser_anony();
         this.createAt = question.getQues_pub_time();
         for(int i =0; i < question.getQuestionAnswers().size(); i++){
             this.answers.add(new SimpleAnswerDTO(question.getQuestionAnswers().get(i)));
         }
         this.answerInvitation = question.getAnswerInvitation();
+        if(question.getRela_type() == 2){
+            this.rela_id = question.getCompany().getCompanyId();
+        }else if (question.getRela_type() == 3) {
+            this.rela_id = question.getJob().getJobId();
+        }
+        this.rela_type = question.getRela_type();
+        this.lables = question.getLableIds();
     }
 
     public List<Integer> getLables(){ return lables; }
@@ -81,11 +88,11 @@ public class QuestionDTO {
         this.body = body;
     }
 
-    public Boolean getAnonymous() {
+    public Integer getAnonymous() {
         return isAnonymous;
     }
 
-    public void setAnonymous(Boolean anonymous) {
+    public void setAnonymous(Integer anonymous) {
         isAnonymous = anonymous;
     }
 

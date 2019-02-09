@@ -26,6 +26,8 @@ public class Question implements HasId<Integer> {
     private Job job;
     private Company company;
     private AnswerInvitation answerInvitation;
+    private List<Integer> labelIds;
+    private Integer rela_type;
 
     public Question(QuestionDTO questionDTO){
         this.ques_id = questionDTO.getId();
@@ -36,13 +38,35 @@ public class Question implements HasId<Integer> {
         for(int i =0; i < questionDTO.getAnswers().size(); i++){
             this.questionAnswers.add(new QuestionAnswer(questionDTO.getAnswers().get(i)));
         }
+        if(questionDTO.getRele_type() == 2){
+            this.company.setCompanyId(questionDTO.getRele_id());
+        }else if(questionDTO.getRele_type() == 3){
+            this.job.setJobId(questionDTO.getRele_id());
+        }
+        this.labelIds = questionDTO.getLables();
         this.answerInvitation = questionDTO.getAnswerInvitation();
-
+        this.rela_type = questionDTO.getRele_type();
     }
 
     public Question(){}
 
+    public List<Integer> getLableIds(){ return  labelIds; }
+
+    public void setLableIds(List<Integer> labelIds) {
+        this.labelIds = labelIds;
+    }
+
+    public Integer getRela_type(){ return  rela_type; }
+
+    public void setRela_type(Integer rela_type) {
+        this.rela_type = rela_type;
+    }
+
     public Integer getId(){ return  ques_id; }
+
+    public void setId(Integer ques_id) {
+        this.ques_id = ques_id;
+    }
 
     public Integer getUser_anony() {
         return user_anony;

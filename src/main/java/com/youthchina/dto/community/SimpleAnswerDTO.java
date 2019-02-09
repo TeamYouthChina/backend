@@ -15,6 +15,8 @@ public class SimpleAnswerDTO {
     private Boolean isAnonymous;
     private Timestamp creatAt;
 
+    public SimpleAnswerDTO(){}
+
     public SimpleAnswerDTO(QuestionAnswer questionAnser){
         this.id = questionAnser.getAnswer_id();
         this.creator = questionAnser.getAnswer_user();
