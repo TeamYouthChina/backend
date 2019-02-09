@@ -348,6 +348,9 @@ public class CaculatePersonInfluencePoint {
         while(it.hasNext()){
             ComFriendRelation comFriendRelation = (ComFriendRelation) it.next();
             Integer friendId = comFriendRelation.getUser_id();
+            friendInfluenceTotal.add(influenceMapper.getFriendInfluencePoints(friendId));
+            influenceInteraction.add(influenceMapper.getInteraction(user_id,friendId));
+
             Float friendtotal = influenceMapper.getFriendInfluencePoints(friendId);
             if(friendtotal != null){
                 friendInfluenceTotal.add(friendtotal);
