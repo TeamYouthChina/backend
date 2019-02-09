@@ -3,10 +3,11 @@ package com.youthchina.service.jinhao.communityQA;
 
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.DomainCRUDService;
 
 import java.util.List;
 
-public interface CommunityQAService {
+public interface CommunityQAService extends DomainCRUDService<Question, Integer> {
 
     Question getQuestionInfoById(Integer ques_id) throws NotFoundException;
     Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rela_type, Integer rela_id);
