@@ -104,6 +104,8 @@ public class CommunityMapperTest {
         ComAuthorEssayMap caem = new ComAuthorEssayMap();
         caem.setUser_id(1001);
         caem.setEssay_id(2);
+        caem.setRela_id(3);
+        caem.setRela_type(0);
         userMapper.addEssayAuthor(caem);
 
     }
