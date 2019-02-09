@@ -298,7 +298,7 @@
     </update>
 
     <select id="selectIndustry" resultMap="Industry"
-            parameterType="Integer">
+            parameterType="java.lang.Integer">
         SELECT
             IND_NUM,    IND_CODE, IND_CHN,   IND_ENG,    IND_LEVEL,
             IND_PARENT_CODE,   START_TIME

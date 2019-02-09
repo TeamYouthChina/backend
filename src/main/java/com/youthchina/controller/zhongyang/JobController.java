@@ -3,6 +3,7 @@ package com.youthchina.controller.zhongyang;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.JobSearchDTO;
 import com.youthchina.dto.JobSearchResultDTO;
+import com.youthchina.dto.Response;
 import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 
 /**
@@ -55,10 +55,12 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         return new URI(this.url + id.toString());
     }
 
+    /*
     @GetMapping("/{id}")
     public ResponseEntity<?> getJob(@PathVariable Integer id) throws NotFoundException {
         return get(id);
     }
+    */
 
     @PostMapping("/")
     public ResponseEntity<?> createJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) {
@@ -76,12 +78,11 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     }
 
 
-    @GetMapping("/")
-    public ResponseEntity<?> getJobDetail(@PathVariable Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
         Job job = this.jobService.get(jobId);
         if (detailLevel == 1) {
-            JobSearchResultDTO<SimpleJobDTO> resultDTO = new JobSearchResultDTO<>();
-            return ResponseEntity.ok(resultDTO);
+            return ResponseEntity.ok(new Response(job));
         }
         throw new BaseException();
     }
@@ -91,7 +92,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         //todo: continue
 
         if (detailLevel == 1) {
-            return ResponseEntity.ok(jobSearchDTO);
+            return ResponseEntity.ok(new Response(jobSearchDTO));
         }
         throw new BaseException();
     }

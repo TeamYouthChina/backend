@@ -24,10 +24,10 @@ public class YouthchinaApplication {
         SpringApplication.run(YouthchinaApplication.class, args);
     }
 
-
     @PostConstruct
-    void started(){
+    void started() {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
+
 
 }

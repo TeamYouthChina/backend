@@ -15,8 +15,8 @@ jobs:
     steps:
       - checkout
       - run:
-            name: Switch timezone to Melbourne
-            command: sudo cp /usr/share/zoneinfo/America/New_York /etc/localtime
+          name: Switch timezone to Melbourne
+          command: sudo cp /usr/share/zoneinfo/America/New_York /etc/localtime
       - run: mv ~/repo/.circleci/spring.application.properties ~/repo/src/main/resources/application.properties
       - run : mv ~/repo/.circleci/spring.config.properties ~/repo/src/main/resources/config.properties
       # Download and cache dependencies
@@ -37,7 +37,6 @@ jobs:
       - run: docker-compose up -d
 
       - run: mvn test -Dtest=StudentMapperTest # why?
-      - run: mvn test -Dtest=StudentControllerTest
       - run: mvn integration-test
 
       # This line is to be able to access failing screenshots in the

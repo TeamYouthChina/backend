@@ -9,7 +9,7 @@
         <result property="username" column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="age" column="USER_AGE" javaType="java.lang.Integer"/>
-        <result property="email" column="USER_EMAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="email" column="USER_MAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
         <result column="USER_REGIST_DATE" property="registerDate" jdbcType="VARCHAR"/>
         <result column="USER_REAL_NAME" property="realName" jdbcType="VARCHAR"/>

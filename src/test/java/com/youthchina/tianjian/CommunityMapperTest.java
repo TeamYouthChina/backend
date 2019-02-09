@@ -1,9 +1,7 @@
 package com.youthchina.tianjian;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.youthchina.dao.tianjian.CommunityMapper;
 import com.youthchina.domain.tianjian.*;
 import org.junit.Assert;
@@ -42,10 +40,12 @@ public class CommunityMapperTest {
         comEssay.setEssay_title("title1");
         comEssay.setEssay_abbre("this essay describe ...");
         comEssay.setEssay_body("body");
+        comEssay.setUser_anony(0);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setEssay_pub_time(time);
         comEssay.setEssay_edit_time(time);
         comEssay.setIs_delete(0);
+        comEssay.setUser_anony(0);
          userMapper.addEssay(comEssay);
         Assert.assertNotNull(comEssay.getEssay_id());
     }
@@ -64,10 +64,12 @@ public class CommunityMapperTest {
         comEssay.setEssay_title("title1");
         comEssay.setEssay_abbre("this essay describe ...");
         comEssay.setEssay_body("body");
+        comEssay.setUser_anony(0);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setEssay_pub_time(time);
         comEssay.setEssay_edit_time(time);
         comEssay.setIs_delete(0);
+        comEssay.setUser_anony(0);
         userMapper.updateEssay(comEssay);
     }
 
@@ -104,6 +106,8 @@ public class CommunityMapperTest {
         ComAuthorEssayMap caem = new ComAuthorEssayMap();
         caem.setUser_id(1001);
         caem.setEssay_id(2);
+        caem.setRela_id(3);
+        caem.setRela_type(0);
         userMapper.addEssayAuthor(caem);
 
     }
