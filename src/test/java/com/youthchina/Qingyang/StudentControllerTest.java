@@ -131,5 +131,13 @@ public class StudentControllerTest {
         ;
     }
 
+    @Test
+    public void testPost() throws Exception{
+        this.mvc.perform(post(this.urlPrefix + "/login").param("id", "1").param("password", "123456"))
+                .andDo(print());
+//        this.mvc.perform(post(this.urlPrefix + "/applicants"))
+//                .andDo(print());
+    }
+
 
 }
