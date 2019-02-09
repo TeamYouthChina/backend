@@ -150,7 +150,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: return target user's contacts
+          description: return target user's 1
           content:
             application/json:
               schema:
@@ -439,27 +439,6 @@ paths:
           required: true
           schema:
             type: integer
-        - name: type
-          in: query
-          description: job type
-          schema:
-            type: string
-        - name: includeExpired
-          in: query
-          schema:
-            type: boolean
-            default: false
-          description: whether to inclued expired application
-        - name: companyId
-          in: query
-          schema:
-            type: integer
-          description: search for application of certain company
-        - name: jobId
-          in: query
-          schema:
-            type: integer
-          description: search for application of certain company
       responses:
         '200':
           description: return the application of users
@@ -692,6 +671,28 @@ paths:
       responses:
         '201':
           description: invitation send successfully.
+  '/questions/{id}/upvote':
+    post:
+      tags:
+        - Question
+      parameters:
+        - name: id
+          required: true
+          in: path
+      responses:
+        '201':
+          description: upvote successfullly
+  '/questions/{id}/follow':
+    post:
+      tags:
+        - Question
+      parameters:
+        - name: id
+          required: true
+          in: path
+      responses: 
+        '201':
+          description: upvote successfullly
   '/answers/{id}':
     get:
       tags:
@@ -714,6 +715,119 @@ paths:
                     $ref: '#/components/schemas/Answer'
                   status:
                     $ref: '#/components/schemas/Status'
+    put:
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answer'
+      responses:
+        '200':
+          description: target answer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Answer'
+                  status:
+                    $ref: '#/components/schemas/Status'
+    delete:
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: success
+        '403':
+          description: do not have authority to delete answer
+  '/answers':
+    post:
+      tags:
+        - Answer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              - body
+              properties:
+                id:
+                  type: integer
+                body:
+                  $ref: '#/components/schemas/RichText'
+                is_anonymous:
+                  type: boolean
+                  default: false
+                create_at:
+                  type: integer
+                
+      responses:
+        '201':
+          description: target answer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Answer'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/answers/{id}/comments': 
+    post:
+      tags:
+        - Answer
+      requestBody:
+        content:
+          application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - body
+                properties:
+                  id:
+                    type: integer
+                  body:
+                    $ref: '#/components/schemas/RichText'
+                  is_anonymous:
+                    type: boolean
+                    default: false
+                  create_at:
+                    type: integer
+      responses:
+        '201':
+          description: comments successfully
+  '/answers/{id}/upvote':
+    post:
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: upvote successfullly
   '/applicants/resgister':
     post:
       tags:
@@ -758,7 +872,28 @@ paths:
                     $ref: '#/components/schemas/Applicant'
                   status:
                     $ref: '#/components/schemas/Status'
-                
+  '/comments/{id}':
+    get:
+      tags:
+        - Comment
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Comment'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/login':
     post:
       tags:
@@ -788,8 +923,6 @@ paths:
                     $ref: '#/components/schemas/User'
                   status:
                     $ref: '#/components/schemas/Status'
-
-
 
 components:
   schemas:
@@ -1192,3 +1325,37 @@ components:
           properties:
             question:
               $ref: '#/components/schemas/QuestionBasic'
+    RichText:
+      type: object
+      required:
+        - richtext
+        - resourceList
+      properties:
+        richtext:
+          type: object
+        resourceList:
+          type: array
+          items: 
+            type: string
+    Comment:
+      type: object
+      required:
+        - id
+        - creator
+        - body
+        - create_at
+        - is_anonymous
+      properties:
+        id:
+          type: integer
+        creator:
+          $ref: '#/components/schemas/User'
+        body:
+          type: string
+        create_at:
+          type: integer
+        is_anonymous:
+          type: boolean
+          default: false
+
+
