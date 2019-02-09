@@ -139,7 +139,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
     @Override
     @Transactional
-    public void cancelAttentionQuestion(Integer atten_id) throws NotFoundException{
+    public void cancelAttentionQuestion(Integer ques_id, Integer atten_id) throws NotFoundException{
 
     }
 
