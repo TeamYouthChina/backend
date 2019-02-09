@@ -13,3 +13,13 @@ staticfile.endPoint=oss-cn-shanghai.aliyuncs.com
 staticfile.bucketName=youthchinatest
 staticfile.accessKeyId=
 staticfile.accessKeySecret=
+
+pers_profile_rate = 0.06
+pers_ident_verify_rate = 0.04
+pers_university_rate = 0.2
+pers_work_rate = 0.2
+pers_friend_count_rate = 0.1
+pers_friend_quality_rate = 0.1
+pers_interaction_rate = 0.1
+pers_like_count_rate = 0.1
+pers_posi_evaluate_rate = 0.1
