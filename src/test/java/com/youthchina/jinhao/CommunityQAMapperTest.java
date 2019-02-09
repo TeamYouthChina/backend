@@ -295,9 +295,9 @@ public class CommunityQAMapperTest extends BaseTest {
     @Test
     public void listMyAnswer() {
         List<QuestionAnswer> questionAnswers = communityQAMapper.listMyAnswer(1);
-        Assert.assertEquals(2, questionAnswers.size());
+        Assert.assertEquals(3, questionAnswers.size());
         for (QuestionAnswer questionAnswer : questionAnswers) {
-            if (questionAnswer.getAnswer_id() != 1 && questionAnswer.getAnswer_id() != 2) {
+            if (questionAnswer.getAnswer_id() != 1 && questionAnswer.getAnswer_id() != 2 && questionAnswer.getAnswer_id() != 7) {
                 Assert.fail();
             }
         }
@@ -342,8 +342,8 @@ public class CommunityQAMapperTest extends BaseTest {
         List<QuestionAnswer> questionAnswers = communityQAMapper.listMyAgreeAnswer(1);
         Assert.assertEquals(4, questionAnswers.size());
         for (QuestionAnswer questionAnswer : questionAnswers) {
-            if (questionAnswer.getAnswer_id() != 1 && questionAnswer.getAnswer_id() != 5 &&
-                    questionAnswer.getAnswer_id() != 4 && questionAnswer.getAnswer_id() != 6) {
+            if (questionAnswer.getAnswer_id() != 1 && questionAnswer.getAnswer_id() != 3 &&
+                    questionAnswer.getAnswer_id() != 5 && questionAnswer.getAnswer_id() != 6) {
                 Assert.fail();
             }
         }
@@ -1102,9 +1102,9 @@ public class CommunityQAMapperTest extends BaseTest {
             }
         }
         List<Integer> c_quesids = communityQAMapper.getQuestionIdByTitleOrCompanyName("百度");
-        Assert.assertEquals(1, c_quesids.size());
+        Assert.assertEquals(2, c_quesids.size());
         for(Integer ques_id : c_quesids){
-            if(ques_id != 4){
+            if(ques_id != 4 && ques_id != 10){
                 Assert.fail();
             }
         }

@@ -1,9 +1,7 @@
 package com.youthchina.Qingyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.Location;
