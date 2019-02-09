@@ -174,14 +174,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
-     * @Description: 通过job_id和stu_id来将申请的职位信息加入申请表中
-     * @Param: [job_id, stu_id]
+     * @Description: 通过job_id和user_id来将申请的职位信息加入申请表中
+     * @Param: [job_id, user_id]
      * @return: com.youthchina.domain.Qinghong.JobApply
      * @Author: Qinghong Wang
      * @Date: 2018/12/19
      */
-    public Integer jobApply(Integer job_id, Integer stu_id) throws NotFoundException {
+    public Integer jobApply(Integer job_id, Integer user_id) throws NotFoundException {
         Job job = applicantMapper.getJob(job_id);
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+
         if (job == null) {
             throw new NotFoundException(404, 404, "不能找到该job_id下的职位信息");
         } else {
@@ -191,7 +193,7 @@ public class StudentServiceImpl implements StudentService {
             } else {
                 JobApply jobApply = new JobApply();
                 jobApply.setJob_id(job.getJobId());
-                jobApply.setStu_id(stu_id);
+                jobApply.setStu_id(baseInfo.getStu_id());
                 jobApply.setJob_cv_send(1);
                 Integer integer=applicantMapper.addApply(jobApply);
                 return integer;
@@ -284,8 +286,6 @@ public class StudentServiceImpl implements StudentService {
         }
 
     }
-
-
 
     /**
      * @Description: 通过collect_id删除收藏的信息，通过假删除实现

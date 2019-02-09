@@ -213,6 +213,13 @@
         where USER_ID=#{user_id}
     </select>
 
+    <!--通过user_id获取stu_id-->
+    <select id="getBaseInfo" resultType="com.youthchina.domain.Qinghong.BaseInfo">
+        SELECT *
+        FROM STU_INFO
+        WHERE USER_ID=#{user_id} AND IS_DELETE=0
+    </select>
+
     <!--获取申请者的信息-->
     <select id="getStudentInfo" resultMap="studentResultMap">
         select a.*,b.*,c.*,d.*,e.*,f.*,g.*,z.*,m.*,o.*

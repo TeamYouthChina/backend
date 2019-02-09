@@ -1,6 +1,7 @@
 package com.youthchina.Qinghong;
 
 import com.google.common.base.Verify;
+import com.youthchina.domain.zhongyang.User;
 import com.youthchina.service.Qinghong.MailService;
 import com.youthchina.service.Qinghong.MailServiceImpl;
 import org.junit.Before;
@@ -32,8 +33,9 @@ import java.util.Map;
 @SpringBootTest
 public class EmailTests {
 
-    @InjectMocks
+    @Autowired
     private MailServiceImpl mailService;
+
     @Autowired
     private SpringTemplateEngine templateEngine;
     @Mock
@@ -80,9 +82,13 @@ public class EmailTests {
     @Test
     public void testRegisterMail() throws Exception {
         Map<String, Object> valueMap = new HashMap<>();
+        User user=new User();
+        user.setUsername("wqh");
+        user.setEmail("111");
         valueMap.put("to", "hmgswqh@gmail.com");
         valueMap.put("object", "申请账户邮件");
         valueMap.put("email", "hmgswqh@gmail.com");
+        valueMap.put("User",user);
         mailService.sendUserRegisterEmail(valueMap);
     }
 
