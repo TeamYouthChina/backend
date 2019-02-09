@@ -14,5 +14,5 @@ import java.util.List;
 @Mapper
 @Component
 public interface StaticFileSystemMapper {
-   int saveFileInfo(String fileName, String format, String localId, String serverAliId, String serverAwsId);
+   int saveFileInfo(ComMediaDocument comMediaDocument);
 }

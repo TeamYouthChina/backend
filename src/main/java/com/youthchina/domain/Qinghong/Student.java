@@ -50,6 +50,7 @@ public class Student extends User implements HasId<Integer> {
         this.stu_id = stu_id;
     }
 
+
     public String getIsInJob() {
         return isInJob;
     }

@@ -23,7 +23,17 @@ public class FriendsServiceImpl implements FriendsService {
         ComFriendRelationMap comFriendRelationMap = new ComFriendRelationMap();
         comFriendRelationMap.setRela_id(comFriendRelation.getRela_id());
         comFriendRelationMap.setUser_id(own_Id);
-        return friendsMapper.saveFriendsRelationMap(comFriendRelationMap);
+        friendsMapper.saveFriendsRelationMap(comFriendRelationMap);
+
+        ComFriendRelation comFriendRelation1 = new ComFriendRelation();
+        comFriendRelation1.setAdd_time(comFriendRelation.getAdd_time());
+        comFriendRelation1.setIs_delete(0);
+        comFriendRelation1.setUser_id(own_Id);
+        friendsMapper.saveFriendsRelation(comFriendRelation1);
+        ComFriendRelationMap comFriendRelationMap1 = new ComFriendRelationMap();
+        comFriendRelationMap1.setRela_id(comFriendRelation1.getRela_id());
+        comFriendRelationMap1.setUser_id(comFriendRelation.getUser_id());
+        return friendsMapper.saveFriendsRelationMap(comFriendRelationMap1);
     }
 
     @Override

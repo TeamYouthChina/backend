@@ -1,16 +1,20 @@
 package com.youthchina.service.tianjian;
+
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
-import com.aliyun.oss.model.*;
-import com.youthchina.dao.tianjian.CommunityMapper;
+import com.aliyun.oss.model.DeleteObjectsRequest;
+import com.aliyun.oss.model.DeleteObjectsResult;
+import com.aliyun.oss.model.PutObjectRequest;
 import com.youthchina.dao.tianjian.StaticFileSystemMapper;
+import com.youthchina.domain.tianjian.ComMediaDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -55,7 +59,7 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
     }
 
     @Override
-    public long uploadFile(String fileName,File file,String format) {
+    public long uploadFile(String fileName,File file,String format,Integer user_id) {
         OSSClient ossClient = new OSSClient(endPoint, accessKeyId, accessKeySecret);
         long localId=0;
         try {
@@ -66,13 +70,25 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
             byte[] inputByte = new byte[input.available()];
             input.read(inputByte);
             String fileNameInDataBase = fileNameGenerate.generateFileName();
-            while( ossClient.doesObjectExist(bucketName, fileName)){
-                fileNameInDataBase = fileNameGenerate.generateFileName();
-            }
             System.out.println("Uploading a new object to OSS from a file\n");
             ossClient.putObject(new PutObjectRequest(bucketName, fileNameInDataBase, new ByteArrayInputStream(inputByte)));
             localId = snowFlakeIdGenerate.nextId();
-            mapper.saveFileInfo(fileName,format,fileNameInDataBase ,String.valueOf(localId),"123");
+            System.out.println("Uploading a new object to OSS from a file\n");
+            ossClient.putObject(new PutObjectRequest(bucketName, String.valueOf(localId), new ByteArrayInputStream(inputByte)));
+
+
+            ComMediaDocument comMediaDocument = new ComMediaDocument();
+            comMediaDocument.setDocu_local_id( String.valueOf(localId));
+            comMediaDocument.setDocu_local_name(fileName);
+            comMediaDocument.setDocu_local_format(format);
+            comMediaDocument.setDocu_server_ali_id(String.valueOf(localId));
+            comMediaDocument.setDocu_server_aws_id(String.valueOf(localId));
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            comMediaDocument.setCreate_time(time);
+            comMediaDocument.setIs_delete(0);
+            comMediaDocument.setIs_delete_time(null);
+            comMediaDocument.setUser_id(user_id);
+            mapper.saveFileInfo(comMediaDocument);
 
         } catch (OSSException oe) {
             printOSSExceptionMessage(oe);
@@ -136,7 +152,6 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
             for (String object : deletedObjects) {
                 System.out.println("\t" + object);
             }
-
         } catch (OSSException oe) {
             printOSSExceptionMessage(oe);
         } catch (ClientException ce) {
