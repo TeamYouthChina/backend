@@ -1,14 +1,30 @@
 package com.youthchina.Qinghong;
 
+import com.google.common.base.Verify;
 import com.youthchina.service.Qinghong.MailService;
+import com.youthchina.service.Qinghong.MailServiceImpl;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.verify;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.MailMessage;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
+import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,44 +32,94 @@ import java.util.Map;
 @SpringBootTest
 public class EmailTests {
 
-    @Autowired
-    private MailService mailService;
+    @InjectMocks
+    private MailServiceImpl mailService;
     @Autowired
     private SpringTemplateEngine templateEngine;
+    @Mock
+    private JavaMailSender javaMailSender;
+
+    @Value("hmgswqh@gmail.com")
+    private String from;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void testSimpleMail() throws Exception {
-        mailService.sendSimpleMail("923793518@qq.com","test simple mail"," hello this is simple mail");
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        mailService.sendSimpleMail("923793518@qq.com", "test simple mail", "hello this is simple mail");
+        //Mockito.when(javaMailSender.send(simpleMailMessage)).thenReturn(simpleMailMessage);
+        verify(javaMailSender).send((SimpleMailMessage) argThat(new SimpleArgumentMatcher()));
     }
 
     @Test
-    public void testAttachmentMail() throws Exception{
-        String filePath="/Users/wangqinghong/Desktop/YouthChina resume/夏锐思中文简历.pdf";
-        mailService.sendAttachmentsMail("hmgswqh@gmail.com","test attachment mail","hello this is a attachment mail",filePath);
-    }
-    @Test
-    public void testTemplateMail() throws Exception{
-        Context context=new Context();
-        context.setVariable("id","006");
-        String emailContent=templateEngine.process("emailtemplates",context);
-        mailService.sendtemplateMail("hmgswqh@gmail.com","test template mail",emailContent);
+    public void testAttachmentMail() throws Exception {
+        String filePath = "/Users/wangqinghong/Desktop/YouthChina resume/夏锐思中文简历.pdf";
+        mailService.sendAttachmentsMail("hmgswqh@gmail.com", "test attachment mail", "hello this is a attachment mail", filePath);
+//        verify(javaMailSender).send((MimeMessage) argThat(new AttachmentArgumentMatcher()));
     }
 
     @Test
-    public void testInlineMail() throws Exception{
-        String recId="00011";
-        String recPath="/Users/wangqinghong/Desktop/YouthChina resume/picture.jpeg";
-        mailService.sendInlineResourceMail("hmgswqh@gmail.com","test inline mail","hello this is a inline mail",recPath,recId);
+    public void testTemplateMail() throws Exception {
+        Context context = new Context();
+        context.setVariable("id", "006");
+        String emailContent = templateEngine.process("emailtemplates", context);
+        mailService.sendtemplateMail("hmgswqh@gmail.com", "test template mail", emailContent);
     }
+
     @Test
-    public void testRegisterMail() throws Exception{
+    public void testInlineMail() throws Exception {
+        String recId = "00011";
+        String recPath = "/Users/wangqinghong/Desktop/YouthChina resume/picture.jpeg";
+        mailService.sendInlineResourceMail("hmgswqh@gmail.com", "test inline mail", "hello this is a inline mail", recPath, recId);
+    }
+
+    @Test
+    public void testRegisterMail() throws Exception {
         Map<String, Object> valueMap = new HashMap<>();
         valueMap.put("to", "hmgswqh@gmail.com");
         valueMap.put("object", "申请账户邮件");
-        valueMap.put("email","hmgswqh@gmail.com");
+        valueMap.put("email", "hmgswqh@gmail.com");
         mailService.sendUserRegisterEmail(valueMap);
     }
 
 
+     class SimpleArgumentMatcher implements org.mockito.ArgumentMatcher {
+        @Override
+        public boolean matches(Object o) {
+            if (o instanceof SimpleMailMessage) {
+                SimpleMailMessage simpleMailMessage = (SimpleMailMessage) o;
+                if (simpleMailMessage.getSubject().equals("test simple mail")
+                        &&simpleMailMessage.getTo()[0].equals("923793518@qq.com")
+                        &&simpleMailMessage.getText().equals("hello this is simple mail")
+                ) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+//    class AttachmentArgumentMatcher implements org.mockito.ArgumentMatcher {
+//        @Override
+//        public boolean matches(Object o) {
+//            if (o instanceof MimeMessage) {
+//                MimeMessage mimeMessage = (MimeMessage) o;
+//                MimeMessageHelper mimeMessageHelper=new MimeMessageHelper(mimeMessage);
+//                if (mimeMessageHelper.equals("test attachment mail")
+//                        &&simpleMailMessage.get()[0].equals("hmgswqh@gmail.com")
+//                        &&simpleMailMessage.getText().equals("hello this is a attachment mail")
+//                        &&simpleMailMessage.get
+//                        &&mimeMessageHelper.getMimeMessage().getSubject().equals()
+//                ) {
+//                    return true;
+//                }
+//            }
+//            return false;
+//        }
+//    }
 }
 
