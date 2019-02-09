@@ -84,10 +84,47 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
     /**
      * Judge if an answer is belong to a question
-     * @param answer_id id of answer
-     * @param ques_id id of question
+     * @param id id of answer
      * @return true or false
      */
+    @Override
+    public Question get(Integer id) throws NotFoundException {
+        Question question = communityQAMapper.getQuestionById(id);
+        if(question == null){
+            throw new NotFoundException(404,404,"没有找到这个问题");
+        }
+        QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(id);
+        if(questionRelaTypeAndId.getRela_type() == 2){
+            Company company = companyMapper.selectCompany(questionRelaTypeAndId.getRela_id());
+            question.setCompany(company);
+        }else if(questionRelaTypeAndId.getRela_type() == 3){
+            Job job = jobHrMapper.selectJobByJobId(questionRelaTypeAndId.getRela_id());
+            question.setJob(job);
+        }
+        return question;
+    }
+
+    @Override
+    public List<Question> get(List<Integer> id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public void delete(Integer id) throws NotFoundException {
+
+    }
+
+    @Override
+    public Question update(Question question) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public Question add(Question entity) {
+        return null;
+    }
+
+
     @Override
     public boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id) {
         return communityQAMapper.isAnswerBelongToQuestion(answer_id, ques_id);

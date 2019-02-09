@@ -3,11 +3,14 @@ package com.youthchina.domain.jinhao.communityQA;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.QuestionDTO;
+import com.youthchina.dto.community.SimpleAnswerDTO;
+import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Question {
+public class Question implements HasId<Integer> {
     private Integer ques_id;
     private String ques_title;
     private String ques_abbre;
@@ -23,6 +26,26 @@ public class Question {
     private List<Label> labels;
     private Job job;
     private Company company;
+    private AnswerInvitation ques_invitation;
+
+    public Question(QuestionDTO questionDTO) {
+        this.ques_id = questionDTO.getId();
+        this.ques_user = questionDTO.getCreator();
+        this.ques_title = questionDTO.getTitle();
+        this.ques_body = questionDTO.getBody();
+        this.ques_invitation = questionDTO.getInvitation();
+        //isAnonymous
+        this.ques_pub_time = questionDTO.getCreateAt();
+        for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
+            this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
+        }
+    }
+
+    public Question(){}
+
+    public Integer getId() {
+        return ques_id;
+    }
 
     public Integer getUser_anony() {
         return user_anony;
@@ -142,6 +165,14 @@ public class Question {
 
     public void setQues_edit_time(Timestamp ques_edit_time) {
         this.ques_edit_time = ques_edit_time;
+    }
+
+    public AnswerInvitation getQues_invitation() {
+        return ques_invitation;
+    }
+
+    public void setQues_invitation() {
+        this.ques_invitation = ques_invitation;
     }
 
 }
