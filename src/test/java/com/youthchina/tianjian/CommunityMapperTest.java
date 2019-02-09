@@ -46,6 +46,7 @@ public class CommunityMapperTest {
         comEssay.setEssay_pub_time(time);
         comEssay.setEssay_edit_time(time);
         comEssay.setIs_delete(0);
+        comEssay.setUser_anony(0);
          userMapper.addEssay(comEssay);
         Assert.assertNotNull(comEssay.getEssay_id());
     }
@@ -68,6 +69,7 @@ public class CommunityMapperTest {
         comEssay.setEssay_pub_time(time);
         comEssay.setEssay_edit_time(time);
         comEssay.setIs_delete(0);
+        comEssay.setUser_anony(0);
         userMapper.updateEssay(comEssay);
     }
 
