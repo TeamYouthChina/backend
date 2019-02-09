@@ -16,11 +16,11 @@ public class QuestionDTO {
     private User creator;
     private String title;
     private String body;
-    private Boolean isAnonymous;
+    private Integer isAnonymous;
     private Timestamp createAt;
     private List<SimpleAnswerDTO> answers;
     private AnswerInvitation invitation;
-    private List<Integer> labels;
+    private List<Integer> labelIds;
     private Integer rela_type;
     private Integer rela_id;
 
@@ -30,10 +30,17 @@ public class QuestionDTO {
         this.title = question.getQues_title();
         this.body = question.getQues_body();
         this.invitation = question.getQues_invitation();
-        //isAnonymous
+        this.isAnonymous =question.getUser_anony();
         this.createAt = question.getQues_pub_time();
+        this.labelIds = question.getLabelIds();
+        this.rela_type = question.getRela_type();
         for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
             this.answers.add(new SimpleAnswerDTO(questionAnswer));
+        }
+        if(question.getRela_type() == 2) {
+            this.rela_id = question.getCompany().getCompanyId();
+        } else if(question.getRela_type() == 3) {
+            this.rela_id = question.getJob().getJobId();
         }
     }
 
@@ -71,11 +78,11 @@ public class QuestionDTO {
         this.body = body;
     }
 
-    public Boolean getAnonymous() {
+    public Integer getAnonymous() {
         return isAnonymous;
     }
 
-    public void setAnonymous(Boolean anonymous) {
+    public void setAnonymous(Integer anonymous) {
         isAnonymous = anonymous;
     }
 
@@ -103,12 +110,12 @@ public class QuestionDTO {
         this.invitation = invitation;
     }
 
-    public List<Integer> getLabels() {
-        return labels;
+    public List<Integer> getLabelIds() {
+        return labelIds;
     }
 
-    public void setLabels(List<Integer> labels) {
-        this.labels = labels;
+    public void setLabelIds(List<Integer> labels) {
+        this.labelIds = labelIds;
     }
 
     public Integer getRela_type() {

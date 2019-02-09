@@ -6,6 +6,7 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.QuestionDTO;
 import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.util.zhongyang.HasId;
+import io.swagger.models.auth.In;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -27,6 +28,8 @@ public class Question implements HasId<Integer> {
     private Job job;
     private Company company;
     private AnswerInvitation ques_invitation;
+    private List<Integer> labelIds;
+    private Integer rela_type;
 
     public Question(QuestionDTO questionDTO) {
         this.ques_id = questionDTO.getId();
@@ -34,10 +37,17 @@ public class Question implements HasId<Integer> {
         this.ques_title = questionDTO.getTitle();
         this.ques_body = questionDTO.getBody();
         this.ques_invitation = questionDTO.getInvitation();
-        //isAnonymous
+        this.user_anony = questionDTO.getAnonymous();
         this.ques_pub_time = questionDTO.getCreateAt();
+        this.rela_type = questionDTO.getRela_type();
+        this.labelIds = questionDTO.getLabelIds();
         for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
             this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
+        }
+        if(questionDTO.getRela_type() == 2){
+            this.company.setCompanyId(questionDTO.getRela_id());
+        } else if(questionDTO.getRela_type() == 3){
+            this.job.setJobId(questionDTO.getRela_id());
         }
     }
 
@@ -45,6 +55,10 @@ public class Question implements HasId<Integer> {
 
     public Integer getId() {
         return ques_id;
+    }
+
+    public void setId(Integer ques_id) {
+        this.ques_id = ques_id;
     }
 
     public Integer getUser_anony() {
@@ -173,6 +187,22 @@ public class Question implements HasId<Integer> {
 
     public void setQues_invitation() {
         this.ques_invitation = ques_invitation;
+    }
+
+    public List<Integer> getLabelIds() {
+        return labelIds;
+    }
+
+    public void setRela_type(List<Integer> labelIds) {
+        this.labelIds = labelIds;
+    }
+
+    public Integer getRela_type() {
+        return rela_type;
+    }
+
+    public void setRela_type(Integer rela_type) {
+        this.rela_type = rela_type;
     }
 
 }
