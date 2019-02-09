@@ -42,7 +42,7 @@ public class InfluenceTest {
         Student student = influence.getStudent();
         Assert.assertNotNull(student);
         List<ComFriendRelation> comFriendRelations = influence.getComFriendRelations();
-        Assert.assertEquals(0, comFriendRelations.size());
+        Assert.assertEquals(1, comFriendRelations.size());
         List<AnswerEvaluate> answerEvaluates = influence.getAnswerEvaluates();
         Assert.assertEquals(2, answerEvaluates.size());
         for(AnswerEvaluate answerEvaluate : answerEvaluates){
