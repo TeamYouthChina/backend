@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
+import com.youthchina.dto.Response;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -58,7 +58,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
         Job job = this.jobService.get(jobId);
         if (detailLevel == 1) {
-            return ResponseEntity.ok(job);
+            return ResponseEntity.ok(new Response(job));
         }
         throw new BaseException();
     }
