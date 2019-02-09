@@ -1,5 +1,6 @@
 package com.youthchina.dto.community;
 
+import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 
 import java.sql.Timestamp;
@@ -13,6 +14,16 @@ public class SimpleAnswerDTO {
     private String body;
     private Boolean isAnonymous;
     private Timestamp creatAt;
+
+    public SimpleAnswerDTO(QuestionAnswer questionAnswer) {
+        this.id  = questionAnswer.getAnswer_id();
+        this.creator = questionAnswer.getAnswer_user();
+        this.body = questionAnswer.getAnswer_content();
+        this.isAnonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
+        this.creatAt = questionAnswer.getAnswer_pub_time();
+    }
+
+    public SimpleAnswerDTO(){}
 
     public Integer getId() {
         return id;

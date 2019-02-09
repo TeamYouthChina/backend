@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 @SpringBootApplication
 @Configuration
 @PropertySource("classpath:/config.properties")
@@ -21,5 +24,9 @@ public class YouthchinaApplication {
         SpringApplication.run(YouthchinaApplication.class, args);
     }
 
+    @PostConstruct
+    void started() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
 
 }

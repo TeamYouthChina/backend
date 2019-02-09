@@ -1,5 +1,8 @@
 package com.youthchina.dto.community;
 
+import com.youthchina.domain.jinhao.communityQA.AnswerInvitation;
+import com.youthchina.domain.jinhao.communityQA.Question;
+import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 
 import java.sql.Timestamp;
@@ -13,9 +16,35 @@ public class QuestionDTO {
     private User creator;
     private String title;
     private String body;
-    private Boolean isAnonymous;
+    private Integer isAnonymous;
     private Timestamp createAt;
     private List<SimpleAnswerDTO> answers;
+    private AnswerInvitation invitation;
+    private List<Integer> labelIds;
+    private Integer rela_type;
+    private Integer rela_id;
+
+    public QuestionDTO(Question question) {
+        this.id = question.getQues_id();
+        this.creator = question.getQues_user();
+        this.title = question.getQues_title();
+        this.body = question.getQues_body();
+        this.invitation = question.getQues_invitation();
+        this.isAnonymous =question.getUser_anony();
+        this.createAt = question.getQues_pub_time();
+        this.labelIds = question.getLabelIds();
+        this.rela_type = question.getRela_type();
+        for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
+            this.answers.add(new SimpleAnswerDTO(questionAnswer));
+        }
+        if(question.getRela_type() == 2) {
+            this.rela_id = question.getCompany().getCompanyId();
+        } else if(question.getRela_type() == 3) {
+            this.rela_id = question.getJob().getJobId();
+        }
+    }
+
+    public QuestionDTO(){}
 
     public Integer getId() {
         return id;
@@ -49,11 +78,11 @@ public class QuestionDTO {
         this.body = body;
     }
 
-    public Boolean getAnonymous() {
+    public Integer getAnonymous() {
         return isAnonymous;
     }
 
-    public void setAnonymous(Boolean anonymous) {
+    public void setAnonymous(Integer anonymous) {
         isAnonymous = anonymous;
     }
 
@@ -71,5 +100,37 @@ public class QuestionDTO {
 
     public void setAnswers(List<SimpleAnswerDTO> answers) {
         this.answers = answers;
+    }
+
+    public AnswerInvitation getInvitation() {
+        return invitation;
+    }
+
+    public void setInvitation(AnswerInvitation invitation) {
+        this.invitation = invitation;
+    }
+
+    public List<Integer> getLabelIds() {
+        return labelIds;
+    }
+
+    public void setLabelIds(List<Integer> labels) {
+        this.labelIds = labelIds;
+    }
+
+    public Integer getRela_type() {
+        return rela_type;
+    }
+
+    public void setRela_type(Integer rela_type) {
+        this.rela_type = rela_type;
+    }
+
+    public Integer getRela_id() {
+        return rela_id;
+    }
+
+    public void setRela_id(){
+        this.rela_id = rela_id;
     }
 }
