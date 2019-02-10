@@ -2,7 +2,9 @@ package com.youthchina.Qingyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.dto.ApplicantDTO;
 import com.youthchina.util.AuthGenerator;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,11 +24,17 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.hamcrest.Matchers.equalTo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -131,13 +139,74 @@ public class StudentControllerTest {
         ;
     }
 
+    /**
+     * Test Create Applicant
+     * @throws Exception
+     */
     @Test
     public void testPost() throws Exception{
-        this.mvc.perform(post(this.urlPrefix + "/login").param("id", "1").param("password", "123456"))
-                .andDo(print());
-//        this.mvc.perform(post(this.urlPrefix + "/applicants"))
-//                .andDo(print());
+
+        ApplicantDTO applicantDTO = new ApplicantDTO();
+        applicantDTO.setName("Irving");
+        applicantDTO.setAvatarUrl("IrvingUrl");
+
+        Map<String, Object> applicantMap = new HashMap<>();
+        //applicantMap.put("id", Integer.valueOf(2));
+        applicantMap.put("name", "Irving");
+        applicantMap.put("avatarUrl", "IrvingUrl");
+        applicantMap.put("isInJob", true);
+
+        Map<String, Object> currentCompany = new HashMap<>();
+        currentCompany.put("id", "1");
+        currentCompany.put("name", "baidu");
+        currentCompany.put("avatarUrl", "baiduUrl");
+        applicantMap.put("currentCompany", currentCompany);
+
+        Map<String, Object> educations = null;//TODO
+        applicantMap.put("educations", educations);
+
+        Map<String, Object> contacts = new HashMap<>();
+        contacts.put("emails", "irving@baidu.com");
+        contacts.put("phonenumbers", "2022022202");
+        applicantMap.put("contacts", contacts);
+
+        Map<String, Object> works = new HashMap<>(); //TODO
+        applicantMap.put("works", works);
+
+        Map<String, Object> projects = new HashMap<>(); //TODO
+        applicantMap.put("projects", projects);
+
+        Map<String, Object> extracurriculars = new HashMap<>(); //TODO
+        applicantMap.put("extracurriculars", extracurriculars);
+
+        Map<String, Object> certifications = new HashMap<>(); //TODO
+        applicantMap.put("certifications", certifications);
+
+
+        this.mvc.perform(
+                post(this.urlPrefix + "/applicants")
+                        .with(authGenerator.authentication())
+                    .contentType(MediaType.APPLICATION_JSON_UTF8)
+                    //.content(new JasonObject)
+                    .content(new ObjectMapper().writeValueAsString(applicantMap))
+        )
+                .andDo(print())
+        ;
     }
+
+    @Test
+    public void testDelete() throws Exception{
+
+        this.mvc.perform(
+                delete( this.urlPrefix + "/applicants/1")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                //.andExpect(content().string(equalTo("success")))
+                //.andExpect(content().json("{\"content\":null,\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+        ;
+    }
+
 
 
 }
