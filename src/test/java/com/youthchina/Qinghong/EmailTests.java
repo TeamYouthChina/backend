@@ -36,6 +36,10 @@ public class EmailTests {
     @Autowired
     private MailServiceImpl mailService;
 
+    @InjectMocks
+    private MailServiceImpl mailService1;
+
+
     @Autowired
     private SpringTemplateEngine templateEngine;
     @Mock
@@ -52,14 +56,14 @@ public class EmailTests {
     @Test
     public void testSimpleMail() throws Exception {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        mailService.sendSimpleMail("923793518@qq.com", "test simple mail", "hello this is simple mail");
+        mailService1.sendSimpleMail("923793518@qq.com", "test simple mail", "hello this is simple mail");
         //Mockito.when(javaMailSender.send(simpleMailMessage)).thenReturn(simpleMailMessage);
         verify(javaMailSender).send((SimpleMailMessage) argThat(new SimpleArgumentMatcher()));
     }
 
     @Test
     public void testAttachmentMail() throws Exception {
-        String filePath = "/Users/wangqinghong/Desktop/YouthChina resume/夏锐思中文简历.pdf";
+        String filePath = "/Users/wangqinghong/Desktop/YouthChina resume/resume.pdf";
         mailService.sendAttachmentsMail("hmgswqh@gmail.com", "test attachment mail", "hello this is a attachment mail", filePath);
 //        verify(javaMailSender).send((MimeMessage) argThat(new AttachmentArgumentMatcher()));
     }
