@@ -78,7 +78,7 @@ comment '职位基本信息表';
         this.jobId = simpleJobDTO.getId();
         this.jobName = simpleJobDTO.getName();
         this.company = new Company(simpleJobDTO.getOrganization());
-        for (LocationDTO locationDTO : simpleJobDTO.getJobLoationList()) {
+        for (LocationDTO locationDTO : simpleJobDTO.getJobLocationList()) {
             this.jobLocationList.add(new Location(locationDTO));
         }
     }
