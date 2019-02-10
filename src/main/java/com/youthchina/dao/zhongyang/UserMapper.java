@@ -16,9 +16,11 @@ public interface UserMapper {
 
     List<User> findAll(List<Integer> ids);
 
-    void insert(User user);
+    int insert(User user);
 
     void delete(Integer id);
 
     void update(User user);
+
+    boolean canRegister(User user);
 }

@@ -8,4 +8,5 @@ import com.youthchina.service.DomainCRUDService;
  */
 public interface UserService extends DomainCRUDService<User, Integer> {
 
+    Boolean canRegister(User user);
 }
