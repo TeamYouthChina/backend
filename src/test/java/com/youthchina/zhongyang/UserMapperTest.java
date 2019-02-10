@@ -1,9 +1,10 @@
-package com.youthchina.dao.zhongyang;
+package com.youthchina.zhongyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
+import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -54,6 +55,7 @@ public class UserMapperTest {
         Assert.assertNotNull(user.getId());
         User createdUser = userMapper.findOne(user.getId());
         Assert.assertNotNull(createdUser);
+        Assert.assertEquals(createdUser.getEmail(), user.getEmail());
     }
 
     @Test
@@ -90,6 +92,23 @@ public class UserMapperTest {
         userMapper.update(user);
         user = userMapper.findOne(1);
         Assert.assertEquals("US", user.getNation());
+    }
+
+    @Test
+    public void testCanRegister(){
+        User user = new User();
+        user.setUsername("Newtest");
+        user.setPassword("sldjflskjlksf");
+        user.setAge(12);
+        user.setAvatarUrl("");
+        user.setEmail("testNew!@test.com");
+        user.setPhonenumber("00000011112222");
+        user.setRealName("Test");
+        user.setNation("China");
+        user.setRegisterDate("2018-10-11 11:11:11");
+        user.setGender("male");
+        user.setRole(1);
+        Assert.assertTrue(userMapper.canRegister(user));
     }
 
 }
