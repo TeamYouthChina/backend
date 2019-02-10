@@ -60,8 +60,6 @@ public class Company {
 
     public  Company() {}
 
-    /*Setter and Getter*/
-
     public List<Industry> getIndList() {
         return indList;
     }
