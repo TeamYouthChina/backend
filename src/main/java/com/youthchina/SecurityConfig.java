@@ -29,6 +29,7 @@ import java.util.Collections;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private String REGISTER_URL = null;
     private String URL_PREFIX = null;
 
     private String LOGIN_URL = null;
@@ -43,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtService = jwtService;
         this.URL_PREFIX = url_prefix;
         this.LOGIN_URL = URL_PREFIX + "/login";
+        this.REGISTER_URL = URL_PREFIX + "/register";
         this.jwtAuthenticationProvider = jwtAuthenticationProvider;
     }
 
@@ -57,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                 .antMatchers(LOGIN_URL).permitAll()
+                .antMatchers(REGISTER_URL).permitAll()
                 .antMatchers("/**").authenticated()
                 .anyRequest().permitAll()
 
@@ -65,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(getLoginFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(getUserByJwtFilter(), UsernamePasswordAuthenticationFilter.class)
         ;
+
     }
 
     @Bean
