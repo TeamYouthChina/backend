@@ -6,13 +6,10 @@ security.token.header=X-AUTHENTICATION
 security.token.prefix=YouthChina
 # in seconds
 security.token.expirationtime=86400
-snowflake.work.id=256
-snowflake.version=1
 
-staticfile.endPoint=oss-cn-shanghai.aliyuncs.com
-staticfile.bucketName=youthchinatest
-staticfile.accessKeyId=
-staticfile.accessKeySecret=
+snowflake.work.id=0000000001
+snowflake.version = 1
+localfilemanage.localfilepath = ~/upload/
 
 pers_profile_rate = 0.06
 pers_ident_verify_rate = 0.04
@@ -23,3 +20,7 @@ pers_friend_quality_rate = 0.1
 pers_interaction_rate = 0.1
 pers_like_count_rate = 0.1
 pers_posi_evaluate_rate = 0.1
+staticfile.endPoint=oss-cn-shanghai.aliyuncs.com
+staticfile.bucketName=youthchinatest
+staticfile.accessKeyId=${YOUTHCHINAACCESSKEYID}
+staticfile.accessKeySecret=${YOUTHCHINAACCESSKEYIDKEYSECRET}

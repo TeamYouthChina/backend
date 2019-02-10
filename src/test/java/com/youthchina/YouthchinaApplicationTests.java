@@ -32,7 +32,7 @@ public class YouthchinaApplicationTests {
        File file = new File("D:\\LocalFileStore\\video.mp4");
        long i = staticFileSystemServiceImplALiCloud.uploadFile("video",file ,"mp4",1);
        System.out.println(i);
-    }*/
+    }
 
     @Test
     public void verifyFile() {
@@ -42,7 +42,7 @@ public class YouthchinaApplicationTests {
     @Test
     public void downloadFile() {
         System.out.println( staticFileSystemServiceImplALiCloud.downloadFile("2848699711584473088"));
-    }
+    }*/
 
     @Test
     public void testIdGenerate() {
