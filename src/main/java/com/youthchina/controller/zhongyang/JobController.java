@@ -89,8 +89,8 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     }
 
     @PostMapping("/search")
-    public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
-        //todo: continue
+    public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, Authentication authentication) throws BaseException {
+
         List <Job> searchResult = this.jobService.getJobByMore(jobSearchDTO.getJobId(),jobSearchDTO.getJobName(),
                 jobSearchDTO.getComId(), jobSearchDTO.getComName(),jobSearchDTO.getStartTime(),jobSearchDTO.getEndTime(),
                 jobSearchDTO.getType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), jobSearchDTO.getActive(),
@@ -98,10 +98,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         JobSearchResultDTO jobSearchResultDTO = new JobSearchResultDTO();
         jobSearchResultDTO.setSearchResult(searchResult);
 
-        if (detailLevel == 1) {
-            return ResponseEntity.ok(new Response(jobSearchResultDTO));
-        }
-        throw new BaseException();
+        return ResponseEntity.ok(new Response(jobSearchResultDTO));
     }
 
 

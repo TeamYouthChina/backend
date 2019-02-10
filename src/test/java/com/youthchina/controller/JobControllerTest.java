@@ -77,8 +77,8 @@ public class JobControllerTest {
         jobSearchDTO.setComId(1);
         jobSearchDTO.setComName("大疆");
         jobSearchDTO.setType(1);
-        jobSearchDTO.setSalaryCap(6000);
-        jobSearchDTO.setSalaryFloor(5000);
+        jobSearchDTO.setSalaryCap(10000);
+        jobSearchDTO.setSalaryFloor(1000);
         jobSearchDTO.setActive(1);
 
         ObjectMapper mapper = new ObjectMapper();
