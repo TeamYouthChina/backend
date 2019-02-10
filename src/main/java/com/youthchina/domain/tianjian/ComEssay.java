@@ -10,6 +10,15 @@ public class ComEssay {
     private Timestamp essay_pub_time;
     private Timestamp  essay_edit_time;
     private Integer is_delete;
+    private Integer user_anony;
+
+    public Integer getUser_anony() {
+        return user_anony;
+    }
+
+    public void setUser_anony(Integer user_anony) {
+        this.user_anony = user_anony;
+    }
 
     public Integer getEssay_id() {
         return essay_id;

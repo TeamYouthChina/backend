@@ -20,18 +20,17 @@ public class QuestionAnswer implements HasId<Integer> {
     private List<AnswerEvaluate> answerEvaluates;
     private List<AnswerComment> answerComments;
 
-    public QuestionAnswer(SimpleAnswerDTO simpleAnswerDTO){
+    public QuestionAnswer(SimpleAnswerDTO simpleAnswerDTO) {
         this.answer_id = simpleAnswerDTO.getId();
         this.answer_user = simpleAnswerDTO.getCreator();
         this.answer_content = simpleAnswerDTO.getBody();
+        this.user_anony = (simpleAnswerDTO.getAnonymous()) ? 1 : 0;
         this.answer_pub_time = simpleAnswerDTO.getCreatAt();
-        this.user_anony = (simpleAnswerDTO.getAnonymous() == true)?1:0;
-
     }
 
     public QuestionAnswer(){}
 
-    public Integer getId(){
+    public Integer getId() {
         return answer_id;
     }
 

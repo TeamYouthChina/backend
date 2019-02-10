@@ -2,6 +2,7 @@ package com.youthchina.dto.community;
 
 import com.youthchina.domain.jinhao.communityQA.AnswerInvitation;
 import com.youthchina.domain.jinhao.communityQA.Question;
+import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 
 import java.sql.Timestamp;
@@ -18,43 +19,32 @@ public class QuestionDTO {
     private Integer isAnonymous;
     private Timestamp createAt;
     private List<SimpleAnswerDTO> answers;
-    private AnswerInvitation answerInvitation;
-    private List<Integer> lables;
+    private AnswerInvitation invitation;
+    private List<Integer> labelIds;
     private Integer rela_type;
     private Integer rela_id;
 
-
-    public QuestionDTO(Question question){
+    public QuestionDTO(Question question) {
         this.id = question.getQues_id();
-        this.creator= question.getQues_user();
+        this.creator = question.getQues_user();
         this.title = question.getQues_title();
-        this.body =question.getQues_body();
-        this.isAnonymous = question.getUser_anony();
+        this.body = question.getQues_body();
+        this.invitation = question.getQues_invitation();
+        this.isAnonymous =question.getUser_anony();
         this.createAt = question.getQues_pub_time();
-        for(int i =0; i < question.getQuestionAnswers().size(); i++){
-            this.answers.add(new SimpleAnswerDTO(question.getQuestionAnswers().get(i)));
+        this.labelIds = question.getLabelIds();
+        this.rela_type = question.getRela_type();
+        for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
+            this.answers.add(new SimpleAnswerDTO(questionAnswer));
         }
-        this.answerInvitation = question.getAnswerInvitation();
-        if(question.getRela_type() == 2){
+        if(question.getRela_type() == 2) {
             this.rela_id = question.getCompany().getCompanyId();
-        }else if (question.getRela_type() == 3) {
+        } else if(question.getRela_type() == 3) {
             this.rela_id = question.getJob().getJobId();
         }
-        this.rela_type = question.getRela_type();
-        this.lables = question.getLableIds();
     }
 
-    public List<Integer> getLables(){ return lables; }
-
-    public void setLables(List<Integer> lables){this.lables = lables;}
-
-    public Integer getRele_type(){ return rela_type; }
-
-    public void setRele_type(Integer rele_type){ this.rela_type = rele_type; }
-
-    public Integer getRele_id(){return rela_id;}
-
-    public void setRele_id(Integer rele_id){this.rela_id = rele_id;}
+    public QuestionDTO(){}
 
     public Integer getId() {
         return id;
@@ -112,7 +102,35 @@ public class QuestionDTO {
         this.answers = answers;
     }
 
-    public AnswerInvitation getAnswerInvitation() { return answerInvitation; }
+    public AnswerInvitation getInvitation() {
+        return invitation;
+    }
 
-    public void setJob(AnswerInvitation answerInvitation) { this.answerInvitation = answerInvitation; }
+    public void setInvitation(AnswerInvitation invitation) {
+        this.invitation = invitation;
+    }
+
+    public List<Integer> getLabelIds() {
+        return labelIds;
+    }
+
+    public void setLabelIds(List<Integer> labels) {
+        this.labelIds = labelIds;
+    }
+
+    public Integer getRela_type() {
+        return rela_type;
+    }
+
+    public void setRela_type(Integer rela_type) {
+        this.rela_type = rela_type;
+    }
+
+    public Integer getRela_id() {
+        return rela_id;
+    }
+
+    public void setRela_id(){
+        this.rela_id = rela_id;
+    }
 }

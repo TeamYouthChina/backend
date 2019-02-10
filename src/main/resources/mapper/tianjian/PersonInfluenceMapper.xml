@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.tianjian.PersonInfluenceMapper">
+    <!--    保存个人影响力分值-->
+    <insert id="savePersonInfluence" parameterType="com.youthchina.domain.tianjian.PersonInfluence">
+    INSERT INTO PERSON_INFLUENCE  (USER_ID, PERS_PROFILE, PERS_IDENT_VERIFY, PERS_UNIVERSITY,PERS_WORK,PERS_FRIEND_COUNT,PER_FRIEND_QUALITY,PERS_INTERACTION,PERS_LIKE_COUNT,PERS_POSI_EVALUATE)
+           values(#{user_id},#{pers_profile},#{pers_ident_verity},#{pers_university},#{pers_work},#{pers_friend_count},#{pers_friend_quality},#{pers_interaction},#{pers_like_count}#{pers_posi_evaluate}
+                 )
+
+    </insert>
+
+    <!--    更新个人影响力分值 -->
+    <update id="updatePersonInfluence">
+    update PERSON_INFLUENCE t
+    set
+         t.PERS_PROFILE = #{personInfluence.pers_profile},
+         t.PERS_IDENT_VERIFY = #{personInfluence.pers_ident_verity},
+         t.PERS_UNIVERSITY = #{personInfluence.pers_university},
+         t.PERS_WORK = #{personInfluence.pers_work},
+         t.PERS_FRIEND_COUNT = #{personInfluence.pers_friend_count},
+         t.PER_FRIEND_QUALITY = #{personInfluence.pers_friend_quality},
+         t.PERS_INTERACTION = #{personInfluence.pers_interaction},
+         t.PERS_LIKE_COUNT = #{personInfluence.pers_like_count},
+         t.PERS_POSI_EVALUATE = #{personInfluence.pers_posi_evaluate}
+    where
+         t.USER_ID = #{personInfluence.user_id}
+    </update>
+
+    <!--    获取个人各项影响力分值 -->
+    <select id="getPersonInfluence"  resultType="com.youthchina.domain.tianjian.PersonInfluence">
+        select t.* from PERSON_INFLUENCE t
+        where t.USER_ID = #{user_id}
+     </select>
+
+    <!--    获取计算个人影响力分值的个人资料信息 -->
+    <select id="getUserInfo" resultType="com.youthchina.domain.Qinghong.UserInfo">
+        select * from SYS_USER
+        where USER_ID = #{user_id} and IS_DELETE = 1
+    </select>
+</mapper>

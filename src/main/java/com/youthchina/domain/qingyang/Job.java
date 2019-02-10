@@ -13,14 +13,14 @@ public class Job implements HasId<Integer> {
     /*主键, 职位ID (JOB_INFO)*/
     private Integer jobId;
 
-    private String  jobName;
-    private String  jobProfCode;
-    private Date    jobStartTime;
-    private Date    jobEndTime;
+    private String jobName;
+    private String jobProfCode;
+    private Date jobStartTime;
+    private Date jobEndTime;
     private Integer jobType;
-    private String  jobDescription;
-    private String  jobDuty;
-    private String  jobHighlight;
+    private String jobDescription;
+    private String jobDuty;
+    private String jobHighlight;
 
 /*
 create table JOB_INFO
@@ -54,11 +54,13 @@ comment '职位基本信息表';
 
 
 */
+
+
     private Integer jobSalaryFloor;
     private Integer jobSalaryCap;
-    private String  jobLink;
-    private String  cvReceiMail;
-    private String  cvNameRule;
+    private String jobLink;
+    private String cvReceiMail;
+    private String cvNameRule;
     private Integer jobActive;
     private List<Location> jobLocationList;
     private List<Degree> jobReqList;
@@ -72,7 +74,6 @@ comment '职位基本信息表';
     private Company company;
     private Hr hr;
 
-    public Job (){}
     public Job(SimpleJobDTO simpleJobDTO) {
         this.jobId = simpleJobDTO.getId();
         this.jobName = simpleJobDTO.getName();
@@ -81,6 +82,8 @@ comment '职位基本信息表';
             this.jobLocationList.add(new Location(locationDTO));
         }
     }
+
+    public Job(){}
 
     public Integer getId() {
         return jobId;

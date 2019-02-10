@@ -9,7 +9,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
-import java.sql.Time;
 import java.util.TimeZone;
 
 @SpringBootApplication
@@ -26,9 +25,8 @@ public class YouthchinaApplication {
     }
 
     @PostConstruct
-    void started(){
+    void started() {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
-
 
 }

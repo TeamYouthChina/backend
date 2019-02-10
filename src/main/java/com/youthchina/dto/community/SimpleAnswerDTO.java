@@ -15,15 +15,15 @@ public class SimpleAnswerDTO {
     private Boolean isAnonymous;
     private Timestamp creatAt;
 
-    public SimpleAnswerDTO(){}
-
-    public SimpleAnswerDTO(QuestionAnswer questionAnser){
-        this.id = questionAnser.getAnswer_id();
-        this.creator = questionAnser.getAnswer_user();
-        this.body = questionAnser.getAnswer_content();
-        this.isAnonymous = (questionAnser.getUser_anony() == 1)?true:false;
-        this.creatAt = questionAnser.getAnswer_pub_time();
+    public SimpleAnswerDTO(QuestionAnswer questionAnswer) {
+        this.id  = questionAnswer.getAnswer_id();
+        this.creator = questionAnswer.getAnswer_user();
+        this.body = questionAnswer.getAnswer_content();
+        this.isAnonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
+        this.creatAt = questionAnswer.getAnswer_pub_time();
     }
+
+    public SimpleAnswerDTO(){}
 
     public Integer getId() {
         return id;

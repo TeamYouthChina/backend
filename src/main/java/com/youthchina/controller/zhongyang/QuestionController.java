@@ -6,20 +6,20 @@ import com.youthchina.dto.community.QuestionDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.jinhao.communityQA.CommunityQAService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 /**
  * Created by zhongyangwu on 1/2/19.
  */
 @RestController
 @RequestMapping("${web.url.prefix}/questions/**")
 public class QuestionController extends DomainCRUDController<QuestionDTO, Question, Integer>{
-
     private String url;
     private CommunityQAService communityQAService;
 
@@ -30,11 +30,13 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @Override
-    protected DomainCRUDService<Question, Integer> getService(){return this.communityQAService;}
+    protected DomainCRUDService<Question, Integer> getService() {
+        return this.communityQAService;
+    }
 
     @Override
-    protected QuestionDTO DomainToDto(Question question) {
-        return new QuestionDTO(question);
+    protected QuestionDTO DomainToDto(Question domain) {
+        return new QuestionDTO(domain);
     }
 
     @Override
@@ -57,13 +59,6 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return add(questionDTO);
     }
 
-//    @PostMapping("/{id}/invite")
-//    public ResponseEntity<?> inviteUserAnswer(@PathVariable Integer id, @RequestBody Integer[] userid) {
-//
-//        communityQAService.invitToAnswer(,id);
-//        return add();
-//    }
-
     @PutMapping("/{id}")
     public ResponseEntity<?> updateQuestionInfo(@RequestBody QuestionDTO questionDTO) throws NotFoundException {
         return update(questionDTO);
@@ -74,17 +69,19 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return delete(id);
     }
 
-    @GetMapping("/{id}/answers")
-    public ResponseEntity<?> getAQuestionAnswers(@PathVariable Integer id) throws NotFoundException {
-        QuestionDTO applicantDTO = this.getDto(id);
-        return ResponseEntity.ok(new Response(applicantDTO.getAnswers()));
+    @GetMapping("/{id}/answer")
+    public ResponseEntity<?> getAnswers(@PathVariable Integer id) throws NotFoundException{
+        QuestionDTO questionDTO = getDto(id);
+        return ResponseEntity.ok(new Response(questionDTO.getAnswers()));
     }
+/*
+    @PostMapping("/{id}/invite")
+    public ResponseEntity<?> createInviteInfo(@RequestBody Integer) {
+        return ;
+    }
+*/
 
     private QuestionDTO getDto(Integer id) throws NotFoundException {
         return this.DomainToDto(this.getService().get(id));
     }
-
-
-
-
 }

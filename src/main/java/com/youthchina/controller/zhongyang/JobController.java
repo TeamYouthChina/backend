@@ -2,6 +2,8 @@ package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.JobSearchDTO;
+import com.youthchina.dto.JobSearchResultDTO;
+import com.youthchina.dto.Response;
 import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -12,7 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import com.youthchina.dto.Response;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -54,13 +56,16 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         return new URI(this.url + id.toString());
     }
 
+    /*
     @GetMapping("/{id}")
-    public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
-        Job job = this.jobService.get(jobId);
-        if (detailLevel == 1) {
-            return ResponseEntity.ok(new Response(job));
-        }
-        throw new BaseException();
+    public ResponseEntity<?> getJob(@PathVariable Integer id) throws NotFoundException {
+        return get(id);
+    }
+    */
+
+    @PostMapping("/")
+    public ResponseEntity<?> createJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) {
+        return add(simpleJobDTO);
     }
 
     @PutMapping("/{id}")
@@ -73,9 +78,31 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         return delete(id);
     }
 
-    @PostMapping("/{id}/search")
-    public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, Authentication authentication) throws BaseException {
-        return ResponseEntity.ok(jobSearchDTO);
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
+        Job job = this.jobService.get(jobId);
+        if (detailLevel == 1) {
+            return ResponseEntity.ok(new Response(job));
+        }
+        throw new BaseException();
     }
+
+    @PostMapping("/search")
+    public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
+        //todo: continue
+        List <Job> searchResult = this.jobService.getJobByMore(jobSearchDTO.getJobId(),jobSearchDTO.getJobName(),
+                jobSearchDTO.getComId(), jobSearchDTO.getComName(),jobSearchDTO.getStartTime(),jobSearchDTO.getEndTime(),
+                jobSearchDTO.getType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), jobSearchDTO.getActive(),
+                jobSearchDTO.getLocation(), jobSearchDTO.getJobReqList(),jobSearchDTO.getIndustryList());
+        JobSearchResultDTO jobSearchResultDTO = new JobSearchResultDTO();
+        jobSearchResultDTO.setSearchResult(searchResult);
+
+        if (detailLevel == 1) {
+            return ResponseEntity.ok(new Response(jobSearchResultDTO));
+        }
+        throw new BaseException();
+    }
+
 
 }
