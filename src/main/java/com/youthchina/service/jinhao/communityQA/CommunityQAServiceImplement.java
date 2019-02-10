@@ -26,7 +26,12 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Resource
     JobMapper jobHrMapper;
 
-
+    /**
+     * 要对某个问题进行操作的时候，检查某个问题是否还存在，如果不存在会抛出异常
+     * @param ques_id 问题的id
+     * @return 返回得到的问题对象
+     * @throws NotFoundException
+     */
     private Question getQuestion(Integer ques_id) throws NotFoundException{
         Question question = communityQAMapper.getQuestion(ques_id);
         if(question == null){
@@ -92,10 +97,17 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Override
     @Transactional
     public void delete(Integer id) throws NotFoundException {
-        Question question = getQuestion(id);
-        question.setIs_delete(1);
-        question.setIs_delete_time(new Timestamp(System.currentTimeMillis()));
-        communityQAMapper.deleteQuestion(question);
+        getQuestion(id);
+        communityQAMapper.deleteQuestion(id);
+        communityQAMapper.deleteAllDiscussEvaluation(id);
+        communityQAMapper.deleteAllCommentEvaluation(id);
+        communityQAMapper.deleteAllAnswerInvitationMap(id);
+        communityQAMapper.deleteAllAnswerInvitation(id);
+        communityQAMapper.deleteAllAnswerEvaluation(id);
+        communityQAMapper.deleteAllAttention(id);
+        communityQAMapper.deleteAllAnswers(id);
+        communityQAMapper.deleteAllComments(id);
+        communityQAMapper.deleteAllDiscusses(id);
     }
 
     @Override
@@ -103,9 +115,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public QuestionAttention attentionQuestion(Integer ques_id, Integer user_id) throws NotFoundException{
         getQuestion(ques_id);
         QuestionAttention questionAttention = new QuestionAttention();
-        questionAttention.setAtten_time(new Timestamp(System.currentTimeMillis()));
         questionAttention.setUser_id(user_id);
-        questionAttention.setAtten_cancel(0);
         QuestionAttention old_questionAttention = communityQAMapper.isQuestionAttention(ques_id, user_id);
         Integer atten_id;
         if(old_questionAttention == null){
@@ -120,21 +130,39 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         return questionAttention;
     }
 
-    private QuestionAttention getAttention(Integer atten_id) throws NotFoundException{
-        QuestionAttention questionAttention= communityQAMapper.getAttention(atten_id);
-        if(questionAttention == null){
-            throw new NotFoundException(404, 404, "该关注不存在");
-        }else{
-            return questionAttention;
-        }
-    }
+//    private QuestionAttention getAttention(Integer atten_id) throws NotFoundException{
+//        QuestionAttention questionAttention= communityQAMapper.getAttention(atten_id);
+//        if(questionAttention == null){
+//            throw new NotFoundException(404, 404, "该关注不存在");
+//        }else{
+//            return questionAttention;
+//        }
+//    }
 
     @Override
     @Transactional
     public void cancelAttentionQuestion(Integer ques_id, Integer user_id) throws NotFoundException{
         QuestionAttention questionAttention = communityQAMapper.isQuestionAttention(ques_id, user_id);
-        questionAttention.setAtten_cancel(1);
-        questionAttention.setAtten_cancel_time(new Timestamp(System.currentTimeMillis()));
+        if(questionAttention == null){
+            throw new NotFoundException(404, 404, "没有这个关注，无法取消");
+        }
+        communityQAMapper.cancelAttention(questionAttention);
+    }
+
+    /**
+     * 列出用户关注的问题，如果没有抛出异常
+     * @param user_id 用户的id
+     * @return 返回关注的问题的list
+     * @throws NotFoundException
+     */
+    @Override
+    public List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException{
+        List<Question> questions = communityQAMapper.listMyAttenQuestion(user_id);
+        if(questions == null){
+            throw new NotFoundException(404,404,"该用户没有关注的问题");
+        }else {
+            return questions;
+        }
     }
 
     @Override
@@ -163,21 +191,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
 
 
-    /**
-     * 列出用户关注的问题，如果没有抛出异常
-     * @param user_id 用户的id
-     * @return 返回关注的问题的list
-     * @throws NotFoundException
-     */
-    @Override
-    public List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException{
-        List<Question> questions = communityQAMapper.listMyAttenQuestion(user_id);
-        if(questions == null){
-            throw new NotFoundException(404,404,"该用户没有关注的问题");
-        }else {
-            return questions;
-        }
-    }
+
 
     /**
      * 列出某用户提出过的问题,如果没提出过问题，抛出异常
@@ -308,18 +322,13 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         return 1;
     }
 
-    /**
-     * 删除回答，如果回答不存在，抛出异常
-     * @param questionAnswer 要删除的回答
-     * @return 删除成功，返回1
-     * @throws NotFoundException
-     */
+
     @Override
     @Transactional
-    public Integer deleteAnswer(QuestionAnswer questionAnswer) throws NotFoundException{
-        getAnswer(questionAnswer.getAnswer_id());
-        communityQAMapper.deleteAnswer(questionAnswer);
-        return 1;
+    public void deleteAnswer(Integer answer_id) throws NotFoundException{
+        getAnswer(answer_id);
+        communityQAMapper.deleteAnswer(answer_id);
+
     }
 
 
