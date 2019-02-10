@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Date;
+import java.util.List;
 
 
 /**
@@ -55,12 +57,6 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         return new URI(this.url + id.toString());
     }
 
-    /*
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getJob(@PathVariable Integer id) throws NotFoundException {
-        return get(id);
-    }
-    */
 
     @PostMapping("/")
     public ResponseEntity<?> createJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) {
@@ -88,13 +84,18 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     }
 
     @PostMapping("/search")
-    public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
-        //todo: continue
+    public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, Authentication authentication) throws BaseException {
 
-        if (detailLevel == 1) {
-            return ResponseEntity.ok(new Response(jobSearchDTO));
-        }
-        throw new BaseException();
+        JobSearchResultDTO jobSearchResultDTO = new JobSearchResultDTO();
+        List<Job> searchResult = jobService.getJobByMore(jobSearchDTO.getJobId(), jobSearchDTO.getJobName(),
+                jobSearchDTO.getComId(), jobSearchDTO.getComName(), jobSearchDTO.getStartTime(),
+                jobSearchDTO.getEndTime(), jobSearchDTO.getType(), jobSearchDTO.getSalaryFloor(),
+                jobSearchDTO.getSalaryCap(), jobSearchDTO.getActive(), jobSearchDTO.getLocation(),
+                jobSearchDTO.getJobReqList(), jobSearchDTO.getIndustryList());
+        jobSearchResultDTO.setSearchResult(searchResult);
+
+        return ResponseEntity.ok(new Response(jobSearchResultDTO));
+
     }
 
 
