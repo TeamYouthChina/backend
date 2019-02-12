@@ -29,6 +29,8 @@ public class CompanyTest {
 
     @Autowired
     private CompanyMapper companyMapper;
+
+    @Autowired
     private JobMapper jobMapper;
 
 
@@ -161,7 +163,8 @@ public class CompanyTest {
     @Test
     public void testDeleteCompany() {
         Integer comId = 1;
-        //jobMapper.deleteJobByComId(comId);
+        jobMapper.deleteJobByComId(comId);
+        //jobMapper.deleteJobDegreeByComId(comId);
         companyMapper.deleteCompanyVerificationByComId(comId);
         companyMapper.deleteCompanyEmployee(comId);
         companyMapper.deleteCompanyEvaluate(comId);
