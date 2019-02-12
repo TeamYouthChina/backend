@@ -35,6 +35,11 @@
       WHERE HR_ID = #{id}
     </update>
 
+    <update id="deleteHrByComId" parameterType="java.lang.Integer">
+        UPDATE HR_INFO	SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{comId}
+    </update>
+
     <select id="selectHrById" resultMap="Hr"
             parameterType="java.lang.Integer">
         SELECT
