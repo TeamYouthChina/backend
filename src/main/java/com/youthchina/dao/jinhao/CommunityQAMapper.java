@@ -132,7 +132,9 @@ public interface CommunityQAMapper {
                                               @Param("comment_id") Integer comment_id,
                                               @Param("discuss_level") Integer discuss_level);
 
-    Integer deleteDiscuss(CommentDiscuss commentDiscuss);
+    void deleteDiscuss(Integer discuss_Id);
+
+    void deleteAllDiscussEvaluateByDiscussId(Integer discuss_id);
 
     Integer countDiscussAgreement(Integer discuss_id);
 

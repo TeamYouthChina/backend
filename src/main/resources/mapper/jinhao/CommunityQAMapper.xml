@@ -419,6 +419,23 @@
         where comment_id=#{comment_id}
     </update>
 
+    <update id="deleteAllCommentEvaluationByCommentId" parameterType="java.lang.Integer">
+        update COM_COMMENT_EVALUATE set EVALUATE_TYPE=3, EVALUATE_TIME=now()
+        where EVALUATE_ID in (select EVALUATE_ID from COM_COMMENT_EVALUATE_MAP where COMMENT_ID = #{comment_id})
+    </update>
+
+    <update id="deleteAllDiscussByCommentId" parameterType="java.lang.Integer">
+        update COM_COMMENT_DISCUSS set IS_DELETE=1, IS_DELETE_TIME=now()
+        where DISCUSS_ID in (select DISCUSS_ID from COM_COMMENT_DISCUSS_MAP where COMMENT_ID = #{comment_id})
+    </update>
+
+    <update id="deleteAllDiscussEvaluateByCommentId" parameterType="java.lang.Integer">
+        update COM_DISCUSS_EVALUATE set EVALUATE_TYPE=3, EVALUATE_TIME=now()
+        where EVALUATE_ID in (select EVALUATE_ID from COM_DISCUSS_EVALUATE_MAP where DISCUSS_ID in (
+          select DISCUSS_ID from COM_COMMENT_DISCUSS_MAP where COMMENT_ID = #{comment_id}
+            ))
+    </update>
+
     <!-- 拿到某个评论的点赞数 -->
     <select id="countCommentAgreement" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select count(m.evaluate_id) from COM_COMMENT_EVALUATE_MAP m, COM_COMMENT_EVALUATE a
@@ -456,7 +473,7 @@
     <!-- 如果不是第一次评价，则更新字段 -->
     <update id="reEvaluateComment" parameterType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
         update COM_COMMENT_EVALUATE
-        set evaluate_type = #{evaluate_type}, evaluate_time = #{evaluate_time}
+        set evaluate_type = #{evaluate_type}, evaluate_time = now()
         where evaluate_id = #{evaluate_id}
     </update>
 
@@ -483,9 +500,9 @@
     </insert>
 
     <!-- 删除讨论 -->
-    <update id="deleteDiscuss" parameterType="com.youthchina.domain.jinhao.communityQA.CommentDiscuss">
+    <update id="deleteDiscuss" parameterType="java.lang.Integer">
         update COM_COMMENT_DISCUSS
-        set is_delete = #{is_delete}, is_delete_time=#{is_delete_time}
+        set is_delete = 1, is_delete_time=now()
         where discuss_id = #{discuss_id}
     </update>
 
