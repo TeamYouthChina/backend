@@ -1,13 +1,16 @@
 package com.youthchina.domain.zhongyang;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.youthchina.dto.RegisterUserDTO;
 import com.youthchina.dto.UserDTO;
 import com.youthchina.util.zhongyang.HasId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -45,6 +48,20 @@ public class User implements UserDetails, HasId<Integer> {
         this.avatarUrl = userDTO.getAvatarUrl();
         this.role = userDTO.getRole();
         this.age = userDTO.getAge();
+    }
+
+    public User(RegisterUserDTO registerUserDTO) {
+        this.username = registerUserDTO.getUsername();
+        this.email = registerUserDTO.getEmail();
+        this.password = registerUserDTO.getPassword();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.registerDate = simpleDateFormat.format(Calendar.getInstance().getTime());
+        this.phonenumber = registerUserDTO.getPhoneNumber();
+        this.gender = registerUserDTO.getGender();
+        this.age = registerUserDTO.getAge();
+        this.realName = registerUserDTO.getUsername();
+        this.nation = registerUserDTO.getNation();
+        this.role = 1;
     }
 
     public User(Integer id) {
