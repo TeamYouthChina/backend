@@ -26,7 +26,7 @@ import java.util.List;
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:questions.xml", "classpath:answers.xml", "classpath:comments.xml", "classpath:discuss.xml", "classpath:videos.xml"})
 
-public class CommunityQAMapperTest extends BaseTest {
+public class CommunityQAMapperTest {
     @Autowired
     CommunityQAMapper communityQAMapper;
 
@@ -93,15 +93,11 @@ public class CommunityQAMapperTest extends BaseTest {
     //测试删除问题
     @Test
     public void deleteQuestion() {
-        Question question = communityQAMapper.getQuestion(1);
-        question.setIs_delete(1);
-        question.setIs_delete_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        communityQAMapper.deleteQuestion(question);
+        communityQAMapper.deleteQuestion(1);
         Question newquestion = communityQAMapper.getQuestion(1);
         Assert.assertNull(newquestion);
     }
 
-    //测试能不能列出前十个
 
     //测试能不能拿到问题的标签
     @Test
@@ -275,10 +271,7 @@ public class CommunityQAMapperTest extends BaseTest {
     //测试能不能删除回答
     @Test
     public void deleteAnswer() {
-        QuestionAnswer questionAnswer = communityQAMapper.getAnswer(1);
-        questionAnswer.setIs_delete(1);
-        questionAnswer.setIs_delete_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        communityQAMapper.deleteAnswer(questionAnswer);
+        communityQAMapper.deleteAnswer(1);
         QuestionAnswer questionAnswer1 = communityQAMapper.getAnswer(1);
         Assert.assertNull(questionAnswer1);
     }
@@ -1127,6 +1120,136 @@ public class CommunityQAMapperTest extends BaseTest {
         }
         List<Integer> noids = communityQAMapper.getVideoIdByTitleOrCompanyName("郭德纲");
         Assert.assertEquals(0, noids.size());
+    }
+
+    @Test
+    public void deleteAllAnswerOfQuestion(){
+        communityQAMapper.deleteAllAnswers(1);
+        Question question1 = communityQAMapper.getQuestionById(1);
+        List<QuestionAnswer> questionAnswers = question1.getQuestionAnswers();
+        Assert.assertEquals(0, questionAnswers.size());
+    }
+
+    @Test
+    public void deleteAllCommentOfQuestion(){
+        communityQAMapper.deleteAllAnswerEvaluation(1);
+        communityQAMapper.deleteAllComments(1);
+        Question question1 = communityQAMapper.getQuestionById(1);
+        List<QuestionAnswer> questionAnswers = question1.getQuestionAnswers();
+        for(QuestionAnswer questionAnswer : questionAnswers){
+            List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
+            Assert.assertEquals(0, answerComments.size());
+            List<AnswerEvaluate> answerEvaluates = questionAnswer.getAnswerEvaluates();
+            Assert.assertEquals(0, answerEvaluates.size());
+        }
+    }
+
+    // 测试删除所有问题下面的CommentDiscuss, CommentEvaluate\
+    @Test
+    public void deleteAllDiscussOfQuestion(){
+        communityQAMapper.deleteAllDiscusses(1);
+        communityQAMapper.deleteAllCommentEvaluation(1);
+        Question question1 = communityQAMapper.getQuestionById(1);
+        List<QuestionAnswer> questionAnswers = question1.getQuestionAnswers();
+        for(QuestionAnswer questionAnswer : questionAnswers){
+            List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
+            for(AnswerComment answerComment : answerComments){
+                List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
+                List<CommentEvaluate> commentEvaluates = answerComment.getCommentEvaluates();
+                Assert.assertEquals(0, commentEvaluates.size());
+                Assert.assertEquals(0, commentDiscusses.size());
+            }
+        }
+    }
+
+    //测试删除某个问题下讨论的所有评价
+    @Test
+    public void deleteAllDiscussEvaluation(){
+        communityQAMapper.deleteAllDiscussEvaluation(1);
+        Question question1 = communityQAMapper.getQuestionById(1);
+        List<QuestionAnswer> questionAnswers = question1.getQuestionAnswers();
+        for(QuestionAnswer questionAnswer : questionAnswers){
+            List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
+            for(AnswerComment answerComment : answerComments){
+                List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
+                for(CommentDiscuss commentDiscuss : commentDiscusses){
+                    List<DiscussEvaluate> discussEvaluates = commentDiscuss.getDiscussEvaluateList();
+                    Assert.assertEquals(0, discussEvaluates.size());
+                }
+
+            }
+        }
+    }
+
+    //测试删除某个问题的所有关注
+    @Test
+    public void deleteAllAttention(){
+        communityQAMapper.deleteAllAttention(1);
+        Question question = communityQAMapper.getQuestionById(1);
+        List<QuestionAttention> questionAttentions = question.getQuestionAttentions();
+        Assert.assertEquals(0, questionAttentions.size());
+    }
+
+    //测试删除邀请至某个问题回答的记录和相关映射
+    @Test
+    public void deleteAllAnswerInvitation(){
+        communityQAMapper.deleteAllAnswerInvitationMap(1);
+        communityQAMapper.deleteAllAnswerInvitation(1);
+        AnswerInvitation answerInvitation1 = communityQAMapper.getInvitation(1);
+        Assert.assertNull(answerInvitation1);
+        AnswerInvitation answerInvitation2 = communityQAMapper.getInvitation(2);
+        Assert.assertNull(answerInvitation2);
+        AnswerInvitation answerInvitation3 = communityQAMapper.getInvitation(3);
+        Assert.assertNull(answerInvitation3);
+        AnswerInvitation answerInvitation5 = communityQAMapper.getInvitation(5);
+        Assert.assertNull(answerInvitation5);
+        Integer id1 = communityQAMapper.getInvitationMap(1);
+        Assert.assertNull(id1);
+        Integer id2 = communityQAMapper.getInvitationMap(2);
+        Assert.assertNull(id2);
+        Integer id3 = communityQAMapper.getInvitationMap(3);
+        Assert.assertNull(id3);
+        Integer id5 = communityQAMapper.getInvitationMap(5);
+        Assert.assertNull(id5);
+    }
+
+    @Test
+    public void deleteAllAnswerEvaluationByAnswerId(){
+        communityQAMapper.deleteAllAnswerEvaluationByAnswerId(1);
+        communityQAMapper.deleteAllCommentsByAnswerId(1);
+        QuestionAnswer questionAnswer = communityQAMapper.getAnswerById(1);
+        List<AnswerEvaluate> answerEvaluates = questionAnswer.getAnswerEvaluates();
+        List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
+        Assert.assertEquals(0, answerEvaluates.size());
+        Assert.assertEquals(0, answerComments.size());
+    }
+
+    @Test
+    public void deleteAllCommentEvaluationByAnswerId(){
+        communityQAMapper.deleteAllCommentEvaluationByAnswerId(1);
+        communityQAMapper.deleteAllDiscussesByAnswerId(1);
+        QuestionAnswer questionAnswer = communityQAMapper.getAnswerById(1);
+        List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
+        for(AnswerComment answerComment : answerComments){
+            List<CommentEvaluate> commentEvaluates = answerComment.getCommentEvaluates();
+            Assert.assertEquals(0, commentEvaluates.size());
+            List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
+            Assert.assertEquals(0, commentDiscusses.size());
+        }
+    }
+
+    @Test
+    public void deleteAllDiscussEvaluationByAnswerId(){
+        communityQAMapper.deleteAllDiscussEvaluationByAnswerId(1);
+        QuestionAnswer questionAnswer = communityQAMapper.getAnswerById(1);
+        List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
+        for(AnswerComment answerComment : answerComments){
+            List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
+            for(CommentDiscuss commentDiscuss : commentDiscusses){
+                List<DiscussEvaluate> discussEvaluates = commentDiscuss.getDiscussEvaluateList();
+                Assert.assertEquals(0, discussEvaluates.size());
+            }
+        }
     }
 }
 

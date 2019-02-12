@@ -17,7 +17,16 @@ public interface CommunityQAMapper {
 
     Question getQuestion(Integer ques_id);
 
-    Integer deleteQuestion(Question question);
+    void deleteQuestion(Integer ques_id);
+    void deleteAllAttention(Integer ques_id);
+    void deleteAllAnswers(Integer ques_id);
+    void deleteAllAnswerEvaluation(Integer ques_id);
+    void deleteAllAnswerInvitationMap(Integer ques_id);
+    void deleteAllAnswerInvitation(Integer ques_id);
+    void deleteAllComments(Integer ques_id);
+    void deleteAllCommentEvaluation(Integer ques_id);
+    void deleteAllDiscusses(Integer ques_id);
+    void deleteAllDiscussEvaluation(Integer ques_id);
 
     Integer editQuestion(Question question);
 
@@ -56,7 +65,12 @@ public interface CommunityQAMapper {
                                               @Param("answer_id") Integer answer_id,
                                               @Param("answer_level") Integer answer_level);
 
-    Integer deleteAnswer(QuestionAnswer questionAnswer);
+    void deleteAnswer(Integer answer_id);
+    void deleteAllAnswerEvaluationByAnswerId(Integer answer_id);
+    void deleteAllCommentsByAnswerId(Integer answer_id);
+    void deleteAllCommentEvaluationByAnswerId(Integer answer_id);
+    void deleteAllDiscussesByAnswerId(Integer answer_id);
+    void deleteAllDiscussEvaluationByAnswerId(Integer answer_id);
 
     Integer editAnswer(QuestionAnswer questionAnswer);
 
@@ -143,6 +157,8 @@ public interface CommunityQAMapper {
     Integer updateStatusOfInvitation(AnswerInvitation answerInvitation);
 
     AnswerInvitation getInvitation(Integer invit_id);
+
+    Integer getInvitationMap(Integer invit_id);
 
 
     List<Video> listFirstTenVideos();
