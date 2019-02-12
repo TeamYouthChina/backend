@@ -101,15 +101,7 @@ public class CommunityQAMapperTest extends BaseTest {
         Assert.assertNull(newquestion);
     }
 
-    //测试能不能列出前十个问题
-    @Test
-    public void listQuestions() {
-        List<Question> questionList = communityQAMapper.listQuestion();
-        Assert.assertEquals(10, questionList.size());
-        for (Question question : questionList) {
-            Assert.assertNotNull(question);
-        }
-    }
+
 
     //测试能不能拿到问题的标签
     @Test
