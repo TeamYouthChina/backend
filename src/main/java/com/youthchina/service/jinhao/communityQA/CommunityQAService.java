@@ -14,6 +14,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
     List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException;
     List<Question> listMyQuestions(Integer user_id) throws NotFoundException;
 
+
     List<AnswerInvitation> listInvitationGot(Integer user_id) throws NotFoundException;
     List<Integer> listUsersInvitedByMeToQuestion(Integer user_id, Integer ques_id) throws NotFoundException;
     Integer invitUsersToAnswer(Integer invit_user_id, Integer ques_id,
@@ -23,10 +24,11 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
 
 
+
     Integer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level);
     QuestionAnswer getAnswer(Integer answer_id) throws NotFoundException;
-    Integer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
-    Integer deleteAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
+    QuestionAnswer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
+    void deleteAnswer(Integer answer_id) throws NotFoundException;
     List<QuestionAnswer> listMyAnswers(Integer user_id) throws NotFoundException;
 
 
