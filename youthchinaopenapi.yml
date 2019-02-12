@@ -49,7 +49,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Job'
+              $ref: '#/components/schemas/JobSearch'
       responses:
         '201':
           description: search result
@@ -840,6 +840,7 @@ paths:
               required:
                 - name
                 - date_of_birth
+                - password
                 - phonenumber
                 - email
                 - current_city
@@ -849,6 +850,8 @@ paths:
                 name:
                   type: string
                 date_of_birth:
+                  type: string
+                password:
                   type: string
                 phonenumber:
                   type: string
@@ -945,11 +948,29 @@ components:
         - page
         - size
       properties:
-        key:
+        id: 
+          type: integer
+        jobName:
+          type: string
+        companyName:
+          type: string
+        duration:
+          $ref: '#/components/schemas/Duration'
+        jobType:
+          type: integer
+        salaryFloor:
+          type: integer
+        salaryCap:
+          type: integer
+        activate:
+          type: boolean
+        location:
           type: string
         industry:
-          type: string
-        tagList:
+          type: array
+          items:
+            type: string
+        tags:
           type: array
           items:
             type: string
@@ -957,6 +978,7 @@ components:
           type: integer
         size:
           type: integer
+
     Job:
       type: object
       properties:
@@ -1149,6 +1171,7 @@ components:
         end:
           type: string
           pattern: timestamp
+    
     Applicant:
       type: object
       required:
@@ -1357,5 +1380,3 @@ components:
         is_anonymous:
           type: boolean
           default: false
-
-

@@ -42,12 +42,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
-        return null;
+        mapper.update(user);
+        return mapper.findOne(user.getId());
     }
 
     @Override
     public User add(User user) {
-        return null;
+        mapper.insert(user);
+        return mapper.findOne(user.getId());
+    }
+
+    @Override
+    public Boolean canRegister(User user) {
+        return mapper.canRegister(user);
     }
 
 
