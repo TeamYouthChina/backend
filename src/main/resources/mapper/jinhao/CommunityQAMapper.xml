@@ -413,9 +413,9 @@
     </insert>
 
     <!-- 删除评论 -->
-    <update id="deleteComment" parameterType="com.youthchina.domain.jinhao.communityQA.AnswerComment">
+    <update id="deleteComment" parameterType="java.lang.Integer">
         update COM_ANSWER_COMMENT
-        set is_delete=#{is_delete}, is_delete_time=#{is_delete_time}
+        set is_delete=1, is_delete_time=now()
         where comment_id=#{comment_id}
     </update>
 
