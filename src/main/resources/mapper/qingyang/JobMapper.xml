@@ -341,6 +341,21 @@
       WHERE JOB_ID = #{ids}
     </update>
 
+    <update id="deleteJobByComId" parameterType="java.lang.Integer">
+        UPDATE JOB_INFO j
+            LEFT OUTER JOIN JOB_INDUSTRY i ON j.JOB_ID = i.JOB_ID AND i.IS_DELETE = 0
+            LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
+            LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = req.JOB_ID AND req.IS_DELETE = 0
+        SET
+            j.IS_DELETE = 1, j.IS_DELETE_TIME = NOW(),
+            i.IS_DELETE = 1, i.IS_DELETE_TIME = NOW(),
+            loc.IS_DELETE = 1, loc.IS_DELETE_TIME = NOW(),
+            req.IS_DELETE = 1, req.IS_DELETE_TIME = NOW()
+        WHERE j.COMPANY_ID= #{comId}
+    </update>
+
+
+
 
 
 

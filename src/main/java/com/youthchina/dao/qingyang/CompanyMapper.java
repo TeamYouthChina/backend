@@ -37,13 +37,18 @@ public interface CompanyMapper {
 
     List<CompanyVerification> selectCompanyVerificationByIdList(List<Integer> id);
 
-    Integer deleteCompanyVerification(Integer id);
+    Integer deleteCompanyVerificationById(Integer id);
 
     Integer updateCompanyVerification(CompanyVerification companyVerification);
 
     Integer insertCompanyVerification(CompanyVerification entity);
 
-    void deleteCompanyInd(Integer id);
+    Integer deleteCompanyInd(Integer id);
+    Integer deleteCompanyEmployee(Integer id);
+    Integer deleteCompanyVerificationByComId(Integer id);
+    Integer deleteCompanyPhoto(Integer id);
+    Integer deleteCompanyEvaluate(Integer id);
+    Integer deleteStudentComCollection(Integer id);
 
     Integer insertCompanyInd(List<Industry> industries);
 
