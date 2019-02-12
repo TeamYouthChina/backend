@@ -15,4 +15,5 @@ import java.util.List;
 @Component
 public interface StaticFileSystemMapper {
    int saveFileInfo(ComMediaDocument comMediaDocument);
+
 }

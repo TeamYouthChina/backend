@@ -507,7 +507,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-  '/jobs/{id}/collect':
+  '/jobs/{id}/attention':
     post:
       tags:
         - Collection
@@ -548,62 +548,61 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                - type: object
-                  properties:
-                    content:
-                      type: object
-                      properties:
-                        companies:
-                          type: array
-                          items:
-                            type: object
-                            required:
-                            - id
-                            - company
-                            properties:
-                              id:
-                                type: integer
-                              company:
-                                $ref: '#/components/schemas/Company'
-                        jobs:
-                          type: array
-                          items:
-                            type: object
-                            required:
-                            - id
-                            - job
-                            properties:
-                              id:
-                                type: integer
-                              job:
-                                $ref: '#/components/schemas/Job' 
-                        questions:
-                          type: array
-                          items:
-                            type: object
-                            required:
-                            - id
-                            - questions
-                            properties:
-                              id:
-                                type: integer
-                              questions:
-                                $ref: '#/components/schemas/QuestionBasic'
-                        answers:
-                          type: array
-                          items:
-                            type: object
-                            required:
-                            - id
-                            - answers
-                            properties:
-                              id:
-                                type: integer
-                              answers:
-                                $ref: '#/components/schemas/AnswerBasic'
-                    status:
-                      $ref: '#/components/schemas/Status'
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      companies:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - company
+                          properties:
+                            id:
+                              type: integer
+                            company:
+                              $ref: '#/components/schemas/Company'
+                      jobs:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - job
+                          properties:
+                            id:
+                              type: integer
+                            job:
+                              $ref: '#/components/schemas/Job' 
+                      questions:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - questions
+                          properties:
+                            id:
+                              type: integer
+                            questions:
+                              $ref: '#/components/schemas/QuestionBasic'
+                      answers:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - answers
+                          properties:
+                            id:
+                              type: integer
+                            answers:
+                              $ref: '#/components/schemas/AnswerBasic'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/collections/{id}':
     delete:
       tags:
@@ -735,7 +734,7 @@ paths:
                           $ref: '#/components/schemas/Answer'
                   status:
                     $ref: '#/components/schemas/Status'
-    put:
+    post:
       tags:
         - Answer
       parameters:
@@ -878,7 +877,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Answer'
+              $ref: '#/components/schemas/AnswerRequest'
       responses:
         '200':
           description: target answer
@@ -906,27 +905,14 @@ paths:
         '403':
           description: do not have authority to delete answer
   '/answers/{id}/comments': 
-    put:
+    post:
       tags:
         - Answer
       requestBody:
         content:
           application/json:
               schema:
-                type: object
-                required:
-                - id
-                - body
-                properties:
-                  id:
-                    type: integer
-                  body:
-                    $ref: '#/components/schemas/RichText'
-                  is_anonymous:
-                    type: boolean
-                    default: false
-                  create_at:
-                    type: integer
+                $ref: '#/components/schemas/CommentRequest'
       responses:
         '201':
           description: comments successfully
@@ -1012,6 +998,19 @@ paths:
                     $ref: '#/components/schemas/Comment'
                   status:
                     $ref: '#/components/schemas/Status'
+  '/comments/{id}/upvote':
+    post:
+      tags:
+        - Comment
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: success
   '/me':
     get:
       tags:
@@ -1127,7 +1126,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
   '/articles/{id}/comments':
-    put:
+    post:
       tags:
       - Article
       requestBody:

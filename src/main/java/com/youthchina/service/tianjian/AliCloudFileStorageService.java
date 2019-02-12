@@ -18,8 +18,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-@Service("StaticFileSystemServiceImplALiCloud")
-public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemService {
+@Service
+public class AliCloudFileStorageService implements FileStorageService {
 
     // 阿里云API的内或外网域名
     private static String endPoint;
@@ -40,7 +40,7 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
     FileNameGenerate fileNameGenerate;
 
     @Autowired
-    StaticFileSystemMapper mapper;
+    StaticFileSystemMapper mapper;//todo: determine how to use interface to perform insert to cloud provider column
 
     public void printOSSExceptionMessage(OSSException oe) {
         System.out.println("Caught an OSSException, which means your request made it to OSS, "
@@ -51,7 +51,7 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
         System.out.println("Host ID:           " + oe.getHostId());
     }
 
-    public StaticFileSystemServiceImplALiCloud(@Value("${staticfile.endPoint}")String endPoint, @Value("${staticfile.accessKeyId}")String accessKeyId, @Value("${staticfile.accessKeySecret}")String accessKeySecret,@Value("${staticfile.bucketName}")String bucketName){
+    public AliCloudFileStorageService(@Value("${staticfile.endPoint}") String endPoint, @Value("${staticfile.accessKeyId}") String accessKeyId, @Value("${staticfile.accessKeySecret}") String accessKeySecret, @Value("${staticfile.bucketName}") String bucketName) {
         this.endPoint = endPoint;
         this.accessKeyId = accessKeyId;
         this.accessKeySecret = accessKeySecret;
@@ -59,9 +59,9 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
     }
 
     @Override
-    public long uploadFile(String fileName,File file,String format,Integer user_id) {
+    public long uploadFile(String fileName, File file, String format, Integer user_id) {
         OSSClient ossClient = new OSSClient(endPoint, accessKeyId, accessKeySecret);
-        long localId=0;
+        long localId = 0;
         try {
             /*
              * Upload an object
@@ -78,7 +78,7 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
 
 
             ComMediaDocument comMediaDocument = new ComMediaDocument();
-            comMediaDocument.setDocu_local_id( String.valueOf(localId));
+            comMediaDocument.setDocu_local_id(String.valueOf(localId));
             comMediaDocument.setDocu_local_name(fileName);
             comMediaDocument.setDocu_local_format(format);
             comMediaDocument.setDocu_server_ali_id(String.valueOf(localId));
@@ -120,7 +120,7 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
         } finally {
             ossClient.shutdown();
         }
-       return url;
+        return url;
     }
 
     @Override
@@ -159,5 +159,10 @@ public class StaticFileSystemServiceImplALiCloud implements StaticFileSystemServ
         } finally {
             ossClient.shutdown();
         }
+    }
+
+    @Override
+    public void uploadFile(File file) {
+
     }
 }
