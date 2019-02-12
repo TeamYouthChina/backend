@@ -16,8 +16,10 @@ public class QuestionDTO {
     private User creator;
     private String title;
     private String body;
+    private String abbre;
     private Integer isAnonymous;
     private Timestamp createAt;
+    private Timestamp editTime;
     private List<SimpleAnswerDTO> answers;
     private AnswerInvitation invitation;
     private List<Integer> labelIds;
@@ -29,22 +31,29 @@ public class QuestionDTO {
         this.creator = question.getQues_user();
         this.title = question.getQues_title();
         this.body = question.getQues_body();
+        this.abbre = question.getQues_abbre();
         this.invitation = question.getQues_invitation();
         this.isAnonymous =question.getUser_anony();
         this.createAt = question.getQues_pub_time();
+        this.editTime = question.getQues_edit_time();
         this.labelIds = question.getLabelIds();
         this.rela_type = question.getRela_type();
-        for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
-            this.answers.add(new SimpleAnswerDTO(questionAnswer));
-        }
-        if(question.getRela_type() == 2) {
-            this.rela_id = question.getCompany().getCompanyId();
-        } else if(question.getRela_type() == 3) {
-            this.rela_id = question.getJob().getJobId();
+        if(question.getQuestionAnswers() != null){
+            for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
+                this.answers.add(new SimpleAnswerDTO(questionAnswer));
+            }
         }
     }
 
     public QuestionDTO(){}
+
+    public Timestamp getEditTime(){return editTime;}
+
+    public void setEditTime(Timestamp editTime){this.editTime = editTime;}
+
+    public String getAbbre(){return abbre;}
+
+    public void setAbbre(String abbre){this.abbre = abbre;}
 
     public Integer getId() {
         return id;

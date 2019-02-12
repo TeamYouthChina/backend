@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,12 +54,13 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO) {
+    public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO, @AuthenticationPrincipal User user) {
+        questionDTO.setCreator(user);
         return add(questionDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getQuestion(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity<?> getQuestion(@PathVariable (name = "id") Integer id) throws NotFoundException {
         return get(id);
     }
 
@@ -78,8 +80,16 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return ResponseEntity.ok(new Response(questionDTO.getAnswers()));
     }
 
+    @PostMapping("/{questionid}/invite/{userId}")
+    public ResponseEntity<?> inviteOneUser(@RequestBody Integer questionid, Integer userId, @AuthenticationPrincipal User user) throws NotFoundException{
+        List<Integer> userlist = new ArrayList<Integer>();
+        userlist.add(userId);
+        this.communityQAService.invitUsersToAnswer(user.getId(), questionid, userlist);
+        return ResponseEntity.ok(new Response());
+    }
+
     @PostMapping("/{id}/invite")
-    public ResponseEntity<?> createInviteInfo(@RequestBody Integer id, List<Integer> userlist, @AuthenticationPrincipal User user) throws NotFoundException{
+    public ResponseEntity<?> createInvite(@RequestBody Integer id, List<Integer> userlist, @AuthenticationPrincipal User user) throws NotFoundException{
         this.communityQAService.invitUsersToAnswer(user.getId(), id, userlist);
         return ResponseEntity.ok(new Response());
     }
@@ -89,8 +99,6 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         this.communityQAService.attentionQuestion(id,user.getId());
         return ResponseEntity.ok(new Response());
     }
-
-
 
     private QuestionDTO getDto(Integer id) throws NotFoundException {
         return this.DomainToDto(this.getService().get(id));

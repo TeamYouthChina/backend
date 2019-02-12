@@ -75,7 +75,9 @@ public class CommunityQAServiceImplement implements CommunityQAService {
             rela_id = entity.getJob().getJobId();
         }
         communityQAMapper.addQuestion(entity);
-        communityQAMapper.addLabels(labelIds, entity.getQues_id());
+        if(labelIds != null){
+            communityQAMapper.addLabels(labelIds, entity.getQues_id());
+        }
         communityQAMapper.createMapBetweenQuestionAndUser(entity.getQues_id(), entity.getQues_user().getId(),
                 rela_type, rela_id);
         return entity;

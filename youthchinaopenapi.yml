@@ -211,7 +211,7 @@ paths:
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
-              example:
+              example:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
