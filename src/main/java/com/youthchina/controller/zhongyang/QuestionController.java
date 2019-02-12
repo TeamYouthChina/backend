@@ -1,6 +1,7 @@
 package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.jinhao.communityQA.Question;
+import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.community.QuestionDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -9,10 +10,12 @@ import com.youthchina.service.jinhao.communityQA.CommunityQAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Created by zhongyangwu on 1/2/19.
@@ -49,14 +52,14 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return new URI(this.url + id.toString());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getQuestion(@PathVariable Integer id) throws NotFoundException {
-        return get(id);
-    }
-
     @PostMapping("/")
     public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO) {
         return add(questionDTO);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getQuestion(@PathVariable Integer id) throws NotFoundException {
+        return get(id);
     }
 
     @PutMapping("/{id}")
@@ -69,17 +72,25 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return delete(id);
     }
 
-    @GetMapping("/{id}/answer")
+    @GetMapping("/{id}/answers")
     public ResponseEntity<?> getAnswers(@PathVariable Integer id) throws NotFoundException{
         QuestionDTO questionDTO = getDto(id);
         return ResponseEntity.ok(new Response(questionDTO.getAnswers()));
     }
-/*
+
     @PostMapping("/{id}/invite")
-    public ResponseEntity<?> createInviteInfo(@RequestBody Integer) {
-        return ;
+    public ResponseEntity<?> createInviteInfo(@RequestBody Integer id, List<Integer> userlist, @AuthenticationPrincipal User user) throws NotFoundException{
+        this.communityQAService.invitUsersToAnswer(user.getId(), id, userlist);
+        return ResponseEntity.ok(new Response());
     }
-*/
+
+    @PostMapping("/{id}/follow")
+    public ResponseEntity<?> follow(@RequestBody Integer id, @AuthenticationPrincipal User user) throws NotFoundException{
+        this.communityQAService.attentionQuestion(id,user.getId());
+        return ResponseEntity.ok(new Response());
+    }
+
+
 
     private QuestionDTO getDto(Integer id) throws NotFoundException {
         return this.DomainToDto(this.getService().get(id));
