@@ -27,7 +27,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
     Integer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level);
     QuestionAnswer getAnswer(Integer answer_id) throws NotFoundException;
-    Integer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
+    QuestionAnswer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
     void deleteAnswer(Integer answer_id) throws NotFoundException;
     List<QuestionAnswer> listMyAnswers(Integer user_id) throws NotFoundException;
 

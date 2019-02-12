@@ -316,10 +316,11 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException{
+    public QuestionAnswer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException{
         getAnswer(questionAnswer.getAnswer_id());
+        questionAnswer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
         communityQAMapper.editAnswer(questionAnswer);
-        return 1;
+        return questionAnswer;
     }
 
 
@@ -328,7 +329,11 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public void deleteAnswer(Integer answer_id) throws NotFoundException{
         getAnswer(answer_id);
         communityQAMapper.deleteAnswer(answer_id);
-
+        communityQAMapper.deleteAllAnswerEvaluationByAnswerId(answer_id);
+        communityQAMapper.deleteAllCommentsByAnswerId(answer_id);
+        communityQAMapper.deleteAllCommentEvaluationByAnswerId(answer_id);
+        communityQAMapper.deleteAllDiscussesByAnswerId(answer_id);
+        communityQAMapper.deleteAllDiscussEvaluationByAnswerId(answer_id);
     }
 
 
