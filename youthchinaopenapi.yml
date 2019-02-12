@@ -105,6 +105,48 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
+    put:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicantRequest'
+      responses:
+        '200':
+          description: return target user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Applicant'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
   '/applicants':
     post:
       tags:
@@ -120,7 +162,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Applicant'
+              $ref: '#/components/schemas/ApplicantRequest'
       responses:
         '201':
           description: created
@@ -136,7 +178,6 @@ paths:
                     $ref: '#/components/schemas/Applicant'
                   status:
                     $ref: '#/components/schemas/Status'
-
   '/applicants/{id}/contacts':
     get:
       tags:
@@ -481,7 +522,7 @@ paths:
           description: collect successful
         '400':
           description: cannot collect this job, maybe the job has already deleted
-  '/users/{id}/collections':
+  '/users/{id}/attentions':
     get:
       tags:
         - Collection
@@ -498,27 +539,71 @@ paths:
             enum:
               - job
               - company
+              - question
+              - answer
+          description: determine what part of attention list to return
       responses:
         '200':
-          description: return users' Collection
+          description: return users' attention list
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  content:
-                    type: object
-                    properties:
-                      companies:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/CompanyCollections'
-                      jobs:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/JobCollections'
-                  status:
-                    $ref: '#/components/schemas/Status'
+                oneOf:
+                - type: object
+                  properties:
+                    content:
+                      type: object
+                      properties:
+                        companies:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                            - id
+                            - company
+                            properties:
+                              id:
+                                type: integer
+                              company:
+                                $ref: '#/components/schemas/Company'
+                        jobs:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                            - id
+                            - job
+                            properties:
+                              id:
+                                type: integer
+                              job:
+                                $ref: '#/components/schemas/Job' 
+                        questions:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                            - id
+                            - questions
+                            properties:
+                              id:
+                                type: integer
+                              questions:
+                                $ref: '#/components/schemas/QuestionBasic'
+                        answers:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                            - id
+                            - answers
+                            properties:
+                              id:
+                                type: integer
+                              answers:
+                                $ref: '#/components/schemas/AnswerBasic'
+                    status:
+                      $ref: '#/components/schemas/Status'
   '/collections/{id}':
     delete:
       tags:
@@ -740,10 +825,12 @@ paths:
         - name: id
           required: true
           in: path
+          schema:
+            type: integer
       responses:
         '201':
-          description: upvote successfullly
-  '/questions/{id}/follow':
+          description: attention successfullly
+  '/questions/{id}/attention':
     post:
       tags:
         - Question
@@ -751,6 +838,8 @@ paths:
         - name: id
           required: true
           in: path
+          schema:
+            type: integer
       responses: 
         '201':
           description: upvote successfullly
@@ -816,7 +905,6 @@ paths:
           description: success
         '403':
           description: do not have authority to delete answer
-    
   '/answers/{id}/comments': 
     put:
       tags:
@@ -1300,24 +1388,20 @@ components:
         end:
           type: string
           pattern: timestamp
-    
-    Applicant:
+    ApplicantRequest:
       type: object
       required:
-        - id
         - name
         - avatarUrl
       properties:
-        id:
-          type: integer
         name:
           type: string
         avatarUrl:
           type: string
         isInJob:
           type: boolean
-        currentCompany:
-          $ref: '#/components/schemas/Company'
+        currentCompanyId:
+          type: integer
         educations:
           type: array
           items:
@@ -1340,23 +1424,45 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Certification'
+    Applicant:
+      allOf:
+        - $ref: '#/components/schemas/ApplicantRequest'
+        - properties:
+            id:
+              type: integer
+            name:
+              type: string
+            avatarUrl:
+              type: string
+            isInJob:
+              type: boolean
+            currentCompany:
+              $ref: '#/components/schemas/Company'
+            educations:
+              type: array
+              items:
+                $ref: '#/components/schemas/EducationInfo'
+            contacts:
+              $ref: '#/components/schemas/ContactInfo'
+            works:
+              type: array
+              items:
+                $ref: '#/components/schemas/WorkExperienceInfo'
+            projects:
+              type: array
+              items:
+                $ref: '#/components/schemas/Project'
+            extracurriculars:
+              type: array
+              items:
+                $ref: '#/components/schemas/Extracurricular'
+            certifications:
+              type: array
+              items:
+                $ref: '#/components/schemas/Certification'
     JobResponse:
       allOf:
         - $ref: '#/components/schemas/Job'
-        - type: object
-          properties:
-            status:
-              $ref: '#/components/schemas/Status'
-    ApplicantResponse:
-      allOf:
-        - $ref: '#/components/schemas/Applicant'
-        - type: object
-          properties:
-            status:
-              $ref: '#/components/schemas/Status'
-    ContactResponse:
-      allOf:
-        - $ref: '#/components/schemas/ContactInfo'
         - type: object
           properties:
             status:
@@ -1381,32 +1487,6 @@ components:
           type: integer
         status:
           type: string
-    CompanyCollections:
-      type: object
-      required:
-        - id
-        - company
-        - status
-      properties:
-        id:
-          type: integer
-        company:
-          $ref: '#/components/schemas/Company'
-        status:
-          $ref: '#/components/schemas/CollectionStatus'
-    JobCollections:
-      type: object
-      required:
-        - id
-        - job
-        - status
-      properties:
-        id:
-          type: integer
-        job:
-          $ref: '#/components/schemas/Job'
-        status:
-          $ref: '#/components/schemas/CollectionStatus'
     CollectionStatus:
       type: string
       enum:
@@ -1432,7 +1512,11 @@ components:
               description: answer id
             creator:
               $ref: '#/components/schemas/User'
+            modified_at:
+              type: string
             create_at:
+              type: string
+            company_id:
               type: string
     QuestionRequest:
       type: object
@@ -1457,6 +1541,10 @@ components:
               type: integer
               description: question id
             create_at:
+              type: string
+            modified_at:
+              type: string
+            company_id:
               type: string
             creator:
               $ref: '#/components/schemas/User'
@@ -1515,7 +1603,6 @@ components:
             is_anonymous:
               type: boolean
               default: false
-        
     ArticleRequest:
       type: object 
       properties:
