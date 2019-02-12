@@ -4,8 +4,6 @@ import com.youthchina.dao.jinhao.CommunityQAMapper;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.jinhao.communityQA.*;
-import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,13 +46,8 @@ public class CommunityQAServiceImplement implements CommunityQAService {
             throw new NotFoundException(404,404,"没有找到这个问题");
         }
         QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(id);
-        if(questionRelaTypeAndId.getRela_type() == 2){
-            Company company = companyMapper.selectCompany(questionRelaTypeAndId.getRela_id());
-            question.setCompany(company);
-        }else if(questionRelaTypeAndId.getRela_type() == 3){
-            Job job = jobHrMapper.selectJobByJobId(questionRelaTypeAndId.getRela_id());
-            question.setJob(job);
-        }
+        question.setRela_type(questionRelaTypeAndId.getRela_type());
+        question.setRela_id(questionRelaTypeAndId.getRela_id());
         return question;
     }
 
@@ -73,14 +66,9 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public Question add(Question entity) {
         List<Integer> labelIds = entity.getLabelIds();
         Integer rela_type = entity.getRela_type();
-        Integer rela_id = null;
-        if(rela_type == 2){
-            rela_id = entity.getCompany().getCompanyId();
-        }else if(rela_type == 3){
-            rela_id = entity.getJob().getJobId();
-        }
+        Integer rela_id = entity.getRela_id();
         communityQAMapper.addQuestion(entity);
-        if(labelIds != null) {
+        if(labelIds != null){
             communityQAMapper.addLabels(labelIds, entity.getQues_id());
         }
         communityQAMapper.createMapBetweenQuestionAndUser(entity.getQues_id(), entity.getQues_user().getId(),
@@ -499,18 +487,15 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         return 1;
     }
 
-    /**
-     * 删除评论，评论不存在则抛出异常
-     * @param answerComment 要删除的评论的对象
-     * @return 删除成功返回1
-     * @throws NotFoundException
-     */
+
     @Override
     @Transactional
-    public Integer deleteComment(AnswerComment answerComment) throws  NotFoundException{
-        getComment(answerComment.getComment_id());
-        communityQAMapper.deleteComment(answerComment);
-        return 1;
+    public void deleteComment(Integer comment_id) throws  NotFoundException{
+        getComment(comment_id);
+        communityQAMapper.deleteComment(1);
+        communityQAMapper.deleteAllCommentEvaluationByCommentId(1);
+        communityQAMapper.deleteAllDiscussByCommentId(1);
+        communityQAMapper.deleteAllDiscussEvaluateByCommentId(1);
     }
 
     /**
@@ -622,18 +607,13 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         return communityQAMapper.countDiscussAgreement(discuss_id);
     }
 
-    /**
-     * 删除某个讨论
-     * @param commentDiscuss 要更新的讨论对象
-     * @return 删除成功返回1
-     * @throws NotFoundException
-     */
+
     @Override
     @Transactional
-    public Integer deleteDiscuss(CommentDiscuss commentDiscuss) throws NotFoundException{
-        getDiscuss(commentDiscuss.getDiscuss_id());
-        communityQAMapper.deleteDiscuss(commentDiscuss);
-        return 1;
+    public void deleteDiscuss(Integer discuss_id) throws NotFoundException{
+        getDiscuss(discuss_id);
+        communityQAMapper.deleteDiscuss(discuss_id);
+        communityQAMapper.deleteAllDiscussEvaluateByDiscussId(discuss_id);
     }
 
     /**
