@@ -17,13 +17,22 @@ public interface CommunityQAMapper {
 
     Question getQuestion(Integer ques_id);
 
-    Integer deleteQuestion(Question question);
+    void deleteQuestion(Integer ques_id);
+    void deleteAllAttention(Integer ques_id);
+    void deleteAllAnswers(Integer ques_id);
+    void deleteAllAnswerEvaluation(Integer ques_id);
+    void deleteAllAnswerInvitationMap(Integer ques_id);
+    void deleteAllAnswerInvitation(Integer ques_id);
+    void deleteAllComments(Integer ques_id);
+    void deleteAllCommentEvaluation(Integer ques_id);
+    void deleteAllDiscusses(Integer ques_id);
+    void deleteAllDiscussEvaluation(Integer ques_id);
 
     Integer editQuestion(Question question);
 
     List<Question> getMyQuestions(Integer user_id); // 列出用户提出的问题
 
-    List<Question> listQuestion(); //只是简单地根据发布时间列出前十个问题
+
 
     List<Label> listAllQuesetionLabel(Integer ques_id);
 
@@ -56,7 +65,12 @@ public interface CommunityQAMapper {
                                               @Param("answer_id") Integer answer_id,
                                               @Param("answer_level") Integer answer_level);
 
-    Integer deleteAnswer(QuestionAnswer questionAnswer);
+    void deleteAnswer(Integer answer_id);
+    void deleteAllAnswerEvaluationByAnswerId(Integer answer_id);
+    void deleteAllCommentsByAnswerId(Integer answer_id);
+    void deleteAllCommentEvaluationByAnswerId(Integer answer_id);
+    void deleteAllDiscussesByAnswerId(Integer answer_id);
+    void deleteAllDiscussEvaluationByAnswerId(Integer answer_id);
 
     Integer editAnswer(QuestionAnswer questionAnswer);
 
@@ -90,8 +104,10 @@ public interface CommunityQAMapper {
     Integer createMapBetweenAnswerAndComment(@Param("answer_id") Integer answer_id,
                                              @Param("comment_id") Integer comment_id,
                                              @Param("comment_level") Integer comment_level);
-    Integer deleteComment(AnswerComment answerComment);
-
+    void deleteComment(Integer comment_id);
+    void deleteAllCommentEvaluationByCommentId(Integer comment_id);
+    void deleteAllDiscussByCommentId(Integer comment_id);
+    void deleteAllDiscussEvaluateByCommentId(Integer comment_id);
 
     CommentEvaluate commentEvaluateStatus(@Param("user_id") Integer user_id, @Param("comment_id") Integer comment_id);
 
@@ -143,6 +159,8 @@ public interface CommunityQAMapper {
     Integer updateStatusOfInvitation(AnswerInvitation answerInvitation);
 
     AnswerInvitation getInvitation(Integer invit_id);
+
+    Integer getInvitationMap(Integer invit_id);
 
 
     List<Video> listFirstTenVideos();

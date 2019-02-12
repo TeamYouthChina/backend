@@ -27,6 +27,191 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     JobMapper jobHrMapper;
 
     /**
+     * 要对某个问题进行操作的时候，检查某个问题是否还存在，如果不存在会抛出异常
+     * @param ques_id 问题的id
+     * @return 返回得到的问题对象
+     * @throws NotFoundException
+     */
+    private Question getQuestion(Integer ques_id) throws NotFoundException{
+        Question question = communityQAMapper.getQuestion(ques_id);
+        if(question == null){
+            throw new NotFoundException(404,404,"没有找到这个问题");
+        }
+        return question;
+    }
+
+    @Override
+    @Transactional
+    public Question get(Integer id) throws NotFoundException {
+        Question question = communityQAMapper.getQuestionById(id);
+        if(question == null){
+            throw new NotFoundException(404,404,"没有找到这个问题");
+        }
+        QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(id);
+        if(questionRelaTypeAndId.getRela_type() == 2){
+            Company company = companyMapper.selectCompany(questionRelaTypeAndId.getRela_id());
+            question.setCompany(company);
+        }else if(questionRelaTypeAndId.getRela_type() == 3){
+            Job job = jobHrMapper.selectJobByJobId(questionRelaTypeAndId.getRela_id());
+            question.setJob(job);
+        }
+        return question;
+    }
+
+    @Override
+    @Transactional
+    public List<Question> get(List<Integer> id) throws NotFoundException {
+        List<Question> questions = new LinkedList<>();
+        for(Integer one : id){
+            questions.add(get(one));
+        }
+        return questions;
+    }
+
+    @Override
+    @Transactional
+    public Question add(Question entity) {
+        List<Integer> labelIds = entity.getLabelIds();
+        Integer rela_type = entity.getRela_type();
+        Integer rela_id = null;
+        if(rela_type == 2){
+            rela_id = entity.getCompany().getCompanyId();
+        }else if(rela_type == 3){
+            rela_id = entity.getJob().getJobId();
+        }
+        communityQAMapper.addQuestion(entity);
+        if(labelIds != null){
+            communityQAMapper.addLabels(labelIds, entity.getQues_id());
+        }
+        communityQAMapper.createMapBetweenQuestionAndUser(entity.getQues_id(), entity.getQues_user().getId(),
+                rela_type, rela_id);
+        return entity;
+    }
+
+    @Override
+    @Transactional
+    public Question update(Question question) throws NotFoundException {
+        getQuestion(question.getQues_id());
+        communityQAMapper.editQuestion(question);
+        return question;
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer id) throws NotFoundException {
+        getQuestion(id);
+        communityQAMapper.deleteQuestion(id);
+        communityQAMapper.deleteAllDiscussEvaluation(id);
+        communityQAMapper.deleteAllCommentEvaluation(id);
+        communityQAMapper.deleteAllAnswerInvitationMap(id);
+        communityQAMapper.deleteAllAnswerInvitation(id);
+        communityQAMapper.deleteAllAnswerEvaluation(id);
+        communityQAMapper.deleteAllAttention(id);
+        communityQAMapper.deleteAllAnswers(id);
+        communityQAMapper.deleteAllComments(id);
+        communityQAMapper.deleteAllDiscusses(id);
+    }
+
+    @Override
+    @Transactional
+    public QuestionAttention attentionQuestion(Integer ques_id, Integer user_id) throws NotFoundException{
+        getQuestion(ques_id);
+        QuestionAttention questionAttention = new QuestionAttention();
+        questionAttention.setUser_id(user_id);
+        QuestionAttention old_questionAttention = communityQAMapper.isQuestionAttention(ques_id, user_id);
+        Integer atten_id;
+        if(old_questionAttention == null){
+            communityQAMapper.addAttentionToQuestion(questionAttention);
+            atten_id = questionAttention.getAtten_id();
+            communityQAMapper.createMapBetweenAttentionAndQuestion(ques_id, atten_id);
+        }else{
+            atten_id = old_questionAttention.getAtten_id();
+            questionAttention.setAtten_id(atten_id);
+            communityQAMapper.reAddAttentionToQuestion(questionAttention);
+        }
+        return questionAttention;
+    }
+
+//    private QuestionAttention getAttention(Integer atten_id) throws NotFoundException{
+//        QuestionAttention questionAttention= communityQAMapper.getAttention(atten_id);
+//        if(questionAttention == null){
+//            throw new NotFoundException(404, 404, "该关注不存在");
+//        }else{
+//            return questionAttention;
+//        }
+//    }
+
+    @Override
+    @Transactional
+    public void cancelAttentionQuestion(Integer ques_id, Integer user_id) throws NotFoundException{
+        QuestionAttention questionAttention = communityQAMapper.isQuestionAttention(ques_id, user_id);
+        if(questionAttention == null){
+            throw new NotFoundException(404, 404, "没有这个关注，无法取消");
+        }
+        communityQAMapper.cancelAttention(questionAttention);
+    }
+
+    /**
+     * 列出用户关注的问题，如果没有抛出异常
+     * @param user_id 用户的id
+     * @return 返回关注的问题的list
+     * @throws NotFoundException
+     */
+    @Override
+    public List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException{
+        List<Question> questions = communityQAMapper.listMyAttenQuestion(user_id);
+        if(questions == null){
+            throw new NotFoundException(404,404,"该用户没有关注的问题");
+        }else {
+            return questions;
+        }
+    }
+
+    @Override
+    @Transactional
+    public Integer invitUsersToAnswer(Integer invit_user_id, Integer ques_id, List<Integer> invited_user_ids)
+            throws NotFoundException{
+        getQuestion(ques_id);
+        for(Integer invited_user_id : invited_user_ids){
+            invitUserToAnswer(invit_user_id, ques_id, invited_user_id);
+        }
+        return 1;
+    }
+
+
+    private void invitUserToAnswer(Integer invit_user_id, Integer ques_id,
+                                   Integer invited_user_id) {
+        AnswerInvitation answerInvitation = new AnswerInvitation();
+        answerInvitation.setInvit_user_id(invit_user_id);
+        answerInvitation.setInvit_accept(0);
+        answerInvitation.setInvit_ques_id(ques_id);
+        answerInvitation.setInvit_time(new Timestamp(System.currentTimeMillis()));
+        communityQAMapper.addInvitation(answerInvitation);
+        communityQAMapper.createMapBetweenInvitationAndQuestion(answerInvitation.getInvit_id(),
+                invited_user_id);
+    }
+
+
+
+
+
+    /**
+     * 列出某用户提出过的问题,如果没提出过问题，抛出异常
+     * @param user_id 用户的id
+     * @return 返回问题的list
+     * @throws NotFoundException
+     */
+    @Override
+    public List<Question> listMyQuestions(Integer user_id) throws NotFoundException{
+        List<Question> questions = communityQAMapper.getMyQuestions(user_id);
+        if(questions == null){
+            throw new NotFoundException(404, 404, "用户还没有提出过问题");
+        }else {
+            return questions;
+        }
+    }
+
+    /**
      * search questions by its title or relative company or job name
      * @param searchContent title or company name
      * @return list of questions
@@ -84,185 +269,16 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
     /**
      * Judge if an answer is belong to a question
-     * @param id id of answer
+     * @param answer_id id of answer
+     * @param ques_id id of question
      * @return true or false
      */
-    @Override
-    public Question get(Integer id) throws NotFoundException {
-        Question question = communityQAMapper.getQuestionById(id);
-        if(question == null){
-            throw new NotFoundException(404,404,"没有找到这个问题");
-        }
-        QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(id);
-        if(questionRelaTypeAndId.getRela_type() == 2){
-            Company company = companyMapper.selectCompany(questionRelaTypeAndId.getRela_id());
-            question.setCompany(company);
-        }else if(questionRelaTypeAndId.getRela_type() == 3){
-            Job job = jobHrMapper.selectJobByJobId(questionRelaTypeAndId.getRela_id());
-            question.setJob(job);
-        }
-        return question;
-    }
-
-    @Override
-    public List<Question> get(List<Integer> id) throws NotFoundException {
-        return null;
-    }
-
-    @Override
-    public void delete(Integer id) throws NotFoundException {
-
-    }
-
-    @Override
-    public Question update(Question question) throws NotFoundException {
-        return null;
-    }
-
-    @Override
-    public Question add(Question entity) {
-        return null;
-    }
-
-
     @Override
     public boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id) {
         return communityQAMapper.isAnswerBelongToQuestion(answer_id, ques_id);
     }
 
-    /**
-     * Get all the information of a question by its id
-     * @param ques_id id of question
-     * @return Question object
-     * @throws NotFoundException if the question dose not exist, throw exception
-     */
-    @Override
-    @Transactional
-    public Question getQuestionInfoById(Integer ques_id) throws NotFoundException {
-        Question question = communityQAMapper.getQuestionById(ques_id);
-        if(question == null){
-            throw new NotFoundException(404,404,"没有找到这个问题");
-        }
-        QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(ques_id);
-        if(questionRelaTypeAndId.getRela_type() == 2){
-            Company company = companyMapper.selectCompany(questionRelaTypeAndId.getRela_id());
-            question.setCompany(company);
-        }else if(questionRelaTypeAndId.getRela_type() == 3){
-            Job job = jobHrMapper.selectJobByJobId(questionRelaTypeAndId.getRela_id());
-            question.setJob(job);
-        }
-        return question;
-    }
 
-    /**
-     * 添加问题，建立问题和用户的映射，建立问题和标签的映射
-     * @param question 要添加的问题的对象
-     * @param user_id 提出问题的用户的id
-     * @param labels 添加的标签list
-     * @return 添加成功返回1
-     */
-    @Override
-    @Transactional
-    public Integer addQuestion(Question question, Integer user_id, List<Integer> labels, Integer rela_type, Integer rela_id) {
-        communityQAMapper.addQuestion(question);
-        communityQAMapper.addLabels(labels, question.getQues_id());
-        communityQAMapper.createMapBetweenQuestionAndUser(question.getQues_id(), user_id, rela_type, rela_id);
-        return 1;
-    }
-
-    /**
-     * 拿到问题，如果问题不存在，抛出异常
-     * @param ques_id
-     * @return 返回一个问题的对象
-     * @throws NotFoundException
-     */
-    @Override
-    public Question getQuestion(Integer ques_id) throws NotFoundException {
-        Question question = communityQAMapper.getQuestion(ques_id);
-        if(question == null){
-            throw new NotFoundException(404, 404, "没有找到问题");
-        }else {
-            return question;
-        }
-    }
-
-    /**
-     * 编辑某个问题，如果问题不存在，抛出异常
-     * @param question
-     * @return 编辑成功返回1
-     * @throws NotFoundException
-     */
-    @Override
-    @Transactional
-    public Integer updateQuestion(Question question) throws NotFoundException{
-        getQuestion(question.getQues_id());
-        communityQAMapper.editQuestion(question);
-        return 1;
-    }
-
-    /**
-     * 删除某个问题, 如果问题不存在，抛出异常（问题：要不要同时删除标签，如果删除的话，恢复问题的时候要重新添加标签）
-     * @param question
-     * @return 删除成功返回1
-     * @throws NotFoundException
-     */
-    @Override
-    @Transactional
-    public Integer deleteQuesiton(Question question) throws NotFoundException{
-        getQuestion(question.getQues_id());
-        communityQAMapper.deleteQuestion(question);
-        return 1;
-    }
-
-    /**
-     * 列出某用户提出过的问题,如果没提出过问题，抛出异常
-     * @param user_id 用户的id
-     * @return 返回问题的list
-     * @throws NotFoundException
-     */
-    @Override
-    public List<Question> listMyQuestions(Integer user_id) throws NotFoundException{
-        List<Question> questions = communityQAMapper.getMyQuestions(user_id);
-        if(questions == null){
-            throw new NotFoundException(404, 404, "用户还没有提出过问题");
-        }else {
-            return questions;
-        }
-    }
-
-    /**
-     * 拿到问题的标签，如果标签不存在，抛出异常
-     * @param ques_id
-     * @return 包含所有标签的list
-     * @throws NotFoundException
-     */
-    @Override
-    public List<Label> getLabels(Integer ques_id) throws NotFoundException{
-        List<Label> labels = communityQAMapper.listAllQuesetionLabel(ques_id);
-        if(labels == null){
-            throw new NotFoundException(404, 404, "该问题没有标签");
-        }else{
-            return labels;
-        }
-    }
-
-
-    /**
-     * 拿到某个问题的所有回答，如果问题不存在，则抛出异常，如果没有找到任何回答，也抛出异常
-     * @param ques_id
-     * @return 包含所有回答的list
-     * @throws NotFoundException
-     */
-    @Override
-    public List<QuestionAnswer> listAllAnswer(Integer ques_id) throws NotFoundException{
-        getQuestion(ques_id);
-        List<QuestionAnswer> answers = communityQAMapper.listAllQuestionAnswer(ques_id);
-        if(answers == null){
-            throw new NotFoundException(404, 404, "没有找到该问题的回答");
-        }else {
-            return answers;
-        }
-    }
 
     /**
      * 添加回答，建立回答和问题的映射
@@ -302,35 +318,27 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException{
+    public QuestionAnswer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException{
         getAnswer(questionAnswer.getAnswer_id());
+        questionAnswer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
         communityQAMapper.editAnswer(questionAnswer);
-        return 1;
+        return questionAnswer;
     }
 
-    /**
-     * 删除回答，如果回答不存在，抛出异常
-     * @param questionAnswer 要删除的回答
-     * @return 删除成功，返回1
-     * @throws NotFoundException
-     */
+
     @Override
     @Transactional
-    public Integer deleteAnswer(QuestionAnswer questionAnswer) throws NotFoundException{
-        getAnswer(questionAnswer.getAnswer_id());
-        communityQAMapper.deleteAnswer(questionAnswer);
-        return 1;
+    public void deleteAnswer(Integer answer_id) throws NotFoundException{
+        getAnswer(answer_id);
+        communityQAMapper.deleteAnswer(answer_id);
+        communityQAMapper.deleteAllAnswerEvaluationByAnswerId(answer_id);
+        communityQAMapper.deleteAllCommentsByAnswerId(answer_id);
+        communityQAMapper.deleteAllCommentEvaluationByAnswerId(answer_id);
+        communityQAMapper.deleteAllDiscussesByAnswerId(answer_id);
+        communityQAMapper.deleteAllDiscussEvaluationByAnswerId(answer_id);
     }
 
-    /**
-     * 得到问题收到的回答的条数
-     * @param ques_id 问题的id
-     * @return 返回回答的条数
-     */
-    @Override
-    public Integer countAnswer(Integer ques_id) {
-        return communityQAMapper.countAnswer(ques_id);
-    }
+
 
     /**
      * 列出用户做出过的回答，如果没有，抛出异常
@@ -348,100 +356,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         }
     }
 
-    /**
-     * 检查用户是否关注这个问题，如果关注，QuestionAttention的atten_canecl字段为1，如果用户从来没关注过问题，则返回null
-     * @param user_id 用户id
-     * @param ques_id 问题id
-     * @return 返回问题关注对象
-     */
-    @Override
-    public QuestionAttention isQuestionAttention(Integer user_id, Integer ques_id) throws NotFoundException {
-        QuestionAttention questionAttention =  communityQAMapper.isQuestionAttention(user_id, ques_id);
-        if(questionAttention == null){
-            throw new NotFoundException(404, 404, "用户没有关注过这个问题");
-        }else {
-            return questionAttention;
-        }
-    }
 
-    /**
-     * 关注问题，如果问题不存在，抛出异常，如果存在则关注；如果问题已经被该用户关注过，则只需要修改字段，如果没有被关注过，则添加记录，
-     * 并且建立用户和关注的映射
-     * @param ques_id 被关注的问题的id
-     * @param questionAttention 关注对象，对象里面包括用户的id
-     * @return  关注成功返回1
-     * @throws NotFoundException
-     */
-    @Override
-    @Transactional
-    public Integer attentionQuestion(Integer ques_id, QuestionAttention questionAttention) throws NotFoundException{
-        getQuestion(ques_id);
-        Integer atten_id = questionAttention.getAtten_id();
-        if(atten_id != null){
-            communityQAMapper.reAddAttentionToQuestion(questionAttention);
-        }else {
-            communityQAMapper.addAttentionToQuestion(questionAttention);
-            atten_id = questionAttention.getAtten_id();
-            communityQAMapper.createMapBetweenAttentionAndQuestion(ques_id, atten_id);
-        }
-        return 1;
-    }
-
-    /**
-     * 得到指定关注id的关注记录，如果不存在，抛出异常
-     * @param atten_id 关注的id
-     * @return 返回指定id的关注对象
-     * @throws NotFoundException
-     */
-    @Override
-    public QuestionAttention getAttention(Integer atten_id) throws NotFoundException{
-        QuestionAttention questionAttention= communityQAMapper.getAttention(atten_id);
-        if(questionAttention == null){
-            throw new NotFoundException(404, 404, "该关注不存在");
-        }else{
-            return questionAttention;
-        }
-    }
-
-    /**
-     * 取消关注问题，如果该条关注记录不存在，则抛出异常，否则取消成功返回1
-     * @param questionAttention 关注对象
-     * @return 取消成功返回1
-     * @throws NotFoundException
-     */
-    @Override
-    @Transactional
-    public Integer cancelAttentionQuestion(QuestionAttention questionAttention) throws NotFoundException{
-        getAttention(questionAttention.getAtten_id());
-        communityQAMapper.cancelAttention(questionAttention);
-        return 1;
-    }
-
-    /**
-     * 列出用户关注的问题，如果没有抛出异常
-     * @param user_id 用户的id
-     * @return 返回关注的问题的list
-     * @throws NotFoundException
-     */
-    @Override
-    public List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException{
-       List<Question> questions = communityQAMapper.listMyAttenQuestion(user_id);
-       if(questions == null){
-           throw new NotFoundException(404,404,"该用户没有关注的问题");
-       }else {
-           return questions;
-       }
-    }
-
-    /**
-     * 拿到某个问题的关注数
-     * @param ques_id  问题的id
-     * @return 返回关注的人数
-     */
-    @Override
-    public Integer countFollwers(Integer ques_id) {
-        return communityQAMapper.countTheFollower(ques_id);
-    }
 
     /**
      * 拿到某个回答的点赞数
@@ -584,18 +499,15 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         return 1;
     }
 
-    /**
-     * 删除评论，评论不存在则抛出异常
-     * @param answerComment 要删除的评论的对象
-     * @return 删除成功返回1
-     * @throws NotFoundException
-     */
+
     @Override
     @Transactional
-    public Integer deleteComment(AnswerComment answerComment) throws  NotFoundException{
-        getComment(answerComment.getComment_id());
-        communityQAMapper.deleteComment(answerComment);
-        return 1;
+    public void deleteComment(Integer comment_id) throws  NotFoundException{
+        getComment(comment_id);
+        communityQAMapper.deleteComment(1);
+        communityQAMapper.deleteAllCommentEvaluationByCommentId(1);
+        communityQAMapper.deleteAllDiscussByCommentId(1);
+        communityQAMapper.deleteAllDiscussEvaluateByCommentId(1);
     }
 
     /**
@@ -796,30 +708,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
 
     /**
-     * add invitation
-     * @param invit_user_id id of user who send the invitation
-     * @param ques_id id of question to which the user invite others
-     * @param invited_user_id id of user who is invited
-     * @return return 1 if success
-     * @throws NotFoundException if the question
-     */
-    @Override
-    @Transactional
-    public Integer invitToAnswer(Integer invit_user_id, Integer ques_id,
-                                 Integer invited_user_id) throws NotFoundException{
-        getQuestion(ques_id);
-        AnswerInvitation answerInvitation = new AnswerInvitation();
-        answerInvitation.setInvit_user_id(invit_user_id);
-        answerInvitation.setInvit_accept(0);
-        answerInvitation.setInvit_ques_id(ques_id);
-        answerInvitation.setInvit_time(new Timestamp(System.currentTimeMillis()));
-        communityQAMapper.addInvitation(answerInvitation);
-        communityQAMapper.createMapBetweenInvitationAndQuestion(answerInvitation.getInvit_id(),
-                invited_user_id);
-        return 1;
-    }
-
-    /**
      * 得到某个邀请
      * @param invit_id 邀请的id
      * @return 如果没找到，则抛出异常，如果找到了，返回找到的邀请
@@ -848,19 +736,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         return 1;
     }
 
-    /**
-     * 拿到前10个问题的基本信息，问答板块主页要用
-     * @return 返回问题对象的list
-     */
-    @Override
-    public List<Question> listQuestion() throws NotFoundException{
-        List<Question> questions =  communityQAMapper.listQuestion();
-        if(questions == null){
-            throw new NotFoundException(404,404,"没有任何问题");
-        }else {
-            return questions;
-        }
-    }
 
 
     /**
