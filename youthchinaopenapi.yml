@@ -49,7 +49,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Job'
+              $ref: '#/components/schemas/JobSearch'
       responses:
         '201':
           description: search result
@@ -618,7 +618,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Question'
+              $ref: '#/components/schemas/QuestionRequest'
       responses:
         '204':
           description: updated success
@@ -632,6 +632,7 @@ paths:
           in: path
           schema:
             type: integer
+
       responses:
         '200':
           description: the answer list of target question
@@ -649,6 +650,64 @@ paths:
                           $ref: '#/components/schemas/Answer'
                   status:
                     $ref: '#/components/schemas/Status'
+    put:
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              - body
+              properties:
+                id:
+                  type: integer
+                body:
+                  $ref: '#/components/schemas/RichText'
+                is_anonymous:
+                  type: boolean
+                  default: false
+                create_at:
+                  type: integer
+                
+      responses:
+        '201':
+          description: target answer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Answer'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/questions/{questionid}/invite/{userId}':
+    post:
+      tags:
+        - Question
+      parameters:
+        - name: questionId
+          required: true
+          in: path
+          schema:
+            type: integer
+        - name: userId
+          required: true
+          in: path
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: invitation send successfully.
   '/questions/{id}/invite':
     post:
       tags:
@@ -657,6 +716,8 @@ paths:
         - name: id
           required: true
           in: path
+          schema:
+            type: integer
           
       requestBody:
         content:
@@ -755,43 +816,9 @@ paths:
           description: success
         '403':
           description: do not have authority to delete answer
-  '/answers':
-    post:
-      tags:
-        - Answer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-              - id
-              - body
-              properties:
-                id:
-                  type: integer
-                body:
-                  $ref: '#/components/schemas/RichText'
-                is_anonymous:
-                  type: boolean
-                  default: false
-                create_at:
-                  type: integer
-                
-      responses:
-        '201':
-          description: target answer
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    $ref: '#/components/schemas/Answer'
-                  status:
-                    $ref: '#/components/schemas/Status'
+    
   '/answers/{id}/comments': 
-    post:
+    put:
       tags:
         - Answer
       requestBody:
@@ -840,25 +867,28 @@ paths:
               required:
                 - name
                 - date_of_birth
+                - password
                 - phonenumber
                 - email
                 - current_city
                 - prefer_industry
                 - prefer_city
               properties:
-                name:
+                username:
                   type: string
                 date_of_birth:
                   type: string
-                phonenumber:
+                password:
+                  type: string
+                phone_number:
                   type: string
                 email: 
                   type: string
-                current_city:
-                  type: integer
-                prefer_industry:
-                  type: integer
-                prefer_city:
+                nation:
+                  type: string
+                gender:
+                  type: string
+                age:
                   type: integer
       responses:
         '201':
@@ -894,6 +924,24 @@ paths:
                     $ref: '#/components/schemas/Comment'
                   status:
                     $ref: '#/components/schemas/Status'
+  '/me':
+    get:
+      tags:
+        - Security
+      responses:
+        '200':
+          description: Return current logined user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/User'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '401':
+          description: not loged in
   '/login':
     post:
       tags:
@@ -923,9 +971,93 @@ paths:
                     $ref: '#/components/schemas/User'
                   status:
                     $ref: '#/components/schemas/Status'
+  '/articles/{id}':
+    get:
+      tags:
+        - Article
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Article'
+                  status:
+                    $ref: '#/components/schemas/Status'
+    put:
+      tags:
+        - Article
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleRequest'
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Article'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/articles':
+    post:
+      tags:
+        - Article
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleRequest'
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Article'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/articles/{id}/comments':
+    put:
+      tags:
+      - Article
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+      responses:
+        '200':
+          description: successful
 
 components:
   schemas:
+    ContentRequest:
+      type: object
+      properties:
+        body:
+          $ref: '#/components/schemas/RichText'
     Status:
       type: object
       properties:
@@ -945,11 +1077,29 @@ components:
         - page
         - size
       properties:
-        key:
+        id: 
+          type: integer
+        jobName:
+          type: string
+        companyName:
+          type: string
+        duration:
+          $ref: '#/components/schemas/Duration'
+        jobType:
+          type: integer
+        salaryFloor:
+          type: integer
+        salaryCap:
+          type: integer
+        activate:
+          type: boolean
+        location:
           type: string
         industry:
-          type: string
-        tagList:
+          type: array
+          items:
+            type: string
+        tags:
           type: array
           items:
             type: string
@@ -957,6 +1107,7 @@ components:
           type: integer
         size:
           type: integer
+
     Job:
       type: object
       properties:
@@ -1149,6 +1300,7 @@ components:
         end:
           type: string
           pattern: timestamp
+    
     Applicant:
       type: object
       required:
@@ -1260,55 +1412,54 @@ components:
       enum:
         - active
         - inactive
-    AnswerBasic:
+    AnswerRequest:
       type: object
       required:
-        - id
-        - creator
         - body
         - is_anonymous
-        - create_at
       properties:
-        id:
-          type: integer
-          description: answer id
-        creator:
-          $ref: '#/components/schemas/User'
         body:
-          type: string
-          description: answer body
+          $ref: '#/components/schemas/RichText'
         is_anonymous:
           type: boolean
           default: false
-        create_at:
-          type: integer
-          description: create time of answer
-    QuestionBasic:
+    AnswerBasic:
+      allOf:
+        - $ref: '#/components/schemas/AnswerRequest'
+        - properties:
+            id:
+              type: integer
+              description: answer id
+            creator:
+              $ref: '#/components/schemas/User'
+            create_at:
+              type: string
+    QuestionRequest:
       type: object
       required:
-        - id
-        - creator
         - title
+        - body
         - is_anonymous
-        - create_at
       properties:
-        id:
-          type: integer
-          description: question id
-        creator:
-          $ref: '#/components/schemas/User'
         title:
           type: string
           description: question title
         body:
-          type: string
-          description: question body
+          $ref: '#/components/schemas/RichText'
         is_anonymous:
           type: boolean
           default: flase
-        create_at:
-          type: integer
-          description: create time of question
+    QuestionBasic:
+      allOf:
+        - $ref: '#/components/schemas/QuestionRequest'
+        - properties:
+            id:
+              type: integer
+              description: question id
+            create_at:
+              type: string
+            creator:
+              $ref: '#/components/schemas/User'
     Question:
       allOf:
         - $ref: '#/components/schemas/QuestionBasic'
@@ -1357,5 +1508,42 @@ components:
         is_anonymous:
           type: boolean
           default: false
-
-
+    CommentRequest:
+      allOf:
+        - $ref: '#/components/schemas/ContentRequest'
+        - properties:
+            is_anonymous:
+              type: boolean
+              default: false
+        
+    ArticleRequest:
+      type: object 
+      properties:
+        title:
+          type: string
+        body:
+          $ref: '#/components/schemas/RichText'
+        company_id:
+          type: integer
+    Article:
+      type: object
+      required:
+        - id
+        - title
+        - body
+        - company
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        body:
+          $ref: '#/components/schemas/RichText'
+        company:
+          $ref: '#/components/schemas/Company'
+        create_at:
+          type: string
+        modified_at:
+          type: string
+        author:
+          $ref: '#/components/schemas/User'

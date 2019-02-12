@@ -6,6 +6,7 @@ import com.youthchina.domain.qingyang.Company;
  * Created by zhongyangwu on 12/2/18.
  */
 public class OrganizationDTO {
+
     private int id;
     private String name;
     private String avatarUrl;

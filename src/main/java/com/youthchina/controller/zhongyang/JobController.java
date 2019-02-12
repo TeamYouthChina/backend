@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 
 /**
@@ -88,13 +89,16 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     }
 
     @PostMapping("/search")
-    public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
-        //todo: continue
+    public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, Authentication authentication) throws BaseException {
 
-        if (detailLevel == 1) {
-            return ResponseEntity.ok(new Response(jobSearchDTO));
-        }
-        throw new BaseException();
+        List <Job> searchResult = this.jobService.getJobByMore(jobSearchDTO.getJobId(),jobSearchDTO.getJobName(),
+                jobSearchDTO.getComId(), jobSearchDTO.getComName(),jobSearchDTO.getStartTime(),jobSearchDTO.getEndTime(),
+                jobSearchDTO.getType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), jobSearchDTO.getActive(),
+                jobSearchDTO.getLocation(), jobSearchDTO.getJobReqList(),jobSearchDTO.getIndustryList());
+        JobSearchResultDTO jobSearchResultDTO = new JobSearchResultDTO();
+        jobSearchResultDTO.setSearchResult(searchResult);
+
+        return ResponseEntity.ok(new Response(jobSearchResultDTO));
     }
 
 
