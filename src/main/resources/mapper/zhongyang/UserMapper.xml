@@ -31,7 +31,6 @@
         USER_LOCATION,
         USER_NICKNAME,
         ROLE_ID,
-        PERMI_ID,
         IS_DELETE,
         IS_DELETE_TIME
     </sql>
@@ -39,7 +38,7 @@
         FROM
         SYS_USER
         JOIN
-        SYS_USER_ROLE
+        SYS_ROLE
         r
         on
         SYS_USER
@@ -51,23 +50,6 @@
         ROLE_ID
         AND
         r
-        .
-        IS_DELETE
-        =
-        0
-        JOIN
-        SYS_ROLE_PERMISSION
-        srp
-        on
-        SYS_USER
-        .
-        PERMI_ID
-        =
-        srp
-        .
-        PERMI_ID
-        AND
-        srp
         .
         IS_DELETE
         =
@@ -113,7 +95,6 @@
         0,
         '',
         #{role},
-        1,
         0,
         NULL)
     </insert>
@@ -143,7 +124,6 @@
             USER_LOCATION    = 0,
             USER_NICKNAME    = '',
             ROLE_ID          = #{role},
-            PERMI_ID         = 1,
             IS_DELETE        = 0,
             IS_DELETE_TIME   = NULL
 
