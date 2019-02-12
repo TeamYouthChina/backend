@@ -39,14 +39,20 @@ public class Question implements HasId<Integer> {
         this.ques_invitation = questionDTO.getInvitation();
         this.user_anony = questionDTO.getAnonymous();
         this.ques_pub_time = questionDTO.getCreateAt();
+        this.ques_edit_time = questionDTO.getEditAt();
         this.rela_type = questionDTO.getRela_type();
         this.labelIds = questionDTO.getLabelIds();
-        for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
-            this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
+        this.ques_abbre = questionDTO.getAbbreviation();
+        if(questionDTO.getAnswers() != null) {
+            for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
+                this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
+            }
         }
         if(questionDTO.getRela_type() == 2){
+            this.company = new Company();
             this.company.setCompanyId(questionDTO.getRela_id());
         } else if(questionDTO.getRela_type() == 3){
+            this.job = new Job();
             this.job.setJobId(questionDTO.getRela_id());
         }
     }

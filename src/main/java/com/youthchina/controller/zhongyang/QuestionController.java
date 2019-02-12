@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +59,8 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO) {
+    public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO, @AuthenticationPrincipal User user) {
+        questionDTO.setCreator(user);
         return add(questionDTO);
     }
 
@@ -79,8 +81,16 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @PostMapping("/{id}/invite")
-    public ResponseEntity<?> sendInvite(@RequestBody Integer id, List<Integer> userIds,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> sendInvites(@RequestBody Integer id, List<Integer> userIds, @AuthenticationPrincipal User user) throws NotFoundException {
         communityQAService.invitUsersToAnswer(user.getId(), id, userIds);
+        return ResponseEntity.ok(new Response());
+    }
+
+    @PostMapping("/{questionId}/invite/{userId}")
+    public ResponseEntity<?> sendInvite(@RequestBody Integer questionId, Integer userId,@AuthenticationPrincipal User user) throws NotFoundException {
+        List<Integer> list = new ArrayList<>();
+        list.add(userId);
+        communityQAService.invitUsersToAnswer(user.getId(), questionId, list);
         return ResponseEntity.ok(new Response());
     }
 
