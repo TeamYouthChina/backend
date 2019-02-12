@@ -3,6 +3,7 @@ package com.youthchina.Qingyang;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.qingyang.CompanyMapper;
+import com.youthchina.dao.qingyang.HrMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.*;
@@ -31,7 +32,11 @@ public class CompanyTest {
     private CompanyMapper companyMapper;
 
     @Autowired
+
     private JobMapper jobMapper;
+
+    @Autowired
+    private HrMapper hrMapper;
 
 
     //CompanyVerification CURD
@@ -164,7 +169,7 @@ public class CompanyTest {
     public void testDeleteCompany() {
         Integer comId = 1;
         jobMapper.deleteJobByComId(comId);
-        //jobMapper.deleteJobDegreeByComId(comId);
+        hrMapper.deleteHrByComId(comId);
         companyMapper.deleteCompanyVerificationByComId(comId);
         companyMapper.deleteCompanyEmployee(comId);
         companyMapper.deleteCompanyEvaluate(comId);

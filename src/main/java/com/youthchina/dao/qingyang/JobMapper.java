@@ -77,7 +77,6 @@ comment '职位基本信息表';
 
     Integer deleteJobDegree(Integer jobId);
 
-    Integer deleteJobDegreeByComId(Integer comId);
     Integer deleteJobByComId(Integer comId);
 }
 
