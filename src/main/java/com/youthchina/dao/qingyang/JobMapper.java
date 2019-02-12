@@ -65,16 +65,18 @@ public interface JobMapper {
 comment '职位基本信息表';
 */
     
-    void insertJobIndustry(List<Industry> industries);
+    Integer insertJobIndustry(List<Industry> industries);
 
-    void insertJobDegree(List<Degree> degrees);
+    Integer insertJobDegree(List<Degree> degrees);
 
-    void insertJobLocation(List<Location> locations);
+    Integer insertJobLocation(List<Location> locations);
 
-    void deleteJobLocation(Integer jobId);
+    Integer deleteJobLocation(Integer jobId);
 
-    void deleteJobIndustry(Integer jobId);
+    Integer deleteJobIndustry(Integer jobId);
 
-    void deleteJobDegree(Integer jobId);
+    Integer deleteJobDegree(Integer jobId);
+
+    Integer deleteJobByComId(Integer comId);
 }
 
