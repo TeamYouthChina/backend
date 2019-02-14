@@ -3,7 +3,7 @@ package com.youthchina;
 import com.youthchina.service.tianjian.Idtest;
 import com.youthchina.service.tianjian.LocalFileManage;
 import com.youthchina.service.tianjian.SnowFlakeIdGenerate;
-import com.youthchina.service.tianjian.StaticFileSystemServiceImplALiCloud;
+import com.youthchina.service.tianjian.AliCloudFileStorageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,7 +21,7 @@ public class YouthchinaApplicationTests {
     @Autowired
     SnowFlakeIdGenerate snowFlakeIdGenerate;
     @Autowired
-    StaticFileSystemServiceImplALiCloud staticFileSystemServiceImplALiCloud;
+    AliCloudFileStorageService staticFileSystemServiceImplALiCloud;
     @Autowired
     LocalFileManage localFileManage;
 

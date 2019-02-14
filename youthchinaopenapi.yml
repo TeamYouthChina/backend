@@ -765,7 +765,7 @@ paths:
                           $ref: '#/components/schemas/Answer'
                   status:
                     $ref: '#/components/schemas/Status'
-    put:
+    post:
       tags:
         - Answer
       parameters:
@@ -936,7 +936,7 @@ paths:
         '403':
           description: do not have authority to delete answer
   '/answers/{id}/comments': 
-    put:
+    post:
       tags:
         - Answer
       requestBody:
@@ -1169,7 +1169,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
   '/articles/{id}/comments':
-    put:
+    post:
       tags:
       - Article
       requestBody:
