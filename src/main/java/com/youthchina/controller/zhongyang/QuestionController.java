@@ -58,14 +58,27 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return get(id);
     }
 
-    @PostMapping("/")
+    @GetMapping("/*")
+    public ResponseEntity<?> getQuestionList(@RequestParam(value = "companyName") String company, @RequestParam(value = "jobName") String job) throws NotFoundException {
+        List<Question> companyList = communityQAService.searchQuestionByTitleOrCompanyName(company);
+        List<Question> jobList = communityQAService.searchQuestionByTitleOrCompanyName(job);
+        if(companyList != null && company != "") {
+            return ResponseEntity.ok(new Response(companyList));
+        } else if(jobList != null && job != "") {
+            return ResponseEntity.ok(new Response(jobList));
+        }
+        throw new NotFoundException(4000,404,"Not Found");
+    }
+
+    @PostMapping("/*")
     public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO, @AuthenticationPrincipal User user) {
         questionDTO.setCreator(user);
         return add(questionDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateQuestionInfo(@RequestBody QuestionDTO questionDTO) throws NotFoundException {
+    public ResponseEntity<?> updateQuestionInfo(@RequestBody QuestionDTO questionDTO, @PathVariable Integer id) throws NotFoundException {
+        questionDTO.setId(id);
         return update(questionDTO);
     }
 
@@ -80,14 +93,14 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return ResponseEntity.ok(new Response(questionDTO.getAnswers()));
     }
 
-    @PostMapping("/{id}/invite")
+    @PostMapping("/{id}/invite/**")
     public ResponseEntity<?> sendInvites(@RequestBody Integer id, List<Integer> userIds, @AuthenticationPrincipal User user) throws NotFoundException {
         communityQAService.invitUsersToAnswer(user.getId(), id, userIds);
         return ResponseEntity.ok(new Response());
     }
 
     @PostMapping("/{questionId}/invite/{userId}")
-    public ResponseEntity<?> sendInvite(@RequestBody Integer questionId, Integer userId,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> sendInvite(@RequestParam Integer questionId, Integer userId,@AuthenticationPrincipal User user) throws NotFoundException {
         List<Integer> list = new ArrayList<>();
         list.add(userId);
         communityQAService.invitUsersToAnswer(user.getId(), questionId, list);

@@ -6,6 +6,7 @@ import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Question implements HasId<Integer> {
@@ -40,6 +41,7 @@ public class Question implements HasId<Integer> {
         this.rela_id = questionDTO.getRela_id();
         this.labelIds = questionDTO.getLabelIds();
         this.ques_abbre = questionDTO.getAbbreviation();
+        this.questionAnswers = new ArrayList<>();
         if(questionDTO.getAnswers() != null) {
             for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
                 this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
