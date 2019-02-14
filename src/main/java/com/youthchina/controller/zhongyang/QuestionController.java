@@ -23,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/questions/**")
-public class QuestionController extends DomainCRUDController<QuestionDTO, Question, Integer>{
+public class QuestionController extends DomainCRUDController<QuestionDTO, Question, Integer> {
     private String url;
     private CommunityQAService communityQAService;
 
@@ -62,15 +62,15 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     public ResponseEntity<?> getQuestionList(@RequestParam(value = "companyName") String company, @RequestParam(value = "jobName") String job) throws NotFoundException {
         List<Question> companyList = communityQAService.searchQuestionByTitleOrCompanyName(company);
         List<Question> jobList = communityQAService.searchQuestionByTitleOrCompanyName(job);
-        if(companyList != null && company != "") {
+        if (companyList != null && company != "") {
             return ResponseEntity.ok(new Response(companyList));
-        } else if(jobList != null && job != "") {
+        } else if (jobList != null && job != "") {
             return ResponseEntity.ok(new Response(jobList));
         }
-        throw new NotFoundException(4000,404,"Not Found");
+        throw new NotFoundException(4000, 404, "Not Found");
     }
 
-    @PostMapping("/*")
+    @PostMapping("/**")
     public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO, @AuthenticationPrincipal User user) {
         questionDTO.setCreator(user);
         return add(questionDTO);
@@ -88,7 +88,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @GetMapping("/{id}/answers")
-    public ResponseEntity<?> getAnswers(@PathVariable Integer id) throws NotFoundException{
+    public ResponseEntity<?> getAnswers(@PathVariable Integer id) throws NotFoundException {
         QuestionDTO questionDTO = getDto(id);
         return ResponseEntity.ok(new Response(questionDTO.getAnswers()));
     }
@@ -100,7 +100,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @PostMapping("/{questionId}/invite/{userId}")
-    public ResponseEntity<?> sendInvite(@RequestParam Integer questionId, Integer userId,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> sendInvite(@PathVariable Integer questionId, @PathVariable Integer userId, @AuthenticationPrincipal User user) throws NotFoundException {
         List<Integer> list = new ArrayList<>();
         list.add(userId);
         communityQAService.invitUsersToAnswer(user.getId(), questionId, list);
