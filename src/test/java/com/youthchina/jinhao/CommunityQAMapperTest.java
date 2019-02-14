@@ -416,7 +416,7 @@ public class CommunityQAMapperTest {
     public void deleteComment() {
         AnswerComment answerComment = communityQAMapper.getComment(1);
         answerComment.setIs_delete(1);
-        communityQAMapper.deleteComment(answerComment);
+        communityQAMapper.deleteComment(answerComment.getComment_id());
         AnswerComment answerComment1 = communityQAMapper.getComment(1);
         Assert.assertNull(answerComment1);
     }

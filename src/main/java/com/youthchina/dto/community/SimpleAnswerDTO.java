@@ -12,7 +12,7 @@ public class SimpleAnswerDTO {
     private Integer id;
     private User creator;
     private String body;
-    private Boolean isAnonymous;
+    private boolean isAnonymous;
     private Timestamp creatAt;
 
     public SimpleAnswerDTO(QuestionAnswer questionAnswer) {
@@ -49,11 +49,11 @@ public class SimpleAnswerDTO {
         this.body = body;
     }
 
-    public Boolean getAnonymous() {
+    public boolean getIsAnonymous() {
         return isAnonymous;
     }
 
-    public void setAnonymous(Boolean anonymous) {
+    public void setIsAnonymous(boolean anonymous) {
         isAnonymous = anonymous;
     }
 
