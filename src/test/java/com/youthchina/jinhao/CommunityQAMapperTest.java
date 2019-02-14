@@ -4,7 +4,6 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.jinhao.CommunityQAMapper;
 import com.youthchina.domain.jinhao.communityQA.*;
-import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.After;
 import org.junit.Assert;
@@ -942,131 +941,110 @@ public class CommunityQAMapperTest {
         Question question = communityQAMapper.getQuestionById(1);
         Assert.assertNotNull(question);
         User user = question.getQues_user();
-        System.out.println(user.getUsername());
+        Assert.assertEquals(Integer.valueOf(1), user.getId());
         List<QuestionAttention> questionAttentions = question.getQuestionAttentions();
-        System.out.println(questionAttentions.size());
-        System.out.println(questionAttentions.get(0).getUser_id());
-        List<Label> labels = question.getLabels();
-        for (Label label : labels) {
-            System.out.print(label.getLab_chn() + "   ");
-        }
-        System.out.println();
-        List<QuestionAnswer> questionAnswers = question.getQuestionAnswers();
-        System.out.println(questionAnswers.size());
-        for (QuestionAnswer questionAnswer : questionAnswers) {
-            System.out.print(questionAnswer.getAnswer_id() + "  ");
-            System.out.print(questionAnswer.getAnswer_content() + "   ");
-            System.out.print(questionAnswer.getAnswer_user().getUsername() + "  ");
-            System.out.print(questionAnswer.getAnswerEvaluates().size() + "  ");
-            List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
-            for (AnswerComment answerComment : answerComments) {
-                System.out.print(answerComment.getComment_content() + "  ");
-                System.out.print(answerComment.getUser().getUsername() + "  ");
-                List<CommentEvaluate> commentEvaluates = answerComment.getCommentEvaluates();
-                for (CommentEvaluate commentEvaluate : commentEvaluates) {
-//                    if(commentEvaluate != null) count++;
-                    System.out.print(commentEvaluate.getEvaluate_id() + " ");
-                }
-
-                System.out.print("接下来是discuss" + " ");
-                List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
-                for (CommentDiscuss commentDiscuss : commentDiscusses) {
-                    System.out.print(commentDiscuss.getDiscuss_content() + "  ");
-                    System.out.print(commentDiscuss.getUser().getUsername() + "  ");
-                    List<DiscussEvaluate> discussEvaluates = commentDiscuss.getDiscussEvaluateList();
-                    for (DiscussEvaluate discussEvaluate : discussEvaluates) {
-                        System.out.print(discussEvaluate.getEvaluate_id() + " ");
-                    }
-                }
-                System.out.println("结束");
+        Assert.assertEquals(3, questionAttentions.size());
+        for(QuestionAttention questionAttention : questionAttentions){
+            if(questionAttention.getAtten_id() != 1 && questionAttention.getAtten_id() != 3
+                    && questionAttention.getAtten_id() != 4){
+                Assert.fail();
             }
-            System.out.println();
         }
-        System.out.println();
+        List<Label> labels = question.getLabels();
+        Assert.assertEquals(3, labels.size());
+        for(Label label : labels){
+            if(label.getLab_num() != 1 && label.getLab_num() != 3 && label.getLab_num() != 5){
+                Assert.fail();
+            }
+        }
+        List<QuestionAnswer> questionAnswers = question.getQuestionAnswers();
+        QuestionAnswer questionAnswer1 = null;
+        Assert.assertEquals(4, questionAnswers.size());
+        for(QuestionAnswer questionAnswer : questionAnswers){
+            if(questionAnswer.getAnswer_id() != 1 && questionAnswer.getAnswer_id() != 2 &&
+                    questionAnswer.getAnswer_id() != 3 && questionAnswer.getAnswer_id() != 4){
+                Assert.fail();
+            }
+            if(questionAnswer.getAnswer_id() == 1){
+                questionAnswer1 = questionAnswer;
+            }
+        }
+        List<AnswerEvaluate> answerEvaluates = questionAnswer1.getAnswerEvaluates();
+        Assert.assertEquals(3, answerEvaluates.size());
+        for(AnswerEvaluate answerEvaluate : answerEvaluates){
+            if(answerEvaluate.getEvaluate_id() != 1 && answerEvaluate.getEvaluate_id() != 3
+                    && answerEvaluate.getEvaluate_id() != 4){
+                Assert.fail();
+            }
+        }
+        List<AnswerComment> answerComments = questionAnswer1.getAnswerComments();
+        AnswerComment answerComment1 = null;
+        Assert.assertEquals(3, answerComments.size());
+        for(AnswerComment answerComment : answerComments){
+            if(answerComment.getComment_id() != 1 && answerComment.getComment_id() !=3 && answerComment.getComment_id() != 5){
+                Assert.fail();
+            }
+            if(answerComment.getComment_id() == 1){
+                answerComment1 = answerComment;
+            }
+        }
+        List<CommentDiscuss> commentDiscusses = answerComment1.getCommentDiscusses();
+        CommentDiscuss commentDiscuss1 = null;
+        Assert.assertEquals(3, commentDiscusses.size());
+        for(CommentDiscuss commentDiscuss : commentDiscusses){
+            if(commentDiscuss.getDiscuss_id() != 1 && commentDiscuss.getDiscuss_id() != 3 && commentDiscuss.getDiscuss_id() != 5){
+                Assert.fail();
+            }
+            if(commentDiscuss.getDiscuss_id() == 1){
+                commentDiscuss1 = commentDiscuss;
+            }
+        }
+        List<DiscussEvaluate>  discussEvaluates = commentDiscuss1.getDiscussEvaluateList();
+        Assert.assertEquals(6, discussEvaluates.size());
 
     }
 
-    @Test
-    public void getAnswerById() {
-        QuestionAnswer questionAnswer = communityQAMapper.getAnswerById(1);
-        User user = questionAnswer.getAnswer_user();
-        System.out.println(user.getUsername());
-        List<AnswerEvaluate> answerEvaluates = questionAnswer.getAnswerEvaluates();
-        System.out.println(answerEvaluates.size());
-        for (AnswerEvaluate answerEvaluate : answerEvaluates) {
-            System.out.print(answerEvaluate.getEvaluate_id() + "   ");
-        }
-        System.out.println();
-        List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
-        System.out.println(answerComments.size());
-        for (AnswerComment answerComment : answerComments) {
-            System.out.print(answerComment.getComment_id());
-        }
-        System.out.println();
-        System.out.println(questionAnswer.getAnswerEvaluates().size());
-    }
 
-    @Test
-    public void getCommentById() {
-        AnswerComment answerComment = communityQAMapper.getAnswerCommentById(2);
-        User user = answerComment.getUser();
-        System.out.println(user.getUsername());
-        List<CommentEvaluate> commentEvaluates = answerComment.getCommentEvaluates();
-        System.out.println(commentEvaluates.size());
-        for (CommentEvaluate commentEvaluate : commentEvaluates) {
-            System.out.print(commentEvaluate.getEvaluate_id() + " ");
-        }
-        System.out.println();
-        List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
-        System.out.println(commentDiscusses.size());
-        for (CommentDiscuss commentDiscuss : commentDiscusses) {
-            System.out.print(commentDiscuss.getDiscuss_id());
-        }
-        System.out.println();
-    }
-
-    @Test
-    public void getDiscussById() {
-        CommentDiscuss commentDiscuss = communityQAMapper.getAnswerDiscussById(1);
-    }
 
     @Test
     public void getVideoById() {
         Video video = communityQAMapper.getVideoById(1);
         User user = video.getUser();
-        System.out.println(user.getId());
+        Assert.assertEquals(Integer.valueOf(2), user.getId());
         List<VideoAttention> videoAttentions = video.getVideoAttentions();
+        Assert.assertEquals(3, videoAttentions.size());
+        for(VideoAttention videoAttention : videoAttentions){
+            if(videoAttention.getAtten_id() != 1 && videoAttention.getAtten_id() != 2 && videoAttention.getAtten_id() != 3){
+                Assert.fail();
+            }
+        }
         List<VideoEvaluate> videoEvaluates = video.getVideoEvaluates();
+        Assert.assertEquals(3, videoEvaluates.size());
+        for(VideoEvaluate videoEvaluate : videoEvaluates){
+            if(videoEvaluate.getEvaluate_id() != 1 && videoEvaluate.getEvaluate_id() != 3 && videoEvaluate.getEvaluate_id() != 4){
+                Assert.fail();
+            }
+        }
         List<VideoComment> videoComments = video.getVideoComments();
-        for (VideoAttention videoAttention : videoAttentions) {
-            System.out.print(videoAttention.getAtten_id());
+        Assert.assertEquals(2, videoComments.size());
+        for(VideoComment videoComment : videoComments){
+            if(videoComment.getComment_id() != 1 && videoComment.getComment_id() != 3){
+                Assert.fail();
+            }
         }
-        System.out.println();
-        for (VideoEvaluate videoEvaluate : videoEvaluates) {
-            System.out.print(videoEvaluate.getEvaluate_id());
-        }
-        System.out.println();
-        for (VideoComment videoComment : videoComments) {
-            System.out.print(videoComment.getComment_id());
-        }
-        Company company = video.getCompany();
-        Assert.assertNotNull(company);
-        Integer id = 1;
-        Assert.assertEquals(id, company.getCompanyId());
     }
 
     @Test
     public void getQuestionRelaTypeAndRelaId() {
         QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(1);
-        System.out.println(questionRelaTypeAndId.getRela_id() + " " + questionRelaTypeAndId.getRela_type());
+        Assert.assertEquals(Integer.valueOf(1), questionRelaTypeAndId.getRela_type());
+        Assert.assertEquals(Integer.valueOf(667), questionRelaTypeAndId.getRela_id());
     }
 
     @Test
     public void isAnswerBelongToQuestion(){
-        Boolean b1 = communityQAMapper.isAnswerBelongToQuestion(1,1);
-        System.out.println(b1);
-        System.out.println(communityQAMapper.isAnswerBelongToQuestion(1,2));
-        System.out.println(communityQAMapper.isAnswerBelongToQuestion(5,2));
+        Boolean b = communityQAMapper.isAnswerBelongToQuestion(1,1);
+        Assert.assertTrue(b);
     }
 
     @Test
@@ -1136,7 +1114,7 @@ public class CommunityQAMapperTest {
         }
     }
 
-    // 测试删除所有问题下面的CommentDiscuss, CommentEvaluate\
+    // 测试删除所有问题下面的CommentDiscuss, CommentEvaluate
     @Test
     public void deleteAllDiscussOfQuestion(){
         communityQAMapper.deleteAllDiscusses(1);
