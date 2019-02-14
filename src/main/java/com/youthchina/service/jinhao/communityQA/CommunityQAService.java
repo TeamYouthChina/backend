@@ -22,16 +22,11 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
     AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
     Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;
 
-
-
-
     Integer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level);
     QuestionAnswer getAnswer(Integer answer_id) throws NotFoundException;
     QuestionAnswer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
     void deleteAnswer(Integer answer_id) throws NotFoundException;
     List<QuestionAnswer> listMyAnswers(Integer user_id) throws NotFoundException;
-
-
 
     Integer countAgreement(Integer answer_id);
     Integer countDisagreement(Integer answer_id);
@@ -63,7 +58,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
     Integer addVideo(Video video, Integer user_id, Integer rela_type, Integer rela_id);
     Video getVideo(Integer video_id) throws NotFoundException;
-    Integer deleteVideo(Video video) throws NotFoundException;
+    void deleteVideo(Integer video_id) throws NotFoundException;
     List<Video> listFirstTenVideos() throws NotFoundException;
     List<Video> listAllMyVideos(Integer user_id) throws NotFoundException;
 
@@ -88,7 +83,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
     boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id);
     List<Question> searchQuestionByTitleOrCompanyName(String searchContent) throws NotFoundException;
-    List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent);
+
     List<Video> searchVideoByTitleOrCompanyName(String searchContent) throws NotFoundException;
-    List<Integer> getVideoIdByTitleOrCompanyName(String searchContent);
+
 }

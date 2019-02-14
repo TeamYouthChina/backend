@@ -32,8 +32,6 @@ public interface CommunityQAMapper {
 
     List<Question> getMyQuestions(Integer user_id); // 列出用户提出的问题
 
-
-
     List<Label> listAllQuesetionLabel(Integer ques_id);
 
     Integer addLabels(@Param("labels") List<Integer> labels, @Param("ques_id") Integer ques_id);
@@ -176,7 +174,10 @@ public interface CommunityQAMapper {
 
     Video getVideo(Integer video_id);
 
-    Integer deleteVideo(Video video);
+    void deleteVideo(Integer video_id);
+    void deleteAllVideoAttention(Integer video_id);
+    void deleteAllVideoEvaluate(Integer video_id);
+    void deleteAllVideoComment(Integer video_id);
 
     VideoAttention videoAttentionStatus(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
 

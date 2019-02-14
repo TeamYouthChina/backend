@@ -613,12 +613,23 @@
     </select>
 
     <!-- 删除某个视频 -->
-    <update id="deleteVideo" parameterType="com.youthchina.domain.jinhao.communityQA.Video">
+    <update id="deleteVideo" parameterType="java.lang.Integer">
         update COM_USER_VIDEO
-        set is_delete = #{is_delete},is_delete_time = #{is_delete_time}
+        set is_delete = 1,is_delete_time = now()
         where video_id = #{video_id}
     </update>
-
+    <update id="deleteAllVideoAttention" parameterType="java.lang.Integer">
+        update COM_VIDEO_ATTENTION set ATTEN_CANCEL = 1, ATTEN_CANCEL_TIME=now()
+        where ATTEN_ID in (select ATTEN_ID from COM_VIDEO_ATTENTION_MAP where VIDEO_ID = #{video_id})
+    </update>
+    <update id="deleteAllVideoEvaluate" parameterType="java.lang.Integer">
+        update COM_VIDEO_EVALUATE set EVALUATE_TYPE = 3, EVALUATE_TIME = now()
+        where EVALUATE_ID in (select EVALUATE_ID from COM_VIDEO_EVALUATE_MAP where VIDEO_ID = #{video_id})
+    </update>
+    <update id="deleteAllVideoComment" parameterType="java.lang.Integer">
+        update COM_VIDEO_COMMENT set IS_DELETE=1, IS_DELETE_TIME = now()
+        where COMMENT_ID in (select COMMENT_ID from COM_VIDEO_COMMENT_MAP where VIDEO_ID = #{video_id})
+    </update>
     <!-- 检查用户对该视频的关注状态 -->
     <select id="videoAttentionStatus" resultType="com.youthchina.domain.jinhao.communityQA.VideoAttention">
         select a.* from COM_VIDEO_ATTENTION a, COM_VIDEO_ATTENTION_MAP m

@@ -1,8 +1,6 @@
 package com.youthchina.service.jinhao.communityQA;
 
 import com.youthchina.dao.jinhao.CommunityQAMapper;
-import com.youthchina.dao.qingyang.CompanyMapper;
-import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -18,18 +16,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Resource
     CommunityQAMapper communityQAMapper;
 
-    @Resource
-    CompanyMapper companyMapper;
-
-    @Resource
-    JobMapper jobHrMapper;
-
-    /**
-     * 要对某个问题进行操作的时候，检查某个问题是否还存在，如果不存在会抛出异常
-     * @param ques_id 问题的id
-     * @return 返回得到的问题对象
-     * @throws NotFoundException
-     */
     private Question getQuestion(Integer ques_id) throws NotFoundException{
         Question question = communityQAMapper.getQuestion(ques_id);
         if(question == null){
@@ -81,6 +67,8 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public Question update(Question question) throws NotFoundException {
         getQuestion(question.getQues_id());
         communityQAMapper.editQuestion(question);
+        question.setIs_delete(1);
+        question.setIs_delete_time(new Timestamp(System.currentTimeMillis()));
         return question;
     }
 
@@ -180,9 +168,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     }
 
 
-
-
-
     /**
      * 列出某用户提出过的问题,如果没提出过问题，抛出异常
      * @param user_id 用户的id
@@ -222,7 +207,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      * @param searchContent title or company or job name
      * @return list of question ids
      */
-    @Override
     public List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent) {
         return communityQAMapper.getQuestionIdByTitleOrCompanyName(searchContent);
     }
@@ -250,7 +234,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      * @param searchContent title or company name
      * @return list of video ids
      */
-    @Override
     public List<Integer> getVideoIdByTitleOrCompanyName(String searchContent) {
         return communityQAMapper.getVideoIdByTitleOrCompanyName(searchContent);
     }
@@ -780,18 +763,15 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         }
     }
 
-    /**
-     * 删除某个视频，如果视频不存在，则抛出异常
-     * @param video 要删除的视频对象
-     * @return 删除成功返回1
-     * @throws NotFoundException
-     */
+
     @Override
     @Transactional
-    public Integer deleteVideo(Video video) throws NotFoundException{
-        getVideo(video.getVideo_id());
-        communityQAMapper.deleteVideo(video);
-        return 1;
+    public void deleteVideo(Integer video_id) throws NotFoundException{
+        getVideo(video_id);
+        communityQAMapper.deleteVideo(video_id);
+        communityQAMapper.deleteAllVideoAttention(video_id);
+        communityQAMapper.deleteAllVideoEvaluate(video_id);
+        communityQAMapper.deleteAllVideoComment(video_id);
     }
 
     /**

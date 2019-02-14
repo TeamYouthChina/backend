@@ -414,9 +414,7 @@ public class CommunityQAMapperTest {
     //测试能不能删除评论
     @Test
     public void deleteComment() {
-        AnswerComment answerComment = communityQAMapper.getComment(1);
-        answerComment.setIs_delete(1);
-        communityQAMapper.deleteComment(answerComment);
+        communityQAMapper.deleteComment(1);
         AnswerComment answerComment1 = communityQAMapper.getComment(1);
         Assert.assertNull(answerComment1);
     }
@@ -536,10 +534,7 @@ public class CommunityQAMapperTest {
     //测试能不能删除讨论
     @Test
     public void deleteDiscuss() {
-        CommentDiscuss commentDiscuss = communityQAMapper.getDiscuss(1);
-        commentDiscuss.setIs_delete(1);
-        //commentDiscuss.setIs_delete_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        communityQAMapper.deleteDiscuss(commentDiscuss);
+        communityQAMapper.deleteDiscuss(1);
         CommentDiscuss commentDiscuss1 = communityQAMapper.getDiscuss(1);
         Assert.assertNull(commentDiscuss1);
 
@@ -749,10 +744,7 @@ public class CommunityQAMapperTest {
     //测试能不能删除视频
     @Test
     public void deleteVideo() {
-        Video video = communityQAMapper.getVideo(1);
-        video.setIs_delete(1);
-        video.setIs_delete_time(Timestamp.valueOf("2018-12-11 11:11:23"));
-        communityQAMapper.deleteVideo(video);
+        communityQAMapper.deleteVideo(1);
         Video video1 = communityQAMapper.getVideo(1);
         Assert.assertNull(video1);
     }
