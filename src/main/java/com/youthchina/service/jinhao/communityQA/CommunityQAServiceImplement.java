@@ -80,7 +80,9 @@ public class CommunityQAServiceImplement implements CommunityQAService {
             rela_id = entity.getJob().getJobId();
         }
         communityQAMapper.addQuestion(entity);
-        communityQAMapper.addLabels(labelIds, entity.getQues_id());
+        if(labelIds != null){
+            communityQAMapper.addLabels(labelIds, entity.getQues_id());
+        }
         communityQAMapper.createMapBetweenQuestionAndUser(entity.getQues_id(), entity.getQues_user().getId(),
                 rela_type, rela_id);
         return entity;
@@ -497,18 +499,15 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         return 1;
     }
 
-    /**
-     * 删除评论，评论不存在则抛出异常
-     * @param answerComment 要删除的评论的对象
-     * @return 删除成功返回1
-     * @throws NotFoundException
-     */
+
     @Override
     @Transactional
-    public Integer deleteComment(AnswerComment answerComment) throws  NotFoundException{
-        getComment(answerComment.getComment_id());
-        communityQAMapper.deleteComment(answerComment);
-        return 1;
+    public void deleteComment(Integer comment_id) throws  NotFoundException{
+        getComment(comment_id);
+        communityQAMapper.deleteComment(1);
+        communityQAMapper.deleteAllCommentEvaluationByCommentId(1);
+        communityQAMapper.deleteAllDiscussByCommentId(1);
+        communityQAMapper.deleteAllDiscussEvaluateByCommentId(1);
     }
 
     /**

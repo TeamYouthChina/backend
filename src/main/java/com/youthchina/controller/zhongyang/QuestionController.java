@@ -1,8 +1,11 @@
 package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.jinhao.communityQA.Question;
+import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.dto.Response;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.QuestionDTO;
+import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.jinhao.communityQA.CommunityQAService;
@@ -69,7 +72,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return delete(id);
     }
 
-    @GetMapping("/{id}/answer")
+    @GetMapping("/{id}/answers")
     public ResponseEntity<?> getAnswers(@PathVariable Integer id) throws NotFoundException{
         QuestionDTO questionDTO = getDto(id);
         return ResponseEntity.ok(new Response(questionDTO.getAnswers()));
@@ -83,5 +86,13 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
 
     private QuestionDTO getDto(Integer id) throws NotFoundException {
         return this.DomainToDto(this.getService().get(id));
+    }
+
+    @PostMapping("/{id}/answers")
+    public ResponseEntity<?> createQuestionAnswer(@PathVariable("id") Integer ques_id,@RequestBody SimpleAnswerDTO simpleAnswerDTO) throws NotFoundException{
+           QuestionAnswer questionAnswer = new QuestionAnswer(simpleAnswerDTO);
+            communityQAService.addAnswer(questionAnswer,ques_id,null);
+             return ResponseEntity.ok(new Response(simpleAnswerDTO,new StatusDTO(201,"success")));
+
     }
 }

@@ -44,7 +44,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
     AnswerComment getComment(Integer comment_id) throws NotFoundException;
     Integer addCommentToAnswer(Integer answer_id, AnswerComment answerComment, Integer comment_level)
             throws NotFoundException;
-    Integer deleteComment(AnswerComment answerComment) throws NotFoundException;
+    void deleteComment(Integer comment_id) throws NotFoundException;
 
     Integer countAgreementOfComment(Integer comment_id);
     CommentEvaluate commentEvaluateStatus(Integer user_id, Integer comment_id) throws NotFoundException;
