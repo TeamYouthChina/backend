@@ -37,6 +37,7 @@ public class Question implements HasId<Integer> {
         this.ques_pub_time = questionDTO.getCreateAt();
         this.ques_edit_time = questionDTO.getEditAt();
         this.rela_type = questionDTO.getRela_type();
+        this.rela_id = questionDTO.getRela_id();
         this.labelIds = questionDTO.getLabelIds();
         this.ques_abbre = questionDTO.getAbbreviation();
         if(questionDTO.getAnswers() != null) {
