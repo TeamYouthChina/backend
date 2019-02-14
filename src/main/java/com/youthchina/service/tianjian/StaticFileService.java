@@ -5,8 +5,7 @@ import com.youthchina.domain.tianjian.ComMediaDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.sql.Timestamp;
 
 /**
@@ -30,7 +29,7 @@ public class StaticFileService {
         this.idGenerate = idGenerate;
     }
 
-    public long saveFile(File file, Integer user_id) {
+    public long saveFile(File file, Integer user_id) throws IOException {
         //Do not perform user inspect
         ComMediaDocument comMediaDocument = new ComMediaDocument();
         Long id = idGenerate.nextId();
@@ -39,12 +38,14 @@ public class StaticFileService {
         comMediaDocument.setCreate_time(time);
         comMediaDocument.setIs_delete(0);
         comMediaDocument.setIs_delete_time(null);
-        comMediaDocument.setUser_id(user_id);
+        comMediaDocument.setUpload_user_id(user_id);
         String fileName = file.getName();
         int index = fileName.lastIndexOf(".");
         comMediaDocument.setDocu_local_name(fileName.substring(0, index));
         comMediaDocument.setDocu_local_format(fileName.substring(index + 1));
         comMediaDocument.setDocu_local_id(id.toString());
+
+        comMediaDocument.setDocu_local_size(String.valueOf( file.length()/1024/1024));
         //save info to database
         fileSystemMapper.saveFileInfo(comMediaDocument);
         try {

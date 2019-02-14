@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -47,11 +48,10 @@ public class StaticFileServiceTest {
     }
 
     @Test
-    public void testUpload() {
+    public void testUpload() throws IOException {
         when(snowFlakeIdGenerate.nextId()).thenReturn(1234494L);
         when(fileNameGenerate.generateFileName()).thenReturn("Test");
         when(staticFileSystemMapper.saveFileInfo(any())).thenReturn(1);
-
         staticFileService.saveFile(new File("ii.txt"), new User().getId());
 
 

@@ -60,7 +60,7 @@ public class JobControllerTest {
     @Test
     public void testgetJob() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/jobs/1").param("jobId", "1").param("detailLevel", "1")
+                get(this.urlPrefix + "/jobs/1").param("id", "1").param("detailLevel", "1")
                         .with(authGenerator.authentication())
 
         )
