@@ -53,15 +53,15 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return new URI(this.url + id.toString());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getQuestion(@PathVariable Integer id) throws NotFoundException {
+        return get(id);
+    }
+
     @PostMapping("/")
     public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO, @AuthenticationPrincipal User user) {
         questionDTO.setCreator(user);
         return add(questionDTO);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getQuestion(@PathVariable (name = "id") Integer id) throws NotFoundException {
-        return get(id);
     }
 
     @PutMapping("/{id}")
@@ -71,6 +71,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteQuestionInfo(@PathVariable Integer id) throws NotFoundException {
+        //System.out.println("delete processing!!!");
         return delete(id);
     }
 
@@ -80,25 +81,26 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return ResponseEntity.ok(new Response(questionDTO.getAnswers()));
     }
 
-    @PostMapping("/{questionid}/invite/{userId}")
-    public ResponseEntity<?> inviteOneUser(@RequestBody Integer questionid, Integer userId, @AuthenticationPrincipal User user) throws NotFoundException{
-        List<Integer> userlist = new ArrayList<Integer>();
-        userlist.add(userId);
-        this.communityQAService.invitUsersToAnswer(user.getId(), questionid, userlist);
+    @PostMapping("/{id}/invite")
+    public ResponseEntity<?> sendInvites(@RequestBody Integer id, List<Integer> userIds, @AuthenticationPrincipal User user) throws NotFoundException {
+        communityQAService.invitUsersToAnswer(user.getId(), id, userIds);
         return ResponseEntity.ok(new Response());
     }
 
-    @PostMapping("/{id}/invite")
-    public ResponseEntity<?> createInvite(@RequestBody Integer id, List<Integer> userlist, @AuthenticationPrincipal User user) throws NotFoundException{
-        this.communityQAService.invitUsersToAnswer(user.getId(), id, userlist);
+    @PostMapping("/{questionId}/invite/{userId}")
+    public ResponseEntity<?> sendInvite(@RequestBody Integer questionId, Integer userId,@AuthenticationPrincipal User user) throws NotFoundException {
+        List<Integer> list = new ArrayList<>();
+        list.add(userId);
+        communityQAService.invitUsersToAnswer(user.getId(), questionId, list);
         return ResponseEntity.ok(new Response());
     }
 
     @PostMapping("/{id}/follow")
-    public ResponseEntity<?> follow(@RequestBody Integer id, @AuthenticationPrincipal User user) throws NotFoundException{
-        this.communityQAService.attentionQuestion(id,user.getId());
+    public ResponseEntity<?> followUp(@RequestBody Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        communityQAService.attentionQuestion(id, user.getId());
         return ResponseEntity.ok(new Response());
     }
+
 
     private QuestionDTO getDto(Integer id) throws NotFoundException {
         return this.DomainToDto(this.getService().get(id));

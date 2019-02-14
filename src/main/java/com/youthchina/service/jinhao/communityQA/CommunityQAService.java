@@ -44,7 +44,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
     AnswerComment getComment(Integer comment_id) throws NotFoundException;
     Integer addCommentToAnswer(Integer answer_id, AnswerComment answerComment, Integer comment_level)
             throws NotFoundException;
-    Integer deleteComment(AnswerComment answerComment) throws NotFoundException;
+    void deleteComment(Integer comment_id) throws NotFoundException;
 
     Integer countAgreementOfComment(Integer comment_id);
     CommentEvaluate commentEvaluateStatus(Integer user_id, Integer comment_id) throws NotFoundException;
@@ -53,7 +53,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
     List<CommentDiscuss> listAllCommentDiscuss(Integer comment_id) throws NotFoundException;
     CommentDiscuss getDiscuss(Integer discuss_id) throws NotFoundException;
     Integer addDiscuss(Integer comment_id, CommentDiscuss commentDiscuss, Integer discuss_level) throws NotFoundException;
-    Integer deleteDiscuss(CommentDiscuss commentDiscuss) throws NotFoundException;
+    void deleteDiscuss(Integer discuss_id) throws NotFoundException;
 
     Integer countAgreementOfDiscuss(Integer discuss_id);
     DiscussEvaluate discussEvaluateStatus(Integer user_id, Integer discuss_id) throws NotFoundException;

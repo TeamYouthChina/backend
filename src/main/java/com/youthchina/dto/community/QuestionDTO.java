@@ -5,6 +5,7 @@ import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -16,44 +17,37 @@ public class QuestionDTO {
     private User creator;
     private String title;
     private String body;
-    private String abbre;
     private Integer isAnonymous;
     private Timestamp createAt;
-    private Timestamp editTime;
+    private Timestamp editAt;
     private List<SimpleAnswerDTO> answers;
     private AnswerInvitation invitation;
     private List<Integer> labelIds;
     private Integer rela_type;
     private Integer rela_id;
+    private String abbreviation;
 
     public QuestionDTO(Question question) {
         this.id = question.getQues_id();
         this.creator = question.getQues_user();
         this.title = question.getQues_title();
         this.body = question.getQues_body();
-        this.abbre = question.getQues_abbre();
         this.invitation = question.getQues_invitation();
         this.isAnonymous =question.getUser_anony();
         this.createAt = question.getQues_pub_time();
-        this.editTime = question.getQues_edit_time();
+        this.editAt = question.getQues_edit_time();
         this.labelIds = question.getLabelIds();
         this.rela_type = question.getRela_type();
-        if(question.getQuestionAnswers() != null){
+        this.abbreviation = question.getQues_abbre();
+        if(question.getQuestionAnswers() != null) {
             for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
                 this.answers.add(new SimpleAnswerDTO(questionAnswer));
             }
         }
+
     }
 
     public QuestionDTO(){}
-
-    public Timestamp getEditTime(){return editTime;}
-
-    public void setEditTime(Timestamp editTime){this.editTime = editTime;}
-
-    public String getAbbre(){return abbre;}
-
-    public void setAbbre(String abbre){this.abbre = abbre;}
 
     public Integer getId() {
         return id;
@@ -92,7 +86,7 @@ public class QuestionDTO {
     }
 
     public void setAnonymous(Integer anonymous) {
-        isAnonymous = anonymous;
+        this.isAnonymous = anonymous;
     }
 
     public Timestamp getCreateAt() {
@@ -139,7 +133,23 @@ public class QuestionDTO {
         return rela_id;
     }
 
-    public void setRela_id(){
+    public void setRela_id(Integer rela_id){
         this.rela_id = rela_id;
+    }
+
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
+    }
+
+    public Timestamp getEditAt() {
+        return editAt;
+    }
+
+    public void setEditAt(Timestamp editAt) {
+        this.editAt = editAt;
     }
 }

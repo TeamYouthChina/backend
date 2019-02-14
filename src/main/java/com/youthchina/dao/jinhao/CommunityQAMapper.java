@@ -104,8 +104,10 @@ public interface CommunityQAMapper {
     Integer createMapBetweenAnswerAndComment(@Param("answer_id") Integer answer_id,
                                              @Param("comment_id") Integer comment_id,
                                              @Param("comment_level") Integer comment_level);
-    Integer deleteComment(AnswerComment answerComment);
-
+    void deleteComment(Integer comment_id);
+    void deleteAllCommentEvaluationByCommentId(Integer comment_id);
+    void deleteAllDiscussByCommentId(Integer comment_id);
+    void deleteAllDiscussEvaluateByCommentId(Integer comment_id);
 
     CommentEvaluate commentEvaluateStatus(@Param("user_id") Integer user_id, @Param("comment_id") Integer comment_id);
 
@@ -130,7 +132,9 @@ public interface CommunityQAMapper {
                                               @Param("comment_id") Integer comment_id,
                                               @Param("discuss_level") Integer discuss_level);
 
-    Integer deleteDiscuss(CommentDiscuss commentDiscuss);
+    void deleteDiscuss(Integer discuss_Id);
+
+    void deleteAllDiscussEvaluateByDiscussId(Integer discuss_id);
 
     Integer countDiscussAgreement(Integer discuss_id);
 
@@ -230,4 +234,6 @@ public interface CommunityQAMapper {
     boolean isAnswerBelongToQuestion(@Param("answer_id") Integer answer_id, @Param("ques_id") Integer ques_id);
     List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent);
     List<Integer> getVideoIdByTitleOrCompanyName(String searchContent);
+
+
 }

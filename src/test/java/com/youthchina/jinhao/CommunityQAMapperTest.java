@@ -416,7 +416,7 @@ public class CommunityQAMapperTest {
     public void deleteComment() {
         AnswerComment answerComment = communityQAMapper.getComment(1);
         answerComment.setIs_delete(1);
-        communityQAMapper.deleteComment(answerComment);
+        communityQAMapper.deleteComment(1);
         AnswerComment answerComment1 = communityQAMapper.getComment(1);
         Assert.assertNull(answerComment1);
     }
@@ -539,7 +539,7 @@ public class CommunityQAMapperTest {
         CommentDiscuss commentDiscuss = communityQAMapper.getDiscuss(1);
         commentDiscuss.setIs_delete(1);
         //commentDiscuss.setIs_delete_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        communityQAMapper.deleteDiscuss(commentDiscuss);
+        communityQAMapper.deleteDiscuss(1);
         CommentDiscuss commentDiscuss1 = communityQAMapper.getDiscuss(1);
         Assert.assertNull(commentDiscuss1);
 
