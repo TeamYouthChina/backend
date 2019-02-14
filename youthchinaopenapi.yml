@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.1.2
+  version: 1.1.3
   title: YouthChina
   license:
     name: MIT
@@ -507,8 +507,23 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
+  '/companies/{id}/attention':
+    put:
+      tags:
+        - Collection
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '201':
+          description: collect successful
+        '400':
+          description: cannot collect this job, maybe the job has already deleted
   '/jobs/{id}/attention':
-    post:
+    put:
       tags:
         - Collection
       parameters:
@@ -636,6 +651,38 @@ paths:
                 properties:
                   content:
                     $ref: '#/components/schemas/Question'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '400':
+          description: cannot create question due to user's error
+    get:
+      tags:
+        - Question
+      parameters:
+        - name: company
+          in: query
+          description: company name
+          schema:
+            type: string
+        - name: job
+          in: query 
+          description: job name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: search job
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    properties:
+                      questions:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Question'                     
                   status:
                     $ref: '#/components/schemas/Status'
         '400':
@@ -775,7 +822,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
   '/questions/{questionid}/invite/{userId}':
-    post:
+    put:
       tags:
         - Question
       parameters:
@@ -793,7 +840,7 @@ paths:
         '201':
           description: invitation send successfully.
   '/questions/{id}/invite':
-    post:
+    put:
       tags:
         - Question
       parameters:
@@ -817,7 +864,7 @@ paths:
         '201':
           description: invitation send successfully.
   '/questions/{id}/upvote':
-    post:
+    put:
       tags:
         - Question
       parameters:
@@ -830,7 +877,7 @@ paths:
         '201':
           description: attention successfullly
   '/questions/{id}/attention':
-    post:
+    put:
       tags:
         - Question
       parameters:
@@ -917,7 +964,7 @@ paths:
         '201':
           description: comments successfully
   '/answers/{id}/upvote':
-    post:
+    put:
       tags:
         - Answer
       parameters:
@@ -999,7 +1046,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
   '/comments/{id}/upvote':
-    post:
+    put:
       tags:
         - Comment
       parameters:
@@ -1104,6 +1151,20 @@ paths:
                     $ref: '#/components/schemas/Article'
                   status:
                     $ref: '#/components/schemas/Status'
+    delete:
+      tags:
+        - Article
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: delete successfully
+        '403':
+          description: no auth
+
   '/articles':
     post:
       tags:
@@ -1489,10 +1550,8 @@ components:
       properties:
         id:
           type: integer
-        companyId:
-          type: integer
-        positionId:
-          type: integer
+        position:
+          $ref: '#/components/schemas/Job'
         status:
           type: string
     CollectionStatus:
