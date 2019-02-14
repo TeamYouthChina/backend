@@ -147,16 +147,17 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Transactional
     public Integer invitUsersToAnswer(Integer invit_user_id, Integer ques_id, List<Integer> invited_user_ids)
             throws NotFoundException{
-        getQuestion(ques_id);
         for(Integer invited_user_id : invited_user_ids){
             invitUserToAnswer(invit_user_id, ques_id, invited_user_id);
         }
         return 1;
     }
 
-
-    private void invitUserToAnswer(Integer invit_user_id, Integer ques_id,
-                                   Integer invited_user_id) {
+    @Override
+    @Transactional
+    public Integer invitUserToAnswer(Integer invit_user_id, Integer ques_id,
+                                   Integer invited_user_id) throws NotFoundException{
+        getQuestion(ques_id);
         AnswerInvitation answerInvitation = new AnswerInvitation();
         answerInvitation.setInvit_user_id(invit_user_id);
         answerInvitation.setInvit_accept(0);
@@ -165,6 +166,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         communityQAMapper.addInvitation(answerInvitation);
         communityQAMapper.createMapBetweenInvitationAndQuestion(answerInvitation.getInvit_id(),
                 invited_user_id);
+        return 1;
     }
 
 
@@ -259,10 +261,10 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level) {
+    public QuestionAnswer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level) {
         communityQAMapper.addAnswerToQuestion(questionAnswer);
         communityQAMapper.createMapBetweenQuestionAndAnswer(ques_id, questionAnswer.getAnswer_id(), answer_level);
-        return 1;
+        return questionAnswer;
     }
 
     /**

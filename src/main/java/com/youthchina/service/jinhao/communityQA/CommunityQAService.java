@@ -17,12 +17,13 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
     List<AnswerInvitation> listInvitationGot(Integer user_id) throws NotFoundException;
     List<Integer> listUsersInvitedByMeToQuestion(Integer user_id, Integer ques_id) throws NotFoundException;
+    Integer invitUserToAnswer(Integer invit_user_id, Integer ques_id, Integer invited_user_ids) throws NotFoundException;
     Integer invitUsersToAnswer(Integer invit_user_id, Integer ques_id,
                           List<Integer> invited_user_ids) throws NotFoundException;
     AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
     Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;
 
-    Integer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level);
+    QuestionAnswer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level);
     QuestionAnswer getAnswer(Integer answer_id) throws NotFoundException;
     QuestionAnswer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
     void deleteAnswer(Integer answer_id) throws NotFoundException;
