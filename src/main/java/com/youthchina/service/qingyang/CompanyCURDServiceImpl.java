@@ -1,6 +1,8 @@
 package com.youthchina.service.qingyang;
 
 import com.youthchina.dao.qingyang.CompanyMapper;
+import com.youthchina.dao.qingyang.HrMapper;
+import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,12 @@ import java.util.List;
 public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Resource
     CompanyMapper companyMapper;
+
+    @Resource
+    JobMapper jobMapper;
+
+    @Resource
+    HrMapper hrMapper;
 
     /**
      * 公司搜索
@@ -42,19 +50,26 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     }
 
     /**
-     * 删除公司 TODO:级联删除
-     * @param id 公司Id
+     * 删除公司
+     * @param comId 公司Id
      * @throws NotFoundException
      */
     @Override
     @Transactional
-    public void delete(Integer id) throws NotFoundException {
-        companyMapper.deleteCompany(id);
-        companyMapper.deleteCompanyInd(id); // CompanyID
+    public void delete(Integer comId) throws NotFoundException {
+        jobMapper.deleteJobByComId(comId);
+        hrMapper.deleteHrByComId(comId);
+        companyMapper.deleteCompanyVerificationByComId(comId);
+        companyMapper.deleteCompanyEmployee(comId);
+        companyMapper.deleteCompanyEvaluate(comId);
+        companyMapper.deleteCompanyPhoto(comId);
+        companyMapper.deleteStudentComCollection(comId);
+        companyMapper.deleteCompanyInd(comId);
+        companyMapper.deleteCompany(comId);
     }
 
     /**
-     * 更新公司 TODO:级联更新
+     * 更新公司 
      * @param company 公司类
      * @return 更新后的公司类
      * @throws NotFoundException
@@ -63,6 +78,8 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Transactional
     public Company update(Company company) throws NotFoundException {
         Integer result = companyMapper.updateCompany(company);
+        companyMapper.deleteCompanyInd(company.getCompanyId());
+        companyMapper.insertCompanyInd(company.getIndList());
         return companyMapper.selectCompany(company.getCompanyId());
     }
 
