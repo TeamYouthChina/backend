@@ -338,4 +338,51 @@
       WHERE COMPANY_ID = #{id}
     </update>
 
+    <!--delete Company's Employees By CompanyID-->
+    <update id="deleteCompanyEmployee" parameterType="java.lang.Integer">
+        UPDATE COMPANY_EMPLOYEE SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+    <!--delete Company's Verifications By VerificationID-->
+    <update id="deleteCompanyVerificationById" parameterType="java.lang.Integer">
+        UPDATE COMPANY_VERIFICAITON SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+    <!--delete Company's Verifications By CompanyID-->
+    <update id="deleteCompanyVerificationByComId" parameterType="java.lang.Integer">
+        UPDATE COMPANY_VERIFICAITON SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+    <!--delete Company's Photos By CompanyID-->
+    <update id="deleteCompanyPhoto" parameterType="java.lang.Integer">
+        UPDATE COMPANY_PHOTO SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+    <!--delete Company's Evaluations By CompanyID-->
+    <update id="deleteCompanyEvaluate" parameterType="java.lang.Integer">
+        UPDATE COMPANY_EVALUATE SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+    <!--delete Students' Collections of Company By CompanyID-->
+    <update id="deleteStudentComCollection" parameterType="java.lang.Integer">
+        UPDATE STU_COMP_COLLECT SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>
