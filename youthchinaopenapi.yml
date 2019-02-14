@@ -639,38 +639,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
         '400':
-          description: cannot create question due to user's error.
-    get:
-      tags:
-        - Question
-      parameters:
-        - name: company
-          in: query
-          schema:
-            type: string
-          description: company name
-        - name: job
-          in: query
-          schema:
-            type: string
-          description: job name
-      responses:
-        '200':
-          description: successful
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    type: object
-                    properties: 
-                      questions:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/Question'
-                  status:
-                    $ref: '#/components/schemas/Status'
+          description: cannot create question due to user's error
   '/questions/{id}':
     get:
       tags:
@@ -1135,18 +1104,6 @@ paths:
                     $ref: '#/components/schemas/Article'
                   status:
                     $ref: '#/components/schemas/Status'
-    delete:
-      tags:
-        - Article
-      parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-      responses:
-        '204':
-          description: successful
-        
   '/articles':
     post:
       tags:
@@ -1179,23 +1136,7 @@ paths:
               $ref: '#/components/schemas/CommentRequest'
       responses:
         '200':
-          description: successful 
-  '/articles/{id}/upvote':
-    post:
-      tags:
-      - Article
-      responses:
-        '201':
           description: successful
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    $ref: '#/components/schemas/Article'
-                  status:
-                    $ref: '#/components/schemas/Status'
 
 components:
   schemas:
@@ -1284,6 +1225,15 @@ components:
         avatarUrl:
           type: string
           pattern: '(http|https)://(.?)*'
+        location:
+          type: string
+        website:
+          type: string
+          pattern: '(http|https)://(.?)*'
+        note:
+          type: string
+        nation:
+          type: string
     User:
       type: object
       required:
@@ -1689,6 +1639,6 @@ components:
         create_at:
           type: string
         modified_at:
-          type: sting
+          type: string
         author:
           $ref: '#/components/schemas/User'
