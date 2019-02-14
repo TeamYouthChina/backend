@@ -11,8 +11,6 @@ import java.util.List;
 @Service
 public interface FileStorageService {
 
-    public long uploadFile(String fileName, File file, String format, Integer user_id);
-
     public URL downloadFile(String fileName);
 
     public boolean verifyFile(String fileName);

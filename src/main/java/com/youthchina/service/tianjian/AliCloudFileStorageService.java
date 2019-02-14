@@ -33,6 +33,8 @@ public class AliCloudFileStorageService implements FileStorageService {
     //仓库名称Bucket Name
     private static String bucketName;
 
+    private static String cloudIdColName;
+
     @Autowired
     SnowFlakeIdGenerate snowFlakeIdGenerate;
 
@@ -51,59 +53,14 @@ public class AliCloudFileStorageService implements FileStorageService {
         System.out.println("Host ID:           " + oe.getHostId());
     }
 
-    public AliCloudFileStorageService(@Value("${staticfile.endPoint}") String endPoint, @Value("${staticfile.accessKeyId}") String accessKeyId, @Value("${staticfile.accessKeySecret}") String accessKeySecret, @Value("${staticfile.bucketName}") String bucketName) {
-        this.endPoint = endPoint;
-        this.accessKeyId = accessKeyId;
-        this.accessKeySecret = accessKeySecret;
-        this.bucketName = bucketName;
+    public AliCloudFileStorageService(@Value("${staticfile.endPoint}") String endPoint, @Value("${staticfile.accessKeyId}") String accessKeyId, @Value("${staticfile.accessKeySecret}") String accessKeySecret, @Value("${staticfile.bucketName}") String bucketName, @Value("${staticfile.idColName}") String cloudIdColName) {
+        AliCloudFileStorageService.endPoint = endPoint;
+        AliCloudFileStorageService.accessKeyId = accessKeyId;
+        AliCloudFileStorageService.accessKeySecret = accessKeySecret;
+        AliCloudFileStorageService.bucketName = bucketName;
+        AliCloudFileStorageService.cloudIdColName = cloudIdColName;
     }
 
-    @Override
-    public long uploadFile(String fileName, File file, String format, Integer user_id) {
-        OSSClient ossClient = new OSSClient(endPoint, accessKeyId, accessKeySecret);
-        long localId = 0;
-        try {
-            /*
-             * Upload an object
-             */
-            InputStream input = new FileInputStream(file);
-            byte[] inputByte = new byte[input.available()];
-            input.read(inputByte);
-            String fileNameInDataBase = fileNameGenerate.generateFileName();
-            System.out.println("Uploading a new object to OSS from a file\n");
-            ossClient.putObject(new PutObjectRequest(bucketName, fileNameInDataBase, new ByteArrayInputStream(inputByte)));
-            localId = snowFlakeIdGenerate.nextId();
-            System.out.println("Uploading a new object to OSS from a file\n");
-            ossClient.putObject(new PutObjectRequest(bucketName, String.valueOf(localId), new ByteArrayInputStream(inputByte)));
-
-
-            ComMediaDocument comMediaDocument = new ComMediaDocument();
-            comMediaDocument.setDocu_local_id(String.valueOf(localId));
-            comMediaDocument.setDocu_local_name(fileName);
-            comMediaDocument.setDocu_local_format(format);
-            comMediaDocument.setDocu_server_ali_id(String.valueOf(localId));
-            comMediaDocument.setDocu_server_aws_id(String.valueOf(localId));
-            Timestamp time = new Timestamp(System.currentTimeMillis());
-            comMediaDocument.setCreate_time(time);
-            comMediaDocument.setIs_delete(0);
-            comMediaDocument.setIs_delete_time(null);
-            comMediaDocument.setUser_id(user_id);
-            mapper.saveFileInfo(comMediaDocument);
-
-        } catch (OSSException oe) {
-            printOSSExceptionMessage(oe);
-        } catch (ClientException ce) {
-            System.out.println("Error Message: " + ce.getMessage());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            ossClient.shutdown();
-        }
-
-        return localId;
-    }
 
     @Override
     public URL downloadFile(String fileName) {
@@ -163,6 +120,30 @@ public class AliCloudFileStorageService implements FileStorageService {
 
     @Override
     public void uploadFile(File file) {
+        OSSClient ossClient = new OSSClient(endPoint, accessKeyId, accessKeySecret);
+
+        Long localId = snowFlakeIdGenerate.nextId();
+        try {
+            this.uploadFile(file, ossClient, localId);
+        } catch (OSSException oe) {
+            printOSSExceptionMessage(oe);
+        } catch (ClientException ce) {
+            System.out.println("Error Message: " + ce.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            ossClient.shutdown();
+        }
+        //if all successful
+        this.mapper.setCloudStorageId(cloudIdColName, localId);
+    }
+
+    public void uploadFile(File file, OSSClient ossClient, Long localId) throws IOException {
+        InputStream input = new FileInputStream(file);
+        byte[] inputByte = new byte[input.available()];
+        input.read(inputByte);
+        //System.out.println("Uploading a new object to OSS from a file\n");
+        ossClient.putObject(new PutObjectRequest(bucketName, String.valueOf(localId), new ByteArrayInputStream(inputByte)));
 
     }
 }
