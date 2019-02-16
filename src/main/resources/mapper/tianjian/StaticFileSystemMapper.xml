@@ -10,6 +10,12 @@
     <update id="setCloudStorageId">
       UPDATE COM_MEDIA_DOCUMENT SET #{col} = #{id}
     </update>
+    <select id="getFileSizeOfUserUploading" resultType="com.youthchina.domain.tianjian.ComMediaDocument">
+        SELECT t.*
+        FROM COM_MEDIA_DOCUMENT t
+        WHERE
+             t.UPLOAD_USER_ID = #{user_id} and <![CDATA[ datediff(t.CREATE_TIME,#{startTime}) > 0  and datediff(t.CREATE_TIME,#{endTime}) < 0 ]]>
+    </select>
 
 
 </mapper>

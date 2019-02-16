@@ -1,9 +1,6 @@
 package com.youthchina;
 
-import com.youthchina.service.tianjian.Idtest;
-import com.youthchina.service.tianjian.LocalFileManage;
-import com.youthchina.service.tianjian.SnowFlakeIdGenerate;
-import com.youthchina.service.tianjian.AliCloudFileStorageService;
+import com.youthchina.service.tianjian.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,7 +25,6 @@ public class YouthchinaApplicationTests {
     AliCloudFileStorageService staticFileSystemServiceImplALiCloud;
     @Autowired
     LocalFileManage localFileManage;
-
 
    /* @Test
     public void testupLoadFile() {
@@ -77,5 +77,4 @@ public class YouthchinaApplicationTests {
         String path = localFileManage.uploadFileToLocal(file,".mp4");
         System.out.println(path);
     }
-
 }

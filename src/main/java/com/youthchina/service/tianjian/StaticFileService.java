@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.sql.Timestamp;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by zhongyangwu on 2/12/19.
@@ -57,5 +59,16 @@ public class StaticFileService {
 
         }
         return id;
+    }
+
+    public float getFileSizeOfUserUpoloading(Integer user_id, Timestamp startTime,Timestamp endTime) throws IOException {
+        float fileSize = 0;
+       List<ComMediaDocument> comMediaDocumentList = fileSystemMapper.getFileSizeOfUserUploading(user_id,startTime,endTime);
+        Iterator it = comMediaDocumentList.iterator();
+        while(it.hasNext()){
+            ComMediaDocument comMediaDocument = (ComMediaDocument) it.next();
+            fileSize += Float.parseFloat(comMediaDocument.getDocu_local_size());
+        }
+        return fileSize;
     }
 }
