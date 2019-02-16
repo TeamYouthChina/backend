@@ -252,7 +252,7 @@ paths:
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
-              example:
+              example:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
@@ -558,8 +558,8 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - company
+                            - id
+                            - company
                           properties:
                             id:
                               type: integer
@@ -570,20 +570,20 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - job
+                            - id
+                            - job
                           properties:
                             id:
                               type: integer
                             job:
-                              $ref: '#/components/schemas/Job' 
+                              $ref: '#/components/schemas/Job'
                       questions:
                         type: array
                         items:
                           type: object
                           required:
-                          - id
-                          - questions
+                            - id
+                            - questions
                           properties:
                             id:
                               type: integer
@@ -594,8 +594,8 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - answers
+                            - id
+                            - answers
                           properties:
                             id:
                               type: integer
@@ -664,7 +664,7 @@ paths:
                 properties:
                   content:
                     type: object
-                    properties: 
+                    properties:
                       questions:
                         type: array
                         items:
@@ -780,8 +780,8 @@ paths:
             schema:
               type: object
               required:
-              - id
-              - body
+                - id
+                - body
               properties:
                 id:
                   type: integer
@@ -792,7 +792,7 @@ paths:
                   default: false
                 create_at:
                   type: integer
-                
+
       responses:
         '201':
           description: target answer
@@ -833,7 +833,7 @@ paths:
           in: path
           schema:
             type: integer
-          
+
       requestBody:
         content:
           application/json:
@@ -870,7 +870,7 @@ paths:
           in: path
           schema:
             type: integer
-      responses: 
+      responses:
         '201':
           description: upvote successfullly
   '/answers/{id}':
@@ -935,15 +935,15 @@ paths:
           description: success
         '403':
           description: do not have authority to delete answer
-  '/answers/{id}/comments': 
+  '/answers/{id}/comments':
     put:
       tags:
         - Answer
       requestBody:
         content:
           application/json:
-              schema:
-                $ref: '#/components/schemas/CommentRequest'
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
       responses:
         '201':
           description: comments successfully
@@ -987,7 +987,7 @@ paths:
                   type: string
                 phone_number:
                   type: string
-                email: 
+                email:
                   type: string
                 nation:
                   type: string
@@ -1146,7 +1146,7 @@ paths:
       responses:
         '204':
           description: successful
-        
+
   '/articles':
     post:
       tags:
@@ -1171,7 +1171,7 @@ paths:
   '/articles/{id}/comments':
     put:
       tags:
-      - Article
+        - Article
       requestBody:
         content:
           application/json:
@@ -1179,11 +1179,11 @@ paths:
               $ref: '#/components/schemas/CommentRequest'
       responses:
         '200':
-          description: successful 
+          description: successful
   '/articles/{id}/upvote':
     post:
       tags:
-      - Article
+        - Article
       responses:
         '201':
           description: successful
@@ -1223,7 +1223,7 @@ components:
         - page
         - size
       properties:
-        id: 
+        id:
           type: integer
         jobName:
           type: string
@@ -1632,7 +1632,7 @@ components:
           type: object
         resourceList:
           type: array
-          items: 
+          items:
             type: string
     Comment:
       type: object
@@ -1662,7 +1662,7 @@ components:
               type: boolean
               default: false
     ArticleRequest:
-      type: object 
+      type: object
       properties:
         title:
           type: string

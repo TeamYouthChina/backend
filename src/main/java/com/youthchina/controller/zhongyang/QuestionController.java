@@ -58,6 +58,22 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return get(id);
     }
 
+    @GetMapping("/*")
+    public ResponseEntity<?> getQuestions(@RequestParam(value = "Company") String company,@RequestParam(value = "Job") String job) throws NotFoundException {
+        if(company != ""){
+            List<Question> qlists=  communityQAService.searchQuestionByTitleOrCompanyName(company);
+            if(qlists.size() != 0){
+                return ResponseEntity.ok(new Response(qlists));
+            }
+        }else if(job != ""){
+            List<Question> qlists2=  communityQAService.searchQuestionByTitleOrCompanyName(job);
+            if (qlists2.size() != 0){
+                return ResponseEntity.ok(new Response(qlists2));
+            }
+        }
+        throw new NotFoundException(4000,404,"not found questions");
+    }
+
     @PostMapping("/")
     public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO, @AuthenticationPrincipal User user) {
         questionDTO.setCreator(user);
@@ -65,7 +81,8 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateQuestionInfo(@RequestBody QuestionDTO questionDTO) throws NotFoundException {
+    public ResponseEntity<?> updateQuestionInfo(@RequestBody QuestionDTO questionDTO, @PathVariable Integer id) throws NotFoundException {
+        questionDTO.setId(id);
         return update(questionDTO);
     }
 
@@ -88,7 +105,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @PostMapping("/{questionId}/invite/{userId}")
-    public ResponseEntity<?> sendInvite(@RequestBody Integer questionId, Integer userId,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> sendInvite(@RequestParam Integer questionId, Integer userId,@AuthenticationPrincipal User user) throws NotFoundException {
         List<Integer> list = new ArrayList<>();
         list.add(userId);
         communityQAService.invitUsersToAnswer(user.getId(), questionId, list);
