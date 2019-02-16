@@ -1,7 +1,14 @@
 package com.youthchina.Qingyang;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.domain.qingyang.Country;
+import com.youthchina.dto.CompanyDTO;
+import com.youthchina.dto.LocationDTO;
+import com.youthchina.dto.NationDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,6 +29,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -64,9 +74,62 @@ public class CompanyControllerTest {
     }
 
     @Test
-    public void testPostCompany() throws Exception {
+    public void testAddCompany() throws Exception {
+        CompanyDTO companyDTO = new CompanyDTO();
+        companyDTO.setName("Vavle");
+        Location location = new Location();
+        location.setRegion_num(1);
+        companyDTO.setLocation(new LocationDTO(location));
+        Country country = new Country();
+        country.setCountryAbbre("USA");
+        companyDTO.setNation(new NationDTO(country));
+        companyDTO.setWebsite("vavle.com");
+        companyDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        companyDTO.setNote("Steam");
 
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String insertJson = ow.writeValueAsString(companyDTO);
+
+
+        this.mvc.perform(
+                post(this.urlPrefix + "/companies")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(insertJson)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":{\"region_num\":1},\"website\":\"vavle.com\",\"nation\":{\"countryAbbre\":\"USA\"},\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+        ;
     }
+
+//    @Test
+//    public void testUpdateCompany() throws Exception {
+//        CompanyDTO companyDTO = new CompanyDTO();
+//        companyDTO.setName("Vavle");
+//        Location location = new Location();
+//        location.setRegion_num(1);
+//        companyDTO.setLocation(new LocationDTO(location));
+//        Country country = new Country();
+//        country.setCountryAbbre("USA");
+//        companyDTO.setNation(new NationDTO(country));
+//        companyDTO.setWebsite("vavle.com");
+//        companyDTO.setAvatarUrl("vavle.com/AvatarUrl");
+//        companyDTO.setNote("Steam");
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//        java.lang.String insertJson = ow.writeValueAsString(companyDTO);
+//
+//        this.mvc.perform(
+//                put(this.urlPrefix + "/companies/1")
+//                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .content(insertJson)
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print());
+//
+//    }
 
 
 }
