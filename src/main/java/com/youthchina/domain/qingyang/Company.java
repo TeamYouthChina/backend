@@ -1,7 +1,9 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.dto.CompanyDTO;
 import com.youthchina.dto.OrganizationDTO;
+import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -10,7 +12,7 @@ import java.util.List;
 /**
  * Created by zhong on 2018/12/27.
  */
-public class Company {
+public class Company implements HasId<Integer> {
     private Integer companyId;
     private String companyName;
     private String companyCode;
@@ -62,6 +64,15 @@ public class Company {
     }
 
     public  Company() {}
+
+    //TODO avatarUrl ; note
+    public Company(CompanyDTO companyDTO) {
+        this.companyId = companyDTO.getId();
+        this.companyName = companyDTO.getName();
+        this.location = new Location(companyDTO.getLocation());
+        this.companyWebsite = companyDTO.getWebsite();
+        this.country = new Country(companyDTO.getNation());
+    }
 
     public Timestamp getAddTime() {
         return addTime;
@@ -222,5 +233,10 @@ public class Company {
 
     public void setJobs(List<Job> jobs) {
         this.jobs = jobs;
+    }
+
+    @Override
+    public Integer getId() {
+        return companyId;
     }
 }
