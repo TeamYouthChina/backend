@@ -67,7 +67,7 @@ comment '职位基本信息表';
     private List<Industry> industries;
     private Profession profession;
 
-
+    private Timestamp addTime;
     private Integer isDelete;
     private Timestamp isDeleteTime;
 
@@ -84,6 +84,14 @@ comment '职位基本信息表';
     }
 
     public Job(){}
+
+    public Timestamp getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Timestamp addTime) {
+        this.addTime = addTime;
+    }
 
     public Integer getId() {
         return jobId;

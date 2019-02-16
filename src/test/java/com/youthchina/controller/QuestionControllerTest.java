@@ -26,10 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -68,6 +65,37 @@ public class QuestionControllerTest {
     }
 
     @Test
+    public void getAnswersTest() throws Exception {
+        this.mvc.perform(
+                get(this.urlPrefix + "/questions/2/answers").param("Id", "2")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":[{\"id\":5,\"creator\":{\"id\":4,\"username\":\"zhid d\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":null,\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"body\":\"这是第五个回答\",\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
+    @Test
+    public void getQuestionsTest() throws Exception {
+        this.mvc.perform(
+                get(this.urlPrefix + "/questions").param("Company", "").param("Job", "")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print());
+                //.andExpect(content().json("{\"content\":null,\"status\":{\"code\":4000,\"reason\":\"not found questions\"}}", false));
+    }
+
+    @Test
+    public void getQuestionTest() throws Exception {
+        this.mvc.perform(
+                get(this.urlPrefix + "/questions/4").param("Id", "4")
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"id\":4,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":null,\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"title\":\"第四个问题\",\"body\":\"第四个问题的正文\",\"createAt\":\"2018-12-06T14:32:40.000+0000\",\"editAt\":\"2018-12-06T14:32:40.000+0000\",\"answers\":[],\"invitation\":null,\"labelIds\":null,\"rela_type\":2,\"rela_id\":null,\"abbreviation\":\"第四个问题的描述\",\"anonymous\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
+    @Test
     public void addQuestionTest() throws Exception {
         QuestionDTO questionDTO = new QuestionDTO();
         questionDTO.setTitle("Question No.100");
@@ -83,7 +111,6 @@ public class QuestionControllerTest {
         java.lang.String requestJson = ow.writeValueAsString(questionDTO);
 
         this.mvc.perform(
-
                 post(this.urlPrefix + "/questions").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
                         .with(authGenerator.authentication())
@@ -91,35 +118,6 @@ public class QuestionControllerTest {
                 .andDo(print());
     }
 
-    @Test
-    public void getQuestionTest() throws Exception {
-        this.mvc.perform(
-                get(this.urlPrefix + "/questions/2").param("Id", "2")
-                        .with(authGenerator.authentication())
-
-        )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":2,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":null,\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"title\":\"第二个问题\",\"body\":\"第二个问题的正文\",\"createAt\":\"2018-12-05T13:32:40.000+0000\",\"editAt\":\"2018-12-05T13:32:40.000+0000\",\"answers\":null,\"invitation\":null,\"labelIds\":null,\"rela_type\":3,\"rela_id\":null,\"abbreviation\":\"第二个问题的描述\",\"anonymous\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
-    }
-
-    @Test
-    public void deleteQuestionTest() throws Exception {
-        this.mvc.perform(
-                delete(this.urlPrefix + "/questions/1").param("Id", "1")
-                        .with(authGenerator.authentication())
-
-        )
-                .andDo(print());
-//                .andExpect(content().json("{\"content\":{\"jobId\":1,\"jobName\":\"front\",\"jobProfCode\":\"A\",\"jobStartTime\":\"2019-01-01\",\"jobEndTime\":\"2020-01-01\",\"jobType\":1,\"jobDescription\":\"996\",\"jobDuty\":\"front\",\"jobHighlight\":\"50K\",\"jobSalaryFloor\":5000,\"jobSalaryCap\":6000,\"jobLink\":\"job.com\",\"cvReceiMail\":\"youth@china\",\"cvNameRule\":\"nameRule\",\"jobActive\":1,\"jobLocationList\":[{\"region_num\":1,\"region_chn\":\"北京\",\"region_eng\":\"Beijing\",\"region_level\":1,\"region_parent_num\":1,\"start_time\":\"2019-01-01T11:11:22.000+0000\",\"is_delete\":null,\"is_delete_time\":null,\"jobId\":1}],\"jobReqList\":[{\"degreeNum\":1,\"degreeChn\":\"本科\",\"degreeEng\":\"Bachelor\",\"startDate\":\"2019-01-01T11:11:22.000+0000\",\"jobId\":1},{\"degreeNum\":2,\"degreeChn\":\"硕士\",\"degreeEng\":\"Master\",\"startDate\":\"2019-01-02T11:11:22.000+0000\",\"jobId\":1}],\"industries\":[{\"indNum\":1,\"indCode\":\"A\",\"indChn\":\"工\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"A3\",\"startTime\":\"2018-10-11T11:11:22.000+0000\",\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":null,\"jobId\":1},{\"indNum\":2,\"indCode\":\"B\",\"indChn\":\"农\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"B3\",\"startTime\":\"2018-10-11T11:11:22.000+0000\",\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":null,\"jobId\":1}],\"profession\":{\"profNum\":1,\"profCode\":\"A\",\"profParentCode\":\"A\",\"profChn\":\"前端\",\"profEng\":\"frontEnd\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"isDelete\":null,\"isDeleteTime\":null,\"company\":{\"companyId\":1,\"companyName\":\"大疆\",\"companyCode\":\"2\",\"companyIntroduc\":\"无人机\",\"companyNature\":{\"natureNum\":1,\"natureChn\":\"国企\",\"natureEng\":\"public\",\"natureDetail\":\"good\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"companyScale\":{\"scaleNum\":1,\"scaleChn\":\"大\",\"scaleEng\":\"big\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"location\":{\"region_num\":1,\"region_chn\":\"北京\",\"region_eng\":\"Beijing\",\"region_level\":1,\"region_parent_num\":1,\"start_time\":\"2019-01-01T11:11:22.000+0000\",\"is_delete\":null,\"is_delete_time\":null,\"jobId\":null},\"country\":null,\"companyMail\":\"dji@com\",\"companyWebsite\":\"dji.com\",\"companyStartDate\":\"2005-11-20\",\"companyLogo\":\"1\",\"companyVerify\":1,\"userId\":null,\"isDelete\":null,\"isDeleteTime\":null,\"jobs\":null,\"indList\":[{\"indNum\":1,\"indCode\":\"A\",\"indChn\":\"工\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"A3\",\"startTime\":null,\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":1,\"jobId\":null},{\"indNum\":2,\"indCode\":\"B\",\"indChn\":\"农\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"B3\",\"startTime\":null,\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":1,\"jobId\":null}],\"verificationList\":[]},\"hr\":{\"hrId\":1,\"companyId\":1,\"hrOnJob\":1,\"userId\":null,\"isDelete\":null,\"isDeleteTime\":null},\"id\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
-        this.mvc.perform(
-                get(this.urlPrefix + "/questions/1").param("Id", "1")
-                        .with(authGenerator.authentication())
-
-        )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":404,\"reason\":\"没有找到这个问题\"}}", false));
-
-    }
     @Test
     public void putQuestionTest() throws Exception {
         QuestionDTO questionDTO = new QuestionDTO();
@@ -150,32 +148,55 @@ public class QuestionControllerTest {
     }
 
     @Test
-    public void getQuestionsTest() throws Exception {
+    public void invitesAnswerTest() throws Exception {
+        List<Integer> userlist = new ArrayList<>();
+        userlist.add(1);
+        userlist.add(2);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(userlist);
         this.mvc.perform(
-                get(this.urlPrefix + "/questions").param("Company", "").param("Job", "")
+                put(this.urlPrefix + "/questions/2/invite").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
                         .with(authGenerator.authentication())
         )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4000,\"reason\":\"not found questions\"}}", false));
-    }
-
-    @Test
-    public void getAnswersTest() throws Exception {
-        this.mvc.perform(
-                get(this.urlPrefix + "/questions/2/answers").param("Id", "2")
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":[{\"id\":5,\"creator\":{\"id\":4,\"username\":\"zhid d\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":null,\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"body\":\"这是第五个回答\",\"creatAt\":\"2018-12-04T13:32:40.000+0000\",\"anonymous\":false}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andDo(print());
     }
 
     @Test
     public void inviteAnswerTest() throws Exception {
         this.mvc.perform(
-                post(this.urlPrefix + "/questions/2/answers").param("questionId", "2").param("userId","1")
+                put(this.urlPrefix + "/questions/2/invite/1")
                         .with(authGenerator.authentication())
         )
                 .andDo(print());
-                //.andExpect(content().json("{\"content\":[{\"id\":5,\"creator\":{\"id\":4,\"username\":\"zhid d\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":null,\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"body\":\"这是第五个回答\",\"creatAt\":\"2018-12-04T13:32:40.000+0000\",\"anonymous\":false}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
+    @Test
+    public void attentionTest() throws Exception {
+        this.mvc.perform(
+                put(this.urlPrefix + "/questions/2/attention")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print());
+    }
+
+    @Test
+    public void deleteQuestionTest() throws Exception {
+        this.mvc.perform(
+                delete(this.urlPrefix + "/questions/10").param("Id", "10")
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print());
+//                .andExpect(content().json("{\"content\":{\"jobId\":1,\"jobName\":\"front\",\"jobProfCode\":\"A\",\"jobStartTime\":\"2019-01-01\",\"jobEndTime\":\"2020-01-01\",\"jobType\":1,\"jobDescription\":\"996\",\"jobDuty\":\"front\",\"jobHighlight\":\"50K\",\"jobSalaryFloor\":5000,\"jobSalaryCap\":6000,\"jobLink\":\"job.com\",\"cvReceiMail\":\"youth@china\",\"cvNameRule\":\"nameRule\",\"jobActive\":1,\"jobLocationList\":[{\"region_num\":1,\"region_chn\":\"北京\",\"region_eng\":\"Beijing\",\"region_level\":1,\"region_parent_num\":1,\"start_time\":\"2019-01-01T11:11:22.000+0000\",\"is_delete\":null,\"is_delete_time\":null,\"jobId\":1}],\"jobReqList\":[{\"degreeNum\":1,\"degreeChn\":\"本科\",\"degreeEng\":\"Bachelor\",\"startDate\":\"2019-01-01T11:11:22.000+0000\",\"jobId\":1},{\"degreeNum\":2,\"degreeChn\":\"硕士\",\"degreeEng\":\"Master\",\"startDate\":\"2019-01-02T11:11:22.000+0000\",\"jobId\":1}],\"industries\":[{\"indNum\":1,\"indCode\":\"A\",\"indChn\":\"工\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"A3\",\"startTime\":\"2018-10-11T11:11:22.000+0000\",\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":null,\"jobId\":1},{\"indNum\":2,\"indCode\":\"B\",\"indChn\":\"农\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"B3\",\"startTime\":\"2018-10-11T11:11:22.000+0000\",\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":null,\"jobId\":1}],\"profession\":{\"profNum\":1,\"profCode\":\"A\",\"profParentCode\":\"A\",\"profChn\":\"前端\",\"profEng\":\"frontEnd\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"isDelete\":null,\"isDeleteTime\":null,\"company\":{\"companyId\":1,\"companyName\":\"大疆\",\"companyCode\":\"2\",\"companyIntroduc\":\"无人机\",\"companyNature\":{\"natureNum\":1,\"natureChn\":\"国企\",\"natureEng\":\"public\",\"natureDetail\":\"good\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"companyScale\":{\"scaleNum\":1,\"scaleChn\":\"大\",\"scaleEng\":\"big\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"location\":{\"region_num\":1,\"region_chn\":\"北京\",\"region_eng\":\"Beijing\",\"region_level\":1,\"region_parent_num\":1,\"start_time\":\"2019-01-01T11:11:22.000+0000\",\"is_delete\":null,\"is_delete_time\":null,\"jobId\":null},\"country\":null,\"companyMail\":\"dji@com\",\"companyWebsite\":\"dji.com\",\"companyStartDate\":\"2005-11-20\",\"companyLogo\":\"1\",\"companyVerify\":1,\"userId\":null,\"isDelete\":null,\"isDeleteTime\":null,\"jobs\":null,\"indList\":[{\"indNum\":1,\"indCode\":\"A\",\"indChn\":\"工\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"A3\",\"startTime\":null,\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":1,\"jobId\":null},{\"indNum\":2,\"indCode\":\"B\",\"indChn\":\"农\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"B3\",\"startTime\":null,\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":1,\"jobId\":null}],\"verificationList\":[]},\"hr\":{\"hrId\":1,\"companyId\":1,\"hrOnJob\":1,\"userId\":null,\"isDelete\":null,\"isDeleteTime\":null},\"id\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+        this.mvc.perform(
+                get(this.urlPrefix + "/questions/10").param("Id", "10")
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":404,\"reason\":\"没有找到这个问题\"}}", false));
+
     }
 }

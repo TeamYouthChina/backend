@@ -15,4 +15,7 @@ import java.util.List;
 @Component
 public interface StaticFileSystemMapper {
    int saveFileInfo(ComMediaDocument comMediaDocument);
+
+   void setCloudStorageId(String col, Long id);
+
 }

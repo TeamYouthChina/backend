@@ -44,6 +44,7 @@ public class Company {
     private Integer userId;
     private Integer isDelete;
     private Timestamp isDeleteTime;
+    private Timestamp addTime;
     private List<Job> jobs;
 
     /*行业信息*/
@@ -52,6 +53,8 @@ public class Company {
     /*认证信息*/
     private List<CompanyVerification> verificationList;
 
+
+
     public Company(OrganizationDTO organizationDTO) {
         this.companyId = organizationDTO.getId();
         this.companyName = organizationDTO.getName();
@@ -59,6 +62,14 @@ public class Company {
     }
 
     public  Company() {}
+
+    public Timestamp getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Timestamp addTime) {
+        this.addTime = addTime;
+    }
 
     public List<Industry> getIndList() {
         return indList;

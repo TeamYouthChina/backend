@@ -24,7 +24,7 @@ public class QuestionAnswer implements HasId<Integer> {
         this.answer_id = simpleAnswerDTO.getId();
         this.answer_user = simpleAnswerDTO.getCreator();
         this.answer_content = simpleAnswerDTO.getBody();
-        this.user_anony = (simpleAnswerDTO.getAnonymous()) ? 1 : 0;
+        this.user_anony = (simpleAnswerDTO.getIsAnonymous()) ? 1 : 0;
         this.answer_pub_time = simpleAnswerDTO.getCreatAt();
     }
 
