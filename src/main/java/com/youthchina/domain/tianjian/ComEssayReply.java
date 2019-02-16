@@ -1,5 +1,7 @@
 package com.youthchina.domain.tianjian;
 
+import com.youthchina.dto.community.EssayReplyDTO;
+
 import java.sql.Timestamp;
 
 public class ComEssayReply {
@@ -11,6 +13,16 @@ public class ComEssayReply {
     private Timestamp reply_edit_time;
     private Integer is_delete;
     private Timestamp is_delete_time;
+
+    public ComEssayReply(EssayReplyDTO essayReplyDTO){
+        this.user_id = essayReplyDTO.getUser_id();
+        this.user_anony = (essayReplyDTO.isAnonymous())? 1:0;
+        this.reply_pub_time = essayReplyDTO.getCreate_at();
+        this.reply_edit_time = essayReplyDTO.getModified_at();
+        this.reply_content = essayReplyDTO.getBody();
+    }
+
+    public ComEssayReply(){}
 
     public Integer getReply_id() {
         return reply_id;
