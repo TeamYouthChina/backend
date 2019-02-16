@@ -1,6 +1,9 @@
 package com.youthchina.dto;
 
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Industry;
+
+import java.util.List;
 
 /**
  * @author: Qingyang Zhao
@@ -18,14 +21,22 @@ note	string*/
     private LocationDTO location;
     private String website; // pattern: (http|https)://(.?)*
     private NationDTO nation;
+    private String avatarUrl;
+    private String note;
 
-    //TODO avatarUrl ; note
+
+
+    public CompanyDTO() {
+    }
+
     public CompanyDTO(Company domain) {
         this.id = domain.getCompanyId();
         this.name = domain.getCompanyName();
         this.location = new LocationDTO(domain.getLocation()); // Default: Chinese Location
         this.website = domain.getCompanyWebsite();
         this.nation = new NationDTO(domain.getCountry()); // Default: Chinese Location
+        this.avatarUrl = domain.getCompanyLogo();
+        this.note = domain.getCompanyIntroduc();
     }
 
     public Integer getId() {
@@ -66,5 +77,21 @@ note	string*/
 
     public void setNation(NationDTO nation) {
         this.nation = nation;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
