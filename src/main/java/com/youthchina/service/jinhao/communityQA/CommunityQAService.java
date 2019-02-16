@@ -36,9 +36,9 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
     Integer evaluateAnswer(Integer answer_id, AnswerEvaluate answerEvaluate) throws NotFoundException;
     List<QuestionAnswer> listMyAgreeAnswer(Integer user_id) throws NotFoundException;
 
-    List<AnswerComment> getAllAnswerComments(Integer answer_id) throws NotFoundException;
-    AnswerComment getComment(Integer comment_id) throws NotFoundException;
-    Integer addCommentToAnswer(Integer answer_id, AnswerComment answerComment, Integer comment_level)
+    List<Comment> getAllAnswerComments(Integer answer_id) throws NotFoundException;
+    Comment getComment(Integer comment_id) throws NotFoundException;
+    Integer addCommentToAnswer(Integer answer_id, Comment comment, Integer comment_level)
             throws NotFoundException;
     void deleteComment(Integer comment_id) throws NotFoundException;
 

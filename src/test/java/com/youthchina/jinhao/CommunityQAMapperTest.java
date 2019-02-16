@@ -363,34 +363,34 @@ public class CommunityQAMapperTest {
     //测试能不能拿到评论
     @Test
     public void getComment() {
-        AnswerComment answerComment = communityQAMapper.getComment(1);
-        Assert.assertEquals("你这也回答的太好了吧！1", answerComment.getComment_content());
+        Comment comment = communityQAMapper.getComment(1);
+        Assert.assertEquals("你这也回答的太好了吧！1", comment.getComment_content());
     }
 
     //测试能不能给回答添加评论
     @Test
     public void addComment() {
-        AnswerComment answerComment = new AnswerComment();
-        answerComment.setComment_content("加一个");
-        answerComment.setUser_id(1);
-        answerComment.setUser_anony(1);
-        answerComment.setComment_pub_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        answerComment.setComment_edit_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        answerComment.setIs_delete(0);
-        answerComment.setIs_delete_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        communityQAMapper.addCommentToAnswer(answerComment);
-        Assert.assertNotNull(answerComment.getComment_id());
-        AnswerComment answerComment1 = communityQAMapper.getComment(answerComment.getComment_id());
-        Assert.assertNotNull(answerComment1);
+        Comment comment = new Comment();
+        comment.setComment_content("加一个");
+        comment.setUser_id(1);
+        comment.setUser_anony(1);
+        comment.setComment_pub_time(Timestamp.valueOf("2012-12-12 12:12:12"));
+        comment.setComment_edit_time(Timestamp.valueOf("2012-12-12 12:12:12"));
+        comment.setIs_delete(0);
+        comment.setIs_delete_time(Timestamp.valueOf("2012-12-12 12:12:12"));
+        communityQAMapper.addCommentToAnswer(comment);
+        Assert.assertNotNull(comment.getComment_id());
+        Comment comment1 = communityQAMapper.getComment(comment.getComment_id());
+        Assert.assertNotNull(comment1);
     }
 
     //测试拿到某个回答的所有评论
     @Test
     public void getAllComment() {
-        List<AnswerComment> answerComments = communityQAMapper.listAllAnswerComment(1);
-        Assert.assertEquals(3, answerComments.size());
-        for (AnswerComment answerComment : answerComments) {
-            if (answerComment.getComment_id() != 1 && answerComment.getComment_id() != 3 && answerComment.getComment_id() != 5) {
+        List<Comment> comments = communityQAMapper.listAllAnswerComment(1);
+        Assert.assertEquals(3, comments.size());
+        for (Comment comment : comments) {
+            if (comment.getComment_id() != 1 && comment.getComment_id() != 3 && comment.getComment_id() != 5) {
                 Assert.fail();
             }
         }
@@ -400,10 +400,10 @@ public class CommunityQAMapperTest {
     @Test
     public void createAnswerCommentMap() {
         communityQAMapper.createMapBetweenAnswerAndComment(2, 6, 3);
-        List<AnswerComment> answerComments = communityQAMapper.listAllAnswerComment(2);
-        Assert.assertEquals(3, answerComments.size());
-        for (AnswerComment answerComment : answerComments) {
-            if (answerComment.getComment_id() != 4 && answerComment.getComment_id() != 2 && answerComment.getComment_id()
+        List<Comment> comments = communityQAMapper.listAllAnswerComment(2);
+        Assert.assertEquals(3, comments.size());
+        for (Comment comment : comments) {
+            if (comment.getComment_id() != 4 && comment.getComment_id() != 2 && comment.getComment_id()
                     != 6) {
                 Assert.fail();
             }
@@ -414,8 +414,8 @@ public class CommunityQAMapperTest {
     @Test
     public void deleteComment() {
         communityQAMapper.deleteComment(1);
-        AnswerComment answerComment1 = communityQAMapper.getComment(1);
-        Assert.assertNull(answerComment1);
+        Comment comment1 = communityQAMapper.getComment(1);
+        Assert.assertNull(comment1);
     }
 
     //测试能不能拿到用户对某评论的评价
@@ -977,18 +977,18 @@ public class CommunityQAMapperTest {
                 Assert.fail();
             }
         }
-        List<AnswerComment> answerComments = questionAnswer1.getAnswerComments();
-        AnswerComment answerComment1 = null;
-        Assert.assertEquals(3, answerComments.size());
-        for(AnswerComment answerComment : answerComments){
-            if(answerComment.getComment_id() != 1 && answerComment.getComment_id() !=3 && answerComment.getComment_id() != 5){
+        List<Comment> comments = questionAnswer1.getComments();
+        Comment comment1 = null;
+        Assert.assertEquals(3, comments.size());
+        for(Comment comment : comments){
+            if(comment.getComment_id() != 1 && comment.getComment_id() !=3 && comment.getComment_id() != 5){
                 Assert.fail();
             }
-            if(answerComment.getComment_id() == 1){
-                answerComment1 = answerComment;
+            if(comment.getComment_id() == 1){
+                comment1 = comment;
             }
         }
-        List<CommentDiscuss> commentDiscusses = answerComment1.getCommentDiscusses();
+        List<CommentDiscuss> commentDiscusses = comment1.getCommentDiscusses();
         CommentDiscuss commentDiscuss1 = null;
         Assert.assertEquals(3, commentDiscusses.size());
         for(CommentDiscuss commentDiscuss : commentDiscusses){
@@ -1107,8 +1107,8 @@ public class CommunityQAMapperTest {
         Question question1 = communityQAMapper.getQuestionById(1);
         List<QuestionAnswer> questionAnswers = question1.getQuestionAnswers();
         for(QuestionAnswer questionAnswer : questionAnswers){
-            List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
-            Assert.assertEquals(0, answerComments.size());
+            List<Comment> comments = questionAnswer.getComments();
+            Assert.assertEquals(0, comments.size());
             List<AnswerEvaluate> answerEvaluates = questionAnswer.getAnswerEvaluates();
             Assert.assertEquals(0, answerEvaluates.size());
         }
@@ -1122,10 +1122,10 @@ public class CommunityQAMapperTest {
         Question question1 = communityQAMapper.getQuestionById(1);
         List<QuestionAnswer> questionAnswers = question1.getQuestionAnswers();
         for(QuestionAnswer questionAnswer : questionAnswers){
-            List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
-            for(AnswerComment answerComment : answerComments){
-                List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
-                List<CommentEvaluate> commentEvaluates = answerComment.getCommentEvaluates();
+            List<Comment> comments = questionAnswer.getComments();
+            for(Comment comment : comments){
+                List<CommentDiscuss> commentDiscusses = comment.getCommentDiscusses();
+                List<CommentEvaluate> commentEvaluates = comment.getCommentEvaluates();
                 Assert.assertEquals(0, commentEvaluates.size());
                 Assert.assertEquals(0, commentDiscusses.size());
             }
@@ -1139,9 +1139,9 @@ public class CommunityQAMapperTest {
         Question question1 = communityQAMapper.getQuestionById(1);
         List<QuestionAnswer> questionAnswers = question1.getQuestionAnswers();
         for(QuestionAnswer questionAnswer : questionAnswers){
-            List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
-            for(AnswerComment answerComment : answerComments){
-                List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
+            List<Comment> comments = questionAnswer.getComments();
+            for(Comment comment : comments){
+                List<CommentDiscuss> commentDiscusses = comment.getCommentDiscusses();
                 for(CommentDiscuss commentDiscuss : commentDiscusses){
                     List<DiscussEvaluate> discussEvaluates = commentDiscuss.getDiscussEvaluateList();
                     Assert.assertEquals(0, discussEvaluates.size());
@@ -1189,9 +1189,9 @@ public class CommunityQAMapperTest {
         communityQAMapper.deleteAllCommentsByAnswerId(1);
         QuestionAnswer questionAnswer = communityQAMapper.getAnswerById(1);
         List<AnswerEvaluate> answerEvaluates = questionAnswer.getAnswerEvaluates();
-        List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
+        List<Comment> comments = questionAnswer.getComments();
         Assert.assertEquals(0, answerEvaluates.size());
-        Assert.assertEquals(0, answerComments.size());
+        Assert.assertEquals(0, comments.size());
     }
 
     @Test
@@ -1199,11 +1199,11 @@ public class CommunityQAMapperTest {
         communityQAMapper.deleteAllCommentEvaluationByAnswerId(1);
         communityQAMapper.deleteAllDiscussesByAnswerId(1);
         QuestionAnswer questionAnswer = communityQAMapper.getAnswerById(1);
-        List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
-        for(AnswerComment answerComment : answerComments){
-            List<CommentEvaluate> commentEvaluates = answerComment.getCommentEvaluates();
+        List<Comment> comments = questionAnswer.getComments();
+        for(Comment comment : comments){
+            List<CommentEvaluate> commentEvaluates = comment.getCommentEvaluates();
             Assert.assertEquals(0, commentEvaluates.size());
-            List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
+            List<CommentDiscuss> commentDiscusses = comment.getCommentDiscusses();
             Assert.assertEquals(0, commentDiscusses.size());
         }
     }
@@ -1212,9 +1212,9 @@ public class CommunityQAMapperTest {
     public void deleteAllDiscussEvaluationByAnswerId(){
         communityQAMapper.deleteAllDiscussEvaluationByAnswerId(1);
         QuestionAnswer questionAnswer = communityQAMapper.getAnswerById(1);
-        List<AnswerComment> answerComments = questionAnswer.getAnswerComments();
-        for(AnswerComment answerComment : answerComments){
-            List<CommentDiscuss> commentDiscusses = answerComment.getCommentDiscusses();
+        List<Comment> comments = questionAnswer.getComments();
+        for(Comment comment : comments){
+            List<CommentDiscuss> commentDiscusses = comment.getCommentDiscusses();
             for(CommentDiscuss commentDiscuss : commentDiscusses){
                 List<DiscussEvaluate> discussEvaluates = commentDiscuss.getDiscussEvaluateList();
                 Assert.assertEquals(0, discussEvaluates.size());

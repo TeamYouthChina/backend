@@ -1,6 +1,6 @@
 package com.youthchina.controller.tianjian;
 
-import com.youthchina.domain.jinhao.communityQA.AnswerComment;
+import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.AnswerEvaluate;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
@@ -51,14 +51,14 @@ public class AnswerController {
 
     @PostMapping("/{id}/comments")
     public ResponseEntity addAnswerComment(@PathVariable Integer id,@RequestBody SimpleAnswerDTO simpleAnswerDTO,@AuthenticationPrincipal User user) throws NotFoundException {
-        AnswerComment answerComment = new AnswerComment();
-        answerComment.setComment_content(simpleAnswerDTO.getBody());
-        answerComment.setIs_delete(0);
+        Comment comment = new Comment();
+        comment.setComment_content(simpleAnswerDTO.getBody());
+        comment.setIs_delete(0);
         if(simpleAnswerDTO.getIsAnonymous()==true)
-           answerComment.setUser_anony(0);
+           comment.setUser_anony(0);
         else
-           answerComment.setUser_anony(1);
-        Integer i = communityQAServiceImplement.addCommentToAnswer(id,answerComment,1);
+           comment.setUser_anony(1);
+        Integer i = communityQAServiceImplement.addCommentToAnswer(id, comment,1);
         if(i==1)
             return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
         else

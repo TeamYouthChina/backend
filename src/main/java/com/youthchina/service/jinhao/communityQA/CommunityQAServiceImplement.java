@@ -429,13 +429,13 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      * @throws NotFoundException
      */
     @Override
-    public List<AnswerComment> getAllAnswerComments(Integer answer_id) throws NotFoundException{
+    public List<Comment> getAllAnswerComments(Integer answer_id) throws NotFoundException{
         getAnswer(answer_id);
-        List<AnswerComment> answerComments = communityQAMapper.listAllAnswerComment(answer_id);
-        if(answerComments == null){
+        List<Comment> comments = communityQAMapper.listAllAnswerComment(answer_id);
+        if(comments == null){
             throw new NotFoundException(404, 404, "找不到这个回答的评论");
         }else {
-            return answerComments;
+            return comments;
         }
     }
 
@@ -446,29 +446,29 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      * @throws NotFoundException
      */
     @Override
-    public AnswerComment getComment(Integer comment_id) throws NotFoundException{
-        AnswerComment answerComment = communityQAMapper.getComment(comment_id);
-        if(answerComment == null){
+    public Comment getComment(Integer comment_id) throws NotFoundException{
+        Comment comment = communityQAMapper.getComment(comment_id);
+        if(comment == null){
             throw new NotFoundException(404,404,"找不到该评论");
         }else {
-            return answerComment;
+            return comment;
         }
     }
 
     /**
      * 评论回答，如果回答不存在，抛出异常
      * @param answer_id 回答的id
-     * @param answerComment 要添加的评论的对象
+     * @param comment 要添加的评论的对象
      * @return 评论成功返回1
      * @throws NotFoundException
      */
     @Override
     @Transactional
-    public Integer addCommentToAnswer(Integer answer_id, AnswerComment answerComment, Integer comment_level)
+    public Integer addCommentToAnswer(Integer answer_id, Comment comment, Integer comment_level)
             throws NotFoundException{
         getAnswer(answer_id);
-        communityQAMapper.addCommentToAnswer(answerComment);
-        communityQAMapper.createMapBetweenAnswerAndComment(answer_id, answerComment.getComment_id(),comment_level);
+        communityQAMapper.addCommentToAnswer(comment);
+        communityQAMapper.createMapBetweenAnswerAndComment(answer_id, comment.getComment_id(),comment_level);
         return 1;
     }
 
