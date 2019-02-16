@@ -250,7 +250,7 @@ public class CaculatePersonInfluencePoint {
                                                       List<VideoEvaluate> videoEvaluateList,
                                                       List<ComReplyEvaluate> comReplyEvaluateList,
                                                       List<QuestionAnswer> questionAnswersList,
-                                                      List<AnswerComment> answerCommentList,
+                                                      List<Comment> commentList,
                                                       List<VideoComment> videoCommentList,
                                                       List<ComEssayReply> comEssayReplyList){
         Integer pers_interaction_in = new Integer(0);
@@ -273,8 +273,8 @@ public class CaculatePersonInfluencePoint {
         if(questionAnswersList!=null){
             pers_interaction_in += questionAnswersList.size();
         }
-        if(answerCommentList!=null){
-            pers_interaction_in += answerCommentList.size();
+        if(commentList !=null){
+            pers_interaction_in += commentList.size();
         }
         if(videoCommentList!=null){
             pers_interaction_in += videoCommentList.size();
@@ -373,7 +373,7 @@ public class CaculatePersonInfluencePoint {
                     influenceinteraction.getVideoEvaluates(),
                     influenceinteraction.getComReplyEvaluates(),
                     influenceinteraction.getQuestionAnswers(),
-                    influenceinteraction.getAnswerComments(),
+                    influenceinteraction.getComments(),
                     influenceinteraction.getVideoComments(),
                     influenceinteraction.getComEssayReplies());
         }

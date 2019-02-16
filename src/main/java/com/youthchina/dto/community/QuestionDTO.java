@@ -37,11 +37,6 @@ public class QuestionDTO {
         for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
             this.answers.add(new SimpleAnswerDTO(questionAnswer));
         }
-        if(question.getRela_type() == 2) {
-            this.rela_id = question.getCompany().getCompanyId();
-        } else if(question.getRela_type() == 3) {
-            this.rela_id = question.getJob().getJobId();
-        }
     }
 
     public QuestionDTO(){}
