@@ -5,7 +5,7 @@ import com.youthchina.domain.zhongyang.User;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class CommentDiscuss {
+public class Discuss {
     private Integer discuss_id;
     private Integer discuss_target_id;
     private String discuss_content;

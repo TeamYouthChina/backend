@@ -22,7 +22,9 @@ public interface BriefReviewService extends DomainCRUDService<BriefReview, Integ
 
     @Override
     void delete(Integer id) throws NotFoundException;
-
+    // 评价
+    Evaluate doEvaluate(Evaluate evaluate) throws NotFoundException;
+    Evaluate getEvaluate(Integer evaluate_id) throws NotFoundException;
     // 评论
     Comment addComment(Comment comment);
 
@@ -40,18 +42,18 @@ public interface BriefReviewService extends DomainCRUDService<BriefReview, Integ
     CommentEvaluate getCommentEvaluate(Integer evaluate_id) throws NotFoundException;
 
     //讨论
-    CommentDiscuss addDiscuss(CommentDiscuss commentDiscuss);
+    Discuss addDiscuss(Discuss discuss);
 
-    CommentDiscuss getDiscuss(Integer discuss_id) throws NotFoundException;
+    Discuss getDiscuss(Integer discuss_id) throws NotFoundException;
 
     void deleteDiscuss(Integer discuss_id) throws NotFoundException;
 
-    CommentDiscuss updateDiscuss(CommentDiscuss commentDiscuss) throws NotFoundException;
+    Discuss updateDiscuss(Discuss discuss) throws NotFoundException;
 
-    List<CommentDiscuss> getAllDiscussesOfComment(Integer comment_id) throws NotFoundException;
+    List<Discuss> getAllDiscussesOfComment(Integer comment_id) throws NotFoundException;
 
     //评价讨论
-    DiscussEvaluate EvaluateDiscuss(Integer user_id, Integer discuss_id, Integer evaluate_type) throws NotFoundException;
+    Evaluate EvaluateDiscuss(Integer user_id, Integer discuss_id, Integer evaluate_type) throws NotFoundException;
 
-    DiscussEvaluate getDiscussEvaluate(Integer evaluate_id) throws NotFoundException;
+    Evaluate getDiscussEvaluate(Integer evaluate_id) throws NotFoundException;
 }

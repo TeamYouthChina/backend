@@ -1,7 +1,7 @@
 package com.youthchina.controller.tianjian;
 
 import com.youthchina.domain.jinhao.communityQA.Comment;
-import com.youthchina.domain.jinhao.communityQA.AnswerEvaluate;
+import com.youthchina.domain.jinhao.communityQA.Evaluate;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
@@ -67,10 +67,10 @@ public class AnswerController {
 
     @PostMapping("/{id}/upvote")
     public ResponseEntity addUpvote(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
-        AnswerEvaluate answerEvaluate = new AnswerEvaluate();
-        answerEvaluate.setEvaluate_type(1);
-        answerEvaluate.setUser_id(user.getId());
-        Integer i = communityQAServiceImplement.evaluateAnswer(id,answerEvaluate);
+        Evaluate evaluate = new Evaluate();
+        evaluate.setEvaluate_type(1);
+        evaluate.setUser_id(user.getId());
+        Integer i = communityQAServiceImplement.evaluateAnswer(id, evaluate);
         if(i==1)
             return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
         else
