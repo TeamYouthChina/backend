@@ -76,16 +76,16 @@ public interface CommunityQAMapper {
 
     List<QuestionAnswer> listMyAnswer(Integer user_id);
 
-    AnswerEvaluate evaluateStatus(@Param("user_id") Integer user_id, @Param("answer_id") Integer answer_id);
+    Evaluate evaluateStatus(@Param("user_id") Integer user_id, @Param("answer_id") Integer answer_id);
 
-    AnswerEvaluate getAnswerEvaluate(Integer evaluate_id);
+    Evaluate getAnswerEvaluate(Integer evaluate_id);
 
-    Integer addEvaluateToAnswer(AnswerEvaluate answerEvaluate);
+    Integer addEvaluateToAnswer(Evaluate evaluate);
 
     Integer createMapBetweenAnswerAndEvaluate(@Param("evaluate_id") Integer evaluate_id,
                                               @Param("answer_id") Integer answer_id);
 
-    Integer reEvaluateAnswer(AnswerEvaluate answerEvaluate);
+    Integer reEvaluateAnswer(Evaluate evaluate);
 
     List<QuestionAnswer>  listMyAgreeAnswer(Integer user_id);
 
@@ -120,11 +120,11 @@ public interface CommunityQAMapper {
 
     Integer reEvaluateComment(CommentEvaluate commentEvaluate);
 
-    List<CommentDiscuss> listAllCommentDiscuss(Integer comment_id);
+    List<Discuss> listAllCommentDiscuss(Integer comment_id);
 
-    CommentDiscuss getDiscuss(Integer discuss_id);
+    Discuss getDiscuss(Integer discuss_id);
 
-    Integer addDiscuss(CommentDiscuss commentDiscuss);
+    Integer addDiscuss(Discuss discuss);
 
     Integer createMapBetweenDiscussAndComment(@Param("discuss_id") Integer discuss_id,
                                               @Param("comment_id") Integer comment_id,
@@ -226,11 +226,11 @@ public interface CommunityQAMapper {
     Question getQuestionById(Integer ques_id);
     List<QuestionAnswer> getAnswersByQuestionId(Integer ques_id);
     List<Comment> getCommentsByAnswerId(Integer answer_id);
-    List<CommentDiscuss> getDiscussesByCommentId(Integer comment_id);
+    List<Discuss> getDiscussesByCommentId(Integer comment_id);
     QuestionRelaTypeAndId getQuestionRelaTypeAndRelaId(Integer ques_id);
     QuestionAnswer getAnswerById(Integer answer_id);
     Comment getAnswerCommentById(Integer comment_id);
-    CommentDiscuss getAnswerDiscussById(Integer discuss_id);
+    Discuss getAnswerDiscussById(Integer discuss_id);
     Video getVideoById(Integer video_id);
     boolean isAnswerBelongToQuestion(@Param("answer_id") Integer answer_id, @Param("ques_id") Integer ques_id);
     List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent);
