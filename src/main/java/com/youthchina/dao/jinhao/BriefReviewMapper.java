@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 @Component
 public interface BriefReviewMapper {
-    void add(BriefReviewMapper briefReviewMapper);
+    void add(BriefReview briefReview);
     void createReviewMap(@Param("review_id") Integer review_id,
                          @Param("user_id") Integer user_id, @Param("rela_type") Integer rela_type,
                          @Param("rela_id") Integer rela_id);
@@ -20,7 +20,8 @@ public interface BriefReviewMapper {
     void deleteAllCommentEvaluationByReviewId(Integer id);
     void deleteAllDiscussesByReviewId(Integer id);
     void deleteAllDiscussEvaluateByReviewId(Integer id);
-    void update(BriefReviewMapper briefReviewMapper);
+    void update(BriefReview briefReview);
+    BriefReview simplyGetReview(Integer id);
     BriefReview get(Integer id);
     List<BriefReview> getList(List<Integer> ids);
 
@@ -28,7 +29,7 @@ public interface BriefReviewMapper {
     void createEvaluationReviewMap(@Param("evaluate_id") Integer evaluate_id, @Param("review_id") Integer review_id);
     Evaluate checkEvaluateStatus(@Param("user_id") Integer user_id, @Param("review_id") Integer review_id);
     void updateEvaluation(Evaluate evaluate);
-    Evaluate getEvaluate(Integer evaluate_id);
+    Integer countReviewAgreement(Integer id);
 
     void addComment(Comment comment);
     void createCommentReviewMap(@Param("comment_id") Integer comment_id,
@@ -40,18 +41,21 @@ public interface BriefReviewMapper {
     void deleteAllDiscussByCommentId(Integer id);
     void updateComment(Comment comment);
     Comment getComment(Integer id);
+    Comment simplyGetComment(Integer id);
+    List<Comment> getCommentsByReviewId(Integer id);
     List<Comment> getAllCommentsOfReview(Integer id);
 
     void addCommentEvaluation(Evaluate evaluate);
     void createEvaluationCommentMap(@Param("evaluate_id") Integer evaluate_id,
                                     @Param("comment_id") Integer comment_id);
-    CommentEvaluate checkCommentEvaluationStatus(@Param("user_id") Integer user_id,
+    Evaluate checkCommentEvaluationStatus(@Param("user_id") Integer user_id,
                                                  @Param("comment_id") Integer comment_id);
-    void updateCommentEvaluation(CommentEvaluate commentEvaluate);
-    CommentEvaluate getCommentEvaluation(Integer evaluate_id);
+    void updateCommentEvaluation(Evaluate evaluate);
+    Evaluate getCommentEvaluation(Integer evaluate_id);
+    Integer countCommentAgreement(Integer id);
 
     void addDiscuss(Discuss discuss);
-    void createDiscussComment(@Param("discuss_id") Integer discuss_id,
+    void createDiscussCommentMap(@Param("discuss_id") Integer discuss_id,
                               @Param("discuss_level") Integer discuss_level,
                               @Param("comment_id") Integer comment_id);
     void deleteDiscuss(Integer id);
@@ -60,11 +64,12 @@ public interface BriefReviewMapper {
     Discuss getDiscuss(Integer id);
     List<Discuss> getAllDiscussOfComment(Integer id);
 
-    void addDiscussEvaluation(DiscussEvaluate discussEvaluate);
+    void addDiscussEvaluation(Evaluate evaluate);
     void createEvaluationDiscussMap(@Param("evaluate_id") Integer evaluate_id,
                                     @Param("discuss_id") Integer discuss_id);
-    DiscussEvaluate checkDiscussEvaluateStatus(@Param("user_id") Integer user_id,
+    Evaluate checkDiscussEvaluateStatus(@Param("user_id") Integer user_id,
                                                @Param("discuss_id") Integer discuss_id);
-    void updateDiscussEvaluation(DiscussEvaluate discussEvaluate);
-    DiscussEvaluate getDiscussEvaluation(Integer evaluate_id);
+    void updateDiscussEvaluation(Evaluate evaluate);
+    Evaluate getDiscussEvaluation(Integer evaluate_id);
+    Integer countDiscussEvaluate(Integer id);
 }

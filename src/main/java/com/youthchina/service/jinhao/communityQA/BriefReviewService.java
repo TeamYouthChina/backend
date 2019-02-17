@@ -22,11 +22,12 @@ public interface BriefReviewService extends DomainCRUDService<BriefReview, Integ
 
     @Override
     void delete(Integer id) throws NotFoundException;
-    // 评价
-    Evaluate doEvaluate(Evaluate evaluate) throws NotFoundException;
-    Evaluate getEvaluate(Integer evaluate_id) throws NotFoundException;
-    // 评论
-    Comment addComment(Comment comment);
+
+    Evaluate doEvaluate(Integer user_id, Integer review_id, Integer evaluate_type) throws NotFoundException;
+
+    Integer getReviewAgreement(Integer review_id) throws NotFoundException;
+
+    Comment addComment(Comment comment, Integer review_id);
 
     Comment getComment(Integer comment_id) throws NotFoundException;
 
