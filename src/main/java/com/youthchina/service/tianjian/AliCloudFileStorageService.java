@@ -65,11 +65,8 @@ public class AliCloudFileStorageService implements FileStorageService {
     @Override
     public URL downloadFile(String fileName) {
         OSSClient ossClient = new OSSClient(endPoint, accessKeyId, accessKeySecret);
-        URL url = null;
         try {
-            Date expiration = new Date(new Date().getTime() + 3600 * 1000);// 生成URL
-            url = ossClient.generatePresignedUrl(bucketName, fileName, expiration);
-            return url;
+            return downloadFile(fileName, ossClient);
         } catch (OSSException oe) {
             printOSSExceptionMessage(oe);
         } catch (Throwable ce) {
@@ -77,6 +74,12 @@ public class AliCloudFileStorageService implements FileStorageService {
         } finally {
             ossClient.shutdown();
         }
+        return null;
+    }
+
+    public URL downloadFile(String fileName, OSSClient client) {
+        Date expiration = new Date(new Date().getTime() + 3600 * 1000);// 生成URL
+        URL url = client.generatePresignedUrl(bucketName, fileName, expiration);
         return url;
     }
 

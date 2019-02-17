@@ -2,11 +2,15 @@ package com.youthchina.service.tianjian;
 
 import com.youthchina.dao.tianjian.StaticFileSystemMapper;
 import com.youthchina.domain.tianjian.ComMediaDocument;
+import org.apache.http.util.Asserts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.net.URL;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by zhongyangwu on 2/12/19.
@@ -17,7 +21,7 @@ public class StaticFileService {
 
     private FileNameGenerate fileNameGenerate;
 
-    private FileStorageService[] fileStorageServices;
+    private Map<String, FileStorageService> fileStorageServices;
 
     private SnowFlakeIdGenerate idGenerate;
 
@@ -25,7 +29,11 @@ public class StaticFileService {
     public StaticFileService(StaticFileSystemMapper fileSystemMapper, FileNameGenerate fileNameGenerate, FileStorageService[] fileStorageServices, SnowFlakeIdGenerate idGenerate) {
         this.fileSystemMapper = fileSystemMapper;
         this.fileNameGenerate = fileNameGenerate;
-        this.fileStorageServices = fileStorageServices;
+        this.fileStorageServices = new HashMap<>();
+        for (FileStorageService service : fileStorageServices) {
+            this.fileStorageServices.put(service.getClass().getSimpleName(), service);
+        }
+        Asserts.check(!this.fileStorageServices.isEmpty(), "Must have a FileStorageService");
         this.idGenerate = idGenerate;
     }
 
@@ -45,17 +53,37 @@ public class StaticFileService {
         comMediaDocument.setDocu_local_format(fileName.substring(index + 1));
         comMediaDocument.setDocu_local_id(id.toString());
 
-        comMediaDocument.setDocu_local_size(String.valueOf( file.length()/1024/1024));
+        comMediaDocument.setDocu_local_size(String.valueOf(file.length() / 1024 / 1024));
         //save info to database
         fileSystemMapper.saveFileInfo(comMediaDocument);
         try {
             //save fileInfo
-            for (FileStorageService fileStorageService : fileStorageServices) {
+            for (FileStorageService fileStorageService : fileStorageServices.values()) {
                 fileStorageService.uploadFile(file);
             }
         } catch (Exception e) {
 
         }
         return id;
+    }
+
+    public URL getFileUrl(String fileId, String location) {
+        switch (location) {
+            case "China": {
+                return getFileStorageService(AliCloudFileStorageService.class.getSimpleName()).downloadFile(fileId);
+            }
+            case "US": {
+                return getFileStorageService("AWSFileStorageService").downloadFile(fileId);
+            }
+        }
+        return null;
+    }
+
+    private FileStorageService getFileStorageService(String name) {
+        if (this.fileStorageServices.containsKey(name)) {
+            return this.fileStorageServices.get(name);
+        } else {
+            return this.fileStorageServices.get(this.fileStorageServices.keySet().iterator().next());
+        }
     }
 }
