@@ -1,6 +1,7 @@
 package com.youthchina.dto.community;
 
 import com.youthchina.domain.jinhao.communityQA.BriefReview;
+import com.youthchina.domain.jinhao.communityQA.Comment;
 
 import java.sql.Timestamp;
 
@@ -11,6 +12,7 @@ public class BriefReviewDTO {
     private Integer user_id;
     private Integer rela_type;
     private Integer rela_id;
+    private Comment comment;
 
     public BriefReviewDTO (BriefReview briefReview){
         this.review_id = briefReview.getReview_id();

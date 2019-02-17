@@ -1,5 +1,7 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.dto.community.BriefReviewDTO;
+
 import java.sql.Timestamp;
 
 public class BriefReview {
@@ -8,6 +10,14 @@ public class BriefReview {
     private Timestamp review_time;
     private Integer is_delete;
     private Timestamp is_delete_time;
+
+    public BriefReview (BriefReviewDTO briefReviewDTO){
+        this.review_id = briefReviewDTO.getReview_id();
+        this.review_content = briefReviewDTO.getBody();
+        this.review_time = briefReviewDTO.getCreate_at();
+    }
+
+    public BriefReview(){}
 
     public Integer getReview_id() {
         return review_id;
