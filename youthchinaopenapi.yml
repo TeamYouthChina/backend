@@ -2026,4 +2026,3 @@ components:
             $ref: '#/components/schemas/Comment'
         author:
           $ref: '#/components/schemas/User'
-      
