@@ -1,7 +1,5 @@
 package com.youthchina.controller.tianjian;
 
-import com.youthchina.domain.jinhao.communityQA.Comment;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.tianjian.ComAuthorEssayMap;
 import com.youthchina.domain.tianjian.ComEssay;
@@ -27,7 +25,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("${web.url.prefix}/articles/**")
-public class EssayCotroller {
+public class EssayController {
 
     @Autowired
     EssayServiceImpl essayServiceimpl;
@@ -90,6 +88,8 @@ public class EssayCotroller {
     @PostMapping
     public ResponseEntity addEssay(@RequestBody RequestEssayDTO requestEssayDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = new ComEssay(requestEssayDTO);
+        Timestamp time = new Timestamp( System.currentTimeMillis());
+        comEssay.setEssay_pub_time(time);
         int rela_type = 1;
         if(requestEssayDTO.getCompany_id()!=null){
             rela_type = 2;

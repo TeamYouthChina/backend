@@ -12,9 +12,8 @@ public class BriefReview {
     private Timestamp is_delete_time;
 
     public BriefReview (BriefReviewDTO briefReviewDTO){
-        this.review_id = briefReviewDTO.getReview_id();
+        this.review_id = briefReviewDTO.getId();
         this.review_content = briefReviewDTO.getBody();
-        this.review_time = briefReviewDTO.getCreate_at();
     }
 
     public BriefReview(){}
