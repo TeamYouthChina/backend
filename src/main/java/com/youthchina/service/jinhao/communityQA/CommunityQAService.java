@@ -17,21 +17,17 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
     List<AnswerInvitation> listInvitationGot(Integer user_id) throws NotFoundException;
     List<Integer> listUsersInvitedByMeToQuestion(Integer user_id, Integer ques_id) throws NotFoundException;
+    Integer invitUserToAnswer(Integer invit_user_id, Integer ques_id, Integer invited_user_ids) throws NotFoundException;
     Integer invitUsersToAnswer(Integer invit_user_id, Integer ques_id,
                           List<Integer> invited_user_ids) throws NotFoundException;
     AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
     Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;
 
-
-
-
-    Integer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level);
+    QuestionAnswer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level);
     QuestionAnswer getAnswer(Integer answer_id) throws NotFoundException;
     QuestionAnswer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
     void deleteAnswer(Integer answer_id) throws NotFoundException;
     List<QuestionAnswer> listMyAnswers(Integer user_id) throws NotFoundException;
-
-
 
     Integer countAgreement(Integer answer_id);
     Integer countDisagreement(Integer answer_id);
@@ -40,9 +36,9 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
     Integer evaluateAnswer(Integer answer_id, AnswerEvaluate answerEvaluate) throws NotFoundException;
     List<QuestionAnswer> listMyAgreeAnswer(Integer user_id) throws NotFoundException;
 
-    List<AnswerComment> getAllAnswerComments(Integer answer_id) throws NotFoundException;
-    AnswerComment getComment(Integer comment_id) throws NotFoundException;
-    Integer addCommentToAnswer(Integer answer_id, AnswerComment answerComment, Integer comment_level)
+    List<Comment> getAllAnswerComments(Integer answer_id) throws NotFoundException;
+    Comment getComment(Integer comment_id) throws NotFoundException;
+    Integer addCommentToAnswer(Integer answer_id, Comment comment, Integer comment_level)
             throws NotFoundException;
     void deleteComment(Integer comment_id) throws NotFoundException;
 
@@ -63,7 +59,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
     Integer addVideo(Video video, Integer user_id, Integer rela_type, Integer rela_id);
     Video getVideo(Integer video_id) throws NotFoundException;
-    Integer deleteVideo(Video video) throws NotFoundException;
+    void deleteVideo(Integer video_id) throws NotFoundException;
     List<Video> listFirstTenVideos() throws NotFoundException;
     List<Video> listAllMyVideos(Integer user_id) throws NotFoundException;
 
@@ -88,7 +84,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
     boolean isAnswerBelongToQuestion(Integer answer_id, Integer ques_id);
     List<Question> searchQuestionByTitleOrCompanyName(String searchContent) throws NotFoundException;
-    List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent);
+
     List<Video> searchVideoByTitleOrCompanyName(String searchContent) throws NotFoundException;
-    List<Integer> getVideoIdByTitleOrCompanyName(String searchContent);
+
 }
