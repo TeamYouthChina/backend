@@ -35,10 +35,14 @@ public class Question implements HasId<Integer> {
         this.ques_invitation = questionDTO.getInvitation();
         this.user_anony = questionDTO.getAnonymous();
         this.ques_pub_time = questionDTO.getCreateAt();
+        this.ques_edit_time = questionDTO.getEditAt();
         this.rela_type = questionDTO.getRela_type();
         this.labelIds = questionDTO.getLabelIds();
-        for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
-            this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
+        this.ques_abbre = questionDTO.getAbbreviation();
+        if(questionDTO.getAnswers() != null) {
+            for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
+                this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
+            }
         }
     }
 

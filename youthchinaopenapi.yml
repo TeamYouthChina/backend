@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.1.4
+  version: 1.1.5
   title: YouthChina
   license:
     name: MIT
@@ -807,7 +807,7 @@ paths:
                     $ref: '#/components/schemas/Answer'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/questions/{questionid}/invite/{userId}':
+  '/questions/{questionId}/invite/{userId}':
     put:
       tags:
         - Question
@@ -849,19 +849,19 @@ paths:
       responses:
         '201':
           description: invitation send successfully.
-  '/questions/{id}/upvote':
-    put:
-      tags:
-        - Question
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-      responses:
-        '201':
-          description: attention successfullly
+  # '/questions/{id}/upvote':
+  #   put:
+  #     tags:
+  #       - Question
+  #     parameters:
+  #       - name: id
+  #         required: true
+  #         in: path
+  #         schema:
+  #           type: integer
+  #     responses:
+  #       '201':
+  #         description: attention successfullly
   '/questions/{id}/attention':
     put:
       tags:
@@ -941,6 +941,12 @@ paths:
     post:
       tags:
         - Answer
+      parameters:
+        - name: id
+          in: path
+          schema:
+           type: integer
+          required: true
       requestBody:
         content:
           application/json:
@@ -1100,6 +1106,7 @@ paths:
           in: path
           schema:
             type: integer
+          required: true
       responses:
         '200':
           description: successful
@@ -1117,6 +1124,7 @@ paths:
         - Article
       parameters:
         - name: id
+          required: true
           in: path
           schema:
             type: integer
@@ -1145,6 +1153,7 @@ paths:
           in: path
           schema:
             type: integer
+          required: true
       responses:
         '204':
           description: delete successfully
@@ -1176,6 +1185,12 @@ paths:
     post:
       tags:
       - Article
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
       requestBody:
         content:
           application/json:
@@ -1311,9 +1326,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#components/schemas/Video'
+                    $ref: '#/components/schemas/Video'
                   status:
-                    $ref: '#components/schemas/Status'
+                    $ref: '#/components/schemas/Status'
     delete:
       tags:
         - Video
@@ -1346,9 +1361,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#components/schemas/Video'
+                    $ref: '#/components/schemas/Video'
                   status:
-                    $ref: '#components/schemas/Status'
+                    $ref: '#/components/schemas/Status'
   '/videos/{id}/comments':
     post:
       tags:
@@ -1358,6 +1373,7 @@ paths:
           schema:
             type: integer
           in: path
+          required: true
           description: video id
       requestBody:
         content:
@@ -1376,6 +1392,7 @@ paths:
           schema:
             type: integer
           in: path
+          required: true
           description: video id
       responses:
         '200':
@@ -1389,6 +1406,7 @@ paths:
           schema:
             type: integer
           in: path
+          required: true
           description: video id
       responses:
         '200':
@@ -1413,9 +1431,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#components/schemas/Editorial'
+                    $ref: '#/components/schemas/Editorial'
                   status:
-                    $ref: '#components/schemas/Status'
+                    $ref: '#/components/schemas/Status'
     delete:
       tags:
         - Editorials
@@ -1428,6 +1446,33 @@ paths:
       responses:
         '204':
           description: successful
+    put:
+      tags:
+        - Editorials
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentRequestWithCompany'
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Editorial'
+                  status:
+                    $ref: '#/components/schemas/Status'
+                
   '/editorials':
     post:
       tags:
@@ -1436,7 +1481,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#components/schemas/ContentRequest'
+              $ref: '#/components/schemas/ContentRequest'
       responses:
         '201':
           description: successful
@@ -1446,9 +1491,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#components/schemas/Editorial'
+                    $ref: '#/components/schemas/Editorial'
                   status:
-                    $ref: '#components/schemas/Status'
+                    $ref: '#/components/schemas/Status'
   '/editorials/{id}/comments':
     post:
       tags:
@@ -1458,6 +1503,7 @@ paths:
           schema:
             type: integer
           in: path
+          required: true
           description: editorials id
       requestBody:
         content:
@@ -1476,10 +1522,11 @@ paths:
           schema:
             type: integer
           in: path
+          required: true
           description: editorials id
       responses:
         '200':
-          description: successful 
+          description: successful
   '/editorials/{id}/attention':
     put:
       tags:
@@ -1489,6 +1536,7 @@ paths:
           schema:
             type: integer
           in: path
+          required: true
           description: editorials id
       responses:
         '200':
@@ -1768,6 +1816,11 @@ components:
           type: boolean
         currentCompanyId:
           type: integer
+        skills:
+          type: array
+          items: 
+            type:
+              string
         educations:
           type: array
           items:
@@ -2026,4 +2079,9 @@ components:
             $ref: '#/components/schemas/Comment'
         author:
           $ref: '#/components/schemas/User'
-      
+    ContentRequestWithCompany:
+      allOf:
+        - $ref: '#/components/schemas/ContentRequest'
+        - properties:
+            company_id:
+              type: integer
