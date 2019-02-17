@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.1.6
+  version: 1.1.7
   title: YouthChina
   license:
     name: MIT
@@ -1015,41 +1015,6 @@ paths:
                     $ref: '#/components/schemas/Applicant'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/comments/{id}':
-    get:
-      tags:
-        - Comment
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    $ref: '#/components/schemas/Comment'
-                  status:
-                    $ref: '#/components/schemas/Status'
-  '/comments/{id}/upvote':
-    put:
-      tags:
-        - Comment
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-      responses:
-        '201':
-          description: success
   '/me':
     get:
       tags:
@@ -1263,7 +1228,7 @@ paths:
                   type: string
                   description: company name
                 location:
-                  type: string
+                  $ref: '#/components/schemas/Location'
                   description: company location
                 nation:
                   type: string
@@ -1587,7 +1552,7 @@ components:
         activate:
           type: boolean
         location:
-          type: string
+         $ref: '#/components/schemas/Location'
         industry:
           type: array
           items:
@@ -1612,7 +1577,7 @@ components:
         organization:
           $ref: '#/components/schemas/Organization'
         location:
-          type: integer
+          $ref: '#/components/schemas/Location'
         type:
           type: string
           enum:
@@ -1632,7 +1597,7 @@ components:
           type: string
           pattern: '(http|https)://(.?)*'
         location:
-          type: string
+          $ref: '#/components/schemas/Location'
         website:
           type: string
           pattern: '(http|https)://(.?)*'
@@ -1722,7 +1687,7 @@ components:
         duration:
           $ref: '#/components/schemas/Duration'
         location:
-          type: string
+          $ref: '#/components/schemas/Location'
         note:
           type: string
     WorkExperienceInfo:
@@ -1740,7 +1705,7 @@ components:
         duration:
           $ref: '#/components/schemas/Duration'
         location:
-          type: string
+          $ref: '#/components/schemas/Location'
         note:
           type: string
     Certification:
@@ -1775,7 +1740,7 @@ components:
         duration:
           $ref: '#/components/schemas/Duration'
         location:
-          type: string
+          $ref: '#/components/schemas/Location'
         note:
           type: string
     Project:
@@ -2094,3 +2059,13 @@ components:
         - properties:
             company_id:
               type: integer
+    Location:
+      type: object
+      required:
+        - nation_code
+        - location_code
+      properties:
+        nation_code:
+          type: string
+        location_code:
+          type: string
