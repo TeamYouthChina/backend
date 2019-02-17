@@ -18,6 +18,8 @@ public class Comment {
     private List<CommentDiscuss> commentDiscusses;
     private List<CommentEvaluate> commentEvaluates;
 
+
+
     public List<CommentDiscuss> getCommentDiscusses() {
         return commentDiscusses;
     }
