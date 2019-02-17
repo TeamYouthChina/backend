@@ -23,6 +23,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -95,8 +96,6 @@ public class StudentMapperTest {
     public void testAddApply(){
         JobApply jobApply=new JobApply();
         jobApply.setJob_cv_send(1);
-        Timestamp d = new Timestamp(System.currentTimeMillis());
-        jobApply.setJob_apply_time(d);
         jobApply.setJob_apply_status("success");
         jobApply.setStu_id(1);
         jobApply.setJob_id(1);
@@ -105,7 +104,7 @@ public class StudentMapperTest {
         if(key!=0){
             System.out.print("测试成功");
         }
-        System.out.print(applicantMapper.getJobApplies(1).get(0).getJob_cv_send());
+        System.out.print(applicantMapper.getJobApplies(1).get(0).getJob_apply_time());
 
 
 
@@ -151,7 +150,7 @@ public class StudentMapperTest {
     public void testGetJobCollect(){
         List<JobCollect> jobCollects=applicantMapper.getJobCollects(1);
         Assert.assertNotNull(jobCollects);
-        System.out.print(jobCollects.get(0).getJob_id());
+        System.out.print(jobCollects.get(0).getJob().getCvReceiMail());
 
     }
 
@@ -165,23 +164,17 @@ public class StudentMapperTest {
     @Test
     public void testGetOneJobCollect(){
         JobCollect jobCollect=applicantMapper.getOneJobCollect(1);
-        System.out.print(jobCollect.getJob_id());
         Assert.assertNotNull(jobCollect);
         System.out.print(jobCollect.getJob_id());
     }
 
     @Test
-    @Rollback
     public void testAddJobCollect(){
         JobCollect jobCollect=new JobCollect();
         jobCollect.setJob_id(1);
         jobCollect.setStu_id(1);
-        jobCollect.setIs_delete(1);
-        Timestamp d = new Timestamp(System.currentTimeMillis());
-        jobCollect.setJob_coll_time(d);
-        jobCollect.setIs_delete_time(d);
+        jobCollect.setIs_delete(0);
         Integer integer=applicantMapper.addJobCollect(jobCollect);
-        JobCollect jobCollect1=applicantMapper.getOneJobCollect(1);
         if (integer!=0){
             System.out.print(integer);
         }

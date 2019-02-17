@@ -13,13 +13,13 @@ public class LocalFileManage {
     @Autowired
     FileNameGenerate fileNameGenerate;
 
-    public LocalFileManage(@Value("${localfilemanage.localfilepath}")String localfilePath){
-        this.localfilePath = localfilePath;
-        File file = new File(localfilePath);
-        if(!file.exists()){
-            file.mkdir();
-        }
-    }
+//    public LocalFileManage(@Value("${localfilemanage.localfilepath}")String localfilePath){
+//        this.localfilePath = localfilePath;
+//        File file = new File(localfilePath);
+//        if(!file.exists()){
+//            file.mkdir();
+//        }
+//    }
 
     public String uploadFileToLocal(File inFile,String format){
         String localFileName = fileNameGenerate.generateFileName();

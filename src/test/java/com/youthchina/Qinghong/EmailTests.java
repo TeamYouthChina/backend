@@ -90,7 +90,7 @@ public class EmailTests {
         user.setUsername("wqh");
         user.setEmail("111");
         valueMap.put("to", "hmgswqh@gmail.com");
-        valueMap.put("object", "申请账户邮件");
+        valueMap.put("subject", "申请账户邮件");
         valueMap.put("email", "hmgswqh@gmail.com");
         valueMap.put("User",user);
         mailService.sendUserRegisterEmail(valueMap);

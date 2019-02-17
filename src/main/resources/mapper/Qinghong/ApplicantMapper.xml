@@ -287,7 +287,7 @@
         insert into STU_JOB_APPLY
                 (JOB_CV_SEND,JOB_APPLY_TIME,JOB_APPLY_STATUS,STU_ID,JOB_ID)
         values
-               (#{job_cv_send},#{job_apply_time},#{job_apply_status},#{stu_id},#{job_id})
+               (#{job_cv_send},NOW(),#{job_apply_status},#{stu_id},#{job_id})
     </insert>
 
 
@@ -316,11 +316,18 @@
     </select>
 
     <!--添加一个职位收藏-->
-    <insert id="addJobCollect" parameterType="com.youthchina.domain.Qinghong.JobCollect" useGeneratedKeys="true" keyProperty="coleect_id">
+    <insert id="addJobCollect" parameterType="com.youthchina.domain.Qinghong.JobCollect" useGeneratedKeys="true" keyProperty="collect_id">
         INSERT INTO STU_JOB_COLLECT
         (JOB_ID,JOB_COLL_TIME,STU_ID,IS_DELETE,IS_DELETE_TIME)
         VALUES
-        (#{job_id},#{job_coll_time},#{stu_id},#{is_delete},#{is_delete_time})
+        (#{job_id},NOW(),#{stu_id},#{is_delete},#{is_delete_time})
+    </insert>
+
+    <insert id="addCompCollect" parameterType="com.youthchina.domain.Qinghong.CompCollect" useGeneratedKeys="true" keyProperty="collect_id">
+        INSERT INTO STU_COMP_COLLECT
+        (COMPANY_ID,COMPANY_COLL_TIME,STU_ID,IS_DELETE,IS_DELETE_TIME)
+        VALUES
+        (#{company_id},NOW(),#{stu_id},#{is_delete},#{is_delete_time})
     </insert>
 
 
@@ -404,15 +411,15 @@
     <!--删除职位收藏-->
     <update id="deleteJobCollect">
         update STU_JOB_COLLECT set
-                                   IS_DELETE=1
+                                   IS_DELETE=1,IS_DELETE_TIME=NOW()
         WHERE COLLECT_ID=#{collect_id}
     </update>
 
 
     <!--删除公司收藏-->
     <update id="deleteCompCollect">
-        update STU_JOB_COLLECT set
-                                   IS_DELETE=1
+        update STU_COMP_COLLECT set
+                                   IS_DELETE=1, IS_DELETE_TIME=NOW()
         WHERE COLLECT_ID=#{collect_id}
     </update>
 

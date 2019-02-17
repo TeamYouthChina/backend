@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -119,7 +120,7 @@ public class MailServiceImpl implements MailService {
             MimeMessageHelper helper=new MimeMessageHelper(mimeMessage,true);
             helper.setFrom(from);
             helper.setTo(valueMap.get("to").toString());
-            helper.setSubject(valueMap.get("object").toString());
+            helper.setSubject(valueMap.get("subject").toString());
             Context context=new Context();
             context.setVariables(valueMap);
             String content=templateEngine.process("registerEmail",context);
@@ -130,6 +131,25 @@ public class MailServiceImpl implements MailService {
             logger.error("发送邮件异常");
         }
 
+    }
+
+    @Override
+    public void sendResumeEmail(Map<String, Object> valueMap, MultipartFile file) {
+        MimeMessage message=javaMailSender.createMimeMessage();
+        try{
+            MimeMessageHelper helper=new MimeMessageHelper(message,true);
+            helper.setFrom(from);
+            helper.setTo(valueMap.get("to").toString());
+            helper.setSubject(valueMap.get("subject").toString());
+            helper.setText("hi",true);
+            String fileName=file.getName();
+            helper.addAttachment(fileName,file);
+            logger.info("带附件的邮件已发送");
+            javaMailSender.send(message);
+        }catch(MessagingException e){
+            logger.error("发送带附件的邮件时发送异常",e);
+
+        }
     }
 }
 

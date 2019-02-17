@@ -27,4 +27,5 @@ public interface ApplicantMapper {
     Integer deleteJobCollect(Integer collect_id);
     Integer deleteCompCollect(Integer collect_id);
     BaseInfo getBaseInfo(Integer user_id);
+    Integer addCompCollect(CompCollect compCollect);
 }

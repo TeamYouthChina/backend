@@ -3,6 +3,7 @@ package com.youthchina.Qinghong;
 import com.youthchina.dao.Qinghong.ApplicantMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.*;
+import com.youthchina.domain.jinhao.communityQA.StuInfo;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.Qinghong.StudentService;
@@ -91,11 +92,14 @@ public class CandidateTest {
     @Test
     public void addJobApply() throws NotFoundException {
         Job job = new Job();
-        Mockito.when(applicantMapper.getJob(0)).thenReturn(job);
+        JobApply jobApply=new JobApply();
+        Mockito.when(jobMapper.selectJobByJobId(0)).thenReturn(job);
         job.setJobEndTime(new Date(2019, 12, 30));
-        JobApply jobApply = new JobApply();
         Mockito.when(applicantMapper.addApply(jobApply)).thenReturn(0);
-        if (studentService.jobApply(0, 0) == 0) {
+        Student student=new Student();
+        student.setStu_id(0);
+        Mockito.when(applicantMapper.getStudentInfo(0)).thenReturn(student);
+        if (studentService.jobApply(0,0) ==0) {
             System.out.print("测试成功");
         } else {
             System.out.print("测试失败");

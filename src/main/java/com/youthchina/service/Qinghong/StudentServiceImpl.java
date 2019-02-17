@@ -5,8 +5,10 @@ import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -180,10 +182,8 @@ public class StudentServiceImpl implements StudentService {
      * @Author: Qinghong Wang
      * @Date: 2018/12/19
      */
-    public Integer jobApply(Integer job_id, Integer user_id) throws NotFoundException {
-        Job job = applicantMapper.getJob(job_id);
-        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
-
+    public Integer jobApply(Integer job_id,Integer user_id) throws NotFoundException {
+        Job job = jobMapper.selectJobByJobId(job_id);
         if (job == null) {
             throw new NotFoundException(404, 404, "不能找到该job_id下的职位信息");
         } else {
@@ -191,10 +191,11 @@ public class StudentServiceImpl implements StudentService {
             if (time.before(new Date())) {
                 throw new NotFoundException(404, 404, "不能申请该职位因为申请时间已过");
             } else {
-                JobApply jobApply = new JobApply();
-                jobApply.setJob_id(job.getJobId());
-                jobApply.setStu_id(baseInfo.getStu_id());
+                JobApply jobApply=new JobApply();
+                jobApply.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
+                jobApply.setJob_id(job_id);
                 jobApply.setJob_cv_send(1);
+                jobApply.setJob_apply_status("已申请");
                 Integer integer=applicantMapper.addApply(jobApply);
                 return integer;
             }
@@ -269,14 +270,12 @@ public class StudentServiceImpl implements StudentService {
                 throw new NotFoundException(404,404,"不能收藏该职位，因为已经收藏");
             }else{
                 Job job=jobMapper.selectJobByJobId(job_id);
-                if(job.getIsDelete()==1){
+                if(job==null){
                     throw new NotFoundException(404,404,"不能收藏该职位，因为该职位已经被删除");
                 }else {
                     JobCollect jobCollect1=new JobCollect();
                     jobCollect1.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
                     jobCollect1.setJob_id(job_id);
-                    Timestamp d = new Timestamp(System.currentTimeMillis());
-                    jobCollect1.setJob_coll_time(d);
                     jobCollect1.setIs_delete(0);
                     Integer integer=applicantMapper.addJobCollect(jobCollect1);
                     return integer;
@@ -295,11 +294,62 @@ public class StudentServiceImpl implements StudentService {
      * @Date: 2018/12/21
      */
 
+
     public Integer deleteCollect(Integer id) throws NotFoundException {
         Integer num1 = applicantMapper.deleteJobCollect(id);
         Integer num2 = applicantMapper.deleteCompCollect(id);
         if (num1 == 0 && num2 == 0) {
             throw new NotFoundException(404, 404, "没有删除任何一条收藏信息");
         } else return num1 + num2;
+    }
+    /**
+    * @Description: 通过collect_id删除职位收藏
+    * @Param: [id]
+    * @return: java.lang.Integer
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/16
+    */
+
+    public Integer deleteJobCollect(Integer id) throws NotFoundException{
+        Integer num=applicantMapper.deleteJobCollect(id);
+        return num;
+    }
+    
+    /** 
+    * @Description: 通过collect_id删除公司收藏
+    * @Param: [id] 
+    * @return: java.lang.Integer 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/2/16 
+    */
+
+    @Override
+    public Integer deleteCompCollect(Integer id) throws NotFoundException {
+        Integer num=applicantMapper.deleteCompCollect(id);
+        return num;
+    }
+
+    /** 
+    * @Description: 通过company_id和user_id添加公司收藏信息
+    * @Param: [company_id, user_id] 
+    * @return: java.lang.Integer 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/2/16 
+    */
+
+    @Override
+    public Integer addCompCollect(Integer company_id, Integer user_id) throws NotFoundException {
+        UserInfo userInfo=applicantMapper.getUserInfo(user_id);
+        if(userInfo==null){
+            throw new  NotFoundException(404,404,"不能找到该user_id");
+        }else {
+            CompCollect compCollect=new CompCollect();
+            compCollect.setCompany_id(company_id);
+            compCollect.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
+            compCollect.setIs_delete(0);
+            Integer integer=applicantMapper.addCompCollect(compCollect);
+            return integer;
+        }
+
     }
 }
