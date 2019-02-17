@@ -174,6 +174,35 @@ public class StudentServiceImpl implements StudentService {
         }
 
     }
+    /**
+    * @Description: 传入一个student对象，对学生的信息进行添加
+    * @Param: [student]
+    * @return: java.lang.Integer
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/17
+    */
+
+    @Override
+    public Integer addStudentInfo(Student student) throws NotFoundException {
+        applicantMapper.insertStuInfo(student);
+        for(EducationInfo educationInfo:student.getEducationInfos()){
+            applicantMapper.insertEduInfo(educationInfo);
+        }
+        applicantMapper.insertSubInfo(student.getSubInfo());
+        for(Project project:student.getProjects()){
+            applicantMapper.insertStuProject(project);
+        }
+        for(Work work:student.getWorks()){
+            applicantMapper.insertStuWork(work);
+        }
+        for (Activity activity:student.getActivities()){
+            applicantMapper.insertStuActivity(activity);
+        }
+        for(Certificate certificate:student.getCertificates()){
+            applicantMapper.insertStuCertificate(certificate);
+        }
+        return 0;
+    }
 
     /**
      * @Description: 通过job_id和user_id来将申请的职位信息加入申请表中
@@ -352,4 +381,6 @@ public class StudentServiceImpl implements StudentService {
         }
 
     }
+
+
 }

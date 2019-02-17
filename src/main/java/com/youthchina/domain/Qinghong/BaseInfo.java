@@ -4,18 +4,18 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class BaseInfo {
-    private int stu_id;
+    private Integer stu_id;
     private String stu_in_job;
     private String stu_in_job_comp;
     private Integer user_id;
     private Integer is_delete;
     private Timestamp is_delete_Time;
 
-    public int getStu_id() {
+    public Integer getStu_id() {
         return stu_id;
     }
 
-    public void setStu_id(int stu_id) {
+    public void setStu_id(Integer stu_id) {
         this.stu_id = stu_id;
     }
 

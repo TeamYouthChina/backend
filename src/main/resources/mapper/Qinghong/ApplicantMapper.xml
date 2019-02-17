@@ -422,5 +422,102 @@
                                    IS_DELETE=1, IS_DELETE_TIME=NOW()
         WHERE COLLECT_ID=#{collect_id}
     </update>
+    
+    <insert id="insertStuInfo" parameterType="com.youthchina.domain.Qinghong.BaseInfo" useGeneratedKeys="true" keyProperty="STU_ID">
+        INSERT INTO STU_INFO
+        (
+        STU_IN_JOB,STU_IN_JOB_COMP,USER_ID,IS_DELETE,IS_DELETE_TIME
+
+        )
+        VALUES (
+        #{isInJob},#{currentCompanyName},#{id},0,NULL
+
+        )
+
+    </insert>
+
+    <insert id="insertEduInfo" parameterType="com.youthchina.domain.Qinghong.EducationInfo" useGeneratedKeys="true" keyProperty="EDU_ID">
+        INSERT INTO STU_EDU_INFO
+        (
+        EDU_DEGREE,EDU_SCHOOL,EDU_SCHOOL_COUNTRY,EDU_SCHOOL_LOCATION,EDU_MAJOR,EDU_COLLEGE,
+        EDU_GPA,EDU_START,EDU_END,STU_ID,IS_DELETE,IS_DELETE_TIME
+
+        )
+        VALUES (
+       #{edu_degree},#{edu_school},#{edu_school_country},#{location.region_num},#{edu_major},
+       #{edu_college},#{edu_gpa},#{edu_start},#{edu_end},#{stu_id},#{is_delete},#{is_delete_time}
+        )
+    </insert>
+
+    <insert id="insertSubInfo" parameterType="com.youthchina.domain.Qinghong.SubInfo" useGeneratedKeys="true" keyProperty="SUB_ID">
+        INSERT INTO STU_SUB_INFO
+        (
+        SUB_COURSE, SUB_HONOR,  SUB_AWARD,  SUB_SKILL,  SUB_FOREIGN,  SUB_INTEREST, SUB_INTRODUCTION,
+        STU_ID,IS_DELETE,IS_DELETE_TIME
+
+        )
+        VALUES (
+       #{sub_course},#{sub_honor},#{sub_award},#{sub_skill},#{sub_foreign},#{sub_interest},#{sub_introduction},
+       #{stu_id},#{is_delete},#{is_delete_time}
+
+        )
+    </insert>
+
+    <insert id="insertStuCertificate" parameterType="com.youthchina.domain.Qinghong.Certificate" useGeneratedKeys="true" keyProperty="CERTIFICATE_ID">
+        INSERT INTO STU_CERTIFICATE
+        (
+        CERTIFICATE_NAME,CERTIFICATE_INSTI,CERTIFICATE_GRANT_DATE,CERTIFICATE_EXPIR_DATE,CERTIFICATE_URL,
+        STU_ID,IS_DELETE,IS_DELETE_TIME
+
+        )
+        VALUES (
+       #{certificate_name},#{certificate_insti},#{certificate_grant_date},#{certificate_expir_date},#{certificate_url},
+       #{stu_id},#{is_delete},#{is_delete_time}
+
+        )
+    </insert>
+
+    <insert id="insertStuProject" parameterType="com.youthchina.domain.Qinghong.Project" useGeneratedKeys="true" keyProperty="PROJ_ID">
+        INSERT INTO STU_PROJECT
+        (
+        PROJ_NAME,PROJ_ROLE,PROJ_START_TIME,PROJ_END_TIME,PROJ_DELIVER,DELIVER_PUBLISH,DELIVER_PUB_INSTI,
+        STU_ID,IS_DELETE,IS_DELETE_TIME
+
+        )
+        VALUES (
+       #{proj_name},#{proj_role},#{proj_start_time},#{proj_end_time},#{proj_deliver},#{deliver_publish},
+       #{deliver_pub_insti},#{stu_id},#{is_delete},#{is_delete_time}
+
+        )
+    </insert>
+    <insert id="insertStuWork" parameterType="com.youthchina.domain.Qinghong.Work" useGeneratedKeys="true" keyProperty="WORK_ID">
+        INSERT INTO STU_WORK
+        (
+        WORK_COMPANY,WORK_LOCATION,WORK_POSITION,WORK_SECTOR,WORK_START_TIME,WORK_END_TIME,WORK_DUTY,
+        WORK_NATURE,STU_ID,IS_DELETE,IS_DELETE_TIME
+        )
+        VALUES (
+       #{work_company},#{location.region_num},#{work_position},#{work_sector},#{work_start_time},
+       #{work_end_time},#{work_duty},#{work_nature},#{stu_id},#{is_delete},#{is_delete_time}
+
+        )
+    </insert>
+
+    <insert id="insertStuActivity" parameterType="com.youthchina.domain.Qinghong.Activity" useGeneratedKeys="true" keyProperty="ACT_ID">
+        INSERT INTO STU_ACTIVITY
+        (
+        ACT_NAME,ACT_ORGANIZATION,ACT_ROLE,ACT_START_TIME,ACT_END_TIME,ACT_DETAIL,STU_ID,
+        IS_DELETE,IS_DELETE_TIME
+        )
+        VALUES (
+       #{act_name},#{act_organization},#{act_role},#{act_start_time},#{act_end_time},
+       #{act_detail},#{stu_id},#{is_delete},#{is_delete_time}
+
+        )
+    </insert>
+
+
+    
+
 
 </mapper>

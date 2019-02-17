@@ -183,6 +183,119 @@ public class StudentMapperTest {
 
     }
 
+    @Test
+    public void testAddStuInfo(){
+        Student student=new Student();
+        student.setCurrentCompanyName("google");
+        student.setIsInJob("是");
+        student.setId(1);
+
+        Integer integer=applicantMapper.insertStuInfo(student);
+        if(integer!=0){
+            System.out.print(integer);
+        }
+
+    }
+
+    @Test
+    public void testAddEduInfo(){
+        EducationInfo educationInfo=new EducationInfo();
+        Location location=new Location();
+        educationInfo.setLocation(location);
+        educationInfo.setEdu_degree(1);
+        educationInfo.setEdu_school("gwu");
+        educationInfo.setEdu_school_country("USA");
+        educationInfo.getLocation().setRegion_num(1);
+        educationInfo.setEdu_major("计算机");
+        educationInfo.setEdu_college("cssa");
+        educationInfo.setEdu_gpa((float)3.3);
+        educationInfo.setEdu_start(new Date());
+        educationInfo.setEdu_end(new Date());
+        educationInfo.setStu_id(1);
+        educationInfo.setIs_delete(0);
+        Integer integer=applicantMapper.insertEduInfo(educationInfo);
+        if(integer!=0){
+            System.out.print(integer);
+        }
+
+    }
+
+
+    @Test
+    public void testAddSubCertificate(){
+        Certificate certificate=new Certificate();
+        certificate.setCertificate_name("计算机证书");
+        certificate.setCertificate_insti("sa");
+        certificate.setCertificate_grant_date(new java.sql.Date(1));
+        certificate.setCertificate_expir_date(new java.sql.Date(1));
+        certificate.setStu_id(1);
+        certificate.setCertificate_url("11");
+
+        Integer integer=applicantMapper.insertStuCertificate(certificate);
+        if(integer!=0){
+            System.out.print(integer);
+        }
+
+    }
+
+    @Test
+    public void testAddStuProject(){
+        Project project=new Project();
+        project.setProj_name("1");
+        project.setProj_role("1");
+        project.setProj_start_time(new Date());
+        project.setProj_end_time(new Date());
+        project.setProj_deliver("1");
+        project.setDeliver_publish(1);
+        project.setDeliver_pub_insti("1");
+        project.setStu_id(1);
+        project.setIs_delete(0);
+        Integer integer=applicantMapper.insertStuProject(project);
+        if(integer!=0){
+            System.out.print(integer);
+        }
+
+    }
+    @Test
+    public void testAddStuWork(){
+        Work work=new Work();
+        Location location=new Location();
+        work.setWork_company("1");
+        work.setLocation(location);
+        work.getLocation().setRegion_num(1);
+        work.setWork_position("1");
+        work.setWork_sector("1");
+        work.setWork_start_time(new Date());
+        work.setWork_end_time(new Date());
+        work.setWork_duty("1");
+        work.setWork_nature(1);
+        work.setStu_id(1);
+        work.setIs_delete(0);
+        Integer integer=applicantMapper.insertStuWork(work);
+        if(integer!=0){
+            System.out.print(integer);
+        }
+
+    }
+
+    @Test
+    public void testAddStuActivity(){
+        Activity activity=new Activity();
+        activity.setAct_name("1");
+        activity.setAct_organization("1");
+        activity.setAct_role("1");
+        activity.setAct_start_time(new Date());
+        activity.setAct_end_time(new Date());
+        activity.setAct_detail("1");
+        activity.setStu_id(1);
+        activity.setIs_delete(0);
+        Integer integer=applicantMapper.insertStuActivity(activity);
+        if(integer!=0){
+            System.out.print(integer);
+        }
+
+    }
+
 
 
 }

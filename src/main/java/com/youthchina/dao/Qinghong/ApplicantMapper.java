@@ -28,4 +28,12 @@ public interface ApplicantMapper {
     Integer deleteCompCollect(Integer collect_id);
     BaseInfo getBaseInfo(Integer user_id);
     Integer addCompCollect(CompCollect compCollect);
+    Integer insertStuInfo(Student student);
+    Integer insertEduInfo(EducationInfo educationInfo);
+    Integer insertSubInfo(SubInfo subInfo);
+    Integer insertStuCertificate(Certificate certificate);
+    Integer insertStuProject(Project project);
+    Integer insertStuWork(Work work);
+    Integer insertStuActivity(Activity activity);
+
 }
