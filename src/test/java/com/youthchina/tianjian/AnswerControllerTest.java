@@ -101,7 +101,7 @@ public class AnswerControllerTest {
         java.lang.String addJson = ow.writeValueAsString(simpleAnswerDTO);
 
         this.mvc.perform(
-                delete(this.urlPrefix + "/answers/1/comments")
+                post(this.urlPrefix + "/answers/1/comments")
                         .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(addJson)
@@ -112,7 +112,7 @@ public class AnswerControllerTest {
     @Test
     public void testAddUpvote() throws Exception{
         this.mvc.perform(
-                delete(this.urlPrefix + "/answers/1/upvote")
+                post(this.urlPrefix + "/answers/1/upvote")
                         .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
