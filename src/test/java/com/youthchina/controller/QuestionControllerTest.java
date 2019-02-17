@@ -100,7 +100,7 @@ public class QuestionControllerTest {
     @Test
     public void getQuestionTest() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/questions/1").param("Id", "1")
+                get(this.urlPrefix + "/questions/1")
                         .with(authGenerator.authentication())
 
         )
@@ -124,13 +124,13 @@ public class QuestionControllerTest {
     @Test
     public void deleteQuestionTest() throws Exception {
         this.mvc.perform(
-                delete(this.urlPrefix + "/questions/1").param("Id", "1")
+                delete(this.urlPrefix + "/questions/1")
                         .with(authGenerator.authentication())
 
         );
 
         this.mvc.perform(
-                get(this.urlPrefix + "/questions/1").param("Id", "1")
+                get(this.urlPrefix + "/questions/1")
                         .with(authGenerator.authentication())
 
         )
@@ -159,13 +159,13 @@ public class QuestionControllerTest {
 
         this.mvc.perform(
 
-                put(this.urlPrefix + "/questions/2").param("Id", "2").contentType(MediaType.APPLICATION_JSON_UTF8)
+                put(this.urlPrefix + "/questions/2").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
                         .with(authGenerator.authentication())
         );
 
         this.mvc.perform(
-                get(this.urlPrefix + "/questions/2").param("Id", "2")
+                get(this.urlPrefix + "/questions/2")
                         .with(authGenerator.authentication())
 
         )
@@ -177,7 +177,7 @@ public class QuestionControllerTest {
     @Test
     public void getAnswerTest() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/questions/2/answers").param("Id", "2")
+                get(this.urlPrefix + "/questions/2/answers")
                         .with(authGenerator.authentication())
 
         )
@@ -190,7 +190,19 @@ public class QuestionControllerTest {
     @Test
     public void sendInviteTest() throws Exception {
         this.mvc.perform(
-                post(this.urlPrefix + "/questions/2/invite/2").param("questionId","2").param("userId","2")
+                post(this.urlPrefix + "/questions/2/invite/2")
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print());
+//                .andExpect(content().json("{\"content\":[{\"ques_id\":4,\"ques_title\":\"第四个问题\",\"ques_abbre\":\"第四个问题的描述\",\"ques_body\":\"第四个问题的正文\",\"ques_pub_time\":\"2018-12-06T14:32:40.000+0000\",\"ques_edit_time\":\"2018-12-06T14:32:40.000+0000\",\"is_delete\":0,\"is_delete_time\":\"2018-12-06T14:32:40.000+0000\",\"user_anony\":null,\"ques_user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":null,\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"questionAttentions\":[],\"questionAnswers\":[],\"labels\":[],\"ques_invitation\":null,\"labelIds\":null,\"rela_type\":null,\"rela_id\":null,\"id\":4},{\"ques_id\":10,\"ques_title\":\"第十个问题\",\"ques_abbre\":\"第十个问题的描述\",\"ques_body\":\"第十个问题的正文\",\"ques_pub_time\":\"2018-12-06T13:32:40.000+0000\",\"ques_edit_time\":\"2018-12-06T13:32:40.000+0000\",\"is_delete\":0,\"is_delete_time\":\"2018-12-06T13:32:40.000+0000\",\"user_anony\":null,\"ques_user\":{\"id\":2,\"username\":\"zhid d\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":null,\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"questionAttentions\":[],\"questionAnswers\":[],\"labels\":[],\"ques_invitation\":null,\"labelIds\":null,\"rela_type\":null,\"rela_id\":null,\"id\":10}],\"status\":{\"code\":2000,\"reason\":\"\"}}\n", false));
+
+    }
+
+    @Test
+    public void followUpTest() throws Exception {
+        this.mvc.perform(
+                post(this.urlPrefix + "/questions/2/follow")
                         .with(authGenerator.authentication())
 
         )

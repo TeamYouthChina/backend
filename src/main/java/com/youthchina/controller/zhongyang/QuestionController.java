@@ -100,7 +100,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @PostMapping("/{questionId}/invite/{userId}")
-    public ResponseEntity<?> sendInvite(@RequestParam Integer questionId, Integer userId,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> sendInvite(@PathVariable Integer questionId, Integer userId,@AuthenticationPrincipal User user) throws NotFoundException {
         List<Integer> list = new ArrayList<>();
         list.add(userId);
         communityQAService.invitUsersToAnswer(user.getId(), questionId, list);
