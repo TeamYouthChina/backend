@@ -1,0 +1,26 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: youthchina-mysql
+    networks:
+      backend:
+        ipv4_address: 172.28.1.1
+    ports:
+      - 3306:3306
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+    environment:
+      MYSQL_DATABASE: youthchina
+      MYSQL_PASSWORD: dbpass
+      MYSQL_USER: dbuser
+      MYSQL_ROOT_PASSWORD: rootpass
+networks:
+  backend:
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+volumes:
+  dbdata:
+

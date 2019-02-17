@@ -1,4 +1,4 @@
-package com.youthchina.controller.zhongyang;
+package com.youthchina.exceptionhandler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
