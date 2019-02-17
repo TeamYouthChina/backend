@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.1.5
+  version: 1.1.6
   title: YouthChina
   license:
     name: MIT
@@ -1984,10 +1984,13 @@ components:
     RichText:
       type: object
       required:
-        - richtext
+        - braftEditorRaw
+        - previewText
         - resourceList
       properties:
-        richtext:
+        braftEditorRaw:
+          type: object
+        previewText:
           type: object
         resourceList:
           type: array
@@ -2029,6 +2032,9 @@ components:
           $ref: '#/components/schemas/RichText'
         company_id:
           type: integer
+        is_anonymous:
+          type: boolean
+          default: false
     Article:
       type: object
       required:
@@ -2051,6 +2057,9 @@ components:
           type: string
         author:
           $ref: '#/components/schemas/User'
+        is_anonymous:
+          type: boolean
+          default: false
     Video:
       type: object
       properties:
