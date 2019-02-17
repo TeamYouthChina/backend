@@ -70,7 +70,9 @@ public class CompanyControllerTest {
                         .with(authGenerator.authentication())
 
         )
-                .andDo(print());
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"大疆\",\"location\":{\"region_num\":1},\"website\":\"dji.com\",\"nation\":{\"countryAbbre\":\"CHN\"},\"avatarUrl\":\"1\",\"note\":\"无人机\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+        ;
     }
 
     @Test
@@ -103,33 +105,38 @@ public class CompanyControllerTest {
         ;
     }
 
-//    @Test
-//    public void testUpdateCompany() throws Exception {
-//        CompanyDTO companyDTO = new CompanyDTO();
-//        companyDTO.setName("Vavle");
-//        Location location = new Location();
-//        location.setRegion_num(1);
-//        companyDTO.setLocation(new LocationDTO(location));
-//        Country country = new Country();
-//        country.setCountryAbbre("USA");
-//        companyDTO.setNation(new NationDTO(country));
-//        companyDTO.setWebsite("vavle.com");
-//        companyDTO.setAvatarUrl("vavle.com/AvatarUrl");
-//        companyDTO.setNote("Steam");
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-//        java.lang.String insertJson = ow.writeValueAsString(companyDTO);
-//
-//        this.mvc.perform(
-//                put(this.urlPrefix + "/companies/1")
-//                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-//                        .content(insertJson)
-//                        .with(authGenerator.authentication())
-//        )
-//                .andDo(print());
-//
-//    }
+    @Test
+    public void testUpdateCompany() throws Exception {
+        int id = 1;
+        CompanyDTO companyDTO = new CompanyDTO();
+        companyDTO.setId(id);
+        companyDTO.setName("Vavle");
+        Location location = new Location();
+        location.setRegion_num(1);
+        companyDTO.setLocation(new LocationDTO(location));
+        Country country = new Country();
+        country.setCountryAbbre("USA");
+        companyDTO.setNation(new NationDTO(country));
+        companyDTO.setWebsite("vavle.com");
+        companyDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        companyDTO.setNote("Steam");
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String insertJson = ow.writeValueAsString(companyDTO);
+
+        System.out.println(insertJson);
+        this.mvc.perform(
+                put(this.urlPrefix + "/companies/" + id)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(insertJson)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"location\":{\"region_num\":1},\"website\":\"vavle.com\",\"nation\":{\"countryAbbre\":\"USA\"},\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+        ;
+
+    }
 
 
 }
