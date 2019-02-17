@@ -5,7 +5,9 @@ import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,11 +20,13 @@ public class QuestionDTO {
     private String body;
     private Integer isAnonymous;
     private Timestamp createAt;
+    private Timestamp editAt;
     private List<SimpleAnswerDTO> answers;
     private AnswerInvitation invitation;
     private List<Integer> labelIds;
     private Integer rela_type;
     private Integer rela_id;
+    private String abbreviation;
 
     public QuestionDTO(Question question) {
         this.id = question.getQues_id();
@@ -32,11 +36,17 @@ public class QuestionDTO {
         this.invitation = question.getQues_invitation();
         this.isAnonymous =question.getUser_anony();
         this.createAt = question.getQues_pub_time();
+        this.editAt = question.getQues_edit_time();
         this.labelIds = question.getLabelIds();
         this.rela_type = question.getRela_type();
-        for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
-            this.answers.add(new SimpleAnswerDTO(questionAnswer));
+        this.abbreviation = question.getQues_abbre();
+        this.answers = new ArrayList<SimpleAnswerDTO>();
+        if(question.getQuestionAnswers() != null) {
+            for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
+                this.answers.add(new SimpleAnswerDTO(questionAnswer));
+            }
         }
+
     }
 
     public QuestionDTO(){}
@@ -78,7 +88,7 @@ public class QuestionDTO {
     }
 
     public void setAnonymous(Integer anonymous) {
-        isAnonymous = anonymous;
+        this.isAnonymous = anonymous;
     }
 
     public Timestamp getCreateAt() {
@@ -125,7 +135,23 @@ public class QuestionDTO {
         return rela_id;
     }
 
-    public void setRela_id(){
+    public void setRela_id(Integer rela_id){
         this.rela_id = rela_id;
+    }
+
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
+    }
+
+    public Timestamp getEditAt() {
+        return editAt;
+    }
+
+    public void setEditAt(Timestamp editAt) {
+        this.editAt = editAt;
     }
 }
