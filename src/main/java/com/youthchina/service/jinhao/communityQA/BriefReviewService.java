@@ -8,6 +8,11 @@ import java.util.List;
 
 
 public interface BriefReviewService extends DomainCRUDService<BriefReview, Integer> {
+    /**
+     * add a new brief review
+     * @param entity the entity should contains review_content, rela_id, rela_type and user_id
+     * @return target
+     */
     @Override
     BriefReview add(BriefReview entity);
 
@@ -37,13 +42,11 @@ public interface BriefReviewService extends DomainCRUDService<BriefReview, Integ
 
     List<Comment> getAllCommentsOfReview(Integer review_id) throws NotFoundException;
 
-    // 评论评价
-    CommentEvaluate evaluateComment(Integer user_id, Integer comment_id, Integer evaluate_type) throws NotFoundException;
+    Evaluate evaluateComment(Integer user_id, Integer comment_id, Integer evaluate_type) throws NotFoundException;
 
-    CommentEvaluate getCommentEvaluate(Integer evaluate_id) throws NotFoundException;
+   Integer countCommentAgreement(Integer comment_id) throws NotFoundException;
 
-    //讨论
-    Discuss addDiscuss(Discuss discuss);
+    Discuss addDiscuss(Discuss discuss, Integer comment_id);
 
     Discuss getDiscuss(Integer discuss_id) throws NotFoundException;
 

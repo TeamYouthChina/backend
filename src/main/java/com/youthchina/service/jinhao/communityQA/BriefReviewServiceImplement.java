@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -77,6 +78,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
             Evaluate evaluate1 = new Evaluate();
             evaluate1.setUser_id(user_id);
             evaluate1.setEvaluate_type(evaluate_type);
+            evaluate1.setEvaluate_time(new Timestamp(System.currentTimeMillis()));
             briefReviewMapper.addReviewEvaluation(evaluate1);
             briefReviewMapper.createEvaluationReviewMap(evaluate1.getEvaluate_id(), review_id);
             return evaluate1;
@@ -104,37 +106,81 @@ public class BriefReviewServiceImplement implements BriefReviewService {
 
     @Override
     public Comment getComment(Integer comment_id) throws NotFoundException {
-        return null;
+        Comment comment = briefReviewMapper.getComment(comment_id);
+        if(comment == null){
+            throw new NotFoundException(404,404,"This comment does not exist!");
+        }else{
+            return comment;
+        }
     }
-
+    private void checkIfCommentExist(Integer comment_id) throws NotFoundException{
+        if(briefReviewMapper.simplyGetComment(comment_id) == null) throw new NotFoundException(404,404,"This comment does not exist!");
+    }
     @Override
+    @Transactional
     public void deleteComment(Integer comment_id) throws NotFoundException {
-
+        checkIfCommentExist(comment_id);
+        briefReviewMapper.deleteComment(comment_id);
+        briefReviewMapper.deleteAllCommentEvaluationByCommentId(comment_id);
+        briefReviewMapper.deleteAllDiscussByCommentId(comment_id);
+        briefReviewMapper.deleteAllDiscussEvaluationByCommentId(comment_id);
     }
 
     @Override
+    @Transactional
     public Comment updateComment(Comment comment) throws NotFoundException {
-        return null;
+        checkIfCommentExist(comment.getComment_id());
+        briefReviewMapper.updateComment(comment);
+        comment.setComment_edit_time(new Timestamp(System.currentTimeMillis()));
+        return comment;
     }
 
     @Override
+    @Transactional
     public List<Comment> getAllCommentsOfReview(Integer review_id) throws NotFoundException {
-        return null;
+        checkIfReviewExist(review_id);
+        List<Comment> comments = briefReviewMapper.getCommentsByReviewId(review_id);
+        if(comments == null){
+            throw new NotFoundException(404,404,"This review does not have comments!");
+        }else {
+            return comments;
+        }
     }
 
     @Override
-    public CommentEvaluate evaluateComment(Integer user_id, Integer comment_id, Integer evaluate_type) throws NotFoundException {
-        return null;
+    @Transactional
+    public Evaluate evaluateComment(Integer user_id, Integer comment_id, Integer evaluate_type) throws NotFoundException {
+        checkIfCommentExist(comment_id);
+        Evaluate evaluate = briefReviewMapper.checkCommentEvaluationStatus(user_id, comment_id);
+        if(evaluate == null){
+            Evaluate evaluate1 = new Evaluate();
+            evaluate1.setUser_id(user_id);
+            evaluate1.setEvaluate_type(evaluate_type);
+            evaluate1.setEvaluate_time(new Timestamp(System.currentTimeMillis()));
+            briefReviewMapper.addCommentEvaluation(evaluate1);
+            briefReviewMapper.createEvaluationCommentMap(evaluate1.getEvaluate_id(),comment_id);
+            return evaluate1;
+        }else {
+            evaluate.setEvaluate_type(evaluate_type);
+            briefReviewMapper.updateCommentEvaluation(evaluate);
+            briefReviewMapper.updateCommentEvaluation(evaluate);
+            return evaluate;
+        }
     }
 
     @Override
-    public CommentEvaluate getCommentEvaluate(Integer evaluate_id) throws NotFoundException {
-        return null;
+    @Transactional
+    public Integer countCommentAgreement(Integer comment_id) throws NotFoundException {
+        checkIfCommentExist(comment_id);
+        return briefReviewMapper.countCommentAgreement(comment_id);
     }
 
     @Override
-    public Discuss addDiscuss(Discuss discuss) {
-        return null;
+    @Transactional
+    public Discuss addDiscuss(Discuss discuss, Integer comment_id) {
+        briefReviewMapper.addDiscuss(discuss);
+        briefReviewMapper.createDiscussCommentMap(discuss.getDiscuss_id(), null,comment_id);
+        return discuss;
     }
 
     @Override
