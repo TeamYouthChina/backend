@@ -1,5 +1,6 @@
 package com.youthchina.exception.zhongyang;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.StatusDTO;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by zhongyangwu on 11/18/18.
  */
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class BaseException extends Throwable implements ResponseDTO {
+public class BaseException extends Exception implements ResponseDTO {
     public int statusCode;
     public StatusDTO status;
 
@@ -41,5 +42,14 @@ public class BaseException extends Throwable implements ResponseDTO {
     @Override
     public void setStatus(StatusDTO status) {
         this.status = status;
+    }
+
+    public void setMessage(String message) {
+        this.status.setReason(message);
+    }
+
+    @JsonIgnore
+    public int getStatusCode() {
+        return this.statusCode;
     }
 }

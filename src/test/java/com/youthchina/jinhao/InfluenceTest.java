@@ -111,10 +111,10 @@ public class InfluenceTest {
                 Assert.fail();
             }
         }
-        List<AnswerComment> answerComments = influence.getAnswerComments();
-        Assert.assertEquals(1, answerComments.size());
-        for(AnswerComment answerComment : answerComments){
-            if(answerComment.getComment_id() != 8){
+        List<Comment> comments = influence.getComments();
+        Assert.assertEquals(1, comments.size());
+        for(Comment comment : comments){
+            if(comment.getComment_id() != 8){
                 Assert.fail();
             }
         }

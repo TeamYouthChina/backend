@@ -7,6 +7,9 @@
            values(#{docu_id},#{user_id},#{docu_local_id},#{docu_local_name},#{docu_local_format},#{docu_server_ali_id},#{docu_server_aws_id},#{create_time},#{is_delete},#{is_delete_time}
                  )
     </insert>
+    <update id="setCloudStorageId">
+      UPDATE COM_MEDIA_DOCUMENT SET #{col} = #{id}
+    </update>
 
 
 </mapper>

@@ -5,7 +5,7 @@ import com.youthchina.domain.zhongyang.User;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class AnswerComment {
+public class Comment {
     private Integer comment_id;
     private String comment_content;
     private Integer user_id;

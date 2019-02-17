@@ -23,11 +23,11 @@ public class Location {
     //for insert to JOB_LOCATION
     private Integer jobId;
 
-    public Location(LocationDTO locationDTO) {
+    public Location(LocationDTO locationDTO){
         this.region_num = locationDTO.getRegion_num();
     }
 
-    public Location() {};
+    public Location(){}
 
     public Integer getJobId() {
         return jobId;

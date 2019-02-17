@@ -31,7 +31,6 @@
         USER_LOCATION,
         USER_NICKNAME,
         ROLE_ID,
-        PERMI_ID,
         IS_DELETE,
         IS_DELETE_TIME
     </sql>
@@ -39,7 +38,7 @@
         FROM
         SYS_USER
         JOIN
-        SYS_USER_ROLE
+        SYS_ROLE
         r
         on
         SYS_USER
@@ -51,23 +50,6 @@
         ROLE_ID
         AND
         r
-        .
-        IS_DELETE
-        =
-        0
-        JOIN
-        SYS_ROLE_PERMISSION
-        srp
-        on
-        SYS_USER
-        .
-        PERMI_ID
-        =
-        srp
-        .
-        PERMI_ID
-        AND
-        srp
         .
         IS_DELETE
         =
@@ -94,7 +76,9 @@
             #{id}
         </foreach>
     </select>
-    <insert id="insert" parameterType="com.youthchina.domain.zhongyang.User" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.youthchina.domain.zhongyang.User" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="USER_ID">
+
         INSERT INTO SYS_USER (
         <include refid="userColumn"/>
         )
@@ -111,10 +95,14 @@
         0,
         '',
         #{role},
-        1,
         0,
         NULL)
     </insert>
+    <select id="canRegister" parameterType="com.youthchina.domain.zhongyang.User" resultType="java.lang.Boolean">
+        SELECT COUNT(*) = 0
+        <include refid="userTable"/>
+        WHERE SYS_USER.USER_MAIL=#{email} OR SYS_USER.USER_PHONE=#{phonenumber}
+    </select>
     <update id="delete" parameterType="java.lang.Integer">
         UPDATE SYS_USER
         SET IS_DELETE      = 1,
@@ -136,7 +124,6 @@
             USER_LOCATION    = 0,
             USER_NICKNAME    = '',
             ROLE_ID          = #{role},
-            PERMI_ID         = 1,
             IS_DELETE        = 0,
             IS_DELETE_TIME   = NULL
 

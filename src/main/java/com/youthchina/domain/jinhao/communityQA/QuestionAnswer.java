@@ -18,13 +18,13 @@ public class QuestionAnswer implements HasId<Integer> {
     private Timestamp is_delete_time;
     private User answer_user;
     private List<AnswerEvaluate> answerEvaluates;
-    private List<AnswerComment> answerComments;
+    private List<Comment> comments;
 
     public QuestionAnswer(SimpleAnswerDTO simpleAnswerDTO) {
         this.answer_id = simpleAnswerDTO.getId();
         this.answer_user = simpleAnswerDTO.getCreator();
         this.answer_content = simpleAnswerDTO.getBody();
-        this.user_anony = (simpleAnswerDTO.getAnonymous()) ? 1 : 0;
+        this.user_anony = (simpleAnswerDTO.getIsAnonymous()) ? 1 : 0;
         this.answer_pub_time = simpleAnswerDTO.getCreatAt();
     }
 
@@ -50,12 +50,12 @@ public class QuestionAnswer implements HasId<Integer> {
         this.answerEvaluates = answerEvaluates;
     }
 
-    public List<AnswerComment> getAnswerComments() {
-        return answerComments;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setAnswerComments(List<AnswerComment> answerComments) {
-        this.answerComments = answerComments;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public Integer getIs_delete() {

@@ -12,15 +12,8 @@ public class ComMediaDocument {
   private Timestamp create_time;
   private Integer is_delete;
   private Timestamp is_delete_time;
-  private Integer user_id;
-
-    public Integer getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
-    }
+  private String docu_local_size;
+  private Integer upload_user_id;
 
     public Integer getDocu_id() {
         return docu_id;
@@ -92,5 +85,21 @@ public class ComMediaDocument {
 
     public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
+    }
+
+    public String getDocu_local_size() {
+        return docu_local_size;
+    }
+
+    public void setDocu_local_size(String docu_local_size) {
+        this.docu_local_size = docu_local_size;
+    }
+
+    public Integer getUpload_user_id() {
+        return upload_user_id;
+    }
+
+    public void setUpload_user_id(Integer upload_user_id) {
+        this.upload_user_id = upload_user_id;
     }
 }

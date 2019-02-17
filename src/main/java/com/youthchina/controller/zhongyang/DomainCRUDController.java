@@ -13,7 +13,7 @@ import java.net.URISyntaxException;
 /**
  * Created by zhongyangwu on 11/21/18.
  */
-abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializable> extends ResponseController<DTO, T, K> {
+public abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializable> extends ResponseController<DTO, T, K> {
 
     /**
      * @return DomainCRUDService to access the domain model
