@@ -1,7 +1,9 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.dto.CompanyDTO;
 import com.youthchina.dto.OrganizationDTO;
+import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -10,7 +12,7 @@ import java.util.List;
 /**
  * Created by zhong on 2018/12/27.
  */
-public class Company {
+public class Company implements HasId<Integer> {
     private Integer companyId;
     private String companyName;
     private String companyCode;
@@ -62,6 +64,36 @@ public class Company {
     }
 
     public  Company() {}
+
+
+    public Company(CompanyDTO companyDTO) {
+        this.companyId = companyDTO.getId();
+        this.companyName = companyDTO.getName();
+        this.location = new Location(companyDTO.getLocation());
+        this.companyWebsite = companyDTO.getWebsite();
+        this.country = new Country(companyDTO.getNation());
+        this.companyLogo = companyDTO.getAvatarUrl();
+        this.companyIntroduc = companyDTO.getNote();
+
+        //TODO : API need add more params as shown below
+        this.companyCode = "TODO"; //企业三证号码
+
+        CompanyScale scale = new CompanyScale();
+        scale.setScaleNum(1);
+        this.companyScale = scale;
+
+        CompanyNature nature = new CompanyNature();
+        nature.setNatureNum(1);
+        this.companyNature = nature;
+
+        this.companyMail = "TODO@TODO.TODO";
+
+        this.companyVerify = 0;
+
+        //TODO Important GetUserId?
+        this.userId = 1;
+
+    }
 
     public Timestamp getAddTime() {
         return addTime;
@@ -222,5 +254,10 @@ public class Company {
 
     public void setJobs(List<Job> jobs) {
         this.jobs = jobs;
+    }
+
+    @Override
+    public Integer getId() {
+        return companyId;
     }
 }

@@ -40,7 +40,7 @@ public class QuestionDTO {
         this.labelIds = question.getLabelIds();
         this.rela_type = question.getRela_type();
         this.abbreviation = question.getQues_abbre();
-        this.answers = new ArrayList<>();
+        this.answers = new ArrayList<SimpleAnswerDTO>();
         if(question.getQuestionAnswers() != null) {
             for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
                 this.answers.add(new SimpleAnswerDTO(questionAnswer));
