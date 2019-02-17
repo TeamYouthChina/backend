@@ -20,7 +20,7 @@ public class Influence {
     private List<VideoEvaluate> videoEvaluates;
     private List<ComReplyEvaluate> comReplyEvaluates;
     private List<QuestionAnswer> questionAnswers;
-    private List<AnswerComment> answerComments;
+    private List<Comment> comments;
     private List<VideoComment> videoComments;
     private List<ComEssayReply> comEssayReplies;
 
@@ -32,12 +32,12 @@ public class Influence {
         this.questionAnswers = questionAnswers;
     }
 
-    public List<AnswerComment> getAnswerComments() {
-        return answerComments;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setAnswerComments(List<AnswerComment> answerComments) {
-        this.answerComments = answerComments;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public List<VideoComment> getVideoComments() {

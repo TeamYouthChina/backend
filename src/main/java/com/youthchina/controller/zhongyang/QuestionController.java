@@ -53,7 +53,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return new URI(this.url + id.toString());
     }
 
-    @GetMapping("/*")
+    @GetMapping("/**")
     public ResponseEntity<?> getQuestions(@RequestParam(value = "Company") String company,@RequestParam(value = "Job") String job) throws NotFoundException {
         System.out.println("enter getquestions");
         if(company != ""){
@@ -82,7 +82,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return add(questionDTO);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/**")
     public ResponseEntity<?> updateQuestionInfo(@RequestBody QuestionDTO questionDTO, @PathVariable Integer id) throws NotFoundException {
         questionDTO.setId(id);
         return update(questionDTO);
@@ -101,7 +101,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         return ResponseEntity.ok(new Response(questionDTO.getAnswers()));
     }
 
-    @PutMapping("/{id}/invite")
+    @PutMapping("/{id}/invite/**")
     public ResponseEntity<?> sendInvites(@PathVariable Integer id, @RequestBody List<Integer> userIds, @AuthenticationPrincipal User user) throws NotFoundException {
         System.out.println("invite users to answer");
         communityQAService.invitUsersToAnswer(user.getId(), id, userIds);

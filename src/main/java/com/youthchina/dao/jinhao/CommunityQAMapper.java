@@ -32,8 +32,6 @@ public interface CommunityQAMapper {
 
     List<Question> getMyQuestions(Integer user_id); // 列出用户提出的问题
 
-
-
     List<Label> listAllQuesetionLabel(Integer ques_id);
 
     Integer addLabels(@Param("labels") List<Integer> labels, @Param("ques_id") Integer ques_id);
@@ -95,11 +93,11 @@ public interface CommunityQAMapper {
 
     Integer countDisagreement(Integer answer_id);
 
-    List<AnswerComment> listAllAnswerComment(Integer answer_id);
+    List<Comment> listAllAnswerComment(Integer answer_id);
 
-    AnswerComment getComment(Integer comment_id);
+    Comment getComment(Integer comment_id);
 
-    Integer addCommentToAnswer(AnswerComment answerComment);
+    Integer addCommentToAnswer(Comment comment);
 
     Integer createMapBetweenAnswerAndComment(@Param("answer_id") Integer answer_id,
                                              @Param("comment_id") Integer comment_id,
@@ -176,7 +174,10 @@ public interface CommunityQAMapper {
 
     Video getVideo(Integer video_id);
 
-    Integer deleteVideo(Video video);
+    void deleteVideo(Integer video_id);
+    void deleteAllVideoAttention(Integer video_id);
+    void deleteAllVideoEvaluate(Integer video_id);
+    void deleteAllVideoComment(Integer video_id);
 
     VideoAttention videoAttentionStatus(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
 
@@ -224,11 +225,11 @@ public interface CommunityQAMapper {
 
     Question getQuestionById(Integer ques_id);
     List<QuestionAnswer> getAnswersByQuestionId(Integer ques_id);
-    List<AnswerComment> getCommentsByAnswerId(Integer answer_id);
+    List<Comment> getCommentsByAnswerId(Integer answer_id);
     List<CommentDiscuss> getDiscussesByCommentId(Integer comment_id);
     QuestionRelaTypeAndId getQuestionRelaTypeAndRelaId(Integer ques_id);
     QuestionAnswer getAnswerById(Integer answer_id);
-    AnswerComment getAnswerCommentById(Integer comment_id);
+    Comment getAnswerCommentById(Integer comment_id);
     CommentDiscuss getAnswerDiscussById(Integer discuss_id);
     Video getVideoById(Integer video_id);
     boolean isAnswerBelongToQuestion(@Param("answer_id") Integer answer_id, @Param("ques_id") Integer ques_id);
