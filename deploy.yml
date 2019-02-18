@@ -16,6 +16,15 @@ services:
       MYSQL_PASSWORD: dbpass
       MYSQL_USER: dbuser
       MYSQL_ROOT_PASSWORD: rootpass
+  app:
+    image: backend-image
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - /data/backend
 networks:
   backend:
     ipam:
