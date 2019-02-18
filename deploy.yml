@@ -17,14 +17,18 @@ services:
       MYSQL_USER: dbuser
       MYSQL_ROOT_PASSWORD: rootpass
   app:
-    image: backend-image
+    image: youthchina:backend
+    container_name: youthchina-backend
     build:
       context: ./
       dockerfile: Dockerfile
+    networks:
+        backend:
+          ipv4_address: 172.28.1.2
     ports:
       - 8080:8080
     volumes:
-      - /data/backend
+      - backenddata:/app/static
 networks:
   backend:
     ipam:
@@ -32,4 +36,5 @@ networks:
         - subnet: 172.28.0.0/16
 volumes:
   dbdata:
+  backenddata:
 
