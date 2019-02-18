@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  test:
+  build:
     machine: true
     working_directory: ~/repo
 
@@ -40,11 +40,11 @@ jobs:
       # artifacts section in CircleCI
       - store_artifacts:
           path: ~/repo/features/fail-screenshots
-  deploy:
-    steps:
+
       - run:
           name: Deploy Over SSH
           command: |
             ssh $SSH_USER@$SSH_HOST "~/backend/deploy.sh"
+
 
 
