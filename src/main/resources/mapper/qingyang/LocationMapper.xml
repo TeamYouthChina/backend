@@ -21,7 +21,7 @@
         WHERE REGION_NUM = #{regionNum} AND IS_DELETE = 0
     </select>
 
-    <select id="getChnLocationByLocationList" resultMap="LocationChn" parameterType="java.lang.List">
+    <select id="getChnLocationByLocationList" resultMap="LocationChn" parameterType="java.util.List">
         SELECT * FROM SYS_CHN_REGION
         WHERE IS_DELETE = 0
           AND REGION_NUM IN
@@ -71,7 +71,7 @@
         WHERE zip.ZIP_CODE = #{zipCode}
     </select>
 
-    <select id="getUSALocationByLocationList">
+    <select id="getUSALocationByLocationList" resultMap="LocationUSA" parameterType="java.util.List">
         <include refid="selectZip"/>
         WHERE zip.ZIP_CODE IN
         <foreach item='location' index='index' collection="list" separator="," open="(" close=")">

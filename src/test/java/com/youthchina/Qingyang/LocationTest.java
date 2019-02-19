@@ -31,7 +31,7 @@ public class LocationTest {
     private LocationMapper locationMapper;
 
     @Test
-    public void testGetJob() {
+    public void testGetLocationChn() {
         List<Location> locationList = locationMapper.getChildrenChn(110000);
         Assert.assertEquals(6, locationList.size());
     }
