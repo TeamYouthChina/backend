@@ -26,6 +26,8 @@ public interface BriefReviewMapper {
     BriefReview get(Integer id);
     List<BriefReview> getList(List<Integer> ids);
 
+    List<BriefReview> getUserUpvoteReview(Integer user_id);
+    Evaluate getEvaluation(Integer evaluate_id);
     void addReviewEvaluation(Evaluate evaluate);
     void createEvaluationReviewMap(@Param("evaluate_id") Integer evaluate_id, @Param("review_id") Integer review_id);
     Evaluate checkEvaluateStatus(@Param("user_id") Integer user_id, @Param("review_id") Integer review_id);

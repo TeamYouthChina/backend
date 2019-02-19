@@ -94,11 +94,17 @@
         </foreach>
 
     </select>
-
+    <select id="getUserUpvoteReview" resultType="com.youthchina.domain.jinhao.communityQA.BriefReview">
+        select r.* from COM_REVIEW_EVALUATE e, COM_REVIEW_EVALUATE_MAP m,COM_BRIEF_REVIEW r
+        where e.USER_ID=#{user_id} and e.EVALUATE_ID = m.EVALUATE_ID and m.REVIEW_ID = r.REVIEW_ID
+    </select>
+    <select id="getEvaluation" resultType="com.youthchina.domain.jinhao.communityQA.Evaluate">
+        select * from COM_REVIEW_EVALUATE where EVALUATE_ID=#{evaluate_id}
+    </select>
     <insert id="addReviewEvaluation" parameterType="com.youthchina.domain.jinhao.communityQA.Evaluate"
         useGeneratedKeys="true" keyProperty="evaluate_id">
         insert into COM_REVIEW_EVALUATE(USER_ID, EVALUATE_TYPE, EVALUATE_TIME) VALUES
-            (#{user_id}, #{evaluate_type},#{evaluate_time})
+            (#{user_id}, #{evaluate_type},now())
     </insert>
     <insert id="createEvaluationReviewMap">
         insert into COM_REVIEW_EVALUATE_MAP(evaluate_id, review_id) VALUES (#{evaluate_id}, #{review_id})
@@ -108,7 +114,7 @@
         where e.USER_ID=#{user_id} and m.EVALUATE_ID = e.EVALUATE_ID and m.REVIEW_ID=#{review_id}
     </select>
     <update id="updateEvaluation" parameterType="com.youthchina.domain.jinhao.communityQA.Evaluate">
-        update COM_REVIEW_EVALUATE set EVALUATE_TYPE=#{evaluate_id}, EVALUATE_TIME=now()
+        update COM_REVIEW_EVALUATE set EVALUATE_TYPE=#{evaluate_type}, EVALUATE_TIME=now()
         where EVALUATE_ID=#{evaluate_id}
     </update>
 

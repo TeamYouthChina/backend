@@ -28,6 +28,20 @@ public interface BriefReviewService extends DomainCRUDService<BriefReview, Integ
     @Override
     void delete(Integer id) throws NotFoundException;
 
+    /**
+     * get all the brief reviews which user has posted
+     * @param user_id id of user
+     * @return return List<BriefReview>
+     */
+    List<BriefReview> getUserReview(Integer user_id);
+
+    /**
+     * get all the brief reviews which user has upvoted
+     * @param user_id id of user
+     * @return return List<BriefReview>
+     */
+    List<BriefReview> getUserUpvoteReview(Integer user_id);
+
     Evaluate doEvaluate(Integer user_id, Integer review_id, Integer evaluate_type) throws NotFoundException;
 
     Integer getReviewAgreement(Integer review_id) throws NotFoundException;

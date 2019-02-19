@@ -16,6 +16,16 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     BriefReviewMapper briefReviewMapper;
 
     @Override
+    public List<BriefReview> getUserReview(Integer user_id) {
+        return null;
+    }
+
+    @Override
+    public List<BriefReview> getUserUpvoteReview(Integer user_id) {
+        return null;
+    }
+
+    @Override
     @Transactional
     public BriefReview add(BriefReview entity) {
         briefReviewMapper.add(entity);
