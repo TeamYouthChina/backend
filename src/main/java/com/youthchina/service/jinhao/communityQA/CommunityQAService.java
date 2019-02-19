@@ -31,9 +31,9 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
     Integer countAgreement(Integer answer_id);
     Integer countDisagreement(Integer answer_id);
-    AnswerEvaluate evaluateStatus(Integer user_id, Integer answer_id) throws NotFoundException;
-    AnswerEvaluate getAnswerEvaluate(Integer evaluate_id) throws NotFoundException;
-    Integer evaluateAnswer(Integer answer_id, AnswerEvaluate answerEvaluate) throws NotFoundException;
+    Evaluate evaluateStatus(Integer user_id, Integer answer_id) throws NotFoundException;
+    Evaluate getAnswerEvaluate(Integer evaluate_id) throws NotFoundException;
+    Integer evaluateAnswer(Integer answer_id, Evaluate evaluate) throws NotFoundException;
     List<QuestionAnswer> listMyAgreeAnswer(Integer user_id) throws NotFoundException;
 
     List<Comment> getAllAnswerComments(Integer answer_id) throws NotFoundException;
@@ -46,9 +46,9 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
     CommentEvaluate commentEvaluateStatus(Integer user_id, Integer comment_id) throws NotFoundException;
     Integer evaluateComment(Integer comment_id, CommentEvaluate commentEvaluate) throws NotFoundException;
 
-    List<CommentDiscuss> listAllCommentDiscuss(Integer comment_id) throws NotFoundException;
-    CommentDiscuss getDiscuss(Integer discuss_id) throws NotFoundException;
-    Integer addDiscuss(Integer comment_id, CommentDiscuss commentDiscuss, Integer discuss_level) throws NotFoundException;
+    List<Discuss> listAllCommentDiscuss(Integer comment_id) throws NotFoundException;
+    Discuss getDiscuss(Integer discuss_id) throws NotFoundException;
+    Integer addDiscuss(Integer comment_id, Discuss discuss, Integer discuss_level) throws NotFoundException;
     void deleteDiscuss(Integer discuss_id) throws NotFoundException;
 
     Integer countAgreementOfDiscuss(Integer discuss_id);

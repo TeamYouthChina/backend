@@ -290,33 +290,33 @@ public class CommunityQAMapperTest {
     //测试能不能查看用户对回答的评价
     @Test
     public void evaluateStatus() {
-        AnswerEvaluate answerEvaluate = communityQAMapper.evaluateStatus(1, 1);
+        Evaluate evaluate = communityQAMapper.evaluateStatus(1, 1);
         Integer evaluate_type = 1;
-        Assert.assertEquals(evaluate_type, answerEvaluate.getEvaluate_type());
-        AnswerEvaluate answerEvaluate1 = communityQAMapper.evaluateStatus(1, 6);
-        Assert.assertNull(answerEvaluate1);
+        Assert.assertEquals(evaluate_type, evaluate.getEvaluate_type());
+        Evaluate evaluate1 = communityQAMapper.evaluateStatus(1, 6);
+        Assert.assertNull(evaluate1);
     }
 
     //测试能不能拿到某个回答评价
     @Test
     public void getAnswerEvaluate() {
-        AnswerEvaluate answerEvaluate = communityQAMapper.getAnswerEvaluate(1);
-        Assert.assertNotNull(answerEvaluate);
+        Evaluate evaluate = communityQAMapper.getAnswerEvaluate(1);
+        Assert.assertNotNull(evaluate);
         Integer user_id = 1;
-        Assert.assertEquals(user_id, answerEvaluate.getUser_id());
+        Assert.assertEquals(user_id, evaluate.getUser_id());
     }
 
     //测试能不能新添加评价
     @Test
     public void evaluateAnswer() {
-        AnswerEvaluate answerEvaluate = new AnswerEvaluate();
-        answerEvaluate.setUser_id(1);
-        answerEvaluate.setEvaluate_type(1);
-        answerEvaluate.setEvaluate_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        communityQAMapper.addEvaluateToAnswer(answerEvaluate);
-        Assert.assertNotNull(answerEvaluate.getEvaluate_id());
-        AnswerEvaluate answerEvaluate1 = communityQAMapper.getAnswerEvaluate(answerEvaluate.getEvaluate_id());
-        Assert.assertNotNull(answerEvaluate1);
+        Evaluate evaluate = new Evaluate();
+        evaluate.setUser_id(1);
+        evaluate.setEvaluate_type(1);
+        evaluate.setEvaluate_time(Timestamp.valueOf("2012-12-12 12:12:12"));
+        communityQAMapper.addEvaluateToAnswer(evaluate);
+        Assert.assertNotNull(evaluate.getEvaluate_id());
+        Evaluate evaluate1 = communityQAMapper.getAnswerEvaluate(evaluate.getEvaluate_id());
+        Assert.assertNotNull(evaluate1);
     }
 
     //测试能不能建立回答和评价的映射以及能不能列出用户赞同过的回答
@@ -336,12 +336,12 @@ public class CommunityQAMapperTest {
     //测试能不能重新评价回答
     @Test
     public void reEvaluateAnswer() {
-        AnswerEvaluate answerEvaluate = communityQAMapper.getAnswerEvaluate(1);
-        answerEvaluate.setEvaluate_type(2);
-        communityQAMapper.reEvaluateAnswer(answerEvaluate);
-        AnswerEvaluate answerEvaluate1 = communityQAMapper.getAnswerEvaluate(1);
+        Evaluate evaluate = communityQAMapper.getAnswerEvaluate(1);
+        evaluate.setEvaluate_type(2);
+        communityQAMapper.reEvaluateAnswer(evaluate);
+        Evaluate evaluate1 = communityQAMapper.getAnswerEvaluate(1);
         Integer evaluate_type = 2;
-        Assert.assertEquals(evaluate_type, answerEvaluate1.getEvaluate_type());
+        Assert.assertEquals(evaluate_type, evaluate1.getEvaluate_type());
     }
 
     //测试得到回答的赞同数
@@ -484,10 +484,10 @@ public class CommunityQAMapperTest {
     //测试能不能列出某个评论的所有讨论
     @Test
     public void listAllCommentDiscuss() {
-        List<CommentDiscuss> commentDiscusses = communityQAMapper.listAllCommentDiscuss(1);
-        Assert.assertEquals(3, commentDiscusses.size());
-        for (CommentDiscuss commentDiscuss : commentDiscusses) {
-            if (commentDiscuss.getDiscuss_id() != 1 && commentDiscuss.getDiscuss_id() != 3 && commentDiscuss.getDiscuss_id() != 5) {
+        List<Discuss> discusses = communityQAMapper.listAllCommentDiscuss(1);
+        Assert.assertEquals(3, discusses.size());
+        for (Discuss discuss : discusses) {
+            if (discuss.getDiscuss_id() != 1 && discuss.getDiscuss_id() != 3 && discuss.getDiscuss_id() != 5) {
                 Assert.fail();
             }
         }
@@ -496,35 +496,35 @@ public class CommunityQAMapperTest {
     //得到某个讨论
     @Test
     public void getDiscuss() {
-        CommentDiscuss commentDiscuss = communityQAMapper.getDiscuss(1);
-        Assert.assertEquals("SDGAGERGRGRGAGgegege1", commentDiscuss.getDiscuss_content());
+        Discuss discuss = communityQAMapper.getDiscuss(1);
+        Assert.assertEquals("SDGAGERGRGRGAGgegege1", discuss.getDiscuss_content());
     }
 
     //添加讨论
     @Test
     public void addDiscuss() {
-        CommentDiscuss commentDiscuss = new CommentDiscuss();
-        commentDiscuss.setDiscuss_content("新的讨论");
-        commentDiscuss.setDiscuss_target_id(1);
-        commentDiscuss.setDiscuss_pub_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        commentDiscuss.setUser_id(1);
-        commentDiscuss.setUser_anony(0);
-        commentDiscuss.setIs_delete(0);
-        commentDiscuss.setIs_delete_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        communityQAMapper.addDiscuss(commentDiscuss);
-        Assert.assertNotNull(commentDiscuss.getDiscuss_id());
-        CommentDiscuss commentDiscuss1 = communityQAMapper.getDiscuss(commentDiscuss.getDiscuss_id());
-        Assert.assertNotNull(commentDiscuss1);
+        Discuss discuss = new Discuss();
+        discuss.setDiscuss_content("新的讨论");
+        discuss.setDiscuss_target_id(1);
+        discuss.setDiscuss_pub_time(Timestamp.valueOf("2012-12-12 12:12:12"));
+        discuss.setUser_id(1);
+        discuss.setUser_anony(0);
+        discuss.setIs_delete(0);
+        discuss.setIs_delete_time(Timestamp.valueOf("2012-12-12 12:12:12"));
+        communityQAMapper.addDiscuss(discuss);
+        Assert.assertNotNull(discuss.getDiscuss_id());
+        Discuss discuss1 = communityQAMapper.getDiscuss(discuss.getDiscuss_id());
+        Assert.assertNotNull(discuss1);
     }
 
     //测试能不能建立映射
     @Test
     public void createDiscussCommentMap() {
         communityQAMapper.createMapBetweenDiscussAndComment(6, 2, 3);
-        List<CommentDiscuss> commentDiscusses = communityQAMapper.listAllCommentDiscuss(2);
-        Assert.assertEquals(3, commentDiscusses.size());
-        for (CommentDiscuss commentDiscuss : commentDiscusses) {
-            if (commentDiscuss.getDiscuss_id() != 2 && commentDiscuss.getDiscuss_id() != 4 && commentDiscuss.getDiscuss_id() != 6) {
+        List<Discuss> discusses = communityQAMapper.listAllCommentDiscuss(2);
+        Assert.assertEquals(3, discusses.size());
+        for (Discuss discuss : discusses) {
+            if (discuss.getDiscuss_id() != 2 && discuss.getDiscuss_id() != 4 && discuss.getDiscuss_id() != 6) {
                 Assert.fail();
             }
         }
@@ -534,8 +534,8 @@ public class CommunityQAMapperTest {
     @Test
     public void deleteDiscuss() {
         communityQAMapper.deleteDiscuss(1);
-        CommentDiscuss commentDiscuss1 = communityQAMapper.getDiscuss(1);
-        Assert.assertNull(commentDiscuss1);
+        Discuss discuss1 = communityQAMapper.getDiscuss(1);
+        Assert.assertNull(discuss1);
 
     }
 
@@ -969,11 +969,11 @@ public class CommunityQAMapperTest {
                 questionAnswer1 = questionAnswer;
             }
         }
-        List<AnswerEvaluate> answerEvaluates = questionAnswer1.getAnswerEvaluates();
-        Assert.assertEquals(3, answerEvaluates.size());
-        for(AnswerEvaluate answerEvaluate : answerEvaluates){
-            if(answerEvaluate.getEvaluate_id() != 1 && answerEvaluate.getEvaluate_id() != 3
-                    && answerEvaluate.getEvaluate_id() != 4){
+        List<Evaluate> evaluates = questionAnswer1.getEvaluates();
+        Assert.assertEquals(3, evaluates.size());
+        for(Evaluate evaluate : evaluates){
+            if(evaluate.getEvaluate_id() != 1 && evaluate.getEvaluate_id() != 3
+                    && evaluate.getEvaluate_id() != 4){
                 Assert.fail();
             }
         }
@@ -988,18 +988,18 @@ public class CommunityQAMapperTest {
                 comment1 = comment;
             }
         }
-        List<CommentDiscuss> commentDiscusses = comment1.getCommentDiscusses();
-        CommentDiscuss commentDiscuss1 = null;
-        Assert.assertEquals(3, commentDiscusses.size());
-        for(CommentDiscuss commentDiscuss : commentDiscusses){
-            if(commentDiscuss.getDiscuss_id() != 1 && commentDiscuss.getDiscuss_id() != 3 && commentDiscuss.getDiscuss_id() != 5){
+        List<Discuss> discusses = comment1.getDiscusses();
+        Discuss discuss1 = null;
+        Assert.assertEquals(3, discusses.size());
+        for(Discuss discuss : discusses){
+            if(discuss.getDiscuss_id() != 1 && discuss.getDiscuss_id() != 3 && discuss.getDiscuss_id() != 5){
                 Assert.fail();
             }
-            if(commentDiscuss.getDiscuss_id() == 1){
-                commentDiscuss1 = commentDiscuss;
+            if(discuss.getDiscuss_id() == 1){
+                discuss1 = discuss;
             }
         }
-        List<DiscussEvaluate>  discussEvaluates = commentDiscuss1.getDiscussEvaluateList();
+        List<DiscussEvaluate>  discussEvaluates = discuss1.getDiscussEvaluateList();
         Assert.assertEquals(6, discussEvaluates.size());
 
     }
@@ -1109,8 +1109,8 @@ public class CommunityQAMapperTest {
         for(QuestionAnswer questionAnswer : questionAnswers){
             List<Comment> comments = questionAnswer.getComments();
             Assert.assertEquals(0, comments.size());
-            List<AnswerEvaluate> answerEvaluates = questionAnswer.getAnswerEvaluates();
-            Assert.assertEquals(0, answerEvaluates.size());
+            List<Evaluate> evaluates = questionAnswer.getEvaluates();
+            Assert.assertEquals(0, evaluates.size());
         }
     }
 
@@ -1124,10 +1124,10 @@ public class CommunityQAMapperTest {
         for(QuestionAnswer questionAnswer : questionAnswers){
             List<Comment> comments = questionAnswer.getComments();
             for(Comment comment : comments){
-                List<CommentDiscuss> commentDiscusses = comment.getCommentDiscusses();
+                List<Discuss> discusses = comment.getDiscusses();
                 List<CommentEvaluate> commentEvaluates = comment.getCommentEvaluates();
                 Assert.assertEquals(0, commentEvaluates.size());
-                Assert.assertEquals(0, commentDiscusses.size());
+                Assert.assertEquals(0, discusses.size());
             }
         }
     }
@@ -1141,9 +1141,9 @@ public class CommunityQAMapperTest {
         for(QuestionAnswer questionAnswer : questionAnswers){
             List<Comment> comments = questionAnswer.getComments();
             for(Comment comment : comments){
-                List<CommentDiscuss> commentDiscusses = comment.getCommentDiscusses();
-                for(CommentDiscuss commentDiscuss : commentDiscusses){
-                    List<DiscussEvaluate> discussEvaluates = commentDiscuss.getDiscussEvaluateList();
+                List<Discuss> discusses = comment.getDiscusses();
+                for(Discuss discuss : discusses){
+                    List<DiscussEvaluate> discussEvaluates = discuss.getDiscussEvaluateList();
                     Assert.assertEquals(0, discussEvaluates.size());
                 }
 
@@ -1188,9 +1188,9 @@ public class CommunityQAMapperTest {
         communityQAMapper.deleteAllAnswerEvaluationByAnswerId(1);
         communityQAMapper.deleteAllCommentsByAnswerId(1);
         QuestionAnswer questionAnswer = communityQAMapper.getAnswerById(1);
-        List<AnswerEvaluate> answerEvaluates = questionAnswer.getAnswerEvaluates();
+        List<Evaluate> evaluates = questionAnswer.getEvaluates();
         List<Comment> comments = questionAnswer.getComments();
-        Assert.assertEquals(0, answerEvaluates.size());
+        Assert.assertEquals(0, evaluates.size());
         Assert.assertEquals(0, comments.size());
     }
 
@@ -1203,8 +1203,8 @@ public class CommunityQAMapperTest {
         for(Comment comment : comments){
             List<CommentEvaluate> commentEvaluates = comment.getCommentEvaluates();
             Assert.assertEquals(0, commentEvaluates.size());
-            List<CommentDiscuss> commentDiscusses = comment.getCommentDiscusses();
-            Assert.assertEquals(0, commentDiscusses.size());
+            List<Discuss> discusses = comment.getDiscusses();
+            Assert.assertEquals(0, discusses.size());
         }
     }
 
@@ -1214,9 +1214,9 @@ public class CommunityQAMapperTest {
         QuestionAnswer questionAnswer = communityQAMapper.getAnswerById(1);
         List<Comment> comments = questionAnswer.getComments();
         for(Comment comment : comments){
-            List<CommentDiscuss> commentDiscusses = comment.getCommentDiscusses();
-            for(CommentDiscuss commentDiscuss : commentDiscusses){
-                List<DiscussEvaluate> discussEvaluates = commentDiscuss.getDiscussEvaluateList();
+            List<Discuss> discusses = comment.getDiscusses();
+            for(Discuss discuss : discusses){
+                List<DiscussEvaluate> discussEvaluates = discuss.getDiscussEvaluateList();
                 Assert.assertEquals(0, discussEvaluates.size());
             }
         }
