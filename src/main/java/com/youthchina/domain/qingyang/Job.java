@@ -67,7 +67,7 @@ comment '职位基本信息表';
     private List<Industry> industries;
     private Profession profession;
 
-
+    private Timestamp addTime;
     private Integer isDelete;
     private Timestamp isDeleteTime;
 
@@ -78,12 +78,20 @@ comment '职位基本信息表';
         this.jobId = simpleJobDTO.getId();
         this.jobName = simpleJobDTO.getName();
         this.company = new Company(simpleJobDTO.getOrganization());
-        for (LocationDTO locationDTO : simpleJobDTO.getJobLoationList()) {
+        for (LocationDTO locationDTO : simpleJobDTO.getJobLocationList()) {
             this.jobLocationList.add(new Location(locationDTO));
         }
     }
 
     public Job(){}
+
+    public Timestamp getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Timestamp addTime) {
+        this.addTime = addTime;
+    }
 
     public Integer getId() {
         return jobId;

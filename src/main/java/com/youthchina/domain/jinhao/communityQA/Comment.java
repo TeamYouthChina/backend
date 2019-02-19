@@ -5,7 +5,7 @@ import com.youthchina.domain.zhongyang.User;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class AnswerComment {
+public class Comment {
     private Integer comment_id;
     private String comment_content;
     private Integer user_id;
@@ -15,15 +15,15 @@ public class AnswerComment {
     private Integer is_delete;
     private Timestamp is_delete_time;
     private User user;
-    private List<CommentDiscuss> commentDiscusses;
+    private List<Discuss> discusses;
     private List<CommentEvaluate> commentEvaluates;
 
-    public List<CommentDiscuss> getCommentDiscusses() {
-        return commentDiscusses;
+    public List<Discuss> getDiscusses() {
+        return discusses;
     }
 
-    public void setCommentDiscusses(List<CommentDiscuss> commentDiscusses) {
-        this.commentDiscusses = commentDiscusses;
+    public void setDiscusses(List<Discuss> discusses) {
+        this.discusses = discusses;
     }
 
     public List<CommentEvaluate> getCommentEvaluates() {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.Qinghong.StudentMapper">
+
     <resultMap id="studentResultMap" type="com.youthchina.domain.Qinghong.Student">
         <id property="stu_id" column="STU_ID"/>
         <result property="isInJob" column="STU_IN_JOB"/>
@@ -212,6 +213,7 @@
             <result property="jobRegionNum" column="JOB_REGION_NUM"/>
         </collection>
     </resultMap>
+
     <select id="getByJobId" resultMap="jobInfo" parameterType="java.lang.Integer">
         SELECT j.JOB_ID              as JOB_ID,
                j.JOB_NAME            as JOB_NAME,

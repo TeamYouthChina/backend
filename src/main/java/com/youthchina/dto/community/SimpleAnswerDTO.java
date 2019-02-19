@@ -49,11 +49,11 @@ public class SimpleAnswerDTO {
         this.body = body;
     }
 
-    public Boolean getAnonymous() {
+    public Boolean getIsAnonymous() {
         return isAnonymous;
     }
 
-    public void setAnonymous(Boolean anonymous) {
+    public void setIsAnonymous(Boolean anonymous) {
         isAnonymous = anonymous;
     }
 

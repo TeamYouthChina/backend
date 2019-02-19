@@ -49,7 +49,7 @@ public class CompanyVerificationCURDServiceImpl implements CompanyVerificationCU
     @Override
     @Transactional
     public void delete(Integer id) throws NotFoundException {
-        companyMapper.deleteCompanyVerification(id);
+        companyMapper.deleteCompanyVerificationById(id);
     }
 
     /**

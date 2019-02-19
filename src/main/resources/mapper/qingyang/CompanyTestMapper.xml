@@ -8,13 +8,13 @@
         (   COMPANY_NAME,       COMPANY_CODE,     COMPANY_COUNTRY,
             COMPANY_INTRODUC,   COMPANY_SCALE_NUM,  COMPANY_NATURE,   COMPANY_LOCATION,
             COMPANY_MAIL,       COMPANY_WEBSITE,  COMPANY_START_DATE,
-            COMPANY_LOGO,       COMPANY_VERIFY,     USER_ID,          IS_DELETE,
+            COMPANY_LOGO,       COMPANY_VERIFY,     USER_ID,     ADD_TIME,     IS_DELETE,
             IS_DELETE_TIME)
         VALUES
         (   #{companyName},     #{companyCode},   #{country.countryAbbre},
             #{companyIntroduc}, #{companyScale.scaleNum}, #{companyNature.natureNum},   #{location.region_num},
             #{companyMail},     #{companyWebsite}, #{companyStartDate},
-            #{companyLogo},     #{companyVerify},   #{userId},          0,
+            #{companyLogo},     #{companyVerify},   #{userId},   NOW(),       0,
             NULL)
     </insert>
 
@@ -56,6 +56,7 @@
         <result property="companyLogo" column="COMPANY_LOGO"/>
         <result property="companyVerify" column="COMPANY_VERIFY"/>
         <result property="userId" column="USER_ID"/>
+        <result property="addTime" column="COMPANY_ADD_TIME"/>
         <association property="companyNature" javaType="com.youthchina.domain.qingyang.CompanyNature">
             <id property="natureNum" column="NATURE_NUM"/>
             <result property="natureChn" column="NATURE_CHN"/>
@@ -111,6 +112,7 @@
               com.COMPANY_START_DATE as COMPANY_START_DATE,
               com.COMPANY_LOGO as COMPANY_LOGO,
               com.COMPANY_VERIFY as COMPANY_VERIFY,
+              com.ADD_TIME as COMPANY_ADD_TIME,
               com.USER_ID as USER_ID,
 
               v.VERIFY_ID as VERIFY_ID,
@@ -337,5 +339,52 @@
       UPDATE COMPANY_INDUSTRY SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
       WHERE COMPANY_ID = #{id}
     </update>
+
+    <!--delete Company's Employees By CompanyID-->
+    <update id="deleteCompanyEmployee" parameterType="java.lang.Integer">
+        UPDATE COMPANY_EMPLOYEE SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+    <!--delete Company's Verifications By VerificationID-->
+    <update id="deleteCompanyVerificationById" parameterType="java.lang.Integer">
+        UPDATE COMPANY_VERIFICAITON SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+    <!--delete Company's Verifications By CompanyID-->
+    <update id="deleteCompanyVerificationByComId" parameterType="java.lang.Integer">
+        UPDATE COMPANY_VERIFICAITON SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+    <!--delete Company's Photos By CompanyID-->
+    <update id="deleteCompanyPhoto" parameterType="java.lang.Integer">
+        UPDATE COMPANY_PHOTO SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+    <!--delete Company's Evaluations By CompanyID-->
+    <update id="deleteCompanyEvaluate" parameterType="java.lang.Integer">
+        UPDATE COMPANY_EVALUATE SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+    <!--delete Students' Collections of Company By CompanyID-->
+    <update id="deleteStudentComCollection" parameterType="java.lang.Integer">
+        UPDATE STU_COMP_COLLECT SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
+    </update>
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>

@@ -1,12 +1,16 @@
 package com.youthchina.service.Qinghong;
 
 import com.youthchina.dao.Qinghong.ApplicantMapper;
+import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.*;
+import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -27,6 +31,9 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private JobMapper jobMapper;
 
+    @Autowired
+    private CompanyMapper companyMapper;
+
 
     /**
      * @Description: 通过user_id获得学生的所有信息，如何该id为空，则抛出异常
@@ -39,7 +46,7 @@ public class StudentServiceImpl implements StudentService {
     public Student get(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "不能找到该user_id");
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);
         } else {
             Student student = applicantMapper.getStudentInfo(id);
             return student;
@@ -76,7 +83,7 @@ public class StudentServiceImpl implements StudentService {
     public UserInfo getContacts(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "不能找到该user_id");
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);
         } else return userInfo;
     }
 
@@ -90,7 +97,7 @@ public class StudentServiceImpl implements StudentService {
     public List<EducationInfo> getEducations(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "不能找到该user_id");
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);
         } else {
             List<EducationInfo> educationInfos = applicantMapper.getEducations(id);
             return educationInfos;
@@ -107,7 +114,7 @@ public class StudentServiceImpl implements StudentService {
     public List<Work> getWorks(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "不能找到该user_id");
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);
         } else {
             List<Work> works = applicantMapper.getWorks(id);
             return works;
@@ -130,7 +137,7 @@ public class StudentServiceImpl implements StudentService {
     public List<Activity> getActivities(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "不能找到该user_id");
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);
         } else {
             List<Activity> activities = applicantMapper.getActivities(id);
             return activities;
@@ -148,7 +155,7 @@ public class StudentServiceImpl implements StudentService {
     public List<Certificate> getCertificates(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "不能找到该user_id");
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);
         } else {
             List<Certificate> certificates = applicantMapper.getCertificates(id);
             return certificates;
@@ -165,36 +172,74 @@ public class StudentServiceImpl implements StudentService {
     public List<Project> getProjects(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "不能找到该user_id");
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);
         } else {
             List<Project> projects = applicantMapper.getProjects(id);
             return projects;
         }
 
     }
+    /**
+    * @Description: 传入一个student对象，对学生的信息进行添加
+    * @Param: [student]
+    * @return: java.lang.Integer
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/17
+    */
+
+    @Override
+    public Integer addStudentInfo(Student student) throws NotFoundException {
+        applicantMapper.insertStuInfo(student);
+        for(EducationInfo educationInfo:student.getEducationInfos()){
+            applicantMapper.insertEduInfo(educationInfo);
+        }
+        applicantMapper.insertSubInfo(student.getSubInfo());
+        for(Project project:student.getProjects()){
+            applicantMapper.insertStuProject(project);
+        }
+        for(Work work:student.getWorks()){
+            applicantMapper.insertStuWork(work);
+        }
+        for (Activity activity:student.getActivities()){
+            applicantMapper.insertStuActivity(activity);
+        }
+        for(Certificate certificate:student.getCertificates()){
+            applicantMapper.insertStuCertificate(certificate);
+        }
+        return 0;
+    }
 
     /**
-     * @Description: 通过job_id和stu_id来将申请的职位信息加入申请表中
-     * @Param: [job_id, stu_id]
+     * @Description: 通过job_id和user_id来将申请的职位信息加入申请表中
+     * @Param: [job_id, user_id]
      * @return: com.youthchina.domain.Qinghong.JobApply
      * @Author: Qinghong Wang
      * @Date: 2018/12/19
      */
-    public Integer jobApply(Integer job_id, Integer stu_id) throws NotFoundException {
-        Job job = applicantMapper.getJob(job_id);
+    public JobApply jobApply(Integer job_id,Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        Integer stu_id=baseInfo.getStu_id();
+        Job job = jobMapper.selectJobByJobId(job_id);
         if (job == null) {
-            throw new NotFoundException(404, 404, "不能找到该job_id下的职位信息");
+            throw new NotFoundException(4042, 404, "cannot find job with id "+job_id);
         } else {
             Date time = job.getJobEndTime();
             if (time.before(new Date())) {
-                throw new NotFoundException(404, 404, "不能申请该职位因为申请时间已过");
+                throw new NotFoundException(4032, 403, "cannot apply for job because it has passed deadline");
             } else {
-                JobApply jobApply = new JobApply();
-                jobApply.setJob_id(job.getJobId());
-                jobApply.setStu_id(stu_id);
-                jobApply.setJob_cv_send(1);
-                Integer integer=applicantMapper.addApply(jobApply);
-                return integer;
+                JobApply jobApply2=applicantMapper.getOneJobApply(job_id,stu_id);
+                if(jobApply2!=null){
+                    return jobApply2;
+                }else {
+                    JobApply jobApply = new JobApply();
+                    jobApply.setStu_id(applicantMapper.getBaseInfo(user_id).getStu_id());
+                    jobApply.setJob_id(job_id);
+                    jobApply.setJob_cv_send(1);
+                    jobApply.setJob_apply_status("已申请");
+                    Integer integer = applicantMapper.addApply(jobApply);
+                    JobApply jobApply1 = applicantMapper.getOneJobApply(job_id,stu_id);
+                    return jobApply1;
+                }
             }
         }
     }
@@ -209,9 +254,10 @@ public class StudentServiceImpl implements StudentService {
     public List<JobApply> getJobApplies(Integer user_id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(user_id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "不能找到该user_id");
+            throw new NotFoundException(4041, 404, "cannot find user with id "+user_id);
         } else {
-            List<JobApply> jobApplies = applicantMapper.getJobApplies(user_id);
+            BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+            List<JobApply> jobApplies = applicantMapper.getJobApplies(baseInfo.getStu_id());
             return jobApplies;
         }
     }
@@ -226,7 +272,7 @@ public class StudentServiceImpl implements StudentService {
     public List<JobCollect> getJobCollect(Integer user_id) throws NotFoundException{
         UserInfo userInfo=applicantMapper.getUserInfo(user_id);
         if(userInfo==null){
-            throw new NotFoundException(404,404,"不能找到该user_id");
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
         }else {
             List<JobCollect> jobCollects=applicantMapper.getJobCollects(user_id);
             return jobCollects;
@@ -243,7 +289,7 @@ public class StudentServiceImpl implements StudentService {
     public List<CompCollect> getCompCollect(Integer user_id) throws NotFoundException{
         UserInfo userInfo=applicantMapper.getUserInfo(user_id);
         if(userInfo==null){
-            throw new NotFoundException(404,404,"不能找到该user_id");
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
         }else {
             List<CompCollect> compCollects=applicantMapper.getCompCollects(user_id);
             return compCollects;
@@ -260,21 +306,19 @@ public class StudentServiceImpl implements StudentService {
     public Integer addJobCollection(Integer job_id,Integer user_id) throws NotFoundException{
         UserInfo userInfo=applicantMapper.getUserInfo(user_id);
         if(userInfo==null){
-            throw new  NotFoundException(404,404,"不能找到该user_id");
+            throw new  NotFoundException(404,404,"cannot find user with id "+user_id);
         }else{
             JobCollect jobCollect=applicantMapper.getOneJobCollect(job_id);
             if(jobCollect!=null){
                 throw new NotFoundException(404,404,"不能收藏该职位，因为已经收藏");
             }else{
                 Job job=jobMapper.selectJobByJobId(job_id);
-                if(job.getIsDelete()==1){
-                    throw new NotFoundException(404,404,"不能收藏该职位，因为该职位已经被删除");
+                if(job==null){
+                    throw new NotFoundException(400,404,"cannot collect this job,maybe the job has already delete");
                 }else {
                     JobCollect jobCollect1=new JobCollect();
                     jobCollect1.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
                     jobCollect1.setJob_id(job_id);
-                    Timestamp d = new Timestamp(System.currentTimeMillis());
-                    jobCollect1.setJob_coll_time(d);
                     jobCollect1.setIs_delete(0);
                     Integer integer=applicantMapper.addJobCollect(jobCollect1);
                     return integer;
@@ -285,8 +329,6 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
-
-
     /**
      * @Description: 通过collect_id删除收藏的信息，通过假删除实现
      * @Param: [id]
@@ -295,6 +337,7 @@ public class StudentServiceImpl implements StudentService {
      * @Date: 2018/12/21
      */
 
+
     public Integer deleteCollect(Integer id) throws NotFoundException {
         Integer num1 = applicantMapper.deleteJobCollect(id);
         Integer num2 = applicantMapper.deleteCompCollect(id);
@@ -302,4 +345,60 @@ public class StudentServiceImpl implements StudentService {
             throw new NotFoundException(404, 404, "没有删除任何一条收藏信息");
         } else return num1 + num2;
     }
+    /**
+    * @Description: 通过collect_id删除职位收藏
+    * @Param: [id]
+    * @return: java.lang.Integer
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/16
+    */
+
+    public Integer deleteJobCollect(Integer collect_id) throws NotFoundException{
+        Integer num=applicantMapper.deleteJobCollect(collect_id);
+        return num;
+    }
+    
+    /**
+    * @Description: 通过collect_id删除公司收藏
+    * @Param: [id]
+    * @return: java.lang.Integer
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/16
+    */
+
+    public Integer deleteCompCollect(Integer collect_id) throws NotFoundException {
+        Integer num=applicantMapper.deleteCompCollect(collect_id);
+        return num;
+    }
+
+    /** 
+    * @Description: 通过company_id和user_id添加公司收藏信息
+    * @Param: [company_id, user_id] 
+    * @return: java.lang.Integer 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/2/16 
+    */
+
+    @Override
+    public Integer addCompCollect(Integer company_id, Integer user_id) throws NotFoundException {
+        UserInfo userInfo=applicantMapper.getUserInfo(user_id);
+        if(userInfo==null){
+            throw new  NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else {
+            Company company=companyMapper.selectCompany(company_id);
+            if(company==null){
+                throw new NotFoundException(400,400,"cannot collect this company,maybe the company has already deleted");
+            }else{
+                CompCollect compCollect=new CompCollect();
+                compCollect.setCompany_id(company_id);
+                compCollect.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
+                compCollect.setIs_delete(0);
+                Integer integer=applicantMapper.addCompCollect(compCollect);
+                return integer;
+            }
+        }
+
+    }
+
+
 }

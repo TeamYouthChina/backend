@@ -17,6 +17,8 @@ public interface HrMapper {
 
     Integer deleteHr(Integer id);
 
+    Integer deleteHrByComId(Integer id);
+
     Hr selectHrById(Integer id);
 
     List<Hr> selectHrByIdList(List<Integer> ids);

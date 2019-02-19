@@ -1,13 +1,12 @@
 package com.youthchina.Qingyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.youthchina.dao.qingyang.CompanyMapper;
+import com.youthchina.dao.qingyang.HrMapper;
+import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.*;
-import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +18,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +30,13 @@ public class CompanyTest {
 
     @Autowired
     private CompanyMapper companyMapper;
+
+    @Autowired
+
+    private JobMapper jobMapper;
+
+    @Autowired
+    private HrMapper hrMapper;
 
 
     //CompanyVerification CURD
@@ -75,7 +80,7 @@ public class CompanyTest {
 
     @Test
     public void testDeleteCompanyVerification() {
-        companyMapper.deleteCompanyVerification(1);
+        companyMapper.deleteCompanyVerificationById(1);
     }
 
 
@@ -162,8 +167,16 @@ public class CompanyTest {
 
     @Test
     public void testDeleteCompany() {
-        companyMapper.deleteCompanyInd(1);
-        companyMapper.deleteCompany(1);
+        Integer comId = 1;
+        jobMapper.deleteJobByComId(comId);
+        hrMapper.deleteHrByComId(comId);
+        companyMapper.deleteCompanyVerificationByComId(comId);
+        companyMapper.deleteCompanyEmployee(comId);
+        companyMapper.deleteCompanyEvaluate(comId);
+        companyMapper.deleteCompanyPhoto(comId);
+        companyMapper.deleteStudentComCollection(comId);
+        companyMapper.deleteCompanyInd(comId);
+        companyMapper.deleteCompany(comId);
     }
 
     @Test

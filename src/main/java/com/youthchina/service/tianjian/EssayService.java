@@ -41,11 +41,22 @@ public interface EssayService extends DomainCRUDService<User, Integer> {
      * 更新文章
      * 更新文章和文章作者对应关系
      * 更新文章标签
+     * param ComEssay essay, Integer user_id
+     * return 1
+     */
+    public int updateEssay(ComEssay essay);
+    /**
+     * 更新文章作者及类型
+     * param Integer essay_id, Integer user_id
+     * return 1
+     */
+    public int updateEssayAuthor(ComAuthorEssayMap comAuthorEssayMap );
+    /**
+     * 更新文章标签
      * param ComEssay essay
      * return 1
      */
-    public int updateEssay(ComEssay essay, Integer user_id, List<Integer> lab_num);
-
+    public int updateEssayLabel(Integer essay_id, Integer user_id, List<Integer> lab_num);
       /**
      * 根据文章id获取文章
      * param Integer essay_id
