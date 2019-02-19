@@ -35,5 +35,6 @@ public interface ApplicantMapper {
     Integer insertStuProject(Project project);
     Integer insertStuWork(Work work);
     Integer insertStuActivity(Activity activity);
+    JobApply getOneJobApply(Integer job_id,Integer stu_id);
 
 }

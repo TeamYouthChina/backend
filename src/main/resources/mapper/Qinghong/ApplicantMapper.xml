@@ -276,10 +276,19 @@
 
     <!--获取申请者的所有申请职位信息-->
     <select id="getJobApplies" resultMap="ApplyMapper">
-        SELECT a.*,b.*
+        SELECT a.*,b.*,c.*
         FROM STU_JOB_APPLY a
                  LEFT JOIN JOB_INFO b ON a.JOB_ID=b.JOB_ID
+                 LEFT JOIN COMPANY_INFO c ON c.COMPANY_ID=b.COMPANY_ID
                 WHERE a.STU_ID=#{stu_id}
+    </select>
+
+    <select id="getOneJobApply" resultMap="ApplyMapper">
+        SELECT a.*,b.*,c.*
+        FROM STU_JOB_APPLY a
+                 LEFT JOIN JOB_INFO b ON a.JOB_ID=b.JOB_ID
+                 LEFT JOIN COMPANY_INFO c ON c.COMPANY_ID=b.COMPANY_ID
+                 WHERE a.JOB_ID=#{param1} AND a.STU_ID=#{param2}
     </select>
 
     <!--申请职位-->

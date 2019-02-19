@@ -1,8 +1,10 @@
 package com.youthchina.service.Qinghong;
 
 import com.youthchina.dao.Qinghong.ApplicantMapper;
+import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.*;
+import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import io.swagger.models.auth.In;
@@ -28,6 +30,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private JobMapper jobMapper;
+
+    @Autowired
+    private CompanyMapper companyMapper;
 
 
     /**
@@ -211,22 +216,30 @@ public class StudentServiceImpl implements StudentService {
      * @Author: Qinghong Wang
      * @Date: 2018/12/19
      */
-    public Integer jobApply(Integer job_id,Integer user_id) throws NotFoundException {
+    public JobApply jobApply(Integer job_id,Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        Integer stu_id=baseInfo.getStu_id();
         Job job = jobMapper.selectJobByJobId(job_id);
         if (job == null) {
-            throw new NotFoundException(404, 404, "不能找到该job_id下的职位信息");
+            throw new NotFoundException(4042, 404, "cannot find job with id "+job_id);
         } else {
             Date time = job.getJobEndTime();
             if (time.before(new Date())) {
-                throw new NotFoundException(404, 404, "不能申请该职位因为申请时间已过");
+                throw new NotFoundException(4032, 403, "cannot apply for job because it has passed deadline");
             } else {
-                JobApply jobApply=new JobApply();
-                jobApply.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
-                jobApply.setJob_id(job_id);
-                jobApply.setJob_cv_send(1);
-                jobApply.setJob_apply_status("已申请");
-                Integer integer=applicantMapper.addApply(jobApply);
-                return integer;
+                JobApply jobApply2=applicantMapper.getOneJobApply(job_id,stu_id);
+                if(jobApply2!=null){
+                    return jobApply2;
+                }else {
+                    JobApply jobApply = new JobApply();
+                    jobApply.setStu_id(applicantMapper.getBaseInfo(user_id).getStu_id());
+                    jobApply.setJob_id(job_id);
+                    jobApply.setJob_cv_send(1);
+                    jobApply.setJob_apply_status("已申请");
+                    Integer integer = applicantMapper.addApply(jobApply);
+                    JobApply jobApply1 = applicantMapper.getOneJobApply(job_id,stu_id);
+                    return jobApply1;
+                }
             }
         }
     }
@@ -241,9 +254,10 @@ public class StudentServiceImpl implements StudentService {
     public List<JobApply> getJobApplies(Integer user_id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(user_id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "不能找到该user_id");
+            throw new NotFoundException(4041, 404, "cannot find user with id "+user_id);
         } else {
-            List<JobApply> jobApplies = applicantMapper.getJobApplies(user_id);
+            BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+            List<JobApply> jobApplies = applicantMapper.getJobApplies(baseInfo.getStu_id());
             return jobApplies;
         }
     }
@@ -300,7 +314,7 @@ public class StudentServiceImpl implements StudentService {
             }else{
                 Job job=jobMapper.selectJobByJobId(job_id);
                 if(job==null){
-                    throw new NotFoundException(404,404,"不能收藏该职位，因为该职位已经被删除");
+                    throw new NotFoundException(400,404,"cannot collect this job,maybe the job has already delete");
                 }else {
                     JobCollect jobCollect1=new JobCollect();
                     jobCollect1.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
@@ -339,22 +353,21 @@ public class StudentServiceImpl implements StudentService {
     * @Date: 2019/2/16
     */
 
-    public Integer deleteJobCollect(Integer id) throws NotFoundException{
-        Integer num=applicantMapper.deleteJobCollect(id);
+    public Integer deleteJobCollect(Integer collect_id) throws NotFoundException{
+        Integer num=applicantMapper.deleteJobCollect(collect_id);
         return num;
     }
     
-    /** 
+    /**
     * @Description: 通过collect_id删除公司收藏
-    * @Param: [id] 
-    * @return: java.lang.Integer 
-    * @Author: Qinghong Wang 
-    * @Date: 2019/2/16 
+    * @Param: [id]
+    * @return: java.lang.Integer
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/16
     */
 
-    @Override
-    public Integer deleteCompCollect(Integer id) throws NotFoundException {
-        Integer num=applicantMapper.deleteCompCollect(id);
+    public Integer deleteCompCollect(Integer collect_id) throws NotFoundException {
+        Integer num=applicantMapper.deleteCompCollect(collect_id);
         return num;
     }
 
@@ -372,12 +385,17 @@ public class StudentServiceImpl implements StudentService {
         if(userInfo==null){
             throw new  NotFoundException(404,404,"不能找到该user_id");
         }else {
-            CompCollect compCollect=new CompCollect();
-            compCollect.setCompany_id(company_id);
-            compCollect.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
-            compCollect.setIs_delete(0);
-            Integer integer=applicantMapper.addCompCollect(compCollect);
-            return integer;
+            Company company=companyMapper.selectCompany(company_id);
+            if(company==null){
+                throw new NotFoundException(400,400,"cannot collect this company,maybe the company has already deleted");
+            }else{
+                CompCollect compCollect=new CompCollect();
+                compCollect.setCompany_id(company_id);
+                compCollect.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
+                compCollect.setIs_delete(0);
+                Integer integer=applicantMapper.addCompCollect(compCollect);
+                return integer;
+            }
         }
 
     }

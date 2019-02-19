@@ -296,6 +296,13 @@ public class StudentMapperTest {
 
     }
 
+    @Test
+    public void testGetOneJobApply(){
+        JobApply jobApply=applicantMapper.getOneJobApply(1,1);
+        Assert.assertNotNull(jobApply);
+        System.out.print(jobApply.getJob().getCompany().getCompanyName());
+    }
+
 
 
 }

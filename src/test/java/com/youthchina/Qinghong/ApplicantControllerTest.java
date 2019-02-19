@@ -84,39 +84,48 @@ public class ApplicantControllerTest {
 
     @Test
     public void testDeleteJobCollect() throws Exception{
-        this.mvc.perform(delete(this.urlPrefix + "/applicants/1/jobCollect/1").with(authGenerator.authentication()))
+        this.mvc.perform(delete(this.urlPrefix + "/jobs/collections/1").with(authGenerator.authentication()))
                 .andDo(print());
     }
     @Test
     public void testDeleteCompCollect() throws Exception{
-        this.mvc.perform(delete(this.urlPrefix + "/applicants/1/compCollect/1").with(authGenerator.authentication()))
+        this.mvc.perform
+                (delete(this.urlPrefix + "/companies/collections/3")
+                        .with(authGenerator.authentication()))
                 .andDo(print());
     }
+
+    /**
+    * @Description: 通过user_id对于所有该用户下所有职位申请信息测试的完成
+    * @Param: []
+    * @return: void
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/18
+    */
 
     @Test
     public void testGetJobApplies() throws Exception{
-        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/jobApplies",1).param("id", "1").with(authGenerator.authentication()))
+        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/applications",4).with(authGenerator.authentication()))
                 .andDo(print());
     }
+    /**
+    * @Description: 对于职位申请的测试，在职位申请中还缺少对于简历是否成功发送的判断
+    * @Param: []
+    * @return: void
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/18
+    */
 
     @Test
     public void testAddJobApply() throws Exception{
-//        JobApply jobApply=new JobApply();
-//        jobApply.setJob_cv_send(1);
-//        jobApply.setJob_id(1);
-//        jobApply.setJob_apply_status("已申请");
-//        jobApply.setStu_id(1);
-//        ObjectMapper mapper = new ObjectMapper();
-//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-//        java.lang.String requestJson = ow.writeValueAsString(jobApply);
-        this.mvc.perform(post(this.urlPrefix + "/applicants/1/jobApply/1").with(authGenerator.authentication()))
+        this.mvc.perform(post(this.urlPrefix + "/jobs/1/apply").with(authGenerator.authentication()))
                 .andDo(print());
     }
 
     @Test
     public void testAddJobCollect() throws Exception{
         this.mvc.perform
-                (post(this.urlPrefix + "/applicants/1/jobCollect/2")
+                (put(this.urlPrefix + "/jobs/5/attention")
                 .with(authGenerator.authentication()))
                 .andDo(print());
     }
@@ -124,10 +133,13 @@ public class ApplicantControllerTest {
     @Test
     public void testAddCompCollect() throws Exception{
         this.mvc.perform
-                (post(this.urlPrefix + "/applicants/1/compCollect/1")
+                (put(this.urlPrefix + "/companies/3/attention")
                         .with(authGenerator.authentication()))
                 .andDo(print());
     }
+
+
+
 
 
 

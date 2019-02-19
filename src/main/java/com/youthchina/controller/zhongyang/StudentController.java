@@ -6,7 +6,9 @@ import com.youthchina.domain.Qinghong.JobCollect;
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ApplicantDTO;
+import com.youthchina.dto.JobApplyDTO;
 import com.youthchina.dto.Response;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -133,10 +136,22 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         return  ResponseEntity.ok(new Response(compCollects));
     }
 
-    @GetMapping("/{id}/jobApplies/")
+    /**
+    * @Description: 通过user_id获得该用户所有的职位申请的信息
+    * @Param: [id]
+    * @return: org.springframework.http.ResponseEntity<?>
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/18
+    */
+    @GetMapping("/{id}/applications")
     public ResponseEntity<?> getApplicantsJobApplies(@PathVariable Integer id) throws NotFoundException{
         List<JobApply> jobApplies=studentService.getJobApplies(id);
-        return  ResponseEntity.ok(new Response(jobApplies));
+        List<JobApplyDTO> jobApplyDTOS=new ArrayList<>();
+        for(JobApply jobApply:jobApplies){
+            JobApplyDTO jobApplyDTO=new JobApplyDTO(jobApply);
+            jobApplyDTOS.add(jobApplyDTO);
+        }
+        return  ResponseEntity.ok(new Response(jobApplyDTOS,new StatusDTO(0,"")));
     }
 
     @PostMapping("/{id}/jobApply/{job_id}")
@@ -167,25 +182,9 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         }
     }
 
-    @DeleteMapping("/{id}/jobCollect/{collect_id}")
-    public ResponseEntity<?> deleteApplicantsJobCollect(@PathVariable("id") Integer id,@PathVariable("collect_id") Integer collect_id,@AuthenticationPrincipal User user ) throws NotFoundException,ForbiddenException{
-        if(user.getId().equals(id)){
-            return ResponseEntity.ok(new Response(studentService.deleteJobCollect(collect_id)));
-        }else {
-            throw new ForbiddenException();
-        }
 
-    }
 
-    @DeleteMapping("/{id}/CompCollect/{collect_id}")
-    public ResponseEntity<?> deleteApplicantsCompCollect(@PathVariable("id") Integer id,@PathVariable("collect_id") Integer collect_id,@AuthenticationPrincipal User user ) throws NotFoundException,ForbiddenException{
-        if(user.getId().equals(id)){
-            return ResponseEntity.ok(new Response(studentService.deleteCompCollect(collect_id)));
-        }else {
-            throw new ForbiddenException();
-        }
 
-    }
 
 
 
