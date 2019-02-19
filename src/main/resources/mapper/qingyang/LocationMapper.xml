@@ -49,17 +49,17 @@
 
     <sql id="selectZip">
         SELECT
-            zip.ZIP_CODE = ZIP_CODE,
-            zip.REGION_CHN = REGION_CHN,
-            zip.REGION_ENG = REGION_ENG,
-            zip.REGION_CITY = REGION_CITY,
-            zip.START_TIME = ZIP_START_TIME,
-            zip.STATE_ID = STATE_ID,
+            zip.ZIP_CODE as ZIP_CODE,
+            zip.REGION_CHN as REGION_CHN,
+            zip.REGION_ENG as REGION_ENG,
+            zip.REGION_CITY as REGION_CITY,
+            zip.START_TIME as ZIP_START_TIME,
+            zip.STATE_ID as STATE_ID,
 
-            state.STATE_CHN = STATE_CHN,
-            state.STATE_ENG = STATE_ENG,
-            state.STATE_ABBRE = STATE_ABBRE,
-            state.START_TIME = STATE_START_TIME
+            state.STATE_CHN as STATE_CHN,
+            state.STATE_ENG as STATE_ENG,
+            state.STATE_ABBRE as STATE_ABBRE,
+            state.START_TIME as STATE_START_TIME
 
         FROM SYS_USA_ZIPCODE zip
                  LEFT OUTER JOIN SYS_USA_STATE state ON zip.IS_DELETE = 0 AND state.STATE_ID = zip.STATE_ID AND  state.IS_DELETE = 0
