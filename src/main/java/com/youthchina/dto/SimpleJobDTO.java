@@ -20,9 +20,9 @@ public class SimpleJobDTO {
         this.id = job.getJobId();
         this.name = job.getJobName();
         this.organization = new OrganizationDTO(job.getCompany());
-        for(int i =0; i < job.getJobLocationList().size(); i++){
-            this.LocationList.add(new LocationDTO(job.getJobLocationList().get(i)));  //todo: create location object
-        }
+//        for(int i =0; i < job.getJobLocationList().size(); i++){
+//            this.LocationList.add(new LocationDTO(job.getJobLocationList().get(i)));  //todo: create location object
+//        }
     }
 
     public int getId() {

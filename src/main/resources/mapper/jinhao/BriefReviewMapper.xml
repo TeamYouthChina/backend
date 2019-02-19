@@ -136,11 +136,11 @@
         update COM_REVIEW_COMMENT set IS_DELETE=1,IS_DELETE_TIME=now() where COMMENT_ID=#{id}
     </update>
     <update id="deleteAllCommentEvaluationByCommentId" parameterType="java.lang.Integer">
-        update COM_COMMENT_EVALUATE set EVALUATE_TYPE=3,EVALUATE_TIME=now()
-        where EVALUATE_ID in (select EVALUATE_ID from COM_COMMENT_EVALUATE_MAP where COMMENT_ID = #{id})
+        update COM_REVIEW_COMMENT_EVALUATE set EVALUATE_TYPE=3,EVALUATE_TIME=now()
+        where EVALUATE_ID in (select EVALUATE_ID from COM_REVIEW_COMMENT_EVALUATE_MAP where COMMENT_ID = #{id})
     </update>
     <update id="deleteAllDiscussByCommentId" parameterType="java.lang.Integer">
-        update COM_COMMENT_DISCUSS set IS_DELETE=1, IS_DELETE_TIME=now() where DISCUSS_ID in(
+        update COM_REVIEW_COMMENT_DISCUSS set IS_DELETE=1, IS_DELETE_TIME=now() where DISCUSS_ID in(
           select DISCUSS_ID from COM_REVIEW_COMMENT_DISCUSS_MAP where COMMENT_ID=#{id}
             )
     </update>
@@ -175,7 +175,7 @@
     <insert id="addCommentEvaluation" parameterType="com.youthchina.domain.jinhao.communityQA.Evaluate"
     useGeneratedKeys="true" keyProperty="evaluate_id">
         insert into COM_REVIEW_COMMENT_EVALUATE(user_id, evaluate_type, evaluate_time) VALUES
-            (#{user_id}, #{evaluate_type},#{evaluate_time})
+            (#{user_id}, #{evaluate_type},now())
     </insert>
     <insert id="createEvaluationCommentMap">
         insert into COM_REVIEW_COMMENT_EVALUATE_MAP(evaluate_id, comment_id) VALUES (#{evaluate_id},#{comment_id})

@@ -41,3 +41,10 @@ jobs:
       - store_artifacts:
           path: ~/repo/features/fail-screenshots
 
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh $SSH_USER@$SSH_HOST "~/backend/deploy.sh"
+
+
+

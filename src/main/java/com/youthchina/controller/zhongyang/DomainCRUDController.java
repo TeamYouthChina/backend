@@ -41,7 +41,7 @@ public abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Se
      */
     protected ResponseEntity<?> update(DTO dto) throws NotFoundException {
         T updatedT = getService().update(DtoToDomain(dto));
-        return ResponseEntity.ok(DtoToResponse());
+        return ResponseEntity.ok(DtoToResponse(DomainToDto(updatedT)));
     }
 
     /**

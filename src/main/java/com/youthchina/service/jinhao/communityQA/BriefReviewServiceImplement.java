@@ -188,9 +188,10 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     @Override
     @Transactional
     public Discuss addDiscuss(Discuss discuss, Integer comment_id) {
-        briefReviewMapper.addDiscuss(discuss);
-        briefReviewMapper.createDiscussCommentMap(discuss.getDiscuss_id(), null,comment_id);
-        return discuss;
+//        briefReviewMapper.addDiscuss(discuss);
+//        briefReviewMapper.createDiscussCommentMap(discuss.getDiscuss_id(), null,comment_id);
+//        return discuss;
+        return null;
     }
 
     @Override

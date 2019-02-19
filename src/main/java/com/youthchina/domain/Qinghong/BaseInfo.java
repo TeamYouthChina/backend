@@ -1,19 +1,21 @@
 package com.youthchina.domain.Qinghong;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class BaseInfo {
-    private int stu_id;
+    private Integer stu_id;
     private String stu_in_job;
     private String stu_in_job_comp;
-    private List<EducationInfo> educationInfos;
-    private List<Work> works;
+    private Integer user_id;
+    private Integer is_delete;
+    private Timestamp is_delete_Time;
 
-    public int getStu_id() {
+    public Integer getStu_id() {
         return stu_id;
     }
 
-    public void setStu_id(int stu_id) {
+    public void setStu_id(Integer stu_id) {
         this.stu_id = stu_id;
     }
 
@@ -33,19 +35,27 @@ public class BaseInfo {
         this.stu_in_job_comp = stu_in_job_comp;
     }
 
-    public List<EducationInfo> getEducationInfos() {
-        return educationInfos;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setEducationInfos(List<EducationInfo> educationInfos) {
-        this.educationInfos = educationInfos;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
-    public List<Work> getWorks() {
-        return works;
+    public Integer getIs_delete() {
+        return is_delete;
     }
 
-    public void setWorks(List<Work> works) {
-        this.works = works;
+    public void setIs_delete(Integer is_delete) {
+        this.is_delete = is_delete;
+    }
+
+    public Timestamp getIs_delete_Time() {
+        return is_delete_Time;
+    }
+
+    public void setIs_delete_Time(Timestamp is_delete_Time) {
+        this.is_delete_Time = is_delete_Time;
     }
 }
