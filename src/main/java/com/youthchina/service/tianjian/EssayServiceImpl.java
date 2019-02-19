@@ -98,11 +98,13 @@ public class EssayServiceImpl implements EssayService {
         mapper.addEssay(essay);
         int essayid = essay.getEssay_id();
         List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
-        for( int i = 0 ; i < lab_num.size() ; i++) {
-            ComEssayLabelMap cel = new ComEssayLabelMap();
-            cel.setEssay_id(essayid);
-            cel.setLab_num(lab_num.get(i));
-            l.add(cel);
+        if(lab_num!=null){
+            for( int i = 0 ; i < lab_num.size() ; i++) {
+                ComEssayLabelMap cel = new ComEssayLabelMap();
+                cel.setEssay_id(essayid);
+                cel.setLab_num(lab_num.get(i));
+                l.add(cel);
+            }
         }
         mapper.addEssayLabel(l);
 
@@ -120,24 +122,31 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
-    public int updateEssay(ComEssay essay, Integer user_id, List<Integer> lab_num) {
-         mapper.updateEssay(essay);
+    public int updateEssay(ComEssay essay) {
+        return mapper.updateEssay(essay);
+    }
 
-          ComAuthorEssayMap caem = new ComAuthorEssayMap();
-          caem.setEssay_id(essay.getEssay_id());
-         caem.setUser_id(user_id);
-         mapper.updateEssayAuthor(caem);
-         mapper.deleteEssayLabel(essay.getEssay_id());
+    @Override
+    public int updateEssayAuthor(ComAuthorEssayMap comAuthorEssayMap ) {
+        return mapper.updateEssayAuthor(comAuthorEssayMap);
+    }
+    @Override
+    public int updateEssayLabel(Integer essay_id, Integer user_id, List<Integer> lab_num) {
 
-         List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
+        ComAuthorEssayMap caem = new ComAuthorEssayMap();
+        caem.setEssay_id(essay_id);
+        caem.setUser_id(user_id);
+        mapper.updateEssayAuthor(caem);
+        mapper.deleteEssayLabel(essay_id);
+
+        List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
         for( int i = 0 ; i < lab_num.size() ; i++) {
             ComEssayLabelMap cel = new ComEssayLabelMap();
-            cel.setEssay_id(essay.getEssay_id());
+            cel.setEssay_id(essay_id);
             cel.setLab_num(lab_num.get(i));
             l.add(cel);
         }
-         int k = mapper.addEssayLabel(l);
-         return k;
+        return mapper.addEssayLabel(l);
     }
 
     @Override

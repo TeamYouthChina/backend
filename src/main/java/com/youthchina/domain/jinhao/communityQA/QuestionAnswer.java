@@ -17,7 +17,7 @@ public class QuestionAnswer implements HasId<Integer> {
     private Integer is_delete;
     private Timestamp is_delete_time;
     private User answer_user;
-    private List<AnswerEvaluate> answerEvaluates;
+    private List<Evaluate> evaluates;
     private List<Comment> comments;
 
     public QuestionAnswer(SimpleAnswerDTO simpleAnswerDTO) {
@@ -42,12 +42,12 @@ public class QuestionAnswer implements HasId<Integer> {
         this.answer_user = answer_user;
     }
 
-    public List<AnswerEvaluate> getAnswerEvaluates() {
-        return answerEvaluates;
+    public List<Evaluate> getEvaluates() {
+        return evaluates;
     }
 
-    public void setAnswerEvaluates(List<AnswerEvaluate> answerEvaluates) {
-        this.answerEvaluates = answerEvaluates;
+    public void setEvaluates(List<Evaluate> evaluates) {
+        this.evaluates = evaluates;
     }
 
     public List<Comment> getComments() {

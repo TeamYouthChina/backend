@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Date;
 import java.util.List;
 
 
@@ -91,8 +92,11 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     @PostMapping("/search")
     public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, Authentication authentication) throws BaseException {
 
+        Date startDate = new Date(jobSearchDTO.getDurationDTO().getBegin().getTime());
+        Date endDate = new Date(jobSearchDTO.getDurationDTO().getEnd().getTime());
+
         List <Job> searchResult = this.jobService.getJobByMore(jobSearchDTO.getJobId(),jobSearchDTO.getJobName(),
-                jobSearchDTO.getComId(), jobSearchDTO.getComName(),jobSearchDTO.getStartTime(),jobSearchDTO.getEndTime(),
+                null, jobSearchDTO.getComName(),startDate,endDate,
                 jobSearchDTO.getType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), jobSearchDTO.getActive(),
                 jobSearchDTO.getLocation(), jobSearchDTO.getJobReqList(),jobSearchDTO.getIndustryList());
         JobSearchResultDTO jobSearchResultDTO = new JobSearchResultDTO();

@@ -44,7 +44,7 @@
     <update id="updateEssayAuthor" parameterType="com.youthchina.domain.tianjian.ComAuthorEssayMap">
     update COM_AUTHOR_ESSAY_MAP
     set
-         USER_ID = #{user_id}, ESSAY_ID = #{essay_id}
+         USER_ID = #{user_id}, ESSAY_ID = #{essay_id},RELA_TYPE = #{rela_type}, RELA_ID = #{rela_id}
     where
          ESSAY_ID = #{essay_id}
     </update>

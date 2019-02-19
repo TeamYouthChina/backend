@@ -1,19 +1,29 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.dto.community.BriefReviewDTO;
+
 import java.sql.Timestamp;
 
 public class BriefReview {
-    private int review_id;
+    private Integer review_id;
     private String review_content;
     private Timestamp review_time;
-    private int is_delete;
+    private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public int getReview_id() {
+    public BriefReview (BriefReviewDTO briefReviewDTO){
+        this.review_id = briefReviewDTO.getReview_id();
+        this.review_content = briefReviewDTO.getBody();
+        this.review_time = briefReviewDTO.getCreate_at();
+    }
+
+    public BriefReview(){}
+
+    public Integer getReview_id() {
         return review_id;
     }
 
-    public void setReview_id(int review_id) {
+    public void setReview_id(Integer review_id) {
         this.review_id = review_id;
     }
 
@@ -33,11 +43,11 @@ public class BriefReview {
         this.review_time = review_time;
     }
 
-    public int getIs_delete() {
+    public Integer getIs_delete() {
         return is_delete;
     }
 
-    public void setIs_delete(int is_delete) {
+    public void setIs_delete(Integer is_delete) {
         this.is_delete = is_delete;
     }
 
