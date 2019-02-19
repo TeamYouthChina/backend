@@ -110,7 +110,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     @Transactional
     public Comment addComment(Comment comment, Integer review_id) {
         briefReviewMapper.addComment(comment);
-        briefReviewMapper.createCommentReviewMap(comment.getComment_id(), null, review_id);
+        briefReviewMapper.createCommentReviewMap(comment.getComment_id(), 1, review_id);
         return comment;
     }
 

@@ -3,8 +3,11 @@ package com.youthchina.domain.jinhao.communityQA;
 import com.youthchina.domain.zhongyang.User;
 
 import com.youthchina.dto.community.BriefReviewDTO;
+import com.youthchina.dto.community.CommentDTO;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class BriefReview {
@@ -15,7 +18,7 @@ public class BriefReview {
     private Timestamp is_delete_time;
     private int rela_type;
     private int rela_id;
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<Comment>();
     private User user;
 
     public User getUser() {
@@ -29,6 +32,13 @@ public class BriefReview {
     public BriefReview (BriefReviewDTO briefReviewDTO){
         this.review_id = briefReviewDTO.getId();
         this.review_content = briefReviewDTO.getBody();
+        this.user = briefReviewDTO.getAuthor();
+        Iterator it = briefReviewDTO.getComments().iterator();
+        while(it.hasNext()){
+            CommentDTO commentDTO = (CommentDTO) it.next();
+            Comment comment = new Comment(commentDTO);
+            comments.add(comment);
+        }
     }
 
     public BriefReview(){}

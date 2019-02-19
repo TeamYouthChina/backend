@@ -4,19 +4,27 @@ import com.youthchina.domain.jinhao.communityQA.BriefReview;
 import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.zhongyang.User;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
 public class BriefReviewDTO {
     private Integer id;
     private String body;
-    private List<CommentDTO> comments;
+    private List<CommentDTO> comments = new ArrayList<CommentDTO>();
     private User author;
 
 
     public BriefReviewDTO (BriefReview briefReview){
         this.id = briefReview.getReview_id();
         this.body = briefReview.getReview_content();
+        Iterator it = briefReview.getComments().iterator();
+        while(it.hasNext()){
+            Comment comment = (Comment) it.next();
+            CommentDTO commentDTO = new CommentDTO(comment);
+            comments.add(commentDTO);
+        }
     }
 
     public BriefReviewDTO(){}

@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+
 @RestController
 @RequestMapping("${web.url.prefix}/answers")
 public class AnswerController {
@@ -54,6 +56,10 @@ public class AnswerController {
         Comment comment = new Comment();
         comment.setComment_content(simpleAnswerDTO.getBody());
         comment.setIs_delete(0);
+        comment.setUser_id(user.getId());
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        comment.setComment_pub_time(time);
+        System.out.println(user.getId());
         if(simpleAnswerDTO.getIsAnonymous()==true)
            comment.setUser_anony(0);
         else
@@ -70,6 +76,8 @@ public class AnswerController {
         Evaluate evaluate = new Evaluate();
         evaluate.setEvaluate_type(1);
         evaluate.setUser_id(user.getId());
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        evaluate.setEvaluate_time( time);
         Integer i = communityQAServiceImplement.evaluateAnswer(id, evaluate);
         if(i==1)
             return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));

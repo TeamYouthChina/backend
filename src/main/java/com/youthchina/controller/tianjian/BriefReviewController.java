@@ -37,7 +37,6 @@ public class BriefReviewController {
 
     @GetMapping("/{id}")
     public ResponseEntity getBriefReview(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
-        System.out.println("start !!!!!!!!!!");
         BriefReview briefReview = briefReviewServiceImplement.get(id);
 
         BriefReviewDTO briefReviewDTO = new BriefReviewDTO(briefReview);
@@ -61,6 +60,7 @@ public class BriefReviewController {
         briefReview.setReview_content(requestBriefReviewDTO.getBody());
         Timestamp time =  new Timestamp(System.currentTimeMillis());
         briefReview.setReview_time(time);
+        briefReview.setUser(user);
         BriefReview briefReviewReturn =  briefReviewServiceImplement.add(briefReview);
         BriefReviewDTO briefReviewDTO = new BriefReviewDTO();
         briefReviewDTO.setBody(briefReviewReturn.getReview_content());
@@ -80,7 +80,7 @@ public class BriefReviewController {
     }
 
     @PostMapping("/{id}/comments")
-    public ResponseEntity addBriefReviewUpvoteComment(@PathVariable Integer id, @RequestBody RequestCommentDTO requestCommentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity addBriefReviewComment(@PathVariable Integer id, @RequestBody RequestCommentDTO requestCommentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Comment comment = new Comment();
         comment.setUser(user);
         comment.setComment_content(requestCommentDTO.getBody());
@@ -100,7 +100,6 @@ public class BriefReviewController {
     @PutMapping("/{id}/upvote")
     public ResponseEntity updateBriefReviewUpvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Evaluate evaluate = briefReviewServiceImplement.doEvaluate(user.getId(),id,1);
-
         if ( evaluate!=null)
             return ResponseEntity.ok(new Response(new StatusDTO(200,"success")));
         else

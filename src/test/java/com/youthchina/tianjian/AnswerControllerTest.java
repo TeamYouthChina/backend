@@ -116,7 +116,8 @@ public class AnswerControllerTest {
                         .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
-                .andDo(print());
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":400,\"reason\":\"fail\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
 }
