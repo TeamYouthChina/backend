@@ -153,7 +153,21 @@ public class BriefReviewMapperTest {
     @Test
     public void addComment(){
         Comment comment = new Comment();
-
+        comment.setComment_content("aaaa");
+        comment.setUser_id(1);
+        briefReviewMapper.addComment(comment);
+        Comment comment1 = briefReviewMapper.getComment(comment.getComment_id());
+        Assert.assertEquals(comment.getComment_id(), comment1.getComment_id());
+        briefReviewMapper.createCommentReviewMap(comment.getComment_id(),1,2);
+        BriefReview briefReview = briefReviewMapper.get(2);
+        List<Comment> comments = briefReview.getComments();
+        Assert.assertEquals(1, comments.size());
+    }
+    @Test
+    public void deleteComment(){
+        briefReviewMapper.deleteComment(1);
+        Comment comment = briefReviewMapper.getComment(1);
+        Assert.assertNull(comment);
     }
 
 }
