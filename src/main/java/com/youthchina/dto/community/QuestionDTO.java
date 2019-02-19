@@ -45,6 +45,7 @@ public class QuestionDTO {
         this.invitation = question.getQues_invitation();
         this.isAnonymous =question.getUser_anony();
         this.createAt = question.getQues_pub_time();
+        this.editAt = question.getQues_edit_time();
         this.labelIds = question.getLabelIds();
         this.rela_type = question.getRela_type();
         this.answers = new ArrayList<SimpleAnswerDTO>();
@@ -113,6 +114,14 @@ public class QuestionDTO {
         this.createAt = createAt;
     }
 
+    public Timestamp getEditAt() {
+        return editAt;
+    }
+
+    public void setEditAt(Timestamp editAt) {
+        this.editAt = editAt;
+    }
+
     public List<SimpleAnswerDTO> getAnswers() {
         return answers;
     }
@@ -153,11 +162,4 @@ public class QuestionDTO {
         this.rela_id = rela_id;
     }
 
-    public Timestamp getEditAt() {
-        return editAt;
-    }
-
-    public void setEditAt(Timestamp editAt) {
-        this.editAt = editAt;
-    }
 }
