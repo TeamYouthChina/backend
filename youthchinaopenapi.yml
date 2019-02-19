@@ -15,17 +15,17 @@ paths:
       description: get job info by id
       operationId: getJob
       parameters:
-        - in: query
-          name: detailLevel
-          required: true
-          schema:
-            type: integer
-            default: 1
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
+          - in: query
+            name: detailLevel
+            required: true
+            schema:
+              type: integer
+              default: 1
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: integer
       responses:
         '200':
           description: job info
@@ -604,7 +604,49 @@ paths:
                               $ref: '#/components/schemas/AnswerBasic'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/collections/{id}':
+  '/jobs/collections/{id}':
+    delete:
+      tags:
+        - Collection
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+          description: id of collection
+      responses:
+        '204':
+          description: delete target collection
+  '/companies/attentions/{id}':
+    delete:
+      tags:
+        - Collection
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+          description: id of collection
+      responses:
+        '204':
+          description: delete target collection
+  '/questions/attentions/{id}':
+    delete:
+      tags:
+        - Collection
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+          description: id of collection
+      responses:
+        '204':
+          description: delete target collection
+  '/articles/attentions/{id}':
     delete:
       tags:
         - Collection
@@ -1124,7 +1166,22 @@ paths:
           description: delete successfully
         '403':
           description: no auth
-
+  '/articles/{id}/attention':
+    put:
+      tags:
+        - Article
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '201':
+          description: collect successful
+        '400':
+          description: cannot collect this job, maybe the job has already deleted
+      
   '/articles':
     post:
       tags:

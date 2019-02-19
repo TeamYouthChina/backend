@@ -60,7 +60,7 @@ public class UserControllerTest {
                 .content("{\n" +
                         "  \"username\": \"testUser\",\n" +
                         "  \"date_of_birth\": \"1995-11-01\",\n" +
-                        "  \"password\": \"thisisapassword\",\n" +
+                        "  \"password\": \"123456\",\n" +
                         "  \"phone_number\": \"12315213\",\n" +
                         "  \"email\": \"testNew!@test.com\",\n" +
                         "  \"nation\": \"China\",\n" +
@@ -81,7 +81,7 @@ public class UserControllerTest {
                 .content("{\n" +
                         "  \"username\": \"testUser\",\n" +
                         "  \"date_of_birth\": \"1995-11-01\",\n" +
-                        "  \"password\": \"thisisapassword\",\n" +
+                        "  \"password\": \"123456\",\n" +
                         "  \"phone_number\": \"12315213\",\n" +
                         "  \"email\": \"testNew!@test.com\",\n" +
                         "  \"nation\": \"China\",\n" +

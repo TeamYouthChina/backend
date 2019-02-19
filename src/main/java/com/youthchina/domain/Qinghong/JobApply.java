@@ -1,6 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
 import com.youthchina.domain.qingyang.Job;
+import com.youthchina.dto.JobApplyDTO;
 
 import java.sql.Timestamp;
 
@@ -18,6 +19,15 @@ public class JobApply {
     private String job_apply_status;
     private Integer stu_id;
     private Job job;
+
+    public JobApply(JobApplyDTO jobApplyDTO) {
+        this.apply_id=jobApplyDTO.getId();
+        this.job=new Job(jobApplyDTO.getPosition());
+
+    }
+
+    public JobApply() {
+    }
 
     public Integer getApply_id() {
         return apply_id;
