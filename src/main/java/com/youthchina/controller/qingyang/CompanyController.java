@@ -75,7 +75,7 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
     public ResponseEntity<?> getCompanyDetail(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
         Company company = this.companyService.get(companyId);
         if (detailLevel == 1) {
-            return ResponseEntity.ok(new Response(company));
+            return ResponseEntity.ok(new Response(new CompanyDTO(company)));
         }
         throw new BaseException();
     }

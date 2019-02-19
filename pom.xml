@@ -104,12 +104,10 @@
             <artifactId>pdfbox</artifactId>
             <version>2.0.13</version>
         </dependency>
-
-
-
     </dependencies>
 
     <build>
+        <finalName>youthchina-backend</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

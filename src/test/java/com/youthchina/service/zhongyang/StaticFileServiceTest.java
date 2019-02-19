@@ -3,20 +3,19 @@ package com.youthchina.service.zhongyang;
 import com.youthchina.dao.tianjian.StaticFileSystemMapper;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.service.tianjian.*;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.*;
 
 /**
@@ -53,8 +52,13 @@ public class StaticFileServiceTest {
         when(fileNameGenerate.generateFileName()).thenReturn("Test");
         when(staticFileSystemMapper.saveFileInfo(any())).thenReturn(1);
         staticFileService.saveFile(new File("ii.txt"), new User().getId());
+    }
 
-
+    @Test
+    public void testDownload() throws MalformedURLException {
+        when(aliCloudFileStorageService.downloadFile("testFile")).thenReturn(new URL("http://alicoud.oss.com/te"));
+        URL url = staticFileService.getFileUrl("testFile", "China");
+        Assert.assertEquals(url.getHost(),"alicoud.oss.com");
     }
 
 }

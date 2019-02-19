@@ -1,7 +1,8 @@
 # YouthChina-Backend
+[![CircleCI](https://circleci.com/gh/TeamYouthChina/backend.svg?style=svg)](https://circleci.com/gh/TeamYouthChina/backend)
+
 Backend of YouthChina based on Spring framework.
 
-## Setup
  Copy `.properties.example` file and change the extension into `.properties`
 
  Fill the properties in those files.
