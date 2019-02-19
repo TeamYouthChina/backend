@@ -10,18 +10,16 @@ import java.util.List;
  * Created by zhongyangwu on 12/2/18.
  */
 public class JobSearchDTO implements SearchDTO {
-    private String industry;
+    private String[] industry;
     private List<String> tagList;
     private int page;
     private int size;
     private String key;
-
-    private Integer jobId;
     private String jobName;
-    private Integer comId;
+
     private String comName;
-    private Date startTime;
-    private Date endTime;
+    private DurationDTO duration;
+
     private Integer type;
     private Integer salaryFloor;
     private Integer salaryCap;
@@ -31,23 +29,22 @@ public class JobSearchDTO implements SearchDTO {
     private List<Industry> industryList;
 
 
-    public Integer getJobId(){return jobId;}
-    public void setJobId(Integer jobId){this.jobId = jobId;}
 
     public String getJobName(){return jobName;}
     public void setJobName(String jobName){this.jobName=jobName;}
 
-    public Integer getComId(){return comId;}
-    public void setComId(Integer comId){this.comId=comId;}
 
     public String getComName(){return comName;}
     public void setComName(String comName){this.comName = comName;}
 
-    public Date getStartTime(){return startTime;}
-    public void setStartTime(Date startTime){this.startTime = startTime;}
+    public DurationDTO getDuration() {
+        return duration;
 
-    public Date getEndTime(){return endTime;}
-    public void setEndTime(Date endTime){this.endTime = endTime;}
+    }
+
+    public void setDuration(DurationDTO duration) {
+        this.duration = duration;
+    }
 
     public Integer getType(){return type;}
     public void setType(Integer type){this.type = type;}
@@ -70,11 +67,11 @@ public class JobSearchDTO implements SearchDTO {
     public List<Industry> getIndustryList(){return industryList;}
     public void setIndustryList(List<Industry> industryList){this.industryList = industryList;}
 
-    public String getIndustry() {
+    public String[] getIndustry() {
         return industry;
     }
 
-    public void setIndustry(String industry) {
+    public void setIndustry(String[] industry) {
         this.industry = industry;
     }
 

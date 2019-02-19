@@ -72,9 +72,7 @@ public class JobControllerTest {
     @Test
     public void testSearch() throws Exception {
         JobSearchDTO jobSearchDTO = new JobSearchDTO();
-        jobSearchDTO.setJobId(1);
         jobSearchDTO.setJobName("front");
-        jobSearchDTO.setComId(1);
         jobSearchDTO.setComName("大疆");
         jobSearchDTO.setType(1);
         jobSearchDTO.setSalaryCap(10000);
