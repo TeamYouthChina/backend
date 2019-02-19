@@ -49,7 +49,7 @@ public class BriefReviewControllerTest {
     }
 
     @Test
-    public void getEssayTest() throws Exception {
+    public void getBriefReviewTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/editorials/1")
                         .with(authGenerator.authentication())

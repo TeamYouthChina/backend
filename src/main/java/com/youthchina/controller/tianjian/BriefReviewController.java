@@ -37,7 +37,9 @@ public class BriefReviewController {
 
     @GetMapping("/{id}")
     public ResponseEntity getBriefReview(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
+        System.out.println("start !!!!!!!!!!");
         BriefReview briefReview = briefReviewServiceImplement.get(id);
+
         BriefReviewDTO briefReviewDTO = new BriefReviewDTO(briefReview);
         briefReviewDTO.setAuthor(userService.get(user.getId()));
         if (briefReviewDTO!=null)
