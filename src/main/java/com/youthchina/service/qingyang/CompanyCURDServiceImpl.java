@@ -4,6 +4,7 @@ import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.HrMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,7 +80,10 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     public Company update(Company company) throws NotFoundException {
         Integer result = companyMapper.updateCompany(company);
         companyMapper.deleteCompanyInd(company.getCompanyId());
-        companyMapper.insertCompanyInd(company.getIndList());
+        List<Industry> industryList = company.getIndList();
+        if(industryList != null && industryList.size() > 0){
+            companyMapper.insertCompanyInd(industryList);
+        }
         return companyMapper.selectCompany(company.getCompanyId());
     }
 
@@ -92,6 +96,10 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Transactional
     public Company add(Company entity) {
         Integer result = companyMapper.insertCompany(entity);
+        List<Industry> industryList = entity.getIndList();
+        if(industryList != null && industryList.size() > 0){
+            companyMapper.insertCompanyInd(industryList);
+        }
         return companyMapper.selectCompany(entity.getCompanyId());
     }
 

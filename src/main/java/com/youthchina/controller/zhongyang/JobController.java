@@ -1,18 +1,19 @@
 package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.qingyang.Job;
-import com.youthchina.dto.JobSearchDTO;
-import com.youthchina.dto.JobSearchResultDTO;
-import com.youthchina.dto.Response;
-import com.youthchina.dto.SimpleJobDTO;
+import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.*;
 import com.youthchina.exception.zhongyang.BaseException;
+import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
+import com.youthchina.service.Qinghong.StudentService;
 import com.youthchina.service.qingyang.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -29,10 +30,12 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
 
     private String url;
     private JobService jobService;
+    private StudentService studentService;
 
     @Autowired
-    public JobController(JobService jobService, @Value("${web.url.prefix}") String prefix) {
+    public JobController(JobService jobService,StudentService studentService, @Value("${web.url.prefix}") String prefix) {
         this.jobService = jobService;
+        this.studentService=studentService;
         this.url = prefix + "/jobs/";
     }
 
@@ -63,23 +66,23 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     }
     */
 
-    @PostMapping("/")
+    @PostMapping("/**")
     public ResponseEntity<?> createJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) {
         return add(simpleJobDTO);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/**")
     public ResponseEntity<?> updateJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) throws NotFoundException {
         return update(simpleJobDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/**")
     public ResponseEntity<?> deleteJobInfo(@PathVariable Integer id) throws NotFoundException {
         return delete(id);
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/**")
     public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
         Job job = this.jobService.get(jobId);
         if (detailLevel == 1) {
@@ -99,6 +102,62 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         jobSearchResultDTO.setSearchResult(searchResult);
 
         return ResponseEntity.ok(new Response(jobSearchResultDTO));
+    }
+
+    /**
+    * @Description: 完成申请职位的添加，通过job_id
+    * @Param: [job_id, user]
+    * @return: org.springframework.http.ResponseEntity<?>
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/18
+    */
+
+    @PostMapping("/{id}/apply")
+    public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id,@AuthenticationPrincipal User user) throws NotFoundException {
+        JobApplyDTO jobApplyDTO=new JobApplyDTO(studentService.jobApply(job_id,user.getId()));
+            return  ResponseEntity.ok(new Response(jobApplyDTO,new StatusDTO(0,"")));
+
+    }
+
+    /**
+    * @Description: 完成职位收藏，通过job_id以及user_id实现
+    * @Param: [job_id, user]
+    * @return: org.springframework.http.ResponseEntity<?>
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/18
+    */
+//添加职位还有一些情况没有判断，在api缺少
+    @PutMapping("/{id}/attention")
+    public ResponseEntity<?> putJobCollection(@PathVariable("id") Integer job_id,@AuthenticationPrincipal User user) throws NotFoundException {
+        Integer integer = studentService.addJobCollection(job_id, user.getId());
+        if (integer == 1) {
+            return ResponseEntity.ok(new Response
+                    (integer, new StatusDTO(201, "collect successful")));
+        } else {
+            return ResponseEntity.ok(new Response(integer, new StatusDTO(400,"cannot collect this job,maybe the job has already delete")));
+
+        }
+
+
+    }
+
+    /**
+    * @Description: 通过collect_id删除职位收藏
+    * @Param: [collect_id, user]
+    * @return: org.springframework.http.ResponseEntity<?>
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/19
+    */
+    @DeleteMapping("/collections/{id}")
+    public ResponseEntity<?> deleteJobCollection(@PathVariable("id") Integer collect_id,@AuthenticationPrincipal User user)throws NotFoundException{
+        Integer integer=studentService.deleteJobCollect(collect_id);
+        if (integer == 1) {
+            return ResponseEntity.ok(new Response
+                    (integer, new StatusDTO(201, "delete successful")));
+        } else {
+            return ResponseEntity.ok(new Response(integer, new StatusDTO(400,"cannot delete this company collection,maybe this collection has already delete")));
+
+        }
     }
 
 
