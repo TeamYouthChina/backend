@@ -121,7 +121,7 @@ public class JobServiceImpl implements JobService {
         jobMapper.insertJobIndustry(entity.getIndustries());
         jobMapper.insertJobDegree(entity.getJobReqList());
         jobMapper.insertJobLocation(entity.getJobLocationList());
-        return jobMapper.selectJobByJobId(result);
+        return jobMapper.selectJobByJobId(entity.getJobId());
     }
 
     /**
