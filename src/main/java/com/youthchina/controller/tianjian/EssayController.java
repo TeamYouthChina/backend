@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("${web.url.prefix}/articles/**")
+@RequestMapping("${web.url.prefix}/articles")
 public class EssayController {
 
     @Autowired
@@ -39,6 +39,9 @@ public class EssayController {
     @GetMapping("/{id}")
     public ResponseEntity getEssay(@PathVariable Integer id) throws NotFoundException {
         ComEssay comEssay = essayServiceimpl.getEssay(id);
+        if(comEssay == null) {
+            throw new NotFoundException(404,404,"没有找到这个文章");
+        }
         ComAuthorEssayMap comAuthorEssayMap = essayServiceimpl.getEssayAuthor(id);
         EssayDTO essayDTO = new EssayDTO(comEssay);
         User user = userService.get(comAuthorEssayMap.getUser_id());
@@ -58,6 +61,7 @@ public class EssayController {
     @PutMapping("/{id}")
     public ResponseEntity updateEssay(@PathVariable Integer id, @RequestBody RequestEssayDTO requestEssayDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = new ComEssay(requestEssayDTO);
+        comEssay.setEssay_id(id);
         if(requestEssayDTO.getCompany_id()!=null){
             ComAuthorEssayMap comAuthorEssayMap = new ComAuthorEssayMap();
             comAuthorEssayMap.setRela_type(2);
@@ -74,8 +78,8 @@ public class EssayController {
         if(requestEssayDTO.getCompany_id()!=null)
            essayDTO.setCompany(companyCURDService.get(requestEssayDTO.getCompany_id()));
         essayDTO.setCreat_at(essayServiceimpl.getEssay(id).getEssay_pub_time());
-        essayDTO.setBody(requestEssayDTO.getBody());
-        essayDTO.setTitle(requestEssayDTO.getTitle());
+        essayDTO.setBody(comEssay.getEssay_body());
+        essayDTO.setTitle(comEssay.getEssay_title());
         essayDTO.setUser(user);
 
         if (i!=0)
@@ -88,6 +92,7 @@ public class EssayController {
     @PostMapping
     public ResponseEntity addEssay(@RequestBody RequestEssayDTO requestEssayDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = new ComEssay(requestEssayDTO);
+        comEssay.setEssay_abbre("abbre");
         Timestamp time = new Timestamp( System.currentTimeMillis());
         comEssay.setEssay_pub_time(time);
         int rela_type = 1;

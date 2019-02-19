@@ -4,11 +4,13 @@ import com.youthchina.domain.jinhao.communityQA.BriefReview;
 import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.zhongyang.User;
 
+import java.util.List;
+
 
 public class BriefReviewDTO {
     private Integer id;
     private String body;
-    private Comment comments;
+    private List<CommentDTO> comments;
     private User author;
 
 
@@ -35,11 +37,11 @@ public class BriefReviewDTO {
         this.body = body;
     }
 
-    public Comment getComments() {
+    public List<CommentDTO> getComments() {
         return comments;
     }
 
-    public void setComments(Comment comments) {
+    public void setComments(List<CommentDTO> comments) {
         this.comments = comments;
     }
 
