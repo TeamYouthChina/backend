@@ -1,14 +1,16 @@
 package com.youthchina.domain.jinhao.communityQA;
 
-import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.Job;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.community.QuestionDTO;
 import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.util.zhongyang.HasId;
-import io.swagger.models.auth.In;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Question implements HasId<Integer> {
@@ -25,30 +27,37 @@ public class Question implements HasId<Integer> {
     private List<QuestionAttention> questionAttentions;
     private List<QuestionAnswer> questionAnswers;
     private List<Label> labels;
-    private Job job;
-    private Company company;
     private AnswerInvitation ques_invitation;
     private List<Integer> labelIds;
     private Integer rela_type;
+    private Integer rela_id;
 
     public Question(QuestionDTO questionDTO) {
         this.ques_id = questionDTO.getId();
         this.ques_user = questionDTO.getCreator();
         this.ques_title = questionDTO.getTitle();
-        this.ques_body = questionDTO.getBody();
         this.ques_invitation = questionDTO.getInvitation();
         this.user_anony = questionDTO.getAnonymous();
         this.ques_pub_time = questionDTO.getCreateAt();
+        this.ques_edit_time = questionDTO.getEditAt();
         this.rela_type = questionDTO.getRela_type();
+        this.rela_id = questionDTO.getRela_id();
         this.labelIds = questionDTO.getLabelIds();
-        for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
-            this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
+        this.questionAnswers = new ArrayList<>();
+        if(questionDTO.getAnswers() != null) {
+            for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
+                this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
+            }
         }
-        if(questionDTO.getRela_type() == 2){
-            this.company.setCompanyId(questionDTO.getRela_id());
-        } else if(questionDTO.getRela_type() == 3){
-            this.job.setJobId(questionDTO.getRela_id());
+        this.ques_abbre = questionDTO.getRichText().getBraftEditorRaw();
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        try {
+            this.ques_body = ow.writeValueAsString(questionDTO.getRichText());
+        } catch (Exception e) {
+            System.out.println("Can't transfer this body");
         }
+
     }
 
     public Question(){}
@@ -59,78 +68,6 @@ public class Question implements HasId<Integer> {
 
     public void setId(Integer ques_id) {
         this.ques_id = ques_id;
-    }
-
-    public Integer getUser_anony() {
-        return user_anony;
-    }
-
-    public void setUser_anony(Integer user_anony) {
-        this.user_anony = user_anony;
-    }
-
-    public Job getJob() {
-        return job;
-    }
-
-    public void setJob(Job job) {
-        this.job = job;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public List<QuestionAttention> getQuestionAttentions() {
-        return questionAttentions;
-    }
-
-    public void setQuestionAttentions(List<QuestionAttention> questionAttentions) {
-        this.questionAttentions = questionAttentions;
-    }
-
-    public List<QuestionAnswer> getQuestionAnswers() {
-        return questionAnswers;
-    }
-
-    public void setQuestionAnswers(List<QuestionAnswer> questionAnswers) {
-        this.questionAnswers = questionAnswers;
-    }
-
-    public List<Label> getLabels() {
-        return labels;
-    }
-
-    public void setLabels(List<Label> labels) {
-        this.labels = labels;
-    }
-
-    public User getQues_user() {
-        return ques_user;
-    }
-
-    public void setQues_user(User ques_user) {
-        this.ques_user = ques_user;
-    }
-
-    public Integer getIs_delete() {
-        return is_delete;
-    }
-
-    public void setIs_delete(Integer is_delete) {
-        this.is_delete = is_delete;
-    }
-
-    public Timestamp getIs_delete_time() {
-        return is_delete_time;
-    }
-
-    public void setIs_delete_time(Timestamp is_delete_time) {
-        this.is_delete_time = is_delete_time;
     }
 
     public Integer getQues_id() {
@@ -181,11 +118,67 @@ public class Question implements HasId<Integer> {
         this.ques_edit_time = ques_edit_time;
     }
 
+    public Integer getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(Integer is_delete) {
+        this.is_delete = is_delete;
+    }
+
+    public Timestamp getIs_delete_time() {
+        return is_delete_time;
+    }
+
+    public void setIs_delete_time(Timestamp is_delete_time) {
+        this.is_delete_time = is_delete_time;
+    }
+
+    public Integer getUser_anony() {
+        return user_anony;
+    }
+
+    public void setUser_anony(Integer user_anony) {
+        this.user_anony = user_anony;
+    }
+
+    public User getQues_user() {
+        return ques_user;
+    }
+
+    public void setQues_user(User ques_user) {
+        this.ques_user = ques_user;
+    }
+
+    public List<QuestionAttention> getQuestionAttentions() {
+        return questionAttentions;
+    }
+
+    public void setQuestionAttentions(List<QuestionAttention> questionAttentions) {
+        this.questionAttentions = questionAttentions;
+    }
+
+    public List<QuestionAnswer> getQuestionAnswers() {
+        return questionAnswers;
+    }
+
+    public void setQuestionAnswers(List<QuestionAnswer> questionAnswers) {
+        this.questionAnswers = questionAnswers;
+    }
+
+    public List<Label> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(List<Label> labels) {
+        this.labels = labels;
+    }
+
     public AnswerInvitation getQues_invitation() {
         return ques_invitation;
     }
 
-    public void setQues_invitation() {
+    public void setQues_invitation(AnswerInvitation ques_invitation) {
         this.ques_invitation = ques_invitation;
     }
 
@@ -193,7 +186,7 @@ public class Question implements HasId<Integer> {
         return labelIds;
     }
 
-    public void setRela_type(List<Integer> labelIds) {
+    public void setLabelIds(List<Integer> labelIds) {
         this.labelIds = labelIds;
     }
 
@@ -203,6 +196,14 @@ public class Question implements HasId<Integer> {
 
     public void setRela_type(Integer rela_type) {
         this.rela_type = rela_type;
+    }
+
+    public Integer getRela_id() {
+        return rela_id;
+    }
+
+    public void setRela_id(Integer rela_id) {
+        this.rela_id = rela_id;
     }
 
 }

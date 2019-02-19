@@ -1,11 +1,17 @@
 package com.youthchina.dto.community;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.jinhao.communityQA.AnswerInvitation;
 import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.RichTextDTO;
 
+import java.io.IOException;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,33 +21,47 @@ public class QuestionDTO {
     private Integer id;
     private User creator;
     private String title;
-    private String body;
+    private RichTextDTO richText;
     private Integer isAnonymous;
     private Timestamp createAt;
+    private Timestamp editAt;
     private List<SimpleAnswerDTO> answers;
     private AnswerInvitation invitation;
     private List<Integer> labelIds;
     private Integer rela_type;
     private Integer rela_id;
 
+
+
     public QuestionDTO(Question question) {
         this.id = question.getQues_id();
         this.creator = question.getQues_user();
         this.title = question.getQues_title();
-        this.body = question.getQues_body();
+        //RichTextDTO body = new RichTextDTO();
+        //body.setPreviewText(question.getQues_body());
+        //body.setBraftEditorRaw(question.getQues_abbre());
+
+        //this.richText = body;
         this.invitation = question.getQues_invitation();
         this.isAnonymous =question.getUser_anony();
         this.createAt = question.getQues_pub_time();
+        this.editAt = question.getQues_edit_time();
         this.labelIds = question.getLabelIds();
         this.rela_type = question.getRela_type();
-        for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
-            this.answers.add(new SimpleAnswerDTO(questionAnswer));
+        this.answers = new ArrayList<SimpleAnswerDTO>();
+        if(question.getQuestionAnswers() != null) {
+            for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
+                this.answers.add(new SimpleAnswerDTO(questionAnswer));
+            }
         }
-        if(question.getRela_type() == 2) {
-            this.rela_id = question.getCompany().getCompanyId();
-        } else if(question.getRela_type() == 3) {
-            this.rela_id = question.getJob().getJobId();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            this.richText = mapper.readValue(question.getQues_body(), RichTextDTO.class);
+        } catch (Exception e) {
+            System.out.println("Can't transfer this body");
         }
+
+
     }
 
     public QuestionDTO(){}
@@ -70,12 +90,12 @@ public class QuestionDTO {
         this.title = title;
     }
 
-    public String getBody() {
-        return body;
+    public RichTextDTO getRichText() {
+        return richText;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setRichText(RichTextDTO richText) {
+        this.richText = richText;
     }
 
     public Integer getAnonymous() {
@@ -83,7 +103,7 @@ public class QuestionDTO {
     }
 
     public void setAnonymous(Integer anonymous) {
-        isAnonymous = anonymous;
+        this.isAnonymous = anonymous;
     }
 
     public Timestamp getCreateAt() {
@@ -130,7 +150,15 @@ public class QuestionDTO {
         return rela_id;
     }
 
-    public void setRela_id(){
+    public void setRela_id(Integer rela_id){
         this.rela_id = rela_id;
+    }
+
+    public Timestamp getEditAt() {
+        return editAt;
+    }
+
+    public void setEditAt(Timestamp editAt) {
+        this.editAt = editAt;
     }
 }
