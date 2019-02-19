@@ -79,12 +79,14 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     @PostMapping("/")
     public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO, @AuthenticationPrincipal User user) {
         questionDTO.setCreator(user);
+       // questionDTO.setAbbreviation(questionDTO.getRichTextDTO().getBraftEditorRaw());
         return add(questionDTO);
     }
 
     @PutMapping("/{id}/**")
     public ResponseEntity<?> updateQuestionInfo(@RequestBody QuestionDTO questionDTO, @PathVariable Integer id) throws NotFoundException {
         questionDTO.setId(id);
+       // questionDTO.setAbbreviation(questionDTO.getRichTextDTO().getBraftEditorRaw());
         return update(questionDTO);
     }
 

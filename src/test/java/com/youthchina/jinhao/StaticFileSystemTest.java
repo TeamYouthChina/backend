@@ -26,15 +26,5 @@ public class StaticFileSystemTest {
 
     @Autowired
     StaticFileService staticFileService;
-
-    @Test
-    public void testGetFileSize() throws ParseException, IOException {
-
-
-        Timestamp startTime = new Timestamp(100,06,01,00,00,00,00);
-        Timestamp endTime = new Timestamp(115,06,00,00,00,00,00);
-        Float fileSize = staticFileService.getFileSizeOfUserUpoloading(1,startTime,endTime);
-        Float f = new Float(214);
-        Assert.assertEquals(f , fileSize);
-    }
 }
+

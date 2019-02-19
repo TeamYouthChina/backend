@@ -1,10 +1,14 @@
 package com.youthchina.dto;
 
+import java.util.List;
+
 public class RichTextDTO {
 
     private String braftEditorRaw;
     private String previewText;
-    private String resourceList;
+    private List<String> resourceList;
+
+    public void RichTextDTO(){}
 
     public void setBraftEditorRaw(String braftEditorRaw){ this.braftEditorRaw = braftEditorRaw; }
 
@@ -20,9 +24,9 @@ public class RichTextDTO {
         return previewText;
     }
 
-    public void setResourceList(String resourceList){
+    public void setResourceList(List resourceList){
         this.resourceList = resourceList;
     }
 
-    public String getResourceList(){ return resourceList; }
+    public List getResourceList(){ return resourceList; }
 }
