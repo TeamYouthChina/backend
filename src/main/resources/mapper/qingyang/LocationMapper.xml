@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.qingyang.LocationMapper">
+
+    <resultMap id="Location" type="com.youthchina.domain.Qinghong.Location">
+        <id property="region_num" column="REGION_NUM"/>
+        <result property="region_chn" column="REGION_CHN"/>
+        <result property="region_eng" column="REGION_ENG"/>
+        <result property="region_level" column="REGION_LEVEL"/>
+        <result property="region_parent_num" column="REGION_PARENT_NUM"/>
+        <result property="start_time" column="START_TIME"/>
+    </resultMap>
+
+    <select id="getChildren" resultMap="Location" parameterType="java.lang.Integer">
+        SELECT * FROM SYS_CHN_REGION
+        WHERE REGION_PARENT_NUM  = #{parentId}
+    </select>
+
+</mapper>

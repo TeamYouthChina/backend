@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:include="footer.html :: copy"></div>
+<p1 th:text="尊敬的 +${username}"></p1>
+<div th:text="${username}"></div>
+<span th:text="我的邮箱是+${email}"></span>
+<p th:text="${username}">111</p>
+<div th:object="${User}">
+    <span th:text="*{username}"></span>
+    <a th:href="@{http://www.baidu.com(id=${email})}">激活账号</a>
+</div>
+</body>
+</html>

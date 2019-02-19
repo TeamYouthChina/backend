@@ -7,7 +7,7 @@
                      select="com.youthchina.dao.Qinghong.ApplicantMapper.getStudentInfo"/>
         <collection property="comFriendRelations" column="user_id"
                     select="com.youthchina.dao.tianjian.CommunityMapper.getFriend"/>
-        <collection property="answerEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.AnswerEvaluate">
+        <collection property="evaluates" ofType="com.youthchina.domain.jinhao.communityQA.Evaluate">
             <id property="evaluate_id" column="A_EVALUATE_ID"/>
         </collection>
         <collection property="commentEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
@@ -25,7 +25,7 @@
     </resultMap>
     <resultMap id="influenceOfInteraction" type="com.youthchina.domain.jinhao.communityQA.Influence">
         <id property="user_id" column="USER_ID"/>
-        <collection property="answerEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.AnswerEvaluate">
+        <collection property="evaluates" ofType="com.youthchina.domain.jinhao.communityQA.Evaluate">
             <id property="evaluate_id" column="I_A_EVALUATE_ID"/>
         </collection>
         <collection property="commentEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
@@ -43,7 +43,7 @@
         <collection property="questionAnswers" ofType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
             <id property="answer_id" column="ANSWER_ID"/>
         </collection>
-        <collection property="answerComments" ofType="com.youthchina.domain.jinhao.communityQA.AnswerComment">
+        <collection property="comments" ofType="com.youthchina.domain.jinhao.communityQA.Comment">
             <id property="comment_id" column="COMMENT_ID"/>
         </collection>
         <collection property="videoComments" ofType="com.youthchina.domain.jinhao.communityQA.VideoComment">

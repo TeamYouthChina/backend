@@ -1,5 +1,7 @@
 package com.youthchina.domain.qingyang;
 
+import com.youthchina.dto.NationDTO;
+
 import java.sql.Timestamp;
 
 public class Country {
@@ -20,6 +22,13 @@ comment '国别表';
     private String countryChn;
     private String countryEng;
     private Timestamp startTime;
+
+    public Country() {
+    }
+
+    public Country(NationDTO nation) {
+        this.setCountryAbbre(nation.getCountryAbbre());
+    }
 
     public String getCountryAbbre() {
         return countryAbbre;

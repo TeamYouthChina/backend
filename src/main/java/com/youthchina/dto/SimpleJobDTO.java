@@ -13,18 +13,17 @@ public class SimpleJobDTO {
     private int id;
     private String name;
     private OrganizationDTO organization;
-    private List<LocationDTO> jobLocationList;
     private String type;
+    private List<LocationDTO> LocationList;
 
     public SimpleJobDTO(Job job) {
         this.id = job.getJobId();
         this.name = job.getJobName();
         this.organization = new OrganizationDTO(job.getCompany());
-        for (Location location : job.getJobLocationList()) {
-            this.jobLocationList.add(new LocationDTO(location));
-        }//todo: create location object
+//        for(int i =0; i < job.getJobLocationList().size(); i++){
+//            this.LocationList.add(new LocationDTO(job.getJobLocationList().get(i)));  //todo: create location object
+//        }
     }
-
 
     public int getId() {
         return id;
@@ -50,12 +49,12 @@ public class SimpleJobDTO {
         this.organization = organization;
     }
 
-    public void setJobLocationList(List<LocationDTO> jobLocationList) {
-        this.jobLocationList = jobLocationList;
+    public List<LocationDTO> getJobLocationList() {
+        return LocationList;
     }
 
-    public List<LocationDTO> getJobLoationList() {
-        return jobLocationList;
+    public void setLocationList(List<LocationDTO> jobLocationList) {
+        this.LocationList = LocationList;
     }
 
     public String getType() {

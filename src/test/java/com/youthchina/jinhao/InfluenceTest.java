@@ -43,10 +43,10 @@ public class InfluenceTest {
         Assert.assertNotNull(student);
         List<ComFriendRelation> comFriendRelations = influence.getComFriendRelations();
         Assert.assertEquals(1, comFriendRelations.size());
-        List<AnswerEvaluate> answerEvaluates = influence.getAnswerEvaluates();
-        Assert.assertEquals(2, answerEvaluates.size());
-        for(AnswerEvaluate answerEvaluate : answerEvaluates){
-            if(answerEvaluate.getEvaluate_id() != 1 && answerEvaluate.getEvaluate_id() != 3){
+        List<Evaluate> evaluates = influence.getEvaluates();
+        Assert.assertEquals(2, evaluates.size());
+        for(Evaluate evaluate : evaluates){
+            if(evaluate.getEvaluate_id() != 1 && evaluate.getEvaluate_id() != 3){
                 Assert.fail();
             }
         }
@@ -69,10 +69,10 @@ public class InfluenceTest {
     @Test
     public void getInteraction(){
         Influence influence = influenceMapper.getInteraction(1,2);
-        List<AnswerEvaluate> answerEvaluates = influence.getAnswerEvaluates();
-        Assert.assertEquals(1, answerEvaluates.size());
-        for(AnswerEvaluate answerEvaluate : answerEvaluates){
-            if(answerEvaluate.getEvaluate_id() != 5){
+        List<Evaluate> evaluates = influence.getEvaluates();
+        Assert.assertEquals(1, evaluates.size());
+        for(Evaluate evaluate : evaluates){
+            if(evaluate.getEvaluate_id() != 5){
                 Assert.fail();
             }
         }
@@ -111,10 +111,10 @@ public class InfluenceTest {
                 Assert.fail();
             }
         }
-        List<AnswerComment> answerComments = influence.getAnswerComments();
-        Assert.assertEquals(1, answerComments.size());
-        for(AnswerComment answerComment : answerComments){
-            if(answerComment.getComment_id() != 8){
+        List<Comment> comments = influence.getComments();
+        Assert.assertEquals(1, comments.size());
+        for(Comment comment : comments){
+            if(comment.getComment_id() != 8){
                 Assert.fail();
             }
         }

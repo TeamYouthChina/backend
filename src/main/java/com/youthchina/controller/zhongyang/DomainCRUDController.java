@@ -13,7 +13,7 @@ import java.net.URISyntaxException;
 /**
  * Created by zhongyangwu on 11/21/18.
  */
-abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializable> extends ResponseController<DTO, T, K> {
+public abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializable> extends ResponseController<DTO, T, K> {
 
     /**
      * @return DomainCRUDService to access the domain model
@@ -41,7 +41,7 @@ abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializa
      */
     protected ResponseEntity<?> update(DTO dto) throws NotFoundException {
         T updatedT = getService().update(DtoToDomain(dto));
-        return ResponseEntity.ok(DtoToResponse());
+        return ResponseEntity.ok(DtoToResponse(DomainToDto(updatedT)));
     }
 
     /**

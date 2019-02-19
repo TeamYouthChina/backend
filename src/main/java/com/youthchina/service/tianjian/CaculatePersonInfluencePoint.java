@@ -244,19 +244,19 @@ public class CaculatePersonInfluencePoint {
     /*
     * 计算好友互动得分
     * */
-    public static Integer caculatePersonInfluenceInteraction(List<AnswerEvaluate> AnswerEvaluateList,
+    public static Integer caculatePersonInfluenceInteraction(List<Evaluate> evaluateList,
                                                       List<CommentEvaluate> commentEvaluateList,
                                                       List<DiscussEvaluate> discussEvaluatesList,
                                                       List<VideoEvaluate> videoEvaluateList,
                                                       List<ComReplyEvaluate> comReplyEvaluateList,
                                                       List<QuestionAnswer> questionAnswersList,
-                                                      List<AnswerComment> answerCommentList,
+                                                      List<Comment> commentList,
                                                       List<VideoComment> videoCommentList,
                                                       List<ComEssayReply> comEssayReplyList){
         Integer pers_interaction_in = new Integer(0);
 
-        if(AnswerEvaluateList!=null){
-            pers_interaction_in += AnswerEvaluateList.size();
+        if(evaluateList !=null){
+            pers_interaction_in += evaluateList.size();
         }
         if(commentEvaluateList!=null){
             pers_interaction_in += commentEvaluateList.size();
@@ -273,8 +273,8 @@ public class CaculatePersonInfluencePoint {
         if(questionAnswersList!=null){
             pers_interaction_in += questionAnswersList.size();
         }
-        if(answerCommentList!=null){
-            pers_interaction_in += answerCommentList.size();
+        if(commentList !=null){
+            pers_interaction_in += commentList.size();
         }
         if(videoCommentList!=null){
             pers_interaction_in += videoCommentList.size();
@@ -289,14 +289,14 @@ public class CaculatePersonInfluencePoint {
     /*
     * 计算被点赞数得分
     * */
-    public static Integer caculatePersonInfluenceLikeCount(List<AnswerEvaluate> answerEvaluateList,
+    public static Integer caculatePersonInfluenceLikeCount(List<Evaluate> evaluateList,
                                                       List<CommentEvaluate> commentEvaluateList,
                                                       List<DiscussEvaluate> discussEvaluatesList,
                                                       List<VideoEvaluate> videoEvaluateList,
                                                       List<ComReplyEvaluate> comReplyEvaluateList){
         Integer pers_like_count_in = new Integer(0);
-        if(answerEvaluateList!=null){
-            pers_like_count_in += answerEvaluateList.size();
+        if(evaluateList !=null){
+            pers_like_count_in += evaluateList.size();
         }
         if(commentEvaluateList!=null){
             pers_like_count_in += commentEvaluateList.size();
@@ -367,13 +367,13 @@ public class CaculatePersonInfluencePoint {
         Iterator itInteraction = influenceInteraction.iterator();
         while(itInteraction.hasNext()){
             Influence influenceinteraction = (Influence) itInteraction.next();
-            interaction += caculatePersonInfluenceInteraction(influenceinteraction.getAnswerEvaluates(),
+            interaction += caculatePersonInfluenceInteraction(influenceinteraction.getEvaluates(),
                     influenceinteraction.getCommentEvaluates(),
                     influenceinteraction.getDiscussEvaluates(),
                     influenceinteraction.getVideoEvaluates(),
                     influenceinteraction.getComReplyEvaluates(),
                     influenceinteraction.getQuestionAnswers(),
-                    influenceinteraction.getAnswerComments(),
+                    influenceinteraction.getComments(),
                     influenceinteraction.getVideoComments(),
                     influenceinteraction.getComEssayReplies());
         }
@@ -383,7 +383,7 @@ public class CaculatePersonInfluencePoint {
             pers_interaction = 100 * pers_interaction_rate;
         }
 
-        pers_like_count = caculatePersonInfluenceLikeCount(influence.getAnswerEvaluates(),
+        pers_like_count = caculatePersonInfluenceLikeCount(influence.getEvaluates(),
                                                            influence.getCommentEvaluates(),
                                                            influence.getDiscussEvaluates(),
                                                            influence.getVideoEvaluates(),

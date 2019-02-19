@@ -10,7 +10,7 @@
             COMPANY_ID,     HR_ID,          JOB_NAME,     JOB_PROF_CODE,
             JOB_START_TIME, JOB_END_TIME,   JOB_TYPE,     JOB_DESCRIPTION,
             JOB_DUTY,       JOB_HIGHLIGHT, JOB_SALARY_FLOOR, JOB_SALARY_CAP,
-            JOB_LINK,   CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, IS_DELETE,
+            JOB_LINK,   CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, ADD_TIME, IS_DELETE,
             IS_DELETE_TIME
         )
         VALUES
@@ -18,7 +18,7 @@
             #{company.companyId},   #{hr.hrId},       #{jobName},     #{jobProfCode},
             #{jobStartTime},#{jobEndTime},  #{jobType},     #{jobDescription},
             #{jobDuty},   #{jobHighlight},  #{jobSalaryFloor}, #{jobSalaryCap},
-            #{jobLink},  #{cvReceiMail}, #{cvNameRule},  #{jobActive}, 0,
+            #{jobLink},  #{cvReceiMail}, #{cvNameRule},  #{jobActive}, NOW(), 0,
             NULL
         )
     </insert>
@@ -70,6 +70,7 @@
         <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
         <result property="cvNameRule" column="CV_NAME_RULE"/>
         <result property="jobActive" column="JOB_ACTIVE"/>
+        <result property="addTime" column="JOB_ADD_TIME"/>
         <association property="company" column="COMPANY_ID" javaType="com.youthchina.domain.qingyang.Company" resultMap="com.youthchina.dao.qingyang.CompanyMapper.company"/>
         <!--<association property="company" javaType="com.youthchina.domain.qingyang.Company">-->
             <!--<id property="companyId" column="COMPANY_ID"/>-->
@@ -94,6 +95,7 @@
         <association property="profession" javaType="com.youthchina.domain.qingyang.Profession">
             <id property="profNum" column="PROF_NUM"/>
             <result property="profCode" column="PROF_CODE"/>
+            <result property="profLevel" column="PROF_LEVEL"/>
             <result property="profParentCode" column="PROF_PARENT_CODE"/>
             <result property="profChn" column="PROF_CHN"/>
             <result property="profEng" column="PROF_ENG"/>
@@ -152,6 +154,7 @@
             j.JOB_ACTIVE as JOB_ACTIVE,
             j.HR_ID as HR_ID,
             j.COMPANY_ID as COMPANY_ID,
+            j.ADD_TIME as JOB_ADD_TIME,
 
             com.COMPANY_NAME as COMPANY_NAME,
             com.COMPANY_CODE as COMPANY_CODE,
@@ -199,6 +202,7 @@
             degree.START_DATE as DEGREE_START_DATE,
 
             prof.PROF_NUM as PROF_NUM,
+            prof.PROF_LEVEL as PROF_LEVEL,
             prof.PROF_CODE as PROF_CODE,
             prof.PROF_PARENT_CODE as PROF_PARENT_CODE,
             prof.PROF_CHN as PROF_CHN,
@@ -340,6 +344,21 @@
       UPDATE JOB_DEGREE_REQUIRE SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
       WHERE JOB_ID = #{ids}
     </update>
+
+    <update id="deleteJobByComId" parameterType="java.lang.Integer">
+        UPDATE JOB_INFO j
+            LEFT OUTER JOIN JOB_INDUSTRY i ON j.JOB_ID = i.JOB_ID AND i.IS_DELETE = 0
+            LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
+            LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = req.JOB_ID AND req.IS_DELETE = 0
+        SET
+            j.IS_DELETE = 1, j.IS_DELETE_TIME = NOW(),
+            i.IS_DELETE = 1, i.IS_DELETE_TIME = NOW(),
+            loc.IS_DELETE = 1, loc.IS_DELETE_TIME = NOW(),
+            req.IS_DELETE = 1, req.IS_DELETE_TIME = NOW()
+        WHERE j.COMPANY_ID= #{comId}
+    </update>
+
+
 
 
 
