@@ -41,6 +41,11 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
         }
     }
 
+//    @GetMapping("/{id}/attentions")
+//    public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id) throws NotFoundException{
+//
+//    }
+
 
     @Override
     protected DomainCRUDService<User, Integer> getService() {
@@ -61,4 +66,5 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
     protected URI getUriForNewInstance(Integer id) throws URISyntaxException {
         return new URI(this.url + id);
     }
+
 }
