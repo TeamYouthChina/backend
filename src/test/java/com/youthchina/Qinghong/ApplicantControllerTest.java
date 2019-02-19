@@ -72,6 +72,16 @@ public class ApplicantControllerTest {
         ;
     }
 
+//    @Test
+//    public void testAdd() throws Exception{
+//        this.mvc.perform(
+//                post(this.urlPrefix + "/applicants/**")
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//        ;
+//    }
+
     @Test
     public void testGetContacts() throws Exception{
         this.mvc.perform(
