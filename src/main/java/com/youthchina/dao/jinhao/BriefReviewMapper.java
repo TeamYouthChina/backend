@@ -14,6 +14,7 @@ public interface BriefReviewMapper {
     void createReviewMap(@Param("review_id") Integer review_id,
                          @Param("user_id") Integer user_id, @Param("rela_type") Integer rela_type,
                          @Param("rela_id") Integer rela_id);
+    List<BriefReview> getUsersReview(Integer user_id);
     void delete(Integer id);
     void deleteAllReviewEvaluationByReviewId(Integer id);
     void deleteAllCommentsByReviewId(Integer id);
@@ -25,6 +26,8 @@ public interface BriefReviewMapper {
     BriefReview get(Integer id);
     List<BriefReview> getList(List<Integer> ids);
 
+    List<BriefReview> getUserUpvoteReview(Integer user_id);
+    Evaluate getEvaluation(Integer evaluate_id);
     void addReviewEvaluation(Evaluate evaluate);
     void createEvaluationReviewMap(@Param("evaluate_id") Integer evaluate_id, @Param("review_id") Integer review_id);
     Evaluate checkEvaluateStatus(@Param("user_id") Integer user_id, @Param("review_id") Integer review_id);
@@ -43,7 +46,6 @@ public interface BriefReviewMapper {
     Comment getComment(Integer id);
     Comment simplyGetComment(Integer id);
     List<Comment> getCommentsByReviewId(Integer id);
-    List<Comment> getAllCommentsOfReview(Integer id);
 
     void addCommentEvaluation(Evaluate evaluate);
     void createEvaluationCommentMap(@Param("evaluate_id") Integer evaluate_id,
@@ -51,7 +53,6 @@ public interface BriefReviewMapper {
     Evaluate checkCommentEvaluationStatus(@Param("user_id") Integer user_id,
                                                  @Param("comment_id") Integer comment_id);
     void updateCommentEvaluation(Evaluate evaluate);
-    Evaluate getCommentEvaluation(Integer evaluate_id);
     Integer countCommentAgreement(Integer id);
 
     void addDiscuss(Discuss discuss);
