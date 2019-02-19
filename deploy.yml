@@ -23,12 +23,16 @@ services:
       context: ./
       dockerfile: Dockerfile
     networks:
-        backend:
-          ipv4_address: 172.28.1.2
+      backend:
+        ipv4_address: 172.28.1.2
     ports:
       - 8080:8080
     volumes:
       - backenddata:/app/static
+    environment:
+      - YOUTHCHINADBURL: ${YOUTHCHINADBURL}
+      - YOUTHCHINAEMAILUSERNAME: ${YOUTHCHINAEMAILUSERNAME}
+      - YOUTHCHINAEMAILPASSWORD: ${YOUTHCHINAEMAILPASSWORD}
 networks:
   backend:
     ipam:
