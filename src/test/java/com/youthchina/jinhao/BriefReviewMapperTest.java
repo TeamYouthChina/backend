@@ -54,7 +54,7 @@ public class BriefReviewMapperTest {
         List<BriefReview> briefReviewList = briefReviewMapper.getUsersReview(1);
         Assert.assertEquals(2, briefReviewList.size());
         for(BriefReview briefReview2 : briefReviewList){
-            if(briefReview2.getReview_id() != 1 && briefReview2.getReview_id() != 4){
+            if(briefReview2.getReview_id() != 1 && briefReview2.getReview_id() != briefReview.getReview_id()){
                 Assert.fail();
             }
         }
@@ -164,10 +164,50 @@ public class BriefReviewMapperTest {
         Assert.assertEquals(1, comments.size());
     }
     @Test
+    public void countCommentAgreement(){
+        Integer count = briefReviewMapper.countCommentAgreement(1);
+        Assert.assertEquals(Integer.valueOf(2), count);
+    }
+    @Test
     public void deleteComment(){
+        briefReviewMapper.deleteAllCommentEvaluationByCommentId(1);
+        Assert.assertEquals(Integer.valueOf(0), briefReviewMapper.countCommentAgreement(1));
         briefReviewMapper.deleteComment(1);
         Comment comment = briefReviewMapper.getComment(1);
         Assert.assertNull(comment);
     }
-
+    @Test
+    public void updateComment(){
+        Comment comment = briefReviewMapper.getComment(1);
+        comment.setComment_content("12345");
+        briefReviewMapper.updateComment(comment);
+        comment = briefReviewMapper.getComment(1);
+        Assert.assertEquals("12345", comment.getComment_content());
+    }
+    @Test
+    public void getCommentEvaluation(){
+        Evaluate evaluate = briefReviewMapper.getCommentEvaluation(1);
+        Assert.assertEquals(Integer.valueOf(1), evaluate.getEvaluate_id());
+    }
+    @Test
+    public void addCommentEvaluation(){
+        Evaluate evaluate = new Evaluate();
+        evaluate.setEvaluate_type(1);
+        evaluate.setUser_id(4);
+        briefReviewMapper.addCommentEvaluation(evaluate);
+        Evaluate evaluate1 = briefReviewMapper.getCommentEvaluation(evaluate.getEvaluate_id());
+        Assert.assertEquals(evaluate1.getEvaluate_id(), evaluate.getEvaluate_id());
+        Integer o = briefReviewMapper.countCommentAgreement(1);
+        Assert.assertNull(briefReviewMapper.checkCommentEvaluationStatus(4,1));
+        briefReviewMapper.createEvaluationCommentMap(evaluate.getEvaluate_id(),1);
+        Assert.assertNotNull(briefReviewMapper.checkCommentEvaluationStatus(4,1));
+        Assert.assertEquals(Integer.valueOf(o+1),briefReviewMapper.countCommentAgreement(1));
+    }
+    @Test
+    public void updateCommentEvaluation(){
+        Evaluate evaluate = briefReviewMapper.getCommentEvaluation(1);
+        evaluate.setEvaluate_type(2);
+        briefReviewMapper.updateCommentEvaluation(evaluate);
+        Assert.assertEquals(Integer.valueOf(1), briefReviewMapper.countCommentAgreement(1));
+    }
 }

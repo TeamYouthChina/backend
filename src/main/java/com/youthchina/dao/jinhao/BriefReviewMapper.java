@@ -54,6 +54,7 @@ public interface BriefReviewMapper {
                                                  @Param("comment_id") Integer comment_id);
     void updateCommentEvaluation(Evaluate evaluate);
     Integer countCommentAgreement(Integer id);
+    Evaluate getCommentEvaluation(Integer id);
 
     void addDiscuss(Discuss discuss);
     void createDiscussCommentMap(@Param("discuss_id") Integer discuss_id,
