@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.qingyang.LocationMapper">
 
-    <resultMap id="Location" type="com.youthchina.domain.Qinghong.Location">
+    <resultMap id="LocationChn" type="com.youthchina.domain.Qinghong.Location">
         <id property="region_num" column="REGION_NUM"/>
         <result property="region_chn" column="REGION_CHN"/>
         <result property="region_eng" column="REGION_ENG"/>
@@ -11,9 +11,78 @@
         <result property="start_time" column="START_TIME"/>
     </resultMap>
 
-    <select id="getChildren" resultMap="Location" parameterType="java.lang.Integer">
+    <select id="getChildrenChn" resultMap="LocationChn" parameterType="java.lang.Integer">
         SELECT * FROM SYS_CHN_REGION
-        WHERE REGION_PARENT_NUM  = #{parentId}
+        WHERE REGION_PARENT_NUM = #{parentId} AND IS_DELETE = 0
     </select>
+
+    <select id="getChnLocation" resultMap="LocationChn" parameterType="java.lang.Integer">
+        SELECT * FROM SYS_CHN_REGION
+        WHERE REGION_NUM = #{regionNum} AND IS_DELETE = 0
+    </select>
+
+    <select id="getChnLocationByLocationList" resultMap="LocationChn" parameterType="java.lang.List">
+        SELECT * FROM SYS_CHN_REGION
+        WHERE IS_DELETE = 0
+          AND REGION_NUM IN
+        <foreach item='location' index='index' collection="list" separator="," open="(" close=")">
+            #{location.region_num}
+        </foreach>
+    </select>
+
+    <resultMap id="USAState" type="com.youthchina.domain.qingyang.USAState">
+        <id property="stateId" column="STATE_ID"/>
+        <result property="stateChn" column="STATE_CHN"/>
+        <result property="stateEng" column="STATE_ENG"/>
+        <result property="stateAbbre" column="STATE_ABBRE"/>
+        <result property="startTime" column="STATE_START_TIME"/>
+    </resultMap>
+
+    <resultMap id="LocationUSA" type="com.youthchina.domain.Qinghong.Location">
+        <id property="region_num" column="ZIP_CODE"/>
+        <result property="region_chn" column="REGION_CHN"/>
+        <result property="region_eng" column="REGION_ENG"/>
+        <result property="regionCity" column="REGION_CITY"/>
+        <result property="start_time" column="ZIP_START_TIME"/>
+        <association property="usaState" resultMap="USAState"/>
+    </resultMap>
+
+    <sql id="selectZip">
+        SELECT
+            zip.ZIP_CODE = ZIP_CODE,
+            zip.REGION_CHN = REGION_CHN,
+            zip.REGION_ENG = REGION_ENG,
+            zip.REGION_CITY = REGION_CITY,
+            zip.START_TIME = ZIP_START_TIME,
+            zip.STATE_ID = STATE_ID,
+
+            state.STATE_CHN = STATE_CHN,
+            state.STATE_ENG = STATE_ENG,
+            state.STATE_ABBRE = STATE_ABBRE,
+            state.START_TIME = STATE_START_TIME
+
+        FROM SYS_USA_ZIPCODE zip
+                 LEFT OUTER JOIN SYS_USA_STATE state ON zip.IS_DELETE = 0 AND state.STATE_ID = zip.STATE_ID AND  state.IS_DELETE = 0
+
+    </sql>
+
+    <select id="getUSALocation" resultMap="LocationUSA" parameterType="java.lang.Integer">
+        <include refid="selectZip"/>
+        WHERE zip.ZIP_CODE = #{zipCode}
+    </select>
+
+    <select id="getUSALocationByLocationList">
+        <include refid="selectZip"/>
+        WHERE zip.ZIP_CODE IN
+        <foreach item='location' index='index' collection="list" separator="," open="(" close=")">
+            #{location.region_num}
+        </foreach>
+    </select>
+
+    <select id="getChildrenUSA" resultMap="LocationUSA" parameterType="java.lang.Integer">
+        <include refid="selectZip"/>
+        WHERE zip.STATE_ID = #{stateId}
+    </select>
+
 
 </mapper>

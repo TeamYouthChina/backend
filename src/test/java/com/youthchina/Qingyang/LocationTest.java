@@ -32,7 +32,7 @@ public class LocationTest {
 
     @Test
     public void testGetJob() {
-        List<Location> locationList = locationMapper.getChildren(110000);
+        List<Location> locationList = locationMapper.getChildrenChn(110000);
         Assert.assertEquals(6, locationList.size());
     }
 }
