@@ -87,54 +87,43 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     public ResponseEntity<?> getApplicantsContacts(@PathVariable Integer id) throws NotFoundException {
         Student student= getService().get(id);
         ApplicantDTO applicantDTO = this.DomainToDto(student);
-        return ResponseEntity.ok(new Response(applicantDTO.getContact()));
+        return ResponseEntity.ok(new Response(applicantDTO.getContact(),new StatusDTO(200,"search successful")));
     }
 
     @GetMapping("/{id}/educations")
     public ResponseEntity<?> getApplicantsEducations(@PathVariable Integer id) throws NotFoundException {
         ApplicantDTO applicantDTO = this.getDto(id);
-        return ResponseEntity.ok(new Response(applicantDTO.getEducations()));
+        return ResponseEntity.ok(new Response(applicantDTO.getEducations(),new StatusDTO(200,"search successful")));
     }
 
     @GetMapping("/{id}/projects")
     public ResponseEntity<?> getApplicantsProjects(@PathVariable Integer id) throws NotFoundException {
         ApplicantDTO applicantDTO = this.getDto(id);
-        return ResponseEntity.ok(new Response(applicantDTO.getProjects()));
+        return ResponseEntity.ok(new Response(applicantDTO.getProjects(),new StatusDTO(200,"search successful")));
     }
 
     @GetMapping("/{id}/experiences")
     public ResponseEntity<?> getApplicantsExperiences(@PathVariable Integer id) throws NotFoundException {
         ApplicantDTO applicantDTO = this.getDto(id);
-        return ResponseEntity.ok(new Response(applicantDTO.getExperiences()));
+        return ResponseEntity.ok(new Response(applicantDTO.getExperiences(),new StatusDTO(200,"search successful")));
     }
 
     @GetMapping("/{id}/certificates")
     public ResponseEntity<?> getApplicantsCertificates(@PathVariable Integer id) throws NotFoundException {
         ApplicantDTO applicantDTO = this.getDto(id);
-        return ResponseEntity.ok(new Response(applicantDTO.getCertificates()));
+        return ResponseEntity.ok(new Response(applicantDTO.getCertificates(),new StatusDTO(200,"search successful")));
     }
 
     @GetMapping("/{id}/extracurriculars")
     public ResponseEntity<?> getApplicantsExtracurriculars(@PathVariable Integer id) throws NotFoundException {
         ApplicantDTO applicantDTO = this.getDto(id);
-        return ResponseEntity.ok(new Response(applicantDTO.getExtracurriculars()));
+        return ResponseEntity.ok(new Response(applicantDTO.getExtracurriculars(),new StatusDTO(200,"search successful")));
     }
 
     private ApplicantDTO getDto(Integer id) throws NotFoundException {
         return this.DomainToDto(this.getService().get(id));
     }
 
-    @GetMapping("/{id}/jobCollects")
-    public ResponseEntity<?> getApplicantsJobCollects(@PathVariable Integer id) throws NotFoundException{
-        List<JobCollect> jobCollects=studentService.getJobCollect(id);
-        return  ResponseEntity.ok(new Response(jobCollects));
-    }
-
-    @GetMapping("/{id}/companyCollects")
-    public ResponseEntity<?> getApplicantsCompanyCollects(@PathVariable Integer id) throws NotFoundException{
-        List<CompCollect> compCollects=studentService.getCompCollect(id);
-        return  ResponseEntity.ok(new Response(compCollects));
-    }
 
     /**
     * @Description: 通过user_id获得该用户所有的职位申请的信息
@@ -154,33 +143,9 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         return  ResponseEntity.ok(new Response(jobApplyDTOS,new StatusDTO(0,"")));
     }
 
-    @PostMapping("/{id}/jobApply/{job_id}")
-    public ResponseEntity<?> addApplicantsJobApply(@PathVariable("job_id") Integer job_id,@PathVariable("id") Integer id,@AuthenticationPrincipal User user) throws NotFoundException,ForbiddenException{
-        if(user.getId().equals(id))
-        return  ResponseEntity.ok(new Response(studentService.jobApply(job_id,id)));
-        else {
-            throw new ForbiddenException();
-        }
-    }
-    @PostMapping("/{id}/jobCollect/{job_id}")
-    public ResponseEntity<?> addApplicantsJobCollect(@PathVariable("id") Integer id,@PathVariable("job_id") Integer job_id,@AuthenticationPrincipal User user) throws NotFoundException,ForbiddenException{
-        if(user.getId().equals(id))
-            return  ResponseEntity.ok(new Response
-                    (studentService.addJobCollection(job_id,id)));
-        else {
-            throw new ForbiddenException();
-        }
-    }
 
-    @PostMapping("/{id}/compCollect/{company_id}")
-    public ResponseEntity<?> addApplicantsCompCollect(@PathVariable("id") Integer id,@PathVariable("company_id") Integer company_id,@AuthenticationPrincipal User user) throws NotFoundException,ForbiddenException{
-        if(user.getId().equals(id))
-            return  ResponseEntity.ok(new Response
-                    (studentService.addCompCollect(company_id,id)));
-        else {
-            throw new ForbiddenException();
-        }
-    }
+
+
 
 
 
