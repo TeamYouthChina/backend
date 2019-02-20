@@ -87,37 +87,37 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     public ResponseEntity<?> getApplicantsContacts(@PathVariable Integer id) throws NotFoundException {
         Student student= getService().get(id);
         ApplicantDTO applicantDTO = this.DomainToDto(student);
-        return ResponseEntity.ok(new Response(applicantDTO.getContact(),new StatusDTO(200,"search successful")));
+        return ResponseEntity.ok(new Response(applicantDTO.getContact()));
     }
 
     @GetMapping("/{id}/educations")
     public ResponseEntity<?> getApplicantsEducations(@PathVariable Integer id) throws NotFoundException {
         ApplicantDTO applicantDTO = this.getDto(id);
-        return ResponseEntity.ok(new Response(applicantDTO.getEducations(),new StatusDTO(200,"search successful")));
+        return ResponseEntity.ok(new Response(applicantDTO.getEducations()));
     }
 
     @GetMapping("/{id}/projects")
     public ResponseEntity<?> getApplicantsProjects(@PathVariable Integer id) throws NotFoundException {
         ApplicantDTO applicantDTO = this.getDto(id);
-        return ResponseEntity.ok(new Response(applicantDTO.getProjects(),new StatusDTO(200,"search successful")));
+        return ResponseEntity.ok(new Response(applicantDTO.getProjects()));
     }
 
     @GetMapping("/{id}/experiences")
     public ResponseEntity<?> getApplicantsExperiences(@PathVariable Integer id) throws NotFoundException {
         ApplicantDTO applicantDTO = this.getDto(id);
-        return ResponseEntity.ok(new Response(applicantDTO.getExperiences(),new StatusDTO(200,"search successful")));
+        return ResponseEntity.ok(new Response(applicantDTO.getExperiences()));
     }
 
     @GetMapping("/{id}/certificates")
     public ResponseEntity<?> getApplicantsCertificates(@PathVariable Integer id) throws NotFoundException {
         ApplicantDTO applicantDTO = this.getDto(id);
-        return ResponseEntity.ok(new Response(applicantDTO.getCertificates(),new StatusDTO(200,"search successful")));
+        return ResponseEntity.ok(new Response(applicantDTO.getCertificates()));
     }
 
     @GetMapping("/{id}/extracurriculars")
     public ResponseEntity<?> getApplicantsExtracurriculars(@PathVariable Integer id) throws NotFoundException {
         ApplicantDTO applicantDTO = this.getDto(id);
-        return ResponseEntity.ok(new Response(applicantDTO.getExtracurriculars(),new StatusDTO(200,"search successful")));
+        return ResponseEntity.ok(new Response(applicantDTO.getExtracurriculars()));
     }
 
     private ApplicantDTO getDto(Integer id) throws NotFoundException {
