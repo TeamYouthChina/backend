@@ -1,7 +1,6 @@
 package com.youthchina.dto.community;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.jinhao.communityQA.AnswerInvitation;
 import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
@@ -21,7 +20,6 @@ public class QuestionDTO {
     private Integer id;
     private User creator;
     private String title;
-    private RichTextDTO richText;
     private Integer isAnonymous;
     private Timestamp createAt;
     private Timestamp editAt;
@@ -30,18 +28,20 @@ public class QuestionDTO {
     private List<Integer> labelIds;
     private Integer rela_type;
     private Integer rela_id;
-
-
+    private RichTextDTO richTextDTO;
 
     public QuestionDTO(Question question) {
         this.id = question.getQues_id();
         this.creator = question.getQues_user();
         this.title = question.getQues_title();
-        //RichTextDTO body = new RichTextDTO();
-        //body.setPreviewText(question.getQues_body());
-        //body.setBraftEditorRaw(question.getQues_abbre());
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(question.getQues_body(), RichTextDTO.class);
+            this.richTextDTO = richt;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
 
-        //this.richText = body;
         this.invitation = question.getQues_invitation();
         this.isAnonymous =question.getUser_anony();
         this.createAt = question.getQues_pub_time();
@@ -54,17 +54,14 @@ public class QuestionDTO {
                 this.answers.add(new SimpleAnswerDTO(questionAnswer));
             }
         }
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            this.richText = mapper.readValue(question.getQues_body(), RichTextDTO.class);
-        } catch (Exception e) {
-            System.out.println("Can't transfer this body");
-        }
-
 
     }
 
     public QuestionDTO(){}
+
+    public RichTextDTO getRichTextDTO(){return richTextDTO;}
+
+    public void setRichTextDTO(RichTextDTO richTextDTO){this.richTextDTO = richTextDTO;}
 
     public Integer getId() {
         return id;
@@ -90,14 +87,6 @@ public class QuestionDTO {
         this.title = title;
     }
 
-    public RichTextDTO getRichText() {
-        return richText;
-    }
-
-    public void setRichText(RichTextDTO richText) {
-        this.richText = richText;
-    }
-
     public Integer getAnonymous() {
         return isAnonymous;
     }
@@ -112,14 +101,6 @@ public class QuestionDTO {
 
     public void setCreateAt(Timestamp createAt) {
         this.createAt = createAt;
-    }
-
-    public Timestamp getEditAt() {
-        return editAt;
-    }
-
-    public void setEditAt(Timestamp editAt) {
-        this.editAt = editAt;
     }
 
     public List<SimpleAnswerDTO> getAnswers() {
@@ -162,4 +143,11 @@ public class QuestionDTO {
         this.rela_id = rela_id;
     }
 
+    public Timestamp getEditAt() {
+        return editAt;
+    }
+
+    public void setEditAt(Timestamp editAt) {
+        this.editAt = editAt;
+    }
 }

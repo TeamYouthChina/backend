@@ -94,10 +94,12 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
 
     @PostMapping("/search")
     public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, Authentication authentication) throws BaseException {
-        Date startTime = new Date( jobSearchDTO.getDuration().getBegin().getTime());
-        Date endTime = new Date( jobSearchDTO.getDuration().getEnd().getTime());
-        List <Job> searchResult = this.jobService.getJobByMore(null,jobSearchDTO.getJobName(),
-                null, jobSearchDTO.getComName(),startTime,endTime,
+
+        Date startDate = new Date(jobSearchDTO.getDurationDTO().getBegin().getTime());
+        Date endDate = new Date(jobSearchDTO.getDurationDTO().getEnd().getTime());
+
+        List <Job> searchResult = this.jobService.getJobByMore(jobSearchDTO.getJobId(),jobSearchDTO.getJobName(),
+                null, jobSearchDTO.getComName(),startDate,endDate,
                 jobSearchDTO.getType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), jobSearchDTO.getActive(),
                 jobSearchDTO.getLocation(), jobSearchDTO.getJobReqList(),jobSearchDTO.getIndustryList());
         JobSearchResultDTO jobSearchResultDTO = new JobSearchResultDTO();

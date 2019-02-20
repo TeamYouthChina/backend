@@ -22,7 +22,7 @@ public class EssayDTO {
         this.body = comEssay.getEssay_body();
         this.creat_at = comEssay.getEssay_pub_time();
         this.modified_at = comEssay.getEssay_edit_time();
-        this.user_anony = (comEssay.getUser_anony()==0)? false:true;
+        this.user_anony = (comEssay.getUser_anony() == 0)? false:true;
     }
 
     public EssayDTO(){}

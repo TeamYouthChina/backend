@@ -10,16 +10,18 @@ import java.util.List;
  * Created by zhongyangwu on 12/2/18.
  */
 public class JobSearchDTO implements SearchDTO {
-    private String[] industry;
+    private List<String> industry;
     private List<String> tagList;
     private int page;
     private int size;
     private String key;
+
+    private Integer jobId;
     private String jobName;
-
+    private Integer comId;
     private String comName;
-    private DurationDTO duration;
-
+    //private Date startTime;
+    //private Date endTime;
     private Integer type;
     private Integer salaryFloor;
     private Integer salaryCap;
@@ -27,24 +29,26 @@ public class JobSearchDTO implements SearchDTO {
     private String location;
     private List<Degree> jobReqList;
     private List<Industry> industryList;
+    private DurationDTO durationDTO;
+    private LocationDTO locationDTO;
 
+    public DurationDTO getDurationDTO(){ return durationDTO;}
+    public void setDurationDTO(DurationDTO durationDTO){ this.durationDTO = durationDTO;}
 
+    public LocationDTO getLocationDTO(){ return locationDTO;}
+    public void setLocationDTO(LocationDTO locationDTO){ this.locationDTO = locationDTO;}
+
+    public Integer getJobId(){return jobId;}
+    public void setJobId(Integer jobId){this.jobId = jobId;}
 
     public String getJobName(){return jobName;}
     public void setJobName(String jobName){this.jobName=jobName;}
 
+    public Integer getComId(){return comId;}
+    public void setComId(Integer comId){this.comId=comId;}
 
     public String getComName(){return comName;}
     public void setComName(String comName){this.comName = comName;}
-
-    public DurationDTO getDuration() {
-        return duration;
-
-    }
-
-    public void setDuration(DurationDTO duration) {
-        this.duration = duration;
-    }
 
     public Integer getType(){return type;}
     public void setType(Integer type){this.type = type;}
@@ -67,11 +71,11 @@ public class JobSearchDTO implements SearchDTO {
     public List<Industry> getIndustryList(){return industryList;}
     public void setIndustryList(List<Industry> industryList){this.industryList = industryList;}
 
-    public String[] getIndustry() {
+    public List<String> getIndustry() {
         return industry;
     }
 
-    public void setIndustry(String[] industry) {
+    public void setIndustry(List<String> industry) {
         this.industry = industry;
     }
 

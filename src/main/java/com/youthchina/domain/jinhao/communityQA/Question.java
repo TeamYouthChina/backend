@@ -1,16 +1,13 @@
 package com.youthchina.domain.jinhao.communityQA;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.community.QuestionDTO;
 import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Question implements HasId<Integer> {
@@ -32,32 +29,31 @@ public class Question implements HasId<Integer> {
     private Integer rela_type;
     private Integer rela_id;
 
-    public Question(QuestionDTO questionDTO) {
+    public Question(QuestionDTO questionDTO){
         this.ques_id = questionDTO.getId();
         this.ques_user = questionDTO.getCreator();
         this.ques_title = questionDTO.getTitle();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(questionDTO.getRichTextDTO());
+            this.ques_body = requestJson;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+
         this.ques_invitation = questionDTO.getInvitation();
         this.user_anony = questionDTO.getAnonymous();
         this.ques_pub_time = questionDTO.getCreateAt();
         this.ques_edit_time = questionDTO.getEditAt();
         this.rela_type = questionDTO.getRela_type();
-        this.rela_id = questionDTO.getRela_id();
         this.labelIds = questionDTO.getLabelIds();
-        this.questionAnswers = new ArrayList<>();
+        this.ques_abbre = questionDTO.getRichTextDTO().getBraftEditorRaw();
         if(questionDTO.getAnswers() != null) {
             for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
                 this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
             }
         }
-        this.ques_abbre = questionDTO.getRichText().getBraftEditorRaw();
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        try {
-            this.ques_body = ow.writeValueAsString(questionDTO.getRichText());
-        } catch (Exception e) {
-            System.out.println("Can't transfer this body");
-        }
-
     }
 
     public Question(){}
@@ -205,5 +201,4 @@ public class Question implements HasId<Integer> {
     public void setRela_id(Integer rela_id) {
         this.rela_id = rela_id;
     }
-
 }

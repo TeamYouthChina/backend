@@ -1,44 +1,32 @@
 package com.youthchina.dto;
 
-/**
- * Created by hongshengzhang on 2/17/19.
- */
+import java.util.List;
+
 public class RichTextDTO {
-    private String braftEditorRaw; //ABBRE
-    private String previewText; //Body
-    private String[] resourceList;
 
-    public RichTextDTO(String braftEditorRaw, String previewText, String[] resourceList) {
-        this.braftEditorRaw = braftEditorRaw;
-        this.previewText = previewText;
-        this.resourceList = resourceList;
-    }
+    private String braftEditorRaw;
+    private String previewText;
+    private List<String> resourceList;
 
-    public RichTextDTO() {
+    public void RichTextDTO(){}
 
-    }
+    public void setBraftEditorRaw(String braftEditorRaw){ this.braftEditorRaw = braftEditorRaw; }
 
-    public String getBraftEditorRaw() {
+    public String getBraftEditorRaw(){
         return braftEditorRaw;
     }
 
-    public void setBraftEditorRaw(String braftEditorRaw) {
-        this.braftEditorRaw = braftEditorRaw;
-    }
-
-    public String getPreviewText() {
-        return previewText;
-    }
-
-    public void setPreviewText(String previewText) {
+    public void setPreviewText(String previewText){
         this.previewText = previewText;
     }
 
-    public String[] getResourceList() {
-        return  resourceList;
+    public String getPreviewText(){
+        return previewText;
     }
 
-    public void setResourceList(String[] resourceList) {
+    public void setResourceList(List resourceList){
         this.resourceList = resourceList;
     }
+
+    public List getResourceList(){ return resourceList; }
 }

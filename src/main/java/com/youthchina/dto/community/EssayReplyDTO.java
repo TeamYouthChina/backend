@@ -12,9 +12,7 @@ public class EssayReplyDTO {
         this.isAnonymous = (comEssayReply.getUser_anony()==0)? false:true;
     }
 
-    public EssayReplyDTO() {
-
-    }
+    public EssayReplyDTO(){}
 
     public String getBody() {
         return body;

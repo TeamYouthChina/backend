@@ -81,6 +81,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     @PostMapping("/")
     public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO, @AuthenticationPrincipal User user) {
         questionDTO.setCreator(user);
+       // questionDTO.setAbbreviation(questionDTO.getRichTextDTO().getBraftEditorRaw());
         return add(questionDTO);
     }
 
