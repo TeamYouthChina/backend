@@ -3,7 +3,6 @@ services:
   mysql:
     image: mysql:8.0
     container_name: youthchina-mysql
-    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0
     networks:
       backend:
         ipv4_address: 172.28.1.1
