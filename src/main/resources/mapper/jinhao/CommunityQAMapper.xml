@@ -332,7 +332,7 @@
     <!-- 如果已经评价过 -->
     <update id="reEvaluateAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.Evaluate">
         update COM_ANSWER_EVALUATE
-        set evaluate_type = #{evaluate_type}, evaluate_time = #{evaluate_time}
+        set evaluate_type = #{evaluate_type}, evaluate_time = now()
         where evaluate_id = #{evaluate_id}
     </update>
 
@@ -341,8 +341,7 @@
     useGeneratedKeys="true" keyProperty="comment_id">
         insert into COM_ANSWER_COMMENT (comment_content, user_id, user_anony, comment_pub_time, comment_edit_time,
                 is_delete)
-        values (#{comment_content}, #{user_id}, #{user_anony}, #{comment_pub_time}, #{comment_edit_time},
-                #{is_delete})
+        values (#{comment_content}, #{user_id}, #{user_anony}, now(), now(), 0)
     </insert>
 
     <!-- 建立评论和回答的映射关系 -->
