@@ -1,6 +1,8 @@
 package com.youthchina.service.qingyang;
 
 import com.youthchina.dao.qingyang.JobMapper;
+import com.youthchina.dao.qingyang.LocationMapper;
+import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.qingyang.Job;
@@ -22,6 +24,9 @@ public class JobServiceImpl implements JobService {
 
     @Resource
     JobMapper jobMapper;
+
+    @Resource
+    LocationMapper locationMapper;
 
     /**
      * 删除职位 TODO: 通过HrId 确认其有删除权限
@@ -60,7 +65,18 @@ public class JobServiceImpl implements JobService {
     @Override
     @Transactional
     public Job get(Integer id) throws NotFoundException {
-        return jobMapper.selectJobByJobId(id);
+        Job job = jobMapper.selectJobByJobId(id);
+        // Location 只有一个地点 而且只有中,或只有美 TODO: JobLocation 同时有中美
+        List<Location> locationList = job.getJobLocationList();
+        if(locationList != null){
+            Integer region0 = locationList.get(0).getRegion_num();
+            if(("" + region0).charAt(0) == '9'){
+                job.setJobLocationList(locationMapper.getUSALocationByLocationList(locationList));
+            } else {
+                job.setJobLocationList(locationMapper.getChnLocationByLocationList(locationList));
+            }
+        }
+        return job;
     }
 
     /**

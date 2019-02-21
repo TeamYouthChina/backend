@@ -35,4 +35,12 @@ public class LocationTest {
         List<Location> locationList = locationMapper.getChildrenChn(110000);
         Assert.assertEquals(6, locationList.size());
     }
+
+    @Test
+    public void testGetLocationUSA() {
+        List<Location> locationList = locationMapper.getChildrenUSA(10);
+        Assert.assertEquals(5, locationList.size());
+    }
+
+
 }

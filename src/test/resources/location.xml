@@ -15,4 +15,5 @@
     <SYS_USA_ZIPCODE ZIP_CODE = '920003' REGION_CHN = '哥伦比亚特区' REGION_ENG = 'District of Columbia' REGION_CITY = 'District of Columbia' STATE_ID = '10' START_TIME = '2019-01-01 00:00:00' IS_DELETE = '0' />
     <SYS_USA_ZIPCODE ZIP_CODE = '920004' REGION_CHN = '哥伦比亚特区' REGION_ENG = 'District of Columbia' REGION_CITY = 'District of Columbia' STATE_ID = '10' START_TIME = '2019-01-01 00:00:00' IS_DELETE = '0' />
     <SYS_USA_ZIPCODE ZIP_CODE = '920005' REGION_CHN = '哥伦比亚特区' REGION_ENG = 'District of Columbia' REGION_CITY = 'District of Columbia' STATE_ID = '10' START_TIME = '2019-01-01 00:00:00' IS_DELETE = '0' />
+    <SYS_USA_ZIPCODE ZIP_CODE = '920006' REGION_CHN = '亚拉巴马州里的一个城市' REGION_ENG = 'AL_CITY' REGION_CITY = 'AL_CITY' STATE_ID = '1' START_TIME = '2019-01-01 00:00:00' IS_DELETE = '0' />
 </dataset>
