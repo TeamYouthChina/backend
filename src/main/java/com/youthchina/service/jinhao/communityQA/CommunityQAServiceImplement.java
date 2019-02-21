@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,14 +25,22 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
     @Override
     @Transactional
+    public Question add(Question entity) {
+        Integer rela_type = entity.getRela_type();
+        Integer rela_id = entity.getRela_id();
+        communityQAMapper.addQuestion(entity);
+        communityQAMapper.createMapBetweenQuestionAndUser(entity.getQues_id(), entity.getQues_user().getId(),
+                rela_type, rela_id);
+        return communityQAMapper.getQuestionById(entity.getQues_id());
+    }
+
+    @Override
+    @Transactional
     public Question get(Integer id) throws NotFoundException {
         Question question = communityQAMapper.getQuestionById(id);
         if(question == null){
             throw new NotFoundException(404,404,"没有找到这个问题");
         }
-        QuestionRelaTypeAndId questionRelaTypeAndId = communityQAMapper.getQuestionRelaTypeAndRelaId(id);
-        question.setRela_type(questionRelaTypeAndId.getRela_type());
-        question.setRela_id(questionRelaTypeAndId.getRela_id());
         return question;
     }
 
@@ -49,26 +56,9 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
     @Override
     @Transactional
-    public Question add(Question entity) {
-        List<Integer> labelIds = entity.getLabelIds();
-        Integer rela_type = entity.getRela_type();
-        Integer rela_id = entity.getRela_id();
-        communityQAMapper.addQuestion(entity);
-        if(labelIds != null){
-            communityQAMapper.addLabels(labelIds, entity.getQues_id());
-        }
-        communityQAMapper.createMapBetweenQuestionAndUser(entity.getQues_id(), entity.getQues_user().getId(),
-                rela_type, rela_id);
-        return entity;
-    }
-
-    @Override
-    @Transactional
     public Question update(Question question) throws NotFoundException {
         getQuestion(question.getQues_id());
         communityQAMapper.editQuestion(question);
-        question.setIs_delete(1);
-        question.setIs_delete_time(new Timestamp(System.currentTimeMillis()));
         return question;
     }
 
@@ -77,7 +67,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public void delete(Integer id) throws NotFoundException {
         getQuestion(id);
         communityQAMapper.deleteQuestion(id);
-        communityQAMapper.deleteAllDiscussEvaluation(id);
         communityQAMapper.deleteAllCommentEvaluation(id);
         communityQAMapper.deleteAllAnswerInvitationMap(id);
         communityQAMapper.deleteAllAnswerInvitation(id);
@@ -85,7 +74,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         communityQAMapper.deleteAllAttention(id);
         communityQAMapper.deleteAllAnswers(id);
         communityQAMapper.deleteAllComments(id);
-        communityQAMapper.deleteAllDiscusses(id);
     }
 
     @Override
@@ -97,13 +85,11 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         QuestionAttention old_questionAttention = communityQAMapper.isQuestionAttention(ques_id, user_id);
         Integer atten_id;
         if(old_questionAttention == null){
-            communityQAMapper.addAttentionToQuestion(questionAttention);
+            communityQAMapper.addAttentionToQuestion(user_id);
             atten_id = questionAttention.getAtten_id();
             communityQAMapper.createMapBetweenAttentionAndQuestion(ques_id, atten_id);
         }else{
-            atten_id = old_questionAttention.getAtten_id();
-            questionAttention.setAtten_id(atten_id);
-            communityQAMapper.reAddAttentionToQuestion(questionAttention);
+            communityQAMapper.reAddAttentionToQuestion(old_questionAttention.getAtten_id());
         }
         return questionAttention;
     }
@@ -124,7 +110,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         if(questionAttention == null){
             throw new NotFoundException(404, 404, "没有这个关注，无法取消");
         }
-        communityQAMapper.cancelAttention(questionAttention);
+        communityQAMapper.cancelAttention(questionAttention.getAtten_id());
     }
 
     /**
@@ -160,9 +146,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         getQuestion(ques_id);
         AnswerInvitation answerInvitation = new AnswerInvitation();
         answerInvitation.setInvit_user_id(invit_user_id);
-        answerInvitation.setInvit_accept(0);
         answerInvitation.setInvit_ques_id(ques_id);
-        answerInvitation.setInvit_time(new Timestamp(System.currentTimeMillis()));
         communityQAMapper.addInvitation(answerInvitation);
         communityQAMapper.createMapBetweenInvitationAndQuestion(answerInvitation.getInvit_id(),
                 invited_user_id);
@@ -179,7 +163,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Override
     public List<Question> listMyQuestions(Integer user_id) throws NotFoundException{
         List<Question> questions = communityQAMapper.getMyQuestions(user_id);
-        if(questions == null){
+        if(questions.size() == 0){
             throw new NotFoundException(404, 404, "用户还没有提出过问题");
         }else {
             return questions;
@@ -275,7 +259,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     public QuestionAnswer getAnswer(Integer answer_id) throws NotFoundException{
-        QuestionAnswer questionAnswer =  communityQAMapper.getAnswer(answer_id);
+        QuestionAnswer questionAnswer =  communityQAMapper.getAnswerById(answer_id);
         if(questionAnswer == null){
             throw new NotFoundException(404, 404, "没有找到该回答");
         }else {
@@ -293,7 +277,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Transactional
     public QuestionAnswer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException{
         getAnswer(questionAnswer.getAnswer_id());
-        questionAnswer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
         communityQAMapper.editAnswer(questionAnswer);
         return questionAnswer;
     }
@@ -307,8 +290,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         communityQAMapper.deleteAllAnswerEvaluationByAnswerId(answer_id);
         communityQAMapper.deleteAllCommentsByAnswerId(answer_id);
         communityQAMapper.deleteAllCommentEvaluationByAnswerId(answer_id);
-        communityQAMapper.deleteAllDiscussesByAnswerId(answer_id);
-        communityQAMapper.deleteAllDiscussEvaluationByAnswerId(answer_id);
     }
 
 
@@ -351,21 +332,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         return communityQAMapper.countDisagreement(answer_id);
     }
 
-    /**
-     * 查看用户对这个回答的评价状态，evaluate_type：1是赞同，2是反对，3是取消；如果没有评价过抛出异常
-     * @param user_id 用户id
-     * @param answer_id 回答id
-     * @return 返回回答评价对象
-     */
-    @Override
-    public Evaluate evaluateStatus(Integer user_id, Integer answer_id) throws NotFoundException{
-        Evaluate evaluate = communityQAMapper.evaluateStatus(user_id, answer_id);
-        if(evaluate == null){
-            throw new NotFoundException(404,404,"该用户没有评价过这个回答");
-        }else {
-            return evaluate;
-        }
-    }
 
     /**
      * 拿到某个回答评价，如果没有，抛出异常
@@ -383,27 +349,30 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         }
     }
 
-    /**
-     * 评价回答，包括赞同、取消赞同、不赞同、取消不赞同
-     * @param answer_id 回答的id
-     * @param evaluate 评价回答的对象
-     * @return 评价成功返回1
-     * @throws NotFoundException
-     */
     @Override
     @Transactional
-    public Integer evaluateAnswer(Integer answer_id, Evaluate evaluate) throws NotFoundException{
+    public void evaluateAnswer(Integer answer_id, Integer user_id) throws NotFoundException{
         getAnswer(answer_id);
-        Integer evaluate_id = evaluate.getEvaluate_id();
-        if(evaluate_id != null){
-            getAnswerEvaluate(evaluate_id);
-            communityQAMapper.reEvaluateAnswer(evaluate);
+        Evaluate evaluate = communityQAMapper.evaluateStatus(user_id,answer_id);
+        if(evaluate != null){
+            communityQAMapper.reEvaluateAnswer(evaluate.getEvaluate_id());
         }else {
-            communityQAMapper.addEvaluateToAnswer(evaluate);
-            evaluate_id = evaluate.getEvaluate_id();
-            communityQAMapper.createMapBetweenAnswerAndEvaluate(evaluate.getEvaluate_id(), answer_id);
+            Evaluate evaluate1 = new Evaluate();
+            evaluate1.setUser_id(user_id);
+            communityQAMapper.addEvaluateToAnswer(evaluate1);
+            communityQAMapper.createMapBetweenAnswerAndEvaluate(evaluate1.getEvaluate_id(), answer_id);
         }
-        return evaluate_id;
+    }
+
+    @Override
+    public void deleteEvaluateAnswer(Integer answer_id, Integer user_id) throws NotFoundException {
+        getAnswer(answer_id);
+        Evaluate evaluate = communityQAMapper.evaluateStatus(user_id,answer_id);
+        if(evaluate == null){
+            throw new NotFoundException(404,404,"没有点赞过这个回答，不能取消");
+        }else {
+            communityQAMapper.deleteEvaluateAnswer(evaluate.getEvaluate_id());
+        }
     }
 
     /**
@@ -479,8 +448,6 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         getComment(comment_id);
         communityQAMapper.deleteComment(1);
         communityQAMapper.deleteAllCommentEvaluationByCommentId(1);
-        communityQAMapper.deleteAllDiscussByCommentId(1);
-        communityQAMapper.deleteAllDiscussEvaluateByCommentId(1);
     }
 
     /**
@@ -533,113 +500,113 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         return 1;
     }
 
-    /**
-     * 列出该评论的所有讨论
-     * @param comment_id 评论的id
-     * @return 返回包含所有讨论的list
-     * @throws NotFoundException
-     */
-    @Override
-    public List<Discuss> listAllCommentDiscuss(Integer comment_id) throws NotFoundException{
-        getComment(comment_id);
-        List<Discuss> discusses = communityQAMapper.listAllCommentDiscuss(comment_id);
-        if(discusses == null){
-            throw new NotFoundException(404,404,"没找到该问题的讨论");
-        }else {
-            return discusses;
-        }
-    }
-
-    /**
-     * 得到某个讨论
-     * @param discuss_id 讨论的id
-     * @return 返回该讨论对象
-     * @throws NotFoundException
-     */
-    @Override
-    public Discuss getDiscuss(Integer discuss_id) throws NotFoundException{
-        Discuss discuss = communityQAMapper.getDiscuss(discuss_id);
-        if(discuss == null){
-            throw new NotFoundException(404,404,"没有找到这个讨论");
-        }else {
-            return discuss;
-        }
-    }
-
-    /**
-     * 添加讨论，如果要讨论的评论不存在，则抛出异常
-     * @param comment_id 要讨论的评论的id
-     * @param discuss 要添加的讨论的对象
-     * @return 添加成功返回1
-     * @throws NotFoundException
-     */
-    @Override
-    @Transactional
-    public Integer addDiscuss(Integer comment_id, Discuss discuss, Integer discuss_level) throws NotFoundException{
-        getComment(comment_id);
-        communityQAMapper.addDiscuss(discuss);
-        communityQAMapper.createMapBetweenDiscussAndComment(discuss.getDiscuss_id(), comment_id,discuss_level);
-        return 1;
-    }
-
-    /**
-     * 列出该讨论的点赞数
-     * @param discuss_id 讨论的id
-     * @return 返回点赞数
-     */
-    @Override
-    public Integer countAgreementOfDiscuss(Integer discuss_id) {
-        return communityQAMapper.countDiscussAgreement(discuss_id);
-    }
-
-
-    @Override
-    @Transactional
-    public void deleteDiscuss(Integer discuss_id) throws NotFoundException{
-        getDiscuss(discuss_id);
-        communityQAMapper.deleteDiscuss(discuss_id);
-        communityQAMapper.deleteAllDiscussEvaluateByDiscussId(discuss_id);
-    }
-
-    /**
-     * 检查用户对该讨论的评价状态
-     * @param user_id 用户的id
-     * @param discuss_id 讨论的id
-     * @return 返回评价对象
-     * @throws NotFoundException 没有评价过。抛出异常
-     */
-    @Override
-    public DiscussEvaluate discussEvaluateStatus(Integer user_id, Integer discuss_id) throws NotFoundException {
-        DiscussEvaluate discussEvaluate = communityQAMapper.discussEvaluateStatus(user_id, discuss_id);
-        if(discussEvaluate == null){
-            throw new NotFoundException(404,404,"没有评价过");
-        }else {
-            return discussEvaluate;
-        }
-    }
-
-
-    /**
-     * 评价这个讨论，如果没有评价过，则添加评价并且建立映射；如果评价过，则更新字段
-     * @param discuss_id 讨论的id
-     * @param discussEvaluate 评价的对象
-     * @return 返回评价id
-     * @throws NotFoundException
-     */
-    @Override
-    @Transactional
-    public Integer evaluateDiscuss(Integer discuss_id, DiscussEvaluate discussEvaluate) throws NotFoundException{
-        getDiscuss(discuss_id);
-        Integer evaluate_id = discussEvaluate.getEvaluate_id();
-        if(evaluate_id == null){
-            communityQAMapper.addEvaluateToDiscuss(discussEvaluate);
-            evaluate_id = discussEvaluate.getEvaluate_id();
-            communityQAMapper.createMapBetweenDiscussAndEvaluate(evaluate_id, discuss_id);
-        }else {
-            communityQAMapper.reEvaluateDiscuss(discussEvaluate);
-        }
-        return evaluate_id;
-    }
+//    /**
+//     * 列出该评论的所有讨论
+//     * @param comment_id 评论的id
+//     * @return 返回包含所有讨论的list
+//     * @throws NotFoundException
+//     */
+//    @Override
+//    public List<Discuss> listAllCommentDiscuss(Integer comment_id) throws NotFoundException{
+//        getComment(comment_id);
+//        List<Discuss> discusses = communityQAMapper.listAllCommentDiscuss(comment_id);
+//        if(discusses == null){
+//            throw new NotFoundException(404,404,"没找到该问题的讨论");
+//        }else {
+//            return discusses;
+//        }
+//    }
+//
+//    /**
+//     * 得到某个讨论
+//     * @param discuss_id 讨论的id
+//     * @return 返回该讨论对象
+//     * @throws NotFoundException
+//     */
+//    @Override
+//    public Discuss getDiscuss(Integer discuss_id) throws NotFoundException{
+//        Discuss discuss = communityQAMapper.getDiscuss(discuss_id);
+//        if(discuss == null){
+//            throw new NotFoundException(404,404,"没有找到这个讨论");
+//        }else {
+//            return discuss;
+//        }
+//    }
+//
+//    /**
+//     * 添加讨论，如果要讨论的评论不存在，则抛出异常
+//     * @param comment_id 要讨论的评论的id
+//     * @param discuss 要添加的讨论的对象
+//     * @return 添加成功返回1
+//     * @throws NotFoundException
+//     */
+//    @Override
+//    @Transactional
+//    public Integer addDiscuss(Integer comment_id, Discuss discuss, Integer discuss_level) throws NotFoundException{
+//        getComment(comment_id);
+//        communityQAMapper.addDiscuss(discuss);
+//        communityQAMapper.createMapBetweenDiscussAndComment(discuss.getDiscuss_id(), comment_id,discuss_level);
+//        return 1;
+//    }
+//
+//    /**
+//     * 列出该讨论的点赞数
+//     * @param discuss_id 讨论的id
+//     * @return 返回点赞数
+//     */
+//    @Override
+//    public Integer countAgreementOfDiscuss(Integer discuss_id) {
+//        return communityQAMapper.countDiscussAgreement(discuss_id);
+//    }
+//
+//
+//    @Override
+//    @Transactional
+//    public void deleteDiscuss(Integer discuss_id) throws NotFoundException{
+//        getDiscuss(discuss_id);
+//        communityQAMapper.deleteDiscuss(discuss_id);
+//        communityQAMapper.deleteAllDiscussEvaluateByDiscussId(discuss_id);
+//    }
+//
+//    /**
+//     * 检查用户对该讨论的评价状态
+//     * @param user_id 用户的id
+//     * @param discuss_id 讨论的id
+//     * @return 返回评价对象
+//     * @throws NotFoundException 没有评价过。抛出异常
+//     */
+//    @Override
+//    public DiscussEvaluate discussEvaluateStatus(Integer user_id, Integer discuss_id) throws NotFoundException {
+//        DiscussEvaluate discussEvaluate = communityQAMapper.discussEvaluateStatus(user_id, discuss_id);
+//        if(discussEvaluate == null){
+//            throw new NotFoundException(404,404,"没有评价过");
+//        }else {
+//            return discussEvaluate;
+//        }
+//    }
+//
+//
+//    /**
+//     * 评价这个讨论，如果没有评价过，则添加评价并且建立映射；如果评价过，则更新字段
+//     * @param discuss_id 讨论的id
+//     * @param discussEvaluate 评价的对象
+//     * @return 返回评价id
+//     * @throws NotFoundException
+//     */
+//    @Override
+//    @Transactional
+//    public Integer evaluateDiscuss(Integer discuss_id, DiscussEvaluate discussEvaluate) throws NotFoundException{
+//        getDiscuss(discuss_id);
+//        Integer evaluate_id = discussEvaluate.getEvaluate_id();
+//        if(evaluate_id == null){
+//            communityQAMapper.addEvaluateToDiscuss(discussEvaluate);
+//            evaluate_id = discussEvaluate.getEvaluate_id();
+//            communityQAMapper.createMapBetweenDiscussAndEvaluate(evaluate_id, discuss_id);
+//        }else {
+//            communityQAMapper.reEvaluateDiscuss(discussEvaluate);
+//        }
+//        return evaluate_id;
+//    }
 
     /**
      * 列出用户收到的邀请

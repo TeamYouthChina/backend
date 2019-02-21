@@ -19,6 +19,15 @@ public class QuestionAnswer implements HasId<Integer> {
     private User answer_user;
     private List<Evaluate> evaluates;
     private List<Comment> comments;
+    private Question question;
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 
     public QuestionAnswer(SimpleAnswerDTO simpleAnswerDTO) {
         this.answer_id = simpleAnswerDTO.getId();

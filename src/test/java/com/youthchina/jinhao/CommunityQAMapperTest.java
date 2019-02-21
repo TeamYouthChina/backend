@@ -5,7 +5,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.jinhao.CommunityQAMapper;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.zhongyang.User;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +16,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.sql.Timestamp;
-import java.util.LinkedList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -29,17 +27,27 @@ public class CommunityQAMapperTest {
     @Autowired
     CommunityQAMapper communityQAMapper;
 
-    @After
-    public void delete() {
-
-    }
-
     // 测试能不能拿到某个问题
     @Test
     public void getQuestion() {
-        Question question = communityQAMapper.getQuestion(1);
-        Assert.assertEquals("第一个问题", question.getQues_title());
+        Question question1 = communityQAMapper.getQuestion(1);
+        Assert.assertEquals("第一个问题", question1.getQues_title());
+        Question question = communityQAMapper.getQuestionById(1);
+        Assert.assertNotNull(question);
+        Assert.assertNotNull(question.getRela_id());
+        User user = question.getQues_user();
+        Assert.assertEquals(Integer.valueOf(1), user.getId());
+        List<QuestionAnswer> questionAnswers = question.getQuestionAnswers();
+        Assert.assertEquals(4, questionAnswers.size());
+        for(QuestionAnswer questionAnswer : questionAnswers){
+            if(questionAnswer.getAnswer_id() != 1 && questionAnswer.getAnswer_id() != 2 &&
+                    questionAnswer.getAnswer_id() != 3 && questionAnswer.getAnswer_id() != 4){
+                Assert.fail();
+            }
+            Assert.assertNotNull(questionAnswer.getAnswer_user());
+        }
     }
+
 
     //测试能不能添加问题
     @Test
@@ -48,32 +56,15 @@ public class CommunityQAMapperTest {
         question.setQues_title("被插入的问题");
         question.setQues_abbre("这问题是新插入的");
         question.setQues_body("这是一个新插入的问题，巴拉巴拉巴拉");
-        question.setQues_pub_time(Timestamp.valueOf("2018-10-11 11:11:11"));
-        question.setQues_edit_time(Timestamp.valueOf("2018-10-11 11:11:11"));
-        question.setIs_delete(0);
-        question.setIs_delete_time(Timestamp.valueOf("2018-10-11 11:11:11"));
-        question.setUser_anony(1);
+        question.setUser_anony(0);
         communityQAMapper.addQuestion(question);
         Assert.assertNotNull(question.getQues_id());
         Question createQuestion = communityQAMapper.getQuestion(question.getQues_id());
         Assert.assertNotNull(createQuestion);
+        communityQAMapper.createMapBetweenQuestionAndUser(question.getQues_id(), 3, 2, 45);
+        Question question1 = communityQAMapper.getQuestionById(question.getQues_id());
+        Assert.assertEquals(Integer.valueOf(45), question1.getRela_id());
     }
-
-    //测试能不能成功建立映射以及能不能通过映射拿到某个用户提出的所有问题
-    @Test
-    public void testGetMyQuestionAndCreateMapBetweenUserAndQuestion() {
-        communityQAMapper.createMapBetweenQuestionAndUser(3, 1, 2, 3);
-        List<Question> questionList = communityQAMapper.getMyQuestions(1);
-        Assert.assertEquals(4, questionList.size());
-        for (Question question : questionList) {
-            if (question.getQues_id() != 1 && question.getQues_id() != 2 && question.getQues_id() != 3
-            && question.getQues_id() != 4) {
-                Assert.fail();
-            }
-        }
-
-    }
-
     //测试能不能更改问题
     @Test
     public void updateQuestion() {
@@ -98,34 +89,34 @@ public class CommunityQAMapperTest {
     }
 
 
-    //测试能不能拿到问题的标签
-    @Test
-    public void getQuestionLabels() {
-        List<Label> labels = communityQAMapper.listAllQuesetionLabel(1);
-        Assert.assertEquals(3, labels.size());
-        for (Label label : labels) {
-            if (label.getLab_num() != 1 && label.getLab_num() != 3 && label.getLab_num() != 5) {
-                Assert.fail();
-            }
-        }
-    }
+//    //测试能不能拿到问题的标签
+//    @Test
+//    public void getQuestionLabels() {
+//        List<Label> labels = communityQAMapper.listAllQuesetionLabel(1);
+//        Assert.assertEquals(3, labels.size());
+//        for (Label label : labels) {
+//            if (label.getLab_num() != 1 && label.getLab_num() != 3 && label.getLab_num() != 5) {
+//                Assert.fail();
+//            }
+//        }
+//    }
 
-    //测试能不能给问题添加标签
-    @Test
-    public void addLabels() {
-        List<Integer> lab_nums = new LinkedList<>();
-        lab_nums.add(2);
-        lab_nums.add(1);
-        lab_nums.add(3);
-        communityQAMapper.addLabels(lab_nums, 2);
-        List<Label> labels = communityQAMapper.listAllQuesetionLabel(2);
-        Assert.assertEquals(3, labels.size());
-        for (Label label : labels) {
-            if (label.getLab_num() != 1 && label.getLab_num() != 3 && label.getLab_num() != 2) {
-                Assert.fail();
-            }
-        }
-    }
+//    //测试能不能给问题添加标签
+//    @Test
+//    public void addLabels() {
+//        List<Integer> lab_nums = new LinkedList<>();
+//        lab_nums.add(2);
+//        lab_nums.add(1);
+//        lab_nums.add(3);
+//        communityQAMapper.addLabels(lab_nums, 2);
+//        List<Label> labels = communityQAMapper.listAllQuesetionLabel(2);
+//        Assert.assertEquals(3, labels.size());
+//        for (Label label : labels) {
+//            if (label.getLab_num() != 1 && label.getLab_num() != 3 && label.getLab_num() != 2) {
+//                Assert.fail();
+//            }
+//        }
+//    }
 
     //测试能不能拿到某个问题关注
     @Test
@@ -149,28 +140,19 @@ public class CommunityQAMapperTest {
     public void addAttentionToQuestion() {
         QuestionAttention questionAttention = new QuestionAttention();
         questionAttention.setUser_id(1);
-        questionAttention.setAtten_cancel(0);
-        questionAttention.setAtten_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        questionAttention.setAtten_cancel_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        communityQAMapper.addAttentionToQuestion(questionAttention);
+        communityQAMapper.addAttentionToQuestion(1);
         Assert.assertNotNull(questionAttention.getAtten_id());
         QuestionAttention questionAttention1 = communityQAMapper.getAttention(questionAttention.getAtten_id());
         Assert.assertNotNull(questionAttention1);
-    }
-
-    //测试能不能给问题和关注建立映射以及能不能列出用户所关注的问题
-    @Test
-    public void createQuestionAttenMapAndListUserAttenQues() {
-        communityQAMapper.createMapBetweenAttentionAndQuestion(3, 6);
+        communityQAMapper.createMapBetweenAttentionAndQuestion(4, questionAttention.getAtten_id());
         List<Question> questions = communityQAMapper.listMyAttenQuestion(1);
         Assert.assertEquals(3, questions.size());
         for (Question question : questions) {
-            if (question.getQues_id() != 1 && question.getQues_id() != 2 && question.getQues_id() != 3) {
+            if (question.getQues_id() != 1 && question.getQues_id() != 2 && question.getQues_id() != 4) {
                 Assert.fail();
             }
         }
     }
-
     //测试能不能重新关注
     @Test
     public void reAttentionQuestion() {
@@ -178,7 +160,7 @@ public class CommunityQAMapperTest {
         Assert.assertNotNull(questionAttention);
         Integer atten_id = questionAttention.getAtten_id();
         questionAttention.setAtten_cancel(0);
-        communityQAMapper.reAddAttentionToQuestion(questionAttention);
+        communityQAMapper.reAddAttentionToQuestion(atten_id);
         QuestionAttention questionAttention1 = communityQAMapper.getAttention(atten_id);
         Integer atten_cancel = 0;
         Assert.assertEquals(atten_cancel, questionAttention1.getAtten_cancel());
@@ -190,9 +172,8 @@ public class CommunityQAMapperTest {
         QuestionAttention questionAttention = communityQAMapper.isQuestionAttention(1, 1);
         Assert.assertNotNull(questionAttention);
         Integer atten_id = questionAttention.getAtten_id();
-        questionAttention.setAtten_cancel(1);
-        questionAttention.setAtten_cancel_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        communityQAMapper.cancelAttention(questionAttention);
+
+        communityQAMapper.cancelAttention(atten_id);
         QuestionAttention questionAttention1 = communityQAMapper.getAttention(atten_id);
         Integer atten_cancel = 1;
         Assert.assertEquals(atten_cancel, questionAttention1.getAtten_cancel());
@@ -206,24 +187,14 @@ public class CommunityQAMapperTest {
         Assert.assertEquals(expect, count);
     }
 
-    //测试能不能列出问题的所有回答
-    @Test
-    public void listAllAnswer() {
-        List<QuestionAnswer> questionAnswers = communityQAMapper.listAllQuestionAnswer(1);
-        Assert.assertEquals(4, questionAnswers.size());
-        for (QuestionAnswer questionAnswer : questionAnswers) {
-            if (questionAnswer.getAnswer_id() != 1 && questionAnswer.getAnswer_id() != 2 && questionAnswer.getAnswer_id() != 3
-                    && questionAnswer.getAnswer_id() != 4) {
-                Assert.fail();
-            }
-        }
-    }
 
     //测试能不能拿到某个回答
     @Test
     public void getAnswer() {
         QuestionAnswer questionAnswer = communityQAMapper.getAnswer(1);
         Assert.assertEquals("这是第一个回答", questionAnswer.getAnswer_content());
+        QuestionAnswer questionAnswer1 = communityQAMapper.getAnswerById(1);
+        Assert.assertNotNull(questionAnswer1.getQuestion());
     }
 
     //测试能不能添加回答
@@ -247,7 +218,8 @@ public class CommunityQAMapperTest {
     @Test
     public void createQuesAnswerMap() {
         communityQAMapper.createMapBetweenQuestionAndAnswer(2, 6, 2);
-        List<QuestionAnswer> questionAnswers = communityQAMapper.listAllQuestionAnswer(2);
+        Question question = communityQAMapper.getQuestionById(2);
+        List<QuestionAnswer> questionAnswers = question.getQuestionAnswers();
         Assert.assertEquals(2, questionAnswers.size());
         for (QuestionAnswer questionAnswer : questionAnswers) {
             if (questionAnswer.getAnswer_id() != 5 && questionAnswer.getAnswer_id() != 6) {
@@ -338,7 +310,7 @@ public class CommunityQAMapperTest {
     public void reEvaluateAnswer() {
         Evaluate evaluate = communityQAMapper.getAnswerEvaluate(1);
         evaluate.setEvaluate_type(2);
-        communityQAMapper.reEvaluateAnswer(evaluate);
+        communityQAMapper.reEvaluateAnswer(evaluate.getEvaluate_id());
         Evaluate evaluate1 = communityQAMapper.getAnswerEvaluate(1);
         Integer evaluate_type = 2;
         Assert.assertEquals(evaluate_type, evaluate1.getEvaluate_type());
@@ -481,120 +453,120 @@ public class CommunityQAMapperTest {
         Assert.assertEquals(expect, agreement);
     }
 
-    //测试能不能列出某个评论的所有讨论
-    @Test
-    public void listAllCommentDiscuss() {
-        List<Discuss> discusses = communityQAMapper.listAllCommentDiscuss(1);
-        Assert.assertEquals(3, discusses.size());
-        for (Discuss discuss : discusses) {
-            if (discuss.getDiscuss_id() != 1 && discuss.getDiscuss_id() != 3 && discuss.getDiscuss_id() != 5) {
-                Assert.fail();
-            }
-        }
-    }
-
-    //得到某个讨论
-    @Test
-    public void getDiscuss() {
-        Discuss discuss = communityQAMapper.getDiscuss(1);
-        Assert.assertEquals("SDGAGERGRGRGAGgegege1", discuss.getDiscuss_content());
-    }
-
-    //添加讨论
-    @Test
-    public void addDiscuss() {
-        Discuss discuss = new Discuss();
-        discuss.setDiscuss_content("新的讨论");
-        discuss.setDiscuss_target_id(1);
-        discuss.setDiscuss_pub_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        discuss.setUser_id(1);
-        discuss.setUser_anony(0);
-        discuss.setIs_delete(0);
-        discuss.setIs_delete_time(Timestamp.valueOf("2012-12-12 12:12:12"));
-        communityQAMapper.addDiscuss(discuss);
-        Assert.assertNotNull(discuss.getDiscuss_id());
-        Discuss discuss1 = communityQAMapper.getDiscuss(discuss.getDiscuss_id());
-        Assert.assertNotNull(discuss1);
-    }
-
-    //测试能不能建立映射
-    @Test
-    public void createDiscussCommentMap() {
-        communityQAMapper.createMapBetweenDiscussAndComment(6, 2, 3);
-        List<Discuss> discusses = communityQAMapper.listAllCommentDiscuss(2);
-        Assert.assertEquals(3, discusses.size());
-        for (Discuss discuss : discusses) {
-            if (discuss.getDiscuss_id() != 2 && discuss.getDiscuss_id() != 4 && discuss.getDiscuss_id() != 6) {
-                Assert.fail();
-            }
-        }
-    }
-
-    //测试能不能删除讨论
-    @Test
-    public void deleteDiscuss() {
-        communityQAMapper.deleteDiscuss(1);
-        Discuss discuss1 = communityQAMapper.getDiscuss(1);
-        Assert.assertNull(discuss1);
-
-    }
-
-    //测试能不能得到讨论的评价
-    @Test
-    public void countDiscussAgreement() {
-        Integer expect = 6;
-        Assert.assertEquals(expect, communityQAMapper.countDiscussAgreement(1));
-    }
-
-    //测试能不能检察用户对讨论的评价状态
-    @Test
-    public void discussEvaluateStatus() {
-        DiscussEvaluate discussEvaluate = communityQAMapper.discussEvaluateStatus(3, 1);
-        Assert.assertNotNull(discussEvaluate);
-        Integer evaluate_id = 5;
-        Assert.assertEquals(evaluate_id, discussEvaluate.getEvaluate_id());
-        DiscussEvaluate discussEvaluate1 = communityQAMapper.discussEvaluateStatus(3, 2);
-        Assert.assertNull(discussEvaluate1);
-    }
-
-    //测试能不能得到一个讨论评价
-    @Test
-    public void getDiscussEvaluate() {
-        DiscussEvaluate discussEvaluate = communityQAMapper.getDiscussEvaluate(1);
-        Assert.assertEquals(Timestamp.valueOf("2018-12-06 14:36:40"), discussEvaluate.getEvaluate_time());
-    }
-
-    //测试能不能添加讨论评价
-    @Test
-    public void addDiscussEvaluate() {
-        DiscussEvaluate discussEvaluate = new DiscussEvaluate();
-        discussEvaluate.setUser_id(1);
-        discussEvaluate.setEvaluate_type(3);
-        discussEvaluate.setEvaluate_time(Timestamp.valueOf("2018-12-06 14:36:40"));
-        communityQAMapper.addEvaluateToDiscuss(discussEvaluate);
-        Assert.assertNotNull(discussEvaluate.getEvaluate_id());
-        DiscussEvaluate discussEvaluate1 = communityQAMapper.getDiscussEvaluate(discussEvaluate.getEvaluate_id());
-        Assert.assertNotNull(discussEvaluate1);
-    }
-
-    //测试能不能添加映射
-    @Test
-    public void createDiscussEvaluateMap() {
-        communityQAMapper.createMapBetweenDiscussAndEvaluate(10, 2);
-        Integer expect = 3;
-        Assert.assertEquals(expect, communityQAMapper.countDiscussAgreement(2));
-    }
-
-    //测试能不能重新价
-    @Test
-    public void deleteEvaluate() {
-        DiscussEvaluate discussEvaluate = communityQAMapper.getDiscussEvaluate(1);
-        discussEvaluate.setEvaluate_type(3);
-        discussEvaluate.setEvaluate_time(Timestamp.valueOf("2018-12-06 14:36:46"));
-        communityQAMapper.reEvaluateDiscuss(discussEvaluate);
-        Integer expect = 5;
-        Assert.assertEquals(expect, communityQAMapper.countDiscussAgreement(1));
-    }
+//    //测试能不能列出某个评论的所有讨论
+//    @Test
+//    public void listAllCommentDiscuss() {
+//        List<Discuss> discusses = communityQAMapper.listAllCommentDiscuss(1);
+//        Assert.assertEquals(3, discusses.size());
+//        for (Discuss discuss : discusses) {
+//            if (discuss.getDiscuss_id() != 1 && discuss.getDiscuss_id() != 3 && discuss.getDiscuss_id() != 5) {
+//                Assert.fail();
+//            }
+//        }
+//    }
+//
+//    //得到某个讨论
+//    @Test
+//    public void getDiscuss() {
+//        Discuss discuss = communityQAMapper.getDiscuss(1);
+//        Assert.assertEquals("SDGAGERGRGRGAGgegege1", discuss.getDiscuss_content());
+//    }
+//
+//    //添加讨论
+//    @Test
+//    public void addDiscuss() {
+//        Discuss discuss = new Discuss();
+//        discuss.setDiscuss_content("新的讨论");
+//        discuss.setDiscuss_target_id(1);
+//        discuss.setDiscuss_pub_time(Timestamp.valueOf("2012-12-12 12:12:12"));
+//        discuss.setUser_id(1);
+//        discuss.setUser_anony(0);
+//        discuss.setIs_delete(0);
+//        discuss.setIs_delete_time(Timestamp.valueOf("2012-12-12 12:12:12"));
+//        communityQAMapper.addDiscuss(discuss);
+//        Assert.assertNotNull(discuss.getDiscuss_id());
+//        Discuss discuss1 = communityQAMapper.getDiscuss(discuss.getDiscuss_id());
+//        Assert.assertNotNull(discuss1);
+//    }
+//
+//    //测试能不能建立映射
+//    @Test
+//    public void createDiscussCommentMap() {
+//        communityQAMapper.createMapBetweenDiscussAndComment(6, 2, 3);
+//        List<Discuss> discusses = communityQAMapper.listAllCommentDiscuss(2);
+//        Assert.assertEquals(3, discusses.size());
+//        for (Discuss discuss : discusses) {
+//            if (discuss.getDiscuss_id() != 2 && discuss.getDiscuss_id() != 4 && discuss.getDiscuss_id() != 6) {
+//                Assert.fail();
+//            }
+//        }
+//    }
+//
+//    //测试能不能删除讨论
+//    @Test
+//    public void deleteDiscuss() {
+//        communityQAMapper.deleteDiscuss(1);
+//        Discuss discuss1 = communityQAMapper.getDiscuss(1);
+//        Assert.assertNull(discuss1);
+//
+//    }
+//
+//    //测试能不能得到讨论的评价
+//    @Test
+//    public void countDiscussAgreement() {
+//        Integer expect = 6;
+//        Assert.assertEquals(expect, communityQAMapper.countDiscussAgreement(1));
+//    }
+//
+//    //测试能不能检察用户对讨论的评价状态
+//    @Test
+//    public void discussEvaluateStatus() {
+//        DiscussEvaluate discussEvaluate = communityQAMapper.discussEvaluateStatus(3, 1);
+//        Assert.assertNotNull(discussEvaluate);
+//        Integer evaluate_id = 5;
+//        Assert.assertEquals(evaluate_id, discussEvaluate.getEvaluate_id());
+//        DiscussEvaluate discussEvaluate1 = communityQAMapper.discussEvaluateStatus(3, 2);
+//        Assert.assertNull(discussEvaluate1);
+//    }
+//
+//    //测试能不能得到一个讨论评价
+//    @Test
+//    public void getDiscussEvaluate() {
+//        DiscussEvaluate discussEvaluate = communityQAMapper.getDiscussEvaluate(1);
+//        Assert.assertEquals(Timestamp.valueOf("2018-12-06 14:36:40"), discussEvaluate.getEvaluate_time());
+//    }
+//
+//    //测试能不能添加讨论评价
+//    @Test
+//    public void addDiscussEvaluate() {
+//        DiscussEvaluate discussEvaluate = new DiscussEvaluate();
+//        discussEvaluate.setUser_id(1);
+//        discussEvaluate.setEvaluate_type(3);
+//        discussEvaluate.setEvaluate_time(Timestamp.valueOf("2018-12-06 14:36:40"));
+//        communityQAMapper.addEvaluateToDiscuss(discussEvaluate);
+//        Assert.assertNotNull(discussEvaluate.getEvaluate_id());
+//        DiscussEvaluate discussEvaluate1 = communityQAMapper.getDiscussEvaluate(discussEvaluate.getEvaluate_id());
+//        Assert.assertNotNull(discussEvaluate1);
+//    }
+//
+//    //测试能不能添加映射
+//    @Test
+//    public void createDiscussEvaluateMap() {
+//        communityQAMapper.createMapBetweenDiscussAndEvaluate(10, 2);
+//        Integer expect = 3;
+//        Assert.assertEquals(expect, communityQAMapper.countDiscussAgreement(2));
+//    }
+//
+//    //测试能不能重新价
+//    @Test
+//    public void deleteEvaluate() {
+//        DiscussEvaluate discussEvaluate = communityQAMapper.getDiscussEvaluate(1);
+//        discussEvaluate.setEvaluate_type(3);
+//        discussEvaluate.setEvaluate_time(Timestamp.valueOf("2018-12-06 14:36:46"));
+//        communityQAMapper.reEvaluateDiscuss(discussEvaluate);
+//        Integer expect = 5;
+//        Assert.assertEquals(expect, communityQAMapper.countDiscussAgreement(1));
+//    }
 
 
     //测试能不能列出用户收到的所有邀请
@@ -934,78 +906,6 @@ public class CommunityQAMapperTest {
         Assert.assertEquals(agreement, communityQAMapper.countVideoAgreement(1));
         Assert.assertEquals(disagreement, communityQAMapper.countVideoDisagreement(1));
     }
-
-
-    @Test
-    public void testGetQuesitionById() {
-        Question question = communityQAMapper.getQuestionById(1);
-        Assert.assertNotNull(question);
-        User user = question.getQues_user();
-        Assert.assertEquals(Integer.valueOf(1), user.getId());
-        List<QuestionAttention> questionAttentions = question.getQuestionAttentions();
-        Assert.assertEquals(3, questionAttentions.size());
-        for(QuestionAttention questionAttention : questionAttentions){
-            if(questionAttention.getAtten_id() != 1 && questionAttention.getAtten_id() != 3
-                    && questionAttention.getAtten_id() != 4){
-                Assert.fail();
-            }
-        }
-        List<Label> labels = question.getLabels();
-        Assert.assertEquals(3, labels.size());
-        for(Label label : labels){
-            if(label.getLab_num() != 1 && label.getLab_num() != 3 && label.getLab_num() != 5){
-                Assert.fail();
-            }
-        }
-        List<QuestionAnswer> questionAnswers = question.getQuestionAnswers();
-        QuestionAnswer questionAnswer1 = null;
-        Assert.assertEquals(4, questionAnswers.size());
-        for(QuestionAnswer questionAnswer : questionAnswers){
-            if(questionAnswer.getAnswer_id() != 1 && questionAnswer.getAnswer_id() != 2 &&
-                    questionAnswer.getAnswer_id() != 3 && questionAnswer.getAnswer_id() != 4){
-                Assert.fail();
-            }
-            if(questionAnswer.getAnswer_id() == 1){
-                questionAnswer1 = questionAnswer;
-            }
-        }
-        List<Evaluate> evaluates = questionAnswer1.getEvaluates();
-        Assert.assertEquals(3, evaluates.size());
-        for(Evaluate evaluate : evaluates){
-            if(evaluate.getEvaluate_id() != 1 && evaluate.getEvaluate_id() != 3
-                    && evaluate.getEvaluate_id() != 4){
-                Assert.fail();
-            }
-        }
-        List<Comment> comments = questionAnswer1.getComments();
-        Comment comment1 = null;
-        Assert.assertEquals(3, comments.size());
-        for(Comment comment : comments){
-            if(comment.getComment_id() != 1 && comment.getComment_id() !=3 && comment.getComment_id() != 5){
-                Assert.fail();
-            }
-            if(comment.getComment_id() == 1){
-                comment1 = comment;
-            }
-        }
-        List<Discuss> discusses = comment1.getDiscusses();
-        Discuss discuss1 = null;
-        Assert.assertEquals(3, discusses.size());
-        for(Discuss discuss : discusses){
-            if(discuss.getDiscuss_id() != 1 && discuss.getDiscuss_id() != 3 && discuss.getDiscuss_id() != 5){
-                Assert.fail();
-            }
-            if(discuss.getDiscuss_id() == 1){
-                discuss1 = discuss;
-            }
-        }
-        List<DiscussEvaluate>  discussEvaluates = discuss1.getDiscussEvaluateList();
-        Assert.assertEquals(6, discussEvaluates.size());
-
-    }
-
-
-
     @Test
     public void getVideoById() {
         Video video = communityQAMapper.getVideoById(1);
@@ -1117,7 +1017,7 @@ public class CommunityQAMapperTest {
     // 测试删除所有问题下面的CommentDiscuss, CommentEvaluate
     @Test
     public void deleteAllDiscussOfQuestion(){
-        communityQAMapper.deleteAllDiscusses(1);
+
         communityQAMapper.deleteAllCommentEvaluation(1);
         Question question1 = communityQAMapper.getQuestionById(1);
         List<QuestionAnswer> questionAnswers = question1.getQuestionAnswers();
@@ -1135,7 +1035,7 @@ public class CommunityQAMapperTest {
     //测试删除某个问题下讨论的所有评价
     @Test
     public void deleteAllDiscussEvaluation(){
-        communityQAMapper.deleteAllDiscussEvaluation(1);
+
         Question question1 = communityQAMapper.getQuestionById(1);
         List<QuestionAnswer> questionAnswers = question1.getQuestionAnswers();
         for(QuestionAnswer questionAnswer : questionAnswers){
