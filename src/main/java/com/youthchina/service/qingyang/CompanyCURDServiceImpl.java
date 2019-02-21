@@ -35,7 +35,8 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Override
     @Transactional
     public Company get(Integer id) throws NotFoundException {
-        return companyMapper.selectCompany(id);
+        Company company = companyMapper.selectCompany(id);
+        return company;
     }
 
     /**
