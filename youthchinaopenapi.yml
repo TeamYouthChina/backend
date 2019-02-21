@@ -507,7 +507,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-  
+
   '/jobs/{id}/attention':
     put:
       tags:
@@ -577,7 +577,7 @@ paths:
                             id:
                               type: integer
                             job:
-                              $ref: '#/components/schemas/Job' 
+                              $ref: '#/components/schemas/Job'
                       questions:
                         type: array
                         items:
@@ -693,7 +693,7 @@ paths:
           schema:
             type: string
         - name: job
-          in: query 
+          in: query
           description: job name
           schema:
             type: string
@@ -710,7 +710,7 @@ paths:
                       questions:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Question'                     
+                          $ref: '#/components/schemas/Question'
                   status:
                     $ref: '#/components/schemas/Status'
         '400':
@@ -836,7 +836,7 @@ paths:
                   default: false
                 create_at:
                   type: integer
-                
+
       responses:
         '201':
           description: target answer
@@ -877,7 +877,7 @@ paths:
           in: path
           schema:
             type: integer
-          
+
       requestBody:
         content:
           application/json:
@@ -914,7 +914,7 @@ paths:
           in: path
           schema:
             type: integer
-      responses: 
+      responses:
         '201':
           description: upvote successfullly
   '/answers/{id}':
@@ -979,7 +979,7 @@ paths:
           description: success
         '403':
           description: do not have authority to delete answer
-  '/answers/{id}/comments': 
+  '/answers/{id}/comments':
     post:
       tags:
         - Answer
@@ -1037,7 +1037,7 @@ paths:
                   type: string
                 phone_number:
                   type: string
-                email: 
+                email:
                   type: string
                 nation:
                   type: string
@@ -1181,7 +1181,7 @@ paths:
           description: collect successful
         '400':
           description: cannot collect this job, maybe the job has already deleted
-      
+
   '/articles':
     post:
       tags:
@@ -1252,7 +1252,7 @@ paths:
           in: path
           required: true
           description: company id
-          schema: 
+          schema:
             type: integer
       requestBody:
         content:
@@ -1359,7 +1359,7 @@ paths:
           in: path
           schema:
             type: integer
-          required: true  
+          required: true
       responses:
         '204':
           description: successful
@@ -1406,7 +1406,7 @@ paths:
         '201':
           description: successful
   '/videos/{id}/upvote':
-    put:  
+    put:
       tags:
         - Video
       parameters:
@@ -1418,7 +1418,7 @@ paths:
           description: video id
       responses:
         '200':
-          description: successful 
+          description: successful
   '/videos/{id}/attention':
     put:
       tags:
@@ -1432,7 +1432,7 @@ paths:
           description: video id
       responses:
         '200':
-          description: successful 
+          description: successful
 
   '/editorials/{id}':
     get:
@@ -1464,7 +1464,7 @@ paths:
           in: path
           schema:
             type: integer
-          required: true  
+          required: true
       responses:
         '204':
           description: successful
@@ -1494,7 +1494,7 @@ paths:
                     $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
-                
+
   '/editorials':
     post:
       tags:
@@ -1536,7 +1536,7 @@ paths:
         '201':
           description: successful
   '/editorials/{id}/upvote':
-    put:  
+    put:
       tags:
         - Editorials
       parameters:
@@ -1562,7 +1562,7 @@ paths:
           description: editorials id
       responses:
         '200':
-          description: successful 
+          description: successful
 
 
 
@@ -1592,7 +1592,7 @@ components:
         - page
         - size
       properties:
-        id: 
+        id:
           type: integer
         jobName:
           type: string
@@ -1840,7 +1840,7 @@ components:
           type: integer
         skills:
           type: array
-          items: 
+          items:
             type:
               string
         educations:
@@ -2016,7 +2016,7 @@ components:
           type: object
         resourceList:
           type: array
-          items: 
+          items:
             type: string
     Comment:
       type: object
@@ -2046,7 +2046,7 @@ components:
               type: boolean
               default: false
     ArticleRequest:
-      type: object 
+      type: object
       properties:
         title:
           type: string
