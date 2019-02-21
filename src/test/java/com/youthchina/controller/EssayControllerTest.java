@@ -163,6 +163,7 @@ public class EssayControllerTest {
                 .content(requestJson)
                 .with(authGenerator.authentication())
         )
-                .andDo(print());
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 }

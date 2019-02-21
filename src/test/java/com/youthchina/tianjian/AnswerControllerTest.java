@@ -106,7 +106,8 @@ public class AnswerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(addJson)
         )
-                .andDo(print());
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test

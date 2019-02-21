@@ -114,6 +114,7 @@ public class EssayController {
         Timestamp time =  new Timestamp(System.currentTimeMillis());
         comEssayReply.setReply_pub_time(time);
         comEssayReply.setUser_id(user.getId());
+        comEssayReply.setReply_edit_time(time);
         int i = essayServiceimpl.addReply(comEssayReply,id,0);
         if(i!=0)
             return ResponseEntity.ok(new Response(new StatusDTO(200,"success")));

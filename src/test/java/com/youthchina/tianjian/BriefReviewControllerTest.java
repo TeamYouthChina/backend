@@ -32,6 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 
 @RunWith(SpringRunner.class)
@@ -88,6 +89,7 @@ public class BriefReviewControllerTest {
                         .content(addJson)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
+
         )
                 .andDo(print());
     }
@@ -106,7 +108,8 @@ public class BriefReviewControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
         )
-                .andDo(print());
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
@@ -116,7 +119,8 @@ public class BriefReviewControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
         )
-                .andDo(print());
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
 
     }
 }
