@@ -2,7 +2,7 @@ package com.youthchina.domain.jinhao.communityQA;
 
 import java.sql.Timestamp;
 
-public class AnswerEvaluate {
+public class Evaluate {
     private Integer evaluate_id;
     private Integer user_id;
     private Integer evaluate_type;

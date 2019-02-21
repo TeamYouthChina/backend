@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtService = jwtService;
         this.URL_PREFIX = url_prefix;
         this.LOGIN_URL = URL_PREFIX + "/login";
-        this.REGISTER_URL = URL_PREFIX + "/register";
+        this.REGISTER_URL = URL_PREFIX + "/*/register";
         this.jwtAuthenticationProvider = jwtAuthenticationProvider;
     }
 

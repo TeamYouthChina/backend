@@ -48,7 +48,10 @@ public class UserControllerTest {
 
     @Test
     public void testLogin() throws Exception {
-        this.mvc.perform(post(this.urlPrefix + "/login").param("id", "1").param("password", "123456"))
+        this.mvc.perform(post(this.urlPrefix + "/login").contentType(MediaType.APPLICATION_JSON_UTF8).content("{\n" +
+                "  \"id\": 1,\n" +
+                "  \"password\": \"123456\"\n" +
+                "}"))
                 .andDo(print())
                 .andExpect(content().json("{\"content\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
                 .andExpect(header().exists("X-AUTHENTICATION"));
@@ -56,11 +59,11 @@ public class UserControllerTest {
 
     @Test
     public void testRegister() throws Exception {
-        this.mvc.perform(post(this.urlPrefix + "/register")
+        this.mvc.perform(post(this.urlPrefix + "/applicant/register")
                 .content("{\n" +
                         "  \"username\": \"testUser\",\n" +
                         "  \"date_of_birth\": \"1995-11-01\",\n" +
-                        "  \"password\": \"thisisapassword\",\n" +
+                        "  \"password\": \"123456\",\n" +
                         "  \"phone_number\": \"12315213\",\n" +
                         "  \"email\": \"testNew!@test.com\",\n" +
                         "  \"nation\": \"China\",\n" +
@@ -77,11 +80,11 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.content.nation").value("China"))
         ;
 
-        this.mvc.perform(post(this.urlPrefix + "/register")
+        this.mvc.perform(post(this.urlPrefix + "/applicant/register")
                 .content("{\n" +
                         "  \"username\": \"testUser\",\n" +
                         "  \"date_of_birth\": \"1995-11-01\",\n" +
-                        "  \"password\": \"thisisapassword\",\n" +
+                        "  \"password\": \"123456\",\n" +
                         "  \"phone_number\": \"12315213\",\n" +
                         "  \"email\": \"testNew!@test.com\",\n" +
                         "  \"nation\": \"China\",\n" +

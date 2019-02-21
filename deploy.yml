@@ -10,7 +10,7 @@ services:
       - 3306:3306
     volumes:
       - dbdata:/var/lib/mysql
-      - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+      - ./deploy.sql:/docker-entrypoint-initdb.d/data.sql
     environment:
       MYSQL_DATABASE: youthchina
       MYSQL_PASSWORD: dbpass
@@ -23,12 +23,16 @@ services:
       context: ./
       dockerfile: Dockerfile
     networks:
-        backend:
-          ipv4_address: 172.28.1.2
+      backend:
+        ipv4_address: 172.28.1.2
     ports:
       - 8080:8080
     volumes:
       - backenddata:/app/static
+    environment:
+      - YOUTHCHINADBURL=${YOUTHCHINADBURL}
+      - YOUTHCHINAEMAILUSERNAME=${YOUTHCHINAEMAILUSERNAME}
+      - YOUTHCHINAEMAILPASSWORD=${YOUTHCHINAEMAILPASSWORD}
 networks:
   backend:
     ipam:

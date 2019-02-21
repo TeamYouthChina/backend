@@ -14,7 +14,7 @@ public class Influence {
     private Student student;
     private List<ComFriendRelation> comFriendRelations;
     private List<PersonInfluence> personInfluences;
-    private List<AnswerEvaluate> answerEvaluates;
+    private List<Evaluate> evaluates;
     private List<CommentEvaluate> commentEvaluates;
     private List<DiscussEvaluate> discussEvaluates;
     private List<VideoEvaluate> videoEvaluates;
@@ -89,12 +89,12 @@ public class Influence {
         this.personInfluences = personInfluences;
     }
 
-    public List<AnswerEvaluate> getAnswerEvaluates() {
-        return answerEvaluates;
+    public List<Evaluate> getEvaluates() {
+        return evaluates;
     }
 
-    public void setAnswerEvaluates(List<AnswerEvaluate> answerEvaluates) {
-        this.answerEvaluates = answerEvaluates;
+    public void setEvaluates(List<Evaluate> evaluates) {
+        this.evaluates = evaluates;
     }
 
     public List<CommentEvaluate> getCommentEvaluates() {
