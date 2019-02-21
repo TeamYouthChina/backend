@@ -1503,7 +1503,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ContentRequest'
+              $ref: '#/components/schemas/ContentRequestWithCompany'
       responses:
         '201':
           description: successful
