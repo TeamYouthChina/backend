@@ -15,10 +15,6 @@ public class DurationDTO {
         this.end = new Timestamp(end);
     }
 
-    public DurationDTO() {
-
-    }
-
     public DurationDTO(java.util.Date begin, java.util.Date end){
         this.begin = new Timestamp(begin.getTime());
         System.out.println("Probe:! " + begin.getTime());
