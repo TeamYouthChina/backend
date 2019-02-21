@@ -102,6 +102,8 @@ public class EssayController {
         ComEssay comEssay = new ComEssay(requestEssayDTO);
         Timestamp time = new Timestamp( System.currentTimeMillis());
         comEssay.setEssay_pub_time(time);
+        comEssay.setEssay_edit_time(time);
+        System.out.println(comEssay.getEssay_body());
         int rela_type = 1;
         if(requestEssayDTO.getCompany_id()!=null){
             rela_type = 2;
