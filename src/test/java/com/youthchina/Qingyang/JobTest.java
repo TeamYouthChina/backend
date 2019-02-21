@@ -144,7 +144,7 @@ public class JobTest {
                 "", null, null);
         Assert.assertEquals(4, jobList.size());
 
-        //Degree test
+        //degree test
         List<Degree> degreeList = new ArrayList<>();
         Degree degree = new Degree();
         degree.setDegreeNum(1);

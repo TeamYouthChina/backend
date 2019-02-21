@@ -19,6 +19,8 @@ public class ApplicantDTO {
     private Integer id;
     private String name;
     private String avatarUrl;
+    private String isInJob;
+    private String currentCompanyName;
     private List<EducationDTO> educations;
     private List<String> emails;
     private List<String> phonenumbers;
@@ -33,6 +35,9 @@ public class ApplicantDTO {
     public ApplicantDTO(Student student) {
         this.id = student.getId();
         this.name = student.getUsername();
+        this.avatarUrl=student.getAvatarUrl();
+        this.isInJob=student.getIsInJob();
+        this.currentCompanyName=student.getCurrentCompanyName();
         this.educations = new ArrayList<>(student.getEducationInfos().size());
         for (EducationInfo educationInfo : student.getEducationInfos()) {
             this.educations.add(new EducationDTO(educationInfo));
@@ -82,6 +87,22 @@ public class ApplicantDTO {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public String getIsInJob() {
+        return isInJob;
+    }
+
+    public void setIsInJob(String isInJob) {
+        this.isInJob = isInJob;
+    }
+
+    public String getCurrentCompanyName() {
+        return currentCompanyName;
+    }
+
+    public void setCurrentCompanyName(String currentCompanyName) {
+        this.currentCompanyName = currentCompanyName;
     }
 
     public List<EducationDTO> getEducations() {

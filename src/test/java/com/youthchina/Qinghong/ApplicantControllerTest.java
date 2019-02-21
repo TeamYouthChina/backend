@@ -4,9 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.domain.Qinghong.Certificate;
+import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.domain.Qinghong.JobApply;
 import com.youthchina.domain.Qinghong.JobCollect;
-import com.youthchina.dto.UserDTO;
+import com.youthchina.domain.qingyang.Degree;
+import com.youthchina.dto.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
@@ -24,6 +27,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -72,15 +78,84 @@ public class ApplicantControllerTest {
         ;
     }
 
-//    @Test
-//    public void testAdd() throws Exception{
-//        this.mvc.perform(
-//                post(this.urlPrefix + "/applicants/**")
-//                        .with(authGenerator.authentication())
-//        )
-//                .andDo(print())
-//        ;
-//    }
+    @Test
+    public void testAdd() throws Exception{
+        ApplicantDTO student=new ApplicantDTO();
+        student.setId(1);
+        student.setName("qinghong wang");
+        student.setAvatarUrl("www.baidu.com");
+        student.setIsInJob("是");
+        student.setCurrentCompanyName("YouthChina");
+        //缺少skill
+        //缺少location，对于教育信息
+        List<EducationDTO> educationDTOS=new ArrayList<>();
+        EducationDTO educationDTO=new EducationDTO();
+        educationDTO.setUniversity("gwu");
+        educationDTO.setMajor("cs");
+        Degree degree=new Degree();
+        educationDTO.setDegree("1");
+        long begin=1111111;
+        long end=2222222;
+        DurationDTO durationDTO=new DurationDTO(begin,end);
+        educationDTO.setDuration(durationDTO);
+        educationDTOS.add(educationDTO);
+        student.setEducations(educationDTOS);
+        //联系信息
+        List<String> emails=new ArrayList<>();
+        List<String> phonenumbers=new ArrayList<>();
+        emails.add("wangqinghong@gwu.edu");
+        phonenumbers.add("5712188082");
+        student.setEmails(emails);
+        student.setPhonenumbers(phonenumbers);
+        //工作信息
+        //缺少地点
+        List<WorkDTO> workDTOS=new ArrayList<>();
+        WorkDTO workDTO=new WorkDTO();
+        workDTO.setEmployer("google");
+        workDTO.setPosition("backend");
+        workDTO.setDuration(durationDTO);
+        workDTOS.add(workDTO);
+        student.setExperiences(workDTOS);
+        //项目信息
+        List<ProjectDTO> projectDTOS=new ArrayList<>();
+        ProjectDTO projectDTO=new ProjectDTO();
+        projectDTO.setName("create website");
+        projectDTO.setRole("design web");
+        projectDTO.setDuration(durationDTO);
+        projectDTOS.add(projectDTO);
+        student.setProjects(projectDTOS);
+        //课外活动经历
+        //缺少地点
+        List<ExtracurricularDTO> extracurricularDTOS=new ArrayList<>();
+        ExtracurricularDTO extracurricularDTO=new ExtracurricularDTO();
+        extracurricularDTO.setName("volunteer");
+        extracurricularDTO.setRole("help students");
+        extracurricularDTO.setOrganization("儿童基金");
+        extracurricularDTO.setDuration(durationDTO);
+        extracurricularDTOS.add(extracurricularDTO);
+        student.setExtracurriculars(extracurricularDTOS);
+        //证书内容
+        List<CertificateDTO> certificateDTOS=new ArrayList<>();
+        CertificateDTO certificateDTO=new CertificateDTO();
+        certificateDTO.setName("计算机证书");
+        certificateDTO.setAuthority("教育部");
+        certificateDTO.setDuration(durationDTO);
+        certificateDTOS.add(certificateDTO);
+        student.setCertificates(certificateDTOS);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(student);
+        System.out.print(requestJson);
+        this.mvc.perform(
+                post
+                        (this.urlPrefix + "/applicants").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+    }
 
     @Test
     public void testGetContacts() throws Exception{

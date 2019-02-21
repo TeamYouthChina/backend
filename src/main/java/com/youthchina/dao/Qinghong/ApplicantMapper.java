@@ -1,6 +1,7 @@
 package com.youthchina.dao.Qinghong;
 
 import com.youthchina.domain.Qinghong.*;
+import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Job;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -36,5 +37,6 @@ public interface ApplicantMapper {
     Integer insertStuWork(Work work);
     Integer insertStuActivity(Activity activity);
     JobApply getOneJobApply(Integer job_id,Integer stu_id);
+    Degree getDegreeNum(String degreeNum);
 
 }

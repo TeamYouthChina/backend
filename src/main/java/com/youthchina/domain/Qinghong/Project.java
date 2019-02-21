@@ -1,5 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.dto.ProjectDTO;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -16,6 +18,16 @@ public class Project {
     private Integer is_delete;
     private Timestamp is_delete_time;
 
+    public Project(ProjectDTO projectDTO) {
+        this.proj_name=projectDTO.getName();
+        this.proj_role=projectDTO.getRole();
+        this.proj_start_time=projectDTO.getDuration().getBegin();
+        this.proj_end_time=projectDTO.getDuration().getEnd();
+    }
+
+    public Project() {
+
+    }
 
     public Integer getProj_id() {
         return proj_id;

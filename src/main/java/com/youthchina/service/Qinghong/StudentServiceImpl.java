@@ -5,6 +5,7 @@ import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import io.swagger.models.auth.In;
@@ -70,7 +71,25 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student add(Student entity) {
-        return null;
+        Integer integer=applicantMapper.insertStuInfo(entity);
+        for(EducationInfo educationInfo:entity.getEducationInfos()){
+            applicantMapper.insertEduInfo(educationInfo);
+        }
+        applicantMapper.insertSubInfo(entity.getSubInfo());
+        for(Project project:entity.getProjects()){
+            applicantMapper.insertStuProject(project);
+        }
+        for(Work work:entity.getWorks()){
+            applicantMapper.insertStuWork(work);
+        }
+        for (Activity activity:entity.getActivities()){
+            applicantMapper.insertStuActivity(activity);
+        }
+        for(Certificate certificate:entity.getCertificates()){
+            applicantMapper.insertStuCertificate(certificate);
+        }
+        Student student=applicantMapper.getStudentInfo(integer);
+        return student;
     }
 
     /**
@@ -179,35 +198,7 @@ public class StudentServiceImpl implements StudentService {
         }
 
     }
-    /**
-    * @Description: 传入一个student对象，对学生的信息进行添加
-    * @Param: [student]
-    * @return: java.lang.Integer
-    * @Author: Qinghong Wang
-    * @Date: 2019/2/17
-    */
 
-    @Override
-    public Integer addStudentInfo(Student student) throws NotFoundException {
-        applicantMapper.insertStuInfo(student);
-        for(EducationInfo educationInfo:student.getEducationInfos()){
-            applicantMapper.insertEduInfo(educationInfo);
-        }
-        applicantMapper.insertSubInfo(student.getSubInfo());
-        for(Project project:student.getProjects()){
-            applicantMapper.insertStuProject(project);
-        }
-        for(Work work:student.getWorks()){
-            applicantMapper.insertStuWork(work);
-        }
-        for (Activity activity:student.getActivities()){
-            applicantMapper.insertStuActivity(activity);
-        }
-        for(Certificate certificate:student.getCertificates()){
-            applicantMapper.insertStuCertificate(certificate);
-        }
-        return 0;
-    }
 
     /**
      * @Description: 通过job_id和user_id来将申请的职位信息加入申请表中

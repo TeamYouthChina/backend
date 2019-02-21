@@ -1,5 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.dto.WorkDTO;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -16,6 +18,17 @@ public class Work {
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
+
+    public Work(WorkDTO workDTO) {
+        this.work_company=workDTO.getEmployer();
+        this.work_position=workDTO.getPosition();
+        this.work_start_time=workDTO.getDuration().getBegin();
+        this.work_end_time=workDTO.getDuration().getEnd();
+    }
+
+    public Work() {
+
+    }
 
     public Integer getWork_id() {
         return work_id;

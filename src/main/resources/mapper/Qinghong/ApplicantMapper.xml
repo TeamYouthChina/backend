@@ -32,7 +32,6 @@
         </association>
         <collection property="educationInfos" ofType="com.youthchina.domain.Qinghong.EducationInfo">
             <id property="edu_id" column="EDU_ID"/>
-            <result property="edu_degree" column="EDU_DEGREE"/>
             <result property="edu_school" column="EDU_SCHOOL"/>
             <result property="edu_school_country" column="EDU_SCHOOL_COUNTRY"/>
             <result property="edu_major" column="EDU_MAJOR"/>
@@ -44,6 +43,7 @@
             <result property="is_delete" column="IS_DELETE"/>
             <result property="is_delete_time" column="IS_DELETE_TIME"/>
             <association property="location" column="EDU_SCHOOL_LOCATION" javaType="com.youthchina.domain.Qinghong.Location" resultMap="getLocation"/>
+            <association property="degree" column="EDU_DEGREE" javaType="com.youthchina.domain.qingyang.Degree" resultMap="getDegree"/>
         </collection>
         <collection property="certificates" ofType="com.youthchina.domain.Qinghong.Certificate">
             <id property="certificate_id" column="CERTIFICATE_ID"/>
@@ -132,6 +132,7 @@
         <!--</association>-->
     </resultMap>
 
+
     <resultMap id="getJobCollectResultMap" type="com.youthchina.domain.Qinghong.JobCollect">
         <id property="collect_id" column="COLLECT_ID"/>
         <result property="job_id" column="job_ID"/>
@@ -199,6 +200,12 @@
         <result property="is_delete" column="IS_DELETE"/>
         <result property="is_delete_time" column="IS_DELETE_TIME"/>
     </resultMap>
+    <resultMap id="getDegree" type="com.youthchina.domain.qingyang.Degree">
+        <id property="degreeNum" column="DEGREE_NUM"/>
+        <result property="degreeChn" column="DEGREE_CHN"/>
+        <result property="degreeEng" column="DEGREE_ENG"/>
+        <result property="startDate" column="START_DATE"/>
+    </resultMap>
     <!--&lt;!&ndash;获取地区信息字典表&ndash;&gt;-->
     <!--<select id="getLocation" resultType="com.youthchina.domain.Qinghong.Location">-->
         <!--SELECT a.* OR b.*-->
@@ -222,10 +229,11 @@
 
     <!--获取申请者的信息-->
     <select id="getStudentInfo" resultMap="studentResultMap">
-        select a.*,b.*,c.*,d.*,e.*,f.*,g.*,z.*,m.*,o.*
+        select a.*,b.*,c.*,d.*,e.*,f.*,g.*,z.*,m.*,o.*,p.*
         from STU_INFO a
         LEFT JOIN SYS_USER z ON a.USER_ID=z.USER_ID AND z.IS_DELETE=0
         LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID AND b.IS_DELETE=0
+        LEFT JOIN SYS_DEGREE p ON a.STU_DEGREE=p.DEGREE_NUM
         LEFT JOIN SYS_CHN_REGION m ON b.EDU_SCHOOL_LOCATION=m.REGION_NUM AND m.IS_DELETE=0
         LEFT JOIN STU_SUB_INFO c ON a.STU_ID=c.STU_ID AND c.IS_DELETE=0
         LEFT JOIN STU_PROJECT d ON a.STU_ID=d.STU_ID AND d.IS_DELETE=0
@@ -322,6 +330,12 @@
         SELECT a.*
         FROM STU_JOB_COLLECT a
         WHERE a.JOB_ID=#{job_id} AND a.IS_DELETE=0;
+    </select>
+
+    <select id="getDegreeNum" resultType="com.youthchina.domain.qingyang.Degree">
+        SELECT *
+        FROM SYS_DEGREE
+        WHERE DEGREE_CHN=#{degreeChn}
     </select>
 
     <!--添加一个职位收藏-->
@@ -453,7 +467,7 @@
 
         )
         VALUES (
-       #{edu_degree},#{edu_school},#{edu_school_country},#{location.region_num},#{edu_major},
+       #{degree.degreeNum},#{edu_school},#{edu_school_country},#{location.region_num},#{edu_major},
        #{edu_college},#{edu_gpa},#{edu_start},#{edu_end},#{stu_id},#{is_delete},#{is_delete_time}
         )
     </insert>
