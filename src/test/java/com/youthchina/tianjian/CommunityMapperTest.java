@@ -79,6 +79,8 @@ public class CommunityMapperTest {
         ComAuthorEssayMap comAuthorEssayMap = new ComAuthorEssayMap();
         comAuthorEssayMap.setEssay_id(1);
         comAuthorEssayMap.setUser_id(1003);
+        comAuthorEssayMap.setRela_type(2);
+        comAuthorEssayMap.setRela_id(3);
         userMapper.updateEssayAuthor(comAuthorEssayMap);
     }
 
