@@ -124,17 +124,6 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         return this.DomainToDto(this.getService().get(id));
     }
 
-    @GetMapping("/{id}/jobCollects")
-    public ResponseEntity<?> getApplicantsJobCollects(@PathVariable Integer id) throws NotFoundException{
-        List<JobCollect> jobCollects=studentService.getJobCollect(id);
-        return  ResponseEntity.ok(new Response(jobCollects));
-    }
-
-    @GetMapping("/{id}/companyCollects")
-    public ResponseEntity<?> getApplicantsCompanyCollects(@PathVariable Integer id) throws NotFoundException{
-        List<CompCollect> compCollects=studentService.getCompCollect(id);
-        return  ResponseEntity.ok(new Response(compCollects));
-    }
 
     /**
     * @Description: 通过user_id获得该用户所有的职位申请的信息
@@ -154,33 +143,9 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         return  ResponseEntity.ok(new Response(jobApplyDTOS,new StatusDTO(0,"")));
     }
 
-    @PostMapping("/{id}/jobApply/{job_id}")
-    public ResponseEntity<?> addApplicantsJobApply(@PathVariable("job_id") Integer job_id,@PathVariable("id") Integer id,@AuthenticationPrincipal User user) throws NotFoundException,ForbiddenException{
-        if(user.getId().equals(id))
-        return  ResponseEntity.ok(new Response(studentService.jobApply(job_id,id)));
-        else {
-            throw new ForbiddenException();
-        }
-    }
-    @PostMapping("/{id}/jobCollect/{job_id}")
-    public ResponseEntity<?> addApplicantsJobCollect(@PathVariable("id") Integer id,@PathVariable("job_id") Integer job_id,@AuthenticationPrincipal User user) throws NotFoundException,ForbiddenException{
-        if(user.getId().equals(id))
-            return  ResponseEntity.ok(new Response
-                    (studentService.addJobCollection(job_id,id)));
-        else {
-            throw new ForbiddenException();
-        }
-    }
 
-    @PostMapping("/{id}/compCollect/{company_id}")
-    public ResponseEntity<?> addApplicantsCompCollect(@PathVariable("id") Integer id,@PathVariable("company_id") Integer company_id,@AuthenticationPrincipal User user) throws NotFoundException,ForbiddenException{
-        if(user.getId().equals(id))
-            return  ResponseEntity.ok(new Response
-                    (studentService.addCompCollect(company_id,id)));
-        else {
-            throw new ForbiddenException();
-        }
-    }
+
+
 
 
 
