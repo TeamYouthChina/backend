@@ -4,6 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
+import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.*;
 import org.junit.Assert;
@@ -29,17 +30,45 @@ public class JobTest {
 
     @Autowired
     private JobMapper jobMapper;
+    @Autowired
     private CompanyMapper companyMapper;
+    @Autowired
+    private LocationMapper locationMapper;
 
     @Test
-    public void testGetJob() {
+    public void testGetJob() { // Base Get
         Job job = jobMapper.selectJobByJobId(1);
         Assert.assertEquals("大疆", job.getCompany().getCompanyName());
         Assert.assertEquals("国企", job.getCompany().getCompanyNature().getNatureChn());
         Assert.assertEquals(2, job.getIndustries().size());
         Assert.assertEquals("A", job.getIndustries().get(0).getIndCode());
-        Assert.assertEquals("北京", job.getJobLocationList().get(0).getRegion_chn());
+        Assert.assertEquals(Integer.valueOf(1), job.getJobLocationList().get(0).getRegion_num());
         Assert.assertEquals("前端", job.getProfession().getProfChn());
+
+    }
+
+    @Test
+    public void testGetJobLocation(){
+        Job job = jobMapper.selectJobByJobId(2);
+        List<Location> locationList = job.getJobLocationList();
+        String region0 = "" + locationList.get(0).getRegion_num();
+        if(region0.charAt(0) == '9'){
+            locationList = locationMapper.getUSALocationByLocationList(locationList);
+        } else  {
+            locationList = locationMapper.getChnLocationByLocationList(locationList);
+        }
+        Assert.assertEquals("Shanghai", locationList.get(0).getRegion_eng());
+
+        job = jobMapper.selectJobByJobId(4);
+        locationList = job.getJobLocationList();
+        region0 = "" + locationList.get(0).getRegion_num();
+        if(region0.charAt(0) == '9'){
+            locationList = locationMapper.getUSALocationByLocationList(locationList);
+        } else  {
+            locationList = locationMapper.getChnLocationByLocationList(locationList);
+        }
+        Assert.assertEquals("District of Columbia", locationList.get(0).getRegion_eng());
+
     }
 
 
@@ -94,19 +123,19 @@ public class JobTest {
         List<Location> locations = new ArrayList<>();
         Location location = new Location();
         location.setRegion_num(1);
-        location.setJobId(job.getJobId());
         locations.add(location);
-        jobMapper.insertJobLocation(locations);
+        job.setJobLocationList(locations);
+        jobMapper.insertJobLocation(job.getId(), job.getJobLocationList());
     }
 
     @Test
     public void testUpdateJob(){
         Job job = jobMapper.selectJobByJobId(1);
-        Assert.assertEquals("Beijing", job.getJobLocationList().get(0).getRegion_eng());
+        Assert.assertEquals(Integer.valueOf(1), job.getJobLocationList().get(0).getRegion_num());
         job.getCompany().setCompanyId(2);
         jobMapper.updateJob(job);
         jobMapper.deleteJobLocation(job.getJobId());
-        jobMapper.insertJobLocation(job.getJobLocationList());
+        jobMapper.insertJobLocation(job.getId(), job.getJobLocationList());
         jobMapper.deleteJobIndustry(job.getJobId());
         jobMapper.insertJobIndustry(job.getIndustries());
         jobMapper.deleteJobDegree(job.getJobId());
@@ -129,20 +158,20 @@ public class JobTest {
         //Base Test
         List<Job> jobList = jobMapper.getJobByMore(null,"front",null,"大疆",
                 Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
-                "北京", null, null);
-        Assert.assertEquals(1, jobList.size());
+                null, null, null);
+        Assert.assertEquals(2, jobList.size());
         Assert.assertEquals("大疆", jobList.get(0).getCompany().getCompanyName());
 
-        //Location test
-        jobList = jobMapper.getJobByMore(null,null,null,null,
-                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
-                "北京", null, null);
-        Assert.assertEquals(1, jobList.size());
-
-        jobList = jobMapper.getJobByMore(null,null,null,null,
-                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
-                "", null, null);
-        Assert.assertEquals(4, jobList.size());
+        //TODO: Location test
+//        jobList = jobMapper.getJobByMore(null,null,null,null,
+//                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
+//                null, null, null);
+//        Assert.assertEquals(1, jobList.size());
+//
+//        jobList = jobMapper.getJobByMore(null,null,null,null,
+//                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
+//                null, null, null);
+//        Assert.assertEquals(4, jobList.size());
 
         //Degree test
         List<Degree> degreeList = new ArrayList<>();
@@ -151,7 +180,7 @@ public class JobTest {
         degreeList.add(degree);
         jobList = jobMapper.getJobByMore(null,null,null,null,
                 Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
-                "", degreeList, null);
+                null, degreeList, null);
         Assert.assertEquals(2, jobList.size());
 
         Degree degree2 = new Degree();
@@ -159,13 +188,13 @@ public class JobTest {
         degreeList.add(degree2);
         jobList = jobMapper.getJobByMore(null,null,null,null,
                 Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
-                "", degreeList, null);
+                null, degreeList, null);
         Assert.assertEquals(4, jobList.size());
 
         degreeList.remove(0);
         jobList = jobMapper.getJobByMore(null,null,null,null,
                 Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
-                "", degreeList, null);
+                null, degreeList, null);
         Assert.assertEquals(3, jobList.size());
 
         // Industry Test
@@ -175,7 +204,7 @@ public class JobTest {
         industryList.add(industry);
         jobList = jobMapper.getJobByMore(null,null,null,null,
                 Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
-                "", null, industryList);
+                null, null, industryList);
         Assert.assertEquals(1, jobList.size());
 
         Industry industry2 = new Industry();
@@ -183,7 +212,7 @@ public class JobTest {
         industryList.add(industry2);
         jobList = jobMapper.getJobByMore(null,null,null,null,
                 Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
-                "", null, industryList);
+                null, null, industryList);
         Assert.assertEquals(4, jobList.size());
 
         //Search Job by Name

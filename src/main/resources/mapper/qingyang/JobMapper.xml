@@ -113,12 +113,12 @@
         </collection>
         <collection property="jobLocationList" ofType="com.youthchina.domain.Qinghong.Location">
             <id property="region_num" column="REGION_NUM"/>
-            <result property="jobId" column="JOB_ID"/>
-            <result property="region_chn" column="REGION_CHN"/>
-            <result property="region_eng" column="REGION_ENG"/>
-            <result property="region_level" column="REGION_LEVEL"/>
-            <result property="region_parent_num" column="REGION_PARENT_NUM"/>
-            <result property="start_time" column="REGION_START_TIME"/>
+            <!--<result property="jobId" column="JOB_ID"/>-->
+            <!--<result property="region_chn" column="REGION_CHN"/>-->
+            <!--<result property="region_eng" column="REGION_ENG"/>-->
+            <!--<result property="region_level" column="REGION_LEVEL"/>-->
+            <!--<result property="region_parent_num" column="REGION_PARENT_NUM"/>-->
+            <!--<result property="start_time" column="REGION_START_TIME"/>-->
         </collection>
         <collection property="jobReqList" ofType="com.youthchina.domain.qingyang.Degree">
             <id property="degreeNum" column="DEGREE_NUM"/>
@@ -186,12 +186,12 @@
             class.IND_PARENT_CODE as IND_PARENT_CODE,
             class.START_TIME as IND_START_TIME,
 
-            region.REGION_NUM as REGION_NUM,
-            region.REGION_CHN as REGION_CHN,
-            region.REGION_ENG as REGION_ENG,
-            region.REGION_LEVEL as REGION_LEVEL,
-            region.REGION_PARENT_NUM as REGION_PARENT_NUM,
-            region.START_TIME as REGION_START_TIME,
+            loc.JOB_REGION_NUM as REGION_NUM,
+#             region.REGION_CHN as REGION_CHN,
+#             region.REGION_ENG as REGION_ENG,
+#             region.REGION_LEVEL as REGION_LEVEL,
+#             region.REGION_PARENT_NUM as REGION_PARENT_NUM,
+#             region.START_TIME as REGION_START_TIME,
 
             req.JOB_REQUIRE_ID as JOB_REQUIRE_ID,
             req.JOB_DEGREE_NUM as JOB_DEGREE_NUM,
@@ -217,7 +217,7 @@
         LEFT OUTER JOIN JOB_INDUSTRY i ON j.JOB_ID = i.JOB_ID AND i.IS_DELETE = 0
         LEFT OUTER JOIN SYS_IND_CLASS class ON i.JOB_IND_CODE = class.IND_CODE AND class.IS_DELETE = 0
         LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
-        LEFT OUTER JOIN SYS_CHN_REGION region ON loc.JOB_REGION_NUM = region.REGION_NUM AND region.IS_DELETE = 0
+#         LEFT OUTER JOIN SYS_CHN_REGION region ON loc.JOB_REGION_NUM = region.REGION_NUM AND region.IS_DELETE = 0
         LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = req.JOB_ID AND req.IS_DELETE = 0
         LEFT OUTER JOIN SYS_DEGREE degree ON req.JOB_DEGREE_NUM = degree.DEGREE_NUM
         LEFT OUTER JOIN SYS_PROF_CLASS prof ON j.JOB_PROF_CODE = prof.PROF_CODE AND prof.IS_DELETE = 0
@@ -300,13 +300,14 @@
     </select>
 
 
-    <insert id="insertJobLocation" useGeneratedKeys="true"
+    <insert id="insertJobLocation"
+            useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO JOB_LOCATION
         (   JOB_REGION_NUM,   JOB_ID,     IS_DELETE)
         VALUES
-        <foreach item="item" collection="list" separator=",">
-        (   #{item.region_num}, #{item.jobId}, 0)
+        <foreach item="item" collection="locations" separator=",">
+        (   #{item.region_num}, #{jobId}, 0)
         </foreach>
     </insert>
 

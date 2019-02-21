@@ -117,7 +117,7 @@ public class JobServiceImpl implements JobService {
     public Job update(Job job) throws NotFoundException {
         jobMapper.updateJob(job);
         jobMapper.deleteJobLocation(job.getJobId());
-        jobMapper.insertJobLocation(job.getJobLocationList());
+        jobMapper.insertJobLocation(job.getId(), job.getJobLocationList());
         jobMapper.deleteJobIndustry(job.getJobId());
         jobMapper.insertJobIndustry(job.getIndustries());
         jobMapper.deleteJobDegree(job.getJobId());
@@ -136,7 +136,7 @@ public class JobServiceImpl implements JobService {
         Integer result = jobMapper.insertJob(entity);
         jobMapper.insertJobIndustry(entity.getIndustries());
         jobMapper.insertJobDegree(entity.getJobReqList());
-        jobMapper.insertJobLocation(entity.getJobLocationList());
+        jobMapper.insertJobLocation(entity.getId(), entity.getJobLocationList());
         return jobMapper.selectJobByJobId(entity.getJobId());
     }
 
