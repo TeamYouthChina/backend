@@ -53,7 +53,9 @@ public class JobServiceImpl implements JobService {
     @Override
     @Transactional
     public Job getByHr(User user, Integer jobId) throws NotBelongException {
-        return jobMapper.selectJobByJobId(jobId);
+        Job result = jobMapper.selectJobByJobId(jobId);
+        setJobLocation(result);
+        return result;
     }
 
     /**
@@ -66,17 +68,31 @@ public class JobServiceImpl implements JobService {
     @Transactional
     public Job get(Integer id) throws NotFoundException {
         Job job = jobMapper.selectJobByJobId(id);
-        // Location 只有一个地点 而且只有中,或只有美 TODO: JobLocation 同时有中美
+        setJobLocation(job);
+        return job;
+    }
+
+    /**
+     * 查询Job的Location
+     * @param job
+     */
+    private void setJobLocation(Job job){
         List<Location> locationList = job.getJobLocationList();
         if(locationList != null){
-            Integer region0 = locationList.get(0).getRegion_num();
-            if(("" + region0).charAt(0) == '9'){
-                job.setJobLocationList(locationMapper.getUSALocationByLocationList(locationList));
-            } else {
-                job.setJobLocationList(locationMapper.getChnLocationByLocationList(locationList));
+            List<Location> results = new ArrayList<>();
+            for (Location location : locationList){
+                Integer region = location.getRegion_num();
+                if(("" + region).charAt(0) == '9'){
+                    location = locationMapper.getUSALocation(region);
+                    location.setNation_code("USA");
+                } else {
+                    location = locationMapper.getChnLocation(region);
+                    location.setNation_code("CHN");
+                }
+                results.add(location);
             }
+            job.setJobLocationList(results);
         }
-        return job;
     }
 
     /**
@@ -89,6 +105,9 @@ public class JobServiceImpl implements JobService {
     @Transactional
     public List<Job> get(List<Integer> id) throws NotFoundException {
         List<Job> jobList = jobMapper.selectJobByJobIdList(id);
+        for(Job job : jobList){
+            setJobLocation(job);
+        }
         return jobList;
     }
 
@@ -122,7 +141,9 @@ public class JobServiceImpl implements JobService {
         jobMapper.insertJobIndustry(job.getIndustries());
         jobMapper.deleteJobDegree(job.getJobId());
         jobMapper.insertJobDegree(job.getJobReqList());
-        return jobMapper.selectJobByJobId(job.getJobId());
+        Job result = jobMapper.selectJobByJobId(job.getJobId());
+        setJobLocation(result);
+        return result;
     }
 
     /**
@@ -137,7 +158,9 @@ public class JobServiceImpl implements JobService {
         jobMapper.insertJobIndustry(entity.getIndustries());
         jobMapper.insertJobDegree(entity.getJobReqList());
         jobMapper.insertJobLocation(entity.getId(), entity.getJobLocationList());
-        return jobMapper.selectJobByJobId(entity.getJobId());
+        Job jobResult = jobMapper.selectJobByJobId(entity.getJobId());
+        setJobLocation(jobResult);
+        return jobResult;
     }
 
     /**
@@ -164,8 +187,13 @@ public class JobServiceImpl implements JobService {
                                   Date startTime, Date endTime, Integer type, Integer salaryFloor, Integer salaryCap,
                                   Integer active, String location, List<Degree> jobReqList,
                                   List<Industry> industryList) throws NotFoundException {
-        return jobMapper.getJobByMore(jobId, jobName, comId, comName, startTime, endTime, type,
-                salaryFloor, salaryCap, active, location, jobReqList, industryList);
+        //TODO: Location Param
+        List<Job> results = jobMapper.getJobByMore(jobId, jobName, comId, comName, startTime, endTime, type,
+                salaryFloor, salaryCap, active, null, jobReqList, industryList);
+        for(Job job : results){
+            setJobLocation(job);
+        }
+        return results;
     }
 
 }
