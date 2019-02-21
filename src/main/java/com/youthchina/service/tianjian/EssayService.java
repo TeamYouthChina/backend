@@ -2,6 +2,7 @@ package com.youthchina.service.tianjian;
 
 import com.youthchina.domain.tianjian.*;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 
 import java.sql.Timestamp;
@@ -44,19 +45,19 @@ public interface EssayService extends DomainCRUDService<User, Integer> {
      * param ComEssay essay, Integer user_id
      * return 1
      */
-    public int updateEssay(ComEssay essay);
+    public int updateEssay(ComEssay essay) throws NotFoundException;
     /**
      * 更新文章作者及类型
      * param Integer essay_id, Integer user_id
      * return 1
      */
-    public int updateEssayAuthor(ComAuthorEssayMap comAuthorEssayMap );
+    public int updateEssayAuthor(ComAuthorEssayMap comAuthorEssayMap ) throws NotFoundException;
     /**
      * 更新文章标签
      * param ComEssay essay
      * return 1
      */
-    public int updateEssayLabel(Integer essay_id, Integer user_id, List<Integer> lab_num);
+    public int updateEssayLabel(Integer essay_id, Integer user_id, List<Integer> lab_num) throws NotFoundException;
       /**
      * 根据文章id获取文章
      * param Integer essay_id
@@ -77,14 +78,14 @@ public interface EssayService extends DomainCRUDService<User, Integer> {
      * param ComEssayAttention comessayattention Integer essay_id
      * return 0 or 1
      */
-        public int addFavoriteEssay(ComEssayAttention comessayattention, Integer essay_id);
+        public int addFavoriteEssay(ComEssayAttention comessayattention, Integer essay_id) throws NotFoundException;
 
      /**
      * 删除文章关注
      * param Integer essay_id  Integer user_id
      * return 0 or 1
      */
-       public int deleteFavoriteEssay(Integer essay_id, Integer user_id);
+       public int deleteFavoriteEssay(Integer essay_id, Integer user_id) throws NotFoundException;
 
     /**
      * 获取文章是否被一个特定用户关注
@@ -98,19 +99,19 @@ public interface EssayService extends DomainCRUDService<User, Integer> {
      * param ComEssayReply comessayanswer
      * return 0 or 1
      */
-       public int addReply(ComEssayReply comessayanswer, Integer essay_id, Integer reply_level);
+       public int addReply(ComEssayReply comessayanswer, Integer essay_id, Integer reply_level) throws NotFoundException;
      /**
      * 更新评论
      * param ComEssayReply comessayreply Integer essay_id
      * return 0 or 1
      */
-       public int updateReply(ComEssayReply comessayreply, Integer essay_id);
+       public int updateReply(ComEssayReply comessayreply, Integer essay_id) throws NotFoundException;
      /**
      * 删除评论
      * param Integer essay_id, Integer user_id
      * return 0 or 1
      */
-       public int deleteReply(Integer essay_id, Integer user_id, Integer reply_level);
+       public int deleteReply(Integer essay_id, Integer user_id, Integer reply_level) throws NotFoundException;
 
       /**
      * 查找文章的所有评论
@@ -131,7 +132,7 @@ public interface EssayService extends DomainCRUDService<User, Integer> {
      * param ComReplyEvaluate comreplyevaluate Integer reply_id
      * return 0 or 1
      */
-       public int updateReplyEvaluate(ComReplyEvaluate comreplyevaluate, Integer reply_id);
+       public int updateReplyEvaluate(ComReplyEvaluate comreplyevaluate, Integer reply_id) throws NotFoundException;
 
     /**
      * 根据回复id 获取它的所有评价

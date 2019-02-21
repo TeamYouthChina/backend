@@ -14,7 +14,7 @@ public class EssayDTO {
     private Timestamp creat_at;
     private Timestamp modified_at;
     private User user;
-    private boolean user_anony;
+    private boolean is_anonymous;
 
     public EssayDTO(ComEssay comEssay){
         this.id = comEssay.getEssay_id();
@@ -22,7 +22,7 @@ public class EssayDTO {
         this.body = comEssay.getEssay_body();
         this.creat_at = comEssay.getEssay_pub_time();
         this.modified_at = comEssay.getEssay_edit_time();
-        this.user_anony = (comEssay.getUser_anony() == 0)? false:true;
+        this.is_anonymous = (comEssay.getUser_anony()==0)? false:true;
     }
 
     public EssayDTO(){}
@@ -83,11 +83,11 @@ public class EssayDTO {
         this.user = user;
     }
 
-    public boolean isUser_anony() {
-        return user_anony;
+    public boolean isIs_anonymous() {
+        return is_anonymous;
     }
 
-    public void setUser_anony(boolean user_anony) {
-        this.user_anony = user_anony;
+    public void setIs_anonymous(boolean is_anonymous) {
+        this.is_anonymous = is_anonymous;
     }
 }
