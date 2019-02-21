@@ -21,12 +21,11 @@ public class ComEssay {
         this.essay_body = essayDTO.getBody();
         this.essay_pub_time = essayDTO.getCreat_at();
         this.essay_edit_time = essayDTO.getModified_at();
-        this.user_anony =  (essayDTO.isUser_anony()) ? 1 : 0;
+        this.user_anony =  (essayDTO.isIs_anonymous()) ? 1 : 0;
     }
 
 
-    public ComEssay(RequestEssayDTO requestEssayDTO){
-        this.essay_id = requestEssayDTO.getId();
+    public ComEssay(RequestEssayDTO requestEssayDTO){ ;
         this.essay_body = requestEssayDTO.getBody();
         this.essay_title = requestEssayDTO.getTitle();
     }

@@ -1,6 +1,7 @@
 package com.youthchina;
 
 import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -82,7 +83,7 @@ public class YouthchinaApplicationTests {
 //    }
 
     @Test
-    public void testEssayService() {
+    public void testEssayService() throws NotFoundException {
         ComEssay comEssay = new ComEssay();
         comEssay.setEssay_id(1);
         comEssay.setEssay_title("title1");

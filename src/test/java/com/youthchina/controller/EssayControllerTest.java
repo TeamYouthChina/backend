@@ -79,7 +79,6 @@ public class EssayControllerTest {
     }
 
 
-
     @Test
     public void addEssayTest() throws Exception {
         RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
@@ -105,27 +104,17 @@ public class EssayControllerTest {
         RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
         requestEssayDTO.setBody("This is a new Body");
         requestEssayDTO.setTitle("This is a new Title");
-
-
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO);
 
         this.mvc.perform(
 
-                put(this.urlPrefix + "/articles/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                put(this.urlPrefix + "/articles/55").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
                         .with(authGenerator.authentication())
         )
                 .andDo(print());
-
-        this.mvc.perform(
-                get(this.urlPrefix + "/articles/1")
-                .with(authGenerator.authentication())
-
-        )
-                .andDo(print());
-
     }
 
 
@@ -165,5 +154,15 @@ public class EssayControllerTest {
         )
                 .andDo(print())
                 .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
+    @Test
+    public void updateAttention() throws Exception {
+        this.mvc.perform(
+                put(this.urlPrefix + "/articles/1/attention").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 }
