@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin().disable()
-                .cors().and()
+                .cors().disable()
                 .csrf().disable()
 
                 .authenticationProvider(jwtAuthenticationProvider)
