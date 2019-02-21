@@ -11,7 +11,6 @@ public class EssayReplyDTO {
         this.body = comEssayReply.getReply_content();
         this.isAnonymous = (comEssayReply.getUser_anony()==0)? false:true;
     }
-    public EssayReplyDTO(){}
 
     public EssayReplyDTO(){}
 
