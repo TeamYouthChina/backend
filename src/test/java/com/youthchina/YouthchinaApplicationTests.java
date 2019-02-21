@@ -1,9 +1,7 @@
 package com.youthchina;
 
-import com.youthchina.service.tianjian.Idtest;
-import com.youthchina.service.tianjian.LocalFileManage;
-import com.youthchina.service.tianjian.SnowFlakeIdGenerate;
-import com.youthchina.service.tianjian.AliCloudFileStorageService;
+import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.service.tianjian.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -25,7 +27,8 @@ public class YouthchinaApplicationTests {
     @Autowired
     LocalFileManage localFileManage;
 
-
+    @Autowired
+    EssayServiceImpl essayService;
    /* @Test
     public void testupLoadFile() {
        File file = new File("D:\\LocalFileStore\\video.mp4");
@@ -78,4 +81,20 @@ public class YouthchinaApplicationTests {
 //        System.out.println(path);
 //    }
 
+    @Test
+    public void testEssayService() {
+        ComEssay comEssay = new ComEssay();
+        comEssay.setEssay_id(1);
+        comEssay.setEssay_title("title1");
+        comEssay.setEssay_abbre("this essay describe ...");
+        comEssay.setEssay_body("newbody");
+        comEssay.setUser_anony(0);
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+       // comEssay.setEssay_pub_time(time);
+        comEssay.setEssay_edit_time(time);
+        comEssay.setIs_delete(0);
+        comEssay.setUser_anony(0);
+        int i = essayService.updateEssay(comEssay);
+        System.out.println(i);
+    }
 }

@@ -1,5 +1,7 @@
 package com.youthchina.domain.tianjian;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.dto.community.EssayReplyDTO;
 
 import java.sql.Timestamp;
@@ -16,7 +18,14 @@ public class ComEssayReply {
 
     public ComEssayReply(EssayReplyDTO essayReplyDTO){
         this.user_anony = (essayReplyDTO.isAnonymous())? 1:0;
-        this.reply_content = essayReplyDTO.getBody();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(essayReplyDTO.getRichTextDTO());
+            this.reply_content = requestJson;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
     }
 
     public ComEssayReply(){}

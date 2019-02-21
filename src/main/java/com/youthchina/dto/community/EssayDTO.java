@@ -1,8 +1,10 @@
 package com.youthchina.dto.community;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.RichTextDTO;
 
 import java.sql.Timestamp;
 
@@ -15,6 +17,7 @@ public class EssayDTO {
     private Timestamp modified_at;
     private User user;
     private boolean user_anony;
+    private RichTextDTO richTextDTO;
 
     public EssayDTO(ComEssay comEssay){
         this.id = comEssay.getEssay_id();
@@ -23,9 +26,20 @@ public class EssayDTO {
         this.creat_at = comEssay.getEssay_pub_time();
         this.modified_at = comEssay.getEssay_edit_time();
         this.user_anony = (comEssay.getUser_anony() == 0)? false:true;
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
+            this.richTextDTO = richt;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
     }
 
     public EssayDTO(){}
+
+    public RichTextDTO getRichTextDTO(){return richTextDTO;}
+
+    public void setRichTextDTO(RichTextDTO richTextDTO){this.richTextDTO = richTextDTO;}
 
     public Integer getId() {
         return id;
@@ -41,14 +55,6 @@ public class EssayDTO {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
     }
 
     public Company getCompany() {

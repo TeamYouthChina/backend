@@ -1,6 +1,7 @@
 package com.youthchina.domain.jinhao.communityQA;
 
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.CommentDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -17,6 +18,16 @@ public class Comment {
     private User user;
     private List<Discuss> discusses;
     private List<CommentEvaluate> commentEvaluates;
+
+    public Comment(){}
+
+    public Comment(CommentDTO commentDTO){
+        this.comment_content = commentDTO.getBody();
+        this.comment_pub_time = commentDTO.getCreat_at();
+        this.user = commentDTO.getUser();
+        this.comment_id = commentDTO.getId();
+        this.user_anony = (commentDTO.isIs_anonymous())? 1:0;
+    }
 
     public List<Discuss> getDiscusses() {
         return discusses;

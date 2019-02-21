@@ -1,13 +1,13 @@
 package com.youthchina.controller.tianjian;
 
-import com.youthchina.domain.jinhao.communityQA.Comment;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.tianjian.ComAuthorEssayMap;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.tianjian.ComEssayReply;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
+import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.EssayDTO;
 import com.youthchina.dto.community.EssayReplyDTO;
@@ -27,7 +27,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("${web.url.prefix}/articles")
-public class EssayCotroller {
+public class EssayController {
 
     @Autowired
     EssayServiceImpl essayServiceimpl;
@@ -41,8 +41,8 @@ public class EssayCotroller {
     @GetMapping("/{id}")
     public ResponseEntity getEssay(@PathVariable Integer id) throws NotFoundException {
         ComEssay comEssay = essayServiceimpl.getEssay(id);
-        if(comEssay ==null){
-            throw new NotFoundException(4000,404,"not found articles");
+        if(comEssay == null) {
+            throw new NotFoundException(404,404,"没有找到这个文章");
         }
         ComAuthorEssayMap comAuthorEssayMap = essayServiceimpl.getEssayAuthor(id);
         EssayDTO essayDTO = new EssayDTO(comEssay);
@@ -64,9 +64,6 @@ public class EssayCotroller {
     public ResponseEntity updateEssay(@PathVariable Integer id, @RequestBody RequestEssayDTO requestEssayDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = new ComEssay(requestEssayDTO);
         comEssay.setEssay_id(id);
-        comEssay.setEssay_abbre("this is an abbre");
-        comEssay.setEssay_edit_time(new Timestamp(System.currentTimeMillis()));
-        comEssay.setUser_anony(0);
         if(requestEssayDTO.getCompany_id()!=null){
             ComAuthorEssayMap comAuthorEssayMap = new ComAuthorEssayMap();
             comAuthorEssayMap.setRela_type(2);
@@ -83,9 +80,15 @@ public class EssayCotroller {
         if(requestEssayDTO.getCompany_id()!=null)
            essayDTO.setCompany(companyCURDService.get(requestEssayDTO.getCompany_id()));
         essayDTO.setCreat_at(essayServiceimpl.getEssay(id).getEssay_pub_time());
-        essayDTO.setBody(requestEssayDTO.getBody());
-        essayDTO.setTitle(requestEssayDTO.getTitle());
+        essayDTO.setTitle(comEssay.getEssay_title());
         essayDTO.setUser(user);
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
+            essayDTO.setRichTextDTO(richt);
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
 
         if (i!=0)
             return ResponseEntity.ok(new Response(essayDTO, new StatusDTO(200,"success")));
@@ -97,10 +100,8 @@ public class EssayCotroller {
     @PostMapping
     public ResponseEntity addEssay(@RequestBody RequestEssayDTO requestEssayDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = new ComEssay(requestEssayDTO);
-        comEssay.setEssay_abbre("this is an abbre");
-        comEssay.setEssay_pub_time(new Timestamp(System.currentTimeMillis()));
-        comEssay.setEssay_edit_time(new Timestamp(System.currentTimeMillis()));
-        comEssay.setUser_anony(0);
+        Timestamp time = new Timestamp( System.currentTimeMillis());
+        comEssay.setEssay_pub_time(time);
         int rela_type = 1;
         if(requestEssayDTO.getCompany_id()!=null){
             rela_type = 2;
@@ -120,6 +121,7 @@ public class EssayCotroller {
         Timestamp time =  new Timestamp(System.currentTimeMillis());
         comEssayReply.setReply_pub_time(time);
         comEssayReply.setUser_id(user.getId());
+        comEssayReply.setReply_edit_time(time);
         int i = essayServiceimpl.addReply(comEssayReply,id,0);
         if(i!=0)
             return ResponseEntity.ok(new Response(new StatusDTO(200,"success")));

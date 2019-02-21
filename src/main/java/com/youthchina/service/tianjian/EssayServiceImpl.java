@@ -95,6 +95,9 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public int addEssay(ComEssay essay, List<Integer> lab_num, Integer user_id, Integer rela_type, Integer rela_id) {
+        ComEssay comEssaytest = mapper.getEssay(essay.getEssay_id());
+        if(comEssaytest==null)
+            return 0;
         mapper.addEssay(essay);
         int essayid = essay.getEssay_id();
         List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
@@ -123,7 +126,25 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public int updateEssay(ComEssay essay) {
-        return mapper.updateEssay(essay);
+        ComEssay comEssaytest = mapper.getEssay(essay.getEssay_id());
+        if(comEssaytest==null)
+            return 0;
+        if(essay.getEssay_pub_time()!=null)
+              comEssaytest.setEssay_pub_time(essay.getEssay_pub_time());
+        if(essay.getUser_anony()!=null)
+              comEssaytest.setUser_anony(essay.getUser_anony());
+        if(essay.getIs_delete()!=null)
+              comEssaytest.setIs_delete(essay.getIs_delete());
+        if(essay.getEssay_abbre()!=null)
+              comEssaytest.setEssay_abbre(essay.getEssay_abbre());
+        if(essay.getEssay_body()!=null)
+              comEssaytest.setEssay_body(essay.getEssay_body());
+        if(essay.getEssay_edit_time()!=null)
+              comEssaytest.setEssay_edit_time(essay.getEssay_edit_time());
+        if(essay.getEssay_title()!=null)
+              comEssaytest.setEssay_title(essay.getEssay_title());
+
+        return mapper.updateEssay(comEssaytest);
     }
 
     @Override
