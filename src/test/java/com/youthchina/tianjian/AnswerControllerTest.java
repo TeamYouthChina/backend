@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
@@ -58,7 +59,7 @@ public class AnswerControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":null,\"body\":\"这是第一个回答\",\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":null,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第一个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
 
     }
 
@@ -66,7 +67,10 @@ public class AnswerControllerTest {
     public void testUpdateAnswer() throws Exception{
         SimpleAnswerDTO simpleAnswerDTO = new SimpleAnswerDTO();
         simpleAnswerDTO.setIsAnonymous(true);
-        simpleAnswerDTO.setBody("qweertyuiop");
+        RichTextDTO richTextDTO = new RichTextDTO();
+        richTextDTO.setPreviewText("qweertyuiop");
+        simpleAnswerDTO.setBody(richTextDTO);
+
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -78,7 +82,7 @@ public class AnswerControllerTest {
                         .content(searchJson)
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":null,\"body\":\"qweertyuiop\",\"isAnonymous\":true,\"creatAt\":null},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":null,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qweertyuiop\",\"resourceList\":null},\"isAnonymous\":true,\"creatAt\":null},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
     @Test
@@ -94,7 +98,9 @@ public class AnswerControllerTest {
     @Test
     public void testAddAnswerComment() throws Exception{
         SimpleAnswerDTO simpleAnswerDTO = new SimpleAnswerDTO();
-        simpleAnswerDTO.setBody("qweweer");
+        RichTextDTO richTextDTO = new RichTextDTO();
+        richTextDTO.setPreviewText("qweweer");
+        simpleAnswerDTO.setBody(richTextDTO);
         simpleAnswerDTO.setIsAnonymous(false);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
