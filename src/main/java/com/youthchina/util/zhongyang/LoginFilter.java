@@ -1,5 +1,8 @@
 package com.youthchina.util.zhongyang;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.service.zhongyang.JwtService;
@@ -18,7 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * If http request has a JWT, this filter will decode it.
@@ -45,14 +51,17 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
             supportedMethod.add(HttpMethod.POST);
             throw new MethodNotAllowedException(httpServletRequest.getMethod(), supportedMethod);
         }
+        String body = httpServletRequest.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         Authentication authentication = jwtService.getAuthentication(httpServletRequest);
-        if(authentication != null){
+        if (authentication != null) {
             return authentication;
         }
         User user = new User();
         try {
-            user.setId(Integer.valueOf(httpServletRequest.getParameter("id")));
-            user.setPassword(httpServletRequest.getParameter("password"));
+            ObjectMapper objectMapper = new ObjectMapper();
+            HashMap<String, String> bodyMap = objectMapper.readValue(body, TypeFactory.defaultInstance().constructMapType(HashMap.class, String.class, String.class));
+            user.setId(Integer.valueOf(bodyMap.get("id")));
+            user.setPassword(bodyMap.get("password"));
         } catch (NumberFormatException e) {
             throw new BadCredentialsException("Bad Credential");
         }
@@ -64,5 +73,26 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         jwtService.addAuthentication(response, (User) authResult.getPrincipal());
+    }
+
+    class LoginUser {
+        private String id;
+        private String password;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
     }
 }
