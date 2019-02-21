@@ -75,7 +75,7 @@ public class EssayControllerTest {
                 .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"title\",\"body\":\"WOSHI BODY\",\"company\":null,\"creat_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"user\":null,\"user_anony\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"title\",\"body\":\"WOSHI BODY\",\"company\":null,\"creat_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"user\":null,\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
 
@@ -153,7 +153,7 @@ public class EssayControllerTest {
                 .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
