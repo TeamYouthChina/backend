@@ -223,7 +223,7 @@ public class CommunityQAMapperTest {
     @Test
     public void getAnswer() {
         QuestionAnswer questionAnswer = communityQAMapper.getAnswer(1);
-        Assert.assertEquals("这是第一个回答", questionAnswer.getAnswer_content());
+        Assert.assertEquals("{                             \"braftEditorRaw\":null,                             \"previewText\":\"这是第一个回答\",                             \"resourceList\":null                         }", questionAnswer.getAnswer_content());
     }
 
     //测试能不能添加回答

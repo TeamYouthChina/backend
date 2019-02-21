@@ -95,14 +95,19 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public int addEssay(ComEssay essay, List<Integer> lab_num, Integer user_id, Integer rela_type, Integer rela_id) {
+        ComEssay comEssaytest = mapper.getEssay(essay.getEssay_id());
+        if(comEssaytest==null)
+            return 0;
         mapper.addEssay(essay);
         int essayid = essay.getEssay_id();
         List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
-        for( int i = 0 ; i < lab_num.size() ; i++) {
-            ComEssayLabelMap cel = new ComEssayLabelMap();
-            cel.setEssay_id(essayid);
-            cel.setLab_num(lab_num.get(i));
-            l.add(cel);
+        if(lab_num!=null){
+            for( int i = 0 ; i < lab_num.size() ; i++) {
+                ComEssayLabelMap cel = new ComEssayLabelMap();
+                cel.setEssay_id(essayid);
+                cel.setLab_num(lab_num.get(i));
+                l.add(cel);
+            }
         }
         mapper.addEssayLabel(l);
 
@@ -120,24 +125,49 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
-    public int updateEssay(ComEssay essay, Integer user_id, List<Integer> lab_num) {
-         mapper.updateEssay(essay);
+    public int updateEssay(ComEssay essay) {
+        ComEssay comEssaytest = mapper.getEssay(essay.getEssay_id());
+        if(comEssaytest==null)
+            return 0;
+        if(essay.getEssay_pub_time()!=null)
+              comEssaytest.setEssay_pub_time(essay.getEssay_pub_time());
+        if(essay.getUser_anony()!=null)
+              comEssaytest.setUser_anony(essay.getUser_anony());
+        if(essay.getIs_delete()!=null)
+              comEssaytest.setIs_delete(essay.getIs_delete());
+        if(essay.getEssay_abbre()!=null)
+              comEssaytest.setEssay_abbre(essay.getEssay_abbre());
+        if(essay.getEssay_body()!=null)
+              comEssaytest.setEssay_body(essay.getEssay_body());
+        if(essay.getEssay_edit_time()!=null)
+              comEssaytest.setEssay_edit_time(essay.getEssay_edit_time());
+        if(essay.getEssay_title()!=null)
+              comEssaytest.setEssay_title(essay.getEssay_title());
 
-          ComAuthorEssayMap caem = new ComAuthorEssayMap();
-          caem.setEssay_id(essay.getEssay_id());
-         caem.setUser_id(user_id);
-         mapper.updateEssayAuthor(caem);
-         mapper.deleteEssayLabel(essay.getEssay_id());
+        return mapper.updateEssay(comEssaytest);
+    }
 
-         List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
+    @Override
+    public int updateEssayAuthor(ComAuthorEssayMap comAuthorEssayMap ) {
+        return mapper.updateEssayAuthor(comAuthorEssayMap);
+    }
+    @Override
+    public int updateEssayLabel(Integer essay_id, Integer user_id, List<Integer> lab_num) {
+
+        ComAuthorEssayMap caem = new ComAuthorEssayMap();
+        caem.setEssay_id(essay_id);
+        caem.setUser_id(user_id);
+        mapper.updateEssayAuthor(caem);
+        mapper.deleteEssayLabel(essay_id);
+
+        List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
         for( int i = 0 ; i < lab_num.size() ; i++) {
             ComEssayLabelMap cel = new ComEssayLabelMap();
-            cel.setEssay_id(essay.getEssay_id());
+            cel.setEssay_id(essay_id);
             cel.setLab_num(lab_num.get(i));
             l.add(cel);
         }
-         int k = mapper.addEssayLabel(l);
-         return k;
+        return mapper.addEssayLabel(l);
     }
 
     @Override
