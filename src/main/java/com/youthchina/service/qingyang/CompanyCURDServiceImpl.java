@@ -3,13 +3,17 @@ package com.youthchina.service.qingyang;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.HrMapper;
 import com.youthchina.dao.qingyang.JobMapper;
+import com.youthchina.dao.qingyang.LocationMapper;
+import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Country;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +30,9 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Resource
     HrMapper hrMapper;
 
+    @Resource
+    LocationMapper locationMapper;
+
     /**
      * 公司搜索
      * @param id 公司Id
@@ -36,7 +43,27 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Transactional
     public Company get(Integer id) throws NotFoundException {
         Company company = companyMapper.selectCompany(id);
+        setCompanyLocation(company);
         return company;
+    }
+
+    /**
+     * 查询Company的Location (因为是字典表, 所以没加事务)
+     * @param company
+     */
+    private void setCompanyLocation(Company company){
+        Location location = company.getLocation();
+        if(location != null){
+            Integer region = location.getRegion_num();
+            Country nation = company.getCountry();
+            if(nation.getCountryAbbre() == "USA"){
+                location = locationMapper.getUSALocation(region);
+                location.setNation_code("USA");
+            } else {
+                location = locationMapper.getChnLocation(region);
+                location.setNation_code("CHN");
+            }
+        }
     }
 
     /**
@@ -48,7 +75,11 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Override
     @Transactional
     public List<Company> get(List<Integer> id) throws NotFoundException {
-        return companyMapper.selectCompanyByIdList(id);
+        List<Company> companyList = companyMapper.selectCompanyByIdList(id);
+        for(Company company : companyList){
+            setCompanyLocation(company);
+        }
+        return companyList;
     }
 
     /**
@@ -85,7 +116,9 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         if(industryList != null && industryList.size() > 0){
             companyMapper.insertCompanyInd(industryList);
         }
-        return companyMapper.selectCompany(company.getCompanyId());
+        Company companyResult = companyMapper.selectCompany(company.getCompanyId());
+        setCompanyLocation(companyResult);
+        return companyResult;
     }
 
     /**
@@ -101,7 +134,9 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         if(industryList != null && industryList.size() > 0){
             companyMapper.insertCompanyInd(industryList);
         }
-        return companyMapper.selectCompany(entity.getCompanyId());
+        Company companyResult = companyMapper.selectCompany(entity.getCompanyId());
+        setCompanyLocation(companyResult);
+        return companyResult;
     }
 
 
@@ -132,6 +167,10 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Override
     @Transactional
     public List<Company> getByName(String comName) {
-        return companyMapper.selectCompanyByName(comName);
+        List<Company> companyList = companyMapper.selectCompanyByName(comName);
+        for(Company company : companyList){
+            setCompanyLocation(company);
+        }
+        return companyList;
     }
 }
