@@ -18,6 +18,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 /**
@@ -76,8 +77,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.setAllowedOrigins(Collections.singletonList("*"));
         configuration.setAllowedMethods(Collections.singletonList("*"));
         configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(Collections.singletonList(this.JWTTOKEN));
-        configuration.setExposedHeaders(Collections.singletonList(this.JWTTOKEN));
+        ArrayList<String> header = new ArrayList();
+        header.add(this.JWTTOKEN);
+        header.add("X-LANGUAGE");
+        configuration.setAllowedHeaders(header);
+        configuration.setExposedHeaders(header);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
