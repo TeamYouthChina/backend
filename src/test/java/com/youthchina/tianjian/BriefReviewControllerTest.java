@@ -78,6 +78,23 @@ public class BriefReviewControllerTest {
     }
 
     @Test
+    public void updateBriefReviewTest() throws Exception {
+        RequestBriefReviewDTO requestBriefReviewDTO = new RequestBriefReviewDTO();
+        requestBriefReviewDTO.setBody("update");
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String addJson = ow.writeValueAsString(requestBriefReviewDTO);
+        this.mvc.perform(
+                put(this.urlPrefix + "/editorials/1")
+                        .content(addJson)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print());
+    }
+
+    @Test
     public void addBriefReviewTest() throws Exception {
         RequestBriefReviewDTO requestBriefReviewDTO = new RequestBriefReviewDTO();
         requestBriefReviewDTO.setBody("dsafsaf");

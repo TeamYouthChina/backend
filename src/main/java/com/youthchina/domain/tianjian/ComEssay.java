@@ -22,7 +22,7 @@ public class ComEssay {
         this.essay_title = essayDTO.getTitle();
         this.essay_pub_time = essayDTO.getCreat_at();
         this.essay_edit_time = essayDTO.getModified_at();
-        this.user_anony =  (essayDTO.isUser_anony()) ? 1 : 0;
+        this.user_anony =  (essayDTO.isIs_anonymous()) ? 1 : 0;
         this.essay_abbre = essayDTO.getRichTextDTO().getBraftEditorRaw();
         try{
             ObjectMapper mapper = new ObjectMapper();

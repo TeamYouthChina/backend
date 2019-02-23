@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.tianjian.ComAuthorEssayMap;
 import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.domain.tianjian.ComEssayAttention;
 import com.youthchina.domain.tianjian.ComEssayReply;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
@@ -63,6 +64,7 @@ public class EssayController {
     @PutMapping("/{id}")
     public ResponseEntity updateEssay(@PathVariable Integer id, @RequestBody RequestEssayDTO requestEssayDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = new ComEssay(requestEssayDTO);
+        System.out.println(id);
         comEssay.setEssay_id(id);
         if(requestEssayDTO.getCompany_id()!=null){
             ComAuthorEssayMap comAuthorEssayMap = new ComAuthorEssayMap();
@@ -72,13 +74,14 @@ public class EssayController {
             comAuthorEssayMap.setUser_id(user.getId());
             essayServiceimpl.updateEssayAuthor(comAuthorEssayMap);
         }
-        int i = essayServiceimpl.updateEssay(comEssay);
+        essayServiceimpl.updateEssay(comEssay);
+
         EssayDTO essayDTO = new EssayDTO();
         essayDTO.setId(id);
         Timestamp time =  new Timestamp(System.currentTimeMillis());
         essayDTO.setModified_at(time);
         if(requestEssayDTO.getCompany_id()!=null)
-           essayDTO.setCompany(companyCURDService.get(requestEssayDTO.getCompany_id()));
+            essayDTO.setCompany(companyCURDService.get(requestEssayDTO.getCompany_id()));
         essayDTO.setCreat_at(essayServiceimpl.getEssay(id).getEssay_pub_time());
         essayDTO.setTitle(comEssay.getEssay_title());
         essayDTO.setUser(user);
@@ -90,45 +93,7 @@ public class EssayController {
             System.out.println("Exception");
         }
 
-        if (i!=0)
-            return ResponseEntity.ok(new Response(essayDTO, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(essayDTO, new StatusDTO(400,"fail")));
-    }
-
-
-    @PostMapping
-    public ResponseEntity addEssay(@RequestBody RequestEssayDTO requestEssayDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = new ComEssay(requestEssayDTO);
-        Timestamp time = new Timestamp( System.currentTimeMillis());
-        comEssay.setEssay_pub_time(time);
-        comEssay.setEssay_edit_time(time);
-        System.out.println(comEssay.getEssay_body());
-        int rela_type = 1;
-        if(requestEssayDTO.getCompany_id()!=null){
-            rela_type = 2;
-        }
-        List<Integer> lab_num = new ArrayList<Integer>();
-        int i = essayServiceimpl.addEssay(comEssay,lab_num,user.getId(),rela_type,requestEssayDTO.getCompany_id());
-        if(i!=0)
-            return ResponseEntity.ok(new Response(new StatusDTO(200,"success")));
-        else
-            return  ResponseEntity.ok(new Response( new StatusDTO(400,"fail")));
-    }
-
-    @PostMapping("/{id}/comments")
-    public ResponseEntity addEssayComments(@PathVariable Integer id, @RequestBody EssayReplyDTO essayReplyDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssayReply comEssayReply = new ComEssayReply(essayReplyDTO);
-        comEssayReply.setIs_delete(0);
-        Timestamp time =  new Timestamp(System.currentTimeMillis());
-        comEssayReply.setReply_pub_time(time);
-        comEssayReply.setUser_id(user.getId());
-        comEssayReply.setReply_edit_time(time);
-        int i = essayServiceimpl.addReply(comEssayReply,id,0);
-        if(i!=0)
-            return ResponseEntity.ok(new Response(new StatusDTO(200,"success")));
-        else
-            return  ResponseEntity.ok(new Response( new StatusDTO(400,"fail")));
+        return ResponseEntity.ok(new Response(essayDTO, new StatusDTO(200,"success")));
     }
 
     @DeleteMapping("/{id}")
@@ -140,4 +105,64 @@ public class EssayController {
         else
             return  ResponseEntity.ok(new Response( new StatusDTO(403,"fail")));
     }
+
+    @PutMapping("/{id}/attention")
+    public ResponseEntity updateAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        ComEssayAttention comEssayAttention = new ComEssayAttention();
+        comEssayAttention.setAtten_cancel(0);
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        comEssayAttention.setAtten_time(time);
+        comEssayAttention.setUser_id(user.getId());
+        essayServiceimpl.addFavoriteEssay(comEssayAttention,id);
+        return ResponseEntity.ok(new Response( new StatusDTO(201,"success")));
+
+    }
+
+    @PostMapping
+    public ResponseEntity addEssay(@RequestBody RequestEssayDTO requestEssayDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+        ComEssay comEssay = new ComEssay(requestEssayDTO);
+        Timestamp time = new Timestamp( System.currentTimeMillis());
+        comEssay.setEssay_pub_time(time);
+        comEssay.setEssay_edit_time(time);
+        int rela_type = 1;
+        if(requestEssayDTO.getCompany_id()!=null){
+            rela_type = 2;
+        }
+        List<Integer> lab_num = new ArrayList<Integer>();
+        int essayId = essayServiceimpl.addEssay(comEssay,lab_num,user.getId(),rela_type,requestEssayDTO.getCompany_id());
+        EssayDTO essayDTO = new EssayDTO();
+        essayDTO.setTitle(comEssay.getEssay_title());
+        //essayDTO.setBody(comEssay.getEssay_body());
+        essayDTO.setCreat_at(comEssay.getEssay_pub_time());
+        if(requestEssayDTO.getCompany_id()!=null){
+            essayDTO.setCompany(companyCURDService.get(requestEssayDTO.getCompany_id()));
+        }
+        essayDTO.setModified_at(comEssay.getEssay_edit_time());
+        essayDTO.setId(essayId);
+        essayDTO.setUser(user);
+        essayDTO.setIs_anonymous(requestEssayDTO.isIs_anonymous());
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
+            essayDTO.setRichTextDTO(richt);
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+        return ResponseEntity.ok(new Response(essayDTO,new StatusDTO(200,"success")));
+    }
+
+    @PostMapping("/{id}/comments")
+    public ResponseEntity addEssayComments(@PathVariable Integer id, @RequestBody EssayReplyDTO essayReplyDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+        ComEssayReply comEssayReply = new ComEssayReply(essayReplyDTO);
+        comEssayReply.setIs_delete(0);
+        Timestamp time =  new Timestamp(System.currentTimeMillis());
+        comEssayReply.setReply_pub_time(time);
+        comEssayReply.setUser_id(user.getId());
+        comEssayReply.setReply_edit_time(time);
+         essayServiceimpl.addReply(comEssayReply,id,0);
+        return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
+
+    }
+
+
 }

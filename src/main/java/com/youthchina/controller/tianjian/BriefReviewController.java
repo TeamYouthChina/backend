@@ -53,15 +53,20 @@ public class BriefReviewController {
         return ResponseEntity.ok(new Response(new StatusDTO(204,"success")));
     }
 
-    @PostMapping
-    public ResponseEntity addBriefReview(@RequestBody RequestBriefReviewDTO requestBriefReviewDTO,@AuthenticationPrincipal User user) throws NotFoundException {
+    @PutMapping("/{id}")
+    public ResponseEntity updateBriefReview(@PathVariable Integer id,@RequestBody RequestBriefReviewDTO requestBriefReviewDTO,@AuthenticationPrincipal User user) throws NotFoundException {
         BriefReview briefReview = new BriefReview();
+        briefReview.setReview_id(id);
         briefReview.setIs_delete(0);
         briefReview.setReview_content(requestBriefReviewDTO.getBody());
         Timestamp time =  new Timestamp(System.currentTimeMillis());
         briefReview.setReview_time(time);
         briefReview.setUser(user);
-        BriefReview briefReviewReturn =  briefReviewServiceImplement.add(briefReview);
+        if(requestBriefReviewDTO.getCompany_id()!=null) {
+            briefReview.setRela_type(2);
+            briefReview.setRela_id(requestBriefReviewDTO.getCompany_id());
+        }
+        BriefReview briefReviewReturn =  briefReviewServiceImplement.update(briefReview);
         BriefReviewDTO briefReviewDTO = new BriefReviewDTO();
         briefReviewDTO.setBody(briefReviewReturn.getReview_content());
         briefReviewDTO.setAuthor(userService.get(user.getId()));
@@ -75,6 +80,36 @@ public class BriefReviewController {
         briefReviewDTO.setId(briefReviewReturn.getReview_id());
         if (briefReviewDTO!=null)
             return ResponseEntity.ok(new Response(briefReviewDTO, new StatusDTO(200,"success")));
+        else
+            return ResponseEntity.ok(new Response(briefReviewDTO, new StatusDTO(400,"fail")));
+    }
+
+    @PostMapping
+    public ResponseEntity addBriefReview(@RequestBody RequestBriefReviewDTO requestBriefReviewDTO,@AuthenticationPrincipal User user) throws NotFoundException {
+        BriefReview briefReview = new BriefReview();
+        briefReview.setIs_delete(0);
+        briefReview.setReview_content(requestBriefReviewDTO.getBody());
+        Timestamp time =  new Timestamp(System.currentTimeMillis());
+        briefReview.setReview_time(time);
+        briefReview.setUser(user);
+        if(requestBriefReviewDTO.getCompany_id()!=null) {
+            briefReview.setRela_type(2);
+            briefReview.setRela_id(requestBriefReviewDTO.getCompany_id());
+        }
+        BriefReview briefReviewReturn =  briefReviewServiceImplement.add(briefReview);
+        BriefReviewDTO briefReviewDTO = new BriefReviewDTO();
+        briefReviewDTO.setBody(briefReviewReturn.getReview_content());
+        briefReviewDTO.setAuthor(userService.get(user.getId()));
+        List<CommentDTO> commentDTOList = new ArrayList<CommentDTO>();
+        Iterator<CommentDTO> it = commentDTOList.iterator();
+        while(it.hasNext()){
+            CommentDTO commentDTOTest = it.next();
+            commentDTOList.add(commentDTOTest);
+        }
+        briefReviewDTO.setComments(commentDTOList);
+        briefReviewDTO.setId(briefReviewReturn.getReview_id());
+        if (briefReviewDTO!=null)
+            return ResponseEntity.ok(new Response(briefReviewDTO, new StatusDTO(201,"success")));
         else
             return ResponseEntity.ok(new Response(briefReviewDTO, new StatusDTO(400,"fail")));
     }

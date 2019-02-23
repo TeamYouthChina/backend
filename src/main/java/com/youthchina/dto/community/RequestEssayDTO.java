@@ -8,8 +8,8 @@ public class RequestEssayDTO {
     private Integer id;
     private String title;
     private Integer company_id;
+    private boolean is_anonymous;
     private RichTextDTO richTextDTO;
-    private Integer user_anony;
 
     public RequestEssayDTO(ComEssay comEssay){
         this.id = comEssay.getEssay_id();
@@ -27,10 +27,6 @@ public class RequestEssayDTO {
     public RichTextDTO getRichTextDTO(){return richTextDTO;}
 
     public void setRichTextDTO(RichTextDTO richTextDTO){this.richTextDTO = richTextDTO;}
-
-    public Integer getUser_anony(){return user_anony;}
-
-    public void setUser_anony(Integer user_anony){this.user_anony = user_anony;}
 
     public Integer getId() {
         return id;
@@ -54,5 +50,13 @@ public class RequestEssayDTO {
 
     public void setCompany_id(Integer company_id) {
         this.company_id = company_id;
+    }
+
+    public boolean isIs_anonymous() {
+        return is_anonymous;
+    }
+
+    public void setIs_anonymous(boolean is_anonymous) {
+        this.is_anonymous = is_anonymous;
     }
 }
