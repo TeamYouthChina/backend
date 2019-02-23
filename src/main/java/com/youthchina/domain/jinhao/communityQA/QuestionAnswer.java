@@ -1,5 +1,7 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.util.zhongyang.HasId;
@@ -23,7 +25,14 @@ public class QuestionAnswer implements HasId<Integer> {
     public QuestionAnswer(SimpleAnswerDTO simpleAnswerDTO) {
         this.answer_id = simpleAnswerDTO.getId();
         this.answer_user = simpleAnswerDTO.getCreator();
-        this.answer_content = simpleAnswerDTO.getBody();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(simpleAnswerDTO.getBody());
+            this.answer_content = requestJson;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
         this.user_anony = (simpleAnswerDTO.getIsAnonymous()) ? 1 : 0;
         this.answer_pub_time = simpleAnswerDTO.getCreatAt();
     }

@@ -7,7 +7,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dto.DurationDTO;
 import com.youthchina.dto.JobSearchDTO;
 import com.youthchina.util.AuthGenerator;
-import javafx.util.converter.TimeStringConverter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +26,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.sql.Timestamp;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

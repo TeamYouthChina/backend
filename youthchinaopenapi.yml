@@ -1503,7 +1503,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ContentRequest'
+              $ref: '#/components/schemas/ContentRequestWithCompany'
       responses:
         '201':
           description: successful
@@ -1654,7 +1654,7 @@ components:
           type: string
           pattern: '(http|https)://(.?)*'
         location:
-          $ref: '#/components/schemas/Location'
+          type: string
         website:
           type: string
           pattern: '(http|https)://(.?)*'
@@ -1744,7 +1744,7 @@ components:
         duration:
           $ref: '#/components/schemas/Duration'
         location:
-          $ref: '#/components/schemas/Location'
+          type: string
         note:
           type: string
     WorkExperienceInfo:
@@ -1762,7 +1762,7 @@ components:
         duration:
           $ref: '#/components/schemas/Duration'
         location:
-          $ref: '#/components/schemas/Location'
+          type: string
         note:
           type: string
     Certification:
@@ -1796,8 +1796,6 @@ components:
           type: string
         duration:
           $ref: '#/components/schemas/Duration'
-        location:
-          $ref: '#/components/schemas/Location'
         note:
           type: string
     Project:
@@ -1846,13 +1844,48 @@ components:
         educations:
           type: array
           items:
-            $ref: '#/components/schemas/EducationInfo'
+            type: object
+            required:
+                - university
+                - major
+                - degree
+                - duration
+                - location
+            properties:
+                university:
+                    type: string
+                major:
+                    type: string
+                degree:
+                    type: string
+                duration:
+                    $ref: '#/components/schemas/Duration'
+                location:
+                    $ref: '#/components/schemas/Location'
+                note:
+                    type: string
         contacts:
           $ref: '#/components/schemas/ContactInfo'
         works:
           type: array
           items:
-            $ref: '#/components/schemas/WorkExperienceInfo'
+            type: object
+            required:
+                - employer
+                - position
+                - duration
+                - location
+            properties:
+                employer:
+                    type: string
+                position:
+                    type: string
+                duration:
+                    $ref: '#/components/schemas/Duration'
+                location:
+                    $ref: '#/components/schemas/Location'
+                note:
+                    type: string
         projects:
           type: array
           items:
@@ -1866,9 +1899,8 @@ components:
           items:
             $ref: '#/components/schemas/Certification'
     Applicant:
-      allOf:
-        - $ref: '#/components/schemas/ApplicantRequest'
-        - properties:
+      type: object
+      properties:
             id:
               type: integer
             name:
