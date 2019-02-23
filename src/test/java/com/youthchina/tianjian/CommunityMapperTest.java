@@ -142,7 +142,7 @@ public class CommunityMapperTest {
 
     @Test
     public void testGetFavoriteEssayWhetherAtten() {
-        ComEssayAttention comEssayAttention = userMapper.getFavoriteEssayWhetherAtten(1,1001);
+        ComEssayAttention comEssayAttention = userMapper.getFavoriteEssayWhetherAtten(1,1);
         Assert.assertNotNull(comEssayAttention.getAtten_id());
         System.out.println(comEssayAttention);
     }
