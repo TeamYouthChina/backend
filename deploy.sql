@@ -1,4 +1,4 @@
-﻿SET CHARSET 'UTF8'
+﻿SET CHAR 'UTF8'
 #######################################字典表###############################################
 create table IF NOT EXISTS `SYS_MAJOR` (
   `MAJOR_NUM`      INT               AUTO_INCREMENT
