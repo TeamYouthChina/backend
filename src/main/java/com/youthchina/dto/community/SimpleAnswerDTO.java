@@ -1,7 +1,9 @@
 package com.youthchina.dto.community;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.RichTextDTO;
 
 import java.sql.Timestamp;
 
@@ -11,14 +13,21 @@ import java.sql.Timestamp;
 public class SimpleAnswerDTO {
     private Integer id;
     private User creator;
-    private String body;
-    private boolean isAnonymous;
+    private RichTextDTO body;
+    private Boolean isAnonymous;
     private Timestamp creatAt;
 
     public SimpleAnswerDTO(QuestionAnswer questionAnswer) {
         this.id  = questionAnswer.getAnswer_id();
         this.creator = questionAnswer.getAnswer_user();
-        this.body = questionAnswer.getAnswer_content();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(questionAnswer.getAnswer_content(), RichTextDTO.class);
+            this.body = richt;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+
         this.isAnonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
         this.creatAt = questionAnswer.getAnswer_pub_time();
     }
@@ -41,19 +50,19 @@ public class SimpleAnswerDTO {
         this.creator = creator;
     }
 
-    public String getBody() {
+    public RichTextDTO getBody() {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(RichTextDTO body) {
         this.body = body;
     }
 
-    public boolean getIsAnonymous() {
+    public Boolean getIsAnonymous() {
         return isAnonymous;
     }
 
-    public void setIsAnonymous(boolean anonymous) {
+    public void setIsAnonymous(Boolean anonymous) {
         isAnonymous = anonymous;
     }
 
