@@ -1,5 +1,7 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.QuestionDTO;
 import com.youthchina.dto.community.SimpleAnswerDTO;
@@ -27,18 +29,26 @@ public class Question implements HasId<Integer> {
     private Integer rela_type;
     private Integer rela_id;
 
-    public Question(QuestionDTO questionDTO) {
+    public Question(QuestionDTO questionDTO){
         this.ques_id = questionDTO.getId();
         this.ques_user = questionDTO.getCreator();
         this.ques_title = questionDTO.getTitle();
-        this.ques_body = questionDTO.getBody();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(questionDTO.getRichTextDTO());
+            this.ques_body = requestJson;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+
         this.ques_invitation = questionDTO.getInvitation();
         this.user_anony = questionDTO.getAnonymous();
         this.ques_pub_time = questionDTO.getCreateAt();
         this.ques_edit_time = questionDTO.getEditAt();
         this.rela_type = questionDTO.getRela_type();
         this.labelIds = questionDTO.getLabelIds();
-        this.ques_abbre = questionDTO.getAbbreviation();
+        this.ques_abbre = questionDTO.getRichTextDTO().getBraftEditorRaw();
         if(questionDTO.getAnswers() != null) {
             for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
                 this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));

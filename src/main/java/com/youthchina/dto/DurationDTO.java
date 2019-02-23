@@ -33,6 +33,10 @@ public class DurationDTO {
 
     }
 
+    public DurationDTO(){
+
+    }
+
     public DurationDTO(java.sql.Date begin, java.sql.Date end){
         this.begin = new Timestamp(begin.getTime());
         this.end = new Timestamp(end.getTime());
