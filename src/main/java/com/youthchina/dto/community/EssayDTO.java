@@ -11,25 +11,23 @@ import java.sql.Timestamp;
 public class EssayDTO {
     private Integer id;
     private String title;
-    private String body;
     private Company company;
     private Timestamp creat_at;
     private Timestamp modified_at;
-    private User user;
-    private RichTextDTO richTextDTO;
+    private User author;
+    private RichTextDTO body;
     private boolean is_anonymous;
 
     public EssayDTO(ComEssay comEssay){
         this.id = comEssay.getEssay_id();
         this.title = comEssay.getEssay_title();
-        this.body = comEssay.getEssay_body();
         this.creat_at = comEssay.getEssay_pub_time();
         this.modified_at = comEssay.getEssay_edit_time();
         this.is_anonymous = (comEssay.getUser_anony() == 0)? false:true;
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
-            this.richTextDTO = richt;
+            this.body = richt;
         }catch (Exception e){
             System.out.println("Exception");
         }
@@ -38,9 +36,9 @@ public class EssayDTO {
 
     public EssayDTO(){}
 
-    public RichTextDTO getRichTextDTO(){return richTextDTO;}
+    public RichTextDTO getBody(){return body;}
 
-    public void setRichTextDTO(RichTextDTO richTextDTO){this.richTextDTO = richTextDTO;}
+    public void setBody(RichTextDTO body){this.body = body;}
 
     public Integer getId() {
         return id;
@@ -82,12 +80,12 @@ public class EssayDTO {
         this.modified_at = modified_at;
     }
 
-    public User getUser() {
-        return user;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public boolean isIs_anonymous() {

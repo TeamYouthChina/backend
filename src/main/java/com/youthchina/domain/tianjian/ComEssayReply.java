@@ -21,7 +21,7 @@ public class ComEssayReply {
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(essayReplyDTO.getRichTextDTO());
+            java.lang.String requestJson = ow.writeValueAsString(essayReplyDTO.getBody());
             this.reply_content = requestJson;
         }catch (Exception e){
             System.out.println("Exception");

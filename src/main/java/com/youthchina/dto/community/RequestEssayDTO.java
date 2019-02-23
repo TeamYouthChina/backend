@@ -9,7 +9,7 @@ public class RequestEssayDTO {
     private String title;
     private Integer company_id;
     private boolean is_anonymous;
-    private RichTextDTO richTextDTO;
+    private RichTextDTO body;
 
     public RequestEssayDTO(ComEssay comEssay){
         this.id = comEssay.getEssay_id();
@@ -17,16 +17,16 @@ public class RequestEssayDTO {
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
-            this.richTextDTO = richt;
+            this.body = richt;
         }catch (Exception e){
             System.out.println("Exception");
         }
     }
     public RequestEssayDTO(){}
 
-    public RichTextDTO getRichTextDTO(){return richTextDTO;}
+    public RichTextDTO getBody(){return body;}
 
-    public void setRichTextDTO(RichTextDTO richTextDTO){this.richTextDTO = richTextDTO;}
+    public void setBody(RichTextDTO body){this.body = body;}
 
     public Integer getId() {
         return id;

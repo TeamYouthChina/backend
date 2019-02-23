@@ -76,7 +76,7 @@ public class EssayControllerTest {
                 .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"title\",\"company\":null,\"creat_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"richTextDTO\":{\"braftEditorRaw\":\"Abbreviation of the essay 1 but42\",\"previewText\":\"Body Body 1\",\"resourceList\":null},\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"title\",\"company\":null,\"creat_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":\"Abbreviation of the essay 1 but42\",\"previewText\":\"Body Body 1\",\"resourceList\":null},\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
 
@@ -88,7 +88,7 @@ public class EssayControllerTest {
         RichTextDTO richTextDTO = new RichTextDTO();
         richTextDTO.setBraftEditorRaw("This is a new article Abbre");
         richTextDTO.setPreviewText("This is a new article body");
-        requestEssayDTO.setRichTextDTO(richTextDTO);
+        requestEssayDTO.setBody(richTextDTO);
         requestEssayDTO.setCompany_id(1);
         requestEssayDTO.setIs_anonymous(false);
 
@@ -111,7 +111,7 @@ public class EssayControllerTest {
         RichTextDTO richTextDTO = new RichTextDTO();
         richTextDTO.setBraftEditorRaw("This is a new article 1 Abbre");
         richTextDTO.setPreviewText("This is a new article 1 body");
-        requestEssayDTO.setRichTextDTO(richTextDTO);
+        requestEssayDTO.setBody(richTextDTO);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -160,7 +160,7 @@ public class EssayControllerTest {
         essayDTO.setAnonymous(false);
         RichTextDTO richTextDTO = new RichTextDTO();
         richTextDTO.setPreviewText("Nizhenshigerencai");
-        essayDTO.setRichTextDTO(richTextDTO);
+        essayDTO.setBody(richTextDTO);
         essayDTO.setAnonymous(false);
 
         ObjectMapper mapper = new ObjectMapper();

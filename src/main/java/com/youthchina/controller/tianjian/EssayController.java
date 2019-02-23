@@ -43,7 +43,7 @@ public class EssayController {
     public ResponseEntity getEssay(@PathVariable Integer id) throws NotFoundException {
         ComEssay comEssay = essayServiceimpl.getEssay(id);
         if(comEssay == null) {
-            throw new NotFoundException(404,404,"没有找到这个文章");
+            throw new NotFoundException(404,404,"没有找到这个文章"); //TODO
         }
         ComAuthorEssayMap comAuthorEssayMap = essayServiceimpl.getEssayAuthor(id);
         EssayDTO essayDTO = new EssayDTO(comEssay);
@@ -53,7 +53,7 @@ public class EssayController {
             Company company = companyCURDService.get(comAuthorEssayMap.getRela_id());
             essayDTO.setCompany(company);
         }
-        essayDTO.setUser(user);
+        essayDTO.setAuthor(user);
 
         if (essayDTO!=null)
             return ResponseEntity.ok(new Response(essayDTO, new StatusDTO(200,"success")));
@@ -84,11 +84,11 @@ public class EssayController {
             essayDTO.setCompany(companyCURDService.get(requestEssayDTO.getCompany_id()));
         essayDTO.setCreat_at(essayServiceimpl.getEssay(id).getEssay_pub_time());
         essayDTO.setTitle(comEssay.getEssay_title());
-        essayDTO.setUser(user);
+        essayDTO.setAuthor(user);
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
-            essayDTO.setRichTextDTO(richt);
+            essayDTO.setBody(richt);
         }catch (Exception e){
             System.out.println("Exception");
         }
@@ -145,12 +145,12 @@ public class EssayController {
         }
         essayDTO.setModified_at(comEssay.getEssay_edit_time());
         essayDTO.setId(essayId);
-        essayDTO.setUser(user);
+        essayDTO.setAuthor(user);
         essayDTO.setIs_anonymous(requestEssayDTO.isIs_anonymous());
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
-            essayDTO.setRichTextDTO(richt);
+            essayDTO.setBody(richt);
         }catch (Exception e){
             System.out.println("Exception");
         }

@@ -23,11 +23,11 @@ public class ComEssay {
         this.essay_pub_time = essayDTO.getCreat_at();
         this.essay_edit_time = essayDTO.getModified_at();
         this.user_anony =  (essayDTO.isIs_anonymous()) ? 1 : 0;
-        this.essay_abbre = essayDTO.getRichTextDTO().getBraftEditorRaw();
+        this.essay_abbre = essayDTO.getBody().getBraftEditorRaw();
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(essayDTO.getRichTextDTO());
+            java.lang.String requestJson = ow.writeValueAsString(essayDTO.getBody());
             this.essay_body = requestJson;
         }catch (Exception e){
             System.out.println("Exception");
@@ -39,11 +39,11 @@ public class ComEssay {
     public ComEssay(RequestEssayDTO requestEssayDTO){
         this.essay_id = requestEssayDTO.getId();
         this.essay_title = requestEssayDTO.getTitle();
-        this.essay_abbre = requestEssayDTO.getRichTextDTO().getBraftEditorRaw();
+        this.essay_abbre = requestEssayDTO.getBody().getBraftEditorRaw();
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO.getRichTextDTO());
+            java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO.getBody());
             this.essay_body = requestJson;
         }catch (Exception e){
             System.out.println("Exception");

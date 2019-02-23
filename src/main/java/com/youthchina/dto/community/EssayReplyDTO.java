@@ -6,7 +6,7 @@ import com.youthchina.dto.RichTextDTO;
 
 
 public class EssayReplyDTO {
-    private RichTextDTO richTextDTO;
+    private RichTextDTO body;
     private boolean isAnonymous;
 
     public EssayReplyDTO(ComEssayReply comEssayReply){
@@ -14,7 +14,7 @@ public class EssayReplyDTO {
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comEssayReply.getReply_content(), RichTextDTO.class);
-            this.richTextDTO = richt;
+            this.body = richt;
         }catch (Exception e){
             System.out.println("Exception");
         }
@@ -22,9 +22,9 @@ public class EssayReplyDTO {
 
     public EssayReplyDTO(){}
 
-    public RichTextDTO getRichTextDTO(){return richTextDTO;}
+    public RichTextDTO getBody(){return body;}
 
-    public void setRichTextDTO(RichTextDTO richTextDTO){this.richTextDTO = richTextDTO;}
+    public void setBody(RichTextDTO body){this.body = body;}
 
     public boolean isAnonymous() {
         return isAnonymous;
