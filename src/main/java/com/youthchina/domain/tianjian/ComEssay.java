@@ -1,5 +1,7 @@
 package com.youthchina.domain.tianjian;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.dto.community.EssayDTO;
 import com.youthchina.dto.community.RequestEssayDTO;
 
@@ -18,16 +20,35 @@ public class ComEssay {
     public ComEssay(EssayDTO essayDTO){
         this.essay_id = essayDTO.getId();
         this.essay_title = essayDTO.getTitle();
-        this.essay_body = essayDTO.getBody();
         this.essay_pub_time = essayDTO.getCreat_at();
         this.essay_edit_time = essayDTO.getModified_at();
         this.user_anony =  (essayDTO.isIs_anonymous()) ? 1 : 0;
+        this.essay_abbre = essayDTO.getBody().getBraftEditorRaw();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(essayDTO.getBody());
+            this.essay_body = requestJson;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+
     }
 
 
-    public ComEssay(RequestEssayDTO requestEssayDTO){ ;
-        this.essay_body = requestEssayDTO.getBody();
+    public ComEssay(RequestEssayDTO requestEssayDTO){
+        this.essay_id = requestEssayDTO.getId();
         this.essay_title = requestEssayDTO.getTitle();
+        this.essay_abbre = requestEssayDTO.getBody().getBraftEditorRaw();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO.getBody());
+            this.essay_body = requestJson;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+        this.user_anony = (requestEssayDTO.isIs_anonymous())? 1:0;
     }
 
     public ComEssay() {
