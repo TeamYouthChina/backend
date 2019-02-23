@@ -1,5 +1,8 @@
 package com.youthchina.domain.tianjian;
 
+import com.youthchina.dto.community.EssayDTO;
+import com.youthchina.dto.community.RequestEssayDTO;
+
 import java.sql.Timestamp;
 
 public class ComEssay {
@@ -11,6 +14,26 @@ public class ComEssay {
     private Timestamp  essay_edit_time;
     private Integer is_delete;
     private Integer user_anony;
+
+    public ComEssay(EssayDTO essayDTO){
+        this.essay_id = essayDTO.getId();
+        this.essay_title = essayDTO.getTitle();
+        this.essay_body = essayDTO.getBody();
+        this.essay_pub_time = essayDTO.getCreat_at();
+        this.essay_edit_time = essayDTO.getModified_at();
+        this.user_anony =  (essayDTO.isUser_anony()) ? 1 : 0;
+    }
+
+
+    public ComEssay(RequestEssayDTO requestEssayDTO){
+        this.essay_id = requestEssayDTO.getId();
+        this.essay_body = requestEssayDTO.getBody();
+        this.essay_title = requestEssayDTO.getTitle();
+    }
+
+    public ComEssay() {
+
+    }
 
     public Integer getUser_anony() {
         return user_anony;
