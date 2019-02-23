@@ -27,6 +27,7 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private String JWTHEADER;
     private String REGISTER_URL = null;
     private String URL_PREFIX = null;
 
@@ -37,12 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationProvider jwtAuthenticationProvider;
 
     @Autowired
-    public SecurityConfig(JwtService jwtService, @Value("${web.url.prefix}") String url_prefix, JwtAuthenticationProvider jwtAuthenticationProvider) {
+    public SecurityConfig(JwtService jwtService, @Value("${web.url.prefix}") String url_prefix, JwtAuthenticationProvider jwtAuthenticationProvider, @Value("{security.token.header}") String JWTHEADER) {
         this.jwtService = jwtService;
         this.URL_PREFIX = url_prefix;
         this.LOGIN_URL = URL_PREFIX + "/login";
         this.REGISTER_URL = URL_PREFIX + "/*/register";
         this.jwtAuthenticationProvider = jwtAuthenticationProvider;
+        this.JWTHEADER = JWTHEADER;
     }
 
     @Override
@@ -73,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"));
-        configuration.setAllowedHeaders(Arrays.asList("content-type", "x-language"));
+        configuration.setAllowedHeaders(Arrays.asList(this.JWTHEADER));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
