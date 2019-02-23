@@ -122,12 +122,12 @@ public class AliCloudFileStorageService implements FileStorageService {
     }
 
     @Override
-    public void uploadFile(File file) {
+    public void uploadFile(File file,Long localId) {
         OSSClient ossClient = new OSSClient(endPoint, accessKeyId, accessKeySecret);
 
-        Long localId = snowFlakeIdGenerate.nextId();
+        Long aLiId = snowFlakeIdGenerate.nextId();
         try {
-            this.uploadFile(file, ossClient, localId);
+            this.uploadFile(file, ossClient, aLiId);
         } catch (OSSException oe) {
             printOSSExceptionMessage(oe);
         } catch (ClientException ce) {
@@ -138,7 +138,7 @@ public class AliCloudFileStorageService implements FileStorageService {
             ossClient.shutdown();
         }
         //if all successful
-        this.mapper.setCloudStorageId(cloudIdColName, localId);
+        this.mapper.setCloudStorageId(cloudIdColName, aLiId.toString(),localId.toString());
     }
 
     public void uploadFile(File file, OSSClient ossClient, Long localId) throws IOException {
