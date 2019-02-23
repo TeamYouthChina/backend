@@ -46,7 +46,7 @@ public class StudentServiceImpl implements StudentService {
     public Student get(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "cannot find user with id "+id);
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);//todo
         } else {
             Student student = applicantMapper.getStudentInfo(id);
             return student;
@@ -83,7 +83,7 @@ public class StudentServiceImpl implements StudentService {
     public UserInfo getContacts(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "cannot find user with id "+id);
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);//todo
         } else return userInfo;
     }
 
@@ -97,7 +97,7 @@ public class StudentServiceImpl implements StudentService {
     public List<EducationInfo> getEducations(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "cannot find user with id "+id);
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);//todo
         } else {
             List<EducationInfo> educationInfos = applicantMapper.getEducations(id);
             return educationInfos;
@@ -114,7 +114,7 @@ public class StudentServiceImpl implements StudentService {
     public List<Work> getWorks(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "cannot find user with id "+id);
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);//todo
         } else {
             List<Work> works = applicantMapper.getWorks(id);
             return works;
@@ -137,7 +137,7 @@ public class StudentServiceImpl implements StudentService {
     public List<Activity> getActivities(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "cannot find user with id "+id);
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);//todo
         } else {
             List<Activity> activities = applicantMapper.getActivities(id);
             return activities;
@@ -155,7 +155,7 @@ public class StudentServiceImpl implements StudentService {
     public List<Certificate> getCertificates(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "cannot find user with id "+id);
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);//todo
         } else {
             List<Certificate> certificates = applicantMapper.getCertificates(id);
             return certificates;
@@ -172,7 +172,7 @@ public class StudentServiceImpl implements StudentService {
     public List<Project> getProjects(Integer id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(id);
         if (userInfo == null) {
-            throw new NotFoundException(404, 404, "cannot find user with id "+id);
+            throw new NotFoundException(404, 404, "cannot find user with id "+id);//todo
         } else {
             List<Project> projects = applicantMapper.getProjects(id);
             return projects;
@@ -272,7 +272,7 @@ public class StudentServiceImpl implements StudentService {
     public List<JobCollect> getJobCollect(Integer user_id) throws NotFoundException{
         UserInfo userInfo=applicantMapper.getUserInfo(user_id);
         if(userInfo==null){
-            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);//todo
         }else {
             List<JobCollect> jobCollects=applicantMapper.getJobCollects(user_id);
             return jobCollects;
@@ -289,7 +289,7 @@ public class StudentServiceImpl implements StudentService {
     public List<CompCollect> getCompCollect(Integer user_id) throws NotFoundException{
         UserInfo userInfo=applicantMapper.getUserInfo(user_id);
         if(userInfo==null){
-            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);//todo
         }else {
             List<CompCollect> compCollects=applicantMapper.getCompCollects(user_id);
             return compCollects;
@@ -306,15 +306,15 @@ public class StudentServiceImpl implements StudentService {
     public Integer addJobCollection(Integer job_id,Integer user_id) throws NotFoundException{
         UserInfo userInfo=applicantMapper.getUserInfo(user_id);
         if(userInfo==null){
-            throw new  NotFoundException(404,404,"cannot find user with id "+user_id);
+            throw new  NotFoundException(404,404,"cannot find user with id "+user_id);//todo
         }else{
             JobCollect jobCollect=applicantMapper.getOneJobCollect(job_id);
             if(jobCollect!=null){
-                throw new NotFoundException(404,404,"不能收藏该职位，因为已经收藏");
+                throw new NotFoundException(404,404,"不能收藏该职位，因为已经收藏");//todo
             }else{
                 Job job=jobMapper.selectJobByJobId(job_id);
                 if(job==null){
-                    throw new NotFoundException(400,404,"cannot collect this job,maybe the job has already delete");
+                    throw new NotFoundException(400,404,"cannot collect this job,maybe the job has already delete");//todo
                 }else {
                     JobCollect jobCollect1=new JobCollect();
                     jobCollect1.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
@@ -342,7 +342,7 @@ public class StudentServiceImpl implements StudentService {
         Integer num1 = applicantMapper.deleteJobCollect(id);
         Integer num2 = applicantMapper.deleteCompCollect(id);
         if (num1 == 0 && num2 == 0) {
-            throw new NotFoundException(404, 404, "没有删除任何一条收藏信息");
+            throw new NotFoundException(404, 404, "没有删除任何一条收藏信息");//todo
         } else return num1 + num2;
     }
     /**
@@ -383,11 +383,11 @@ public class StudentServiceImpl implements StudentService {
     public Integer addCompCollect(Integer company_id, Integer user_id) throws NotFoundException {
         UserInfo userInfo=applicantMapper.getUserInfo(user_id);
         if(userInfo==null){
-            throw new  NotFoundException(404,404,"cannot find user with id "+user_id);
+            throw new  NotFoundException(404,404,"cannot find user with id "+user_id);//todo
         }else {
             Company company=companyMapper.selectCompany(company_id);
             if(company==null){
-                throw new NotFoundException(400,400,"cannot collect this company,maybe the company has already deleted");
+                throw new NotFoundException(400,400,"cannot collect this company,maybe the company has already deleted");//todo
             }else{
                 CompCollect compCollect=new CompCollect();
                 compCollect.setCompany_id(company_id);
