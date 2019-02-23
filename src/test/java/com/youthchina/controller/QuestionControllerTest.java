@@ -73,7 +73,7 @@ public class QuestionControllerTest {
     }
 
     @Test
-    public void getQuestionsTest() throws Exception {
+    public void searchQuestionsTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/questions").param("Company", "").param("Job", "")
                         .with(authGenerator.authentication())

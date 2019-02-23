@@ -62,12 +62,14 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createCompanyInfo(@RequestBody CompanyDTO companyDTO) {
+    public ResponseEntity<?> createCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyDTO companyDTO) {
+        companyDTO.setUserId(user.getId());
         return add(companyDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCompanyInfo(@RequestBody CompanyDTO companyDTO) throws NotFoundException {
+    public ResponseEntity<?> updateCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyDTO companyDTO) throws NotFoundException {
+        companyDTO.setUserId(user.getId());
         return update(companyDTO);
     }
 

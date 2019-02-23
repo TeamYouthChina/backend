@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.community.EssayDTO;
 import com.youthchina.dto.community.EssayReplyDTO;
 import com.youthchina.dto.community.QuestionDTO;
@@ -26,7 +27,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.*;
@@ -47,6 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:essay.xml"})
+@DatabaseSetup({"classpath:users.xml"})
 @WebAppConfiguration
 public class EssayControllerTest {
 
@@ -75,17 +76,22 @@ public class EssayControllerTest {
                 .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"title\",\"body\":\"WOSHI BODY\",\"company\":null,\"creat_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"user\":null,\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"title\",\"company\":null,\"creat_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":\"Abbreviation of the essay 1 but42\",\"previewText\":\"Body Body 1\",\"resourceList\":null},\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
+
 
 
     @Test
     public void addEssayTest() throws Exception {
         RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
-        requestEssayDTO.setBody("This is a new article Body");
         requestEssayDTO.setTitle("This is a new article Title");
-        //requestEssayDTO.setCompany_id(1);
-        requestEssayDTO.setIs_anonymous(true);
+        RichTextDTO richTextDTO = new RichTextDTO();
+        richTextDTO.setBraftEditorRaw("This is a new article Abbre");
+        richTextDTO.setPreviewText("This is a new article body");
+        requestEssayDTO.setBody(richTextDTO);
+        requestEssayDTO.setCompany_id(1);
+        requestEssayDTO.setIs_anonymous(false);
+
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO);
@@ -101,17 +107,28 @@ public class EssayControllerTest {
     @Test
     public void updateEssayTest() throws Exception {
         RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
-        requestEssayDTO.setBody("This is a new Body");
-        requestEssayDTO.setTitle("This is a new Title");
+        requestEssayDTO.setTitle("This is a new Title 1");
+        RichTextDTO richTextDTO = new RichTextDTO();
+        richTextDTO.setBraftEditorRaw("This is a new article 1 Abbre");
+        richTextDTO.setPreviewText("This is a new article 1 body");
+        requestEssayDTO.setBody(richTextDTO);
+
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO);
 
         this.mvc.perform(
 
-                put(this.urlPrefix + "/articles/55").contentType(MediaType.APPLICATION_JSON_UTF8)
+                put(this.urlPrefix + "/articles/1").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
                         .with(authGenerator.authentication())
+        )
+                .andDo(print());
+
+        this.mvc.perform(
+                get(this.urlPrefix + "/articles/1")
+                .with(authGenerator.authentication())
+
         )
                 .andDo(print());
     }
@@ -141,7 +158,11 @@ public class EssayControllerTest {
     public void addCommentTest() throws Exception {
         EssayReplyDTO essayDTO = new EssayReplyDTO();
         essayDTO.setAnonymous(false);
-        essayDTO.setBody("Nizhenshigerencai");
+        RichTextDTO richTextDTO = new RichTextDTO();
+        richTextDTO.setPreviewText("Nizhenshigerencai");
+        essayDTO.setBody(richTextDTO);
+        essayDTO.setAnonymous(false);
+
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(essayDTO);

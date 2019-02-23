@@ -1,8 +1,10 @@
 package com.youthchina.dto.community;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.BriefReview;
 import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.RichTextDTO;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,14 +13,21 @@ import java.util.List;
 
 public class BriefReviewDTO {
     private Integer id;
-    private String body;
+    private RichTextDTO body;
     private List<CommentDTO> comments = new ArrayList<CommentDTO>();
     private User author;
 
 
     public BriefReviewDTO (BriefReview briefReview){
         this.id = briefReview.getReview_id();
-        this.body = briefReview.getReview_content();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(briefReview.getReview_content(), RichTextDTO.class);
+            this.body = richt;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+
         Iterator it = briefReview.getComments().iterator();
         while(it.hasNext()){
             Comment comment = (Comment) it.next();
@@ -37,11 +46,11 @@ public class BriefReviewDTO {
         this.id = id;
     }
 
-    public String getBody() {
+    public RichTextDTO getBody() {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(RichTextDTO body) {
         this.body = body;
     }
 
