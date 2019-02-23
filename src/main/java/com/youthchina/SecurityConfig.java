@@ -18,7 +18,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by zhongyangwu on 11/10/18.
@@ -27,7 +27,6 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private String JWTHEADER;
     private String REGISTER_URL = null;
     private String URL_PREFIX = null;
 
@@ -38,20 +37,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationProvider jwtAuthenticationProvider;
 
     @Autowired
-    public SecurityConfig(JwtService jwtService, @Value("${web.url.prefix}") String url_prefix, JwtAuthenticationProvider jwtAuthenticationProvider, @Value("{security.token.header}") String JWTHEADER) {
+    public SecurityConfig(JwtService jwtService, @Value("${web.url.prefix}") String url_prefix, JwtAuthenticationProvider jwtAuthenticationProvider) {
         this.jwtService = jwtService;
         this.URL_PREFIX = url_prefix;
         this.LOGIN_URL = URL_PREFIX + "/login";
         this.REGISTER_URL = URL_PREFIX + "/*/register";
         this.jwtAuthenticationProvider = jwtAuthenticationProvider;
-        this.JWTHEADER = JWTHEADER;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin().disable()
-                .cors().and()
+                .cors().disable()
                 .csrf().disable()
 
                 .authenticationProvider(jwtAuthenticationProvider)
@@ -73,9 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"));
-        configuration.setAllowedHeaders(Arrays.asList(this.JWTHEADER));
+        configuration.setAllowedOrigins(Collections.singletonList("*"));
+        configuration.setAllowedMethods(Collections.singletonList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
