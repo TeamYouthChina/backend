@@ -38,7 +38,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public BriefReview get(Integer id) throws NotFoundException {
         BriefReview briefReview = briefReviewMapper.get(id);
         if(briefReview == null){
-            throw new NotFoundException(404,404,"This brief review does not exist!");
+            throw new NotFoundException(404,404,"This brief review does not exist!");//todo
         }else {
             return briefReview;
         }
@@ -48,7 +48,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public List<BriefReview> get(List<Integer> id) throws NotFoundException {
         List<BriefReview> briefReviews = briefReviewMapper.getList(id);
         if(briefReviews.size() == 0){
-            throw new NotFoundException(404,404,"None of these review exists!");
+            throw new NotFoundException(404,404,"None of these review exists!");//todo
         }else {
             return briefReviews;
         }
@@ -56,7 +56,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
 
     private void checkIfReviewExist(Integer id) throws NotFoundException{
         BriefReview briefReview = briefReviewMapper.simplyGetReview(id);
-        if(briefReview == null) throw new NotFoundException(404,404,"This brief review does not exist!");
+        if(briefReview == null) throw new NotFoundException(404,404,"This brief review does not exist!");//todo
     }
 
     @Override
@@ -118,13 +118,13 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public Comment getComment(Integer comment_id) throws NotFoundException {
         Comment comment = briefReviewMapper.getComment(comment_id);
         if(comment == null){
-            throw new NotFoundException(404,404,"This comment does not exist!");
+            throw new NotFoundException(404,404,"This comment does not exist!");//todo
         }else{
             return comment;
         }
     }
     private void checkIfCommentExist(Integer comment_id) throws NotFoundException{
-        if(briefReviewMapper.simplyGetComment(comment_id) == null) throw new NotFoundException(404,404,"This comment does not exist!");
+        if(briefReviewMapper.simplyGetComment(comment_id) == null) throw new NotFoundException(404,404,"This comment does not exist!");//todo
     }
     @Override
     @Transactional
@@ -151,7 +151,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
         checkIfReviewExist(review_id);
         List<Comment> comments = briefReviewMapper.getCommentsByReviewId(review_id);
         if(comments == null){
-            throw new NotFoundException(404,404,"This review does not have comments!");
+            throw new NotFoundException(404,404,"This review does not have comments!");//todo
         }else {
             return comments;
         }
