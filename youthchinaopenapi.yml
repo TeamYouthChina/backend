@@ -7,7 +7,7 @@ info:
 servers:
   - url: 'http://youthchina.io/api/v1'
 paths:
-  '/job/{id}':
+  '/jobs/{id}':
     get:
       tags:
         - Job
@@ -38,7 +38,7 @@ paths:
                     $ref: '#/components/schemas/Job'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/job/search':
+  '/jobs/search':
     post:
       tags:
         - Job
@@ -668,7 +668,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Question'
+              $ref: '#/components/schemas/QuestionRequest'
       responses:
         '201':
           description: create question
@@ -791,6 +791,7 @@ paths:
           in: path
           schema:
             type: integer
+
       responses:
         '200':
           description: the answer list of target question
@@ -2005,6 +2006,11 @@ components:
         is_anonymous:
           type: boolean
           default: flase
+        rela_type:
+          type: integer
+          description: 1 for no rela, 2 for company, 3 for job
+        rela_id:
+          type: integer
     QuestionBasic:
       allOf:
         - $ref: '#/components/schemas/QuestionRequest'
