@@ -1,5 +1,4 @@
-﻿SET CHAR 'UTF8'
-#######################################字典表###############################################
+﻿SET CHAR SET 'utf8'
 create table IF NOT EXISTS `SYS_MAJOR` (
   `MAJOR_NUM`      INT               AUTO_INCREMENT
   COMMENT '专业编号',
