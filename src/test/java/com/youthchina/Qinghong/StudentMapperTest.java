@@ -87,7 +87,7 @@ public class StudentMapperTest {
 
     @Test
     public void testGetStudentInfo(){
-        Student student=applicantMapper.getStudentInfo(2);
+        Student student=applicantMapper.getStudentInfo(1);
         System.out.print(student.getLabelInfos().get(0).getLabel_chn());
 
     }
