@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,9 +138,6 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         System.out.println("add answers");
         QuestionAnswer questionAnswer = new QuestionAnswer(simpleAnswerDTO);
         questionAnswer.setUser_id(user.getId());
-        questionAnswer.setAnswer_pub_time(new Timestamp(System.currentTimeMillis()));
-        questionAnswer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
-
         SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(communityQAService.addAnswer(questionAnswer,id,1));
         if (returnSimpleAnswer!=null)
             return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));

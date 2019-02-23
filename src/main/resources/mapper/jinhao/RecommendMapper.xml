@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.jinhao.RecommendMapper">
+    <select id="getRandomJob">
+        select JOB_ID from RECOM_FULL_JOB as t1 join (select ROUND(RAND()*((select MAX(JOB_ID) from RECOM_FULL_JOB)-(select MIN(JOB_ID) from RECOM_FULL_JOB))
+          +(select MIN(JOB_ID) from RECOM_FULL_JOB)) AS id) as t2
+        where t1.JOB_ID >= t2.id
+        order by t1.JOB_ID limit 10
+    </select>
+
+    <select id="getRandomIntern">
+        select JOB_ID from RECOM_PART_JOB as t1 join (select ROUND(RAND()*((select MAX(JOB_ID) from RECOM_FULL_JOB)-(select MIN(JOB_ID) from RECOM_PART_JOB))
+            +(select MIN(JOB_ID) from RECOM_PART_JOB)) AS id) as t2
+        where t1.JOB_ID >= t2.id
+        order by t1.JOB_ID limit 10
+    </select>
+
+    <select id="getRandomPopCompany">
+        select COMPANY_ID from RECOM_POP_COMPANY as t1 join (select ROUND(RAND()*((select MAX(COMPANY_ID) from RECOM_POP_COMPANY)-(select MIN(COMPANY_ID) from RECOM_POP_COMPANY))
+            +(select MIN(COMPANY_ID) from RECOM_POP_COMPANY)) AS id) as t2
+        where t1.COMPANY_ID >= t2.id
+        order by t1.COMPANY_ID limit 10
+    </select>
+
+    <select id="getRandomNewCompany">
+        select COMPANY_ID from RECOM_NEW_COMPANY as t1 join (select ROUND(RAND()*((select MAX(COMPANY_ID) from RECOM_NEW_COMPANY)-(select MIN(COMPANY_ID) from RECOM_NEW_COMPANY))
+            +(select MIN(COMPANY_ID) from RECOM_NEW_COMPANY)) AS id) as t2
+        where t1.COMPANY_ID >= t2.id
+        order by t1.COMPANY_ID limit 10
+    </select>
+    <select id="getRandomEssay">
+        select ESSAY_ID from RECOM_ESSAY as t1 join (select ROUND(RAND()*((select MAX(ESSAY_ID) from RECOM_ESSAY)-(select MIN(ESSAY_ID) from RECOM_ESSAY))
+            +(select MIN(ESSAY_ID) from RECOM_ESSAY)) AS id) as t2
+        where t1.ESSAY_ID >= t2.id
+        order by t1.ESSAY_ID limit 10
+    </select>
+    <select id="getRandomQuestion">
+        select QUESTION_ID from RECOM_QUESTION as t1 join (select ROUND(RAND()*((select MAX(QUESTION_ID) from RECOM_QUESTION)-(select MIN(QUESTION_ID) from RECOM_QUESTION))
+            +(select MIN(QUESTION_ID) from RECOM_QUESTION)) AS id) as t2
+        where t1.QUESTION_ID >= t2.id
+        order by t1.QUESTION_ID limit 10
+    </select>
+    <select id="getRandomUser">
+        select USER_ID from RECOM_USER as t1 join (select ROUND(RAND()*((select MAX(USER_ID) from RECOM_USER)-(select MIN(USER_ID) from RECOM_USER))
+            +(select MIN(USER_ID) from RECOM_USER)) AS id) as t2
+        where t1.USER_ID >= t2.id
+        order by t1.USER_ID limit 10
+    </select>
+    <select id="getList" parameterType="java.lang.Integer" resultType="com.youthchina.domain.qingyang.Job">
+        select * from RECOM_PART_JOB where JOB_ID in
+        <foreach item="id" index='index' collection="list" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+    <select id="get" parameterType="java.lang.Integer" resultType="com.youthchina.domain.qingyang.Job">
+        select * from RECOM_PART_JOB where JOB_ID = #{id}
+    </select>
+    <insert id="add" parameterType="com.youthchina.domain.qingyang.Job">
+        insert into RECOM_PART_JOB(JOB_ID,JOB_NAME,JOB_DESCRIPTION,JOB_LOCATION,JOB_HIGHLIGHT,DATA_TIME)
+        values (#{job_Id},#{job_name},#{job_description},#{job_location},#{job_highlight},#{data_time})
+    </insert>
+    <update id="update" parameterType="com.youthchina.domain.qingyang.Job">
+        update RECOM_PART_JOB set JOB_NAME=#{job_name},JOB_DESCRIPTION=#{job_description},
+        JOB_LOCATION=#{job_location},JOB_HIGHLIGHT=#{job_highlight},DATA_TIME=#{job_time}
+        where JOB_ID=#{job_Id}
+    </update>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from RECOM_PART_JOB where JOB_ID=#{id}
+    </delete>
+</mapper>

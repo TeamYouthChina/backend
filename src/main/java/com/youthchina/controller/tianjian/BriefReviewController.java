@@ -6,7 +6,6 @@ import com.youthchina.domain.jinhao.communityQA.Evaluate;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-
 import com.youthchina.dto.community.BriefReviewDTO;
 import com.youthchina.dto.community.CommentDTO;
 import com.youthchina.dto.community.RequestBriefReviewDTO;
@@ -19,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -56,10 +54,7 @@ public class BriefReviewController {
     @PostMapping
     public ResponseEntity addBriefReview(@RequestBody RequestBriefReviewDTO requestBriefReviewDTO,@AuthenticationPrincipal User user) throws NotFoundException {
         BriefReview briefReview = new BriefReview();
-        briefReview.setIs_delete(0);
         briefReview.setReview_content(requestBriefReviewDTO.getBody());
-        Timestamp time =  new Timestamp(System.currentTimeMillis());
-        briefReview.setReview_time(time);
         briefReview.setUser(user);
         BriefReview briefReviewReturn =  briefReviewServiceImplement.add(briefReview);
         BriefReviewDTO briefReviewDTO = new BriefReviewDTO();
@@ -84,11 +79,7 @@ public class BriefReviewController {
         Comment comment = new Comment();
         comment.setUser(user);
         comment.setComment_content(requestCommentDTO.getBody());
-        comment.setIs_delete(0);
-        Timestamp time =  new Timestamp(System.currentTimeMillis());
-        comment.setComment_pub_time(time);
         comment.setUser_id(user.getId());
-        comment.setComment_id(id);
         comment.setUser_anony((requestCommentDTO.getIs_anonymous()==true)? 1:0);
         Comment commentreturn = briefReviewServiceImplement.addComment(comment,id);
         if ( commentreturn!=null)
