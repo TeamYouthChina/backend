@@ -65,13 +65,14 @@ public class CompanyControllerTest {
 
     @Test
     public void testgetCompany() throws Exception {
+        Integer id = 1;
         this.mvc.perform(
-                get(this.urlPrefix + "/companies/1").param("id", "1").param("detailLevel", "1")
+                get(this.urlPrefix + "/companies/" + id)//.param("id", "1").param("detailLevel", "1")
                         .with(authGenerator.authentication())
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"大疆\",\"location\":{\"region_num\":1},\"website\":\"dji.com\",\"nation\":{\"countryAbbre\":\"CHN\"},\"avatarUrl\":\"1\",\"note\":\"无人机\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+                .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"location\":{\"nation_code\":\"CHN\",\"location_code\":\"1\"},\"website\":\"dji.com\",\"nation\":{\"countryAbbre\":\"CHN\"},\"avatarUrl\":\"1\",\"note\":\"无人机\",\"userId\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
         ;
     }
 
@@ -101,7 +102,7 @@ public class CompanyControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":{\"region_num\":1},\"website\":\"vavle.com\",\"nation\":{\"countryAbbre\":\"USA\"},\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":{\"nation_code\":\"CHN\",\"location_code\":\"1\"},\"website\":\"vavle.com\",\"nation\":{\"countryAbbre\":\"USA\"},\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\",\"userId\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
         ;
     }
 
@@ -128,12 +129,13 @@ public class CompanyControllerTest {
         System.out.println(insertJson);
         this.mvc.perform(
                 put(this.urlPrefix + "/companies/" + id)
+                        .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(insertJson)
-                        .with(authGenerator.authentication())
+
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"location\":{\"region_num\":1},\"website\":\"vavle.com\",\"nation\":{\"countryAbbre\":\"USA\"},\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"location\":{\"nation_code\":\"CHN\",\"location_code\":\"1\"},\"website\":\"vavle.com\",\"nation\":{\"countryAbbre\":\"USA\"},\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\",\"userId\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
 
     }

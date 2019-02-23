@@ -17,12 +17,12 @@ public class LocationService {
     @Resource
     LocationMapper locationMapper;
 
-    List<Location> getChildren(String parent){
+    public List<Location> getChildren(String parent){
         Integer parentId = Integer.valueOf(parent);
         return locationMapper.getChildrenChn(parentId);
     }
 
-    Location getLocation(Integer region_num){
+    public Location getLocation(Integer region_num){
         String regionString = "" + region_num;
         Location location;
         if(regionString.charAt(0) == '9'){
