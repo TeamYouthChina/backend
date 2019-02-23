@@ -1,6 +1,5 @@
 package com.youthchina.domain.jinhao.communityQA;
 
-import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
 
 import java.sql.Timestamp;
@@ -17,14 +16,23 @@ public class Video {
     private List<VideoAttention> videoAttentions;
     private List<VideoComment> videoComments;
     private List<VideoEvaluate> videoEvaluates;
-    private Company company;
+    private Integer rela_type;
+    private Integer rela_id;
 
-    public Company getCompany() {
-        return company;
+    public Integer getRela_type() {
+        return rela_type;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setRela_type(Integer rela_type) {
+        this.rela_type = rela_type;
+    }
+
+    public Integer getRela_id() {
+        return rela_id;
+    }
+
+    public void setRela_id(Integer rela_id) {
+        this.rela_id = rela_id;
     }
 
     public User getUser() {
