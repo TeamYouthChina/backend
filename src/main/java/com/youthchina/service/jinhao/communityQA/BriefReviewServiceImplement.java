@@ -56,7 +56,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
 
     private void checkIfReviewExist(Integer id) throws NotFoundException{
         BriefReview briefReview = briefReviewMapper.simplyGetReview(id);
-        if(briefReview == null) throw new NotFoundException(404,404,"This brief review does not exist!");//todo
+        if(briefReview == null) throw new NotFoundException(404,404,"This brief review does not exist!");////todo
     }
 
     @Override
