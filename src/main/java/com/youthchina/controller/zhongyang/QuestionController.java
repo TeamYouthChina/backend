@@ -1,6 +1,5 @@
 package com.youthchina.controller.zhongyang;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
@@ -17,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;

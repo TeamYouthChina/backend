@@ -1,7 +1,6 @@
 package com.youthchina.controller.tianjian;
 
 import com.youthchina.domain.jinhao.communityQA.Comment;
-import com.youthchina.domain.jinhao.communityQA.Evaluate;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
@@ -9,7 +8,6 @@ import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.CommunityQAServiceImplement;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -72,16 +70,8 @@ public class AnswerController {
 
     @PostMapping("/{id}/upvote")
     public ResponseEntity addUpvote(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
-        Evaluate evaluate = new Evaluate();
-        evaluate.setEvaluate_type(1);
-        evaluate.setUser_id(user.getId());
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-        evaluate.setEvaluate_time( time);
-        Integer i = communityQAServiceImplement.evaluateAnswer(id, evaluate);
-        if(i==1)
-            return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
-        else
-            return ResponseEntity.ok(new Response( new StatusDTO(400,"fail")));
+        communityQAServiceImplement.evaluateAnswer(id, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 
 }

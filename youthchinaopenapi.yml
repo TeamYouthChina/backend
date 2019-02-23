@@ -791,7 +791,6 @@ paths:
           in: path
           schema:
             type: integer
-
       responses:
         '200':
           description: the answer list of target question
@@ -806,7 +805,9 @@ paths:
                       answers:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Answer'
+                          $ref: '#/components/schemas/AnswerBasic'
+                      question:
+                        $ref: '#/components/schemas/QuestionBasic'
                   status:
                     $ref: '#/components/schemas/Status'
     post:
@@ -1634,7 +1635,7 @@ components:
         organization:
           $ref: '#/components/schemas/Organization'
         location:
-          $ref: '#/components/schemas/Location'
+          type: string
         type:
           type: string
           enum:

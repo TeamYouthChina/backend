@@ -1,5 +1,7 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.youthchina.domain.zhongyang.User;
+
 import java.sql.Timestamp;
 
 public class VideoComment {
@@ -11,6 +13,15 @@ public class VideoComment {
     private Timestamp comment_edit_time;
     private Integer is_delete;
     private Timestamp is_delete_time;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Integer getComment_id() {
         return comment_id;

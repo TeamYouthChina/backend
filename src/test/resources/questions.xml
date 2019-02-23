@@ -44,59 +44,14 @@
                             }"
                   QUES_PUB_TIME="2018-12-06 14:32:40" QUES_EDIT_TIME="2018-12-06 14:32:40" IS_DELETE="0"
                   IS_DELETE_TIME="2018-12-06 14:32:40"/>
-    <COM_QUESTION USER_ANONY="0" QUES_ID="5" QUES_TITLE="第五个问题" QUES_ABBRE="Abbreviation of the question 5 but42"
-                  QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 5 but42&quot;,
-                                &quot;previewText&quot;:&quot;Body of the question 5 but 42&quot;,
-                                &quot;resourceList&quot;:null
-                            }"
-                  QUES_PUB_TIME="2018-12-07 13:32:40" QUES_EDIT_TIME="2018-12-07 13:32:40" IS_DELETE="0"
-                  IS_DELETE_TIME="2018-12-07 13:32:40"/>
-    <COM_QUESTION USER_ANONY="0" QUES_ID="6" QUES_TITLE="第六个问题" QUES_ABBRE="Abbreviation of the question 6 but42"
-                  QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 6 but42&quot;,
-                                &quot;previewText&quot;:&quot;Body of the question 6 but 42&quot;,
-                                &quot;resourceList&quot;:null
-                            }"
-                  QUES_PUB_TIME="2018-12-06 13:32:40" QUES_EDIT_TIME="2018-12-06 13:32:40" IS_DELETE="0"
-                  IS_DELETE_TIME="2018-12-06 13:32:40"/>
-    <COM_QUESTION USER_ANONY="0" QUES_ID="7" QUES_TITLE="第七个问题" QUES_ABBRE="Abbreviation of the question 7 but42"
-                  QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 7 but42&quot;,
-                                &quot;previewText&quot;:&quot;Body of the question 7 but 42&quot;,
-                                &quot;resourceList&quot;:null
-                            }"
-                  QUES_PUB_TIME="2018-12-08 13:32:40" QUES_EDIT_TIME="2018-12-08 13:32:40" IS_DELETE="0"
-                  IS_DELETE_TIME="2018-12-08 13:32:40"/>
-    <COM_QUESTION USER_ANONY="0" QUES_ID="8" QUES_TITLE="第八个问题" QUES_ABBRE="Abbreviation of the question 8 but42"
-                  QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 8 but42&quot;,
-                                &quot;previewText&quot;:&quot;Body of the question 8 but 42&quot;,
-                                &quot;resourceList&quot;:null
-                            }"
-                  QUES_PUB_TIME="2018-12-06 13:32:40" QUES_EDIT_TIME="2018-12-06 13:32:40" IS_DELETE="0"
-                  IS_DELETE_TIME="2018-12-06 13:32:40"/>
-    <COM_QUESTION USER_ANONY="0" QUES_ID="9" QUES_TITLE="第九个问题" QUES_ABBRE="Abbreviation of the question 9 but42"
-                  QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 9 but42&quot;,
-                                &quot;previewText&quot;:&quot;Body of the question 9 but 42&quot;,
-                                &quot;resourceList&quot;:null
-                            }"
-                  QUES_PUB_TIME="2018-12-06 13:32:40" QUES_EDIT_TIME="2018-12-06 13:32:40" IS_DELETE="0"
-                  IS_DELETE_TIME="2018-12-06 13:32:40"/>
-    <COM_QUESTION USER_ANONY="0" QUES_ID="10" QUES_TITLE="第十个问题" QUES_ABBRE="Abbreviation of the question 10 but42"
-                  QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 10 but42&quot;,
-                                &quot;previewText&quot;:&quot;Body of the question 10 but 42&quot;,
-                                &quot;resourceList&quot;:null
-                            }"
-                  QUES_PUB_TIME="2018-12-06 13:32:40" QUES_EDIT_TIME="2018-12-06 13:32:40" IS_DELETE="0"
-                  IS_DELETE_TIME="2018-12-06 13:32:40"/>
 
-    <COM_AUTHOR_QUESTION_MAP QUES_ID="1" USER_ID="1" RELA_TYPE="1" RELA_ID="667"/>
+
+
+    <COM_AUTHOR_QUESTION_MAP QUES_ID="1" USER_ID="1" RELA_TYPE="1" RELA_ID="3"/>
     <COM_AUTHOR_QUESTION_MAP QUES_ID="2" USER_ID="1" RELA_TYPE="3" RELA_ID="1"/>
+    <COM_AUTHOR_QUESTION_MAP QUES_ID="3" USER_ID="1" RELA_TYPE="3" RELA_ID="3"/>
     <COM_AUTHOR_QUESTION_MAP QUES_ID="4" USER_ID="1" RELA_TYPE="2" RELA_ID="2"/>
-    <COM_AUTHOR_QUESTION_MAP QUES_ID="10" USER_ID="2" RELA_TYPE="2" RELA_ID="2"/>
+
 
 
     <COM_QUESTION_ATTENTION ATTEN_ID="1" USER_ID="1" ATTEN_TIME="2018-12-06 13:32:40" ATTEN_CANCEL="0"
@@ -108,8 +63,6 @@
     <COM_QUESTION_ATTENTION ATTEN_ID="4" USER_ID="4" ATTEN_TIME="2018-12-06 13:32:40" ATTEN_CANCEL="0"
                             ATTEN_CANCEL_TIME="2018-12-06 13:32:40"/>
     <COM_QUESTION_ATTENTION ATTEN_ID="5" USER_ID="1" ATTEN_TIME="2018-12-06 13:32:40" ATTEN_CANCEL="0"
-                            ATTEN_CANCEL_TIME="2018-12-06 13:32:40"/>
-    <COM_QUESTION_ATTENTION ATTEN_ID="6" USER_ID="1" ATTEN_TIME="2018-12-06 13:32:40" ATTEN_CANCEL="0"
                             ATTEN_CANCEL_TIME="2018-12-06 13:32:40"/>
 
     <COM_QUESTION_ATTENTION_MAP ATTEN_ID="1" QUES_ID="1"/>
@@ -127,8 +80,6 @@
     <COM_ANSWER_INVITATION INVIT_ID="4" INVIT_TIME="2018-12-06 13:32:40" INVIT_ACCEPT="0" INVIT_QUES_ID="2"
                            INVIT_USER_ID="1"/>
     <COM_ANSWER_INVITATION INVIT_ID="5" INVIT_TIME="2018-12-06 13:32:40" INVIT_ACCEPT="0" INVIT_QUES_ID="1"
-                           INVIT_USER_ID="2"/>
-    <COM_ANSWER_INVITATION INVIT_ID="6" INVIT_TIME="2018-12-06 13:32:40" INVIT_ACCEPT="0" INVIT_QUES_ID="2"
                            INVIT_USER_ID="2"/>
     <COM_ANSWER_INVITATION_MAP INVIT_ID="1" INVITED_USER_ID="1"/>
     <COM_ANSWER_INVITATION_MAP INVIT_ID="2" INVITED_USER_ID="1"/>
