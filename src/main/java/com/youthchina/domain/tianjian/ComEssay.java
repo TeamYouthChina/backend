@@ -48,6 +48,7 @@ public class ComEssay {
         }catch (Exception e){
             System.out.println("Exception");
         }
+        this.user_anony = (requestEssayDTO.isIs_anonymous())? 1:0;
     }
 
     public ComEssay() {

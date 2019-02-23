@@ -59,7 +59,7 @@ public class AnswerControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":null,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第一个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第一个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
 
     }
 
@@ -124,7 +124,7 @@ public class AnswerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"code\":400,\"reason\":\"fail\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
 }

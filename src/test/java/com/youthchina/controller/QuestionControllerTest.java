@@ -26,17 +26,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 /**
  * Created by hongshengzhang on 2/10/19.
  */
@@ -73,7 +69,7 @@ public class QuestionControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":[{\"id\":5,\"creator\":{\"id\":4,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第五个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":[{\"id\":5,\"creator\":{\"id\":4,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第五个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
@@ -94,7 +90,7 @@ public class QuestionControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"title\":\"第一个问题\",\"createAt\":\"2018-12-04T13:32:40.000+0000\",\"editAt\":\"2018-12-04T13:32:40.000+0000\",\"answers\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第一个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":2,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第二个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":3,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第三个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":4,\"creator\":{\"id\":3,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第四个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"}],\"invitation\":null,\"labelIds\":null,\"rela_type\":1,\"rela_id\":null,\"richTextDTO\":{\"braftEditorRaw\":\"Abbreviation of the question 1 but42\",\"previewText\":\"Body of the question 1 but 42\",\"resourceList\":null},\"anonymous\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"title\":\"第一个问题\",\"createAt\":\"2018-12-04T13:32:40.000+0000\",\"editAt\":\"2018-12-04T13:32:40.000+0000\",\"answers\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第一个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":2,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第二个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":3,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第三个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":4,\"creator\":{\"id\":3,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第四个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"}],\"invitation\":null,\"labelIds\":null,\"rela_type\":1,\"rela_id\":null,\"richTextDTO\":{\"braftEditorRaw\":\"Abbreviation of the question 1 but42\",\"previewText\":\"Body of the question 1 but 42\",\"resourceList\":null},\"anonymous\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test

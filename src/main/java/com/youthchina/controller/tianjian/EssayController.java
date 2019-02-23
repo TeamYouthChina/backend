@@ -115,7 +115,13 @@ public class EssayController {
         comEssayAttention.setUser_id(user.getId());
         essayServiceimpl.addFavoriteEssay(comEssayAttention,id);
         return ResponseEntity.ok(new Response( new StatusDTO(201,"success")));
+    }
 
+    @DeleteMapping("/attentions/{id}")
+    public ResponseEntity deleteAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        System.out.println("start here");
+        essayServiceimpl.deleteFavoriteEssay(id,user.getId());
+        return ResponseEntity.ok(new Response( new StatusDTO(204,"success")));
     }
 
     @PostMapping

@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.jinhao.CommunityQAMapper">
-
+    <resultMap id="videoInfo" type="com.youthchina.domain.jinhao.communityQA.Video">
+        <id property="video_id" column="VIDEO_ID"/>
+        <result property="video_title" column="VIDEO_TITLE"/>
+        <result property="video_name" column="VIDEO_NAME"/>
+        <result property="video_upload_time" column="VIDEO_UPLOAD_TIME"/>
+        <result property="rela_id" column="RELA_ID"/>
+        <result property="rela_type" column="RELA_TYPE"/>
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User">
+            <id property="id" column="NEW_USER_ID"/>
+            <result property="username" column="NEW_USERNAME"/>
+            <result property="email" column="NEW_EMAIL"/>
+            <result property="phonenumber" column="NEW_PHONENUMBER"/>
+            <result property="registerDate" column="NEW_REGISTERDATE"/>
+            <result property="realName" column="NEW_REALNAME"/>
+            <result property="gender" column="NEW_GENDER"/>
+            <result property="nation" column="NEW_NATION"/>
+            <result property="avatarUrl" column="NEW_AVATARURL"/>
+            <result property="role" column="NEW_ROLE"/>
+            <result property="age" column="NEW_AGE"/>
+        </association>
+        <collection property="videoComments" ofType="com.youthchina.domain.jinhao.communityQA.VideoComment">
+            <id property="comment_id" column="COMMENT_ID"/>
+            <result property="comment_content" column="COMMENT_CONTENT"/>
+            <result property="user_anony" column="USER_ANONY"/>
+            <result property="comment_pub_time" column="COMMENT_PUB_TIME"/>
+            <association property="user" javaType="com.youthchina.domain.zhongyang.User"
+                         resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
+        </collection>
+    </resultMap>
 <resultMap id="questionInfo" type="com.youthchina.domain.jinhao.communityQA.Question">
     <id property="ques_id" column="QUES_ID"/>
     <result property="ques_title" column="QUES_TITLE"/>
@@ -9,20 +37,31 @@
     <result property="ques_body" column="QUES_BODY"/>
     <result property="ques_pub_time" column="QUES_PUB_TIME"/>
     <result property="ques_edit_time" column="QUES_EDIT_TIME"/>
-    <result property="is_delete_time" column="IS_DELETE_TIME"/>
-    <result property="is_delete" column="IS_DELETE"/>
-    <association property="ques_user" javaType="com.youthchina.domain.zhongyang.User"
-                 resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
-    <collection property="questionAttentions" ofType="com.youthchina.domain.jinhao.communityQA.QuestionAttention">
-        <id property="atten_id" column="ATTEN_ID"/>
+    <result property="rela_id" column="RELA_ID"/>
+    <result property="rela_type" column="RELA_TYPE"/>
+    <result property="user_anony" column="QUES_USERANONY"/>
+    <association property="ques_user" javaType="com.youthchina.domain.zhongyang.User">
+        <id property="id" column="NEW_USER_ID"/>
+        <result property="username" column="NEW_USERNAME"/>
+        <result property="email" column="NEW_EMAIL"/>
+        <result property="phonenumber" column="NEW_PHONENUMBER"/>
+        <result property="registerDate" column="NEW_REGISTERDATE"/>
+        <result property="realName" column="NEW_REALNAME"/>
+        <result property="gender" column="NEW_GENDER"/>
+        <result property="nation" column="NEW_NATION"/>
+        <result property="avatarUrl" column="NEW_AVATARURL"/>
+        <result property="role" column="NEW_ROLE"/>
+        <result property="age" column="NEW_AGE"/>
+    </association>
+    <collection property="questionAnswers" ofType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
+        <id property="answer_id" column="ANSWER_ID"/>
+        <result property="answer_content" column="ANSWER_CONTENT"/>
+        <result property="user_anony" column="USER_ANONY"/>
+        <result property="answer_pub_time" column="ANSWER_PUB_TIME"/>
+        <result property="answer_edit_time" column="ANSWER_EDIT_TIME"/>
+        <association property="answer_user" javaType="com.youthchina.domain.zhongyang.User"
+                     resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
     </collection>
-    <collection property="labels" ofType="com.youthchina.domain.jinhao.communityQA.Label">
-        <id property="lab_num" column="LAB_NUM"/>
-        <result property="lab_chn" column="LAB_CHN"/>
-        <result property="lab_eng" column="LAB_ENG"/>
-    </collection>
-    <collection property="questionAnswers" column="ques_id"
-                select="com.youthchina.dao.jinhao.CommunityQAMapper.getAnswersByQuestionId"/>
 </resultMap>
 
 <resultMap id="answerInfo" type="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
@@ -33,12 +72,30 @@
     <result property="answer_edit_time" column="ANSWER_EDIT_TIME"/>
     <association property="answer_user" javaType="com.youthchina.domain.zhongyang.User"
                  resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
-    <collection property="evaluates" ofType="com.youthchina.domain.jinhao.communityQA.Evaluate">
-        <id property="evaluate_id" column="EVALUATE_ID"/>
-        <result property="evaluate_type" column="EVALUATE_TYPE"/>
-    </collection>
-    <collection property="comments" column="answer_id"
-                select="com.youthchina.dao.jinhao.CommunityQAMapper.getCommentsByAnswerId"/>
+    <association property="question" javaType="com.youthchina.domain.jinhao.communityQA.Question">
+        <id property="ques_id" column="QUES_ID"/>
+        <result property="ques_title" column="QUES_TITLE"/>
+        <result property="ques_abbre" column="QUES_ABBRE"/>
+        <result property="ques_body" column="QUES_BODY"/>
+        <result property="ques_pub_time" column="QUES_PUB_TIME"/>
+        <result property="ques_edit_time" column="QUES_EDIT_TIME"/>
+        <result property="user_anony" column="QUES_USERANONY"/>
+        <result property="rela_id" column="RELA_ID"/>
+        <result property="rela_type" column="RELA_TYPE"/>
+        <association property="ques_user" javaType="com.youthchina.domain.zhongyang.User">
+            <id property="id" column="NEW_USER_ID"/>
+            <result property="username" column="NEW_USERNAME"/>
+            <result property="email" column="NEW_EMAIL"/>
+            <result property="phonenumber" column="NEW_PHONENUMBER"/>
+            <result property="registerDate" column="NEW_REGISTERDATE"/>
+            <result property="realName" column="NEW_REALNAME"/>
+            <result property="gender" column="NEW_GENDER"/>
+            <result property="nation" column="NEW_NATION"/>
+            <result property="avatarUrl" column="NEW_AVATARURL"/>
+            <result property="role" column="NEW_ROLE"/>
+            <result property="age" column="NEW_AGE"/>
+        </association>
+    </association>
 </resultMap>
 
 <resultMap id="commentInfo" type="com.youthchina.domain.jinhao.communityQA.Comment">
@@ -71,43 +128,58 @@
     </collection>
 </resultMap>
 
-<resultMap id="videoInfo" type="com.youthchina.domain.jinhao.communityQA.Video">
-    <id property="video_id" column="VIDEO_ID"/>
-    <result property="video_title" column="VIDEO_TITLE"/>
-    <result property="video_name" column="VIDEO_NAME"/>
-    <result property="video_upload_time" column="VIDEO_UPLOAD_TIME"/>
-    <result property="is_delete" column="IS_DELETE"/>
-    <result property="is_delete_time" column="IS_DELETE_TIME"/>
-    <association property="user" javaType="com.youthchina.domain.zhongyang.User">
-        <id property="id" column="V_USER_ID"/>
-        <result property="username" column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="age" column="USER_AGE" javaType="java.lang.Integer"/>
-        <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
-        <result column="USER_REGIST_TIME" property="registerDate" jdbcType="VARCHAR"/>
-        <result column="USER_REAL_NAME" property="realName" jdbcType="VARCHAR"/>
-        <result column="USER_NATION" property="nation" jdbcType="VARCHAR"/>
-        <result column="USER_PHOTO" property="avatarUrl" jdbcType="VARCHAR"/>
-        <result column="USER_MAIL" property="email" jdbcType="VARCHAR"/>
-        <result property="gender" column="USER_GENDER" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="role" javaType="java.lang.Integer" column="ROLE_TYPE"/>
-    </association>
-    <association property="company" javaType="com.youthchina.domain.qingyang.Company">
-        <id property="companyId" column="COMPANY_ID"/>
-    </association>
-    <collection property="videoAttentions" ofType="com.youthchina.domain.jinhao.communityQA.VideoAttention">
-        <id property="atten_id" column="ATTEN_ID"/>
-    </collection>
-    <collection property="videoComments" ofType="com.youthchina.domain.jinhao.communityQA.VideoComment">
-        <id property="comment_id" column="COMMENT_ID"/>
-    </collection>
-    <collection property="videoEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate">
-        <id property="evaluate_id" column="EVALUATE_ID"/>
-        <id property="evaluate_type" column="EVALUATE_TYPE"/>
-    </collection>
-</resultMap>
 
-
-
+    <sql id="newUser">
+        newu.USER_ID as NEW_USER_ID, newu.USER_NAME as NEW_USERNAME, newu.USER_MAIL as NEW_EMAIL
+        ,newu.USER_PHONE as NEW_PHONENUMBER, newu.USER_REGIST_TIME as NEW_REGISTERDATE
+        ,newu.USER_REAL_NAME as NEW_REALNAME, newu.USER_GENDER as NEW_GENDER, newu.USER_NATION as NEW_NATION,
+        newu.ROLE_ID as NEW_ROLE, newu.USER_AGE as NEW_AGE
+    </sql>
+    <sql id="user">
+        u.USER_ID,u.USER_NAME,u.USER_MAIL,u.USER_PHONE,u.USER_REGIST_TIME,u.USER_REAL_NAME,
+        u.USER_GENDER,u.USER_NATION,u.ROLE_ID as ROLE_TYPE,u.USER_AGE
+    </sql>
+    <sql id="question">
+        q.QUES_ID, q.QUES_TITLE, q.QUES_ABBRE, q.QUES_BODY, q.QUES_PUB_TIME, q.QUES_EDIT_TIME,q.USER_ANONY as QUES_USERANONY
+    </sql>
+    <sql id="answer">
+        a.ANSWER_ID,a.ANSWER_CONTENT,a.USER_ANONY,a.ANSWER_PUB_TIME,a.ANSWER_EDIT_TIME,a.USER_ID as ANSWER_USER_ID
+    </sql>
+    <select id="getQuestionById" resultMap="questionInfo" parameterType="java.lang.Integer">
+        select <include refid="question"/>,
+               <include refid="newUser"/>,
+               <include refid="user"/>,
+              <include refid="answer"/>,
+               aqm.RELA_ID,aqm.RELA_TYPE from COM_QUESTION q
+                                          left join (SYS_USER newu, COM_AUTHOR_QUESTION_MAP aqm)
+                                              on q.QUES_ID = aqm.QUES_ID and newu.USER_ID = aqm.USER_ID and newu.IS_DELETE=0
+                                          left join ((select olda.* from COM_QUESTION_ANSWER olda, COM_QUESTION_ANSWER_MAP m
+                                                        where m.QUES_ID=#{ques_id} and olda.ANSWER_ID=m.ANSWER_ID and olda.IS_DELETE=0) as a, SYS_USER u)
+                                              on a.USER_ID=u.USER_ID and u.IS_DELETE=0
+        where q.QUES_ID = #{ques_id} and q.IS_DELETE = 0
+    </select>
+    <select id="getAnswerById" resultMap="answerInfo" parameterType="java.lang.Integer">
+        select <include refid="answer"/>,
+                <include refid="user"/>,
+                <include refid="newUser"/>,
+               <include refid="question"/>, aqm.RELA_ID, aqm.RELA_TYPE
+        from COM_QUESTION_ANSWER a
+                 left join SYS_USER u on u.USER_ID = a.USER_ID and u.IS_DELETE = 0
+                 left join ((select oldq.* from COM_QUESTION oldq, COM_QUESTION_ANSWER_MAP m where m.ANSWER_ID=#{answer_id} and oldq.QUES_ID=m.QUES_ID)
+            as q, SYS_USER newu, COM_AUTHOR_QUESTION_MAP aqm) on q.QUES_ID = aqm.QUES_ID and aqm.USER_ID = newu.USER_ID
+        where a.ANSWER_ID = #{answer_id} and a.IS_DELETE = 0
+    </select>
+    <select id="getVideoById" resultMap="videoInfo" parameterType="java.lang.Integer">
+        select v.VIDEO_ID, v.VIDEO_TITLE, v.VIDEO_NAME, v.VIDEO_UPLOAD_TIME,
+              <include refid="newUser"/>, <include refid="user"/> , newvc.COMMENT_ID,
+               newvc.COMMENT_CONTENT, newvc.COMMENT_PUB_TIME,newvc.USER_ANONY, uvm.RELA_ID, uvm.RELA_TYPE from COM_USER_VIDEO v
+              left join (SYS_USER newu, COM_USER_VIDEO_MAP uvm)
+                    on uvm.VIDEO_ID = v.VIDEO_ID and uvm.USER_ID = newu.USER_ID and newu.IS_DELETE = 0
+              left join ((select vc.* from COM_VIDEO_COMMENT vc, COM_VIDEO_COMMENT_MAP vcm
+                                 where vcm.VIDEO_ID=#{video_id} and vc.COMMENT_ID=vcm.COMMENT_ID) as newvc, SYS_USER u)
+                    on newvc.USER_ID=u.USER_ID and u.IS_DELETE=0
+        where v.VIDEO_ID = #{video_id} and v.IS_DELETE = 0
+    </select>
     <!-- 列出某个问题的关注人数 -->
     <select id="countTheFollower" parameterType="java.lang.Integer"
             resultType="java.lang.Integer">
@@ -115,16 +187,6 @@
         where m.ques_id = #{ques_id}
         and m.atten_id = a.atten_id
         and a.atten_cancel = 0
-    </select>
-
-    <!-- 列出某个问题的所有回答 -->
-    <select id="listAllQuestionAnswer" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
-        select a.* from COM_QUESTION_ANSWER a, COM_QUESTION_ANSWER_MAP m
-        where m.ques_id = #{ques_id}
-        and a.answer_id = m.answer_id
-        and a.is_delete = 0
-        order by m.answer_level asc
     </select>
 
     <!--拿到某个回答-->
@@ -183,7 +245,7 @@
     <insert id="addQuestion" parameterType="com.youthchina.domain.jinhao.communityQA.Question" useGeneratedKeys="true"
     keyProperty="ques_id">
         insert into COM_QUESTION(ques_title,ques_abbre,ques_body,ques_pub_time,ques_edit_time,is_delete, user_anony)
-        values (#{ques_title},#{ques_abbre},#{ques_body},#{ques_pub_time},#{ques_edit_time},#{is_delete},#{user_anony})
+        values (#{ques_title},#{ques_abbre},#{ques_body},now(),now(),0,#{user_anony})
     </insert>
 
     <!-- 建立问题和用户的映射 -->
@@ -240,7 +302,7 @@
             useGeneratedKeys="true" keyProperty="answer_id">
         insert into COM_QUESTION_ANSWER (answer_content, USER_ID, user_anony, answer_pub_time, answer_edit_time,
                                          is_delete)
-        values (#{answer_content}, #{user_id}, #{user_anony}, #{answer_pub_time}, #{answer_edit_time}, #{is_delete})
+        values (#{answer_content}, #{user_id}, #{user_anony}, now(), now(), 0)
     </insert>
 
     <!-- 建立回答和问题的映射 -->
@@ -256,7 +318,6 @@
         and a.user_id = #{user_id}
         and m.atten_id = a.atten_id
     </select>
-
 
     <!--得到关注-->
     <select id="getAttention" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.QuestionAttention">
@@ -297,7 +358,7 @@
     <!--  编辑回答 -->
     <update id="editAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
         update COM_QUESTION_ANSWER
-        set answer_content=#{answer_content},user_anony=#{user_anony},answer_edit_time=#{answer_edit_time}
+        set answer_content=#{answer_content},user_anony=#{user_anony},answer_edit_time=now()
         where answer_id=#{answer_id}
     </update>
 
@@ -320,7 +381,7 @@
     <insert id="addEvaluateToAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.Evaluate"
             useGeneratedKeys="true" keyProperty="evaluate_id">
         insert into COM_ANSWER_EVALUATE (user_id, evaluate_type, evaluate_time)
-        values (#{user_id}, #{evaluate_type}, #{evaluate_time})
+        values (#{user_id}, 1, now())
     </insert>
 
     <!-- 建立映射 -->
@@ -330,12 +391,17 @@
     </insert>
 
     <!-- 如果已经评价过 -->
-    <update id="reEvaluateAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.Evaluate">
+    <update id="reEvaluateAnswer" parameterType="java.lang.Integer">
         update COM_ANSWER_EVALUATE
-        set evaluate_type = #{evaluate_type}, evaluate_time = now()
+        set evaluate_type = 1, evaluate_time = now()
         where evaluate_id = #{evaluate_id}
     </update>
 
+    <update id="deleteEvaluateAnswer" parameterType="java.lang.Integer">
+        update COM_ANSWER_EVALUATE
+        set EVALUATE_TYPE=0, EVALUATE_TIME=now()
+        where EVALUATE_ID=#{evaluate_id}
+    </update>
     <!-- 评论回答 -->
     <insert id="addCommentToAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.Comment"
     useGeneratedKeys="true" keyProperty="comment_id">
@@ -394,7 +460,7 @@
     <insert id="addEvaluateToComment" parameterType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate"
             useGeneratedKeys="true" keyProperty="evaluate_id">
         insert into COM_COMMENT_EVALUATE(user_id, evaluate_type, evaluate_time)
-        values (#{user_id}, #{evaluate_type}, #{evaluate_time})
+        values (#{user_id}, 1, now())
     </insert>
 
     <!-- 建立映射 -->
@@ -409,12 +475,17 @@
         where evaluate_id = #{evaluate_id}
     </select>
     <!-- 如果不是第一次评价，则更新字段 -->
-    <update id="reEvaluateComment" parameterType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
+    <update id="reEvaluateComment" parameterType="java.lang.Integer">
         update COM_COMMENT_EVALUATE
-        set evaluate_type = #{evaluate_type}, evaluate_time = now()
+        set evaluate_type = 1, evaluate_time = now()
         where evaluate_id = #{evaluate_id}
     </update>
 
+    <update id="deleteEvaluateComment" parameterType="java.lang.Integer">
+        update COM_COMMENT_EVALUATE
+        set EVALUATE_TYPE=3, EVALUATE_TIME=now()
+        where EVALUATE_ID=#{evaluate_id}
+    </update>
 
      <!--拿到某个讨论-->
     <select id="getDiscuss" parameterType="java.lang.Integer"
@@ -488,7 +559,7 @@
     <insert id="addInvitation" parameterType="com.youthchina.domain.jinhao.communityQA.AnswerInvitation"
             useGeneratedKeys="true" keyProperty="invit_id">
         insert into COM_ANSWER_INVITATION (invit_time, invit_accept, invit_ques_id, invit_user_id)
-        values (#{invit_time}, #{invit_accept}, #{invit_ques_id}, #{invit_user_id})
+        values (now(), 0, #{invit_ques_id}, #{invit_user_id})
     </insert>
 
     <!-- 建立邀请和问题的映射-->
@@ -533,8 +604,8 @@
     <!-- 发布视频 -->
     <insert id="addVideo" parameterType="com.youthchina.domain.jinhao.communityQA.Video" useGeneratedKeys="true"
             keyProperty="video_id">
-        insert into COM_USER_VIDEO (video_title, video_name, video_upload_time, is_delete, is_delete_time)
-        values (#{video_title}, #{video_name}, #{video_upload_time}, #{is_delete}, #{is_delete_time})
+        insert into COM_USER_VIDEO (video_title, video_name, video_upload_time, is_delete)
+        values (#{video_title}, #{video_name}, now(), 0)
     </insert>
 
     <!-- 建立用户和视频的映射 -->
@@ -577,17 +648,17 @@
     </select>
 
     <!-- 重新关注某个视频 -->
-    <update id="reAddAttentionToVideo" parameterType="com.youthchina.domain.jinhao.communityQA.VideoAttention">
+    <update id="reAddAttentionToVideo" parameterType="java.lang.Integer">
         update COM_VIDEO_ATTENTION
-        set atten_cancel = #{atten_cancel}, atten_time = #{atten_time}
+        set atten_cancel = 0, atten_time = now()
         where atten_id = #{atten_id}
     </update>
 
     <!-- 关注某个视频 -->
     <insert id="addAttentionToVideo" parameterType="com.youthchina.domain.jinhao.communityQA.VideoAttention"
             useGeneratedKeys="true" keyProperty="atten_id">
-        insert into COM_VIDEO_ATTENTION(user_id, atten_time, atten_cancel, atten_cancel_time)
-        values (#{user_id}, #{atten_time}, #{atten_cancel}, #{atten_cancel_time})
+        insert into COM_VIDEO_ATTENTION(user_id, atten_time, atten_cancel)
+        values (#{user_id}, now(), 0)
     </insert>
 
     <!-- 建立关注和视频的映射 -->
@@ -602,9 +673,9 @@
     </select>
 
     <!-- 取消关注视频 -->
-    <update id="cancelAttentionVideo" parameterType="com.youthchina.domain.jinhao.communityQA.VideoAttention">
+    <update id="cancelAttentionVideo" parameterType="java.lang.Integer">
         update COM_VIDEO_ATTENTION
-        set atten_cancel = #{atten_cancel}, atten_cancel_time = #{atten_cancel_time}
+        set atten_cancel =1, atten_cancel_time = now()
         where atten_id = #{atten_id}
     </update>
 
@@ -613,8 +684,7 @@
             useGeneratedKeys="true" keyProperty="comment_id">
         insert into COM_VIDEO_COMMENT(comment_content, user_id, user_anony, comment_pub_time, comment_edit_time,
                 is_delete)
-        values (#{comment_content}, #{user_id}, #{user_anony}, #{comment_pub_time}, #{comment_edit_time},
-                #{is_delete})
+        values (#{comment_content}, #{user_id}, #{user_anony}, NOW(), NOW(), 0)
     </insert>
 
     <!-- 建立视频评论和视频的映射 -->
@@ -632,9 +702,9 @@
     </select>
 
     <!-- 删除某个评论 -->
-    <update id="deleteVideoComment" parameterType="com.youthchina.domain.jinhao.communityQA.VideoComment">
+    <update id="deleteVideoComment" parameterType="java.lang.Integer">
         update COM_VIDEO_COMMENT
-        set is_delete = #{is_delete}, is_delete_time = #{is_delete_time}
+        set is_delete = 1, is_delete_time = now()
         where comment_id = #{comment_id}
     </update>
 
@@ -650,7 +720,7 @@
     <insert id="addEvaluationToVideo" parameterType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate"
     useGeneratedKeys="true" keyProperty="evaluate_id">
         insert into COM_VIDEO_EVALUATE(user_id, evaluate_type, evaluate_time)
-        values (#{user_id}, #{evaluate_type}, #{evaluate_time})
+        values (#{user_id}, 1, now())
     </insert>
 
     <!-- 建立评价和视频的映射 -->
@@ -667,12 +737,17 @@
     </select>
 
     <!-- 重新评价视频 -->
-    <update id="reEvaluateVideo" parameterType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate">
+    <update id="reEvaluateVideo" parameterType="java.lang.Integer">
         update COM_VIDEO_EVALUATE
-        set evaluate_type = #{evaluate_type}, evaluate_time = #{evaluate_time}
+        set evaluate_type = 1, evaluate_time = now()
         where evaluate_id = #{evaluate_id}
     </update>
 
+    <update id="cancelEvaluateVideo" parameterType="java.lang.Integer">
+        update COM_VIDEO_EVALUATE
+        set evaluate_type = 3, evaluate_time = now()
+        where evaluate_id = #{evaluate_id}
+    </update>
     <!-- 拿到某个视频的关注数 -->
     <select id="countVideoFollwers" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
         select count(m.atten_id) from COM_VIDEO_ATTENTION_MAP m, COM_VIDEO_ATTENTION a
@@ -771,27 +846,8 @@
         and a.invit_id = m.invit_id
     </select>
 
-    <select id="getQuestionById" resultMap="questionInfo" parameterType="java.lang.Integer">
-        select q.*, u.*, qa.ATTEN_ID, lc.*, qas.* from COM_QUESTION q
-              left join (SYS_USER u, COM_AUTHOR_QUESTION_MAP aqm)
-                      on q.QUES_ID = aqm.QUES_ID and u.USER_ID = aqm.USER_ID and u.IS_DELETE = 0
-              left join (COM_QUESTION_ATTENTION qa, COM_QUESTION_ATTENTION_MAP qam)
-                      on qam.QUES_ID = q.QUES_ID and qa.ATTEN_ID = qam.ATTEN_ID and qa.ATTEN_CANCEL = 0
-              left join (SYS_COM_LABEL_CLASS lc, COM_QUESTION_LABEL_MAP qlm)
-                      on qlm.QUES_ID = q.QUES_ID and lc.LAB_NUM = qlm.LAB_NUM and lc.START_STATUS = 1
-              left join (COM_QUESTION_ANSWER qas, COM_QUESTION_ANSWER_MAP qasm)
-                      on qasm.QUES_ID = q.QUES_ID and qas.ANSWER_ID = qasm.ANSWER_ID and qas.IS_DELETE = 0
-              where q.QUES_ID = #{ques_id} and q.IS_DELETE = 0
-    </select>
 
-    <select id="getAnswerById" resultMap="answerInfo" parameterType="java.lang.Integer">
-        select qas.ANSWER_ID, qas.ANSWER_CONTENT, qas.ANSWER_PUB_TIME,
-         qas.ANSWER_EDIT_TIME, qas.USER_ANONY, u.*, ae.EVALUATE_ID, ae.EVALUATE_TYPE from COM_QUESTION_ANSWER qas
-              left join SYS_USER u on u.USER_ID = qas.USER_ID and u.IS_DELETE = 0
-              left join (COM_ANSWER_EVALUATE ae, COM_ANSWER_EVALUATE_MAP aem)
-                      on ae.EVALUATE_ID = aem.EVALUATE_ID and aem.ANSWER_ID = qas.ANSWER_ID and ae.EVALUATE_TYPE != 3
-              where qas.ANSWER_ID = #{answer_id} and qas.IS_DELETE = 0
-    </select>
+
 
     <select id="getAnswerCommentById" resultMap="commentInfo" parameterType="java.lang.Integer">
         select ac.*, u.*, ace.*, acd.* from COM_ANSWER_COMMENT ac
@@ -812,23 +868,6 @@
         left join (COM_DISCUSS_EVALUATE de, COM_DISCUSS_EVALUATE_MAP dem)
                 on dem.DISCUSS_ID = cd.DISCUSS_ID and de.EVALUATE_ID = dem.EVALUATE_ID and de.EVALUATE_TYPE != 3
         where cd.DISCUSS_ID = #{discuss_id} and cd.IS_DELETE = 0
-    </select>
-
-    <select id="getVideoById" resultMap="videoInfo" parameterType="java.lang.Integer">
-        select v.*, u.USER_ID as V_USER_ID, u.USER_MAIL, u.USER_PHONE,
-               u.USER_REGIST_TIME, u.USER_NAME, u.USER_GENDER, u.USER_NATION,
-               u.USER_PHOTO, u.USER_REAL_NAME, u.USER_AGE,u.ROLE_ID,ve.EVALUATE_ID, ve.EVALUATE_TYPE, vc.*, va.ATTEN_ID, c.COMPANY_ID from COM_USER_VIDEO v
-        left join (SYS_USER u, COM_USER_VIDEO_MAP uvm)
-                on uvm.VIDEO_ID = v.VIDEO_ID and uvm.USER_ID = u.USER_ID and u.IS_DELETE = 0
-        left join (COM_VIDEO_ATTENTION va, COM_VIDEO_ATTENTION_MAP vam)
-                on vam.VIDEO_ID = v.VIDEO_ID and vam.ATTEN_ID = va.ATTEN_ID and va.ATTEN_CANCEL = 0
-        left join (COM_VIDEO_COMMENT vc, COM_VIDEO_COMMENT_MAP vcm)
-                on vcm.VIDEO_ID = v.VIDEO_ID and vcm.COMMENT_ID = vc.COMMENT_ID and vc.IS_DELETE = 0
-        left join (COM_VIDEO_EVALUATE ve, COM_VIDEO_EVALUATE_MAP vem)
-                on vem.VIDEO_ID = v.VIDEO_ID and vem.EVALUATE_ID = ve.EVALUATE_ID and ve.EVALUATE_TYPE != 3
-        left join (COMPANY_INFO c, COM_USER_VIDEO_MAP newuvm)
-                on newuvm.VIDEO_ID = v.VIDEO_ID and newuvm.RELA_TYPE = 2 and newuvm.RELA_ID = c.COMPANY_ID
-        where v.VIDEO_ID = #{video_id} and v.IS_DELETE = 0
     </select>
 
     <select id="getAnswersByQuestionId" resultMap="answerInfo" parameterType="java.lang.Integer">

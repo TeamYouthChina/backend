@@ -95,30 +95,33 @@ public class EssayServiceImpl implements EssayService {
 //    }
 
     @Override
-    public int addEssay(ComEssay essay, List<Integer> lab_num, Integer user_id, Integer rela_type, Integer rela_id) {
+    public int addEssay(ComEssay essay, List<Integer> lab_num, Integer user_id, Integer rela_type, Integer rela_id) throws NotFoundException {
         ComEssay comEssaytest = mapper.getEssay(essay.getEssay_id());
-        if(comEssaytest==null)
-            return 0;
-        mapper.addEssay(essay);
-        int essayid = essay.getEssay_id();
-        List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
-        if(lab_num!=null){
-            for( int i = 0 ; i < lab_num.size() ; i++) {
-                ComEssayLabelMap cel = new ComEssayLabelMap();
-                cel.setEssay_id(essayid);
-                cel.setLab_num(lab_num.get(i));
-                l.add(cel);
+        if(comEssaytest!=null)
+            throw new NotFoundException(404,404,"this essay is exist");
+        else{
+            mapper.addEssay(essay);
+            int essayid = essay.getEssay_id();
+            List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
+            if(lab_num!=null&&lab_num.size()!=0){
+                for( int i = 0 ; i < lab_num.size() ; i++) {
+                    ComEssayLabelMap cel = new ComEssayLabelMap();
+                    cel.setEssay_id(essayid);
+                    cel.setLab_num(lab_num.get(i));
+                    l.add(cel);
+                }
             }
-        }
-        mapper.addEssayLabel(l);
+            if(l!=null&&l.size()!=0)
+                mapper.addEssayLabel(l);
 
-        ComAuthorEssayMap caem = new ComAuthorEssayMap();
-        caem.setEssay_id(essayid);
-        caem.setUser_id(user_id);
-        caem.setRela_type(rela_type);
-        caem.setRela_id(rela_id);
-        mapper.addEssayAuthor(caem);
-        return essayid;
+            ComAuthorEssayMap caem = new ComAuthorEssayMap();
+            caem.setEssay_id(essayid);
+            caem.setUser_id(user_id);
+            caem.setRela_type(rela_type);
+            caem.setRela_id(rela_id);
+            mapper.addEssayAuthor(caem);
+            return essayid;
+        }
     }
     @Override
     public int deleteEssay(Integer essay_id, Timestamp delete_time) {
