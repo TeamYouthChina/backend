@@ -106,6 +106,7 @@ public class StudentServiceImpl implements StudentService {
         }
         Student student=applicantMapper.getStudentInfo(entity.getId());
         //分离service并不能实现location
+
         Location location=locationService.getLocation(entity.getEducationInfos().get(0).getLocation().getNation_code(),entity.getEducationInfos().get(0).getLocation().getRegion_num());
         student.getEducationInfos().get(0).setLocation(location);
         student.getWorks().get(0).setLocation(location);

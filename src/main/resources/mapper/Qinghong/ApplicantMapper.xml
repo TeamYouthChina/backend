@@ -43,6 +43,7 @@
             <result property="is_delete" column="IS_DELETE"/>
             <result property="is_delete_time" column="IS_DELETE_TIME"/>
             <association property="degree" column="EDU_DEGREE" javaType="com.youthchina.domain.qingyang.Degree" resultMap="getDegree"/>
+            <association property="location" column="EDU_SCHOOL_LOCATION" javaType="com.youthchina.domain.Qinghong.Location" resultMap="getEduId"/>
         </collection>
         <collection property="certificates" ofType="com.youthchina.domain.Qinghong.Certificate">
             <id property="certificate_id" column="CERTIFICATE_ID"/>
@@ -64,6 +65,7 @@
             <result property="work_end_time" column="WORK_END_TIME"/>
             <result property="work_duty" column="WORK_DUTY"/>
             <result property="work_nature" column="WORK_NATURE"/>
+            <association property="location" column="WORK_LOCATION" javaType="com.youthchina.domain.Qinghong.Location" resultMap="getWorkId"/>
         </collection>
         <collection property="projects" ofType="com.youthchina.domain.Qinghong.Project">
             <id property="proj_id" column="PROJ_ID"/>
@@ -198,6 +200,12 @@
         <result property="is_delete" column="IS_DELETE"/>
         <result property="is_delete_time" column="IS_DELETE_TIME"/>
     </resultMap>
+    <resultMap id="getEduId" type="com.youthchina.domain.Qinghong.Location">
+        <id property="region_num" column="EDU_SCHOOL_LOCATION"/>
+    </resultMap>
+    <resultMap id="getWorkId" type="com.youthchina.domain.Qinghong.Location">
+        <id property="region_num" column="WORK_LOCATION"/>
+    </resultMap>
     <resultMap id="getDegree" type="com.youthchina.domain.qingyang.Degree">
         <id property="degreeNum" column="DEGREE_NUM"/>
         <result property="degreeChn" column="DEGREE_CHN"/>
@@ -227,7 +235,7 @@
 
     <!--获取申请者的信息-->
     <select id="getStudentInfo" resultMap="studentResultMap">
-        select a.*,b.*,c.*,d.*,e.*,f.*,g.*,z.*,o.*,p.*
+        select a.*,b.*,c.*,d.*,e.*,f.*,g.*,z.*,o.*,p.*,m.*
         from STU_INFO a
         LEFT JOIN SYS_USER z ON a.USER_ID=z.USER_ID AND z.IS_DELETE=0
         LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID AND b.IS_DELETE=0
