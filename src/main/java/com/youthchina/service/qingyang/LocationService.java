@@ -22,4 +22,17 @@ public class LocationService {
         return locationMapper.getChildrenChn(parentId);
     }
 
+    Location getLocation(Integer region_num){
+        String regionString = "" + region_num;
+        Location location;
+        if(regionString.charAt(0) == '9'){
+            location = locationMapper.getUSALocation(region_num);
+            location.setNation_code("USA");
+        } else {
+            location = locationMapper.getChnLocation(region_num);
+            location.setNation_code("CHN");
+        }
+        return location;
+    }
+
 }
