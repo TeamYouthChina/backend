@@ -1634,7 +1634,7 @@ components:
         organization:
           $ref: '#/components/schemas/Organization'
         location:
-          $ref: '#/components/schemas/Location'
+          type: string
         type:
           type: string
           enum:
