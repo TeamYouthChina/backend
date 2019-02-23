@@ -1,19 +1,32 @@
 package com.youthchina.dto.community;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.dto.RichTextDTO;
 
 public class RequestEssayDTO {
     private Integer id;
     private String title;
-    private String body;
     private Integer company_id;
+    private boolean is_anonymous;
+    private RichTextDTO body;
 
     public RequestEssayDTO(ComEssay comEssay){
         this.id = comEssay.getEssay_id();
         this.title = comEssay.getEssay_title();
-        this.body = comEssay.getEssay_body();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
+            this.body = richt;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
     }
     public RequestEssayDTO(){}
+
+    public RichTextDTO getBody(){return body;}
+
+    public void setBody(RichTextDTO body){this.body = body;}
 
     public Integer getId() {
         return id;
@@ -31,19 +44,19 @@ public class RequestEssayDTO {
         this.title = title;
     }
 
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
     public Integer getCompany_id() {
         return company_id;
     }
 
     public void setCompany_id(Integer company_id) {
         this.company_id = company_id;
+    }
+
+    public boolean isIs_anonymous() {
+        return is_anonymous;
+    }
+
+    public void setIs_anonymous(boolean is_anonymous) {
+        this.is_anonymous = is_anonymous;
     }
 }

@@ -21,7 +21,7 @@ public class RecommendServiceImplement implements RecommendService{
     public JobRecommendation get(Integer id) throws NotFoundException {
         JobRecommendation jobRecommendation =  jobRecommendMapper.get(id);
         if(jobRecommendation == null){
-            throw new NotFoundException(404,404,"This recommendation does not exist!");
+            throw new NotFoundException(404,404,"This recommendation does not exist!");//todo
         }else {
             return jobRecommendation;
         }
