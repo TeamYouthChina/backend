@@ -217,7 +217,6 @@
         LEFT OUTER JOIN JOB_INDUSTRY i ON j.JOB_ID = i.JOB_ID AND i.IS_DELETE = 0
         LEFT OUTER JOIN SYS_IND_CLASS class ON i.JOB_IND_CODE = class.IND_CODE AND class.IS_DELETE = 0
         LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
-#         LEFT OUTER JOIN SYS_CHN_REGION region ON loc.JOB_REGION_NUM = region.REGION_NUM AND region.IS_DELETE = 0
         LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = req.JOB_ID AND req.IS_DELETE = 0
         LEFT OUTER JOIN SYS_DEGREE degree ON req.JOB_DEGREE_NUM = degree.DEGREE_NUM
         LEFT OUTER JOIN SYS_PROF_CLASS prof ON j.JOB_PROF_CODE = prof.PROF_CODE AND prof.IS_DELETE = 0
@@ -281,9 +280,6 @@
             <if test="active != null">
                 AND j.JOB_ACTIVE = #{active}
             </if>
-            <if test="location != null">
-                AND  ( region.REGION_CHN like "%"#{location}"%" OR region.REGION_ENG like "%"#{location}"%" )
-            </if>
             <if test="jobReqList != null">
                 AND degree.DEGREE_NUM IN
                 <foreach collection="jobReqList" index="index" item="item" open="(" separator="," close=")">
@@ -296,7 +292,6 @@
                     #{item.indCode}
                 </foreach>
             </if>
-
     </select>
 
 

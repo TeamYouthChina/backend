@@ -7,6 +7,8 @@ import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.*;
+import com.youthchina.service.qingyang.JobService;
+import com.youthchina.service.qingyang.LocationService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +27,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:company.xml"})
+@DatabaseSetup({"classpath:company.xml", "classpath:location.xml"})
 public class JobTest {
 
     @Autowired
@@ -34,6 +36,12 @@ public class JobTest {
     private CompanyMapper companyMapper;
     @Autowired
     private LocationMapper locationMapper;
+
+    @Autowired
+    private LocationService locationService;
+
+    @Autowired
+    private JobService jobService;
 
     @Test
     public void testGetJob() { // Base Get
@@ -47,7 +55,7 @@ public class JobTest {
     }
 
     @Test
-    public void testGetJobLocation(){
+    public void testGetJobLocation() throws Exception{
         Job job = jobMapper.selectJobByJobId(2);
         List<Location> locationList = job.getJobLocationList();
         String region0 = "" + locationList.get(0).getRegion_num();
@@ -67,6 +75,14 @@ public class JobTest {
             locationList = locationMapper.getChnLocationByLocationList(locationList);
         }
         Assert.assertEquals("District of Columbia", locationList.get(0).getRegion_eng());
+
+
+        //Service Test
+        job = jobService.get(2);
+        Assert.assertEquals("back", job.getJobName());
+        Assert.assertEquals(1, job.getJobLocationList().size());
+        Assert.assertEquals(Integer.valueOf(2), job.getJobLocationList().get(0).getRegion_num());
+        Assert.assertEquals("上海", job.getJobLocationList().get(0).getRegion_chn());
 
     }
 
