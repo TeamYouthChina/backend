@@ -1,12 +1,15 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.domain.qingyang.Degree;
+import com.youthchina.dto.EducationDTO;
+
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.Date;
 
 public class EducationInfo {
     private Integer edu_id;
-    private Integer edu_degree;
+    private com.youthchina.domain.qingyang.Degree degree;
     private String edu_school;
     private String edu_school_country;
     private Location location;
@@ -19,6 +22,26 @@ public class EducationInfo {
     private Integer is_delete;
     private Timestamp is_delete_time;
 
+    public EducationInfo(EducationDTO educationDTO) {
+        this.edu_school=educationDTO.getUniversity();
+        this.edu_major=educationDTO.getMajor();
+        this.degree=new Degree();
+        this.degree.setDegreeNum(Integer.parseInt(educationDTO.getDegree()));
+        this.edu_start=educationDTO.getDuration().getBegin();
+        this.edu_end=educationDTO.getDuration().getEnd();
+        this.location=new Location();
+        this.location.setNation_code(educationDTO.getLocation().getNation_code());
+        this.location.setRegion_num(Integer.parseInt(educationDTO.getLocation().getLocation_code()));
+        this.edu_school_country=educationDTO.getLocation().getNation_code();
+
+        //fix location
+        //空值的设置
+
+    }
+
+    public EducationInfo() {
+    }
+
     public Integer getEdu_id() {
         return edu_id;
     }
@@ -27,12 +50,12 @@ public class EducationInfo {
         this.edu_id = edu_id;
     }
 
-    public Integer getEdu_degree() {
-        return edu_degree;
+    public Degree getDegree() {
+        return degree;
     }
 
-    public void setEdu_degree(Integer edu_degree) {
-        this.edu_degree = edu_degree;
+    public void setDegree(Degree degree) {
+        this.degree = degree;
     }
 
     public String getEdu_school() {

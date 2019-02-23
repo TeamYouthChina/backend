@@ -135,8 +135,5 @@ public class Location {
         this.is_delete_time = is_delete_time;
     }
 
-    @Override
-    public String toString() {
-        return region_chn.toString();
-    }
+
 }

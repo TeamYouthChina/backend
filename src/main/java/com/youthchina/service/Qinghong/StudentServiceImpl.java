@@ -5,8 +5,10 @@ import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.qingyang.LocationService;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private CompanyMapper companyMapper;
+
+    @Autowired
+    private LocationService locationService;
 
 
     /**
@@ -70,7 +75,58 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student add(Student entity) {
-        return null;
+        if(applicantMapper.getStudentInfo(entity.getId())!=null){
+            return applicantMapper.getStudentInfo(entity.getId());
+        }
+        applicantMapper.updateUserInfo(entity);
+        applicantMapper.insertStuInfo(entity);
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(entity.getId());
+        System.out.print(baseInfo);
+        Integer stu_id=baseInfo.getStu_id();
+        for(LabelInfo labelInfo:entity.getLabelInfos()){
+            AdvantageLabel label=new AdvantageLabel();
+            label.setStu_id(stu_id);
+            label.setLabel_code(labelInfo.getLabel_code());
+            applicantMapper.insertStuLabel(label);
+        }
+        for(EducationInfo educationInfo:entity.getEducationInfos()){
+            educationInfo.setStu_id(stu_id);
+            Location location=locationService.getLocation(educationInfo.getLocation().getRegion_num());
+            educationInfo.setLocation(location);
+            Integer integer=applicantMapper.insertEduInfo(educationInfo);
+        }
+        for(Project project:entity.getProjects()){
+            project.setStu_id(stu_id);
+            Integer integer=applicantMapper.insertStuProject(project);
+            System.out.print(integer);
+        }
+        for(Work work:entity.getWorks()){
+            work.setStu_id(stu_id);
+            Location location=locationService.getLocation(work.getLocation().getRegion_num());
+            work.setLocation(location);
+            applicantMapper.insertStuWork(work);
+        }
+        for (Activity activity:entity.getActivities()){
+            activity.setStu_id(stu_id);
+            applicantMapper.insertStuActivity(activity);
+        }
+        for(Certificate certificate:entity.getCertificates()){
+            certificate.setStu_id(stu_id);
+            applicantMapper.insertStuCertificate(certificate);
+        }
+        Student student=applicantMapper.getStudentInfo(entity.getId());
+        //分离service并不能实现location
+        for(EducationInfo educationInfo:student.getEducationInfos()){
+            Location location=locationService.getLocation(educationInfo.getLocation().getRegion_num());
+            educationInfo.setLocation(location);
+        }
+        for (Work work:student.getWorks()){
+            Location location=locationService.getLocation(work.getLocation().getRegion_num());
+            work.setLocation(location);
+        }
+
+
+        return student;
     }
 
     /**
@@ -179,35 +235,7 @@ public class StudentServiceImpl implements StudentService {
         }
 
     }
-    /**
-    * @Description: 传入一个student对象，对学生的信息进行添加
-    * @Param: [student]
-    * @return: java.lang.Integer
-    * @Author: Qinghong Wang
-    * @Date: 2019/2/17
-    */
 
-    @Override
-    public Integer addStudentInfo(Student student) throws NotFoundException {
-        applicantMapper.insertStuInfo(student);
-        for(EducationInfo educationInfo:student.getEducationInfos()){
-            applicantMapper.insertEduInfo(educationInfo);
-        }
-        applicantMapper.insertSubInfo(student.getSubInfo());
-        for(Project project:student.getProjects()){
-            applicantMapper.insertStuProject(project);
-        }
-        for(Work work:student.getWorks()){
-            applicantMapper.insertStuWork(work);
-        }
-        for (Activity activity:student.getActivities()){
-            applicantMapper.insertStuActivity(activity);
-        }
-        for(Certificate certificate:student.getCertificates()){
-            applicantMapper.insertStuCertificate(certificate);
-        }
-        return 0;
-    }
 
     /**
      * @Description: 通过job_id和user_id来将申请的职位信息加入申请表中

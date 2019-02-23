@@ -32,5 +32,4 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
     Integer deleteJobCollect(Integer collect_id) throws NotFoundException;
     Integer deleteCompCollect(Integer collect_id) throws NotFoundException;
     Integer addCompCollect(Integer company_id,Integer user_id) throws NotFoundException;
-    Integer addStudentInfo(Student student) throws NotFoundException;
 }
