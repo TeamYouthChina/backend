@@ -4,10 +4,12 @@ import com.youthchina.dao.jinhao.JobRecommendMapper;
 import com.youthchina.domain.jinhao.recommend.JobRecommendation;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+@Service
 public class RecommendServiceImplement implements RecommendService{
 
     @Resource

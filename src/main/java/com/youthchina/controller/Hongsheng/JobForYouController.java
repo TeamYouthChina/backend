@@ -1,9 +1,8 @@
 package com.youthchina.controller.Hongsheng;
 
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
-import com.youthchina.domain.jinhao.recommend.JobRecommendation;
+
 import com.youthchina.domain.qingyang.Job;
-import com.youthchina.dto.JobSearchResultDTO;
+
 import com.youthchina.dto.Response;
 import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.dto.StatusDTO;
