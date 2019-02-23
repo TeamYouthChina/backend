@@ -39,7 +39,7 @@ public interface CommunityQAMapper {
 
     QuestionAttention isQuestionAttention(@Param("user_id") Integer user_id, @Param("ques_id") Integer ques_id);
 
-    Integer addAttentionToQuestion(Integer user_id);
+    void addAttentionToQuestion(QuestionAttention questionAttention);
 
     Integer createMapBetweenAttentionAndQuestion(@Param("ques_id") Integer ques_id,
                                                  @Param("atten_id") Integer atten_id);
@@ -118,7 +118,9 @@ public interface CommunityQAMapper {
 
     CommentEvaluate getCommentEvaluate(Integer evaluate_id);
 
-    Integer reEvaluateComment(CommentEvaluate commentEvaluate);
+    void reEvaluateComment(Integer evaluate_id);
+
+    void deleteEvaluateComment(Integer evaluate_id);
 
     List<Discuss> listAllCommentDiscuss(Integer comment_id);
 
@@ -181,7 +183,7 @@ public interface CommunityQAMapper {
 
     VideoAttention videoAttentionStatus(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
 
-    Integer reAddAttentionToVideo(VideoAttention videoAttention);
+    Integer reAddAttentionToVideo(Integer atten_id);
 
     Integer addAttentionToVideo(VideoAttention videoAttention);
 
@@ -189,7 +191,7 @@ public interface CommunityQAMapper {
 
     VideoAttention getVideoAttention(Integer atten_id);
 
-    Integer cancelAttentionVideo(VideoAttention videoAttention);
+    void cancelAttentionVideo(Integer atten_id);
 
 
     Integer addCommentToVideo(VideoComment videoComment);
@@ -199,7 +201,7 @@ public interface CommunityQAMapper {
 
     VideoComment getVideoComment(Integer comment_id);
 
-    Integer deleteVideoComment(VideoComment videoComment);
+    void deleteVideoComment(Integer comment_id);
 
     VideoEvaluate videoEvaluateStatus(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
 
@@ -210,7 +212,9 @@ public interface CommunityQAMapper {
 
     VideoEvaluate getVideoEvaluate(Integer evaluate_id);
 
-    Integer reEvaluateVideo(VideoEvaluate videoEvaluate);
+    void reEvaluateVideo(Integer evaluate_id);
+
+    void cancelEvaluateVideo(Integer evaluate_id);
 
     Integer countVideoFollwers(Integer video_id);
 
