@@ -16,7 +16,6 @@ public interface CommunityQAMapper {
                                             @Param("rela_type") Integer rela_type, @Param("rela_id") Integer rela_id);
 
     Question getQuestion(Integer ques_id);
-
     void deleteQuestion(Integer ques_id);
     void deleteAllAttention(Integer ques_id);
     void deleteAllAnswers(Integer ques_id);
@@ -25,37 +24,36 @@ public interface CommunityQAMapper {
     void deleteAllAnswerInvitation(Integer ques_id);
     void deleteAllComments(Integer ques_id);
     void deleteAllCommentEvaluation(Integer ques_id);
-    void deleteAllDiscusses(Integer ques_id);
-    void deleteAllDiscussEvaluation(Integer ques_id);
+//    void deleteAllDiscusses(Integer ques_id);
+//    void deleteAllDiscussEvaluation(Integer ques_id);
 
     Integer editQuestion(Question question);
 
     List<Question> getMyQuestions(Integer user_id); // 列出用户提出的问题
 
-    List<Label> listAllQuesetionLabel(Integer ques_id);
+//    List<Label> listAllQuesetionLabel(Integer ques_id);
 
-    Integer addLabels(@Param("labels") List<Integer> labels, @Param("ques_id") Integer ques_id);
+//    Integer addLabels(@Param("labels") List<Integer> labels, @Param("ques_id") Integer ques_id);
 
     QuestionAttention getAttention(Integer atten_id);
 
     QuestionAttention isQuestionAttention(@Param("user_id") Integer user_id, @Param("ques_id") Integer ques_id);
 
-    Integer addAttentionToQuestion(QuestionAttention questionAttention);
+    void addAttentionToQuestion(QuestionAttention questionAttention);
 
     Integer createMapBetweenAttentionAndQuestion(@Param("ques_id") Integer ques_id,
                                                  @Param("atten_id") Integer atten_id);
 
     List<Question> listMyAttenQuestion(Integer user_id);
 
-    Integer reAddAttentionToQuestion(QuestionAttention questionAttention);
+    Integer reAddAttentionToQuestion(Integer atten_id);
 
-    Integer cancelAttention(QuestionAttention questionAttention);
+    Integer cancelAttention(Integer atten_id);
 
     Integer countTheFollower(Integer ques_id);
 
     Integer addAnswerToQuestion(QuestionAnswer questionAnswer);
 
-    List<QuestionAnswer> listAllQuestionAnswer(Integer ques_id);
 
     QuestionAnswer getAnswer(Integer answer_id);
 
@@ -80,12 +78,14 @@ public interface CommunityQAMapper {
 
     Evaluate getAnswerEvaluate(Integer evaluate_id);
 
-    Integer addEvaluateToAnswer(Evaluate evaluate);
+    void addEvaluateToAnswer(Evaluate evaluate);
 
-    Integer createMapBetweenAnswerAndEvaluate(@Param("evaluate_id") Integer evaluate_id,
+    void createMapBetweenAnswerAndEvaluate(@Param("evaluate_id") Integer evaluate_id,
                                               @Param("answer_id") Integer answer_id);
 
-    Integer reEvaluateAnswer(Evaluate evaluate);
+    void reEvaluateAnswer(Integer evaluate_id);
+
+    void deleteEvaluateAnswer(Integer evaluate_id);
 
     List<QuestionAnswer>  listMyAgreeAnswer(Integer user_id);
 
@@ -118,7 +118,9 @@ public interface CommunityQAMapper {
 
     CommentEvaluate getCommentEvaluate(Integer evaluate_id);
 
-    Integer reEvaluateComment(CommentEvaluate commentEvaluate);
+    void reEvaluateComment(Integer evaluate_id);
+
+    void deleteEvaluateComment(Integer evaluate_id);
 
     List<Discuss> listAllCommentDiscuss(Integer comment_id);
 
@@ -181,7 +183,7 @@ public interface CommunityQAMapper {
 
     VideoAttention videoAttentionStatus(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
 
-    Integer reAddAttentionToVideo(VideoAttention videoAttention);
+    Integer reAddAttentionToVideo(Integer atten_id);
 
     Integer addAttentionToVideo(VideoAttention videoAttention);
 
@@ -189,7 +191,7 @@ public interface CommunityQAMapper {
 
     VideoAttention getVideoAttention(Integer atten_id);
 
-    Integer cancelAttentionVideo(VideoAttention videoAttention);
+    void cancelAttentionVideo(Integer atten_id);
 
 
     Integer addCommentToVideo(VideoComment videoComment);
@@ -199,7 +201,7 @@ public interface CommunityQAMapper {
 
     VideoComment getVideoComment(Integer comment_id);
 
-    Integer deleteVideoComment(VideoComment videoComment);
+    void deleteVideoComment(Integer comment_id);
 
     VideoEvaluate videoEvaluateStatus(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
 
@@ -210,7 +212,9 @@ public interface CommunityQAMapper {
 
     VideoEvaluate getVideoEvaluate(Integer evaluate_id);
 
-    Integer reEvaluateVideo(VideoEvaluate videoEvaluate);
+    void reEvaluateVideo(Integer evaluate_id);
+
+    void cancelEvaluateVideo(Integer evaluate_id);
 
     Integer countVideoFollwers(Integer video_id);
 

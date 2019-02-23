@@ -9,6 +9,7 @@ import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Country;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,8 +31,8 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Resource
     HrMapper hrMapper;
 
-    @Resource
-    LocationMapper locationMapper;
+    @Autowired
+    LocationService locationService;
 
     /**
      * 公司搜索
@@ -54,15 +55,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     private void setCompanyLocation(Company company){
         Location location = company.getLocation();
         if(location != null){
-            Integer region = location.getRegion_num();
-            Country nation = company.getCountry();
-            if(nation.getCountryAbbre() == "USA"){
-                location = locationMapper.getUSALocation(region);
-                location.setNation_code("USA");
-            } else {
-                location = locationMapper.getChnLocation(region);
-                location.setNation_code("CHN");
-            }
+            company.setLocation(locationService.getLocation(location.getRegion_num()));
         }
     }
 

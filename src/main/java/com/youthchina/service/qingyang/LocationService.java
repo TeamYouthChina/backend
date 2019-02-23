@@ -17,7 +17,7 @@ public class LocationService {
     @Resource
     LocationMapper locationMapper;
 
-    List<Location> getChildren(String parent){
+    public List<Location> getChildren(String parent){
         Integer parentId = Integer.valueOf(parent);
         return locationMapper.getChildrenChn(parentId);
     }
