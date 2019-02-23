@@ -167,7 +167,7 @@ public class CommunityQAMapperTest {
     @Test
     public void getAnswer() {
         QuestionAnswer questionAnswer = communityQAMapper.getAnswer(1);
-        Assert.assertEquals("这是第一个回答", questionAnswer.getAnswer_content());
+        Assert.assertEquals(Integer.valueOf(1), questionAnswer.getAnswer_id());
         QuestionAnswer questionAnswer1 = communityQAMapper.getAnswerById(1);
         Assert.assertNotNull(questionAnswer1.getQuestion());
     }

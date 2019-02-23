@@ -1,10 +1,13 @@
 package com.youthchina.dto.community;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.AnswerInvitation;
 import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.RichTextDTO;
 
+import java.io.IOException;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -17,7 +20,6 @@ public class QuestionDTO {
     private Integer id;
     private User creator;
     private String title;
-    private String body;
     private Integer isAnonymous;
     private Timestamp createAt;
     private Timestamp editAt;
@@ -26,20 +28,26 @@ public class QuestionDTO {
     private List<Integer> labelIds;
     private Integer rela_type;
     private Integer rela_id;
-    private String abbreviation;
+    private RichTextDTO richTextDTO;
 
     public QuestionDTO(Question question) {
         this.id = question.getQues_id();
         this.creator = question.getQues_user();
         this.title = question.getQues_title();
-        this.body = question.getQues_body();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(question.getQues_body(), RichTextDTO.class);
+            this.richTextDTO = richt;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+
         this.invitation = question.getQues_invitation();
         this.isAnonymous =question.getUser_anony();
         this.createAt = question.getQues_pub_time();
         this.editAt = question.getQues_edit_time();
         this.labelIds = question.getLabelIds();
         this.rela_type = question.getRela_type();
-        this.abbreviation = question.getQues_abbre();
         this.answers = new ArrayList<SimpleAnswerDTO>();
         if(question.getQuestionAnswers() != null) {
             for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
@@ -50,6 +58,10 @@ public class QuestionDTO {
     }
 
     public QuestionDTO(){}
+
+    public RichTextDTO getRichTextDTO(){return richTextDTO;}
+
+    public void setRichTextDTO(RichTextDTO richTextDTO){this.richTextDTO = richTextDTO;}
 
     public Integer getId() {
         return id;
@@ -73,14 +85,6 @@ public class QuestionDTO {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
     }
 
     public Integer getAnonymous() {
@@ -137,14 +141,6 @@ public class QuestionDTO {
 
     public void setRela_id(Integer rela_id){
         this.rela_id = rela_id;
-    }
-
-    public String getAbbreviation() {
-        return abbreviation;
-    }
-
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
     }
 
     public Timestamp getEditAt() {
