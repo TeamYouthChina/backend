@@ -38,5 +38,7 @@ public interface ApplicantMapper {
     Integer insertStuActivity(Activity activity);
     JobApply getOneJobApply(Integer job_id,Integer stu_id);
     Degree getDegreeNum(String degreeNum);
+    Integer updateUserInfo(Student student);
+    Integer insertStuLabel(AdvantageLabel advantageLabel);
 
 }

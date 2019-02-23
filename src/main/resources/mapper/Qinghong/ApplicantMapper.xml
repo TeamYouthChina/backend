@@ -235,7 +235,7 @@
 
     <!--获取申请者的信息-->
     <select id="getStudentInfo" resultMap="studentResultMap">
-        select a.*,b.*,c.*,d.*,e.*,f.*,g.*,z.*,o.*,p.*,m.*
+        select a.*,b.*,c.*,d.*,e.*,f.*,g.*,z.*,o.*,p.*
         from STU_INFO a
         LEFT JOIN SYS_USER z ON a.USER_ID=z.USER_ID AND z.IS_DELETE=0
         LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID AND b.IS_DELETE=0
@@ -476,6 +476,13 @@
        #{edu_college},#{edu_gpa},#{edu_start},#{edu_end},#{stu_id},0,NULL
         )
     </insert>
+    <insert id="insertStuLabel" parameterType="com.youthchina.domain.Qinghong.AdvantageLabel">
+        INSERT INTO STU_ADVAN_LABEL
+        (LABEL_CODE,STU_ID,IS_DELETE,IS_DELETE_TIME)
+        VALUES (
+        #{label_code},#{stu_id},0,NULL
+        )
+    </insert>
 
     <insert id="insertSubInfo" parameterType="com.youthchina.domain.Qinghong.SubInfo" useGeneratedKeys="true" keyProperty="SUB_ID">
         INSERT INTO STU_SUB_INFO
@@ -543,7 +550,11 @@
 
         )
     </insert>
-    <update id="updateUserInfo" parameterType="com.youthchina.domain.zhongyang.User">
+    <update id="updateUserInfo" parameterType="com.youthchina.domain.Qinghong.Student">
+        UPDATE SYS_USER SET
+        USER_PHOTO=#{avatarUrl}
+        WHERE USER_ID=#{id}
+
 
     </update>
 

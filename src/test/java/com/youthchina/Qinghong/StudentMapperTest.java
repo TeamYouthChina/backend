@@ -10,6 +10,7 @@ import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Job;
+import io.swagger.models.auth.In;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -87,7 +88,7 @@ public class StudentMapperTest {
     @Test
     public void testGetStudentInfo(){
         Student student=applicantMapper.getStudentInfo(2);
-        System.out.print(student.getEducationInfos().get(0).getEdu_school());
+        System.out.print(student.getLabelInfos().get(0).getLabel_chn());
 
     }
 
@@ -303,6 +304,15 @@ public class StudentMapperTest {
         JobApply jobApply=applicantMapper.getOneJobApply(1,1);
         Assert.assertNotNull(jobApply);
         System.out.print(jobApply.getJob().getCompany().getCompanyName());
+    }
+
+    @Test
+    public void testUpdateUser(){
+        Student student=new Student();
+        student.setAvatarUrl("www.baidu.com");
+        student.setId(1);
+        Integer integer =applicantMapper.updateUserInfo(student);
+        System.out.print(integer);
     }
 
 

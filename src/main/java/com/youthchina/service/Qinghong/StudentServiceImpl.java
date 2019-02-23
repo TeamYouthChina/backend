@@ -75,13 +75,23 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student add(Student entity) {
+        if(applicantMapper.getStudentInfo(entity.getId())!=null){
+            return applicantMapper.getStudentInfo(entity.getId());
+        }
+        applicantMapper.updateUserInfo(entity);
         applicantMapper.insertStuInfo(entity);
         BaseInfo baseInfo=applicantMapper.getBaseInfo(entity.getId());
         System.out.print(baseInfo);
         Integer stu_id=baseInfo.getStu_id();
+        for(LabelInfo labelInfo:entity.getLabelInfos()){
+            AdvantageLabel label=new AdvantageLabel();
+            label.setStu_id(stu_id);
+            label.setLabel_code(labelInfo.getLabel_code());
+            applicantMapper.insertStuLabel(label);
+        }
         for(EducationInfo educationInfo:entity.getEducationInfos()){
             educationInfo.setStu_id(stu_id);
-            Location location=locationService.getLocation(educationInfo.getLocation().getNation_code(),educationInfo.getLocation().getRegion_num());
+            Location location=locationService.getLocation(educationInfo.getLocation().getRegion_num());
             educationInfo.setLocation(location);
             Integer integer=applicantMapper.insertEduInfo(educationInfo);
         }
@@ -92,7 +102,7 @@ public class StudentServiceImpl implements StudentService {
         }
         for(Work work:entity.getWorks()){
             work.setStu_id(stu_id);
-            Location location=locationService.getLocation(work.getLocation().getNation_code(),work.getLocation().getRegion_num());
+            Location location=locationService.getLocation(work.getLocation().getRegion_num());
             work.setLocation(location);
             applicantMapper.insertStuWork(work);
         }
@@ -106,10 +116,15 @@ public class StudentServiceImpl implements StudentService {
         }
         Student student=applicantMapper.getStudentInfo(entity.getId());
         //分离service并不能实现location
+        for(EducationInfo educationInfo:student.getEducationInfos()){
+            Location location=locationService.getLocation(educationInfo.getLocation().getRegion_num());
+            educationInfo.setLocation(location);
+        }
+        for (Work work:student.getWorks()){
+            Location location=locationService.getLocation(work.getLocation().getRegion_num());
+            work.setLocation(location);
+        }
 
-        Location location=locationService.getLocation(entity.getEducationInfos().get(0).getLocation().getNation_code(),entity.getEducationInfos().get(0).getLocation().getRegion_num());
-        student.getEducationInfos().get(0).setLocation(location);
-        student.getWorks().get(0).setLocation(location);
 
         return student;
     }

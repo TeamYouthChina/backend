@@ -1,5 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.*;
 import com.youthchina.util.zhongyang.HasId;
@@ -38,9 +39,9 @@ public class Student extends User implements HasId<Integer> {
     public Student(ApplicantDTO applicantDTO) {
         this.setId(applicantDTO.getId());
         this.isInJob=applicantDTO.getIsInJob();
-        this.currentCompanyName=applicantDTO.getCurrentCompanyName();
         this.setUsername(applicantDTO.getName());
         this.setAvatarUrl(applicantDTO.getAvatarUrl());
+        this.currentCompanyName=applicantDTO.getCurrentCompanyName();
         //对于教育信息的转化
         List<EducationInfo> educationInfos=new ArrayList<>();
         for(EducationDTO educationDTO:applicantDTO.getEducations()){
@@ -80,8 +81,20 @@ public class Student extends User implements HasId<Integer> {
             certificates.add(certificate);
         }
         this.certificates=certificates;
+        //公司信息的设置
 
-        //公司信息还未完成
+//        Company company=new Company();
+//        this.company=company;
+//        company.setCompanyId(applicantDTO.getId());
+
+        //优势标签的设置
+        List<LabelInfo> labelInfos=new ArrayList<>();
+        for(String s:applicantDTO.getSkills()){
+            LabelInfo labelInfo=new LabelInfo();
+            labelInfo.setLabel_code(s);
+            labelInfos.add(labelInfo);
+        }
+        this.labelInfos=labelInfos;
     }
 
     public Student(){}
@@ -247,4 +260,5 @@ public class Student extends User implements HasId<Integer> {
     public void setLabelInfos(List<LabelInfo> labelInfos) {
         this.labelInfos = labelInfos;
     }
+
 }
