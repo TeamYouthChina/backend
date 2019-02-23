@@ -2022,8 +2022,6 @@ components:
               type: string
             modified_at:
               type: string
-            company_id:
-              type: string
             creator:
               $ref: '#/components/schemas/User'
     Question:
