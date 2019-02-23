@@ -11,11 +11,6 @@ import java.util.List;
  **/
 public class CompanyDTO {
 
-    /*TODO
-avatarUrl	string
-pattern: (http|https)://(.?)*
-note	string*/
-
     private Integer id;
     private String name;
     private LocationDTO location;
@@ -23,8 +18,15 @@ note	string*/
     private NationDTO nation;
     private String avatarUrl;
     private String note;
+    private Integer userId;
 
+    public Integer getUserId() {
+        return userId;
+    }
 
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public CompanyDTO() {
     }
@@ -37,6 +39,7 @@ note	string*/
         this.nation = new NationDTO(domain.getCountry()); // Default: Chinese Location
         this.avatarUrl = domain.getCompanyLogo();
         this.note = domain.getCompanyIntroduc();
+        this.userId = domain.getUserId();
     }
 
     public Integer getId() {
