@@ -85,17 +85,17 @@ public class YouthchinaApplicationTests {
     @Test
     public void testEssayService() throws NotFoundException {
         ComEssay comEssay = new ComEssay();
-        comEssay.setEssay_id(1);
         comEssay.setEssay_title("title1");
         comEssay.setEssay_abbre("this essay describe ...");
         comEssay.setEssay_body("newbody");
         comEssay.setUser_anony(0);
         Timestamp time = new Timestamp(System.currentTimeMillis());
-       // comEssay.setEssay_pub_time(time);
+        comEssay.setEssay_pub_time(time);
         comEssay.setEssay_edit_time(time);
         comEssay.setIs_delete(0);
         comEssay.setUser_anony(0);
-        int i = essayService.updateEssay(comEssay);
+        List<Integer> lab = new ArrayList<Integer>();
+        int i = essayService.addEssay(comEssay,lab,1,2,5);
         System.out.println(i);
     }
 }

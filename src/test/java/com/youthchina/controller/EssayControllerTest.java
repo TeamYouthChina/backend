@@ -85,8 +85,7 @@ public class EssayControllerTest {
         requestEssayDTO.setBody("This is a new article Body");
         requestEssayDTO.setTitle("This is a new article Title");
         //requestEssayDTO.setCompany_id(1);
-
-
+        requestEssayDTO.setIs_anonymous(true);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO);

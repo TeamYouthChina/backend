@@ -28,6 +28,7 @@ public class ComEssay {
     public ComEssay(RequestEssayDTO requestEssayDTO){ ;
         this.essay_body = requestEssayDTO.getBody();
         this.essay_title = requestEssayDTO.getTitle();
+        this.user_anony = (requestEssayDTO.isIs_anonymous())? 1:0;
     }
 
     public ComEssay() {
