@@ -27,6 +27,7 @@ import java.util.Collections;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private String JWTTOKEN = null;
     private String REGISTER_URL = null;
     private String URL_PREFIX = null;
 
@@ -37,12 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationProvider jwtAuthenticationProvider;
 
     @Autowired
-    public SecurityConfig(JwtService jwtService, @Value("${web.url.prefix}") String url_prefix, JwtAuthenticationProvider jwtAuthenticationProvider) {
+    public SecurityConfig(JwtService jwtService, @Value("${web.url.prefix}") String url_prefix, JwtAuthenticationProvider jwtAuthenticationProvider, @Value("${security.token.header}") String JWTTOKEN) {
         this.jwtService = jwtService;
         this.URL_PREFIX = url_prefix;
         this.LOGIN_URL = URL_PREFIX + "/login";
         this.REGISTER_URL = URL_PREFIX + "/*/register";
         this.jwtAuthenticationProvider = jwtAuthenticationProvider;
+        this.JWTTOKEN = JWTTOKEN;
     }
 
     @Override
@@ -74,8 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.setAllowedOrigins(Collections.singletonList("*"));
         configuration.setAllowedMethods(Collections.singletonList("*"));
         configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(Collections.singletonList("*"));
-        configuration.setExposedHeaders(Collections.singletonList("*"));
+        configuration.setAllowedHeaders(Collections.singletonList(this.JWTTOKEN));
+        configuration.setExposedHeaders(Collections.singletonList(this.JWTTOKEN));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
