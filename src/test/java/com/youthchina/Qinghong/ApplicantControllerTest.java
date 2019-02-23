@@ -81,7 +81,9 @@ public class ApplicantControllerTest {
     @Test
     public void testAdd() throws Exception{
         ApplicantDTO student=new ApplicantDTO();
-        student.setId(1);
+        LocationDTO locationDTO=new LocationDTO();
+        locationDTO.setNation_code("USA");
+        locationDTO.setLocation_code("920001");
         student.setName("qinghong wang");
         student.setAvatarUrl("www.baidu.com");
         student.setIsInJob("是");
@@ -98,6 +100,7 @@ public class ApplicantControllerTest {
         long end=2222222;
         DurationDTO durationDTO=new DurationDTO(begin,end);
         educationDTO.setDuration(durationDTO);
+        educationDTO.setLocation(locationDTO);
         educationDTOS.add(educationDTO);
         student.setEducations(educationDTOS);
         //联系信息
@@ -114,6 +117,7 @@ public class ApplicantControllerTest {
         workDTO.setEmployer("google");
         workDTO.setPosition("backend");
         workDTO.setDuration(durationDTO);
+        workDTO.setLocation(locationDTO);
         workDTOS.add(workDTO);
         student.setExperiences(workDTOS);
         //项目信息

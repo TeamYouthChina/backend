@@ -24,6 +24,12 @@ public class Work {
         this.work_position=workDTO.getPosition();
         this.work_start_time=workDTO.getDuration().getBegin();
         this.work_end_time=workDTO.getDuration().getEnd();
+        this.location=new Location();
+        this.location.setNation_code(workDTO.getLocation().getNation_code());
+        this.getLocation().setRegion_num(Integer.parseInt(workDTO.getLocation().getLocation_code()));
+        this.work_duty="backend";
+        this.work_sector="backend";
+        this.work_nature=1;
     }
 
     public Work() {

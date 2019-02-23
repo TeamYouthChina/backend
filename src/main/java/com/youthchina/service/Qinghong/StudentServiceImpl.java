@@ -8,6 +8,7 @@ import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.qingyang.LocationService;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private CompanyMapper companyMapper;
+
+    @Autowired
+    private LocationService locationService;
 
 
     /**
@@ -71,24 +75,41 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student add(Student entity) {
-        Integer integer=applicantMapper.insertStuInfo(entity);
+        applicantMapper.insertStuInfo(entity);
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(entity.getId());
+        System.out.print(baseInfo);
+        Integer stu_id=baseInfo.getStu_id();
         for(EducationInfo educationInfo:entity.getEducationInfos()){
-            applicantMapper.insertEduInfo(educationInfo);
+            educationInfo.setStu_id(stu_id);
+            Location location=locationService.getLocation(educationInfo.getLocation().getNation_code(),educationInfo.getLocation().getRegion_num());
+            educationInfo.setLocation(location);
+            Integer integer=applicantMapper.insertEduInfo(educationInfo);
         }
-        applicantMapper.insertSubInfo(entity.getSubInfo());
         for(Project project:entity.getProjects()){
-            applicantMapper.insertStuProject(project);
+            project.setStu_id(stu_id);
+            Integer integer=applicantMapper.insertStuProject(project);
+            System.out.print(integer);
         }
         for(Work work:entity.getWorks()){
+            work.setStu_id(stu_id);
+            Location location=locationService.getLocation(work.getLocation().getNation_code(),work.getLocation().getRegion_num());
+            work.setLocation(location);
             applicantMapper.insertStuWork(work);
         }
         for (Activity activity:entity.getActivities()){
+            activity.setStu_id(stu_id);
             applicantMapper.insertStuActivity(activity);
         }
         for(Certificate certificate:entity.getCertificates()){
+            certificate.setStu_id(stu_id);
             applicantMapper.insertStuCertificate(certificate);
         }
-        Student student=applicantMapper.getStudentInfo(integer);
+        Student student=applicantMapper.getStudentInfo(entity.getId());
+        //分离service并不能实现location
+        Location location=locationService.getLocation(entity.getEducationInfos().get(0).getLocation().getNation_code(),entity.getEducationInfos().get(0).getLocation().getRegion_num());
+        student.getEducationInfos().get(0).setLocation(location);
+        student.getWorks().get(0).setLocation(location);
+
         return student;
     }
 

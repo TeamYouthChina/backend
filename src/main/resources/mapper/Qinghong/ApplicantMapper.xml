@@ -42,7 +42,6 @@
             <result property="stu_id" column="STU_ID"/>
             <result property="is_delete" column="IS_DELETE"/>
             <result property="is_delete_time" column="IS_DELETE_TIME"/>
-            <association property="location" column="EDU_SCHOOL_LOCATION" javaType="com.youthchina.domain.Qinghong.Location" resultMap="getLocation"/>
             <association property="degree" column="EDU_DEGREE" javaType="com.youthchina.domain.qingyang.Degree" resultMap="getDegree"/>
         </collection>
         <collection property="certificates" ofType="com.youthchina.domain.Qinghong.Certificate">
@@ -65,7 +64,6 @@
             <result property="work_end_time" column="WORK_END_TIME"/>
             <result property="work_duty" column="WORK_DUTY"/>
             <result property="work_nature" column="WORK_NATURE"/>
-            <association property="location" column="WORK_LOCATION" javaType="com.youthchina.domain.Qinghong.Location" resultMap="getLocation"/>
         </collection>
         <collection property="projects" ofType="com.youthchina.domain.Qinghong.Project">
             <id property="proj_id" column="PROJ_ID"/>
@@ -229,12 +227,11 @@
 
     <!--获取申请者的信息-->
     <select id="getStudentInfo" resultMap="studentResultMap">
-        select a.*,b.*,c.*,d.*,e.*,f.*,g.*,z.*,m.*,o.*,p.*
+        select a.*,b.*,c.*,d.*,e.*,f.*,g.*,z.*,o.*,p.*
         from STU_INFO a
         LEFT JOIN SYS_USER z ON a.USER_ID=z.USER_ID AND z.IS_DELETE=0
         LEFT JOIN STU_EDU_INFO b ON a.STU_ID=b.STU_ID AND b.IS_DELETE=0
-        LEFT JOIN SYS_DEGREE p ON a.STU_DEGREE=p.DEGREE_NUM
-        LEFT JOIN SYS_CHN_REGION m ON b.EDU_SCHOOL_LOCATION=m.REGION_NUM AND m.IS_DELETE=0
+        LEFT JOIN SYS_DEGREE p ON b.EDU_DEGREE=p.DEGREE_NUM
         LEFT JOIN STU_SUB_INFO c ON a.STU_ID=c.STU_ID AND c.IS_DELETE=0
         LEFT JOIN STU_PROJECT d ON a.STU_ID=d.STU_ID AND d.IS_DELETE=0
         LEFT JOIN STU_WORK e ON a.STU_ID=e.STU_ID AND e.IS_DELETE=0
@@ -468,7 +465,7 @@
         )
         VALUES (
        #{degree.degreeNum},#{edu_school},#{edu_school_country},#{location.region_num},#{edu_major},
-       #{edu_college},#{edu_gpa},#{edu_start},#{edu_end},#{stu_id},#{is_delete},#{is_delete_time}
+       #{edu_college},#{edu_gpa},#{edu_start},#{edu_end},#{stu_id},0,NULL
         )
     </insert>
 
@@ -481,7 +478,7 @@
         )
         VALUES (
        #{sub_course},#{sub_honor},#{sub_award},#{sub_skill},#{sub_foreign},#{sub_interest},#{sub_introduction},
-       #{stu_id},#{is_delete},#{is_delete_time}
+       #{stu_id},0,NULL
 
         )
     </insert>
@@ -495,7 +492,7 @@
         )
         VALUES (
        #{certificate_name},#{certificate_insti},#{certificate_grant_date},#{certificate_expir_date},#{certificate_url},
-       #{stu_id},#{is_delete},#{is_delete_time}
+       #{stu_id},0,NULL
 
         )
     </insert>
@@ -509,7 +506,7 @@
         )
         VALUES (
        #{proj_name},#{proj_role},#{proj_start_time},#{proj_end_time},#{proj_deliver},#{deliver_publish},
-       #{deliver_pub_insti},#{stu_id},#{is_delete},#{is_delete_time}
+       #{deliver_pub_insti},#{stu_id},0,NULL
 
         )
     </insert>
@@ -521,7 +518,7 @@
         )
         VALUES (
        #{work_company},#{location.region_num},#{work_position},#{work_sector},#{work_start_time},
-       #{work_end_time},#{work_duty},#{work_nature},#{stu_id},#{is_delete},#{is_delete_time}
+       #{work_end_time},#{work_duty},#{work_nature},#{stu_id},0,NULL
 
         )
     </insert>
@@ -534,7 +531,7 @@
         )
         VALUES (
        #{act_name},#{act_organization},#{act_role},#{act_start_time},#{act_end_time},
-       #{act_detail},#{stu_id},#{is_delete},#{is_delete_time}
+       #{act_detail},#{stu_id},0,NULL
 
         )
     </insert>

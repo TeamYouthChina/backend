@@ -86,9 +86,8 @@ public class StudentMapperTest {
 
     @Test
     public void testGetStudentInfo(){
-        Student student=applicantMapper.getStudentInfo(1);
-        Assert.assertNotNull(student);
-        System.out.print(student.getIsInJob());
+        Student student=applicantMapper.getStudentInfo(2);
+        System.out.print(student.getEducationInfos().get(0).getEdu_school());
 
     }
 
@@ -204,7 +203,7 @@ public class StudentMapperTest {
         Location location=new Location();
         educationInfo.setLocation(location);
         Degree degree=new Degree();
-        degree.setDegreeChn("硕士");
+        degree.setDegreeNum(1);
         educationInfo.setDegree(degree);
         educationInfo.setEdu_school("gwu");
         educationInfo.setEdu_school_country("USA");

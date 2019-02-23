@@ -23,7 +23,7 @@ public class Activity {
         this.act_organization=extracurricularDTO.getOrganization();
         this.act_start_time=extracurricularDTO.getDuration().getBegin();
         this.act_end_time=extracurricularDTO.getDuration().getEnd();
-        //fix location
+        this.act_detail="help students";
     }
 
     public Activity() {

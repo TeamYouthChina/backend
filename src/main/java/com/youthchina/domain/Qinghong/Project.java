@@ -23,6 +23,9 @@ public class Project {
         this.proj_role=projectDTO.getRole();
         this.proj_start_time=projectDTO.getDuration().getBegin();
         this.proj_end_time=projectDTO.getDuration().getEnd();
+        this.proj_deliver="相对论";
+        this.deliver_publish=1;
+        this.deliver_pub_insti="新华社";
     }
 
     public Project() {
