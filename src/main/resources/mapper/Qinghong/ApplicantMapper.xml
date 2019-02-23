@@ -535,6 +535,9 @@
 
         )
     </insert>
+    <update id="updateUserInfo" parameterType="com.youthchina.domain.zhongyang.User">
+
+    </update>
 
 
     
