@@ -1616,6 +1616,33 @@ paths:
       responses:
         '201':
           description: successful
+    get:
+      tags:
+        - Editorials
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: video id
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      comments:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/editorials/{id}/upvote':
     put:  
       tags:
