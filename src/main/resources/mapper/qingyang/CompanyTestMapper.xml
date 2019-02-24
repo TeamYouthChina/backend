@@ -148,7 +148,7 @@
               country.COUNTRY_ENG as COUNTRY_ENG,
               country.START_TIME as COUNTRY_START_TIME,
 
-              COUNT(collect.COLLECT_ID) as COMPANY_COLLECT_NUM
+              collect.COM_COLLECT as COMPANY_COLLECT_NUM
 
 #               region.REGION_NUM as REGION_NUM,
 #               region.REGION_CHN as REGION_CHN,
@@ -165,9 +165,8 @@
                  LEFT OUTER JOIN SYS_COMPANY_NATURE	nature ON com.COMPANY_NATURE = nature.NATURE_NUM
                  LEFT OUTER JOIN SYS_COMPANY_SCALE	scale ON com.COMPANY_SCALE_NUM = scale.SCALE_NUM
                  LEFT OUTER JOIN SYS_COUNTRY	country ON com.COMPANY_COUNTRY = country.COUNTRY_ABBRE AND country.IS_DELETE = 0
-                 LEFT OUTER JOIN SYS_CHN_REGION	region ON com.COMPANY_LOCATION = region.REGION_NUM AND region.IS_DELETE = 0
-                 LEFT OUTER JOIN STU_COMP_COLLECT collect ON collect.COMPANY_ID = com.COMPANY_ID AND collect.IS_DELETE = 0 GROUP BY com.COMPANY_ID
-    </sql>
+        LEFT OUTER JOIN (SELECT COUNT(COMPANY_ID) as COM_COLLECT, COMPANY_ID FROM STU_COMP_COLLECT WHERE IS_DELETE = 0 GROUP BY COMPANY_ID) as collect ON collect.COMPANY_ID = com.COMPANY_ID
+</sql>
 
     <select id="selectCompany" resultMap="company" parameterType="java.lang.Integer">
         SELECT
