@@ -59,7 +59,7 @@ public class UserControllerTest {
 
     @Test
     public void testRegister() throws Exception {
-        this.mvc.perform(post(this.urlPrefix + "/applicant/register")
+        this.mvc.perform(post(this.urlPrefix + "/applicants/register")
                 .content("{\n" +
                         "  \"username\": \"testUser\",\n" +
                         "  \"date_of_birth\": \"1995-11-01\",\n" +
