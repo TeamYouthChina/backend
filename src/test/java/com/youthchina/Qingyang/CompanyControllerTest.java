@@ -72,7 +72,7 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"location\":{\"nation_code\":\"CHN\",\"location_code\":\"1\"},\"website\":\"dji.com\",\"nation\":{\"countryAbbre\":\"CHN\"},\"avatarUrl\":\"1\",\"note\":\"无人机\",\"userId\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+                .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\",\"status\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
         ;
     }
 
