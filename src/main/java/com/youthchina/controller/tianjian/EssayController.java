@@ -85,7 +85,7 @@ public class EssayController {
         essayDTO.setModified_at(time);
         if(requestEssayDTO.getCompany_id()!=null)
             essayDTO.setCompany(companyCURDService.get(requestEssayDTO.getCompany_id()));
-        essayDTO.setCreat_at(essayServiceimpl.getEssay(id).getEssay_pub_time());
+        essayDTO.setCreate_at(essayServiceimpl.getEssay(id).getEssay_pub_time());
         essayDTO.setTitle(comEssay.getEssay_title());
         essayDTO.setAuthor(user);
         try{
@@ -142,7 +142,7 @@ public class EssayController {
         EssayDTO essayDTO = new EssayDTO();
         essayDTO.setTitle(comEssay.getEssay_title());
         //essayDTO.setBody(comEssay.getEssay_body());
-        essayDTO.setCreat_at(comEssay.getEssay_pub_time());
+        essayDTO.setCreate_at(comEssay.getEssay_pub_time());
         if(requestEssayDTO.getCompany_id()!=null){
             essayDTO.setCompany(companyCURDService.get(requestEssayDTO.getCompany_id()));
         }
