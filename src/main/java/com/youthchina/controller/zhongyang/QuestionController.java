@@ -7,6 +7,8 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.QuestionDTO;
 import com.youthchina.dto.community.RequestSimpleAnswerDTO;
+import com.youthchina.dto.community.RequestQuestionDTO;
+import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.jinhao.communityQA.CommunityQAService;
@@ -20,6 +22,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -81,14 +84,21 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @PostMapping("/**")
-    public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionDTO questionDTO, @AuthenticationPrincipal User user) {
+    public ResponseEntity<?> createQuestionInfo(@RequestBody RequestQuestionDTO requestQuestionDTO, @AuthenticationPrincipal User user) {
+        Question question = new Question(requestQuestionDTO);
+        question.setQues_user(user);
+
+        QuestionDTO questionDTO = new QuestionDTO(question);
         questionDTO.setCreator(user);
-       // questionDTO.setAbbreviation(questionDTO.getRichTextDTO().getBraftEditorRaw());
+
         return add(questionDTO);
     }
 
     @PutMapping("/{id}/**")
-    public ResponseEntity<?> updateQuestionInfo(@RequestBody QuestionDTO questionDTO, @PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity<?> updateQuestionInfo(@PathVariable Integer id, @RequestBody RequestQuestionDTO requestQuestionDTO) throws NotFoundException {
+        Question question = new Question(requestQuestionDTO);
+
+        QuestionDTO questionDTO = new QuestionDTO(question);
         questionDTO.setId(id);
         return update(questionDTO);
     }
@@ -103,7 +113,9 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     public ResponseEntity<?> getAnswers(@PathVariable Integer id) throws NotFoundException {
         System.out.println("get answers");
         QuestionDTO questionDTO = getDto(id);
-        return ResponseEntity.ok(new Response(questionDTO.getAnswers()));
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("answers", questionDTO.getAnswers());
+        return ResponseEntity.ok(new Response(map));
     }
 
     @PutMapping("/{id}/invite/**")
