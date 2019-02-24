@@ -99,7 +99,7 @@ public class AnswerControllerTest {
     public void testAddAnswerComment() throws Exception{
         RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("qweweer");
+        richTextDTO.setPreviewText("yes 2/24/2019");
         simpleAnswerDTO.setBody(richTextDTO);
         simpleAnswerDTO.setIs_anonymous(false);
         ObjectMapper mapper = new ObjectMapper();
@@ -134,8 +134,8 @@ public class AnswerControllerTest {
                         .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
-                .andDo(print());
-                //.andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andDo(print())
+                .andExpect(content().json("{\"content\":[{\"id\":18,\"user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":null,\"create_at\":\"2019-02-24T15:02:44.000+0000\",\"is_anonymous\":true}],\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
 }
