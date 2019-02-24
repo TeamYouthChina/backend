@@ -32,4 +32,14 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
     Integer deleteJobCollect(Integer collect_id) throws NotFoundException;
     Integer deleteCompCollect(Integer collect_id) throws NotFoundException;
     Integer addCompCollect(Integer company_id,Integer user_id) throws NotFoundException;
+    List<EducationInfo> insertEducation(EducationInfo educationInfo,Integer user_id) throws NotFoundException;
+    List<Work> insertWork(Work work,Integer user_id) throws NotFoundException;
+    List<Project> insertProject(Project project,Integer user_id) throws NotFoundException;
+    List<Activity> insertActivity(Activity activity,Integer user_id) throws NotFoundException;
+    List<Certificate> insertCertificate(Certificate certificate,Integer user_id) throws NotFoundException;
+    Integer deleteEducation(Integer id) throws NotFoundException;
+    Integer deleteWork(Integer id) throws NotFoundException;
+    Integer deleteProject(Integer id) throws NotFoundException;
+    Integer deleteActivity(Integer id) throws NotFoundException;
+    Integer deleteCertificate(Integer id) throws NotFoundException;
 }

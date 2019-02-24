@@ -54,6 +54,14 @@ public class StudentServiceImpl implements StudentService {
             throw new NotFoundException(404, 404, "cannot find user with id "+id);
         } else {
             Student student = applicantMapper.getStudentInfo(id);
+            for(EducationInfo educationInfo:student.getEducationInfos()){
+                Location location=locationService.getLocation(educationInfo.getLocation().getRegion_num());
+                educationInfo.setLocation(location);
+            }
+            for (Work work:student.getWorks()){
+                Location location=locationService.getLocation(work.getLocation().getRegion_num());
+                work.setLocation(location);
+            }
             return student;
         }
     }
@@ -428,5 +436,106 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+    @Override
+    public List<EducationInfo> insertEducation(EducationInfo educationInfo, Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        if(baseInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else{
+            Integer stu_id=baseInfo.getStu_id();
+            educationInfo.setStu_id(stu_id);
+            Integer integer=applicantMapper.insertEduInfo(educationInfo);
+            List<EducationInfo> educationInfos=applicantMapper.getEducations(user_id);
+            return educationInfos;
 
+        }
+    }
+
+    @Override
+    public List<Work> insertWork(Work work, Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        if(baseInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else{
+            Integer stu_id=baseInfo.getStu_id();
+            work.setStu_id(stu_id);
+            Integer integer=applicantMapper.insertStuWork(work);
+            List<Work> works=applicantMapper.getWorks(user_id);
+            return works;
+
+        }
+
+    }
+
+    @Override
+    public List<Project> insertProject(Project project, Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        if(baseInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else{
+            Integer stu_id=baseInfo.getStu_id();
+            project.setStu_id(stu_id);
+            Integer integer=applicantMapper.insertStuProject(project);
+            List<Project> projects=applicantMapper.getProjects(user_id);
+            return projects;
+
+        }
+    }
+
+    @Override
+    public List<Activity> insertActivity(Activity activity, Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        if(baseInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else{
+            Integer stu_id=baseInfo.getStu_id();
+            activity.setStu_id(stu_id);
+            Integer integer=applicantMapper.insertStuActivity(activity);
+            List<Activity> activities=applicantMapper.getActivities(user_id);
+            return activities;
+
+        }
+
+    }
+
+    @Override
+    public List<Certificate> insertCertificate(Certificate certificate, Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        if(baseInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else{
+            Integer stu_id=baseInfo.getStu_id();
+            certificate.setStu_id(stu_id);
+            Integer integer=applicantMapper.insertStuCertificate(certificate);
+            List<Certificate> certificates=applicantMapper.getCertificates(user_id);
+            return certificates;
+
+        }
+
+    }
+
+    @Override
+    public Integer deleteEducation(Integer id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public Integer deleteWork(Integer id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public Integer deleteProject(Integer id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public Integer deleteActivity(Integer id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public Integer deleteCertificate(Integer id) throws NotFoundException {
+        return null;
+    }
 }
