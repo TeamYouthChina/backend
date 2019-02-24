@@ -153,7 +153,7 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         return ResponseEntity.ok(new Response(educationResponseDTOS));
     }
 
-    @PostMapping("/{id}/works")
+    @PostMapping("/{id}/experiences")
     public ResponseEntity<?> getApplicantsWork(@RequestBody WorkDTO workDTO,@AuthenticationPrincipal User user,@PathVariable Integer id)throws NotFoundException{
         Work work=new Work(workDTO);
         List<WorkResponseDTO> workResponseDTOS=new ArrayList<>();

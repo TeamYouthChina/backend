@@ -351,7 +351,7 @@ public class ApplicantControllerTest {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/1/works").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/1/experiences").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication())
