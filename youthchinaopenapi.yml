@@ -893,19 +893,6 @@ paths:
       responses:
         '201':
           description: invitation send successfully.
-  # '/questions/{id}/upvote':
-  #   put:
-  #     tags:
-  #       - Question
-  #     parameters:
-  #       - name: id
-  #         required: true
-  #         in: path
-  #         schema:
-  #           type: integer
-  #     responses:
-  #       '201':
-  #         description: attention successfullly
   '/questions/{id}/attention':
     put:
       tags:
@@ -1671,8 +1658,29 @@ paths:
       responses:
         '200':
           description: successful 
-
-
+          
+  '/job-for-you':
+    get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      jobList:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Job'
+                  status:
+                    $ref: '#/components/schemas/Status'
+              
 
 components:
   schemas:
@@ -1750,6 +1758,10 @@ components:
             - part-time
             - internship
         deadLine:
+          type: string
+        job_description:
+          type: string
+        job_duty:
           type: string
     Organization:
       type: object
