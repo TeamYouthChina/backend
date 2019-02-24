@@ -6,6 +6,7 @@ import com.youthchina.domain.qingyang.Job;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * @author: Qingyang Zhao

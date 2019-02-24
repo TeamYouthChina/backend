@@ -48,9 +48,16 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void getNewCompany() throws Exception{
+    public void getNewJob() throws Exception{
         this.mvc.perform(
                 get(this.urlPrefix + "/home/new").with(authGenerator.authentication())
+        ).andDo(print());
+    }
+
+    @Test
+    public void getHotJob() throws Exception{
+        this.mvc.perform(
+                get(this.urlPrefix + "/home/hot").with(authGenerator.authentication())
         ).andDo(print());
     }
 }
