@@ -166,7 +166,6 @@ public class BriefReviewController {
         Timestamp time =  new Timestamp(System.currentTimeMillis());
         comment.setComment_pub_time(time);
         comment.setUser_id(user.getId());
-        comment.setComment_id(id);
         comment.setUser_anony((requestCommentDTO.getIs_anonymous()==true)? 1:0);
         Comment commentreturn = briefReviewServiceImplement.addComment(comment,id);
         if ( commentreturn!=null)
