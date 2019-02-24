@@ -22,6 +22,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -112,7 +113,9 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     public ResponseEntity<?> getAnswers(@PathVariable Integer id) throws NotFoundException {
         System.out.println("get answers");
         QuestionDTO questionDTO = getDto(id);
-        return ResponseEntity.ok(new Response(questionDTO.getAnswers()));
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("answers", questionDTO.getAnswers());
+        return ResponseEntity.ok(new Response(map));
     }
 
     @PutMapping("/{id}/invite/**")
