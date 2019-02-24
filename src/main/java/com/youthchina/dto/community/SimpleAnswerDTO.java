@@ -4,22 +4,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
+import com.youthchina.service.zhongyang.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Timestamp;
-
-/**
- * Created by zhongyangwu on 1/2/19.
- */
 public class SimpleAnswerDTO {
-    private Integer id;
-    private User creator;
     private RichTextDTO body;
-    private Boolean isAnonymous;
-    private Timestamp creatAt;
+    private boolean is_anonymous;
+    private User creator;
+    private String modified_at;
+    private String create_at;
+    private String company_id;
+    private QuestionDTO question;
 
-    public SimpleAnswerDTO(QuestionAnswer questionAnswer) {
-        this.id  = questionAnswer.getAnswer_id();
-        this.creator = questionAnswer.getAnswer_user();
+    public SimpleAnswerDTO(){}
+
+    public SimpleAnswerDTO(QuestionAnswer questionAnswer){
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(questionAnswer.getAnswer_content(), RichTextDTO.class);
@@ -27,27 +26,11 @@ public class SimpleAnswerDTO {
         }catch (Exception e){
             System.out.println("Exception");
         }
-
-        this.isAnonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
-        this.creatAt = questionAnswer.getAnswer_pub_time();
-    }
-
-    public SimpleAnswerDTO(){}
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
+        this.is_anonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
+        this.creator = questionAnswer.getAnswer_user();
+        this.modified_at = questionAnswer.getAnswer_edit_time().toString();
+        this.create_at =questionAnswer.getAnswer_pub_time().toString();
+        this.question = new QuestionDTO(questionAnswer.getQuestion());
     }
 
     public RichTextDTO getBody() {
@@ -58,19 +41,51 @@ public class SimpleAnswerDTO {
         this.body = body;
     }
 
-    public Boolean getIsAnonymous() {
-        return isAnonymous;
+    public boolean isIs_anonymous() {
+        return is_anonymous;
     }
 
-    public void setIsAnonymous(Boolean anonymous) {
-        isAnonymous = anonymous;
+    public void setIs_anonymous(boolean is_anonymous) {
+        this.is_anonymous = is_anonymous;
     }
 
-    public Timestamp getCreatAt() {
-        return creatAt;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setCreatAt(Timestamp creatAt) {
-        this.creatAt = creatAt;
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public String getModified_at() {
+        return modified_at;
+    }
+
+    public void setModified_at(String modified_at) {
+        this.modified_at = modified_at;
+    }
+
+    public String getCreate_at() {
+        return create_at;
+    }
+
+    public void setCreate_at(String create_at) {
+        this.create_at = create_at;
+    }
+
+    public String getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(String company_id) {
+        this.company_id = company_id;
+    }
+
+    public QuestionDTO getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(QuestionDTO question) {
+        this.question = question;
     }
 }

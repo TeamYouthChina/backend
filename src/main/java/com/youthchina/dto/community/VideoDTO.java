@@ -4,13 +4,14 @@ import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.Video;
 import com.youthchina.domain.zhongyang.User;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class VideoDTO {
     private Integer id;
     private String url;
-    private List<CommentDTO> comments;
+    private List<CommentDTO> comments = new ArrayList<CommentDTO>();
     private User uploader;
 
     public VideoDTO (){}
