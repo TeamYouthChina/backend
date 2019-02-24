@@ -46,7 +46,6 @@ public class AnswerController {
            questionAnswer.setAnswer_id(id);
            questionAnswer.setUser_id(user.getId());
            QuestionAnswer questionAnswer1 = communityQAServiceImplement.editAnswer(questionAnswer);
-           questionAnswer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
            SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(questionAnswer1);
           if (returnSimpleAnswer!=null)
            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));

@@ -81,8 +81,7 @@ public class AnswerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(searchJson)
         )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":{\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qweertyuiop\",\"resourceList\":null},\"isAnonymous\":true},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andDo(print());
     }
 
     @Test
