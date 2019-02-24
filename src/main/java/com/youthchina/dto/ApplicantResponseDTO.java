@@ -1,29 +1,25 @@
 package com.youthchina.dto;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.youthchina.domain.Qinghong.*;
-import com.youthchina.domain.zhongyang.User;
+import com.youthchina.domain.qingyang.Company;
 
-import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Created by zhong on 2018/12/30.
- */
-public class ApplicantDTO {
+ * @program: youthchina
+ * @description: 返回申请者DTO
+ * @author: Qinghong Wang
+ * @create: 2019-02-23 14:36
+ **/
+public class ApplicantResponseDTO {
     private Integer id;
     private String name;
     private String avatarUrl;
     private String isInJob;
-    private String currentCompanyName;
-    private List<EducationDTO> educations;
-    private List<String> skills;
+    private CompanyDTO company;
     private List<String> labels;
+    private List<EducationDTO> educations;
     private List<String> emails;
     private List<String> phonenumbers;
     private List<WorkDTO> experiences;
@@ -31,15 +27,11 @@ public class ApplicantDTO {
     private List<ExtracurricularDTO> extracurriculars;
     private List<CertificateDTO> certificates;//todo: fixme
 
-    public ApplicantDTO() {
-    }
-
-    public ApplicantDTO(Student student) {
+    public ApplicantResponseDTO(Student student) {
         this.id = student.getId();
         this.name = student.getUsername();
         this.avatarUrl=student.getAvatarUrl();
         this.isInJob=student.getIsInJob();
-        this.currentCompanyName=student.getCurrentCompanyName();
         this.labels=new ArrayList<>();
         for(LabelInfo labelInfo:student.getLabelInfos()){
             String label_chn=labelInfo.getLabel_chn();
@@ -65,11 +57,10 @@ public class ApplicantDTO {
         for (Activity activity : student.getActivities()) {
             this.extracurriculars.add(new ExtracurricularDTO(activity));
         }
-        List<CertificateDTO> certificates = new ArrayList<>(student.getCertificates().size());
+        this.certificates = new ArrayList<>(student.getCertificates().size());
         for(Certificate certificate: student.getCertificates()){
-            certificates.add(new CertificateDTO(certificate));
+            this.certificates.add(new CertificateDTO(certificate));
         }
-        this.setCertificates(certificates);
     }
 
     public Integer getId() {
@@ -104,6 +95,22 @@ public class ApplicantDTO {
         this.isInJob = isInJob;
     }
 
+    public CompanyDTO getCompany() {
+        return company;
+    }
+
+    public void setCompany(CompanyDTO company) {
+        this.company = company;
+    }
+
+    public List<String> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(List<String> labels) {
+        this.labels = labels;
+    }
+
     public List<EducationDTO> getEducations() {
         return educations;
     }
@@ -112,7 +119,6 @@ public class ApplicantDTO {
         this.educations = educations;
     }
 
-    @JsonIgnore
     public List<String> getEmails() {
         return emails;
     }
@@ -121,11 +127,9 @@ public class ApplicantDTO {
         this.emails = emails;
     }
 
-    @JsonIgnore
     public List<String> getPhonenumbers() {
         return phonenumbers;
     }
-
 
     public void setPhonenumbers(List<String> phonenumbers) {
         this.phonenumbers = phonenumbers;
@@ -161,45 +165,5 @@ public class ApplicantDTO {
 
     public void setCertificates(List<CertificateDTO> certificates) {
         this.certificates = certificates;
-    }
-
-
-    public String getCurrentCompanyName() {
-        return currentCompanyName;
-    }
-
-    public void setCurrentCompanyName(String currentCompanyName) {
-        this.currentCompanyName = currentCompanyName;
-    }
-
-    public List<String> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(List<String> skills) {
-        this.skills = skills;
-    }
-
-    public List<String> getLabels() {
-        return labels;
-    }
-
-    public void setLabels(List<String> labels) {
-        this.labels = labels;
-    }
-
-    @JsonGetter("contacts")
-    public Map<String, List<String>> getContact() {
-        HashMap<String, List<String>> map = new HashMap<>();
-        map.put("emails", this.emails);
-        map.put("phonenumbers", this.phonenumbers);
-        return map;
-    }
-
-    @JsonSetter("contacts")
-    @SuppressWarnings("unchecked")
-    public void setContact(Map<String, Object> map) {
-        this.emails = (List) map.get("emails");
-        this.phonenumbers = (List) map.get("phonenumbers");
     }
 }
