@@ -1850,7 +1850,6 @@ paths:
                     $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
-                
   '/editorials':
     post:
       tags:
@@ -2010,8 +2009,111 @@ paths:
                           $ref: '#/components/schemas/Job'
                   status:
                     $ref: '#/components/schemas/Status'
-          
-              
+  '/discovery/users':
+    get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: recommend users
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/User'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/discovery/companies':
+     get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: recommend company
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Company'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/disconvery/articles':
+    get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: recommend users
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Article'
+                  status:
+                    $ref: '#/components/schemas/Status' 
+  '/discovery/questions':
+    get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: recommend questions
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Question'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/discovery/jobs':
+    get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: recommend jobs
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Job'
+                  status:
+                    $ref: '#/components/schemas/Status'
 
 components:
   schemas:
