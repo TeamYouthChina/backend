@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.QuestionDTO;
+import com.youthchina.dto.community.RequestEssayDTO;
+import com.youthchina.dto.community.RequestQuestionDTO;
 import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.util.zhongyang.HasId;
 
@@ -17,8 +19,6 @@ public class Question implements HasId<Integer> {
     private String ques_body;
     private Timestamp ques_pub_time;
     private Timestamp ques_edit_time;
-    private Integer is_delete;
-    private Timestamp is_delete_time;
     private Integer user_anony;
     private User ques_user;
     private List<QuestionAttention> questionAttentions;
@@ -36,24 +36,41 @@ public class Question implements HasId<Integer> {
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(questionDTO.getRichTextDTO());
+            java.lang.String requestJson = ow.writeValueAsString(questionDTO.getBody());
             this.ques_body = requestJson;
         }catch (Exception e){
             System.out.println("Exception");
         }
 
         this.ques_invitation = questionDTO.getInvitation();
-        this.user_anony = questionDTO.getAnonymous();
+        this.user_anony = (questionDTO.getAnonymous() ? 1 : 0);
         this.ques_pub_time = questionDTO.getCreateAt();
         this.ques_edit_time = questionDTO.getEditAt();
         this.rela_type = questionDTO.getRela_type();
+        this.rela_id = questionDTO.getRela_id();
         this.labelIds = questionDTO.getLabelIds();
-        this.ques_abbre = questionDTO.getRichTextDTO().getBraftEditorRaw();
+        this.ques_abbre = questionDTO.getBody().getBraftEditorRaw();
         if(questionDTO.getAnswers() != null) {
             for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
                 this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
             }
         }
+    }
+
+    public Question(RequestQuestionDTO requestQuestionDTO) {
+        this.ques_title = requestQuestionDTO.getTitle();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(requestQuestionDTO.getBody());
+            this.ques_body = requestJson;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+        this.user_anony = (requestQuestionDTO.getIs_anonymous() ? 1 : 0);
+        this.rela_type = requestQuestionDTO.getRela_type();
+        this.rela_id = requestQuestionDTO.getRela_id();
+        this.ques_abbre = requestQuestionDTO.getBody().getBraftEditorRaw();
     }
 
     public Question(){}
@@ -112,22 +129,6 @@ public class Question implements HasId<Integer> {
 
     public void setQues_edit_time(Timestamp ques_edit_time) {
         this.ques_edit_time = ques_edit_time;
-    }
-
-    public Integer getIs_delete() {
-        return is_delete;
-    }
-
-    public void setIs_delete(Integer is_delete) {
-        this.is_delete = is_delete;
-    }
-
-    public Timestamp getIs_delete_time() {
-        return is_delete_time;
-    }
-
-    public void setIs_delete_time(Timestamp is_delete_time) {
-        this.is_delete_time = is_delete_time;
     }
 
     public Integer getUser_anony() {

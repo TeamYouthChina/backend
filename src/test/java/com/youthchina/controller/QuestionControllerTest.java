@@ -6,6 +6,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.community.QuestionDTO;
+import com.youthchina.dto.community.RequestQuestionDTO;
 import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
@@ -90,26 +91,24 @@ public class QuestionControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"title\":\"第一个问题\",\"createAt\":\"2018-12-04T13:32:40.000+0000\",\"editAt\":\"2018-12-04T13:32:40.000+0000\",\"answers\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第一个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":2,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第二个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":3,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第三个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":4,\"creator\":{\"id\":3,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第四个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"}],\"invitation\":null,\"labelIds\":null,\"rela_type\":1,\"rela_id\":null,\"richTextDTO\":{\"braftEditorRaw\":\"Abbreviation of the question 1 but42\",\"previewText\":\"Body of the question 1 but 42\",\"resourceList\":null},\"anonymous\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"title\":\"第一个问题\",\"createAt\":\"2018-12-04T13:32:40.000+0000\",\"editAt\":\"2018-12-04T13:32:40.000+0000\",\"answers\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第一个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":2,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第二个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":3,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第三个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":4,\"creator\":{\"id\":3,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第四个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"}],\"invitation\":null,\"labelIds\":null,\"rela_type\":1,\"rela_id\":3,\"body\":{\"braftEditorRaw\":\"Abbreviation of the question 1 but42\",\"previewText\":\"Body of the question 1 but 42\",\"resourceList\":null},\"anonymous\":true},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
     public void addQuestionTest() throws Exception {
-        QuestionDTO questionDTO = new QuestionDTO();
-        questionDTO.setTitle("Question No.100");
+        RequestQuestionDTO requestQuestionDTO = new RequestQuestionDTO();
+        requestQuestionDTO.setTitle("Question No.100");
         RichTextDTO richTextDTO = new RichTextDTO();
         richTextDTO.setPreviewText("Body of the question No.100");
         richTextDTO.setBraftEditorRaw("Abbreviation of the question No.100");
-        questionDTO.setRichTextDTO(richTextDTO);
+        requestQuestionDTO.setBody(richTextDTO);
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
-        questionDTO.setRela_type(2);
-        questionDTO.setRela_id(2);
-        questionDTO.setCreateAt(new Timestamp(System.currentTimeMillis()));
-        questionDTO.setEditAt(new Timestamp(System.currentTimeMillis()));
-        questionDTO.setAnonymous(0);
+        requestQuestionDTO.setRela_type(2);
+        requestQuestionDTO.setRela_id(2);
+        requestQuestionDTO.setIs_anonymous(true);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(questionDTO);
+        java.lang.String requestJson = ow.writeValueAsString(requestQuestionDTO);
 
         this.mvc.perform(
                 post(this.urlPrefix + "/questions").contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -121,17 +120,17 @@ public class QuestionControllerTest {
 
     @Test
     public void updateQuestionTest() throws Exception {
-        QuestionDTO questionDTO = new QuestionDTO();
-        questionDTO.setTitle("How to learn JAVA");
+        RequestQuestionDTO requestQuestionDTO = new RequestQuestionDTO();
+        requestQuestionDTO.setTitle("How to learn JAVA");
         RichTextDTO richTextDTO = new RichTextDTO();
         richTextDTO.setPreviewText("Body of the question No.100");
         richTextDTO.setBraftEditorRaw("Abbreviation of the question No.100");
-        questionDTO.setRichTextDTO(richTextDTO);
-        questionDTO.setAnonymous(1);
+        requestQuestionDTO.setBody(richTextDTO);
+        requestQuestionDTO.setIs_anonymous(true);
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(questionDTO);
+        java.lang.String requestJson = ow.writeValueAsString(requestQuestionDTO);
 
         this.mvc.perform(
 
