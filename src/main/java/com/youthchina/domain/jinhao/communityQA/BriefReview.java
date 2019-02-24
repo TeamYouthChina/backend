@@ -1,5 +1,7 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
 
 import com.youthchina.dto.community.BriefReviewDTO;
@@ -31,7 +33,15 @@ public class BriefReview {
 
     public BriefReview (BriefReviewDTO briefReviewDTO){
         this.review_id = briefReviewDTO.getId();
-        this.review_content = briefReviewDTO.getBody();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(briefReviewDTO.getBody());
+            this.review_content = requestJson;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+
         this.user = briefReviewDTO.getAuthor();
         Iterator it = briefReviewDTO.getComments().iterator();
         while(it.hasNext()){

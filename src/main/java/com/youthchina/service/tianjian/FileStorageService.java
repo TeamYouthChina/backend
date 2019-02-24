@@ -17,5 +17,5 @@ public interface FileStorageService {
 
     public void deleteFile(List<String> fileName);
 
-    void uploadFile(File file);
+    void uploadFile(File file,Long id);
 }
