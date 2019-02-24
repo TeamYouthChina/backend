@@ -6,7 +6,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.community.QuestionDTO;
-import com.youthchina.dto.community.SimpleAnswerDTO;
+import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -69,7 +69,7 @@ public class QuestionControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":[{\"id\":5,\"creator\":{\"id\":4,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第五个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":[{\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第五个回答\",\"resourceList\":null},\"isAnonymous\":false}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
@@ -90,7 +90,7 @@ public class QuestionControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"title\":\"第一个问题\",\"createAt\":\"2018-12-04T13:32:40.000+0000\",\"editAt\":\"2018-12-04T13:32:40.000+0000\",\"answers\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第一个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":2,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第二个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":3,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第三个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"},{\"id\":4,\"creator\":{\"id\":3,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第四个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"}],\"invitation\":null,\"labelIds\":null,\"rela_type\":1,\"rela_id\":null,\"richTextDTO\":{\"braftEditorRaw\":\"Abbreviation of the question 1 but42\",\"previewText\":\"Body of the question 1 but 42\",\"resourceList\":null},\"anonymous\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"title\":\"第一个问题\",\"isAnonymous\":1,\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"answers\":[{\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第一个回答\",\"resourceList\":null},\"isAnonymous\":false},{\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第二个回答\",\"resourceList\":null},\"isAnonymous\":false},{\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第三个回答\",\"resourceList\":null},\"isAnonymous\":false},{\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第四个回答\",\"resourceList\":null},\"isAnonymous\":false}],\"rela_type\":1,\"rela_id\":null,\"anonymous\":1,\"richTextDTO\":{\"braftEditorRaw\":\"Abbreviation of the question 1 but42\",\"previewText\":\"Body of the question 1 but 42\",\"resourceList\":null}},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
@@ -104,8 +104,8 @@ public class QuestionControllerTest {
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
         questionDTO.setRela_type(2);
         questionDTO.setRela_id(2);
-        questionDTO.setCreateAt(new Timestamp(System.currentTimeMillis()));
-        questionDTO.setEditAt(new Timestamp(System.currentTimeMillis()));
+        questionDTO.setCreate_at(new Timestamp(System.currentTimeMillis()));
+        questionDTO.setModified_at(new Timestamp(System.currentTimeMillis()));
         questionDTO.setAnonymous(0);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -206,7 +206,7 @@ public class QuestionControllerTest {
 
     @Test
     public void testAddAnswer() throws Exception{
-        SimpleAnswerDTO simpleAnswerDTO = new SimpleAnswerDTO();
+        RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
         simpleAnswerDTO.setIsAnonymous(true);
         RichTextDTO richTextDTO = new RichTextDTO();
         richTextDTO.setPreviewText("qweertyuiop");

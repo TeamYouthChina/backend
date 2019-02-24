@@ -3,7 +3,7 @@ package com.youthchina.domain.jinhao.communityQA;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.community.SimpleAnswerDTO;
+import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
@@ -31,9 +31,7 @@ public class QuestionAnswer implements HasId<Integer> {
         this.question = question;
     }
 
-    public QuestionAnswer(SimpleAnswerDTO simpleAnswerDTO) {
-        this.answer_id = simpleAnswerDTO.getId();
-        this.answer_user = simpleAnswerDTO.getCreator();
+    public QuestionAnswer(RequestSimpleAnswerDTO simpleAnswerDTO) {
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -43,7 +41,6 @@ public class QuestionAnswer implements HasId<Integer> {
             System.out.println("Exception");
         }
         this.user_anony = (simpleAnswerDTO.getIsAnonymous()) ? 1 : 0;
-        this.answer_pub_time = simpleAnswerDTO.getCreatAt();
     }
 
     public QuestionAnswer(){}
