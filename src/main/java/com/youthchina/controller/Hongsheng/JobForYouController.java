@@ -22,9 +22,8 @@ import java.util.List;
  * Created by hongshengzhang on 2/23/19.
  */
 @RestController
-@RequestMapping("${web.url.prefix}//discovery/jobs")
-public class JobRecommendController {
-
+@RequestMapping("${web.url.prefix}/job-for-you")
+public class JobForYouController {
     @Autowired
     private JobRecommendServiceImplement jobRecommendServiceImplement;
 
