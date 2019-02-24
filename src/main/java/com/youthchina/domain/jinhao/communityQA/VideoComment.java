@@ -1,6 +1,9 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.VideoCommentDTO;
 
 import java.sql.Timestamp;
 
@@ -14,6 +17,20 @@ public class VideoComment {
     private Integer is_delete;
     private Timestamp is_delete_time;
     private User user;
+
+    public VideoComment(VideoCommentDTO commentDTO){
+        this.user_anony = (commentDTO.isIs_anonymous())? 1:0;
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(commentDTO.getBody());
+            this.comment_content = requestJson;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+    }
+
+    public VideoComment(){}
 
     public User getUser() {
         return user;

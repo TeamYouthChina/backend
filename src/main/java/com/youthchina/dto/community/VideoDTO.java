@@ -2,25 +2,29 @@ package com.youthchina.dto.community;
 
 import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.Video;
+import com.youthchina.domain.jinhao.communityQA.VideoComment;
 import com.youthchina.domain.zhongyang.User;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class VideoDTO {
     private Integer id;
     private String url;
-    private List<CommentDTO> comments;
+    private List<CommentDTO> comments = new ArrayList<>();
     private User uploader;
 
     public VideoDTO (){}
+
     public VideoDTO (Video video){
         this.id = video.getVideo_id();
         this.url = video.getVideo_name();
         Iterator it = video.getVideoComments().iterator();
         while(it.hasNext()){
-            CommentDTO commentDTO = new CommentDTO((Comment) it.next());
-            comments.add(commentDTO);
+            CommentDTO commentDTO = new CommentDTO((VideoComment)it.next());
+            System.out.println("commentid:"+commentDTO.getId());
+            this.comments.add(commentDTO);
         }
         this.uploader = video.getUser();
     }
