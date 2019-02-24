@@ -6,6 +6,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.community.QuestionDTO;
+import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.dto.community.RequestQuestionDTO;
 import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.util.AuthGenerator;
@@ -70,7 +71,7 @@ public class QuestionControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":[{\"id\":5,\"creator\":{\"id\":4,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第五个回答\",\"resourceList\":null},\"isAnonymous\":false,\"creatAt\":\"2018-12-04T13:32:40.000+0000\"}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":[{\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第五个回答\",\"resourceList\":null},\"isAnonymous\":false}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
@@ -205,7 +206,7 @@ public class QuestionControllerTest {
 
     @Test
     public void testAddAnswer() throws Exception{
-        SimpleAnswerDTO simpleAnswerDTO = new SimpleAnswerDTO();
+        RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
         simpleAnswerDTO.setIsAnonymous(true);
         RichTextDTO richTextDTO = new RichTextDTO();
         richTextDTO.setPreviewText("qweertyuiop");
