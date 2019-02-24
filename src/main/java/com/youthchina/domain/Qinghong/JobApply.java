@@ -20,11 +20,11 @@ public class JobApply {
     private Integer stu_id;
     private Job job;
 
-    public JobApply(JobApplyDTO jobApplyDTO) {
-        this.apply_id=jobApplyDTO.getId();
-        this.job=new Job(jobApplyDTO.getPosition());
-
-    }
+//    public JobApply(JobApplyDTO jobApplyDTO) {
+//        this.apply_id=jobApplyDTO.getId();
+//        this.job=new Job(jobApplyDTO.getPosition());
+//
+//    }
 
     public JobApply() {
     }
