@@ -401,6 +401,13 @@
         WHERE ACT_ID=#{act_id}
     </update>
 
+    <!--删除应聘者技术证书-->
+    <update id="deleteCertificate">
+        UPDATE STU_CERTIFICATE set
+        IS_DELETE=1
+        WHERE CERTIFICATE_ID=#{certificate_id}
+    </update>
+
     <!--删除应聘者意向职位-->
     <update id="deleteLabel">
         update STU_PREFER_PROF set

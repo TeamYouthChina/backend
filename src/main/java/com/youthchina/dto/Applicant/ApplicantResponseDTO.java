@@ -1,37 +1,44 @@
-package com.youthchina.dto;
+package com.youthchina.dto.Applicant;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.youthchina.domain.Qinghong.*;
-import com.youthchina.domain.qingyang.Company;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: youthchina
- * @description: 返回申请者DTO
+ * @description: 申请者信息
  * @author: Qinghong Wang
- * @create: 2019-02-23 14:36
+ * @create: 2019-02-24 15:40
  **/
 public class ApplicantResponseDTO {
     private Integer id;
     private String name;
     private String avatarUrl;
     private String isInJob;
-    private CompanyDTO company;
+    private String currentCompanyName;
     private List<String> labels;
-    private List<EducationDTO> educations;
+    private List<EducationResponseDTO> educations;
     private List<String> emails;
     private List<String> phonenumbers;
-    private List<WorkDTO> experiences;
-    private List<ProjectDTO> projects;
-    private List<ExtracurricularDTO> extracurriculars;
-    private List<CertificateDTO> certificates;//todo: fixme
+    private List<WorkResponseDTO> experiences;
+    private List<ProjectResponseDTO> projects;
+    private List<ExtracurricularResponseDTO> extracurriculars;
+    private List<CertificateResponseDTO> certificates;//todo: fixme
+
+    public ApplicantResponseDTO() {
+    }
 
     public ApplicantResponseDTO(Student student) {
         this.id = student.getId();
         this.name = student.getUsername();
         this.avatarUrl=student.getAvatarUrl();
         this.isInJob=student.getIsInJob();
+        this.currentCompanyName=student.getCurrentCompanyName();
         this.labels=new ArrayList<>();
         for(LabelInfo labelInfo:student.getLabelInfos()){
             String label_chn=labelInfo.getLabel_chn();
@@ -39,7 +46,7 @@ public class ApplicantResponseDTO {
         }
         this.educations = new ArrayList<>(student.getEducationInfos().size());
         for (EducationInfo educationInfo : student.getEducationInfos()) {
-            this.educations.add(new EducationDTO(educationInfo));
+            this.educations.add(new EducationResponseDTO(educationInfo));
         }
         this.emails = new ArrayList<>();
         this.emails.add(student.getEmail());
@@ -47,20 +54,21 @@ public class ApplicantResponseDTO {
         this.phonenumbers.add(student.getPhonenumber());
         this.experiences = new ArrayList<>(student.getWorks().size());
         for (Work work : student.getWorks()) {
-            this.experiences.add(new WorkDTO(work));
+            this.experiences.add(new WorkResponseDTO(work));
         }
         this.projects = new ArrayList<>(student.getProjects().size());
         for (Project project : student.getProjects()) {
-            this.projects.add(new ProjectDTO(project));
+            this.projects.add(new ProjectResponseDTO(project));
         }
         this.extracurriculars = new ArrayList<>(student.getActivities().size());
         for (Activity activity : student.getActivities()) {
-            this.extracurriculars.add(new ExtracurricularDTO(activity));
+            this.extracurriculars.add(new ExtracurricularResponseDTO(activity));
         }
-        this.certificates = new ArrayList<>(student.getCertificates().size());
+        List<CertificateResponseDTO> certificates = new ArrayList<>(student.getCertificates().size());
         for(Certificate certificate: student.getCertificates()){
-            this.certificates.add(new CertificateDTO(certificate));
+            certificates.add(new CertificateResponseDTO(certificate));
         }
+        this.setCertificates(certificates);
     }
 
     public Integer getId() {
@@ -95,12 +103,12 @@ public class ApplicantResponseDTO {
         this.isInJob = isInJob;
     }
 
-    public CompanyDTO getCompany() {
-        return company;
+    public String getCurrentCompanyName() {
+        return currentCompanyName;
     }
 
-    public void setCompany(CompanyDTO company) {
-        this.company = company;
+    public void setCurrentCompanyName(String currentCompanyName) {
+        this.currentCompanyName = currentCompanyName;
     }
 
     public List<String> getLabels() {
@@ -111,11 +119,11 @@ public class ApplicantResponseDTO {
         this.labels = labels;
     }
 
-    public List<EducationDTO> getEducations() {
+    public List<EducationResponseDTO> getEducations() {
         return educations;
     }
 
-    public void setEducations(List<EducationDTO> educations) {
+    public void setEducations(List<EducationResponseDTO> educations) {
         this.educations = educations;
     }
 
@@ -135,35 +143,50 @@ public class ApplicantResponseDTO {
         this.phonenumbers = phonenumbers;
     }
 
-    public List<WorkDTO> getExperiences() {
+    public List<WorkResponseDTO> getExperiences() {
         return experiences;
     }
 
-    public void setExperiences(List<WorkDTO> experiences) {
+    public void setExperiences(List<WorkResponseDTO> experiences) {
         this.experiences = experiences;
     }
 
-    public List<ProjectDTO> getProjects() {
+    public List<ProjectResponseDTO> getProjects() {
         return projects;
     }
 
-    public void setProjects(List<ProjectDTO> projects) {
+    public void setProjects(List<ProjectResponseDTO> projects) {
         this.projects = projects;
     }
 
-    public List<ExtracurricularDTO> getExtracurriculars() {
+    public List<ExtracurricularResponseDTO> getExtracurriculars() {
         return extracurriculars;
     }
 
-    public void setExtracurriculars(List<ExtracurricularDTO> extracurriculars) {
+    public void setExtracurriculars(List<ExtracurricularResponseDTO> extracurriculars) {
         this.extracurriculars = extracurriculars;
     }
 
-    public List<CertificateDTO> getCertificates() {
+    public List<CertificateResponseDTO> getCertificates() {
         return certificates;
     }
 
-    public void setCertificates(List<CertificateDTO> certificates) {
+    public void setCertificates(List<CertificateResponseDTO> certificates) {
         this.certificates = certificates;
+    }
+
+    @JsonGetter("contacts")
+    public Map<String, List<String>> getContact() {
+        HashMap<String, List<String>> map = new HashMap<>();
+        map.put("emails", this.emails);
+        map.put("phonenumbers", this.phonenumbers);
+        return map;
+    }
+
+    @JsonSetter("contacts")
+    @SuppressWarnings("unchecked")
+    public void setContact(Map<String, Object> map) {
+        this.emails = (List) map.get("emails");
+        this.phonenumbers = (List) map.get("phonenumbers");
     }
 }

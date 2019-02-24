@@ -265,7 +265,7 @@ public class ApplicantControllerTest {
 
     @Test
     public void testGetJobApplies() throws Exception{
-        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/applications",4).with(authGenerator.authentication()))
+        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/applications",1).with(authGenerator.authentication()))
                 .andDo(print());
     }
     /**
@@ -285,7 +285,7 @@ public class ApplicantControllerTest {
     @Test
     public void testAddJobCollect() throws Exception{
         this.mvc.perform
-                (put(this.urlPrefix + "/jobs/5/attention")
+                (put(this.urlPrefix + "/jobs/2/attention")
                 .with(authGenerator.authentication()))
                 .andDo(print());
     }
@@ -296,6 +296,37 @@ public class ApplicantControllerTest {
                 (put(this.urlPrefix + "/companies/3/attention")
                         .with(authGenerator.authentication()))
                 .andDo(print());
+    }
+
+    @Test
+    public void testInsertEducation() throws Exception{
+        EducationDTO educationDTO=new EducationDTO();
+        LocationDTO locationDTO=new LocationDTO();
+        locationDTO.setNation_code("USA");
+        locationDTO.setLocation_code("920001");
+        educationDTO.setUniversity("gwu");
+        educationDTO.setMajor("cs");
+        Degree degree=new Degree();
+        educationDTO.setDegree("1");
+        long begin=1111111;
+        long end=2222222;
+        DurationDTO durationDTO=new DurationDTO(begin,end);
+        educationDTO.setDuration(durationDTO);
+        educationDTO.setLocation(locationDTO);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(educationDTO);
+        System.out.print(requestJson);
+        this.mvc.perform(
+                post
+                        (this.urlPrefix + "/applicants/education").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+
     }
 
 

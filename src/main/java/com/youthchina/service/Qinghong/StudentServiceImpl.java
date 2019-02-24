@@ -7,6 +7,7 @@ import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Job;
+import com.youthchina.dto.EducationDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.qingyang.LocationService;
 import io.swagger.models.auth.In;
@@ -84,7 +85,16 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student add(Student entity) {
         if(applicantMapper.getStudentInfo(entity.getId())!=null){
-            return applicantMapper.getStudentInfo(entity.getId());
+            Student student=applicantMapper.getStudentInfo(entity.getId());
+            for(EducationInfo educationInfo:student.getEducationInfos()){
+                Location location=locationService.getLocation(educationInfo.getLocation().getRegion_num());
+                educationInfo.setLocation(location);
+            }
+            for (Work work:student.getWorks()){
+                Location location=locationService.getLocation(work.getLocation().getRegion_num());
+                work.setLocation(location);
+            }
+            return student;
         }
         applicantMapper.updateUserInfo(entity);
         applicantMapper.insertStuInfo(entity);
@@ -445,7 +455,11 @@ public class StudentServiceImpl implements StudentService {
             Integer stu_id=baseInfo.getStu_id();
             educationInfo.setStu_id(stu_id);
             Integer integer=applicantMapper.insertEduInfo(educationInfo);
-            List<EducationInfo> educationInfos=applicantMapper.getEducations(user_id);
+            List<EducationInfo> educationInfos=applicantMapper.getStudentInfo(user_id).getEducationInfos();
+            for(EducationInfo educationInfo1:educationInfos){
+                Location location=locationService.getLocation(educationInfo1.getLocation().getRegion_num());
+                educationInfo1.setLocation(location);
+            }
             return educationInfos;
 
         }
@@ -460,7 +474,12 @@ public class StudentServiceImpl implements StudentService {
             Integer stu_id=baseInfo.getStu_id();
             work.setStu_id(stu_id);
             Integer integer=applicantMapper.insertStuWork(work);
-            List<Work> works=applicantMapper.getWorks(user_id);
+            List<Work> works=applicantMapper.getStudentInfo(user_id).getWorks();
+            for(Work work1:works){
+                Location location=locationService.getLocation(work1.getLocation().getRegion_num());
+                work1.setLocation(location);
+            }
+
             return works;
 
         }
@@ -516,26 +535,31 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Integer deleteEducation(Integer id) throws NotFoundException {
-        return null;
+        Integer integer=applicantMapper.deleteEduInfo(id);
+        return integer;
     }
 
     @Override
     public Integer deleteWork(Integer id) throws NotFoundException {
-        return null;
+        Integer integer=applicantMapper.deleteWork(id);
+        return integer;
     }
 
     @Override
     public Integer deleteProject(Integer id) throws NotFoundException {
-        return null;
+        Integer integer=applicantMapper.deleteProject(id);
+        return integer;
     }
 
     @Override
     public Integer deleteActivity(Integer id) throws NotFoundException {
-        return null;
+        Integer integer=applicantMapper.deleteActivity(id);
+        return integer;
     }
 
     @Override
     public Integer deleteCertificate(Integer id) throws NotFoundException {
-        return null;
+        Integer integer=applicantMapper.deleteCertificate(id);
+        return integer;
     }
 }
