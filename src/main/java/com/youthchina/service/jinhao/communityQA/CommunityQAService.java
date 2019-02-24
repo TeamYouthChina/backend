@@ -23,7 +23,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 //    AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
 //    Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;
 
-    QuestionAnswer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level);
+    QuestionAnswer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level) throws NotFoundException;
     QuestionAnswer getAnswer(Integer answer_id) throws NotFoundException;
     QuestionAnswer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException;
     void deleteAnswer(Integer answer_id) throws NotFoundException;

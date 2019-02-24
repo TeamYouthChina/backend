@@ -10,9 +10,9 @@ import java.util.List;
 @Mapper
 @Component
 public interface CommunityQAMapper {
-    Integer addQuestion(Question question);
+    void addQuestion(Question question);
 
-    Integer createMapBetweenQuestionAndUser(@Param("ques_id") Integer ques_id, @Param("user_id")Integer user_id,
+    void createMapBetweenQuestionAndUser(@Param("ques_id") Integer ques_id, @Param("user_id")Integer user_id,
                                             @Param("rela_type") Integer rela_type, @Param("rela_id") Integer rela_id);
 
     Question getQuestion(Integer ques_id);
@@ -27,11 +27,11 @@ public interface CommunityQAMapper {
 //    void deleteAllDiscusses(Integer ques_id);
 //    void deleteAllDiscussEvaluation(Integer ques_id);
 
-    Integer editQuestion(Question question);
+    void editQuestion(Question question);
 
     List<Question> getMyQuestions(Integer user_id); // 列出用户提出的问题
 
-//    List<Label> listAllQuesetionLabel(Integer ques_id);
+//    List<Label> listAllQuestionLabel(Integer ques_id);
 
 //    Integer addLabels(@Param("labels") List<Integer> labels, @Param("ques_id") Integer ques_id);
 
