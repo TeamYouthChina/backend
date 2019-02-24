@@ -30,8 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:questions.xml"})
-@DatabaseSetup({"classpath:answers.xml"})
+@DatabaseSetup({"classpath:recommendation.xml"})
 @WebAppConfiguration
 public class JobRecommendControllerTest {
     @Autowired
