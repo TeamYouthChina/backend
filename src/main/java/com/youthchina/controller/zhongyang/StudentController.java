@@ -141,8 +141,8 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         return  ResponseEntity.ok(new Response(jobApplyDTOS,new StatusDTO(0,"")));
     }
 
-    @PostMapping("/educations")
-    public ResponseEntity<?> getApplicantsEducation(@RequestBody EducationDTO educationDTO,@AuthenticationPrincipal User user) throws NotFoundException{
+    @PostMapping("/{id}/educations")
+    public ResponseEntity<?> getApplicantsEducation(@RequestBody EducationDTO educationDTO,@AuthenticationPrincipal User user,@PathVariable Integer id) throws NotFoundException{
         EducationInfo educationInfo=new EducationInfo(educationDTO);
         List<EducationResponseDTO> educationResponseDTOS=new ArrayList<>();
         List<EducationInfo> educationInfos=studentService.insertEducation(educationInfo,user.getId());
@@ -153,8 +153,8 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         return ResponseEntity.ok(new Response(educationResponseDTOS));
     }
 
-    @PostMapping("/works")
-    public ResponseEntity<?> getApplicantsWork(@RequestBody WorkDTO workDTO,@AuthenticationPrincipal User user)throws NotFoundException{
+    @PostMapping("/{id}/works")
+    public ResponseEntity<?> getApplicantsWork(@RequestBody WorkDTO workDTO,@AuthenticationPrincipal User user,@PathVariable Integer id)throws NotFoundException{
         Work work=new Work(workDTO);
         List<WorkResponseDTO> workResponseDTOS=new ArrayList<>();
         List<Work> works=studentService.insertWork(work,user.getId());
@@ -165,8 +165,8 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         return ResponseEntity.ok(new Response(workResponseDTOS));
     }
 
-    @PostMapping("/projects")
-    public ResponseEntity<?> getApplicantsProject(@RequestBody ProjectDTO projectDTO,@AuthenticationPrincipal User user) throws NotFoundException{
+    @PostMapping("/{id}/projects")
+    public ResponseEntity<?> getApplicantsProject(@RequestBody ProjectDTO projectDTO,@AuthenticationPrincipal User user,@PathVariable Integer id) throws NotFoundException{
         Project project=new Project(projectDTO);
         List<ProjectResponseDTO> projectResponseDTOS=new ArrayList<>();
         List<Project> projects=studentService.insertProject(project,user.getId());
@@ -177,8 +177,8 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         return ResponseEntity.ok(new Response(projectResponseDTOS));
     }
 
-    @PostMapping("/extracurriculars")
-    public ResponseEntity<?> getApplicantsExtracurriculars(@RequestBody ExtracurricularDTO extracurricularDTO,@AuthenticationPrincipal User user)throws NotFoundException{
+    @PostMapping("/{id}/extracurriculars")
+    public ResponseEntity<?> getApplicantsExtracurriculars(@RequestBody ExtracurricularDTO extracurricularDTO,@AuthenticationPrincipal User user,@PathVariable Integer id)throws NotFoundException{
         Activity activity=new Activity(extracurricularDTO);
         List<ExtracurricularResponseDTO> extracurricularResponseDTOS=new ArrayList<>();
         List<Activity> activities=studentService.insertActivity(activity,user.getId());
@@ -190,8 +190,8 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
 
     }
 
-    @PostMapping("/certificates")
-    public ResponseEntity<?> getApplicantsCertificates(@RequestBody CertificateDTO certificateDTO,@AuthenticationPrincipal User user)throws NotFoundException{
+    @PostMapping("/{id}/certificates")
+    public ResponseEntity<?> getApplicantsCertificates(@RequestBody CertificateDTO certificateDTO,@AuthenticationPrincipal User user,@PathVariable Integer id)throws NotFoundException{
         Certificate certificate=new Certificate(certificateDTO);
         List<CertificateResponseDTO> certificateResponseDTOS=new ArrayList<>();
         List<Certificate> certificates=studentService.insertCertificate(certificate,user.getId());

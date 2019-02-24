@@ -304,6 +304,10 @@ public class StudentServiceImpl implements StudentService {
         } else {
             BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
             List<JobApply> jobApplies = applicantMapper.getJobApplies(baseInfo.getStu_id());
+//            for(JobApply jobApply:jobApplies){
+//                Location location=locationService.getLocation(jobApply.getJob().getCompany().getLocation().getRegion_num());
+//                jobApply.getJob().getCompany().setLocation(location);
+//            }
             return jobApplies;
         }
     }
