@@ -1,10 +1,13 @@
 package com.youthchina.controller.tianjian;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.jinhao.communityQA.BriefReview;
 import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.Evaluate;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
+import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.StatusDTO;
 
 import com.youthchina.dto.community.BriefReviewDTO;
@@ -53,17 +56,38 @@ public class BriefReviewController {
         return ResponseEntity.ok(new Response(new StatusDTO(204,"success")));
     }
 
-    @PostMapping
-    public ResponseEntity addBriefReview(@RequestBody RequestBriefReviewDTO requestBriefReviewDTO,@AuthenticationPrincipal User user) throws NotFoundException {
+    @PutMapping("/{id}")
+    public ResponseEntity updateBriefReview(@PathVariable Integer id,@RequestBody RequestBriefReviewDTO requestBriefReviewDTO,@AuthenticationPrincipal User user) throws NotFoundException {
         BriefReview briefReview = new BriefReview();
+        briefReview.setReview_id(id);
         briefReview.setIs_delete(0);
-        briefReview.setReview_content(requestBriefReviewDTO.getBody());
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(requestBriefReviewDTO.getBody());
+            briefReview.setReview_content(requestJson);
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+
         Timestamp time =  new Timestamp(System.currentTimeMillis());
         briefReview.setReview_time(time);
         briefReview.setUser(user);
-        BriefReview briefReviewReturn =  briefReviewServiceImplement.add(briefReview);
+        if(requestBriefReviewDTO.getCompany_id()!=null) {
+            briefReview.setRela_type(2);
+            briefReview.setRela_id(requestBriefReviewDTO.getCompany_id());
+        }
+        BriefReview briefReviewReturn =  briefReviewServiceImplement.update(briefReview);
         BriefReviewDTO briefReviewDTO = new BriefReviewDTO();
-        briefReviewDTO.setBody(briefReviewReturn.getReview_content());
+
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(briefReviewReturn.getReview_content(), RichTextDTO.class);
+            briefReviewDTO.setBody(richt);
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+
         briefReviewDTO.setAuthor(userService.get(user.getId()));
         List<CommentDTO> commentDTOList = new ArrayList<CommentDTO>();
         Iterator<CommentDTO> it = commentDTOList.iterator();
@@ -79,16 +103,69 @@ public class BriefReviewController {
             return ResponseEntity.ok(new Response(briefReviewDTO, new StatusDTO(400,"fail")));
     }
 
+    @PostMapping
+    public ResponseEntity addBriefReview(@RequestBody RequestBriefReviewDTO requestBriefReviewDTO,@AuthenticationPrincipal User user) throws NotFoundException {
+        BriefReview briefReview = new BriefReview();
+        briefReview.setIs_delete(0);
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(requestBriefReviewDTO.getBody());
+            briefReview.setReview_content(requestJson);
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+
+        Timestamp time =  new Timestamp(System.currentTimeMillis());
+        briefReview.setReview_time(time);
+        briefReview.setUser(user);
+        if(requestBriefReviewDTO.getCompany_id()!=null) {
+            briefReview.setRela_type(2);
+            briefReview.setRela_id(requestBriefReviewDTO.getCompany_id());
+        }
+        BriefReview briefReviewReturn =  briefReviewServiceImplement.add(briefReview);
+        BriefReviewDTO briefReviewDTO = new BriefReviewDTO();
+
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(briefReviewReturn.getReview_content(), RichTextDTO.class);
+            briefReviewDTO.setBody(richt);
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+
+        briefReviewDTO.setAuthor(userService.get(user.getId()));
+        List<CommentDTO> commentDTOList = new ArrayList<CommentDTO>();
+        Iterator<CommentDTO> it = commentDTOList.iterator();
+        while(it.hasNext()){
+            CommentDTO commentDTOTest = it.next();
+            commentDTOList.add(commentDTOTest);
+        }
+        briefReviewDTO.setComments(commentDTOList);
+        briefReviewDTO.setId(briefReviewReturn.getReview_id());
+        if (briefReviewDTO!=null)
+            return ResponseEntity.ok(new Response(briefReviewDTO, new StatusDTO(201,"success")));
+        else
+            return ResponseEntity.ok(new Response(briefReviewDTO, new StatusDTO(400,"fail")));
+    }
+
     @PostMapping("/{id}/comments")
     public ResponseEntity addBriefReviewComment(@PathVariable Integer id, @RequestBody RequestCommentDTO requestCommentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Comment comment = new Comment();
         comment.setUser(user);
-        comment.setComment_content(requestCommentDTO.getBody());
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(requestCommentDTO.getBody());
+            comment.setComment_content(requestJson);
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+
         comment.setIs_delete(0);
         Timestamp time =  new Timestamp(System.currentTimeMillis());
         comment.setComment_pub_time(time);
         comment.setUser_id(user.getId());
-        comment.setComment_id(id);
         comment.setUser_anony((requestCommentDTO.getIs_anonymous()==true)? 1:0);
         Comment commentreturn = briefReviewServiceImplement.addComment(comment,id);
         if ( commentreturn!=null)

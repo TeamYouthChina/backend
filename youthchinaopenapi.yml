@@ -999,6 +999,32 @@ paths:
       responses:
         '201':
           description: comments successfully
+    get:
+      tags:
+      - Answer
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      comments:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/answers/{id}/upvote':
     put:
       tags:
@@ -1223,6 +1249,32 @@ paths:
       responses:
         '201':
           description: successful
+    get:
+      tags:
+      - Article
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      comments:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/companies/{id}':
     get:
       tags:
@@ -1407,6 +1459,33 @@ paths:
       responses:
         '201':
           description: successful
+    get:
+      tags:
+        - Video
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: video id
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      comments:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/videos/{id}/upvote':
     put:  
       tags:
@@ -1537,6 +1616,33 @@ paths:
       responses:
         '201':
           description: successful
+    get:
+      tags:
+        - Editorials
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: video id
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      comments:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/editorials/{id}/upvote':
     put:  
       tags:
@@ -2022,8 +2128,6 @@ components:
               type: string
             modified_at:
               type: string
-            company_id:
-              type: string
             creator:
               $ref: '#/components/schemas/User'
     Question:
@@ -2071,7 +2175,7 @@ components:
         creator:
           $ref: '#/components/schemas/User'
         body:
-          type: string
+          $ref: '#/components/schemas/RichText'
         create_at:
           type: integer
         is_anonymous:

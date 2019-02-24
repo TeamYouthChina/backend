@@ -15,5 +15,13 @@ import java.util.List;
 @Component
 public interface LocationMapper {
 
-    List<Location> getChildren(Integer parentId);
+    Location getChnLocation(Integer regionNum);
+    List<Location> getChildrenChn(Integer parentId);
+    List<Location> getChnLocationByLocationList(List<Location> locationList);
+
+
+    Location getUSALocation(Integer zipCode);
+    List<Location> getUSALocationByLocationList(List<Location> locationList);
+    List<Location> getChildrenUSA(Integer stateId);
+
 }

@@ -69,7 +69,7 @@ comment '职位基本信息表';
 
     Integer insertJobDegree(List<Degree> degrees);
 
-    Integer insertJobLocation(List<Location> locations);
+    Integer insertJobLocation(@Param("jobId")Integer jobId, @Param("locations")List<Location> locations);
 
     Integer deleteJobLocation(Integer jobId);
 
