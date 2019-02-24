@@ -19,7 +19,11 @@ public class ApplicantDTO {
     private Integer id;
     private String name;
     private String avatarUrl;
+    private String isInJob;
+    private String currentCompanyName;
     private List<EducationDTO> educations;
+    private List<String> skills;
+    private List<String> labels;
     private List<String> emails;
     private List<String> phonenumbers;
     private List<WorkDTO> experiences;
@@ -33,6 +37,14 @@ public class ApplicantDTO {
     public ApplicantDTO(Student student) {
         this.id = student.getId();
         this.name = student.getUsername();
+        this.avatarUrl=student.getAvatarUrl();
+        this.isInJob=student.getIsInJob();
+        this.currentCompanyName=student.getCurrentCompanyName();
+        this.labels=new ArrayList<>();
+        for(LabelInfo labelInfo:student.getLabelInfos()){
+            String label_chn=labelInfo.getLabel_chn();
+            this.labels.add(label_chn);
+        }
         this.educations = new ArrayList<>(student.getEducationInfos().size());
         for (EducationInfo educationInfo : student.getEducationInfos()) {
             this.educations.add(new EducationDTO(educationInfo));
@@ -82,6 +94,14 @@ public class ApplicantDTO {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public String getIsInJob() {
+        return isInJob;
+    }
+
+    public void setIsInJob(String isInJob) {
+        this.isInJob = isInJob;
     }
 
     public List<EducationDTO> getEducations() {
@@ -141,6 +161,31 @@ public class ApplicantDTO {
 
     public void setCertificates(List<CertificateDTO> certificates) {
         this.certificates = certificates;
+    }
+
+
+    public String getCurrentCompanyName() {
+        return currentCompanyName;
+    }
+
+    public void setCurrentCompanyName(String currentCompanyName) {
+        this.currentCompanyName = currentCompanyName;
+    }
+
+    public List<String> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
+    }
+
+    public List<String> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(List<String> labels) {
+        this.labels = labels;
     }
 
     @JsonGetter("contacts")

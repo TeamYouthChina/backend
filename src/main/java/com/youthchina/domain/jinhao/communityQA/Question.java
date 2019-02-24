@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.QuestionDTO;
-import com.youthchina.dto.community.SimpleAnswerDTO;
+import com.youthchina.dto.community.RequestSimpleAnswerDTO;
+import com.youthchina.dto.community.RequestQuestionDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
@@ -36,24 +37,39 @@ public class Question implements HasId<Integer> {
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(questionDTO.getRichTextDTO());
+            java.lang.String requestJson = ow.writeValueAsString(questionDTO.getBody());
             this.ques_body = requestJson;
         }catch (Exception e){
             System.out.println("Exception");
         }
 
-        this.ques_invitation = questionDTO.getInvitation();
-        this.user_anony = questionDTO.getAnonymous();
-        this.ques_pub_time = questionDTO.getCreateAt();
-        this.ques_edit_time = questionDTO.getEditAt();
+        this.user_anony = (questionDTO.getAnonymous() ? 1 : 0);
+        this.ques_pub_time = questionDTO.getCreate_at();
+        this.ques_edit_time = questionDTO.getModified_at();
         this.rela_type = questionDTO.getRela_type();
-        this.labelIds = questionDTO.getLabelIds();
-        this.ques_abbre = questionDTO.getRichTextDTO().getBraftEditorRaw();
+        this.rela_id = questionDTO.getRela_id();
+        this.ques_abbre = questionDTO.getBody().getBraftEditorRaw();
         if(questionDTO.getAnswers() != null) {
-            for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
+            for(RequestSimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
                 this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
             }
         }
+    }
+
+    public Question(RequestQuestionDTO requestQuestionDTO) {
+        this.ques_title = requestQuestionDTO.getTitle();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(requestQuestionDTO.getBody());
+            this.ques_body = requestJson;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+        this.user_anony = (requestQuestionDTO.getIs_anonymous() ? 1 : 0);
+        this.rela_type = requestQuestionDTO.getRela_type();
+        this.rela_id = requestQuestionDTO.getRela_id();
+        this.ques_abbre = requestQuestionDTO.getBody().getBraftEditorRaw();
     }
 
     public Question(){}

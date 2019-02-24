@@ -5,6 +5,7 @@ import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.CommunityQAServiceImplement;
@@ -12,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Timestamp;
 
 @RestController
 @RequestMapping("${web.url.prefix}/answers")
@@ -24,7 +23,9 @@ public class AnswerController {
     @GetMapping("/{id}")
     public ResponseEntity getAnswer(@PathVariable Integer id) throws NotFoundException {
         QuestionAnswer questionAnswer = communityQAServiceImplement.getAnswer(id);
+
         SimpleAnswerDTO simpleAnswerDTO = new SimpleAnswerDTO(questionAnswer);
+
          if (questionAnswer!=null)
             return ResponseEntity.ok(new Response(simpleAnswerDTO, new StatusDTO(200,"success")));
          else
@@ -32,11 +33,11 @@ public class AnswerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateAnswer(@PathVariable Integer id,@RequestBody SimpleAnswerDTO simpleAnswerDTO,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity updateAnswer(@PathVariable Integer id, @RequestBody RequestSimpleAnswerDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
            QuestionAnswer questionAnswer = new QuestionAnswer(simpleAnswerDTO);
            questionAnswer.setAnswer_id(id);
            questionAnswer.setUser_id(user.getId());
-           SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(communityQAServiceImplement.editAnswer(questionAnswer));
+           RequestSimpleAnswerDTO returnSimpleAnswer = new RequestSimpleAnswerDTO(communityQAServiceImplement.editAnswer(questionAnswer));
           if (returnSimpleAnswer!=null)
            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
           else
@@ -50,13 +51,10 @@ public class AnswerController {
     }
 
     @PostMapping("/{id}/comments")
-    public ResponseEntity addAnswerComment(@PathVariable Integer id,@RequestBody SimpleAnswerDTO simpleAnswerDTO,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity addAnswerComment(@PathVariable Integer id, @RequestBody RequestSimpleAnswerDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Comment comment = new Comment();
         comment.setComment_content(simpleAnswerDTO.getBody().getPreviewText());
-        comment.setIs_delete(0);
         comment.setUser_id(user.getId());
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-        comment.setComment_pub_time(time);
         if(simpleAnswerDTO.getIsAnonymous()==true)
            comment.setUser_anony(0);
         else
