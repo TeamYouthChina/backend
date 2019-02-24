@@ -7,7 +7,7 @@ info:
 servers:
   - url: 'http://youthchina.io/api/v1'
 paths:
-  '/job/{id}':
+  '/jobs/{id}':
     get:
       tags:
         - Job
@@ -38,7 +38,7 @@ paths:
                     $ref: '#/components/schemas/Job'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/job/search':
+  '/jobs/search':
     post:
       tags:
         - Job
@@ -668,7 +668,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Question'
+              $ref: '#/components/schemas/QuestionRequest'
       responses:
         '201':
           description: create question
@@ -806,7 +806,9 @@ paths:
                       answers:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Answer'
+                          $ref: '#/components/schemas/AnswerBasic'
+                      question:
+                        $ref: '#/components/schemas/QuestionBasic'
                   status:
                     $ref: '#/components/schemas/Status'
     post:
@@ -891,19 +893,6 @@ paths:
       responses:
         '201':
           description: invitation send successfully.
-  # '/questions/{id}/upvote':
-  #   put:
-  #     tags:
-  #       - Question
-  #     parameters:
-  #       - name: id
-  #         required: true
-  #         in: path
-  #         schema:
-  #           type: integer
-  #     responses:
-  #       '201':
-  #         description: attention successfullly
   '/questions/{id}/attention':
     put:
       tags:
@@ -997,6 +986,32 @@ paths:
       responses:
         '201':
           description: comments successfully
+    get:
+      tags:
+      - Answer
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      comments:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/answers/{id}/upvote':
     put:
       tags:
@@ -1221,6 +1236,32 @@ paths:
       responses:
         '201':
           description: successful
+    get:
+      tags:
+      - Article
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      comments:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/companies/{id}':
     get:
       tags:
@@ -1405,6 +1446,33 @@ paths:
       responses:
         '201':
           description: successful
+    get:
+      tags:
+        - Video
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: video id
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      comments:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/videos/{id}/upvote':
     put:  
       tags:
@@ -1535,6 +1603,33 @@ paths:
       responses:
         '201':
           description: successful
+    get:
+      tags:
+        - Editorials
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: video id
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      comments:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/editorials/{id}/upvote':
     put:  
       tags:
@@ -1563,8 +1658,29 @@ paths:
       responses:
         '200':
           description: successful 
-
-
+          
+  '/job-for-you':
+    get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      jobList:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Job'
+                  status:
+                    $ref: '#/components/schemas/Status'
+              
 
 components:
   schemas:
@@ -1642,6 +1758,10 @@ components:
             - part-time
             - internship
         deadLine:
+          type: string
+        job_description:
+          type: string
+        job_duty:
           type: string
     Organization:
       type: object
@@ -2004,6 +2124,11 @@ components:
         is_anonymous:
           type: boolean
           default: flase
+        rela_type:
+          type: integer
+          description: 1 for no rela, 2 for company, 3 for job
+        rela_id:
+          type: integer
     QuestionBasic:
       allOf:
         - $ref: '#/components/schemas/QuestionRequest'
@@ -2014,8 +2139,6 @@ components:
             create_at:
               type: string
             modified_at:
-              type: string
-            company_id:
               type: string
             creator:
               $ref: '#/components/schemas/User'
@@ -2064,7 +2187,7 @@ components:
         creator:
           $ref: '#/components/schemas/User'
         body:
-          type: string
+          $ref: '#/components/schemas/RichText'
         create_at:
           type: integer
         is_anonymous:

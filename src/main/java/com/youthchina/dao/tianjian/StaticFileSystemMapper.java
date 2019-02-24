@@ -16,7 +16,7 @@ import java.util.List;
 public interface StaticFileSystemMapper {
    int saveFileInfo(ComMediaDocument comMediaDocument);
 
-   void setCloudStorageId(String col, Long id);
+   void setCloudStorageId(@Param("col")String col,@Param("id") String id,@Param("local_id")String local_id);
 
    List<ComMediaDocument> getFileSizeOfUserUploading(@Param("user_id") Integer user_id,@Param("startTime") Timestamp startTime,@Param("endTime")Timestamp endTime);
 }

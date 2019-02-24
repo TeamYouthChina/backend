@@ -6,19 +6,41 @@ import com.youthchina.domain.Qinghong.Location;
  * Created by zhongyangwu on 12/2/18.
  */
 public class LocationDTO {
-    private Integer region_num;
+
+    private String nation_code;
+    private String location_code;
+    private String location;
+
 
     public LocationDTO(Location location) {
-        this.region_num = location.getRegion_num();
+        this.location_code = "" + location.getRegion_num();
+        this.nation_code = (location_code.charAt(0) == '9') ? "USA": "CHN";
+        this.location=location.getRegion_chn();
     }
 
     public LocationDTO(){}
 
-    public void setRegion_num(Integer region_num) {
-        this.region_num = region_num;
+    public String getNation_code() {
+        return nation_code;
     }
 
-    public Integer getRegion_num() {
-        return region_num;
+    public void setNation_code(String nation_code) {
+        this.nation_code = nation_code;
+    }
+
+    public String getLocation_code() {
+        return location_code;
+    }
+
+    public void setLocation_code(String location_code) {
+        this.location_code = location_code;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

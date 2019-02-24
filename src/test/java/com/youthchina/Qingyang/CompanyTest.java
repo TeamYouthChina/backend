@@ -5,6 +5,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.HrMapper;
 import com.youthchina.dao.qingyang.JobMapper;
+import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.*;
 import org.junit.Assert;
@@ -25,18 +26,20 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:company.xml"})
+@DatabaseSetup({"classpath:company.xml", "classpath:location.xml"})
 public class CompanyTest {
 
     @Autowired
     private CompanyMapper companyMapper;
 
     @Autowired
-
     private JobMapper jobMapper;
 
     @Autowired
     private HrMapper hrMapper;
+
+    @Autowired
+    private LocationMapper locationMapper;
 
 
     //CompanyVerification CURD
@@ -188,6 +191,23 @@ public class CompanyTest {
 
         companyList = companyMapper.selectCompanyByName("腾牛讯");
         Assert.assertEquals(1, companyList.size());
+    }
+
+    @Test
+    public void testGetCompanyLocation(){
+        Company company = companyMapper.selectCompany(1);
+        Assert.assertEquals(Integer.valueOf(1), company.getLocation().getRegion_num());
+        Location location = company.getLocation();
+        String region = "" + location.getRegion_num();
+        if(region.charAt(0) == '9'){
+            location = locationMapper.getUSALocation(location.getRegion_num());
+        } else {
+            location = locationMapper.getChnLocation(location.getRegion_num());
+        }
+        company.setLocation(location);
+        Assert.assertEquals("北京", company.getLocation().getRegion_chn());
+
+
     }
 
 }
