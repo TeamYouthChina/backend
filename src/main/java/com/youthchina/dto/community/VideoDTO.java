@@ -2,6 +2,7 @@ package com.youthchina.dto.community;
 
 import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.Video;
+import com.youthchina.domain.jinhao.communityQA.VideoComment;
 import com.youthchina.domain.zhongyang.User;
 
 import java.util.ArrayList;
@@ -15,13 +16,14 @@ public class VideoDTO {
     private User uploader;
 
     public VideoDTO (){}
+
     public VideoDTO (Video video){
         this.id = video.getVideo_id();
         this.url = video.getVideo_name();
         Iterator it = video.getVideoComments().iterator();
         while(it.hasNext()){
-            CommentDTO commentDTO = new CommentDTO((Comment) it.next());
-            comments.add(commentDTO);
+            CommentDTO commentDTO = new CommentDTO((VideoComment)it.next());
+            this.comments.add(commentDTO);
         }
         this.uploader = video.getUser();
     }
