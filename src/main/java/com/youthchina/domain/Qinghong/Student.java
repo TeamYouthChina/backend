@@ -1,9 +1,11 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.ApplicantDTO;
+import com.youthchina.dto.*;
 import com.youthchina.util.zhongyang.HasId;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,8 +37,64 @@ public class Student extends User implements HasId<Integer> {
     private List<LabelInfo> labelInfos;
 
     public Student(ApplicantDTO applicantDTO) {
-        this.stu_id = applicantDTO.getId();
-        //fixme
+        this.setId(applicantDTO.getId());
+        this.isInJob=applicantDTO.getIsInJob();
+        this.setUsername(applicantDTO.getName());
+        this.setAvatarUrl(applicantDTO.getAvatarUrl());
+        this.currentCompanyName=applicantDTO.getCurrentCompanyName();
+        //对于教育信息的转化
+        List<EducationInfo> educationInfos=new ArrayList<>();
+        for(EducationDTO educationDTO:applicantDTO.getEducations()){
+            EducationInfo educationInfo=new EducationInfo(educationDTO);
+            educationInfos.add(educationInfo);
+        }
+        this.educationInfos=educationInfos;
+        //目前联系人问题
+        this.setEmail(applicantDTO.getContact().get("emails").get(0));
+        this.setPhonenumber(applicantDTO.getContact().get("phonenumbers").get(0));
+        //对于职位的转化
+        List<Work> works=new ArrayList<>();
+        for(WorkDTO workDTO:applicantDTO.getExperiences()){
+            Work work=new Work(workDTO);
+            works.add(work);
+        }
+        this.works=works;
+        //对于项目的转化
+        List<Project> projects=new ArrayList<>();
+        for(ProjectDTO projectDTO:applicantDTO.getProjects()){
+            Project project=new Project(projectDTO);
+            projects.add(project);
+        }
+        this.projects=projects;
+        //对于组织活动的转化
+        List<Activity> activities=new ArrayList<>();
+        for(ExtracurricularDTO extracurricularDTO:applicantDTO.getExtracurriculars()){
+            Activity activity=new Activity(extracurricularDTO);
+            activities.add(activity);
+        }
+        this.activities=activities;
+
+        //对于技能证书的转化
+        List<Certificate> certificates=new ArrayList<>();
+        for(CertificateDTO certificateDTO:applicantDTO.getCertificates()){
+            Certificate certificate=new Certificate(certificateDTO);
+            certificates.add(certificate);
+        }
+        this.certificates=certificates;
+        //公司信息的设置
+
+//        Company company=new Company();
+//        this.company=company;
+//        company.setCompanyId(applicantDTO.getId());
+
+        //优势标签的设置
+        List<LabelInfo> labelInfos=new ArrayList<>();
+        for(String s:applicantDTO.getSkills()){
+            LabelInfo labelInfo=new LabelInfo();
+            labelInfo.setLabel_code(s);
+            labelInfos.add(labelInfo);
+        }
+        this.labelInfos=labelInfos;
     }
 
     public Student(){}
@@ -202,4 +260,5 @@ public class Student extends User implements HasId<Integer> {
     public void setLabelInfos(List<LabelInfo> labelInfos) {
         this.labelInfos = labelInfos;
     }
+
 }

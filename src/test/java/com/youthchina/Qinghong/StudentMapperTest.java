@@ -8,7 +8,9 @@ import com.youthchina.dao.Qinghong.ApplicantMapper;
 import com.youthchina.dao.Qinghong.StudentMapper;
 import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.Qinghong.*;
+import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Job;
+import io.swagger.models.auth.In;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -86,8 +88,7 @@ public class StudentMapperTest {
     @Test
     public void testGetStudentInfo(){
         Student student=applicantMapper.getStudentInfo(1);
-        Assert.assertNotNull(student);
-        System.out.print(student.getIsInJob());
+        System.out.print(student.getLabelInfos().get(0).getLabel_chn());
 
     }
 
@@ -202,7 +203,9 @@ public class StudentMapperTest {
         EducationInfo educationInfo=new EducationInfo();
         Location location=new Location();
         educationInfo.setLocation(location);
-        educationInfo.setEdu_degree(1);
+        Degree degree=new Degree();
+        degree.setDegreeNum(1);
+        educationInfo.setDegree(degree);
         educationInfo.setEdu_school("gwu");
         educationInfo.setEdu_school_country("USA");
         educationInfo.getLocation().setRegion_num(1);
@@ -301,6 +304,15 @@ public class StudentMapperTest {
         JobApply jobApply=applicantMapper.getOneJobApply(1,1);
         Assert.assertNotNull(jobApply);
         System.out.print(jobApply.getJob().getCompany().getCompanyName());
+    }
+
+    @Test
+    public void testUpdateUser(){
+        Student student=new Student();
+        student.setAvatarUrl("www.baidu.com");
+        student.setId(1);
+        Integer integer =applicantMapper.updateUserInfo(student);
+        System.out.print(integer);
     }
 
 
