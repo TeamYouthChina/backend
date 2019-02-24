@@ -48,6 +48,11 @@ public interface ApplicantMapper {
     Integer deleteWork(Integer work_id);
     Integer deleteActivity(Integer act_id);
     Integer deleteCertificate(Integer certificate_id);
+    Integer updateEducation(EducationInfo educationInfo);
+    Integer updateWork(Work work);
+    Integer updateCertificate(Certificate certificate);
+    Integer updateProject(Project project);
+    Integer updateActivity(Activity activity);
 
 
 }
