@@ -40,5 +40,19 @@ public interface ApplicantMapper {
     Degree getDegreeNum(String degreeNum);
     Integer updateUserInfo(Student student);
     Integer insertStuLabel(AdvantageLabel advantageLabel);
+    Integer deleteStuInfo(Integer stu_id);
+    Integer deleteSubInfo(Integer sub_id);
+    Integer deleteEduInfo(Integer edu_id);
+
+    Integer deleteProject(Integer proj_id);
+    Integer deleteWork(Integer work_id);
+    Integer deleteActivity(Integer act_id);
+    Integer deleteCertificate(Integer certificate_id);
+    Integer updateEducation(EducationInfo educationInfo);
+    Integer updateWork(Work work);
+    Integer updateCertificate(Certificate certificate);
+    Integer updateProject(Project project);
+    Integer updateActivity(Activity activity);
+
 
 }
