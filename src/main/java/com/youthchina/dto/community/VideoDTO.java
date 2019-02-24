@@ -12,7 +12,7 @@ import java.util.List;
 public class VideoDTO {
     private Integer id;
     private String url;
-    private List<CommentDTO> comments = new ArrayList<>();
+    private List<CommentDTO> comments = new ArrayList<CommentDTO>();
     private User uploader;
 
     public VideoDTO (){}
@@ -23,7 +23,6 @@ public class VideoDTO {
         Iterator it = video.getVideoComments().iterator();
         while(it.hasNext()){
             CommentDTO commentDTO = new CommentDTO((VideoComment)it.next());
-            System.out.println("commentid:"+commentDTO.getId());
             this.comments.add(commentDTO);
         }
         this.uploader = video.getUser();
