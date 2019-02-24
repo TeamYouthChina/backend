@@ -7,8 +7,6 @@ import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
 
-import java.io.IOException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +19,13 @@ public class QuestionDTO {
     private User creator;
     private String title;
     private Integer isAnonymous;
-    private Timestamp createAt;
-    private Timestamp editAt;
-    private List<SimpleAnswerDTO> answers;
+    private Timestamp create_at;
+    private Timestamp modified_at;
+    private List<RequestSimpleAnswerDTO> answers;
     private AnswerInvitation invitation;
-    private List<Integer> labelIds;
     private Integer rela_type;
     private Integer rela_id;
-    private RichTextDTO richTextDTO;
+    private RichTextDTO body;
 
     public QuestionDTO(Question question) {
         this.id = question.getQues_id();
@@ -37,21 +34,21 @@ public class QuestionDTO {
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(question.getQues_body(), RichTextDTO.class);
-            this.richTextDTO = richt;
+            this.body = richt;
         }catch (Exception e){
             System.out.println("Exception");
         }
 
         this.invitation = question.getQues_invitation();
         this.isAnonymous =question.getUser_anony();
-        this.createAt = question.getQues_pub_time();
-        this.editAt = question.getQues_edit_time();
-        this.labelIds = question.getLabelIds();
+        this.create_at = question.getQues_pub_time();
+        this.modified_at = question.getQues_edit_time();
+
         this.rela_type = question.getRela_type();
-        this.answers = new ArrayList<SimpleAnswerDTO>();
+        this.answers = new ArrayList<RequestSimpleAnswerDTO>();
         if(question.getQuestionAnswers() != null) {
             for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
-                this.answers.add(new SimpleAnswerDTO(questionAnswer));
+                this.answers.add(new RequestSimpleAnswerDTO(questionAnswer));
             }
         }
 
@@ -59,9 +56,9 @@ public class QuestionDTO {
 
     public QuestionDTO(){}
 
-    public RichTextDTO getRichTextDTO(){return richTextDTO;}
+    public RichTextDTO getRichTextDTO(){return body;}
 
-    public void setRichTextDTO(RichTextDTO richTextDTO){this.richTextDTO = richTextDTO;}
+    public void setRichTextDTO(RichTextDTO richTextDTO){this.body = richTextDTO;}
 
     public Integer getId() {
         return id;
@@ -95,19 +92,12 @@ public class QuestionDTO {
         this.isAnonymous = anonymous;
     }
 
-    public Timestamp getCreateAt() {
-        return createAt;
-    }
 
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
-    }
-
-    public List<SimpleAnswerDTO> getAnswers() {
+    public List<RequestSimpleAnswerDTO> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<SimpleAnswerDTO> answers) {
+    public void setAnswers(List<RequestSimpleAnswerDTO> answers) {
         this.answers = answers;
     }
 
@@ -117,14 +107,6 @@ public class QuestionDTO {
 
     public void setInvitation(AnswerInvitation invitation) {
         this.invitation = invitation;
-    }
-
-    public List<Integer> getLabelIds() {
-        return labelIds;
-    }
-
-    public void setLabelIds(List<Integer> labels) {
-        this.labelIds = labelIds;
     }
 
     public Integer getRela_type() {
@@ -143,11 +125,27 @@ public class QuestionDTO {
         this.rela_id = rela_id;
     }
 
-    public Timestamp getEditAt() {
-        return editAt;
+    public Integer getIsAnonymous() {
+        return isAnonymous;
     }
 
-    public void setEditAt(Timestamp editAt) {
-        this.editAt = editAt;
+    public void setIsAnonymous(Integer isAnonymous) {
+        this.isAnonymous = isAnonymous;
+    }
+
+    public Timestamp getCreate_at() {
+        return create_at;
+    }
+
+    public void setCreate_at(Timestamp create_at) {
+        this.create_at = create_at;
+    }
+
+    public Timestamp getModified_at() {
+        return modified_at;
+    }
+
+    public void setModified_at(Timestamp modified_at) {
+        this.modified_at = modified_at;
     }
 }

@@ -6,7 +6,7 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.QuestionDTO;
-import com.youthchina.dto.community.SimpleAnswerDTO;
+import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.jinhao.communityQA.CommunityQAService;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,11 +135,14 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @PostMapping("/{id}/answers")
-    public ResponseEntity<?> addAnswers(@PathVariable Integer id,@RequestBody SimpleAnswerDTO simpleAnswerDTO,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody RequestSimpleAnswerDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         System.out.println("add answers");
         QuestionAnswer questionAnswer = new QuestionAnswer(simpleAnswerDTO);
         questionAnswer.setUser_id(user.getId());
-        SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(communityQAService.addAnswer(questionAnswer,id,1));
+        questionAnswer.setAnswer_pub_time(new Timestamp(System.currentTimeMillis()));
+        questionAnswer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
+
+        RequestSimpleAnswerDTO returnSimpleAnswer = new RequestSimpleAnswerDTO(communityQAService.addAnswer(questionAnswer,id,1));
         if (returnSimpleAnswer!=null)
             return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
         else

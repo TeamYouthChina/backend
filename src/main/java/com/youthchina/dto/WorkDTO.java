@@ -9,7 +9,7 @@ public class WorkDTO {
     private String employer;
     private String position;
     private DurationDTO duration;
-    private String location;
+    private LocationDTO location;
     private String note;
 
     public WorkDTO() {
@@ -19,7 +19,7 @@ public class WorkDTO {
         this.employer = work.getWork_company();
         this.position = work.getWork_position();
         this.duration = new DurationDTO(work.getWork_start_time(), work.getWork_end_time());
-        this.location = work.getLocation().toString();
+        this.location=new LocationDTO(work.getLocation());
 
     }
 
@@ -47,11 +47,11 @@ public class WorkDTO {
         this.duration = duration;
     }
 
-    public String getLocation() {
+    public LocationDTO getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(LocationDTO location) {
         this.location = location;
     }
 

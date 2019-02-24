@@ -42,6 +42,8 @@ public class DurationDTO {
         this.end = new Timestamp(end.getTime());
     }
 
+
+
     public Timestamp getBegin() {
         return begin;
     }
