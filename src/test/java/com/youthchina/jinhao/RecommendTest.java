@@ -46,33 +46,33 @@ public class RecommendTest {
     @Test
     public void recommend(){
         List<Integer> ids = recommendMapper.getRandomNewCompany();
-        Assert.assertEquals(5,ids.size());
+        Assert.assertEquals(10,ids.size());
         List<Integer> ids1 = recommendMapper.getRandomEssay();
-        Assert.assertEquals(5,ids1.size());
+        Assert.assertEquals(10,ids1.size());
         List<Integer> ids2 = recommendMapper.getRandomIntern();
-        Assert.assertEquals(5,ids2.size());
+        Assert.assertEquals(10,ids2.size());
         List<Integer> ids3 = recommendMapper.getRandomJob();
-        Assert.assertEquals(5,ids3.size());
+        Assert.assertEquals(10,ids3.size());
         List<Integer> ids4 = recommendMapper.getRandomPopCompany();
-        Assert.assertEquals(5,ids4.size());
+        Assert.assertEquals(10,ids4.size());
         List<Integer> ids5 = recommendMapper.getRandomQuestion();
-        Assert.assertEquals(5,ids5.size());
+        Assert.assertEquals(10,ids5.size());
         List<Integer> ids6 = recommendMapper.getRandomUser();
-        Assert.assertEquals(5, ids6.size());
+        Assert.assertEquals(10, ids6.size());
         List<User> users = userRecommendService.getUserForYou();
-        Assert.assertEquals(5,users.size());
+        Assert.assertEquals(10,users.size());
         List<Company> companies = companyRecommendService.getNewCompanyForYou();
-        Assert.assertEquals(5,companies.size());
+        Assert.assertEquals(10,companies.size());
         companies = companyRecommendService.getPopCompanyForYou();
-        Assert.assertEquals(5,companies.size());
+        Assert.assertEquals(10,companies.size());
         List<Job> jobs = jobRecommendService.getInternForYou();
-        Assert.assertEquals(5,jobs.size());
+        Assert.assertEquals(10,jobs.size());
         jobs = jobRecommendService.getJobForYou();
-        Assert.assertEquals(5,jobs.size());
+        Assert.assertEquals(10,jobs.size());
         List<ComEssay> essays = essayRecommendService.getEssayForYou();
-        Assert.assertEquals(5,essays.size());
+        Assert.assertEquals(10,essays.size());
         List<Question> questions = questionRecommendService.getQuestionForYou();
-        Assert.assertEquals(5,questions.size());
+        Assert.assertEquals(10,questions.size());
     }
 
 }
