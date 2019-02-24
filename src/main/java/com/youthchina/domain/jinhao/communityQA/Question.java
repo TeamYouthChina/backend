@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.QuestionDTO;
-import com.youthchina.dto.community.SimpleAnswerDTO;
+import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
@@ -42,15 +42,13 @@ public class Question implements HasId<Integer> {
             System.out.println("Exception");
         }
 
-        this.ques_invitation = questionDTO.getInvitation();
         this.user_anony = questionDTO.getAnonymous();
-        this.ques_pub_time = questionDTO.getCreateAt();
-        this.ques_edit_time = questionDTO.getEditAt();
+        this.ques_pub_time = questionDTO.getCreate_at();
+        this.ques_edit_time = questionDTO.getModified_at();
         this.rela_type = questionDTO.getRela_type();
-        this.labelIds = questionDTO.getLabelIds();
         this.ques_abbre = questionDTO.getRichTextDTO().getBraftEditorRaw();
         if(questionDTO.getAnswers() != null) {
-            for(SimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
+            for(RequestSimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
                 this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
             }
         }

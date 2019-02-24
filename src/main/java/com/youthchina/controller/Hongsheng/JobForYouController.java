@@ -6,13 +6,11 @@ import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.RecommendServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
