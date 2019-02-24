@@ -1,50 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.jinhao.RecommendMapper">
-    <select id="getRandomJob">
-        select JOB_ID from RECOM_FULL_JOB as t1 join (select ROUND(RAND()*((select MAX(JOB_ID) from RECOM_FULL_JOB)-(select MIN(JOB_ID) from RECOM_FULL_JOB))
-          +(select MIN(JOB_ID) from RECOM_FULL_JOB)) AS id) as t2
-        where t1.JOB_ID >= t2.id
-        order by t1.JOB_ID limit 10
+    <select id="getRandomJob" resultType="java.lang.Integer">
+          select JOB_ID from RECOM_FULL_JOB
+#         select JOB_ID from RECOM_FULL_JOB as t1 join (select ROUND(RAND()*((select MAX(JOB_ID) from RECOM_FULL_JOB)-(select MIN(JOB_ID) from RECOM_FULL_JOB))
+#           +(select MIN(JOB_ID) from RECOM_FULL_JOB)) AS id) as t2
+#         where t1.JOB_ID >= t2.id
+#         order by t1.JOB_ID limit 10
     </select>
 
-    <select id="getRandomIntern">
-        select JOB_ID from RECOM_PART_JOB as t1 join (select ROUND(RAND()*((select MAX(JOB_ID) from RECOM_FULL_JOB)-(select MIN(JOB_ID) from RECOM_PART_JOB))
-            +(select MIN(JOB_ID) from RECOM_PART_JOB)) AS id) as t2
-        where t1.JOB_ID >= t2.id
-        order by t1.JOB_ID limit 10
+    <select id="getRandomIntern" resultType="java.lang.Integer">
+          SELECT JOB_ID FROM RECOM_PART_JOB
+#         select JOB_ID from RECOM_PART_JOB as t1 join (select ROUND(RAND()*((select MAX(JOB_ID) from RECOM_FULL_JOB)-(select MIN(JOB_ID) from RECOM_PART_JOB))
+#             +(select MIN(JOB_ID) from RECOM_PART_JOB)) AS id) as t2
+#         where t1.JOB_ID >= t2.id
+#         order by t1.JOB_ID limit 10
     </select>
 
-    <select id="getRandomPopCompany">
-        select COMPANY_ID from RECOM_POP_COMPANY as t1 join (select ROUND(RAND()*((select MAX(COMPANY_ID) from RECOM_POP_COMPANY)-(select MIN(COMPANY_ID) from RECOM_POP_COMPANY))
-            +(select MIN(COMPANY_ID) from RECOM_POP_COMPANY)) AS id) as t2
-        where t1.COMPANY_ID >= t2.id
-        order by t1.COMPANY_ID limit 10
+    <select id="getRandomPopCompany" resultType="java.lang.Integer">
+          SELECT COMPANY_ID FROM RECOM_NEW_COMPANY
+#         select COMPANY_ID from RECOM_POP_COMPANY as t1 join (select ROUND(RAND()*((select MAX(COMPANY_ID) from RECOM_POP_COMPANY)-(select MIN(COMPANY_ID) from RECOM_POP_COMPANY))
+#             +(select MIN(COMPANY_ID) from RECOM_POP_COMPANY)) AS id) as t2
+#         where t1.COMPANY_ID >= t2.id
+#         order by t1.COMPANY_ID limit 10
     </select>
 
-    <select id="getRandomNewCompany">
-        select COMPANY_ID from RECOM_NEW_COMPANY as t1 join (select ROUND(RAND()*((select MAX(COMPANY_ID) from RECOM_NEW_COMPANY)-(select MIN(COMPANY_ID) from RECOM_NEW_COMPANY))
-            +(select MIN(COMPANY_ID) from RECOM_NEW_COMPANY)) AS id) as t2
-        where t1.COMPANY_ID >= t2.id
-        order by t1.COMPANY_ID limit 10
+    <select id="getRandomNewCompany" resultType="java.lang.Integer">
+          select COMPANY_ID from RECOM_NEW_COMPANY
+#         select COMPANY_ID from RECOM_NEW_COMPANY as t1 join (select ROUND(RAND()*((select MAX(COMPANY_ID) from RECOM_NEW_COMPANY)-(select MIN(COMPANY_ID) from RECOM_NEW_COMPANY))
+#             +(select MIN(COMPANY_ID) from RECOM_NEW_COMPANY)) AS id) as t2
+#         where t1.COMPANY_ID >= t2.id
+#         order by t1.COMPANY_ID limit 10
     </select>
-    <select id="getRandomEssay">
-        select ESSAY_ID from RECOM_ESSAY as t1 join (select ROUND(RAND()*((select MAX(ESSAY_ID) from RECOM_ESSAY)-(select MIN(ESSAY_ID) from RECOM_ESSAY))
-            +(select MIN(ESSAY_ID) from RECOM_ESSAY)) AS id) as t2
-        where t1.ESSAY_ID >= t2.id
-        order by t1.ESSAY_ID limit 10
+    <select id="getRandomEssay" resultType="java.lang.Integer">
+          select ESSAY_ID from RECOM_ESSAY
+#         select ESSAY_ID from RECOM_ESSAY as t1 join (select ROUND(RAND()*((select MAX(ESSAY_ID) from RECOM_ESSAY)-(select MIN(ESSAY_ID) from RECOM_ESSAY))
+#             +(select MIN(ESSAY_ID) from RECOM_ESSAY)) AS id) as t2
+#         where t1.ESSAY_ID >= t2.id
+#         order by t1.ESSAY_ID limit 10
     </select>
-    <select id="getRandomQuestion">
-        select QUESTION_ID from RECOM_QUESTION as t1 join (select ROUND(RAND()*((select MAX(QUESTION_ID) from RECOM_QUESTION)-(select MIN(QUESTION_ID) from RECOM_QUESTION))
-            +(select MIN(QUESTION_ID) from RECOM_QUESTION)) AS id) as t2
-        where t1.QUESTION_ID >= t2.id
-        order by t1.QUESTION_ID limit 10
+    <select id="getRandomQuestion" resultType="java.lang.Integer">
+          SELECT QUESTION_ID FROM RECOM_QUESTION
+#         select QUESTION_ID from RECOM_QUESTION as t1 join (select ROUND(RAND()*((select MAX(QUESTION_ID) from RECOM_QUESTION)-(select MIN(QUESTION_ID) from RECOM_QUESTION))
+#             +(select MIN(QUESTION_ID) from RECOM_QUESTION)) AS id) as t2
+#         where t1.QUESTION_ID >= t2.id
+#         order by t1.QUESTION_ID limit 10
     </select>
-    <select id="getRandomUser">
-        select USER_ID from RECOM_USER as t1 join (select ROUND(RAND()*((select MAX(USER_ID) from RECOM_USER)-(select MIN(USER_ID) from RECOM_USER))
-            +(select MIN(USER_ID) from RECOM_USER)) AS id) as t2
-        where t1.USER_ID >= t2.id
-        order by t1.USER_ID limit 10
+    <select id="getRandomUser" resultType="java.lang.Integer">
+          SELECT USER_ID FROM RECOM_USER
+#         select USER_ID from RECOM_USER as t1 join (select ROUND(RAND()*((select MAX(USER_ID) from RECOM_USER)-(select MIN(USER_ID) from RECOM_USER))
+#             +(select MIN(USER_ID) from RECOM_USER)) AS id) as t2
+#         where t1.USER_ID >= t2.id
+#         order by t1.USER_ID limit 10
     </select>
     <select id="getList" parameterType="java.lang.Integer" resultType="com.youthchina.domain.qingyang.Job">
         select * from RECOM_PART_JOB where JOB_ID in
