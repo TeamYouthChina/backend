@@ -134,8 +134,6 @@ public interface CommunityQAMapper {
 
     void deleteDiscuss(Integer discuss_Id);
 
-    void deleteAllDiscussEvaluateByDiscussId(Integer discuss_id);
-
     Integer countDiscussAgreement(Integer discuss_id);
 
 

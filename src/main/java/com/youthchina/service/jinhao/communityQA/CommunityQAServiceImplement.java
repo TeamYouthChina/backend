@@ -18,7 +18,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     private Question getQuestion(Integer ques_id) throws NotFoundException{
         Question question = communityQAMapper.getQuestion(ques_id);
         if(question == null){
-            throw new NotFoundException(404,404,"没有找到这个问题");
+            throw new NotFoundException(404,404,"没有找到这个问题");//todo
         }
         return question;
     }
@@ -39,7 +39,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public Question get(Integer id) throws NotFoundException {
         Question question = communityQAMapper.getQuestionById(id);
         if(question == null){
-            throw new NotFoundException(404,404,"没有找到这个问题");
+            throw new NotFoundException(404,404,"没有找到这个问题");//todo
         }
         return question;
     }
@@ -106,7 +106,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public void cancelAttentionQuestion(Integer ques_id, Integer user_id) throws NotFoundException{
         QuestionAttention questionAttention = communityQAMapper.isQuestionAttention(ques_id, user_id);
         if(questionAttention == null){
-            throw new NotFoundException(404, 404, "没有这个关注，无法取消");
+            throw new NotFoundException(404, 404, "没有这个关注，无法取消");//todo
         }
         communityQAMapper.cancelAttention(questionAttention.getAtten_id());
     }
@@ -121,7 +121,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException{
         List<Question> questions = communityQAMapper.listMyAttenQuestion(user_id);
         if(questions == null){
-            throw new NotFoundException(404,404,"该用户没有关注的问题");
+            throw new NotFoundException(404,404,"该用户没有关注的问题");//todo
         }else {
             return questions;
         }
@@ -162,7 +162,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public List<Question> listMyQuestions(Integer user_id) throws NotFoundException{
         List<Question> questions = communityQAMapper.getMyQuestions(user_id);
         if(questions.size() == 0){
-            throw new NotFoundException(404, 404, "用户还没有提出过问题");
+            throw new NotFoundException(404, 404, "用户还没有提出过问题");//todo
         }else {
             return questions;
         }
@@ -178,7 +178,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Transactional
     public List<Question> searchQuestionByTitleOrCompanyName(String searchContent) throws NotFoundException{
         List<Integer> question_ids = getQuestionIdByTitleOrCompanyName(searchContent);
-        if(question_ids.size() == 0) throw new NotFoundException(404,404,"没有搜索到相关的问题");
+        if(question_ids.size() == 0) throw new NotFoundException(404,404,"没有搜索到相关的问题");//todo
         List<Question> questions = new LinkedList<>();
         for(Integer ques_id : question_ids){
             questions.add(communityQAMapper.getQuestionById(ques_id));
@@ -205,7 +205,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Transactional
     public List<Video> searchVideoByTitleOrCompanyName(String searchContent) throws NotFoundException{
         List<Integer> video_ids = getVideoIdByTitleOrCompanyName(searchContent);
-        if(video_ids.size() == 0) throw new NotFoundException(404,404,"没有搜索到相关的视频");
+        if(video_ids.size() == 0) throw new NotFoundException(404,404,"没有搜索到相关的视频");//todo
         List<Video> videos = new LinkedList<>();
         for(Integer video_id : video_ids){
             videos.add(communityQAMapper.getVideoById(video_id));
@@ -260,7 +260,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public QuestionAnswer getAnswer(Integer answer_id) throws NotFoundException{
         QuestionAnswer questionAnswer =  communityQAMapper.getAnswerById(answer_id);
         if(questionAnswer == null){
-            throw new NotFoundException(404, 404, "没有找到该回答");
+            throw new NotFoundException(404, 404, "没有找到该回答");//todo
         }else {
             return questionAnswer;
         }
@@ -310,7 +310,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public List<QuestionAnswer> listMyAnswers(Integer user_id) throws NotFoundException{
         List<QuestionAnswer> questionAnswers = communityQAMapper.listMyAnswer(user_id);
         if(questionAnswers == null){
-            throw new NotFoundException(404,404,"用户没有回答过问题");
+            throw new NotFoundException(404,404,"用户没有回答过问题");//todo
         }else {
             return questionAnswers;
         }
@@ -375,7 +375,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         simplyGetAnswer(answer_id);
         Evaluate evaluate = communityQAMapper.evaluateStatus(user_id,answer_id);
         if(evaluate == null){
-            throw new NotFoundException(404,404,"没有点赞过这个回答，不能取消");
+            throw new NotFoundException(404,404,"没有点赞过这个回答，不能取消");//todo
         }else {
             communityQAMapper.deleteEvaluateAnswer(evaluate.getEvaluate_id());
         }
@@ -408,7 +408,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         simplyGetAnswer(answer_id);
         List<Comment> comments = communityQAMapper.listAllAnswerComment(answer_id);
         if(comments == null){
-            throw new NotFoundException(404, 404, "找不到这个回答的评论");
+            throw new NotFoundException(404, 404, "找不到这个回答的评论");//todo
         }else {
             return comments;
         }
@@ -424,7 +424,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public Comment getComment(Integer comment_id) throws NotFoundException{
         Comment comment = communityQAMapper.getComment(comment_id);
         if(comment == null){
-            throw new NotFoundException(404,404,"找不到该评论");
+            throw new NotFoundException(404,404,"找不到该评论");//todo
         }else {
             return comment;
         }
@@ -489,7 +489,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         getComment(comment_id);
         CommentEvaluate commentEvaluate = communityQAMapper.commentEvaluateStatus(user_id, comment_id);
         if(commentEvaluate == null){
-            throw new NotFoundException(404,404,"没用点赞过这个评论，无法取消！");
+            throw new NotFoundException(404,404,"没用点赞过这个评论，无法取消！");//todo
         }else{
             communityQAMapper.deleteEvaluateComment(commentEvaluate.getEvaluate_id());
         }
@@ -678,7 +678,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public List<Video> listFirstTenVideos() throws NotFoundException{
         List<Video> videos= communityQAMapper.listFirstTenVideos();
         if(videos == null){
-            throw new NotFoundException(404,404,"没有任何视频");
+            throw new NotFoundException(404,404,"没有任何视频");//todo
         }else {return videos;}
     }
 
@@ -692,7 +692,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public List<Video> listAllMyVideos(Integer user_id) throws NotFoundException{
         List<Video> videos = communityQAMapper.listAllMyVideos(user_id);
         if(videos == null){
-            throw new NotFoundException(404,404,"该用户没有发过视频");
+            throw new NotFoundException(404,404,"该用户没有发过视频");//todo
         }else {
             return videos;
         }
@@ -715,7 +715,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     private void simplyGetVideo(Integer video_id) throws NotFoundException{
         Video video = communityQAMapper.getVideo(video_id);
         if(video == null){
-            throw new NotFoundException(404,404,"没有找到这个视频");
+            throw new NotFoundException(404,404,"没有找到这个视频");//todo
         }
     }
 
@@ -729,7 +729,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public Video getVideo(Integer video_id) throws NotFoundException {
         Video video = communityQAMapper.getVideoById(video_id);
         if(video == null){
-            throw new NotFoundException(404, 404, "没有找到该视频");
+            throw new NotFoundException(404, 404, "没有找到该视频");//todo
         }else {
             return video;
         }
@@ -767,7 +767,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public void cancelAttenVideo(Integer user_id, Integer video_id) throws NotFoundException {
         VideoAttention videoAttention = communityQAMapper.videoAttentionStatus(video_id, user_id);
         if(videoAttention == null){
-            throw new NotFoundException(404,404,"没有关注过这个视频，无法取消");
+            throw new NotFoundException(404,404,"没有关注过这个视频，无法取消");//todo
         }else {
             communityQAMapper.cancelAttentionVideo(videoAttention.getAtten_id());
         }
@@ -793,7 +793,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public VideoComment getVideoComment(Integer comment_id) throws NotFoundException{
         VideoComment videoComment = communityQAMapper.getVideoComment(comment_id);
         if(videoComment == null){
-            throw new NotFoundException(404, 404, "没找到这条视频评论");
+            throw new NotFoundException(404, 404, "没找到这条视频评论");//todo
         }else {
             return videoComment;
         }
@@ -828,7 +828,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public void cancelEvaluateVideo(Integer user_id, Integer video_id) throws NotFoundException {
         VideoEvaluate videoEvaluate = communityQAMapper.videoEvaluateStatus(video_id,user_id);
         if(videoEvaluate == null){
-            throw new NotFoundException(404,404,"没有点赞过这个视频，无法取消点赞");
+            throw new NotFoundException(404,404,"没有点赞过这个视频，无法取消点赞");//todo
         }else {
             communityQAMapper.cancelEvaluateVideo(videoEvaluate.getEvaluate_id());
         }

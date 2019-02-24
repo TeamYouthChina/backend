@@ -52,14 +52,15 @@ public class StaticFileService {
         comMediaDocument.setDocu_local_name(fileName.substring(0, index));
         comMediaDocument.setDocu_local_format(fileName.substring(index + 1));
         comMediaDocument.setDocu_local_id(id.toString());
+        Double fizeSize = Double.valueOf(file.length() / 1024.0 / 1024.0);
+        comMediaDocument.setDocu_local_size(String.valueOf(fizeSize));
 
-        comMediaDocument.setDocu_local_size(String.valueOf(file.length() / 1024 / 1024));
         //save info to database
         fileSystemMapper.saveFileInfo(comMediaDocument);
         try {
             //save fileInfo
             for (FileStorageService fileStorageService : fileStorageServices.values()) {
-                fileStorageService.uploadFile(file);
+                fileStorageService.uploadFile(file,id);
             }
         } catch (Exception e) {
 

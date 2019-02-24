@@ -1,14 +1,16 @@
 package com.youthchina.dto.community;
 
+import com.youthchina.dto.RichTextDTO;
+
 public class RequestCommentDTO {
-    private String body;
+    private RichTextDTO body;
     private boolean is_anonymous;
 
-    public String getBody() {
+    public RichTextDTO getBody() {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(RichTextDTO body) {
         this.body = body;
     }
 

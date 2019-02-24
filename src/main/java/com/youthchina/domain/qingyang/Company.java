@@ -74,6 +74,7 @@ public class Company implements HasId<Integer> {
         this.country = new Country(companyDTO.getNation());
         this.companyLogo = companyDTO.getAvatarUrl();
         this.companyIntroduc = companyDTO.getNote();
+        this.userId = companyDTO.getUserId();
 
         //TODO : API need add more params as shown below
         this.companyCode = "TODO"; //企业三证号码
@@ -90,8 +91,6 @@ public class Company implements HasId<Integer> {
 
         this.companyVerify = 0;
 
-        //TODO Important GetUserId?
-        this.userId = 1;
 
     }
 
