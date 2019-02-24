@@ -191,7 +191,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      * @param searchContent title or company or job name
      * @return list of question ids
      */
-    public List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent) {
+    private List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent) {
         return communityQAMapper.getQuestionIdByTitleOrCompanyName(searchContent);
     }
 
@@ -218,7 +218,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      * @param searchContent title or company name
      * @return list of video ids
      */
-    public List<Integer> getVideoIdByTitleOrCompanyName(String searchContent) {
+    private List<Integer> getVideoIdByTitleOrCompanyName(String searchContent) {
         return communityQAMapper.getVideoIdByTitleOrCompanyName(searchContent);
     }
 
@@ -243,7 +243,8 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public QuestionAnswer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level) {
+    public QuestionAnswer addAnswer(QuestionAnswer questionAnswer, Integer ques_id, Integer answer_level) throws NotFoundException {
+        getQuestion(ques_id);
         communityQAMapper.addAnswerToQuestion(questionAnswer);
         communityQAMapper.createMapBetweenQuestionAndAnswer(ques_id, questionAnswer.getAnswer_id(), answer_level);
         return questionAnswer;
@@ -264,7 +265,14 @@ public class CommunityQAServiceImplement implements CommunityQAService {
             return questionAnswer;
         }
     }
-
+    private QuestionAnswer simplyGetAnswer(Integer answer_id) throws NotFoundException{
+        QuestionAnswer questionAnswer = communityQAMapper.getAnswer(answer_id);
+        if(questionAnswer == null){
+            throw new NotFoundException(404, 404, "没有找到该回答");
+        }else {
+            return questionAnswer;
+        }
+    }
     /**
      * 编辑回答，如果回答不存在，抛出异常
      * @param questionAnswer 要编辑的回答对象
@@ -274,7 +282,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Override
     @Transactional
     public QuestionAnswer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException{
-        getAnswer(questionAnswer.getAnswer_id());
+        simplyGetAnswer(questionAnswer.getAnswer_id());
         communityQAMapper.editAnswer(questionAnswer);
         return questionAnswer;
     }
@@ -283,7 +291,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Override
     @Transactional
     public void deleteAnswer(Integer answer_id) throws NotFoundException{
-        getAnswer(answer_id);
+        simplyGetAnswer(answer_id);
         communityQAMapper.deleteAnswer(answer_id);
         communityQAMapper.deleteAllAnswerEvaluationByAnswerId(answer_id);
         communityQAMapper.deleteAllCommentsByAnswerId(answer_id);
@@ -350,7 +358,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Override
     @Transactional
     public void evaluateAnswer(Integer answer_id, Integer user_id) throws NotFoundException{
-        getAnswer(answer_id);
+        simplyGetAnswer(answer_id);
         Evaluate evaluate = communityQAMapper.evaluateStatus(user_id,answer_id);
         if(evaluate != null){
             communityQAMapper.reEvaluateAnswer(evaluate.getEvaluate_id());
@@ -364,7 +372,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
 
     @Override
     public void deleteEvaluateAnswer(Integer answer_id, Integer user_id) throws NotFoundException {
-        getAnswer(answer_id);
+        simplyGetAnswer(answer_id);
         Evaluate evaluate = communityQAMapper.evaluateStatus(user_id,answer_id);
         if(evaluate == null){
             throw new NotFoundException(404,404,"没有点赞过这个回答，不能取消");//todo
@@ -397,7 +405,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     public List<Comment> getAllAnswerComments(Integer answer_id) throws NotFoundException{
-        getAnswer(answer_id);
+        simplyGetAnswer(answer_id);
         List<Comment> comments = communityQAMapper.listAllAnswerComment(answer_id);
         if(comments == null){
             throw new NotFoundException(404, 404, "找不到这个回答的评论");//todo
@@ -433,7 +441,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     @Transactional
     public Integer addCommentToAnswer(Integer answer_id, Comment comment, Integer comment_level)
             throws NotFoundException{
-        getAnswer(answer_id);
+        simplyGetAnswer(answer_id);
         communityQAMapper.addCommentToAnswer(comment);
         communityQAMapper.createMapBetweenAnswerAndComment(answer_id, comment.getComment_id(),comment_level);
         return 1;

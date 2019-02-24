@@ -169,6 +169,7 @@
             as q, SYS_USER newu, COM_AUTHOR_QUESTION_MAP aqm) on q.QUES_ID = aqm.QUES_ID and aqm.USER_ID = newu.USER_ID
         where a.ANSWER_ID = #{answer_id} and a.IS_DELETE = 0
     </select>
+
     <select id="getVideoById" resultMap="videoInfo" parameterType="java.lang.Integer">
         select v.VIDEO_ID, v.VIDEO_TITLE, v.VIDEO_NAME, v.VIDEO_UPLOAD_TIME,
               <include refid="newUser"/>, <include refid="user"/> , newvc.COMMENT_ID,
@@ -284,7 +285,7 @@
     </select>
 
     <!-- 列出某个问题的所有标签 -->
-    <select id="listAllQuesetionLabel" parameterType="java.lang.Integer"
+    <select id="listAllQuestionLabel" parameterType="java.lang.Integer"
             resultType="com.youthchina.domain.jinhao.communityQA.Label">
         select l.* from SYS_COM_LABEL_CLASS l, COM_QUESTION_LABEL_MAP m
         where m.ques_id = #{ques_id}
