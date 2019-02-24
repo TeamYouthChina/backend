@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  */
 public class RequestSimpleAnswerDTO {
     private RichTextDTO body;
-    private Boolean isAnonymous;
+    private Boolean is_anonymous;
 
     public RequestSimpleAnswerDTO(QuestionAnswer questionAnswer) {
         try{
@@ -22,7 +22,7 @@ public class RequestSimpleAnswerDTO {
         }catch (Exception e){
             System.out.println("Exception");
         }
-        this.isAnonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
+        this.is_anonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
     }
 
     public RequestSimpleAnswerDTO(){}
@@ -35,12 +35,11 @@ public class RequestSimpleAnswerDTO {
         this.body = body;
     }
 
-    public Boolean getIsAnonymous() {
-        return isAnonymous;
+    public Boolean getIs_anonymous() {
+        return is_anonymous;
     }
 
-    public void setIsAnonymous(Boolean anonymous) {
-        isAnonymous = anonymous;
+    public void setIs_anonymous(Boolean is_anonymous) {
+        this.is_anonymous = is_anonymous;
     }
-
 }

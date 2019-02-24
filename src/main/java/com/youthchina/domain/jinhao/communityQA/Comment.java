@@ -1,5 +1,7 @@
 package com.youthchina.domain.jinhao.communityQA;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.CommentDTO;
 
@@ -22,8 +24,15 @@ public class Comment {
     public Comment(){}
 
     public Comment(CommentDTO commentDTO){
-        this.comment_content = commentDTO.getBody();
-        this.comment_pub_time = commentDTO.getCreat_at();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            java.lang.String requestJson = ow.writeValueAsString(commentDTO.getBody());
+            this.comment_content = requestJson;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+        this.comment_pub_time = commentDTO.getCreate_at();
         this.user = commentDTO.getUser();
         this.comment_id = commentDTO.getId();
         this.user_anony = (commentDTO.isIs_anonymous())? 1:0;

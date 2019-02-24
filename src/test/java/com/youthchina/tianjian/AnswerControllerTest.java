@@ -66,7 +66,7 @@ public class AnswerControllerTest {
     @Test
     public void testUpdateAnswer() throws Exception{
         RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
-        simpleAnswerDTO.setIsAnonymous(true);
+        simpleAnswerDTO.setIs_anonymous(true);
         RichTextDTO richTextDTO = new RichTextDTO();
         richTextDTO.setPreviewText("qweertyuiop");
         simpleAnswerDTO.setBody(richTextDTO);
@@ -101,7 +101,7 @@ public class AnswerControllerTest {
         RichTextDTO richTextDTO = new RichTextDTO();
         richTextDTO.setPreviewText("qweweer");
         simpleAnswerDTO.setBody(richTextDTO);
-        simpleAnswerDTO.setIsAnonymous(false);
+        simpleAnswerDTO.setIs_anonymous(false);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String addJson = ow.writeValueAsString(simpleAnswerDTO);
@@ -125,6 +125,17 @@ public class AnswerControllerTest {
         )
                 .andDo(print())
                 .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
+    @Test
+    public void testGetAllComments() throws Exception{
+        this.mvc.perform(
+                get(this.urlPrefix + "/answers/1/comments")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andDo(print());
+                //.andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
 }
