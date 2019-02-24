@@ -81,6 +81,7 @@ public class AnswerController {
     @GetMapping("/{id}/comments")
     public ResponseEntity getAnswerComments(@PathVariable Integer id) throws NotFoundException {
         List<Comment> comments = communityQAServiceImplement.getAllAnswerComments(id);
+
         List<CommentDTO> commentDTOS = new ArrayList<>();
         if(comments!=null){
             Iterator it = comments.iterator();

@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:answers.xml"})
+@DatabaseSetup({"classpath:answers.xml","classpath:comments.xml"})
 @WebAppConfiguration
 public class AnswerControllerTest {
 
@@ -134,7 +134,7 @@ public class AnswerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":[{\"id\":24,\"user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":null,\"create_at\":\"2019-02-24T18:11:57.000+0000\",\"is_anonymous\":true}],\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":[{\"id\":1,\"user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":null,\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false},{\"id\":3,\"user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":null,\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false},{\"id\":5,\"user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":null,\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}],\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
 }
