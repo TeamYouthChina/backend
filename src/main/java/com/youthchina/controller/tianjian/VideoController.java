@@ -1,15 +1,10 @@
 package com.youthchina.controller.tianjian;
 
-import com.youthchina.domain.jinhao.communityQA.BriefReview;
-import com.youthchina.domain.jinhao.communityQA.Comment;
-import com.youthchina.domain.jinhao.communityQA.Video;
+import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.BriefReviewDTO;
-import com.youthchina.dto.community.RequestCommentDTO;
-import com.youthchina.dto.community.RequestVideoDTO;
-import com.youthchina.dto.community.VideoDTO;
+import com.youthchina.dto.community.*;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.CommunityQAServiceImplement;
@@ -23,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("${web.url.prefix}/videos")
@@ -71,6 +67,60 @@ public class VideoController {
          videoReturn = communityQAServiceImplement.addVideo(video,user.getId(),1,0);
         VideoDTO videoDTO = new VideoDTO(videoReturn);
         return ResponseEntity.ok(new Response(videoDTO,new StatusDTO(201,"success")));
-
     }
+
+    @PostMapping("/{id}/comments")
+    public ResponseEntity<?> addComments(@PathVariable Integer id, @RequestBody VideoCommentDTO commentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+        //System.out.println("add answers");
+        VideoComment videocomment = new VideoComment(commentDTO);
+        videocomment.setComment_pub_time(new Timestamp(System.currentTimeMillis()));
+        videocomment.setComment_edit_time(new Timestamp(System.currentTimeMillis()));
+        videocomment.setUser(user);
+        videocomment.setUser_id(user.getId());
+        VideoComment comment = communityQAServiceImplement.commentVideo(videocomment, id, 1);
+        if(comment.getComment_id() == null){
+            return ResponseEntity.ok(new Response( new StatusDTO(403,"failed")));
+        }else
+            return ResponseEntity.ok(new Response( new StatusDTO(201,"success")));
+    }
+
+    @GetMapping("/{id}/comments")
+    public ResponseEntity getComments(@PathVariable Integer id) throws NotFoundException {
+        Video video = communityQAServiceImplement.getVideo(id);
+        VideoDTO videoDTO = new VideoDTO(video);
+        HashMap<String, Object> comments = new HashMap<>();
+        comments.put("comments", videoDTO.getComments());
+        return ResponseEntity.ok(new Response(comments, new StatusDTO(200,"success")));
+    }
+
+    @PutMapping("/{id}/upvote")
+    public ResponseEntity updateVideo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        VideoEvaluate videoEvaluate = communityQAServiceImplement.evaluateVideo(user.getId(), id);
+        if(videoEvaluate.getEvaluate_id() == null){
+            return ResponseEntity.ok(new Response( new StatusDTO(403,"failed")));
+        }else
+            return ResponseEntity.ok(new Response( new StatusDTO(201,"success")));
+    }
+
+    @PutMapping("/{id}/attention")
+    public ResponseEntity attentionVideo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        VideoAttention videoAttention = communityQAServiceImplement.attentionVideo(user.getId(),id);
+
+        if(videoAttention.getAtten_id() == null){
+            return ResponseEntity.ok(new Response( new StatusDTO(403,"failed")));
+        }else
+            return ResponseEntity.ok(new Response( new StatusDTO(201,"success")));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
