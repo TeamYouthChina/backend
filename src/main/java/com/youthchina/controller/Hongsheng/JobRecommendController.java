@@ -7,7 +7,7 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.communityQA.RecommendServiceImplement;
+import com.youthchina.service.jinhao.communityQA.JobRecommendServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +22,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/job-for-you")
-public class JobForYouController {
+public class JobRecommendController {
 
     @Autowired
-    private RecommendServiceImplement recommendServiceImplement;
+    private JobRecommendServiceImplement jobRecommendServiceImplement;
 
     @GetMapping("/intern")
     public ResponseEntity getRecommandIntern() throws NotFoundException {
-        List<Job> jobList = recommendServiceImplement.getInternForYou();
+        List<Job> jobList = jobRecommendServiceImplement.getInternForYou();
         List<SimpleJobDTO> resultList = new ArrayList<>();
         for(Job job : jobList) {
             resultList.add(new SimpleJobDTO(job));
@@ -44,7 +44,7 @@ public class JobForYouController {
 
     @GetMapping("/general")
     public ResponseEntity getRecommandJob() throws NotFoundException {
-        List<Job> jobList = recommendServiceImplement.getJobForYou();
+        List<Job> jobList = jobRecommendServiceImplement.getJobForYou();
         List<SimpleJobDTO> resultList = new ArrayList<>();
         for(Job job : jobList) {
             resultList.add(new SimpleJobDTO(job));
