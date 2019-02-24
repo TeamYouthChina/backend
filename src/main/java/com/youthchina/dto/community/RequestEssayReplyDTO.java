@@ -5,11 +5,11 @@ import com.youthchina.domain.tianjian.ComEssayReply;
 import com.youthchina.dto.RichTextDTO;
 
 
-public class EssayReplyDTO {
+public class RequestEssayReplyDTO {
     private RichTextDTO body;
     private boolean isAnonymous;
 
-    public EssayReplyDTO(ComEssayReply comEssayReply){
+    public RequestEssayReplyDTO(ComEssayReply comEssayReply){
         this.isAnonymous = (comEssayReply.getUser_anony()==0)? false:true;
         try{
             ObjectMapper mapper = new ObjectMapper();
@@ -20,7 +20,7 @@ public class EssayReplyDTO {
         }
     }
 
-    public EssayReplyDTO(){}
+    public RequestEssayReplyDTO(){}
 
     public RichTextDTO getBody(){return body;}
 

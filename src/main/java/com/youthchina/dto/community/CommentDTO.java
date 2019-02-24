@@ -33,8 +33,14 @@ public class CommentDTO {
     public CommentDTO(VideoComment comment){
         this.id = comment.getComment_id();
         this.user = comment.getUser();
-        this.body = comment.getComment_content();
-        this.creat_at = comment.getComment_pub_time();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(comment.getComment_content(), RichTextDTO.class);
+            this.body = richt;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+        this.create_at = comment.getComment_pub_time();
         this.is_anonymous = (comment.getUser_anony()==1)? true:false;
     }
 
