@@ -4,6 +4,7 @@ import com.youthchina.controller.zhongyang.DomainCRUDController;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.CompanyDTO;
+import com.youthchina.dto.CompanyResponseDTO;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.exception.zhongyang.BaseException;
@@ -77,7 +78,7 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
     public ResponseEntity<?> getCompanyDetail(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
         Company company = this.companyService.get(companyId);
         if (detailLevel == 1) {
-            return ResponseEntity.ok(new Response(new CompanyDTO(company)));
+            return ResponseEntity.ok(new Response(new CompanyResponseDTO(company)));
         }
         throw new BaseException();
     }

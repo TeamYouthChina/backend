@@ -1,5 +1,7 @@
 package com.youthchina.dto;
 
+import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 
 import java.text.DateFormat;
@@ -14,8 +16,11 @@ public class JobResponseDTO implements ResponseDTO {
     private String name;
     private OrganizationDTO organization;
     private String location;
+    private String nation;
     private String type;
     private String deadLine;
+    private String duty;
+    private String description;
     /*{
   "content": {
     "id": 0,
@@ -41,8 +46,16 @@ public class JobResponseDTO implements ResponseDTO {
     public JobResponseDTO(Job job) {
         this.id = job.getJobId();
         this.name = job.getJobName();
-        this.organization = new OrganizationDTO(job.getCompany());
-        this.location = job.getJobLocationList().get(0).getRegion_chn(); // 默认中文名
+        Company company = job.getCompany();
+        this.organization = company == null ? null : new OrganizationDTO(company);
+        List<Location> locationList = job.getJobLocationList();
+        if(locationList != null && locationList.size() > 0 ){
+            Location location = locationList.get(0);
+            if(location != null){
+                this.location = location.getRegion_chn(); // 默认中文名
+                this.nation = location.getNation_code();
+            }
+        }
         int jobType = job.getJobType();
         if(jobType == 1){
             this.type = "实习";
@@ -53,9 +66,17 @@ public class JobResponseDTO implements ResponseDTO {
         }
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         this.deadLine = df.format(job.getJobEndTime());
+        this.duty = job.getJobDuty();
+        this.description = job.getJobDescription();
     }
 
+    public String getNation() {
+        return nation;
+    }
 
+    public void setNation(String nation) {
+        this.nation = nation;
+    }
 
     public int getId() {
         return id;
@@ -103,6 +124,22 @@ public class JobResponseDTO implements ResponseDTO {
 
     public void setDeadLine(String deadLine) {
         this.deadLine = deadLine;
+    }
+
+    public String getDuty() {
+        return duty;
+    }
+
+    public void setDuty(String duty) {
+        this.duty = duty;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
