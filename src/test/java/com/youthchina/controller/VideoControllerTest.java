@@ -91,23 +91,6 @@ public class VideoControllerTest {
 
     }
 
-    /*@Test
-    public void addVideoTest() throws Exception {
-        VideoDTO videoDTO = new VideoDTO();
-
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(videoDTO);
-
-        this.mvc.perform(
-                post(this.urlPrefix + "/articles/1/comments").contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content(requestJson)
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print());
-                //.andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
-    }*/
-
     @Test
     public void addCommentTest() throws Exception {
         VideoCommentDTO videoCommentDTO = new VideoCommentDTO();
