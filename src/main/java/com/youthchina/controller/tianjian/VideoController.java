@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("${web.url.prefix}/videos")
@@ -81,6 +82,15 @@ public class VideoController {
             return ResponseEntity.ok(new Response( new StatusDTO(403,"failed")));
         }else
             return ResponseEntity.ok(new Response( new StatusDTO(201,"success")));
+    }
+
+    @GetMapping("/{id}/comments")
+    public ResponseEntity getComments(@PathVariable Integer id) throws NotFoundException {
+        Video video = communityQAServiceImplement.getVideo(id);
+        VideoDTO videoDTO = new VideoDTO(video);
+        HashMap<String, Object> comments = new HashMap<>();
+        comments.put("comments", videoDTO.getComments());
+        return ResponseEntity.ok(new Response(comments, new StatusDTO(200,"success")));
     }
 
     @PutMapping("/{id}/upvote")
