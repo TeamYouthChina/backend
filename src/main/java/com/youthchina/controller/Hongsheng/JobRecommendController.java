@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,11 +35,13 @@ public class JobRecommendController {
         for(Job job : jobList) {
             resultList.add(new SimpleJobDTO(job));
         }
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("JobList", jobList);
 
         if (resultList!=null)
-            return ResponseEntity.ok(new Response(resultList, new StatusDTO(200,"success")));
+            return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
         else
-            return ResponseEntity.ok(new Response(resultList, new StatusDTO(400,"fail")));
+            return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
     }
 
 
@@ -50,9 +53,12 @@ public class JobRecommendController {
             resultList.add(new SimpleJobDTO(job));
         }
 
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("JobList", jobList);
+
         if (resultList!=null)
-            return ResponseEntity.ok(new Response(resultList, new StatusDTO(200,"success")));
+            return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
         else
-            return ResponseEntity.ok(new Response(resultList, new StatusDTO(400,"fail")));
+            return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
     }
 }
