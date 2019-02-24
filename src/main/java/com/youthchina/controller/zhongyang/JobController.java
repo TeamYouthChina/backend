@@ -87,7 +87,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
         Job job = this.jobService.get(jobId);
         if (detailLevel == 1) {
-            return ResponseEntity.ok(new Response(job));
+            return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
         }
         throw new BaseException();
     }
