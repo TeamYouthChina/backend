@@ -4,7 +4,6 @@ import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.*;
 import com.youthchina.exception.zhongyang.BaseException;
-import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;

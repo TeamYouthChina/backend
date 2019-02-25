@@ -103,15 +103,8 @@
     <result property="comment_content" column="COMMENT_CONTENT"/>
     <result property="user_anony" column="USER_ANONY"/>
     <result property="comment_pub_time" column="COMMENT_PUB_TIME"/>
-    <result property="comment_edit_time" column="COMMENT_EDIT_TIME"/>
     <association property="user" javaType="com.youthchina.domain.zhongyang.User"
                  resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
-    <collection property="commentEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
-        <id property="evaluate_id" column="EVALUATE_ID"/>
-        <result property="evaluate_type" column="EVALUATE_TYPE"/>
-    </collection>
-    <collection property="discusses" column="comment_id"
-                select="com.youthchina.dao.jinhao.CommunityQAMapper.getDiscussesByCommentId"/>
 </resultMap>
 
 <resultMap id="discussInfo" type="com.youthchina.domain.jinhao.communityQA.Discuss">
@@ -169,6 +162,7 @@
             as q, SYS_USER newu, COM_AUTHOR_QUESTION_MAP aqm) on q.QUES_ID = aqm.QUES_ID and aqm.USER_ID = newu.USER_ID
         where a.ANSWER_ID = #{answer_id} and a.IS_DELETE = 0
     </select>
+
     <select id="getVideoById" resultMap="videoInfo" parameterType="java.lang.Integer">
         select v.VIDEO_ID, v.VIDEO_TITLE, v.VIDEO_NAME, v.VIDEO_UPLOAD_TIME,
               <include refid="newUser"/>, <include refid="user"/> , newvc.COMMENT_ID,
@@ -215,8 +209,9 @@
 
     <!-- 列出某个回答的所有评论 -->
     <select id="listAllAnswerComment" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.jinhao.communityQA.Comment">
-        select a.* from COM_ANSWER_COMMENT_MAP m, COM_ANSWER_COMMENT a
+            resultMap="commentInfo">
+        select a.*, <include refid="user"/> from COM_ANSWER_COMMENT_MAP m, COM_ANSWER_COMMENT a
+        left join SYS_USER u on u.USER_ID = a.USER_ID
         where m.answer_id = #{answer_id}
         and m.comment_id = a.comment_id
         and a.is_delete = 0
@@ -284,7 +279,7 @@
     </select>
 
     <!-- 列出某个问题的所有标签 -->
-    <select id="listAllQuesetionLabel" parameterType="java.lang.Integer"
+    <select id="listAllQuestionLabel" parameterType="java.lang.Integer"
             resultType="com.youthchina.domain.jinhao.communityQA.Label">
         select l.* from SYS_COM_LABEL_CLASS l, COM_QUESTION_LABEL_MAP m
         where m.ques_id = #{ques_id}

@@ -1,0 +1,367 @@
+<dataset>
+    <RECOM_NEW_COMPANY COMPANY_ID="1" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_NEW_COMPANY COMPANY_ID="2" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_NEW_COMPANY COMPANY_ID="3" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_NEW_COMPANY COMPANY_ID="4" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_NEW_COMPANY COMPANY_ID="5" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_NEW_COMPANY COMPANY_ID="6" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_NEW_COMPANY COMPANY_ID="7" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_NEW_COMPANY COMPANY_ID="8" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_NEW_COMPANY COMPANY_ID="9" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_NEW_COMPANY COMPANY_ID="10" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_POP_COMPANY COMPANY_ID="1" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_POP_COMPANY COMPANY_ID="2" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_POP_COMPANY COMPANY_ID="3" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_POP_COMPANY COMPANY_ID="4" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_POP_COMPANY COMPANY_ID="5" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_POP_COMPANY COMPANY_ID="6" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_POP_COMPANY COMPANY_ID="7" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_POP_COMPANY COMPANY_ID="8" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_POP_COMPANY COMPANY_ID="9" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_POP_COMPANY COMPANY_ID="10" COMPANY_NAME="FFG" COMPANY_INTRODUC="1WE" COMPANY_WEBSITE="1.COM"
+                       DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_PART_JOB JOB_ID="1" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_PART_JOB JOB_ID="2" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_PART_JOB JOB_ID="3" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_PART_JOB JOB_ID="4" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_PART_JOB JOB_ID="5" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_PART_JOB JOB_ID="6" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_PART_JOB JOB_ID="7" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_PART_JOB JOB_ID="8" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_PART_JOB JOB_ID="9" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_PART_JOB JOB_ID="10" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_FULL_JOB JOB_ID="1" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_FULL_JOB JOB_ID="2" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_FULL_JOB JOB_ID="3" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_FULL_JOB JOB_ID="4" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_FULL_JOB JOB_ID="5" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_FULL_JOB JOB_ID="6" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_FULL_JOB JOB_ID="7" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_FULL_JOB JOB_ID="8" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_FULL_JOB JOB_ID="9" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_FULL_JOB JOB_ID="10" JOB_NAME="1" JOB_DESCRIPTION="1" JOB_LOCATION="1" JOB_HIGHLIGHT="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_ESSAY ESSAY_ID="1" ESSAY_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_ESSAY ESSAY_ID="2" ESSAY_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_ESSAY ESSAY_ID="3" ESSAY_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_ESSAY ESSAY_ID="4" ESSAY_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_ESSAY ESSAY_ID="5" ESSAY_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_ESSAY ESSAY_ID="6" ESSAY_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_ESSAY ESSAY_ID="7" ESSAY_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_ESSAY ESSAY_ID="8" ESSAY_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_ESSAY ESSAY_ID="9" ESSAY_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_ESSAY ESSAY_ID="10" ESSAY_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_QUESTION QUESTION_ID="1" QUESTION_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_QUESTION QUESTION_ID="2" QUESTION_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_QUESTION QUESTION_ID="3" QUESTION_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_QUESTION QUESTION_ID="4" QUESTION_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_QUESTION QUESTION_ID="5" QUESTION_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_QUESTION QUESTION_ID="6" QUESTION_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_QUESTION QUESTION_ID="7" QUESTION_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_QUESTION QUESTION_ID="8" QUESTION_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_QUESTION QUESTION_ID="9" QUESTION_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_QUESTION QUESTION_ID="10" QUESTION_TITLE="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_USER USER_ID="1" USER_REAL_NAME="1" RECOM_REASON="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_USER USER_ID="2" USER_REAL_NAME="1" RECOM_REASON="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_USER USER_ID="3" USER_REAL_NAME="1" RECOM_REASON="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_USER USER_ID="4" USER_REAL_NAME="1" RECOM_REASON="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_USER USER_ID="5" USER_REAL_NAME="1" RECOM_REASON="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_USER USER_ID="6" USER_REAL_NAME="1" RECOM_REASON="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_USER USER_ID="7" USER_REAL_NAME="1" RECOM_REASON="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_USER USER_ID="8" USER_REAL_NAME="1" RECOM_REASON="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_USER USER_ID="9" USER_REAL_NAME="1" RECOM_REASON="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <RECOM_USER USER_ID="10" USER_REAL_NAME="1" RECOM_REASON="1" DATA_TIME="2018-10-11 11:11:22"/>
+    <SYS_ROLE ROLE_ID="1" ROLE_TYPE="1" ROLE_DESCRPTIPON="Organization" IS_DELETE="0"
+              IS_DELETE_TIME="2018-10-11 11:11:22"/>
+    <SYS_PERMISSION PERMI_TYPE="0" PERMI_DESCRPTIPON="none" PERMI_FUNCTION="none" IS_DELETE="0"
+                    IS_DELETE_TIME="2018-10-11 11:11:22"/>
+    <SYS_USER USER_ID="1" USER_NAME="yihao guo" USER_PASS="$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG"
+              USER_REGIST_TIME="2018-10-11 11:11:22" USER_REAL_NAME="None" USER_GENDER="male" USER_AGE="21"
+              USER_NATION="China"
+              USER_MAIL="test@test.com" USER_PHONE="18463722634" ROLE_ID="1" IS_DELETE="0"/>
+    <SYS_USER USER_ID="2" USER_NAME="zhid d" USER_PASS="$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG"
+              USER_REGIST_TIME="2018-10-11 11:11:22" USER_REAL_NAME="None" USER_GENDER="male" USER_AGE="21"
+              USER_NATION="China"
+              USER_MAIL="test@test.com" USER_PHONE="18463722634" ROLE_ID="1" IS_DELETE="0"/>
+    <SYS_USER USER_ID="3" USER_NAME="zhid d" USER_PASS="$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG"
+              USER_REGIST_TIME="2018-10-11 11:11:22" USER_REAL_NAME="None" USER_GENDER="male" USER_AGE="21"
+              USER_NATION="China"
+              USER_MAIL="test@test.com" USER_PHONE="18463722634" ROLE_ID="1" IS_DELETE="0"/>
+    <SYS_USER USER_ID="4" USER_NAME="zhid d" USER_PASS="$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG"
+              USER_REGIST_TIME="2018-10-11 11:11:22" USER_REAL_NAME="None" USER_GENDER="male" USER_AGE="21"
+              USER_NATION="China"
+              USER_MAIL="test@test.com" USER_PHONE="18463722634" ROLE_ID="1" IS_DELETE="0"/>
+    <SYS_USER USER_ID="5" USER_NAME="yihao guo" USER_PASS="$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG"
+              USER_REGIST_TIME="2018-10-11 11:11:22" USER_REAL_NAME="None" USER_GENDER="male" USER_AGE="21"
+              USER_NATION="China"
+              USER_MAIL="test@test.com" USER_PHONE="18463722634" ROLE_ID="1" IS_DELETE="0"/>
+    <SYS_USER USER_ID="6" USER_NAME="zhid d" USER_PASS="$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG"
+              USER_REGIST_TIME="2018-10-11 11:11:22" USER_REAL_NAME="None" USER_GENDER="male" USER_AGE="21"
+              USER_NATION="China"
+              USER_MAIL="test@test.com" USER_PHONE="18463722634" ROLE_ID="1" IS_DELETE="0"/>
+    <SYS_USER USER_ID="7" USER_NAME="zhid d" USER_PASS="$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG"
+              USER_REGIST_TIME="2018-10-11 11:11:22" USER_REAL_NAME="None" USER_GENDER="male" USER_AGE="21"
+              USER_NATION="China"
+              USER_MAIL="test@test.com" USER_PHONE="18463722634" ROLE_ID="1" IS_DELETE="0"/>
+    <SYS_USER USER_ID="8" USER_NAME="zhid d" USER_PASS="$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG"
+              USER_REGIST_TIME="2018-10-11 11:11:22" USER_REAL_NAME="None" USER_GENDER="male" USER_AGE="21"
+              USER_NATION="China"
+              USER_MAIL="test@test.com" USER_PHONE="18463722634" ROLE_ID="1" IS_DELETE="0"/>
+    <SYS_USER USER_ID="9" USER_NAME="yihao guo" USER_PASS="$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG"
+              USER_REGIST_TIME="2018-10-11 11:11:22" USER_REAL_NAME="None" USER_GENDER="male" USER_AGE="21"
+              USER_NATION="China"
+              USER_MAIL="test@test.com" USER_PHONE="18463722634" ROLE_ID="1" IS_DELETE="0"/>
+    <SYS_USER USER_ID="10" USER_NAME="zhid d" USER_PASS="$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG"
+              USER_REGIST_TIME="2018-10-11 11:11:22" USER_REAL_NAME="None" USER_GENDER="male" USER_AGE="21"
+              USER_NATION="China"
+              USER_MAIL="test@test.com" USER_PHONE="18463722634" ROLE_ID="1" IS_DELETE="0"/>
+    <COMPANY_INFO COMPANY_ID="1" COMPANY_NAME="大疆" COMPANY_CODE="2" COMPANY_COUNTRY="CHN" COMPANY_INTRODUC="无人机"
+                  COMPANY_SCALE_NUM="1" COMPANY_NATURE="1" COMPANY_LOCATION="1" COMPANY_MAIL="dji@com" COMPANY_WEBSITE="dji.com"
+                  COMPANY_START_DATE="2005-11-20" COMPANY_LOGO="1" COMPANY_VERIFY="1" USER_ID="1" ADD_TIME="2019-1-1 11:11:22" IS_DELETE="0"/>
+    <COMPANY_INFO COMPANY_ID="2" COMPANY_NAME="百度" COMPANY_CODE="2" COMPANY_COUNTRY="CHN" COMPANY_INTRODUC="baidu"
+                  COMPANY_SCALE_NUM="1" COMPANY_NATURE="1" COMPANY_LOCATION="1" COMPANY_MAIL="baidu@com" COMPANY_WEBSITE="baidu.com"
+                  COMPANY_START_DATE="2005-11-20" COMPANY_LOGO="1" COMPANY_VERIFY="1" USER_ID="1" ADD_TIME="2019-1-1 11:11:23" IS_DELETE="0"/>
+    <COMPANY_INFO COMPANY_ID="3" COMPANY_NAME="腾讯" COMPANY_CODE="2" COMPANY_COUNTRY="CHN" COMPANY_INTRODUC="QQ"
+                  COMPANY_SCALE_NUM="1" COMPANY_NATURE="1" COMPANY_LOCATION="2" COMPANY_MAIL="QQ@com" COMPANY_WEBSITE="QQ.com"
+                  COMPANY_START_DATE="2005-11-20" COMPANY_LOGO="1" COMPANY_VERIFY="1" USER_ID="1" ADD_TIME="2019-1-1 11:11:24" IS_DELETE="0"/>
+    <COMPANY_INFO COMPANY_ID="4" COMPANY_NAME="腾牛讯" COMPANY_CODE="2" COMPANY_COUNTRY="CHN" COMPANY_INTRODUC="QQ"
+                  COMPANY_SCALE_NUM="1" COMPANY_NATURE="1" COMPANY_LOCATION="2" COMPANY_MAIL="QQ@com" COMPANY_WEBSITE="QQ.com"
+                  COMPANY_START_DATE="2005-11-20" COMPANY_LOGO="1" COMPANY_VERIFY="1" USER_ID="1" ADD_TIME="2019-1-2 11:11:22" IS_DELETE="0"/>
+    <COMPANY_INFO COMPANY_ID="5" COMPANY_NAME="腾讯深圳总公司" COMPANY_CODE="2" COMPANY_COUNTRY="CHN" COMPANY_INTRODUC="QQ"
+                  COMPANY_SCALE_NUM="1" COMPANY_NATURE="1" COMPANY_LOCATION="2" COMPANY_MAIL="QQ@com" COMPANY_WEBSITE="QQ.com"
+                  COMPANY_START_DATE="2005-11-20" COMPANY_LOGO="1" COMPANY_VERIFY="1" USER_ID="1" ADD_TIME="2019-1-3 11:11:22" IS_DELETE="0"/>
+    <COMPANY_INFO COMPANY_ID="6" COMPANY_NAME="大疆" COMPANY_CODE="2" COMPANY_COUNTRY="CHN" COMPANY_INTRODUC="无人机"
+                  COMPANY_SCALE_NUM="1" COMPANY_NATURE="1" COMPANY_LOCATION="1" COMPANY_MAIL="dji@com" COMPANY_WEBSITE="dji.com"
+                  COMPANY_START_DATE="2005-11-20" COMPANY_LOGO="1" COMPANY_VERIFY="1" USER_ID="1" ADD_TIME="2019-1-1 11:11:22" IS_DELETE="0"/>
+    <COMPANY_INFO COMPANY_ID="7" COMPANY_NAME="百度" COMPANY_CODE="2" COMPANY_COUNTRY="CHN" COMPANY_INTRODUC="baidu"
+                  COMPANY_SCALE_NUM="1" COMPANY_NATURE="1" COMPANY_LOCATION="1" COMPANY_MAIL="baidu@com" COMPANY_WEBSITE="baidu.com"
+                  COMPANY_START_DATE="2005-11-20" COMPANY_LOGO="1" COMPANY_VERIFY="1" USER_ID="1" ADD_TIME="2019-1-1 11:11:23" IS_DELETE="0"/>
+    <COMPANY_INFO COMPANY_ID="8" COMPANY_NAME="腾讯" COMPANY_CODE="2" COMPANY_COUNTRY="CHN" COMPANY_INTRODUC="QQ"
+                  COMPANY_SCALE_NUM="1" COMPANY_NATURE="1" COMPANY_LOCATION="2" COMPANY_MAIL="QQ@com" COMPANY_WEBSITE="QQ.com"
+                  COMPANY_START_DATE="2005-11-20" COMPANY_LOGO="1" COMPANY_VERIFY="1" USER_ID="1" ADD_TIME="2019-1-1 11:11:24" IS_DELETE="0"/>
+    <COMPANY_INFO COMPANY_ID="9" COMPANY_NAME="腾牛讯" COMPANY_CODE="2" COMPANY_COUNTRY="CHN" COMPANY_INTRODUC="QQ"
+                  COMPANY_SCALE_NUM="1" COMPANY_NATURE="1" COMPANY_LOCATION="2" COMPANY_MAIL="QQ@com" COMPANY_WEBSITE="QQ.com"
+                  COMPANY_START_DATE="2005-11-20" COMPANY_LOGO="1" COMPANY_VERIFY="1" USER_ID="1" ADD_TIME="2019-1-2 11:11:22" IS_DELETE="0"/>
+    <COMPANY_INFO COMPANY_ID="10" COMPANY_NAME="腾讯深圳总公司" COMPANY_CODE="2" COMPANY_COUNTRY="CHN" COMPANY_INTRODUC="QQ"
+                  COMPANY_SCALE_NUM="1" COMPANY_NATURE="1" COMPANY_LOCATION="2" COMPANY_MAIL="QQ@com" COMPANY_WEBSITE="QQ.com"
+                  COMPANY_START_DATE="2005-11-20" COMPANY_LOGO="1" COMPANY_VERIFY="1" USER_ID="1" ADD_TIME="2019-1-3 11:11:22" IS_DELETE="0"/>
+    <JOB_INFO JOB_ID="1" JOB_NAME="front" JOB_PROF_CODE="A" JOB_START_TIME="2019-01-1" JOB_END_TIME="2020-01-1"
+              JOB_TYPE="1" JOB_DESCRIPTION="996" JOB_DUTY="front" JOB_HIGHLIGHT="50K"
+              JOB_SALARY_FLOOR="5000" JOB_SALARY_CAP="6000" JOB_LINK="job.com" CV_RECEI_MAIL="youth@china" CV_NAME_RULE="nameRule" JOB_ACTIVE="1" HR_ID="1" COMPANY_ID="1"
+              ADD_TIME = "2019-1-1 11:11:23" IS_DELETE="0"/>
+    <JOB_INFO JOB_ID="2" JOB_NAME="back" JOB_PROF_CODE="B" JOB_START_TIME="2019-01-1" JOB_END_TIME="2020-01-1"
+              JOB_TYPE="1" JOB_DESCRIPTION="996" JOB_DUTY="back"  JOB_HIGHLIGHT="50K"
+              JOB_SALARY_FLOOR="5000" JOB_SALARY_CAP="6500" JOB_LINK="job.com.cn" CV_RECEI_MAIL="youth@china" CV_NAME_RULE="nameRule" JOB_ACTIVE="1" HR_ID="1" COMPANY_ID="1"
+              ADD_TIME = "2019-1-1 11:11:23" IS_DELETE="0"/>
+    <JOB_INFO JOB_ID="3" JOB_NAME="front-end" JOB_PROF_CODE="B" JOB_START_TIME="2019-01-1" JOB_END_TIME="2020-01-1"
+              JOB_TYPE="1" JOB_DESCRIPTION="996" JOB_DUTY="back"  JOB_HIGHLIGHT="50K"
+              JOB_SALARY_FLOOR="5000" JOB_SALARY_CAP="7000" JOB_LINK="job.com.cn" CV_RECEI_MAIL="youth@china" CV_NAME_RULE="nameRule" JOB_ACTIVE="1" HR_ID="1" COMPANY_ID="1"
+              ADD_TIME = "2019-1-1 11:11:23" IS_DELETE="0"/>
+    <JOB_INFO JOB_ID="4" JOB_NAME="前端工程师" JOB_PROF_CODE="B" JOB_START_TIME="2019-01-1" JOB_END_TIME="2020-01-1"
+              JOB_TYPE="1" JOB_DESCRIPTION="996" JOB_DUTY="back"  JOB_HIGHLIGHT="50K"
+              JOB_SALARY_FLOOR="5000" JOB_SALARY_CAP="7000" JOB_LINK="job.com.cn" CV_RECEI_MAIL="youth@china" CV_NAME_RULE="nameRule" JOB_ACTIVE="1" HR_ID="1" COMPANY_ID="2"
+              ADD_TIME = "2019-1-1 11:11:23" IS_DELETE="0"/>
+    <JOB_INFO JOB_ID="5" JOB_NAME="front" JOB_PROF_CODE="A" JOB_START_TIME="2019-01-1" JOB_END_TIME="2020-01-1"
+              JOB_TYPE="1" JOB_DESCRIPTION="996" JOB_DUTY="front" JOB_HIGHLIGHT="50K"
+              JOB_SALARY_FLOOR="5000" JOB_SALARY_CAP="6000" JOB_LINK="job.com" CV_RECEI_MAIL="youth@china" CV_NAME_RULE="nameRule" JOB_ACTIVE="1" HR_ID="1" COMPANY_ID="1"
+              ADD_TIME = "2019-1-1 11:11:23" IS_DELETE="0"/>
+    <JOB_INFO JOB_ID="6" JOB_NAME="back" JOB_PROF_CODE="B" JOB_START_TIME="2019-01-1" JOB_END_TIME="2020-01-1"
+              JOB_TYPE="1" JOB_DESCRIPTION="996" JOB_DUTY="back"  JOB_HIGHLIGHT="50K"
+              JOB_SALARY_FLOOR="5000" JOB_SALARY_CAP="6500" JOB_LINK="job.com.cn" CV_RECEI_MAIL="youth@china" CV_NAME_RULE="nameRule" JOB_ACTIVE="1" HR_ID="1" COMPANY_ID="1"
+              ADD_TIME = "2019-1-1 11:11:23" IS_DELETE="0"/>
+    <JOB_INFO JOB_ID="7" JOB_NAME="front-end" JOB_PROF_CODE="B" JOB_START_TIME="2019-01-1" JOB_END_TIME="2020-01-1"
+              JOB_TYPE="1" JOB_DESCRIPTION="996" JOB_DUTY="back"  JOB_HIGHLIGHT="50K"
+              JOB_SALARY_FLOOR="5000" JOB_SALARY_CAP="7000" JOB_LINK="job.com.cn" CV_RECEI_MAIL="youth@china" CV_NAME_RULE="nameRule" JOB_ACTIVE="1" HR_ID="1" COMPANY_ID="1"
+              ADD_TIME = "2019-1-1 11:11:23" IS_DELETE="0"/>
+    <JOB_INFO JOB_ID="8" JOB_NAME="前端工程师" JOB_PROF_CODE="B" JOB_START_TIME="2019-01-1" JOB_END_TIME="2020-01-1"
+              JOB_TYPE="1" JOB_DESCRIPTION="996" JOB_DUTY="back"  JOB_HIGHLIGHT="50K"
+              JOB_SALARY_FLOOR="5000" JOB_SALARY_CAP="7000" JOB_LINK="job.com.cn" CV_RECEI_MAIL="youth@china" CV_NAME_RULE="nameRule" JOB_ACTIVE="1" HR_ID="1" COMPANY_ID="2"
+              ADD_TIME = "2019-1-1 11:11:23" IS_DELETE="0"/>
+    <JOB_INFO JOB_ID="9" JOB_NAME="front" JOB_PROF_CODE="A" JOB_START_TIME="2019-01-1" JOB_END_TIME="2020-01-1"
+              JOB_TYPE="1" JOB_DESCRIPTION="996" JOB_DUTY="front" JOB_HIGHLIGHT="50K"
+              JOB_SALARY_FLOOR="5000" JOB_SALARY_CAP="6000" JOB_LINK="job.com" CV_RECEI_MAIL="youth@china" CV_NAME_RULE="nameRule" JOB_ACTIVE="1" HR_ID="1" COMPANY_ID="1"
+              ADD_TIME = "2019-1-1 11:11:23" IS_DELETE="0"/>
+    <JOB_INFO JOB_ID="10" JOB_NAME="back" JOB_PROF_CODE="B" JOB_START_TIME="2019-01-1" JOB_END_TIME="2020-01-1"
+              JOB_TYPE="1" JOB_DESCRIPTION="996" JOB_DUTY="back"  JOB_HIGHLIGHT="50K"
+              JOB_SALARY_FLOOR="5000" JOB_SALARY_CAP="6500" JOB_LINK="job.com.cn" CV_RECEI_MAIL="youth@china" CV_NAME_RULE="nameRule" JOB_ACTIVE="1" HR_ID="1" COMPANY_ID="1"
+              ADD_TIME = "2019-1-1 11:11:23" IS_DELETE="0"/>
+    <COM_ESSAY ESSAY_ID="1" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
+    {
+        &quot;braftEditorRaw&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
+        &quot;previewText&quot;:&quot;Body Body 1&quot;,
+        &quot;resourceList&quot;:null
+    }"
+               ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
+               IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_ESSAY ESSAY_ID="2" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
+    {
+        &quot;braftEditorRaw&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
+        &quot;previewText&quot;:&quot;Body Body 1&quot;,
+        &quot;resourceList&quot;:null
+    }"
+               ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
+               IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_ESSAY ESSAY_ID="3" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
+    {
+        &quot;braftEditorRaw&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
+        &quot;previewText&quot;:&quot;Body Body 1&quot;,
+        &quot;resourceList&quot;:null
+    }"
+               ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
+               IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_ESSAY ESSAY_ID="4" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
+    {
+        &quot;braftEditorRaw&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
+        &quot;previewText&quot;:&quot;Body Body 1&quot;,
+        &quot;resourceList&quot;:null
+    }"
+               ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
+               IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_ESSAY ESSAY_ID="5" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
+    {
+        &quot;braftEditorRaw&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
+        &quot;previewText&quot;:&quot;Body Body 1&quot;,
+        &quot;resourceList&quot;:null
+    }"
+               ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
+               IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_ESSAY ESSAY_ID="6" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
+    {
+        &quot;braftEditorRaw&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
+        &quot;previewText&quot;:&quot;Body Body 1&quot;,
+        &quot;resourceList&quot;:null
+    }"
+               ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
+               IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_ESSAY ESSAY_ID="7" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
+    {
+        &quot;braftEditorRaw&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
+        &quot;previewText&quot;:&quot;Body Body 1&quot;,
+        &quot;resourceList&quot;:null
+    }"
+               ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
+               IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_ESSAY ESSAY_ID="8" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
+    {
+        &quot;braftEditorRaw&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
+        &quot;previewText&quot;:&quot;Body Body 1&quot;,
+        &quot;resourceList&quot;:null
+    }"
+               ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
+               IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_ESSAY ESSAY_ID="9" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
+    {
+        &quot;braftEditorRaw&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
+        &quot;previewText&quot;:&quot;Body Body 1&quot;,
+        &quot;resourceList&quot;:null
+    }"
+               ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
+               IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_ESSAY ESSAY_ID="10" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
+    {
+        &quot;braftEditorRaw&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
+        &quot;previewText&quot;:&quot;Body Body 1&quot;,
+        &quot;resourceList&quot;:null
+    }"
+               ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
+               IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_QUESTION USER_ANONY="1" QUES_ID="1" QUES_TITLE="第一个问题" QUES_ABBRE="Abbreviation of the question 1 but42"
+                  QUES_BODY="{
+                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 1 but42&quot;,
+                                &quot;previewText&quot;:&quot;Body of the question 1 but 42&quot;,
+                                &quot;resourceList&quot;:null
+                            }"
+                  QUES_PUB_TIME="2018-12-04 13:32:40" QUES_EDIT_TIME="2018-12-04 13:32:40" IS_DELETE="0"
+                  IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_QUESTION USER_ANONY="1" QUES_ID="2" QUES_TITLE="第二个问题" QUES_ABBRE="Abbreviation of the question 2 but42"
+                  QUES_BODY="{
+                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 2 but42&quot;,
+                                &quot;previewText&quot;:&quot;Body of the question 2 but 42&quot;,
+                                &quot;resourceList&quot;:null
+                            }"
+                  QUES_PUB_TIME="2018-12-05 13:32:40" QUES_EDIT_TIME="2018-12-05 13:32:40" IS_DELETE="0"
+                  IS_DELETE_TIME="2018-12-05 13:32:40"/>
+    <COM_QUESTION USER_ANONY="1" QUES_ID="3" QUES_TITLE="第三个问题" QUES_ABBRE="Abbreviation of the question 3 but42"
+                  QUES_BODY="{
+                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 3 but42&quot;,
+                                &quot;previewText&quot;:&quot;Body of the question 3 but 42&quot;,
+                                &quot;resourceList&quot;:null
+                            }"
+                  QUES_PUB_TIME="2018-12-06 13:32:40" QUES_EDIT_TIME="2018-12-06 13:32:40" IS_DELETE="0"
+                  IS_DELETE_TIME="2018-12-06 13:32:40"/>
+    <COM_QUESTION USER_ANONY="0" QUES_ID="4" QUES_TITLE="第四个问题" QUES_ABBRE="Abbreviation of the question 4 but42"
+                  QUES_BODY="{
+                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 4 but42&quot;,
+                                &quot;previewText&quot;:&quot;Body of the question 4 but 42&quot;,
+                                &quot;resourceList&quot;:null
+                            }"
+                  QUES_PUB_TIME="2018-12-06 14:32:40" QUES_EDIT_TIME="2018-12-06 14:32:40" IS_DELETE="0"
+                  IS_DELETE_TIME="2018-12-06 14:32:40"/>
+    <COM_QUESTION USER_ANONY="1" QUES_ID="5" QUES_TITLE="第一个问题" QUES_ABBRE="Abbreviation of the question 1 but42"
+                  QUES_BODY="{
+                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 1 but42&quot;,
+                                &quot;previewText&quot;:&quot;Body of the question 1 but 42&quot;,
+                                &quot;resourceList&quot;:null
+                            }"
+                  QUES_PUB_TIME="2018-12-04 13:32:40" QUES_EDIT_TIME="2018-12-04 13:32:40" IS_DELETE="0"
+                  IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_QUESTION USER_ANONY="1" QUES_ID="6" QUES_TITLE="第二个问题" QUES_ABBRE="Abbreviation of the question 2 but42"
+                  QUES_BODY="{
+                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 2 but42&quot;,
+                                &quot;previewText&quot;:&quot;Body of the question 2 but 42&quot;,
+                                &quot;resourceList&quot;:null
+                            }"
+                  QUES_PUB_TIME="2018-12-05 13:32:40" QUES_EDIT_TIME="2018-12-05 13:32:40" IS_DELETE="0"
+                  IS_DELETE_TIME="2018-12-05 13:32:40"/>
+    <COM_QUESTION USER_ANONY="1" QUES_ID="7" QUES_TITLE="第三个问题" QUES_ABBRE="Abbreviation of the question 3 but42"
+                  QUES_BODY="{
+                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 3 but42&quot;,
+                                &quot;previewText&quot;:&quot;Body of the question 3 but 42&quot;,
+                                &quot;resourceList&quot;:null
+                            }"
+                  QUES_PUB_TIME="2018-12-06 13:32:40" QUES_EDIT_TIME="2018-12-06 13:32:40" IS_DELETE="0"
+                  IS_DELETE_TIME="2018-12-06 13:32:40"/>
+    <COM_QUESTION USER_ANONY="0" QUES_ID="8" QUES_TITLE="第四个问题" QUES_ABBRE="Abbreviation of the question 4 but42"
+                  QUES_BODY="{
+                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 4 but42&quot;,
+                                &quot;previewText&quot;:&quot;Body of the question 4 but 42&quot;,
+                                &quot;resourceList&quot;:null
+                            }"
+                  QUES_PUB_TIME="2018-12-06 14:32:40" QUES_EDIT_TIME="2018-12-06 14:32:40" IS_DELETE="0"
+                  IS_DELETE_TIME="2018-12-06 14:32:40"/>
+    <COM_QUESTION USER_ANONY="1" QUES_ID="9" QUES_TITLE="第一个问题" QUES_ABBRE="Abbreviation of the question 1 but42"
+                  QUES_BODY="{
+                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 1 but42&quot;,
+                                &quot;previewText&quot;:&quot;Body of the question 1 but 42&quot;,
+                                &quot;resourceList&quot;:null
+                            }"
+                  QUES_PUB_TIME="2018-12-04 13:32:40" QUES_EDIT_TIME="2018-12-04 13:32:40" IS_DELETE="0"
+                  IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_QUESTION USER_ANONY="1" QUES_ID="10" QUES_TITLE="第二个问题" QUES_ABBRE="Abbreviation of the question 2 but42"
+                  QUES_BODY="{
+                                &quot;braftEditorRaw&quot;:&quot;Abbreviation of the question 2 but42&quot;,
+                                &quot;previewText&quot;:&quot;Body of the question 2 but 42&quot;,
+                                &quot;resourceList&quot;:null
+                            }"
+                  QUES_PUB_TIME="2018-12-05 13:32:40" QUES_EDIT_TIME="2018-12-05 13:32:40" IS_DELETE="0"
+                  IS_DELETE_TIME="2018-12-05 13:32:40"/>
+
+</dataset>

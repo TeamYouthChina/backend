@@ -73,6 +73,16 @@ public class VideoControllerTest {
     }
 
     @Test
+    public void getCommentsTest() throws Exception {
+        this.mvc.perform(
+                get(this.urlPrefix + "/videos/1/comments")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":1,\"user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":\"HAHA1\",\"creat_at\":\"2018-10-11T11:11:22.000+0000\",\"is_anonymous\":false},{\"id\":3,\"user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":\"HAHA\",\"creat_at\":\"2018-10-11T11:11:22.000+0000\",\"is_anonymous\":false}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+    }
+
+    @Test
     public void deleteVideoTest() throws Exception {
         this.mvc.perform(
                 delete(this.urlPrefix + "/videos/1")

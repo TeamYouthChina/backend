@@ -18,7 +18,7 @@ public class QuestionDTO {
     private Integer id;
     private User creator;
     private String title;
-    private Integer isAnonymous;
+    private boolean is_anonymous;
     private Timestamp create_at;
     private Timestamp modified_at;
     private List<RequestSimpleAnswerDTO> answers;
@@ -40,11 +40,13 @@ public class QuestionDTO {
         }
 
         this.invitation = question.getQues_invitation();
-        this.isAnonymous =question.getUser_anony();
+        this.is_anonymous = (question.getUser_anony()==1 ? true : false);
         this.create_at = question.getQues_pub_time();
         this.modified_at = question.getQues_edit_time();
 
         this.rela_type = question.getRela_type();
+        this.answers = new ArrayList<RequestSimpleAnswerDTO>();
+        this.rela_id = question.getRela_id();
         this.answers = new ArrayList<RequestSimpleAnswerDTO>();
         if(question.getQuestionAnswers() != null) {
             for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
@@ -56,9 +58,9 @@ public class QuestionDTO {
 
     public QuestionDTO(){}
 
-    public RichTextDTO getRichTextDTO(){return body;}
+    public RichTextDTO getBody(){return body;}
 
-    public void setRichTextDTO(RichTextDTO richTextDTO){this.body = richTextDTO;}
+    public void setBody(RichTextDTO body){this.body = body;}
 
     public Integer getId() {
         return id;
@@ -84,14 +86,13 @@ public class QuestionDTO {
         this.title = title;
     }
 
-    public Integer getAnonymous() {
-        return isAnonymous;
+    public boolean getAnonymous() {
+        return is_anonymous;
     }
 
-    public void setAnonymous(Integer anonymous) {
-        this.isAnonymous = anonymous;
+    public void setAnonymous(boolean is_anonymous) {
+        this.is_anonymous = is_anonymous;
     }
-
 
     public List<RequestSimpleAnswerDTO> getAnswers() {
         return answers;
@@ -123,14 +124,6 @@ public class QuestionDTO {
 
     public void setRela_id(Integer rela_id){
         this.rela_id = rela_id;
-    }
-
-    public Integer getIsAnonymous() {
-        return isAnonymous;
-    }
-
-    public void setIsAnonymous(Integer isAnonymous) {
-        this.isAnonymous = isAnonymous;
     }
 
     public Timestamp getCreate_at() {
