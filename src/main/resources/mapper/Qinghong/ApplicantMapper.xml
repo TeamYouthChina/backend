@@ -374,6 +374,14 @@
         WHERE EDU_ID=#{edu_id}
     </update>
 
+    <!--删除所有的教育信息-->
+
+    <update id="deleteAllEduInfo">
+        update STU_EDU_INFO set
+                                IS_DELETE=1
+        WHERE STU_ID=#{stu_id}
+    </update>
+
     <!--删除应聘者附加信息-->
     <update id="deleteSubInfo">
         update STU_INFO set

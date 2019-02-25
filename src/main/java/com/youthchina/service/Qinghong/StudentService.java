@@ -42,4 +42,6 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
     Integer deleteProject(Integer id) throws NotFoundException;
     Integer deleteActivity(Integer id) throws NotFoundException;
     Integer deleteCertificate(Integer id) throws NotFoundException;
+
+    List<EducationInfo> insertEducations(List<EducationInfo> educationInfos,Integer user_id) throws NotFoundException;
 }

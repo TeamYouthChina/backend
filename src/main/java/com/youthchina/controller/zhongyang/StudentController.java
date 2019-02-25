@@ -201,6 +201,29 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         }
         return ResponseEntity.ok(new Response(certificateResponseDTOS));
     }
+    /**
+    * @Description: 实现education的保存操作
+    * @Param: [educationDTOS, user]
+    * @return: org.springframework.http.ResponseEntity<?>
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/25
+    */
+
+    @PostMapping("/educations")
+    public ResponseEntity<?> saveApplicantsEducations(@RequestBody List<EducationDTO> educationDTOS,@AuthenticationPrincipal User user) throws NotFoundException{
+        List<EducationInfo> educationInfos=new ArrayList<>();
+        for(EducationDTO educationDTO:educationDTOS){
+            EducationInfo educationInfo=new EducationInfo(educationDTO);
+            educationInfos.add(educationInfo);
+        }
+        List<EducationInfo> educationInfos1=studentService.insertEducations(educationInfos,user.getId());
+        List<EducationResponseDTO> educationResponseDTOS=new ArrayList<>();
+        for(EducationInfo educationInfo:educationInfos1){
+            EducationResponseDTO educationResponseDTO=new EducationResponseDTO(educationInfo);
+            educationResponseDTOS.add(educationResponseDTO);
+        }
+        return ResponseEntity.ok(educationResponseDTOS);
+    }
 
 
 

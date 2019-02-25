@@ -566,4 +566,25 @@ public class StudentServiceImpl implements StudentService {
         Integer integer=applicantMapper.deleteCertificate(id);
         return integer;
     }
+
+    @Override
+    public List<EducationInfo> insertEducations(List<EducationInfo> educationInfos, Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        if(baseInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else{
+            Integer EduNum=applicantMapper.deleteAllEduInfo(baseInfo.getStu_id());
+            for(EducationInfo educationInfo:educationInfos){
+                applicantMapper.insertEduInfo(educationInfo);
+            }
+            List<EducationInfo> educationInfoList=applicantMapper.getStudentInfo(user_id).getEducationInfos();
+            for(EducationInfo educationInfo:educationInfoList){
+                Location location=locationService.getLocation(educationInfo.getLocation().getRegion_num());
+                educationInfo.setLocation(location);
+
+            }
+            return educationInfoList;
+        }
+
+    }
 }
