@@ -16,7 +16,7 @@ import java.util.List;
  **/
 public class Student extends User implements HasId<Integer> {
     private Integer stu_id;
-    private String isInJob;
+    private Boolean isInJob;
     private String currentCompanyName;
     private List<EducationInfo> educationInfos;
     private SubInfo subInfo;
@@ -37,7 +37,6 @@ public class Student extends User implements HasId<Integer> {
     private List<LabelInfo> labelInfos;
 
     public Student(ApplicantDTO applicantDTO) {
-        this.setId(applicantDTO.getId());
         this.isInJob=applicantDTO.getIsInJob();
         this.setUsername(applicantDTO.getName());
         this.setAvatarUrl(applicantDTO.getAvatarUrl());
@@ -50,8 +49,8 @@ public class Student extends User implements HasId<Integer> {
         }
         this.educationInfos=educationInfos;
         //目前联系人问题
-        this.setEmail(applicantDTO.getContact().get("emails").get(0));
-        this.setPhonenumber(applicantDTO.getContact().get("phonenumbers").get(0));
+        this.setEmail(applicantDTO.getContactDTO().getEmails().get(0));
+        this.setPhonenumber(applicantDTO.getContactDTO().getPhonenumbers().get(0));
         //对于职位的转化
         List<Work> works=new ArrayList<>();
         for(WorkDTO workDTO:applicantDTO.getExperiences()){
@@ -109,12 +108,12 @@ public class Student extends User implements HasId<Integer> {
     }
 
 
-    public String getIsInJob() {
+    public Boolean getIsInJob() {
         return isInJob;
     }
 
-    public void setIsInJob(String isInJob) {
-        this.isInJob = isInJob;
+    public void setIsInJob(Boolean inJob) {
+        isInJob = inJob;
     }
 
     public String getCurrentCompanyName() {
