@@ -78,7 +78,7 @@
             <result property="startTime" column="COUNTRY_START_TIME"/>
         </association>
         <association property="location" javaType="com.youthchina.domain.Qinghong.Location">
-            <id property="region_num" column="REGION_NUM"/>
+            <id property="region_num" column="COMPANY_LOCATION"/>
             <!--<result property="region_chn" column="REGION_CHN"/>-->
             <!--<result property="region_eng" column="REGION_ENG"/>-->
             <!--<result property="region_level" column="REGION_LEVEL"/>-->
@@ -115,7 +115,7 @@
               com.COMPANY_VERIFY as COMPANY_VERIFY,
               com.ADD_TIME as COMPANY_ADD_TIME,
               com.USER_ID as USER_ID,
-              com.COMPANY_LOCATION as REGION_NUM,
+              com.COMPANY_LOCATION as COMPANY_LOCATION,
 
               v.VERIFY_ID as VERIFY_ID,
               v.VERIFY_TIME as VERIFY_TIME,
