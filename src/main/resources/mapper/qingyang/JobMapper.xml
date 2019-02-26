@@ -165,7 +165,7 @@
             com.COMPANY_START_DATE as COMPANY_START_DATE,
             com.COMPANY_LOGO as COMPANY_LOGO,
             com.COMPANY_VERIFY as COMPANY_VERIFY,
-            com.COMPANY_LOCATION as COM_REGION_NUM,
+            com.COMPANY_LOCATION as COMPANY_LOCATION,
 
               country.COUNTRY_ABBRE as COUNTRY_ABBRE,
               country.COUNTRY_CHN as COUNTRY_CHN,
