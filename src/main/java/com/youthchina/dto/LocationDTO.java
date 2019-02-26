@@ -9,13 +9,12 @@ public class LocationDTO {
 
     private String nation_code;
     private String location_code;
-    private String location;
 
 
     public LocationDTO(Location location) {
         this.location_code = "" + location.getRegion_num();
         this.nation_code = (location_code.charAt(0) == '9') ? "USA": "CHN";
-        this.location=location.getRegion_chn();
+
     }
 
     public LocationDTO(){}
@@ -36,11 +35,4 @@ public class LocationDTO {
         this.location_code = location_code;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 }

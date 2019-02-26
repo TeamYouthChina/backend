@@ -289,9 +289,10 @@
 
     <!--获取申请者的所有申请职位信息-->
     <select id="getJobApplies" resultMap="ApplyMapper">
-        SELECT a.*,b.*,c.*
+        SELECT a.*,b.*,c.*,loc.*
         FROM STU_JOB_APPLY a
                  LEFT JOIN JOB_INFO b ON a.JOB_ID=b.JOB_ID
+                 LEFT JOIN JOB_LOCATION loc ON b.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
                  LEFT JOIN COMPANY_INFO c ON c.COMPANY_ID=b.COMPANY_ID
                 WHERE a.STU_ID=#{stu_id}
     </select>
@@ -399,6 +400,13 @@
         update STU_Activity set
                                 IS_DELETE=1
         WHERE ACT_ID=#{act_id}
+    </update>
+
+    <!--删除应聘者技术证书-->
+    <update id="deleteCertificate">
+        UPDATE STU_CERTIFICATE set
+        IS_DELETE=1
+        WHERE CERTIFICATE_ID=#{certificate_id}
     </update>
 
     <!--删除应聘者意向职位-->
@@ -554,6 +562,58 @@
         UPDATE SYS_USER SET
         USER_PHOTO=#{avatarUrl}
         WHERE USER_ID=#{id}
+
+
+    </update>
+
+    <update id="updateEducation" parameterType="com.youthchina.domain.Qinghong.EducationInfo">
+        update STU_EDU_INFO SET
+        EDU_DEGREE=#{degree.degreeNum}
+        EDU_SCHOOL=#{edu_school}
+        EDU_MAJOR=#{edu_major}
+        EDU_START=#{edu_start}
+        EDU_END=#{edu_end}
+        EDU_LOCATION=#{location.region_num}
+        WHERE EDU_ID=#{edu_id}
+    </update>
+    <update id="updateWork" parameterType="com.youthchina.domain.Qinghong.Work">
+        update STU_WORK SET
+        WORK_COMPANY=#{work_company}
+        WORK_POSITION=#{work_position}
+        WORK_START_TIME=#{work_start_time}
+        WORK_END_TIME=#{work_end_time}
+        WORK_LOCATION=#{location.region_num}
+        WHERE WORK_ID=#{work_id}
+
+
+    </update>
+    <update id="updateProject" parameterType="com.youthchina.domain.Qinghong.Project">
+        UPDATE STU_PROJECT SET
+        PROJ_NAME=#{proj_name}
+        PROJ_ROLE=#{proj_role}
+        PROJ_START_TIME=#{proj_start_time}
+        PROJ_END_TIME=#{proj_end_time}
+        WHERE PROJ_ID=#{proj_id}
+
+
+    </update>
+    <update id="updateActivity" parameterType="com.youthchina.domain.Qinghong.Activity">
+        UPDATE STU_ACTIVITY SET
+        ACT_NAME=#{act_name}
+        ACT_ROLE=#{act_role}
+        ACT_ORGANIZATION=#{act_organization}
+        ACT_START_TIME=#{act_start_time}
+        ACT_END_TIME=#{act_end_time}
+        WHERE ACT_ID=#{act_id}
+
+    </update>
+    <update id="updateCertificate" parameterType="com.youthchina.domain.Qinghong.Certificate">
+        UPDATE STU_CERTIFICATE SET
+        CERTIFICATE_NAME=#{certificate_name}
+        CERTIFICATE_INSTI=#{certificate_insti}
+        CERTIFICATE.GRANT_DATE=#{certificate_grant_date}
+        CERTIFICATE.EXPIR_DATE=#{certificate_expir_date}
+        WHERE CERTIFICATE_ID=#{certificate_id}
 
 
     </update>

@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.1.7
+  version: 1.1.8
   title: YouthChina
   license:
     name: MIT
@@ -264,6 +264,54 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
+    post:
+      tags:
+        - Applicant
+      parameters:
+        - name: applicantId
+          in: path
+          description: applicant id
+          required: true
+          schema:
+            type: integer
+        - name: id
+          in: path
+          description: certificate id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInfo'
+      responses:
+        '200':
+          description: return target user's 1
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/ContactInfo'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
   '/applicants/{id}/educations':
     get:
       tags:
@@ -287,6 +335,96 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/EducationInfo'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+    post:
+      tags:
+        - Applicant
+      parameters:
+        - name: applicantId
+          in: path
+          description: applicant id
+          required: true
+          schema:
+            type: integer
+        - name: id
+          in: path
+          description: certificate id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EducationInfo'
+      responses:
+        '200':
+          description: return target user's 1
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/EducationInfo'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+    put:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: certificate id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EducationInfo'
+      responses:
+        '200':
+          description: return target user's 1
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/EducationInfo'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -344,6 +482,90 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
+    post:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: certificate id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '200':
+          description: return target user's 1
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Project'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+    put:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: certificate id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        '200':
+          description: return target user's 1
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Project'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
   '/applicants/{id}/experiences':
     get:
       tags:
@@ -367,6 +589,96 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/WorkExperienceInfo'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+    post:
+      tags:
+        - Applicant
+      parameters:
+        - name: applicantId
+          in: path
+          description: applicant id
+          required: true
+          schema:
+            type: integer
+        - name: id
+          in: path
+          description: certificate id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkExperienceInfo'
+      responses:
+        '200':
+          description: return target user's 1
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/WorkExperienceInfo'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+    put:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: certificate id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkExperienceInfo'
+      responses:
+        '200':
+          description: return target user's 1
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/WorkExperienceInfo'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -424,6 +736,96 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
+    post:
+      tags:
+        - Applicant
+      parameters:
+        - name: applicantId
+          in: path
+          description: applicant id
+          required: true
+          schema:
+            type: integer
+        - name: id
+          in: path
+          description: certificate id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Certification'
+      responses:
+        '200':
+          description: return target user's 1
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Certification'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+    put:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: certificate id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Certification'
+      responses:
+        '200':
+          description: return target user's 1
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Certification'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
   '/applicants/{id}/extracurriculars':
     get:
       tags:
@@ -464,208 +866,10 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-  '/applicants/{id}/educations/{id}':
-    put:
+    post:
       tags:
         - Applicant
       parameters:
-        - name: applicantId
-          in: path
-          description: applicant id
-          required: true
-          schema:
-            type: integer
-        - name: id
-          in: path
-          description: certificate id
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: return target user's educations
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    $ref: '#/components/schemas/EducationInfo'
-                  status:
-                    $ref: '#/components/schemas/Status'
-        '404':
-          description: cannot find
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - status
-                properties:
-                  status:
-                    $ref: '#/components/schemas/Status'
-              example:
-                status:
-                  code: 4041
-                  reason: 'Cannot find user with id 14'
-  '/applicants/{id}/projects/{id}':
-    put:
-      tags:
-        - Applicant
-      parameters:
-        - name: applicantId
-          in: path
-          description: applicant id
-          required: true
-          schema:
-            type: integer
-        - name: id
-          in: path
-          description: certificate id
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Project'
-      responses:
-        '200':
-          description: return target user's projects
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    $ref: '#/components/schemas/Project'
-                  status:
-                    $ref: '#/components/schemas/Status'
-        '404':
-          description: cannot find
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - status
-                properties:
-                  status:
-                    $ref: '#/components/schemas/Status'
-              example:
-                status:
-                  code: 4041
-                  reason: 'Cannot find user with id 14'
-  '/applicants/{id}/experiences/{id}':
-    put:
-      tags:
-        - Applicant
-      parameters:
-        - name: applicantId
-          in: path
-          description: applicant id
-          required: true
-          schema:
-            type: integer
-        - name: id
-          in: path
-          description: certificate id
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WorkExperienceInfo'
-      responses:
-        '200':
-          description: return target user's works
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    $ref: '#/components/schemas/WorkExperienceInfo'
-                  status:
-                    $ref: '#/components/schemas/Status'
-        '404':
-          description: cannot find
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - status
-                properties:
-                  status:
-                    $ref: '#/components/schemas/Status'
-              example:
-                status:
-                  code: 4041
-                  reason: 'Cannot find user with id 14'
-  '/applicants/{applicantId}/certificates/{id}':
-    put:
-      tags:
-        - Applicant
-      parameters:
-        - name: applicantId
-          in: path
-          description: applicant id
-          required: true
-          schema:
-            type: integer
-        - name: id
-          in: path
-          description: certificate id
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Certification'
-      responses:
-        '200':
-          description: return target user's works
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                      $ref: '#/components/schemas/Certification'
-                  status:
-                    $ref: '#/components/schemas/Status'
-        '404':
-          description: cannot find
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - status
-                properties:
-                  status:
-                    $ref: '#/components/schemas/Status'
-              example:
-                status:
-                  code: 4041
-                  reason: 'Cannot find user with id 14'
-  '/applicants/{applicantId}/extracurriculars/{id}':
-    put:
-      tags:
-        - Applicant
-      parameters:
-        - name: applicantId
-          in: path
-          description: applicant id
-          required: true
-          schema:
-            type: integer
         - name: id
           in: path
           description: applicant id
@@ -679,7 +883,49 @@ paths:
               $ref: '#/components/schemas/Extracurricular'
       responses:
         '200':
-          description: return target user's works
+          description: return target applicant
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Extracurricular'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: 'Cannot find user with id 14'
+    put:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: applicant id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Extracurricular'
+      responses:
+        '200':
+          description: return target applicant
           content:
             application/json:
               schema:
@@ -823,6 +1069,7 @@ paths:
           required: true
         - name: type
           in: query
+          required: true
           schema:
             type: string
             enum:
@@ -830,10 +1077,12 @@ paths:
               - company
               - question
               - answer
+              - article
+              - 
           description: determine what part of attention list to return
       responses:
         '200':
-          description: return users' attention list
+          description: return one of the following based on the type parameter
           content:
             application/json:
               schema:
@@ -876,7 +1125,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                            questions:
+                            question:
                               $ref: '#/components/schemas/QuestionBasic'
                       answers:
                         type: array
@@ -888,8 +1137,21 @@ paths:
                           properties:
                             id:
                               type: integer
-                            answers:
+                            answer:
                               $ref: '#/components/schemas/AnswerBasic'
+                      articles:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - article
+                          properties:
+                            id:
+                              type: integer
+                            article:
+                              $ref: '#/components/schemas/Article'
+                      
                   status:
                     $ref: '#/components/schemas/Status'
   '/jobs/collections/{id}':
@@ -1946,7 +2208,49 @@ paths:
         '200':
           description: successful 
           
-  '/job-for-you':
+  '/job-for-you/intern':
+    get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      jobList:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Job'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/job-for-you/campus':
+    get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      jobList:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Job'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/job-for-you/general':
     get:
       tags:
         - Discover
@@ -2468,6 +2772,10 @@ components:
               type: string
             isInJob:
               type: boolean
+            skills:
+              type: array
+              items:
+                type: string
             currentCompany:
               $ref: '#/components/schemas/Company'
             educations:
@@ -2546,8 +2854,10 @@ components:
               type: string
             create_at:
               type: string
-            company_id:
+            rela_type:
               type: string
+            rela_id:
+              type: integer
     QuestionRequest:
       type: object
       required:

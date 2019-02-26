@@ -284,7 +284,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public QuestionAnswer editAnswer(QuestionAnswer questionAnswer) throws NotFoundException{
         simplyGetAnswer(questionAnswer.getAnswer_id());
         communityQAMapper.editAnswer(questionAnswer);
-        return questionAnswer;
+        return communityQAMapper.getAnswerById(questionAnswer.getAnswer_id());
     }
 
 
