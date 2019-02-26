@@ -8,7 +8,7 @@ import com.youthchina.domain.qingyang.Country;
  * @author: Qingyang Zhao
  * @create: 2019-02-24
  **/
-public class CompanyResponseDTO implements ResponseDTO{
+public class CompanyResponseDTO {
     private Integer id;
     private String name;
     private String avatarUrl;
@@ -90,13 +90,4 @@ public class CompanyResponseDTO implements ResponseDTO{
         this.note = note;
     }
 
-    @Override
-    public StatusDTO getStatus() {
-        return null;
-    }
-
-    @Override
-    public void setStatus(StatusDTO status) {
-
-    }
 }

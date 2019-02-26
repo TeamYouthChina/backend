@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -97,12 +98,16 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         Date startDate = new Date(jobSearchDTO.getDurationDTO().getBegin().getTime());
         Date endDate = new Date(jobSearchDTO.getDurationDTO().getEnd().getTime());
 
-        List <Job> searchResult = this.jobService.getJobByMore(jobSearchDTO.getJobId(),jobSearchDTO.getJobName(),
+        List <Job> searchResultJob = this.jobService.getJobByMore(jobSearchDTO.getJobId(),jobSearchDTO.getJobName(),
                 null, jobSearchDTO.getComName(),startDate,endDate,
                 jobSearchDTO.getType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), jobSearchDTO.getActive(),
                 jobSearchDTO.getLocation(), jobSearchDTO.getJobReqList(),jobSearchDTO.getIndustryList());
+        List <JobResponseDTO> searchResultJobDTO = new ArrayList<>();
+        for (Job job : searchResultJob){
+            searchResultJobDTO.add(new JobResponseDTO(job));
+        }
         JobSearchResultDTO jobSearchResultDTO = new JobSearchResultDTO();
-        jobSearchResultDTO.setSearchResult(searchResult);
+        jobSearchResultDTO.setSearchResult(searchResultJobDTO);
 
         return ResponseEntity.ok(new Response(jobSearchResultDTO));
     }
