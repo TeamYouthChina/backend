@@ -13,18 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by hongshengzhang on 2/24/19.
  */
 @RestController
-@RequestMapping("${web.url.prefix}/user-for-you")
+@RequestMapping("${web.url.prefix}/discovery")
 public class UserRecommendController {
     @Autowired
     public UserRecommendServiceImplement userRecommendServiceImplement;
 
-    @GetMapping("/")
+    @GetMapping("/users")
     public ResponseEntity getRecommandUser() throws NotFoundException {
         List<User> userList = userRecommendServiceImplement.getUserForYou();
         List<UserDTO> resultList = new ArrayList<>();
@@ -32,9 +33,12 @@ public class UserRecommendController {
             resultList.add(new UserDTO(user));
         }
 
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("users", resultList);
+
         if (resultList!=null)
-            return ResponseEntity.ok(new Response(resultList, new StatusDTO(200,"success")));
+            return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
         else
-            return ResponseEntity.ok(new Response(resultList, new StatusDTO(400,"fail")));
+            return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
     }
 }
