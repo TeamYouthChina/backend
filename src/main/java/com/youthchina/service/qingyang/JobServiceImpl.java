@@ -84,6 +84,7 @@ public class JobServiceImpl implements JobService {
         List<Location> locationList = job.getJobLocationList();
         if(locationList != null){
             for (int i = 0; i < locationList.size(); i++) {
+
                 Integer regionNum = locationList.get(i).getRegion_num();
                 locationList.set(i, locationService.getLocation(regionNum));
             }
