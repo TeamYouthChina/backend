@@ -1,8 +1,10 @@
 package com.youthchina.dto.community;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.VideoComment;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.RichTextDTO;
 
 import java.sql.Timestamp;
 
@@ -10,23 +12,35 @@ import java.sql.Timestamp;
 public class CommentDTO {
     private Integer id;
     private User user;
-    private String body;
-    private Timestamp creat_at;
+    private RichTextDTO body;
+    private Timestamp create_at;
     private boolean is_anonymous;
 
     public CommentDTO(Comment comment){
         this.id = comment.getComment_id();
         this.user = comment.getUser();
-        this.body = comment.getComment_content();
-        this.creat_at = comment.getComment_pub_time();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(comment.getComment_content(), RichTextDTO.class);
+            this.body = richt;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+        this.create_at = comment.getComment_pub_time();
         this.is_anonymous = (comment.getUser_anony()==1)? true:false;
     }
 
     public CommentDTO(VideoComment comment){
         this.id = comment.getComment_id();
         this.user = comment.getUser();
-        this.body = comment.getComment_content();
-        this.creat_at = comment.getComment_pub_time();
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            RichTextDTO richt = mapper.readValue(comment.getComment_content(), RichTextDTO.class);
+            this.body = richt;
+        }catch (Exception e){
+            System.out.println("Exception");
+        }
+        this.create_at = comment.getComment_pub_time();
         this.is_anonymous = (comment.getUser_anony()==1)? true:false;
     }
 
@@ -46,20 +60,20 @@ public class CommentDTO {
         this.user = user;
     }
 
-    public String getBody() {
+    public RichTextDTO getBody() {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(RichTextDTO body) {
         this.body = body;
     }
 
-    public Timestamp getCreat_at() {
-        return creat_at;
+    public Timestamp getCreate_at() {
+        return create_at;
     }
 
-    public void setCreat_at(Timestamp creat_at) {
-        this.creat_at = creat_at;
+    public void setCreate_at(Timestamp create_at) {
+        this.create_at = create_at;
     }
 
     public boolean isIs_anonymous() {

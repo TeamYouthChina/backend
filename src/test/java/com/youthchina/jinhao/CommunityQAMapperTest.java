@@ -687,7 +687,7 @@ public class CommunityQAMapperTest {
     @Test
     public void getVideoComment() {
         VideoComment videoComment = communityQAMapper.getVideoComment(1);
-        Assert.assertEquals("HAHA1", videoComment.getComment_content());
+        Assert.assertEquals("{                                 \"braftEditorRaw\":\"\",                                 \"previewText\":\"Body of the comment 1 \",                                 \"resourceList\":null                             }", videoComment.getComment_content());
     }
 
     //测试能不能添加评论
