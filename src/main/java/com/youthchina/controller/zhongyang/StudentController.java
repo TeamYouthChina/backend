@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -222,7 +223,97 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
             EducationResponseDTO educationResponseDTO=new EducationResponseDTO(educationInfo);
             educationResponseDTOS.add(educationResponseDTO);
         }
-        return ResponseEntity.ok(educationResponseDTOS);
+        return ResponseEntity.ok(new Response(educationResponseDTOS));
+    }
+    /**
+    * @Description: 实现work的保存操作
+    * @Param: [workDTOS, user]
+    * @return: org.springframework.http.ResponseEntity<?>
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/25
+    */
+
+    @PostMapping("/works")
+    public ResponseEntity<?> saveApplicantsWorks(@RequestBody List<WorkDTO> workDTOS,@AuthenticationPrincipal User user)throws NotFoundException{
+        List<Work> works=new ArrayList<>();
+        for(WorkDTO workDTO:workDTOS){
+            Work work=new Work(workDTO);
+            works.add(work);
+        }
+        List<Work> works1=studentService.insertWorks(works,user.getId());
+        List<WorkResponseDTO> workResponseDTOS=new ArrayList<>();
+        for(Work work:works1){
+            WorkResponseDTO workResponseDTO=new WorkResponseDTO(work);
+            workResponseDTOS.add(workResponseDTO);
+        }
+        return ResponseEntity.ok(new Response(workResponseDTOS));
+    }
+    /** 
+    * @Description: 实现项目的保存操作 
+    * @Param: [projectDTOS, user] 
+    * @return: org.springframework.http.ResponseEntity<?> 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/2/26 
+    */
+    @PostMapping("/projects")
+    public ResponseEntity<?> saveApplicantsProjects(@RequestBody List<ProjectDTO> projectDTOS,@AuthenticationPrincipal User user) throws  NotFoundException{
+        List<Project> projects=new ArrayList<>();
+        for(ProjectDTO projectDTO:projectDTOS){
+            Project project=new Project(projectDTO);
+            projects.add(project);
+        }
+        List<Project> projects1=studentService.insertProjects(projects,user.getId());
+        List<ProjectResponseDTO> projectResponseDTOS=new ArrayList<>();
+        for(Project project:projects1){
+            ProjectResponseDTO projectResponseDTO=new ProjectResponseDTO(project);
+            projectResponseDTOS.add(projectResponseDTO);
+        }
+        return ResponseEntity.ok(new Response(projectResponseDTOS));
+    }
+    /** 
+    * @Description: 实现课外经历的保存 
+    * @Param: [extracurricularDTOS, user] 
+    * @return: org.springframework.http.ResponseEntity<?> 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/2/26 
+    */
+    @PostMapping("/extracurriculars")
+    public ResponseEntity<?> saveApplicantsExtracurriculars(@RequestBody List<ExtracurricularDTO> extracurricularDTOS,@AuthenticationPrincipal User user) throws NotFoundException{
+        List<Activity> activities=new ArrayList<>();
+        for(ExtracurricularDTO extracurricularDTO:extracurricularDTOS){
+            Activity activity=new Activity(extracurricularDTO);
+            activities.add(activity);
+        }
+        List<Activity> activities1=studentService.insertActivities(activities,user.getId());
+        List<ExtracurricularResponseDTO> extracurricularResponseDTOS=new ArrayList<>();
+        for(Activity activity:activities1){
+            ExtracurricularResponseDTO extracurricularResponseDTO=new ExtracurricularResponseDTO(activity);
+            extracurricularResponseDTOS.add(extracurricularResponseDTO);
+        }
+        return ResponseEntity.ok(new Response(extracurricularResponseDTOS));
+    }
+    /** 
+    * @Description: 实现证书信息的保存 
+    * @Param: [certificateDTOS, user] 
+    * @return: org.springframework.http.ResponseEntity<?> 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/2/26 
+    */
+
+    @PostMapping("/certificates")
+    public ResponseEntity<?> saveApplicantsCertificates(@RequestBody List<CertificateDTO> certificateDTOS,@AuthenticationPrincipal User user)throws NotFoundException{
+        List<Certificate> certificates1=new ArrayList<>();
+        for(CertificateDTO certificateDTO:certificateDTOS){
+            Certificate certificate=new Certificate(certificateDTO);
+            certificates1.add(certificate);
+        }
+        List<Certificate> certificates=studentService.insertCertificates(certificates1,user.getId());
+        List<CertificateResponseDTO> certificateResponseDTOS=new ArrayList<>();
+        for(Certificate certificate:certificates){
+            CertificateResponseDTO certificateResponseDTO=new CertificateResponseDTO(certificate);
+            certificateResponseDTOS.add(certificateResponseDTO);
+        }
+        return ResponseEntity.ok(new Response(certificateResponseDTOS));
     }
 
 

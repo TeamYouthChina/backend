@@ -363,14 +363,14 @@
     <!--删除应聘者信息-->
     <update id="deleteStuInfo">
         update STU_INFO set
-                            IS_DELETE=1
+                            IS_DELETE=1, IS_DELETE_TIME=NOW()
         WHERE STU_ID=#{stu_id}
     </update>
 
     <!--删除应聘者教育信息-->
     <update id="deleteEduInfo">
         update STU_EDU_INFO set
-                                IS_DELETE=1
+                                IS_DELETE=1, IS_DELETE_TIME=NOW()
         WHERE EDU_ID=#{edu_id}
     </update>
 
@@ -378,44 +378,76 @@
 
     <update id="deleteAllEduInfo">
         update STU_EDU_INFO set
-                                IS_DELETE=1
+                                IS_DELETE=1, IS_DELETE_TIME=NOW()
         WHERE STU_ID=#{stu_id}
     </update>
 
     <!--删除应聘者附加信息-->
     <update id="deleteSubInfo">
         update STU_INFO set
-                            IS_DELETE=1
+                            IS_DELETE=1, IS_DELETE_TIME=NOW()
         WHERE SUB_ID=#{sub_id}
     </update>
 
     <!--删除应聘者项目信息-->
     <update id="deleteProject">
         update STU_PROJECT set
-                               IS_DELETE=1
+                               IS_DELETE=1, IS_DELETE_TIME=NOW()
         WHERE PROJ_ID=#{proj_id}
     </update>
+
+    <!--删除所有的项目信息-->
+    <update id="deleteAllProject">
+        update STU_PROJECT set
+                               IS_DELETE=1, IS_DELETE_TIME=NOW()
+        WHERE STU_ID=#{stu_id}
+    </update>
+
 
     <!--删除应聘者工作经验-->
     <update id="deleteWork">
         update STU_WORK set
-                            IS_DELETE=1
+                            IS_DELETE=1, IS_DELETE_TIME=NOW()
         WHERE WORK_ID=#{work_id}
+    </update>
+
+    <!--删除所有的工作信息-->
+
+    <update id="deleteAllWork">
+        update STU_WORK set
+                            IS_DELETE=1, IS_DELETE_TIME=NOW()
+        WHERE STU_ID=#{stu_id}
     </update>
 
     <!--删除应聘者活动信息-->
     <update id="deleteActivity">
         update STU_Activity set
-                                IS_DELETE=1
+                                IS_DELETE=1, IS_DELETE_TIME=NOW()
         WHERE ACT_ID=#{act_id}
     </update>
+
+    <!--删除所有的活动信息-->
+    <update id="deleteAllActivity">
+        update STU_Activity set
+                                IS_DELETE=1, IS_DELETE_TIME=NOW()
+        WHERE STU_ID=#{stu_id}
+    </update>
+
 
     <!--删除应聘者技术证书-->
     <update id="deleteCertificate">
         UPDATE STU_CERTIFICATE set
-        IS_DELETE=1
+        IS_DELETE=1, IS_DELETE_TIME=NOW()
         WHERE CERTIFICATE_ID=#{certificate_id}
     </update>
+
+    <!--删除所有的证书信息-->
+    <update id="deleteAllCertificate">
+        UPDATE STU_CERTIFICATE set
+        IS_DELETE=1, IS_DELETE_TIME=NOW()
+        WHERE STU_ID=#{stu_id}
+    </update>
+
 
     <!--删除应聘者意向职位-->
     <update id="deleteLabel">
