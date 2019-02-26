@@ -411,14 +411,14 @@
 
     <!--删除应聘者活动信息-->
     <update id="deleteActivity">
-        update STU_Activity set
+        update STU_ACTIVITY set
                                 IS_DELETE=1, IS_DELETE_TIME=NOW()
         WHERE ACT_ID=#{act_id}
     </update>
 
     <!--删除所有的活动信息-->
     <update id="deleteAllActivity">
-        update STU_Activity set
+        update STU_ACTIVITY set
                                 IS_DELETE=1, IS_DELETE_TIME=NOW()
         WHERE STU_ID=#{stu_id}
     </update>
