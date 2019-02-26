@@ -24,10 +24,10 @@ public class OrganizationDTO {
         this.name = company.getCompanyName();
         this.avatarUrl = company.getCompanyLogo();
         Location location = company.getLocation();
-        this.location = location == null ? "中国江苏" : location.getRegion_chn(); // 中文名
+        this.location = location == null ? null : location.getRegion_chn(); // 中文名
         this.website = company.getCompanyWebsite();
         Country country = company.getCountry();
-        this.nation = country == null ? "CHN" : country.getCountryChn();// 中文名
+        this.nation = country == null ? null : country.getCountryChn();// 中文名
     }
 
     public String getLocation() {
