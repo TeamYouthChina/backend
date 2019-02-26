@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.1.8
+  version: 1.1.9
   title: YouthChina
   license:
     name: MIT
@@ -1357,8 +1357,6 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/AnswerBasic'
-                      question:
-                        $ref: '#/components/schemas/QuestionBasic'
                   status:
                     $ref: '#/components/schemas/Status'
     post:
@@ -2854,10 +2852,6 @@ components:
               type: string
             create_at:
               type: string
-            rela_type:
-              type: string
-            rela_id:
-              type: integer
     QuestionRequest:
       type: object
       required:
