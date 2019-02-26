@@ -71,6 +71,7 @@
         <result property="cvNameRule" column="CV_NAME_RULE"/>
         <result property="jobActive" column="JOB_ACTIVE"/>
         <result property="addTime" column="JOB_ADD_TIME"/>
+        <result property="collectNum" column="JOB_COLLECT_NUM"/>
         <association property="company" column="COMPANY_ID" javaType="com.youthchina.domain.qingyang.Company" resultMap="com.youthchina.dao.qingyang.CompanyMapper.company"/>
         <!--<association property="company" javaType="com.youthchina.domain.qingyang.Company">-->
             <!--<id property="companyId" column="COMPANY_ID"/>-->
@@ -207,7 +208,9 @@
             prof.PROF_PARENT_CODE as PROF_PARENT_CODE,
             prof.PROF_CHN as PROF_CHN,
             prof.PROF_ENG as PROF_ENG,
-            prof.START_TIME as PROF_START_TIME
+            prof.START_TIME as PROF_START_TIME,
+
+            collect.JOB_COLLECT as JOB_COLLECT_NUM
     </sql>
     <sql id="jobJoin">
         LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
@@ -220,7 +223,8 @@
         LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = req.JOB_ID AND req.IS_DELETE = 0
         LEFT OUTER JOIN SYS_DEGREE degree ON req.JOB_DEGREE_NUM = degree.DEGREE_NUM
         LEFT OUTER JOIN SYS_PROF_CLASS prof ON j.JOB_PROF_CODE = prof.PROF_CODE AND prof.IS_DELETE = 0
-    </sql>
+        LEFT OUTER JOIN (SELECT COUNT(JOB_ID) as JOB_COLLECT, JOB_ID FROM STU_JOB_COLLECT WHERE IS_DELETE = 0 GROUP BY JOB_ID) as collect ON collect.JOB_ID = j.JOB_ID
+  </sql>
     <!--职位详情页, 含公司和HR信息-->
     <select id="selectJobByJobId" resultMap="job" parameterType="java.lang.Integer">
         SELECT

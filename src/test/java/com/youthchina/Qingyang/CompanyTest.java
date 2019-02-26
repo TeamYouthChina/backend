@@ -207,7 +207,13 @@ public class CompanyTest {
         company.setLocation(location);
         Assert.assertEquals("北京", company.getLocation().getRegion_chn());
 
-
     }
+
+    @Test
+    public void testGetCompanyCollectionNum(){
+        Company company = companyMapper.selectCompany(1);
+        Assert.assertEquals(Integer.valueOf(2), company.getCollectNum());
+    }
+    
 
 }

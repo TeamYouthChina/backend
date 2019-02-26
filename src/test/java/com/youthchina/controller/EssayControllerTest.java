@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dto.RichTextDTO;
-import com.youthchina.dto.community.EssayReplyDTO;
+import com.youthchina.dto.community.RequestEssayReplyDTO;
 import com.youthchina.dto.community.RequestEssayDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
@@ -26,7 +26,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -68,7 +71,7 @@ public class EssayControllerTest {
                 .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"title\",\"company\":null,\"creat_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":\"Abbreviation of the essay 1 but42\",\"previewText\":\"Body Body 1\",\"resourceList\":null},\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"title\",\"company\":null,\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":\"Abbreviation of the essay 1 but42\",\"previewText\":\"Body Body 1\",\"resourceList\":null},\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
 
@@ -148,7 +151,7 @@ public class EssayControllerTest {
 
     @Test
     public void addCommentTest() throws Exception {
-        EssayReplyDTO essayDTO = new EssayReplyDTO();
+        RequestEssayReplyDTO essayDTO = new RequestEssayReplyDTO();
         essayDTO.setAnonymous(false);
         RichTextDTO richTextDTO = new RichTextDTO();
         richTextDTO.setPreviewText("Nizhenshigerencai");
@@ -188,4 +191,13 @@ public class EssayControllerTest {
                 .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
+    @Test
+    public void getEssayComments() throws Exception {
+        this.mvc.perform(
+                get(this.urlPrefix + "/articles/1/comments")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"content\":{\"comments\":[{\"id\":1,\"user\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":null,\"create_at\":\"2018-12-04 13:32:40.0\",\"is_anonymous\":false}]},\"status\":{\"code\":2000,\"reason\":\"\"}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+    }
 }

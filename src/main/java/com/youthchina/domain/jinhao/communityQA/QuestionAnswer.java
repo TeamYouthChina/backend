@@ -40,7 +40,7 @@ public class QuestionAnswer implements HasId<Integer> {
         }catch (Exception e){
             System.out.println("Exception");
         }
-        this.user_anony = (simpleAnswerDTO.getIsAnonymous()) ? 1 : 0;
+        this.user_anony = (simpleAnswerDTO.getIs_anonymous()) ? 1 : 0;
     }
 
     public QuestionAnswer(){}

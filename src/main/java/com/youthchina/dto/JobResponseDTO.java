@@ -56,6 +56,7 @@ public class JobResponseDTO implements ResponseDTO {
                 this.location = location.getRegion_chn(); // 默认中文名
                 this.nation = location.getNation_code();
             }
+
         }
         int jobType = job.getJobType();
         if(jobType == 1){

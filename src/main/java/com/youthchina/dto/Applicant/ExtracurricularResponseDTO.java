@@ -1,21 +1,25 @@
-package com.youthchina.dto;
+package com.youthchina.dto.Applicant;
 
 import com.youthchina.domain.Qinghong.Activity;
+import com.youthchina.dto.DurationDTO;
 
 /**
- * Created by zhong on 2018/12/30.
- */
-public class ExtracurricularDTO {
+ * @program: youthchina
+ * @description: 课外活动信息
+ * @author: Qinghong Wang
+ * @create: 2019-02-24 15:38
+ **/
+public class ExtracurricularResponseDTO {
     private String name;
     private String role;
     private String organization;
     private DurationDTO duration;
     private String note;
 
-    public ExtracurricularDTO() {
+    public ExtracurricularResponseDTO() {
     }
 
-    public ExtracurricularDTO(Activity activity) {
+    public ExtracurricularResponseDTO(Activity activity) {
         this.name = activity.getAct_name();
         this.role = activity.getAct_role();
         this.organization = activity.getAct_organization();
@@ -62,4 +66,5 @@ public class ExtracurricularDTO {
     public void setNote(String note) {
         this.note = note;
     }
+
 }

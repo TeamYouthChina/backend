@@ -4,18 +4,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
-public class SimpleAnswerDTO {
+
+/**
+ * Created by xiaoyiwang on 2/24/19.
+ */
+
+public class AnswerBasicDTO {
+    private Integer id;
     private RichTextDTO body;
     private boolean is_anonymous;
     private User creator;
     private String modified_at;
     private String create_at;
     private String company_id;
-    private QuestionDTO question;
 
-    public SimpleAnswerDTO(){}
+    public AnswerBasicDTO(){}
 
-    public SimpleAnswerDTO(QuestionAnswer questionAnswer){
+    public AnswerBasicDTO(QuestionAnswer questionAnswer){
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(questionAnswer.getAnswer_content(), RichTextDTO.class);
@@ -27,12 +32,16 @@ public class SimpleAnswerDTO {
         this.creator = questionAnswer.getAnswer_user();
         this.modified_at = questionAnswer.getAnswer_edit_time().toString();
         this.create_at =questionAnswer.getAnswer_pub_time().toString();
-        this.question = new QuestionDTO(questionAnswer.getQuestion());
+        this.id = questionAnswer.getAnswer_id();
     }
 
     public RichTextDTO getBody() {
         return body;
     }
+
+    public void setId(Integer id){this.id = id;}
+
+    public Integer getId(){return id;}
 
     public void setBody(RichTextDTO body) {
         this.body = body;
@@ -78,11 +87,4 @@ public class SimpleAnswerDTO {
         this.company_id = company_id;
     }
 
-    public QuestionDTO getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(QuestionDTO question) {
-        this.question = question;
-    }
 }

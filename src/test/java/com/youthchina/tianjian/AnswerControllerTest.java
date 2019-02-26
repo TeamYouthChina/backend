@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:answers.xml"})
+@DatabaseSetup({"classpath:answers.xml","classpath:comments.xml"})
 @WebAppConfiguration
 public class AnswerControllerTest {
 
@@ -59,14 +59,14 @@ public class AnswerControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第一个回答\",\"resourceList\":null},\"is_anonymous\":false,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"company_id\":null,\"question\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"title\":\"第一个问题\",\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"answers\":[],\"invitation\":null,\"rela_type\":1,\"rela_id\":3,\"body\":{\"braftEditorRaw\":\"Abbreviation of the question 1 but42\",\"previewText\":\"Body of the question 1 but 42\",\"resourceList\":null},\"anonymous\":true}},\"status\":{\"code\":200,\"reason\":\"success\"}}\n", false));
+                .andExpect(content().json("{\"content\":{\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第一个回答\",\"resourceList\":null},\"is_anonymous\":false,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"company_id\":null,\"question\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"title\":\"第一个问题\",\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"answers\":[],\"rela_type\":1,\"rela_id\":3,\"body\":{\"braftEditorRaw\":\"Abbreviation of the question 1 but42\",\"previewText\":\"Body of the question 1 but 42\",\"resourceList\":null},\"anonymous\":true}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
 
     }
 
     @Test
     public void testUpdateAnswer() throws Exception{
         RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
-        simpleAnswerDTO.setIsAnonymous(true);
+        simpleAnswerDTO.setIs_anonymous(true);
         RichTextDTO richTextDTO = new RichTextDTO();
         richTextDTO.setPreviewText("qweertyuiop");
         simpleAnswerDTO.setBody(richTextDTO);
@@ -81,8 +81,7 @@ public class AnswerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(searchJson)
         )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":{\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qweertyuiop\",\"resourceList\":null},\"isAnonymous\":true},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andDo(print());
     }
 
     @Test
@@ -99,9 +98,9 @@ public class AnswerControllerTest {
     public void testAddAnswerComment() throws Exception{
         RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("qweweer");
+        richTextDTO.setPreviewText("yes 2/24/2019");
         simpleAnswerDTO.setBody(richTextDTO);
-        simpleAnswerDTO.setIsAnonymous(false);
+        simpleAnswerDTO.setIs_anonymous(false);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String addJson = ow.writeValueAsString(simpleAnswerDTO);
@@ -125,6 +124,17 @@ public class AnswerControllerTest {
         )
                 .andDo(print())
                 .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
+    @Test
+    public void testGetAllComments() throws Exception{
+        this.mvc.perform(
+                get(this.urlPrefix + "/answers/1/comments")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":[{\"id\":1,\"user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":null,\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false},{\"id\":3,\"user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":null,\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false},{\"id\":5,\"user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":null,\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}],\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
 }

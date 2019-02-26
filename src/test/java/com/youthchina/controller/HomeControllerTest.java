@@ -22,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -48,16 +49,19 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void getNewJob() throws Exception{
+    public void getNewJob() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/home/new").with(authGenerator.authentication())
-        ).andDo(print());
+                get(this.urlPrefix + "/home/new")
+        ).andDo(print())
+                .andExpect(status().is2xxSuccessful())
+        ;
     }
 
     @Test
-    public void getHotJob() throws Exception{
+    public void getHotJob() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/home/hot").with(authGenerator.authentication())
-        ).andDo(print());
+                get(this.urlPrefix + "/home/hot")
+        ).andDo(print())
+                .andExpect(status().is2xxSuccessful());
     }
 }
