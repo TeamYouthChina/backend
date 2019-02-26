@@ -5,10 +5,7 @@ import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.QuestionDTO;
-import com.youthchina.dto.community.RequestSimpleAnswerDTO;
-import com.youthchina.dto.community.RequestQuestionDTO;
-import com.youthchina.dto.community.SimpleAnswerDTO;
+import com.youthchina.dto.community.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.jinhao.communityQA.CommunityQAService;
@@ -113,9 +110,19 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     public ResponseEntity<?> getAnswers(@PathVariable Integer id) throws NotFoundException {
         System.out.println("get answers");
         QuestionDTO questionDTO = getDto(id);
-        HashMap<String,Object> map = new HashMap<>();
-        map.put("answers", questionDTO.getAnswers());
-        return ResponseEntity.ok(new Response(map));
+        Question question = communityQAService.get(id);
+        QuestionBasicDTO questionBasicDTO = new QuestionBasicDTO(question);
+        HashMap<String,Object> map1 = new HashMap<>();
+        map1.put("answers", questionDTO.getAnswers());
+        //HashMap<String,Object> map2 = new HashMap<>();
+        //map2.put("question", questionBasicDTO);
+
+        //List<HashMap> list = new ArrayList<>();
+        //list.add(map1);
+        //list.add(map2);
+
+
+        return ResponseEntity.ok(new Response(map1));
     }
 
     @PutMapping("/{id}/invite/**")

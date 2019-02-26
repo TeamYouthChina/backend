@@ -2,10 +2,8 @@ package com.youthchina.controller.Hongsheng;
 
 
 import com.youthchina.domain.qingyang.Job;
-
 import com.youthchina.dto.JobResponseDTO;
 import com.youthchina.dto.Response;
-import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.JobRecommendServiceImplement;
@@ -23,11 +21,14 @@ import java.util.List;
  * Created by hongshengzhang on 2/23/19.
  */
 @RestController
-@RequestMapping("${web.url.prefix}/discovery/jobs")
-public class JobRecommendController {
+@RequestMapping("${web.url.prefix}/job-for-you/**")
+public class JobForYouController {
+    private JobRecommendServiceImplement jobRecommendServiceImplement;
 
     @Autowired
-    private JobRecommendServiceImplement jobRecommendServiceImplement;
+    public JobForYouController(JobRecommendServiceImplement jobRecommendServiceImplement) {
+        this.jobRecommendServiceImplement = jobRecommendServiceImplement;
+    }
 
     @GetMapping("/intern")
     public ResponseEntity getRecommandInternJobs() throws NotFoundException {

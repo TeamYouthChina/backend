@@ -55,7 +55,15 @@ public class Company implements HasId<Integer> {
     /*认证信息*/
     private List<CompanyVerification> verificationList;
 
+    private Integer collectNum;
 
+    public Integer getCollectNum() {
+        return collectNum;
+    }
+
+    public void setCollectNum(Integer collectNum) {
+        this.collectNum = collectNum;
+    }
 
     public Company(OrganizationDTO organizationDTO) {
         this.companyId = organizationDTO.getId();

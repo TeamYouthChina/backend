@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.1.8
+  version: 1.2.2
   title: YouthChina
   license:
     name: MIT
@@ -1045,7 +1045,7 @@ paths:
   '/jobs/{id}/attention':
     put:
       tags:
-        - Collection
+        - Job
       parameters:
         - name: id
           in: path
@@ -1151,10 +1151,9 @@ paths:
                               type: integer
                             article:
                               $ref: '#/components/schemas/Article'
-                      
                   status:
                     $ref: '#/components/schemas/Status'
-  '/jobs/collections/{id}':
+  '/jobs/attentions/{id}':
     delete:
       tags:
         - Collection
@@ -1357,8 +1356,6 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/AnswerBasic'
-                      question:
-                        $ref: '#/components/schemas/QuestionBasic'
                   status:
                     $ref: '#/components/schemas/Status'
     post:
@@ -2586,12 +2583,15 @@ components:
     EducationInfo:
       type: object
       required:
+        - id
         - university
         - major
         - degree
         - duration
         - location
       properties:
+        id:
+          type: integer
         university:
           type: string
         major:
@@ -2607,6 +2607,7 @@ components:
     WorkExperienceInfo:
       type: object
       required:
+        - id
         - employer
         - position
         - duration
@@ -2627,9 +2628,12 @@ components:
     Certification:
       type: object
       required:
+        - id
         - name
         - duration
       properties:
+        id:
+          type: string
         name:
           type: string
         authority:
@@ -2641,6 +2645,7 @@ components:
     Extracurricular:
       type: object
       required:
+        - id
         - name
         - role
         - organization
@@ -2854,10 +2859,6 @@ components:
               type: string
             create_at:
               type: string
-            rela_type:
-              type: string
-            rela_id:
-              type: integer
     QuestionRequest:
       type: object
       required:
@@ -3018,7 +3019,9 @@ components:
       allOf:
         - $ref: '#/components/schemas/ContentRequest'
         - properties:
-            company_id:
+            rela_type:
+              type: integer
+            rela_id:
               type: integer
     Location:
       type: object
