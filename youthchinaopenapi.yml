@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.1.9
+  version: 1.2.0
   title: YouthChina
   license:
     name: MIT
@@ -1045,7 +1045,7 @@ paths:
   '/jobs/{id}/attention':
     put:
       tags:
-        - Collection
+        - Job
       parameters:
         - name: id
           in: path
@@ -1153,7 +1153,7 @@ paths:
                               $ref: '#/components/schemas/Article'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/jobs/collections/{id}':
+  '/jobs/attentions/{id}':
     delete:
       tags:
         - Collection
