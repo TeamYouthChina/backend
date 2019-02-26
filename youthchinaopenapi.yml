@@ -3019,7 +3019,9 @@ components:
       allOf:
         - $ref: '#/components/schemas/ContentRequest'
         - properties:
-            company_id:
+            rela_type:
+              type: integer
+            rela_id:
               type: integer
     Location:
       type: object
