@@ -50,10 +50,6 @@ public class JobResponseDTO implements ResponseDTO {
         Company company = job.getCompany();
         this.organization = company == null ? null : new OrganizationDTO(company);
         List<Location> locationList = job.getJobLocationList();
-        if(locationList==null||locationList.size() == 0 ){
-            this.location="中国江苏";
-            this.nation="CHN";
-        }
         if(locationList != null && locationList.size() > 0 ){
             Location location = locationList.get(0);
             if(location != null){
