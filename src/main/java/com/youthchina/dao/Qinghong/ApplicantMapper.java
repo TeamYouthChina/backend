@@ -53,6 +53,12 @@ public interface ApplicantMapper {
     Integer updateCertificate(Certificate certificate);
     Integer updateProject(Project project);
     Integer updateActivity(Activity activity);
+    Integer deleteAllEduInfo(Integer stu_id);
+    Integer deleteAllProject(Integer stu_id);
+    Integer deleteAllWork(Integer stu_id);
+    Integer deleteAllActivity(Integer stu_id);
+    Integer deleteAllCertificate(Integer stu_id);
+
 
 
 }

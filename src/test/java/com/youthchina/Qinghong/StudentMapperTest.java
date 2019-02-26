@@ -188,7 +188,7 @@ public class StudentMapperTest {
     public void testAddStuInfo(){
         Student student=new Student();
         student.setCurrentCompanyName("google");
-        student.setIsInJob("是");
+        student.setIsInJob(true);
         student.setId(1);
 
         Integer integer=applicantMapper.insertStuInfo(student);

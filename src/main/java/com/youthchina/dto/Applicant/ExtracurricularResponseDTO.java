@@ -10,6 +10,7 @@ import com.youthchina.dto.DurationDTO;
  * @create: 2019-02-24 15:38
  **/
 public class ExtracurricularResponseDTO {
+    private Integer id;
     private String name;
     private String role;
     private String organization;
@@ -20,10 +21,19 @@ public class ExtracurricularResponseDTO {
     }
 
     public ExtracurricularResponseDTO(Activity activity) {
+        this.id=activity.getAct_id();
         this.name = activity.getAct_name();
         this.role = activity.getAct_role();
         this.organization = activity.getAct_organization();
         this.duration = new DurationDTO(activity.getAct_start_time(), activity.getAct_end_time());
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

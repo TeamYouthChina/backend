@@ -10,6 +10,7 @@ import com.youthchina.dto.DurationDTO;
  * @create: 2019-02-24 15:39
  **/
 public class CertificateResponseDTO {
+    private Integer id;
     private String name;
     private String authority;
     private DurationDTO duration;
@@ -19,9 +20,18 @@ public class CertificateResponseDTO {
     }
 
     public CertificateResponseDTO(Certificate certificate) {
+        this.id=certificate.getCertificate_id();
         this.name = certificate.getCertificate_name();
         this.authority = certificate.getCertificate_insti();
         this.duration = new DurationDTO(certificate.getCertificate_grant_date(), certificate.getCertificate_expir_date());
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
