@@ -289,13 +289,14 @@
 
     <!--获取申请者的所有申请职位信息-->
     <select id="getJobApplies" resultMap="ApplyMapper">
-        SELECT a.*,b.*,c.*,loc.JOB_REGION_NUM as REGION_NUM
+        SELECT a.*,<include refid="com.youthchina.dao.qingyang.JobMapper.jobSelect"/>
         FROM STU_JOB_APPLY a
-                 LEFT JOIN JOB_INFO b ON a.JOB_ID=b.JOB_ID
-                 LEFT JOIN JOB_LOCATION loc ON b.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
-                 LEFT JOIN COMPANY_INFO c ON c.COMPANY_ID=b.COMPANY_ID
+                 LEFT JOIN JOB_INFO j ON a.JOB_ID=j.JOB_ID
+                 <include refid="com.youthchina.dao.qingyang.JobMapper.jobJoin"/>
+
                 WHERE a.STU_ID=#{stu_id}
     </select>
+
 
     <select id="getOneJobApply" resultMap="ApplyMapper">
 
