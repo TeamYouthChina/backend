@@ -11,14 +11,14 @@ import java.sql.Timestamp;
 
 public class CommentDTO {
     private Integer id;
-    private User user;
+    private User creator;
     private RichTextDTO body;
     private Timestamp create_at;
     private boolean is_anonymous;
 
     public CommentDTO(Comment comment){
         this.id = comment.getComment_id();
-        this.user = comment.getUser();
+        this.creator = comment.getUser();
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comment.getComment_content(), RichTextDTO.class);
@@ -32,7 +32,7 @@ public class CommentDTO {
 
     public CommentDTO(VideoComment comment){
         this.id = comment.getComment_id();
-        this.user = comment.getUser();
+        this.creator = comment.getUser();
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comment.getComment_content(), RichTextDTO.class);
@@ -52,12 +52,12 @@ public class CommentDTO {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public RichTextDTO getBody() {
