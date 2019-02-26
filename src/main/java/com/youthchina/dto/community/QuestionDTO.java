@@ -22,7 +22,6 @@ public class QuestionDTO {
     private Timestamp create_at;
     private Timestamp modified_at;
     private List<RequestSimpleAnswerDTO> answers;
-    private AnswerInvitation invitation;
     private Integer rela_type;
     private Integer rela_id;
     private RichTextDTO body;
@@ -39,7 +38,6 @@ public class QuestionDTO {
             System.out.println("Exception");
         }
 
-        this.invitation = question.getQues_invitation();
         this.is_anonymous = (question.getUser_anony()==1 ? true : false);
         this.create_at = question.getQues_pub_time();
         this.modified_at = question.getQues_edit_time();
@@ -100,14 +98,6 @@ public class QuestionDTO {
 
     public void setAnswers(List<RequestSimpleAnswerDTO> answers) {
         this.answers = answers;
-    }
-
-    public AnswerInvitation getInvitation() {
-        return invitation;
-    }
-
-    public void setInvitation(AnswerInvitation invitation) {
-        this.invitation = invitation;
     }
 
     public Integer getRela_type() {

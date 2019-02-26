@@ -3,6 +3,7 @@ package com.youthchina.controller.Hongsheng;
 
 import com.youthchina.domain.qingyang.Job;
 
+import com.youthchina.dto.JobResponseDTO;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.dto.StatusDTO;
@@ -30,12 +31,12 @@ public class JobForYouController {
     @GetMapping("/intern")
     public ResponseEntity getRecommandInternJobs() throws NotFoundException {
         List<Job> jobList = jobRecommendServiceImplement.getInternForYou();
-        List<SimpleJobDTO> resultList = new ArrayList<>();
+        List<JobResponseDTO> resultList = new ArrayList<>();
         for(Job job : jobList) {
-            resultList.add(new SimpleJobDTO(job));
+            resultList.add(new JobResponseDTO(job));
         }
         HashMap<String, Object> map = new HashMap<>();
-        map.put("jobList", jobList);
+        map.put("jobList", resultList);
 
         if (resultList!=null)
             return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
@@ -47,13 +48,13 @@ public class JobForYouController {
     @GetMapping("/general")
     public ResponseEntity getRecommandGeneralJobs() throws NotFoundException {
         List<Job> jobList = jobRecommendServiceImplement.getJobForYou();
-        List<SimpleJobDTO> resultList = new ArrayList<>();
+        List<JobResponseDTO> resultList = new ArrayList<>();
         for(Job job : jobList) {
-            resultList.add(new SimpleJobDTO(job));
+            resultList.add(new JobResponseDTO(job));
         }
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("jobList", jobList);
+        map.put("jobList", resultList);
 
         if (resultList!=null)
             return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
@@ -64,13 +65,13 @@ public class JobForYouController {
     @GetMapping("/campus")
     public ResponseEntity getRecommandCampusJobs() throws NotFoundException {
         List<Job> jobList = jobRecommendServiceImplement.getJobForYou();
-        List<SimpleJobDTO> resultList = new ArrayList<>();
+        List<JobResponseDTO> resultList = new ArrayList<>();
         for(Job job : jobList) {
-            resultList.add(new SimpleJobDTO(job));
+            resultList.add(new JobResponseDTO(job));
         }
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("jobList", jobList);
+        map.put("jobList", resultList);
 
         if (resultList!=null)
             return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
