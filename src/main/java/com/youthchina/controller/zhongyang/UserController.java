@@ -52,39 +52,37 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
         }
     }
 
-//    @GetMapping("/{id}/attentions")
-//    public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id,@RequestParam(value="type") String type) throws NotFoundException{
-//        switch (type){
-//            case "Job":{
-//                List<JobCollect> jobCollects=studentService.getJobCollect(user_id);
-//                List<JobCollectResponseDTO> jobCollectResponseDTOS=new ArrayList<>();
-//                for(JobCollect jobCollect:jobCollects){
-//                    JobCollectResponseDTO jobCollectResponseDTO=new JobCollectResponseDTO(jobCollect);
-//                    jobCollectResponseDTOS.add(jobCollectResponseDTO);
-//                }
-//                return ResponseEntity.ok(new Response(jobCollectResponseDTOS));
-//
-//            }
-//
-//            case "Company":{
-//                List<CompCollect> compCollects=studentService.getCompCollect(user_id);
-//                List<CompCollectResponseDTO> compCollectResponseDTOS=new ArrayList<>();
-//                for(CompCollect compCollect:compCollects){
-//                    CompCollectResponseDTO compCollectResponseDTO=new CompCollectResponseDTO(compCollect);
-//                    compCollectResponseDTOS.add(compCollectResponseDTO);
-//                }
-//                return ResponseEntity.ok(new Response(compCollectResponseDTOS));
-//
-//            }
-//            case "Question":{
-//
-//            }
-//
-//
-//        }
-//
-//
-//    }
+    @GetMapping("/{id}/attentions")
+    public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id,@RequestParam(value="type") String type) throws NotFoundException{
+        switch (type){
+            case "Job":{
+                List<JobCollect> jobCollects=studentService.getJobCollect(user_id);
+                List<JobCollectResponseDTO> jobCollectResponseDTOS=new ArrayList<>();
+                for(JobCollect jobCollect:jobCollects){
+                    JobCollectResponseDTO jobCollectResponseDTO=new JobCollectResponseDTO(jobCollect);
+                    jobCollectResponseDTOS.add(jobCollectResponseDTO);
+                }
+                return ResponseEntity.ok(new Response(jobCollectResponseDTOS));
+
+            }
+
+            case "Company":{
+                List<CompCollect> compCollects=studentService.getCompCollect(user_id);
+                List<CompCollectResponseDTO> compCollectResponseDTOS=new ArrayList<>();
+                for(CompCollect compCollect:compCollects){
+                    CompCollectResponseDTO compCollectResponseDTO=new CompCollectResponseDTO(compCollect);
+                    compCollectResponseDTOS.add(compCollectResponseDTO);
+                }
+                return ResponseEntity.ok(new Response(compCollectResponseDTOS));
+
+            }
+            default:throw new NotFoundException(404,404,"do not have this type");
+
+
+        }
+
+
+    }
 
 
     @Override
