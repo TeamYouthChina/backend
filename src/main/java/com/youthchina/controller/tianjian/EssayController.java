@@ -7,10 +7,7 @@ import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.tianjian.ComEssayAttention;
 import com.youthchina.domain.tianjian.ComEssayReply;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.ListResponse;
-import com.youthchina.dto.Response;
-import com.youthchina.dto.RichTextDTO;
-import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.*;
 import com.youthchina.dto.community.EssayDTO;
 import com.youthchina.dto.community.EssayReplyDTO;
 import com.youthchina.dto.community.RequestEssayReplyDTO;
@@ -54,7 +51,7 @@ public class EssayController {
 
         if(comAuthorEssayMap.getRela_type()==2){
             Company company = companyCURDService.get(comAuthorEssayMap.getRela_id());
-            essayDTO.setCompany(company);
+            essayDTO.setCompany(new CompanyResponseDTO(company));
         }
         essayDTO.setAuthor(user);
 
@@ -67,7 +64,6 @@ public class EssayController {
     @PutMapping("/{id}")
     public ResponseEntity updateEssay(@PathVariable Integer id, @RequestBody RequestEssayDTO requestEssayDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = new ComEssay(requestEssayDTO);
-        System.out.println(id);
         comEssay.setEssay_id(id);
         if(requestEssayDTO.getCompany_id()!=null){
             ComAuthorEssayMap comAuthorEssayMap = new ComAuthorEssayMap();
@@ -84,7 +80,7 @@ public class EssayController {
         Timestamp time =  new Timestamp(System.currentTimeMillis());
         essayDTO.setModified_at(time);
         if(requestEssayDTO.getCompany_id()!=null)
-            essayDTO.setCompany(companyCURDService.get(requestEssayDTO.getCompany_id()));
+            essayDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(requestEssayDTO.getCompany_id())));
         essayDTO.setCreate_at(essayServiceimpl.getEssay(id).getEssay_pub_time());
         essayDTO.setTitle(comEssay.getEssay_title());
         essayDTO.setAuthor(user);
@@ -144,7 +140,8 @@ public class EssayController {
         //essayDTO.setBody(comEssay.getEssay_body());
         essayDTO.setCreate_at(comEssay.getEssay_pub_time());
         if(requestEssayDTO.getCompany_id()!=null){
-            essayDTO.setCompany(companyCURDService.get(requestEssayDTO.getCompany_id()));
+            CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO(companyCURDService.get(requestEssayDTO.getCompany_id()));
+            essayDTO.setCompany( companyResponseDTO);
         }
         essayDTO.setModified_at(comEssay.getEssay_edit_time());
         essayDTO.setId(essayId);
@@ -174,7 +171,7 @@ public class EssayController {
     }
 
     @GetMapping("/{id}/comments")
-    public ResponseEntity getEssayComments(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity getEssayComments(@PathVariable Integer id) {
         List<ComEssayReply> comEssayReplies = essayServiceimpl.getReply(id);
         List<EssayReplyDTO> essayReplyDTOS = new ArrayList<>();
         if(comEssayReplies!=null){
@@ -182,7 +179,7 @@ public class EssayController {
             while(it.hasNext()){
                 ComEssayReply comEssayReply = (ComEssayReply) it.next();
                 EssayReplyDTO essayReplyDTO = new EssayReplyDTO(comEssayReply);
-                essayReplyDTO.setUser(userService.get(comEssayReply.getUser_id()));
+                essayReplyDTO.setCreator(userService.get(comEssayReply.getUser_id()));
                 essayReplyDTOS.add(essayReplyDTO);
             }
         }

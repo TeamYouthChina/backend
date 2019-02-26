@@ -8,7 +8,7 @@ import com.youthchina.domain.qingyang.Country;
  * @author: Qingyang Zhao
  * @create: 2019-02-24
  **/
-public class CompanyResponseDTO {
+public class CompanyResponseDTO{
     private Integer id;
     private String name;
     private String avatarUrl;
