@@ -67,8 +67,8 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
 
     @PostMapping("/**")
     public ResponseEntity<?> createStudentInfo(@AuthenticationPrincipal User user, @RequestBody ApplicantDTO applicant) {
-        applicant.setId(user.getId());
         Student student=new Student(applicant);
+        student.setId(user.getId());
         Student student1=studentService.add(student);
         return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student1)));
     }
@@ -86,7 +86,7 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     @GetMapping("/{id}/contacts")
     public ResponseEntity<?> getApplicantsContacts(@PathVariable Integer id) throws NotFoundException {
         Student student=studentService.get(id);
-        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getContact()));
+        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getContactDTO()));
     }
 
     @GetMapping("/{id}/educations")

@@ -86,7 +86,7 @@ public class ApplicantControllerTest {
         locationDTO.setLocation_code("920001");
         student.setName("qinghong wang");
         student.setAvatarUrl("www.baidu.com");
-        student.setIsInJob("是");
+        student.setIsInJob(true);
         student.setCurrentCompanyName("YouthChina");
         //skill设置
         List<String> s=new ArrayList<>();
@@ -111,8 +111,11 @@ public class ApplicantControllerTest {
         List<String> phonenumbers=new ArrayList<>();
         emails.add("wangqinghong@gwu.edu");
         phonenumbers.add("5712188082");
-        student.setEmails(emails);
-        student.setPhonenumbers(phonenumbers);
+        ContactDTO contactDTO=new ContactDTO();
+        contactDTO.setEmails(emails);
+        contactDTO.setPhonenumbers(phonenumbers);
+
+        student.setContactDTO(contactDTO);
         //工作信息
         //缺少地点
         List<WorkDTO> workDTOS=new ArrayList<>();
