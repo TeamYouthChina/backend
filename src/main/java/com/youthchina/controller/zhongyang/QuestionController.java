@@ -114,15 +114,15 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         QuestionBasicDTO questionBasicDTO = new QuestionBasicDTO(question);
         HashMap<String,Object> map1 = new HashMap<>();
         map1.put("answers", questionDTO.getAnswers());
-        HashMap<String,Object> map2 = new HashMap<>();
-        map2.put("question", questionBasicDTO);
+        //HashMap<String,Object> map2 = new HashMap<>();
+        //map2.put("question", questionBasicDTO);
 
-        List<HashMap> list = new ArrayList<>();
-        list.add(map1);
-        list.add(map2);
+        //List<HashMap> list = new ArrayList<>();
+        //list.add(map1);
+        //list.add(map2);
 
 
-        return ResponseEntity.ok(new Response(list));
+        return ResponseEntity.ok(new Response(map1));
     }
 
     @PutMapping("/{id}/invite/**")
