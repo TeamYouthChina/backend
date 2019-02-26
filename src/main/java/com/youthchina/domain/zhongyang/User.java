@@ -41,11 +41,11 @@ public class User implements UserDetails, HasId<Integer> {
         this.password = userDTO.getPassword();
         this.email = userDTO.getEmail();
         this.phonenumber = userDTO.getPhonenumber();
-        this.registerDate = userDTO.getRegisterDate();
-        this.realName = userDTO.getRealName();
+        this.registerDate = userDTO.getRegister_date();
+        this.realName = userDTO.getReal_name();
         this.gender = userDTO.getGender();
         this.nation = userDTO.getNation();
-        this.avatarUrl = userDTO.getAvatarUrl();
+        this.avatarUrl = userDTO.getAvatar_url();
         this.role = userDTO.getRole();
         this.age = userDTO.getAge();
     }
