@@ -4,9 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
-import com.youthchina.service.zhongyang.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class SimpleAnswerDTO {
     private RichTextDTO body;
     private boolean is_anonymous;
