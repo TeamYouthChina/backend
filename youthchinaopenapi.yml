@@ -1151,7 +1151,6 @@ paths:
                               type: integer
                             article:
                               $ref: '#/components/schemas/Article'
-                      
                   status:
                     $ref: '#/components/schemas/Status'
   '/jobs/collections/{id}':
