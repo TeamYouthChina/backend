@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.HTMLDocument;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
