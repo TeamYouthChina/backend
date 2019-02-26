@@ -10,11 +10,13 @@ import com.youthchina.domain.Qinghong.JobApply;
  **/
 public class JobApplyDTO {
     private Integer id;
-    private SimpleJobDTO position;
+    private JobResponseDTO position;
+    private String status;
 
     public JobApplyDTO(JobApply jobApply) {
         this.id=jobApply.getApply_id();
-        this.position=new SimpleJobDTO(jobApply.getJob());
+        this.position=new JobResponseDTO(jobApply.getJob());
+        this.status=jobApply.getJob_apply_status();
     }
 
     public Integer getId() {
@@ -25,11 +27,19 @@ public class JobApplyDTO {
         this.id = id;
     }
 
-    public SimpleJobDTO getPosition() {
+    public JobResponseDTO getPosition() {
         return position;
     }
 
-    public void setPosition(SimpleJobDTO position) {
+    public void setPosition(JobResponseDTO position) {
         this.position = position;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
