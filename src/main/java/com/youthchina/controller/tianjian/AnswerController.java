@@ -61,7 +61,7 @@ public class AnswerController {
     @PostMapping("/{id}/comments")
     public ResponseEntity addAnswerComment(@PathVariable Integer id, @RequestBody RequestCommentDTO requestCommentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Comment comment = new Comment();
-        comment.setComment_content(requestCommentDTO.getBody().getPreviewText());
+        comment.setComment_content(requestCommentDTO.getBody().getBraftEditorRaw());
         comment.setIs_delete(0);
         comment.setUser_id(user.getId());
         Timestamp time = new Timestamp(System.currentTimeMillis());

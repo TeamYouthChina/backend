@@ -100,8 +100,8 @@ public class QuestionControllerTest {
         RequestQuestionDTO requestQuestionDTO = new RequestQuestionDTO();
         requestQuestionDTO.setTitle("Question No.100");
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("Body of the question No.100");
-        richTextDTO.setBraftEditorRaw("Abbreviation of the question No.100");
+        richTextDTO.setPreviewText("Abbreviation of the question No.100");
+        richTextDTO.setBraftEditorRaw("Body of the question No.100");
         requestQuestionDTO.setBody(richTextDTO);
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
         requestQuestionDTO.setRela_type(2);
@@ -124,8 +124,8 @@ public class QuestionControllerTest {
         RequestQuestionDTO requestQuestionDTO = new RequestQuestionDTO();
         requestQuestionDTO.setTitle("How to learn JAVA");
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("Body of the question No.100");
-        richTextDTO.setBraftEditorRaw("Abbreviation of the question No.100");
+        richTextDTO.setPreviewText("Abbreviation of the question No.100");
+        richTextDTO.setBraftEditorRaw("Body of the question No.100");
         requestQuestionDTO.setBody(richTextDTO);
         requestQuestionDTO.setIs_anonymous(true);
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
@@ -209,7 +209,7 @@ public class QuestionControllerTest {
         RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
         simpleAnswerDTO.setIs_anonymous(true);
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("qweertyuiop");
+        richTextDTO.setBraftEditorRaw("qweertyuiop");
         simpleAnswerDTO.setBody(richTextDTO);
 
 
@@ -223,6 +223,6 @@ public class QuestionControllerTest {
                         .content(searchJson)
         )
                 .andDo(print());
-//                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":null,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qweertyuiop\",\"resourceList\":null},\"isAnonymous\":true,\"creatAt\":null},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+//                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":null,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qweertyuiop\",\"resourceIdList\":null},\"isAnonymous\":true,\"creatAt\":null},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 }
