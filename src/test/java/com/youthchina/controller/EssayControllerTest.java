@@ -72,7 +72,7 @@ public class EssayControllerTest {
                 .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"title\",\"company\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":\"Abbreviation of the essay 1 but42\",\"previewText\":\"Body Body 1\",\"resourceList\":null},\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"title\",\"company\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"Abbreviation of the essay 1 but42\",\"resourceIdList\":null},\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
 
@@ -82,8 +82,8 @@ public class EssayControllerTest {
         RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
         requestEssayDTO.setTitle("This is a new article Title");
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setBraftEditorRaw("This is a new article Abbre");
-        richTextDTO.setPreviewText("This is a new article body");
+        richTextDTO.setBraftEditorRaw("This is a new article body");
+        richTextDTO.setPreviewText("This is a new article Abbre");
         requestEssayDTO.setBody(richTextDTO);
         requestEssayDTO.setCompany_id(1);
         requestEssayDTO.setIs_anonymous(false);
@@ -105,8 +105,8 @@ public class EssayControllerTest {
         RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
         requestEssayDTO.setTitle("This is a new Title 1");
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setBraftEditorRaw("This is a new article 2/26 Abbre");
-        richTextDTO.setPreviewText("This is a new article 2/26 body");
+        richTextDTO.setBraftEditorRaw("This is a new article 2/26 body");
+        richTextDTO.setPreviewText("This is a new article 2/26 Abbre");
         requestEssayDTO.setBody(richTextDTO);
         requestEssayDTO.setCompany_id(2);
 
@@ -156,7 +156,7 @@ public class EssayControllerTest {
         RequestEssayReplyDTO essayDTO = new RequestEssayReplyDTO();
         essayDTO.setAnonymous(false);
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("Nizhenshigerencai");
+        richTextDTO.setBraftEditorRaw("Nizhenshigerencai");
         essayDTO.setBody(richTextDTO);
         essayDTO.setAnonymous(false);
 

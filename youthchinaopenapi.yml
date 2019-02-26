@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.2.1
+  version: 1.2.2
   title: YouthChina
   license:
     name: MIT
@@ -2583,12 +2583,15 @@ components:
     EducationInfo:
       type: object
       required:
+        - id
         - university
         - major
         - degree
         - duration
         - location
       properties:
+        id:
+          type: integer
         university:
           type: string
         major:
@@ -2604,6 +2607,7 @@ components:
     WorkExperienceInfo:
       type: object
       required:
+        - id
         - employer
         - position
         - duration
@@ -2624,9 +2628,12 @@ components:
     Certification:
       type: object
       required:
+        - id
         - name
         - duration
       properties:
+        id:
+          type: string
         name:
           type: string
         authority:
@@ -2638,6 +2645,7 @@ components:
     Extracurricular:
       type: object
       required:
+        - id
         - name
         - role
         - organization
@@ -3011,7 +3019,9 @@ components:
       allOf:
         - $ref: '#/components/schemas/ContentRequest'
         - properties:
-            company_id:
+            rela_type:
+              type: integer
+            rela_id:
               type: integer
     Location:
       type: object

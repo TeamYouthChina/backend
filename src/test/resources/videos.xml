@@ -31,25 +31,25 @@
 
 
     <COM_VIDEO_COMMENT COMMENT_ID="1" COMMENT_CONTENT="{
-                                &quot;braftEditorRaw&quot;:&quot;&quot;,
-                                &quot;previewText&quot;:&quot;Body of the comment 1 &quot;,
-                                &quot;resourceList&quot;:null
+                                &quot;braftEditorRaw&quot;:&quot;Body of the comment 1 &quot;,
+                                &quot;previewText&quot;:&quot;&quot;,
+                                &quot;resourceIdList&quot;:null
                             }"
                        USER_ID="1" USER_ANONY="0"
                        COMMENT_PUB_TIME="2018-10-11 11:11:22" COMMENT_EDIT_TIME="2018-10-11 11:11:22"
                        IS_DELETE="0" IS_DELETE_TIME="2018-10-11 11:11:22"/>
     <COM_VIDEO_COMMENT COMMENT_ID="2" COMMENT_CONTENT="{
-                                &quot;braftEditorRaw&quot;:&quot;&quot;,
-                                &quot;previewText&quot;:&quot;Body of the comment 2 &quot;,
-                                &quot;resourceList&quot;:null
+                                &quot;braftEditorRaw&quot;:&quot;Body of the comment 2 &quot;,
+                                &quot;previewText&quot;:&quot;&quot;,
+                                &quot;resourceIdList&quot;:null
                             }"
                        USER_ID="1" USER_ANONY="0"
                        COMMENT_PUB_TIME="2018-10-11 11:11:22" COMMENT_EDIT_TIME="2018-10-11 11:11:22"
                        IS_DELETE="0" IS_DELETE_TIME="2018-10-11 11:11:22"/>
     <COM_VIDEO_COMMENT COMMENT_ID="3" COMMENT_CONTENT="{
-                                &quot;braftEditorRaw&quot;:&quot;&quot;,
-                                &quot;previewText&quot;:&quot;Body of the comment 3 &quot;,
-                                &quot;resourceList&quot;:null
+                                &quot;braftEditorRaw&quot;:&quot;Body of the comment 3 &quot;,
+                                &quot;previewText&quot;:&quot;&quot;,
+                                &quot;resourceIdList&quot;:null
                             }"
                        USER_ID="1" USER_ANONY="0"
                        COMMENT_PUB_TIME="2018-10-11 11:11:22" COMMENT_EDIT_TIME="2018-10-11 11:11:22"
