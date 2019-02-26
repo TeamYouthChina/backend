@@ -9,6 +9,8 @@ import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.EducationDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.qingyang.JobService;
+import com.youthchina.service.qingyang.JobServiceImpl;
 import com.youthchina.service.qingyang.LocationService;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private LocationService locationService;
+
+    @Autowired
+    private JobServiceImpl jobService;
 
 
     /**
@@ -300,17 +305,21 @@ public class StudentServiceImpl implements StudentService {
     public List<JobApply> getJobApplies(Integer user_id) throws NotFoundException {
         UserInfo userInfo = applicantMapper.getUserInfo(user_id);
         if (userInfo == null) {
-            throw new NotFoundException(4041, 404, "cannot find user with id "+user_id);
+            throw new NotFoundException(4041, 404, "cannot find user with id " + user_id);
         } else {
-            BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+            BaseInfo baseInfo = applicantMapper.getBaseInfo(user_id);
             List<JobApply> jobApplies = applicantMapper.getJobApplies(baseInfo.getStu_id());
-//            for(JobApply jobApply:jobApplies){
-//                Location location=locationService.getLocation(jobApply.getJob().getCompany().getLocation().getRegion_num());
-//                jobApply.getJob().getCompany().setLocation(location);
-//            }
-            return jobApplies;
+            for (JobApply jobApply : jobApplies) {
+                Job job=jobApply.getJob();
+                jobService.setJobLocation(job);
+                jobApply.setJob(job);
+
+
+            }
+                return jobApplies;
+            }
         }
-    }
+
 
     /**
     * @Description: 通过user_id找到该id下所有的职位收藏信息
@@ -565,5 +574,101 @@ public class StudentServiceImpl implements StudentService {
     public Integer deleteCertificate(Integer id) throws NotFoundException {
         Integer integer=applicantMapper.deleteCertificate(id);
         return integer;
+    }
+
+    @Override
+    public List<EducationInfo> insertEducations(List<EducationInfo> educationInfos, Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        if(baseInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else{
+            Integer EduNum=applicantMapper.deleteAllEduInfo(baseInfo.getStu_id());
+            System.out.print(EduNum);
+            for(EducationInfo educationInfo:educationInfos){
+                educationInfo.setStu_id(baseInfo.getStu_id());
+                applicantMapper.insertEduInfo(educationInfo);
+            }
+            List<EducationInfo> educationInfoList=applicantMapper.getStudentInfo(user_id).getEducationInfos();
+            for(EducationInfo educationInfo:educationInfoList){
+                Location location=locationService.getLocation(educationInfo.getLocation().getRegion_num());
+                educationInfo.setLocation(location);
+
+            }
+            return educationInfoList;
+        }
+
+    }
+
+    @Override
+    public List<Work> insertWorks(List<Work> works, Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        if(baseInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else{
+            Integer num=applicantMapper.deleteAllWork(baseInfo.getStu_id());
+            for(Work work:works){
+                work.setStu_id(baseInfo.getStu_id());
+                applicantMapper.insertStuWork(work);
+            }
+            List<Work> works1=applicantMapper.getStudentInfo(user_id).getWorks();
+            for(Work work:works1){
+                Location location=locationService.getLocation(work.getLocation().getRegion_num());
+                work.setLocation(location);
+
+            }
+            return works1;
+
+        }
+
+
+    }
+
+    @Override
+    public List<Project> insertProjects(List<Project> projects, Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        if(baseInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else{
+            Integer num=applicantMapper.deleteAllProject(baseInfo.getStu_id());
+            for(Project project:projects){
+                project.setStu_id(baseInfo.getStu_id());
+                applicantMapper.insertStuProject(project);
+            }
+            List<Project> projects1=applicantMapper.getStudentInfo(user_id).getProjects();
+            return projects1;
+        }
+    }
+
+    @Override
+    public List<Activity> insertActivities(List<Activity> activities, Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        if(baseInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else{
+            Integer num=applicantMapper.deleteAllActivity(baseInfo.getStu_id());
+            for(Activity activity:activities){
+                activity.setStu_id(baseInfo.getStu_id());
+                applicantMapper.insertStuActivity(activity);
+            }
+            List<Activity> activities1=applicantMapper.getStudentInfo(user_id).getActivities();
+            return activities1;
+        }
+    }
+
+    @Override
+    public List<Certificate> insertCertificates(List<Certificate> certificates, Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        if(baseInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else{
+            Integer num=applicantMapper.deleteAllCertificate(baseInfo.getStu_id());
+            for (Certificate certificate:certificates){
+                certificate.setStu_id(baseInfo.getStu_id());
+                applicantMapper.insertStuCertificate(certificate);
+
+            }
+            List<Certificate> certificates1=applicantMapper.getStudentInfo(user_id).getCertificates();
+            return certificates1;
+        }
     }
 }

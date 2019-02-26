@@ -10,6 +10,7 @@ import com.youthchina.dto.DurationDTO;
  * @create: 2019-02-24 15:37
  **/
 public class ProjectResponseDTO {
+    private Integer id;
     private String name;
     private String role;
     private DurationDTO duration;
@@ -19,9 +20,18 @@ public class ProjectResponseDTO {
     }
 
     public ProjectResponseDTO(Project project) {
+        this.id=project.getProj_id();
         this.name = project.getProj_name();
         this.role = project.getProj_role();
         this.duration = new DurationDTO(project.getProj_start_time(), project.getProj_end_time());
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
