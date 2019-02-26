@@ -781,8 +781,17 @@ public class ApplicantControllerTest {
 
     }
 
-//    @Test
-//    public void testUserAttentions
+    @Test
+    public void testUserAttentions() throws Exception{
+        this.mvc.perform(
+                get
+                        (this.urlPrefix + "/users/1/attentions").param("type","Company")
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+    }
 
 
 

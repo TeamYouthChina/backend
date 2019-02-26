@@ -334,6 +334,13 @@ public class StudentServiceImpl implements StudentService {
             throw new NotFoundException(404,404,"cannot find user with id "+user_id);//todo
         }else {
             List<JobCollect> jobCollects=applicantMapper.getJobCollects(user_id);
+            for(JobCollect jobCollect:jobCollects){
+                Job job=jobCollect.getJob();
+                jobService.setJobLocation(job);
+                jobCollect.setJob(job);
+
+
+            }
             return jobCollects;
         }
     }
@@ -351,6 +358,10 @@ public class StudentServiceImpl implements StudentService {
             throw new NotFoundException(404,404,"cannot find user with id "+user_id);//todo
         }else {
             List<CompCollect> compCollects=applicantMapper.getCompCollects(user_id);
+            for(CompCollect compCollect:compCollects){
+                Location location=locationService.getLocation(compCollect.getCompany().getLocation().getRegion_num());
+                compCollect.getCompany().setLocation(location);
+            }
             return compCollects;
         }
     }

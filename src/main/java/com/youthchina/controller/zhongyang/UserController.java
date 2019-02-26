@@ -2,6 +2,7 @@ package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.Qinghong.JobCollect;
+import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Applicant.CompCollectResponseDTO;
 import com.youthchina.dto.Applicant.JobCollectResponseDTO;
@@ -11,6 +12,10 @@ import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
+import com.youthchina.service.jinhao.communityQA.CommunityQAService;
+import com.youthchina.service.jinhao.communityQA.CommunityQAServiceImplement;
+import com.youthchina.service.tianjian.EssayService;
+import com.youthchina.service.tianjian.EssayServiceImpl;
 import com.youthchina.service.zhongyang.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +40,10 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
 
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private CommunityQAServiceImplement communityQAService;
+    @Autowired
+    private EssayServiceImpl essayService;
 
     @Autowired
     public UserController(UserService userService, @Value("${web.url.prefix}") String prefix) {
@@ -76,6 +85,12 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
                 return ResponseEntity.ok(new Response(compCollectResponseDTOS));
 
             }
+            case "Video":{
+
+            }
+//            case "Question":{
+//                List<Question>
+//            }
             default:throw new NotFoundException(404,404,"do not have this type");
 
 
