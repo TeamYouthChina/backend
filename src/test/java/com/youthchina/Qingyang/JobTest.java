@@ -254,6 +254,15 @@ public class JobTest {
         Assert.assertEquals(2, jobList.size());
 
 
-
     }
+
+    @Test
+    public void testJobCollection(){
+        Job job = jobMapper.selectJobByJobId(1);
+        Assert.assertEquals(Integer.valueOf(2), job.getCollectNum());
+
+        job = jobMapper.selectJobByJobId(2);
+        Assert.assertEquals(Integer.valueOf(0), job.getCollectNum());
+    }
+
 }

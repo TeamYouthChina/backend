@@ -71,6 +71,8 @@ comment '职位基本信息表';
     private Integer isDelete;
     private Timestamp isDeleteTime;
 
+    private Integer collectNum = 0; // Default 0
+
     private Company company;
     private Hr hr;
 
@@ -84,6 +86,14 @@ comment '职位基本信息表';
     }
 
     public Job(){}
+
+    public Integer getCollectNum() {
+        return collectNum;
+    }
+
+    public void setCollectNum(Integer collectNum) {
+        this.collectNum = collectNum;
+    }
 
     public Timestamp getAddTime() {
         return addTime;
