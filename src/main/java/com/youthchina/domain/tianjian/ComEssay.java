@@ -20,7 +20,7 @@ public class ComEssay {
     public ComEssay(EssayDTO essayDTO){
         this.essay_id = essayDTO.getId();
         this.essay_title = essayDTO.getTitle();
-        this.essay_pub_time = essayDTO.getCreat_at();
+        this.essay_pub_time = essayDTO.getCreate_at();
         this.essay_edit_time = essayDTO.getModified_at();
         this.user_anony =  (essayDTO.isIs_anonymous()) ? 1 : 0;
         this.essay_abbre = essayDTO.getBody().getBraftEditorRaw();

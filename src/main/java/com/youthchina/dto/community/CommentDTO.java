@@ -13,7 +13,7 @@ public class CommentDTO {
     private Integer id;
     private User user;
     private RichTextDTO body;
-    private Timestamp creat_at;
+    private Timestamp create_at;
     private boolean is_anonymous;
 
     public CommentDTO(Comment comment){
@@ -26,7 +26,7 @@ public class CommentDTO {
         }catch (Exception e){
             System.out.println("Exception");
         }
-        this.creat_at = comment.getComment_pub_time();
+        this.create_at = comment.getComment_pub_time();
         this.is_anonymous = (comment.getUser_anony()==1)? true:false;
     }
 
@@ -40,7 +40,7 @@ public class CommentDTO {
         }catch (Exception e){
             System.out.println("Exception");
         }
-        this.creat_at = comment.getComment_pub_time();
+        this.create_at = comment.getComment_pub_time();
         this.is_anonymous = (comment.getUser_anony()==1)? true:false;
     }
 
@@ -68,12 +68,12 @@ public class CommentDTO {
         this.body = body;
     }
 
-    public Timestamp getCreat_at() {
-        return creat_at;
+    public Timestamp getCreate_at() {
+        return create_at;
     }
 
-    public void setCreat_at(Timestamp creat_at) {
-        this.creat_at = creat_at;
+    public void setCreate_at(Timestamp create_at) {
+        this.create_at = create_at;
     }
 
     public boolean isIs_anonymous() {

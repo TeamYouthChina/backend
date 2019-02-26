@@ -12,7 +12,7 @@ public class EssayDTO {
     private Integer id;
     private String title;
     private Company company;
-    private Timestamp creat_at;
+    private Timestamp create_at;
     private Timestamp modified_at;
     private User author;
     private RichTextDTO body;
@@ -21,7 +21,7 @@ public class EssayDTO {
     public EssayDTO(ComEssay comEssay){
         this.id = comEssay.getEssay_id();
         this.title = comEssay.getEssay_title();
-        this.creat_at = comEssay.getEssay_pub_time();
+        this.create_at = comEssay.getEssay_pub_time();
         this.modified_at = comEssay.getEssay_edit_time();
         this.is_anonymous = (comEssay.getUser_anony() == 0)? false:true;
         try{
@@ -64,12 +64,12 @@ public class EssayDTO {
         this.company = company;
     }
 
-    public Timestamp getCreat_at() {
-        return creat_at;
+    public Timestamp getCreate_at() {
+        return create_at;
     }
 
-    public void setCreat_at(Timestamp creat_at) {
-        this.creat_at = creat_at;
+    public void setCreate_at(Timestamp create_at) {
+        this.create_at = create_at;
     }
 
     public Timestamp getModified_at() {

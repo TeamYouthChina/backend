@@ -207,7 +207,7 @@ public class QuestionControllerTest {
     @Test
     public void testAddAnswer() throws Exception{
         RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
-        simpleAnswerDTO.setIsAnonymous(true);
+        simpleAnswerDTO.setIs_anonymous(true);
         RichTextDTO richTextDTO = new RichTextDTO();
         richTextDTO.setPreviewText("qweertyuiop");
         simpleAnswerDTO.setBody(richTextDTO);
