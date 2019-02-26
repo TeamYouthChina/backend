@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class EssayReplyDTO {
     private Integer id;
-    private User user;
+    private User creator;
     private RichTextDTO body;
     private String create_at;
     private boolean is_anonymous;
@@ -39,12 +39,12 @@ public class EssayReplyDTO {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public RichTextDTO getBody() {

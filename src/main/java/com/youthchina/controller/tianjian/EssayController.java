@@ -179,7 +179,7 @@ public class EssayController {
             while(it.hasNext()){
                 ComEssayReply comEssayReply = (ComEssayReply) it.next();
                 EssayReplyDTO essayReplyDTO = new EssayReplyDTO(comEssayReply);
-                essayReplyDTO.setUser(userService.get(comEssayReply.getUser_id()));
+                essayReplyDTO.setCreator(userService.get(comEssayReply.getUser_id()));
                 essayReplyDTOS.add(essayReplyDTO);
             }
         }
