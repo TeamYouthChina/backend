@@ -24,7 +24,6 @@ public class Comment {
     public Comment(){}
 
     public Comment(CommentDTO commentDTO){
-        this.user_anony = (commentDTO.isIs_anonymous())? 1:0;
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -33,6 +32,10 @@ public class Comment {
         }catch (Exception e){
             System.out.println("Exception");
         }
+        this.comment_pub_time = commentDTO.getCreate_at();
+        this.user = commentDTO.getUser();
+        this.comment_id = commentDTO.getId();
+        this.user_anony = (commentDTO.isIs_anonymous())? 1:0;
     }
 
     public List<Discuss> getDiscusses() {

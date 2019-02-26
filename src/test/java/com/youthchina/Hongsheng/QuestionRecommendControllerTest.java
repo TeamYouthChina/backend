@@ -1,4 +1,4 @@
-package com.youthchina.controller;
+package com.youthchina.Hongsheng;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -24,12 +24,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Created by hongshengzhang on 2/26/19.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:recommendation.xml"})
 @WebAppConfiguration
-public class HomeControllerTest {
+public class QuestionRecommendControllerTest {
     @Autowired
     private WebApplicationContext context;
 
@@ -49,19 +52,12 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void getNewJob() throws Exception {
+    public void getRecommandQuestionTest() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/home/new")
-        ).andDo(print())
-                .andExpect(status().is2xxSuccessful())
-        ;
-    }
-
-    @Test
-    public void getHotJob() throws Exception {
-        this.mvc.perform(
-                get(this.urlPrefix + "/home/hot")
-        ).andDo(print())
+                get(this.urlPrefix + "/discovery/questions")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
                 .andExpect(status().is2xxSuccessful());
     }
 }

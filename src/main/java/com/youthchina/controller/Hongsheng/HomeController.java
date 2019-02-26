@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.PermitAll;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("${web.url.prefix}/home/**")
+@PermitAll
 public class HomeController extends DomainCRUDController<SimpleJobDTO, Job, Integer> {
     private JobRecommendService jobRecommendService;
     private String url;
@@ -67,6 +69,7 @@ public class HomeController extends DomainCRUDController<SimpleJobDTO, Job, Inte
             return ResponseEntity.ok(new Response(res, new StatusDTO(200,"success")));
         }
     }
+
     @GetMapping("/hot")
     public ResponseEntity<?> getHotJobs(){
         List<Job> jobList = jobRecommendService.getJobForYou();

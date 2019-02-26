@@ -13,28 +13,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by hongshengzhang on 2/24/19.
  */
 @RestController
-@RequestMapping("${web.url.prefix}/essay-for-you")
+@RequestMapping("${web.url.prefix}/discovery")
 public class EssayRecommendController {
     @Autowired
     private EssayRecommendServiceImplement essayRecommendServiceImplement;
 
-    @GetMapping("/")
+    @GetMapping("/articles")
     public ResponseEntity getRecommandEssay() throws NotFoundException {
+        System.out.println("11111");
         List<ComEssay> essayList = essayRecommendServiceImplement.getEssayForYou();
         List<EssayDTO> resultList = new ArrayList<>();
         for(ComEssay essay : essayList) {
             resultList.add(new EssayDTO(essay));
         }
 
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("users", resultList);
+        System.out.println("11111");
+
         if (resultList!=null)
-            return ResponseEntity.ok(new Response(resultList, new StatusDTO(200,"success")));
+            return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
         else
-            return ResponseEntity.ok(new Response(resultList, new StatusDTO(400,"fail")));
+            return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
     }
 }

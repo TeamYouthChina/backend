@@ -61,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(LOGIN_URL).permitAll()
                 .antMatchers(REGISTER_URL).permitAll()
                 .antMatchers(this.URL_PREFIX + "/home/**").permitAll()
+                .antMatchers(this.URL_PREFIX + "/job-for-you/**").permitAll()
                 .antMatchers(this.URL_PREFIX + "/discovery/**").permitAll()
                 .antMatchers("/**").authenticated()
                 .anyRequest().permitAll()
@@ -82,6 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ArrayList<String> header = new ArrayList();
         header.add(this.JWTTOKEN);
         header.add("X-LANGUAGE");
+        header.add("Content-Type");
         configuration.setAllowedHeaders(header);
         configuration.setExposedHeaders(header);
 
