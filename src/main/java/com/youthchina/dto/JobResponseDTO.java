@@ -12,7 +12,7 @@ import java.util.List;
  * @author: Qingyang Zhao
  * @create: 2019-02-24
  **/
-public class JobResponseDTO implements ResponseDTO {
+public class JobResponseDTO {
     private int id;
     private String name;
     private OrganizationDTO organization;
@@ -144,13 +144,4 @@ public class JobResponseDTO implements ResponseDTO {
         this.description = description;
     }
 
-    @Override
-    public StatusDTO getStatus() {
-        return null;
-    }
-
-    @Override
-    public void setStatus(StatusDTO status) {
-
-    }
 }
