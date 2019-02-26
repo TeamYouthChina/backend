@@ -12,22 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by zhongyangwu on 1/2/19.
+ * Created by xiaoyiwang on 2/24/19.
  */
-public class QuestionDTO {
+
+public class QuestionBasicDTO {
     private Integer id;
     private User creator;
     private String title;
     private boolean is_anonymous;
     private Timestamp create_at;
     private Timestamp modified_at;
-    private List<AnswerBasicDTO> answers;
-    //private AnswerInvitation invitation;
     private Integer rela_type;
     private Integer rela_id;
     private RichTextDTO body;
 
-    public QuestionDTO(Question question) {
+    public QuestionBasicDTO(Question question) {
         this.id = question.getQues_id();
         this.creator = question.getQues_user();
         this.title = question.getQues_title();
@@ -44,17 +43,11 @@ public class QuestionDTO {
         this.create_at = question.getQues_pub_time();
         this.modified_at = question.getQues_edit_time();
         this.rela_type = question.getRela_type();
-        this.answers = new ArrayList<AnswerBasicDTO>();
         this.rela_id = question.getRela_id();
-        if(question.getQuestionAnswers() != null) {
-            for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
-                this.answers.add(new AnswerBasicDTO(questionAnswer));
-            }
-        }
 
     }
 
-    public QuestionDTO(){}
+    public QuestionBasicDTO(){}
 
     public RichTextDTO getBody(){return body;}
 
@@ -90,14 +83,6 @@ public class QuestionDTO {
 
     public void setAnonymous(boolean is_anonymous) {
         this.is_anonymous = is_anonymous;
-    }
-
-    public List<AnswerBasicDTO> getAnswers() {
-        return answers;
-    }
-
-    public void setAnswers(List<AnswerBasicDTO> answers) {
-        this.answers = answers;
     }
 
     /*public AnswerInvitation getInvitation() {
