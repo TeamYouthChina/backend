@@ -1,9 +1,9 @@
 <dataset>
     <COM_ESSAY ESSAY_ID="1" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
     {
-        &quot;braftEditorRaw&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
-        &quot;previewText&quot;:&quot;Body Body 1&quot;,
-        &quot;resourceList&quot;:null
+        &quot;braftEditorRaw&quot;:null,
+        &quot;previewText&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
+        &quot;resourceIdList&quot;:null
     }"
                ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
                IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>

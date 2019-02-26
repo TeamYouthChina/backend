@@ -16,7 +16,7 @@ public class RichTextDTO {
 
     private String braftEditorRaw;
     private String previewText;
-    private List<String> resourceList;
+    private List<String> resourceListId;
 
     public void RichTextDTO() {
     }
@@ -65,11 +65,11 @@ public class RichTextDTO {
         return previewText;
     }
 
-    public void setResourceList(List resourceList) {
-        this.resourceList = resourceList;
+    public void setResourceListId(List resourceListId) {
+        this.resourceListId = resourceListId;
     }
 
-    public List getResourceList() {
-        return resourceList;
+    public List getResourceListId() {
+        return resourceListId;
     }
 }
