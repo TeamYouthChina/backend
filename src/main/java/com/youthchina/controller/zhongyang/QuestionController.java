@@ -5,7 +5,10 @@ import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.*;
+import com.youthchina.dto.community.QuestionBasicDTO;
+import com.youthchina.dto.community.QuestionDTO;
+import com.youthchina.dto.community.RequestQuestionDTO;
+import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.jinhao.communityQA.CommunityQAService;
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -158,8 +160,6 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         System.out.println("add answers");
         QuestionAnswer questionAnswer = new QuestionAnswer(simpleAnswerDTO);
         questionAnswer.setUser_id(user.getId());
-        questionAnswer.setAnswer_pub_time(new Timestamp(System.currentTimeMillis()));
-        questionAnswer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
 
         RequestSimpleAnswerDTO returnSimpleAnswer = new RequestSimpleAnswerDTO(communityQAService.addAnswer(questionAnswer,id,1));
         if (returnSimpleAnswer!=null)
