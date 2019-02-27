@@ -280,15 +280,21 @@ public class StudentServiceImpl implements StudentService {
             } else {
                 JobApply jobApply2=applicantMapper.getOneJobApply(job_id,stu_id);
                 if(jobApply2!=null){
+                    Job job1=jobApply2.getJob();
+                    jobService.setJobLocation(job1);
                     return jobApply2;
                 }else {
                     JobApply jobApply = new JobApply();
                     jobApply.setStu_id(applicantMapper.getBaseInfo(user_id).getStu_id());
                     jobApply.setJob_id(job_id);
+                    //这里应该设计简历是否发送的判断
                     jobApply.setJob_cv_send(1);
                     jobApply.setJob_apply_status("已申请");
                     Integer integer = applicantMapper.addApply(jobApply);
                     JobApply jobApply1 = applicantMapper.getOneJobApply(job_id,stu_id);
+                    Job job1=jobApply1.getJob();
+                    jobService.setJobLocation(job1);
+                    jobApply1.setJob(job1);
                     return jobApply1;
                 }
             }
@@ -389,7 +395,6 @@ public class StudentServiceImpl implements StudentService {
                     JobCollect jobCollect1=new JobCollect();
                     jobCollect1.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
                     jobCollect1.setJob_id(job_id);
-                    jobCollect1.setIs_delete(0);
                     Integer integer=applicantMapper.addJobCollect(jobCollect1);
                     return integer;
 
@@ -462,7 +467,6 @@ public class StudentServiceImpl implements StudentService {
                 CompCollect compCollect=new CompCollect();
                 compCollect.setCompany_id(company_id);
                 compCollect.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
-                compCollect.setIs_delete(0);
                 Integer integer=applicantMapper.addCompCollect(compCollect);
                 return integer;
             }
