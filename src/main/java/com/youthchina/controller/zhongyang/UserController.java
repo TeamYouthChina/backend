@@ -3,11 +3,16 @@ package com.youthchina.controller.zhongyang;
 import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.Qinghong.JobCollect;
 import com.youthchina.domain.jinhao.communityQA.Question;
+import com.youthchina.domain.jinhao.communityQA.Video;
+import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Applicant.CompCollectResponseDTO;
 import com.youthchina.dto.Applicant.JobCollectResponseDTO;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.UserDTO;
+import com.youthchina.dto.community.EssayDTO;
+import com.youthchina.dto.community.QuestionDTO;
+import com.youthchina.dto.community.RequestEssayDTO;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -85,11 +90,24 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
                 return ResponseEntity.ok(new Response(compCollectResponseDTOS));
 
             }
-            case "Video":{
+            case "Essay":{
+                List<ComEssay> comEssays=essayService.getAllEssayUserAttention(user_id);
+                List<EssayDTO> essayDTOS=new ArrayList<>();
+                for(ComEssay comEssay:comEssays){
+                    EssayDTO essayDTO=new EssayDTO(comEssay);
+                    essayDTOS.add(essayDTO);
+
+                }
+                return ResponseEntity.ok((new Response(essayDTOS)));
 
             }
+//            case "Video":{
+//                List<>
+//
+//            }
 //            case "Question":{
-//                List<Question>
+//                List<QuestionDTO> questionDTOS=new ArrayList<>();
+//                List<Question> questions=communityQAService.
 //            }
             default:throw new NotFoundException(404,404,"do not have this type");
 

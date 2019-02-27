@@ -48,7 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:applicant.xml"})
+@DatabaseSetup({"classpath:applicant.xml","classpath:essay.xml"})
 @WebAppConfiguration
 public class ApplicantControllerTest {
     @Autowired
@@ -808,7 +808,7 @@ public class ApplicantControllerTest {
     public void testUserAttentions() throws Exception{
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/1/attentions").param("type","Company")
+                        (this.urlPrefix + "/users/1/attentions").param("type","Essay")
 
                         .with(authGenerator.authentication())
         )
