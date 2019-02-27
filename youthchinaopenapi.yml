@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.2.1
+  version: 1.2.2
   title: YouthChina
   license:
     name: MIT
@@ -1078,7 +1078,7 @@ paths:
               - question
               - answer
               - article
-              - 
+              - video
           description: determine what part of attention list to return
       responses:
         '200':
@@ -1150,6 +1150,18 @@ paths:
                             id:
                               type: integer
                             article:
+                              $ref: '#/components/schemas/Article'
+                      videos:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - video
+                          properties:
+                            id:
+                              type: integer
+                            video:
                               $ref: '#/components/schemas/Article'
                   status:
                     $ref: '#/components/schemas/Status'
