@@ -153,4 +153,10 @@ public interface EssayService extends DomainCRUDService<User, Integer> {
      * return List<ComEssayReply>
      */
        public List<ComEssayReply> getEssayReply(Integer essay_id);
+    /**
+     * 根据用户id 获取他关注的所有文章
+     * param Integer user_id
+     * return List<ComEssay>
+     */
+    public List<ComEssay> getAllEssayUserAttention(Integer user_id);
 }
