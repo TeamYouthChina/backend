@@ -84,11 +84,11 @@ public class QuestionDTO {
         this.title = title;
     }
 
-    public boolean getAnonymous() {
+    public boolean getIs_anonymous() {
         return is_anonymous;
     }
 
-    public void setAnonymous(boolean is_anonymous) {
+    public void setIs_anonymous(boolean is_anonymous) {
         this.is_anonymous = is_anonymous;
     }
 

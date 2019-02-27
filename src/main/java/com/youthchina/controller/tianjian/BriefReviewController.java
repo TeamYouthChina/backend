@@ -183,4 +183,21 @@ public class BriefReviewController {
             return ResponseEntity.ok(new Response(new StatusDTO(400,"fail")));
     }
 
+    @GetMapping("/{id}/comments")
+    public ResponseEntity getBriefReviewComments(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        List<Comment> comments = briefReviewServiceImplement.getAllCommentsOfReview(id);
+        List<CommentDTO> commentDTOS = new ArrayList<>();
+        if(comments!=null){
+            Iterator it = comments.iterator();
+            while(it.hasNext()){
+                CommentDTO commentDTO = new CommentDTO((Comment) it.next());
+                commentDTOS.add(commentDTO);
+            }
+        }
+        if ( commentDTOS!=null)
+            return ResponseEntity.ok(new Response(commentDTOS,new StatusDTO(200,"success")));
+        else
+            return ResponseEntity.ok(new Response(commentDTOS,new StatusDTO(400,"fail")));
+    }
+
 }
