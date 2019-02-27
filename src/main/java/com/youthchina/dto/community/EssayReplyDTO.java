@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class EssayReplyDTO {
     private Integer id;
-    private User user;
+    private User creator;
     private RichTextDTO body;
     private String create_at;
     private boolean is_anonymous;
+    private String modified_at;
 
     @Autowired
     UserServiceImpl userService;
@@ -29,6 +30,15 @@ public class EssayReplyDTO {
         }
         this.create_at = String.valueOf(comEssayReply.getReply_pub_time());
         this.is_anonymous = (comEssayReply.getUser_anony()==1)? true:false;
+        this.modified_at = String.valueOf(comEssayReply.getReply_edit_time());
+    }
+
+    public String getModified_at() {
+        return modified_at;
+    }
+
+    public void setModified_at(String modified_at) {
+        this.modified_at = modified_at;
     }
 
     public Integer getId() {
@@ -39,12 +49,12 @@ public class EssayReplyDTO {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getCreator() {
+        return creator;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public RichTextDTO getBody() {

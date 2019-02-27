@@ -12,16 +12,16 @@ import java.util.List;
  * @author: Qingyang Zhao
  * @create: 2019-02-24
  **/
-public class JobResponseDTO implements ResponseDTO {
+public class JobResponseDTO {
     private int id;
     private String name;
     private OrganizationDTO organization;
     private String location;
-    private String nation;
     private String type;
     private String deadLine;
-    private String duty;
-    private String description;
+    private String job_duty;
+    private String job_description;
+
     /*{
   "content": {
     "id": 0,
@@ -54,7 +54,6 @@ public class JobResponseDTO implements ResponseDTO {
             Location location = locationList.get(0);
             if(location != null){
                 this.location = location.getRegion_chn(); // 默认中文名
-                this.nation = location.getNation_code();
             }
 
         }
@@ -68,17 +67,10 @@ public class JobResponseDTO implements ResponseDTO {
         }
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         this.deadLine = df.format(job.getJobEndTime());
-        this.duty = job.getJobDuty();
-        this.description = job.getJobDescription();
+        this.job_duty = job.getJobDuty();
+        this.job_description = job.getJobDescription();
     }
 
-    public String getNation() {
-        return nation;
-    }
-
-    public void setNation(String nation) {
-        this.nation = nation;
-    }
 
     public int getId() {
         return id;
@@ -128,29 +120,19 @@ public class JobResponseDTO implements ResponseDTO {
         this.deadLine = deadLine;
     }
 
-    public String getDuty() {
-        return duty;
+    public String getJob_duty() {
+        return job_duty;
     }
 
-    public void setDuty(String duty) {
-        this.duty = duty;
+    public void setJob_duty(String job_duty) {
+        this.job_duty = job_duty;
     }
 
-    public String getDescription() {
-        return description;
+    public String getJob_description() {
+        return job_description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public StatusDTO getStatus() {
-        return null;
-    }
-
-    @Override
-    public void setStatus(StatusDTO status) {
-
+    public void setJob_description(String job_description) {
+        this.job_description = job_description;
     }
 }

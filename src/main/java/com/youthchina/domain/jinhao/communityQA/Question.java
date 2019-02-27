@@ -43,7 +43,7 @@ public class Question implements HasId<Integer> {
             System.out.println("Exception");
         }
 
-        this.user_anony = (questionDTO.getAnonymous() ? 1 : 0);
+        this.user_anony = (questionDTO.getIs_anonymous() ? 1 : 0);
         this.ques_pub_time = questionDTO.getCreate_at();
         this.ques_edit_time = questionDTO.getModified_at();
         this.rela_type = questionDTO.getRela_type();

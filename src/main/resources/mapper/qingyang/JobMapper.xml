@@ -113,7 +113,7 @@
             <result property="startTime" column="IND_START_TIME"/>
         </collection>
         <collection property="jobLocationList" ofType="com.youthchina.domain.Qinghong.Location">
-            <id property="region_num" column="REGION_NUM"/>
+            <id property="region_num" column="JOB_REGION_NUM"/>
             <!--<result property="jobId" column="JOB_ID"/>-->
             <!--<result property="region_chn" column="REGION_CHN"/>-->
             <!--<result property="region_eng" column="REGION_ENG"/>-->
@@ -165,6 +165,12 @@
             com.COMPANY_START_DATE as COMPANY_START_DATE,
             com.COMPANY_LOGO as COMPANY_LOGO,
             com.COMPANY_VERIFY as COMPANY_VERIFY,
+            com.COMPANY_LOCATION as COMPANY_LOCATION,
+
+              country.COUNTRY_ABBRE as COUNTRY_ABBRE,
+              country.COUNTRY_CHN as COUNTRY_CHN,
+              country.COUNTRY_ENG as COUNTRY_ENG,
+              country.START_TIME as COUNTRY_START_TIME,
 
             nature.NATURE_NUM as NATURE_NUM,
             nature.NATURE_CHN as NATURE_CHN,
@@ -187,7 +193,7 @@
             class.IND_PARENT_CODE as IND_PARENT_CODE,
             class.START_TIME as IND_START_TIME,
 
-            loc.JOB_REGION_NUM as REGION_NUM,
+            loc.JOB_REGION_NUM as JOB_REGION_NUM,
 #             region.REGION_CHN as REGION_CHN,
 #             region.REGION_ENG as REGION_ENG,
 #             region.REGION_LEVEL as REGION_LEVEL,
@@ -215,6 +221,7 @@
     <sql id="jobJoin">
         LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
         LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0
+        LEFT OUTER JOIN SYS_COUNTRY	country ON com.COMPANY_COUNTRY = country.COUNTRY_ABBRE AND country.IS_DELETE = 0
         LEFT OUTER JOIN SYS_COMPANY_NATURE	nature ON com.COMPANY_NATURE = nature.NATURE_NUM
         LEFT OUTER JOIN SYS_COMPANY_SCALE	scale ON com.COMPANY_SCALE_NUM = scale.SCALE_NUM
         LEFT OUTER JOIN JOB_INDUSTRY i ON j.JOB_ID = i.JOB_ID AND i.IS_DELETE = 0
