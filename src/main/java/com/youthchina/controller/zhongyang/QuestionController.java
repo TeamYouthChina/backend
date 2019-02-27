@@ -5,6 +5,7 @@ import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.UserDTO;
 import com.youthchina.dto.community.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -86,17 +87,18 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         question.setQues_user(user);
 
         QuestionDTO questionDTO = new QuestionDTO(question);
-        questionDTO.setCreator(user);
+        questionDTO.setCreator(new UserDTO(user));
 
         return add(questionDTO);
     }
 
     @PutMapping("/{id}/**")
-    public ResponseEntity<?> updateQuestionInfo(@PathVariable Integer id, @RequestBody RequestQuestionDTO requestQuestionDTO) throws NotFoundException {
+    public ResponseEntity<?> updateQuestionInfo(@PathVariable Integer id, @RequestBody RequestQuestionDTO requestQuestionDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Question question = new Question(requestQuestionDTO);
-
+        question.setQues_user(user);
         QuestionDTO questionDTO = new QuestionDTO(question);
         questionDTO.setId(id);
+
         return update(questionDTO);
     }
 

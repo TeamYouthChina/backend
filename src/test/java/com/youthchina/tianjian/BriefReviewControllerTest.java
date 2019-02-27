@@ -67,9 +67,7 @@ public class BriefReviewControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"QQQEERTT\",\"resourceList\":null},\"comments\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qwe\",\"resourceList\":null},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}],\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
-                        //.andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"QQQEERTT\",\"resourceList\":null},\"comments\":[{\"id\":1,\"user\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"body\":\"{\\\"braftEditorRaw\\\":null,\\\"previewText\\\":\\\"qwe\\\",\\\"resourceList\\\":null}\",\"creat_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}],\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
-
+                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"QQQEERTT\",\"resourceList\":null},\"comments\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"password\":\"$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":null,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qwe\",\"resourceList\":null},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}],\"author\":{\"id\":1,\"username\":\"yihao guo\",\"password\":\"$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
     @Test
@@ -100,7 +98,7 @@ public class BriefReviewControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"update\",\"resourceList\":null},\"comments\":[],\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"update\",\"resourceList\":null},\"comments\":[],\"author\":{\"id\":1,\"username\":\"yihao guo\",\"password\":\"$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
 
 
     }
@@ -165,7 +163,7 @@ public class BriefReviewControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-               .andExpect(content().json("{\"content\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qwe\",\"resourceList\":null},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}],\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+               .andExpect(content().json("{\"content\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"password\":\"$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":null,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qwe\",\"resourceList\":null},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}],\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
 
     }
 }

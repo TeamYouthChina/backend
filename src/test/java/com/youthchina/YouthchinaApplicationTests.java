@@ -5,6 +5,7 @@ import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -97,5 +98,11 @@ public class YouthchinaApplicationTests {
         List<Integer> lab = new ArrayList<Integer>();
         int i = essayService.addEssay(comEssay,lab,1,2,5);
         System.out.println(i);
+    }
+
+    @Test
+    public void testgetUserAllEssayAttention(){
+        List<ComEssay> list = essayService.getAllEssayUserAttention(1);
+        System.out.println(list.size());
     }
 }
