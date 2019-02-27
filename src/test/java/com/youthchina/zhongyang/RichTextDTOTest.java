@@ -39,7 +39,7 @@ public class RichTextDTOTest {
                 "    }\n" +
                 "  },\n" +
                 "  \"previewText\": \"sdfgdfgdfg\",\n" +
-                "  \"resourceList\": []\n" +
+                "  \"resourceIdList\": []\n" +
                 "}";
         RichTextDTO richTextDTO = null;
         try {
