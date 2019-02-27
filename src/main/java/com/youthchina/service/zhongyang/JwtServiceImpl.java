@@ -1,10 +1,12 @@
 package com.youthchina.service.zhongyang;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
+import com.youthchina.exception.zhongyang.BaseException;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -47,13 +51,20 @@ public class JwtServiceImpl implements JwtService {
      * Add authentication in header and user body for login request.
      *
      * @param response the response
-     * @param user  the user
+     * @param user     the user
      */
     @Override
-    public void addAuthentication(HttpServletResponse response, User user) {
+    public void addAuthentication(HttpServletResponse response, User user) throws BaseException {
         Integer id = user.getId();
+        JwtSubject jwtSubject = new JwtSubject(id.toString(), Calendar.getInstance().getTimeInMillis());
+        String subject = "";
+        try {
+            subject = objectMapper.writeValueAsString(jwtSubject);
+        } catch (JsonProcessingException e) {
+            throw new BaseException(500, 5000, "cannot serilize the jwt");
+        }
         String token = Jwts.builder().
-                setSubject(id.toString()).
+                setSubject(subject).
                 setExpiration(new Date(System.currentTimeMillis() + Long.valueOf(EXPRIATIONTIME)))
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
@@ -79,14 +90,31 @@ public class JwtServiceImpl implements JwtService {
         String token = servletRequest.getHeader(HEADER);
         if (token != null) {
             Integer id = null;
+            String subject = "";
             try {
-                id = Integer.valueOf(Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token.replace(TOKEN_PREFIX, "")).getBody().getSubject());
-            } catch (IllegalArgumentException ignored) {
+                subject = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token.replace(TOKEN_PREFIX, "")).getBody().getSubject();
+                JwtSubject jwtSubject = objectMapper.readValue(subject, JwtSubject.class);
+                id = Integer.valueOf(jwtSubject.id);
+                Timestamp createAt = new Timestamp(jwtSubject.create_at);
+            } catch (IllegalArgumentException | IOException ignored) {
             }
             User user = userMapper.findOne(id);
             return new JwtAuthentication(user, true);
         }
         return null;
 
+    }
+
+    class JwtSubject {
+        String id;
+        Long create_at;
+
+        JwtSubject() {
+        }
+
+        JwtSubject(String id, Long create_at) {
+            this.id = id;
+            this.create_at = create_at;
+        }
     }
 }
