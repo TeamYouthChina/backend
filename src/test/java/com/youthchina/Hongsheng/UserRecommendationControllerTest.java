@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:recommendation.xml"})
 @WebAppConfiguration
-public class UerRecommendControllerTest {
+public class UserRecommendationControllerTest {
     @Autowired
     private WebApplicationContext context;
 
