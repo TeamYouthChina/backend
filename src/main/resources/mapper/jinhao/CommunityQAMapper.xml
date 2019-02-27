@@ -29,13 +29,13 @@
             <association property="user" javaType="com.youthchina.domain.zhongyang.User">
                 <id property="id" column="USER_ID"/>
                 <result property="username" column="USER_NAME"/>
-                <result property="email" column="USER_EMAIL"/>
+                <result property="email" column="USER_MAIL"/>
                 <result property="phonenumber" column="USER_PHONE"/>
-                <result property="registerDate" column="USER_REGIST"/>
+                <result property="registerDate" column="USER_REGIST_TIME"/>
                 <result property="realName" column="USER_REAL_NAME"/>
                 <result property="gender" column="USER_GENDER"/>
                 <result property="nation" column="USER_NATION"/>
-                <result property="avatarUrl" column="USER_AVATARURL"/>
+                <result property="avatarUrl" column="USER_PHOTO"/>
                 <result property="role" column="ROLE_TYPE"/>
                 <result property="age" column="USER_AGE"/>
             </association>
@@ -73,13 +73,13 @@
         <association property="answer_user" javaType="com.youthchina.domain.zhongyang.User">
             <id property="id" column="USER_ID"/>
             <result property="username" column="USER_NAME"/>
-            <result property="email" column="USER_EMAIL"/>
+            <result property="email" column="USER_MAIL"/>
             <result property="phonenumber" column="USER_PHONE"/>
-            <result property="registerDate" column="USER_REGIST"/>
+            <result property="registerDate" column="USER_REGIST_TIME"/>
             <result property="realName" column="USER_REAL_NAME"/>
             <result property="gender" column="USER_GENDER"/>
             <result property="nation" column="USER_NATION"/>
-            <result property="avatarUrl" column="USER_AVATARURL"/>
+            <result property="avatarUrl" column="USER_PHOTO"/>
             <result property="role" column="ROLE_TYPE"/>
             <result property="age" column="USER_AGE"/>
         </association>
@@ -148,11 +148,11 @@
         newu.USER_ID as NEW_USER_ID, newu.USER_NAME as NEW_USERNAME, newu.USER_MAIL as NEW_EMAIL
         ,newu.USER_PHONE as NEW_PHONENUMBER, newu.USER_REGIST_TIME as NEW_REGISTERDATE
         ,newu.USER_REAL_NAME as NEW_REALNAME, newu.USER_GENDER as NEW_GENDER, newu.USER_NATION as NEW_NATION,
-        newu.ROLE_ID as NEW_ROLE, newu.USER_AGE as NEW_AGE
+        newu.ROLE_ID as NEW_ROLE, newu.USER_AGE as NEW_AGE, newu.USER_PHOTO as NEW_AVATARURL
     </sql>
     <sql id="user">
         u.USER_ID,u.USER_NAME,u.USER_MAIL,u.USER_PHONE,u.USER_REGIST_TIME,u.USER_REAL_NAME,
-        u.USER_GENDER,u.USER_NATION,u.ROLE_ID as ROLE_TYPE,u.USER_AGE
+        u.USER_GENDER,u.USER_NATION,u.ROLE_ID as ROLE_TYPE,u.USER_AGE, u.USER_PHOTO
     </sql>
     <sql id="question">
         q.QUES_ID, q.QUES_TITLE, q.QUES_ABBRE, q.QUES_BODY, q.QUES_PUB_TIME, q.QUES_EDIT_TIME,q.USER_ANONY as QUES_USERANONY
