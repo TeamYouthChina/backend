@@ -52,6 +52,7 @@ public class RichTextDTO {
         try {
             return objectMapper.writeValueAsString(this.braftEditorRaw);
         } catch (JsonProcessingException e) {
+            System.out.println("12345");
             e.printStackTrace();
         }
         return null;

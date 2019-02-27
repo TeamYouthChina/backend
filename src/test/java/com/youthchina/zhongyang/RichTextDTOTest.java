@@ -44,12 +44,14 @@ public class RichTextDTOTest {
         RichTextDTO richTextDTO = null;
         try {
             richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            System.out.println(richTextDTO);
         } catch (IOException e) {
             Assert.fail();
         }
         String output = null;
         try {
             output = new ObjectMapper().writeValueAsString(richTextDTO);
+            System.out.println(output);
         } catch (JsonProcessingException e) {
             Assert.fail();
         }
