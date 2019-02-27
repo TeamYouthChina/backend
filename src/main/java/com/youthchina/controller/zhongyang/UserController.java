@@ -13,6 +13,7 @@ import com.youthchina.dto.UserDTO;
 import com.youthchina.dto.community.EssayDTO;
 import com.youthchina.dto.community.QuestionDTO;
 import com.youthchina.dto.community.RequestEssayDTO;
+import com.youthchina.dto.community.VideoDTO;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -101,14 +102,25 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
                 return ResponseEntity.ok((new Response(essayDTOS)));
 
             }
-//            case "Video":{
-//                List<>
-//
-//            }
-//            case "Question":{
-//                List<QuestionDTO> questionDTOS=new ArrayList<>();
-//                List<Question> questions=communityQAService.
-//            }
+            case "Video":{
+                List<Video> videos=communityQAService.listAllUserAttenVideos(user_id);
+                List<VideoDTO> videoDTOS=new ArrayList<>();
+                for(Video video:videos){
+                    VideoDTO videoDTO=new VideoDTO(video);
+                    videoDTOS.add(videoDTO);
+                }
+                return ResponseEntity.ok(new Response(videoDTOS));
+
+            }
+            case "Question":{
+                List<QuestionDTO> questionDTOS=new ArrayList<>();
+                List<Question> questions=communityQAService.listAllUserAttenQuestions(user_id);
+                for (Question question:questions){
+                    QuestionDTO questionDTO=new QuestionDTO(question);
+                    questionDTOS.add(questionDTO);
+                }
+                return ResponseEntity.ok(new Response(questionDTOS));
+            }
             default:throw new NotFoundException(404,404,"do not have this type");
 
 
