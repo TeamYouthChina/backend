@@ -11,11 +11,11 @@ import com.youthchina.dto.JobResponseDTO;
  **/
 public class JobCollectResponseDTO {
     private Integer collect_id;
-    private JobResponseDTO jobResponseDTO;
+    private JobResponseDTO job;
 
     public JobCollectResponseDTO(JobCollect jobCollect) {
         this.collect_id = jobCollect.getCollect_id();
-        this.jobResponseDTO=new JobResponseDTO(jobCollect.getJob());
+        this.job=new JobResponseDTO(jobCollect.getJob());
     }
 
     public JobCollectResponseDTO() {
@@ -29,11 +29,11 @@ public class JobCollectResponseDTO {
         this.collect_id = collect_id;
     }
 
-    public JobResponseDTO getJobResponseDTO() {
-        return jobResponseDTO;
+    public JobResponseDTO getJob() {
+        return job;
     }
 
-    public void setJobResponseDTO(JobResponseDTO jobResponseDTO) {
-        this.jobResponseDTO = jobResponseDTO;
+    public void setJob(JobResponseDTO job) {
+        this.job = job;
     }
 }
