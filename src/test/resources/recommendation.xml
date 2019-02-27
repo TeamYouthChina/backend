@@ -203,164 +203,377 @@
               JOB_TYPE="1" JOB_DESCRIPTION="996" JOB_DUTY="back"  JOB_HIGHLIGHT="50K"
               JOB_SALARY_FLOOR="5000" JOB_SALARY_CAP="6500" JOB_LINK="job.com.cn" CV_RECEI_MAIL="youth@china" CV_NAME_RULE="nameRule" JOB_ACTIVE="1" HR_ID="1" COMPANY_ID="1"
               ADD_TIME = "2019-1-1 11:11:23" IS_DELETE="0"/>
-    <COM_ESSAY ESSAY_ID="1" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
-    {
-        &quot;braftEditorRaw&quot;:&quot;Body Body 1&quot;,
-        &quot;previewText&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
-        &quot;resourceIdList&quot;:null
+    <COM_ESSAY ESSAY_ID="1" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY=
+    "{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body Body 1&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,
+    &quot;resourceIdList&quot; : [ ]
     }"
                ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
                IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
-    <COM_ESSAY ESSAY_ID="2" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
-    {
-        &quot;braftEditorRaw&quot;:&quot;Body Body 1&quot;,
-        &quot;previewText&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
-        &quot;resourceIdList&quot;:null
+    <COM_ESSAY ESSAY_ID="2" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY=
+            "{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body Body 1&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,
+    &quot;resourceIdList&quot; : [ ]
     }"
                ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
                IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
-    <COM_ESSAY ESSAY_ID="3" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
-    {
-        &quot;braftEditorRaw&quot;:&quot;Body Body 1&quot;,
-        &quot;previewText&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
-        &quot;resourceIdList&quot;:null
+    <COM_ESSAY ESSAY_ID="3" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body Body 1&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,
+    &quot;resourceIdList&quot; : [ ]
     }"
                ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
                IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
-    <COM_ESSAY ESSAY_ID="4" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
-    {
-        &quot;braftEditorRaw&quot;:&quot;Body Body 1&quot;,
-        &quot;previewText&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
-        &quot;resourceIdList&quot;:null
+    <COM_ESSAY ESSAY_ID="4" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body Body 1&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,
+    &quot;resourceIdList&quot; : [ ]
     }"
                ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
                IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
-    <COM_ESSAY ESSAY_ID="5" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
-    {
-        &quot;braftEditorRaw&quot;:&quot;Body Body 1&quot;,
-        &quot;previewText&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
-        &quot;resourceIdList&quot;:null
+    <COM_ESSAY ESSAY_ID="5" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body Body 1&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,
+    &quot;resourceIdList&quot; : [ ]
     }"
                ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
                IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
-    <COM_ESSAY ESSAY_ID="6" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
-    {
-        &quot;braftEditorRaw&quot;:&quot;Body Body 1&quot;,
-        &quot;previewText&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
-        &quot;resourceIdList&quot;:null
+    <COM_ESSAY ESSAY_ID="6" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body Body 1&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,
+    &quot;resourceIdList&quot; : [ ]
     }"
                ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
                IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
-    <COM_ESSAY ESSAY_ID="7" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
-    {
-        &quot;braftEditorRaw&quot;:&quot;Abbreviation of the essay 1 but42Body Body 1&quot;,
-        &quot;previewText&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
-        &quot;resourceIdList&quot;:null
+    <COM_ESSAY ESSAY_ID="7" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body Body 1&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,
+    &quot;resourceIdList&quot; : [ ]
     }"
                ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
                IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
-    <COM_ESSAY ESSAY_ID="8" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
-    {
-        &quot;braftEditorRaw&quot;:&quot;Body Body 1&quot;,
-        &quot;previewText&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
-        &quot;resourceIdList&quot;:null
+    <COM_ESSAY ESSAY_ID="8" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body Body 1&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,
+    &quot;resourceIdList&quot; : [ ]
     }"
                ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
                IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
-    <COM_ESSAY ESSAY_ID="9" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
-    {
-        &quot;braftEditorRaw&quot;:&quot;Body Body 1&quot;,
-        &quot;previewText&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
-        &quot;resourceIdList&quot;:null
+    <COM_ESSAY ESSAY_ID="9" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body Body 1&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,
+    &quot;resourceIdList&quot; : [ ]
     }"
                ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
                IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
-    <COM_ESSAY ESSAY_ID="10" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="
-    {
-        &quot;braftEditorRaw&quot;:&quot;Body Body 1&quot;,
-        &quot;previewText&quot;:&quot;Abbreviation of the essay 1 but42&quot;,
-        &quot;resourceIdList&quot;:null
+    <COM_ESSAY ESSAY_ID="10" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body Body 1&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,
+    &quot;resourceIdList&quot; : [ ]
     }"
                ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
                IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
     <COM_QUESTION USER_ANONY="1" QUES_ID="1" QUES_TITLE="第一个问题" QUES_ABBRE="Abbreviation of the question 1 but42"
-                  QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Body of the question 1 but42&quot;,
-                                &quot;previewText&quot;:&quot;Abbreviation of the question 1 but 42&quot;,
-                                &quot;resourceIdList&quot;:null
-                            }"
+                  QUES_BODY=
+    "{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body of the question 1 but42&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the question 1 but 42&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }"
                   QUES_PUB_TIME="2018-12-04 13:32:40" QUES_EDIT_TIME="2018-12-04 13:32:40" IS_DELETE="0"
                   IS_DELETE_TIME="2018-12-04 13:32:40"/>
     <COM_QUESTION USER_ANONY="1" QUES_ID="2" QUES_TITLE="第二个问题" QUES_ABBRE="Abbreviation of the question 2 but42"
                   QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Body of the question 2 but42&quot;,
-                                &quot;previewText&quot;:&quot;Abbreviation of the question 2 but 42&quot;,
-                                &quot;resourceIdList&quot;:null
-                            }"
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body of the question 2 but42&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the question 2 but 42&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }"
                   QUES_PUB_TIME="2018-12-05 13:32:40" QUES_EDIT_TIME="2018-12-05 13:32:40" IS_DELETE="0"
                   IS_DELETE_TIME="2018-12-05 13:32:40"/>
     <COM_QUESTION USER_ANONY="1" QUES_ID="3" QUES_TITLE="第三个问题" QUES_ABBRE="Abbreviation of the question 3 but42"
                   QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Body of the question 3 but42&quot;,
-                                &quot;previewText&quot;:&quot;BodyAbbreviation of the question 3 but 42&quot;,
-                                &quot;resourceIdList&quot;:null
-                            }"
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body of the question 3 but42&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the question 3 but 42&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }"
                   QUES_PUB_TIME="2018-12-06 13:32:40" QUES_EDIT_TIME="2018-12-06 13:32:40" IS_DELETE="0"
                   IS_DELETE_TIME="2018-12-06 13:32:40"/>
     <COM_QUESTION USER_ANONY="0" QUES_ID="4" QUES_TITLE="第四个问题" QUES_ABBRE="Abbreviation of the question 4 but42"
                   QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Body of the question 4 but42&quot;,
-                                &quot;previewText&quot;:&quot;Abbreviation of the question 4 but 42&quot;,
-                                &quot;resourceIdList&quot;:null
-                            }"
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body of the question 4 but42&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the question 4 but 42&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }"
                   QUES_PUB_TIME="2018-12-06 14:32:40" QUES_EDIT_TIME="2018-12-06 14:32:40" IS_DELETE="0"
                   IS_DELETE_TIME="2018-12-06 14:32:40"/>
     <COM_QUESTION USER_ANONY="1" QUES_ID="5" QUES_TITLE="第一个问题" QUES_ABBRE="Abbreviation of the question 1 but42"
                   QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Body of the question 1 but42&quot;,
-                                &quot;previewText&quot;:&quot;Abbreviation of the question 1 but 42&quot;,
-                                &quot;resourceIdList&quot;:null
-                            }"
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body of the question 1 but42&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the question 1 but 42&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }"
                   QUES_PUB_TIME="2018-12-04 13:32:40" QUES_EDIT_TIME="2018-12-04 13:32:40" IS_DELETE="0"
                   IS_DELETE_TIME="2018-12-04 13:32:40"/>
     <COM_QUESTION USER_ANONY="1" QUES_ID="6" QUES_TITLE="第二个问题" QUES_ABBRE="Abbreviation of the question 2 but42"
                   QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Body of the question 2 but42&quot;,
-                                &quot;previewText&quot;:&quot;BodyAbbreviation of the question 2 but 42&quot;,
-                                &quot;resourceIdList&quot;:null
-                            }"
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body of the question 2 but42&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the question 2 but 42&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }"
                   QUES_PUB_TIME="2018-12-05 13:32:40" QUES_EDIT_TIME="2018-12-05 13:32:40" IS_DELETE="0"
                   IS_DELETE_TIME="2018-12-05 13:32:40"/>
     <COM_QUESTION USER_ANONY="1" QUES_ID="7" QUES_TITLE="第三个问题" QUES_ABBRE="Abbreviation of the question 3 but42"
                   QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Body of the question 3 but42&quot;,
-                                &quot;previewText&quot;:&quot;Abbreviation of the question 3 but 42&quot;,
-                                &quot;resourceIdList&quot;:null
-                            }"
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body of the question 3 but42&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the question 3 but 42&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }"
                   QUES_PUB_TIME="2018-12-06 13:32:40" QUES_EDIT_TIME="2018-12-06 13:32:40" IS_DELETE="0"
                   IS_DELETE_TIME="2018-12-06 13:32:40"/>
     <COM_QUESTION USER_ANONY="0" QUES_ID="8" QUES_TITLE="第四个问题" QUES_ABBRE="Abbreviation of the question 4 but42"
                   QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Body of the question 4 but42&quot;,
-                                &quot;previewText&quot;:&quot;Abbreviation of the question 4 but 42&quot;,
-                                &quot;resourceIdList&quot;:null
-                            }"
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body of the question 4 but42&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the question 4 but 42&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }"
                   QUES_PUB_TIME="2018-12-06 14:32:40" QUES_EDIT_TIME="2018-12-06 14:32:40" IS_DELETE="0"
                   IS_DELETE_TIME="2018-12-06 14:32:40"/>
     <COM_QUESTION USER_ANONY="1" QUES_ID="9" QUES_TITLE="第一个问题" QUES_ABBRE="Abbreviation of the question 1 but42"
                   QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Body of the question 1 but42&quot;,
-                                &quot;previewText&quot;:&quot;Abbreviation of the question 1 but 42&quot;,
-                                &quot;resourceIdList&quot;:null
-                            }"
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body of the question 1 but42&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the question 1 but 42&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }"
                   QUES_PUB_TIME="2018-12-04 13:32:40" QUES_EDIT_TIME="2018-12-04 13:32:40" IS_DELETE="0"
                   IS_DELETE_TIME="2018-12-04 13:32:40"/>
     <COM_QUESTION USER_ANONY="1" QUES_ID="10" QUES_TITLE="第二个问题" QUES_ABBRE="Abbreviation of the question 2 but42"
                   QUES_BODY="{
-                                &quot;braftEditorRaw&quot;:&quot;Body of the question 2 but42&quot;,
-                                &quot;previewText&quot;:&quot;Abbreviation of the question 2 but 42&quot;,
-                                &quot;resourceIdList&quot;:null
-                            }"
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;Body of the question 2 but42&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the question 2 but 42&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }"
                   QUES_PUB_TIME="2018-12-05 13:32:40" QUES_EDIT_TIME="2018-12-05 13:32:40" IS_DELETE="0"
                   IS_DELETE_TIME="2018-12-05 13:32:40"/>
 

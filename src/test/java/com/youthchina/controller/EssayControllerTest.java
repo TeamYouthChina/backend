@@ -75,18 +75,46 @@ public class EssayControllerTest {
                 .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"title\",\"company\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"Abbreviation of the essay 1 but42\",\"resourceIdList\":null},\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("             Body = {\"content\":{\"id\":1,\"title\":\"title\",\"company\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"Abbreviation of the essay 1 but42\",\"resourceIdList\":[]},\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}\n", false));
     }
 
 
 
     @Test
     public void addEssayTest() throws Exception {
+        String json = "{\n" +
+                "  \"braftEditorRaw\": {\n" +
+                "    \"blocks\": [\n" +
+                "      {\n" +
+                "        \"key\": \"dtj4a\",\n" +
+                "        \"text\": \"dsfgdfgdfg\",\n" +
+                "        \"type\": \"unstyled\",\n" +
+                "        \"depth\": 0,\n" +
+                "        \"inlineStyleRanges\": [],\n" +
+                "        \"entityRanges\": [],\n" +
+                "        \"data\": {}\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"entityMap\": {\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"previewText\": \"This is a new article Abbre\",\n" +
+                "  \"resourceIdList\": []\n" +
+                "}";
+
+        RichTextDTO richTextDTO = null;
+        try {
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+        } catch (IOException e) {
+            Assert.fail();
+        }
         RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
         requestEssayDTO.setTitle("This is a new article Title");
-        RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setBraftEditorRaw("This is a new article body");
-        richTextDTO.setPreviewText("This is a new article Abbre");
+        //RichTextDTO richTextDTO = new RichTextDTO();
+        //richTextDTO.setBraftEditorRaw("{\n" +
+        //       "  \"this\": \"that\"\n" +
+        //        "}");
+        //richTextDTO.setPreviewText("This is a new article Abbre");
         requestEssayDTO.setBody(richTextDTO);
         requestEssayDTO.setCompany_id(1);
         requestEssayDTO.setIs_anonymous(false);
@@ -222,10 +250,8 @@ public class EssayControllerTest {
                 .content(requestJson)
                 .with(authGenerator.authentication())
         )
-                .andDo(print());
-
-        System.out.println("");
-//                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test

@@ -41,6 +41,7 @@ public class RichTextDTOTest {
                 "  \"previewText\": \"sdfgdfgdfg\",\n" +
                 "  \"resourceIdList\": []\n" +
                 "}";
+
         RichTextDTO richTextDTO = null;
         try {
             richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
