@@ -2364,7 +2364,7 @@ paths:
                           $ref: '#/components/schemas/Company'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/disconvery/articles':
+  '/discovery/articles':
     get:
       tags:
         - Discover
@@ -2427,7 +2427,48 @@ paths:
                           $ref: '#/components/schemas/Job'
                   status:
                     $ref: '#/components/schemas/Status'
-
+  '/discovery/videos':
+    get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: recommend videos
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Video'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/discovery/editorials':
+    get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: recommend editorials
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      users:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Editorial'
+                  status:
+                    $ref: '#/components/schemas/Status'
 components:
   schemas:
     ContentRequest:
