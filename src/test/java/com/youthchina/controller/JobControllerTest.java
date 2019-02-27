@@ -76,20 +76,24 @@ public class JobControllerTest {
     @Test
     public void testSearch() throws Exception {
         JobSearchDTO jobSearchDTO = new JobSearchDTO();
-        jobSearchDTO.setJobId(1);
+        jobSearchDTO.setId(1);
         jobSearchDTO.setJobName("front");
         jobSearchDTO.setComId(1);
         jobSearchDTO.setComName("大疆");
-        jobSearchDTO.setType(1);
+        jobSearchDTO.setJobType(1);
         jobSearchDTO.setSalaryCap(10000);
         jobSearchDTO.setSalaryFloor(1000);
-        jobSearchDTO.setActive(1);
+        jobSearchDTO.setActivate(1);
         Timestamp startTime = new Timestamp(118,01,01,00,00,00,00);
         Timestamp endTime = new Timestamp(123,01,01,00,00,00,00);
+//        startTime = null;
+//        endTime = null;
         DurationDTO duration = new DurationDTO(startTime, endTime);
 
-        jobSearchDTO.setDurationDTO(duration);
+        jobSearchDTO.setDurationDTO(new DurationDTO());
 
+        JobSearchDTO jobSearchDTO2 = new JobSearchDTO();
+        jobSearchDTO2.setId(1);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String searchJson = ow.writeValueAsString(jobSearchDTO);
