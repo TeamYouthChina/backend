@@ -20,7 +20,7 @@
               USER_NATION="China"
               USER_MAIL="test@test.com" USER_PHONE="18463722634" ROLE_ID="1"  IS_DELETE="0"/>
 
-    <COM_BRIEF_REVIEW REVIEW_ID="1" REVIEW_CONTENT="A" REVIEW_TIME="2018-12-04 13:32:40" IS_DELETE="0"/>
+    <COM_BRIEF_REVIEW REVIEW_ID="1" REVIEW_CONTENT="{&quot;braftEditorRaw&quot;: {&quot;blocks&quot;: [{&quot;key&quot;: &quot;dtj4a&quot;, &quot;text&quot;: &quot;dsfgdfgdfg&quot;, &quot;type&quot;: &quot;unstyled&quot;, &quot;depth&quot;: 0, &quot;inlineStyleRanges&quot;: [], &quot;entityRanges&quot;: [], &quot;data&quot;: {}}], &quot;entityMap&quot;: {}},&quot;previewText&quot;: &quot;sdfgdfgdfg&quot;, &quot;resourceList&quot;: []}" REVIEW_TIME="2018-12-04 13:32:40" IS_DELETE="0"/>
     <COM_BRIEF_REVIEW REVIEW_ID="2" REVIEW_CONTENT="A2" REVIEW_TIME="2018-12-04 13:32:40" IS_DELETE="0"/>
     <COM_BRIEF_REVIEW REVIEW_ID="3" REVIEW_CONTENT="A3" REVIEW_TIME="2018-12-04 13:32:40" IS_DELETE="0"/>
     <COM_BRIEF_REVIEW_MAP REVIEW_ID="1" USER_ID="1" RELA_TYPE="2" RELA_ID="1"/>
