@@ -21,7 +21,7 @@ public class ApplicantDTO {
     private Boolean isInJob;
     private String currentCompanyName;
     private List<EducationDTO> educations;
-    private ContactDTO contactDTO;
+    private ContactDTO contacts;
     private List<String> skills;
     private List<WorkDTO> experiences;
     private List<ProjectDTO> projects;
@@ -33,15 +33,15 @@ public class ApplicantDTO {
 
     public ApplicantDTO(Student student) {
         this.name = student.getUsername();
-        this.avatarUrl=student.getAvatarUrl();
-        this.isInJob=student.getIsInJob();
-        this.currentCompanyName=student.getCurrentCompanyName();
+        this.avatarUrl = student.getAvatarUrl();
+        this.isInJob = student.getIsInJob();
+        this.currentCompanyName = student.getCurrentCompanyName();
         this.educations = new ArrayList<>(student.getEducationInfos().size());
         for (EducationInfo educationInfo : student.getEducationInfos()) {
             this.educations.add(new EducationDTO(educationInfo));
         }
         //contact的设置
-        this.contactDTO=new ContactDTO(student.getEmail(),student.getPhonenumber());
+        this.contacts = new ContactDTO(student.getEmail(), student.getPhonenumber());
         this.experiences = new ArrayList<>(student.getWorks().size());
         for (Work work : student.getWorks()) {
             this.experiences.add(new WorkDTO(work));
@@ -55,7 +55,7 @@ public class ApplicantDTO {
             this.extracurriculars.add(new ExtracurricularDTO(activity));
         }
         List<CertificateDTO> certificates = new ArrayList<>(student.getCertificates().size());
-        for(Certificate certificate: student.getCertificates()){
+        for (Certificate certificate : student.getCertificates()) {
             certificates.add(new CertificateDTO(certificate));
         }
         this.setCertificates(certificates);
@@ -93,7 +93,6 @@ public class ApplicantDTO {
     public void setEducations(List<EducationDTO> educations) {
         this.educations = educations;
     }
-
 
 
     public List<WorkDTO> getExperiences() {
@@ -145,12 +144,15 @@ public class ApplicantDTO {
         this.skills = skills;
     }
 
-
-    public ContactDTO getContactDTO() {
-        return contactDTO;
+    public ContactDTO getContacts() {
+        return contacts;
     }
 
-    public void setContactDTO(ContactDTO contactDTO) {
-        this.contactDTO = contactDTO;
+    public void setContacts(ContactDTO contacts) {
+        this.contacts = contacts;
     }
 }
+
+
+
+

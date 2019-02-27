@@ -4,14 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.domain.Qinghong.Certificate;
-import com.youthchina.domain.Qinghong.EducationInfo;
-import com.youthchina.domain.Qinghong.JobApply;
-import com.youthchina.domain.Qinghong.JobCollect;
-import com.youthchina.domain.jinhao.communityQA.Label;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.dto.*;
-import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +29,6 @@ import java.util.List;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 
 
@@ -65,6 +58,13 @@ public class ApplicantControllerTest {
     public void setup() {
         this.mvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
     }
+    /**
+    * @Description: 获取申请者的所有信息
+    * @Param: []
+    * @return: void
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/27
+    */
 
     @Test
     public void testGet() throws Exception {
@@ -77,6 +77,14 @@ public class ApplicantControllerTest {
 
         ;
     }
+
+    /**
+    * @Description: 全部添加申请者的所有信息
+    * @Param: []
+    * @return: void
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/27
+    */
 
     @Test
     public void testAdd() throws Exception{
@@ -115,7 +123,7 @@ public class ApplicantControllerTest {
         contactDTO.setEmails(emails);
         contactDTO.setPhonenumbers(phonenumbers);
 
-        student.setContactDTO(contactDTO);
+        student.setContacts(contactDTO);
         //工作信息
         //缺少地点
         List<WorkDTO> workDTOS=new ArrayList<>();
@@ -233,17 +241,17 @@ public class ApplicantControllerTest {
         ;
     }
 
-    @Test
-    public void testGetJobCollects() throws Exception{
-        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/jobCollects",1).param("id", "2").with(authGenerator.authentication()))
-                .andDo(print());
-    }
-
-    @Test
-    public void testGetCompCollects() throws Exception{
-        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/companyCollects",1).param("id", "2").with(authGenerator.authentication()))
-                .andDo(print());
-    }
+//    @Test
+//    public void testGetJobCollects() throws Exception{
+//        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/jobCollects",1).param("id", "2").with(authGenerator.authentication()))
+//                .andDo(print());
+//    }
+//
+//    @Test
+//    public void testGetCompCollects() throws Exception{
+//        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/companyCollects",1).param("id", "2").with(authGenerator.authentication()))
+//                .andDo(print());
+//    }
 
     @Test
     public void testDeleteJobCollect() throws Exception{
@@ -253,7 +261,7 @@ public class ApplicantControllerTest {
     @Test
     public void testDeleteCompCollect() throws Exception{
         this.mvc.perform
-                (delete(this.urlPrefix + "/companies/collections/3")
+                (delete(this.urlPrefix + "/companies/collections/1")
                         .with(authGenerator.authentication()))
                 .andDo(print());
     }
@@ -281,9 +289,17 @@ public class ApplicantControllerTest {
 
     @Test
     public void testAddJobApply() throws Exception{
-        this.mvc.perform(post(this.urlPrefix + "/jobs/1/apply").with(authGenerator.authentication()))
+        this.mvc.perform(post(this.urlPrefix + "/jobs/3/apply").with(authGenerator.authentication()))
                 .andDo(print());
     }
+
+    /**
+    * @Description: 通过职位id添加职位收藏
+    * @Param: []
+    * @return: void
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/27
+    */
 
     @Test
     public void testAddJobCollect() throws Exception{
@@ -296,7 +312,7 @@ public class ApplicantControllerTest {
     @Test
     public void testAddCompCollect() throws Exception{
         this.mvc.perform
-                (put(this.urlPrefix + "/companies/3/attention")
+                (put(this.urlPrefix + "/companies/2/attention")
                         .with(authGenerator.authentication()))
                 .andDo(print());
     }
@@ -781,8 +797,17 @@ public class ApplicantControllerTest {
 
     }
 
-//    @Test
-//    public void testUserAttentions
+    @Test
+    public void testUserAttentions() throws Exception{
+        this.mvc.perform(
+                get
+                        (this.urlPrefix + "/users/1/attentions").param("type","Job")
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+    }
 
 
 

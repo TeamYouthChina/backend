@@ -1,5 +1,6 @@
 package com.youthchina.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.youthchina.domain.zhongyang.User;
 
@@ -55,7 +56,7 @@ public class UserDTO {
         this.username = username;
     }
 
-    @JsonSetter
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

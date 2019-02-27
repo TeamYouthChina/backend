@@ -957,5 +957,16 @@ public class CommunityQAMapperTest {
 //            }
 //        }
 //    }
+    @Test
+    public void getMyAttentionQuestion(){
+        List<Integer> ids = communityQAMapper.listMyAttenQuestion(1);
+        Assert.assertEquals(2,ids.size());
+    }
+
+    @Test
+    public void getMyAttentionVideo(){
+        List<Integer> ids = communityQAMapper.getAllUserAttenVideos(1);
+        Assert.assertEquals(2,ids.size());
+    }
 }
 

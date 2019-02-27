@@ -24,7 +24,7 @@ public class ApplicantResponseDTO {
     private String currentCompanyName;
     private List<String> skills;
     private List<EducationResponseDTO> educations;
-    private ContactDTO contactDTO;
+    private ContactDTO contacts;
 //    private List<String> emails;
 //    private List<String> phonenumbers;
     private List<WorkResponseDTO> experiences;
@@ -51,7 +51,7 @@ public class ApplicantResponseDTO {
             this.educations.add(new EducationResponseDTO(educationInfo));
         }
         //contactDTO添加
-        this.contactDTO=new ContactDTO(student.getEmail(),student.getPhonenumber());
+        this.contacts=new ContactDTO(student.getEmail(),student.getPhonenumber());
 //        this.emails = new ArrayList<>();
 //        this.emails.add(student.getEmail());
 //        this.phonenumbers = new ArrayList<>();
@@ -107,12 +107,12 @@ public class ApplicantResponseDTO {
         isInJob = inJob;
     }
 
-    public ContactDTO getContactDTO() {
-        return contactDTO;
+    public ContactDTO getContacts() {
+        return contacts;
     }
 
-    public void setContactDTO(ContactDTO contactDTO) {
-        this.contactDTO = contactDTO;
+    public void setContacts(ContactDTO contacts) {
+        this.contacts = contacts;
     }
 
     public String getCurrentCompanyName() {
