@@ -94,14 +94,23 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
 
     @PostMapping("/search")
     public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, Authentication authentication) throws BaseException {
+        Date startDate = null;
+        Date endDate = null;
+        DurationDTO durationDTO = jobSearchDTO.getDurationDTO();
+        if(durationDTO != null){
+            if(durationDTO.getBegin()!=null){
+                startDate = new Date(jobSearchDTO.getDurationDTO().getBegin().getTime());
+            }
+            if(durationDTO.getEnd()!=null){
+                endDate = new Date(jobSearchDTO.getDurationDTO().getEnd().getTime());
+            }
+        }
 
-        Date startDate = new Date(jobSearchDTO.getDurationDTO().getBegin().getTime());
-        Date endDate = new Date(jobSearchDTO.getDurationDTO().getEnd().getTime());
-
-        List <Job> searchResultJob = this.jobService.getJobByMore(jobSearchDTO.getJobId(),jobSearchDTO.getJobName(),
+        /**No companyId, location, jobReqList, industryList*/
+        List <Job> searchResultJob = this.jobService.getJobByMore(jobSearchDTO.getId(),jobSearchDTO.getJobName(),
                 null, jobSearchDTO.getComName(),startDate,endDate,
-                jobSearchDTO.getType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), jobSearchDTO.getActive(),
-                jobSearchDTO.getLocation(), jobSearchDTO.getJobReqList(),jobSearchDTO.getIndustryList());
+                jobSearchDTO.getJobType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), jobSearchDTO.getActivate(),
+                null, null,null);
         List <JobResponseDTO> searchResultJobDTO = new ArrayList<>();
         for (Job job : searchResultJob){
             searchResultJobDTO.add(new JobResponseDTO(job));

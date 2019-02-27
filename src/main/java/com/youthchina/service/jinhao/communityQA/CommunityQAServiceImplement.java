@@ -119,17 +119,30 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     public List<Question> listAllUserAttenQuestions(Integer user_id) throws NotFoundException{
-        List<Question> questions = communityQAMapper.listMyAttenQuestion(user_id);
-        if(questions == null){
+        List<Integer> ids = communityQAMapper.listMyAttenQuestion(user_id);
+        if(ids.size() == 0){
             throw new NotFoundException(404,404,"该用户没有关注的问题");//todo
         }else {
+            List<Question> questions = new LinkedList<>();
+            for(Integer id : ids){
+                questions.add(communityQAMapper.getQuestionById(id));
+            }
             return questions;
         }
     }
 
     @Override
     public List<Video> listAllUserAttenVideos(Integer user_id) throws NotFoundException {
-        return null;
+        List<Integer> ids = communityQAMapper.getAllUserAttenVideos(user_id);
+        if(ids.size() == 0){
+            throw new NotFoundException(404,404,"该用户没有关注的视频");
+        }else{
+            List<Video> videos = new LinkedList<>();
+            for(Integer id : ids){
+                videos.add(communityQAMapper.getVideoById(id));
+            }
+            return videos;
+        }
     }
 
     @Override
