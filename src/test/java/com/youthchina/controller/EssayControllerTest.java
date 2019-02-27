@@ -1,5 +1,6 @@
 package com.youthchina.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
@@ -8,6 +9,7 @@ import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.community.RequestEssayReplyDTO;
 import com.youthchina.dto.community.RequestEssayDTO;
 import com.youthchina.util.AuthGenerator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +27,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.io.IOException;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -79,11 +83,39 @@ public class EssayControllerTest {
 
     @Test
     public void addEssayTest() throws Exception {
+        String json = "{\n" +
+                "  \"braftEditorRaw\": {\n" +
+                "    \"blocks\": [\n" +
+                "      {\n" +
+                "        \"key\": \"dtj4a\",\n" +
+                "        \"text\": \"dsfgdfgdfg\",\n" +
+                "        \"type\": \"unstyled\",\n" +
+                "        \"depth\": 0,\n" +
+                "        \"inlineStyleRanges\": [],\n" +
+                "        \"entityRanges\": [],\n" +
+                "        \"data\": {}\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"entityMap\": {\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"previewText\": \"This is a new article Abbre\",\n" +
+                "  \"resourceIdList\": []\n" +
+                "}";
+
+        RichTextDTO richTextDTO = null;
+        try {
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+        } catch (IOException e) {
+            Assert.fail();
+        }
         RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
         requestEssayDTO.setTitle("This is a new article Title");
-        RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setBraftEditorRaw("This is a new article body");
-        richTextDTO.setPreviewText("This is a new article Abbre");
+        //RichTextDTO richTextDTO = new RichTextDTO();
+        //richTextDTO.setBraftEditorRaw("{\n" +
+        //       "  \"this\": \"that\"\n" +
+        //        "}");
+        //richTextDTO.setPreviewText("This is a new article Abbre");
         requestEssayDTO.setBody(richTextDTO);
         requestEssayDTO.setCompany_id(1);
         requestEssayDTO.setIs_anonymous(false);
@@ -105,7 +137,9 @@ public class EssayControllerTest {
         RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
         requestEssayDTO.setTitle("This is a new Title 1");
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setBraftEditorRaw("This is a new article 2/26 body");
+        richTextDTO.setBraftEditorRaw("{\n" +
+                "  \"this\": \"that\"\n" +
+                "}");
         richTextDTO.setPreviewText("This is a new article 2/26 Abbre");
         requestEssayDTO.setBody(richTextDTO);
         requestEssayDTO.setCompany_id(2);

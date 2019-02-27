@@ -41,6 +41,7 @@ public class RichTextDTOTest {
                 "  \"previewText\": \"sdfgdfgdfg\",\n" +
                 "  \"resourceIdList\": []\n" +
                 "}";
+
         RichTextDTO richTextDTO = null;
         try {
             richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
@@ -50,6 +51,7 @@ public class RichTextDTOTest {
         String output = null;
         try {
             output = new ObjectMapper().writeValueAsString(richTextDTO);
+            System.out.println(output);
         } catch (JsonProcessingException e) {
             Assert.fail();
         }
