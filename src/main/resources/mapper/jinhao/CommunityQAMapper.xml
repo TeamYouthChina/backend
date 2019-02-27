@@ -163,26 +163,27 @@
 
     <!--拿到用户关注的问题-->
     <select id="listMyAttenQuestion" parameterType="java.lang.Integer"
-            resultMap="questionInfo">
-        select <include refid="question"/>,<include refid="newUser"/>,qm.RELA_TYPE,qm.RELA_ID from (COM_QUESTION_ATTENTION_MAP m, COM_QUESTION_ATTENTION a, COM_QUESTION q)
-        left join (SYS_USER newu,COM_AUTHOR_QUESTION_MAP qm) ON qm.ques_id=q.ques_id and newu.USER_ID=qm.user_id
-        where a.user_id=#{user_id}
-        and a.atten_id = m.atten_id
-        and a.atten_cancel = 0
+            resultType="java.lang.Integer">
+        select q.QUES_ID
+        from COM_QUESTION_ATTENTION_MAP m, COM_QUESTION_ATTENTION qa, COM_QUESTION q
+        where qa.user_id=#{user_id}
+        and qa.atten_id = m.atten_id
+        and qa.atten_cancel = 0
         and q.ques_id = m.ques_id
         and q.is_delete = 0
     </select>
+
     <select id="getAllUserAttenVideos" parameterType="java.lang.Integer"
-            resultMap="videoInfo">
-        select v.VIDEO_ID, v.VIDEO_TITLE, v.VIDEO_NAME, v.VIDEO_UPLOAD_TIME,<include refid="newUser"/>,vm.RELA_TYPE,vm.RELA_ID
+           resultType="java.lang.Integer">
+        select v.VIDEO_ID
         from (COM_USER_VIDEO v, COM_VIDEO_ATTENTION a, COM_VIDEO_ATTENTION_MAP m)
-        left join (SYS_USER newu, COM_USER_VIDEO_MAP vm) on vm.VIDEO_ID = v.VIDEO_ID and newu.USER_ID = vm.USER_ID
         where a.USER_ID=#{user_id}
         and a.ATTEN_ID = m.ATTEN_ID
         and a.ATTEN_CANCEL=0
         and v.VIDEO_ID = m.VIDEO_ID
         and v.IS_DELETE=0
     </select>
+
     <select id="getQuestionById" resultMap="questionInfo" parameterType="java.lang.Integer">
         select <include refid="question"/>,
                <include refid="newUser"/>,

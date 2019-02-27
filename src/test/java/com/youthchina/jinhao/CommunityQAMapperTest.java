@@ -959,14 +959,14 @@ public class CommunityQAMapperTest {
 //    }
     @Test
     public void getMyAttentionQuestion(){
-        List<Question> questions = communityQAMapper.listMyAttenQuestion(1);
-        Assert.assertEquals(2,questions.size());
+        List<Integer> ids = communityQAMapper.listMyAttenQuestion(1);
+        Assert.assertEquals(2,ids.size());
     }
 
     @Test
     public void getMyAttentionVideo(){
-        List<Video> videos = communityQAMapper.getAllUserAttenVideos(1);
-        Assert.assertEquals(2,videos.size());
+        List<Integer> ids = communityQAMapper.getAllUserAttenVideos(1);
+        Assert.assertEquals(2,ids.size());
     }
 }
 
