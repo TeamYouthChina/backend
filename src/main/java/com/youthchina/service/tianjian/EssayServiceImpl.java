@@ -298,4 +298,9 @@ public class EssayServiceImpl implements EssayService {
         return mapper.getEssayReply(essay_id);
     }
 
+    @Override
+    public List<ComEssay> getAllEssayUserAttention(Integer user_id){
+        return mapper.getAllEssayUserAttention(user_id);
+    }
+
 }
