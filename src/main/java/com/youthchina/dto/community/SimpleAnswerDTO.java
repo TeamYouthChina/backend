@@ -38,7 +38,7 @@ public class SimpleAnswerDTO {
         this.body = body;
     }
 
-    public boolean isIs_anonymous() {
+    public boolean getIs_anonymous() {
         return is_anonymous;
     }
 

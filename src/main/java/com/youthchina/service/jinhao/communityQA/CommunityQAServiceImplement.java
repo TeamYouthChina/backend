@@ -59,7 +59,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
     public Question update(Question question) throws NotFoundException {
         getQuestion(question.getQues_id());
         communityQAMapper.editQuestion(question);
-        return question;
+        return communityQAMapper.getQuestionById(question.getQues_id());
     }
 
     @Override
@@ -118,28 +118,46 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      * @throws NotFoundException
      */
     @Override
-    public List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException{
-        List<Question> questions = communityQAMapper.listMyAttenQuestion(user_id);
-        if(questions == null){
+    public List<Question> listAllUserAttenQuestions(Integer user_id) throws NotFoundException{
+        List<Integer> ids = communityQAMapper.listMyAttenQuestion(user_id);
+        if(ids.size() == 0){
             throw new NotFoundException(404,404,"该用户没有关注的问题");//todo
         }else {
+            List<Question> questions = new LinkedList<>();
+            for(Integer id : ids){
+                questions.add(communityQAMapper.getQuestionById(id));
+            }
             return questions;
         }
     }
 
     @Override
-    @Transactional
-    public Integer invitUsersToAnswer(Integer invit_user_id, Integer ques_id, List<Integer> invited_user_ids)
-            throws NotFoundException{
-        for(Integer invited_user_id : invited_user_ids){
-            invitUserToAnswer(invit_user_id, ques_id, invited_user_id);
+    public List<Video> listAllUserAttenVideos(Integer user_id) throws NotFoundException {
+        List<Integer> ids = communityQAMapper.getAllUserAttenVideos(user_id);
+        if(ids.size() == 0){
+            throw new NotFoundException(404,404,"该用户没有关注的视频");
+        }else{
+            List<Video> videos = new LinkedList<>();
+            for(Integer id : ids){
+                videos.add(communityQAMapper.getVideoById(id));
+            }
+            return videos;
         }
-        return 1;
     }
 
     @Override
     @Transactional
-    public Integer invitUserToAnswer(Integer invit_user_id, Integer ques_id,
+    public void invitUsersToAnswer(Integer invit_user_id, Integer ques_id, List<Integer> invited_user_ids)
+            throws NotFoundException{
+        for(Integer invited_user_id : invited_user_ids){
+            invitUserToAnswer(invit_user_id, ques_id, invited_user_id);
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public void invitUserToAnswer(Integer invit_user_id, Integer ques_id,
                                    Integer invited_user_id) throws NotFoundException{
         getQuestion(ques_id);
         AnswerInvitation answerInvitation = new AnswerInvitation();
@@ -148,7 +166,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         communityQAMapper.addInvitation(answerInvitation);
         communityQAMapper.createMapBetweenInvitationAndQuestion(answerInvitation.getInvit_id(),
                 invited_user_id);
-        return 1;
+
     }
 
 
@@ -247,7 +265,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
         getQuestion(ques_id);
         communityQAMapper.addAnswerToQuestion(questionAnswer);
         communityQAMapper.createMapBetweenQuestionAndAnswer(ques_id, questionAnswer.getAnswer_id(), answer_level);
-        return questionAnswer;
+        return communityQAMapper.getAnswerById(questionAnswer.getAnswer_id());
     }
 
     /**
@@ -439,12 +457,11 @@ public class CommunityQAServiceImplement implements CommunityQAService {
      */
     @Override
     @Transactional
-    public Integer addCommentToAnswer(Integer answer_id, Comment comment, Integer comment_level)
+    public void addCommentToAnswer(Integer answer_id, Comment comment, Integer comment_level)
             throws NotFoundException{
         simplyGetAnswer(answer_id);
         communityQAMapper.addCommentToAnswer(comment);
         communityQAMapper.createMapBetweenAnswerAndComment(answer_id, comment.getComment_id(),comment_level);
-        return 1;
     }
 
 

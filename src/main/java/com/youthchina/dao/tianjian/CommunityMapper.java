@@ -77,4 +77,6 @@ public interface CommunityMapper {
     int updateFriendGroup(@Param("comFriendGroup") ComFriendGroup comFriendGroup, @Param("rela_id") Integer rela_id);
 
     List<ComFriendGroup> getFriendGroup(List<ComFriendRelation> comFriendRelation);
+
+    List<ComEssay> getAllEssayUserAttention(@Param("user_id")Integer user_id);
 }

@@ -16,16 +16,13 @@ import java.util.Map;
  * Created by zhong on 2018/12/30.
  */
 public class ApplicantDTO {
-    private Integer id;
     private String name;
     private String avatarUrl;
-    private String isInJob;
+    private Boolean isInJob;
     private String currentCompanyName;
     private List<EducationDTO> educations;
+    private ContactDTO contacts;
     private List<String> skills;
-    private List<String> labels;
-    private List<String> emails;
-    private List<String> phonenumbers;
     private List<WorkDTO> experiences;
     private List<ProjectDTO> projects;
     private List<ExtracurricularDTO> extracurriculars;
@@ -35,24 +32,16 @@ public class ApplicantDTO {
     }
 
     public ApplicantDTO(Student student) {
-        this.id = student.getId();
         this.name = student.getUsername();
-        this.avatarUrl=student.getAvatarUrl();
-        this.isInJob=student.getIsInJob();
-        this.currentCompanyName=student.getCurrentCompanyName();
-        this.labels=new ArrayList<>();
-        for(LabelInfo labelInfo:student.getLabelInfos()){
-            String label_chn=labelInfo.getLabel_chn();
-            this.labels.add(label_chn);
-        }
+        this.avatarUrl = student.getAvatarUrl();
+        this.isInJob = student.getIsInJob();
+        this.currentCompanyName = student.getCurrentCompanyName();
         this.educations = new ArrayList<>(student.getEducationInfos().size());
         for (EducationInfo educationInfo : student.getEducationInfos()) {
             this.educations.add(new EducationDTO(educationInfo));
         }
-        this.emails = new ArrayList<>();
-        this.emails.add(student.getEmail());
-        this.phonenumbers = new ArrayList<>();
-        this.phonenumbers.add(student.getPhonenumber());
+        //contact的设置
+        this.contacts = new ContactDTO(student.getEmail(), student.getPhonenumber());
         this.experiences = new ArrayList<>(student.getWorks().size());
         for (Work work : student.getWorks()) {
             this.experiences.add(new WorkDTO(work));
@@ -66,19 +55,12 @@ public class ApplicantDTO {
             this.extracurriculars.add(new ExtracurricularDTO(activity));
         }
         List<CertificateDTO> certificates = new ArrayList<>(student.getCertificates().size());
-        for(Certificate certificate: student.getCertificates()){
+        for (Certificate certificate : student.getCertificates()) {
             certificates.add(new CertificateDTO(certificate));
         }
         this.setCertificates(certificates);
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -96,12 +78,12 @@ public class ApplicantDTO {
         this.avatarUrl = avatarUrl;
     }
 
-    public String getIsInJob() {
+    public Boolean getIsInJob() {
         return isInJob;
     }
 
-    public void setIsInJob(String isInJob) {
-        this.isInJob = isInJob;
+    public void setIsInJob(Boolean inJob) {
+        isInJob = inJob;
     }
 
     public List<EducationDTO> getEducations() {
@@ -112,24 +94,6 @@ public class ApplicantDTO {
         this.educations = educations;
     }
 
-    @JsonIgnore
-    public List<String> getEmails() {
-        return emails;
-    }
-
-    public void setEmails(List<String> emails) {
-        this.emails = emails;
-    }
-
-    @JsonIgnore
-    public List<String> getPhonenumbers() {
-        return phonenumbers;
-    }
-
-
-    public void setPhonenumbers(List<String> phonenumbers) {
-        this.phonenumbers = phonenumbers;
-    }
 
     public List<WorkDTO> getExperiences() {
         return experiences;
@@ -180,26 +144,15 @@ public class ApplicantDTO {
         this.skills = skills;
     }
 
-    public List<String> getLabels() {
-        return labels;
+    public ContactDTO getContacts() {
+        return contacts;
     }
 
-    public void setLabels(List<String> labels) {
-        this.labels = labels;
-    }
-
-    @JsonGetter("contacts")
-    public Map<String, List<String>> getContact() {
-        HashMap<String, List<String>> map = new HashMap<>();
-        map.put("emails", this.emails);
-        map.put("phonenumbers", this.phonenumbers);
-        return map;
-    }
-
-    @JsonSetter("contacts")
-    @SuppressWarnings("unchecked")
-    public void setContact(Map<String, Object> map) {
-        this.emails = (List) map.get("emails");
-        this.phonenumbers = (List) map.get("phonenumbers");
+    public void setContacts(ContactDTO contacts) {
+        this.contacts = contacts;
     }
 }
+
+
+
+

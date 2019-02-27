@@ -33,7 +33,7 @@ public class Comment {
             System.out.println("Exception");
         }
         this.comment_pub_time = commentDTO.getCreate_at();
-        this.user = commentDTO.getUser();
+        this.user = commentDTO.getCreator();
         this.comment_id = commentDTO.getId();
         this.user_anony = (commentDTO.isIs_anonymous())? 1:0;
     }
