@@ -10,6 +10,7 @@ import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.dto.community.RequestQuestionDTO;
 import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.util.AuthGenerator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +29,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,8 +102,33 @@ public class QuestionControllerTest {
         RequestQuestionDTO requestQuestionDTO = new RequestQuestionDTO();
         requestQuestionDTO.setTitle("Question No.100");
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("Abbreviation of the question No.100");
-        richTextDTO.setBraftEditorRaw("Body of the question No.100");
+        //language=JSON
+        String json = "{\n" +
+                "  \"braftEditorRaw\":{\n" +
+                "    \"blocks\": [\n" +
+                "      {\n" +
+                "        \"key\":\"dtj4a\",\n" +
+                "        \"text\":\"Body of the question No.100\",\n" +
+                "        \"type\":\"unstyled\",\n" +
+                "        \"depth\":0,\n" +
+                "        \"inlineStyleRanges\": [],\n" +
+                "        \"entityRanges\": [],\n" +
+                "        \"data\":{\n" +
+                "        }\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"entityMap\":{\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"previewText\":\"Abbreviation of the question No.100\",\n" +
+                "  \"resourceIdList\": []\n" +
+                "}";
+        try {
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            System.out.println(richTextDTO);
+        } catch (IOException e) {
+            Assert.fail();
+        }
         requestQuestionDTO.setBody(richTextDTO);
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
         requestQuestionDTO.setRela_type(2);
@@ -124,8 +151,33 @@ public class QuestionControllerTest {
         RequestQuestionDTO requestQuestionDTO = new RequestQuestionDTO();
         requestQuestionDTO.setTitle("How to learn JAVA");
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("Abbreviation of the question No.100");
-        richTextDTO.setBraftEditorRaw("Body of the question No.100");
+        //language=JSON
+        String json = "{\n" +
+                "  \"braftEditorRaw\":{\n" +
+                "    \"blocks\": [\n" +
+                "      {\n" +
+                "        \"key\":\"dtj4a\",\n" +
+                "        \"text\":\"Body of the question No.100\",\n" +
+                "        \"type\":\"unstyled\",\n" +
+                "        \"depth\":0,\n" +
+                "        \"inlineStyleRanges\": [],\n" +
+                "        \"entityRanges\": [],\n" +
+                "        \"data\":{\n" +
+                "        }\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"entityMap\":{\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"previewText\":\"Abbreviation of the question No.100\",\n" +
+                "  \"resourceIdList\": []\n" +
+                "}";
+        try {
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            System.out.println(richTextDTO);
+        } catch (IOException e) {
+            Assert.fail();
+        }
         requestQuestionDTO.setBody(richTextDTO);
         requestQuestionDTO.setIs_anonymous(true);
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
@@ -209,7 +261,33 @@ public class QuestionControllerTest {
         RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
         simpleAnswerDTO.setIs_anonymous(true);
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setBraftEditorRaw("qweertyuiop");
+        //language=JSON
+        String json = "{\n" +
+                "  \"braftEditorRaw\":{\n" +
+                "    \"blocks\": [\n" +
+                "      {\n" +
+                "        \"key\":\"dtj4a\",\n" +
+                "        \"text\":\"qweertyuiop\",\n" +
+                "        \"type\":\"unstyled\",\n" +
+                "        \"depth\":0,\n" +
+                "        \"inlineStyleRanges\": [],\n" +
+                "        \"entityRanges\": [],\n" +
+                "        \"data\":{\n" +
+                "        }\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"entityMap\":{\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"previewText\":null,\n" +
+                "  \"resourceIdList\": []\n" +
+                "}";
+        try {
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            System.out.println(richTextDTO);
+        } catch (IOException e) {
+            Assert.fail();
+        }
         simpleAnswerDTO.setBody(richTextDTO);
 
 

@@ -11,6 +11,7 @@ import com.youthchina.dto.community.BriefReviewDTO;
 import com.youthchina.dto.community.RequestBriefReviewDTO;
 import com.youthchina.dto.community.RequestCommentDTO;
 import com.youthchina.util.AuthGenerator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +29,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.io.IOException;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -86,7 +89,34 @@ public class BriefReviewControllerTest {
     public void updateBriefReviewTest() throws Exception {
         RequestBriefReviewDTO requestBriefReviewDTO = new RequestBriefReviewDTO();
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("update");
+        //language=JSON
+        String json = "{\n" +
+                "  \"braftEditorRaw\":{\n" +
+                "    \"blocks\": [\n" +
+                "      {\n" +
+                "        \"key\":\"dtj4a\",\n" +
+                "        \"text\":\"update\",\n" +
+                "        \"type\":\"unstyled\",\n" +
+                "        \"depth\":0,\n" +
+                "        \"inlineStyleRanges\": [],\n" +
+                "        \"entityRanges\": [],\n" +
+                "        \"data\":{\n" +
+                "        }\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"entityMap\":{\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"previewText\":null,\n" +
+                "  \"resourceIdList\": []\n" +
+                "}";
+        try {
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            System.out.println(richTextDTO);
+        } catch (IOException e) {
+            Assert.fail();
+        }
+
         requestBriefReviewDTO.setBody(richTextDTO);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -108,7 +138,34 @@ public class BriefReviewControllerTest {
     public void addBriefReviewTest() throws Exception {
         RequestBriefReviewDTO requestBriefReviewDTO = new RequestBriefReviewDTO();
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("dsafsaf");
+        //language=JSON
+        String json = "{\n" +
+                "  \"braftEditorRaw\":{\n" +
+                "    \"blocks\": [\n" +
+                "      {\n" +
+                "        \"key\":\"dtj4a\",\n" +
+                "        \"text\":\"dsafsaf\",\n" +
+                "        \"type\":\"unstyled\",\n" +
+                "        \"depth\":0,\n" +
+                "        \"inlineStyleRanges\": [],\n" +
+                "        \"entityRanges\": [],\n" +
+                "        \"data\":{\n" +
+                "        }\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"entityMap\":{\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"previewText\":null,\n" +
+                "  \"resourceIdList\": []\n" +
+                "}";
+        try {
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            System.out.println(richTextDTO);
+        } catch (IOException e) {
+            Assert.fail();
+        }
+
         requestBriefReviewDTO.setBody(richTextDTO);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -127,7 +184,34 @@ public class BriefReviewControllerTest {
     public void addBriefReviewCommentsTest() throws Exception {
         RequestCommentDTO requestCommentDTO = new RequestCommentDTO();
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("qqqrrr");
+        //language=JSON
+        String json = "{\n" +
+                "  \"braftEditorRaw\":{\n" +
+                "    \"blocks\": [\n" +
+                "      {\n" +
+                "        \"key\":\"dtj4a\",\n" +
+                "        \"text\":\"qqqrrr\",\n" +
+                "        \"type\":\"unstyled\",\n" +
+                "        \"depth\":0,\n" +
+                "        \"inlineStyleRanges\": [],\n" +
+                "        \"entityRanges\": [],\n" +
+                "        \"data\":{\n" +
+                "        }\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"entityMap\":{\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"previewText\":null,\n" +
+                "  \"resourceIdList\": []\n" +
+                "}";
+        try {
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            System.out.println(richTextDTO);
+        } catch (IOException e) {
+            Assert.fail();
+        }
+
         requestCommentDTO.setBody(richTextDTO);
 
         requestCommentDTO.setIs_anonymous(true);

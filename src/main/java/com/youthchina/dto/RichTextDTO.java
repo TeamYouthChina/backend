@@ -27,7 +27,7 @@ public class RichTextDTO {
             RichTextDTO processed = new ObjectMapper().readValue(json, RichTextDTO.class);
             this.braftEditorRaw = processed.braftEditorRaw;
             this.previewText = processed.previewText;
-            this.resourceList = processed.resourceList;
+            this.resourceIdList = processed.resourceIdList;
         } catch (IOException e) {
             e.printStackTrace();
         }
