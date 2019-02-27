@@ -68,8 +68,7 @@ public class VideoControllerTest {
                 get(this.urlPrefix + "/videos/1")
                         .with(authGenerator.authentication())
         )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"url\":\"GOOD\",\"comments\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"password\":null,\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":\"\",\"previewText\":\"Body of the comment 1 \",\"resourceList\":null},\"create_at\":\"2018-10-11T11:11:22.000+0000\",\"is_anonymous\":false},{\"id\":3,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"password\":null,\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":\"\",\"previewText\":\"Body of the comment 3 \",\"resourceList\":null},\"create_at\":\"2018-10-11T11:11:22.000+0000\",\"is_anonymous\":false}],\"uploader\":{\"id\":2,\"username\":\"zhid d\",\"password\":null,\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andDo(print());
     }
 
     @Test

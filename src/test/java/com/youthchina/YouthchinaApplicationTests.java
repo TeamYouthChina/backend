@@ -1,6 +1,8 @@
 package com.youthchina;
 
+import com.youthchina.dao.tianjian.StaticFileSystemMapper;
 import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.domain.tianjian.ComMediaDocument;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.*;
 import org.junit.Test;
@@ -31,6 +33,9 @@ public class YouthchinaApplicationTests {
 
     @Autowired
     EssayServiceImpl essayService;
+
+    @Autowired
+    StaticFileSystemMapper staticFileSystemMapper;
    /* @Test
     public void testupLoadFile() {
        File file = new File("D:\\LocalFileStore\\video.mp4");
@@ -104,5 +109,11 @@ public class YouthchinaApplicationTests {
     public void testgetUserAllEssayAttention(){
         List<ComEssay> list = essayService.getAllEssayUserAttention(1);
         System.out.println(list.size());
+    }
+
+    @Test
+    public void testgetId(){
+        ComMediaDocument comMediaDocument = staticFileSystemMapper.getFileInfo("2856306669745344512");
+        System.out.println(comMediaDocument.getDocu_server_ali_id());
     }
 }
