@@ -2,15 +2,25 @@ package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.Qinghong.JobCollect;
+import com.youthchina.domain.jinhao.communityQA.Question;
+import com.youthchina.domain.jinhao.communityQA.Video;
+import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Applicant.CompCollectResponseDTO;
 import com.youthchina.dto.Applicant.JobCollectResponseDTO;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.UserDTO;
+import com.youthchina.dto.community.EssayDTO;
+import com.youthchina.dto.community.QuestionDTO;
+import com.youthchina.dto.community.RequestEssayDTO;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
+import com.youthchina.service.jinhao.communityQA.CommunityQAService;
+import com.youthchina.service.jinhao.communityQA.CommunityQAServiceImplement;
+import com.youthchina.service.tianjian.EssayService;
+import com.youthchina.service.tianjian.EssayServiceImpl;
 import com.youthchina.service.zhongyang.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +45,10 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
 
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private CommunityQAServiceImplement communityQAService;
+    @Autowired
+    private EssayServiceImpl essayService;
 
     @Autowired
     public UserController(UserService userService, @Value("${web.url.prefix}") String prefix) {
@@ -76,6 +90,25 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
                 return ResponseEntity.ok(new Response(compCollectResponseDTOS));
 
             }
+            case "Essay":{
+                List<ComEssay> comEssays=essayService.getAllEssayUserAttention(user_id);
+                List<EssayDTO> essayDTOS=new ArrayList<>();
+                for(ComEssay comEssay:comEssays){
+                    EssayDTO essayDTO=new EssayDTO(comEssay);
+                    essayDTOS.add(essayDTO);
+
+                }
+                return ResponseEntity.ok((new Response(essayDTOS)));
+
+            }
+//            case "Video":{
+//                List<>
+//
+//            }
+//            case "Question":{
+//                List<QuestionDTO> questionDTOS=new ArrayList<>();
+//                List<Question> questions=communityQAService.
+//            }
             default:throw new NotFoundException(404,404,"do not have this type");
 
 
