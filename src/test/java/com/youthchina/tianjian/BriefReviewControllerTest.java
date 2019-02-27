@@ -155,4 +155,16 @@ public class BriefReviewControllerTest {
                 .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
 
     }
+
+    @Test
+    public void getBriefReviewCommentsTest() throws Exception {
+        this.mvc.perform(
+                get(this.urlPrefix + "/editorials/1/comments")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+               .andExpect(content().json("{\"content\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qwe\",\"resourceList\":null},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}],\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+
+    }
 }
