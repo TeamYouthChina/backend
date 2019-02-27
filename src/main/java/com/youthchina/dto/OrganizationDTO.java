@@ -28,6 +28,7 @@ public class OrganizationDTO {
         this.website = company.getCompanyWebsite();
         Country country = company.getCountry();
         this.nation = country == null ? null : country.getCountryChn();// 中文名
+        this.note = company.getCompanyIntroduc();
     }
 
     public String getLocation() {
