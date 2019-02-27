@@ -7,7 +7,6 @@ import com.youthchina.domain.jinhao.communityQA.BriefReview;
 import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.Evaluate;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.RichTextDTO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,7 +45,7 @@ public class BriefReviewMapperTest {
         BriefReview briefReview = new BriefReview();
         briefReview.setRela_id(1);
         briefReview.setRela_type(2);
-        briefReview.setReview_content(new RichTextDTO("{\"braftEditorRaw\": {\"blocks\": [{\"key\": \"dtj4a\", \"text\": \"dsfgdfgdfg\", \"type\": \"unstyled\", \"depth\": 0, \"inlineStyleRanges\": [], \"entityRanges\": [], \"data\": {}}], \"entityMap\": {}},\"previewText\": \"sdfgdfgdfg\", \"resourceList\": []}").toString());
+        briefReview.setReview_content("{\"braftEditorRaw\": {\"blocks\": [{\"key\": \"dtj4a\", \"text\": \"dsfgdfgdfg\", \"type\": \"unstyled\", \"depth\": 0, \"inlineStyleRanges\": [], \"entityRanges\": [], \"data\": {}}], \"entityMap\": {}},\"previewText\": \"sdfgdfgdfg\", \"resourceList\": []}");
         briefReview.setReview_time(new Timestamp(System.currentTimeMillis()));
         briefReviewMapper.add(briefReview);
         BriefReview briefReview1 = briefReviewMapper.simplyGetReview(briefReview.getReview_id());
