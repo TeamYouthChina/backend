@@ -48,6 +48,7 @@ public class RichTextDTOTest {
         } catch (IOException e) {
             Assert.fail();
         }
+        Assert.assertEquals("sdfgdfgdfg", richTextDTO.getPreviewText());
         String output = null;
         try {
             output = new ObjectMapper().writeValueAsString(richTextDTO);

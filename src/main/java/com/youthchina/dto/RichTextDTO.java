@@ -18,7 +18,19 @@ public class RichTextDTO {
     private String previewText;
     private List<String> resourceIdList;
 
-    public void RichTextDTO() {
+    public RichTextDTO() {
+
+    }
+
+    public RichTextDTO(String json) {
+        try {
+            RichTextDTO processed = new ObjectMapper().readValue(json, RichTextDTO.class);
+            this.braftEditorRaw = processed.braftEditorRaw;
+            this.previewText = processed.previewText;
+            this.resourceList = processed.resourceList;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setBraftEditorRaw(String braftEditorRaw) {
@@ -35,11 +47,22 @@ public class RichTextDTO {
         }
     }
 
+    @Override
+    public String toString() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @JsonGetter("braftEditorRaw")
     public HashMap<String, Object> getJson() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return new ObjectMapper().readValue(this.braftEditorRaw, new TypeReference<HashMap<String,Object>>() {});
+            return new ObjectMapper().readValue(this.braftEditorRaw, new TypeReference<HashMap<String, Object>>() {
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
