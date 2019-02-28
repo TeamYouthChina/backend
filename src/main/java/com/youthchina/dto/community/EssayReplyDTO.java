@@ -4,12 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssayReply;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
+import com.youthchina.dto.UserDTO;
 import com.youthchina.service.zhongyang.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class EssayReplyDTO {
     private Integer id;
-    private User creator;
+    private UserDTO creator;
     private RichTextDTO body;
     private String create_at;
     private boolean is_anonymous;
@@ -49,11 +50,11 @@ public class EssayReplyDTO {
         this.id = id;
     }
 
-    public User getCreator() {
+    public UserDTO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserDTO creator) {
         this.creator = creator;
     }
 

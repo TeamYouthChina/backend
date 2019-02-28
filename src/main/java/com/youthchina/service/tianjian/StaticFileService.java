@@ -71,7 +71,8 @@ public class StaticFileService {
     public URL getFileUrl(String fileId, String location) {
         switch (location) {
             case "China": {
-                return getFileStorageService(AliCloudFileStorageService.class.getSimpleName()).downloadFile(fileId);
+                ComMediaDocument comMediaDocument = fileSystemMapper.getFileInfo(fileId);
+                return getFileStorageService(AliCloudFileStorageService.class.getSimpleName()).downloadFile(comMediaDocument.getDocu_server_ali_id());
             }
             case "US": {
                 return getFileStorageService("AWSFileStorageService").downloadFile(fileId);

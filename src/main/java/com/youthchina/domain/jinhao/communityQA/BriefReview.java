@@ -41,7 +41,7 @@ public class BriefReview {
             System.out.println("Exception");
         }
 
-        this.user = briefReviewDTO.getAuthor();
+        this.user = new User(briefReviewDTO.getAuthor());
         Iterator it = briefReviewDTO.getComments().iterator();
         while(it.hasNext()){
             CommentDTO commentDTO = (CommentDTO) it.next();
@@ -115,4 +115,6 @@ public class BriefReview {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
+
 }
