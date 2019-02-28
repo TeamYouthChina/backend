@@ -46,6 +46,8 @@ public class ResumeJson {
             case 2 : json_2 = list.get(1);
             case 1 : json_1 = list.get(0);
         }
+        //Test
+        System.out.println("ResumeRequestDTO to ResumeJson" + list);
     }
 
 
