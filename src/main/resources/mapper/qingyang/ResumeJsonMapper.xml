@@ -7,8 +7,20 @@
     <select id="selectResumeJson" resultMap="ResumeJson" parameterType="java.lang.Integer">
         SELECT *
         FROM STU_RESUME_JSON
-        WHERE RESUME_ID = #{id}
+        WHERE RESUME_ID = #{id} AND IS_DELETE=0
     </select>
+    <insert id="insertResumeJson" parameterType="com.youthchina.domain.Qinghong.ResumeJson" useGeneratedKeys="true" keyProperty="resume_id">
+        INSERT INTO STU_RESUME_JSON
+        (JSON_COUNT,JSON_1,JSON_2,JSON_3,JSON_4,JSON_5,JSON_6,JSON_7,JSON_8,JSON_9,JSON_10,CREATE_TIME,IS_DELETE,IS_DELETE_TIME)
+        VALUES
+        (#{json_count},#{json_2},#{json_3},#{json_4},#{json_5},#{json_6},#{json_7},#{json_8},#{json_9},#{json_10},#{create_time},0,NULL)
+    </insert>
+    <update id="deleteResumeJson" parameterType="java.lang.Integer">
+        UPDATE STU_RESUME_JSON SET
+        IS_DELETE=1,IS_DELETE_TIME=NOW()
+        WHERE RESUME_ID=#{resume_id}
+
+    </update>
 
 
 
