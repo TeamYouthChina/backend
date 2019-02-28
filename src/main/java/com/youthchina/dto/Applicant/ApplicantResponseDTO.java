@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.dto.ContactDTO;
+import com.youthchina.dto.OrganizationDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class ApplicantResponseDTO {
     private String name;
     private String avatarUrl;
     private Boolean isInJob;
-    private String currentCompanyName;
+    private OrganizationDTO currentCompany;
     private List<String> skills;
     private List<EducationResponseDTO> educations;
     private ContactDTO contacts;
@@ -40,7 +41,7 @@ public class ApplicantResponseDTO {
         this.name = student.getUsername();
         this.avatarUrl=student.getAvatarUrl();
         this.isInJob=student.getIsInJob();
-        this.currentCompanyName=student.getCurrentCompanyName();
+        this.currentCompany=null;
         this.skills=new ArrayList<>();
         for(LabelInfo labelInfo:student.getLabelInfos()){
             String label_chn=labelInfo.getLabel_chn();
@@ -115,12 +116,13 @@ public class ApplicantResponseDTO {
         this.contacts = contacts;
     }
 
-    public String getCurrentCompanyName() {
-        return currentCompanyName;
+
+    public OrganizationDTO getCurrentCompany() {
+        return currentCompany;
     }
 
-    public void setCurrentCompanyName(String currentCompanyName) {
-        this.currentCompanyName = currentCompanyName;
+    public void setCurrentCompany(OrganizationDTO currentCompany) {
+        this.currentCompany = currentCompany;
     }
 
     public List<String> getSkills() {

@@ -54,19 +54,9 @@ public class CompanyRecommendControllerTest {
     }
 
     @Test
-    public void getRecommandPopCompanyTest() throws Exception {
+    public void getRecommandCompanyTest() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/discovery/companies/pop")
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":{\"users\":[{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},{\"id\":2,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},{\"id\":3,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":4,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":5,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":6,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},{\"id\":7,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},{\"id\":8,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":9,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":10,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
-    }
-
-    @Test
-    public void getRecommandNewCompanyTest() throws Exception {
-        this.mvc.perform(
-                get(this.urlPrefix + "/discovery/companies/new")
+                get(this.urlPrefix + "/discovery/companies")
                         .with(authGenerator.authentication())
         )
                 .andDo(print())

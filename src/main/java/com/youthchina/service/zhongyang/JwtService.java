@@ -10,13 +10,14 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by zhongyangwu on 11/11/18.
  */
 @Service
 public interface JwtService {
-    void addAuthentication(HttpServletResponse response, User user);
+    void addAuthentication(HttpServletResponse response, User user) throws IOException;
 
     Authentication getAuthentication(HttpServletRequest servletRequest) throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException;
 }
