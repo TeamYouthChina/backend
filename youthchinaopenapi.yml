@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.2.3
+  version: 1.2.5
   title: YouthChina
   license:
     name: MIT
@@ -2427,7 +2427,116 @@ paths:
                           $ref: '#/components/schemas/Job'
                   status:
                     $ref: '#/components/schemas/Status'
-
+                    
+  '/resumes':
+    post:
+      tags:
+        - Resume
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  jsons:
+                    type: array
+                    items:
+                      type: object
+  '/resumes/{id}':
+    get:
+      tags:
+        - Resume
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: resume id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  jsons:
+                    type: array
+                    items:
+                      type: object
+    delete:
+      tags:
+      - Resume
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '204':
+          description: deleted
+          
+  '/friends/{id}/apply':
+    post:
+      tags:
+        - Friends
+      parameters:
+        - name: id
+          description: other guy's id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reference_id:
+                    type: integer
+                  create_at:
+                    type: string
+  '/friends/applications/{id}':
+    get:
+      tags:
+        - Friends
+      parameters:
+        - name: id
+          description: application id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  create_at:
+                    type: string
+      
 components:
   schemas:
     ContentRequest:
