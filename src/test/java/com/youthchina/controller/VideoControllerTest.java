@@ -171,5 +171,16 @@ public class VideoControllerTest {
                 .andDo(print())
                 .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
+    @Test
+    public void testUserAttentions() throws Exception{
+        this.mvc.perform(
+                get
+                        (this.urlPrefix + "/users/1/attentions").param("type","Video")
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+    }
 
 }

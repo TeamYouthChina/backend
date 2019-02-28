@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dto.RichTextDTO;
-import com.youthchina.dto.community.RequestQuestionDTO;
+import com.youthchina.dto.community.QuestionDTO;
 import com.youthchina.dto.community.RequestSimpleAnswerDTO;
+import com.youthchina.dto.community.RequestQuestionDTO;
+import com.youthchina.dto.community.SimpleAnswerDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Assert;
 import org.junit.Before;
@@ -301,5 +303,17 @@ public class QuestionControllerTest {
         )
                 .andDo(print());
 //                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":null,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qweertyuiop\",\"resourceIdList\":null},\"isAnonymous\":true,\"creatAt\":null},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+    }
+
+    @Test
+    public void testUserAttentions() throws Exception{
+        this.mvc.perform(
+                get
+                        (this.urlPrefix + "/users/1/attentions").param("type","Question")
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
     }
 }
