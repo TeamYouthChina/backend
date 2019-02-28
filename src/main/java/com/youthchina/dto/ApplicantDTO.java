@@ -19,7 +19,7 @@ public class ApplicantDTO {
     private String name;
     private String avatarUrl;
     private Boolean isInJob;
-    private String currentCompanyName;
+    private Integer currentCompanyId;
     private List<EducationDTO> educations;
     private ContactDTO contacts;
     private List<String> skills;
@@ -35,7 +35,6 @@ public class ApplicantDTO {
         this.name = student.getUsername();
         this.avatarUrl = student.getAvatarUrl();
         this.isInJob = student.getIsInJob();
-        this.currentCompanyName = student.getCurrentCompanyName();
         this.educations = new ArrayList<>(student.getEducationInfos().size());
         for (EducationInfo educationInfo : student.getEducationInfos()) {
             this.educations.add(new EducationDTO(educationInfo));
@@ -128,12 +127,12 @@ public class ApplicantDTO {
     }
 
 
-    public String getCurrentCompanyName() {
-        return currentCompanyName;
+    public Integer getCurrentCompanyId() {
+        return currentCompanyId;
     }
 
-    public void setCurrentCompanyName(String currentCompanyName) {
-        this.currentCompanyName = currentCompanyName;
+    public void setCurrentCompanyId(Integer currentCompanyId) {
+        this.currentCompanyId = currentCompanyId;
     }
 
     public List<String> getSkills() {
