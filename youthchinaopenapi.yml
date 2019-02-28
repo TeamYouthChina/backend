@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.2.2
+  version: 1.2.3
   title: YouthChina
   license:
     name: MIT
@@ -1628,7 +1628,7 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/Applicant'
+                    $ref: '#/components/schemas/User'
                   status:
                     $ref: '#/components/schemas/Status'
   '/me':

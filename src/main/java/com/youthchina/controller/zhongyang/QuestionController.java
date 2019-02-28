@@ -94,9 +94,9 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @PutMapping("/{id}/**")
-    public ResponseEntity<?> updateQuestionInfo(@PathVariable Integer id, @RequestBody RequestQuestionDTO requestQuestionDTO) throws NotFoundException {
+    public ResponseEntity<?> updateQuestionInfo(@PathVariable Integer id, @RequestBody RequestQuestionDTO requestQuestionDTO,  @AuthenticationPrincipal User user) throws NotFoundException {
         Question question = new Question(requestQuestionDTO);
-
+        question.setQues_user(user);
         QuestionDTO questionDTO = new QuestionDTO(question);
         questionDTO.setId(id);
         return update(questionDTO);

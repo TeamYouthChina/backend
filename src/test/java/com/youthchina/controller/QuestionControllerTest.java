@@ -8,6 +8,7 @@ import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.community.RequestQuestionDTO;
 import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.util.AuthGenerator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,17 +71,17 @@ public class QuestionControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"answers\":[{\"id\":5,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第五个回答\",\"resourceList\":null},\"is_anonymous\":false,\"creator\":{\"id\":4,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"company_id\":null}]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":{\"answers\":[{\"id\":5,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"这是第五个回答\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"is_anonymous\":false,\"creator\":{\"id\":4,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"company_id\":null}]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
     public void searchQuestionsTest() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/questions").param("Company", "百度").param("Job", "")
+                get(this.urlPrefix + "/questions").param("Company", "").param("Job", "")
                         .with(authGenerator.authentication())
         )
-                .andDo(print());
-               // .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4000,\"reason\":\"not found questions\"}}", false));
+                .andDo(print())
+                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4000,\"reason\":\"not found questions\"}}", false));
     }
 
     @Test
@@ -90,7 +92,7 @@ public class QuestionControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"title\":\"第一个问题\",\"is_anonymous\":true,\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"answers\":[{\"id\":1,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第一个回答\",\"resourceList\":null},\"is_anonymous\":false,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"company_id\":null},{\"id\":2,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第二个回答\",\"resourceList\":null},\"is_anonymous\":false,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"company_id\":null},{\"id\":3,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第三个回答\",\"resourceList\":null},\"is_anonymous\":false,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"company_id\":null},{\"id\":4,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"这是第四个回答\",\"resourceList\":null},\"is_anonymous\":false,\"creator\":{\"id\":3,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"company_id\":null}],\"rela_type\":1,\"rela_id\":3,\"body\":{\"braftEditorRaw\":\"Abbreviation of the question 1 but42\",\"previewText\":\"Body of the question 1 but 42\",\"resourceList\":null}},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"title\":\"第一个问题\",\"is_anonymous\":true,\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"answers\":[{\"id\":1,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"这是第一个回答\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"is_anonymous\":false,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"company_id\":null},{\"id\":2,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"这是第二个回答\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"is_anonymous\":false,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"company_id\":null},{\"id\":3,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"这是第三个回答\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"is_anonymous\":false,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"company_id\":null},{\"id\":4,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"这是第四个回答\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"is_anonymous\":false,\"creator\":{\"id\":3,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"company_id\":null}],\"rela_type\":1,\"rela_id\":3,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"Body of the question 1 but42\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"Abbreviation of the question 1 but 42\",\"resourceIdList\":[]}},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
@@ -98,8 +100,33 @@ public class QuestionControllerTest {
         RequestQuestionDTO requestQuestionDTO = new RequestQuestionDTO();
         requestQuestionDTO.setTitle("Question No.100");
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("Body of the question No.100");
-        richTextDTO.setBraftEditorRaw("Abbreviation of the question No.100");
+        //language=JSON
+        String json = "{\n" +
+                "  \"braftEditorRaw\":{\n" +
+                "    \"blocks\": [\n" +
+                "      {\n" +
+                "        \"key\":\"dtj4a\",\n" +
+                "        \"text\":\"Body of the question No.100\",\n" +
+                "        \"type\":\"unstyled\",\n" +
+                "        \"depth\":0,\n" +
+                "        \"inlineStyleRanges\": [],\n" +
+                "        \"entityRanges\": [],\n" +
+                "        \"data\":{\n" +
+                "        }\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"entityMap\":{\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"previewText\":\"Abbreviation of the question No.100\",\n" +
+                "  \"resourceIdList\": []\n" +
+                "}";
+        try {
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            System.out.println(richTextDTO);
+        } catch (IOException e) {
+            Assert.fail();
+        }
         requestQuestionDTO.setBody(richTextDTO);
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
         requestQuestionDTO.setRela_type(2);
@@ -122,8 +149,33 @@ public class QuestionControllerTest {
         RequestQuestionDTO requestQuestionDTO = new RequestQuestionDTO();
         requestQuestionDTO.setTitle("How to learn JAVA");
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("Body of the question No.100");
-        richTextDTO.setBraftEditorRaw("Abbreviation of the question No.100");
+        //language=JSON
+        String json = "{\n" +
+                "  \"braftEditorRaw\":{\n" +
+                "    \"blocks\": [\n" +
+                "      {\n" +
+                "        \"key\":\"dtj4a\",\n" +
+                "        \"text\":\"Body of the question No.100\",\n" +
+                "        \"type\":\"unstyled\",\n" +
+                "        \"depth\":0,\n" +
+                "        \"inlineStyleRanges\": [],\n" +
+                "        \"entityRanges\": [],\n" +
+                "        \"data\":{\n" +
+                "        }\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"entityMap\":{\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"previewText\":\"Abbreviation of the question No.100\",\n" +
+                "  \"resourceIdList\": []\n" +
+                "}";
+        try {
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            System.out.println(richTextDTO);
+        } catch (IOException e) {
+            Assert.fail();
+        }
         requestQuestionDTO.setBody(richTextDTO);
         requestQuestionDTO.setIs_anonymous(true);
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
@@ -139,7 +191,13 @@ public class QuestionControllerTest {
         )
                 .andDo(print());
 //                .andExpect(content().json("{\"content\":{\"searchResult\":[{\"jobId\":1,\"jobName\":\"front\",\"jobProfCode\":\"A\",\"jobStartTime\":\"2019-01-01\",\"jobEndTime\":\"2020-01-01\",\"jobType\":1,\"jobDescription\":\"996\",\"jobDuty\":\"front\",\"jobHighlight\":\"50K\",\"jobSalaryFloor\":5000,\"jobSalaryCap\":6000,\"jobLink\":\"job.com\",\"cvReceiMail\":\"youth@china\",\"cvNameRule\":\"nameRule\",\"jobActive\":1,\"jobLocationList\":[{\"region_num\":1,\"region_chn\":\"北京\",\"region_eng\":\"Beijing\",\"region_level\":1,\"region_parent_num\":1,\"start_time\":\"2019-01-01T11:11:22.000+0000\",\"is_delete\":null,\"is_delete_time\":null,\"jobId\":1}],\"jobReqList\":[{\"degreeNum\":1,\"degreeChn\":\"本科\",\"degreeEng\":\"Bachelor\",\"startDate\":\"2019-01-01T11:11:22.000+0000\",\"jobId\":1},{\"degreeNum\":2,\"degreeChn\":\"硕士\",\"degreeEng\":\"Master\",\"startDate\":\"2019-01-02T11:11:22.000+0000\",\"jobId\":1}],\"industries\":[{\"indNum\":1,\"indCode\":\"A\",\"indChn\":\"工\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"A3\",\"startTime\":\"2018-10-11T11:11:22.000+0000\",\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":null,\"jobId\":1},{\"indNum\":2,\"indCode\":\"B\",\"indChn\":\"农\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"B3\",\"startTime\":\"2018-10-11T11:11:22.000+0000\",\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":null,\"jobId\":1}],\"profession\":{\"profNum\":1,\"profCode\":\"A\",\"profParentCode\":\"A\",\"profChn\":\"前端\",\"profEng\":\"frontEnd\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"isDelete\":null,\"isDeleteTime\":null,\"company\":{\"companyId\":1,\"companyName\":\"大疆\",\"companyCode\":\"2\",\"companyIntroduc\":\"无人机\",\"companyNature\":{\"natureNum\":1,\"natureChn\":\"国企\",\"natureEng\":\"public\",\"natureDetail\":\"good\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"companyScale\":{\"scaleNum\":1,\"scaleChn\":\"大\",\"scaleEng\":\"big\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"location\":{\"region_num\":1,\"region_chn\":\"北京\",\"region_eng\":\"Beijing\",\"region_level\":1,\"region_parent_num\":1,\"start_time\":\"2019-01-01T11:11:22.000+0000\",\"is_delete\":null,\"is_delete_time\":null,\"jobId\":null},\"country\":null,\"companyMail\":\"dji@com\",\"companyWebsite\":\"dji.com\",\"companyStartDate\":\"2005-11-20\",\"companyLogo\":\"1\",\"companyVerify\":1,\"userId\":null,\"isDelete\":null,\"isDeleteTime\":null,\"jobs\":null,\"indList\":[{\"indNum\":1,\"indCode\":\"A\",\"indChn\":\"工\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"A3\",\"startTime\":null,\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":1,\"jobId\":null},{\"indNum\":2,\"indCode\":\"B\",\"indChn\":\"农\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"B3\",\"startTime\":null,\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":1,\"jobId\":null}],\"verificationList\":[]},\"hr\":{\"hrId\":1,\"companyId\":1,\"hrOnJob\":1,\"userId\":null,\"isDelete\":null,\"isDeleteTime\":null},\"id\":1}],\"status\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+        this.mvc.perform(
+                get(this.urlPrefix + "/questions/2").param("Id", "2")
+                        .with(authGenerator.authentication())
 
+        )
+                .andDo(print());
+                //.andExpect(content().json("{\"content\":{\"id\":2,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":null,\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"title\":\"How to learn JAVA\",\"body\":\"I don't know\",\"createAt\":\"2018-12-05T13:32:40.000+0000\",\"editAt\":\"2019-02-14T16:50:27.000+0000\",\"answers\":null,\"invitation\":null,\"labelIds\":null,\"rela_type\":3,\"rela_id\":null,\"abbreviation\":\"Abbreviation of the question No.100\",\"anonymous\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
 
     }
 
@@ -201,7 +259,33 @@ public class QuestionControllerTest {
         RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
         simpleAnswerDTO.setIs_anonymous(true);
         RichTextDTO richTextDTO = new RichTextDTO();
-        richTextDTO.setPreviewText("qweertyuiop");
+        //language=JSON
+        String json = "{\n" +
+                "  \"braftEditorRaw\":{\n" +
+                "    \"blocks\": [\n" +
+                "      {\n" +
+                "        \"key\":\"dtj4a\",\n" +
+                "        \"text\":\"qweertyuiop\",\n" +
+                "        \"type\":\"unstyled\",\n" +
+                "        \"depth\":0,\n" +
+                "        \"inlineStyleRanges\": [],\n" +
+                "        \"entityRanges\": [],\n" +
+                "        \"data\":{\n" +
+                "        }\n" +
+                "      }\n" +
+                "    ],\n" +
+                "    \"entityMap\":{\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"previewText\":null,\n" +
+                "  \"resourceIdList\": []\n" +
+                "}";
+        try {
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            System.out.println(richTextDTO);
+        } catch (IOException e) {
+            Assert.fail();
+        }
         simpleAnswerDTO.setBody(richTextDTO);
 
 
@@ -215,6 +299,18 @@ public class QuestionControllerTest {
                         .content(searchJson)
         )
                 .andDo(print());
-//                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":null,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qweertyuiop\",\"resourceList\":null},\"isAnonymous\":true,\"creatAt\":null},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+//                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":null,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qweertyuiop\",\"resourceIdList\":null},\"isAnonymous\":true,\"creatAt\":null},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+    }
+
+    @Test
+    public void testUserAttentions() throws Exception{
+        this.mvc.perform(
+                get
+                        (this.urlPrefix + "/users/1/attentions").param("type","Question")
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
     }
 }
