@@ -2,16 +2,17 @@ package com.youthchina.dto.community;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
-import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
+import com.youthchina.dto.UserDTO;
+
 public class SimpleAnswerDTO {
     private RichTextDTO body;
     private boolean is_anonymous;
-    private User creator;
+    private UserDTO creator;
     private String modified_at;
     private String create_at;
-    private String company_id;
-    private QuestionDTO question;
+    private QuestionBasicDTO question;
+    private Integer id;
 
     public SimpleAnswerDTO(){}
 
@@ -23,11 +24,12 @@ public class SimpleAnswerDTO {
         }catch (Exception e){
             System.out.println("Exception");
         }
+        this.id = questionAnswer.getAnswer_id();
         this.is_anonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
-        this.creator = questionAnswer.getAnswer_user();
+        this.creator = new UserDTO(questionAnswer.getAnswer_user());
         this.modified_at = questionAnswer.getAnswer_edit_time().toString();
         this.create_at =questionAnswer.getAnswer_pub_time().toString();
-        this.question = new QuestionDTO(questionAnswer.getQuestion());
+        this.question = new QuestionBasicDTO(questionAnswer.getQuestion());
     }
 
     public RichTextDTO getBody() {
@@ -46,11 +48,11 @@ public class SimpleAnswerDTO {
         this.is_anonymous = is_anonymous;
     }
 
-    public User getCreator() {
+    public UserDTO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserDTO creator) {
         this.creator = creator;
     }
 
@@ -70,19 +72,19 @@ public class SimpleAnswerDTO {
         this.create_at = create_at;
     }
 
-    public String getCompany_id() {
-        return company_id;
-    }
-
-    public void setCompany_id(String company_id) {
-        this.company_id = company_id;
-    }
-
-    public QuestionDTO getQuestion() {
+    public QuestionBasicDTO getQuestion() {
         return question;
     }
 
-    public void setQuestion(QuestionDTO question) {
+    public void setQuestion(QuestionBasicDTO question) {
         this.question = question;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

@@ -32,7 +32,7 @@ public class Question implements HasId<Integer> {
 
     public Question(QuestionDTO questionDTO){
         this.ques_id = questionDTO.getId();
-        this.ques_user = questionDTO.getCreator();
+        this.ques_user = new User(questionDTO.getCreator());
         this.ques_title = questionDTO.getTitle();
         try{
             ObjectMapper mapper = new ObjectMapper();

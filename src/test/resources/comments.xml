@@ -1,17 +1,92 @@
 <dataset>
-    <COM_ANSWER_COMMENT comment_id="1" comment_content="你这也回答的太好了吧！1" user_id="1" user_anony="0"
+    <COM_ANSWER_COMMENT comment_id="1" comment_content="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;good answer1&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }" user_id="1" user_anony="0"
                         comment_pub_time="2018-12-04 13:32:40" comment_edit_time="2018-12-04 13:32:40"
                         is_delete="0" is_delete_time="2018-12-04 13:32:40"/>
-    <COM_ANSWER_COMMENT comment_id="2" comment_content="你这也回答的太好了吧！2" user_id="1" user_anony="0"
+    <COM_ANSWER_COMMENT comment_id="2" comment_content="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;good answer2&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }" user_id="1" user_anony="0"
                         comment_pub_time="2018-12-04 13:32:40" comment_edit_time="2018-12-04 13:32:40"
                         is_delete="0" is_delete_time="2018-12-04 13:32:40"/>
-    <COM_ANSWER_COMMENT comment_id="3" comment_content="你这也回答的太好了吧！3" user_id="1" user_anony="0"
+    <COM_ANSWER_COMMENT comment_id="3" comment_content="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;good answer3&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }" user_id="1" user_anony="0"
                         comment_pub_time="2018-12-04 13:32:40" comment_edit_time="2018-12-04 13:32:40"
                         is_delete="0" is_delete_time="2018-12-04 13:32:40"/>
-    <COM_ANSWER_COMMENT comment_id="4" comment_content="你这也回答的太好了吧！4" user_id="1" user_anony="0"
+    <COM_ANSWER_COMMENT comment_id="4" comment_content="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;good answer4&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }" user_id="1" user_anony="0"
                         comment_pub_time="2018-12-04 13:32:40" comment_edit_time="2018-12-04 13:32:40"
                         is_delete="0" is_delete_time="2018-12-04 13:32:40"/>
-    <COM_ANSWER_COMMENT comment_id="5" comment_content="你这也回答的太好了吧！5" user_id="1" user_anony="0"
+    <COM_ANSWER_COMMENT comment_id="5" comment_content="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;good answer5&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }" user_id="1" user_anony="0"
                         comment_pub_time="2018-12-04 13:32:40" comment_edit_time="2018-12-04 13:32:40"
                         is_delete="0" is_delete_time="2018-12-04 13:32:40"/>
     <COM_ANSWER_COMMENT_MAP COMMENT_ID="1" COMMENT_LEVEL="1" ANSWER_ID="1"/>
