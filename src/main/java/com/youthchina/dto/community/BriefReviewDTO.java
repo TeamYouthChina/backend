@@ -5,6 +5,7 @@ import com.youthchina.domain.jinhao.communityQA.BriefReview;
 import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
+import com.youthchina.dto.UserDTO;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,7 +16,7 @@ public class BriefReviewDTO {
     private Integer id;
     private RichTextDTO body;
     private List<CommentDTO> comments = new ArrayList<CommentDTO>();
-    private User author;
+    private UserDTO author;
 
 
     public BriefReviewDTO (BriefReview briefReview){
@@ -62,11 +63,11 @@ public class BriefReviewDTO {
         this.comments = comments;
     }
 
-    public User getAuthor() {
+    public UserDTO getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(UserDTO author) {
         this.author = author;
     }
 }

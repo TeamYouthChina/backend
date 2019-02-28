@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
+import com.youthchina.dto.UserDTO;
 
 /**
  * Created by xiaoyiwang on 2/24/19.
@@ -13,7 +14,7 @@ public class AnswerBasicDTO {
     private Integer id;
     private RichTextDTO body;
     private boolean is_anonymous;
-    private User creator;
+    private UserDTO creator;
     private String modified_at;
     private String create_at;
 
@@ -28,7 +29,7 @@ public class AnswerBasicDTO {
             System.out.println("Exception");
         }
         this.is_anonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
-        this.creator = questionAnswer.getAnswer_user();
+        this.creator = new UserDTO(questionAnswer.getAnswer_user());
         this.modified_at = questionAnswer.getAnswer_edit_time().toString();
         this.create_at =questionAnswer.getAnswer_pub_time().toString();
         this.id = questionAnswer.getAnswer_id();
@@ -54,11 +55,11 @@ public class AnswerBasicDTO {
         this.is_anonymous = is_anonymous;
     }
 
-    public User getCreator() {
+    public UserDTO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserDTO creator) {
         this.creator = creator;
     }
 
