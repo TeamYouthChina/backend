@@ -16,6 +16,12 @@
         WHERE
              t.UPLOAD_USER_ID = #{upload_user_id} and <![CDATA[ datediff(t.CREATE_TIME,#{startTime}) > 0  and datediff(t.CREATE_TIME,#{endTime}) < 0 ]]>
     </select>
+    <select id="getFileInfo" resultType="com.youthchina.domain.tianjian.ComMediaDocument">
+        SELECT t.*
+        FROM COM_MEDIA_DOCUMENT t
+        WHERE
+             t.DOCU_LOCAL_ID = #{local_id}
+    </select>
 
 
 </mapper>

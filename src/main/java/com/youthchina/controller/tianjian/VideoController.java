@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.HashMap;
 
@@ -27,14 +28,17 @@ public class VideoController {
     CommunityQAServiceImplement communityQAServiceImplement;
 
     @Autowired
-    UserServiceImpl userService;
-
     private StaticFileService fileService;
+
+    @Autowired
+    UserServiceImpl userService;
 
     @GetMapping("/{id}")
     public ResponseEntity getVideo(@PathVariable Integer id) throws NotFoundException {
           Video video = communityQAServiceImplement.getVideo(id);
+          URL s = fileService.getFileUrl(video.getVideo_name(),"China");
           VideoDTO videoDTO = new VideoDTO(video);
+          videoDTO.setUrl(s.toString());
           return ResponseEntity.ok(new Response(videoDTO, new StatusDTO(200,"success")));
     }
 
