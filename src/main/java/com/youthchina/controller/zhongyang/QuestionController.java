@@ -64,12 +64,26 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         if(company != ""){
             List<Question> qlists=  communityQAService.searchQuestionByTitleOrCompanyName(company);
             if(qlists.size() != 0){
-                return ResponseEntity.ok(new Response(qlists));
+                List<QuestionDTO> qdlist2 = new ArrayList<>();
+                for(int i = 0; i<qlists.size(); i++){
+                    QuestionDTO questionDTO = DomainToDto(qlists.get(i));
+                    qdlist2.add(questionDTO);
+                }
+                HashMap<String,Object> map3 = new HashMap<>();
+                map3.put("questions", qdlist2);
+                return ResponseEntity.ok(new Response(map3));
             }
         }else if(job != ""){
             List<Question> qlists2=  communityQAService.searchQuestionByTitleOrCompanyName(job);
             if (qlists2.size() != 0){
-                return ResponseEntity.ok(new Response(qlists2));
+                List<QuestionDTO> qdlist = new ArrayList<>();
+                for(int i = 0; i<qlists2.size(); i++){
+                    QuestionDTO questionDTO = DomainToDto(qlists2.get(i));
+                    qdlist.add(questionDTO);
+                }
+                HashMap<String,Object> map3 = new HashMap<>();
+                map3.put("questions", qdlist);
+                return ResponseEntity.ok(new Response(map3));
             }
         }
         throw new NotFoundException(4000,404,"not found questions");
@@ -163,7 +177,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         questionAnswer.setAnswer_pub_time(new Timestamp(System.currentTimeMillis()));
         questionAnswer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
 
-        RequestSimpleAnswerDTO returnSimpleAnswer = new RequestSimpleAnswerDTO(communityQAService.addAnswer(questionAnswer,id,1));
+        SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(communityQAService.addAnswer(questionAnswer,id,1));
         if (returnSimpleAnswer!=null)
             return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
         else
