@@ -238,5 +238,10 @@
         and
         t1.GROUP_ID = t2.GROUP_ID
     </select>
+    <select id="getAllEssayUserAttention" resultType="com.youthchina.domain.tianjian.ComEssay">
+        select t1.*
+        from COM_ESSAY t1, COM_ESSAY_ATTENTION t2, COM_ESSAY_ATTENTION_MAP t3
+        where t1.ESSAY_ID = t3.ESSAY_ID and t3.ATTEN_ID = t2.ATTEN_ID and t2.USER_ID = #{user_id}
+    </select>
 
 </mapper>

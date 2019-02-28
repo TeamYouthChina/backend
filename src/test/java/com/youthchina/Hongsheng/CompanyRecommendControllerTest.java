@@ -18,6 +18,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -29,9 +30,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:recommendation.xml"})
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @WebAppConfiguration
+@Transactional
 public class CompanyRecommendControllerTest {
     @Autowired
     private WebApplicationContext context;
@@ -58,7 +60,7 @@ public class CompanyRecommendControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"users\":[{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\",\"status\":null},{\"id\":2,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\",\"status\":null},{\"id\":3,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\",\"status\":null},{\"id\":4,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\",\"status\":null},{\"id\":5,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\",\"status\":null},{\"id\":6,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\",\"status\":null},{\"id\":7,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\",\"status\":null},{\"id\":8,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\",\"status\":null},{\"id\":9,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\",\"status\":null},{\"id\":10,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\",\"status\":null}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"users\":[{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},{\"id\":2,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},{\"id\":3,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":4,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":5,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":6,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},{\"id\":7,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},{\"id\":8,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":9,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":10,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
     @Test
@@ -68,6 +70,6 @@ public class CompanyRecommendControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"users\":[{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\",\"status\":null},{\"id\":2,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\",\"status\":null},{\"id\":3,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\",\"status\":null},{\"id\":4,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\",\"status\":null},{\"id\":5,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\",\"status\":null},{\"id\":6,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\",\"status\":null},{\"id\":7,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\",\"status\":null},{\"id\":8,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\",\"status\":null},{\"id\":9,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\",\"status\":null},{\"id\":10,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\",\"status\":null}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"users\":[{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},{\"id\":2,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},{\"id\":3,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":4,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":5,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":6,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},{\"id\":7,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},{\"id\":8,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":9,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":10,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 }

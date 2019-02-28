@@ -26,8 +26,19 @@
             <result property="comment_content" column="COMMENT_CONTENT"/>
             <result property="user_anony" column="USER_ANONY"/>
             <result property="comment_pub_time" column="COMMENT_PUB_TIME"/>
-            <association property="user" javaType="com.youthchina.domain.zhongyang.User"
-                         resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
+            <association property="user" javaType="com.youthchina.domain.zhongyang.User">
+                <id property="id" column="USER_ID"/>
+                <result property="username" column="USER_NAME"/>
+                <result property="email" column="USER_MAIL"/>
+                <result property="phonenumber" column="USER_PHONE"/>
+                <result property="registerDate" column="USER_REGIST_TIME"/>
+                <result property="realName" column="USER_REAL_NAME"/>
+                <result property="gender" column="USER_GENDER"/>
+                <result property="nation" column="USER_NATION"/>
+                <result property="avatarUrl" column="USER_PHOTO"/>
+                <result property="role" column="ROLE_TYPE"/>
+                <result property="age" column="USER_AGE"/>
+            </association>
         </collection>
     </resultMap>
 <resultMap id="questionInfo" type="com.youthchina.domain.jinhao.communityQA.Question">
@@ -59,8 +70,19 @@
         <result property="user_anony" column="USER_ANONY"/>
         <result property="answer_pub_time" column="ANSWER_PUB_TIME"/>
         <result property="answer_edit_time" column="ANSWER_EDIT_TIME"/>
-        <association property="answer_user" javaType="com.youthchina.domain.zhongyang.User"
-                     resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
+        <association property="answer_user" javaType="com.youthchina.domain.zhongyang.User">
+            <id property="id" column="USER_ID"/>
+            <result property="username" column="USER_NAME"/>
+            <result property="email" column="USER_MAIL"/>
+            <result property="phonenumber" column="USER_PHONE"/>
+            <result property="registerDate" column="USER_REGIST_TIME"/>
+            <result property="realName" column="USER_REAL_NAME"/>
+            <result property="gender" column="USER_GENDER"/>
+            <result property="nation" column="USER_NATION"/>
+            <result property="avatarUrl" column="USER_PHOTO"/>
+            <result property="role" column="ROLE_TYPE"/>
+            <result property="age" column="USER_AGE"/>
+        </association>
     </collection>
 </resultMap>
 
@@ -126,11 +148,11 @@
         newu.USER_ID as NEW_USER_ID, newu.USER_NAME as NEW_USERNAME, newu.USER_MAIL as NEW_EMAIL
         ,newu.USER_PHONE as NEW_PHONENUMBER, newu.USER_REGIST_TIME as NEW_REGISTERDATE
         ,newu.USER_REAL_NAME as NEW_REALNAME, newu.USER_GENDER as NEW_GENDER, newu.USER_NATION as NEW_NATION,
-        newu.ROLE_ID as NEW_ROLE, newu.USER_AGE as NEW_AGE
+        newu.ROLE_ID as NEW_ROLE, newu.USER_AGE as NEW_AGE, newu.USER_PHOTO as NEW_AVATARURL
     </sql>
     <sql id="user">
         u.USER_ID,u.USER_NAME,u.USER_MAIL,u.USER_PHONE,u.USER_REGIST_TIME,u.USER_REAL_NAME,
-        u.USER_GENDER,u.USER_NATION,u.ROLE_ID as ROLE_TYPE,u.USER_AGE
+        u.USER_GENDER,u.USER_NATION,u.ROLE_ID as ROLE_TYPE,u.USER_AGE, u.USER_PHOTO
     </sql>
     <sql id="question">
         q.QUES_ID, q.QUES_TITLE, q.QUES_ABBRE, q.QUES_BODY, q.QUES_PUB_TIME, q.QUES_EDIT_TIME,q.USER_ANONY as QUES_USERANONY
@@ -138,6 +160,30 @@
     <sql id="answer">
         a.ANSWER_ID,a.ANSWER_CONTENT,a.USER_ANONY,a.ANSWER_PUB_TIME,a.ANSWER_EDIT_TIME,a.USER_ID as ANSWER_USER_ID
     </sql>
+
+    <!--拿到用户关注的问题-->
+    <select id="listMyAttenQuestion" parameterType="java.lang.Integer"
+            resultType="java.lang.Integer">
+        select q.QUES_ID
+        from COM_QUESTION_ATTENTION_MAP m, COM_QUESTION_ATTENTION qa, COM_QUESTION q
+        where qa.user_id=#{user_id}
+        and qa.atten_id = m.atten_id
+        and qa.atten_cancel = 0
+        and q.ques_id = m.ques_id
+        and q.is_delete = 0
+    </select>
+
+    <select id="getAllUserAttenVideos" parameterType="java.lang.Integer"
+           resultType="java.lang.Integer">
+        select v.VIDEO_ID
+        from (COM_USER_VIDEO v, COM_VIDEO_ATTENTION a, COM_VIDEO_ATTENTION_MAP m)
+        where a.USER_ID=#{user_id}
+        and a.ATTEN_ID = m.ATTEN_ID
+        and a.ATTEN_CANCEL=0
+        and v.VIDEO_ID = m.VIDEO_ID
+        and v.IS_DELETE=0
+    </select>
+
     <select id="getQuestionById" resultMap="questionInfo" parameterType="java.lang.Integer">
         select <include refid="question"/>,
                <include refid="newUser"/>,
@@ -785,16 +831,6 @@
         order by a.ques_edit_time desc
     </select>
 
-    <!--拿到用户关注的问题-->
-    <select id="listMyAttenQuestion" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.jinhao.communityQA.Question">
-        select q.* from COM_QUESTION_ATTENTION_MAP m, COM_QUESTION_ATTENTION a, COM_QUESTION q
-        where a.user_id=#{user_id}
-        and a.atten_id = m.atten_id
-        and a.atten_cancel = 0
-        and q.ques_id = m.ques_id
-        and q.is_delete = 0
-    </select>
 
     <!--拿到用户做过的回答-->
     <select id="listMyAnswer" parameterType="java.lang.Integer"

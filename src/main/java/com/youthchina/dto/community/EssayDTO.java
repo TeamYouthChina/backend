@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.CompanyDTO;
+import com.youthchina.dto.CompanyResponseDTO;
 import com.youthchina.dto.RichTextDTO;
 
 import java.sql.Timestamp;
@@ -11,7 +13,7 @@ import java.sql.Timestamp;
 public class EssayDTO {
     private Integer id;
     private String title;
-    private Company company;
+    private CompanyResponseDTO company;
     private Timestamp create_at;
     private Timestamp modified_at;
     private User author;
@@ -56,11 +58,11 @@ public class EssayDTO {
         this.title = title;
     }
 
-    public Company getCompany() {
+    public CompanyResponseDTO getCompany() {
         return company;
     }
 
-    public void setCompany(Company company) {
+    public void setCompany(CompanyResponseDTO company) {
         this.company = company;
     }
 

@@ -11,65 +11,25 @@ import java.util.List;
  */
 public class JobSearchDTO implements SearchDTO {
     private List<String> industry;
-    private List<String> tagList;
+    private List<String> tags;
     private int page;
     private int size;
     private String key;
 
-    private Integer jobId;
+    private Integer id;
     private String jobName;
     private Integer comId;
     private String comName;
-    //private Date startTime;
-    //private Date endTime;
-    private Integer type;
+    private DurationDTO duration;
+    private Integer jobType;
     private Integer salaryFloor;
     private Integer salaryCap;
-    private Integer active;
-    private String location;
-    private List<Degree> jobReqList;
+    private Integer activate;
+    //private String location;
+    //private List<Degree> jobReqList;
     private List<Industry> industryList;
     private DurationDTO durationDTO;
-    private LocationDTO locationDTO;
-
-    public DurationDTO getDurationDTO(){ return durationDTO;}
-    public void setDurationDTO(DurationDTO durationDTO){ this.durationDTO = durationDTO;}
-
-    public LocationDTO getLocationDTO(){ return locationDTO;}
-    public void setLocationDTO(LocationDTO locationDTO){ this.locationDTO = locationDTO;}
-
-    public Integer getJobId(){return jobId;}
-    public void setJobId(Integer jobId){this.jobId = jobId;}
-
-    public String getJobName(){return jobName;}
-    public void setJobName(String jobName){this.jobName=jobName;}
-
-    public Integer getComId(){return comId;}
-    public void setComId(Integer comId){this.comId=comId;}
-
-    public String getComName(){return comName;}
-    public void setComName(String comName){this.comName = comName;}
-
-    public Integer getType(){return type;}
-    public void setType(Integer type){this.type = type;}
-
-    public Integer getSalaryFloor(){return salaryFloor;}
-    public void setSalaryFloor(Integer salaryFloor){this.salaryFloor = salaryFloor;}
-
-    public Integer getSalaryCap(){return salaryCap;}
-    public void setSalaryCap(Integer salaryCap){this.salaryCap = salaryCap;}
-
-    public Integer getActive(){return active;}
-    public void setActive(Integer active){this.active = active;}
-
-    public String getLocation(){return location;}
-    public void setLocation(String location){this.location = location;}
-
-    public List<Degree> getJobReqList(){return jobReqList;}
-    public void setJobReqList(List<Degree> jobReqList){this.jobReqList = jobReqList;}
-
-    public List<Industry> getIndustryList(){return industryList;}
-    public void setIndustryList(List<Industry> industryList){this.industryList = industryList;}
+    private LocationDTO location;
 
     public List<String> getIndustry() {
         return industry;
@@ -79,12 +39,116 @@ public class JobSearchDTO implements SearchDTO {
         this.industry = industry;
     }
 
-    public List<String> getTagList() {
-        return tagList;
+    public List<String> getTags() {
+        return tags;
     }
 
-    public void setTagList(List<String> tagList) {
-        this.tagList = tagList;
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getJobName() {
+        return jobName;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
+    }
+
+    public Integer getComId() {
+        return comId;
+    }
+
+    public void setComId(Integer comId) {
+        this.comId = comId;
+    }
+
+    public String getComName() {
+        return comName;
+    }
+
+    public void setComName(String comName) {
+        this.comName = comName;
+    }
+
+    public DurationDTO getDuration() {
+        return duration;
+    }
+
+    public void setDuration(DurationDTO duration) {
+        this.duration = duration;
+    }
+
+    public Integer getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(Integer jobType) {
+        this.jobType = jobType;
+    }
+
+    public Integer getSalaryFloor() {
+        return salaryFloor;
+    }
+
+    public void setSalaryFloor(Integer salaryFloor) {
+        this.salaryFloor = salaryFloor;
+    }
+
+    public Integer getSalaryCap() {
+        return salaryCap;
+    }
+
+    public void setSalaryCap(Integer salaryCap) {
+        this.salaryCap = salaryCap;
+    }
+
+    public Integer getActivate() {
+        return activate;
+    }
+
+    public void setActivate(Integer activate) {
+        this.activate = activate;
+    }
+
+    public List<Industry> getIndustryList() {
+        return industryList;
+    }
+
+    public void setIndustryList(List<Industry> industryList) {
+        this.industryList = industryList;
+    }
+
+    public DurationDTO getDurationDTO() {
+        return durationDTO;
+    }
+
+    public void setDurationDTO(DurationDTO durationDTO) {
+        this.durationDTO = durationDTO;
+    }
+
+    public LocationDTO getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationDTO location) {
+        this.location = location;
     }
 
     @Override

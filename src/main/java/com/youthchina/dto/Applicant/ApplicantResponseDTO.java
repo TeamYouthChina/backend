@@ -3,6 +3,7 @@ package com.youthchina.dto.Applicant;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.youthchina.domain.Qinghong.*;
+import com.youthchina.dto.ContactDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,12 +20,13 @@ public class ApplicantResponseDTO {
     private Integer id;
     private String name;
     private String avatarUrl;
-    private String isInJob;
+    private Boolean isInJob;
     private String currentCompanyName;
-    private List<String> labels;
+    private List<String> skills;
     private List<EducationResponseDTO> educations;
-    private List<String> emails;
-    private List<String> phonenumbers;
+    private ContactDTO contacts;
+//    private List<String> emails;
+//    private List<String> phonenumbers;
     private List<WorkResponseDTO> experiences;
     private List<ProjectResponseDTO> projects;
     private List<ExtracurricularResponseDTO> extracurriculars;
@@ -39,19 +41,21 @@ public class ApplicantResponseDTO {
         this.avatarUrl=student.getAvatarUrl();
         this.isInJob=student.getIsInJob();
         this.currentCompanyName=student.getCurrentCompanyName();
-        this.labels=new ArrayList<>();
+        this.skills=new ArrayList<>();
         for(LabelInfo labelInfo:student.getLabelInfos()){
             String label_chn=labelInfo.getLabel_chn();
-            this.labels.add(label_chn);
+            this.skills.add(label_chn);
         }
         this.educations = new ArrayList<>(student.getEducationInfos().size());
         for (EducationInfo educationInfo : student.getEducationInfos()) {
             this.educations.add(new EducationResponseDTO(educationInfo));
         }
-        this.emails = new ArrayList<>();
-        this.emails.add(student.getEmail());
-        this.phonenumbers = new ArrayList<>();
-        this.phonenumbers.add(student.getPhonenumber());
+        //contactDTO添加
+        this.contacts=new ContactDTO(student.getEmail(),student.getPhonenumber());
+//        this.emails = new ArrayList<>();
+//        this.emails.add(student.getEmail());
+//        this.phonenumbers = new ArrayList<>();
+//        this.phonenumbers.add(student.getPhonenumber());
         this.experiences = new ArrayList<>(student.getWorks().size());
         for (Work work : student.getWorks()) {
             this.experiences.add(new WorkResponseDTO(work));
@@ -95,12 +99,20 @@ public class ApplicantResponseDTO {
         this.avatarUrl = avatarUrl;
     }
 
-    public String getIsInJob() {
+    public Boolean getIsInJob() {
         return isInJob;
     }
 
-    public void setIsInJob(String isInJob) {
-        this.isInJob = isInJob;
+    public void setIsInJob(Boolean inJob) {
+        isInJob = inJob;
+    }
+
+    public ContactDTO getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(ContactDTO contacts) {
+        this.contacts = contacts;
     }
 
     public String getCurrentCompanyName() {
@@ -111,12 +123,12 @@ public class ApplicantResponseDTO {
         this.currentCompanyName = currentCompanyName;
     }
 
-    public List<String> getLabels() {
-        return labels;
+    public List<String> getSkills() {
+        return skills;
     }
 
-    public void setLabels(List<String> labels) {
-        this.labels = labels;
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
     }
 
     public List<EducationResponseDTO> getEducations() {
@@ -127,21 +139,21 @@ public class ApplicantResponseDTO {
         this.educations = educations;
     }
 
-    public List<String> getEmails() {
-        return emails;
-    }
-
-    public void setEmails(List<String> emails) {
-        this.emails = emails;
-    }
-
-    public List<String> getPhonenumbers() {
-        return phonenumbers;
-    }
-
-    public void setPhonenumbers(List<String> phonenumbers) {
-        this.phonenumbers = phonenumbers;
-    }
+//    public List<String> getEmails() {
+//        return emails;
+//    }
+//
+//    public void setEmails(List<String> emails) {
+//        this.emails = emails;
+//    }
+//
+//    public List<String> getPhonenumbers() {
+//        return phonenumbers;
+//    }
+//
+//    public void setPhonenumbers(List<String> phonenumbers) {
+//        this.phonenumbers = phonenumbers;
+//    }
 
     public List<WorkResponseDTO> getExperiences() {
         return experiences;
@@ -175,18 +187,5 @@ public class ApplicantResponseDTO {
         this.certificates = certificates;
     }
 
-    @JsonGetter("contacts")
-    public Map<String, List<String>> getContact() {
-        HashMap<String, List<String>> map = new HashMap<>();
-        map.put("emails", this.emails);
-        map.put("phonenumbers", this.phonenumbers);
-        return map;
-    }
 
-    @JsonSetter("contacts")
-    @SuppressWarnings("unchecked")
-    public void setContact(Map<String, Object> map) {
-        this.emails = (List) map.get("emails");
-        this.phonenumbers = (List) map.get("phonenumbers");
-    }
 }

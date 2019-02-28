@@ -4,14 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.domain.Qinghong.Certificate;
-import com.youthchina.domain.Qinghong.EducationInfo;
-import com.youthchina.domain.Qinghong.JobApply;
-import com.youthchina.domain.Qinghong.JobCollect;
-import com.youthchina.domain.jinhao.communityQA.Label;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.dto.*;
-import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +29,6 @@ import java.util.List;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 
 
@@ -65,6 +58,13 @@ public class ApplicantControllerTest {
     public void setup() {
         this.mvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
     }
+    /**
+    * @Description: 获取申请者的所有信息
+    * @Param: []
+    * @return: void
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/27
+    */
 
     @Test
     public void testGet() throws Exception {
@@ -78,6 +78,14 @@ public class ApplicantControllerTest {
         ;
     }
 
+    /**
+    * @Description: 全部添加申请者的所有信息
+    * @Param: []
+    * @return: void
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/27
+    */
+
     @Test
     public void testAdd() throws Exception{
         ApplicantDTO student=new ApplicantDTO();
@@ -86,7 +94,7 @@ public class ApplicantControllerTest {
         locationDTO.setLocation_code("920001");
         student.setName("qinghong wang");
         student.setAvatarUrl("www.baidu.com");
-        student.setIsInJob("是");
+        student.setIsInJob(true);
         student.setCurrentCompanyName("YouthChina");
         //skill设置
         List<String> s=new ArrayList<>();
@@ -111,8 +119,11 @@ public class ApplicantControllerTest {
         List<String> phonenumbers=new ArrayList<>();
         emails.add("wangqinghong@gwu.edu");
         phonenumbers.add("5712188082");
-        student.setEmails(emails);
-        student.setPhonenumbers(phonenumbers);
+        ContactDTO contactDTO=new ContactDTO();
+        contactDTO.setEmails(emails);
+        contactDTO.setPhonenumbers(phonenumbers);
+
+        student.setContacts(contactDTO);
         //工作信息
         //缺少地点
         List<WorkDTO> workDTOS=new ArrayList<>();
@@ -230,17 +241,17 @@ public class ApplicantControllerTest {
         ;
     }
 
-    @Test
-    public void testGetJobCollects() throws Exception{
-        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/jobCollects",1).param("id", "2").with(authGenerator.authentication()))
-                .andDo(print());
-    }
-
-    @Test
-    public void testGetCompCollects() throws Exception{
-        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/companyCollects",1).param("id", "2").with(authGenerator.authentication()))
-                .andDo(print());
-    }
+//    @Test
+//    public void testGetJobCollects() throws Exception{
+//        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/jobCollects",1).param("id", "2").with(authGenerator.authentication()))
+//                .andDo(print());
+//    }
+//
+//    @Test
+//    public void testGetCompCollects() throws Exception{
+//        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/companyCollects",1).param("id", "2").with(authGenerator.authentication()))
+//                .andDo(print());
+//    }
 
     @Test
     public void testDeleteJobCollect() throws Exception{
@@ -250,7 +261,7 @@ public class ApplicantControllerTest {
     @Test
     public void testDeleteCompCollect() throws Exception{
         this.mvc.perform
-                (delete(this.urlPrefix + "/companies/collections/3")
+                (delete(this.urlPrefix + "/companies/collections/1")
                         .with(authGenerator.authentication()))
                 .andDo(print());
     }
@@ -278,9 +289,17 @@ public class ApplicantControllerTest {
 
     @Test
     public void testAddJobApply() throws Exception{
-        this.mvc.perform(post(this.urlPrefix + "/jobs/1/apply").with(authGenerator.authentication()))
+        this.mvc.perform(post(this.urlPrefix + "/jobs/3/apply").with(authGenerator.authentication()))
                 .andDo(print());
     }
+
+    /**
+    * @Description: 通过职位id添加职位收藏
+    * @Param: []
+    * @return: void
+    * @Author: Qinghong Wang
+    * @Date: 2019/2/27
+    */
 
     @Test
     public void testAddJobCollect() throws Exception{
@@ -293,29 +312,191 @@ public class ApplicantControllerTest {
     @Test
     public void testAddCompCollect() throws Exception{
         this.mvc.perform
-                (put(this.urlPrefix + "/companies/3/attention")
+                (put(this.urlPrefix + "/companies/2/attention")
                         .with(authGenerator.authentication()))
                 .andDo(print());
     }
 
+//    @Test
+//    public void testInsertEducation() throws Exception{
+//        EducationDTO educationDTO=new EducationDTO();
+//        LocationDTO locationDTO=new LocationDTO();
+//        locationDTO.setNation_code("USA");
+//        locationDTO.setLocation_code("920001");
+//        educationDTO.setUniversity("gwu");
+//        educationDTO.setMajor("cs");
+//        Degree degree=new Degree();
+//        educationDTO.setDegree("1");
+//        long begin=1111111;
+//        long end=2222222;
+//        DurationDTO durationDTO=new DurationDTO(begin,end);
+//        educationDTO.setDuration(durationDTO);
+//        educationDTO.setLocation(locationDTO);
+//        ObjectMapper mapper = new ObjectMapper();
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//        java.lang.String requestJson = ow.writeValueAsString(educationDTO);
+//        System.out.print(requestJson);
+//        this.mvc.perform(
+//                post
+//                        (this.urlPrefix + "/applicants/1/educations").contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .content(requestJson)
+//
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//        ;
+//
+//    }
+//
+//    @Test
+//    public void testInsertWorks() throws Exception{
+//        LocationDTO locationDTO=new LocationDTO();
+//        locationDTO.setNation_code("USA");
+//        locationDTO.setLocation_code("920001");
+//        List<WorkDTO> workDTOS=new ArrayList<>();
+//        WorkDTO workDTO=new WorkDTO();
+//        workDTO.setEmployer("google");
+//        workDTO.setPosition("backend");
+//        long begin=1111111;
+//        long end=2222222;
+//        DurationDTO durationDTO=new DurationDTO(begin,end);
+//        workDTO.setDuration(durationDTO);
+//        workDTO.setLocation(locationDTO);
+//        workDTOS.add(workDTO);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//        java.lang.String requestJson = ow.writeValueAsString(workDTO);
+//        System.out.print(requestJson);
+//        this.mvc.perform(
+//                post
+//                        (this.urlPrefix + "/applicants/1/experiences").contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .content(requestJson)
+//
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//        ;
+//
+//    }
+//
+//    @Test
+//    public void testInsertProjects() throws Exception{
+//        LocationDTO locationDTO=new LocationDTO();
+//        locationDTO.setNation_code("USA");
+//        locationDTO.setLocation_code("920001");
+//        long begin=1111111;
+//        long end=2222222;
+//        DurationDTO durationDTO=new DurationDTO(begin,end);
+//        ProjectDTO projectDTO=new ProjectDTO();
+//        projectDTO.setName("create website");
+//        projectDTO.setRole("design web");
+//        projectDTO.setDuration(durationDTO);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//        java.lang.String requestJson = ow.writeValueAsString(projectDTO);
+//        System.out.print(requestJson);
+//        this.mvc.perform(
+//                post
+//                        (this.urlPrefix + "/applicants/1/projects").contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .content(requestJson)
+//
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//        ;
+//
+//    }
+//
+//    @Test
+//    public void testInsertExtracurriculars() throws Exception{
+//        LocationDTO locationDTO=new LocationDTO();
+//        locationDTO.setNation_code("USA");
+//        locationDTO.setLocation_code("920001");
+//        long begin=1111111;
+//        long end=2222222;
+//        DurationDTO durationDTO=new DurationDTO(begin,end);
+//        ExtracurricularDTO extracurricularDTO=new ExtracurricularDTO();
+//        extracurricularDTO.setName("volunteer");
+//        extracurricularDTO.setRole("help students");
+//        extracurricularDTO.setOrganization("儿童基金");
+//        extracurricularDTO.setDuration(durationDTO);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//        java.lang.String requestJson = ow.writeValueAsString(extracurricularDTO);
+//        System.out.print(requestJson);
+//        this.mvc.perform(
+//                post
+//                        (this.urlPrefix + "/applicants/1/extracurriculars").contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .content(requestJson)
+//
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//        ;
+//
+//    }
+//
+//    @Test
+//    public void testInsertCertificates() throws Exception{
+//        LocationDTO locationDTO=new LocationDTO();
+//        locationDTO.setNation_code("USA");
+//        locationDTO.setLocation_code("920001");
+//        long begin=1111111;
+//        long end=2222222;
+//        DurationDTO durationDTO=new DurationDTO(begin,end);
+//        CertificateDTO certificateDTO=new CertificateDTO();
+//        certificateDTO.setName("计算机证书");
+//        certificateDTO.setAuthority("教育部");
+//        certificateDTO.setDuration(durationDTO);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//        java.lang.String requestJson = ow.writeValueAsString(certificateDTO);
+//        System.out.print(requestJson);
+//        this.mvc.perform(
+//                post
+//                        (this.urlPrefix + "/applicants/1/certificates").contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .content(requestJson)
+//
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//        ;
+//
+//    }
     @Test
-    public void testInsertEducation() throws Exception{
+    public void testSaveEducations() throws Exception{
+        List<EducationDTO> educationDTOS=new ArrayList<>();
         EducationDTO educationDTO=new EducationDTO();
+        EducationDTO educationDTO1=new EducationDTO();
+        educationDTO1.setUniversity("UCI");
+        educationDTO1.setMajor("Engineer");
+        educationDTO1.setDegree("1");
+
+
         LocationDTO locationDTO=new LocationDTO();
         locationDTO.setNation_code("USA");
         locationDTO.setLocation_code("920001");
-        educationDTO.setUniversity("gwu");
-        educationDTO.setMajor("cs");
-        Degree degree=new Degree();
+        educationDTO.setUniversity("UCI");
+        educationDTO.setMajor("Engineer");
         educationDTO.setDegree("1");
         long begin=1111111;
         long end=2222222;
+
         DurationDTO durationDTO=new DurationDTO(begin,end);
         educationDTO.setDuration(durationDTO);
         educationDTO.setLocation(locationDTO);
+        educationDTO1.setDuration(durationDTO);
+        educationDTO1.setLocation(locationDTO);
+        educationDTOS.add(educationDTO);
+        educationDTOS.add(educationDTO1);
+
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(educationDTO);
+        java.lang.String requestJson = ow.writeValueAsString(educationDTOS);
         System.out.print(requestJson);
         this.mvc.perform(
                 post
@@ -328,13 +509,12 @@ public class ApplicantControllerTest {
         ;
 
     }
-
     @Test
-    public void testInsertWorks() throws Exception{
+    public void testSaveWorks() throws Exception{
+        List<WorkDTO> workDTOS=new ArrayList<>();
         LocationDTO locationDTO=new LocationDTO();
         locationDTO.setNation_code("USA");
         locationDTO.setLocation_code("920001");
-        List<WorkDTO> workDTOS=new ArrayList<>();
         WorkDTO workDTO=new WorkDTO();
         workDTO.setEmployer("google");
         workDTO.setPosition("backend");
@@ -347,11 +527,11 @@ public class ApplicantControllerTest {
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(workDTO);
+        java.lang.String requestJson = ow.writeValueAsString(workDTOS);
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/1/experiences").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/1/works").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication())
@@ -360,9 +540,9 @@ public class ApplicantControllerTest {
         ;
 
     }
-
     @Test
-    public void testInsertProjects() throws Exception{
+    public void testSaveProjects() throws Exception{
+        List<ProjectDTO> projectDTOS=new ArrayList<>();
         LocationDTO locationDTO=new LocationDTO();
         locationDTO.setNation_code("USA");
         locationDTO.setLocation_code("920001");
@@ -373,10 +553,11 @@ public class ApplicantControllerTest {
         projectDTO.setName("create website");
         projectDTO.setRole("design web");
         projectDTO.setDuration(durationDTO);
+        projectDTOS.add(projectDTO);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(projectDTO);
+        java.lang.String requestJson = ow.writeValueAsString(projectDTOS);
         System.out.print(requestJson);
         this.mvc.perform(
                 post
@@ -391,7 +572,8 @@ public class ApplicantControllerTest {
     }
 
     @Test
-    public void testInsertExtracurriculars() throws Exception{
+    public void testSaveExtracurriculars() throws Exception{
+        List<ExtracurricularDTO> extracurricularDTOS=new ArrayList<>();
         LocationDTO locationDTO=new LocationDTO();
         locationDTO.setNation_code("USA");
         locationDTO.setLocation_code("920001");
@@ -403,10 +585,11 @@ public class ApplicantControllerTest {
         extracurricularDTO.setRole("help students");
         extracurricularDTO.setOrganization("儿童基金");
         extracurricularDTO.setDuration(durationDTO);
+        extracurricularDTOS.add(extracurricularDTO);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(extracurricularDTO);
+        java.lang.String requestJson = ow.writeValueAsString(extracurricularDTOS);
         System.out.print(requestJson);
         this.mvc.perform(
                 post
@@ -419,9 +602,9 @@ public class ApplicantControllerTest {
         ;
 
     }
-
     @Test
-    public void testInsertCertificates() throws Exception{
+    public void testSaveCertificates() throws Exception{
+        List<CertificateDTO> certificateDTOS=new ArrayList<>();
         LocationDTO locationDTO=new LocationDTO();
         locationDTO.setNation_code("USA");
         locationDTO.setLocation_code("920001");
@@ -432,10 +615,11 @@ public class ApplicantControllerTest {
         certificateDTO.setName("计算机证书");
         certificateDTO.setAuthority("教育部");
         certificateDTO.setDuration(durationDTO);
+        certificateDTOS.add(certificateDTO);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(certificateDTO);
+        java.lang.String requestJson = ow.writeValueAsString(certificateDTOS);
         System.out.print(requestJson);
         this.mvc.perform(
                 post
@@ -448,6 +632,183 @@ public class ApplicantControllerTest {
         ;
 
     }
+    @Test
+    public void testUpdateEducations() throws Exception{
+        List<EducationDTO> educationDTOS=new ArrayList<>();
+        EducationDTO educationDTO=new EducationDTO();
+        EducationDTO educationDTO1=new EducationDTO();
+        educationDTO1.setUniversity("UCI");
+        educationDTO1.setMajor("Engineer");
+        educationDTO1.setDegree("1");
+
+
+        LocationDTO locationDTO=new LocationDTO();
+        locationDTO.setNation_code("USA");
+        locationDTO.setLocation_code("920001");
+        educationDTO.setUniversity("UCI");
+        educationDTO.setMajor("Engineer");
+        educationDTO.setDegree("1");
+        long begin=1111111;
+        long end=2222222;
+        DurationDTO durationDTO=new DurationDTO(begin,end);
+        educationDTO.setDuration(durationDTO);
+        educationDTO.setLocation(locationDTO);
+        educationDTO1.setDuration(durationDTO);
+        educationDTO1.setLocation(locationDTO);
+        educationDTOS.add(educationDTO);
+        educationDTOS.add(educationDTO1);
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(educationDTOS);
+        System.out.print(requestJson);
+        this.mvc.perform(
+                put
+                        (this.urlPrefix + "/applicants/1/educations").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+
+    }
+    @Test
+    public void testUpdateWorks() throws Exception{
+        List<WorkDTO> workDTOS=new ArrayList<>();
+        LocationDTO locationDTO=new LocationDTO();
+        locationDTO.setNation_code("USA");
+        locationDTO.setLocation_code("920001");
+        WorkDTO workDTO=new WorkDTO();
+        workDTO.setEmployer("google");
+        workDTO.setPosition("backend");
+        long begin=1111111;
+        long end=2222222;
+        DurationDTO durationDTO=new DurationDTO(begin,end);
+        workDTO.setDuration(durationDTO);
+        workDTO.setLocation(locationDTO);
+        workDTOS.add(workDTO);
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(workDTOS);
+        System.out.print(requestJson);
+        this.mvc.perform(
+                put
+                        (this.urlPrefix + "/applicants/1/works").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+
+    }
+    @Test
+    public void testUpdateProjects() throws Exception{
+        List<ProjectDTO> projectDTOS=new ArrayList<>();
+        LocationDTO locationDTO=new LocationDTO();
+        locationDTO.setNation_code("USA");
+        locationDTO.setLocation_code("920001");
+        long begin=1111111;
+        long end=2222222;
+        DurationDTO durationDTO=new DurationDTO(begin,end);
+        ProjectDTO projectDTO=new ProjectDTO();
+        projectDTO.setName("create website");
+        projectDTO.setRole("design web");
+        projectDTO.setDuration(durationDTO);
+        projectDTOS.add(projectDTO);
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(projectDTOS);
+        System.out.print(requestJson);
+        this.mvc.perform(
+                put
+                        (this.urlPrefix + "/applicants/1/projects").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+
+    }
+
+    @Test
+    public void testUpdateExtracurriculars() throws Exception{
+        List<ExtracurricularDTO> extracurricularDTOS=new ArrayList<>();
+        LocationDTO locationDTO=new LocationDTO();
+        locationDTO.setNation_code("USA");
+        locationDTO.setLocation_code("920001");
+        long begin=1111111;
+        long end=2222222;
+        DurationDTO durationDTO=new DurationDTO(begin,end);
+        ExtracurricularDTO extracurricularDTO=new ExtracurricularDTO();
+        extracurricularDTO.setName("volunteer");
+        extracurricularDTO.setRole("help students");
+        extracurricularDTO.setOrganization("儿童基金");
+        extracurricularDTO.setDuration(durationDTO);
+        extracurricularDTOS.add(extracurricularDTO);
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(extracurricularDTOS);
+        System.out.print(requestJson);
+        this.mvc.perform(
+                put
+                        (this.urlPrefix + "/applicants/1/extracurriculars").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+
+    }
+    @Test
+    public void testUpdateCertificates() throws Exception{
+        List<CertificateDTO> certificateDTOS=new ArrayList<>();
+        LocationDTO locationDTO=new LocationDTO();
+        locationDTO.setNation_code("USA");
+        locationDTO.setLocation_code("920001");
+        long begin=1111111;
+        long end=2222222;
+        DurationDTO durationDTO=new DurationDTO(begin,end);
+        CertificateDTO certificateDTO=new CertificateDTO();
+        certificateDTO.setName("计算机证书");
+        certificateDTO.setAuthority("教育部");
+        certificateDTO.setDuration(durationDTO);
+        certificateDTOS.add(certificateDTO);
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(certificateDTOS);
+        System.out.print(requestJson);
+        this.mvc.perform(
+                put
+                        (this.urlPrefix + "/applicants/1/certificates").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+
+    }
+
+    @Test
+    public void testUserAttentions() throws Exception{
+        this.mvc.perform(
+                get
+                        (this.urlPrefix + "/users/1/attentions").param("type","Job")
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+    }
+
 
 
 

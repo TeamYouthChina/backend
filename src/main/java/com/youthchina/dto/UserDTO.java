@@ -1,5 +1,6 @@
 package com.youthchina.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.youthchina.domain.zhongyang.User;
 
@@ -12,11 +13,11 @@ public class UserDTO {
     private String password;
     private String email;
     private String phonenumber;
-    private String registerDate;
-    private String realName;
+    private String register_date;
+    private String real_name;
     private String gender;
     private String nation;
-    private String avatarUrl;
+    private String avatar_url;
     private Integer role;
     private Integer age;
 
@@ -30,11 +31,11 @@ public class UserDTO {
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
-        this.registerDate = user.getRegisterDate();
-        this.realName = user.getRealName();
+        this.register_date = user.getRegisterDate();
+        this.real_name = user.getRealName();
         this.gender = user.getGender();
         this.nation = user.getNation();
-        this.avatarUrl = user.getAvatarUrl();
+        this.avatar_url = user.getAvatarUrl();
         this.role = user.getRole();
         this.age = user.getAge();
     }
@@ -55,7 +56,7 @@ public class UserDTO {
         this.username = username;
     }
 
-    @JsonSetter
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -80,20 +81,28 @@ public class UserDTO {
         this.phonenumber = phonenumber;
     }
 
-    public String getRegisterDate() {
-        return registerDate;
+    public String getRegister_date() {
+        return register_date;
     }
 
-    public void setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
+    public void setRegister_date(String register_date) {
+        this.register_date = register_date;
     }
 
-    public String getRealName() {
-        return realName;
+    public String getReal_name() {
+        return real_name;
     }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
+    public void setReal_name(String real_name) {
+        this.real_name = real_name;
+    }
+
+    public String getAvatar_url() {
+        return avatar_url;
+    }
+
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
     }
 
     public String getGender() {
@@ -112,13 +121,6 @@ public class UserDTO {
         this.nation = nation;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
 
     public Integer getRole() {
         return role;

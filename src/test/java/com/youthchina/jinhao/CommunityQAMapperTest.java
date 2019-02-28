@@ -687,7 +687,7 @@ public class CommunityQAMapperTest {
     @Test
     public void getVideoComment() {
         VideoComment videoComment = communityQAMapper.getVideoComment(1);
-        Assert.assertEquals("{                                 \"braftEditorRaw\":\"\",                                 \"previewText\":\"Body of the comment 1 \",                                 \"resourceList\":null                             }", videoComment.getComment_content());
+        Assert.assertEquals("{     \"braftEditorRaw\" : {     \"entityMap\" : { },     \"blocks\" : [ {     \"key\" : \"dtj4a\",     \"text\" : \"Body of the comment 1\",     \"type\" : \"unstyled\",     \"depth\" : 0,     \"inlineStyleRanges\" : [ ],     \"entityRanges\" : [ ],     \"data\" : { }     } ]     },     \"previewText\" : null,     \"resourceIdList\" : [ ]     }", videoComment.getComment_content());
     }
 
     //测试能不能添加评论
@@ -957,5 +957,16 @@ public class CommunityQAMapperTest {
 //            }
 //        }
 //    }
+    @Test
+    public void getMyAttentionQuestion(){
+        List<Integer> ids = communityQAMapper.listMyAttenQuestion(1);
+        Assert.assertEquals(2,ids.size());
+    }
+
+    @Test
+    public void getMyAttentionVideo(){
+        List<Integer> ids = communityQAMapper.getAllUserAttenVideos(1);
+        Assert.assertEquals(2,ids.size());
+    }
 }
 

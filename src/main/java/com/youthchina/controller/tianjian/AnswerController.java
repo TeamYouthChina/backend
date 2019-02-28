@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.HTMLDocument;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -62,7 +61,7 @@ public class AnswerController {
     @PostMapping("/{id}/comments")
     public ResponseEntity addAnswerComment(@PathVariable Integer id, @RequestBody RequestCommentDTO requestCommentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Comment comment = new Comment();
-        comment.setComment_content(requestCommentDTO.getBody().getPreviewText());
+        comment.setComment_content(requestCommentDTO.getBody().toString());
         comment.setIs_delete(0);
         comment.setUser_id(user.getId());
         Timestamp time = new Timestamp(System.currentTimeMillis());
@@ -71,11 +70,8 @@ public class AnswerController {
            comment.setUser_anony(0);
         else
            comment.setUser_anony(1);
-        Integer i = communityQAServiceImplement.addCommentToAnswer(id, comment,1);
-        if(i==1)
-            return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
-        else
-            return  ResponseEntity.ok(new Response( new StatusDTO(400,"fail")));
+        communityQAServiceImplement.addCommentToAnswer(id, comment,1);
+        return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 
     @GetMapping("/{id}/comments")
