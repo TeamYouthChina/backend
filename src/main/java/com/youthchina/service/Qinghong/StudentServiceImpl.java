@@ -686,4 +686,15 @@ public class StudentServiceImpl implements StudentService {
             return certificates1;
         }
     }
+
+    @Override
+    public ResumeJson getResumeJson(Integer resume_id) throws NotFoundException {
+
+        return null;
+    }
+
+    @Override
+    public ResumeJson insertResumeJson(ResumeJson resumeJson) throws NotFoundException {
+        return null;
+    }
 }
