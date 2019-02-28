@@ -20,31 +20,14 @@ import java.util.List;
  * Created by hongshengzhang on 2/24/19.
  */
 @RestController
-@RequestMapping("${web.url.prefix}/discovery/companies")
+@RequestMapping("${web.url.prefix}/discovery")
 public class CompanyRecommendController {
     @Autowired
     public CompanyRecommendServiceImplement companyRecommendServiceImplement;
 
-    @GetMapping("/pop")
-    public ResponseEntity getRecommandPopCompany() throws NotFoundException {
+    @GetMapping("/companies")
+    public ResponseEntity getRecommandCompany() throws NotFoundException {
         List<Company> companyList = companyRecommendServiceImplement.getPopCompanyForYou();
-        List<CompanyResponseDTO> resultList = new ArrayList<>();
-        for(Company company : companyList) {
-            resultList.add(new CompanyResponseDTO(company));
-        }
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("users", resultList);
-
-        if (resultList!=null)
-            return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
-    }
-
-    @GetMapping("/new")
-    public ResponseEntity getRecommandNewCompany() throws NotFoundException {
-        List<Company> companyList = companyRecommendServiceImplement.getNewCompanyForYou();
         List<CompanyResponseDTO> resultList = new ArrayList<>();
         for(Company company : companyList) {
             resultList.add(new CompanyResponseDTO(company));
