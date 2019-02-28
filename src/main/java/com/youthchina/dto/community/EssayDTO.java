@@ -7,6 +7,7 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.CompanyDTO;
 import com.youthchina.dto.CompanyResponseDTO;
 import com.youthchina.dto.RichTextDTO;
+import com.youthchina.dto.UserDTO;
 
 import java.sql.Timestamp;
 
@@ -16,7 +17,7 @@ public class EssayDTO {
     private CompanyResponseDTO company;
     private Timestamp create_at;
     private Timestamp modified_at;
-    private User author;
+    private UserDTO author;
     private RichTextDTO body;
     private boolean is_anonymous;
 
@@ -82,11 +83,11 @@ public class EssayDTO {
         this.modified_at = modified_at;
     }
 
-    public User getAuthor() {
+    public UserDTO getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(UserDTO author) {
         this.author = author;
     }
 

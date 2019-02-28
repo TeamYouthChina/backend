@@ -3,7 +3,6 @@ package com.youthchina.domain.jinhao.communityQA;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
-
 import com.youthchina.dto.community.BriefReviewDTO;
 import com.youthchina.dto.community.CommentDTO;
 
@@ -42,7 +41,7 @@ public class BriefReview {
             System.out.println("Exception");
         }
 
-        this.user = briefReviewDTO.getAuthor();
+        this.user = new User(briefReviewDTO.getAuthor());
         Iterator it = briefReviewDTO.getComments().iterator();
         while(it.hasNext()){
             CommentDTO commentDTO = (CommentDTO) it.next();
@@ -116,4 +115,6 @@ public class BriefReview {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
+
 }

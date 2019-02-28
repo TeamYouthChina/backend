@@ -1,4 +1,4 @@
-package com.youthchina.Hongsheng;
+package com.youthchina.Qingyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -18,7 +18,6 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,15 +25,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 /**
- * Created by hongshengzhang on 2/26/19.
- */
+ * @author: Qingyang Zhao
+ * @create: 2019-02-27
+ **/
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@DatabaseSetup({"classpath:recommendation.xml"})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
+@DatabaseSetup({"classpath:company.xml"})
 @WebAppConfiguration
-@Transactional
-public class CompanyRecommendControllerTest {
+public class MeControllerTest {
+
     @Autowired
     private WebApplicationContext context;
 
@@ -54,12 +55,16 @@ public class CompanyRecommendControllerTest {
     }
 
     @Test
-    public void getRecommandCompanyTest() throws Exception {
+    public void testGetMe() throws Exception {
+        Integer id = 1;
         this.mvc.perform(
-                get(this.urlPrefix + "/discovery/companies")
+                get(this.urlPrefix + "/me/" )//.param("id", "1").param("detailLevel", "1")
                         .with(authGenerator.authentication())
+
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"users\":[{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},{\"id\":2,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},{\"id\":3,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":4,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":5,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":6,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},{\"id\":7,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},{\"id\":8,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":9,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":10,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":null,\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                //.andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+        ;
     }
 }
+
