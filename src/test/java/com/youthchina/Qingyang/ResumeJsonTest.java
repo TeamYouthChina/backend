@@ -41,6 +41,7 @@ public class ResumeJsonTest {
         ResumeJson resumeJson=new ResumeJson();
         resumeJson.setJson_1("1111");
         resumeJson.setJson_count(1);
+        resumeJson.setJson_count(1);
         Integer integer=resumeJsonMapper.insertResumeJson(resumeJson);
         System.out.print(integer);
 
