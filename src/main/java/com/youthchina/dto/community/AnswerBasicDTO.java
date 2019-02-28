@@ -16,7 +16,6 @@ public class AnswerBasicDTO {
     private User creator;
     private String modified_at;
     private String create_at;
-    private String company_id;
 
     public AnswerBasicDTO(){}
 
@@ -77,14 +76,6 @@ public class AnswerBasicDTO {
 
     public void setCreate_at(String create_at) {
         this.create_at = create_at;
-    }
-
-    public String getCompany_id() {
-        return company_id;
-    }
-
-    public void setCompany_id(String company_id) {
-        this.company_id = company_id;
     }
 
 }
