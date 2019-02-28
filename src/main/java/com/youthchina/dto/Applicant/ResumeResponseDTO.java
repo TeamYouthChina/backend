@@ -20,10 +20,19 @@ public class ResumeResponseDTO {
     }
 
     public ResumeResponseDTO(ResumeJson resumeJson) {
-        List<String> list=new ArrayList<>(resumeJson.getJson_count());
-
-
+        List<String> list=new ArrayList<>();
+        if(resumeJson.getJson_1() != null) list.add(resumeJson.getJson_1());
+        if(resumeJson.getJson_2() != null) list.add(resumeJson.getJson_2());
+        if(resumeJson.getJson_3() != null) list.add(resumeJson.getJson_3());
+        if(resumeJson.getJson_4() != null) list.add(resumeJson.getJson_4());
+        if(resumeJson.getJson_5() != null) list.add(resumeJson.getJson_5());
+        if(resumeJson.getJson_6() != null) list.add(resumeJson.getJson_6());
+        if(resumeJson.getJson_7() != null) list.add(resumeJson.getJson_7());
+        if(resumeJson.getJson_8() != null) list.add(resumeJson.getJson_8());
+        if(resumeJson.getJson_9() != null) list.add(resumeJson.getJson_9());
+        if(resumeJson.getJson_10() != null) list.add(resumeJson.getJson_10());
         this.id = resumeJson.getResume_id();
+        this.jsons = list;
     }
 
     public Integer getId() {

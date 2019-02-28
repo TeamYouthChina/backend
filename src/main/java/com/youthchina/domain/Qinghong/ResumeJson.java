@@ -1,5 +1,8 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.dto.Applicant.ResumeRequestDTO;
+import com.youthchina.dto.Applicant.ResumeResponseDTO;
+
 import java.sql.Timestamp;
 
 /**
@@ -25,6 +28,10 @@ public class ResumeJson {
     private Timestamp create_time;
 
     public ResumeJson() {
+    }
+
+    public ResumeJson(ResumeRequestDTO requestDTO) {
+
     }
 
 
