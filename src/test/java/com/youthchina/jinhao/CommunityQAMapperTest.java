@@ -277,7 +277,7 @@ public class CommunityQAMapperTest {
     @Test
     public void getComment() {
         Comment comment = communityQAMapper.getComment(1);
-        Assert.assertEquals("你这也回答的太好了吧！1", comment.getComment_content());
+        Assert.assertEquals("{     \"braftEditorRaw\" : {     \"entityMap\" : { },     \"blocks\" : [ {     \"key\" : \"dtj4a\",     \"text\" : \"\",     \"type\" : \"unstyled\",     \"depth\" : 0,     \"inlineStyleRanges\" : [ ],     \"entityRanges\" : [ ],     \"data\" : { }     } ]     },     \"previewText\" : \"good answer1\",     \"resourceIdList\" : [ ]     }", comment.getComment_content());
     }
 
     //测试能不能给回答添加评论

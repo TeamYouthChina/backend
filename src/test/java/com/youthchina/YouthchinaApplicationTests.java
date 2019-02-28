@@ -110,10 +110,5 @@ public class YouthchinaApplicationTests {
         List<ComEssay> list = essayService.getAllEssayUserAttention(1);
         System.out.println(list.size());
     }
-
-    @Test
-    public void testgetId(){
-        ComMediaDocument comMediaDocument = staticFileSystemMapper.getFileInfo("2856306669745344512");
-        System.out.println(comMediaDocument.getDocu_server_ali_id());
-    }
+    
 }
