@@ -31,6 +31,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:recommendation.xml"})
+@DatabaseSetup({"classpath:company.xml"})
+@DatabaseSetup({"classpath:location.xml"})
+@DatabaseSetup({"classpath:industry.xml"})
 @WebAppConfiguration
 public class CompanyRecommendControllerTest {
     @Autowired
