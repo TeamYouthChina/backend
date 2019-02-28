@@ -30,28 +30,28 @@ public class ResumeJsonTest {
     @Autowired
     private ResumeJsonMapper resumeJsonMapper;
 
-    @Test
-    public void testGetJson() {
-        ResumeJson resumeJson=resumeJsonMapper.selectResumeJson(1);
-        Assert.assertNotNull(resumeJson);
-        System.out.print(resumeJson.getJson_1());
-    }
-    @Test
-    public void insertJson(){
-        ResumeJson resumeJson=new ResumeJson();
-        resumeJson.setJson_1("1111");
-        resumeJson.setJson_count(1);
-        resumeJson.setJson_count(1);
-        Integer integer=resumeJsonMapper.insertResumeJson(resumeJson);
-        System.out.print(integer);
-
-    }
-    @Test
-    public void deleteJson(){
-        Integer integer=resumeJsonMapper.deleteResumeJson(1);
-        System.out.print(integer);
-
-    }
+//    @Test
+//    public void testGetJson() {
+//        ResumeJson resumeJson=resumeJsonMapper.selectResumeJson(1);
+//        Assert.assertNotNull(resumeJson);
+//        System.out.print(resumeJson.getJson_1());
+//    }
+//    @Test
+//    public void insertJson(){
+//        ResumeJson resumeJson=new ResumeJson();
+//        resumeJson.setJson_1("1111");
+//        resumeJson.setJson_count(1);
+//        resumeJson.setJson_count(1);
+//        Integer integer=resumeJsonMapper.insertResumeJson(resumeJson);
+//        System.out.print(integer);
+//
+//    }
+//    @Test
+//    public void deleteJson(){
+//        Integer integer=resumeJsonMapper.deleteResumeJson(1);
+//        System.out.print(integer);
+//
+//    }
 
 
 }
