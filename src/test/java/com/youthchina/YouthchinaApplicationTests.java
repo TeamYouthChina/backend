@@ -110,5 +110,5 @@ public class YouthchinaApplicationTests {
         List<ComEssay> list = essayService.getAllEssayUserAttention(1);
         System.out.println(list.size());
     }
-    
+
 }
