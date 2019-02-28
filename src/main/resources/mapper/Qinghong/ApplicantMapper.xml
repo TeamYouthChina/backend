@@ -339,14 +339,14 @@
         INSERT INTO STU_JOB_COLLECT
         (JOB_ID,JOB_COLL_TIME,STU_ID,IS_DELETE,IS_DELETE_TIME)
         VALUES
-        (#{job_id},NOW(),#{stu_id},#{is_delete},#{is_delete_time})
+        (#{job_id},NOW(),#{stu_id},0,NULL)
     </insert>
 
     <insert id="addCompCollect" parameterType="com.youthchina.domain.Qinghong.CompCollect" useGeneratedKeys="true" keyProperty="collect_id">
         INSERT INTO STU_COMP_COLLECT
         (COMPANY_ID,COMPANY_COLL_TIME,STU_ID,IS_DELETE,IS_DELETE_TIME)
         VALUES
-        (#{company_id},NOW(),#{stu_id},#{is_delete},#{is_delete_time})
+        (#{company_id},NOW(),#{stu_id},0,NULL)
     </insert>
 
 

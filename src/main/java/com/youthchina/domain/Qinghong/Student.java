@@ -49,8 +49,8 @@ public class Student extends User implements HasId<Integer> {
         }
         this.educationInfos=educationInfos;
         //目前联系人问题
-        this.setEmail(applicantDTO.getContactDTO().getEmails().get(0));
-        this.setPhonenumber(applicantDTO.getContactDTO().getPhonenumbers().get(0));
+        this.setEmail(applicantDTO.getContacts().getEmails().get(0));
+        this.setPhonenumber(applicantDTO.getContacts().getPhonenumbers().get(0));
         //对于职位的转化
         List<Work> works=new ArrayList<>();
         for(WorkDTO workDTO:applicantDTO.getExperiences()){

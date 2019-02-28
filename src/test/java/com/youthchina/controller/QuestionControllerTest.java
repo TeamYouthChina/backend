@@ -304,4 +304,16 @@ public class QuestionControllerTest {
                 .andDo(print());
 //                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":null,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qweertyuiop\",\"resourceIdList\":null},\"isAnonymous\":true,\"creatAt\":null},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
+
+    @Test
+    public void testUserAttentions() throws Exception{
+        this.mvc.perform(
+                get
+                        (this.urlPrefix + "/users/1/attentions").param("type","Question")
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+    }
 }
