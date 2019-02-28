@@ -95,7 +95,7 @@ public class ApplicantControllerTest {
         student.setName("qinghong wang");
         student.setAvatarUrl("www.baidu.com");
         student.setIsInJob(true);
-        student.setCurrentCompanyName("YouthChina");
+        student.setCurrentCompanyId(1);
         //skill设置
         List<String> s=new ArrayList<>();
         s.add("11");

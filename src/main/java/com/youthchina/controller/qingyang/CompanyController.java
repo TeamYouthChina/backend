@@ -94,7 +94,7 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
         Integer integer= studentService.addCompCollect(company_id,user.getId());
         if (integer == 1) {
             return ResponseEntity.ok(new Response
-                    (integer, new StatusDTO(201, "collect successful")));
+                    (integer));
         } else {
             return ResponseEntity.ok(new Response(integer, new StatusDTO(400,"cannot collect this company,maybe the company has already delete")));
 
@@ -114,7 +114,7 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
         Integer integer=studentService.deleteCompCollect(collect_id);
         if (integer == 1) {
             return ResponseEntity.ok(new Response
-                    (integer, new StatusDTO(201, "delete successful")));
+                    (integer));
         } else {
             return ResponseEntity.ok(new Response(integer, new StatusDTO(400,"cannot delete this company collection,maybe this collection has already delete")));
 
