@@ -24,6 +24,11 @@ public class ResumeJson {
 
     private Timestamp create_time;
 
+    public ResumeJson() {
+    }
+
+
+
     public Integer getResume_id() {
         return resume_id;
     }
