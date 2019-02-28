@@ -184,9 +184,7 @@ public class EssayController {
             }
         }
         ListResponse listResponse = new ListResponse(essayReplyDTOS,"comments");
-        if (essayReplyDTOS !=null)
-            return ResponseEntity.ok(new Response(listResponse, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(listResponse, new StatusDTO(400,"fail")));
+            return ResponseEntity.ok(listResponse);
+
     }
 }

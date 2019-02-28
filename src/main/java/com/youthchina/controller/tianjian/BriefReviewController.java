@@ -11,10 +11,7 @@ import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.StatusDTO;
 
 import com.youthchina.dto.UserDTO;
-import com.youthchina.dto.community.BriefReviewDTO;
-import com.youthchina.dto.community.CommentDTO;
-import com.youthchina.dto.community.RequestBriefReviewDTO;
-import com.youthchina.dto.community.RequestCommentDTO;
+import com.youthchina.dto.community.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.BriefReviewServiceImplement;
 import com.youthchina.service.zhongyang.UserServiceImpl;
@@ -195,10 +192,12 @@ public class BriefReviewController {
                 commentDTOS.add(commentDTO);
             }
         }
-        if ( commentDTOS!=null)
-            return ResponseEntity.ok(new Response(commentDTOS,new StatusDTO(200,"success")));
+        ResponseCommentDTO responseCommentDTO = new ResponseCommentDTO();
+        responseCommentDTO.setComments(commentDTOS);
+        if ( responseCommentDTO!=null)
+            return ResponseEntity.ok(new Response(responseCommentDTO,new StatusDTO(200,"success")));
         else
-            return ResponseEntity.ok(new Response(commentDTOS,new StatusDTO(400,"fail")));
+            return ResponseEntity.ok(new Response(responseCommentDTO,new StatusDTO(400,"fail")));
     }
 
 }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dto.RichTextDTO;
+import com.youthchina.dto.community.RequestVideoDTO;
 import com.youthchina.dto.community.VideoCommentDTO;
 import com.youthchina.dto.community.VideoDTO;
 import com.youthchina.util.AuthGenerator;
@@ -18,6 +19,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -25,10 +28,16 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.*;
@@ -180,8 +189,28 @@ public class VideoControllerTest {
 
                         .with(authGenerator.authentication())
         )
+                .andDo(print());
+    }
+
+    @Test
+    public void testUploadVideo() throws Exception {
+        RequestVideoDTO requestVideoDTO = new RequestVideoDTO();
+        requestVideoDTO.setCompany_id(1);
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(requestVideoDTO);
+
+        FileInputStream fis = new FileInputStream("D:\\video.mp4");
+        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "multipart/form-data", "hello upload".getBytes("UTF-8"));
+
+        this.mvc.perform( MockMvcRequestBuilders .multipart(this.urlPrefix + "/videos")
+                .file(file).with(authGenerator.authentication()))
                 .andDo(print())
-        ;
+                .andReturn().getResponse().getContentAsString();
+
+
+
     }
 
 }
