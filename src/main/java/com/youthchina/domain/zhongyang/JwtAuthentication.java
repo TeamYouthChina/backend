@@ -11,9 +11,11 @@ import java.util.Collection;
 public class JwtAuthentication implements Authentication {
     private User user;
     private boolean isAuthenticated;
+    private boolean needRenew;
 
     public JwtAuthentication() {
         this.isAuthenticated = false;
+        this.needRenew = false;
     }
 
     public JwtAuthentication(User user) {
@@ -21,18 +23,22 @@ public class JwtAuthentication implements Authentication {
         this.user = user;
     }
 
-    public JwtAuthentication(User user, boolean isAuthenticated){
+    public JwtAuthentication(User user, boolean isAuthenticated) {
         this.user = user;
         this.isAuthenticated = isAuthenticated;
     }
 
+    public JwtAuthentication(User user, boolean isAuthenticated, boolean needRenew) {
+        this.user = user;
+        this.isAuthenticated = isAuthenticated;
+        this.needRenew = needRenew;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.user == null){
+        if (this.user == null) {
             return null;
-        }
-        else{
+        } else {
             return this.user.getAuthorities();
         }
     }
@@ -66,5 +72,13 @@ public class JwtAuthentication implements Authentication {
     @Override
     public String getName() {
         return null;//todo: determine the name
+    }
+
+    public boolean isNeedRenew() {
+        return needRenew;
+    }
+
+    public void setNeedRenew(boolean needRenew) {
+        this.needRenew = needRenew;
     }
 }
