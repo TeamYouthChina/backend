@@ -4,14 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.domain.Qinghong.Certificate;
-import com.youthchina.domain.Qinghong.EducationInfo;
-import com.youthchina.domain.Qinghong.JobApply;
-import com.youthchina.domain.Qinghong.JobCollect;
-import com.youthchina.domain.jinhao.communityQA.Label;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.dto.*;
-import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +29,6 @@ import java.util.List;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 
 

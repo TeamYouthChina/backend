@@ -5,10 +5,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dto.RichTextDTO;
-import com.youthchina.dto.community.QuestionDTO;
-import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.dto.community.RequestQuestionDTO;
-import com.youthchina.dto.community.SimpleAnswerDTO;
+import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Assert;
 import org.junit.Before;
@@ -46,6 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:questions.xml"})
 @DatabaseSetup({"classpath:answers.xml"})
+@DatabaseSetup({"classpath:rank.xml"})
 @WebAppConfiguration
 public class QuestionControllerTest {
     @Autowired

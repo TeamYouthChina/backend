@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.2.2
+  version: 1.2.3
   title: YouthChina
   license:
     name: MIT
@@ -1078,7 +1078,7 @@ paths:
               - question
               - answer
               - article
-              - 
+              - video
           description: determine what part of attention list to return
       responses:
         '200':
@@ -1150,6 +1150,18 @@ paths:
                             id:
                               type: integer
                             article:
+                              $ref: '#/components/schemas/Article'
+                      videos:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - video
+                          properties:
+                            id:
+                              type: integer
+                            video:
                               $ref: '#/components/schemas/Article'
                   status:
                     $ref: '#/components/schemas/Status'
@@ -1616,7 +1628,7 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/Applicant'
+                    $ref: '#/components/schemas/User'
                   status:
                     $ref: '#/components/schemas/Status'
   '/me':
@@ -2583,15 +2595,12 @@ components:
     EducationInfo:
       type: object
       required:
-        - id
         - university
         - major
         - degree
         - duration
         - location
       properties:
-        id:
-          type: integer
         university:
           type: string
         major:
@@ -2607,7 +2616,6 @@ components:
     WorkExperienceInfo:
       type: object
       required:
-        - id
         - employer
         - position
         - duration
@@ -2628,12 +2636,9 @@ components:
     Certification:
       type: object
       required:
-        - id
         - name
         - duration
       properties:
-        id:
-          type: string
         name:
           type: string
         authority:
@@ -2645,7 +2650,6 @@ components:
     Extracurricular:
       type: object
       required:
-        - id
         - name
         - role
         - organization
@@ -3019,9 +3023,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/ContentRequest'
         - properties:
-            rela_type:
-              type: integer
-            rela_id:
+            company_id:
               type: integer
     Location:
       type: object

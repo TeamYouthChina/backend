@@ -11,14 +11,14 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
     QuestionAttention attentionQuestion(Integer ques_id, Integer user_id) throws NotFoundException;
     void cancelAttentionQuestion(Integer ques_id, Integer user_id) throws NotFoundException;
-    List<Question> listMyAttenQuestion(Integer user_id) throws NotFoundException;
+    List<Question> listAllUserAttenQuestions(Integer user_id) throws NotFoundException;
     List<Question> listMyQuestions(Integer user_id) throws NotFoundException;
 
 
 //    List<AnswerInvitation> listInvitationGot(Integer user_id) throws NotFoundException;
 //    List<Integer> listUsersInvitedByMeToQuestion(Integer user_id, Integer ques_id) throws NotFoundException;
-    Integer invitUserToAnswer(Integer invit_user_id, Integer ques_id, Integer invited_user_ids) throws NotFoundException;
-    Integer invitUsersToAnswer(Integer invit_user_id, Integer ques_id,
+    void invitUserToAnswer(Integer invit_user_id, Integer ques_id, Integer invited_user_ids) throws NotFoundException;
+    void invitUsersToAnswer(Integer invit_user_id, Integer ques_id,
                           List<Integer> invited_user_ids) throws NotFoundException;
 //    AnswerInvitation getInvitation(Integer invit_id) throws  NotFoundException;
 //    Integer acceptOrRefuseInvitation(AnswerInvitation answerInvitation) throws NotFoundException;
@@ -38,7 +38,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
 
     List<Comment> getAllAnswerComments(Integer answer_id) throws NotFoundException;
     Comment getComment(Integer comment_id) throws NotFoundException;
-    Integer addCommentToAnswer(Integer answer_id, Comment comment, Integer comment_level)
+    void addCommentToAnswer(Integer answer_id, Comment comment, Integer comment_level)
             throws NotFoundException;
     void deleteComment(Integer comment_id) throws NotFoundException;
 
@@ -62,7 +62,7 @@ public interface CommunityQAService extends DomainCRUDService<Question, Integer>
     void deleteVideo(Integer video_id) throws NotFoundException;
     List<Video> listFirstTenVideos() throws NotFoundException;
     List<Video> listAllMyVideos(Integer user_id) throws NotFoundException;
-
+    List<Video> listAllUserAttenVideos(Integer user_id) throws NotFoundException;
     VideoAttention attentionVideo(Integer user_id, Integer video_id) throws NotFoundException;
     void cancelAttenVideo(Integer user_id, Integer video_id) throws NotFoundException;
 
