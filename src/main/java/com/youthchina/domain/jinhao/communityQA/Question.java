@@ -48,7 +48,7 @@ public class Question implements HasId<Integer> {
         this.ques_edit_time = questionDTO.getModified_at();
         this.rela_type = questionDTO.getRela_type();
         this.rela_id = questionDTO.getRela_id();
-        this.ques_abbre = questionDTO.getBody().getBraftEditorRaw();
+        this.ques_abbre = questionDTO.getBody().getPreviewText();
         //if(questionDTO.getAnswers() != null) {
          //   for(RequestSimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
          //       this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
@@ -69,7 +69,7 @@ public class Question implements HasId<Integer> {
         this.user_anony = (requestQuestionDTO.getIs_anonymous() ? 1 : 0);
         this.rela_type = requestQuestionDTO.getRela_type();
         this.rela_id = requestQuestionDTO.getRela_id();
-        this.ques_abbre = requestQuestionDTO.getBody().getBraftEditorRaw();
+        this.ques_abbre = requestQuestionDTO.getBody().getPreviewText();
     }
 
     public Question(){}
