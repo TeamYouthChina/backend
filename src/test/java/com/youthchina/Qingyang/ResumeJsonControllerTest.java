@@ -1,16 +1,12 @@
 package com.youthchina.Qingyang;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.qingyang.ResumeJsonMapper;
-import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.Qinghong.ResumeJson;
-import com.youthchina.domain.qingyang.Country;
 import com.youthchina.dto.Applicant.ResumeRequestDTO;
-import com.youthchina.dto.CompanyDTO;
-import com.youthchina.dto.LocationDTO;
-import com.youthchina.dto.NationDTO;
 import com.youthchina.service.Qinghong.StudentServiceImpl;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Assert;
@@ -32,15 +28,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 /**
  * @author: Qingyang Zhao
