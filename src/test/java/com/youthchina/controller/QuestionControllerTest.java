@@ -212,6 +212,7 @@ public class QuestionControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(userlist);
+        System.out.println(requestJson);
         this.mvc.perform(
                 put(this.urlPrefix + "/questions/2/invite").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
