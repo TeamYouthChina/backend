@@ -28,10 +28,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -94,18 +90,13 @@ public class ResumeJsonControllerTest {
     @Test
     public void insertTest() throws Exception{
         Integer id = 1;
-        ResumeRequestDTO resumeRequestDTO = new ResumeRequestDTO();
-        List<String> json = new ArrayList<>();
+        ResumeRequestDTO requestDTO = new ResumeRequestDTO();
+        String resume = "111";
+        requestDTO.setResume(resume);
 
-        HashMap<String, List<String>> map = new HashMap<>();
-        map.put("json", json);
-
-        json.add("1111");
-        json.add("2222");
-        resumeRequestDTO.setJson(json);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String insertJson = ow.writeValueAsString(resumeRequestDTO);
+        java.lang.String insertJson = ow.writeValueAsString(requestDTO);
 
         this.mvc.perform(
                 post(this.urlPrefix + "/resumes")//.param("id", "1").param("detailLevel", "1")
