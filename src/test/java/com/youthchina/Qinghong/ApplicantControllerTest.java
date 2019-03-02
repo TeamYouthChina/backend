@@ -69,7 +69,7 @@ public class ApplicantControllerTest {
     @Test
     public void testGet() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/2")
+                get(this.urlPrefix + "/applicants/1")
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
