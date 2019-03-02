@@ -195,9 +195,7 @@ public class VideoControllerTest {
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(requestVideoDTO);
 
-        FileInputStream fis = new FileInputStream("D:\\video.mp4");
         MockMultipartFile file = new MockMultipartFile("file", "test.txt", "multipart/form-data", "hello upload".getBytes("UTF-8"));
 
         this.mvc.perform( MockMvcRequestBuilders .multipart(this.urlPrefix + "/videos")
