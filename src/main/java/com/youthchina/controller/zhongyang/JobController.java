@@ -108,8 +108,8 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
 
         /**No companyId, location, jobReqList, industryList*/
         List <Job> searchResultJob = this.jobService.getJobByMore(jobSearchDTO.getId(),jobSearchDTO.getJobName(),
-                null, jobSearchDTO.getComName(),startDate,endDate,
-                jobSearchDTO.getJobType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), jobSearchDTO.getActivate(),
+                null, jobSearchDTO.getCompanyName(),startDate,endDate,
+                jobSearchDTO.getJobType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), (jobSearchDTO.getActivate()?1:0),
                 null, null,null);
         List <JobResponseDTO> searchResultJobDTO = new ArrayList<>();
         for (Job job : searchResultJob){
