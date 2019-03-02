@@ -1,6 +1,6 @@
 package com.youthchina.dao.tianjian;
 
-import com.youthchina.domain.tianjian.*;
+import com.youthchina.domain.tianjian.ComMediaDocument;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -19,4 +19,6 @@ public interface StaticFileSystemMapper {
    void setCloudStorageId(@Param("col")String col,@Param("id") String id,@Param("local_id")String local_id);
 
    List<ComMediaDocument> getFileSizeOfUserUploading(@Param("user_id") Integer user_id,@Param("startTime") Timestamp startTime,@Param("endTime")Timestamp endTime);
+
+   ComMediaDocument getFileInfo(@Param("local_id")String local_id);
 }

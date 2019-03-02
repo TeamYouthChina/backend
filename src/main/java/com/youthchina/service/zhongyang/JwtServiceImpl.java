@@ -5,6 +5,7 @@ import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
+import com.youthchina.dto.UserDTO;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -47,10 +50,11 @@ public class JwtServiceImpl implements JwtService {
      * Add authentication in header and user body for login request.
      *
      * @param response the response
-     * @param user  the user
+     * @param user     the user
      */
     @Override
-    public void addAuthentication(HttpServletResponse response, User user) {
+    public void addAuthentication(HttpServletResponse response, User user) throws IOException {
+        response.setHeader("Content-Type", "application/json;charset=utf8");
         Integer id = user.getId();
         String token = Jwts.builder().
                 setSubject(id.toString()).
@@ -58,12 +62,8 @@ public class JwtServiceImpl implements JwtService {
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
         response.addHeader(HEADER, TOKEN_PREFIX + " " + token);
-        try {
-            String responseBody = objectMapper.writeValueAsString(new Response(user));
-            response.getWriter().write(responseBody);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String responseBody = objectMapper.writeValueAsString(new Response(new UserDTO(user)));
+        response.getWriter().write(responseBody);
 
 
     }
@@ -79,12 +79,22 @@ public class JwtServiceImpl implements JwtService {
         String token = servletRequest.getHeader(HEADER);
         if (token != null) {
             Integer id = null;
+            boolean needRenew = false;
+            Date expireTime = null;
             try {
-                id = Integer.valueOf(Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token.replace(TOKEN_PREFIX, "")).getBody().getSubject());
+                Jws<Claims> jwtClaim = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token.replace(TOKEN_PREFIX, ""));
+                expireTime = jwtClaim.getBody().getExpiration();
+                id = Integer.valueOf(jwtClaim.getBody().getSubject());
+                if (expireTime.before(new Timestamp(Calendar.getInstance().getTimeInMillis()
+                        + 15 * 100))) {
+                    // if the expired time is within 15min from now.
+                    // renew token
+                    needRenew = true;
+                }
             } catch (IllegalArgumentException ignored) {
             }
             User user = userMapper.findOne(id);
-            return new JwtAuthentication(user, true);
+            return new JwtAuthentication(user, true, needRenew);
         }
         return null;
 

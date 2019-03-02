@@ -1,15 +1,11 @@
 package com.youthchina.dto.community;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.AnswerInvitation;
 import com.youthchina.domain.jinhao.communityQA.Question;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
-import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
+import com.youthchina.dto.UserDTO;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by xiaoyiwang on 2/24/19.
@@ -17,7 +13,7 @@ import java.util.List;
 
 public class QuestionBasicDTO {
     private Integer id;
-    private User creator;
+    private UserDTO creator;
     private String title;
     private boolean is_anonymous;
     private Timestamp create_at;
@@ -28,7 +24,7 @@ public class QuestionBasicDTO {
 
     public QuestionBasicDTO(Question question) {
         this.id = question.getQues_id();
-        this.creator = question.getQues_user();
+        this.creator = new UserDTO(question.getQues_user());
         this.title = question.getQues_title();
         try{
             ObjectMapper mapper = new ObjectMapper();
@@ -61,11 +57,11 @@ public class QuestionBasicDTO {
         this.id = id;
     }
 
-    public User getCreator() {
+    public UserDTO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserDTO creator) {
         this.creator = creator;
     }
 
@@ -77,15 +73,15 @@ public class QuestionBasicDTO {
         this.title = title;
     }
 
-    public boolean getAnonymous() {
+    public boolean getIs_anonymous() {
         return is_anonymous;
     }
 
-    public void setAnonymous(boolean is_anonymous) {
+    public void setIs_anonymous(boolean is_anonymous) {
         this.is_anonymous = is_anonymous;
     }
 
-    /*public AnswerInvitation getInvitation() {
+/*public AnswerInvitation getInvitation() {
         return invitation;
     }
 

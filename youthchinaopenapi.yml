@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.2.3
+  version: 1.2.5
   title: YouthChina
   license:
     name: MIT
@@ -2364,7 +2364,7 @@ paths:
                           $ref: '#/components/schemas/Company'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/discovery/articles':
+  '/disconvery/articles':
     get:
       tags:
         - Discover
@@ -2427,48 +2427,116 @@ paths:
                           $ref: '#/components/schemas/Job'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/discovery/videos':
-    get:
+                    
+  '/resumes':
+    post:
       tags:
-        - Discover
+        - Resume
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
       responses:
-        '200':
-          description: recommend videos
+        '201':
+          description: created
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
-                  content:
-                    type: object
-                    properties:
-                      users:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/Video'
-                  status:
-                    $ref: '#/components/schemas/Status'
-  '/discovery/editorials':
+                  id:
+                    type: integer
+                  jsons:
+                    type: array
+                    items:
+                      type: object
+  '/resumes/{id}':
     get:
       tags:
-        - Discover
+        - Resume
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
       responses:
         '200':
-          description: recommend editorials
+          description: resume id
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
-                  content:
-                    type: object
-                    properties:
-                      users:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/Editorial'
-                  status:
-                    $ref: '#/components/schemas/Status'
+                  id:
+                    type: integer
+                  jsons:
+                    type: array
+                    items:
+                      type: object
+    delete:
+      tags:
+      - Resume
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '204':
+          description: deleted
+          
+  '/friends/{id}/apply':
+    post:
+      tags:
+        - Friends
+      parameters:
+        - name: id
+          description: other guy's id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reference_id:
+                    type: integer
+                  create_at:
+                    type: string
+  '/friends/applications/{id}':
+    get:
+      tags:
+        - Friends
+      parameters:
+        - name: id
+          description: application id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  create_at:
+                    type: string
+      
 components:
   schemas:
     ContentRequest:
@@ -3002,7 +3070,9 @@ components:
           type: string
         body:
           $ref: '#/components/schemas/RichText'
-        company_id:
+        rela_id:
+          type: integer
+        rela_type:
           type: integer
         is_anonymous:
           type: boolean
@@ -3064,7 +3134,9 @@ components:
       allOf:
         - $ref: '#/components/schemas/ContentRequest'
         - properties:
-            company_id:
+            rela_type:
+              type: integer
+            rela_id:
               type: integer
     Location:
       type: object

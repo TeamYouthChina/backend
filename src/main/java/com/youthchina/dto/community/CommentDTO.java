@@ -3,22 +3,22 @@ package com.youthchina.dto.community;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.VideoComment;
-import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
+import com.youthchina.dto.UserDTO;
 
 import java.sql.Timestamp;
 
 
 public class CommentDTO {
     private Integer id;
-    private User creator;
+    private UserDTO creator;
     private RichTextDTO body;
     private Timestamp create_at;
     private boolean is_anonymous;
 
     public CommentDTO(Comment comment){
         this.id = comment.getComment_id();
-        this.creator = comment.getUser();
+        this.creator = new UserDTO(comment.getUser());
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comment.getComment_content(), RichTextDTO.class);
@@ -32,7 +32,7 @@ public class CommentDTO {
 
     public CommentDTO(VideoComment comment){
         this.id = comment.getComment_id();
-        this.creator = comment.getUser();
+        this.creator = new UserDTO(comment.getUser());
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comment.getComment_content(), RichTextDTO.class);
@@ -52,11 +52,11 @@ public class CommentDTO {
         this.id = id;
     }
 
-    public User getCreator() {
+    public UserDTO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserDTO creator) {
         this.creator = creator;
     }
 

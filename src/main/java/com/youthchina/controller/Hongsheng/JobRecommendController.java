@@ -2,10 +2,8 @@ package com.youthchina.controller.Hongsheng;
 
 
 import com.youthchina.domain.qingyang.Job;
-
 import com.youthchina.dto.JobResponseDTO;
 import com.youthchina.dto.Response;
-import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.JobRecommendServiceImplement;
@@ -23,54 +21,19 @@ import java.util.List;
  * Created by hongshengzhang on 2/23/19.
  */
 @RestController
-@RequestMapping("${web.url.prefix}/discovery/jobs")
+@RequestMapping("${web.url.prefix}/discovery")
 public class JobRecommendController {
 
     @Autowired
     private JobRecommendServiceImplement jobRecommendServiceImplement;
 
-    @GetMapping("/intern")
-    public ResponseEntity getRecommandInternJobs() throws NotFoundException {
+    @GetMapping("/jobs")
+    public ResponseEntity getRecommandJobs() throws NotFoundException {
         List<Job> jobList = jobRecommendServiceImplement.getInternForYou();
         List<JobResponseDTO> resultList = new ArrayList<>();
         for(Job job : jobList) {
             resultList.add(new JobResponseDTO(job));
         }
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("jobList", resultList);
-
-        if (resultList!=null)
-            return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
-    }
-
-
-    @GetMapping("/general")
-    public ResponseEntity getRecommandGeneralJobs() throws NotFoundException {
-        List<Job> jobList = jobRecommendServiceImplement.getJobForYou();
-        List<JobResponseDTO> resultList = new ArrayList<>();
-        for(Job job : jobList) {
-            resultList.add(new JobResponseDTO(job));
-        }
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("jobList", resultList);
-
-        if (resultList!=null)
-            return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
-    }
-
-    @GetMapping("/campus")
-    public ResponseEntity getRecommandCampusJobs() throws NotFoundException {
-        List<Job> jobList = jobRecommendServiceImplement.getJobForYou();
-        List<JobResponseDTO> resultList = new ArrayList<>();
-        for(Job job : jobList) {
-            resultList.add(new JobResponseDTO(job));
-        }
-
         HashMap<String, Object> map = new HashMap<>();
         map.put("jobList", resultList);
 
