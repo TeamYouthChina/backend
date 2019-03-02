@@ -1,6 +1,6 @@
 package com.youthchina.dao.tianjian;
 
-import com.youthchina.domain.tianjian.*;
+import com.youthchina.domain.tianjian.ComMediaDocument;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;

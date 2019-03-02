@@ -22,7 +22,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by zhongyangwu on 2/14/19.

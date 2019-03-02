@@ -3,7 +3,6 @@ package com.youthchina.dto.community;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.VideoComment;
-import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.UserDTO;
 
