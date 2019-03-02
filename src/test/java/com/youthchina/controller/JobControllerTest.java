@@ -83,7 +83,7 @@ public class JobControllerTest {
         jobSearchDTO.setJobType(1);
         jobSearchDTO.setSalaryCap(10000);
         jobSearchDTO.setSalaryFloor(1000);
-        jobSearchDTO.setActivate(1);
+        jobSearchDTO.setActivate(true);
         Timestamp startTime = new Timestamp(118,01,01,00,00,00,00);
         Timestamp endTime = new Timestamp(123,01,01,00,00,00,00);
 //        startTime = null;

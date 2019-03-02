@@ -24,7 +24,7 @@ public class JobSearchDTO implements SearchDTO {
     private Integer jobType;
     private Integer salaryFloor;
     private Integer salaryCap;
-    private Integer activate;
+    private Boolean activate;
     //private String location;
     //private List<Degree> jobReqList;
     private List<Industry> industryList;
@@ -119,11 +119,11 @@ public class JobSearchDTO implements SearchDTO {
         this.salaryCap = salaryCap;
     }
 
-    public Integer getActivate() {
+    public Boolean getActivate() {
         return activate;
     }
 
-    public void setActivate(Integer activate) {
+    public void setActivate(Boolean activate) {
         this.activate = activate;
     }
 
