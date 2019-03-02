@@ -89,7 +89,7 @@ public class AnswerController {
             return ResponseEntity.ok(new Response(responseCommentDTO, new StatusDTO(200,"success")));
     }
 
-    @PostMapping("/{id}/upvote")
+    @PutMapping ("/{id}/upvote")
     public ResponseEntity addUpvote(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         communityQAServiceImplement.evaluateAnswer(id, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));

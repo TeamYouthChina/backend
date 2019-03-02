@@ -175,7 +175,7 @@ public class AnswerControllerTest {
     @Test
     public void testAddUpvote() throws Exception{
         this.mvc.perform(
-                post(this.urlPrefix + "/answers/1/upvote")
+                put(this.urlPrefix + "/answers/1/upvote")
                         .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
