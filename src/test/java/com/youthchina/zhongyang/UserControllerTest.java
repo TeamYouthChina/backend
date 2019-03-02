@@ -3,6 +3,8 @@ package com.youthchina.zhongyang;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.service.zhongyang.JwtService;
+import com.youthchina.util.zhongyang.JwtAuthenticationProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,6 +43,12 @@ public class UserControllerTest {
 
     MockMvc mvc;
 
+    @Autowired
+    JwtAuthenticationProvider jwtAuthenticationProvider;
+
+    @Autowired
+    JwtService jwtService;
+
     @Before
     public void setup() {
         this.mvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
@@ -53,7 +61,7 @@ public class UserControllerTest {
                 "  \"password\": \"123456\"\n" +
                 "}"))
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"registerDate\":\"2018-10-11 11:11:22.0\",\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":1,\"age\":21},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
                 .andExpect(header().exists("X-AUTHENTICATION"));
     }
 
@@ -97,4 +105,20 @@ public class UserControllerTest {
                 .andExpect(status().is(400))
                 .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4000,\"reason\":\"cannot register because there are already user registered with same email or username\"}}"));
     }
+
+//
+//    @Test
+//    public void testRenewToken() {
+//        MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse();
+//        try {
+//            User user = new User();
+//            user.setId(1);
+//            jwtService.addAuthentication(mockHttpServletResponse, user);
+//            String token = mockHttpServletResponse.getHeader("X-AUTHENTICATION");
+//        } catch (IOException e) {
+//            Assert.fail();
+//        }
+//
+//    }
+    //todo: test
 }
