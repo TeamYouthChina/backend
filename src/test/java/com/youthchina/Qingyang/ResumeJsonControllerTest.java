@@ -100,18 +100,13 @@ public class ResumeJsonControllerTest {
     @Test
     public void insertTest() throws Exception{
         Integer id = 1;
-        ResumeRequestDTO resumeRequestDTO = new ResumeRequestDTO();
-        List<String> json = new ArrayList<>();
+        ResumeRequestDTO requestDTO = new ResumeRequestDTO();
+        String resume = "111";
+        requestDTO.setResume(resume);
 
-        HashMap<String, List<String>> map = new HashMap<>();
-        map.put("json", json);
-
-        json.add("1111");
-        json.add("2222");
-        resumeRequestDTO.setJson(json);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String insertJson = ow.writeValueAsString(resumeRequestDTO);
+        java.lang.String insertJson = ow.writeValueAsString(requestDTO);
 
         this.mvc.perform(
                 post(this.urlPrefix + "/resumes")//.param("id", "1").param("detailLevel", "1")

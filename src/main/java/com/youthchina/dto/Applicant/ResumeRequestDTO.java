@@ -1,5 +1,6 @@
 package com.youthchina.dto.Applicant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,8 @@ public class ResumeRequestDTO {
         return json;
     }
 
-    public void setJson(List<String> json) {
-        this.json = json;
+    public void setResume(String resume) {
+        this.json = new ArrayList<>();
+        this.json.add(resume);
     }
 }
