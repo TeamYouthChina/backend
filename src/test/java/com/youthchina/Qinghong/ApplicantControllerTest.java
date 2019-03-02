@@ -278,13 +278,13 @@ public class ApplicantControllerTest {
 
     @Test
     public void testDeleteJobCollect() throws Exception{
-        this.mvc.perform(delete(this.urlPrefix + "/jobs/collections/1").with(authGenerator.authentication()))
+        this.mvc.perform(delete(this.urlPrefix + "/jobs/attentions/1").with(authGenerator.authentication()))
                 .andDo(print());
     }
     @Test
     public void testDeleteCompCollect() throws Exception{
         this.mvc.perform
-                (delete(this.urlPrefix + "/companies/collections/1")
+                (delete(this.urlPrefix + "/companies/attentions/1")
                         .with(authGenerator.authentication()))
                 .andDo(print());
     }
