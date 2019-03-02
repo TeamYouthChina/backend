@@ -3,6 +3,7 @@ package com.youthchina.service.Qinghong;
 import com.youthchina.dao.Qinghong.ApplicantMapper;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
+import com.youthchina.dao.qingyang.ResumeJsonMapper;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Degree;
@@ -44,6 +45,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private JobServiceImpl jobService;
+
+    @Autowired
+    private ResumeJsonMapper resumeJsonMapper;
 
 
     /**
@@ -714,12 +718,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public ResumeJson getResumeJson(Integer resume_id) throws NotFoundException {
-
-        return null;
+        return resumeJsonMapper.selectResumeJson(resume_id);
     }
 
     @Override
     public ResumeJson insertResumeJson(ResumeJson resumeJson) throws NotFoundException {
-        return null;
+        Integer id = resumeJsonMapper.insertResumeJson(resumeJson);
+        return resumeJsonMapper.selectResumeJson(resumeJson.getResume_id());
     }
 }

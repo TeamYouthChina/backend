@@ -1,24 +1,19 @@
 package com.youthchina.util.zhongyang;
 
 import com.youthchina.domain.zhongyang.JwtAuthentication;
+import com.youthchina.domain.zhongyang.User;
 import com.youthchina.service.zhongyang.JwtService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.SignatureException;
 
 /**
  * get user info from JWT
@@ -41,6 +36,10 @@ public class GetUserByJwtFilter extends GenericFilter {
                 authentication = jwtService.getAuthentication((HttpServletRequest) servletRequest);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 filterChain.doFilter(servletRequest, servletResponse);
+                if (authentication instanceof JwtAuthentication && ((JwtAuthentication) authentication).isNeedRenew()) {
+                    //renew token
+                    jwtService.addAuthentication((HttpServletResponse) servletResponse, (User) authentication.getPrincipal());
+                }
                 SecurityContextHolder.getContext().setAuthentication(null);//Clear after request
             } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
                 BadCredentialsException exception = new BadCredentialsException("cannot auth");

@@ -19,12 +19,12 @@ public class JobSearchDTO implements SearchDTO {
     private Integer id;
     private String jobName;
     private Integer comId;
-    private String comName;
+    private String companyName;
     private DurationDTO duration;
     private Integer jobType;
     private Integer salaryFloor;
     private Integer salaryCap;
-    private Integer activate;
+    private Boolean activate;
     //private String location;
     //private List<Degree> jobReqList;
     private List<Industry> industryList;
@@ -79,12 +79,12 @@ public class JobSearchDTO implements SearchDTO {
         this.comId = comId;
     }
 
-    public String getComName() {
-        return comName;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setComName(String comName) {
-        this.comName = comName;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public DurationDTO getDuration() {
@@ -119,11 +119,11 @@ public class JobSearchDTO implements SearchDTO {
         this.salaryCap = salaryCap;
     }
 
-    public Integer getActivate() {
+    public Boolean getActivate() {
         return activate;
     }
 
-    public void setActivate(Integer activate) {
+    public void setActivate(Boolean activate) {
         this.activate = activate;
     }
 
