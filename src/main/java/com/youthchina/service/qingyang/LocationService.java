@@ -23,16 +23,16 @@ public class LocationService {
         return locationMapper.getChildrenChn(parentId);
     }
 
-    public Location getLocation(Integer region_num) throws NotFoundException {
+    public Location getLocation(Integer region_num) {
         String regionString = "" + region_num;
         Location location;
         if(regionString.charAt(0) == '9'){
             location = locationMapper.getUSALocation(region_num);
-            if(location == null) { throw  new NotFoundException(404,404,"cannot find this location");}
+            if(location == null) { return new Location();}
             location.setNation_code("USA");
         } else {
             location = locationMapper.getChnLocation(region_num);
-            if(location == null) { throw  new NotFoundException(404,404,"cannot find this location");}
+            if(location == null) { return new Location();}
             location.setNation_code("CHN");
         }
 
