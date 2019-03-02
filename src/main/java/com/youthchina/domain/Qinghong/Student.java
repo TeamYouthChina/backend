@@ -1,6 +1,5 @@
 package com.youthchina.domain.Qinghong;
 
-import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.*;
 import com.youthchina.util.zhongyang.HasId;

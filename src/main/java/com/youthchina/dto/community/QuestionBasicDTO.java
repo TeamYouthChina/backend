@@ -1,16 +1,11 @@
 package com.youthchina.dto.community;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.AnswerInvitation;
 import com.youthchina.domain.jinhao.communityQA.Question;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
-import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.UserDTO;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by xiaoyiwang on 2/24/19.

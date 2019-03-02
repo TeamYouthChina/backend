@@ -6,19 +6,13 @@ import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.dao.qingyang.ResumeJsonMapper;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Job;
-import com.youthchina.dto.EducationDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.qingyang.JobService;
 import com.youthchina.service.qingyang.JobServiceImpl;
 import com.youthchina.service.qingyang.LocationService;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 

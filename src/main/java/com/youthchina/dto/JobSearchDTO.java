@@ -1,8 +1,6 @@
 package com.youthchina.dto;
 
-import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Industry;
-import java.sql.Date;
 
 import java.util.List;
 

@@ -1,10 +1,7 @@
 package com.youthchina.dto.community;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.tianjian.ComEssay;
-import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.CompanyDTO;
 import com.youthchina.dto.CompanyResponseDTO;
 import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.UserDTO;
