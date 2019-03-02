@@ -50,4 +50,5 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
     List<Certificate> insertCertificates(List<Certificate> certificates,Integer user_id)throws  NotFoundException;
     ResumeJson getResumeJson(Integer resume_id)throws NotFoundException;
     ResumeJson insertResumeJson(ResumeJson resumeJson) throws NotFoundException;
+    Integer deleteResumeJson(Integer id) throws NotFoundException;
 }

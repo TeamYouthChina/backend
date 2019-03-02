@@ -701,4 +701,11 @@ public class StudentServiceImpl implements StudentService {
         Integer id = resumeJsonMapper.insertResumeJson(resumeJson);
         return resumeJsonMapper.selectResumeJson(resumeJson.getResume_id());
     }
+
+    @Override
+    public Integer deleteResumeJson(Integer id) throws NotFoundException {
+        return resumeJsonMapper.deleteResumeJson(id);
+    }
+
+
 }

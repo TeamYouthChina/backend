@@ -39,4 +39,16 @@ public class ResumeJsonController {
         return ResponseEntity.ok(new ResumeResponseDTO(resumeJson));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteResume(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Integer result = studentService.deleteResumeJson(id);
+        if(result > 0){
+            return ResponseEntity.ok(new StatusDTO(204,"deleted"));
+        }
+//        else {
+//            return ResponseEntity.ok(new Response(new StatusDTO(,"delete failed")));
+//        }
+        return null;
+    }
+
 }
