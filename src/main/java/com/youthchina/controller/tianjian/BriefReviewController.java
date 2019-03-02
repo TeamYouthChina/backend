@@ -93,7 +93,9 @@ public class BriefReviewController {
             CommentDTO commentDTOTest = it.next();
             commentDTOList.add(commentDTOTest);
         }
-        briefReviewDTO.setComments(commentDTOList);
+        ResponseCommentDTO responseCommentDTO = new ResponseCommentDTO();
+        responseCommentDTO.setComments(commentDTOList);
+        briefReviewDTO.setComments(responseCommentDTO);
         briefReviewDTO.setId(briefReviewReturn.getReview_id());
         if (briefReviewDTO!=null)
             return ResponseEntity.ok(new Response(briefReviewDTO, new StatusDTO(200,"success")));
@@ -139,7 +141,9 @@ public class BriefReviewController {
             CommentDTO commentDTOTest = it.next();
             commentDTOList.add(commentDTOTest);
         }
-        briefReviewDTO.setComments(commentDTOList);
+        ResponseCommentDTO responseCommentDTO = new ResponseCommentDTO();
+        responseCommentDTO.setComments(commentDTOList);
+        briefReviewDTO.setComments(responseCommentDTO);
         briefReviewDTO.setId(briefReviewReturn.getReview_id());
         if (briefReviewDTO!=null)
             return ResponseEntity.ok(new Response(briefReviewDTO, new StatusDTO(201,"success")));

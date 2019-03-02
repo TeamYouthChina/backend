@@ -15,7 +15,7 @@ import java.util.List;
 public class BriefReviewDTO {
     private Integer id;
     private RichTextDTO body;
-    private List<CommentDTO> comments = new ArrayList<CommentDTO>();
+    private ResponseCommentDTO comments = new ResponseCommentDTO();
     private UserDTO author;
 
 
@@ -29,12 +29,14 @@ public class BriefReviewDTO {
             System.out.println("Exception");
         }
 
+        List<CommentDTO> commentDTOS = new ArrayList<>();
         Iterator it = briefReview.getComments().iterator();
         while(it.hasNext()){
             Comment comment = (Comment) it.next();
             CommentDTO commentDTO = new CommentDTO(comment);
-            comments.add(commentDTO);
+            comments.getComments().add(commentDTO);
         }
+
     }
 
     public BriefReviewDTO(){}
@@ -55,11 +57,11 @@ public class BriefReviewDTO {
         this.body = body;
     }
 
-    public List<CommentDTO> getComments() {
+    public ResponseCommentDTO getComments() {
         return comments;
     }
 
-    public void setComments(List<CommentDTO> comments) {
+    public void setComments(ResponseCommentDTO comments) {
         this.comments = comments;
     }
 
