@@ -27,9 +27,11 @@ public class LocationService {
         Location location;
         if(regionString.charAt(0) == '9'){
             location = locationMapper.getUSALocation(region_num);
+            if(location==null) {return new Location();}
             location.setNation_code("USA");
         } else {
             location = locationMapper.getChnLocation(region_num);
+            if(location==null) {return new Location();}
             location.setNation_code("CHN");
         }
         return location;

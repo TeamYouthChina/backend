@@ -112,14 +112,15 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         question.setQues_user(user);
         QuestionDTO questionDTO = new QuestionDTO(question);
         questionDTO.setId(id);
-
-        return update(questionDTO);
+        update(questionDTO);
+        return ResponseEntity.ok(new Response(new StatusDTO(204,"updated success")));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteQuestionInfo(@PathVariable Integer id) throws NotFoundException {
         //System.out.println("delete processing!!!");
-        return delete(id);
+        delete(id);
+        return ResponseEntity.ok(new Response(new StatusDTO(204,"deleted success")));
     }
 
     @GetMapping("/{id}/answers")

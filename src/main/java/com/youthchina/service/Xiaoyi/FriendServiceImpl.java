@@ -1,4 +1,4 @@
-package com.youthchina.service.Xiaoyi;
+/*package com.youthchina.service.Xiaoyi;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,11 +9,12 @@ public class FriendServiceImpl implements FriendService{
 
     public int getApplication(Integer applicationid){
 
+
         return 0;
     }
-    public int applyfriend(Integer otherid, Integer selfid){
+    public int applyFriend(Integer otherid, Integer selfid){
 
         return 0;
     }
 
-}
+}*/
