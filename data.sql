@@ -920,7 +920,7 @@ create table IF NOT EXISTS `STU_RESUME_JSON`
 (
   `RESUME_ID`      INT AUTO_INCREMENT COMMENT '简历ID',
   `JSON_COUNT`     INTEGER   NOT NULL COMMENT 'json数量',
-  `JSON_1`         VARCHAR(15000) COMMENT 'json1',
+  `JSON_1`         VARCHAR(10000) COMMENT 'json1',
   `JSON_2`         VARCHAR(500) COMMENT 'json2',
   `JSON_3`         VARCHAR(500) COMMENT 'json3',
   `JSON_4`         VARCHAR(500) COMMENT 'json4',
