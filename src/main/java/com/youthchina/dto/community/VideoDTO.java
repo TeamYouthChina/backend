@@ -1,9 +1,7 @@
 package com.youthchina.dto.community;
 
-import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.Video;
 import com.youthchina.domain.jinhao.communityQA.VideoComment;
-import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.UserDTO;
 
 import java.util.ArrayList;

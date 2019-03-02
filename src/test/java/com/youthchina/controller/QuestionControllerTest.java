@@ -5,10 +5,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dto.RichTextDTO;
-import com.youthchina.dto.community.QuestionDTO;
-import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.dto.community.RequestQuestionDTO;
-import com.youthchina.dto.community.SimpleAnswerDTO;
+import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,7 +28,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -4,17 +4,12 @@ import com.youthchina.domain.Qinghong.ResumeJson;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Applicant.ResumeRequestDTO;
 import com.youthchina.dto.Applicant.ResumeResponseDTO;
-import com.youthchina.dto.Response;
-import com.youthchina.dto.StatusDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.Qinghong.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author: Qingyang Zhao
