@@ -1,11 +1,10 @@
 package com.youthchina.dto.community;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.AnswerInvitation;
 import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
-import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RichTextDTO;
+import com.youthchina.dto.UserDTO;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.List;
  */
 public class QuestionDTO {
     private Integer id;
-    private User creator;
+    private UserDTO creator;
     private String title;
     private boolean is_anonymous;
     private Timestamp create_at;
@@ -29,7 +28,7 @@ public class QuestionDTO {
 
     public QuestionDTO(Question question) {
         this.id = question.getQues_id();
-        this.creator = question.getQues_user();
+        this.creator = new UserDTO(question.getQues_user());
         this.title = question.getQues_title();
         try{
             ObjectMapper mapper = new ObjectMapper();
@@ -68,11 +67,11 @@ public class QuestionDTO {
         this.id = id;
     }
 
-    public User getCreator() {
+    public UserDTO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserDTO creator) {
         this.creator = creator;
     }
 

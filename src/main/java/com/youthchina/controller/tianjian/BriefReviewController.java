@@ -9,7 +9,7 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.StatusDTO;
-
+import com.youthchina.dto.UserDTO;
 import com.youthchina.dto.community.BriefReviewDTO;
 import com.youthchina.dto.community.CommentDTO;
 import com.youthchina.dto.community.RequestBriefReviewDTO;
@@ -43,7 +43,7 @@ public class BriefReviewController {
         BriefReview briefReview = briefReviewServiceImplement.get(id);
 
         BriefReviewDTO briefReviewDTO = new BriefReviewDTO(briefReview);
-        briefReviewDTO.setAuthor(userService.get(user.getId()));
+        briefReviewDTO.setAuthor(new UserDTO(userService.get(user.getId())));
         if (briefReviewDTO!=null)
             return ResponseEntity.ok(new Response(briefReviewDTO, new StatusDTO(200,"success")));
         else
@@ -88,7 +88,7 @@ public class BriefReviewController {
             System.out.println("Exception");
         }
 
-        briefReviewDTO.setAuthor(userService.get(user.getId()));
+        briefReviewDTO.setAuthor(new UserDTO(userService.get(user.getId())));
         List<CommentDTO> commentDTOList = new ArrayList<CommentDTO>();
         Iterator<CommentDTO> it = commentDTOList.iterator();
         while(it.hasNext()){
@@ -134,7 +134,7 @@ public class BriefReviewController {
             System.out.println("Exception");
         }
 
-        briefReviewDTO.setAuthor(userService.get(user.getId()));
+        briefReviewDTO.setAuthor(new UserDTO(userService.get(user.getId())));
         List<CommentDTO> commentDTOList = new ArrayList<CommentDTO>();
         Iterator<CommentDTO> it = commentDTOList.iterator();
         while(it.hasNext()){

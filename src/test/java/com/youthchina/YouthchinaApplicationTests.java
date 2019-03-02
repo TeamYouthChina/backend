@@ -1,5 +1,6 @@
 package com.youthchina;
 
+import com.youthchina.dao.tianjian.StaticFileSystemMapper;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.*;
@@ -9,12 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -30,6 +30,9 @@ public class YouthchinaApplicationTests {
 
     @Autowired
     EssayServiceImpl essayService;
+
+    @Autowired
+    StaticFileSystemMapper staticFileSystemMapper;
    /* @Test
     public void testupLoadFile() {
        File file = new File("D:\\LocalFileStore\\video.mp4");
@@ -98,4 +101,11 @@ public class YouthchinaApplicationTests {
         int i = essayService.addEssay(comEssay,lab,1,2,5);
         System.out.println(i);
     }
+
+    @Test
+    public void testgetUserAllEssayAttention(){
+        List<ComEssay> list = essayService.getAllEssayUserAttention(1);
+        System.out.println(list.size());
+    }
+
 }

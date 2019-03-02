@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.QuestionDTO;
-import com.youthchina.dto.community.RequestSimpleAnswerDTO;
 import com.youthchina.dto.community.RequestQuestionDTO;
 import com.youthchina.util.zhongyang.HasId;
 
@@ -32,7 +31,7 @@ public class Question implements HasId<Integer> {
 
     public Question(QuestionDTO questionDTO){
         this.ques_id = questionDTO.getId();
-        this.ques_user = questionDTO.getCreator();
+        this.ques_user = new User(questionDTO.getCreator());
         this.ques_title = questionDTO.getTitle();
         try{
             ObjectMapper mapper = new ObjectMapper();

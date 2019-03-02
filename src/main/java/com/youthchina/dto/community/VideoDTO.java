@@ -1,9 +1,8 @@
 package com.youthchina.dto.community;
 
-import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.Video;
 import com.youthchina.domain.jinhao.communityQA.VideoComment;
-import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.UserDTO;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,19 +12,20 @@ public class VideoDTO {
     private Integer id;
     private String url;
     private List<CommentDTO> comments = new ArrayList<CommentDTO>();
-    private User uploader;
+    private UserDTO uploader;
 
     public VideoDTO (){}
 
     public VideoDTO (Video video){
         this.id = video.getVideo_id();
-        this.url = video.getVideo_name();
-        Iterator it = video.getVideoComments().iterator();
-        while(it.hasNext()){
-            CommentDTO commentDTO = new CommentDTO((VideoComment)it.next());
-            this.comments.add(commentDTO);
+        if(video.getVideoComments() != null){
+            Iterator it = video.getVideoComments().iterator();
+            while(it.hasNext()){
+                CommentDTO commentDTO = new CommentDTO((VideoComment)it.next());
+                this.comments.add(commentDTO);
+            }
         }
-        this.uploader = video.getUser();
+        this.uploader = new UserDTO(video.getUser());
     }
 
     public Integer getId() {
@@ -52,11 +52,11 @@ public class VideoDTO {
         this.comments = comments;
     }
 
-    public User getUploader() {
+    public UserDTO getUploader() {
         return uploader;
     }
 
-    public void setUploader(User uploader) {
+    public void setUploader(UserDTO uploader) {
         this.uploader = uploader;
     }
 }

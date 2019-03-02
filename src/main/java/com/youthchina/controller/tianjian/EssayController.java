@@ -10,8 +10,8 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.*;
 import com.youthchina.dto.community.EssayDTO;
 import com.youthchina.dto.community.EssayReplyDTO;
-import com.youthchina.dto.community.RequestEssayReplyDTO;
 import com.youthchina.dto.community.RequestEssayDTO;
+import com.youthchina.dto.community.RequestEssayReplyDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.qingyang.CompanyCURDServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
@@ -53,7 +53,7 @@ public class EssayController {
             Company company = companyCURDService.get(comAuthorEssayMap.getRela_id());
             essayDTO.setCompany(new CompanyResponseDTO(company));
         }
-        essayDTO.setAuthor(user);
+        essayDTO.setAuthor(new UserDTO(user));
 
         if (essayDTO!=null)
             return ResponseEntity.ok(new Response(essayDTO, new StatusDTO(200,"success")));
@@ -83,7 +83,7 @@ public class EssayController {
             essayDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(requestEssayDTO.getCompany_id())));
         essayDTO.setCreate_at(essayServiceimpl.getEssay(id).getEssay_pub_time());
         essayDTO.setTitle(comEssay.getEssay_title());
-        essayDTO.setAuthor(user);
+        essayDTO.setAuthor(new UserDTO(user));
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
@@ -145,7 +145,7 @@ public class EssayController {
         }
         essayDTO.setModified_at(comEssay.getEssay_edit_time());
         essayDTO.setId(essayId);
-        essayDTO.setAuthor(user);
+        essayDTO.setAuthor(new UserDTO(user));
         essayDTO.setIs_anonymous(requestEssayDTO.isIs_anonymous());
         try{
             ObjectMapper mapper = new ObjectMapper();
@@ -179,7 +179,7 @@ public class EssayController {
             while(it.hasNext()){
                 ComEssayReply comEssayReply = (ComEssayReply) it.next();
                 EssayReplyDTO essayReplyDTO = new EssayReplyDTO(comEssayReply);
-                essayReplyDTO.setCreator(userService.get(comEssayReply.getUser_id()));
+                essayReplyDTO.setCreator(new UserDTO(userService.get(comEssayReply.getUser_id())));
                 essayReplyDTOS.add(essayReplyDTO);
             }
         }
