@@ -26,7 +26,7 @@ public class ApplicantDTO {
     private List<WorkDTO> experiences;
     private List<ProjectDTO> projects;
     private List<ExtracurricularDTO> extracurriculars;
-    private List<CertificateDTO> certificates;//todo: fixme
+    private List<CertificateDTO> certifications;//todo: fixme
 
     public ApplicantDTO() {
     }
@@ -57,7 +57,7 @@ public class ApplicantDTO {
         for (Certificate certificate : student.getCertificates()) {
             certificates.add(new CertificateDTO(certificate));
         }
-        this.setCertificates(certificates);
+        this.setCertifications(certificates);
     }
 
 
@@ -118,14 +118,13 @@ public class ApplicantDTO {
         this.extracurriculars = extracurriculars;
     }
 
-    public List<CertificateDTO> getCertificates() {
-        return certificates;
+    public List<CertificateDTO> getCertifications() {
+        return certifications;
     }
 
-    public void setCertificates(List<CertificateDTO> certificates) {
-        this.certificates = certificates;
+    public void setCertifications(List<CertificateDTO> certifications) {
+        this.certifications = certifications;
     }
-
 
     public Integer getCurrentCompanyId() {
         return currentCompanyId;

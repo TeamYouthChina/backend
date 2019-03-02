@@ -561,6 +561,7 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+
     @Override
     public Integer deleteEducation(Integer id) throws NotFoundException {
         Integer integer=applicantMapper.deleteEduInfo(id);
@@ -685,6 +686,30 @@ public class StudentServiceImpl implements StudentService {
             List<Certificate> certificates1=applicantMapper.getStudentInfo(user_id).getCertificates();
             return certificates1;
         }
+    }
+
+    @Override
+    public List<LabelInfo> insertLabels(List<String> label_codes, Integer user_id) throws NotFoundException {
+        BaseInfo baseInfo=applicantMapper.getBaseInfo(user_id);
+        if(baseInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id "+user_id);
+        }else{
+            Integer num=applicantMapper.deleteAllSkills(baseInfo.getStu_id());
+            for(String label_code:label_codes){
+                AdvantageLabel advantageLabel=new AdvantageLabel();
+                advantageLabel.setLabel_code(label_code);
+                advantageLabel.setStu_id(baseInfo.getStu_id());
+                applicantMapper.insertAdvantageSkills(advantageLabel);
+            }
+            List<LabelInfo> labelInfos=applicantMapper.getStudentInfo(user_id).getLabelInfos();
+            return labelInfos;
+        }
+    }
+
+    @Override
+    public List<LabelInfo> getAllSkills() throws NotFoundException {
+        List<LabelInfo> labelInfos=applicantMapper.getAllSkills();
+        return labelInfos;
     }
 
     @Override

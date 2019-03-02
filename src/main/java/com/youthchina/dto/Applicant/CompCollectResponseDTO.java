@@ -10,11 +10,11 @@ import com.youthchina.dto.OrganizationDTO;
  * @create: 2019-02-26 11:31
  **/
 public class CompCollectResponseDTO {
-    private Integer collect_id;
+    private Integer id;
     private OrganizationDTO organization;
 
     public CompCollectResponseDTO(CompCollect compCollect) {
-        this.collect_id = compCollect.getCollect_id();
+        this.id = compCollect.getCollect_id();
         this.organization=new OrganizationDTO(compCollect.getCompany());
     }
 
@@ -22,12 +22,12 @@ public class CompCollectResponseDTO {
 
     }
 
-    public Integer getCollect_id() {
-        return collect_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCollect_id(Integer collect_id) {
-        this.collect_id = collect_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public OrganizationDTO getOrganization() {

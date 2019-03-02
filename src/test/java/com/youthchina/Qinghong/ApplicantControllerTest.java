@@ -159,7 +159,7 @@ public class ApplicantControllerTest {
         certificateDTO.setAuthority("教育部");
         certificateDTO.setDuration(durationDTO);
         certificateDTOS.add(certificateDTO);
-        student.setCertificates(certificateDTOS);
+        student.setCertifications(certificateDTOS);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(student);
@@ -241,6 +241,29 @@ public class ApplicantControllerTest {
         ;
     }
 
+    @Test
+    public void testGetSkills()throws Exception{
+        this.mvc.perform(
+                get(this.urlPrefix + "/applicants/1/skills")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+//                .andExpect(content().json("{\"content\":[{\"name\":\"volunteer\",\"role\":\"worker\",\"organization\":\"gwu\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000+0000\",\"end\":\"2018-10-12T00:00:00.000+0000\"},\"location\":null,\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+        ;
+    }
+
+    @Test
+    public void testGetAllSkills()throws Exception{
+        this.mvc.perform(
+                get(this.urlPrefix + "/applicants/skills")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+//                .andExpect(content().json("{\"content\":[{\"name\":\"volunteer\",\"role\":\"worker\",\"organization\":\"gwu\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000+0000\",\"end\":\"2018-10-12T00:00:00.000+0000\"},\"location\":null,\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+        ;
+    }
+
+
 //    @Test
 //    public void testGetJobCollects() throws Exception{
 //        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/jobCollects",1).param("id", "2").with(authGenerator.authentication()))
@@ -316,6 +339,7 @@ public class ApplicantControllerTest {
                         .with(authGenerator.authentication()))
                 .andDo(print());
     }
+
 
 //    @Test
 //    public void testInsertEducation() throws Exception{
@@ -633,6 +657,26 @@ public class ApplicantControllerTest {
 
     }
     @Test
+    public void testSaveSkills() throws Exception{
+        List<String> strings=new ArrayList<>();
+        strings.add("33");
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(strings);
+        System.out.print(requestJson);
+        this.mvc.perform(
+                post
+                        (this.urlPrefix + "/applicants/1/skills").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+
+    }
+    @Test
     public void testUpdateEducations() throws Exception{
         List<EducationDTO> educationDTOS=new ArrayList<>();
         EducationDTO educationDTO=new EducationDTO();
@@ -788,6 +832,28 @@ public class ApplicantControllerTest {
         this.mvc.perform(
                 put
                         (this.urlPrefix + "/applicants/1/certificates").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+
+    }
+    @Test
+    public void testUpdateSkills() throws Exception{
+        List<String> strings=new ArrayList<>();
+        strings.add("11");
+
+        strings.add("22");
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(strings);
+        System.out.print(requestJson);
+        this.mvc.perform(
+                put
+                        (this.urlPrefix + "/applicants/1/skills").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication())
