@@ -3,13 +3,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.dao.qingyang.ResumeJsonMapper;
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.domain.Qinghong.ResumeJson;
 import com.youthchina.domain.qingyang.Country;
 import com.youthchina.dto.Applicant.ResumeRequestDTO;
 import com.youthchina.dto.CompanyDTO;
 import com.youthchina.dto.LocationDTO;
 import com.youthchina.dto.NationDTO;
+import com.youthchina.service.Qinghong.StudentServiceImpl;
 import com.youthchina.util.AuthGenerator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +49,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:company.xml"})
+@DatabaseSetup({"classpath:resumejson.xml"})
 @WebAppConfiguration
 public class ResumeJsonControllerTest {
 
@@ -54,6 +58,12 @@ public class ResumeJsonControllerTest {
 
     @Autowired
     private ApplicationContext applicationContext;
+
+    @Autowired
+    private ResumeJsonMapper resumeJsonMapper;
+
+    @Autowired
+    private StudentServiceImpl studentServiceImpl;
 
     @Value("${web.url.prefix}")
     private String urlPrefix;
@@ -68,14 +78,33 @@ public class ResumeJsonControllerTest {
     }
 
     @Test
+    public void insertMapperTest() throws Exception{ // PASS
+        ResumeJson resumeJson = new ResumeJson();
+        resumeJson.setJson_count(2);
+        resumeJson.setJson_1("111");
+        resumeJson.setJson_2("222");
+        resumeJsonMapper.insertResumeJson(resumeJson);
+    }
+
+    @Test
+    public void insertServiceTest() throws Exception{ // PASS
+        ResumeJson resumeJson = new ResumeJson();
+        resumeJson.setJson_count(2);
+        resumeJson.setJson_1("111");
+        resumeJson.setJson_2("222");
+        resumeJson = studentServiceImpl.insertResumeJson(resumeJson);
+        Assert.assertEquals(Integer.valueOf(2), resumeJson.getJson_count());
+        Assert.assertEquals("111", resumeJson.getJson_1());
+    }
+
+    @Test
     public void insertTest() throws Exception{
         Integer id = 1;
         ResumeRequestDTO resumeRequestDTO = new ResumeRequestDTO();
         List<String> json = new ArrayList<>();
 
-        HashMap<Integer, String> map = new HashMap<>();
-        map.put(1, "1111");
-        map.put(2,"2222");
+        HashMap<String, List<String>> map = new HashMap<>();
+        map.put("json", json);
 
         json.add("1111");
         json.add("2222");
@@ -92,6 +121,20 @@ public class ResumeJsonControllerTest {
         )
                 .andDo(print())
            //     .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+        ;
+    }
+
+    @Test
+    public void getTest() throws Exception{
+        Integer id = 1;
+
+        this.mvc.perform(
+                get(this.urlPrefix + "/resumes/" + id)//.param("id", "1").param("detailLevel", "1")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andDo(print())
+        //     .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
         ;
     }
 }

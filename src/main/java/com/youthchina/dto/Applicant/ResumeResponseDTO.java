@@ -21,16 +21,18 @@ public class ResumeResponseDTO {
 
     public ResumeResponseDTO(ResumeJson resumeJson) {
         List<String> list=new ArrayList<>();
-        if(resumeJson.getJson_1() != null) list.add(resumeJson.getJson_1());
-        if(resumeJson.getJson_2() != null) list.add(resumeJson.getJson_2());
-        if(resumeJson.getJson_3() != null) list.add(resumeJson.getJson_3());
-        if(resumeJson.getJson_4() != null) list.add(resumeJson.getJson_4());
-        if(resumeJson.getJson_5() != null) list.add(resumeJson.getJson_5());
-        if(resumeJson.getJson_6() != null) list.add(resumeJson.getJson_6());
-        if(resumeJson.getJson_7() != null) list.add(resumeJson.getJson_7());
-        if(resumeJson.getJson_8() != null) list.add(resumeJson.getJson_8());
-        if(resumeJson.getJson_9() != null) list.add(resumeJson.getJson_9());
-        if(resumeJson.getJson_10() != null) list.add(resumeJson.getJson_10());
+        switch (resumeJson.getJson_count()){
+            case 10 : list.add(resumeJson.getJson_10());
+            case 9 : list.add(0,resumeJson.getJson_9());
+            case 8 : list.add(0,resumeJson.getJson_8());
+            case 7 : list.add(0,resumeJson.getJson_7());
+            case 6 : list.add(0,resumeJson.getJson_6());
+            case 5 : list.add(0,resumeJson.getJson_5());
+            case 4 : list.add(0,resumeJson.getJson_4());
+            case 3 : list.add(0,resumeJson.getJson_3());
+            case 2 : list.add(0,resumeJson.getJson_2());
+            case 1 : list.add(0,resumeJson.getJson_1());
+        }
         this.id = resumeJson.getResume_id();
         this.jsons = list;
     }

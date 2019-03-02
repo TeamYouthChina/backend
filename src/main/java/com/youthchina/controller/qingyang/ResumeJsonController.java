@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @create: 2019-02-28
  **/
 @RestController
-@RequestMapping("${web.url.prefix}/resumes")
+@RequestMapping("${web.url.prefix}/resumes/**")
 public class ResumeJsonController {
 
     @Autowired
@@ -32,8 +32,7 @@ public class ResumeJsonController {
 
     @PostMapping("/")
     public ResponseEntity<?> createResume(@AuthenticationPrincipal User user, @RequestBody ResumeRequestDTO requestDTO) throws NotFoundException {
-        ResumeJson resumeJsonRequest = new ResumeJson(requestDTO);
-        ResumeJson resumeJson = studentService.insertResumeJson(resumeJsonRequest);
+        ResumeJson resumeJson = studentService.insertResumeJson(new ResumeJson(requestDTO));
         return ResponseEntity.ok(new ResumeResponseDTO(resumeJson));
     }
 
