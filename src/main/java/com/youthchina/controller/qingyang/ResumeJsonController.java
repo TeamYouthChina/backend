@@ -32,7 +32,8 @@ public class ResumeJsonController {
 
     @PostMapping("/")
     public ResponseEntity<?> createResume(@AuthenticationPrincipal User user, @RequestBody ResumeRequestDTO requestDTO) throws NotFoundException {
-        ResumeJson resumeJson = studentService.insertResumeJson(new ResumeJson(requestDTO));
+        ResumeJson resumeJsonRequest = new ResumeJson(requestDTO);
+        ResumeJson resumeJson = studentService.insertResumeJson(resumeJsonRequest);
         return ResponseEntity.ok(new ResumeResponseDTO(resumeJson));
     }
 

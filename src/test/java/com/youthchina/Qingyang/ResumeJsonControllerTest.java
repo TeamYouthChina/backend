@@ -85,7 +85,7 @@ public class ResumeJsonControllerTest {
         java.lang.String insertJson = ow.writeValueAsString(resumeRequestDTO);
 
         this.mvc.perform(
-                post(this.urlPrefix + "/resumes/" + id)//.param("id", "1").param("detailLevel", "1")
+                post(this.urlPrefix + "/resumes")//.param("id", "1").param("detailLevel", "1")
                         .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(insertJson)
