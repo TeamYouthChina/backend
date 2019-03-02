@@ -79,7 +79,7 @@ public class JobControllerTest {
         jobSearchDTO.setId(1);
         jobSearchDTO.setJobName("front");
         jobSearchDTO.setComId(1);
-        jobSearchDTO.setComName("大疆");
+        jobSearchDTO.setCompanyName("大疆");
         jobSearchDTO.setJobType(1);
         jobSearchDTO.setSalaryCap(10000);
         jobSearchDTO.setSalaryFloor(1000);
