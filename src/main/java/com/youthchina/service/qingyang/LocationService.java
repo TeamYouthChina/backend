@@ -2,6 +2,7 @@ package com.youthchina.service.qingyang;
 
 import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,7 +23,7 @@ public class LocationService {
         return locationMapper.getChildrenChn(parentId);
     }
 
-    public Location getLocation(Integer region_num){
+    public Location getLocation(Integer region_num) {
         String regionString = "" + region_num;
         Location location;
         if(regionString.charAt(0) == '9'){
@@ -34,6 +35,7 @@ public class LocationService {
             if(location==null) {return new Location();}
             location.setNation_code("CHN");
         }
+
         return location;
     }
 

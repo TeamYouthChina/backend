@@ -109,7 +109,7 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
     * @Date: 2019/2/19
     */
 
-    @DeleteMapping("/collections/{id}")
+    @DeleteMapping("/attentions/{id}")
     public ResponseEntity<?> deleteCompanyCollection(@PathVariable("id") Integer collect_id,@AuthenticationPrincipal User user)throws NotFoundException{
         Integer integer=studentService.deleteCompCollect(collect_id);
         if (integer == 1) {
