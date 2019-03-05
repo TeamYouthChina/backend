@@ -30,7 +30,6 @@ import java.sql.Timestamp;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 /**
  * Created by zhongyangwu on 2/6/19.
@@ -79,11 +78,11 @@ public class JobControllerTest {
         jobSearchDTO.setId(1);
         jobSearchDTO.setJobName("front");
         jobSearchDTO.setComId(1);
-        jobSearchDTO.setComName("大疆");
+        jobSearchDTO.setCompanyName("大疆");
         jobSearchDTO.setJobType(1);
         jobSearchDTO.setSalaryCap(10000);
         jobSearchDTO.setSalaryFloor(1000);
-        jobSearchDTO.setActivate(1);
+        jobSearchDTO.setActivate(true);
         Timestamp startTime = new Timestamp(118,01,01,00,00,00,00);
         Timestamp endTime = new Timestamp(123,01,01,00,00,00,00);
 //        startTime = null;

@@ -108,8 +108,8 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
 
         /**No companyId, location, jobReqList, industryList*/
         List <Job> searchResultJob = this.jobService.getJobByMore(jobSearchDTO.getId(),jobSearchDTO.getJobName(),
-                null, jobSearchDTO.getComName(),startDate,endDate,
-                jobSearchDTO.getJobType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), jobSearchDTO.getActivate(),
+                null, jobSearchDTO.getCompanyName(),startDate,endDate,
+                jobSearchDTO.getJobType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), (jobSearchDTO.getActivate()?1:0),
                 null, null,null);
         List <JobResponseDTO> searchResultJobDTO = new ArrayList<>();
         for (Job job : searchResultJob){
@@ -149,7 +149,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         Integer integer = studentService.addJobCollection(job_id, user.getId());
         if (integer == 1) {
             return ResponseEntity.ok(new Response
-                    (integer, new StatusDTO(201, "collect successful")));
+                    (integer));
         } else {
             return ResponseEntity.ok(new Response(integer, new StatusDTO(400,"cannot collect this job,maybe the job has already delete")));
 
@@ -170,7 +170,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         Integer integer=studentService.deleteJobCollect(collect_id);
         if (integer == 1) {
             return ResponseEntity.ok(new Response
-                    (integer, new StatusDTO(201, "delete successful")));
+                    (integer));
         } else {
             return ResponseEntity.ok(new Response(integer, new StatusDTO(400,"cannot delete this company collection,maybe this collection has already delete")));
 

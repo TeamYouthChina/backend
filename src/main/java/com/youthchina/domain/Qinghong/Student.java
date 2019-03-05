@@ -1,6 +1,5 @@
 package com.youthchina.domain.Qinghong;
 
-import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.*;
 import com.youthchina.util.zhongyang.HasId;
@@ -40,7 +39,7 @@ public class Student extends User implements HasId<Integer> {
         this.isInJob=applicantDTO.getIsInJob();
         this.setUsername(applicantDTO.getName());
         this.setAvatarUrl(applicantDTO.getAvatarUrl());
-        this.currentCompanyName=applicantDTO.getCurrentCompanyName();
+        this.currentCompanyName=applicantDTO.getCurrentCompanyId().toString();
         //对于教育信息的转化
         List<EducationInfo> educationInfos=new ArrayList<>();
         for(EducationDTO educationDTO:applicantDTO.getEducations()){

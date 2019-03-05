@@ -4,9 +4,10 @@ import com.youthchina.dao.tianjian.StaticFileSystemMapper;
 import com.youthchina.domain.tianjian.ComMediaDocument;
 import org.apache.http.util.Asserts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class StaticFileService {
         this.idGenerate = idGenerate;
     }
 
-    public long saveFile(File file, Integer user_id) throws IOException {
+    public long saveFile(Resource resource, Integer user_id) throws IOException {
         //Do not perform user inspect
         ComMediaDocument comMediaDocument = new ComMediaDocument();
         Long id = idGenerate.nextId();
@@ -47,25 +48,29 @@ public class StaticFileService {
         comMediaDocument.setIs_delete(0);
         comMediaDocument.setIs_delete_time(null);
         comMediaDocument.setUpload_user_id(user_id);
-        String fileName = file.getName();
+        String fileName = resource.getFilename();
         int index = fileName.lastIndexOf(".");
         comMediaDocument.setDocu_local_name(fileName.substring(0, index));
         comMediaDocument.setDocu_local_format(fileName.substring(index + 1));
         comMediaDocument.setDocu_local_id(id.toString());
-        Double fizeSize = Double.valueOf(file.length() / 1024.0 / 1024.0);
-        comMediaDocument.setDocu_local_size(String.valueOf(fizeSize));
+        Double fileSize = Double.valueOf(resource.contentLength() / 1024.0 / 1024.0);
+        comMediaDocument.setDocu_local_size(String.valueOf(fileSize));
 
         //save info to database
         fileSystemMapper.saveFileInfo(comMediaDocument);
         try {
             //save fileInfo
             for (FileStorageService fileStorageService : fileStorageServices.values()) {
-                fileStorageService.uploadFile(file,id);
+                fileStorageService.uploadFile(resource,id);
             }
         } catch (Exception e) {
 
         }
         return id;
+    }
+
+    public URL getFileUrl(String fileId){
+        return getFileUrl(fileId,"China");
     }
 
     public URL getFileUrl(String fileId, String location) {

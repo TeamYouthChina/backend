@@ -11,18 +11,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by zhongyangwu on 2/14/19.
@@ -59,7 +60,8 @@ public class StaticFileServiceTest {
         when(snowFlakeIdGenerate.nextId()).thenReturn(1234494L);
         when(fileNameGenerate.generateFileName()).thenReturn("Test");
         when(staticFileSystemMapper.saveFileInfo(any())).thenReturn(1);
-        staticFileService.saveFile(new File("ii.txt"), new User().getId());
+        ClassPathResource classPathResource = new ClassPathResource("rank.xml");
+        staticFileService.saveFile(classPathResource, new User().getId());
     }
 
     @Test
@@ -70,7 +72,7 @@ public class StaticFileServiceTest {
         when(aliCloudFileStorageService.downloadFile("2856327168068161536")).thenReturn(new URL("http://alicoud.oss.com/te"));
         when(staticFileSystemMapper.getFileInfo("2856306669745344512")).thenReturn(comMediaDocument);
         URL url = staticFileService.getFileUrl("2856306669745344512", "China");
-        Assert.assertEquals(url.getHost(),"alicoud.oss.com");
+        Assert.assertEquals(url.getHost(), "alicoud.oss.com");
     }
 
 }
