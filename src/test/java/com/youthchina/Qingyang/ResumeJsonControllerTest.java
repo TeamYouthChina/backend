@@ -28,8 +28,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 /**
@@ -73,6 +76,7 @@ public class ResumeJsonControllerTest {
         resumeJson.setJson_count(2);
         resumeJson.setJson_1("111");
         resumeJson.setJson_2("222");
+        resumeJson.setStu_id(1);
         resumeJsonMapper.insertResumeJson(resumeJson);
     }
 
@@ -82,6 +86,7 @@ public class ResumeJsonControllerTest {
         resumeJson.setJson_count(2);
         resumeJson.setJson_1("111");
         resumeJson.setJson_2("222");
+        resumeJson.setStu_id(1);
         resumeJson = studentServiceImpl.insertResumeJson(resumeJson);
         Assert.assertEquals(Integer.valueOf(2), resumeJson.getJson_count());
         Assert.assertEquals("111", resumeJson.getJson_1());
@@ -122,4 +127,54 @@ public class ResumeJsonControllerTest {
         //     .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
         ;
     }
+
+    @Test
+    public void deleteTest() throws Exception{
+        Integer id = 1;
+        this.mvc.perform(
+                delete(this.urlPrefix + "/resumes/" + id)//.param("id", "1").param("detailLevel", "1")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andDo(print())
+        ;
+    }
+
+    @Test
+    public void getByStuIdMapperTest() throws Exception{
+        Integer stu_id  = 1;
+        List<ResumeJson> resumeJsonList = resumeJsonMapper.selectResumeJsonByStuId(stu_id);
+
+        Assert.assertEquals(2, resumeJsonList.size());
+        Assert.assertEquals(Integer.valueOf(1), resumeJsonList.get(0).getResume_id());
+
+    }
+
+    @Test
+    public void getByStuIdServiceTest() throws  Exception{
+        Integer stu_id = 1;
+        List<ResumeJson> resumeJsonList = studentServiceImpl.selectResumeJsonByStuId(stu_id);
+
+        Assert.assertEquals(2, resumeJsonList.size());
+        Assert.assertEquals(Integer.valueOf(1), resumeJsonList.get(0).getResume_id());
+    }
+
+    @Test
+    public void getByStuIdControllerTest() throws  Exception{
+        Integer id = 1;
+
+
+        this.mvc.perform(
+                get(this.urlPrefix + "/applicants/" + id + "/resumes")//.param("id", "1").param("detailLevel", "1")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andDo(print())
+        //     .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+        ;
+    }
+
+    
+
+
 }
