@@ -438,6 +438,14 @@
         WHERE STU_ID=#{stu_id}
     </update>
 
+    <!--删除所有标签表-->
+    <update id="deleteAllSkills">
+        UPDATE STU_ADVAN_LABEL set
+        IS_DELETE=1, IS_DELETE_TIME=NOW()
+        WHERE STU_ID=#{stu_id}
+
+    </update>
+
 
     <!--删除应聘者意向职位-->
     <update id="deleteLabel">
@@ -588,6 +596,17 @@
 
         )
     </insert>
+
+    <insert id="insertAdvantageSkills" parameterType="com.youthchina.domain.Qinghong.AdvantageLabel" useGeneratedKeys="true" keyProperty="label_id">
+        INSERT INTO STU_ADVAN_LABEL
+        (
+        LABEL_CODE,STU_ID,IS_DELETE,IS_DELETE_TIME
+        )
+        VALUES (
+        #{label_code},#{stu_id},0,NULL
+
+        )
+    </insert>
     <update id="updateUserInfo" parameterType="com.youthchina.domain.Qinghong.Student">
         UPDATE SYS_USER SET
         USER_PHOTO=#{avatarUrl}
@@ -647,6 +666,12 @@
 
 
     </update>
+    <!--查询所有字典表内容-->
+    <select id="getAllSkills" resultType="com.youthchina.domain.Qinghong.LabelInfo">
+        SELECT *
+        FROM SYS_ADVAN_LABEL_CLASS
+        WHERE IS_DELETE=0
+    </select>
 
 
     
