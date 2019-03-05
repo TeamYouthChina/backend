@@ -1,3 +1,51 @@
+GET http://47.254.46.117:8080/api/v1/discovery/companies
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+{   "invited": [ 1,2 ] }
+
+<> 2019-03-05T031136.200.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/articles
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+{   "invited": [ 1,2 ] }
+
+<> 2019-03-05T031124.500.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/companies
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+{   "invited": [ 1,2 ] }
+
+<> 2019-03-05T031117.200.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/articles
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+{   "invited": [ 1,2 ] }
+
+<> 2019-03-05T031107.500.json
+
+###
+
 GET http://47.254.46.117:8080/api/v1/discovery/articles
 Accept: */*
 Cache-Control: no-cache
@@ -523,52 +571,6 @@ Content-Type: application/json;charset=utf8
 {   "invited": [       1,2   ] }
 
 <> 2019-03-02T053121.500.html
-
-###
-
-PUT http://47.254.46.117:8080/api/v1/questions/1/invite
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "invited": [     1   ] }
-
-<> 2019-03-02T052700.400.json
-
-###
-
-PUT http://47.254.46.117:8080/api/v1/questions/1/invite
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "invited": [     1,2,3   ] }
-
-<> 2019-03-02T052556.400.json
-
-###
-
-PUT http://47.254.46.117:8080/api/v1/questions/1/invite
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "invited": [     0   ] }
-
-<> 2019-03-02T052518.400.json
-
-###
-
-PUT http://47.254.46.117:8080/api/v1/questions/1/invite
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-<> 2019-03-02T052348.400.json
 
 ###
 

@@ -20,7 +20,7 @@ import java.util.List;
  * Created by hongshengzhang on 2/24/19.
  */
 @RestController
-@RequestMapping("${web.url.prefix}//discovery")
+@RequestMapping("${web.url.prefix}/discovery")
 public class QuestionRecommedController {
     @Autowired
     public QuestionRecommendServiceImplement questionRecommendServiceImplement;
@@ -34,7 +34,7 @@ public class QuestionRecommedController {
         }
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("users", resultList);
+        map.put("questions", resultList);
 
         if (resultList!=null)
             return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
