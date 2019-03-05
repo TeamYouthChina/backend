@@ -48,8 +48,8 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
     List<Project> insertProjects(List<Project> projects,Integer user_id) throws NotFoundException;
     List<Activity> insertActivities(List<Activity> activities,Integer user_id) throws NotFoundException;
     List<Certificate> insertCertificates(List<Certificate> certificates,Integer user_id)throws  NotFoundException;
+    List<LabelInfo> insertLabels(List<String> label_codes,Integer user_id) throws NotFoundException;
     ResumeJson getResumeJson(Integer resume_id)throws NotFoundException;
     ResumeJson insertResumeJson(ResumeJson resumeJson) throws NotFoundException;
-    Integer deleteResumeJson(Integer id) throws NotFoundException;
-    List<ResumeJson> selectResumeJsonByStuId(Integer id) throws NotFoundException;
+    List<LabelInfo> getAllSkills() throws NotFoundException;
 }

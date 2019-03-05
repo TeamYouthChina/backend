@@ -10,23 +10,23 @@ import com.youthchina.dto.JobResponseDTO;
  * @create: 2019-02-26 11:28
  **/
 public class JobCollectResponseDTO {
-    private Integer collect_id;
+    private Integer id;
     private JobResponseDTO job;
 
     public JobCollectResponseDTO(JobCollect jobCollect) {
-        this.collect_id = jobCollect.getCollect_id();
+        this.id = jobCollect.getCollect_id();
         this.job=new JobResponseDTO(jobCollect.getJob());
     }
 
     public JobCollectResponseDTO() {
     }
 
-    public Integer getCollect_id() {
-        return collect_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCollect_id(Integer collect_id) {
-        this.collect_id = collect_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public JobResponseDTO getJob() {

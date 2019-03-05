@@ -315,6 +315,13 @@ public class StudentMapperTest {
         System.out.print(integer);
     }
 
+    @Test
+    public void testAllSkills(){
+        List<LabelInfo> labelInfos=applicantMapper.getAllSkills();
+        Assert.assertNotNull(labelInfos);
+
+    }
+
 
 
 }

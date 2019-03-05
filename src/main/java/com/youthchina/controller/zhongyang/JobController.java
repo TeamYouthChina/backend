@@ -1,11 +1,14 @@
 package com.youthchina.controller.zhongyang;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.*;
+import com.youthchina.dto.Applicant.SendingEmailDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
+import com.youthchina.service.Qinghong.MessageSendService;
 import com.youthchina.service.Qinghong.StudentService;
 import com.youthchina.service.qingyang.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Date;
@@ -32,6 +40,8 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     private String url;
     private JobService jobService;
     private StudentService studentService;
+    @Autowired
+    private MessageSendService messageSendService;
 
     @Autowired
     public JobController(JobService jobService,StudentService studentService, @Value("${web.url.prefix}") String prefix) {
@@ -135,6 +145,33 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
             return  ResponseEntity.ok(new Response(jobApplyDTO,new StatusDTO(0,"")));
 
     }
+    @PostMapping("/{id}/apply/sendingemail")
+    public ResponseEntity<?> sendingResume(@PathVariable ("id") Integer job_id, @RequestParam("file") MultipartFile file, @AuthenticationPrincipal User user)throws NotFoundException, IOException {
+        Job job=jobService.get(job_id);
+        String company_email=job.getCompany().getCompanyMail();
+        SendingEmailDTO sendingEmailDTO=new SendingEmailDTO();
+        sendingEmailDTO.setCompany_email(company_email);
+        sendingEmailDTO.setUser_id(user.getId());
+        File convFile = new File( file.getOriginalFilename());
+        file.transferTo(convFile);
+        InputStream input=new FileInputStream(convFile);
+        byte[] bytesArray = new byte[(int) convFile.length()];
+
+        FileInputStream fis = new FileInputStream(convFile);
+        fis.read(bytesArray); //read file into bytes[]
+        fis.close();
+        sendingEmailDTO.setBytes(bytesArray);
+        ObjectMapper mapper=new ObjectMapper();
+        String message=mapper.writeValueAsString(user);
+        messageSendService.sendMessage(message);
+        return ResponseEntity.ok(new Response());
+
+
+
+
+
+    }
+
 
     /**
     * @Description: 完成职位收藏，通过job_id以及user_id实现
@@ -165,7 +202,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     * @Author: Qinghong Wang
     * @Date: 2019/2/19
     */
-    @DeleteMapping("/collections/{id}")
+    @DeleteMapping("/attentions/{id}")
     public ResponseEntity<?> deleteJobCollection(@PathVariable("id") Integer collect_id,@AuthenticationPrincipal User user)throws NotFoundException{
         Integer integer=studentService.deleteJobCollect(collect_id);
         if (integer == 1) {
