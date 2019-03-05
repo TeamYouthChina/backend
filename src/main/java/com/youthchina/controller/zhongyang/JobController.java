@@ -150,7 +150,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         Job job=jobService.get(job_id);
         String company_email=job.getCompany().getCompanyMail();
         SendingEmailDTO sendingEmailDTO=new SendingEmailDTO();
-        sendingEmailDTO.setCompany_email(company_email);
+        sendingEmailDTO.setCompany_email("hmgswqh@gmail.com");
         sendingEmailDTO.setUser_id(user.getId());
         File convFile = new File( file.getOriginalFilename());
         file.transferTo(convFile);

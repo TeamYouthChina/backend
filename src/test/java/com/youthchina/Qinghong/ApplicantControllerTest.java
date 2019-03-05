@@ -881,9 +881,9 @@ public class ApplicantControllerTest {
 
     @Test
     public void testSendingEmail() throws Exception{
-        File file = new File("/Users/wangqinghong/Desktop/YouthChina resume/resume.pdf");
+        File file = new File("/Users/dreamer/Documents/6461/hjh_hw2_PART1.pdf");
         //文件之外的参数
-        MockMultipartFile firstFile = new MockMultipartFile("file", "resume.pdf",
+        MockMultipartFile firstFile = new MockMultipartFile("file", "hjh_hw2_PART1.pdf",
                 MediaType.TEXT_PLAIN_VALUE, new FileInputStream(file));
 
 
