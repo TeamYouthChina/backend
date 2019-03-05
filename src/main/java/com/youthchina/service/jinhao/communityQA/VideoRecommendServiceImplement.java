@@ -23,7 +23,7 @@ public class VideoRecommendServiceImplement implements VideoRecommendService{
         List<Integer> videoId = recommendMapper.getRandomVideo();
         List<Video> videos = new ArrayList<>();
         for(Integer id : videoId){
-            videos.add(communityQAMapper.getVideo(id));
+            videos.add(communityQAMapper.getVideoById(id));
         }
         return videos;
     }
