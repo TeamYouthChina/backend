@@ -21,6 +21,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -887,14 +888,11 @@ public class ApplicantControllerTest {
 
 
 
-        this.mvc.perform(
-                post
-                        (this.urlPrefix + "/jobs/1/apply/sendingemail").with(authGenerator.authentication())
-
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print())
-        ;
+        this.mvc.perform(MockMvcRequestBuilders
+                .multipart("/jobs/1/apply/sendingemail")
+                .file(firstFile)
+                .with(authGenerator.authentication())
+        ).andDo(print());
     }
 
 
