@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.5.1
+  version: 1.5.2
   title: YouthChina
   license:
     name: MIT
@@ -331,9 +331,12 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/EducationInfo'
+                    type: object
+                    properties:
+                      educations:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/EducationInfo'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -425,9 +428,12 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/EducationInfo'
+                    type: object
+                    properties:
+                      educations:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/EducationInfo'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -593,9 +599,12 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/WorkExperienceInfo'
+                    type: object
+                    properties:
+                      experiences:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/WorkExperienceInfo'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -642,7 +651,8 @@ paths:
               schema:
                 type: object
                 properties:
-                  content:
+                  content:r
+                  
                     $ref: '#/components/schemas/WorkExperienceInfo'
                   status:
                     $ref: '#/components/schemas/Status'
@@ -687,9 +697,12 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/WorkExperienceInfo'
+                    type: object
+                    properties:
+                      experiences:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/WorkExperienceInfo'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -727,9 +740,11 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Certification'
+                    type: object
+                    properties:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Certification'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -821,9 +836,11 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Certification'
+                    type: object
+                    properties:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Certification'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -861,9 +878,12 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Extracurricular'
+                    type: object
+                    properties:
+                      extracurriculars:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Extracurricular'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -949,9 +969,12 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Extracurricular'
+                    type: object
+                    properties:
+                      extracurriculars:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Extracurricular'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
