@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.5.2
+  version: 1.5.3
   title: YouthChina
   license:
     name: MIT
@@ -651,9 +651,13 @@ paths:
               schema:
                 type: object
                 properties:
-                  content:r
-                  
-                    $ref: '#/components/schemas/WorkExperienceInfo'
+                  content:
+                    type: object
+                    properties:
+                      experiences:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/WorkExperienceInfo'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -742,9 +746,10 @@ paths:
                   content:
                     type: object
                     properties:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Certification'
+                      certificates:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Certification'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -838,9 +843,10 @@ paths:
                   content:
                     type: object
                     properties:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Certification'
+                      certificates:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Certification'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
