@@ -326,6 +326,9 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     @GetMapping("/{id}/resumes")
     public ResponseEntity<?> getApplicantsResumes(@PathVariable Integer id) throws NotFoundException{
         List<ResumeJson> resumeJsonList = studentService.selectResumeJsonByStuId(id);
+        if(resumeJsonList == null || resumeJsonList.size() == 0){
+            throw new NotFoundException( 404, 404, "No Resume available.");
+        }
         List<ResumeResponseDTO> responseDTOList = new ArrayList<>();
         for(ResumeJson resumeJson : resumeJsonList){
             responseDTOList.add(new ResumeResponseDTO(resumeJson));
