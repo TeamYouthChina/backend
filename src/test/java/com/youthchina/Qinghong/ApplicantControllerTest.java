@@ -875,6 +875,19 @@ public class ApplicantControllerTest {
         ;
     }
 
+    @Test
+    public void testSendingEmail() throws Exception{
+
+        this.mvc.perform(
+                post
+                        (this.urlPrefix + "/jobs/{id}/apply/sendingemail")
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+    }
+
 
 
 
