@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -23,6 +24,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -877,10 +880,16 @@ public class ApplicantControllerTest {
 
     @Test
     public void testSendingEmail() throws Exception{
+        File file = new File("/Users/wangqinghong/Desktop/YouthChina resume/resume.pdf");
+        //文件之外的参数
+        MockMultipartFile firstFile = new MockMultipartFile("file", "resume.pdf",
+                MediaType.TEXT_PLAIN_VALUE, new FileInputStream(file));
+
+
 
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/jobs/{id}/apply/sendingemail")
+                        (this.urlPrefix + "/jobs/1/apply/sendingemail").with(authGenerator.authentication())
 
                         .with(authGenerator.authentication())
         )
