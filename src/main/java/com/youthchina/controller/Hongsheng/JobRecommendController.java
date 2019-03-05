@@ -35,7 +35,7 @@ public class JobRecommendController {
             resultList.add(new JobResponseDTO(job));
         }
         HashMap<String, Object> map = new HashMap<>();
-        map.put("jobList", resultList);
+        map.put("jobs", resultList);
 
         if (resultList!=null)
             return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
