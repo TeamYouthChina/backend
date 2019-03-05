@@ -61,11 +61,11 @@
 #         order by t1.VIDEO_ID limit 10
     </select>
     <select id="getRandomBriefReview" resultType="java.lang.Integer">
-          SELECT VIDEO_ID FROM RECOM_VIDEO
-#         select VIDEO_ID from RECOM_VIDEO as t1 join (select ROUND(RAND()*((select MAX(VIDEO_ID) from RECOM_VIDEO)-(select MIN(VIDEO_ID) from RECOM_VIDEO))
-#             +(select MIN(VIDEO_ID) from RECOM_VIDEO)) AS id) as t2
-#         where t1.VIDEO_ID >= t2.id
-#         order by t1.VIDEO_ID limit 10
+          SELECT REVIEW_ID FROM RECOM_BRIEF_REVIEW
+#         select REVIEW_ID from RECOM_BRIEF_REVIEW as t1 join (select ROUND(RAND()*((select MAX(REVIEW_ID) from RECOM_BRIEF_REVIEW)-(select MIN(REVIEW_ID) from RECOM_BRIEF_REVIEW))
+#             +(select MIN(REVIEW_ID) from RECOM_BRIEF_REVIEW)) AS id) as t2
+#         where t1.REVIEW_ID >= t2.id
+#         order by t1.REVIEW_ID limit 10
     </select>
 
     <select id="getList" parameterType="java.lang.Integer" resultType="com.youthchina.domain.qingyang.Job">
