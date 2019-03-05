@@ -139,7 +139,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     * @Date: 2019/2/18
     */
 
-    @PostMapping("/{id}/apply")
+    @PostMapping("/{id}/apply/*")
     public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id,@AuthenticationPrincipal User user) throws NotFoundException {
         JobApplyDTO jobApplyDTO=new JobApplyDTO(studentService.jobApply(job_id,user.getId()));
             return  ResponseEntity.ok(new Response(jobApplyDTO,new StatusDTO(0,"")));
@@ -162,7 +162,8 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         fis.close();
         sendingEmailDTO.setBytes(bytesArray);
         ObjectMapper mapper=new ObjectMapper();
-        String message=mapper.writeValueAsString(user);
+        String message=mapper.writeValueAsString(sendingEmailDTO);
+        System.out.print(message);
         messageSendService.sendMessage(message);
         return ResponseEntity.ok(new Response());
 

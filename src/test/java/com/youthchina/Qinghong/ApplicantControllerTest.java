@@ -889,7 +889,7 @@ public class ApplicantControllerTest {
 
 
         this.mvc.perform(MockMvcRequestBuilders
-                .multipart("/jobs/1/apply/sendingemail")
+                .multipart(this.urlPrefix + "/jobs/1/apply/sendingemail")
                 .file(firstFile)
                 .with(authGenerator.authentication())
         ).andDo(print());
