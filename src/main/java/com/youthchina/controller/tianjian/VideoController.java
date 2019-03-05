@@ -1,10 +1,15 @@
 package com.youthchina.controller.tianjian;
 
-import com.youthchina.domain.jinhao.communityQA.*;
+import com.youthchina.domain.jinhao.communityQA.Video;
+import com.youthchina.domain.jinhao.communityQA.VideoAttention;
+import com.youthchina.domain.jinhao.communityQA.VideoComment;
+import com.youthchina.domain.jinhao.communityQA.VideoEvaluate;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.*;
+import com.youthchina.dto.community.RequestVideoDTO;
+import com.youthchina.dto.community.VideoCommentDTO;
+import com.youthchina.dto.community.VideoDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.CommunityQAServiceImplement;

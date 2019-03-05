@@ -1,15 +1,11 @@
 package com.youthchina.dto.Applicant;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.dto.ContactDTO;
 import com.youthchina.dto.OrganizationDTO;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @program: youthchina

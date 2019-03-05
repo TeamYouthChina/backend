@@ -2,10 +2,8 @@ package com.youthchina.controller.Hongsheng;
 
 
 import com.youthchina.domain.qingyang.Job;
-
 import com.youthchina.dto.JobResponseDTO;
 import com.youthchina.dto.Response;
-import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.JobRecommendServiceImplement;
