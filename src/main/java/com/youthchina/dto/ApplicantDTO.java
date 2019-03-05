@@ -1,16 +1,9 @@
 package com.youthchina.dto;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.youthchina.domain.Qinghong.*;
-import com.youthchina.domain.zhongyang.User;
 
-import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zhong on 2018/12/30.

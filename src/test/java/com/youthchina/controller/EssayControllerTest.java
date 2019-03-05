@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dto.RichTextDTO;
-import com.youthchina.dto.community.RequestEssayReplyDTO;
 import com.youthchina.dto.community.RequestEssayDTO;
+import com.youthchina.dto.community.RequestEssayReplyDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,10 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -281,6 +278,6 @@ public class EssayControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"content\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"reply_content42\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"Body Body 1\",\"resourceIdList\":[]},\"create_at\":\"2018-12-04 13:32:40.0\",\"is_anonymous\":false,\"modified_at\":\"2018-12-04 13:32:40.0\"}]},\"status\":{\"code\":2000,\"reason\":\"\"}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"reply_content42\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"Body Body 1\",\"resourceIdList\":[]},\"create_at\":\"2018-12-04 13:32:40.0\",\"is_anonymous\":false,\"modified_at\":\"2018-12-04 13:32:40.0\"}]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 }
