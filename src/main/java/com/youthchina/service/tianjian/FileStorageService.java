@@ -1,10 +1,9 @@
 package com.youthchina.service.tianjian;
 
 
-import com.youthchina.dao.tianjian.StaticFileSystemMapper;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.net.URL;
 import java.util.List;
 
@@ -17,5 +16,5 @@ public interface FileStorageService {
 
     public void deleteFile(List<String> fileName);
 
-    void uploadFile(File file,Long id);
+    void uploadFile(Resource file, Long id);
 }
