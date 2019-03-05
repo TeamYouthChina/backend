@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.2.5
+  version: 1.2.9
   title: YouthChina
   license:
     name: MIT
@@ -20,7 +20,6 @@ paths:
             required: true
             schema:
               type: integer
-              default: 1
           - in: path
             name: id
             required: true
@@ -414,7 +413,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EducationInfo'
+              type: array
+              items:
+                $ref: '#/components/schemas/EducationInfo'
       responses:
         '200':
           description: return target user's 1
@@ -424,7 +425,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/EducationInfo'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EducationInfo'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -538,7 +541,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Project'
+              type: array
+              items:
+                $ref: '#/components/schemas/Project'
       responses:
         '200':
           description: return target user's 1
@@ -548,7 +553,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/Project'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -668,7 +675,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkExperienceInfo'
+              type: array
+              items:
+                $ref: '#/components/schemas/WorkExperienceInfo'
       responses:
         '200':
           description: return target user's 1
@@ -678,7 +687,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/WorkExperienceInfo'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WorkExperienceInfo'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -798,7 +809,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Certification'
+              type: array
+              items:
+                $ref: '#/components/schemas/Certification'
       responses:
         '200':
           description: return target user's 1
@@ -808,7 +821,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/Certification'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Certification'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -922,7 +937,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Extracurricular'
+              type: array
+              items:
+                $ref: '#/components/schemas/Extracurricular'
       responses:
         '200':
           description: return target applicant
@@ -932,7 +949,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/Extracurricular'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Extracurricular'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -2358,7 +2377,7 @@ paths:
                   content:
                     type: object
                     properties:
-                      users:
+                      companies:
                         type: array
                         items:
                           $ref: '#/components/schemas/Company'
@@ -2379,7 +2398,7 @@ paths:
                   content:
                     type: object
                     properties:
-                      users:
+                      articles:
                         type: array
                         items:
                           $ref: '#/components/schemas/Article'
@@ -2400,7 +2419,7 @@ paths:
                   content:
                     type: object
                     properties:
-                      users:
+                      questions:
                         type: array
                         items:
                           $ref: '#/components/schemas/Question'
@@ -2421,38 +2440,88 @@ paths:
                   content:
                     type: object
                     properties:
-                      users:
+                      jobs:
                         type: array
                         items:
                           $ref: '#/components/schemas/Job'
                   status:
                     $ref: '#/components/schemas/Status'
+  '/discovery/videos':
+    get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: recommend jobs
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      videos:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Video'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/discovery/editorials': 
+    get:
+      tags:
+        - Discover
+      responses:
+        '200':
+          description: recommend jobs
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      editorials:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Editorial'
+                  status:
+                    $ref: '#/components/schemas/Status'
+                    
+  
                     
   '/resumes':
     post:
       tags:
         - Resume
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                type: object
+       content:
+         application/json:
+             schema:
+               type: object
+               properties:
+                 resume:
+                   type: string
       responses:
         '201':
           description: created
           content:
-            application/json:
+           application/json:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: integer
-                  jsons:
-                    type: array
-                    items:
-                      type: object
+                  content:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      jsons:
+                        type: array
+                        items:
+                          type: object
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/resumes/{id}':
     get:
       tags:
@@ -2471,12 +2540,17 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: integer
-                  jsons:
-                    type: array
-                    items:
-                      type: object
+                  content:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      jsons:
+                        type: array
+                        items:
+                          type: object
+                  status:
+                    $ref: '#/components/schemas/Status'
     delete:
       tags:
       - Resume
@@ -2489,6 +2563,40 @@ paths:
       responses:
         '204':
           description: deleted
+  '/applicant/{id}/resumes':
+    get:
+      tags:
+        - Applicant
+      parameters:
+        - name: id
+          in: path
+          description: applicant id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: resumes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      type: object
+                      resumes:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          jsons:
+                            type: array
+                            items:
+                              type: object
+                  status:
+                    $ref: '#/components/schemas/Status'
           
   '/friends/{id}/apply':
     post:
