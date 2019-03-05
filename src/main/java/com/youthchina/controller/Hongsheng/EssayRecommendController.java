@@ -60,8 +60,7 @@ public class EssayRecommendController {
         }
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("users", resultList);
-        System.out.println("11111");
+        map.put("articles", resultList);
 
         if (resultList!=null)
             return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
