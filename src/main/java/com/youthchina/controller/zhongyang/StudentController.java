@@ -110,13 +110,30 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     @GetMapping("/{id}/certificates")
     public ResponseEntity<?> getApplicantsCertificates(@PathVariable Integer id) throws NotFoundException {
         Student student=studentService.get(id);
-        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getCertificates()));
+        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getCertifications()));
     }
 
     @GetMapping("/{id}/extracurriculars")
     public ResponseEntity<?> getApplicantsExtracurriculars(@PathVariable Integer id) throws NotFoundException {
         Student student=studentService.get(id);
         return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getExtracurriculars()));
+    }
+    @GetMapping("/{id}/skills")
+    public ResponseEntity<?> getApplicantsSkills(@PathVariable Integer id) throws NotFoundException{
+        Student student=studentService.get(id);
+        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getSkills()));
+    }
+
+    @GetMapping("/skills/**")
+    public ResponseEntity<?> getAllSkills() throws NotFoundException{
+        List<LabelInfo> labelInfos=studentService.getAllSkills();
+        List<SkillsResponseDTO> labelInfos1=new ArrayList<>();
+        for(LabelInfo labelInfo:labelInfos){
+            SkillsResponseDTO skillsResponseDTO=new SkillsResponseDTO(labelInfo);
+            labelInfos1.add(skillsResponseDTO);
+        }
+
+        return ResponseEntity.ok(new Response(labelInfos1));
     }
 
     private ApplicantDTO getDto(Integer id) throws NotFoundException {
@@ -314,6 +331,18 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
             certificateResponseDTOS.add(certificateResponseDTO);
         }
         return ResponseEntity.ok(new Response(certificateResponseDTOS));
+    }
+
+    @RequestMapping(value = "/{id}/skills",method = {RequestMethod.POST,RequestMethod.PUT})
+    public ResponseEntity<?> saveApplicantsSkills(@RequestBody List<String> skills,@AuthenticationPrincipal User user,@PathVariable ("id") Integer id) throws NotFoundException{
+        List<LabelInfo> labelInfos=studentService.insertLabels(skills,id);
+        List<SkillsResponseDTO> skillsResponseDTOS=new ArrayList<>();
+        for(LabelInfo labelInfo:labelInfos){
+            SkillsResponseDTO skillsResponseDTO=new SkillsResponseDTO(labelInfo);
+            skillsResponseDTOS.add(skillsResponseDTO);
+        }
+        return ResponseEntity.ok(new Response(skillsResponseDTOS));
+
     }
 
 //    @RequestMapping(value = "/{id}/contacts",method ={RequestMethod.POST,RequestMethod.PUT})

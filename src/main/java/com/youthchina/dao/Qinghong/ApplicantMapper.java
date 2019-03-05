@@ -58,6 +58,9 @@ public interface ApplicantMapper {
     Integer deleteAllWork(Integer stu_id);
     Integer deleteAllActivity(Integer stu_id);
     Integer deleteAllCertificate(Integer stu_id);
+    Integer deleteAllSkills(Integer stu_id);
+    List<LabelInfo> getAllSkills();
+    Integer insertAdvantageSkills(AdvantageLabel advantageLabel);
 
 
 

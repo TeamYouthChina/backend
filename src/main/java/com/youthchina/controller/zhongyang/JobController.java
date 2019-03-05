@@ -165,7 +165,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     * @Author: Qinghong Wang
     * @Date: 2019/2/19
     */
-    @DeleteMapping("/collections/{id}")
+    @DeleteMapping("/attentions/{id}")
     public ResponseEntity<?> deleteJobCollection(@PathVariable("id") Integer collect_id,@AuthenticationPrincipal User user)throws NotFoundException{
         Integer integer=studentService.deleteJobCollect(collect_id);
         if (integer == 1) {
