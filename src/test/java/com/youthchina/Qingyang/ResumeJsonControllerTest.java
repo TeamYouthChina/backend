@@ -159,6 +159,21 @@ public class ResumeJsonControllerTest {
         Assert.assertEquals(Integer.valueOf(1), resumeJsonList.get(0).getResume_id());
     }
 
+    @Test
+    public void getByStuIdControllerTest() throws  Exception{
+        Integer id = 1;
+
+
+        this.mvc.perform(
+                get(this.urlPrefix + "/applicants/" + id + "/resumes")//.param("id", "1").param("detailLevel", "1")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andDo(print())
+        //     .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+        ;
+    }
+
     
 
 
