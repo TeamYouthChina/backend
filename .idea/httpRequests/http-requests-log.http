@@ -1,3 +1,63 @@
+GET http://47.254.46.117:8080/api/v1/discovery/articles
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+{   "invited": [ 1,2 ] }
+
+<> 2019-03-05T095139.200.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/article
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+{   "invited": [ 1,2 ] }
+
+<> 2019-03-05T095137.404.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/questions
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+{   "invited": [ 1,2 ] }
+
+<> 2019-03-05T095058.200.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/questions/2
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+{   "invited": [ 1,2 ] }
+
+<> 2019-03-05T095054.404.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/questions/1
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+{   "invited": [ 1,2 ] }
+
+<> 2019-03-05T095051.404.json
+
+###
+
 DELETE http://47.254.46.117:8080/api/v1/questions/2
 Accept: */*
 Cache-Control: no-cache
@@ -509,66 +569,6 @@ X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMD
 Content-Type: application/json;charset=utf8
 
 <> 2019-03-02T052348.400.json
-
-###
-
-PUT http://47.254.46.117:8080/api/v1/questions/1/invite
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "id": 0,   "body": {     "braftEditorRaw":{       "blocks": [         {           "key":"dtj4a",           "text":"qweertyuiop",           "type":"unstyled",           "depth":0,           "inlineStyleRanges": [],           "entityRanges": [],           "data":{           }         }       ],       "entityMap":{       }     },     "previewText":null,     "resourceIdList": []   },   "is_anonymous": false,   "create_at": 0 }
-
-<> 2019-03-02T052320.400.json
-
-###
-
-PUT http://47.254.46.117:8080/api/v1/questions/1/attention
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "id": 0,   "body": {     "braftEditorRaw":{       "blocks": [         {           "key":"dtj4a",           "text":"qweertyuiop",           "type":"unstyled",           "depth":0,           "inlineStyleRanges": [],           "entityRanges": [],           "data":{           }         }       ],       "entityMap":{       }     },     "previewText":null,     "resourceIdList": []   },   "is_anonymous": false,   "create_at": 0 }
-
-<> 2019-03-02T052307.200.json
-
-###
-
-POST http://47.254.46.117:8080/api/v1/questions/1/answers
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "id": 0,   "body": {     "braftEditorRaw":{       "blocks": [         {           "key":"dtj4a",           "text":"qweertyuiop",           "type":"unstyled",           "depth":0,           "inlineStyleRanges": [],           "entityRanges": [],           "data":{           }         }       ],       "entityMap":{       }     },     "previewText":null,     "resourceIdList": []   },   "is_anonymous": false,   "create_at": 0 }
-
-<> 2019-03-02T051728.200.json
-
-###
-
-POST http://47.254.46.117:8080/api/v1/questions/1/answers
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "body": {     "braftEditorRaw":{       "blocks": [         {           "key":"dtj4a",           "text":"qweertyuiop",           "type":"unstyled",           "depth":0,           "inlineStyleRanges": [],           "entityRanges": [],           "data":{           }         }       ],       "entityMap":{       }     },     "previewText":null,     "resourceIdList": []   },   "is_anonymous": false }
-
-<> 2019-03-02T051556.200.json
-
-###
-
-PUT http://47.254.46.117:8080/api/v1/answers/1
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "body": {     "braftEditorRaw":{       "blocks": [         {           "key":"dtj4a",           "text":"qweertyuiop",           "type":"unstyled",           "depth":0,           "inlineStyleRanges": [],           "entityRanges": [],           "data":{           }         }       ],       "entityMap":{       }     },     "previewText":null,     "resourceIdList": []   },   "is_anonymous": false }
-
-<> 2019-03-02T051404.200.json
 
 ###
 
