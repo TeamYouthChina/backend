@@ -1,7 +1,0 @@
-{
-  "timestamp": "2019-03-05T14:35:54.448+0000",
-  "status": 500,
-  "error": "Internal Server Error",
-  "message": "No message available",
-  "path": "/api/v1/applicants/1"
-}
