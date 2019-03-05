@@ -707,5 +707,10 @@ public class StudentServiceImpl implements StudentService {
         return resumeJsonMapper.deleteResumeJson(id);
     }
 
+    @Override
+    public List<ResumeJson> selectResumeJsonByStuId(Integer id) throws NotFoundException {
+        return resumeJsonMapper.selectResumeJsonByStuId(id);
+    }
+
 
 }

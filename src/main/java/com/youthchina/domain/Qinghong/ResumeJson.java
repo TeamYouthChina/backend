@@ -26,12 +26,15 @@ public class ResumeJson {
     private String  json_9;
     private String  json_10;
 
+    private Integer stu_id;
+
     private Timestamp create_time;
 
     public ResumeJson() {
     }
 
-    public ResumeJson(ResumeRequestDTO requestDTO) {
+    public ResumeJson(Integer id, ResumeRequestDTO requestDTO) {
+        this.stu_id = id;
         List<String> list = requestDTO.getJson();
         this.json_count = list.size();
         switch (this.json_count){
@@ -51,6 +54,13 @@ public class ResumeJson {
     }
 
 
+    public Integer getStu_id() {
+        return stu_id;
+    }
+
+    public void setStu_id(Integer stu_id) {
+        this.stu_id = stu_id;
+    }
 
     public Integer getResume_id() {
         return resume_id;

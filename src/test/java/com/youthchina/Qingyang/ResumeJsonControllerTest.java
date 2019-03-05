@@ -83,6 +83,7 @@ public class ResumeJsonControllerTest {
         resumeJson.setJson_count(2);
         resumeJson.setJson_1("111");
         resumeJson.setJson_2("222");
+        resumeJson.setStu_id(1);
         resumeJsonMapper.insertResumeJson(resumeJson);
     }
 
@@ -92,6 +93,7 @@ public class ResumeJsonControllerTest {
         resumeJson.setJson_count(2);
         resumeJson.setJson_1("111");
         resumeJson.setJson_2("222");
+        resumeJson.setStu_id(1);
         resumeJson = studentServiceImpl.insertResumeJson(resumeJson);
         Assert.assertEquals(Integer.valueOf(2), resumeJson.getJson_count());
         Assert.assertEquals("111", resumeJson.getJson_1());
@@ -144,6 +146,27 @@ public class ResumeJsonControllerTest {
                 .andDo(print())
         ;
     }
+
+    @Test
+    public void getByStuIdMapperTest() throws Exception{
+        Integer stu_id  = 1;
+        List<ResumeJson> resumeJsonList = resumeJsonMapper.selectResumeJsonByStuId(stu_id);
+
+        Assert.assertEquals(2, resumeJsonList.size());
+        Assert.assertEquals(Integer.valueOf(1), resumeJsonList.get(0).getResume_id());
+
+    }
+
+    @Test
+    public void getByStuIdServiceTest() throws  Exception{
+        Integer stu_id = 1;
+        List<ResumeJson> resumeJsonList = studentServiceImpl.selectResumeJsonByStuId(stu_id);
+
+        Assert.assertEquals(2, resumeJsonList.size());
+        Assert.assertEquals(Integer.valueOf(1), resumeJsonList.get(0).getResume_id());
+    }
+
+    
 
 
 }
