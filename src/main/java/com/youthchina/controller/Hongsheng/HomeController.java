@@ -8,6 +8,7 @@ import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.jinhao.communityQA.JobRecommendService;
+import com.youthchina.service.jinhao.communityQA.JobRecommendServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
