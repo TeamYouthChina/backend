@@ -27,7 +27,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("${web.url.prefix}/videos")
+@RequestMapping("${web.url.prefix}/videos/**")
 public class VideoController {
     @Autowired
     CommunityQAServiceImplement communityQAServiceImplement;
@@ -53,9 +53,10 @@ public class VideoController {
         return ResponseEntity.ok(new Response(new StatusDTO(204,"success")));
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity addVideo(@RequestPart MultipartFile file, @RequestBody RequestVideoDTO requestVideoDTO, @AuthenticationPrincipal User user) throws BaseException {
+    @PostMapping("/**")
+    public ResponseEntity addVideo(@RequestPart MultipartFile file, @AuthenticationPrincipal User user) throws BaseException {
         Long id;
+        System.out.println("start here!!!!!!!!!");
         try {
             id = fileService.saveFile(file.getResource().getFile(), user.getId());
         } catch (IOException e) {
@@ -70,17 +71,15 @@ public class VideoController {
         video.setVideo_upload_time(time);
         video.setVideo_title(id.toString());
         Video videoReturn;
-        if(requestVideoDTO.getCompany_id()!=null)
-         videoReturn =  communityQAServiceImplement.addVideo(video,user.getId(),2,requestVideoDTO.getCompany_id());
-        else
-         videoReturn = communityQAServiceImplement.addVideo(video,user.getId(),1,0);
+         videoReturn =  communityQAServiceImplement.addVideo(video,user.getId(),1,0);
+
         VideoDTO videoDTO = new VideoDTO(videoReturn);
         return ResponseEntity.ok(new Response(videoDTO,new StatusDTO(201,"success")));
     }
 
     @PostMapping("/{id}/comments")
     public ResponseEntity<?> addComments(@PathVariable Integer id, @RequestBody VideoCommentDTO commentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        //System.out.println("add answers");
+        System.out.println("add answers");
         VideoComment videocomment = new VideoComment(commentDTO);
         videocomment.setComment_pub_time(new Timestamp(System.currentTimeMillis()));
         videocomment.setComment_edit_time(new Timestamp(System.currentTimeMillis()));
