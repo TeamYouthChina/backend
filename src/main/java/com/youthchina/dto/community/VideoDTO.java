@@ -26,6 +26,7 @@ public class VideoDTO {
             }
         }
         this.uploader = new UserDTO(video.getUser());
+        this.url = video.getVideo_name();
     }
 
     public Integer getId() {

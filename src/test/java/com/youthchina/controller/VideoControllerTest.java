@@ -178,9 +178,9 @@ public class VideoControllerTest {
 
                         .with(authGenerator.authentication())
         )
-                .andDo(print())
-        ;
+                .andDo(print());
     }
+
 
     @Test
     public void testUploadVideo() throws Exception {
