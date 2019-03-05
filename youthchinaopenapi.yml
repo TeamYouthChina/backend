@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.5.0
+  version: 1.5.1
   title: YouthChina
   license:
     name: MIT
@@ -969,6 +969,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
+                  
   '/jobs/{id}/apply':
     post:
       tags:
@@ -1022,6 +1023,37 @@ paths:
                 status:
                   code: 4032
                   reason: 'cannot apply for job because it has passed deadline'
+  '/jobs/{id}/apply/resume':
+    post:
+      tags:
+      - Application
+      description: send resume to company
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: string
+              format: binary
+              description: video to uploaded
+      parameters:
+        - name: id
+          in: path
+          description: id of the job
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: successfully send email
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Application'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/applicants/{id}/applications':
     get:
       tags:
