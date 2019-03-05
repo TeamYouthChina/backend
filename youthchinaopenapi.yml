@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.2.8
+  version: 1.5.0
   title: YouthChina
   license:
     name: MIT
@@ -371,7 +371,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EducationInfo'
+              $ref: '#/components/schemas/EducationInfoRequest'
       responses:
         '200':
           description: return target user's 1
@@ -415,7 +415,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/EducationInfo'
+                $ref: '#/components/schemas/EducationInfoRequest'
       responses:
         '200':
           description: return target user's 1
@@ -633,7 +633,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkExperienceInfo'
+              $ref: '#/components/schemas/WorkExperienceInfoRequest'
       responses:
         '200':
           description: return target user's 1
@@ -677,7 +677,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/WorkExperienceInfo'
+                $ref: '#/components/schemas/WorkExperienceInfoRequest'
       responses:
         '200':
           description: return target user's 1
@@ -2563,7 +2563,7 @@ paths:
       responses:
         '204':
           description: deleted
-  '/applicants/{id}/resumes':
+  '/applicant/{id}/resumes':
     get:
       tags:
         - Applicant
@@ -2585,12 +2585,15 @@ paths:
                   content:
                     type: object
                     properties:
-                      id:
-                        type: integer
-                      jsons:
-                        type: array
-                        items:
-                          type: object
+                      resumes:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          jsons:
+                            type: array
+                            items:
+                              type: object
                   status:
                     $ref: '#/components/schemas/Status'
           
@@ -2826,6 +2829,27 @@ components:
           type: string
         note:
           type: string
+    EducationInfoRequest:
+      type: object
+      required:
+        - university
+        - major
+        - degree
+        - duration
+        - location
+      properties:
+        university:
+          type: string
+        major:
+          type: string
+        degree:
+          type: string
+        duration:
+          $ref: '#/components/schemas/Duration'
+        location:
+          $ref: '#/components/schemas/Location'
+        note:
+          type: string
     WorkExperienceInfo:
       type: object
       required:
@@ -2844,6 +2868,26 @@ components:
           $ref: '#/components/schemas/Duration'
         location:
           type: string
+        note:
+          type: string
+    WorkExperienceInfoRequest:
+      type: object
+      required:
+        - employer
+        - position
+        - duration
+        - location
+      properties:
+        id:
+          type: integer
+        employer:
+          type: string
+        position:
+          type: string
+        duration:
+          $ref: '#/components/schemas/Duration'
+        location:
+          $ref: '#/components/schemas/Location'
         note:
           type: string
     Certification:
