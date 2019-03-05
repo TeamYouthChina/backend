@@ -36,12 +36,14 @@ public class StaticFileSystemTest {
 
     @Autowired
     private SnowFlakeIdGenerate snowFlakeIdGenerate;
+    /*
    @Test
     public void testUploadFile() throws IOException {
        FileStorageService[] fileStorageService = {aliCloudFileStorageService};
        StaticFileService staticFileService = new StaticFileService(staticFileSystemMapper,fileNameGenerate,fileStorageService,snowFlakeIdGenerate);
       staticFileService.saveFile((Resource) new File("D:\\video3.mp4"),2);
    }
+   */
 
     @Test
     public void testDownload() throws IOException {
