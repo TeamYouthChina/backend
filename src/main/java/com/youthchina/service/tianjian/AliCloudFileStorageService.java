@@ -7,14 +7,15 @@ import com.aliyun.oss.model.DeleteObjectsRequest;
 import com.aliyun.oss.model.DeleteObjectsResult;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.youthchina.dao.tianjian.StaticFileSystemMapper;
-import com.youthchina.domain.tianjian.ComMediaDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -122,7 +123,7 @@ public class AliCloudFileStorageService implements FileStorageService {
     }
 
     @Override
-    public void uploadFile(File file,Long localId) {
+    public void uploadFile(Resource file, Long localId) {
         OSSClient ossClient = new OSSClient(endPoint, accessKeyId, accessKeySecret);
 
         Long aLiId = snowFlakeIdGenerate.nextId();
@@ -141,8 +142,8 @@ public class AliCloudFileStorageService implements FileStorageService {
         this.mapper.setCloudStorageId(cloudIdColName, aLiId.toString(),localId.toString());
     }
 
-    public void uploadFile(File file, OSSClient ossClient, Long localId) throws IOException {
-        InputStream input = new FileInputStream(file);
+    public void uploadFile(Resource resource, OSSClient ossClient, Long localId) throws IOException {
+        InputStream input = resource.getInputStream();
         byte[] inputByte = new byte[input.available()];
         input.read(inputByte);
         //System.out.println("Uploading a new object to OSS from a file\n");

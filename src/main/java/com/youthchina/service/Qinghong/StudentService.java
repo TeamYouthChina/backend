@@ -52,4 +52,6 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
     ResumeJson getResumeJson(Integer resume_id)throws NotFoundException;
     ResumeJson insertResumeJson(ResumeJson resumeJson) throws NotFoundException;
     List<LabelInfo> getAllSkills() throws NotFoundException;
+    Integer deleteResumeJson(Integer id) throws NotFoundException;
+    List<ResumeJson> selectResumeJsonByStuId(Integer id) throws NotFoundException;
 }
