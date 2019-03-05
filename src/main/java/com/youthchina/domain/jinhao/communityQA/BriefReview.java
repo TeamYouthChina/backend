@@ -42,7 +42,7 @@ public class BriefReview {
         }
 
         this.user = new User(briefReviewDTO.getAuthor());
-        Iterator it = briefReviewDTO.getComments().iterator();
+        Iterator it = briefReviewDTO.getComments().getComments().iterator();
         while(it.hasNext()){
             CommentDTO commentDTO = (CommentDTO) it.next();
             Comment comment = new Comment(commentDTO);

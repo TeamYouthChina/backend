@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.2.5
+  version: 1.2.6
   title: YouthChina
   license:
     name: MIT
@@ -2433,12 +2433,13 @@ paths:
       tags:
         - Resume
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                type: object
+       content:
+         application/json:
+             schema:
+               type: object
+               properties:
+                 resume:
+                   type: string
       responses:
         '201':
           description: created
