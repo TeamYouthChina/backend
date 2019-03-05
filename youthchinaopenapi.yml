@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.2.7
+  version: 1.2.8
   title: YouthChina
   license:
     name: MIT
@@ -413,7 +413,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EducationInfo'
+              type: array
+              items:
+                $ref: '#/components/schemas/EducationInfo'
       responses:
         '200':
           description: return target user's 1
@@ -423,7 +425,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/EducationInfo'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EducationInfo'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -537,7 +541,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Project'
+              type: array
+              items:
+                $ref: '#/components/schemas/Project'
       responses:
         '200':
           description: return target user's 1
@@ -547,7 +553,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/Project'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Project'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -667,7 +675,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkExperienceInfo'
+              type: array
+              items:
+                $ref: '#/components/schemas/WorkExperienceInfo'
       responses:
         '200':
           description: return target user's 1
@@ -677,7 +687,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/WorkExperienceInfo'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WorkExperienceInfo'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -797,7 +809,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Certification'
+              type: array
+              items:
+                $ref: '#/components/schemas/Certification'
       responses:
         '200':
           description: return target user's 1
@@ -807,7 +821,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/Certification'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Certification'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -921,7 +937,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Extracurricular'
+              type: array
+              items:
+                $ref: '#/components/schemas/Extracurricular'
       responses:
         '200':
           description: return target applicant
@@ -931,7 +949,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/Extracurricular'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Extracurricular'
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -2543,7 +2563,7 @@ paths:
       responses:
         '204':
           description: deleted
-  '/applicant/{id}/resumes':
+  '/applicants/{id}/resumes':
     get:
       tags:
         - Applicant
