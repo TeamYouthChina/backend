@@ -145,7 +145,8 @@ public class EssayController {
         }
         essayDTO.setModified_at(comEssay.getEssay_edit_time());
         essayDTO.setId(essayId);
-        essayDTO.setAuthor(new UserDTO(user));
+        User useressay = userService.get(user.getId());
+        essayDTO.setAuthor(new UserDTO(useressay));
         essayDTO.setIs_anonymous(requestEssayDTO.isIs_anonymous());
         try{
             ObjectMapper mapper = new ObjectMapper();
@@ -184,9 +185,7 @@ public class EssayController {
             }
         }
         ListResponse listResponse = new ListResponse(essayReplyDTOS,"comments");
-        if (essayReplyDTOS !=null)
-            return ResponseEntity.ok(new Response(listResponse, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(listResponse, new StatusDTO(400,"fail")));
+            return ResponseEntity.ok(listResponse);
+
     }
 }

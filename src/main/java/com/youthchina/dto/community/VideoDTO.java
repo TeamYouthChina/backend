@@ -18,12 +18,15 @@ public class VideoDTO {
 
     public VideoDTO (Video video){
         this.id = video.getVideo_id();
-        Iterator it = video.getVideoComments().iterator();
-        while(it.hasNext()){
-            CommentDTO commentDTO = new CommentDTO((VideoComment)it.next());
-            this.comments.add(commentDTO);
+        if(video.getVideoComments() != null){
+            Iterator it = video.getVideoComments().iterator();
+            while(it.hasNext()){
+                CommentDTO commentDTO = new CommentDTO((VideoComment)it.next());
+                this.comments.add(commentDTO);
+            }
         }
         this.uploader = new UserDTO(video.getUser());
+        this.url = video.getVideo_name();
     }
 
     public Integer getId() {
