@@ -53,6 +53,13 @@
 #         where t1.USER_ID >= t2.id
 #         order by t1.USER_ID limit 10
     </select>
+    <select id="getRandomVideo" resultType="java.lang.Integer">
+          SELECT VIDEO_ID FROM RECOM_VIDEO
+#         select VIDEO_ID from RECOM_VIDEO as t1 join (select ROUND(RAND()*((select MAX(VIDEO_ID) from RECOM_VIDEO)-(select MIN(VIDEO_ID) from RECOM_VIDEO))
+#             +(select MIN(VIDEO_ID) from RECOM_VIDEO)) AS id) as t2
+#         where t1.VIDEO_ID >= t2.id
+#         order by t1.VIDEO_ID limit 10
+    </select>
     <select id="getList" parameterType="java.lang.Integer" resultType="com.youthchina.domain.qingyang.Job">
         select * from RECOM_PART_JOB where JOB_ID in
         <foreach item="id" index='index' collection="list" separator="," open="(" close=")">

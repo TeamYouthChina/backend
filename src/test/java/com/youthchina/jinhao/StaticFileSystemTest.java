@@ -17,6 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -37,14 +38,15 @@ public class StaticFileSystemTest {
     public void testUploadFile() throws IOException {
        FileStorageService[] fileStorageService = {aliCloudFileStorageService};
        StaticFileService staticFileService = new StaticFileService(staticFileSystemMapper,fileNameGenerate,fileStorageService,snowFlakeIdGenerate);
-      staticFileService.saveFile(new File("D:\\video.mp4"),2);
+      staticFileService.saveFile(new File("D:\\video3.mp4"),2);
    }
 
     @Test
     public void testDownload() throws IOException {
         FileStorageService[] fileStorageService = {aliCloudFileStorageService};
         StaticFileService staticFileService = new StaticFileService(staticFileSystemMapper,fileNameGenerate,fileStorageService,snowFlakeIdGenerate);
-        staticFileService.saveFile(new File("D:\\video.mp4"),15);
+        URL url = staticFileService.getFileUrl("2856306669745344512","China");
+        System.out.println(url);
     }
 
     @Test
