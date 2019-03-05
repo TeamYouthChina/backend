@@ -4,17 +4,13 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.service.tianjian.StaticFileService;
-import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 import java.io.IOException;
 
 /**
@@ -34,7 +30,7 @@ public class StaticController {
     public ResponseEntity upload(@RequestPart MultipartFile file, @AuthenticationPrincipal User user) throws BaseException {
         Long id;
         try {
-            id = fileService.saveFile(file.getResource().getFile(), user.getId());
+            id = fileService.saveFile(file.getResource(), user.getId());
         } catch (IOException e) {
             throw new BaseException(5000, 500, "Cannot upload file because server end error");
         }

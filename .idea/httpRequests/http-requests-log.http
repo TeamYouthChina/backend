@@ -1,12 +1,12 @@
-GET http://47.254.46.117:8080/api/v1/discovery/companies
+GET http://47.254.46.117:8080/api/v1/discovery/articles
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [ 2,3  ] }
+[     2,3   ]
 
-<> 2019-03-05T105334.200.json
+<> 2019-03-05T030457.500.json
 
 ###
 
@@ -16,9 +16,21 @@ Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [ 2,3  ] }
+[     2,3   ]
 
-<> 2019-03-05T105327.200.json
+<> 2019-03-05T030410.200.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/jobs
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+[     2,3   ]
+
+<> 2019-03-05T030401.200.json
 
 ###
 
@@ -28,21 +40,9 @@ Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [ 2,3  ] }
+[     2,3   ]
 
-<> 2019-03-05T105317.500.json
-
-###
-
-GET http://47.254.46.117:8080/api/v1/discovery/articles
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "invited": [ 2,3  ] }
-
-<> 2019-03-05T105256.500.json
+<> 2019-03-05T030207.500.json
 
 ###
 
@@ -52,9 +52,45 @@ Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [ 2,3  ] }
+[     2,3   ]
 
-<> 2019-03-05T105248.200.json
+<> 2019-03-05T030027.200.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/questions/1
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+[     2,3   ]
+
+<> 2019-03-05T030015.200.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/articles
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+[     2,3   ]
+
+<> 2019-03-05T023520-1.500.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/articles
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+[     2,3   ]
+
+<> 2019-03-05T023520.500.json
 
 ###
 
@@ -64,69 +100,9 @@ Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [ 2,3  ] }
+[     2,3   ]
 
-<> 2019-03-05T105226.200.json
-
-###
-
-GET http://47.254.46.117:8080/api/v1/discovery/articles
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "invited": [ 2,3  ] }
-
-<> 2019-03-05T105218.500.json
-
-###
-
-GET http://47.254.46.117:8080/api/v1/discovery/articles
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "invited": [ 2,3  ] }
-
-<> 2019-03-05T105210.500.json
-
-###
-
-GET http://47.254.46.117:8080/api/v1/disconvery/articles
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "invited": [ 2,3  ] }
-
-<> 2019-03-05T105207.404.json
-
-###
-
-GET http://47.254.46.117:8080/api/v1/discovery/articles
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "invited": [ 2,3  ] }
-
-<> 2019-03-05T105201.500.json
-
-###
-
-GET http://47.254.46.117:8080/api/v1/discovery/articles
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{   "invited": [ 2,3  ] }
-
-<> 2019-03-05T105150.500.json
+<> 2019-03-05T021644.200.json
 
 ###
 
@@ -136,9 +112,57 @@ Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [ 2,3  ] }
+[     2,3   ]
 
-<> 2019-03-05T105137.200.json
+<> 2019-03-05T021628.200.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/companies
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+[     2,3   ]
+
+<> 2019-03-05T120900.200.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/questions
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+[     2,3   ]
+
+<> 2019-03-05T120835.500.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/articles
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+[     2,3   ]
+
+<> 2019-03-05T120829.500.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/discovery/companies
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+[     2,3   ]
+
+<> 2019-03-05T120821.200.json
 
 ###
 
@@ -148,9 +172,9 @@ Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [ 2,3  ] }
+[     2,3   ]
 
-<> 2019-03-05T105127.405.json
+<> 2019-03-05T120815.405.json
 
 ###
 
@@ -160,367 +184,367 @@ Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [ 2,3  ] }
+[     2,3   ]
 
-<> 2019-03-05T104937.400.json
+<> 2019-03-05T120715.500.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/questions/1/invite
+PUT http://47.254.46.117:8080/api/v1/questions/1/invite
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [ 2,3  ] }
+"invited": [     2,3   ]
 
-<> 2019-03-05T104706.500.json
+<> 2019-03-05T120703.400.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/questions/1/invite
+PUT http://47.254.46.117:8080/api/v1/questions/1/invite
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [ 2,3  ] }
+[     2,3   ]
 
-<> 2019-03-05T104538.500.html
+<> 2019-03-05T120624.500.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/questions/1/invite
+PUT http://47.254.46.117:8080/api/v1/questions/1/invite
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [ 2,3  ] }
+{   "invited": [     2,3   ] }
+
+<> 2019-03-05T120603.400.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/questions/1/invite
+DELETE http://47.254.46.117:8080/api/v1/jobs/attentions/2
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [ 2,3  ] }
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T120407.400.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/questions/1/invite
+DELETE http://47.254.46.117:8080/api/v1/companies/attentions/2
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{   "invited": [     1,2   ] }
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
 
-<> 2019-03-05T104413.500.json
+<> 2019-03-05T120328.405.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/60/apply
+DELETE http://47.254.46.117:8080/api/v1/questions/attentions/2
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T104008.404.json
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T120241.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/11/apply
+DELETE http://47.254.46.117:8080/api/v1/jobs/attentions/3
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T104003.200.json
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T120220.400.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/2/apply
+DELETE http://47.254.46.117:8080/api/v1/jobs/attentions/2
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103956.200.json
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T120219.400.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/8/apply
+DELETE http://47.254.46.117:8080/api/v1/jobs/attentions/1
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103951.200.json
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T120204.400.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+GET http://47.254.46.117:8080/api/v1/applicants/2
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103947.200.json
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T120122.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/5/apply
+GET http://47.254.46.117:8080/api/v1/applicants/2
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103859.200.json
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T120116.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/4/apply
+DELETE http://47.254.46.117:8080/api/v1/applicants/2
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103855.200.json
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/3/apply
+DELETE http://47.254.46.117:8080/api/v1/articles/attentions/1
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103852.200.json
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115857.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/2/apply
+DELETE http://47.254.46.117:8080/api/v1/articles/attentions/8
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103845.200.json
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115846.404.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+GET http://47.254.46.117:8080/api/v1/articles/attentions/8
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103832.200.json
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115837.405.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+GET http://47.254.46.117:8080/api/v1/applicants/4/resumes
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103824.500.json
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115416.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+GET http://47.254.46.117:8080/api/v1/applicants/3/resumes
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103812.500.html
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115415.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+GET http://47.254.46.117:8080/api/v1/applicants/2/resumes
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103756.500.html
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115404.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+GET http://47.254.46.117:8080/api/v1/applicants/2
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103753.500.html
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115332.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+GET http://47.254.46.117:8080/api/v1/applicants/2/experiences
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103749.500.html
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115319.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+GET http://47.254.46.117:8080/api/v1/applicants/2/experiences'
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103746.500.html
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115259.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+GET http://47.254.46.117:8080/api/v1/applicants/2/experiences
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103734.500.html
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115255.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+GET http://47.254.46.117:8080/api/v1/applicants/2/experiences'
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103719.500.html
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115250.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+GET http://47.254.46.117:8080/api/v1/applicants/2
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103712.500.html
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115219.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+PUT http://47.254.46.117:8080/api/v1/applicants/2/extracurriculars
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-<> 2019-03-05T103711.500.html
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115142.200.json
 
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+POST http://47.254.46.117:8080/api/v1/applicants/2/extracurriculars
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
+[     {       "name": "国庆",       "role": "国庆志愿者",       "organization": "北京大学",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     },     {       "name": "奥运会",       "role": "奥运会志愿者",       "organization": "北京奥组委",       "duration": {         "begin": "2016-01-01T00:00:00.000+0000",         "end": "2016-02-28T00:00:00.000+0000"       },       "note": null     } ]
+
+<> 2019-03-05T115121.200.json
+
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+GET http://47.254.46.117:8080/api/v1/applicants/2/extracurriculars
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
+[     {       "name": "亚马逊证书",       "authority": "Amazon",       "duration": {         "begin": "2018-09-01T00:00:00.000+0000",         "end": "2020-08-31T00:00:00.000+0000"       },       "note": null     }   ]
+
+<> 2019-03-05T114922.200.json
+
 ###
 
-POST http://47.254.46.117:8080/api/v1/jobs/1/apply
+PUT http://47.254.46.117:8080/api/v1/applicants/2/certificates
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
+[     {       "name": "亚马逊证书",       "authority": "Amazon",       "duration": {         "begin": "2018-09-01T00:00:00.000+0000",         "end": "2020-08-31T00:00:00.000+0000"       },       "note": null     }   ]
+
+<> 2019-03-05T114903.200.json
+
 ###
 
-GET http://47.254.46.117:8080/api/v1/applicants/2/educations
+POST http://47.254.46.117:8080/api/v1/applicants/2/certificates
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{       "university": "复旦大学",       "major": "10101",       "degree": "本科",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": "上海市",       "note": null     },
+[     {       "name": "亚马逊证书",       "authority": "Amazon",       "duration": {         "begin": "2018-09-01T00:00:00.000+0000",         "end": "2020-08-31T00:00:00.000+0000"       },       "note": null     }   ]
 
-<> 2019-03-05T102411.500.html
+<> 2019-03-05T114859.200.json
 
 ###
 
-GET http://47.254.46.117:8080/api/v1/applicants/2/educations
+GET http://47.254.46.117:8080/api/v1/applicants/2/certificates
 Accept: */*
 Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{       "university": "复旦大学",       "major": "10101",       "degree": "本科",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": "上海市",       "note": null     },
+[ { "university": "北京交通大学",       "major": "10101",       "degree": "3",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": {                       "nation_code": "CHN",                       "location_code": "110000"                     },       "note": null     } ]
 
-<> 2019-03-05T102410.500.html
-
-###
-
-GET http://47.254.46.117:8080/api/v1/applicants/2/educations
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{       "university": "复旦大学",       "major": "10101",       "degree": "本科",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": "上海市",       "note": null     },
-
-<> 2019-03-05T102405.500.html
-
-###
-
-GET http://47.254.46.117:8080/api/v1/applicants/2/educations
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{       "university": "复旦大学",       "major": "10101",       "degree": "本科",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": "上海市",       "note": null     },
-
-###
-
-GET http://47.254.46.117:8080/api/v1/applicants/2/educations
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{       "university": "复旦大学",       "major": "10101",       "degree": "本科",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": "上海市",       "note": null     },
-
-###
-
-POST http://47.254.46.117:8080/api/v1/applicants/2/educations
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{       "university": "复旦大学",       "major": "10101",       "degree": "本科",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": "上海市",       "note": null     },
-
-###
-
-POST http://47.254.46.117:8080/api/v1/applicants/2/educations
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-Content-Type: application/json;charset=utf8
-
-{       "university": "复旦大学",       "major": "10101",       "degree": "本科",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": "上海市",       "note": null     },
-
-<> 2019-03-05T102031.400.json
+<> 2019-03-05T114756.200.json
 
 ###
 
@@ -530,9 +554,45 @@ Cache-Control: no-cache
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Content-Type: application/json;charset=utf8
 
-{       "university": "复旦大学",       "major": "10101",       "degree": "本科",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": "上海市",       "note": null     },
+[ { "university": "北京交通大学",       "major": "10101",       "degree": "3",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": {                       "nation_code": "CHN",                       "location_code": "110000"                     },       "note": null     } ]
 
-<> 2019-03-05T101811.400.json
+<> 2019-03-05T114727.200.json
+
+###
+
+POST http://47.254.46.117:8080/api/v1/applicants/2/educations
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+[ { "university": "北京交通大学",       "major": "10101",       "degree": "3",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": {                       "nation_code": "CHN",                       "location_code": "110000"                     },       "note": null     } ]
+
+<> 2019-03-05T114718.200.json
+
+###
+
+POST http://47.254.46.117:8080/api/v1/applicants/2/educations
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+[ { "university": "北京交通大学",       "major": "10101",       "degree": "3",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": {                       "nation_code": "CHN",                       "location_code": "110000"                     },       "note": null     } ]
+
+<> 2019-03-05T114518.500.html
+
+###
+
+POST http://47.254.46.117:8080/api/v1/applicants/2/educations
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Content-Type: application/json;charset=utf8
+
+[ {       "id": 1,       "university": "北京交通大学",       "major": "10101",       "degree": "本科",       "duration": {         "begin": "2014-09-01T00:00:00.000+0000",         "end": "2018-07-01T00:00:00.000+0000"       },       "location": {                       "nation_code": "CHN",                       "location_code": "110000"                     },       "note": null     } ]
+
+<> 2019-03-05T114318.500.json
 
 ###
 
