@@ -1,14 +1,24 @@
 package com.youthchina;
 
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.tianjian.StaticFileSystemMapper;
+import com.youthchina.domain.jinhao.communityQA.BriefReview;
+import com.youthchina.domain.jinhao.communityQA.Video;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.jinhao.communityQA.BriefReviewRecommendServiceImplement;
+import com.youthchina.service.jinhao.communityQA.VideoRecommendServiceImplement;
 import com.youthchina.service.tianjian.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -20,6 +30,9 @@ import java.util.concurrent.Executors;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
+@DatabaseSetup({"classpath:briefreview.xml","classpath:comments.xml","classpath:users.xml","classpath:recombriefreview.xml"})
+@WebAppConfiguration
 public class YouthchinaApplicationTests {
     @Autowired
     SnowFlakeIdGenerate snowFlakeIdGenerate;
@@ -33,6 +46,12 @@ public class YouthchinaApplicationTests {
 
     @Autowired
     StaticFileSystemMapper staticFileSystemMapper;
+
+    @Autowired
+    VideoRecommendServiceImplement videoRecommendServiceImplement;
+
+    @Autowired
+    BriefReviewRecommendServiceImplement briefReviewRecommendServiceImplement;
    /* @Test
     public void testupLoadFile() {
        File file = new File("D:\\LocalFileStore\\video.mp4");
@@ -105,6 +124,18 @@ public class YouthchinaApplicationTests {
     @Test
     public void testgetUserAllEssayAttention(){
         List<ComEssay> list = essayService.getAllEssayUserAttention(1);
+        System.out.println(list.size());
+    }
+
+    @Test
+    public void testgetVideoRecommend(){
+        List<Video> list = videoRecommendServiceImplement.getVideoForYou();
+        System.out.println(list.size());
+    }
+
+    @Test
+    public void testgetBriefReviewRecommend() throws NotFoundException {
+        List<BriefReview> list = briefReviewRecommendServiceImplement.getBriefReviewForYou();
         System.out.println(list.size());
     }
 

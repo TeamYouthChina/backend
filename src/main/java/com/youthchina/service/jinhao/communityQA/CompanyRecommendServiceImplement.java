@@ -4,6 +4,8 @@ import com.youthchina.dao.jinhao.RecommendMapper;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.qingyang.CompanyCURDServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,13 +22,18 @@ public class CompanyRecommendServiceImplement implements CompanyRecommendService
     @Resource
     CompanyMapper companyMapper;
 
+    @Autowired
+    CompanyCURDServiceImpl companyCURDService;
+
     @Override
-    public List<Company> getPopCompanyForYou() {
+    public List<Company> getPopCompanyForYou() throws NotFoundException{
         List<Integer> companyIds =  recommendMapper.getRandomPopCompany();
-        List<Company> companies = new ArrayList<>();
-        for(Integer id : companyIds){
-           companies.add(companyMapper.selectCompany(id));
-        }
+        List<Company> companies = companyCURDService.get(companyIds);
+
+//                = new ArrayList<>();
+//        for(Integer id : companyIds){
+//            companies.add(companyCURDService.get(id));
+//        }
         return companies;
     }
 

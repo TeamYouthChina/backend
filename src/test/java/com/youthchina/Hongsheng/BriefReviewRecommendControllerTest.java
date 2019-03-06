@@ -18,7 +18,6 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -30,11 +29,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@DatabaseSetup({"classpath:recommendation.xml"})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
+@DatabaseSetup({"classpath:recommendation.xml"})
+@DatabaseSetup({"classpath:briefreview.xml"})
 @WebAppConfiguration
-@Transactional
-public class CompanyRecommendControllerTest {
+public class BriefReviewRecommendControllerTest {
     @Autowired
     private WebApplicationContext context;
 
@@ -54,12 +53,12 @@ public class CompanyRecommendControllerTest {
     }
 
     @Test
-    public void getRecommandCompanyTest() throws Exception {
+    public void getRecommandEditorialsTest() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/discovery/companies")
+                get(this.urlPrefix + "/discovery/editorials")
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"companies\":[{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},{\"id\":2,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},{\"id\":3,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":\"市辖区\",\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":4,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":\"市辖区\",\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":5,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":\"市辖区\",\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":6,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},{\"id\":7,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},{\"id\":8,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":\"市辖区\",\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":9,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":\"市辖区\",\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":10,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":\"市辖区\",\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"editorials\":[{\"id\":1,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"QQQEERTT\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"comments\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":null,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"qwe\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}]},\"author\":null},{\"id\":2,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"QQQEERTTYYYY\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"comments\":{\"comments\":[{\"id\":2,\"creator\":{\"id\":3,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":null,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"qweetrt\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}]},\"author\":null}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 }

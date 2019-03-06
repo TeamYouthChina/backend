@@ -16,6 +16,8 @@ public interface RecommendMapper {
     List<Integer> getRandomEssay();
     List<Integer> getRandomQuestion();
     List<Integer> getRandomUser();
+    List<Integer> getRandomVideo();
+    List<Integer> getRandomBriefReview();
 
     List<Job> getList(List<Integer> ids);
     void add(Job jobRecommendation);

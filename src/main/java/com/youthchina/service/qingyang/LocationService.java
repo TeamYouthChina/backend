@@ -22,7 +22,7 @@ public class LocationService {
         return locationMapper.getChildrenChn(parentId);
     }
 
-    public Location getLocation(Integer region_num){
+    public Location getLocation(Integer region_num) {
         String regionString = "" + region_num;
         Location location;
         if(regionString.charAt(0) == '9'){
@@ -34,6 +34,7 @@ public class LocationService {
             if(location==null) {return new Location();}
             location.setNation_code("CHN");
         }
+
         return location;
     }
 

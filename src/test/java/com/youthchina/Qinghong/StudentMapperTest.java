@@ -1,31 +1,20 @@
 package com.youthchina.Qinghong;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.youthchina.dao.Qinghong.ApplicantMapper;
-import com.youthchina.dao.Qinghong.StudentMapper;
-import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Degree;
-import com.youthchina.domain.qingyang.Job;
-import io.swagger.models.auth.In;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -313,6 +302,13 @@ public class StudentMapperTest {
         student.setId(1);
         Integer integer =applicantMapper.updateUserInfo(student);
         System.out.print(integer);
+    }
+
+    @Test
+    public void testAllSkills(){
+        List<LabelInfo> labelInfos=applicantMapper.getAllSkills();
+        Assert.assertNotNull(labelInfos);
+
     }
 
 
