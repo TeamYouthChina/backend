@@ -74,7 +74,7 @@ public class Student extends User implements HasId<Integer> {
 
         //对于技能证书的转化
         List<Certificate> certificates=new ArrayList<>();
-        for(CertificateDTO certificateDTO:applicantDTO.getCertificates()){
+        for(CertificateDTO certificateDTO:applicantDTO.getCertifications()){
             Certificate certificate=new Certificate(certificateDTO);
             certificates.add(certificate);
         }
