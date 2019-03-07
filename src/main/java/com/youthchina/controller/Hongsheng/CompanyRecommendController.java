@@ -58,7 +58,7 @@ public class CompanyRecommendController {
     @PostMapping("/sendTestEmail")
     public ResponseEntity sendEmail() throws IOException {
         SendingEmailDTO sendingEmailDTO = new SendingEmailDTO();
-        sendingEmailDTO.setCompany_email("haoqi@gwu.edu");
+        sendingEmailDTO.setCompany_email("yihao_guo@gwu.edu");
         sendingEmailDTO.setUser_id(1);
         File file = new File("/root/backend/app/src/main/resources/png2pdf.pdf");
         InputStream input = new FileInputStream(file);
