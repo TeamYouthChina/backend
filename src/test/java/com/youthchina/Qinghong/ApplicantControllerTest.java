@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.TestExecutionListeners;
@@ -881,7 +882,7 @@ public class ApplicantControllerTest {
 
     @Test
     public void testSendingEmail() throws Exception{
-        File file = new File("/Users/dreamer/Documents/6461/hjh_hw2_PART1.pdf");
+        File file = new ClassPathResource("hjh_hw2.pdf").getFile();
         //文件之外的参数
         MockMultipartFile firstFile = new MockMultipartFile("file", "hjh_hw2_PART1.pdf",
                 MediaType.TEXT_PLAIN_VALUE, new FileInputStream(file));

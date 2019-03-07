@@ -3,8 +3,8 @@ package com.youthchina.controller.zhongyang;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.*;
 import com.youthchina.dto.Applicant.SendingEmailDTO;
+import com.youthchina.dto.*;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -19,8 +19,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -35,7 +33,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/jobs/**")
-public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integer>{
+public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integer> {
 
     private String url;
     private JobService jobService;
@@ -44,9 +42,9 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     private MessageSendService messageSendService;
 
     @Autowired
-    public JobController(JobService jobService,StudentService studentService, @Value("${web.url.prefix}") String prefix) {
+    public JobController(JobService jobService, StudentService studentService, @Value("${web.url.prefix}") String prefix) {
         this.jobService = jobService;
-        this.studentService=studentService;
+        this.studentService = studentService;
         this.url = prefix + "/jobs/";
     }
 
@@ -107,22 +105,22 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         Date startDate = null;
         Date endDate = null;
         DurationDTO durationDTO = jobSearchDTO.getDurationDTO();
-        if(durationDTO != null){
-            if(durationDTO.getBegin()!=null){
+        if (durationDTO != null) {
+            if (durationDTO.getBegin() != null) {
                 startDate = new Date(jobSearchDTO.getDurationDTO().getBegin().getTime());
             }
-            if(durationDTO.getEnd()!=null){
+            if (durationDTO.getEnd() != null) {
                 endDate = new Date(jobSearchDTO.getDurationDTO().getEnd().getTime());
             }
         }
 
         /**No companyId, location, jobReqList, industryList*/
-        List <Job> searchResultJob = this.jobService.getJobByMore(jobSearchDTO.getId(),jobSearchDTO.getJobName(),
-                null, jobSearchDTO.getCompanyName(),startDate,endDate,
-                jobSearchDTO.getJobType(), jobSearchDTO.getSalaryFloor(),jobSearchDTO.getSalaryCap(), (jobSearchDTO.getActivate()?1:0),
-                null, null,null);
-        List <JobResponseDTO> searchResultJobDTO = new ArrayList<>();
-        for (Job job : searchResultJob){
+        List<Job> searchResultJob = this.jobService.getJobByMore(jobSearchDTO.getId(), jobSearchDTO.getJobName(),
+                null, jobSearchDTO.getCompanyName(), startDate, endDate,
+                jobSearchDTO.getJobType(), jobSearchDTO.getSalaryFloor(), jobSearchDTO.getSalaryCap(), (jobSearchDTO.getActivate() ? 1 : 0),
+                null, null, null);
+        List<JobResponseDTO> searchResultJobDTO = new ArrayList<>();
+        for (Job job : searchResultJob) {
             searchResultJobDTO.add(new JobResponseDTO(job));
         }
         JobSearchResultDTO jobSearchResultDTO = new JobSearchResultDTO();
@@ -132,64 +130,58 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     }
 
     /**
-    * @Description: 完成申请职位的添加，通过job_id
-    * @Param: [job_id, user]
-    * @return: org.springframework.http.ResponseEntity<?>
-    * @Author: Qinghong Wang
-    * @Date: 2019/2/18
-    */
+     * @Description: 完成申请职位的添加，通过job_id
+     * @Param: [job_id, user]
+     * @return: org.springframework.http.ResponseEntity<?>
+     * @Author: Qinghong Wang
+     * @Date: 2019/2/18
+     */
 
     @PostMapping("/{id}/apply/*")
-    public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id,@AuthenticationPrincipal User user) throws NotFoundException {
-        JobApplyDTO jobApplyDTO=new JobApplyDTO(studentService.jobApply(job_id,user.getId()));
-            return  ResponseEntity.ok(new Response(jobApplyDTO,new StatusDTO(0,"")));
+    public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user) throws NotFoundException {
+        JobApplyDTO jobApplyDTO = new JobApplyDTO(studentService.jobApply(job_id, user.getId()));
+        return ResponseEntity.ok(new Response(jobApplyDTO, new StatusDTO(0, "")));
 
     }
-    @PostMapping("/{id}/apply/sendingemail")
-    public ResponseEntity<?> sendingResume(@PathVariable ("id") Integer job_id, @RequestParam("file") MultipartFile file, @AuthenticationPrincipal User user)throws NotFoundException, IOException {
-        Job job=jobService.get(job_id);
-        String company_email=job.getCompany().getCompanyMail();
-        SendingEmailDTO sendingEmailDTO=new SendingEmailDTO();
-        sendingEmailDTO.setCompany_email("hmgswqh@gmail.com");
-        sendingEmailDTO.setUser_id(user.getId());
-        File convFile = new File( file.getOriginalFilename());
-        file.transferTo(convFile);
-        InputStream input=new FileInputStream(convFile);
-        byte[] bytesArray = new byte[(int) convFile.length()];
 
-        FileInputStream fis = new FileInputStream(convFile);
-        fis.read(bytesArray); //read file into bytes[]
-        fis.close();
+    @PostMapping("/{id}/apply/sendingemail")
+    public ResponseEntity<?> sendingResume(@PathVariable("id") Integer job_id, @RequestParam("file") MultipartFile file, @AuthenticationPrincipal User user) throws NotFoundException, IOException {
+        Job job = jobService.get(job_id);
+        String company_email = job.getCompany().getCompanyMail();
+        SendingEmailDTO sendingEmailDTO = new SendingEmailDTO();
+        sendingEmailDTO.setCompany_email(company_email);
+        sendingEmailDTO.setUser_id(user.getId());
+        InputStream input = file.getInputStream();
+        byte[] bytesArray = new byte[(int) file.getSize()];
+
+        input.read(bytesArray); //read file into bytes[]
+        input.close();
         sendingEmailDTO.setBytes(bytesArray);
-        ObjectMapper mapper=new ObjectMapper();
-        String message=mapper.writeValueAsString(sendingEmailDTO);
+        ObjectMapper mapper = new ObjectMapper();
+        String message = mapper.writeValueAsString(sendingEmailDTO);
         System.out.print(message);
         messageSendService.sendMessage(message);
         return ResponseEntity.ok(new Response());
-
-
-
-
 
     }
 
 
     /**
-    * @Description: 完成职位收藏，通过job_id以及user_id实现
-    * @Param: [job_id, user]
-    * @return: org.springframework.http.ResponseEntity<?>
-    * @Author: Qinghong Wang
-    * @Date: 2019/2/18
-    */
+     * @Description: 完成职位收藏，通过job_id以及user_id实现
+     * @Param: [job_id, user]
+     * @return: org.springframework.http.ResponseEntity<?>
+     * @Author: Qinghong Wang
+     * @Date: 2019/2/18
+     */
 //添加职位还有一些情况没有判断，在api缺少
     @PutMapping("/{id}/attention")
-    public ResponseEntity<?> putJobCollection(@PathVariable("id") Integer job_id,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> putJobCollection(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user) throws NotFoundException {
         Integer integer = studentService.addJobCollection(job_id, user.getId());
         if (integer == 1) {
             return ResponseEntity.ok(new Response
                     (integer));
         } else {
-            return ResponseEntity.ok(new Response(integer, new StatusDTO(400,"cannot collect this job,maybe the job has already delete")));
+            return ResponseEntity.ok(new Response(integer, new StatusDTO(400, "cannot collect this job,maybe the job has already delete")));
 
         }
 
@@ -197,24 +189,23 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     }
 
     /**
-    * @Description: 通过collect_id删除职位收藏
-    * @Param: [collect_id, user]
-    * @return: org.springframework.http.ResponseEntity<?>
-    * @Author: Qinghong Wang
-    * @Date: 2019/2/19
-    */
+     * @Description: 通过collect_id删除职位收藏
+     * @Param: [collect_id, user]
+     * @return: org.springframework.http.ResponseEntity<?>
+     * @Author: Qinghong Wang
+     * @Date: 2019/2/19
+     */
     @DeleteMapping("/attentions/{id}")
-    public ResponseEntity<?> deleteJobCollection(@PathVariable("id") Integer collect_id,@AuthenticationPrincipal User user)throws NotFoundException{
-        Integer integer=studentService.deleteJobCollect(collect_id);
+    public ResponseEntity<?> deleteJobCollection(@PathVariable("id") Integer collect_id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Integer integer = studentService.deleteJobCollect(collect_id);
         if (integer == 1) {
             return ResponseEntity.ok(new Response
                     (integer));
         } else {
-            return ResponseEntity.ok(new Response(integer, new StatusDTO(400,"cannot delete this company collection,maybe this collection has already delete")));
+            return ResponseEntity.ok(new Response(integer, new StatusDTO(400, "cannot delete this company collection,maybe this collection has already delete")));
 
         }
     }
-
 
 
 }
