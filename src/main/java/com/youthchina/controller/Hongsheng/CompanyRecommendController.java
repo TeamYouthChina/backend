@@ -60,7 +60,7 @@ public class CompanyRecommendController {
         SendingEmailDTO sendingEmailDTO = new SendingEmailDTO();
         sendingEmailDTO.setCompany_email("haoqi@gwu.edu");
         sendingEmailDTO.setUser_id(1);
-        File file = new File("~/backend/app/src/main/resources/png2pdf.pdf");
+        File file = new File("/root/backend/app/src/main/resources/png2pdf.pdf");
         InputStream input = new FileInputStream(file);
         byte[] bytesArray = new byte[(int) file.length()];
 
