@@ -86,7 +86,8 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     @GetMapping("/{id}/educations")
     public ResponseEntity<?> getApplicantsEducations(@PathVariable Integer id) throws NotFoundException {
         Student student=studentService.get(id);
-        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getEducations()));
+        ListResponse listResponse = new ListResponse(new ApplicantResponseDTO(student).getEducations(),"educations");
+        return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/projects")
@@ -98,19 +99,22 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     @GetMapping("/{id}/experiences")
     public ResponseEntity<?> getApplicantsExperiences(@PathVariable Integer id) throws NotFoundException {
         Student student=studentService.get(id);
-        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getExperiences()));
+        ListResponse listResponse = new ListResponse(new ApplicantResponseDTO(student).getExperiences(),"experiences");
+        return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/certificates")
     public ResponseEntity<?> getApplicantsCertificates(@PathVariable Integer id) throws NotFoundException {
         Student student=studentService.get(id);
-        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getCertifications()));
+        ListResponse listResponse = new ListResponse(new ApplicantResponseDTO(student).getCertifications(),"certificates");
+        return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/extracurriculars")
     public ResponseEntity<?> getApplicantsExtracurriculars(@PathVariable Integer id) throws NotFoundException {
         Student student=studentService.get(id);
-        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getExtracurriculars()));
+        ListResponse listResponse = new ListResponse(new ApplicantResponseDTO(student).getExtracurriculars(),"extracurriculars");
+        return ResponseEntity.ok(listResponse);
     }
     @GetMapping("/{id}/skills")
     public ResponseEntity<?> getApplicantsSkills(@PathVariable Integer id) throws NotFoundException{
@@ -257,7 +261,8 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
             WorkResponseDTO workResponseDTO=new WorkResponseDTO(work);
             workResponseDTOS.add(workResponseDTO);
         }
-        return ResponseEntity.ok(new Response(workResponseDTOS));
+        ListResponse listResponse = new ListResponse(workResponseDTOS,"experiences");
+        return ResponseEntity.ok(listResponse);
     }
     /** 
     * @Description: 实现项目的保存操作 
@@ -324,7 +329,8 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
             CertificateResponseDTO certificateResponseDTO=new CertificateResponseDTO(certificate);
             certificateResponseDTOS.add(certificateResponseDTO);
         }
-        return ResponseEntity.ok(new Response(certificateResponseDTOS));
+        ListResponse listResponse = new ListResponse(certificateResponseDTOS,"certificates");
+        return ResponseEntity.ok(listResponse);
     }
 
     @RequestMapping(value = "/{id}/skills",method = {RequestMethod.POST,RequestMethod.PUT})
@@ -356,7 +362,8 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         for(ResumeJson resumeJson : resumeJsonList){
             responseDTOList.add(new ResumeResponseDTO(resumeJson));
         }
-        return  ResponseEntity.ok(new Response(responseDTOList,new StatusDTO(0,"")));
+        ListResponse listResponse = new ListResponse(responseDTOList,"resumes");
+        return  ResponseEntity.ok(listResponse);
     }
 
 
