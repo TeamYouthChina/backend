@@ -11,7 +11,6 @@ import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.Qinghong.MessageSendService;
 import com.youthchina.service.jinhao.communityQA.CompanyRecommendServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,7 +60,7 @@ public class CompanyRecommendController {
         SendingEmailDTO sendingEmailDTO = new SendingEmailDTO();
         sendingEmailDTO.setCompany_email("haoqi@gwu.edu");
         sendingEmailDTO.setUser_id(1);
-        File file = new ClassPathResource("png2pdf.pdf").getFile();
+        File file = new File("~/backend/app/src/main/resources/png2pdf.pdf");
         InputStream input = new FileInputStream(file);
         byte[] bytesArray = new byte[(int) file.length()];
 
