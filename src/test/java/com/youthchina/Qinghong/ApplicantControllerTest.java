@@ -13,16 +13,21 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -867,12 +872,28 @@ public class ApplicantControllerTest {
     public void testUserAttentions() throws Exception{
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/1/attentions").param("type","Job")
+                        (this.urlPrefix + "/users/1/attentions").param("type","Company")
 
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
         ;
+    }
+
+    @Test
+    public void testSendingEmail() throws Exception{
+        File file = new ClassPathResource("hjh_hw2.pdf").getFile();
+        //文件之外的参数
+        MockMultipartFile firstFile = new MockMultipartFile("file", "hjh_hw2_PART1.pdf",
+                MediaType.TEXT_PLAIN_VALUE, new FileInputStream(file));
+
+
+
+        this.mvc.perform(MockMvcRequestBuilders
+                .multipart(this.urlPrefix + "/jobs/1/apply/sendingemail")
+                .file(firstFile)
+                .with(authGenerator.authentication())
+        ).andDo(print());
     }
 
 
