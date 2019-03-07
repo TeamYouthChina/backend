@@ -4,7 +4,6 @@ import com.youthchina.dao.jinhao.RecommendMapper;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.qingyang.CompanyCURDService;
 import com.youthchina.service.qingyang.CompanyCURDServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

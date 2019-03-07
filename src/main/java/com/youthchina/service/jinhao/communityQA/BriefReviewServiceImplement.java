@@ -64,7 +64,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public BriefReview update(BriefReview briefReview) throws NotFoundException {
         checkIfReviewExist(briefReview.getReview_id());
         briefReviewMapper.update(briefReview);
-        return briefReview;
+        return get(briefReview.getReview_id());
     }
 
     @Override

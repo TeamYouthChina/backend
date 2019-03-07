@@ -867,13 +867,29 @@ public class ApplicantControllerTest {
     public void testUserAttentions() throws Exception{
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/1/attentions").param("type","Job")
+                        (this.urlPrefix + "/users/1/attentions").param("type","Company")
 
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
         ;
     }
+//
+//    @Test
+//    public void testSendingEmail() throws Exception{
+//        File file = new ClassPathResource("hjh_hw2.pdf").getFile();
+//        //文件之外的参数
+//        MockMultipartFile firstFile = new MockMultipartFile("file", "hjh_hw2_PART1.pdf",
+//                MediaType.TEXT_PLAIN_VALUE, new FileInputStream(file));
+//
+//
+//
+//        this.mvc.perform(MockMvcRequestBuilders
+//                .multipart(this.urlPrefix + "/jobs/1/apply/sendingemail")
+//                .file(firstFile)
+//                .with(authGenerator.authentication())
+//        ).andDo(print());
+//    }
 
 
 

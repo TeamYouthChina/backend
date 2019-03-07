@@ -2,8 +2,6 @@ package com.youthchina.dto.Applicant;
 
 import com.youthchina.domain.Qinghong.LabelInfo;
 
-import java.util.List;
-
 /**
  * @program: youthchina
  * @description: 技能返回DTO

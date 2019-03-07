@@ -21,6 +21,11 @@
                      resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
     </resultMap>
 
+    <sql id="user">
+        u.USER_ID,u.USER_NAME,u.USER_MAIL,u.USER_PHONE,u.USER_REGIST_TIME,u.USER_REAL_NAME,
+        u.USER_GENDER,u.USER_NATION,u.ROLE_ID as ROLE_TYPE,u.USER_AGE, u.USER_PHOTO
+    </sql>
+
     <insert id="add" parameterType="com.youthchina.domain.jinhao.communityQA.BriefReview" useGeneratedKeys="true"
             keyProperty="review_id">
         insert into COM_BRIEF_REVIEW (review_content, review_time, IS_DELETE)
@@ -82,7 +87,7 @@
         select * from COM_BRIEF_REVIEW where REVIEW_ID=#{review_id} and IS_DELETE=0
     </select>
     <select id="get" parameterType="java.lang.Integer" resultMap="briefReviewInfo">
-        select r.REVIEW_ID, r.REVIEW_CONTENT, r.REVIEW_TIME, m.RELA_ID, m.RELA_TYPE, u.* from COM_BRIEF_REVIEW r
+        select r.REVIEW_ID, r.REVIEW_CONTENT, r.REVIEW_TIME, m.RELA_ID, m.RELA_TYPE, <include refid="user"/> from COM_BRIEF_REVIEW r
         left join (SYS_USER u, COM_BRIEF_REVIEW_MAP m) on m.REVIEW_ID = r.REVIEW_ID and u.USER_ID= m.USER_ID and u.IS_DELETE=0
         where r.REVIEW_ID = #{id} and r.IS_DELETE=0
     </select>
@@ -164,7 +169,7 @@
         where c.COMMENT_ID=#{id} and c.IS_DELETE=0
     </select>
     <select id="getCommentsByReviewId" parameterType="java.lang.Integer" resultMap="commentInfo">
-        select c.COMMENT_ID, c.USER_ANONY, c.COMMENT_CONTENT, c.COMMENT_PUB_TIME, u.* from (COM_REVIEW_COMMENT c, COM_REVIEW_COMMENT_MAP m)
+        select c.COMMENT_ID, c.USER_ANONY, c.COMMENT_CONTENT, c.COMMENT_PUB_TIME, <include refid="user"/> from (COM_REVIEW_COMMENT c, COM_REVIEW_COMMENT_MAP m)
         left join SYS_USER u on u.USER_ID=c.USER_ID
         where c.COMMENT_ID = m.COMMENT_ID and m.REVIEW_ID = #{id}
     </select>

@@ -2,9 +2,7 @@ package com.youthchina.service.jinhao.communityQA;
 
 import com.youthchina.dao.jinhao.CommunityQAMapper;
 import com.youthchina.dao.jinhao.RecommendMapper;
-import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.jinhao.communityQA.Video;
-import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 
