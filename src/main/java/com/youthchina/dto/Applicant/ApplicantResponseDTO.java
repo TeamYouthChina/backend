@@ -22,7 +22,7 @@ public class ApplicantResponseDTO {
     private List<String> skills;
     private List<EducationResponseDTO> educations;
     private ContactDTO contacts;
-//    private List<String> emails;
+    //    private List<String> emails;
 //    private List<String> phonenumbers;
     private List<WorkResponseDTO> experiences;
     private List<ProjectResponseDTO> projects;
@@ -35,12 +35,12 @@ public class ApplicantResponseDTO {
     public ApplicantResponseDTO(Student student) {
         this.id = student.getId();
         this.name = student.getUsername();
-        this.avatarUrl=student.getAvatarUrl();
-        this.isInJob=student.getIsInJob();
-        this.currentCompany=null;
-        this.skills=new ArrayList<>();
-        for(LabelInfo labelInfo:student.getLabelInfos()){
-            String label_chn=labelInfo.getLabel_chn();
+        this.avatarUrl = student.getAvatarUrl();
+        this.isInJob = student.getIsInJob();
+        this.currentCompany = null;
+        this.skills = new ArrayList<>();
+        for (LabelInfo labelInfo : student.getLabelInfos()) {
+            String label_chn = labelInfo.getLabel_chn();
             this.skills.add(label_chn);
         }
         this.educations = new ArrayList<>(student.getEducationInfos().size());
@@ -48,7 +48,7 @@ public class ApplicantResponseDTO {
             this.educations.add(new EducationResponseDTO(educationInfo));
         }
         //contactDTO添加
-        this.contacts=new ContactDTO(student.getEmail(),student.getPhonenumber());
+        this.contacts = new ContactDTO(student.getEmail(), student.getPhonenumber());
 //        this.emails = new ArrayList<>();
 //        this.emails.add(student.getEmail());
 //        this.phonenumbers = new ArrayList<>();
@@ -66,7 +66,7 @@ public class ApplicantResponseDTO {
             this.extracurriculars.add(new ExtracurricularResponseDTO(activity));
         }
         List<CertificateResponseDTO> certificates = new ArrayList<>(student.getCertificates().size());
-        for(Certificate certificate: student.getCertificates()){
+        for (Certificate certificate : student.getCertificates()) {
             certificates.add(new CertificateResponseDTO(certificate));
         }
         this.setCertifications(certificates);
