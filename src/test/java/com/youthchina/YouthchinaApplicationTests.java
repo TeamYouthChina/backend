@@ -9,7 +9,10 @@ import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.BriefReviewRecommendServiceImplement;
 import com.youthchina.service.jinhao.communityQA.VideoRecommendServiceImplement;
-import com.youthchina.service.tianjian.*;
+import com.youthchina.service.tianjian.AliCloudFileStorageService;
+import com.youthchina.service.tianjian.EssayServiceImpl;
+import com.youthchina.service.tianjian.LocalFileManage;
+import com.youthchina.service.tianjian.SnowFlakeIdGenerate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +25,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -69,27 +68,6 @@ public class YouthchinaApplicationTests {
         System.out.println( staticFileSystemServiceImplALiCloud.downloadFile("2848699711584473088"));
     }*/
 
-    @Test
-    public void testIdGenerate() {
-
-        Hashtable<Long,Integer> testtable = new Hashtable<Long, Integer>();
-        ExecutorService executorService = Executors.newFixedThreadPool(1000);
-        for(int i = 0;i<10000;i++){
-            executorService.execute(new Idtest(snowFlakeIdGenerate,testtable));
-        }
-        executorService.shutdown();
-        while (!executorService.isTerminated()){}
-
-        for(Iterator it=testtable.keySet().iterator();it.hasNext();){
-            Long kkk = (Long)it.next();
-            if(testtable.get(kkk)>1){
-                System.out.println("fail");
-                break;
-            }
-        }
-        System.out.println(testtable.size());
-        System.out.println("end");
-    }
 
     @Test
     public void testGenerateId() {
