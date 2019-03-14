@@ -3,7 +3,7 @@ package com.youthchina.domain.jinhao.communityQA;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.community.VideoCommentDTO;
+import com.youthchina.dto.community.comment.VideoCommentDTO;
 
 import java.sql.Timestamp;
 

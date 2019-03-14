@@ -1,10 +1,9 @@
 package com.youthchina.domain.Qinghong;
 
 import com.youthchina.domain.qingyang.Degree;
-import com.youthchina.dto.EducationDTO;
+import com.youthchina.dto.applicant.EducationDTO;
 
 import java.sql.Timestamp;
-import java.text.DecimalFormat;
 import java.util.Date;
 
 public class EducationInfo {

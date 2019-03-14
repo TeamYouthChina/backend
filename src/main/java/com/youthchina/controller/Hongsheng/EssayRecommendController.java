@@ -4,11 +4,11 @@ import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.tianjian.ComAuthorEssayMap;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.CompanyResponseDTO;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.UserDTO;
-import com.youthchina.dto.community.EssayDTO;
+import com.youthchina.dto.community.article.EssayDTO;
+import com.youthchina.dto.company.CompanyResponseDTO;
+import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.EssayRecommendServiceImplement;
 import com.youthchina.service.qingyang.CompanyCURDService;
@@ -30,17 +30,21 @@ import java.util.List;
 @RestController
 @RequestMapping("${web.url.prefix}/discovery")
 public class EssayRecommendController {
-    @Autowired
     private EssayRecommendServiceImplement essayRecommendServiceImplement;
-    @Autowired
     private EssayServiceImpl essayServiceimpl;
-    @Autowired
     private UserService userService;
-    @Autowired
     private CompanyCURDService companyCURDService;
 
+    @Autowired
+    public EssayRecommendController(EssayRecommendServiceImplement essayRecommendServiceImplement, EssayServiceImpl essayServiceimpl, UserService userService, CompanyCURDService companyCURDService) {
+        this.essayRecommendServiceImplement = essayRecommendServiceImplement;
+        this.essayServiceimpl = essayServiceimpl;
+        this.userService = userService;
+        this.companyCURDService = companyCURDService;
+    }
+
     @GetMapping("/articles")
-    public ResponseEntity getRecommandEssay() throws NotFoundException {
+    public ResponseEntity getRecommendEssay() throws NotFoundException {
         System.out.println("11111");
         List<ComEssay> essayList = essayRecommendServiceImplement.getEssayForYou();
         List<EssayDTO> resultList = new ArrayList<>();
@@ -62,9 +66,6 @@ public class EssayRecommendController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("articles", resultList);
 
-        if (resultList!=null)
-            return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
+        return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
     }
 }

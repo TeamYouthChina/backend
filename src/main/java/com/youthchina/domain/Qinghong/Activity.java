@@ -1,6 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
-import com.youthchina.dto.ExtracurricularDTO;
+import com.youthchina.dto.applicant.ExtracurricularDTO;
 
 import java.sql.Timestamp;
 import java.util.Date;

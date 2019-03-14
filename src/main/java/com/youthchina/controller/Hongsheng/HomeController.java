@@ -2,13 +2,12 @@ package com.youthchina.controller.Hongsheng;
 
 import com.youthchina.controller.zhongyang.DomainCRUDController;
 import com.youthchina.domain.qingyang.Job;
-import com.youthchina.dto.JobResponseDTO;
 import com.youthchina.dto.Response;
-import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.job.JobResponseDTO;
+import com.youthchina.dto.job.SimpleJobDTO;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.jinhao.communityQA.JobRecommendService;
-import com.youthchina.service.jinhao.communityQA.JobRecommendServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +30,11 @@ public class HomeController extends DomainCRUDController<SimpleJobDTO, Job, Inte
     private String url;
 
     @Autowired
-    public HomeController(JobRecommendService jobRecommendService, @Value("${web.url.prefix}") String prefix){
+    public HomeController(JobRecommendService jobRecommendService, @Value("${web.url.prefix}") String prefix) {
         this.jobRecommendService = jobRecommendService;
         this.url = prefix + "/home";
     }
+
     @Override
     protected DomainCRUDService<Job, Integer> getService() {
         return this.jobRecommendService;
@@ -55,35 +55,19 @@ public class HomeController extends DomainCRUDController<SimpleJobDTO, Job, Inte
         return new URI(this.url + id.toString());
     }
 
-    @GetMapping("/new")
-    public ResponseEntity<?> getNewJobs(){
+    @GetMapping({"/hot", "/new"})
+    public ResponseEntity<?> getHotJobs() {
         List<Job> jobList = jobRecommendService.getJobForYou();
         List<JobResponseDTO> jobResponseDTOS = new ArrayList<>();
-        for(Job job : jobList){
+        for (Job job : jobList) {
             jobResponseDTOS.add(new JobResponseDTO(job));
         }
         HashMap<String, List<JobResponseDTO>> res = new HashMap<>();
         res.put("jobList", jobResponseDTOS);
-        if(jobList.size() == 0){
-            return ResponseEntity.ok(new Response(res, new StatusDTO(400,"fail")));
-        }else {
-            return ResponseEntity.ok(new Response(res, new StatusDTO(200,"success")));
-        }
-    }
-
-    @GetMapping("/hot")
-    public ResponseEntity<?> getHotJobs(){
-        List<Job> jobList = jobRecommendService.getJobForYou();
-        List<JobResponseDTO> jobResponseDTOS = new ArrayList<>();
-        for(Job job : jobList){
-            jobResponseDTOS.add(new JobResponseDTO(job));
-        }
-        HashMap<String, List<JobResponseDTO>> res = new HashMap<>();
-        res.put("jobList", jobResponseDTOS);
-        if(jobList.size() == 0){
-            return ResponseEntity.ok(new Response(res, new StatusDTO(400,"fail")));
-        }else {
-            return ResponseEntity.ok(new Response(res, new StatusDTO(200,"success")));
+        if (jobList.size() == 0) {
+            return ResponseEntity.ok(new Response(res, new StatusDTO(400, "fail")));
+        } else {
+            return ResponseEntity.ok(new Response(res, new StatusDTO(200, "success")));
         }
     }
 }

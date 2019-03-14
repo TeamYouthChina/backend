@@ -7,10 +7,14 @@ import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.Evaluate;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
-import com.youthchina.dto.RichTextDTO;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.UserDTO;
-import com.youthchina.dto.community.*;
+import com.youthchina.dto.community.briefreview.BriefReviewDTO;
+import com.youthchina.dto.community.briefreview.RequestBriefReviewDTO;
+import com.youthchina.dto.community.comment.CommentDTO;
+import com.youthchina.dto.community.comment.RequestCommentDTO;
+import com.youthchina.dto.community.comment.ResponseCommentDTO;
+import com.youthchina.dto.security.UserDTO;
+import com.youthchina.dto.util.RichTextDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.BriefReviewServiceImplement;
 import com.youthchina.service.zhongyang.UserServiceImpl;
@@ -54,7 +58,7 @@ public class BriefReviewController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateBriefReview(@PathVariable Integer id,@RequestBody RequestBriefReviewDTO requestBriefReviewDTO,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity updateBriefReview(@PathVariable Integer id, @RequestBody RequestBriefReviewDTO requestBriefReviewDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         BriefReview briefReview = new BriefReview();
         briefReview.setReview_id(id);
         briefReview.setIs_delete(0);

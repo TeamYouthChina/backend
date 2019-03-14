@@ -6,7 +6,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.qingyang.ResumeJsonMapper;
 import com.youthchina.domain.Qinghong.ResumeJson;
-import com.youthchina.dto.Applicant.ResumeRequestDTO;
+import com.youthchina.dto.applicant.ResumeRequestDTO;
 import com.youthchina.service.Qinghong.StudentServiceImpl;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Assert;

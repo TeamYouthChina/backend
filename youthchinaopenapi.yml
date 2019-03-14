@@ -69,7 +69,7 @@ paths:
   '/applicants/{id}':
     get:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -106,7 +106,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     put:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -149,7 +149,7 @@ paths:
   '/applicants':
     post:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -180,7 +180,7 @@ paths:
   '/applicants/{id}/contacts':
     get:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -217,7 +217,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     put:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: applicantId
           in: path
@@ -265,7 +265,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     post:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: applicantId
           in: path
@@ -314,7 +314,7 @@ paths:
   '/applicants/{id}/educations':
     get:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -356,7 +356,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     post:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: applicantId
           in: path
@@ -404,7 +404,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     put:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -454,7 +454,7 @@ paths:
   '/applicants/{id}/projects':
     get:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -493,7 +493,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     post:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -535,7 +535,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     put:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -582,7 +582,7 @@ paths:
   '/applicants/{id}/experiences':
     get:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -624,7 +624,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     post:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: applicantId
           in: path
@@ -677,7 +677,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     put:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -727,7 +727,7 @@ paths:
   '/applicants/{id}/certificates':
     get:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -769,7 +769,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     post:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: applicantId
           in: path
@@ -817,7 +817,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     put:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -867,7 +867,7 @@ paths:
   '/applicants/{id}/extracurriculars':
     get:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -909,7 +909,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     post:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -951,7 +951,7 @@ paths:
                   reason: 'Cannot find user with id 14'
     put:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path
@@ -2627,7 +2627,7 @@ paths:
   '/applicant/{id}/resumes':
     get:
       tags:
-        - Applicant
+        - applicant
       parameters:
         - name: id
           in: path

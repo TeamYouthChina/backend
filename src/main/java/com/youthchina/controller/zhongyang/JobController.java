@@ -3,8 +3,15 @@ package com.youthchina.controller.zhongyang;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.Applicant.SendingEmailDTO;
-import com.youthchina.dto.*;
+import com.youthchina.dto.Response;
+import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.applicant.SendingEmailDTO;
+import com.youthchina.dto.application.JobApplyDTO;
+import com.youthchina.dto.job.JobResponseDTO;
+import com.youthchina.dto.job.JobSearchDTO;
+import com.youthchina.dto.job.JobSearchResultDTO;
+import com.youthchina.dto.job.SimpleJobDTO;
+import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -68,12 +75,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         return new URI(this.url + id.toString());
     }
 
-    /*
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getJob(@PathVariable Integer id) throws NotFoundException {
-        return get(id);
-    }
-    */
+
 
     @PostMapping("/**")
     public ResponseEntity<?> createJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) {
@@ -114,7 +116,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
             }
         }
 
-        /**No companyId, location, jobReqList, industryList*/
+        /* No companyId, location, jobReqList, industryList*/
         List<Job> searchResultJob = this.jobService.getJobByMore(jobSearchDTO.getId(), jobSearchDTO.getJobName(),
                 null, jobSearchDTO.getCompanyName(), startDate, endDate,
                 jobSearchDTO.getJobType(), jobSearchDTO.getSalaryFloor(), jobSearchDTO.getSalaryCap(), (jobSearchDTO.getActivate() ? 1 : 0),
