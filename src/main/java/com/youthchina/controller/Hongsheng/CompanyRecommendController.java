@@ -1,9 +1,7 @@
 package com.youthchina.controller.Hongsheng;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.qingyang.Company;
-import com.youthchina.dto.Applicant.SendingEmailDTO;
 import com.youthchina.dto.CompanyResponseDTO;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
@@ -13,14 +11,9 @@ import com.youthchina.service.jinhao.communityQA.CompanyRecommendServiceImplemen
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,26 +45,5 @@ public class CompanyRecommendController {
             return ResponseEntity.ok(new Response(map, new StatusDTO(200, "success")));
         else
             return ResponseEntity.ok(new Response(map, new StatusDTO(400, "fail")));
-    }
-
-    @Deprecated
-    @PostMapping("/sendTestEmail")
-    public ResponseEntity sendEmail() throws IOException {
-        SendingEmailDTO sendingEmailDTO = new SendingEmailDTO();
-        sendingEmailDTO.setCompany_email("yihao_guo@gwu.edu");
-        sendingEmailDTO.setUser_id(1);
-        File file = new File("/png2pdf.pdf");
-        InputStream input = new FileInputStream(file);
-        byte[] bytesArray = new byte[(int) file.length()];
-
-        input.read(bytesArray); //read file into bytes[]
-        input.close();
-        sendingEmailDTO.setBytes(bytesArray);
-        ObjectMapper mapper = new ObjectMapper();
-        String message = mapper.writeValueAsString(sendingEmailDTO);
-        System.out.print(message);
-        messageSendService.sendMessage(message);
-        return ResponseEntity.ok(new Response());
-
     }
 }

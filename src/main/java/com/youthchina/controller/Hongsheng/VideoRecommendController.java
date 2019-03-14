@@ -26,7 +26,7 @@ public class VideoRecommendController {
     private StaticFileService staticFileService;
 
     @GetMapping("/videos")
-    public ResponseEntity getRecommandVideos() throws NotFoundException {
+    public ResponseEntity getRecommendVideos() throws NotFoundException {
         List<Video> videoList = videoRecommendServiceImplement.getVideoForYou();
         List<VideoDTO> resultList = new ArrayList<>();
 
@@ -39,9 +39,6 @@ public class VideoRecommendController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("videos", resultList);
 
-        if (resultList!=null)
-            return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
+        return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
     }
 }

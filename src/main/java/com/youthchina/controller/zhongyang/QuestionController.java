@@ -60,8 +60,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
 
     @GetMapping("/**")
     public ResponseEntity<?> getQuestions(@RequestParam(value = "Company") String company,@RequestParam(value = "Job") String job) throws NotFoundException {
-        System.out.println("enter getquestions");
-        if(company != ""){
+        if(!company.equals("")){
             List<Question> qlists=  communityQAService.searchQuestionByTitleOrCompanyName(company);
             if(qlists.size() != 0){
                 List<QuestionDTO> qdlist2 = new ArrayList<>();
@@ -73,7 +72,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
                 map3.put("questions", qdlist2);
                 return ResponseEntity.ok(new Response(map3));
             }
-        }else if(job != ""){
+        }else if(!job.equals("")){
             List<Question> qlists2=  communityQAService.searchQuestionByTitleOrCompanyName(job);
             if (qlists2.size() != 0){
                 List<QuestionDTO> qdlist = new ArrayList<>();
@@ -118,9 +117,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteQuestionInfo(@PathVariable Integer id) throws NotFoundException {
-        //System.out.println("delete processing!!!");
-        delete(id);
-        return ResponseEntity.ok(new Response(new StatusDTO(204,"deleted success")));
+        return delete(id);
     }
 
     @GetMapping("/{id}/answers")
@@ -131,13 +128,6 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
         QuestionBasicDTO questionBasicDTO = new QuestionBasicDTO(question);
         HashMap<String,Object> map1 = new HashMap<>();
         map1.put("answers", questionDTO.getAnswers());
-        //HashMap<String,Object> map2 = new HashMap<>();
-        //map2.put("question", questionBasicDTO);
-
-        //List<HashMap> list = new ArrayList<>();
-        //list.add(map1);
-        //list.add(map2);
-
 
         return ResponseEntity.ok(new Response(map1));
     }

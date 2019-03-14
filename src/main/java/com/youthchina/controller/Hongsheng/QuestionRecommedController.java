@@ -26,7 +26,7 @@ public class QuestionRecommedController {
     public QuestionRecommendServiceImplement questionRecommendServiceImplement;
 
     @GetMapping("/questions")
-    public ResponseEntity getRecommandQuestion() throws NotFoundException {
+    public ResponseEntity getRecommendQuestion() throws NotFoundException {
         List<Question> questionList = questionRecommendServiceImplement.getQuestionForYou();
         List<QuestionDTO> resultList = new ArrayList<>();
         for(Question question : questionList) {

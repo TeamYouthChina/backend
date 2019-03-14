@@ -68,12 +68,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         return new URI(this.url + id.toString());
     }
 
-    /*
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getJob(@PathVariable Integer id) throws NotFoundException {
-        return get(id);
-    }
-    */
+
 
     @PostMapping("/**")
     public ResponseEntity<?> createJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) {
@@ -114,7 +109,7 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
             }
         }
 
-        /**No companyId, location, jobReqList, industryList*/
+        /* No companyId, location, jobReqList, industryList*/
         List<Job> searchResultJob = this.jobService.getJobByMore(jobSearchDTO.getId(), jobSearchDTO.getJobName(),
                 null, jobSearchDTO.getCompanyName(), startDate, endDate,
                 jobSearchDTO.getJobType(), jobSearchDTO.getSalaryFloor(), jobSearchDTO.getSalaryCap(), (jobSearchDTO.getActivate() ? 1 : 0),

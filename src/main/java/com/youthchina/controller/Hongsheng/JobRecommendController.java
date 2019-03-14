@@ -28,7 +28,7 @@ public class JobRecommendController {
     private JobRecommendServiceImplement jobRecommendServiceImplement;
 
     @GetMapping("/jobs")
-    public ResponseEntity getRecommandJobs() throws NotFoundException {
+    public ResponseEntity getRecommendJobs() throws NotFoundException {
         List<Job> jobList = jobRecommendServiceImplement.getInternForYou();
         List<JobResponseDTO> resultList = new ArrayList<>();
         for(Job job : jobList) {
@@ -37,9 +37,6 @@ public class JobRecommendController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("jobs", resultList);
 
-        if (resultList!=null)
-            return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
+        return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
     }
 }

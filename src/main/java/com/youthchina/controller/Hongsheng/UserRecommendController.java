@@ -26,7 +26,7 @@ public class UserRecommendController {
     public UserRecommendServiceImplement userRecommendServiceImplement;
 
     @GetMapping("/users")
-    public ResponseEntity getRecommandUser() throws NotFoundException {
+    public ResponseEntity getRecommendUser() throws NotFoundException {
         List<User> userList = userRecommendServiceImplement.getUserForYou();
         List<UserDTO> resultList = new ArrayList<>();
         for(User user : userList) {
@@ -36,9 +36,6 @@ public class UserRecommendController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("users", resultList);
 
-        if (resultList!=null)
-            return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
+        return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
     }
 }
