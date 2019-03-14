@@ -1,6 +1,6 @@
 package com.youthchina.domain.qingyang;
 
-import com.youthchina.dto.NationDTO;
+import com.youthchina.dto.util.NationDTO;
 
 import java.sql.Timestamp;
 

@@ -2,9 +2,9 @@ package com.youthchina.controller.Hongsheng;
 
 
 import com.youthchina.domain.qingyang.Company;
-import com.youthchina.dto.CompanyResponseDTO;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.Qinghong.MessageSendService;
 import com.youthchina.service.jinhao.communityQA.CompanyRecommendServiceImplement;

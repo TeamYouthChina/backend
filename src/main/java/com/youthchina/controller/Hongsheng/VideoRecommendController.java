@@ -3,7 +3,7 @@ package com.youthchina.controller.Hongsheng;
 import com.youthchina.domain.jinhao.communityQA.Video;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.VideoDTO;
+import com.youthchina.dto.community.video.VideoDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.VideoRecommendServiceImplement;
 import com.youthchina.service.tianjian.StaticFileService;

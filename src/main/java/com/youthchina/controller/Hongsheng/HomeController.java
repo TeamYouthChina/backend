@@ -2,10 +2,10 @@ package com.youthchina.controller.Hongsheng;
 
 import com.youthchina.controller.zhongyang.DomainCRUDController;
 import com.youthchina.domain.qingyang.Job;
-import com.youthchina.dto.JobResponseDTO;
 import com.youthchina.dto.Response;
-import com.youthchina.dto.SimpleJobDTO;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.job.JobResponseDTO;
+import com.youthchina.dto.job.SimpleJobDTO;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.jinhao.communityQA.JobRecommendService;
 import org.springframework.beans.factory.annotation.Autowired;

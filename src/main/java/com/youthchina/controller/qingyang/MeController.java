@@ -2,7 +2,7 @@ package com.youthchina.controller.qingyang;
 
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
-import com.youthchina.dto.UserDTO;
+import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.http.ResponseEntity;

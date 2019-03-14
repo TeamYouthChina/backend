@@ -2,8 +2,8 @@ package com.youthchina.domain.tianjian;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.youthchina.dto.community.EssayDTO;
-import com.youthchina.dto.community.RequestEssayDTO;
+import com.youthchina.dto.community.article.EssayDTO;
+import com.youthchina.dto.community.article.RequestEssayDTO;
 
 import java.sql.Timestamp;
 

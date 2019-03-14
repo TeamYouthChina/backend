@@ -2,8 +2,8 @@ package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.RegisterUserDTO;
 import com.youthchina.dto.Response;
+import com.youthchina.dto.security.RegisterUserDTO;
 import com.youthchina.exception.zhongyang.ClientException;
 import com.youthchina.service.zhongyang.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
 import com.youthchina.domain.qingyang.USAState;
-import com.youthchina.dto.LocationDTO;
+import com.youthchina.dto.util.LocationDTO;
 
 import java.sql.Timestamp;
 

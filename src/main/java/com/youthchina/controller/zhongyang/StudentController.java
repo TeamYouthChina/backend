@@ -2,8 +2,11 @@ package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.Applicant.*;
-import com.youthchina.dto.*;
+import com.youthchina.dto.ListResponse;
+import com.youthchina.dto.Response;
+import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.applicant.*;
+import com.youthchina.dto.application.JobApplyDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;

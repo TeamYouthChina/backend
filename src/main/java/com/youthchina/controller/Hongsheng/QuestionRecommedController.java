@@ -3,7 +3,7 @@ package com.youthchina.controller.Hongsheng;
 import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.QuestionDTO;
+import com.youthchina.dto.community.question.QuestionDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.QuestionRecommendServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;

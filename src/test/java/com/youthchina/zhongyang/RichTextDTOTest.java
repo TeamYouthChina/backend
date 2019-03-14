@@ -2,7 +2,7 @@ package com.youthchina.zhongyang;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.dto.RichTextDTO;
+import com.youthchina.dto.util.RichTextDTO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
