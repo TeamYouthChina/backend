@@ -1,16 +1,17 @@
 package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.Qinghong.Student;
-import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.ApplicantDTO;
 import com.youthchina.dto.Response;
+import com.youthchina.dto.applicant.ApplicantDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.Qinghong.StudentService;
 import com.youthchina.service.zhongyang.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by zhong on 2018/12/30.

@@ -1,8 +1,8 @@
 package com.youthchina.domain.zhongyang;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.youthchina.dto.RegisterUserDTO;
-import com.youthchina.dto.UserDTO;
+import com.youthchina.dto.security.RegisterUserDTO;
+import com.youthchina.dto.security.UserDTO;
 import com.youthchina.util.zhongyang.HasId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

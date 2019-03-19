@@ -1,6 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
-import com.youthchina.dto.CertificateDTO;
+import com.youthchina.dto.applicant.CertificateDTO;
 
 import java.sql.Timestamp;
 import java.util.Date;

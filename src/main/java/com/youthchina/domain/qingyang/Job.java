@@ -1,8 +1,8 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.dto.LocationDTO;
-import com.youthchina.dto.SimpleJobDTO;
+import com.youthchina.dto.job.SimpleJobDTO;
+import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Date;

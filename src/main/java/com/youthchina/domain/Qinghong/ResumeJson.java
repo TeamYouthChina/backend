@@ -1,6 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
-import com.youthchina.dto.Applicant.ResumeRequestDTO;
+import com.youthchina.dto.applicant.ResumeRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.List;

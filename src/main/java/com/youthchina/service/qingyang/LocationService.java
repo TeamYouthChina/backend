@@ -2,7 +2,6 @@ package com.youthchina.service.qingyang;
 
 import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

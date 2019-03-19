@@ -5,7 +5,7 @@ import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
-import com.youthchina.dto.UserDTO;
+import com.youthchina.dto.security.UserDTO;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
