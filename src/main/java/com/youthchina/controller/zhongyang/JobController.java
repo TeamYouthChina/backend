@@ -10,7 +10,7 @@ import com.youthchina.dto.application.JobApplyDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.job.JobSearchDTO;
 import com.youthchina.dto.job.JobSearchResultDTO;
-import com.youthchina.dto.job.SimpleJobDTO;
+import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -40,7 +40,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/jobs/**")
-public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integer> {
+public class JobController extends DomainCRUDController<JobRequestDTO, Job, Integer> {
 
     private String url;
     private JobService jobService;
@@ -61,13 +61,13 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     }
 
     @Override
-    protected SimpleJobDTO DomainToDto(Job domain) {
-        return new SimpleJobDTO(domain);
+    protected JobRequestDTO DomainToDto(Job domain) {
+        return new JobRequestDTO(domain);
     }
 
     @Override
-    protected Job DtoToDomain(SimpleJobDTO simpleJobDTO) {
-        return new Job(simpleJobDTO);
+    protected Job DtoToDomain(JobRequestDTO jobRequestDTO) {
+        return new Job(jobRequestDTO);
     }
 
     @Override
@@ -78,13 +78,13 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
 
 
     @PostMapping("/**")
-    public ResponseEntity<?> createJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) {
-        return add(simpleJobDTO);
+    public ResponseEntity<?> createJobInfo(@RequestBody JobRequestDTO jobRequestDTO) {
+        return add(jobRequestDTO);
     }
 
     @PutMapping("/{id}/**")
-    public ResponseEntity<?> updateJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) throws NotFoundException {
-        return update(simpleJobDTO);
+    public ResponseEntity<?> updateJobInfo(@RequestBody JobRequestDTO jobRequestDTO) throws NotFoundException {
+        return update(jobRequestDTO);
     }
 
     @DeleteMapping("/{id}/**")

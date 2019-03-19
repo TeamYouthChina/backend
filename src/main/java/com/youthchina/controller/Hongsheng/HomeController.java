@@ -5,7 +5,7 @@ import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.job.JobResponseDTO;
-import com.youthchina.dto.job.SimpleJobDTO;
+import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.jinhao.communityQA.JobRecommendService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("${web.url.prefix}/home/**")
 @PermitAll
-public class HomeController extends DomainCRUDController<SimpleJobDTO, Job, Integer> {
+public class HomeController extends DomainCRUDController<JobRequestDTO, Job, Integer> {
     private JobRecommendService jobRecommendService;
     private String url;
 
@@ -41,13 +41,13 @@ public class HomeController extends DomainCRUDController<SimpleJobDTO, Job, Inte
     }
 
     @Override
-    protected SimpleJobDTO DomainToDto(Job domain) {
-        return new SimpleJobDTO(domain);
+    protected JobRequestDTO DomainToDto(Job domain) {
+        return new JobRequestDTO(domain);
     }
 
     @Override
-    protected Job DtoToDomain(SimpleJobDTO simpleJobDTO) {
-        return new Job(simpleJobDTO);
+    protected Job DtoToDomain(JobRequestDTO jobRequestDTO) {
+        return new Job(jobRequestDTO);
     }
 
     @Override
