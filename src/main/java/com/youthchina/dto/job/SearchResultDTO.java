@@ -8,12 +8,10 @@ import com.youthchina.dto.StatusDTO;
  */
 public class SearchResultDTO implements ResponseDTO {
 
-    @Override
     public StatusDTO getStatus() {
         return null;
     }
 
-    @Override
     public void setStatus(StatusDTO status) {
 
     }
