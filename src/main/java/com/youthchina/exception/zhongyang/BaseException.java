@@ -34,12 +34,12 @@ public class BaseException extends Exception implements ResponseDTO {
                 '}';
     }
 
-    @Override
+
     public StatusDTO getStatus() {
         return status;
     }
 
-    @Override
+
     public void setStatus(StatusDTO status) {
         this.status = status;
     }
