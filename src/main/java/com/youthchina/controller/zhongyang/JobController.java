@@ -9,7 +9,7 @@ import com.youthchina.dto.applicant.SendingEmailDTO;
 import com.youthchina.dto.application.JobApplyDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.job.JobSearchDTO;
-import com.youthchina.dto.job.JobSearchResultDTO;
+import com.youthchina.dto.job.JobSearchResponseDTO;
 import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.exception.zhongyang.BaseException;
@@ -125,10 +125,10 @@ public class JobController extends DomainCRUDController<JobRequestDTO, Job, Inte
         for (Job job : searchResultJob) {
             searchResultJobDTO.add(new JobResponseDTO(job));
         }
-        JobSearchResultDTO jobSearchResultDTO = new JobSearchResultDTO();
-        jobSearchResultDTO.setSearchResult(searchResultJobDTO);
+        JobSearchResponseDTO jobSearchResponseDTO = new JobSearchResponseDTO();
+        jobSearchResponseDTO.setSearchResult(searchResultJobDTO);
 
-        return ResponseEntity.ok(new Response(jobSearchResultDTO));
+        return ResponseEntity.ok(new Response(jobSearchResponseDTO));
     }
 
     /**
