@@ -1,6 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
-import com.youthchina.dto.applicant.ExtracurricularDTO;
+import com.youthchina.dto.applicant.ExtracurricularRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -17,12 +17,12 @@ public class Activity {
     private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public Activity(ExtracurricularDTO extracurricularDTO) {
-        this.act_name=extracurricularDTO.getName();
-        this.act_role=extracurricularDTO.getRole();
-        this.act_organization=extracurricularDTO.getOrganization();
-        this.act_start_time=extracurricularDTO.getDuration().getBegin();
-        this.act_end_time=extracurricularDTO.getDuration().getEnd();
+    public Activity(ExtracurricularRequestDTO extracurricularRequestDTO) {
+        this.act_name= extracurricularRequestDTO.getName();
+        this.act_role= extracurricularRequestDTO.getRole();
+        this.act_organization= extracurricularRequestDTO.getOrganization();
+        this.act_start_time= extracurricularRequestDTO.getDuration().getBegin();
+        this.act_end_time= extracurricularRequestDTO.getDuration().getEnd();
         this.act_detail="help students";
     }
 

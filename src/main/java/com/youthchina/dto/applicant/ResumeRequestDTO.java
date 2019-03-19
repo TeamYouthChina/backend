@@ -1,5 +1,7 @@
 package com.youthchina.dto.applicant;
 
+import com.youthchina.dto.RequestDTO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,7 @@ import java.util.List;
  * @author: Qingyang Zhao
  * @create: 2019-02-28
  **/
-public class ResumeRequestDTO {
+public class ResumeRequestDTO implements RequestDTO {
     List<String> json;
 
     public List<String> getJson() {

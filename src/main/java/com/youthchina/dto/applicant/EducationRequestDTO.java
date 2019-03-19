@@ -1,13 +1,14 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.EducationInfo;
+import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.dto.util.LocationDTO;
 
 /**
  * Created by zhong on 2018/12/30.
  */
-public class EducationDTO {
+public class EducationRequestDTO implements RequestDTO {
     private String university;
     private String major;
     private String degree;
@@ -15,10 +16,10 @@ public class EducationDTO {
     private LocationDTO location;
     private String note;
 
-    public EducationDTO() {
+    public EducationRequestDTO() {
     }
 
-    public EducationDTO(EducationInfo educationInfo){
+    public EducationRequestDTO(EducationInfo educationInfo){
         this.university = educationInfo.getEdu_school();
         this.major = educationInfo.getEdu_major();
         this.degree = educationInfo.getDegree().getDegreeChn();

@@ -1,6 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
-import com.youthchina.dto.applicant.CertificateDTO;
+import com.youthchina.dto.applicant.CertificateRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -22,11 +22,11 @@ public class Certificate {
     private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public Certificate(CertificateDTO certificateDTO) {
-        this.certificate_name=certificateDTO.getName();
-        this.certificate_insti=certificateDTO.getAuthority();
-        this.certificate_grant_date=certificateDTO.getDuration().getBegin();
-        this.certificate_expir_date=certificateDTO.getDuration().getEnd();
+    public Certificate(CertificateRequestDTO certificateRequestDTO) {
+        this.certificate_name= certificateRequestDTO.getName();
+        this.certificate_insti= certificateRequestDTO.getAuthority();
+        this.certificate_grant_date= certificateRequestDTO.getDuration().getBegin();
+        this.certificate_expir_date= certificateRequestDTO.getDuration().getEnd();
     }
 
     public Certificate() {

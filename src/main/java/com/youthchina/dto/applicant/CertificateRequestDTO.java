@@ -1,21 +1,22 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Certificate;
+import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**
  * Created by zhong on 2018/12/30.
  */
-public class CertificateDTO {
+public class CertificateRequestDTO implements RequestDTO {
     private String name;
     private String authority;
     private DurationDTO duration;
     private String note;
 
-    public CertificateDTO() {
+    public CertificateRequestDTO() {
     }
 
-    public CertificateDTO(Certificate certificate) {
+    public CertificateRequestDTO(Certificate certificate) {
         this.name = certificate.getCertificate_name();
         this.authority = certificate.getCertificate_insti();
         this.duration = new DurationDTO(certificate.getCertificate_grant_date(), certificate.getCertificate_expir_date());

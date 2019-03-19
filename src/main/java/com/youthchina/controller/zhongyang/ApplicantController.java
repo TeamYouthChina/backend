@@ -2,7 +2,7 @@ package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.dto.Response;
-import com.youthchina.dto.applicant.ApplicantDTO;
+import com.youthchina.dto.applicant.ApplicantRequestDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.Qinghong.StudentService;
 import com.youthchina.service.zhongyang.UserService;
@@ -30,8 +30,8 @@ public class ApplicantController {
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<Response> getApplicant(@PathVariable("id") Integer id) throws NotFoundException {
         Student student = studentService.get(id);
-        ApplicantDTO applicantDTO = new ApplicantDTO(student);
-        return ResponseEntity.ok(new Response(applicantDTO));
+        ApplicantRequestDTO applicantRequestDTO = new ApplicantRequestDTO(student);
+        return ResponseEntity.ok(new Response(applicantRequestDTO));
     }
 
 }

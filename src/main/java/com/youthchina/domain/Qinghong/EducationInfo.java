@@ -1,7 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
 import com.youthchina.domain.qingyang.Degree;
-import com.youthchina.dto.applicant.EducationDTO;
+import com.youthchina.dto.applicant.EducationRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -21,17 +21,17 @@ public class EducationInfo {
     private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public EducationInfo(EducationDTO educationDTO) {
-        this.edu_school=educationDTO.getUniversity();
-        this.edu_major=educationDTO.getMajor();
+    public EducationInfo(EducationRequestDTO educationRequestDTO) {
+        this.edu_school= educationRequestDTO.getUniversity();
+        this.edu_major= educationRequestDTO.getMajor();
         this.degree=new Degree();
-        this.degree.setDegreeNum(Integer.parseInt(educationDTO.getDegree()));
-        this.edu_start=educationDTO.getDuration().getBegin();
-        this.edu_end=educationDTO.getDuration().getEnd();
+        this.degree.setDegreeNum(Integer.parseInt(educationRequestDTO.getDegree()));
+        this.edu_start= educationRequestDTO.getDuration().getBegin();
+        this.edu_end= educationRequestDTO.getDuration().getEnd();
         this.location=new Location();
-        this.location.setNation_code(educationDTO.getLocation().getNation_code());
-        this.location.setRegion_num(Integer.parseInt(educationDTO.getLocation().getLocation_code()));
-        this.edu_school_country=educationDTO.getLocation().getNation_code();
+        this.location.setNation_code(educationRequestDTO.getLocation().getNation_code());
+        this.location.setRegion_num(Integer.parseInt(educationRequestDTO.getLocation().getLocation_code()));
+        this.edu_school_country= educationRequestDTO.getLocation().getNation_code();
 
         //fix location
         //空值的设置

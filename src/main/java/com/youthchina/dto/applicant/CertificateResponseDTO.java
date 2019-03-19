@@ -1,6 +1,8 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Certificate;
+import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**
@@ -9,7 +11,7 @@ import com.youthchina.dto.util.DurationDTO;
  * @author: Qinghong Wang
  * @create: 2019-02-24 15:39
  **/
-public class CertificateResponseDTO {
+public class CertificateResponseDTO implements ResponseDTO {
     private Integer id;
     private String name;
     private String authority;
@@ -66,4 +68,13 @@ public class CertificateResponseDTO {
         this.note = note;
     }
 
+    @Override
+    public StatusDTO getStatus() {
+        return null;
+    }
+
+    @Override
+    public void setStatus(StatusDTO status) {
+
+    }
 }

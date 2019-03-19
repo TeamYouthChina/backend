@@ -1,6 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
-import com.youthchina.dto.applicant.WorkDTO;
+import com.youthchina.dto.applicant.WorkRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -19,14 +19,14 @@ public class Work {
     private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public Work(WorkDTO workDTO) {
-        this.work_company=workDTO.getEmployer();
-        this.work_position=workDTO.getPosition();
-        this.work_start_time=workDTO.getDuration().getBegin();
-        this.work_end_time=workDTO.getDuration().getEnd();
+    public Work(WorkRequestDTO workRequestDTO) {
+        this.work_company= workRequestDTO.getEmployer();
+        this.work_position= workRequestDTO.getPosition();
+        this.work_start_time= workRequestDTO.getDuration().getBegin();
+        this.work_end_time= workRequestDTO.getDuration().getEnd();
         this.location=new Location();
-        this.location.setNation_code(workDTO.getLocation().getNation_code());
-        this.getLocation().setRegion_num(Integer.parseInt(workDTO.getLocation().getLocation_code()));
+        this.location.setNation_code(workRequestDTO.getLocation().getNation_code());
+        this.getLocation().setRegion_num(Integer.parseInt(workRequestDTO.getLocation().getLocation_code()));
         this.work_duty="backend";
         this.work_sector="backend";
         this.work_nature=1;

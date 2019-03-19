@@ -1,21 +1,22 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Project;
+import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**
  * Created by zhong on 2018/12/30.
  */
-public class ProjectDTO {
+public class ProjectRequestDTO implements RequestDTO {
     private String name;
     private String role;
     private DurationDTO duration;
     private String note;
 
-    public ProjectDTO() {
+    public ProjectRequestDTO() {
     }
 
-    public ProjectDTO(Project project) {
+    public ProjectRequestDTO(Project project) {
         this.name = project.getProj_name();
         this.role = project.getProj_role();
         this.duration = new DurationDTO(project.getProj_start_time(), project.getProj_end_time());

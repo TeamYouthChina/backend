@@ -1,6 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
-import com.youthchina.dto.applicant.ProjectDTO;
+import com.youthchina.dto.applicant.ProjectRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -18,11 +18,11 @@ public class Project {
     private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public Project(ProjectDTO projectDTO) {
-        this.proj_name=projectDTO.getName();
-        this.proj_role=projectDTO.getRole();
-        this.proj_start_time=projectDTO.getDuration().getBegin();
-        this.proj_end_time=projectDTO.getDuration().getEnd();
+    public Project(ProjectRequestDTO projectRequestDTO) {
+        this.proj_name= projectRequestDTO.getName();
+        this.proj_role= projectRequestDTO.getRole();
+        this.proj_start_time= projectRequestDTO.getDuration().getBegin();
+        this.proj_end_time= projectRequestDTO.getDuration().getEnd();
         this.proj_deliver="相对论";
         this.deliver_publish=1;
         this.deliver_pub_insti="新华社";
