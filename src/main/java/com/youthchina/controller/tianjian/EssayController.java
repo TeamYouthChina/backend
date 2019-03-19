@@ -123,7 +123,6 @@ public class EssayController {
 
     @DeleteMapping("/attentions/{id}")
     public ResponseEntity deleteAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        System.out.println("start here");
         essayServiceimpl.deleteFavoriteEssay(id, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
