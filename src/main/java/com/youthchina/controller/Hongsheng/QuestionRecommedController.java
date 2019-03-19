@@ -3,7 +3,7 @@ package com.youthchina.controller.Hongsheng;
 import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.question.QuestionDTO;
+import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.service.jinhao.communityQA.QuestionRecommendServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +31,9 @@ public class QuestionRecommedController {
     @GetMapping("/questions")
     public ResponseEntity getRecommendQuestion() {
         List<Question> questionList = questionRecommendServiceImplement.getQuestionForYou();
-        List<QuestionDTO> resultList = new ArrayList<>();
+        List<QuestionResponseDTO> resultList = new ArrayList<>();
         for (Question question : questionList) {
-            resultList.add(new QuestionDTO(question));
+            resultList.add(new QuestionResponseDTO(question));
         }
 
         HashMap<String, Object> map = new HashMap<>();

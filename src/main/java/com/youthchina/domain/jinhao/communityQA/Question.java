@@ -3,8 +3,8 @@ package com.youthchina.domain.jinhao.communityQA;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.community.question.QuestionDTO;
-import com.youthchina.dto.community.question.RequestQuestionDTO;
+import com.youthchina.dto.community.question.QuestionResponseDTO;
+import com.youthchina.dto.community.question.QuestionRequestDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
@@ -29,46 +29,46 @@ public class Question implements HasId<Integer> {
     private Integer rela_type;
     private Integer rela_id;
 
-    public Question(QuestionDTO questionDTO) {
-        this.ques_id = questionDTO.getId();
-        this.ques_user = new User(questionDTO.getCreator());
-        this.ques_title = questionDTO.getTitle();
+    public Question(QuestionResponseDTO questionResponseDTO) {
+        this.ques_id = questionResponseDTO.getId();
+        this.ques_user = new User(questionResponseDTO.getCreator());
+        this.ques_title = questionResponseDTO.getTitle();
         try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(questionDTO.getBody());
+            java.lang.String requestJson = ow.writeValueAsString(questionResponseDTO.getBody());
             this.ques_body = requestJson;
         } catch (Exception e) {
             System.out.println("Exception");
         }
 
-        this.user_anony = (questionDTO.getIs_anonymous() ? 1 : 0);
-        this.ques_pub_time = questionDTO.getCreate_at();
-        this.ques_edit_time = questionDTO.getModified_at();
-        this.rela_type = questionDTO.getRela_type();
-        this.rela_id = questionDTO.getRela_id();
-        this.ques_abbre = questionDTO.getBody().getPreviewText();
-        //if(questionDTO.getAnswers() != null) {
-        //   for(RequestSimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
+        this.user_anony = (questionResponseDTO.getIs_anonymous() ? 1 : 0);
+        this.ques_pub_time = questionResponseDTO.getCreate_at();
+        this.ques_edit_time = questionResponseDTO.getModified_at();
+        this.rela_type = questionResponseDTO.getRela_type();
+        this.rela_id = questionResponseDTO.getRela_id();
+        this.ques_abbre = questionResponseDTO.getBody().getPreviewText();
+        //if(questionResponseDTO.getAnswers() != null) {
+        //   for(RequestSimpleAnswerDTO simpleAnswerDTO : questionResponseDTO.getAnswers()) {
         //       this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
         //   }
         //}
     }
 
-    public Question(RequestQuestionDTO requestQuestionDTO) {
-        this.ques_title = requestQuestionDTO.getTitle();
+    public Question(QuestionRequestDTO questionRequestDTO) {
+        this.ques_title = questionRequestDTO.getTitle();
         try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(requestQuestionDTO.getBody());
+            java.lang.String requestJson = ow.writeValueAsString(questionRequestDTO.getBody());
             this.ques_body = requestJson;
         } catch (Exception e) {
             System.out.println("Exception");
         }
-        this.user_anony = (requestQuestionDTO.getIs_anonymous() ? 1 : 0);
-        this.rela_type = requestQuestionDTO.getRela_type();
-        this.rela_id = requestQuestionDTO.getRela_id();
-        this.ques_abbre = requestQuestionDTO.getBody().getPreviewText();
+        this.user_anony = (questionRequestDTO.getIs_anonymous() ? 1 : 0);
+        this.rela_type = questionRequestDTO.getRela_type();
+        this.rela_id = questionRequestDTO.getRela_id();
+        this.ques_abbre = questionRequestDTO.getBody().getPreviewText();
     }
 
     public Question() {
