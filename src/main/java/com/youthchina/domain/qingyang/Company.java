@@ -2,7 +2,7 @@ package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.dto.applicant.OrganizationDTO;
-import com.youthchina.dto.company.CompanyDTO;
+import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Date;
@@ -75,15 +75,15 @@ public class Company implements HasId<Integer> {
     }
 
 
-    public Company(CompanyDTO companyDTO) {
-        this.companyId = companyDTO.getId();
-        this.companyName = companyDTO.getName();
-        this.location = new Location(companyDTO.getLocation());
-        this.companyWebsite = companyDTO.getWebsite();
-        this.country = new Country(companyDTO.getNation());
-        this.companyLogo = companyDTO.getAvatarUrl();
-        this.companyIntroduc = companyDTO.getNote();
-        this.userId = companyDTO.getUserId();
+    public Company(CompanyRequestDTO companyRequestDTO) {
+        this.companyId = companyRequestDTO.getId();
+        this.companyName = companyRequestDTO.getName();
+        this.location = new Location(companyRequestDTO.getLocation());
+        this.companyWebsite = companyRequestDTO.getWebsite();
+        this.country = new Country(companyRequestDTO.getNation());
+        this.companyLogo = companyRequestDTO.getAvatarUrl();
+        this.companyIntroduc = companyRequestDTO.getNote();
+        this.userId = companyRequestDTO.getUserId();
 
         //TODO : API need add more params as shown below
         this.companyCode = "TODO"; //企业三证号码

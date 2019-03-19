@@ -5,7 +5,7 @@ import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.company.CompanyDTO;
+import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -28,7 +28,7 @@ import java.net.URISyntaxException;
  **/
 @RestController
 @RequestMapping("${web.url.prefix}/companies/**")
-public class CompanyController extends DomainCRUDController<CompanyDTO, Company, Integer> {
+public class CompanyController extends DomainCRUDController<CompanyRequestDTO, Company, Integer> {
 
 
     private String url;
@@ -48,13 +48,13 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
     }
 
     @Override
-    protected CompanyDTO DomainToDto(Company domain) {
-        return new CompanyDTO(domain);
+    protected CompanyRequestDTO DomainToDto(Company domain) {
+        return new CompanyRequestDTO(domain);
     }
 
     @Override
-    protected Company DtoToDomain(CompanyDTO companyDTO) {
-        return new Company(companyDTO);
+    protected Company DtoToDomain(CompanyRequestDTO companyRequestDTO) {
+        return new Company(companyRequestDTO);
     }
 
     @Override
@@ -63,15 +63,15 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyDTO companyDTO) {
-        companyDTO.setUserId(user.getId());
-        return add(companyDTO);
+    public ResponseEntity<?> createCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyRequestDTO companyRequestDTO) {
+        companyRequestDTO.setUserId(user.getId());
+        return add(companyRequestDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyDTO companyDTO) throws NotFoundException {
-        companyDTO.setUserId(user.getId());
-        return update(companyDTO);
+    public ResponseEntity<?> updateCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyRequestDTO companyRequestDTO) throws NotFoundException {
+        companyRequestDTO.setUserId(user.getId());
+        return update(companyRequestDTO);
     }
 
     @GetMapping("/{id}")
