@@ -5,8 +5,5 @@ package com.youthchina.dto;
  */
 public interface ResponseDTO {
 
-    StatusDTO getStatus();
-
-    void setStatus(StatusDTO status);
 }
 
