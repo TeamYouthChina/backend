@@ -13,42 +13,42 @@ public class ComEssay {
     private String essay_abbre;
     private String essay_body;
     private Timestamp essay_pub_time;
-    private Timestamp  essay_edit_time;
+    private Timestamp essay_edit_time;
     private Integer is_delete;
     private Integer user_anony;
 
-    public ComEssay(EssayDTO essayDTO){
+    public ComEssay(EssayDTO essayDTO) {
         this.essay_id = essayDTO.getId();
         this.essay_title = essayDTO.getTitle();
         this.essay_pub_time = essayDTO.getCreate_at();
         this.essay_edit_time = essayDTO.getModified_at();
-        this.user_anony =  (essayDTO.isIs_anonymous()) ? 1 : 0;
+        this.user_anony = (essayDTO.isIs_anonymous()) ? 1 : 0;
         this.essay_abbre = essayDTO.getBody().getPreviewText();
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
             java.lang.String requestJson = ow.writeValueAsString(essayDTO.getBody());
             this.essay_body = requestJson;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
 
     }
 
 
-    public ComEssay(RequestEssayDTO requestEssayDTO){
+    public ComEssay(RequestEssayDTO requestEssayDTO) {
         this.essay_id = requestEssayDTO.getId();
         this.essay_title = requestEssayDTO.getTitle();
         this.essay_abbre = requestEssayDTO.getBody().getPreviewText();
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
             java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO.getBody());
             this.essay_body = requestJson;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
-        this.user_anony = (requestEssayDTO.isIs_anonymous())? 1:0;
+        this.user_anony = (requestEssayDTO.isIs_anonymous()) ? 1 : 0;
     }
 
     public ComEssay() {

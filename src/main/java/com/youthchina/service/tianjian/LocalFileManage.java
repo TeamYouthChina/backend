@@ -21,11 +21,11 @@ public class LocalFileManage {
 //        }
 //    }
 
-    public String uploadFileToLocal(File inFile,String format){
+    public String uploadFileToLocal(File inFile, String format) {
         String localFileName = fileNameGenerate.generateFileName();
         String path = localfilePath + localFileName + format;
         this.file = new File(path);
-        try{
+        try {
             FileInputStream input = new FileInputStream(inFile);
             byte[] inputByte = new byte[input.available()];
             input.read(inputByte);
@@ -45,7 +45,7 @@ public class LocalFileManage {
         return path;
     }
 
-    public boolean deleteLocalFile(String localFilePath){
+    public boolean deleteLocalFile(String localFilePath) {
         File file = new File(localFilePath);
         // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
         if (file.exists() && file.isFile()) {

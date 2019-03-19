@@ -60,21 +60,21 @@ public class IndustryTest {
         List<Industry> industries = companyMapper.selectIndustryByIdList(ids);
         Assert.assertEquals(2, industries.size());
         for (Industry industry : industries) {
-            if(industry.getIndNum() != 1 && industry.getIndNum()  != 2){
+            if (industry.getIndNum() != 1 && industry.getIndNum() != 2) {
                 Assert.fail();
             }
         }
     }
 
     @Test
-    public void testUpdateIndustry(){
+    public void testUpdateIndustry() {
         Industry industry = companyMapper.selectIndustry(2);
         industry.setIndChn("互联网");
         companyMapper.updateIndustry(industry);
     }
 
     @Test
-    public void testDeleteIndustry(){
+    public void testDeleteIndustry() {
         companyMapper.deleteIndustry(1);
     }
 }

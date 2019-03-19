@@ -52,7 +52,7 @@
 
     <select id="selectHrByIdList" parameterType="java.util.List" resultMap="Hr">
         SELECT
-        HR_ID,    COMPANY_ID,   HR_ON_JOB,    USER_ID
+        HR_ID, COMPANY_ID, HR_ON_JOB, USER_ID
         FROM HR_INFO
         WHERE HR_ID in
         <foreach item='id' index='index' collection="list" separator="," open="(" close=")">

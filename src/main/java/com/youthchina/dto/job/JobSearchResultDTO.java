@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 12/2/18.
  */
-public class JobSearchResultDTO<T extends SimpleJobDTO>  {
+public class JobSearchResultDTO<T extends SimpleJobDTO> {
     private List<T> searchResult;
     private StatusDTO status;
 

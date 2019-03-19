@@ -18,12 +18,12 @@ public class Activity {
     private Timestamp is_delete_time;
 
     public Activity(ExtracurricularDTO extracurricularDTO) {
-        this.act_name=extracurricularDTO.getName();
-        this.act_role=extracurricularDTO.getRole();
-        this.act_organization=extracurricularDTO.getOrganization();
-        this.act_start_time=extracurricularDTO.getDuration().getBegin();
-        this.act_end_time=extracurricularDTO.getDuration().getEnd();
-        this.act_detail="help students";
+        this.act_name = extracurricularDTO.getName();
+        this.act_role = extracurricularDTO.getRole();
+        this.act_organization = extracurricularDTO.getOrganization();
+        this.act_start_time = extracurricularDTO.getDuration().getBegin();
+        this.act_end_time = extracurricularDTO.getDuration().getEnd();
+        this.act_detail = "help students";
     }
 
     public Activity() {

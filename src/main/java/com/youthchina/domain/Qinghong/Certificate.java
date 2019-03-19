@@ -23,10 +23,10 @@ public class Certificate {
     private Timestamp is_delete_time;
 
     public Certificate(CertificateDTO certificateDTO) {
-        this.certificate_name=certificateDTO.getName();
-        this.certificate_insti=certificateDTO.getAuthority();
-        this.certificate_grant_date=certificateDTO.getDuration().getBegin();
-        this.certificate_expir_date=certificateDTO.getDuration().getEnd();
+        this.certificate_name = certificateDTO.getName();
+        this.certificate_insti = certificateDTO.getAuthority();
+        this.certificate_grant_date = certificateDTO.getDuration().getBegin();
+        this.certificate_expir_date = certificateDTO.getDuration().getEnd();
     }
 
     public Certificate() {

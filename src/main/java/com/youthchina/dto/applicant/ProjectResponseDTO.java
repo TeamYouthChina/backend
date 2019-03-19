@@ -20,7 +20,7 @@ public class ProjectResponseDTO {
     }
 
     public ProjectResponseDTO(Project project) {
-        this.id=project.getProj_id();
+        this.id = project.getProj_id();
         this.name = project.getProj_name();
         this.role = project.getProj_role();
         this.duration = new DurationDTO(project.getProj_start_time(), project.getProj_end_time());

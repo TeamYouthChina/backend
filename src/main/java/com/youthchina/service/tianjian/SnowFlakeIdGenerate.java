@@ -6,50 +6,73 @@ import org.springframework.stereotype.Service;
 @Service("SnowFlakeIdGenerate")
 public class SnowFlakeIdGenerate {
     private long version;
-    /** 开始时间截 (2015-01-01) */
+    /**
+     * 开始时间截 (2015-01-01)
+     */
     private final long twepoch = 1420041600000L;
 
-    /** 机器id所占的位数 */
+    /**
+     * 机器id所占的位数
+     */
     private final long workerIdBits = 10L;
 
-    /** 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数) */
+    /**
+     * 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数)
+     */
     private final long maxWorkerId = -1L ^ (-1L << workerIdBits);
 
-    /** 序列在id中占的位数 */
+    /**
+     * 序列在id中占的位数
+     */
     private final long sequenceBits = 12L;
 
-    /** 机器ID向左移12位 */
+    /**
+     * 机器ID向左移12位
+     */
     private final long workerIdShift = sequenceBits;
 
-    /** 时间截向左移22位(5+5+12) */
-    private final long timestampLeftShift = sequenceBits + workerIdBits ;
+    /**
+     * 时间截向左移22位(5+5+12)
+     */
+    private final long timestampLeftShift = sequenceBits + workerIdBits;
 
-    /** 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095) */
+    /**
+     * 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095)
+     */
     private final long sequenceMask = -1L ^ (-1L << sequenceBits);
 
-    /** 机器ID(0~1023) */
+    /**
+     * 机器ID(0~1023)
+     */
     private long workerId;
 
-    /** 毫秒内序列(0~4095) */
+    /**
+     * 毫秒内序列(0~4095)
+     */
     private long sequence = 0L;
 
-    /** 上次生成ID的时间截 */
+    /**
+     * 上次生成ID的时间截
+     */
     private long lastTimestamp = -1L;
 
     //==============================Constructors=====================================
+
     /**
      * 构造函数
-     * @param workerIdBean 机器ID (0~1023)
      *
+     * @param workerIdBean 机器ID (0~1023)
      */
-    public SnowFlakeIdGenerate(@Value("${snowflake.work.id}")String workerIdBean,@Value("${snowflake.version}")String versionNum) {
-        this.version = Long.parseLong(versionNum)<<39;
+    public SnowFlakeIdGenerate(@Value("${snowflake.work.id}") String workerIdBean, @Value("${snowflake.version}") String versionNum) {
+        this.version = Long.parseLong(versionNum) << 39;
         this.workerId = Long.parseLong(workerIdBean);
     }
 
     // ==============================Methods==========================================
+
     /**
      * 获得下一个ID (该方法是线程安全的)
+     *
      * @return SnowflakeId
      */
     public synchronized long nextId() {
@@ -79,13 +102,14 @@ public class SnowFlakeIdGenerate {
         lastTimestamp = timestamp;
 
         //移位并通过或运算拼到一起组成64位的ID
-        return (((timestamp - twepoch)|version) << timestampLeftShift) //
+        return (((timestamp - twepoch) | version) << timestampLeftShift) //
                 | (workerId << workerIdShift) //
                 | sequence;
     }
 
     /**
      * 阻塞到下一个毫秒，直到获得新的时间戳
+     *
      * @param lastTimestamp 上次生成ID的时间截
      * @return 当前时间戳
      */
@@ -99,6 +123,7 @@ public class SnowFlakeIdGenerate {
 
     /**
      * 返回以毫秒为单位的当前时间
+     *
      * @return 当前时间(毫秒)
      */
     protected long timeGen() {

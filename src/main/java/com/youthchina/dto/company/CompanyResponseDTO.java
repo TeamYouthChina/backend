@@ -8,7 +8,7 @@ import com.youthchina.domain.qingyang.Country;
  * @author: Qingyang Zhao
  * @create: 2019-02-24
  **/
-public class CompanyResponseDTO{
+public class CompanyResponseDTO {
     private Integer id;
     private String name;
     private String avatarUrl;
@@ -22,11 +22,11 @@ public class CompanyResponseDTO{
         this.name = company.getCompanyName();
         this.avatarUrl = company.getCompanyLogo();
         Location location = company.getLocation();
-        if(location != null){
+        if (location != null) {
             this.location = location.getRegion_chn();
         }
         Country country = company.getCountry();
-        if(country != null){
+        if (country != null) {
             this.nation = country.getCountryChn();
         }
         this.website = company.getCompanyWebsite();

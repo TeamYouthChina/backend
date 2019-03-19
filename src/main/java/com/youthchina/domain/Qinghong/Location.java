@@ -22,7 +22,6 @@ public class Location {
     private Timestamp is_delete_time;
 
 
-
     //for insert to JOB_LOCATION
     private Integer jobId;
 
@@ -56,12 +55,13 @@ public class Location {
         this.nation_code = nation_code;
     }
 
-    public Location(LocationDTO locationDTO){
+    public Location(LocationDTO locationDTO) {
         this.nation_code = locationDTO.getNation_code();
         this.region_num = Integer.valueOf(locationDTO.getLocation_code());
     }
 
-    public Location(){}
+    public Location() {
+    }
 
     public Integer getJobId() {
         return jobId;

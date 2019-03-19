@@ -57,12 +57,12 @@ public class MeControllerTest {
     public void testGetMe() throws Exception {
         Integer id = 1;
         this.mvc.perform(
-                get(this.urlPrefix + "/me/" )//.param("id", "1").param("detailLevel", "1")
+                get(this.urlPrefix + "/me/")//.param("id", "1").param("detailLevel", "1")
                         .with(authGenerator.authentication())
 
         )
                 .andDo(print())
-                //.andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+        //.andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
         ;
     }
 }

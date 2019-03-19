@@ -70,7 +70,7 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 
@@ -100,7 +100,7 @@ public class CompanyControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":{\"nation_code\":\"CHN\",\"location_code\":\"1\"},\"website\":\"vavle.com\",\"nation\":{\"countryAbbre\":\"USA\"},\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\",\"userId\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":{\"nation_code\":\"CHN\",\"location_code\":\"1\"},\"website\":\"vavle.com\",\"nation\":{\"countryAbbre\":\"USA\"},\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\",\"userId\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 

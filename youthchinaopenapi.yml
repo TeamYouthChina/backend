@@ -15,16 +15,16 @@ paths:
       description: get job info by id
       operationId: getJob
       parameters:
-          - in: query
-            name: detailLevel
-            required: true
-            schema:
-              type: integer
-          - in: path
-            name: id
-            required: true
-            schema:
-              type: integer
+        - in: query
+          name: detailLevel
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: job info
@@ -998,7 +998,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-                  
+
   '/jobs/{id}/apply':
     post:
       tags:
@@ -1055,7 +1055,7 @@ paths:
   '/jobs/{id}/apply/resume':
     post:
       tags:
-      - Application
+        - Application
       description: send resume to company
       requestBody:
         content:
@@ -1121,7 +1121,7 @@ paths:
                 status:
                   code: 4041
                   reason: 'Cannot find user with id 14'
-  
+
   '/jobs/{id}/attention':
     put:
       tags:
@@ -1176,8 +1176,8 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - company
+                            - id
+                            - company
                           properties:
                             id:
                               type: integer
@@ -1188,20 +1188,20 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - job
+                            - id
+                            - job
                           properties:
                             id:
                               type: integer
                             job:
-                              $ref: '#/components/schemas/Job' 
+                              $ref: '#/components/schemas/Job'
                       questions:
                         type: array
                         items:
                           type: object
                           required:
-                          - id
-                          - questions
+                            - id
+                            - questions
                           properties:
                             id:
                               type: integer
@@ -1212,8 +1212,8 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - answers
+                            - id
+                            - answers
                           properties:
                             id:
                               type: integer
@@ -1224,8 +1224,8 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - article
+                            - id
+                            - article
                           properties:
                             id:
                               type: integer
@@ -1236,8 +1236,8 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - video
+                            - id
+                            - video
                           properties:
                             id:
                               type: integer
@@ -1334,7 +1334,7 @@ paths:
           schema:
             type: string
         - name: job
-          in: query 
+          in: query
           description: job name
           schema:
             type: string
@@ -1351,7 +1351,7 @@ paths:
                       questions:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Question'                     
+                          $ref: '#/components/schemas/Question'
                   status:
                     $ref: '#/components/schemas/Status'
         '400':
@@ -1465,8 +1465,8 @@ paths:
             schema:
               type: object
               required:
-              - id
-              - body
+                - id
+                - body
               properties:
                 id:
                   type: integer
@@ -1477,7 +1477,7 @@ paths:
                   default: false
                 create_at:
                   type: integer
-                
+
       responses:
         '201':
           description: target answer
@@ -1518,7 +1518,7 @@ paths:
           in: path
           schema:
             type: integer
-          
+
       requestBody:
         content:
           application/json:
@@ -1542,7 +1542,7 @@ paths:
           in: path
           schema:
             type: integer
-      responses: 
+      responses:
         '201':
           description: upvote successfullly
   '/answers/{id}':
@@ -1607,7 +1607,7 @@ paths:
           description: success
         '403':
           description: do not have authority to delete answer
-  '/answers/{id}/comments': 
+  '/answers/{id}/comments':
     post:
       tags:
         - Answer
@@ -1615,19 +1615,19 @@ paths:
         - name: id
           in: path
           schema:
-           type: integer
+            type: integer
           required: true
       requestBody:
         content:
           application/json:
-              schema:
-                $ref: '#/components/schemas/CommentRequest'
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
       responses:
         '201':
           description: comments successfully
     get:
       tags:
-      - Answer
+        - Answer
       parameters:
         - name: id
           in: path
@@ -1691,7 +1691,7 @@ paths:
                   type: string
                 phone_number:
                   type: string
-                email: 
+                email:
                   type: string
                 nation:
                   type: string
@@ -1835,7 +1835,7 @@ paths:
           description: collect successful
         '400':
           description: cannot collect this job, maybe the job has already deleted
-      
+
   '/articles':
     post:
       tags:
@@ -1860,7 +1860,7 @@ paths:
   '/articles/{id}/comments':
     post:
       tags:
-      - Article
+        - Article
       parameters:
         - name: id
           in: path
@@ -1877,7 +1877,7 @@ paths:
           description: successful
     get:
       tags:
-      - Article
+        - Article
       parameters:
         - name: id
           in: path
@@ -1932,7 +1932,7 @@ paths:
           in: path
           required: true
           description: company id
-          schema: 
+          schema:
             type: integer
       requestBody:
         content:
@@ -2039,7 +2039,7 @@ paths:
           in: path
           schema:
             type: integer
-          required: true  
+          required: true
       responses:
         '204':
           description: successful
@@ -2113,7 +2113,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
   '/videos/{id}/upvote':
-    put:  
+    put:
       tags:
         - Video
       parameters:
@@ -2125,7 +2125,7 @@ paths:
           description: video id
       responses:
         '200':
-          description: successful 
+          description: successful
   '/videos/{id}/attention':
     put:
       tags:
@@ -2139,7 +2139,7 @@ paths:
           description: video id
       responses:
         '200':
-          description: successful 
+          description: successful
 
   '/editorials/{id}':
     get:
@@ -2171,7 +2171,7 @@ paths:
           in: path
           schema:
             type: integer
-          required: true  
+          required: true
       responses:
         '204':
           description: successful
@@ -2269,7 +2269,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
   '/editorials/{id}/upvote':
-    put:  
+    put:
       tags:
         - Editorials
       parameters:
@@ -2295,8 +2295,8 @@ paths:
           description: editorials id
       responses:
         '200':
-          description: successful 
-          
+          description: successful
+
   '/job-for-you/intern':
     get:
       tags:
@@ -2411,7 +2411,7 @@ paths:
           description: recommend users
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2424,7 +2424,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
   '/discovery/companies':
-     get:
+    get:
       tags:
         - Discover
       responses:
@@ -2432,7 +2432,7 @@ paths:
           description: recommend company
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2453,7 +2453,7 @@ paths:
           description: recommend users
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2464,7 +2464,7 @@ paths:
                         items:
                           $ref: '#/components/schemas/Article'
                   status:
-                    $ref: '#/components/schemas/Status' 
+                    $ref: '#/components/schemas/Status'
   '/discovery/questions':
     get:
       tags:
@@ -2474,7 +2474,7 @@ paths:
           description: recommend questions
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2495,7 +2495,7 @@ paths:
           description: recommend jobs
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2516,7 +2516,7 @@ paths:
           description: recommend jobs
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2528,7 +2528,7 @@ paths:
                           $ref: '#/components/schemas/Video'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/discovery/editorials': 
+  '/discovery/editorials':
     get:
       tags:
         - Discover
@@ -2537,7 +2537,7 @@ paths:
           description: recommend jobs
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2549,26 +2549,26 @@ paths:
                           $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
-                    
-  
-                    
+
+
+
   '/resumes':
     post:
       tags:
         - Resume
       requestBody:
-       content:
-         application/json:
-             schema:
-               type: object
-               properties:
-                 resume:
-                   type: string
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                resume:
+                  type: string
       responses:
         '201':
           description: created
           content:
-           application/json:
+            application/json:
               schema:
                 type: object
                 properties:
@@ -2614,7 +2614,7 @@ paths:
                     $ref: '#/components/schemas/Status'
     delete:
       tags:
-      - Resume
+        - Resume
       parameters:
         - name: id
           in: path
@@ -2657,7 +2657,7 @@ paths:
                               type: object
                   status:
                     $ref: '#/components/schemas/Status'
-          
+
   '/friends/{id}/apply':
     post:
       tags:
@@ -2704,7 +2704,7 @@ paths:
                     $ref: '#/components/schemas/User'
                   create_at:
                     type: string
-      
+
 components:
   schemas:
     ContentRequest:
@@ -2731,7 +2731,7 @@ components:
         - page
         - size
       properties:
-        id: 
+        id:
           type: integer
         jobName:
           type: string
@@ -2748,7 +2748,7 @@ components:
         activate:
           type: boolean
         location:
-         $ref: '#/components/schemas/Location'
+          $ref: '#/components/schemas/Location'
         industry:
           type: array
           items:
@@ -3028,7 +3028,7 @@ components:
           type: integer
         skills:
           type: array
-          items: 
+          items:
             type:
               string
         educations:
@@ -3036,24 +3036,24 @@ components:
           items:
             type: object
             required:
-                - university
-                - major
-                - degree
-                - duration
-                - location
+              - university
+              - major
+              - degree
+              - duration
+              - location
             properties:
-                university:
-                    type: string
-                major:
-                    type: string
-                degree:
-                    type: string
-                duration:
-                    $ref: '#/components/schemas/Duration'
-                location:
-                    $ref: '#/components/schemas/Location'
-                note:
-                    type: string
+              university:
+                type: string
+              major:
+                type: string
+              degree:
+                type: string
+              duration:
+                $ref: '#/components/schemas/Duration'
+              location:
+                $ref: '#/components/schemas/Location'
+              note:
+                type: string
         contacts:
           $ref: '#/components/schemas/ContactInfo'
         works:
@@ -3061,21 +3061,21 @@ components:
           items:
             type: object
             required:
-                - employer
-                - position
-                - duration
-                - location
+              - employer
+              - position
+              - duration
+              - location
             properties:
-                employer:
-                    type: string
-                position:
-                    type: string
-                duration:
-                    $ref: '#/components/schemas/Duration'
-                location:
-                    $ref: '#/components/schemas/Location'
-                note:
-                    type: string
+              employer:
+                type: string
+              position:
+                type: string
+              duration:
+                $ref: '#/components/schemas/Duration'
+              location:
+                $ref: '#/components/schemas/Location'
+              note:
+                type: string
         projects:
           type: array
           items:
@@ -3091,42 +3091,42 @@ components:
     Applicant:
       type: object
       properties:
-            id:
-              type: integer
-            name:
-              type: string
-            avatarUrl:
-              type: string
-            isInJob:
-              type: boolean
-            skills:
-              type: array
-              items:
-                type: string
-            currentCompany:
-              $ref: '#/components/schemas/Company'
-            educations:
-              type: array
-              items:
-                $ref: '#/components/schemas/EducationInfo'
-            contacts:
-              $ref: '#/components/schemas/ContactInfo'
-            works:
-              type: array
-              items:
-                $ref: '#/components/schemas/WorkExperienceInfo'
-            projects:
-              type: array
-              items:
-                $ref: '#/components/schemas/Project'
-            extracurriculars:
-              type: array
-              items:
-                $ref: '#/components/schemas/Extracurricular'
-            certifications:
-              type: array
-              items:
-                $ref: '#/components/schemas/Certification'
+        id:
+          type: integer
+        name:
+          type: string
+        avatarUrl:
+          type: string
+        isInJob:
+          type: boolean
+        skills:
+          type: array
+          items:
+            type: string
+        currentCompany:
+          $ref: '#/components/schemas/Company'
+        educations:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationInfo'
+        contacts:
+          $ref: '#/components/schemas/ContactInfo'
+        works:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkExperienceInfo'
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+        extracurriculars:
+          type: array
+          items:
+            $ref: '#/components/schemas/Extracurricular'
+        certifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Certification'
     JobResponse:
       allOf:
         - $ref: '#/components/schemas/Job'
@@ -3243,7 +3243,7 @@ components:
           type: object
         resourceList:
           type: array
-          items: 
+          items:
             type: string
     Comment:
       type: object
@@ -3273,7 +3273,7 @@ components:
               type: boolean
               default: false
     ArticleRequest:
-      type: object 
+      type: object
       properties:
         title:
           type: string

@@ -24,7 +24,7 @@ import java.net.URL;
 @WebAppConfiguration
 public class StaticFileSystemTest {
     @Autowired
-   private StaticFileSystemMapper staticFileSystemMapper;
+    private StaticFileSystemMapper staticFileSystemMapper;
     @Autowired
     private FileNameGenerate fileNameGenerate;
     @Autowired
@@ -44,13 +44,13 @@ public class StaticFileSystemTest {
     @Test
     public void testDownload() throws IOException {
         FileStorageService[] fileStorageService = {aliCloudFileStorageService};
-        StaticFileService staticFileService = new StaticFileService(staticFileSystemMapper,fileNameGenerate,fileStorageService,snowFlakeIdGenerate);
-        URL url = staticFileService.getFileUrl("2856306669745344512","China");
+        StaticFileService staticFileService = new StaticFileService(staticFileSystemMapper, fileNameGenerate, fileStorageService, snowFlakeIdGenerate);
+        URL url = staticFileService.getFileUrl("2856306669745344512", "China");
         System.out.println(url);
     }
 
     @Test
-    public void testSaveInfo(){
-       staticFileSystemMapper.setCloudStorageId("DOCU_SERVER_ALI_ID", "55555555555","2854956924430979072");
+    public void testSaveInfo() {
+        staticFileSystemMapper.setCloudStorageId("DOCU_SERVER_ALI_ID", "55555555555", "2854956924430979072");
     }
 }

@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Service("FileNameGenerate")
 public class FileNameGenerate {
-    public String generateFileName(){
+    public String generateFileName() {
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         return uuid;
     }

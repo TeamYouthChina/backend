@@ -3,20 +3,22 @@
 <mapper namespace="com.youthchina.dao.qingyang.ResumeJsonMapper">
 
 
-
-    <select id="selectResumeJson"  parameterType="java.lang.Integer" resultType="com.youthchina.domain.Qinghong.ResumeJson">
+    <select id="selectResumeJson" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.Qinghong.ResumeJson">
         SELECT *
         FROM STU_RESUME_JSON
         WHERE RESUME_ID = #{resume_id} AND IS_DELETE=0
     </select>
 
-    <select id="selectResumeJsonByStuId"  parameterType="java.lang.Integer" resultType="com.youthchina.domain.Qinghong.ResumeJson">
+    <select id="selectResumeJsonByStuId" parameterType="java.lang.Integer"
+            resultType="com.youthchina.domain.Qinghong.ResumeJson">
         SELECT *
         FROM STU_RESUME_JSON
         WHERE STU_ID = #{stu_id} AND IS_DELETE=0
     </select>
 
-    <insert id="insertResumeJson" parameterType="com.youthchina.domain.Qinghong.ResumeJson" useGeneratedKeys="true" keyProperty="resume_id">
+    <insert id="insertResumeJson" parameterType="com.youthchina.domain.Qinghong.ResumeJson" useGeneratedKeys="true"
+            keyProperty="resume_id">
         INSERT INTO STU_RESUME_JSON
         (JSON_COUNT,JSON_1,JSON_2,JSON_3,JSON_4,JSON_5,JSON_6,JSON_7,JSON_8,JSON_9,JSON_10,STU_ID,CREATE_TIME,IS_DELETE,IS_DELETE_TIME)
         VALUES
@@ -27,7 +29,6 @@
         IS_DELETE=1,IS_DELETE_TIME=NOW()
         WHERE RESUME_ID=#{resume_id}
     </update>
-
 
 
 </mapper>

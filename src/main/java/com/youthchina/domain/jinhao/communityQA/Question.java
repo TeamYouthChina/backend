@@ -29,16 +29,16 @@ public class Question implements HasId<Integer> {
     private Integer rela_type;
     private Integer rela_id;
 
-    public Question(QuestionDTO questionDTO){
+    public Question(QuestionDTO questionDTO) {
         this.ques_id = questionDTO.getId();
         this.ques_user = new User(questionDTO.getCreator());
         this.ques_title = questionDTO.getTitle();
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
             java.lang.String requestJson = ow.writeValueAsString(questionDTO.getBody());
             this.ques_body = requestJson;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
 
@@ -49,20 +49,20 @@ public class Question implements HasId<Integer> {
         this.rela_id = questionDTO.getRela_id();
         this.ques_abbre = questionDTO.getBody().getPreviewText();
         //if(questionDTO.getAnswers() != null) {
-         //   for(RequestSimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
-         //       this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
-         //   }
+        //   for(RequestSimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
+        //       this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
+        //   }
         //}
     }
 
     public Question(RequestQuestionDTO requestQuestionDTO) {
         this.ques_title = requestQuestionDTO.getTitle();
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
             java.lang.String requestJson = ow.writeValueAsString(requestQuestionDTO.getBody());
             this.ques_body = requestJson;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
         this.user_anony = (requestQuestionDTO.getIs_anonymous() ? 1 : 0);
@@ -71,7 +71,8 @@ public class Question implements HasId<Integer> {
         this.ques_abbre = requestQuestionDTO.getBody().getPreviewText();
     }
 
-    public Question(){}
+    public Question() {
+    }
 
     public Integer getId() {
         return ques_id;

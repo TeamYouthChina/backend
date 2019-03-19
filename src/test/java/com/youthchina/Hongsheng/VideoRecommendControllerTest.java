@@ -50,7 +50,7 @@ public class VideoRecommendControllerTest {
     }
 
     @Test
-    public void getRecommandVideoTest() throws Exception {
+    public void getRecommendVideoTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/discovery/videos")
                         .with(authGenerator.authentication())

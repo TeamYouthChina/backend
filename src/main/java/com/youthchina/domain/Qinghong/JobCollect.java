@@ -54,7 +54,6 @@ public class JobCollect {
     }
 
 
-
     public Integer getIs_delete() {
         return is_delete;
     }

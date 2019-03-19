@@ -36,10 +36,10 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
     private StudentService studentService;
 
     @Autowired
-    public CompanyController(CompanyCURDService companyService, @Value("${web.url.prefix}") String prefix,StudentService studentService) {
+    public CompanyController(CompanyCURDService companyService, @Value("${web.url.prefix}") String prefix, StudentService studentService) {
         this.companyService = companyService;
         this.url = prefix + "/companies/";
-        this.studentService=studentService;
+        this.studentService = studentService;
     }
 
     @Override
@@ -82,45 +82,46 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
         }
         throw new BaseException();
     }
+
     /**
-    * @Description: 通过company_id以及user_id添加公司收藏
-    * @Param: [company_id, user]
-    * @return: org.springframework.http.ResponseEntity<?>
-    * @Author: Qinghong Wang
-    * @Date: 2019/2/19
-    */
+     * @Description: 通过company_id以及user_id添加公司收藏
+     * @Param: [company_id, user]
+     * @return: org.springframework.http.ResponseEntity<?>
+     * @Author: Qinghong Wang
+     * @Date: 2019/2/19
+     */
     @PutMapping("/{id}/attention")
-    public ResponseEntity<?> addCompanyCollection(@PathVariable("id") Integer company_id, @AuthenticationPrincipal User user) throws NotFoundException{
-        Integer integer= studentService.addCompCollect(company_id,user.getId());
+    public ResponseEntity<?> addCompanyCollection(@PathVariable("id") Integer company_id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Integer integer = studentService.addCompCollect(company_id, user.getId());
         if (integer == 1) {
             return ResponseEntity.ok(new Response
                     (integer));
         } else {
-            return ResponseEntity.ok(new Response(integer, new StatusDTO(400,"cannot collect this company,maybe the company has already delete")));
+            return ResponseEntity.ok(new Response(integer, new StatusDTO(400, "cannot collect this company,maybe the company has already delete")));
 
         }
 
     }
+
     /**
-    * @Description: 通过collect_id删除公司收藏
-    * @Param: [collect_id, user]
-    * @return: org.springframework.http.ResponseEntity<?>
-    * @Author: Qinghong Wang
-    * @Date: 2019/2/19
-    */
+     * @Description: 通过collect_id删除公司收藏
+     * @Param: [collect_id, user]
+     * @return: org.springframework.http.ResponseEntity<?>
+     * @Author: Qinghong Wang
+     * @Date: 2019/2/19
+     */
 
     @DeleteMapping("/attentions/{id}")
-    public ResponseEntity<?> deleteCompanyCollection(@PathVariable("id") Integer collect_id,@AuthenticationPrincipal User user)throws NotFoundException{
-        Integer integer=studentService.deleteCompCollect(collect_id);
+    public ResponseEntity<?> deleteCompanyCollection(@PathVariable("id") Integer collect_id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Integer integer = studentService.deleteCompCollect(collect_id);
         if (integer == 1) {
             return ResponseEntity.ok(new Response
                     (integer));
         } else {
-            return ResponseEntity.ok(new Response(integer, new StatusDTO(400,"cannot delete this company collection,maybe this collection has already delete")));
+            return ResponseEntity.ok(new Response(integer, new StatusDTO(400, "cannot delete this company collection,maybe this collection has already delete")));
 
         }
     }
-
 
 
 }

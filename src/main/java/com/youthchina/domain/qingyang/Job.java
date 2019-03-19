@@ -85,7 +85,8 @@ comment '职位基本信息表';
         }
     }
 
-    public Job(){}
+    public Job() {
+    }
 
     public Integer getCollectNum() {
         return collectNum;

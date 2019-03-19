@@ -4,7 +4,6 @@ import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.question.QuestionDTO;
-import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.QuestionRecommendServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,23 +21,27 @@ import java.util.List;
 @RestController
 @RequestMapping("${web.url.prefix}/discovery")
 public class QuestionRecommedController {
+    private final QuestionRecommendServiceImplement questionRecommendServiceImplement;
+
     @Autowired
-    public QuestionRecommendServiceImplement questionRecommendServiceImplement;
+    public QuestionRecommedController(QuestionRecommendServiceImplement questionRecommendServiceImplement) {
+        this.questionRecommendServiceImplement = questionRecommendServiceImplement;
+    }
 
     @GetMapping("/questions")
-    public ResponseEntity getRecommendQuestion() throws NotFoundException {
+    public ResponseEntity getRecommendQuestion() {
         List<Question> questionList = questionRecommendServiceImplement.getQuestionForYou();
         List<QuestionDTO> resultList = new ArrayList<>();
-        for(Question question : questionList) {
+        for (Question question : questionList) {
             resultList.add(new QuestionDTO(question));
         }
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("questions", resultList);
 
-        if (resultList!=null)
-            return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
+        if (resultList.size() != 0)
+            return ResponseEntity.ok(new Response(map, new StatusDTO(200, "success")));
         else
-            return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
+            return ResponseEntity.ok(new Response(map, new StatusDTO(400, "fail")));
     }
 }

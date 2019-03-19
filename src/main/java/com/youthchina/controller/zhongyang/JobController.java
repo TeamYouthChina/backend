@@ -45,14 +45,14 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     private String url;
     private JobService jobService;
     private StudentService studentService;
-    @Autowired
-    private MessageSendService messageSendService;
+    private final MessageSendService messageSendService;
 
     @Autowired
-    public JobController(JobService jobService, StudentService studentService, @Value("${web.url.prefix}") String prefix) {
+    public JobController(JobService jobService, StudentService studentService, @Value("${web.url.prefix}") String prefix, MessageSendService messageSendService) {
         this.jobService = jobService;
         this.studentService = studentService;
         this.url = prefix + "/jobs/";
+        this.messageSendService = messageSendService;
     }
 
     @Override
@@ -74,7 +74,6 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
     protected URI getUriForNewInstance(Integer id) throws URISyntaxException {
         return new URI(this.url + id.toString());
     }
-
 
 
     @PostMapping("/**")

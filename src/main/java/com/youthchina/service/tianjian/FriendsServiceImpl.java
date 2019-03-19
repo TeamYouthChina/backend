@@ -38,11 +38,11 @@ public class FriendsServiceImpl implements FriendsService {
 
     @Override
     public int deleteFriend(ComFriendRelation comFriendRelation, Integer own_Id) {
-        ComFriendRelation comFriendRelationAnother= new ComFriendRelation();
+        ComFriendRelation comFriendRelationAnother = new ComFriendRelation();
         comFriendRelationAnother.setUser_id(own_Id);
         comFriendRelationAnother.setIs_delete_time(comFriendRelation.getIs_delete_time());
-        friendsMapper.deleteFriend(comFriendRelation,own_Id);
-        return friendsMapper.deleteFriend(comFriendRelationAnother,comFriendRelation.getUser_id());
+        friendsMapper.deleteFriend(comFriendRelation, own_Id);
+        return friendsMapper.deleteFriend(comFriendRelationAnother, comFriendRelation.getUser_id());
     }
 
     @Override
@@ -61,12 +61,12 @@ public class FriendsServiceImpl implements FriendsService {
 
     @Override
     public int updateFriendGroup(ComFriendGroup comFriendGroup, Integer rela_Id) {
-        return friendsMapper.updateFriendGroup(comFriendGroup,rela_Id);
+        return friendsMapper.updateFriendGroup(comFriendGroup, rela_Id);
     }
 
     @Override
-    public  List<ComFriendGroup> getFriendGroup(Integer own_Id) {
-        List<ComFriendRelation>  comFriendRelation = friendsMapper.getFriend(own_Id);
+    public List<ComFriendGroup> getFriendGroup(Integer own_Id) {
+        List<ComFriendRelation> comFriendRelation = friendsMapper.getFriend(own_Id);
         List<ComFriendGroup> comFriendGroups = friendsMapper.getFriendGroup(comFriendRelation);
         return comFriendGroups;
     }
