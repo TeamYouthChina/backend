@@ -1,7 +1,6 @@
 package com.youthchina.controller.zhongyang;
 
 import com.youthchina.dto.Response;
-import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.util.zhongyang.HasId;
 
@@ -18,7 +17,7 @@ abstract class ResponseController<DTO, T extends HasId<K>, K extends Serializabl
      * @see StatusDTO
      * @see DomainCRUDController
      */
-    protected ResponseDTO DtoToResponse(DTO dto, StatusDTO statusDTO) {
+    protected Response DtoToResponse(DTO dto, StatusDTO statusDTO) {
 
         return new Response(dto, statusDTO);
     }
@@ -30,7 +29,7 @@ abstract class ResponseController<DTO, T extends HasId<K>, K extends Serializabl
      * @return response with single object
      * @see StatusDTO
      */
-    protected ResponseDTO DtoToResponse(DTO dto, int status, String message) {
+    protected Response DtoToResponse(DTO dto, int status, String message) {
         return new Response(dto, status, message);
     }
 
@@ -38,19 +37,19 @@ abstract class ResponseController<DTO, T extends HasId<K>, K extends Serializabl
      * @param dto dto object that set to content field
      * @return response with single object
      */
-    protected ResponseDTO DtoToResponse(DTO dto) {
+    protected Response DtoToResponse(DTO dto) {
         return new Response(dto);
     }
 
-    protected ResponseDTO DtoToReponse(StatusDTO statusDTO) {
+    protected Response DtoToReponse(StatusDTO statusDTO) {
         return new Response(null, statusDTO);
     }
 
-    protected ResponseDTO DtoToResponse(int status, String message) {
+    protected Response DtoToResponse(int status, String message) {
         return new Response(null, status, message);
     }
 
-    protected ResponseDTO DtoToResponse(){
+    protected Response DtoToResponse(){
         return new Response();
     }
 }

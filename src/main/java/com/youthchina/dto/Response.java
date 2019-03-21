@@ -3,7 +3,7 @@ package com.youthchina.dto;
 /**
  * Created by zhong on 2018/12/30.
  */
-public class Response implements ResponseDTO {
+public class Response {
     private Object content;
     private StatusDTO status;
 

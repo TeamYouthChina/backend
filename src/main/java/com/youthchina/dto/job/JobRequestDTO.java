@@ -1,7 +1,6 @@
 package com.youthchina.dto.job;
 
 import com.youthchina.domain.qingyang.Job;
-import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.applicant.OrganizationDTO;
 import com.youthchina.dto.util.LocationDTO;
 
@@ -11,7 +10,7 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 12/2/18.
  */
-public class JobRequestDTO implements RequestDTO {
+public class JobRequestDTO {
     private int id;
     private String name;
     private OrganizationDTO organization;

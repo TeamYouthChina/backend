@@ -147,4 +147,6 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
         return new URI(this.url + id);
     }
 
+
+
 }

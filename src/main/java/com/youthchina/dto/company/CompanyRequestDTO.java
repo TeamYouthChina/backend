@@ -1,7 +1,6 @@
 package com.youthchina.dto.company;
 
 import com.youthchina.domain.qingyang.Company;
-import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.dto.util.NationDTO;
 
@@ -9,7 +8,7 @@ import com.youthchina.dto.util.NationDTO;
  * @author: Qingyang Zhao
  * @create: 2019-02-16
  **/
-public class CompanyRequestDTO implements RequestDTO {
+public class CompanyRequestDTO {
 
     private Integer id;
     private String name;

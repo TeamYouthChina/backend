@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by zhongyangwu on 1/31/19.
  */
-public class ListResponse implements ResponseDTO {
+public class ListResponse {
     private Map<String, Object> content;
     private StatusDTO status;
 

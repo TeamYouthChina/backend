@@ -3,14 +3,14 @@ package com.youthchina.controller.zhongyang;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.applicant.SendingEmailDTO;
 import com.youthchina.dto.application.JobApplyDTO;
+import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.job.JobSearchDTO;
-import com.youthchina.dto.job.JobSearchResponseDTO;
-import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -76,7 +76,6 @@ public class JobController extends DomainCRUDController<JobRequestDTO, Job, Inte
     }
 
 
-
     @PostMapping("/**")
     public ResponseEntity<?> createJobInfo(@RequestBody JobRequestDTO jobRequestDTO) {
         return add(jobRequestDTO);
@@ -125,10 +124,8 @@ public class JobController extends DomainCRUDController<JobRequestDTO, Job, Inte
         for (Job job : searchResultJob) {
             searchResultJobDTO.add(new JobResponseDTO(job));
         }
-        JobSearchResponseDTO jobSearchResponseDTO = new JobSearchResponseDTO();
-        jobSearchResponseDTO.setSearchResult(searchResultJobDTO);
 
-        return ResponseEntity.ok(new Response(jobSearchResponseDTO));
+        return ResponseEntity.ok(new ListResponse(searchResultJobDTO, "jobs"));
     }
 
     /**
