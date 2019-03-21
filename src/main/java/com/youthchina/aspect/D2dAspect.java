@@ -8,11 +8,14 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by zhongyangwu on 3/21/19.
  */
 @Aspect
+@Component
 public class D2dAspect {
     DomainToDTOConverterFactory domainToDTOConverterFactory;
 
@@ -28,10 +31,13 @@ public class D2dAspect {
     @Around(value = "aspectMethod()")
     @SuppressWarnings("unchecked")
     public Object afterAdvice(ProceedingJoinPoint pjp) throws Throwable {
+        System.out.println("AAAAAAAAAAAA");
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         ResponseBodyDTO responseBodyDTOAnnotation = signature.getMethod().getAnnotation(ResponseBodyDTO.class);
-        Response result = (Response) pjp.proceed();
+        ResponseEntity responseEntity = (ResponseEntity) pjp.proceed();
+        Response result = (Response) responseEntity.getBody();
+        //todo: add support for ListResponse
         result.setContent(domainToDTOConverterFactory.getConverter(responseBodyDTOAnnotation.value()).convert(result.getContent()));
-        return result;
+        return responseEntity;
     }
 }
