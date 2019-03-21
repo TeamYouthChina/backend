@@ -168,6 +168,13 @@ public class JobTest {
     }
 
     @Test
+    public void testDeleteJob2() {
+        Job job = new Job();
+        job.setJobId(1);
+        jobMapper.deleteJob(job.getJobId());
+    }
+
+    @Test
     public void testJobSearch() {
 
         //Base Test
@@ -272,7 +279,6 @@ public class JobTest {
                 null, null, null, null, 6500, null,
                 null, null, null);
         Assert.assertEquals(2, jobs.size());
-
 
     }
 }

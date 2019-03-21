@@ -48,10 +48,6 @@
         AND IS_DELETE = 0
     </update>
 
-    <update id="deleteJob" parameterType="java.lang.Integer">
-      UPDATE JOB_INFO j SET j.IS_DELETE = 1, j.IS_DELETE_TIME = NOW()
-      WHERE j.JOB_ID = #{id}
-    </update>
 
 
     <resultMap id="job" type="com.youthchina.domain.qingyang.Job">
@@ -353,7 +349,7 @@
       WHERE JOB_ID = #{ids}
     </update>
 
-    <update id="deleteJobByComId" parameterType="java.lang.Integer">
+    <sql id="jobDelete">
         UPDATE JOB_INFO j
             LEFT OUTER JOIN JOB_INDUSTRY i ON j.JOB_ID = i.JOB_ID AND i.IS_DELETE = 0
             LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
@@ -363,6 +359,15 @@
             i.IS_DELETE = 1, i.IS_DELETE_TIME = NOW(),
             loc.IS_DELETE = 1, loc.IS_DELETE_TIME = NOW(),
             req.IS_DELETE = 1, req.IS_DELETE_TIME = NOW()
+    </sql>
+
+    <update id="deleteJob" parameterType="java.lang.Integer">
+        <include refid="jobDelete"/>
+        WHERE j.JOB_ID = #{id}
+    </update>
+
+    <update id="deleteJobByComId" parameterType="java.lang.Integer">
+        <include refid="jobDelete"/>
         WHERE j.COMPANY_ID= #{comId}
     </update>
 

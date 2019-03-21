@@ -42,9 +42,6 @@ public class JobServiceImpl implements JobService {
     @Override
     @Transactional
     public void delete(User user, Integer jobId) throws NotFoundException {
-        jobMapper.deleteJobDegree(jobId);
-        jobMapper.deleteJobIndustry(jobId);
-        jobMapper.deleteJobLocation(jobId);
         jobMapper.deleteJob(jobId);
     }
 
@@ -127,9 +124,6 @@ public class JobServiceImpl implements JobService {
     @Override
     @Transactional
     public void delete(Integer id) throws NotFoundException {
-        jobMapper.deleteJobDegree(id);
-        jobMapper.deleteJobIndustry(id);
-        jobMapper.deleteJobLocation(id);
         jobMapper.deleteJob(id);
     }
 
