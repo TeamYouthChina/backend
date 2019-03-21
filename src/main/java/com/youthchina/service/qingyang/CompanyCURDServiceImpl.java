@@ -88,7 +88,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Transactional
     public void delete(Integer comId) throws NotFoundException {
         jobMapper.deleteJobByComId(comId);
-        hrMapper.deleteHrByComId(comId);
+        //hrMapper.deleteHrByComId(comId); // No Hr anymore
         companyMapper.deleteCompanyVerificationByComId(comId);
         companyMapper.deleteCompanyEmployee(comId);
         companyMapper.deleteCompanyEvaluate(comId);
