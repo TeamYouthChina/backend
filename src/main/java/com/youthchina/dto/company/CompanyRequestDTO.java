@@ -8,7 +8,7 @@ import com.youthchina.dto.util.NationDTO;
  * @author: Qingyang Zhao
  * @create: 2019-02-16
  **/
-public class CompanyDTO {
+public class CompanyRequestDTO {
 
     private Integer id;
     private String name;
@@ -27,10 +27,10 @@ public class CompanyDTO {
         this.userId = userId;
     }
 
-    public CompanyDTO() {
+    public CompanyRequestDTO() {
     }
 
-    public CompanyDTO(Company domain) {
+    public CompanyRequestDTO(Company domain) {
         this.id = domain.getCompanyId();
         this.name = domain.getCompanyName();
         this.location = new LocationDTO(domain.getLocation()); // Default: Chinese Location
