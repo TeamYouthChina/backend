@@ -33,7 +33,7 @@ public class AuthGenerator {
         return SecurityMockMvcRequestPostProcessors.securityContext(securityContext);
     }
 
-    public RequestPostProcessor authentication(){
+    public RequestPostProcessor authentication() {
         return this.authentication(1);
     }
 }

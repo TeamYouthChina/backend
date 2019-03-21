@@ -18,14 +18,14 @@ public interface FriendService extends DomainCRUDService<ComFriendRelation, Inte
      * parameter Integer id
      * */
     @Override
-    ComFriendRelation get(Integer id)throws NotFoundException;
+    ComFriendRelation get(Integer id) throws NotFoundException;
 
     /*
      * 更新申请
      * parameter Integer id
      * */
     @Override
-    ComFriendRelation update(ComFriendRelation comFriendRelation)throws NotFoundException;
+    ComFriendRelation update(ComFriendRelation comFriendRelation) throws NotFoundException;
 
     /*
      * 删除申请

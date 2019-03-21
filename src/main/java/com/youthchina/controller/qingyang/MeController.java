@@ -22,7 +22,7 @@ public class MeController {
 
     @GetMapping("/**")
     public ResponseEntity<?> getMe(@AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
-        if (user!=null) {
+        if (user != null) {
             return ResponseEntity.ok(new Response(new UserDTO(user)));
         } else {
             throw new ForbiddenException();

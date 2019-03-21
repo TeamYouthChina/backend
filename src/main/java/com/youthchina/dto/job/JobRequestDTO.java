@@ -22,7 +22,7 @@ public class JobRequestDTO implements RequestDTO {
         this.id = job.getJobId();
         this.name = job.getJobName();
         this.organization = new OrganizationDTO(job.getCompany());
-        for(int i =0; i < job.getJobLocationList().size(); i++){
+        for (int i = 0; i < job.getJobLocationList().size(); i++) {
             this.LocationList.add(new LocationDTO(job.getJobLocationList().get(i)));  //todo: create location object
         }
     }

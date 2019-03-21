@@ -30,16 +30,16 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public BriefReview add(BriefReview entity) {
         briefReviewMapper.add(entity);
         briefReviewMapper.createReviewMap(entity.getReview_id(), entity.getUser().getId(), entity.getRela_type()
-        ,entity.getRela_id());
+                , entity.getRela_id());
         return entity;
     }
 
     @Override
     public BriefReview get(Integer id) throws NotFoundException {
         BriefReview briefReview = briefReviewMapper.get(id);
-        if(briefReview == null){
-            throw new NotFoundException(404,404,"This brief review does not exist!");//todo
-        }else {
+        if (briefReview == null) {
+            throw new NotFoundException(404, 404, "This brief review does not exist!");//todo
+        } else {
             return briefReview;
         }
     }
@@ -47,16 +47,16 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     @Override
     public List<BriefReview> get(List<Integer> id) throws NotFoundException {
         List<BriefReview> briefReviews = briefReviewMapper.getList(id);
-        if(briefReviews.size() == 0){
-            throw new NotFoundException(404,404,"None of these review exists!");//todo
-        }else {
+        if (briefReviews.size() == 0) {
+            throw new NotFoundException(404, 404, "None of these review exists!");//todo
+        } else {
             return briefReviews;
         }
     }
 
-    private void checkIfReviewExist(Integer id) throws NotFoundException{
+    private void checkIfReviewExist(Integer id) throws NotFoundException {
         BriefReview briefReview = briefReviewMapper.simplyGetReview(id);
-        if(briefReview == null) throw new NotFoundException(404,404,"This brief review does not exist!");////todo
+        if (briefReview == null) throw new NotFoundException(404, 404, "This brief review does not exist!");////todo
     }
 
     @Override
@@ -84,7 +84,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public Evaluate doEvaluate(Integer user_id, Integer review_id, Integer evaluate_type) throws NotFoundException {
         checkIfReviewExist(review_id);
         Evaluate evaluate = briefReviewMapper.checkEvaluateStatus(user_id, review_id);
-        if(evaluate == null){
+        if (evaluate == null) {
             Evaluate evaluate1 = new Evaluate();
             evaluate1.setUser_id(user_id);
             evaluate1.setEvaluate_type(evaluate_type);
@@ -92,7 +92,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
             briefReviewMapper.addReviewEvaluation(evaluate1);
             briefReviewMapper.createEvaluationReviewMap(evaluate1.getEvaluate_id(), review_id);
             return evaluate1;
-        }else{
+        } else {
             evaluate.setEvaluate_type(evaluate_type);
             briefReviewMapper.updateEvaluation(evaluate);
             return evaluate;
@@ -101,7 +101,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
 
     @Override
     @Transactional
-    public Integer getReviewAgreement(Integer review_id) throws NotFoundException{
+    public Integer getReviewAgreement(Integer review_id) throws NotFoundException {
         checkIfReviewExist(review_id);
         return briefReviewMapper.countReviewAgreement(review_id);
     }
@@ -117,15 +117,18 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     @Override
     public Comment getComment(Integer comment_id) throws NotFoundException {
         Comment comment = briefReviewMapper.getComment(comment_id);
-        if(comment == null){
-            throw new NotFoundException(404,404,"This comment does not exist!");//todo
-        }else{
+        if (comment == null) {
+            throw new NotFoundException(404, 404, "This comment does not exist!");//todo
+        } else {
             return comment;
         }
     }
-    private void checkIfCommentExist(Integer comment_id) throws NotFoundException{
-        if(briefReviewMapper.simplyGetComment(comment_id) == null) throw new NotFoundException(404,404,"This comment does not exist!");//todo
+
+    private void checkIfCommentExist(Integer comment_id) throws NotFoundException {
+        if (briefReviewMapper.simplyGetComment(comment_id) == null)
+            throw new NotFoundException(404, 404, "This comment does not exist!");//todo
     }
+
     @Override
     @Transactional
     public void deleteComment(Integer comment_id) throws NotFoundException {
@@ -150,9 +153,9 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public List<Comment> getAllCommentsOfReview(Integer review_id) throws NotFoundException {
         checkIfReviewExist(review_id);
         List<Comment> comments = briefReviewMapper.getCommentsByReviewId(review_id);
-        if(comments == null){
-            throw new NotFoundException(404,404,"This review does not have comments!");//todo
-        }else {
+        if (comments == null) {
+            throw new NotFoundException(404, 404, "This review does not have comments!");//todo
+        } else {
             return comments;
         }
     }
@@ -162,15 +165,15 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public Evaluate evaluateComment(Integer user_id, Integer comment_id, Integer evaluate_type) throws NotFoundException {
         checkIfCommentExist(comment_id);
         Evaluate evaluate = briefReviewMapper.checkCommentEvaluationStatus(user_id, comment_id);
-        if(evaluate == null){
+        if (evaluate == null) {
             Evaluate evaluate1 = new Evaluate();
             evaluate1.setUser_id(user_id);
             evaluate1.setEvaluate_type(evaluate_type);
             evaluate1.setEvaluate_time(new Timestamp(System.currentTimeMillis()));
             briefReviewMapper.addCommentEvaluation(evaluate1);
-            briefReviewMapper.createEvaluationCommentMap(evaluate1.getEvaluate_id(),comment_id);
+            briefReviewMapper.createEvaluationCommentMap(evaluate1.getEvaluate_id(), comment_id);
             return evaluate1;
-        }else {
+        } else {
             evaluate.setEvaluate_type(evaluate_type);
             briefReviewMapper.updateCommentEvaluation(evaluate);
             briefReviewMapper.updateCommentEvaluation(evaluate);

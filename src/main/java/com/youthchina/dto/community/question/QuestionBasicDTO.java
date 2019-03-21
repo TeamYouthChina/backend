@@ -26,16 +26,16 @@ public class QuestionBasicDTO {
         this.id = question.getQues_id();
         this.creator = new UserDTO(question.getQues_user());
         this.title = question.getQues_title();
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(question.getQues_body(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
 
         //this.invitation = question.getQues_invitation();
-        this.is_anonymous = (question.getUser_anony()==1 ? true : false);
+        this.is_anonymous = (question.getUser_anony() == 1 ? true : false);
         this.create_at = question.getQues_pub_time();
         this.modified_at = question.getQues_edit_time();
         this.rela_type = question.getRela_type();
@@ -43,11 +43,16 @@ public class QuestionBasicDTO {
 
     }
 
-    public QuestionBasicDTO(){}
+    public QuestionBasicDTO() {
+    }
 
-    public RichTextDTO getBody(){return body;}
+    public RichTextDTO getBody() {
+        return body;
+    }
 
-    public void setBody(RichTextDTO body){this.body = body;}
+    public void setBody(RichTextDTO body) {
+        this.body = body;
+    }
 
     public Integer getId() {
         return id;
@@ -101,7 +106,7 @@ public class QuestionBasicDTO {
         return rela_id;
     }
 
-    public void setRela_id(Integer rela_id){
+    public void setRela_id(Integer rela_id) {
         this.rela_id = rela_id;
     }
 

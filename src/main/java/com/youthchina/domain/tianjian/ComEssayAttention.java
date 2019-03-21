@@ -8,6 +8,7 @@ public class ComEssayAttention {
     private Timestamp atten_time;
     private Integer atten_cancel;
     private Timestamp atten_cancel_time;
+
     public Integer getAtten_id() {
         return atten_id;
     }

@@ -6,7 +6,7 @@ import java.util.List;
 public class ResponseCommentDTO {
     private List<CommentDTO> comments;
 
-    public ResponseCommentDTO(){
+    public ResponseCommentDTO() {
         comments = new ArrayList<>();
     }
 

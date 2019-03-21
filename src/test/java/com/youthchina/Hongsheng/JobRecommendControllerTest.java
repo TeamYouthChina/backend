@@ -52,7 +52,7 @@ public class JobRecommendControllerTest {
     }
 
     @Test
-    public void getRecommandJobsTest() throws Exception {
+    public void getRecommendJobsTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/discovery/jobs")
                         .with(authGenerator.authentication())

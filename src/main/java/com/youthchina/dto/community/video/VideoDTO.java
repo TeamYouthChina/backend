@@ -15,14 +15,15 @@ public class VideoDTO {
     private List<CommentDTO> comments = new ArrayList<CommentDTO>();
     private UserDTO uploader;
 
-    public VideoDTO (){}
+    public VideoDTO() {
+    }
 
-    public VideoDTO (Video video){
+    public VideoDTO(Video video) {
         this.id = video.getVideo_id();
-        if(video.getVideoComments() != null){
+        if (video.getVideoComments() != null) {
             Iterator it = video.getVideoComments().iterator();
-            while(it.hasNext()){
-                CommentDTO commentDTO = new CommentDTO((VideoComment)it.next());
+            while (it.hasNext()) {
+                CommentDTO commentDTO = new CommentDTO((VideoComment) it.next());
                 this.comments.add(commentDTO);
             }
         }

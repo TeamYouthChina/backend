@@ -32,7 +32,7 @@ public interface CompanyMapper {
     Integer updateIndustry(Industry industry);
 
     Integer insertIndustry(Industry entity);
-    
+
     CompanyVerification selectCompanyVerification(Integer id);
 
     List<CompanyVerification> selectCompanyVerificationByIdList(List<Integer> id);
@@ -44,10 +44,15 @@ public interface CompanyMapper {
     Integer insertCompanyVerification(CompanyVerification entity);
 
     Integer deleteCompanyInd(Integer id);
+
     Integer deleteCompanyEmployee(Integer id);
+
     Integer deleteCompanyVerificationByComId(Integer id);
+
     Integer deleteCompanyPhoto(Integer id);
+
     Integer deleteCompanyEvaluate(Integer id);
+
     Integer deleteStudentComCollection(Integer id);
 
     Integer insertCompanyInd(List<Industry> industries);

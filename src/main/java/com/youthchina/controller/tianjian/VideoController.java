@@ -55,7 +55,6 @@ public class VideoController {
     @PostMapping("/**")
     public ResponseEntity addVideo(@RequestPart MultipartFile file, @AuthenticationPrincipal User user) throws BaseException {
         Long id;
-        System.out.println("start here!!!!!!!!!");
         try {
             id = fileService.saveFile(file.getResource(), user.getId());
         } catch (IOException e) {
@@ -78,7 +77,6 @@ public class VideoController {
 
     @PostMapping("/{id}/comments")
     public ResponseEntity<?> addComments(@PathVariable Integer id, @RequestBody VideoCommentDTO commentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        System.out.println("add answers");
         VideoComment videocomment = new VideoComment(commentDTO);
         videocomment.setComment_pub_time(new Timestamp(System.currentTimeMillis()));
         videocomment.setComment_edit_time(new Timestamp(System.currentTimeMillis()));

@@ -19,7 +19,7 @@ public class OrganizationDTO {
 
 
     public OrganizationDTO(Company company) {
-        if(company == null) return;
+        if (company == null) return;
         this.id = company.getCompanyId();
         this.name = company.getCompanyName();
         this.avatarUrl = company.getCompanyLogo();

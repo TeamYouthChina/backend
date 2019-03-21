@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:recommendation.xml" }) //"classpath:company.xml",,  "classpath:location.xml"
+@DatabaseSetup({"classpath:recommendation.xml"}) //"classpath:company.xml",,  "classpath:location.xml"
 //@DatabaseSetup({"classpath:"})
 @WebAppConfiguration
 public class JobForYouControllerTest {
@@ -53,7 +53,7 @@ public class JobForYouControllerTest {
     }
 
     @Test
-    public void getRecommandInternJobsTest() throws Exception {
+    public void getRecommendInternJobsTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/job-for-you/intern")
         )
@@ -62,7 +62,7 @@ public class JobForYouControllerTest {
     }
 
     @Test
-    public void getRecommandGeneralJobTest() throws Exception {
+    public void getRecommendGeneralJobTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/job-for-you/general")
         )
@@ -71,7 +71,7 @@ public class JobForYouControllerTest {
     }
 
     @Test
-    public void getRecommandCampusJobsTest() throws Exception {
+    public void getRecommendCampusJobsTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/job-for-you/campus")
         )

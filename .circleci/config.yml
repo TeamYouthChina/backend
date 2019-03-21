@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - run: mv ~/repo/.circleci/spring.application.properties ~/repo/src/main/resources/application.properties
-      - run : mv ~/repo/.circleci/spring.config.properties ~/repo/src/main/resources/config.properties
+      - run: mv ~/repo/.circleci/spring.config.properties ~/repo/src/main/resources/config.properties
       # Download and cache dependencies
       - restore_cache:
           keys:

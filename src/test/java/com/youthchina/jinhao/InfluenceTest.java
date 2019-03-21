@@ -28,15 +28,16 @@ import java.util.List;
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:questions.xml", "classpath:answers.xml", "classpath:comments.xml", "classpath:discuss.xml", "classpath:videos.xml",
-"classpath:rank.xml"})
+        "classpath:rank.xml"})
 public class InfluenceTest {
     @Autowired
     InfluenceMapper influenceMapper;
 
     @Autowired
     CaculatePersonInfluencePoint caculatePersonInfluencePoint;
+
     @Test
-    public void getInfluenceById(){
+    public void getInfluenceById() {
         Influence influence = influenceMapper.getInfluenceByUserId(1);
         Assert.assertNotNull(influence);
         Student student = influence.getStudent();
@@ -45,16 +46,16 @@ public class InfluenceTest {
         Assert.assertEquals(1, comFriendRelations.size());
         List<Evaluate> evaluates = influence.getEvaluates();
         Assert.assertEquals(2, evaluates.size());
-        for(Evaluate evaluate : evaluates){
-            if(evaluate.getEvaluate_id() != 1 && evaluate.getEvaluate_id() != 3){
+        for (Evaluate evaluate : evaluates) {
+            if (evaluate.getEvaluate_id() != 1 && evaluate.getEvaluate_id() != 3) {
                 Assert.fail();
             }
         }
         List<CommentEvaluate> commentEvaluates = influence.getCommentEvaluates();
         Assert.assertEquals(3, commentEvaluates.size());
-        for(CommentEvaluate commentEvaluate : commentEvaluates){
-            if(commentEvaluate.getEvaluate_id() != 1 && commentEvaluate.getEvaluate_id() != 2 &&
-            commentEvaluate.getEvaluate_id() != 4) {
+        for (CommentEvaluate commentEvaluate : commentEvaluates) {
+            if (commentEvaluate.getEvaluate_id() != 1 && commentEvaluate.getEvaluate_id() != 2 &&
+                    commentEvaluate.getEvaluate_id() != 4) {
                 Assert.fail();
             }
         }
@@ -63,16 +64,16 @@ public class InfluenceTest {
         List<VideoEvaluate> videoEvaluates = influence.getVideoEvaluates();
         Assert.assertEquals(0, videoEvaluates.size());
         List<ComReplyEvaluate> comReplyEvaluates = influence.getComReplyEvaluates();
-        Assert.assertEquals(0,comReplyEvaluates.size());
+        Assert.assertEquals(0, comReplyEvaluates.size());
     }
 
     @Test
-    public void getInteraction(){
-        Influence influence = influenceMapper.getInteraction(1,2);
+    public void getInteraction() {
+        Influence influence = influenceMapper.getInteraction(1, 2);
         List<Evaluate> evaluates = influence.getEvaluates();
         Assert.assertEquals(1, evaluates.size());
-        for(Evaluate evaluate : evaluates){
-            if(evaluate.getEvaluate_id() != 5){
+        for (Evaluate evaluate : evaluates) {
+            if (evaluate.getEvaluate_id() != 5) {
                 Assert.fail();
             }
         }
@@ -80,22 +81,22 @@ public class InfluenceTest {
         Assert.assertEquals(0, commentEvaluates.size());
         List<DiscussEvaluate> discussEvaluates = influence.getDiscussEvaluates();
         Assert.assertEquals(1, discussEvaluates.size());
-        for(DiscussEvaluate discussEvaluate : discussEvaluates){
-            if(discussEvaluate.getEvaluate_id() != 11){
+        for (DiscussEvaluate discussEvaluate : discussEvaluates) {
+            if (discussEvaluate.getEvaluate_id() != 11) {
                 Assert.fail();
             }
         }
         List<VideoEvaluate> videoEvaluates = influence.getVideoEvaluates();
         Assert.assertEquals(1, videoEvaluates.size());
-        for(VideoEvaluate videoEvaluate : videoEvaluates){
-            if(videoEvaluate.getEvaluate_id() != 1){
+        for (VideoEvaluate videoEvaluate : videoEvaluates) {
+            if (videoEvaluate.getEvaluate_id() != 1) {
                 Assert.fail();
             }
         }
         List<ComReplyEvaluate> comReplyEvaluates = influence.getComReplyEvaluates();
         Assert.assertEquals(1, comReplyEvaluates.size());
-        for(ComReplyEvaluate comReplyEvaluate : comReplyEvaluates){
-            if(comReplyEvaluate.getEvaluate_id() != 1){
+        for (ComReplyEvaluate comReplyEvaluate : comReplyEvaluates) {
+            if (comReplyEvaluate.getEvaluate_id() != 1) {
                 Assert.fail();
             }
         }
@@ -105,15 +106,15 @@ public class InfluenceTest {
         Assert.assertEquals(0, comments.size());
         List<VideoComment> videoComments = influence.getVideoComments();
         Assert.assertEquals(2, videoComments.size());
-        for(VideoComment videoComment : videoComments){
-            if(videoComment.getComment_id() != 1 && videoComment.getComment_id() != 3){
+        for (VideoComment videoComment : videoComments) {
+            if (videoComment.getComment_id() != 1 && videoComment.getComment_id() != 3) {
                 Assert.fail();
             }
         }
     }
 
     @Test
-    public void getBestEducation(){
+    public void getBestEducation() {
         EducationInfo educationInfo1 = new EducationInfo();
         EducationInfo educationInfo2 = new EducationInfo();
         EducationInfo educationInfo3 = new EducationInfo();
@@ -146,7 +147,7 @@ public class InfluenceTest {
     }
 
     @Test
-    public void getBestWork(){
+    public void getBestWork() {
         Work work1 = new Work();
         Work work2 = new Work();
         Work work3 = new Work();

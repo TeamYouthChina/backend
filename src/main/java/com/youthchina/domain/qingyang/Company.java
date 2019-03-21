@@ -71,7 +71,8 @@ public class Company implements HasId<Integer> {
         this.companyLogo = organizationDTO.getAvatarUrl();
     }
 
-    public  Company() {}
+    public Company() {
+    }
 
 
     public Company(CompanyRequestDTO companyRequestDTO) {

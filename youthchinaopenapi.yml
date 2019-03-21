@@ -1501,7 +1501,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/QuestionRequest'
-      parameters: 
+      parameters:
         - in: header
           name: X-AUTHENTICATION
           required: true
@@ -1984,7 +1984,7 @@ paths:
                   type: string
                 age:
                   type: integer
-      parameters: 
+      parameters:
         - in: header
           name: X-AUTHENTICATION
           required: true

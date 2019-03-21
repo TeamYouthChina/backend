@@ -9,7 +9,7 @@
             <result property="isInJob" column="STU_IN_JOB"/>
             <result property="currentCompanyName" column="currentCompanyName"/>
         </association>
-        <collection property="educationInfos"  ofType="com.youthchina.domain.Qinghong.EducationInfo">
+        <collection property="educationInfos" ofType="com.youthchina.domain.Qinghong.EducationInfo">
             <id property="edu_id" column="EDU_ID"/>
             <result property="edu_degree" column="EDU_DEGREE"/>
             <result property="edu_school" column="edu_school"/>
@@ -33,7 +33,6 @@
             <result property="WORK_NATURE" column="WORK_NATURE"/>
         </collection>
     </resultMap>
-
 
 
     <select id="selectResumeById" resultMap="ResumeResultMap">

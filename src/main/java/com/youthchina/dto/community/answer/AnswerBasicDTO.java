@@ -17,20 +17,21 @@ public class AnswerBasicDTO {
     private String modified_at;
     private String create_at;
 
-    public AnswerBasicDTO(){}
+    public AnswerBasicDTO() {
+    }
 
-    public AnswerBasicDTO(QuestionAnswer questionAnswer){
-        try{
+    public AnswerBasicDTO(QuestionAnswer questionAnswer) {
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(questionAnswer.getAnswer_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
         this.is_anonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
         this.creator = new UserDTO(questionAnswer.getAnswer_user());
         this.modified_at = questionAnswer.getAnswer_edit_time().toString();
-        this.create_at =questionAnswer.getAnswer_pub_time().toString();
+        this.create_at = questionAnswer.getAnswer_pub_time().toString();
         this.id = questionAnswer.getAnswer_id();
     }
 
@@ -38,9 +39,13 @@ public class AnswerBasicDTO {
         return body;
     }
 
-    public void setId(Integer id){this.id = id;}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public Integer getId(){return id;}
+    public Integer getId() {
+        return id;
+    }
 
     public void setBody(RichTextDTO body) {
         this.body = body;
