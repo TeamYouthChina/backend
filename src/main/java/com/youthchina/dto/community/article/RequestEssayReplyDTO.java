@@ -9,22 +9,27 @@ public class RequestEssayReplyDTO {
     private RichTextDTO body;
     private boolean isAnonymous;
 
-    public RequestEssayReplyDTO(ComEssayReply comEssayReply){
-        this.isAnonymous = (comEssayReply.getUser_anony()==0)? false:true;
-        try{
+    public RequestEssayReplyDTO(ComEssayReply comEssayReply) {
+        this.isAnonymous = (comEssayReply.getUser_anony() == 0) ? false : true;
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comEssayReply.getReply_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
     }
 
-    public RequestEssayReplyDTO(){}
+    public RequestEssayReplyDTO() {
+    }
 
-    public RichTextDTO getBody(){return body;}
+    public RichTextDTO getBody() {
+        return body;
+    }
 
-    public void setBody(RichTextDTO body){this.body = body;}
+    public void setBody(RichTextDTO body) {
+        this.body = body;
+    }
 
     public boolean isAnonymous() {
         return isAnonymous;

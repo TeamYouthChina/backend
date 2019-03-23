@@ -12,17 +12,18 @@ public class RequestSimpleAnswerDTO {
     private Boolean is_anonymous;
 
     public RequestSimpleAnswerDTO(QuestionAnswer questionAnswer) {
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(questionAnswer.getAnswer_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
         this.is_anonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
     }
 
-    public RequestSimpleAnswerDTO(){}
+    public RequestSimpleAnswerDTO() {
+    }
 
     public RichTextDTO getBody() {
         return body;

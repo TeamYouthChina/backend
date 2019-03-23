@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.tianjian.CommunityMapper">
     <!--    发布文章 -->
-    <insert id="addEssay" parameterType="com.youthchina.domain.tianjian.ComEssay" useGeneratedKeys="true" keyProperty="essay_id">
+    <insert id="addEssay" parameterType="com.youthchina.domain.tianjian.ComEssay" useGeneratedKeys="true"
+            keyProperty="essay_id">
     INSERT INTO COM_ESSAY  (ESSAY_TITLE, ESSAY_ABBRE, ESSAY_BODY, ESSAY_PUB_TIME,ESSAY_EDIT_TIME,IS_DELETE,USER_ANONY)
            values(#{essay_title},#{essay_abbre},#{essay_body},#{essay_pub_time},#{essay_edit_time},#{is_delete},#{user_anony}
                  )
@@ -19,7 +20,7 @@
          ESSAY_ID = #{essay_id}
     </update>
     <!--    删除文章通过更新删除那一列设置值为1 -->
-    <update id="deleteEssay" >
+    <update id="deleteEssay">
     update COM_ESSAY
     set
          IS_DELETE = 1, IS_DELETE_TIME = #{delete_time}
@@ -51,15 +52,15 @@
 
     <!--    添加文章标签 -->
     <insert id="addEssayLabel" useGeneratedKeys="true" keyProperty="lab_id">
-        INSERT INTO COM_ESSAY_LABEL_MAP  (LAB_NUM,ESSAY_ID)
+        INSERT INTO COM_ESSAY_LABEL_MAP (LAB_NUM,ESSAY_ID)
         values
-        <foreach collection ="list" item="item" index= "index" separator =",">
+        <foreach collection="list" item="item" index="index" separator=",">
             (#{item.lab_num}, #{item.essay_id})
-        </foreach >
+        </foreach>
     </insert>
 
     <!--    删除文章标签 -->
-    <delete id="deleteEssayLabel" >
+    <delete id="deleteEssayLabel">
         DELETE FROM COM_ESSAY_LABEL_MAP WHERE ESSAY_ID = #{essay_id}
     </delete>
 
@@ -71,7 +72,8 @@
     </insert>
 
     <!--    关注文章 -->
-    <insert id="addFavoriteEssay" parameterType="com.youthchina.domain.tianjian.ComEssayAttention" keyProperty="atten_id" useGeneratedKeys="true">
+    <insert id="addFavoriteEssay" parameterType="com.youthchina.domain.tianjian.ComEssayAttention"
+            keyProperty="atten_id" useGeneratedKeys="true">
     INSERT INTO COM_ESSAY_ATTENTION  (USER_ID, ATTEN_TIME, ATTEN_CANCEL,ATTEN_CANCEL_TIME)
            values(#{user_id},#{atten_time},#{atten_cancel},#{atten_cancel_time}
                  )
@@ -93,20 +95,21 @@
     </update>
 
     <!--    获取文章是否被一个用户关注 -->
-    <select id="getFavoriteEssayWhetherAtten"  resultType="com.youthchina.domain.tianjian.ComEssayAttention">
+    <select id="getFavoriteEssayWhetherAtten" resultType="com.youthchina.domain.tianjian.ComEssayAttention">
         select t1.* from COM_ESSAY_ATTENTION  t1, COM_ESSAY_ATTENTION_MAP t2
         where t1.ATTEN_ID = t2.ATTEN_ID and t2.ESSAY_ID = #{essay_id} and t1.USER_ID = #{user_id} and t1.ATTEN_CANCEL = 0
      </select>
 
     <!--    添加文章评论 -->
-    <insert id="addReply" parameterType="com.youthchina.domain.tianjian.ComEssayReply" useGeneratedKeys="true" keyProperty="reply_id">
+    <insert id="addReply" parameterType="com.youthchina.domain.tianjian.ComEssayReply" useGeneratedKeys="true"
+            keyProperty="reply_id">
     INSERT INTO COM_ESSAY_REPLY (REPLY_CONTENT, USER_ID, USER_ANONY, REPLY_PUB_TIME, REPLY_EDIT_TIME, IS_DELETE, IS_DELETE_TIME)
            values(#{reply_content},#{user_id},#{user_anony},#{reply_pub_time},#{reply_edit_time},#{is_delete},#{is_delete_time}
                  )
     </insert>
 
     <!--    添加文章和回复id映射 -->
-    <insert id="addEssayReplyMap" >
+    <insert id="addEssayReplyMap">
     INSERT INTO COM_ESSAY_REPLY_MAP (REPLY_ID, REPLY_LEVEL, ESSAY_ID  )
            values(#{reply_id},#{reply_level},#{essay_id}
                  )
@@ -139,7 +142,8 @@
     </select>
 
     <!--    添加回复评论 -->
-    <insert id="addReplyEvaluate" parameterType="com.youthchina.domain.tianjian.ComReplyEvaluate" useGeneratedKeys="true" keyProperty="evaluate_id">
+    <insert id="addReplyEvaluate" parameterType="com.youthchina.domain.tianjian.ComReplyEvaluate"
+            useGeneratedKeys="true" keyProperty="evaluate_id">
     INSERT INTO COM_REPLY_EVALUATE( USER_ID, EVALUATE_TYPE, EVALUATE_TIME)
            values(#{user_id},#{evaluate_type},#{evaluate_time}
                  )
@@ -162,7 +166,8 @@
     </update>
 
     <!--    根据评论id查询所有它的评价 -->
-    <select id="getReplyEvaluate" resultType="com.youthchina.domain.tianjian.ComReplyEvaluate" parameterType="java.lang.Integer">
+    <select id="getReplyEvaluate" resultType="com.youthchina.domain.tianjian.ComReplyEvaluate"
+            parameterType="java.lang.Integer">
         select t.* from COM_REPLY_EVALUATE t,COM_REPLY_EVALUATE_MAP k
         where k.REPLY_ID = #{reply_id} and k.EVALUATE_ID = t.EVALUATE_ID
     </select>
@@ -173,19 +178,21 @@
    </select>
 
     <!--    根据文章id集合查询所有回复 -->
-    <select id="getEssayReply" resultType="com.youthchina.domain.tianjian.ComEssayReply" parameterType="java.lang.Integer">
+    <select id="getEssayReply" resultType="com.youthchina.domain.tianjian.ComEssayReply"
+            parameterType="java.lang.Integer">
         select t.* from COM_ESSAY_REPLY t,COM_ESSAY_REPLY_MAP k
         where k.REPLY_ID = t.REPLY_ID and k.ESSAY_ID = #{essay_id}
     </select>
 
     <!--    添加好友关系 -->
-    <insert id="saveFriendsRelation" parameterType="com.youthchina.domain.tianjian.ComFriendRelation" useGeneratedKeys="true" keyProperty="rela_id">
+    <insert id="saveFriendsRelation" parameterType="com.youthchina.domain.tianjian.ComFriendRelation"
+            useGeneratedKeys="true" keyProperty="rela_id">
     INSERT INTO COM_FRIEND_RELATION  (USER_ID, ADD_TIME, IS_DELETE, IS_DELETE_TIME)
     values(#{user_id},#{add_time},#{is_delete},#{is_delete_time} )
     </insert>
 
     <!--    添加好友关系映射 -->
-    <insert id="saveFriendsRelationMap" parameterType="com.youthchina.domain.tianjian.ComFriendRelationMap" >
+    <insert id="saveFriendsRelationMap" parameterType="com.youthchina.domain.tianjian.ComFriendRelationMap">
     INSERT INTO COM_FRIEND_RELATION_MAP  (RELA_ID, USER_ID)
     values(#{rela_id},#{user_id})
     </insert>
@@ -206,13 +213,13 @@
    </select>
 
     <!--    添加好友分组 -->
-    <insert id="saveFriendGroup" parameterType="com.youthchina.domain.tianjian.ComFriendGroup" >
+    <insert id="saveFriendGroup" parameterType="com.youthchina.domain.tianjian.ComFriendGroup">
     INSERT INTO COM_FRIEND_GROUP  (GROUP_NUM, GROUP_NAME, ADD_TIME, IS_DELETE, IS_DELETE_TIME)
     values(#{group_num},#{group_name},#{add_time},#{is_delete},#{is_delete_time})
     </insert>
 
     <!--    添加好友分组映射 -->
-    <insert id="saveFriendGroupMap" parameterType="com.youthchina.domain.tianjian.ComFriendGroupMap" >
+    <insert id="saveFriendGroupMap" parameterType="com.youthchina.domain.tianjian.ComFriendGroupMap">
     INSERT INTO COM_FRIEND_GROUP_MAP  (GROUP_ID, RELA_ID)
     values(#{group_id},#{rela_id})
     </insert>
@@ -228,11 +235,11 @@
     </update>
 
     <!--    根据个人关系的List查询所有好友分组 -->
-    <select id="getFriendGroup"  resultType="com.youthchina.domain.tianjian.ComFriendGroup">
+    <select id="getFriendGroup" resultType="com.youthchina.domain.tianjian.ComFriendGroup">
         select t1.*
-        from  COM_FRIEND_GROUP t1, COM_FRIEND_GROUP_MAP t2
+        from COM_FRIEND_GROUP t1, COM_FRIEND_GROUP_MAP t2
         where t2.RELA_ID in
-        <foreach collection="list" item="valueList"  open="(" close=")" separator=",">
+        <foreach collection="list" item="valueList" open="(" close=")" separator=",">
             #{valueList.rela_id}
         </foreach>
         and

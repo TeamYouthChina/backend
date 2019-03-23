@@ -24,7 +24,7 @@
     <select id="getChnLocationByLocationList" resultMap="LocationChn" parameterType="java.util.List">
         SELECT * FROM SYS_CHN_REGION
         WHERE IS_DELETE = 0
-          AND REGION_NUM IN
+        AND REGION_NUM IN
         <foreach item='location' index='index' collection="list" separator="," open="(" close=")">
             #{location.region_num}
         </foreach>

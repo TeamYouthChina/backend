@@ -95,7 +95,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void testCanRegister(){
+    public void testCanRegister() {
         User user = new User();
         user.setUsername("Newtest");
         user.setPassword("sldjflskjlksf");

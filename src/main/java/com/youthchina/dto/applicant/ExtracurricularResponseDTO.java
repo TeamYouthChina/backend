@@ -21,7 +21,7 @@ public class ExtracurricularResponseDTO {
     }
 
     public ExtracurricularResponseDTO(Activity activity) {
-        this.id=activity.getAct_id();
+        this.id = activity.getAct_id();
         this.name = activity.getAct_name();
         this.role = activity.getAct_role();
         this.organization = activity.getAct_organization();

@@ -16,13 +16,13 @@ public class ContactDTO {
     public ContactDTO() {
     }
 
-    public ContactDTO(String email,String phonenumber) {
-        List<String> emails=new ArrayList<>();
+    public ContactDTO(String email, String phonenumber) {
+        List<String> emails = new ArrayList<>();
         emails.add(email);
-        List<String> phonenumbers=new ArrayList<>();
+        List<String> phonenumbers = new ArrayList<>();
         phonenumbers.add(phonenumber);
-        this.emails=emails;
-        this.phonenumbers=phonenumbers;
+        this.emails = emails;
+        this.phonenumbers = phonenumbers;
 
     }
 

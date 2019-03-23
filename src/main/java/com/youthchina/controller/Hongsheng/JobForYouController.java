@@ -31,7 +31,7 @@ public class JobForYouController {
     }
 
     @GetMapping({"/intern", "/general", "/campus"})
-    public ResponseEntity getRecommandInternJobs() throws NotFoundException {
+    public ResponseEntity getRecommendInternJobs() throws NotFoundException {
         List<Job> jobList = jobRecommendServiceImplement.getInternForYou();
         List<JobResponseDTO> resultList = new ArrayList<>();
         for (Job job : jobList) {

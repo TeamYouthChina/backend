@@ -48,13 +48,13 @@ public class EssayRecommendController {
         System.out.println("11111");
         List<ComEssay> essayList = essayRecommendServiceImplement.getEssayForYou();
         List<EssayDTO> resultList = new ArrayList<>();
-        for(ComEssay essay : essayList) {
+        for (ComEssay essay : essayList) {
             EssayDTO essayDTO = new EssayDTO(essay);
             ComAuthorEssayMap comAuthorEssayMap = essayServiceimpl.getEssayAuthor(essay.getEssay_id());
 
             User user = userService.get(comAuthorEssayMap.getUser_id());
 
-            if(comAuthorEssayMap.getRela_type()==2){
+            if (comAuthorEssayMap.getRela_type() == 2) {
                 Company company = companyCURDService.get(comAuthorEssayMap.getRela_id());
                 essayDTO.setCompany(new CompanyResponseDTO(company));
             }
@@ -66,6 +66,9 @@ public class EssayRecommendController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("articles", resultList);
 
-        return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
+        if (resultList.size() != 0)
+            return ResponseEntity.ok(new Response(map, new StatusDTO(200, "success")));
+        else
+            return ResponseEntity.ok(new Response(map, new StatusDTO(400, "fail")));
     }
 }

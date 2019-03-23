@@ -30,27 +30,28 @@ public class BriefReview {
         this.user = user;
     }
 
-    public BriefReview (BriefReviewDTO briefReviewDTO){
+    public BriefReview(BriefReviewDTO briefReviewDTO) {
         this.review_id = briefReviewDTO.getId();
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
             java.lang.String requestJson = ow.writeValueAsString(briefReviewDTO.getBody());
             this.review_content = requestJson;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
 
         this.user = new User(briefReviewDTO.getAuthor());
         Iterator it = briefReviewDTO.getComments().getComments().iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             CommentDTO commentDTO = (CommentDTO) it.next();
             Comment comment = new Comment(commentDTO);
             comments.add(comment);
         }
     }
 
-    public BriefReview(){}
+    public BriefReview() {
+    }
 
     public Integer getReview_id() {
         return review_id;

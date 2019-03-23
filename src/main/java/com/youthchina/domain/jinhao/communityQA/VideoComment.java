@@ -18,19 +18,20 @@ public class VideoComment {
     private Timestamp is_delete_time;
     private User user;
 
-    public VideoComment(VideoCommentDTO commentDTO){
-        this.user_anony = (commentDTO.isIs_anonymous())? 1:0;
-        try{
+    public VideoComment(VideoCommentDTO commentDTO) {
+        this.user_anony = (commentDTO.isIs_anonymous()) ? 1 : 0;
+        try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
             java.lang.String requestJson = ow.writeValueAsString(commentDTO.getBody());
             this.comment_content = requestJson;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
     }
 
-    public VideoComment(){}
+    public VideoComment() {
+    }
 
     public User getUser() {
         return user;

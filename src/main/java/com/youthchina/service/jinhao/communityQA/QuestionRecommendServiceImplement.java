@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class QuestionRecommendServiceImplement implements QuestionRecommendService{
+public class QuestionRecommendServiceImplement implements QuestionRecommendService {
     @Resource
     RecommendMapper recommendMapper;
     @Resource
@@ -21,7 +21,7 @@ public class QuestionRecommendServiceImplement implements QuestionRecommendServi
     public List<Question> getQuestionForYou() {
         List<Integer> questionIds = recommendMapper.getRandomQuestion();
         List<Question> questions = new ArrayList<>();
-        for(Integer id : questionIds){
+        for (Integer id : questionIds) {
             questions.add(communityQAMapper.getQuestionById(id));
         }
         return questions;

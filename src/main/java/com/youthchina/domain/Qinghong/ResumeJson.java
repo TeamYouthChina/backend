@@ -14,16 +14,16 @@ import java.util.List;
 public class ResumeJson {
     private Integer resume_id;
     private Integer json_count;
-    private String  json_1;
-    private String  json_2;
-    private String  json_3;
-    private String  json_4;
-    private String  json_5;
-    private String  json_6;
-    private String  json_7;
-    private String  json_8;
-    private String  json_9;
-    private String  json_10;
+    private String json_1;
+    private String json_2;
+    private String json_3;
+    private String json_4;
+    private String json_5;
+    private String json_6;
+    private String json_7;
+    private String json_8;
+    private String json_9;
+    private String json_10;
 
     private Integer stu_id;
 
@@ -36,17 +36,27 @@ public class ResumeJson {
         this.stu_id = id;
         List<String> list = requestDTO.getJson();
         this.json_count = list.size();
-        switch (this.json_count){
-            case 10 : json_10 = list.get(9);
-            case 9 : json_9 = list.get(8);
-            case 8 : json_8 = list.get(7);
-            case 7 : json_7 = list.get(6);
-            case 6 : json_6 = list.get(5);
-            case 5 : json_5 = list.get(4);
-            case 4 : json_4 = list.get(3);
-            case 3 : json_3 = list.get(2);
-            case 2 : json_2 = list.get(1);
-            case 1 : json_1 = list.get(0);
+        switch (this.json_count) {
+            case 10:
+                json_10 = list.get(9);
+            case 9:
+                json_9 = list.get(8);
+            case 8:
+                json_8 = list.get(7);
+            case 7:
+                json_7 = list.get(6);
+            case 6:
+                json_6 = list.get(5);
+            case 5:
+                json_5 = list.get(4);
+            case 4:
+                json_4 = list.get(3);
+            case 3:
+                json_3 = list.get(2);
+            case 2:
+                json_2 = list.get(1);
+            case 1:
+                json_1 = list.get(0);
         }
         //Test
         //System.out.println("ResumeRequestDTO to ResumeJson" + list);

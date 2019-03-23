@@ -18,6 +18,6 @@ public class MessageSendServiceImpt implements MessageSendService {
 
     @Override
     public void sendMessage(String message) {
-        this.amqpTemplate.convertAndSend("email",message);
+        this.amqpTemplate.convertAndSend("email", message);
     }
 }

@@ -8,18 +8,19 @@ public class VideoCommentDTO {
     private RichTextDTO body;
     private boolean is_anonymous;
 
-    public VideoCommentDTO(VideoComment videocomment){
-        try{
+    public VideoCommentDTO(VideoComment videocomment) {
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(videocomment.getComment_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
-        this.is_anonymous = (videocomment.getUser_anony()==1)? true:false;
+        this.is_anonymous = (videocomment.getUser_anony() == 1) ? true : false;
     }
 
-    public VideoCommentDTO(){}
+    public VideoCommentDTO() {
+    }
 
     public RichTextDTO getBody() {
         return body;

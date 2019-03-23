@@ -53,7 +53,7 @@ public class QuestionRecommendControllerTest {
     }
 
     @Test
-    public void getRecommandQuestionTest() throws Exception {
+    public void getRecommendQuestionTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/discovery/questions")
                         .with(authGenerator.authentication())

@@ -11,16 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserRecommendServiceImplement implements UserRecommendService{
+public class UserRecommendServiceImplement implements UserRecommendService {
     @Resource
     RecommendMapper recommendMapper;
     @Resource
     UserMapper userMapper;
-     @Override
+
+    @Override
     public List<User> getUserForYou() {
         List<Integer> userIds = recommendMapper.getRandomUser();
         List<User> users = new ArrayList<>();
-        for(Integer id : userIds){
+        for (Integer id : userIds) {
             users.add(userMapper.findOne(id));
         }
         return users;

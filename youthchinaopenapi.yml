@@ -15,16 +15,22 @@ paths:
       description: get job info by id
       operationId: getJob
       parameters:
-          - in: query
-            name: detailLevel
-            required: true
-            schema:
-              type: integer
-          - in: path
-            name: id
-            required: true
-            schema:
-              type: integer
+        - in: query
+          name: detailLevel
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: job info
@@ -49,6 +55,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/JobSearch'
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '201':
           description: search result
@@ -77,6 +90,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: return target user
@@ -103,7 +122,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     put:
       tags:
         - applicant
@@ -114,6 +133,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -145,7 +170,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
   '/applicants':
     post:
       tags:
@@ -157,6 +182,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -188,6 +219,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: return target user's 1
@@ -214,7 +251,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     put:
       tags:
         - applicant
@@ -231,6 +268,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -262,7 +305,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     post:
       tags:
         - applicant
@@ -279,6 +322,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -310,7 +359,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
   '/applicants/{id}/educations':
     get:
       tags:
@@ -322,6 +371,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: return target user's educations
@@ -353,7 +408,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     post:
       tags:
         - applicant
@@ -370,6 +425,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -401,7 +462,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     put:
       tags:
         - applicant
@@ -412,6 +473,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -450,7 +517,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
   '/applicants/{id}/projects':
     get:
       tags:
@@ -462,6 +529,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: return target user's projects
@@ -490,7 +563,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     post:
       tags:
         - applicant
@@ -501,6 +574,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -532,7 +611,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     put:
       tags:
         - applicant
@@ -543,6 +622,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -578,7 +663,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
   '/applicants/{id}/experiences':
     get:
       tags:
@@ -590,6 +675,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: return target user's works
@@ -621,7 +712,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     post:
       tags:
         - applicant
@@ -638,6 +729,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -674,7 +771,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     put:
       tags:
         - applicant
@@ -685,6 +782,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -723,7 +826,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
   '/applicants/{id}/certificates':
     get:
       tags:
@@ -735,6 +838,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: return target user's works
@@ -766,7 +875,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     post:
       tags:
         - applicant
@@ -783,6 +892,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -814,7 +929,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     put:
       tags:
         - applicant
@@ -825,6 +940,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -863,7 +984,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
   '/applicants/{id}/extracurriculars':
     get:
       tags:
@@ -875,6 +996,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: return target user's works
@@ -906,7 +1033,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     post:
       tags:
         - applicant
@@ -917,6 +1044,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -948,7 +1081,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
+                  reason: Cannot find user with id 14
     put:
       tags:
         - applicant
@@ -959,6 +1092,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -997,8 +1136,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
-                  
+                  reason: Cannot find user with id 14
   '/jobs/{id}/apply':
     post:
       tags:
@@ -1010,6 +1148,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '201':
           description: apply successful
@@ -1022,21 +1166,6 @@ paths:
                     $ref: '#/components/schemas/Application'
                   status:
                     $ref: '#/components/schemas/Status'
-        '404':
-          description: job not found
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - status
-                properties:
-                  status:
-                    $ref: '#/components/schemas/Status'
-              example:
-                status:
-                  code: 4042
-                  reason: 'Cannot find job with id 124'
         '403':
           description: cannot apply for job
           content:
@@ -1051,11 +1180,26 @@ paths:
               example:
                 status:
                   code: 4032
-                  reason: 'cannot apply for job because it has passed deadline'
+                  reason: cannot apply for job because it has passed deadline
+        '404':
+          description: job not found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4042
+                  reason: Cannot find job with id 124
   '/jobs/{id}/apply/resume':
     post:
       tags:
-      - Application
+        - Application
       description: send resume to company
       requestBody:
         content:
@@ -1071,6 +1215,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '201':
           description: successfully send email
@@ -1094,6 +1244,12 @@ paths:
           required: true
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: return the application of users
@@ -1120,8 +1276,7 @@ paths:
               example:
                 status:
                   code: 4041
-                  reason: 'Cannot find user with id 14'
-  
+                  reason: Cannot find user with id 14
   '/jobs/{id}/attention':
     put:
       tags:
@@ -1132,11 +1287,17 @@ paths:
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '201':
           description: collect successful
         '400':
-          description: cannot collect this job, maybe the job has already deleted
+          description: 'cannot collect this job, maybe the job has already deleted'
   '/users/{id}/attentions':
     get:
       tags:
@@ -1160,6 +1321,12 @@ paths:
               - article
               - video
           description: determine what part of attention list to return
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: return one of the following based on the type parameter
@@ -1176,8 +1343,8 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - company
+                            - id
+                            - company
                           properties:
                             id:
                               type: integer
@@ -1188,20 +1355,20 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - job
+                            - id
+                            - job
                           properties:
                             id:
                               type: integer
                             job:
-                              $ref: '#/components/schemas/Job' 
+                              $ref: '#/components/schemas/Job'
                       questions:
                         type: array
                         items:
                           type: object
                           required:
-                          - id
-                          - questions
+                            - id
+                            - questions
                           properties:
                             id:
                               type: integer
@@ -1212,8 +1379,8 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - answers
+                            - id
+                            - answers
                           properties:
                             id:
                               type: integer
@@ -1224,8 +1391,8 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - article
+                            - id
+                            - article
                           properties:
                             id:
                               type: integer
@@ -1236,8 +1403,8 @@ paths:
                         items:
                           type: object
                           required:
-                          - id
-                          - video
+                            - id
+                            - video
                           properties:
                             id:
                               type: integer
@@ -1256,6 +1423,12 @@ paths:
           schema:
             type: integer
           description: id of collection
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '204':
           description: delete target collection
@@ -1270,6 +1443,12 @@ paths:
           schema:
             type: integer
           description: id of collection
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '204':
           description: delete target collection
@@ -1284,6 +1463,12 @@ paths:
           schema:
             type: integer
           description: id of collection
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '204':
           description: delete target collection
@@ -1298,6 +1483,12 @@ paths:
           schema:
             type: integer
           description: id of collection
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '204':
           description: delete target collection
@@ -1310,6 +1501,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/QuestionRequest'
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '201':
           description: create question
@@ -1334,8 +1532,14 @@ paths:
           schema:
             type: string
         - name: job
-          in: query 
+          in: query
           description: job name
+          schema:
+            type: string
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
           schema:
             type: string
       responses:
@@ -1351,7 +1555,7 @@ paths:
                       questions:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Question'                     
+                          $ref: '#/components/schemas/Question'
                   status:
                     $ref: '#/components/schemas/Status'
         '400':
@@ -1367,6 +1571,12 @@ paths:
           description: question id
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: return target question
@@ -1395,6 +1605,12 @@ paths:
           description: question id
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '204':
           description: deleted successed.
@@ -1414,6 +1630,12 @@ paths:
           description: id of the question
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1432,7 +1654,12 @@ paths:
           in: path
           schema:
             type: integer
-
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: the answer list of target question
@@ -1459,14 +1686,20 @@ paths:
           in: path
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
             schema:
               type: object
               required:
-              - id
-              - body
+                - id
+                - body
               properties:
                 id:
                   type: integer
@@ -1477,7 +1710,6 @@ paths:
                   default: false
                 create_at:
                   type: integer
-                
       responses:
         '201':
           description: target answer
@@ -1505,6 +1737,12 @@ paths:
           in: path
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '201':
           description: invitation send successfully.
@@ -1518,7 +1756,12 @@ paths:
           in: path
           schema:
             type: integer
-          
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1542,7 +1785,13 @@ paths:
           in: path
           schema:
             type: integer
-      responses: 
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
         '201':
           description: upvote successfullly
   '/answers/{id}':
@@ -1555,6 +1804,12 @@ paths:
           in: path
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: target answer
@@ -1576,6 +1831,12 @@ paths:
           in: path
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1602,12 +1863,18 @@ paths:
           in: path
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '204':
           description: success
         '403':
           description: do not have authority to delete answer
-  '/answers/{id}/comments': 
+  '/answers/{id}/comments':
     post:
       tags:
         - Answer
@@ -1615,25 +1882,37 @@ paths:
         - name: id
           in: path
           schema:
-           type: integer
+            type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
-              schema:
-                $ref: '#/components/schemas/CommentRequest'
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
       responses:
         '201':
           description: comments successfully
     get:
       tags:
-      - Answer
+        - Answer
       parameters:
         - name: id
           in: path
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -1661,6 +1940,12 @@ paths:
           in: path
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '201':
           description: upvote successfullly
@@ -1691,7 +1976,7 @@ paths:
                   type: string
                 phone_number:
                   type: string
-                email: 
+                email:
                   type: string
                 nation:
                   type: string
@@ -1699,6 +1984,13 @@ paths:
                   type: string
                 age:
                   type: integer
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '201':
           description: register success
@@ -1713,6 +2005,13 @@ paths:
                     $ref: '#/components/schemas/Status'
   '/me':
     get:
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       tags:
         - Security
       responses:
@@ -1731,6 +2030,13 @@ paths:
           description: not loged in
   '/login':
     post:
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       tags:
         - Security
       requestBody:
@@ -1768,6 +2074,12 @@ paths:
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -1789,6 +2101,12 @@ paths:
           in: path
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1815,6 +2133,12 @@ paths:
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '204':
           description: delete successfully
@@ -1830,14 +2154,26 @@ paths:
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '201':
           description: collect successful
         '400':
-          description: cannot collect this job, maybe the job has already deleted
-      
+          description: 'cannot collect this job, maybe the job has already deleted'
   '/articles':
     post:
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       tags:
         - Article
       requestBody:
@@ -1860,13 +2196,19 @@ paths:
   '/articles/{id}/comments':
     post:
       tags:
-      - Article
+        - Article
       parameters:
         - name: id
           in: path
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1877,13 +2219,19 @@ paths:
           description: successful
     get:
       tags:
-      - Article
+        - Article
       parameters:
         - name: id
           in: path
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -1912,6 +2260,12 @@ paths:
           description: company id
           schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -1932,8 +2286,14 @@ paths:
           in: path
           required: true
           description: company id
-          schema: 
+          schema:
             type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1953,6 +2313,13 @@ paths:
                     $ref: '#/components/schemas/Status'
   '/companies':
     post:
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       tags:
         - Company
       requestBody:
@@ -2004,11 +2371,17 @@ paths:
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '201':
           description: collect successful
         '400':
-          description: cannot collect this job, maybe the job has already deleted
+          description: 'cannot collect this job, maybe the job has already deleted'
   '/videos/{id}':
     get:
       tags:
@@ -2019,6 +2392,12 @@ paths:
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -2039,12 +2418,25 @@ paths:
           in: path
           schema:
             type: integer
-          required: true  
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '204':
           description: successful
   '/videos':
     post:
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       tags:
         - Video
       requestBody:
@@ -2077,6 +2469,12 @@ paths:
           in: path
           required: true
           description: video id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -2095,6 +2493,12 @@ paths:
           in: path
           required: true
           description: video id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -2113,7 +2517,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
   '/videos/{id}/upvote':
-    put:  
+    put:
       tags:
         - Video
       parameters:
@@ -2123,9 +2527,15 @@ paths:
           in: path
           required: true
           description: video id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
-          description: successful 
+          description: successful
   '/videos/{id}/attention':
     put:
       tags:
@@ -2137,10 +2547,15 @@ paths:
           in: path
           required: true
           description: video id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
-          description: successful 
-
+          description: successful
   '/editorials/{id}':
     get:
       tags:
@@ -2151,6 +2566,12 @@ paths:
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -2171,7 +2592,13 @@ paths:
           in: path
           schema:
             type: integer
-          required: true  
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '204':
           description: successful
@@ -2184,6 +2611,12 @@ paths:
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -2203,6 +2636,13 @@ paths:
                     $ref: '#/components/schemas/Status'
   '/editorials':
     post:
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       tags:
         - Editorials
       requestBody:
@@ -2233,6 +2673,12 @@ paths:
           in: path
           required: true
           description: editorials id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -2251,6 +2697,12 @@ paths:
           in: path
           required: true
           description: video id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -2269,7 +2721,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
   '/editorials/{id}/upvote':
-    put:  
+    put:
       tags:
         - Editorials
       parameters:
@@ -2279,6 +2731,12 @@ paths:
           in: path
           required: true
           description: editorials id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -2293,10 +2751,15 @@ paths:
           in: path
           required: true
           description: editorials id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
-          description: successful 
-          
+          description: successful
   '/job-for-you/intern':
     get:
       tags:
@@ -2411,7 +2874,7 @@ paths:
           description: recommend users
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2424,7 +2887,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
   '/discovery/companies':
-     get:
+    get:
       tags:
         - Discover
       responses:
@@ -2432,7 +2895,7 @@ paths:
           description: recommend company
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2453,7 +2916,7 @@ paths:
           description: recommend users
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2464,7 +2927,7 @@ paths:
                         items:
                           $ref: '#/components/schemas/Article'
                   status:
-                    $ref: '#/components/schemas/Status' 
+                    $ref: '#/components/schemas/Status'
   '/discovery/questions':
     get:
       tags:
@@ -2474,7 +2937,7 @@ paths:
           description: recommend questions
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2495,7 +2958,7 @@ paths:
           description: recommend jobs
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2516,7 +2979,7 @@ paths:
           description: recommend jobs
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2528,7 +2991,7 @@ paths:
                           $ref: '#/components/schemas/Video'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/discovery/editorials': 
+  '/discovery/editorials':
     get:
       tags:
         - Discover
@@ -2537,7 +3000,7 @@ paths:
           description: recommend jobs
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   content:
@@ -2549,26 +3012,30 @@ paths:
                           $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
-                    
-  
-                    
   '/resumes':
     post:
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       tags:
         - Resume
       requestBody:
-       content:
-         application/json:
-             schema:
-               type: object
-               properties:
-                 resume:
-                   type: string
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                resume:
+                  type: string
       responses:
         '201':
           description: created
           content:
-           application/json:
+            application/json:
               schema:
                 type: object
                 properties:
@@ -2593,6 +3060,12 @@ paths:
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: resume id
@@ -2614,13 +3087,19 @@ paths:
                     $ref: '#/components/schemas/Status'
     delete:
       tags:
-      - Resume
+        - Resume
       parameters:
         - name: id
           in: path
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '204':
           description: deleted
@@ -2635,6 +3114,12 @@ paths:
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: resumes
@@ -2657,7 +3142,6 @@ paths:
                               type: object
                   status:
                     $ref: '#/components/schemas/Status'
-          
   '/friends/{id}/apply':
     post:
       tags:
@@ -2669,6 +3153,12 @@ paths:
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '201':
           description: created
@@ -2692,6 +3182,12 @@ paths:
           schema:
             type: integer
           required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       responses:
         '200':
           description: created
@@ -2704,7 +3200,6 @@ paths:
                     $ref: '#/components/schemas/User'
                   create_at:
                     type: string
-      
 components:
   schemas:
     ContentRequest:
@@ -2731,7 +3226,7 @@ components:
         - page
         - size
       properties:
-        id: 
+        id:
           type: integer
         jobName:
           type: string
@@ -2748,7 +3243,7 @@ components:
         activate:
           type: boolean
         location:
-         $ref: '#/components/schemas/Location'
+          $ref: '#/components/schemas/Location'
         industry:
           type: array
           items:
@@ -2761,7 +3256,6 @@ components:
           type: integer
         size:
           type: integer
-
     Job:
       type: object
       properties:
@@ -2853,7 +3347,6 @@ components:
           properties:
             password:
               type: string
-
     ContactInfo:
       type: object
       required:
@@ -3028,32 +3521,31 @@ components:
           type: integer
         skills:
           type: array
-          items: 
-            type:
-              string
+          items:
+            type: string
         educations:
           type: array
           items:
             type: object
             required:
-                - university
-                - major
-                - degree
-                - duration
-                - location
+              - university
+              - major
+              - degree
+              - duration
+              - location
             properties:
-                university:
-                    type: string
-                major:
-                    type: string
-                degree:
-                    type: string
-                duration:
-                    $ref: '#/components/schemas/Duration'
-                location:
-                    $ref: '#/components/schemas/Location'
-                note:
-                    type: string
+              university:
+                type: string
+              major:
+                type: string
+              degree:
+                type: string
+              duration:
+                $ref: '#/components/schemas/Duration'
+              location:
+                $ref: '#/components/schemas/Location'
+              note:
+                type: string
         contacts:
           $ref: '#/components/schemas/ContactInfo'
         works:
@@ -3061,21 +3553,21 @@ components:
           items:
             type: object
             required:
-                - employer
-                - position
-                - duration
-                - location
+              - employer
+              - position
+              - duration
+              - location
             properties:
-                employer:
-                    type: string
-                position:
-                    type: string
-                duration:
-                    $ref: '#/components/schemas/Duration'
-                location:
-                    $ref: '#/components/schemas/Location'
-                note:
-                    type: string
+              employer:
+                type: string
+              position:
+                type: string
+              duration:
+                $ref: '#/components/schemas/Duration'
+              location:
+                $ref: '#/components/schemas/Location'
+              note:
+                type: string
         projects:
           type: array
           items:
@@ -3091,42 +3583,42 @@ components:
     Applicant:
       type: object
       properties:
-            id:
-              type: integer
-            name:
-              type: string
-            avatarUrl:
-              type: string
-            isInJob:
-              type: boolean
-            skills:
-              type: array
-              items:
-                type: string
-            currentCompany:
-              $ref: '#/components/schemas/Company'
-            educations:
-              type: array
-              items:
-                $ref: '#/components/schemas/EducationInfo'
-            contacts:
-              $ref: '#/components/schemas/ContactInfo'
-            works:
-              type: array
-              items:
-                $ref: '#/components/schemas/WorkExperienceInfo'
-            projects:
-              type: array
-              items:
-                $ref: '#/components/schemas/Project'
-            extracurriculars:
-              type: array
-              items:
-                $ref: '#/components/schemas/Extracurricular'
-            certifications:
-              type: array
-              items:
-                $ref: '#/components/schemas/Certification'
+        id:
+          type: integer
+        name:
+          type: string
+        avatarUrl:
+          type: string
+        isInJob:
+          type: boolean
+        skills:
+          type: array
+          items:
+            type: string
+        currentCompany:
+          $ref: '#/components/schemas/Company'
+        educations:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationInfo'
+        contacts:
+          $ref: '#/components/schemas/ContactInfo'
+        works:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkExperienceInfo'
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+        extracurriculars:
+          type: array
+          items:
+            $ref: '#/components/schemas/Extracurricular'
+        certifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Certification'
     JobResponse:
       allOf:
         - $ref: '#/components/schemas/Job'
@@ -3198,7 +3690,7 @@ components:
           default: flase
         rela_type:
           type: integer
-          description: 1 for no rela, 2 for company, 3 for job
+          description: '1 for no rela, 2 for company, 3 for job'
         rela_id:
           type: integer
     QuestionBasic:
@@ -3243,7 +3735,7 @@ components:
           type: object
         resourceList:
           type: array
-          items: 
+          items:
             type: string
     Comment:
       type: object
@@ -3273,7 +3765,7 @@ components:
               type: boolean
               default: false
     ArticleRequest:
-      type: object 
+      type: object
       properties:
         title:
           type: string

@@ -10,6 +10,7 @@ import java.util.List;
 public interface BriefReviewService extends DomainCRUDService<BriefReview, Integer> {
     /**
      * add a new brief review
+     *
      * @param entity the entity should contains review_content, rela_id, rela_type and user_id
      * @return target
      */
@@ -30,6 +31,7 @@ public interface BriefReviewService extends DomainCRUDService<BriefReview, Integ
 
     /**
      * get all the brief reviews which user has posted
+     *
      * @param user_id id of user
      * @return return List<BriefReview>
      */
@@ -37,6 +39,7 @@ public interface BriefReviewService extends DomainCRUDService<BriefReview, Integ
 
     /**
      * get all the brief reviews which user has upvoted
+     *
      * @param user_id id of user
      * @return return List<BriefReview>
      */
@@ -58,7 +61,7 @@ public interface BriefReviewService extends DomainCRUDService<BriefReview, Integ
 
     Evaluate evaluateComment(Integer user_id, Integer comment_id, Integer evaluate_type) throws NotFoundException;
 
-   Integer countCommentAgreement(Integer comment_id) throws NotFoundException;
+    Integer countCommentAgreement(Integer comment_id) throws NotFoundException;
 
     Discuss addDiscuss(Discuss discuss, Integer comment_id);
 

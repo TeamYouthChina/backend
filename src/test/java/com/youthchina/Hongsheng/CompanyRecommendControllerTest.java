@@ -54,7 +54,7 @@ public class CompanyRecommendControllerTest {
     }
 
     @Test
-    public void getRecommandCompanyTest() throws Exception {
+    public void getRecommendCompanyTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/discovery/companies")
                         .with(authGenerator.authentication())

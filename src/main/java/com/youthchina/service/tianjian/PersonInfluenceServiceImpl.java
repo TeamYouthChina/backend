@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class PersonInfluenceServiceImpl implements PersonInfluenceService {
     @Autowired
     PersonInfluenceMapper personInfluenceMapper;
+
     @Override
     public int savePersonInfluence(PersonInfluence personInfluence) {
         personInfluenceMapper.savePersonInfluence(personInfluence);
