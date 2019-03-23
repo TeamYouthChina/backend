@@ -23,7 +23,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -109,27 +108,4 @@ public class UserControllerTest {
                 .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4000,\"reason\":\"cannot register because there are already user registered with same email or username\"}}"));
     }
 
-//
-//    @Test
-//    public void testRenewToken() {
-//        MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse();
-//        try {
-//            User user = new User();
-//            user.setId(1);
-//            jwtService.addAuthentication(mockHttpServletResponse, user);
-//            String token = mockHttpServletResponse.getHeader("X-AUTHENTICATION");
-//        } catch (IOException e) {
-//            Assert.fail();
-//        }
-//
-//    }
-    //todo: test
-
-    @Test
-    public void testTest() throws Exception {
-        this.mvc.perform(
-                get(this.urlPrefix + "/users/test")
-                        .with(authGenerator.authentication())
-        ).andDo(print());
-    }
 }
