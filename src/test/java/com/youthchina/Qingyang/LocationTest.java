@@ -26,7 +26,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:company.xml","classpath:location.xml"})
+@DatabaseSetup({"classpath:company.xml", "classpath:location.xml"})
 public class LocationTest {
     @Autowired
     private LocationMapper locationMapper;
@@ -44,7 +44,7 @@ public class LocationTest {
     }
 
     @Test
-    public void testGetUSALocationByLocationList(){
+    public void testGetUSALocationByLocationList() {
         List<Location> input = new ArrayList<>();
         Location l1 = new Location();
         Location l2 = new Location();
@@ -55,7 +55,6 @@ public class LocationTest {
         List<Location> locationList = locationMapper.getUSALocationByLocationList(input);
         Assert.assertEquals(2, locationList.size());
     }
-
 
 
 }

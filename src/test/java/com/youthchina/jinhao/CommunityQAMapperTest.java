@@ -39,14 +39,15 @@ public class CommunityQAMapperTest {
         Assert.assertEquals(Integer.valueOf(1), user.getId());
         List<QuestionAnswer> questionAnswers = question.getQuestionAnswers();
         Assert.assertEquals(4, questionAnswers.size());
-        for(QuestionAnswer questionAnswer : questionAnswers){
-            if(questionAnswer.getAnswer_id() != 1 && questionAnswer.getAnswer_id() != 2 &&
-                    questionAnswer.getAnswer_id() != 3 && questionAnswer.getAnswer_id() != 4){
+        for (QuestionAnswer questionAnswer : questionAnswers) {
+            if (questionAnswer.getAnswer_id() != 1 && questionAnswer.getAnswer_id() != 2 &&
+                    questionAnswer.getAnswer_id() != 3 && questionAnswer.getAnswer_id() != 4) {
                 Assert.fail();
             }
             Assert.assertNotNull(questionAnswer.getAnswer_user());
         }
     }
+
     //测试能不能添加问题
     @Test
     public void addQuestion() {
@@ -63,6 +64,7 @@ public class CommunityQAMapperTest {
         Question question1 = communityQAMapper.getQuestionById(question.getQues_id());
         Assert.assertEquals(Integer.valueOf(45), question1.getRela_id());
     }
+
     //测试能不能更改问题
     @Test
     public void updateQuestion() {
@@ -136,6 +138,7 @@ public class CommunityQAMapperTest {
         communityQAMapper.createMapBetweenAttentionAndQuestion(1, questionAttention.getAtten_id());
         Assert.assertEquals(Integer.valueOf(4), communityQAMapper.countTheFollower(1));
     }
+
     //测试能不能重新关注
     @Test
     public void reAttentionQuestion() {
@@ -244,6 +247,7 @@ public class CommunityQAMapperTest {
         communityQAMapper.createMapBetweenAnswerAndEvaluate(evaluate.getEvaluate_id(), 1);
         Assert.assertEquals(Integer.valueOf(3), communityQAMapper.countAgreement(1));
     }
+
     //测试能不能重新评价回答
     @Test
     public void reEvaluateAnswer() {
@@ -253,10 +257,11 @@ public class CommunityQAMapperTest {
     }
 
     @Test
-    public void deleteEvaluateAnswer(){
+    public void deleteEvaluateAnswer() {
         communityQAMapper.deleteEvaluateAnswer(1);
         Assert.assertEquals(Integer.valueOf(1), communityQAMapper.countAgreement(1));
     }
+
     //测试得到回答的赞同数
     @Test
     public void countAnswerAgreement() {
@@ -364,10 +369,11 @@ public class CommunityQAMapperTest {
 
 
     @Test
-    public void reEvaluateComment(){
+    public void reEvaluateComment() {
         communityQAMapper.reEvaluateComment(3);
         Assert.assertEquals(Integer.valueOf(4), communityQAMapper.countCommentAgreement(1));
     }
+
     @Test
     public void deleteEvaluateComment() {
         communityQAMapper.deleteEvaluateComment(1);
@@ -547,7 +553,6 @@ public class CommunityQAMapperTest {
     }
 
 
-
 //    //测试能不能接受或者拒绝邀请
 //    @Test
 //    public void updateStatusOfInvitation() {
@@ -603,13 +608,13 @@ public class CommunityQAMapperTest {
         video.setVideo_name("important");
         video.setVideo_title("first");
         communityQAMapper.addVideo(video);
-      //  Assert.assertNotNull(video.getVideo_id());
-        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), 1, 1,2);
+        //  Assert.assertNotNull(video.getVideo_id());
+        communityQAMapper.createMapBetweenVideoAndUser(video.getVideo_id(), 1, 1, 2);
         List<Video> videos = communityQAMapper.listAllMyVideos(1);
-     //   Assert.assertEquals(1, videos.size());
+        //   Assert.assertEquals(1, videos.size());
         for (Video video1 : videos) {
             if (video1.getVideo_id() != video.getVideo_id()) {
-      //          Assert.fail();
+                //          Assert.fail();
             }
         }
     }
@@ -765,7 +770,7 @@ public class CommunityQAMapperTest {
     }
 
     @Test
-    public void deleteEvaluateVideo(){
+    public void deleteEvaluateVideo() {
         communityQAMapper.cancelEvaluateVideo(1);
         Assert.assertEquals(Integer.valueOf(1), communityQAMapper.countVideoAgreement(1));
     }
@@ -778,49 +783,49 @@ public class CommunityQAMapperTest {
 //    }
 
     @Test
-    public void isAnswerBelongToQuestion(){
-        Boolean b = communityQAMapper.isAnswerBelongToQuestion(1,1);
+    public void isAnswerBelongToQuestion() {
+        Boolean b = communityQAMapper.isAnswerBelongToQuestion(1, 1);
         Assert.assertTrue(b);
     }
 
     @Test
-    public void getQuestionIdByTitleOrCompanyName(){
+    public void getQuestionIdByTitleOrCompanyName() {
         List<Integer> quesids = communityQAMapper.getQuestionIdByTitleOrCompanyName("第二个");
         Assert.assertEquals(1, quesids.size());
-        for(Integer ques_id : quesids){
-            if(ques_id != 2){
+        for (Integer ques_id : quesids) {
+            if (ques_id != 2) {
                 Assert.fail();
             }
         }
         List<Integer> c_quesids = communityQAMapper.getQuestionIdByTitleOrCompanyName("百度");
         Assert.assertEquals(1, c_quesids.size());
-        for(Integer ques_id : c_quesids){
-            if(ques_id != 4){
+        for (Integer ques_id : c_quesids) {
+            if (ques_id != 4) {
                 Assert.fail();
             }
         }
         List<Integer> j_quesids = communityQAMapper.getQuestionIdByTitleOrCompanyName("front");
         Assert.assertEquals(1, j_quesids.size());
-        for(Integer ques_id : j_quesids){
-            if(ques_id != 2){
+        for (Integer ques_id : j_quesids) {
+            if (ques_id != 2) {
                 Assert.fail();
             }
         }
     }
 
     @Test
-    public void getVideoIdByTitleOrCompanyName(){
+    public void getVideoIdByTitleOrCompanyName() {
         List<Integer> videoids = communityQAMapper.getVideoIdByTitleOrCompanyName("2");
         Assert.assertEquals(1, videoids.size());
-        for(Integer video_id : videoids){
-            if(video_id != 2){
+        for (Integer video_id : videoids) {
+            if (video_id != 2) {
                 Assert.fail();
             }
         }
         List<Integer> c_videoids = communityQAMapper.getVideoIdByTitleOrCompanyName("大疆");
         Assert.assertEquals(1, c_videoids.size());
-        for(Integer video_id : c_videoids){
-            if(video_id != 1){
+        for (Integer video_id : c_videoids) {
+            if (video_id != 1) {
                 Assert.fail();
             }
         }
@@ -828,7 +833,7 @@ public class CommunityQAMapperTest {
         Assert.assertEquals(0, noids.size());
     }
 
-//    @Test
+    //    @Test
 //    public void deleteAllAnswerOfQuestion(){
 //        communityQAMapper.deleteAllAnswers(1);
 //        Question question1 = communityQAMapper.getQuestionById(1);
@@ -958,15 +963,15 @@ public class CommunityQAMapperTest {
 //        }
 //    }
     @Test
-    public void getMyAttentionQuestion(){
+    public void getMyAttentionQuestion() {
         List<Integer> ids = communityQAMapper.listMyAttenQuestion(1);
-        Assert.assertEquals(2,ids.size());
+        Assert.assertEquals(2, ids.size());
     }
 
     @Test
-    public void getMyAttentionVideo(){
+    public void getMyAttentionVideo() {
         List<Integer> ids = communityQAMapper.getAllUserAttenVideos(1);
-        Assert.assertEquals(2,ids.size());
+        Assert.assertEquals(2, ids.size());
     }
 }
 

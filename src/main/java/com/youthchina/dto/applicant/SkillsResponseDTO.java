@@ -16,7 +16,7 @@ public class SkillsResponseDTO implements ResponseDTO {
 
     public SkillsResponseDTO(LabelInfo labelInfo) {
         this.id = labelInfo.getLabel_code();
-        this.name=labelInfo.getLabel_chn();
+        this.name = labelInfo.getLabel_chn();
     }
 
     public SkillsResponseDTO() {

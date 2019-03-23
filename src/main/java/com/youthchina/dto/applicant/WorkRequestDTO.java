@@ -22,7 +22,7 @@ public class WorkRequestDTO implements RequestDTO {
         this.employer = work.getWork_company();
         this.position = work.getWork_position();
         this.duration = new DurationDTO(work.getWork_start_time(), work.getWork_end_time());
-        this.location=new LocationDTO(work.getLocation());
+        this.location = new LocationDTO(work.getLocation());
 
     }
 

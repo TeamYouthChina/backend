@@ -22,7 +22,7 @@ public class CertificateResponseDTO implements ResponseDTO {
     }
 
     public CertificateResponseDTO(Certificate certificate) {
-        this.id=certificate.getCertificate_id();
+        this.id = certificate.getCertificate_id();
         this.name = certificate.getCertificate_name();
         this.authority = certificate.getCertificate_insti();
         this.duration = new DurationDTO(certificate.getCertificate_grant_date(), certificate.getCertificate_expir_date());

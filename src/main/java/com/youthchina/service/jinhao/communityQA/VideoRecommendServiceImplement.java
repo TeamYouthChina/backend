@@ -11,16 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class VideoRecommendServiceImplement implements VideoRecommendService{
+public class VideoRecommendServiceImplement implements VideoRecommendService {
     @Resource
     RecommendMapper recommendMapper;
     @Resource
     CommunityQAMapper communityQAMapper;
-     @Override
+
+    @Override
     public List<Video> getVideoForYou() {
         List<Integer> videoId = recommendMapper.getRandomVideo();
         List<Video> videos = new ArrayList<>();
-        for(Integer id : videoId){
+        for (Integer id : videoId) {
             videos.add(communityQAMapper.getVideoById(id));
         }
         return videos;

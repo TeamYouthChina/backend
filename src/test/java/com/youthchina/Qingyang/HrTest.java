@@ -44,7 +44,7 @@ public class HrTest {
         List<Hr> hrs = hrMapper.selectHrByIdList(ids);
         Assert.assertEquals(2, hrs.size());
         for (Hr hr : hrs) {
-            if(hr.getHrId() != 1 && hr.getHrId()  != 2){
+            if (hr.getHrId() != 1 && hr.getHrId() != 2) {
                 Assert.fail();
             }
         }
@@ -60,7 +60,7 @@ public class HrTest {
     }
 
     @Test
-    public void testUpdateHr(){
+    public void testUpdateHr() {
         Hr hr = hrMapper.selectHrById(2);
         hr.setCompanyId(2);
         hr.setHrOnJob(2);
@@ -69,7 +69,7 @@ public class HrTest {
     }
 
     @Test
-    public void testDeleteHr(){
+    public void testDeleteHr() {
         hrMapper.deleteHr(2);
     }
 }

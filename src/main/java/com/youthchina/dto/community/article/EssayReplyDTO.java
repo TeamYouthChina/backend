@@ -17,19 +17,21 @@ public class EssayReplyDTO {
 
     @Autowired
     UserServiceImpl userService;
-    public EssayReplyDTO(){}
 
-    public EssayReplyDTO(ComEssayReply comEssayReply){
+    public EssayReplyDTO() {
+    }
+
+    public EssayReplyDTO(ComEssayReply comEssayReply) {
         this.id = comEssayReply.getReply_id();
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comEssayReply.getReply_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
         this.create_at = String.valueOf(comEssayReply.getReply_pub_time());
-        this.is_anonymous = (comEssayReply.getUser_anony()==1)? true:false;
+        this.is_anonymous = (comEssayReply.getUser_anony() == 1) ? true : false;
         this.modified_at = String.valueOf(comEssayReply.getReply_edit_time());
     }
 

@@ -12,17 +12,25 @@ import java.util.List;
 public interface CommunityQAMapper {
     void addQuestion(Question question);
 
-    void createMapBetweenQuestionAndUser(@Param("ques_id") Integer ques_id, @Param("user_id")Integer user_id,
-                                            @Param("rela_type") Integer rela_type, @Param("rela_id") Integer rela_id);
+    void createMapBetweenQuestionAndUser(@Param("ques_id") Integer ques_id, @Param("user_id") Integer user_id,
+                                         @Param("rela_type") Integer rela_type, @Param("rela_id") Integer rela_id);
 
     Question getQuestion(Integer ques_id);
+
     void deleteQuestion(Integer ques_id);
+
     void deleteAllAttention(Integer ques_id);
+
     void deleteAllAnswers(Integer ques_id);
+
     void deleteAllAnswerEvaluation(Integer ques_id);
+
     void deleteAllAnswerInvitationMap(Integer ques_id);
+
     void deleteAllAnswerInvitation(Integer ques_id);
+
     void deleteAllComments(Integer ques_id);
+
     void deleteAllCommentEvaluation(Integer ques_id);
 //    void deleteAllDiscusses(Integer ques_id);
 //    void deleteAllDiscussEvaluation(Integer ques_id);
@@ -62,10 +70,15 @@ public interface CommunityQAMapper {
                                               @Param("answer_level") Integer answer_level);
 
     void deleteAnswer(Integer answer_id);
+
     void deleteAllAnswerEvaluationByAnswerId(Integer answer_id);
+
     void deleteAllCommentsByAnswerId(Integer answer_id);
+
     void deleteAllCommentEvaluationByAnswerId(Integer answer_id);
+
     void deleteAllDiscussesByAnswerId(Integer answer_id);
+
     void deleteAllDiscussEvaluationByAnswerId(Integer answer_id);
 
     Integer editAnswer(QuestionAnswer questionAnswer);
@@ -81,13 +94,13 @@ public interface CommunityQAMapper {
     void addEvaluateToAnswer(Evaluate evaluate);
 
     void createMapBetweenAnswerAndEvaluate(@Param("evaluate_id") Integer evaluate_id,
-                                              @Param("answer_id") Integer answer_id);
+                                           @Param("answer_id") Integer answer_id);
 
     void reEvaluateAnswer(Integer evaluate_id);
 
     void deleteEvaluateAnswer(Integer evaluate_id);
 
-    List<QuestionAnswer>  listMyAgreeAnswer(Integer user_id);
+    List<QuestionAnswer> listMyAgreeAnswer(Integer user_id);
 
     Integer countAgreement(Integer answer_id);
 
@@ -102,9 +115,13 @@ public interface CommunityQAMapper {
     Integer createMapBetweenAnswerAndComment(@Param("answer_id") Integer answer_id,
                                              @Param("comment_id") Integer comment_id,
                                              @Param("comment_level") Integer comment_level);
+
     void deleteComment(Integer comment_id);
+
     void deleteAllCommentEvaluationByCommentId(Integer comment_id);
+
     void deleteAllDiscussByCommentId(Integer comment_id);
+
     void deleteAllDiscussEvaluateByCommentId(Integer comment_id);
 
     CommentEvaluate commentEvaluateStatus(@Param("user_id") Integer user_id, @Param("comment_id") Integer comment_id);
@@ -156,6 +173,7 @@ public interface CommunityQAMapper {
 
     Integer createMapBetweenInvitationAndQuestion(@Param("invit_id") Integer invit_id,
                                                   @Param("invited_user_id") Integer invited_user_id);
+
     Integer updateStatusOfInvitation(AnswerInvitation answerInvitation);
 
     AnswerInvitation getInvitation(Integer invit_id);
@@ -175,8 +193,11 @@ public interface CommunityQAMapper {
     Video getVideo(Integer video_id);
 
     void deleteVideo(Integer video_id);
+
     void deleteAllVideoAttention(Integer video_id);
+
     void deleteAllVideoEvaluate(Integer video_id);
+
     void deleteAllVideoComment(Integer video_id);
 
     VideoAttention videoAttentionStatus(@Param("video_id") Integer video_id, @Param("user_id") Integer user_id);
@@ -226,17 +247,29 @@ public interface CommunityQAMapper {
 
 
     Question getQuestionById(Integer ques_id);
+
     List<QuestionAnswer> getAnswersByQuestionId(Integer ques_id);
+
     List<Comment> getCommentsByAnswerId(Integer answer_id);
+
     List<Discuss> getDiscussesByCommentId(Integer comment_id);
+
     QuestionRelaTypeAndId getQuestionRelaTypeAndRelaId(Integer ques_id);
+
     QuestionAnswer getAnswerById(Integer answer_id);
+
     Comment getAnswerCommentById(Integer comment_id);
+
     Discuss getAnswerDiscussById(Integer discuss_id);
+
     Video getVideoById(Integer video_id);
+
     boolean isAnswerBelongToQuestion(@Param("answer_id") Integer answer_id, @Param("ques_id") Integer ques_id);
+
     List<Integer> getQuestionIdByTitleOrCompanyName(String searchContent);
+
     List<Integer> getVideoIdByTitleOrCompanyName(String searchContent);
+
     List<Integer> getAllUserAttenVideos(Integer user_id);
 
 }

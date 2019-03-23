@@ -28,11 +28,11 @@ public class PdfByParagraph {
     }
 
     @Test
-    public void test() throws IOException{
+    public void test() throws IOException {
         String path = "src/test/resources/Resume/夏锐思中文简历.pdf";
         File file = new File(path);
         String[] lines = readParagraph(file);
-        if(lines == null || lines.length == 0){
+        if (lines == null || lines.length == 0) {
             Assert.fail();
         }
         for (int i = 0; i < lines.length; i++) {

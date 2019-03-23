@@ -11,22 +11,28 @@ public class RequestEssayDTO {
     private boolean is_anonymous;
     private RichTextDTO body;
 
-    public RequestEssayDTO(ComEssay comEssay){
+    public RequestEssayDTO(ComEssay comEssay) {
         this.id = comEssay.getEssay_id();
         this.title = comEssay.getEssay_title();
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
     }
-    public RequestEssayDTO(){}
 
-    public RichTextDTO getBody(){return body;}
+    public RequestEssayDTO() {
+    }
 
-    public void setBody(RichTextDTO body){this.body = body;}
+    public RichTextDTO getBody() {
+        return body;
+    }
+
+    public void setBody(RichTextDTO body) {
+        this.body = body;
+    }
 
     public Integer getId() {
         return id;

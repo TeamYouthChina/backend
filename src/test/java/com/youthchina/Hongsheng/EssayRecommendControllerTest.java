@@ -54,7 +54,7 @@ public class EssayRecommendControllerTest {
     }
 
     @Test
-    public void getRecommandEssayTest() throws Exception {
+    public void getRecommendEssayTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/discovery/articles")
                         .with(authGenerator.authentication())

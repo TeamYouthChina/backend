@@ -19,6 +19,7 @@ public class CompanyVerificationCURDServiceImpl implements CompanyVerificationCU
 
     /**
      * 按认证Id 获取公司认证
+     *
      * @param id 认证Id
      * @return
      * @throws NotFoundException
@@ -31,6 +32,7 @@ public class CompanyVerificationCURDServiceImpl implements CompanyVerificationCU
 
     /**
      * 按认证Id List 获取公司认证List
+     *
      * @param id 认证Id List
      * @return
      * @throws NotFoundException
@@ -43,6 +45,7 @@ public class CompanyVerificationCURDServiceImpl implements CompanyVerificationCU
 
     /**
      * 按认证Id 删除认证
+     *
      * @param id id
      * @throws NotFoundException
      */
@@ -54,6 +57,7 @@ public class CompanyVerificationCURDServiceImpl implements CompanyVerificationCU
 
     /**
      * 更新认证
+     *
      * @param companyVerification 认证类
      * @return 更新后的认证
      * @throws NotFoundException
@@ -67,6 +71,7 @@ public class CompanyVerificationCURDServiceImpl implements CompanyVerificationCU
 
     /**
      * 添加认证
+     *
      * @param entity 认证类
      * @return 所添加的认证
      */

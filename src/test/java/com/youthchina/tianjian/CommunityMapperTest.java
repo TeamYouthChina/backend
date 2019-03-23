@@ -28,6 +28,7 @@ import java.util.List;
 public class CommunityMapperTest {
     @Autowired
     private CommunityMapper userMapper;
+
     @Test
     public void testGetEssay() {
         ComEssay comEssay = userMapper.getEssay(1);
@@ -46,7 +47,7 @@ public class CommunityMapperTest {
         comEssay.setEssay_edit_time(time);
         comEssay.setIs_delete(0);
         comEssay.setUser_anony(0);
-         userMapper.addEssay(comEssay);
+        userMapper.addEssay(comEssay);
         Assert.assertNotNull(comEssay.getEssay_id());
     }
 
@@ -54,7 +55,7 @@ public class CommunityMapperTest {
     @Test
     public void testDeleteEssay() {
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        userMapper.deleteEssay(1,time);
+        userMapper.deleteEssay(1, time);
     }
 
     @Test
@@ -136,13 +137,13 @@ public class CommunityMapperTest {
 
     @Test
     public void testDeleteFavoriteEssayMap() {
-        userMapper.deleteFavoriteEssay(1,1001);
+        userMapper.deleteFavoriteEssay(1, 1001);
     }
 
 
     @Test
     public void testGetFavoriteEssayWhetherAtten() {
-        ComEssayAttention comEssayAttention = userMapper.getFavoriteEssayWhetherAtten(1,1);
+        ComEssayAttention comEssayAttention = userMapper.getFavoriteEssayWhetherAtten(1, 1);
         Assert.assertNotNull(comEssayAttention.getAtten_id());
         System.out.println(comEssayAttention);
     }
@@ -180,12 +181,12 @@ public class CommunityMapperTest {
         comessayreply.setReply_edit_time(time);
         comessayreply.setIs_delete(0);
         comessayreply.setUser_anony(1);
-        userMapper.updateReply(comessayreply,1);
+        userMapper.updateReply(comessayreply, 1);
     }
 
     @Test
     public void testDeleteReply() {
-        userMapper.deleteReply(1,1002,1);
+        userMapper.deleteReply(1, 1002, 1);
     }
 
     @Test
@@ -221,14 +222,14 @@ public class CommunityMapperTest {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comreplyevaluate.setEvaluate_time(time);
         comreplyevaluate.setEvaluate_type(0);
-        userMapper.updateReplyEvaluate(comreplyevaluate,1);
+        userMapper.updateReplyEvaluate(comreplyevaluate, 1);
     }
 
 
     @Test
     public void testGetReplyEvaluate() {
         List<ComReplyEvaluate> comReplyEvaluates = userMapper.getReplyEvaluate(1);
-         Assert.assertNotNull(comReplyEvaluates);
+        Assert.assertNotNull(comReplyEvaluates);
         System.out.println(comReplyEvaluates.size());
     }
 
@@ -273,14 +274,14 @@ public class CommunityMapperTest {
         comFriendRelation.setRela_id(2);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comFriendRelation.setIs_delete_time(time);
-        userMapper.deleteFriend(comFriendRelation,1001);
+        userMapper.deleteFriend(comFriendRelation, 1001);
     }
 
     @Test
     public void testGetFriend() {
         List<ComFriendRelation> comFriendRelation = userMapper.getFriend(1001);
-         Assert.assertNotNull(comFriendRelation);
-         System.out.println(comFriendRelation);
+        Assert.assertNotNull(comFriendRelation);
+        System.out.println(comFriendRelation);
     }
 
     @Test
@@ -310,7 +311,7 @@ public class CommunityMapperTest {
         comFriendGroup.setAdd_time(time);
         comFriendGroup.setIs_delete(0);
         comFriendGroup.setGroup_num(2);
-        userMapper.updateFriendGroup(comFriendGroup,1002);
+        userMapper.updateFriendGroup(comFriendGroup, 1002);
     }
 
 
@@ -320,7 +321,7 @@ public class CommunityMapperTest {
         ComFriendRelation relation1 = new ComFriendRelation();
         relation1.setRela_id(6);
         comFriendRelation.add(relation1);
-        List<ComFriendGroup> comFriendGroups =  userMapper.getFriendGroup(comFriendRelation);
+        List<ComFriendGroup> comFriendGroups = userMapper.getFriendGroup(comFriendRelation);
         Assert.assertNotNull(comFriendGroups);
         System.out.println(comFriendGroups.size());
     }

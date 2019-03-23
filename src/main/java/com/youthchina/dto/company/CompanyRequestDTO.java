@@ -1,6 +1,7 @@
 package com.youthchina.dto.company;
 
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.dto.util.NationDTO;
 
@@ -8,7 +9,7 @@ import com.youthchina.dto.util.NationDTO;
  * @author: Qingyang Zhao
  * @create: 2019-02-16
  **/
-public class CompanyDTO {
+public class CompanyRequestDTO implements RequestDTO {
 
     private Integer id;
     private String name;
@@ -27,10 +28,10 @@ public class CompanyDTO {
         this.userId = userId;
     }
 
-    public CompanyDTO() {
+    public CompanyRequestDTO() {
     }
 
-    public CompanyDTO(Company domain) {
+    public CompanyRequestDTO(Company domain) {
         this.id = domain.getCompanyId();
         this.name = domain.getCompanyName();
         this.location = new LocationDTO(domain.getLocation()); // Default: Chinese Location
