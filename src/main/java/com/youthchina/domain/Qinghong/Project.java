@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class Project {
     private Integer proj_id;
+    private String proj_institute;
+    private String insti_country;
     private String proj_name;
     private String proj_role;
     private Date proj_start_time;
@@ -94,6 +96,22 @@ public class Project {
 
     public void setDeliver_pub_insti(String deliver_pub_insti) {
         this.deliver_pub_insti = deliver_pub_insti;
+    }
+
+    public String getProj_institute() {
+        return proj_institute;
+    }
+
+    public void setProj_institute(String proj_institute) {
+        this.proj_institute = proj_institute;
+    }
+
+    public String getInsti_country() {
+        return insti_country;
+    }
+
+    public void setInsti_country(String insti_country) {
+        this.insti_country = insti_country;
     }
 
     public Integer getStu_id() {

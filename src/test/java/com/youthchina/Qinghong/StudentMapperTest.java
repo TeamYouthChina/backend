@@ -196,7 +196,6 @@ public class StudentMapperTest {
         degree.setDegreeNum(1);
         educationInfo.setDegree(degree);
         educationInfo.setEdu_school("gwu");
-        educationInfo.setEdu_school_country("USA");
         educationInfo.getLocation().setRegion_num(1);
         educationInfo.setEdu_major("计算机");
         educationInfo.setEdu_college("cssa");
@@ -221,7 +220,6 @@ public class StudentMapperTest {
         certificate.setCertificate_grant_date(new java.sql.Date(1));
         certificate.setCertificate_expir_date(new java.sql.Date(1));
         certificate.setStu_id(1);
-        certificate.setCertificate_url("11");
 
         Integer integer=applicantMapper.insertStuCertificate(certificate);
         if(integer!=0){

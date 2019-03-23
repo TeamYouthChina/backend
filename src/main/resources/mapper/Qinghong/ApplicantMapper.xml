@@ -237,37 +237,36 @@
     <!--获取申请者的项目信息-->
     <select id="getProjects" resultType="com.youthchina.domain.Qinghong.Project">
         SELECT b.*
-        FROM STU_INFO a,STU_PROJECT b
-        WHERE a.USER_ID=#{user_id} AND a.STU_ID=b.STU_ID AND a.IS_DELETE=0 AND b.IS_DELETE=0
+        FROM STU_PROJECT b
+        WHERE b.STU_ID=#{user_id}  AND b.IS_DELETE=0
     </select>
 
     <!--获取申请者的教育信息-->
     <select id="getEducations" resultType="com.youthchina.domain.Qinghong.EducationInfo">
         SELECT b.*
-        FROM STU_INFO a,STU_EDU_INFO b
-        WHERE a.USER_ID=#{user_id} AND a.STU_ID=b.STU_ID AND a.IS_DELETE=0 AND b.IS_DELETE=0
+        FROM STU_EDU_INFO b
+        WHERE b.STU_ID=#{user_id} AND b.IS_DELETE=0
     </select>
 
     <!--获取申请者的工作经历信息-->
     <select id="getWorks" resultType="com.youthchina.domain.Qinghong.Work">
         SELECT b.*
-        FROM STU_INFO a,STU_WORK b
-        WHERE a.USER_ID=#{user_id} AND a.STU_ID=b.STU_ID AND a.IS_DELETE=0 AND b.IS_DELETE=0
+        FROM STU_WORK b
+        WHERE b.STU_ID=#{user_id} AND b.IS_DELETE=0
     </select>
 
     <!--获取申请者的认证信息-->
     <select id="getCertificates" resultType="com.youthchina.domain.Qinghong.Certificate">
         SELECT b.*
-        FROM STU_INFO a
-                 LEFT JOIN STU_CERTIFICATE b ON a.STU_ID=b.STU_ID
-        WHERE a.USER_ID=#{user_id} AND a.IS_DELETE=0 AND b.IS_DELETE=0
+        FROM STU_CERTIFICATE b
+        WHERE b.STU_ID=#{user_id} AND b.IS_DELETE=0
     </select>
 
     <!--获取申请者的活动信息-->
     <select id="getActivities" resultType="com.youthchina.domain.Qinghong.Activity">
         SELECT b.*
-        FROM STU_INFO a,STU_ACTIVITY b
-        WHERE a.USER_ID=#{user_id} AND a.STU_ID=b.STU_ID AND a.IS_DELETE=0 AND b.IS_DELETE=0
+        FROM STU_ACTIVITY b
+        WHERE b.STU_ID=#{user_id} AND b.IS_DELETE=0
     </select>
 
 

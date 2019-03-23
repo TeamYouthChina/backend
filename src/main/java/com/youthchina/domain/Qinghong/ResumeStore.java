@@ -1,38 +1,34 @@
 package com.youthchina.domain.Qinghong;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
-public class PreferCity {
-    private Integer pre_city_id;
-    private String pre_country;
-    private String pre_region_num;
+/**
+ * @program: youthchina
+ * @description: 简历存储
+ * @author: Qinghong Wang
+ * @create: 2019-03-23 14:19
+ **/
+public class ResumeStore {
+    private Integer store_id;
+    private String resume_name;
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public Integer getPre_city_id() {
-        return pre_city_id;
+    public Integer getStore_id() {
+        return store_id;
     }
 
-    public void setPre_city_id(Integer pre_city_id) {
-        this.pre_city_id = pre_city_id;
+    public void setStore_id(Integer store_id) {
+        this.store_id = store_id;
     }
 
-    public String getPre_country() {
-        return pre_country;
+    public String getResume_name() {
+        return resume_name;
     }
 
-    public void setPre_country(String pre_country) {
-        this.pre_country = pre_country;
-    }
-
-    public String getPre_region_num() {
-        return pre_region_num;
-    }
-
-    public void setPre_region_num(String pre_region_num) {
-        this.pre_region_num = pre_region_num;
+    public void setResume_name(String resume_name) {
+        this.resume_name = resume_name;
     }
 
     public Integer getStu_id() {

@@ -10,11 +10,12 @@ public class EducationInfo {
     private Integer edu_id;
     private com.youthchina.domain.qingyang.Degree degree;
     private String edu_school;
-    private String edu_school_country;
+    private String edu_school_id;
     private Location location;
     private String edu_major;
     private String edu_college;
     private Float edu_gpa;
+    private Integer edu_diploma_type;
     private Date edu_start;
     private Date edu_end;
     private Integer stu_id;
@@ -31,7 +32,7 @@ public class EducationInfo {
         this.location=new Location();
         this.location.setNation_code(educationRequestDTO.getLocation().getNation_code());
         this.location.setRegion_num(Integer.parseInt(educationRequestDTO.getLocation().getLocation_code()));
-        this.edu_school_country= educationRequestDTO.getLocation().getNation_code();
+
 
         //fix location
         //空值的设置
@@ -63,14 +64,6 @@ public class EducationInfo {
 
     public void setEdu_school(String edu_school) {
         this.edu_school = edu_school;
-    }
-
-    public String getEdu_school_country() {
-        return edu_school_country;
-    }
-
-    public void setEdu_school_country(String edu_school_country) {
-        this.edu_school_country = edu_school_country;
     }
 
     public Location getLocation() {
@@ -143,5 +136,21 @@ public class EducationInfo {
 
     public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
+    }
+
+    public String getEdu_school_id() {
+        return edu_school_id;
+    }
+
+    public void setEdu_school_id(String edu_school_id) {
+        this.edu_school_id = edu_school_id;
+    }
+
+    public Integer getEdu_diploma_type() {
+        return edu_diploma_type;
+    }
+
+    public void setEdu_diploma_type(Integer edu_diploma_type) {
+        this.edu_diploma_type = edu_diploma_type;
     }
 }

@@ -9,6 +9,7 @@ public class Activity {
     private Integer act_id;
     private String act_name;
     private String act_organization;
+    private String org_country;
     private String act_role;
     private Date act_start_time;
     private Date act_end_time;
@@ -84,6 +85,14 @@ public class Activity {
 
     public void setAct_detail(String act_detail) {
         this.act_detail = act_detail;
+    }
+
+    public String getOrg_country() {
+        return org_country;
+    }
+
+    public void setOrg_country(String org_country) {
+        this.org_country = org_country;
     }
 
     public Integer getStu_id() {
