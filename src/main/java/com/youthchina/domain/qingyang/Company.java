@@ -7,6 +7,7 @@ import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,7 +85,12 @@ public class Company implements HasId<Integer> {
         this.country = new Country(companyRequestDTO.getNation());
         this.companyIntroduc = companyRequestDTO.getNote();
         this.userId = companyRequestDTO.getUserId();
-        //TODO: Logo
+
+        //TODO: Logo // Now : 1V1
+        this.logos = new ArrayList<>();
+        Logo logo = new Logo();
+        logo.setDocuLocalId(companyRequestDTO.getAvatarUrl());
+        this.logos.add(logo);
 
         //TODO : API need add more params as shown below
         this.companyCode = "TODO"; //企业三证号码

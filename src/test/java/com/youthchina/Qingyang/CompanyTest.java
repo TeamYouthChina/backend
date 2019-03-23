@@ -133,11 +133,20 @@ public class CompanyTest {
         List<Industry> industryList = new ArrayList<>();
         Industry industry = new Industry();
         industry.setIndCode("AAA");
-        industry.setCompanyId(company.getCompanyId());
         industryList.add(industry);
         company.setIndList(industryList);
 
-        companyMapper.insertCompanyInd(company.getIndList());
+        companyMapper.insertCompanyInd(company.getId(), company.getIndList());
+
+
+        List<Logo> logoList = new ArrayList<>();
+        Logo logo = new Logo();
+        logo.setDocuLocalId("logodoc");
+        logoList.add(logo);
+        company.setLogos(logoList);
+
+        companyMapper.insertCompanyLogo(company.getId(), company.getLogos());
+
     }
 
     @Test
@@ -161,7 +170,7 @@ public class CompanyTest {
         company.setCompanyName("QQ");
         companyMapper.updateCompany(company);
         companyMapper.deleteCompanyInd(company.getCompanyId());
-        companyMapper.insertCompanyInd(company.getIndList());
+        companyMapper.insertCompanyInd(company.getId(), company.getIndList());
     }
 
     @Test

@@ -350,8 +350,18 @@
         INSERT INTO COMPANY_INDUSTRY
         ( COMPANY_IND_CODE, COMPANY_ID, IS_DELETE, IS_DELETE_TIME)
         VALUES
-        <foreach item="ind" collection="list" separator=",">
-            (#{ind.indCode}, #{ind.companyId}, 0, NULL)
+        <foreach item="ind" collection="industries" separator=",">
+            (#{ind.indCode}, #{companyId}, 0, NULL)
+        </foreach>
+    </insert>
+
+    <!--insert Company's Logos By Company's List of Logos-->
+    <insert id="insertCompanyLogo" useGeneratedKeys="true" keyProperty="logoId">
+        INSERT INTO COMPANY_JOB_LOGO
+        ( DOCU_LOCAL_ID, RELA_TYPE, RELA_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES
+        <foreach item="logo" collection="logos" separator=",">
+            (#{logo.docuLocalId}, 1, #{companyId}, 0, NULL)
         </foreach>
     </insert>
 
@@ -395,6 +405,12 @@
     <update id="deleteStudentComCollection" parameterType="java.lang.Integer">
         UPDATE STU_COMP_COLLECT SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
         WHERE COMPANY_ID = #{id}
+    </update>
+
+    <!--delete Logo of Company By CompanyID-->
+    <update id="deleteCompanyLogo" parameterType="java.lang.Integer">
+        UPDATE COMPANY_JOB_LOGO SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE RELA_TYPE = 1 AND RELA_ID = #{id}
     </update>
 
 
