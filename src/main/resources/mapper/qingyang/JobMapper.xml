@@ -7,7 +7,7 @@
             useGeneratedKeys="true" keyProperty="jobId">
         INSERT INTO JOB_INFO
         (
-            COMPANY_ID,     HR_ID,          JOB_NAME,     JOB_PROF_CODE,
+            COMPANY_ID,               JOB_NAME,     JOB_PROF_CODE,
             JOB_START_TIME, JOB_END_TIME,   JOB_TYPE,     JOB_DESCRIPTION,
             JOB_DUTY,       JOB_HIGHLIGHT, JOB_SALARY_FLOOR, JOB_SALARY_CAP,
             JOB_LINK,   CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, ADD_TIME, IS_DELETE,
@@ -15,7 +15,7 @@
         )
         VALUES
         (
-            #{company.companyId},   #{hr.hrId},       #{jobName},     #{jobProfCode},
+            #{company.companyId},          #{jobName},     #{jobProfCode},
             #{jobStartTime},#{jobEndTime},  #{jobType},     #{jobDescription},
             #{jobDuty},   #{jobHighlight},  #{jobSalaryFloor}, #{jobSalaryCap},
             #{jobLink},  #{cvReceiMail}, #{cvNameRule},  #{jobActive}, NOW(), 0,
@@ -28,7 +28,6 @@
         UPDATE JOB_INFO
         SET
             COMPANY_ID = #{company.companyId},
-            HR_ID = #{hr.hrId},
             JOB_NAME = #{jobName},
             JOB_PROF_CODE = #{jobProfCode},
             JOB_START_TIME = #{jobStartTime},
@@ -85,11 +84,6 @@
         <!--<result property="companyLogo" column="COMPANY_LOGO"/>-->
         <!--<result property="companyVerify" column="COMPANY_VERIFY"/>-->
         <!--</association>-->
-        <association property="hr" javaType="com.youthchina.domain.qingyang.Hr">
-            <id property="hrId" column="HR_ID"/>
-            <result property="hrOnJob" column="HR_ON_JOB"/>
-            <result property="companyId" column="COMPANY_ID"/>
-        </association>
         <association property="profession" javaType="com.youthchina.domain.qingyang.Profession">
             <id property="profNum" column="PROF_NUM"/>
             <result property="profCode" column="PROF_CODE"/>
@@ -180,8 +174,6 @@
             scale.SCALE_ENG as SCALE_ENG,
             scale.START_TIME as SCALE_START_TIME,
 
-            h.HR_ON_JOB as HR_ON_JOB,
-
             class.IND_NUM as C_IND_NUM,
             class.IND_CODE as IND_CODE,
             class.IND_CHN as IND_CHN,
@@ -216,7 +208,6 @@
             collect.JOB_COLLECT as JOB_COLLECT_NUM
     </sql>
     <sql id="jobJoin">
-        LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID AND j.IS_DELETE = 0 AND h.IS_DELETE = 0
         LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0
         LEFT OUTER JOIN SYS_COUNTRY	country ON com.COMPANY_COUNTRY = country.COUNTRY_ABBRE AND country.IS_DELETE = 0
         LEFT OUTER JOIN SYS_COMPANY_NATURE	nature ON com.COMPANY_NATURE = nature.NATURE_NUM
