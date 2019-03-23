@@ -104,9 +104,7 @@ public class JobTest {
     @Test
     public void testJobInsert() {
         Job job = new Job();
-        Hr hr = new Hr();
-        hr.setHrId(1);
-        job.setHr(hr);
+
         Company company = new Company();
         company.setCompanyId(1);
         job.setCompany(company);
@@ -122,6 +120,7 @@ public class JobTest {
         job.setCvReceiMail("youth@china");
         job.setCvNameRule("rule");
         job.setJobActive(1);
+        job.setUserId(1);
         jobMapper.insertJob(job);
         List<Industry> industries = new ArrayList<>();
         Industry industry = new Industry();
@@ -138,6 +137,7 @@ public class JobTest {
         List<Location> locations = new ArrayList<>();
         Location location = new Location();
         location.setRegion_num(1);
+        location.setNation_code("CHN");
         locations.add(location);
         job.setJobLocationList(locations);
         jobMapper.insertJobLocation(job.getId(), job.getJobLocationList());
@@ -164,6 +164,13 @@ public class JobTest {
         jobMapper.deleteJobDegree(job.getJobId());
         jobMapper.deleteJobIndustry(job.getJobId());
         jobMapper.deleteJobLocation(job.getJobId());
+        jobMapper.deleteJob(job.getJobId());
+    }
+
+    @Test
+    public void testDeleteJob2() {
+        Job job = new Job();
+        job.setJobId(1);
         jobMapper.deleteJob(job.getJobId());
     }
 
@@ -272,7 +279,6 @@ public class JobTest {
                 null, null, null, null, 6500, null,
                 null, null, null);
         Assert.assertEquals(2, jobs.size());
-
 
     }
 }
