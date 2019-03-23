@@ -1,3 +1,5 @@
+package com.youthchina.domain.Qinghong;
+
 /**
  * @program: youthchina
  * @description: 所有大学
