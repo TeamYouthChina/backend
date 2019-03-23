@@ -129,7 +129,6 @@
             j.CV_RECEI_MAIL as CV_RECEI_MAIL,
             j.CV_NAME_RULE as CV_NAME_RULE,
             j.JOB_ACTIVE as JOB_ACTIVE,
-            j.HR_ID as HR_ID,
             j.COMPANY_ID as COMPANY_ID,
             j.ADD_TIME as JOB_ADD_TIME,
 
@@ -204,7 +203,7 @@
         LEFT OUTER JOIN SYS_PROF_CLASS prof ON j.JOB_PROF_CODE = prof.PROF_CODE AND prof.IS_DELETE = 0
         LEFT OUTER JOIN (SELECT COUNT(JOB_ID) as JOB_COLLECT, JOB_ID FROM STU_JOB_COLLECT WHERE IS_DELETE = 0 GROUP BY JOB_ID) as collect ON collect.JOB_ID = j.JOB_ID
   </sql>
-    <!--职位详情页, 含公司和HR信息-->
+    <!--职位详情页, 含公司信息-->
     <select id="selectJobByJobId" resultMap="job" parameterType="java.lang.Integer">
         SELECT
         <include refid="jobSelect"/>

@@ -41,14 +41,12 @@ create table JOB_INFO
 	CV_RECEI_MAIL varchar(200) not null comment '简历接收邮箱',
 	CV_NAME_RULE varchar(200) null comment '简历命名规则',
 	JOB_ACTIVE int not null comment '职位状态',
-	HR_ID int not null comment '招聘者ID',
 	COMPANY_ID int not null comment '企业ID',
 	IS_DELETE int default 0 null comment '是否删除',
 	IS_DELETE_TIME timestamp null comment '删除时间',
 	constraint JOB_COMPANY_ID
 		foreign key (COMPANY_ID) references COMPANY_INFO (company_id),
-	constraint JOB_HR_ID
-		foreign key (HR_ID) references HR_INFO (hr_id)
+
 )
 comment '职位基本信息表';
 
@@ -74,7 +72,6 @@ comment '职位基本信息表';
     private Integer collectNum = 0; // Default 0
 
     private Company company;
-    private Hr hr;
 
     public Job(JobRequestDTO jobRequestDTO) {
         this.jobId = jobRequestDTO.getId();
@@ -114,15 +111,6 @@ comment '职位基本信息表';
 
     public void setCompany(Company company) {
         this.company = company;
-    }
-
-    public Hr getHr() {
-        return hr;
-    }
-
-
-    public void setHr(Hr hr) {
-        this.hr = hr;
     }
 
     public Integer getJobId() {

@@ -1,12 +1,9 @@
 package com.youthchina.service.qingyang;
 
 import com.youthchina.dao.qingyang.CompanyMapper;
-import com.youthchina.dao.qingyang.HrMapper;
 import com.youthchina.dao.qingyang.JobMapper;
-import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.Country;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +24,6 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Resource
     JobMapper jobMapper;
 
-    @Resource
-    HrMapper hrMapper;
 
     @Autowired
     LocationService locationService;

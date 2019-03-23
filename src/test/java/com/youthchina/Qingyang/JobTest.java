@@ -104,9 +104,7 @@ public class JobTest {
     @Test
     public void testJobInsert() {
         Job job = new Job();
-        Hr hr = new Hr();
-        hr.setHrId(1);
-        job.setHr(hr);
+
         Company company = new Company();
         company.setCompanyId(1);
         job.setCompany(company);

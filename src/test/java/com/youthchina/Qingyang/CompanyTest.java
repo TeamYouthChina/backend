@@ -3,7 +3,6 @@ package com.youthchina.Qingyang;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.qingyang.CompanyMapper;
-import com.youthchina.dao.qingyang.HrMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
@@ -35,8 +34,6 @@ public class CompanyTest {
     @Autowired
     private JobMapper jobMapper;
 
-    @Autowired
-    private HrMapper hrMapper;
 
     @Autowired
     private LocationMapper locationMapper;
