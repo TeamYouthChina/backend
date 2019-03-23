@@ -127,7 +127,6 @@ public class CompanyTest {
         company.setCompanyMail("baidu@com");
         company.setCompanyWebsite("baidu.com");
         company.setCompanyStartDate(Date.valueOf("2006-1-20"));
-        company.setCompanyLogo("1");
         company.setCompanyVerify(1);
         company.setUserId(1);
 
@@ -172,7 +171,6 @@ public class CompanyTest {
     public void testDeleteCompany() {
         Integer comId = 1;
         jobMapper.deleteJobByComId(comId);
-        hrMapper.deleteHrByComId(comId);
         companyMapper.deleteCompanyVerificationByComId(comId);
         companyMapper.deleteCompanyEmployee(comId);
         companyMapper.deleteCompanyEvaluate(comId);
@@ -213,6 +211,14 @@ public class CompanyTest {
     public void testGetCompanyCollectionNum() {
         Company company = companyMapper.selectCompany(1);
         Assert.assertEquals(Integer.valueOf(2), company.getCollectNum());
+    }
+
+    @Test
+    public void testGetCompanyLogo(){
+        Company company = companyMapper.selectCompany(1);
+        Logo logo = company.getLogos().get(0);
+        Assert.assertEquals("COMLOGO1", logo.getDocuLocalId());
+
     }
 
 
