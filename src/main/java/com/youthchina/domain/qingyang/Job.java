@@ -69,6 +69,8 @@ comment '职位基本信息表';
     private Integer isDelete;
     private Timestamp isDeleteTime;
 
+    private Integer userId;
+
     private Integer collectNum = 0; // Default 0
 
     private Company company;
@@ -279,5 +281,13 @@ comment '职位基本信息表';
 
     public void setIsDeleteTime(Timestamp isDeleteTime) {
         this.isDeleteTime = isDeleteTime;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

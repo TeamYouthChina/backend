@@ -120,6 +120,7 @@ public class JobTest {
         job.setCvReceiMail("youth@china");
         job.setCvNameRule("rule");
         job.setJobActive(1);
+        job.setUserId(1);
         jobMapper.insertJob(job);
         List<Industry> industries = new ArrayList<>();
         Industry industry = new Industry();
@@ -136,6 +137,7 @@ public class JobTest {
         List<Location> locations = new ArrayList<>();
         Location location = new Location();
         location.setRegion_num(1);
+        location.setNation_code("CHN");
         locations.add(location);
         job.setJobLocationList(locations);
         jobMapper.insertJobLocation(job.getId(), job.getJobLocationList());
