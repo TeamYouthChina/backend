@@ -3,11 +3,12 @@ package com.youthchina.domain.jinhao;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Question implements RichTextable {
+public class Question implements RichTextable, HasId<Integer> {
     private Integer id;
     private String title;
     private String abbre;
@@ -22,7 +23,7 @@ public class Question implements RichTextable {
     private Integer rela_id;
     private Integer richTextRelaType = 2;
     private ComRichText richText;
-
+    
     @Override
     public Integer getRichTextRelaType() {
         return richTextRelaType;

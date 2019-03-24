@@ -21,6 +21,74 @@ public class BriefReview implements Commentable, RichTextable {
     private ComRichText richText;
 
     @Override
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+
+    public Integer getRelaType() {
+        return relaType;
+    }
+
+    public void setRelaType(Integer relaType) {
+        this.relaType = relaType;
+    }
+
+    public Integer getRelaId() {
+        return relaId;
+    }
+
+    public void setRelaId(Integer relaId) {
+        this.relaId = relaId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    @Override
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public Integer getCommentTargetType() {
+        return commentTargetType;
+    }
+
+    public void setCommentTargetType(Integer commentTargetType) {
+        this.commentTargetType = commentTargetType;
+    }
+
+    @Override
     public Integer getRichTextRelaType() {
         return richTextRelaType;
     }
@@ -37,78 +105,5 @@ public class BriefReview implements Commentable, RichTextable {
     @Override
     public void setRichText(ComRichText richText) {
         this.richText = richText;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setRelaType(Integer relaType) {
-        this.relaType = relaType;
-    }
-
-    public void setRelaId(Integer relaId) {
-        this.relaId = relaId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Timestamp getTime() {
-        return time;
-    }
-
-    public void setTime(Timestamp time) {
-        this.time = time;
-    }
-
-    public int getRelaType() {
-        return relaType;
-    }
-
-    public void setRelaType(int relaType) {
-        this.relaType = relaType;
-    }
-
-    public int getRelaId() {
-        return relaId;
-    }
-
-    public void setRelaId(int relaId) {
-        this.relaId = relaId;
-    }
-
-    @Override
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Integer getCommentTargetType() {
-        return commentTargetType;
-    }
-
-    public void setCommentTargetType(Integer commentTargetType) {
-        this.commentTargetType = commentTargetType;
     }
 }

@@ -1,7 +1,9 @@
 package com.youthchina.dto.community.answer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
+import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.RichTextDTO;
 
@@ -12,15 +14,12 @@ public class SimpleAnswerRequestDTO implements RequestDTO {
     private RichTextDTO body;
     private Boolean is_anonymous;
 
-    public SimpleAnswerRequestDTO(QuestionAnswer questionAnswer) {
-        try{
-            ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(questionAnswer.getAnswer_content(), RichTextDTO.class);
+    public SimpleAnswerRequestDTO(Answer questionAnswer) {
+
+            RichTextDTO richt = new RichTextDTO(questionAnswer.getRichText());
             this.body = richt;
-        }catch (Exception e){
-            System.out.println("Exception");
-        }
-        this.is_anonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
+
+        this.is_anonymous = (questionAnswer.getIsAnony() == 0) ? false : true;
     }
 
     public SimpleAnswerRequestDTO(){}

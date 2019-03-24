@@ -1,5 +1,7 @@
 package com.youthchina.controller.zhongyang;
 
+import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
 import com.youthchina.domain.zhongyang.User;
@@ -13,6 +15,7 @@ import com.youthchina.dto.community.question.RequestQuestionDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
+import com.youthchina.service.jinhao.CommunityQAService;
 import com.youthchina.service.jinhao.communityQA.CommunityQAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -101,7 +104,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     @PostMapping("/**")
     public ResponseEntity<?> createQuestionInfo(@RequestBody RequestQuestionDTO requestQuestionDTO, @AuthenticationPrincipal User user) {
         Question question = new Question(requestQuestionDTO);
-        question.setQues_user(user);
+        question.setUser(user);
 
         QuestionDTO questionDTO = new QuestionDTO(question);
         questionDTO.setCreator(new UserDTO(user));
@@ -112,7 +115,7 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     @PutMapping("/{id}/**")
     public ResponseEntity<?> updateQuestionInfo(@PathVariable Integer id, @RequestBody RequestQuestionDTO requestQuestionDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Question question = new Question(requestQuestionDTO);
-        question.setQues_user(user);
+        question.setUser(user);
         QuestionDTO questionDTO = new QuestionDTO(question);
         questionDTO.setId(id);
         update(questionDTO);
@@ -167,10 +170,10 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     @PostMapping("/{id}/answers")
     public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody SimpleAnswerRequestDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         System.out.println("add answers");
-        QuestionAnswer questionAnswer = new QuestionAnswer(simpleAnswerDTO);
-        questionAnswer.setUser_id(user.getId());
-        questionAnswer.setAnswer_pub_time(new Timestamp(System.currentTimeMillis()));
-        questionAnswer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
+        Answer questionAnswer = new Answer(simpleAnswerDTO);
+        questionAnswer.setUserId(user.getId());
+        questionAnswer.setPubTime(new Timestamp(System.currentTimeMillis()));
+        questionAnswer.setEditTime(new Timestamp(System.currentTimeMillis()));
 
         SimpleAnswerResponseDTO returnSimpleAnswer = new SimpleAnswerResponseDTO(communityQAService.addAnswer(questionAnswer,id,1));
         if (returnSimpleAnswer!=null)

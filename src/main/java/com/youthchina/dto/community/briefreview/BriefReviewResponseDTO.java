@@ -1,8 +1,8 @@
 package com.youthchina.dto.community.briefreview;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Comment;
-import com.youthchina.domain.jinhao.communityQA.BriefReview;
 import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
@@ -23,10 +23,10 @@ public class BriefReviewResponseDTO implements ResponseDTO {
 
 
     public BriefReviewResponseDTO(BriefReview briefReview){
-        this.id = briefReview.getReview_id();
+        this.id = briefReview.getId();
         try{
             ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(briefReview.getReview_content(), RichTextDTO.class);
+            RichTextDTO richt = mapper.readValue(briefReview.getRichText().getTextContent(), RichTextDTO.class);
             this.body = richt;
         }catch (Exception e){
             System.out.println("Exception");

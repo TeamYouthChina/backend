@@ -23,6 +23,7 @@ public class Answer implements Commentable, RichTextable {
     private Integer richTextRelaType = 4;
     private ComRichText richText;
 
+
     @Override
     public Integer getRichTextRelaType() {
         return richTextRelaType;

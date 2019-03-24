@@ -27,11 +27,11 @@ public class AnswerBasicDTO {
         }catch (Exception e){
             System.out.println("Exception");
         }
-        this.is_anonymous = (answer.getUser_anony() == 0) ? false : true;
-        this.creator = new UserDTO(answer.getAnswer_user());
-        this.modified_at = answer.getAnswer_edit_time().toString();
-        this.create_at = answer.getAnswer_pub_time().toString();
-        this.id = answer.getAnswer_id();
+        this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
+        this.creator = new UserDTO(answer.getUser());
+        this.modified_at = answer.getEditTime().toString();
+        this.create_at = answer.getPubTime().toString();
+        this.id = answer.getId();
     }
 
     public RichTextDTO getBody() {

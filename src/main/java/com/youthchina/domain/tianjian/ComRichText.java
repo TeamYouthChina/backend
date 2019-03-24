@@ -1,51 +1,51 @@
 package com.youthchina.domain.tianjian;
 
 public class ComRichText {
-    private int rela_type;
-    private int rela_id;
-    private int compile_type;
-    private String json_content;
-    private String text_content;
+    private int relaType;
+    private int relaId;
+    private int compileType;
+    private String jsonContent;
+    private String textContent;
 
     public ComRichText(){}
 
-    public int getRela_type() {
-        return rela_type;
+    public int getRelaType() {
+        return relaType;
     }
 
-    public void setRela_type(int rela_type) {
-        this.rela_type = rela_type;
+    public void setRelaType(int relaType) {
+        this.relaType = relaType;
     }
 
-    public int getRela_id() {
-        return rela_id;
+    public int getRelaId() {
+        return relaId;
     }
 
-    public void setRela_id(int rela_id) {
-        this.rela_id = rela_id;
+    public void setRelaId(int relaId) {
+        this.relaId = relaId;
     }
 
-    public int getCompile_type() {
-        return compile_type;
+    public int getCompileType() {
+        return compileType;
     }
 
-    public void setCompile_type(int compile_type) {
-        this.compile_type = compile_type;
+    public void setCompileType(int compileType) {
+        this.compileType = compileType;
     }
 
-    public String getJson_content() {
-        return json_content;
+    public String getJsonContent() {
+        return jsonContent;
     }
 
-    public void setJson_content(String json_content) {
-        this.json_content = json_content;
+    public void setJsonContent(String jsonContent) {
+        this.jsonContent = jsonContent;
     }
 
-    public String getText_content() {
-        return text_content;
+    public String getTextContent() {
+        return textContent;
     }
 
-    public void setText_content(String text_content) {
-        this.text_content = text_content;
+    public void setTextContent(String textContent) {
+        this.textContent = textContent;
     }
 }
