@@ -4,6 +4,7 @@ import com.youthchina.domain.jinhao.property.Commentable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.answer.RequestSimpleAnswerDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -22,6 +23,11 @@ public class Answer implements Commentable, RichTextable {
     private List<Comment> comments;
     private Integer richTextRelaType = 4;
     private ComRichText richText;
+
+    public Answer(RequestSimpleAnswerDTO simpleAnswerDTO){
+        this.richText.setJson_content(simpleAnswerDTO.getBody().getBraftEditorRaw());
+        this.richText.setText_content(simpleAnswerDTO.getBody().getPreviewText());
+    }
 
     @Override
     public Integer getRichTextRelaType() {

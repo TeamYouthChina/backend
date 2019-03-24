@@ -3,6 +3,7 @@ package com.youthchina.domain.jinhao;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.question.QuestionRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -22,6 +23,15 @@ public class Question implements RichTextable {
     private Integer rela_id;
     private Integer richTextRelaType = 2;
     private ComRichText richText;
+
+    public Question(QuestionRequestDTO questionRequestDTO){
+        this.title = questionRequestDTO.getTitle();
+        this.isAnony = (questionRequestDTO.getIs_anonymous()==true ? 1 : 0);
+        this.richText.setJson_content(questionRequestDTO.getBody().getBraftEditorRaw());
+        this.richText.setText_content(questionRequestDTO.getBody().getPreviewText());
+        this.rela_type = questionRequestDTO.getRela_type();
+        this.rela_id = questionRequestDTO.getRela_id();
+    }
 
     @Override
     public Integer getRichTextRelaType() {

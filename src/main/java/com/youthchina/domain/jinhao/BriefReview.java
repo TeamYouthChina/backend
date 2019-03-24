@@ -4,6 +4,7 @@ import com.youthchina.domain.jinhao.property.Commentable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.briefreview.RequestBriefReviewDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -19,6 +20,12 @@ public class BriefReview implements Commentable, RichTextable {
     private Integer commentTargetType = 2;
     private Integer richTextRelaType = 3;
     private ComRichText richText;
+
+    public BriefReview(RequestBriefReviewDTO requestBriefReviewDTO){
+        this.relaId = requestBriefReviewDTO.getCompany_id();
+        this.richText.setText_content(requestBriefReviewDTO.getBody().getPreviewText());
+        this.richText.setJson_content(requestBriefReviewDTO.getBody().getBraftEditorRaw());
+    }
 
     @Override
     public Integer getRichTextRelaType() {
