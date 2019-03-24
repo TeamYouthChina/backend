@@ -6,11 +6,11 @@ import org.springframework.security.core.GrantedAuthority;
  * Created by zhongyangwu on 2/20/19.
  */
 public enum Role implements GrantedAuthority {
-    ROOT(0),
-    ADMIN(1),
-    APPLICANT(2),
-    HR(3),
-    EMPLOYER(4);
+    ROOT(1),
+    ADMIN(2),
+    APPLICANT(3),
+    HR(4),
+    EMPLOYER(5);
 
     int value;
 
