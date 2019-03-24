@@ -376,6 +376,16 @@
         </foreach>
     </insert>
 
+    <!--insert Company's Logos By Company's List of Logos-->
+    <insert id="insertCompanyPhoto" useGeneratedKeys="true" keyProperty="logoId">
+        INSERT INTO COMPANY_PHOTO
+        ( DOCU_LOCAL_ID, PHOTO_UPLOAD_TIME, COMPANY_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES
+        <foreach item="photo" collection="photoList" separator=",">
+            (#{photo.docuLocalId}, NOW(), #{companyId}, 0, NULL)
+        </foreach>
+    </insert>
+
     <!--delete Company's Industries By CompanyID-->
     <update id="deleteCompanyInd" parameterType="java.lang.Integer">
       UPDATE COMPANY_INDUSTRY SET IS_DELETE = 1, IS_DELETE_TIME = NOW()

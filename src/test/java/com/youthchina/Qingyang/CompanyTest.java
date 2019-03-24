@@ -232,7 +232,16 @@ public class CompanyTest {
         Company company = companyMapper.selectCompany(1);
         CompanyPhoto photo = company.getPhotoList().get(0);
         Assert.assertEquals("ComPhoto1", photo.getDocuLocalId());
+    }
 
+    @Test
+    public void testUpdateCompanyPhoto(){
+        Company company = companyMapper.selectCompany(1);
+        CompanyPhoto photo = company.getPhotoList().get(0);
+        photo.setDocuLocalId("CompanyPhotoUpdate");
+        companyMapper.updateCompany(company);
+        company = companyMapper.selectCompany(company.getCompanyId());
+        Assert.assertEquals("CompanyPhotoUpdate", photo.getDocuLocalId());
     }
 
 
