@@ -26,12 +26,12 @@ public class JobRecommendServiceImplement implements JobRecommendService {
 
     @Override
     public List<Job> getInternForYou() {
-        List<Integer> jobIds =  recommendMapper.getRandomIntern();
+        List<Integer> jobIds = recommendMapper.getRandomIntern();
         List<Job> jobs = new ArrayList<>();
-        for(Integer id : jobIds){
-           jobs.add(jobMapper.selectJobByJobId(id));
+        for (Integer id : jobIds) {
+            jobs.add(jobMapper.selectJobByJobId(id));
         }
-        for(Job job : jobs){
+        for (Job job : jobs) {
             jobService.setJobLocation(job);
         }
         return jobs;
@@ -39,12 +39,12 @@ public class JobRecommendServiceImplement implements JobRecommendService {
 
     @Override
     public List<Job> getJobForYou() {
-        List<Integer> jobIds =  recommendMapper.getRandomJob();
+        List<Integer> jobIds = recommendMapper.getRandomJob();
         List<Job> jobs = new ArrayList<>();
-        for(Integer id : jobIds){
+        for (Integer id : jobIds) {
             jobs.add(jobMapper.selectJobByJobId(id));
         }
-        for(Job job : jobs){
+        for (Job job : jobs) {
             jobService.setJobLocation(job);
         }
         return jobs;

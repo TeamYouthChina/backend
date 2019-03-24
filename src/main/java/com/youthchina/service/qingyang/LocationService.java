@@ -17,7 +17,7 @@ public class LocationService {
     @Resource
     LocationMapper locationMapper;
 
-    public List<Location> getChildren(String parent){
+    public List<Location> getChildren(String parent) {
         Integer parentId = Integer.valueOf(parent);
         return locationMapper.getChildrenChn(parentId);
     }
@@ -25,13 +25,17 @@ public class LocationService {
     public Location getLocation(Integer region_num) {
         String regionString = "" + region_num;
         Location location;
-        if(regionString.charAt(0) == '9'){
+        if (regionString.charAt(0) == '9') {
             location = locationMapper.getUSALocation(region_num);
-            if(location==null) {return new Location();}
+            if (location == null) {
+                return new Location();
+            }
             location.setNation_code("USA");
         } else {
             location = locationMapper.getChnLocation(region_num);
-            if(location==null) {return new Location();}
+            if (location == null) {
+                return new Location();
+            }
             location.setNation_code("CHN");
         }
 

@@ -15,9 +15,9 @@ public class JobApplyDTO {
     private String status;
 
     public JobApplyDTO(JobApply jobApply) {
-        this.id=jobApply.getApply_id();
-        this.position=new JobResponseDTO(jobApply.getJob());
-        this.status=jobApply.getJob_apply_status();
+        this.id = jobApply.getApply_id();
+        this.position = new JobResponseDTO(jobApply.getJob());
+        this.status = jobApply.getJob_apply_status();
     }
 
     public Integer getId() {

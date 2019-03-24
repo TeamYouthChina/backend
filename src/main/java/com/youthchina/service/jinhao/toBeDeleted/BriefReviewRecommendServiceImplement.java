@@ -16,11 +16,12 @@ public class BriefReviewRecommendServiceImplement implements BriefReviewRecommen
     RecommendMapper recommendMapper;
     @Resource
     BriefReviewServiceImplement briefReviewServiceImplement;
-     @Override
+
+    @Override
     public List<BriefReview> getBriefReviewForYou() throws NotFoundException {
         List<Integer> briefReviewId = recommendMapper.getRandomBriefReview();
         List<BriefReview> briefReviews = new ArrayList<>();
-        for(Integer id : briefReviewId){
+        for (Integer id : briefReviewId) {
             briefReviews.add(briefReviewServiceImplement.get(id));
         }
         return briefReviews;

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
-import com.youthchina.dto.community.question.RequestQuestionDTO;
+import com.youthchina.dto.community.answer.RequestSimpleAnswerDTO;
+import com.youthchina.dto.community.question.QuestionRequestDTO;
 import com.youthchina.dto.util.RichTextDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Assert;
@@ -34,6 +34,7 @@ import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 /**
  * Created by hongshengzhang on 2/10/19.
  */
@@ -97,8 +98,8 @@ public class QuestionControllerTest {
 
     @Test
     public void addQuestionTest() throws Exception {
-        RequestQuestionDTO requestQuestionDTO = new RequestQuestionDTO();
-        requestQuestionDTO.setTitle("Question No.100");
+        QuestionRequestDTO questionRequestDTO = new QuestionRequestDTO();
+        questionRequestDTO.setTitle("Question No.100");
         RichTextDTO richTextDTO = new RichTextDTO();
         //language=JSON
         String json = "{\n" +
@@ -127,14 +128,14 @@ public class QuestionControllerTest {
         } catch (IOException e) {
             Assert.fail();
         }
-        requestQuestionDTO.setBody(richTextDTO);
+        questionRequestDTO.setBody(richTextDTO);
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
-        requestQuestionDTO.setRela_type(2);
-        requestQuestionDTO.setRela_id(2);
-        requestQuestionDTO.setIs_anonymous(true);
+        questionRequestDTO.setRela_type(2);
+        questionRequestDTO.setRela_id(2);
+        questionRequestDTO.setIs_anonymous(true);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(requestQuestionDTO);
+        java.lang.String requestJson = ow.writeValueAsString(questionRequestDTO);
 
         this.mvc.perform(
                 post(this.urlPrefix + "/questions").contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -146,8 +147,8 @@ public class QuestionControllerTest {
 
     @Test
     public void updateQuestionTest() throws Exception {
-        RequestQuestionDTO requestQuestionDTO = new RequestQuestionDTO();
-        requestQuestionDTO.setTitle("How to learn JAVA");
+        QuestionRequestDTO questionRequestDTO = new QuestionRequestDTO();
+        questionRequestDTO.setTitle("How to learn JAVA");
         RichTextDTO richTextDTO = new RichTextDTO();
         //language=JSON
         String json = "{\n" +
@@ -176,12 +177,12 @@ public class QuestionControllerTest {
         } catch (IOException e) {
             Assert.fail();
         }
-        requestQuestionDTO.setBody(richTextDTO);
-        requestQuestionDTO.setIs_anonymous(true);
+        questionRequestDTO.setBody(richTextDTO);
+        questionRequestDTO.setIs_anonymous(true);
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(requestQuestionDTO);
+        java.lang.String requestJson = ow.writeValueAsString(questionRequestDTO);
 
         this.mvc.perform(
 
@@ -197,7 +198,7 @@ public class QuestionControllerTest {
 
         )
                 .andDo(print());
-                //.andExpect(content().json("{\"content\":{\"id\":2,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":null,\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"title\":\"How to learn JAVA\",\"body\":\"I don't know\",\"createAt\":\"2018-12-05T13:32:40.000+0000\",\"editAt\":\"2019-02-14T16:50:27.000+0000\",\"answers\":null,\"invitation\":null,\"labelIds\":null,\"rela_type\":3,\"rela_id\":null,\"abbreviation\":\"Abbreviation of the question No.100\",\"anonymous\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+        //.andExpect(content().json("{\"content\":{\"id\":2,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":null,\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"title\":\"How to learn JAVA\",\"body\":\"I don't know\",\"createAt\":\"2018-12-05T13:32:40.000+0000\",\"editAt\":\"2019-02-14T16:50:27.000+0000\",\"answers\":null,\"invitation\":null,\"labelIds\":null,\"rela_type\":3,\"rela_id\":null,\"abbreviation\":\"Abbreviation of the question No.100\",\"anonymous\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
 
     }
 
@@ -256,8 +257,8 @@ public class QuestionControllerTest {
     }
 
     @Test
-    public void testAddAnswer() throws Exception{
-        SimpleAnswerRequestDTO simpleAnswerDTO = new SimpleAnswerRequestDTO();
+    public void testAddAnswer() throws Exception {
+        RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
         simpleAnswerDTO.setIs_anonymous(true);
         RichTextDTO richTextDTO = new RichTextDTO();
         //language=JSON
@@ -304,10 +305,10 @@ public class QuestionControllerTest {
     }
 
     @Test
-    public void testUserAttentions() throws Exception{
+    public void testUserAttentions() throws Exception {
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/1/attentions").param("type","Question")
+                        (this.urlPrefix + "/users/1/attentions").param("type", "Question")
 
                         .with(authGenerator.authentication())
         )

@@ -2,14 +2,12 @@ package com.youthchina.dto.community.article;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssayReply;
-import com.youthchina.dto.ResponseDTO;
-import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
 import com.youthchina.service.zhongyang.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class EssayReplyResponseDTO implements ResponseDTO {
+public class EssayReplyDTO {
     private Integer id;
     private UserDTO creator;
     private RichTextDTO body;
@@ -19,19 +17,21 @@ public class EssayReplyResponseDTO implements ResponseDTO {
 
     @Autowired
     UserServiceImpl userService;
-    public EssayReplyResponseDTO(){}
 
-    public EssayReplyResponseDTO(ComEssayReply comEssayReply){
+    public EssayReplyDTO() {
+    }
+
+    public EssayReplyDTO(ComEssayReply comEssayReply) {
         this.id = comEssayReply.getReply_id();
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comEssayReply.getReply_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
         this.create_at = String.valueOf(comEssayReply.getReply_pub_time());
-        this.is_anonymous = (comEssayReply.getUser_anony()==1)? true:false;
+        this.is_anonymous = (comEssayReply.getUser_anony() == 1) ? true : false;
         this.modified_at = String.valueOf(comEssayReply.getReply_edit_time());
     }
 
@@ -81,15 +81,5 @@ public class EssayReplyResponseDTO implements ResponseDTO {
 
     public void setIs_anonymous(boolean is_anonymous) {
         this.is_anonymous = is_anonymous;
-    }
-
-    @Override
-    public StatusDTO getStatus() {
-        return null;
-    }
-
-    @Override
-    public void setStatus(StatusDTO status) {
-
     }
 }

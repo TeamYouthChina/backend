@@ -2,30 +2,34 @@ package com.youthchina.dto.community.article;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssayReply;
-import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.RichTextDTO;
 
 
-public class EssayReplyRequestDTO implements RequestDTO {
+public class RequestEssayReplyDTO {
     private RichTextDTO body;
     private boolean isAnonymous;
 
-    public EssayReplyRequestDTO(ComEssayReply comEssayReply){
-        this.isAnonymous = (comEssayReply.getUser_anony()==0)? false:true;
-        try{
+    public RequestEssayReplyDTO(ComEssayReply comEssayReply) {
+        this.isAnonymous = (comEssayReply.getUser_anony() == 0) ? false : true;
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comEssayReply.getReply_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
     }
 
-    public EssayReplyRequestDTO(){}
+    public RequestEssayReplyDTO() {
+    }
 
-    public RichTextDTO getBody(){return body;}
+    public RichTextDTO getBody() {
+        return body;
+    }
 
-    public void setBody(RichTextDTO body){this.body = body;}
+    public void setBody(RichTextDTO body) {
+        this.body = body;
+    }
 
     public boolean isAnonymous() {
         return isAnonymous;

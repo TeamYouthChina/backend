@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface CompanyRecommendService extends DomainCRUDService<Company, Integer> {
     List<Company> getPopCompanyForYou() throws NotFoundException;
+
     List<Company> getNewCompanyForYou();
 }

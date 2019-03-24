@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.dto.community.article.EssayRequestDTO;
-import com.youthchina.dto.community.article.EssayReplyRequestDTO;
+import com.youthchina.dto.community.article.RequestEssayDTO;
+import com.youthchina.dto.community.article.RequestEssayReplyDTO;
 import com.youthchina.dto.util.RichTextDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Assert;
@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.TestExecutionListeners;
@@ -49,6 +50,9 @@ public class EssayControllerTest {
     @Autowired
     private WebApplicationContext context;
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
     @Value("${web.url.prefix}")
     private String urlPrefix;
 
@@ -64,13 +68,12 @@ public class EssayControllerTest {
     @Test
     public void getEssayTest() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/articles/2")
-                .with(authGenerator.authentication())
+                get(this.urlPrefix + "/articles/1")
+                        .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":2,\"title\":\"title\",\"company\":{\"id\":2,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"Abbreviation of the essay 1 but42\",\"resourceIdList\":[]},\"is_anonymous\":true,\"status\":null},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"title\",\"company\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"Abbreviation of the essay 1 but42\",\"resourceIdList\":[]},\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
-
 
 
     @Test
@@ -101,28 +104,33 @@ public class EssayControllerTest {
         } catch (IOException e) {
             Assert.fail();
         }
-        EssayRequestDTO essayRequestDTO = new EssayRequestDTO();
-        essayRequestDTO.setTitle("This is a new article Title");
-        essayRequestDTO.setBody(richTextDTO);
-        essayRequestDTO.setCompany_id(1);
-        essayRequestDTO.setIs_anonymous(false);
+        RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
+        requestEssayDTO.setTitle("This is a new article Title");
+        //RichTextDTO richTextDTO = new RichTextDTO();
+        //richTextDTO.setBraftEditorRaw("{\n" +
+        //       "  \"this\": \"that\"\n" +
+        //        "}");
+        //richTextDTO.setPreviewText("This is a new article Abbre");
+        requestEssayDTO.setBody(richTextDTO);
+        requestEssayDTO.setCompany_id(1);
+        requestEssayDTO.setIs_anonymous(false);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(essayRequestDTO);
+        java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO);
 
         this.mvc.perform(
                 post(this.urlPrefix + "/articles").contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(requestJson)
-                .with(authGenerator.authentication())
+                        .content(requestJson)
+                        .with(authGenerator.authentication())
         )
                 .andDo(print());
     }
 
     @Test
     public void updateEssayTest() throws Exception {
-        EssayRequestDTO essayRequestDTO = new EssayRequestDTO();
-        essayRequestDTO.setTitle("This is a new Title 1");
+        RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
+        requestEssayDTO.setTitle("This is a new Title 1");
         RichTextDTO richTextDTO = new RichTextDTO();
         //language=JSON
         String json = "{\n" +
@@ -152,29 +160,28 @@ public class EssayControllerTest {
             Assert.fail();
         }
 
-        essayRequestDTO.setBody(richTextDTO);
-        essayRequestDTO.setCompany_id(2);
+        requestEssayDTO.setBody(richTextDTO);
+        requestEssayDTO.setCompany_id(2);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(essayRequestDTO);
+        java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO);
 
         this.mvc.perform(
 
-                put(this.urlPrefix + "/articles/2").contentType(MediaType.APPLICATION_JSON_UTF8)
+                put(this.urlPrefix + "/articles/1").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
                         .with(authGenerator.authentication())
         )
                 .andDo(print());
 
         this.mvc.perform(
-                get(this.urlPrefix + "/articles/2")
-                .with(authGenerator.authentication())
+                get(this.urlPrefix + "/articles/1")
+                        .with(authGenerator.authentication())
 
         )
                 .andDo(print());
     }
-
 
 
     @Test
@@ -185,20 +192,20 @@ public class EssayControllerTest {
 
         )
                 .andDo(print());
-//
-//        this.mvc.perform(
-//                get(this.urlPrefix + "/articles/1")
-//                .with(authGenerator.authentication())
-//
-//        )
-//                .andDo(print());
+
+        this.mvc.perform(
+                get(this.urlPrefix + "/articles/1")
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print());
 
 
     }
 
     @Test
     public void addCommentTest() throws Exception {
-        EssayReplyRequestDTO essayDTO = new EssayReplyRequestDTO();
+        RequestEssayReplyDTO essayDTO = new RequestEssayReplyDTO();
         essayDTO.setAnonymous(false);
         RichTextDTO richTextDTO = new RichTextDTO();
         String json = "{\n" +
@@ -234,9 +241,9 @@ public class EssayControllerTest {
         java.lang.String requestJson = ow.writeValueAsString(essayDTO);
 
         this.mvc.perform(
-                post(this.urlPrefix + "/articles/2/comments").contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(requestJson)
-                .with(authGenerator.authentication())
+                post(this.urlPrefix + "/articles/1/comments").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+                        .with(authGenerator.authentication())
         )
                 .andDo(print())
                 .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
@@ -245,7 +252,7 @@ public class EssayControllerTest {
     @Test
     public void updateAttention() throws Exception {
         this.mvc.perform(
-                put(this.urlPrefix + "/articles/2/attention").contentType(MediaType.APPLICATION_JSON_UTF8)
+                put(this.urlPrefix + "/articles/1/attention").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
         )
                 .andDo(print())

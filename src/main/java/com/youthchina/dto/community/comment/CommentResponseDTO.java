@@ -3,10 +3,10 @@ package com.youthchina.dto.community.comment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentResponseDTO {
+public class ResponseCommentDTO {
     private List<CommentDTO> comments;
 
-    public CommentResponseDTO(){
+    public ResponseCommentDTO() {
         comments = new ArrayList<>();
     }
 

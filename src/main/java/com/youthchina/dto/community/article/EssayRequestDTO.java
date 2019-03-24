@@ -2,32 +2,37 @@ package com.youthchina.dto.community.article;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssay;
-import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.RichTextDTO;
 
-public class EssayRequestDTO implements RequestDTO {
+public class RequestEssayDTO {
     private Integer id;
     private String title;
     private Integer company_id;
     private boolean is_anonymous;
     private RichTextDTO body;
 
-    public EssayRequestDTO(ComEssay comEssay){
-        this.id = comEssay.getEssayId();
-        this.title = comEssay.getEssayTitle();
-        try{
+    public RequestEssayDTO(ComEssay comEssay) {
+        this.id = comEssay.getEssay_id();
+        this.title = comEssay.getEssay_title();
+        try {
             ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(comEssay.getEssayBody().getJson_content(), RichTextDTO.class);
+            RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
     }
-    public EssayRequestDTO(){}
 
-    public RichTextDTO getBody(){return body;}
+    public RequestEssayDTO() {
+    }
 
-    public void setBody(RichTextDTO body){this.body = body;}
+    public RichTextDTO getBody() {
+        return body;
+    }
+
+    public void setBody(RichTextDTO body) {
+        this.body = body;
+    }
 
     public Integer getId() {
         return id;

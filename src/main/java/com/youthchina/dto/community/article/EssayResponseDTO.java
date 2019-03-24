@@ -2,15 +2,13 @@ package com.youthchina.dto.community.article;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssay;
-import com.youthchina.dto.ResponseDTO;
-import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
 
 import java.sql.Timestamp;
 
-public class EssayResponseDTO implements ResponseDTO {
+public class EssayDTO {
     private Integer id;
     private String title;
     private CompanyResponseDTO company;
@@ -20,27 +18,32 @@ public class EssayResponseDTO implements ResponseDTO {
     private RichTextDTO body;
     private boolean is_anonymous;
 
-    public EssayResponseDTO(ComEssay comEssay){
-        this.id = comEssay.getEssayId();
-        this.title = comEssay.getEssayTitle();
-        this.create_at = comEssay.getEssayPubTime();
-        this.modified_at = comEssay.getEssayEditTime();
-        this.is_anonymous = (comEssay.getUserAnony() == 0)? false:true;
-        try{
+    public EssayDTO(ComEssay comEssay) {
+        this.id = comEssay.getEssay_id();
+        this.title = comEssay.getEssay_title();
+        this.create_at = comEssay.getEssay_pub_time();
+        this.modified_at = comEssay.getEssay_edit_time();
+        this.is_anonymous = (comEssay.getUser_anony() == 0) ? false : true;
+        try {
             ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(comEssay.getEssayBody().getJson_content(), RichTextDTO.class);
+            RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
-        this.is_anonymous = (comEssay.getUserAnony()==0)? false:true;
+        this.is_anonymous = (comEssay.getUser_anony() == 0) ? false : true;
     }
 
-    public EssayResponseDTO(){}
+    public EssayDTO() {
+    }
 
-    public RichTextDTO getBody(){return body;}
+    public RichTextDTO getBody() {
+        return body;
+    }
 
-    public void setBody(RichTextDTO body){this.body = body;}
+    public void setBody(RichTextDTO body) {
+        this.body = body;
+    }
 
     public Integer getId() {
         return id;
@@ -96,15 +99,5 @@ public class EssayResponseDTO implements ResponseDTO {
 
     public void setIs_anonymous(boolean is_anonymous) {
         this.is_anonymous = is_anonymous;
-    }
-
-    @Override
-    public StatusDTO getStatus() {
-        return null;
-    }
-
-    @Override
-    public void setStatus(StatusDTO status) {
-
     }
 }

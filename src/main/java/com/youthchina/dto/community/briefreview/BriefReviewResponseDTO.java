@@ -1,12 +1,10 @@
 package com.youthchina.dto.community.briefreview;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.BriefReview;
-import com.youthchina.domain.jinhao.Comment;
-import com.youthchina.dto.ResponseDTO;
-import com.youthchina.dto.StatusDTO;
+import com.youthchina.domain.jinhao.communityQA.BriefReview;
+import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.dto.community.comment.CommentDTO;
-import com.youthchina.dto.community.comment.CommentResponseDTO;
+import com.youthchina.dto.community.comment.ResponseCommentDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
 
@@ -15,26 +13,26 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class BriefReviewResponseDTO implements ResponseDTO {
+public class BriefReviewDTO {
     private Integer id;
     private RichTextDTO body;
-    private CommentResponseDTO comments = new CommentResponseDTO();
+    private ResponseCommentDTO comments = new ResponseCommentDTO();
     private UserDTO author;
 
 
-    public BriefReviewResponseDTO(BriefReview briefReview){
-        this.id = briefReview.getId();
-        try{
+    public BriefReviewDTO(BriefReview briefReview) {
+        this.id = briefReview.getReview_id();
+        try {
             ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(briefReview.getRichText().getTextContent(), RichTextDTO.class);
+            RichTextDTO richt = mapper.readValue(briefReview.getReview_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
 
-        List<CommentDTO> commentDTOS = new ArrayList<>();
+        List<CommenTO> commentDTOS = new ArrayList<>();
         Iterator it = briefReview.getComments().iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             Comment comment = (Comment) it.next();
             CommentDTO commentDTO = new CommentDTO(comment);
             comments.getComments().add(commentDTO);
@@ -42,7 +40,8 @@ public class BriefReviewResponseDTO implements ResponseDTO {
 
     }
 
-    public BriefReviewResponseDTO(){}
+    public BriefReviewDTO() {
+    }
 
     public Integer getId() {
         return id;
@@ -60,11 +59,11 @@ public class BriefReviewResponseDTO implements ResponseDTO {
         this.body = body;
     }
 
-    public CommentResponseDTO getComments() {
+    public ResponseCommentDTO getComments() {
         return comments;
     }
 
-    public void setComments(CommentResponseDTO comments) {
+    public void setComments(ResponseCommentDTO comments) {
         this.comments = comments;
     }
 
@@ -74,15 +73,5 @@ public class BriefReviewResponseDTO implements ResponseDTO {
 
     public void setAuthor(UserDTO author) {
         this.author = author;
-    }
-
-    @Override
-    public StatusDTO getStatus() {
-        return null;
-    }
-
-    @Override
-    public void setStatus(StatusDTO status) {
-
     }
 }

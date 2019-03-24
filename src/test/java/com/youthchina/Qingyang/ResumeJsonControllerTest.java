@@ -69,7 +69,7 @@ public class ResumeJsonControllerTest {
     }
 
     @Test
-    public void insertMapperTest() throws Exception{ // PASS
+    public void insertMapperTest() throws Exception { // PASS
         ResumeJson resumeJson = new ResumeJson();
         resumeJson.setJson_count(2);
         resumeJson.setJson_1("111");
@@ -79,7 +79,7 @@ public class ResumeJsonControllerTest {
     }
 
     @Test
-    public void insertServiceTest() throws Exception{ // PASS
+    public void insertServiceTest() throws Exception { // PASS
         ResumeJson resumeJson = new ResumeJson();
         resumeJson.setJson_count(2);
         resumeJson.setJson_1("111");
@@ -91,7 +91,7 @@ public class ResumeJsonControllerTest {
     }
 
     @Test
-    public void insertTest() throws Exception{
+    public void insertTest() throws Exception {
         Integer id = 1;
         ResumeRequestDTO requestDTO = new ResumeRequestDTO();
         String resume = "111";
@@ -108,12 +108,12 @@ public class ResumeJsonControllerTest {
                         .content(insertJson)
         )
                 .andDo(print())
-           //     .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+        //     .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
         ;
     }
 
     @Test
-    public void getTest() throws Exception{
+    public void getTest() throws Exception {
         Integer id = 1;
 
         this.mvc.perform(
@@ -127,7 +127,7 @@ public class ResumeJsonControllerTest {
     }
 
     @Test
-    public void deleteTest() throws Exception{
+    public void deleteTest() throws Exception {
         Integer id = 1;
         this.mvc.perform(
                 delete(this.urlPrefix + "/resumes/" + id)//.param("id", "1").param("detailLevel", "1")
@@ -139,8 +139,8 @@ public class ResumeJsonControllerTest {
     }
 
     @Test
-    public void getByStuIdMapperTest() throws Exception{
-        Integer stu_id  = 1;
+    public void getByStuIdMapperTest() throws Exception {
+        Integer stu_id = 1;
         List<ResumeJson> resumeJsonList = resumeJsonMapper.selectResumeJsonByStuId(stu_id);
 
         Assert.assertEquals(2, resumeJsonList.size());
@@ -149,7 +149,7 @@ public class ResumeJsonControllerTest {
     }
 
     @Test
-    public void getByStuIdServiceTest() throws  Exception{
+    public void getByStuIdServiceTest() throws Exception {
         Integer stu_id = 1;
         List<ResumeJson> resumeJsonList = studentServiceImpl.selectResumeJsonByStuId(stu_id);
 
@@ -158,7 +158,7 @@ public class ResumeJsonControllerTest {
     }
 
     @Test
-    public void getByStuIdControllerTest() throws  Exception{
+    public void getByStuIdControllerTest() throws Exception {
         Integer id = 1;
 
 
@@ -171,8 +171,6 @@ public class ResumeJsonControllerTest {
         //     .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
         ;
     }
-
-    
 
 
 }

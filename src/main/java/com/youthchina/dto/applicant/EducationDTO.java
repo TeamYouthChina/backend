@@ -18,7 +18,7 @@ public class EducationDTO {
     public EducationDTO() {
     }
 
-    public EducationDTO(EducationInfo educationInfo){
+    public EducationDTO(EducationInfo educationInfo) {
         this.university = educationInfo.getEdu_school();
         this.major = educationInfo.getEdu_major();
         this.degree = educationInfo.getDegree().getDegreeChn();

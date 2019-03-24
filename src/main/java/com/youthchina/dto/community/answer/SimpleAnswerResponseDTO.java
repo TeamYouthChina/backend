@@ -2,13 +2,11 @@ package com.youthchina.dto.community.answer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
-import com.youthchina.dto.ResponseDTO;
-import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.question.QuestionBasicDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
 
-public class SimpleAnswerResponseDTO implements ResponseDTO {
+public class SimpleAnswerDTO {
     private RichTextDTO body;
     private boolean is_anonymous;
     private UserDTO creator;
@@ -17,21 +15,22 @@ public class SimpleAnswerResponseDTO implements ResponseDTO {
     private QuestionBasicDTO question;
     private Integer id;
 
-    public SimpleAnswerResponseDTO(){}
+    public SimpleAnswerDTO() {
+    }
 
-    public SimpleAnswerResponseDTO(QuestionAnswer questionAnswer){
-        try{
+    public SimpleAnswerDTO(QuestionAnswer questionAnswer) {
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(questionAnswer.getAnswer_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
         this.id = questionAnswer.getAnswer_id();
         this.is_anonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
         this.creator = new UserDTO(questionAnswer.getAnswer_user());
         this.modified_at = questionAnswer.getAnswer_edit_time().toString();
-        this.create_at =questionAnswer.getAnswer_pub_time().toString();
+        this.create_at = questionAnswer.getAnswer_pub_time().toString();
         this.question = new QuestionBasicDTO(questionAnswer.getQuestion());
     }
 
@@ -89,15 +88,5 @@ public class SimpleAnswerResponseDTO implements ResponseDTO {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    @Override
-    public StatusDTO getStatus() {
-        return null;
-    }
-
-    @Override
-    public void setStatus(StatusDTO status) {
-
     }
 }

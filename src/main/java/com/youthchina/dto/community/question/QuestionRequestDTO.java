@@ -1,11 +1,12 @@
 package com.youthchina.dto.community.question;
 
+import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.RichTextDTO;
 
 /**
  * Created by hongshengzhang on 2/23/19.
  */
-public class RequestQuestionDTO {
+public class QuestionRequestDTO implements RequestDTO {
     String title;
     RichTextDTO body;
     boolean is_anonymous;

@@ -5,7 +5,7 @@ import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.company.CompanyDTO;
+import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -28,7 +28,7 @@ import java.net.URISyntaxException;
  **/
 @RestController
 @RequestMapping("${web.url.prefix}/companies/**")
-public class CompanyController extends DomainCRUDController<CompanyDTO, Company, Integer> {
+public class CompanyController extends DomainCRUDController<CompanyRequestDTO, Company, Integer> {
 
 
     private String url;
@@ -36,10 +36,10 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
     private StudentService studentService;
 
     @Autowired
-    public CompanyController(CompanyCURDService companyService, @Value("${web.url.prefix}") String prefix,StudentService studentService) {
+    public CompanyController(CompanyCURDService companyService, @Value("${web.url.prefix}") String prefix, StudentService studentService) {
         this.companyService = companyService;
         this.url = prefix + "/companies/";
-        this.studentService=studentService;
+        this.studentService = studentService;
     }
 
     @Override
@@ -48,13 +48,13 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
     }
 
     @Override
-    protected CompanyDTO DomainToDto(Company domain) {
-        return new CompanyDTO(domain);
+    protected CompanyRequestDTO DomainToDto(Company domain) {
+        return new CompanyRequestDTO(domain);
     }
 
     @Override
-    protected Company DtoToDomain(CompanyDTO companyDTO) {
-        return new Company(companyDTO);
+    protected Company DtoToDomain(CompanyRequestDTO companyRequestDTO) {
+        return new Company(companyRequestDTO);
     }
 
     @Override
@@ -63,15 +63,15 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyDTO companyDTO) {
-        companyDTO.setUserId(user.getId());
-        return add(companyDTO);
+    public ResponseEntity<?> createCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyRequestDTO companyRequestDTO) {
+        companyRequestDTO.setUserId(user.getId());
+        return add(companyRequestDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyDTO companyDTO) throws NotFoundException {
-        companyDTO.setUserId(user.getId());
-        return update(companyDTO);
+    public ResponseEntity<?> updateCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyRequestDTO companyRequestDTO) throws NotFoundException {
+        companyRequestDTO.setUserId(user.getId());
+        return update(companyRequestDTO);
     }
 
     @GetMapping("/{id}")
@@ -82,45 +82,46 @@ public class CompanyController extends DomainCRUDController<CompanyDTO, Company,
         }
         throw new BaseException();
     }
+
     /**
-    * @Description: 通过company_id以及user_id添加公司收藏
-    * @Param: [company_id, user]
-    * @return: org.springframework.http.ResponseEntity<?>
-    * @Author: Qinghong Wang
-    * @Date: 2019/2/19
-    */
+     * @Description: 通过company_id以及user_id添加公司收藏
+     * @Param: [company_id, user]
+     * @return: org.springframework.http.ResponseEntity<?>
+     * @Author: Qinghong Wang
+     * @Date: 2019/2/19
+     */
     @PutMapping("/{id}/attention")
-    public ResponseEntity<?> addCompanyCollection(@PathVariable("id") Integer company_id, @AuthenticationPrincipal User user) throws NotFoundException{
-        Integer integer= studentService.addCompCollect(company_id,user.getId());
+    public ResponseEntity<?> addCompanyCollection(@PathVariable("id") Integer company_id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Integer integer = studentService.addCompCollect(company_id, user.getId());
         if (integer == 1) {
             return ResponseEntity.ok(new Response
                     (integer));
         } else {
-            return ResponseEntity.ok(new Response(integer, new StatusDTO(400,"cannot collect this company,maybe the company has already delete")));
+            return ResponseEntity.ok(new Response(integer, new StatusDTO(400, "cannot collect this company,maybe the company has already delete")));
 
         }
 
     }
+
     /**
-    * @Description: 通过collect_id删除公司收藏
-    * @Param: [collect_id, user]
-    * @return: org.springframework.http.ResponseEntity<?>
-    * @Author: Qinghong Wang
-    * @Date: 2019/2/19
-    */
+     * @Description: 通过collect_id删除公司收藏
+     * @Param: [collect_id, user]
+     * @return: org.springframework.http.ResponseEntity<?>
+     * @Author: Qinghong Wang
+     * @Date: 2019/2/19
+     */
 
     @DeleteMapping("/attentions/{id}")
-    public ResponseEntity<?> deleteCompanyCollection(@PathVariable("id") Integer collect_id,@AuthenticationPrincipal User user)throws NotFoundException{
-        Integer integer=studentService.deleteCompCollect(collect_id);
+    public ResponseEntity<?> deleteCompanyCollection(@PathVariable("id") Integer collect_id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Integer integer = studentService.deleteCompCollect(collect_id);
         if (integer == 1) {
             return ResponseEntity.ok(new Response
                     (integer));
         } else {
-            return ResponseEntity.ok(new Response(integer, new StatusDTO(400,"cannot delete this company collection,maybe this collection has already delete")));
+            return ResponseEntity.ok(new Response(integer, new StatusDTO(400, "cannot delete this company collection,maybe this collection has already delete")));
 
         }
     }
-
 
 
 }

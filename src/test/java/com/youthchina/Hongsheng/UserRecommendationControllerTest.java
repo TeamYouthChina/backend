@@ -52,7 +52,7 @@ public class UserRecommendationControllerTest {
     }
 
     @Test
-    public void getRecommandUserTest() throws Exception {
+    public void getRecommendUserTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/discovery/users")
                         .with(authGenerator.authentication())

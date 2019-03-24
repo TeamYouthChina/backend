@@ -1,6 +1,7 @@
 package com.youthchina.dto.job;
 
 import com.youthchina.domain.qingyang.Job;
+import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.applicant.OrganizationDTO;
 import com.youthchina.dto.util.LocationDTO;
 
@@ -10,18 +11,18 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 12/2/18.
  */
-public class SimpleJobDTO {
+public class JobRequestDTO implements RequestDTO {
     private int id;
     private String name;
     private OrganizationDTO organization;
     private String type;
     private List<LocationDTO> LocationList;
 
-    public SimpleJobDTO(Job job) {
+    public JobRequestDTO(Job job) {
         this.id = job.getJobId();
         this.name = job.getJobName();
         this.organization = new OrganizationDTO(job.getCompany());
-        for(int i =0; i < job.getJobLocationList().size(); i++){
+        for (int i = 0; i < job.getJobLocationList().size(); i++) {
             this.LocationList.add(new LocationDTO(job.getJobLocationList().get(i)));  //todo: create location object
         }
     }

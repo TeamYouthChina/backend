@@ -10,12 +10,13 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class HrCURDServiceImpl implements HrCURDService{
+public class HrCURDServiceImpl implements HrCURDService {
     @Resource
     HrMapper hrMapper;
 
     /**
      * 搜索Hr
+     *
      * @param id Hr Id
      * @return Hr类
      * @throws NotFoundException
@@ -28,6 +29,7 @@ public class HrCURDServiceImpl implements HrCURDService{
 
     /**
      * 搜索Hr
+     *
      * @param id Hr ID List
      * @return Hr类 List
      * @throws NotFoundException
@@ -40,6 +42,7 @@ public class HrCURDServiceImpl implements HrCURDService{
 
     /**
      * 删除Hr
+     *
      * @param id id
      * @throws NotFoundException
      */
@@ -51,6 +54,7 @@ public class HrCURDServiceImpl implements HrCURDService{
 
     /**
      * 更新Hr
+     *
      * @param hr Hr类
      * @return 更新后的Hr类
      * @throws NotFoundException
@@ -64,6 +68,7 @@ public class HrCURDServiceImpl implements HrCURDService{
 
     /**
      * 添加Hr
+     *
      * @param entity Hr类
      * @return 添加后的Hr类
      */

@@ -6,7 +6,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Country;
-import com.youthchina.dto.company.CompanyDTO;
+import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.dto.util.NationDTO;
 import com.youthchina.util.AuthGenerator;
@@ -70,27 +70,27 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":" +id+ ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 
     @Test
     public void testAddCompany() throws Exception {
-        CompanyDTO companyDTO = new CompanyDTO();
-        companyDTO.setName("Vavle");
+        CompanyRequestDTO companyRequestDTO = new CompanyRequestDTO();
+        companyRequestDTO.setName("Vavle");
         Location location = new Location();
         location.setRegion_num(1);
-        companyDTO.setLocation(new LocationDTO(location));
+        companyRequestDTO.setLocation(new LocationDTO(location));
         Country country = new Country();
         country.setCountryAbbre("USA");
-        companyDTO.setNation(new NationDTO(country));
-        companyDTO.setWebsite("vavle.com");
-        companyDTO.setAvatarUrl("vavle.com/AvatarUrl");
-        companyDTO.setNote("Steam");
+        companyRequestDTO.setNation(new NationDTO(country));
+        companyRequestDTO.setWebsite("vavle.com");
+        companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        companyRequestDTO.setNote("Steam");
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String insertJson = ow.writeValueAsString(companyDTO);
+        java.lang.String insertJson = ow.writeValueAsString(companyRequestDTO);
 
 
         this.mvc.perform(
@@ -100,29 +100,29 @@ public class CompanyControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":{\"nation_code\":\"CHN\",\"location_code\":\"1\"},\"website\":\"vavle.com\",\"nation\":{\"countryAbbre\":\"USA\"},\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\",\"userId\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
+                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":{\"nation_code\":\"CHN\",\"location_code\":\"1\"},\"website\":\"vavle.com\",\"nation\":{\"countryAbbre\":\"USA\"},\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\",\"userId\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 
     @Test
     public void testUpdateCompany() throws Exception {
         int id = 1;
-        CompanyDTO companyDTO = new CompanyDTO();
-        companyDTO.setId(id);
-        companyDTO.setName("Vavle");
+        CompanyRequestDTO companyRequestDTO = new CompanyRequestDTO();
+        companyRequestDTO.setId(id);
+        companyRequestDTO.setName("Vavle");
         Location location = new Location();
         location.setRegion_num(1);
-        companyDTO.setLocation(new LocationDTO(location));
+        companyRequestDTO.setLocation(new LocationDTO(location));
         Country country = new Country();
         country.setCountryAbbre("USA");
-        companyDTO.setNation(new NationDTO(country));
-        companyDTO.setWebsite("vavle.com");
-        companyDTO.setAvatarUrl("vavle.com/AvatarUrl");
-        companyDTO.setNote("Steam");
+        companyRequestDTO.setNation(new NationDTO(country));
+        companyRequestDTO.setWebsite("vavle.com");
+        companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        companyRequestDTO.setNote("Steam");
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String insertJson = ow.writeValueAsString(companyDTO);
+        java.lang.String insertJson = ow.writeValueAsString(companyRequestDTO);
 
         System.out.println(insertJson);
         this.mvc.perform(
