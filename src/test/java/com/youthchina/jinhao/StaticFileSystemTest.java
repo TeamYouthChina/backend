@@ -17,6 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import java.io.IOException;
 import java.net.URL;
 
+/*
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -32,6 +33,7 @@ public class StaticFileSystemTest {
 
     @Autowired
     private SnowFlakeIdGenerate snowFlakeIdGenerate;
+    */
     /*
    @Test
     public void testUploadFile() throws IOException {
@@ -40,7 +42,7 @@ public class StaticFileSystemTest {
       staticFileService.saveFile((Resource) new File("D:\\video3.mp4"),2);
    }
    */
-
+/*
     @Test
     public void testDownload() throws IOException {
         FileStorageService[] fileStorageService = {aliCloudFileStorageService};
@@ -54,3 +56,4 @@ public class StaticFileSystemTest {
         staticFileSystemMapper.setCloudStorageId("DOCU_SERVER_ALI_ID", "55555555555", "2854956924430979072");
     }
 }
+*/
