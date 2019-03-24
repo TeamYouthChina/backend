@@ -10,7 +10,7 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.applicant.CompCollectResponseDTO;
 import com.youthchina.dto.applicant.JobCollectResponseDTO;
 import com.youthchina.dto.community.article.EssayDTO;
-import com.youthchina.dto.community.question.QuestionDTO;
+import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.community.video.VideoDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.ForbiddenException;
@@ -110,13 +110,13 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
 
             }
             case "Question":{
-                List<QuestionDTO> questionDTOS=new ArrayList<>();
+                List<QuestionResponseDTO> questionResponseDTOS =new ArrayList<>();
                 List<Question> questions=communityQAService.listAllUserAttenQuestions(user_id);
                 for (Question question:questions){
-                    QuestionDTO questionDTO=new QuestionDTO(question);
-                    questionDTOS.add(questionDTO);
+                    QuestionResponseDTO questionResponseDTO =new QuestionResponseDTO(question);
+                    questionResponseDTOS.add(questionResponseDTO);
                 }
-                return ResponseEntity.ok(new Response(questionDTOS));
+                return ResponseEntity.ok(new Response(questionResponseDTOS));
             }
             default:throw new NotFoundException(404,404,"do not have this type");
 

@@ -3,6 +3,7 @@ package com.youthchina.dto.community.question;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.Question;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.community.answer.AnswerBasicDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
@@ -14,7 +15,8 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 1/2/19.
  */
-public class QuestionDTO {
+public class QuestionResponseDTO implements ResponseDTO{
+
     private Integer id;
     private UserDTO creator;
     private String title;
@@ -27,7 +29,7 @@ public class QuestionDTO {
     private Integer rela_id;
     private RichTextDTO body;
 
-    public QuestionDTO(Question question) {
+    public QuestionResponseDTO(Question question) {
         this.id = question.getQues_id();
         this.creator = new UserDTO(question.getQues_user());
         this.title = question.getQues_title();
@@ -54,7 +56,7 @@ public class QuestionDTO {
 
     }
 
-    public QuestionDTO(){}
+    public QuestionResponseDTO(){}
 
     public RichTextDTO getBody(){return body;}
 
