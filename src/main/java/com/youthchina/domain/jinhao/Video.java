@@ -1,12 +1,14 @@
 package com.youthchina.domain.jinhao;
 
+import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.domain.jinhao.property.Commentable;
+import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.zhongyang.User;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Video implements Commentable {
+public class Video implements Commentable, Evaluatable, Attentionable {
     private Integer id;
     private String title;
     private String name;
@@ -19,6 +21,26 @@ public class Video implements Commentable {
     private Integer relaType;
     private Integer relaId;
     private Integer commentTargetType = 3;
+    private Integer evaluateTargetType = 1;
+    private Integer attentionTargetType = 1;
+
+    @Override
+    public Integer getEvaluateTargetType() {
+        return evaluateTargetType;
+    }
+
+    public void setEvaluateTargetType(Integer evaluateTargetType) {
+        this.evaluateTargetType = evaluateTargetType;
+    }
+
+    @Override
+    public Integer getAttentionTargetType() {
+        return attentionTargetType;
+    }
+
+    public void setAttentionTargetType(Integer attentionTargetType) {
+        this.attentionTargetType = attentionTargetType;
+    }
 
     public Integer getUserId() {
         return userId;

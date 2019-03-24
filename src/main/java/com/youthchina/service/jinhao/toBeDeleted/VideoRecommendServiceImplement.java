@@ -1,6 +1,5 @@
 package com.youthchina.service.jinhao.toBeDeleted;
 
-import com.youthchina.dao.jinhao.CommunityQAMapper;
 import com.youthchina.dao.jinhao.RecommendMapper;
 import com.youthchina.domain.jinhao.Video;
 import com.youthchina.exception.zhongyang.NotFoundException;

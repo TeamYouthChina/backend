@@ -19,6 +19,15 @@ public class CommentServiceImpl implements CommentService {
     @Resource
     UserMapper userMapper;
 
+    @Resource
+    BriefReviewService briefReviewService;
+
+    @Resource
+    VideoService videoService;
+
+    @Resource
+    AnswerService answerService;
+
     @Override
     public void getComments(Commentable entity) {
         List<Comment> comments = commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
@@ -28,11 +37,34 @@ public class CommentServiceImpl implements CommentService {
         entity.setComments(comments);
     }
 
+    @Override
+    public void isCommentExist(Integer id) throws NotFoundException {
+        if(commentMapper.checkIfCommentExist(id) == null){
+            throw new NotFoundException(404,404,"该评论不存在");
+        }
+    }
+
+    @Override
+    public Comment add(Comment comment, Commentable entity) throws NotFoundException{
+        Integer type = entity.getCommentTargetType();
+        Integer targetId = entity.getId();
+        switch (type){
+            case 2: briefReviewService.isBriefReviewExist(targetId); break;
+            case 3: videoService.isVideoExist(targetId); break;
+            case 4: answerService.isAnswerExist(targetId); break;
+            default:
+                throw new NotFoundException(404,404,"No such type");
+        }
+        comment.setTargetType(type);
+        comment.setTargetId(targetId);
+        commentMapper.add(comment);
+        return comment;
+    }
+
 
     @Override
     public Comment add(Comment comment) {
-        commentMapper.add(comment);
-        return comment;
+        return null;
     }
 
     @Override

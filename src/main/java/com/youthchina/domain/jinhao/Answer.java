@@ -1,6 +1,8 @@
 package com.youthchina.domain.jinhao;
 
+import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.domain.jinhao.property.Commentable;
+import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
@@ -8,7 +10,7 @@ import com.youthchina.domain.zhongyang.User;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Answer implements Commentable, RichTextable {
+public class Answer implements Commentable, RichTextable, Evaluatable, Attentionable {
     private Integer id;
     private Integer targetType;
     private Integer targetId;
@@ -18,10 +20,30 @@ public class Answer implements Commentable, RichTextable {
     private Integer userId;
     private User user;
     private Question question;
-    private Integer commentTargetType = 4;
     private List<Comment> comments;
-    private Integer richTextRelaType = 4;
+    private Integer commentTargetType = 2;
+    private Integer richTextRelaType = 2;
+    private Integer evaluateTargetType = 2;
+    private Integer attentionTargetType = 2;
     private ComRichText richText;
+
+    @Override
+    public Integer getAttentionTargetType() {
+        return attentionTargetType;
+    }
+
+    public void setAttentionTargetType(Integer attentionTargetType) {
+        this.attentionTargetType = attentionTargetType;
+    }
+
+    @Override
+    public Integer getEvaluateTargetType() {
+        return evaluateTargetType;
+    }
+
+    public void setEvaluateTargetType(Integer evaluateTargetType) {
+        this.evaluateTargetType = evaluateTargetType;
+    }
 
     @Override
     public Integer getRichTextRelaType() {
