@@ -143,9 +143,9 @@ public class CompanyTest {
         Logo logo = new Logo();
         logo.setDocuLocalId("logodoc");
         logoList.add(logo);
-        company.setLogos(logoList);
+        company.setLogoList(logoList);
 
-        companyMapper.insertCompanyLogo(company.getId(), company.getLogos());
+        companyMapper.insertCompanyLogo(company.getId(), company.getLogoList());
 
     }
 
