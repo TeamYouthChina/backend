@@ -8,7 +8,7 @@ import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.*;
 import com.youthchina.service.qingyang.JobService;
-import com.youthchina.service.qingyang.LocationService;
+import com.youthchina.service.qingyang.LocationServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +38,7 @@ public class JobTest {
     private LocationMapper locationMapper;
 
     @Autowired
-    private LocationService locationService;
+    private LocationServiceImpl locationServiceImpl;
 
     @Autowired
     private JobService jobService;

@@ -1,9 +1,12 @@
 package com.youthchina.dto.company;
 
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Logo;
 import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.dto.util.NationDTO;
+
+import java.util.List;
 
 /**
  * @author: Qingyang Zhao
@@ -37,7 +40,10 @@ public class CompanyRequestDTO implements RequestDTO {
         this.location = new LocationDTO(domain.getLocation()); // Default: Chinese Location
         this.website = domain.getCompanyWebsite();
         this.nation = new NationDTO(domain.getCountry()); // Default: Chinese Location
-        this.avatarUrl = domain.getLogoList().get(0).getDocuLocalId();
+        List<Logo>  logoList = domain.getLogoList();
+        if(logoList != null && logoList.size() > 0){
+            this.avatarUrl = domain.getLogoList().get(0).getDocuLocalId();
+        }
         this.note = domain.getCompanyIntroduc();
         this.userId = domain.getUserId();
     }

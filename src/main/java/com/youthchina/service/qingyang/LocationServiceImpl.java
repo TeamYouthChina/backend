@@ -12,7 +12,7 @@ import java.util.List;
  * @create: 2019-02-17
  **/
 @Service
-public class LocationService {
+public class LocationServiceImpl {
 
     @Resource
     LocationMapper locationMapper;

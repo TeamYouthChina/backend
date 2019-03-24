@@ -9,16 +9,13 @@ import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotBelongException;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -30,7 +27,7 @@ public class JobServiceImpl implements JobService {
     LocationMapper locationMapper;
 
     @Autowired
-    LocationService locationService;
+    LocationServiceImpl locationServiceImpl;
 
     /**
      * 删除职位 TODO: 通过HrId 确认其有删除权限
@@ -87,14 +84,14 @@ public class JobServiceImpl implements JobService {
             for (int i = 0; i < locationList.size(); i++) {
 
                 Integer regionNum = locationList.get(i).getRegion_num();
-                locationList.set(i, locationService.getLocation(regionNum));
+                locationList.set(i, locationServiceImpl.getLocation(regionNum));
             }
         }
 
         //Set Company Location
         Location comLocation = job.getCompany().getLocation();
         if (comLocation != null) {
-            job.getCompany().setLocation(locationService.getLocation(comLocation.getRegion_num()));
+            job.getCompany().setLocation(locationServiceImpl.getLocation(comLocation.getRegion_num()));
         }
     }
 

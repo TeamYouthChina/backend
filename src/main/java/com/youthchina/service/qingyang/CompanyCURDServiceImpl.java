@@ -27,7 +27,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
 
 
     @Autowired
-    LocationService locationService;
+    LocationServiceImpl locationServiceImpl;
 
     /**
      * 公司搜索
@@ -52,7 +52,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     private void setCompanyLocation(Company company) {
         Location location = company.getLocation();
         if (location != null) {
-            company.setLocation(locationService.getLocation(location.getRegion_num()));
+            company.setLocation(locationServiceImpl.getLocation(location.getRegion_num()));
         }
     }
 
