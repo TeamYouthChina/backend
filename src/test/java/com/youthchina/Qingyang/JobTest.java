@@ -104,9 +104,7 @@ public class JobTest {
     @Test
     public void testJobInsert() {
         Job job = new Job();
-        Hr hr = new Hr();
-        hr.setHrId(1);
-        job.setHr(hr);
+
         Company company = new Company();
         company.setCompanyId(1);
         job.setCompany(company);
@@ -122,6 +120,7 @@ public class JobTest {
         job.setCvReceiMail("youth@china");
         job.setCvNameRule("rule");
         job.setJobActive(1);
+        job.setUserId(1);
         jobMapper.insertJob(job);
         List<Industry> industries = new ArrayList<>();
         Industry industry = new Industry();
@@ -138,9 +137,16 @@ public class JobTest {
         List<Location> locations = new ArrayList<>();
         Location location = new Location();
         location.setRegion_num(1);
+        location.setNation_code("CHN");
         locations.add(location);
         job.setJobLocationList(locations);
         jobMapper.insertJobLocation(job.getId(), job.getJobLocationList());
+        List<Logo> logoList = new ArrayList<>();
+        Logo logo = new Logo();
+        logo.setDocuLocalId("JobLogo");
+        logoList.add(logo);
+        job.setLogoList(logoList);
+        jobMapper.insertJobLogo(job.getId(), job.getLogoList());
     }
 
     @Test
@@ -161,9 +167,10 @@ public class JobTest {
     public void testDeleteJob() {
         Job job = new Job();
         job.setJobId(1);
-        jobMapper.deleteJobDegree(job.getJobId());
-        jobMapper.deleteJobIndustry(job.getJobId());
-        jobMapper.deleteJobLocation(job.getJobId());
+//        jobMapper.deleteJobDegree(job.getJobId());
+//        jobMapper.deleteJobIndustry(job.getJobId());
+//        jobMapper.deleteJobLocation(job.getJobId());
+//        jobMapper.deleteJobLogo(job.getId());
         jobMapper.deleteJob(job.getJobId());
     }
 

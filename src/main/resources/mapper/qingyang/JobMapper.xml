@@ -10,7 +10,7 @@
             COMPANY_ID,               JOB_NAME,     JOB_PROF_CODE,
             JOB_START_TIME, JOB_END_TIME,   JOB_TYPE,     JOB_DESCRIPTION,
             JOB_DUTY,       JOB_HIGHLIGHT, JOB_SALARY_FLOOR, JOB_SALARY_CAP,
-            JOB_LINK,   CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, ADD_TIME, IS_DELETE,
+            JOB_LINK,   CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, USER_ID, ADD_TIME, IS_DELETE,
             IS_DELETE_TIME
         )
         VALUES
@@ -18,7 +18,7 @@
             #{company.companyId},          #{jobName},     #{jobProfCode},
             #{jobStartTime},#{jobEndTime},  #{jobType},     #{jobDescription},
             #{jobDuty},   #{jobHighlight},  #{jobSalaryFloor}, #{jobSalaryCap},
-            #{jobLink},  #{cvReceiMail}, #{cvNameRule},  #{jobActive}, NOW(), 0,
+            #{jobLink},  #{cvReceiMail}, #{cvNameRule},  #{jobActive}, #{userId}, NOW(), 0,
             NULL
         )
     </insert>
@@ -65,6 +65,7 @@
         <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
         <result property="cvNameRule" column="CV_NAME_RULE"/>
         <result property="jobActive" column="JOB_ACTIVE"/>
+        <result property="userId" column="USER_ID"/>
         <result property="addTime" column="JOB_ADD_TIME"/>
         <result property="collectNum" column="JOB_COLLECT_NUM"/>
         <association property="company" column="COMPANY_ID" javaType="com.youthchina.domain.qingyang.Company"
@@ -90,6 +91,7 @@
         </collection>
         <collection property="jobLocationList" ofType="com.youthchina.domain.Qinghong.Location">
             <id property="region_num" column="JOB_REGION_NUM"/>
+            <result property="nation_code" column="JOB_COUNTRY"/>
             <!--<result property="jobId" column="JOB_ID"/>-->
             <!--<result property="region_chn" column="REGION_CHN"/>-->
             <!--<result property="region_eng" column="REGION_ENG"/>-->
@@ -104,7 +106,12 @@
             <result property="degreeEng" column="DEGREE_ENG"/>
             <result property="startDate" column="DEGREE_START_DATE"/>
         </collection>
-
+        <collection property="logoList" ofType="com.youthchina.domain.qingyang.Logo">
+            <id property="logoId" column="LOGO_ID"/>
+            <result property="docuLocalId" column="DOCU_LOCAL_ID"/>
+            <result property="relaType" column="RELA_TYPE"/>
+            <result property="relaId" column="RELA_ID"/>
+        </collection>
     </resultMap>
 
     <resultMap id="jobListMap" type="java.util.HashMap">
@@ -129,8 +136,8 @@
             j.CV_RECEI_MAIL as CV_RECEI_MAIL,
             j.CV_NAME_RULE as CV_NAME_RULE,
             j.JOB_ACTIVE as JOB_ACTIVE,
-            j.HR_ID as HR_ID,
             j.COMPANY_ID as COMPANY_ID,
+            j.USER_ID as USER_ID,
             j.ADD_TIME as JOB_ADD_TIME,
 
             com.COMPANY_NAME as COMPANY_NAME,
@@ -167,6 +174,7 @@
             class.START_TIME as IND_START_TIME,
 
             loc.JOB_REGION_NUM as JOB_REGION_NUM,
+            loc.JOB_COUNTRY as JOB_COUNTRY,
 #             region.REGION_CHN as REGION_CHN,
 #             region.REGION_ENG as REGION_ENG,
 #             region.REGION_LEVEL as REGION_LEVEL,
@@ -189,7 +197,13 @@
             prof.PROF_ENG as PROF_ENG,
             prof.START_TIME as PROF_START_TIME,
 
-            collect.JOB_COLLECT as JOB_COLLECT_NUM
+            collect.JOB_COLLECT as JOB_COLLECT_NUM,
+
+            logo.LOGO_ID as LOGO_ID,
+            logo.DOCU_LOCAL_ID as DOCU_LOCAL_ID,
+            logo.RELA_TYPE as RELA_TYPE,
+            logo.RELA_ID as RELA_ID
+
     </sql>
     <sql id="jobJoin">
         LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0
@@ -203,8 +217,10 @@
         LEFT OUTER JOIN SYS_DEGREE degree ON req.JOB_DEGREE_NUM = degree.DEGREE_NUM
         LEFT OUTER JOIN SYS_PROF_CLASS prof ON j.JOB_PROF_CODE = prof.PROF_CODE AND prof.IS_DELETE = 0
         LEFT OUTER JOIN (SELECT COUNT(JOB_ID) as JOB_COLLECT, JOB_ID FROM STU_JOB_COLLECT WHERE IS_DELETE = 0 GROUP BY JOB_ID) as collect ON collect.JOB_ID = j.JOB_ID
-  </sql>
-    <!--职位详情页, 含公司和HR信息-->
+        LEFT OUTER JOIN COMPANY_JOB_LOGO logo ON logo.RELA_TYPE = 2 AND logo.RELA_ID = j.JOB_ID AND logo.IS_DELETE = 0
+
+</sql>
+    <!--职位详情页, 含公司信息-->
     <select id="selectJobByJobId" resultMap="job" parameterType="java.lang.Integer">
         SELECT
         <include refid="jobSelect"/>
@@ -232,7 +248,7 @@
         FROM JOB_INFO j
         <include refid="jobJoin"/>
         WHERE
-        j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0 AND loc.IS_DELETE = 0
+        j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND loc.IS_DELETE = 0
         <if test="jobId != null">
             AND j.JOB_ID = #{jobId}
         </if>
@@ -282,10 +298,10 @@
             useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO JOB_LOCATION
-        ( JOB_REGION_NUM, JOB_ID, IS_DELETE)
+        ( JOB_REGION_NUM, JOB_COUNTRY, JOB_ID, IS_DELETE)
         VALUES
         <foreach item="item" collection="locations" separator=",">
-            ( #{item.region_num}, #{jobId}, 0)
+            ( #{item.region_num}, #{item.nation_code}, #{jobId}, 0)
         </foreach>
     </insert>
 
@@ -330,13 +346,14 @@
             LEFT OUTER JOIN JOB_LOCATION loc ON j.JOB_ID = loc.JOB_ID AND loc.IS_DELETE = 0
             LEFT OUTER JOIN JOB_DEGREE_REQUIRE req ON j.JOB_ID = req.JOB_ID AND req.IS_DELETE = 0
             LEFT OUTER JOIN STU_JOB_COLLECT ON j.JOB_ID = STU_JOB_COLLECT.JOB_ID AND STU_JOB_COLLECT.IS_DELETE = 0
-
+            LEFT OUTER JOIN COMPANY_JOB_LOGO ON COMPANY_JOB_LOGO.RELA_TYPE = 2 AND j.JOB_ID = COMPANY_JOB_LOGO.RELA_ID AND COMPANY_JOB_LOGO.IS_DELETE = 0
         SET
             j.IS_DELETE = 1, j.IS_DELETE_TIME = NOW(),
             i.IS_DELETE = 1, i.IS_DELETE_TIME = NOW(),
             loc.IS_DELETE = 1, loc.IS_DELETE_TIME = NOW(),
             req.IS_DELETE = 1, req.IS_DELETE_TIME = NOW(),
-            STU_JOB_COLLECT.IS_DELETE = 1, STU_JOB_COLLECT.IS_DELETE_TIME = NOW()
+            STU_JOB_COLLECT.IS_DELETE = 1, STU_JOB_COLLECT.IS_DELETE_TIME = NOW(),
+            COMPANY_JOB_LOGO.IS_DELETE = 1, COMPANY_JOB_LOGO.IS_DELETE_TIME = NOW()
     </sql>
 
     <update id="deleteJob" parameterType="java.lang.Integer">
@@ -348,6 +365,22 @@
         <include refid="jobDelete"/>
         WHERE j.COMPANY_ID= #{comId}
     </update>
+
+    <!--delete Logo of Job By JobID-->
+    <update id="deleteJobLogo" parameterType="java.lang.Integer">
+        UPDATE COMPANY_JOB_LOGO SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE RELA_TYPE = 2 AND RELA_ID = #{id}
+    </update>
+
+    <!--insert Job's Logos By Job's List of Logos-->
+    <insert id="insertJobLogo" useGeneratedKeys="true" keyProperty="logoId">
+        INSERT INTO COMPANY_JOB_LOGO
+        ( DOCU_LOCAL_ID, RELA_TYPE, RELA_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES
+        <foreach item="logo" collection="logoList" separator=",">
+            (#{logo.docuLocalId}, 2, #{jobId}, 0, NULL)
+        </foreach>
+    </insert>
 
 
 </mapper>
