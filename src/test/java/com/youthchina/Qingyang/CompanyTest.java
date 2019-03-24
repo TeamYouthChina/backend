@@ -216,7 +216,7 @@ public class CompanyTest {
     @Test
     public void testGetCompanyLogo(){
         Company company = companyMapper.selectCompany(1);
-        Logo logo = company.getLogos().get(0);
+        Logo logo = company.getLogoList().get(0);
         Assert.assertEquals("COMLOGO1", logo.getDocuLocalId());
 
     }
