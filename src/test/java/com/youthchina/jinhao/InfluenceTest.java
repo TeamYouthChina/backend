@@ -24,6 +24,9 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import java.util.LinkedList;
 import java.util.List;
 
+/*
+
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -182,3 +185,4 @@ public class InfluenceTest {
         System.out.println(personInfluence.getPers_total());
     }
 }
+ */

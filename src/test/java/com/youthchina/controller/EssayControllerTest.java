@@ -1,4 +1,3 @@
-
 package com.youthchina.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,7 +39,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 
 /*
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -269,7 +267,7 @@ public class EssayControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(COM_FRIEND_RELATION_MAPcontent().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
@@ -282,4 +280,5 @@ public class EssayControllerTest {
                 .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"reply_content42\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"Body Body 1\",\"resourceIdList\":[]},\"create_at\":\"2018-12-04 13:32:40.0\",\"is_anonymous\":false,\"modified_at\":\"2018-12-04 13:32:40.0\"}]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 }
+
 */

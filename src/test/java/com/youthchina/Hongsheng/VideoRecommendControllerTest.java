@@ -23,7 +23,10 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 /*
+
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -59,4 +62,5 @@ public class VideoRecommendControllerTest {
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
     }
-}*/
+}
+ */

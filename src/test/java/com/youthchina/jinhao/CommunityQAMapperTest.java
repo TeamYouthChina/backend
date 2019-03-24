@@ -18,6 +18,9 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import java.sql.Timestamp;
 import java.util.List;
 
+/*
+
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -975,3 +978,4 @@ public class CommunityQAMapperTest {
     }
 }
 
+ */

@@ -27,7 +27,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by hongshengzhang on 2/26/19.
  */
+
 /*
+
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -62,4 +65,6 @@ public class QuestionRecommendControllerTest {
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
     }
-}*/
+}
+
+ */

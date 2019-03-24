@@ -28,7 +28,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by hongshengzhang on 2/26/19.
  */
+
 /*
+
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @DatabaseSetup({"classpath:recommendation.xml"})
@@ -64,4 +67,4 @@ public class CompanyRecommendControllerTest {
                 .andExpect(content().json("{\"content\":{\"companies\":[{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},{\"id\":2,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},{\"id\":3,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":\"市辖区\",\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":4,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":\"市辖区\",\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":5,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":\"市辖区\",\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":6,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},{\"id\":7,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},{\"id\":8,\"name\":\"腾讯\",\"avatarUrl\":\"1\",\"location\":\"市辖区\",\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":9,\"name\":\"腾牛讯\",\"avatarUrl\":\"1\",\"location\":\"市辖区\",\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"},{\"id\":10,\"name\":\"腾讯深圳总公司\",\"avatarUrl\":\"1\",\"location\":\"市辖区\",\"website\":\"QQ.com\",\"note\":\"QQ\",\"nation\":\"中国\"}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 }
-*/
+ */
