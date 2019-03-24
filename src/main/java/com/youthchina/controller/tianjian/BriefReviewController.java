@@ -3,22 +3,20 @@ package com.youthchina.controller.tianjian;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.jinhao.BriefReview;
-import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.communityQA.BriefReview;
+import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.domain.jinhao.communityQA.Evaluate;
-import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
-import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
+import com.youthchina.dto.community.briefreview.RequestBriefReviewDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
-import com.youthchina.dto.community.comment.CommentRequestDTO;
-import com.youthchina.dto.community.comment.CommentResponseDTO;
+import com.youthchina.dto.community.comment.RequestCommentDTO;
+import com.youthchina.dto.community.comment.ResponseCommentDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.BriefReviewServiceImplement;
 import com.youthchina.service.jinhao.communityQA.BriefReviewServiceImplement;
 import com.youthchina.service.zhongyang.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +43,7 @@ public class BriefReviewController {
     @GetMapping("/{id}")
     public ResponseEntity getBriefReview(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         BriefReview briefReview = briefReviewServiceImplement.get(id);
+
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReview);
         briefReviewResponseDTO.setAuthor(new UserDTO(userService.get(user.getId())));
         if (briefReviewResponseDTO !=null)
@@ -60,33 +59,32 @@ public class BriefReviewController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateBriefReview(@PathVariable Integer id, @RequestBody BriefReviewRequestDTO briefReviewRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity updateBriefReview(@PathVariable Integer id, @RequestBody RequestBriefReviewDTO requestBriefReviewDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         BriefReview briefReview = new BriefReview();
-        briefReview.setId(id);
+        briefReview.setReview_id(id);
+        briefReview.setIs_delete(0);
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(briefReviewRequestDTO.getBody());
-            ComRichText comRichText = new ComRichText();
-            comRichText.setRelaId(id);
-            comRichText.setJsonContent(requestJson);
-            comRichText.setTextContent(requestJson);
-            briefReview.setRichText(comRichText);
+            java.lang.String requestJson = ow.writeValueAsString(requestBriefReviewDTO.getBody());
+            briefReview.setReview_content(requestJson);
         }catch (Exception e){
             System.out.println("Exception");
         }
 
+        Timestamp time =  new Timestamp(System.currentTimeMillis());
+        briefReview.setReview_time(time);
         briefReview.setUser(user);
-        if(briefReviewRequestDTO.getCompany_id()!=null) {
-            briefReview.setRelaType(2);
-            briefReview.setRelaId(briefReviewRequestDTO.getCompany_id());
+        if(requestBriefReviewDTO.getCompany_id()!=null) {
+            briefReview.setRela_type(2);
+            briefReview.setRela_id(requestBriefReviewDTO.getCompany_id());
         }
         BriefReview briefReviewReturn =  briefReviewServiceImplement.update(briefReview);
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO();
 
         try{
             ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(briefReviewReturn.getRichText().getJsonContent(), RichTextDTO.class);
+            RichTextDTO richt = mapper.readValue(briefReviewReturn.getReview_content(), RichTextDTO.class);
             briefReviewResponseDTO.setBody(richt);
         }catch (Exception e){
             System.out.println("Exception");
@@ -99,10 +97,10 @@ public class BriefReviewController {
             CommentDTO commentDTOTest = it.next();
             commentDTOList.add(commentDTOTest);
         }
-        CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
-        commentResponseDTO.setComments(commentDTOList);
-        briefReviewResponseDTO.setComments(commentResponseDTO);
-        briefReviewResponseDTO.setId(briefReviewReturn.getId());
+        ResponseCommentDTO responseCommentDTO = new ResponseCommentDTO();
+        responseCommentDTO.setComments(commentDTOList);
+        briefReviewResponseDTO.setComments(responseCommentDTO);
+        briefReviewResponseDTO.setId(briefReviewReturn.getReview_id());
         if (briefReviewResponseDTO !=null)
             return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(200,"success")));
         else
@@ -110,31 +108,31 @@ public class BriefReviewController {
     }
 
     @PostMapping
-    public ResponseEntity addBriefReview(@RequestBody BriefReviewRequestDTO briefReviewRequestDTO, @AuthenticationPrincipal User user) {
+    public ResponseEntity addBriefReview(@RequestBody RequestBriefReviewDTO requestBriefReviewDTO,@AuthenticationPrincipal User user) throws NotFoundException {
         BriefReview briefReview = new BriefReview();
+        briefReview.setIs_delete(0);
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(briefReviewRequestDTO.getBody());
-            ComRichText comRichText = new ComRichText();
-            comRichText.setJsonContent(requestJson);
-            comRichText.setTextContent(requestJson);
-            briefReview.setRichText(comRichText);
+            java.lang.String requestJson = ow.writeValueAsString(requestBriefReviewDTO.getBody());
+            briefReview.setReview_content(requestJson);
         }catch (Exception e){
             System.out.println("Exception");
         }
 
+        Timestamp time =  new Timestamp(System.currentTimeMillis());
+        briefReview.setReview_time(time);
         briefReview.setUser(user);
-        if(briefReviewRequestDTO.getCompany_id()!=null) {
-            briefReview.setRelaType(2);
-            briefReview.setRelaId(briefReviewRequestDTO.getCompany_id());
+        if(requestBriefReviewDTO.getCompany_id()!=null) {
+            briefReview.setRela_type(2);
+            briefReview.setRela_id(requestBriefReviewDTO.getCompany_id());
         }
         BriefReview briefReviewReturn =  briefReviewServiceImplement.add(briefReview);
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO();
 
         try{
             ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(briefReviewReturn.getRichText().getJsonContent(), RichTextDTO.class);
+            RichTextDTO richt = mapper.readValue(briefReviewReturn.getReview_content(), RichTextDTO.class);
             briefReviewResponseDTO.setBody(richt);
         }catch (Exception e){
             System.out.println("Exception");
@@ -147,10 +145,10 @@ public class BriefReviewController {
             CommentDTO commentDTOTest = it.next();
             commentDTOList.add(commentDTOTest);
         }
-        CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
-        commentResponseDTO.setComments(commentDTOList);
-        briefReviewResponseDTO.setComments(commentResponseDTO);
-        briefReviewResponseDTO.setId(briefReviewReturn.getId());
+        ResponseCommentDTO responseCommentDTO = new ResponseCommentDTO();
+        responseCommentDTO.setComments(commentDTOList);
+        briefReviewResponseDTO.setComments(responseCommentDTO);
+        briefReviewResponseDTO.setId(briefReviewReturn.getReview_id());
         if (briefReviewResponseDTO !=null)
             return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(201,"success")));
         else
@@ -158,24 +156,24 @@ public class BriefReviewController {
     }
 
     @PostMapping("/{id}/comments")
-    public ResponseEntity addBriefReviewComment(@PathVariable Integer id, @RequestBody CommentRequestDTO commentRequestDTO, @AuthenticationPrincipal User user){
+    public ResponseEntity addBriefReviewComment(@PathVariable Integer id, @RequestBody RequestCommentDTO requestCommentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Comment comment = new Comment();
         comment.setUser(user);
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(commentRequestDTO.getBody());
-            comment.setContent(requestJson);
+            java.lang.String requestJson = ow.writeValueAsString(requestCommentDTO.getBody());
+            comment.setComment_content(requestJson);
         }catch (Exception e){
             System.out.println("Exception");
         }
 
+        comment.setIs_delete(0);
         Timestamp time =  new Timestamp(System.currentTimeMillis());
-        comment.setPubTime(time);
-        comment.setUser(user);
-
-        comment.setIsAnony((commentRequestDTO.getIs_anonymous()==true)? 1:0);
-        Comment commentreturn = briefReviewServiceImplement.(comment,id);
+        comment.setComment_pub_time(time);
+        comment.setUser_id(user.getId());
+        comment.setUser_anony((requestCommentDTO.getIs_anonymous()==true)? 1:0);
+        Comment commentreturn = briefReviewServiceImplement.addComment(comment,id);
         if ( commentreturn!=null)
             return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
         else
@@ -184,6 +182,7 @@ public class BriefReviewController {
 
     @PutMapping("/{id}/upvote")
     public ResponseEntity updateBriefReviewUpvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Evaluate evaluate = briefReviewServiceImplement.doEvaluate(user.getId(),id,1);
         if ( evaluate!=null)
             return ResponseEntity.ok(new Response(new StatusDTO(200,"success")));
         else
@@ -191,7 +190,7 @@ public class BriefReviewController {
     }
 
     @GetMapping("/{id}/comments")
-    public ResponseEntity getBriefReviewComments(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity getBriefReviewComments(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         List<Comment> comments = briefReviewServiceImplement.getAllCommentsOfReview(id);
         List<CommentDTO> commentDTOS = new ArrayList<>();
         if(comments!=null){
@@ -201,12 +200,12 @@ public class BriefReviewController {
                 commentDTOS.add(commentDTO);
             }
         }
-        CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
-        commentResponseDTO.setComments(commentDTOS);
-        if ( commentResponseDTO !=null)
-            return ResponseEntity.ok(new Response(commentResponseDTO,new StatusDTO(200,"success")));
+        ResponseCommentDTO responseCommentDTO = new ResponseCommentDTO();
+        responseCommentDTO.setComments(commentDTOS);
+        if ( responseCommentDTO!=null)
+            return ResponseEntity.ok(new Response(responseCommentDTO,new StatusDTO(200,"success")));
         else
-            return ResponseEntity.ok(new Response(commentResponseDTO,new StatusDTO(400,"fail")));
+            return ResponseEntity.ok(new Response(responseCommentDTO,new StatusDTO(400,"fail")));
     }
 
 }

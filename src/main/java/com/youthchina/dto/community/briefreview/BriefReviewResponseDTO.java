@@ -1,7 +1,7 @@
 package com.youthchina.dto.community.briefreview;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.BriefReview;
+import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.communityQA.Comment;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.ResponseCommentDTO;
@@ -13,15 +13,15 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class BriefReviewDTO {
+public class BriefReviewResponseDTO {
     private Integer id;
     private RichTextDTO body;
     private ResponseCommentDTO comments = new ResponseCommentDTO();
     private UserDTO author;
 
 
-    public BriefReviewDTO(BriefReview briefReview) {
-        this.id = briefReview.getReview_id();
+    public BriefReviewResponseDTO(BriefReview briefReview) {
+        this.id = briefReview.getId();
         try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(briefReview.getReview_content(), RichTextDTO.class);
@@ -30,7 +30,7 @@ public class BriefReviewDTO {
             System.out.println("Exception");
         }
 
-        List<CommenTO> commentDTOS = new ArrayList<>();
+        List<CommentDTO> commentDTOS = new ArrayList<>();
         Iterator it = briefReview.getComments().iterator();
         while (it.hasNext()) {
             Comment comment = (Comment) it.next();
@@ -40,7 +40,7 @@ public class BriefReviewDTO {
 
     }
 
-    public BriefReviewDTO() {
+    public BriefReviewResponseDTO() {
     }
 
     public Integer getId() {
