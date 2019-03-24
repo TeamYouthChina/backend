@@ -1,32 +1,23 @@
 package com.youthchina.dto.community.comment;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.VideoComment;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.domain.jinhao.Comment;
 
 public class VideoCommentDTO {
-    private RichTextDTO body;
+    private String body;
     private boolean is_anonymous;
 
-    public VideoCommentDTO(VideoComment videocomment) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(videocomment.getComment_content(), RichTextDTO.class);
-            this.body = richt;
-        } catch (Exception e) {
-            System.out.println("Exception");
-        }
-        this.is_anonymous = (videocomment.getUser_anony() == 1) ? true : false;
+    public VideoCommentDTO(Comment videocomment){
+        this.body = videocomment.getContent();
+        this.is_anonymous = (videocomment.getIsAnony()==1)? true:false;
     }
 
-    public VideoCommentDTO() {
-    }
+    public VideoCommentDTO(){}
 
-    public RichTextDTO getBody() {
+    public String getBody() {
         return body;
     }
 
-    public void setBody(RichTextDTO body) {
+    public void setBody(String body) {
         this.body = body;
     }
 

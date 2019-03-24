@@ -24,6 +24,9 @@ import java.util.List;
  * @author: Qinghong Wang
  * @create: 2019-01-01 21:43
  **/
+/*
+
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -313,3 +316,4 @@ public class StudentMapperTest {
 
 }
 
+ */

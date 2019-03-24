@@ -1,6 +1,7 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.EducationInfo;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**
@@ -9,7 +10,7 @@ import com.youthchina.dto.util.DurationDTO;
  * @author: Qinghong Wang
  * @create: 2019-02-24 15:29
  **/
-public class EducationResponseDTO {
+public class EducationResponseDTO implements ResponseDTO {
     private Integer id;
     private String university;
     private String major;

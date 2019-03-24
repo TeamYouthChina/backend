@@ -21,6 +21,8 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 11/12/18.
  */
+
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -153,7 +155,7 @@ public class CommunityMapperTest {
         ComEssayReply comessayanswer = new ComEssayReply();
         comessayanswer.setUser_id(1003);
         comessayanswer.setReply_content("reply");
-        comessayanswer.setUser_anony(1);
+        comessayanswer.setUser_anony(1);https://github.com/Destiny123123/backend
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comessayanswer.setReply_pub_time(time);
         comessayanswer.setReply_edit_time(time);
@@ -326,4 +328,4 @@ public class CommunityMapperTest {
         System.out.println(comFriendGroups.size());
     }
 
-}
+}*/

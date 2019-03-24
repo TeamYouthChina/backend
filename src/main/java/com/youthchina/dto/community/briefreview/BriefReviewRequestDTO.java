@@ -1,18 +1,17 @@
 package com.youthchina.dto.community.briefreview;
 
-import com.youthchina.dto.RequestDTO;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.dto.util.RichTextDTOResponse;
 
-public class BriefReviewRequestDTO implements RequestDTO {
-    private RichTextDTO body;
+public class RequestBriefReviewDTO {
+    private RichTextDTOResponse body;
 
     private Integer company_id;
 
-    public RichTextDTO getBody() {
+    public RichTextDTOResponse getBody() {
         return body;
     }
 
-    public void setBody(RichTextDTO body) {
+    public void setBody(RichTextDTOResponse body) {
         this.body = body;
     }
 

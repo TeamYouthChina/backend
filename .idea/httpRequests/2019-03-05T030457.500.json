@@ -1,0 +1,7 @@
+{
+  "timestamp": "2019-03-05T20:04:57.397+0000",
+  "status": 500,
+  "error": "Internal Server Error",
+  "message": "No message available",
+  "path": "/api/v1/discovery/articles"
+}

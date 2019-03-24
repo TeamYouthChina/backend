@@ -6,37 +6,32 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.youthchina.domain.tianjian.ComRichText;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RichTextDTO {
+public class RichTextDTOResponse {
 
     private String braftEditorRaw;
     private String previewText;
-    private List<String> resourceIdList;
+    private Integer compiletype;
 
-    public RichTextDTO() {
+    public RichTextDTOResponse() {
 
     }
 
-    public RichTextDTO(String json) {
-        try {
-            RichTextDTO processed = new ObjectMapper().readValue(json, RichTextDTO.class);
-            this.braftEditorRaw = processed.braftEditorRaw;
-            this.previewText = processed.previewText;
-            this.resourceIdList = processed.resourceIdList;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public RichTextDTOResponse(ComRichText comRichText) {
+        this.braftEditorRaw = comRichText.getJson_content();
+        this.previewText = comRichText.getText_content();
+        this.compiletype = comRichText.getCompile_type();
     }
 
     public void setBraftEditorRaw(String braftEditorRaw) {
         this.braftEditorRaw = braftEditorRaw;
     }
-
 
     @JsonSetter
     public void setBraftEditorRaw(Map<String, Object> braftEditorRaw) {
@@ -75,7 +70,7 @@ public class RichTextDTO {
         try {
             return objectMapper.writeValueAsString(this.braftEditorRaw);
         } catch (JsonProcessingException e) {
-            System.out.println("12345");
+           // System.out.println("12345");
             e.printStackTrace();
         }
         return null;
@@ -89,11 +84,7 @@ public class RichTextDTO {
         return previewText;
     }
 
-    public void setresourceIdList(List resourceIdList) {
-        this.resourceIdList = resourceIdList;
-    }
+    public void setCompiletype(Integer compiletype){ this.compiletype = compiletype; }
 
-    public List getresourceIdList() {
-        return resourceIdList;
-    }
+    public Integer getCompiletype(){ return compiletype; }
 }
