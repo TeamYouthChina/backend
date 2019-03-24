@@ -1,11 +1,11 @@
 package com.youthchina.controller.Hongsheng;
 
-import com.youthchina.domain.jinhao.communityQA.BriefReview;
+import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.communityQA.BriefReviewRecommendServiceImplement;
+import com.youthchina.service.jinhao.toBeDeleted.BriefReviewRecommendServiceImplement;
 import com.youthchina.service.tianjian.StaticFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

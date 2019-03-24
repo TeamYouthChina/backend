@@ -1,10 +1,6 @@
 package com.youthchina.domain.jinhao;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.community.article.EssayReplyRequestDTO;
-import com.youthchina.dto.community.comment.CommentDTO;
 
 import java.sql.Timestamp;
 
@@ -19,23 +15,8 @@ public class Comment {
     private Integer targetType;
     private Integer targetId;
 
-    public Comment(){}
     public Integer getId() {
         return id;
-    }
-    public Comment(CommentDTO commentDTO) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(commentDTO.getBody());
-            this.content = requestJson;
-        } catch (Exception e) {
-            System.out.println("Exception");
-        }
-        this.pubTime = commentDTO.getCreate_at();
-        this.user = new User(commentDTO.getCreator());
-        this.id = commentDTO.getId();
-        this.isAnony = (commentDTO.isIs_anonymous()) ? 1 : 0;
     }
 
     public void setId(Integer id) {
