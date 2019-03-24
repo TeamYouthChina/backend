@@ -51,7 +51,7 @@ public class BriefReviewControllerTest {
 
     @Test
     public void updateBriefReviewTest() throws Exception {
-        RequestBriefReviewDTO requestBriefReviewDTO = new RequestBriefReviewDTO();
+        BriefReviewRequestDTO requestBriefReviewDTO = new BriefReviewRequestDTO();
         RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         //language=JSON
         String json = "{\n" +
@@ -100,7 +100,7 @@ public class BriefReviewControllerTest {
 
     @Test
     public void addBriefReviewTest() throws Exception {
-        RequestBriefReviewDTO requestBriefReviewDTO = new RequestBriefReviewDTO();
+        BriefReviewRequestDTO requestBriefReviewDTO = new BriefReviewRequestDTO();
         RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         //language=JSON
         String json = "{\n" +
@@ -146,7 +146,7 @@ public class BriefReviewControllerTest {
 
     @Test
     public void addBriefReviewCommentsTest() throws Exception {
-        RequestCommentDTO requestCommentDTO = new RequestCommentDTO();
+        CommentRequestDTO requestCommentDTO = new CommentRequestDTO();
         RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         //language=JSON
         String json = "{\n" +

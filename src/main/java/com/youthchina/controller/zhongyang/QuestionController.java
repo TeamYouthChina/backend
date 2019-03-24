@@ -5,8 +5,8 @@ import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.answer.RequestSimpleAnswerDTO;
-import com.youthchina.dto.community.answer.SimpleAnswerDTO;
+import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
+import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.question.QuestionBasicDTO;
 import com.youthchina.dto.community.question.QuestionDTO;
 import com.youthchina.dto.community.question.RequestQuestionDTO;
@@ -165,14 +165,14 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     }
 
     @PostMapping("/{id}/answers")
-    public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody RequestSimpleAnswerDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody SimpleAnswerRequestDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         System.out.println("add answers");
         Answer answer = new Answer(simpleAnswerDTO);
         answer.setUser_id(user.getId());
         answer.setAnswer_pub_time(new Timestamp(System.currentTimeMillis()));
         answer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
 
-        SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(communityQAService.addAnswer(answer,id,1));
+        SimpleAnswerResponseDTO returnSimpleAnswer = new SimpleAnswerResponseDTO(communityQAService.addAnswer(answer,id,1));
         if (returnSimpleAnswer!=null)
             return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
         else

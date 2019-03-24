@@ -5,7 +5,7 @@ import com.youthchina.domain.jinhao.Video;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.comment.VideoCommentDTO;
+import com.youthchina.dto.community.comment.VideoCommentRequestDTO;
 import com.youthchina.dto.community.video.VideoDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -75,7 +75,7 @@ public class VideoController {
     }
 
     @PostMapping("/{id}/comments")
-    public ResponseEntity<?> addComments(@PathVariable Integer id, @RequestBody VideoCommentDTO commentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> addComments(@PathVariable Integer id, @RequestBody VideoCommentRequestDTO commentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         System.out.println("add answers");
         Comment videocomment = new Comment(commentDTO);
         videocomment.setComment_pub_time(new Timestamp(System.currentTimeMillis()));

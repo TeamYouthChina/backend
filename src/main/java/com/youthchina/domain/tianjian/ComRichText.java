@@ -1,5 +1,8 @@
 package com.youthchina.domain.tianjian;
 
+import com.youthchina.dto.util.RichTextDTORequest;
+import com.youthchina.dto.util.RichTextDTOResponse;
+
 public class ComRichText {
     private int relaType;
     private int relaId;
@@ -8,6 +11,11 @@ public class ComRichText {
     private String textContent;
 
     public ComRichText(){}
+
+    public ComRichText(RichTextDTORequest richTextDTORequest){
+        this.jsonContent = richTextDTORequest.getBraftEditorRaw();
+        this.textContent = richTextDTORequest.getPreviewText();
+    }
 
     public int getRelaType() {
         return relaType;
