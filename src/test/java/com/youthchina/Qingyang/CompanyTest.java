@@ -227,5 +227,13 @@ public class CompanyTest {
 
     }
 
+    @Test
+    public void testGetCompanyPhoto(){
+        Company company = companyMapper.selectCompany(1);
+        CompanyPhoto photo = company.getPhotoList().get(0);
+        Assert.assertEquals("ComPhoto1", photo.getDocuLocalId());
+
+    }
+
 
 }

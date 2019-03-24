@@ -109,13 +109,13 @@
         <!--ofType="com.youthchina.dao.qingyang.CompanyMapper.logo"-->
         <collection property="logoList" ofType="com.youthchina.domain.qingyang.Logo">
             <id property="logoId" column="LOGO_ID"/>
-            <result property="docuLocalId" column="DOCU_LOCAL_ID"/>
+            <result property="docuLocalId" column="LOGO_DOCU_LOCAL_ID"/>
             <result property="relaType" column="RELA_TYPE"/>
             <result property="relaId" column="RELA_ID"/>
         </collection>
         <collection property="photoList" ofType="com.youthchina.domain.qingyang.CompanyPhoto">
             <id property="photoId" column="PHOTO_ID"/>
-            <result property="docuLocalId" column="DOCU_LOCAL_ID"/>
+            <result property="docuLocalId" column="PHOTO_DOCU_LOCAL_ID"/>
             <result property="uploadTime" column="PHOTO_UPLOAD_TIME"/>
             <result property="companyId" column="COMPANY_ID"/>
         </collection>
@@ -168,12 +168,12 @@
               collect.COM_COLLECT as COMPANY_COLLECT_NUM,
 
               logo.LOGO_ID as LOGO_ID,
-              logo.DOCU_LOCAL_ID as DOCU_LOCAL_ID,
+              logo.DOCU_LOCAL_ID as LOGO_DOCU_LOCAL_ID,
               logo.RELA_TYPE as RELA_TYPE,
               logo.RELA_ID as RELA_ID,
 
               photo.PHOTO_ID as PHOTO_ID,
-              photo.DOCU_LOCAL_ID as DOCU_LOCAL_ID,
+              photo.DOCU_LOCAL_ID as PHOTO_DOCU_LOCAL_ID,
               photo.PHOTO_UPLOAD_TIME as PHOTO_UPLOAD_TIME
 
 
