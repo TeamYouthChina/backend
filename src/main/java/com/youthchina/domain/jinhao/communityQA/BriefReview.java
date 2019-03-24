@@ -2,8 +2,9 @@ package com.youthchina.domain.jinhao.communityQA;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.community.briefreview.BriefReviewDTO;
+import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
 
 import java.sql.Timestamp;
@@ -30,19 +31,19 @@ public class BriefReview {
         this.user = user;
     }
 
-    public BriefReview (BriefReviewDTO briefReviewDTO){
-        this.review_id = briefReviewDTO.getId();
+    public BriefReview (BriefReviewResponseDTO briefReviewResponseDTO){
+        this.review_id = briefReviewResponseDTO.getId();
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(briefReviewDTO.getBody());
+            java.lang.String requestJson = ow.writeValueAsString(briefReviewResponseDTO.getBody());
             this.review_content = requestJson;
         }catch (Exception e){
             System.out.println("Exception");
         }
 
-        this.user = new User(briefReviewDTO.getAuthor());
-        Iterator it = briefReviewDTO.getComments().getComments().iterator();
+        this.user = new User(briefReviewResponseDTO.getAuthor());
+        Iterator it = briefReviewResponseDTO.getComments().getComments().iterator();
         while(it.hasNext()){
             CommentDTO commentDTO = (CommentDTO) it.next();
             Comment comment = new Comment(commentDTO);

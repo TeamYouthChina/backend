@@ -1,10 +1,12 @@
 package com.youthchina.dto.community.briefreview;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.communityQA.BriefReview;
-import com.youthchina.domain.jinhao.communityQA.Comment;
+import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
-import com.youthchina.dto.community.comment.ResponseCommentDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
 
@@ -13,14 +15,14 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class BriefReviewDTO {
+public class BriefReviewResponseDTO implements ResponseDTO {
     private Integer id;
     private RichTextDTO body;
-    private ResponseCommentDTO comments = new ResponseCommentDTO();
+    private CommentResponseDTO comments = new CommentResponseDTO();
     private UserDTO author;
 
 
-    public BriefReviewDTO (BriefReview briefReview){
+    public BriefReviewResponseDTO(BriefReview briefReview){
         this.id = briefReview.getReview_id();
         try{
             ObjectMapper mapper = new ObjectMapper();
@@ -40,7 +42,7 @@ public class BriefReviewDTO {
 
     }
 
-    public BriefReviewDTO(){}
+    public BriefReviewResponseDTO(){}
 
     public Integer getId() {
         return id;
@@ -58,11 +60,11 @@ public class BriefReviewDTO {
         this.body = body;
     }
 
-    public ResponseCommentDTO getComments() {
+    public CommentResponseDTO getComments() {
         return comments;
     }
 
-    public void setComments(ResponseCommentDTO comments) {
+    public void setComments(CommentResponseDTO comments) {
         this.comments = comments;
     }
 
@@ -72,5 +74,15 @@ public class BriefReviewDTO {
 
     public void setAuthor(UserDTO author) {
         this.author = author;
+    }
+
+    @Override
+    public StatusDTO getStatus() {
+        return null;
+    }
+
+    @Override
+    public void setStatus(StatusDTO status) {
+
     }
 }

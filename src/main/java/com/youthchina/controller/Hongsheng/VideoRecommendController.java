@@ -3,7 +3,7 @@ package com.youthchina.controller.Hongsheng;
 import com.youthchina.domain.jinhao.communityQA.Video;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.video.VideoDTO;
+import com.youthchina.dto.community.video.VideoResponseDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.VideoRecommendServiceImplement;
 import com.youthchina.service.tianjian.StaticFileService;
@@ -28,12 +28,12 @@ public class VideoRecommendController {
     @GetMapping("/videos")
     public ResponseEntity getRecommendVideos() throws NotFoundException {
         List<Video> videoList = videoRecommendServiceImplement.getVideoForYou();
-        List<VideoDTO> resultList = new ArrayList<>();
+        List<VideoResponseDTO> resultList = new ArrayList<>();
 
         for(Video video : videoList) {
-            VideoDTO videoDTO = new VideoDTO(video);
-            videoDTO.setUrl(staticFileService.getFileUrl(videoDTO.getUrl()).toString());
-            resultList.add(videoDTO);
+            VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
+            videoResponseDTO.setUrl(staticFileService.getFileUrl(videoResponseDTO.getUrl()).toString());
+            resultList.add(videoResponseDTO);
         }
 
         HashMap<String, Object> map = new HashMap<>();

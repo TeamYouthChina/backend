@@ -2,6 +2,8 @@ package com.youthchina.dto.community.video;
 
 import com.youthchina.domain.jinhao.communityQA.Video;
 import com.youthchina.domain.jinhao.communityQA.VideoComment;
+import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.security.UserDTO;
 
@@ -9,15 +11,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class VideoDTO {
+public class VideoResponseDTO implements ResponseDTO {
     private Integer id;
     private String url;
     private List<CommentDTO> comments = new ArrayList<CommentDTO>();
     private UserDTO uploader;
 
-    public VideoDTO (){}
+    public VideoResponseDTO(){}
 
-    public VideoDTO (Video video){
+    public VideoResponseDTO(Video video){
         this.id = video.getVideo_id();
         if(video.getVideoComments() != null){
             Iterator it = video.getVideoComments().iterator();
@@ -60,5 +62,15 @@ public class VideoDTO {
 
     public void setUploader(UserDTO uploader) {
         this.uploader = uploader;
+    }
+
+    @Override
+    public StatusDTO getStatus() {
+        return null;
+    }
+
+    @Override
+    public void setStatus(StatusDTO status) {
+
     }
 }

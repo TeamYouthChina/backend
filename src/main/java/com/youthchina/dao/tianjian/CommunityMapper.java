@@ -1,5 +1,6 @@
 package com.youthchina.dao.tianjian;
 
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.tianjian.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,45 +23,7 @@ public interface CommunityMapper {
 
     ComEssay getEssay(Integer essay_id);
 
-    ComAuthorEssayMap getEssayAuthor(Integer essay_id);
-
-    int updateEssayAuthor(ComAuthorEssayMap caem);
-
-    int addEssayLabel(List<ComEssayLabelMap> cel);
-
-    int deleteEssayLabel(Integer essay_id);
-
-    int addEssayAuthor(ComAuthorEssayMap caem);
-
-    int addFavoriteEssay(ComEssayAttention comessayattention);
-
-    int addFavoriteEssayMap(ComEssayAttentionMap ceam);
-
-    int deleteFavoriteEssay(@Param("essay_id") Integer essay_id, @Param("user_id") Integer user_id);
-
-    ComEssayAttention getFavoriteEssayWhetherAtten(@Param("essay_id") Integer essay_id, @Param("user_id") Integer user_id);
-
-    int addReply(ComEssayReply comessayanswer);
-
-    int addEssayReplyMap(ComEssayReplyMap cerm);
-
-    int updateReply(@Param("comessayreply") ComEssayReply comessayreply, @Param("essay_id") Integer essay_id);
-
-    int deleteReply(@Param("essay_id") Integer essay_id, @Param("user_id") Integer user_id, @Param("reply_level") Integer reply_level);
-
-    List<ComEssayReply> getReply(Integer essay_id);
-
-    int addReplyEvaluate(ComReplyEvaluate comreplyevaluate);
-
-    int addReplyEvaluateMap(ComReplyEvaluateMap crem);
-
-    int updateReplyEvaluate(@Param("comreplyevaluate") ComReplyEvaluate comreplyevaluate, @Param("reply_id") Integer reply_id);
-
-    List<ComReplyEvaluate> getReplyEvaluate(Integer reply_id);
-
     List<ComEssay> getEssayLatest();
-
-    List<ComEssayReply> getEssayReply(Integer essay_id);
 
     int saveFriendsRelation(ComFriendRelation comFriendRelation);
 
@@ -78,5 +41,4 @@ public interface CommunityMapper {
 
     List<ComFriendGroup> getFriendGroup(List<ComFriendRelation> comFriendRelation);
 
-    List<ComEssay> getAllEssayUserAttention(@Param("user_id")Integer user_id);
 }

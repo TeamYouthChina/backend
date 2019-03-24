@@ -6,6 +6,7 @@ import com.youthchina.dao.tianjian.StaticFileSystemMapper;
 import com.youthchina.domain.jinhao.communityQA.BriefReview;
 import com.youthchina.domain.jinhao.communityQA.Video;
 import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.BriefReviewRecommendServiceImplement;
 import com.youthchina.service.jinhao.communityQA.VideoRecommendServiceImplement;
@@ -85,25 +86,57 @@ public class YouthchinaApplicationTests {
     @Test
     public void testEssayService() throws NotFoundException {
         ComEssay comEssay = new ComEssay();
-        comEssay.setEssay_title("title1");
-        comEssay.setEssay_abbre("this essay describe ...");
-        comEssay.setEssay_body("newbody");
-        comEssay.setUser_anony(0);
+        comEssay.setEssayTitle("title1");
+        comEssay.setEssayAbbre("this essay describe ...");
+        comEssay.setUserAnony(0);
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        comEssay.setEssay_pub_time(time);
-        comEssay.setEssay_edit_time(time);
-        comEssay.setIs_delete(0);
-        comEssay.setUser_anony(0);
+        comEssay.setEssayPubTime(time);
+        comEssay.setEssayEditTime(time);
+        comEssay.setIsDelete(0);
+        comEssay.setUserAnony(0);
+        comEssay.setUserId(1);
+        comEssay.setRelaType(0);
+        ComRichText comRichText = new ComRichText();
+        comRichText.setText_content("\"{\n" +
+                "    &quot;braftEditorRaw&quot; : {\n" +
+                "    &quot;entityMap&quot; : { },\n" +
+                "    &quot;blocks&quot; : [ {\n" +
+                "    &quot;key&quot; : &quot;dtj4a&quot;,\n" +
+                "    &quot;text&quot; : &quot;&quot;,\n" +
+                "    &quot;type&quot; : &quot;unstyled&quot;,\n" +
+                "    &quot;depth&quot; : 0,\n" +
+                "    &quot;inlineStyleRanges&quot; : [ ],\n" +
+                "    &quot;entityRanges&quot; : [ ],\n" +
+                "    &quot;data&quot; : { }\n" +
+                "    } ]\n" +
+                "    },\n" +
+                "    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,\n" +
+                "    &quot;resourceIdList&quot; : [ ]\n" +
+                "    }\"");
+        comRichText.setRela_type(1);
+        comRichText.setRela_id(1);
+        comRichText.setJson_content("\"{\n" +
+                "    &quot;braftEditorRaw&quot; : {\n" +
+                "    &quot;entityMap&quot; : { },\n" +
+                "    &quot;blocks&quot; : [ {\n" +
+                "    &quot;key&quot; : &quot;dtj4a&quot;,\n" +
+                "    &quot;text&quot; : &quot;&quot;,\n" +
+                "    &quot;type&quot; : &quot;unstyled&quot;,\n" +
+                "    &quot;depth&quot; : 0,\n" +
+                "    &quot;inlineStyleRanges&quot; : [ ],\n" +
+                "    &quot;entityRanges&quot; : [ ],\n" +
+                "    &quot;data&quot; : { }\n" +
+                "    } ]\n" +
+                "    },\n" +
+                "    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,\n" +
+                "    &quot;resourceIdList&quot; : [ ]\n" +
+                "    }\"");
+        comEssay.setEssayBody(comRichText);
         List<Integer> lab = new ArrayList<Integer>();
-        int i = essayService.addEssay(comEssay,lab,1,2,5);
+        int i = essayService.addEssay(comEssay,lab);
         System.out.println(i);
     }
 
-    @Test
-    public void testgetUserAllEssayAttention(){
-        List<ComEssay> list = essayService.getAllEssayUserAttention(1);
-        System.out.println(list.size());
-    }
 
     @Test
     public void testgetVideoRecommend(){

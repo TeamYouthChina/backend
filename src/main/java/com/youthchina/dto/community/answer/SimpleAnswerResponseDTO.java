@@ -2,11 +2,13 @@ package com.youthchina.dto.community.answer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
+import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.question.QuestionBasicDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
 
-public class SimpleAnswerDTO {
+public class SimpleAnswerResponseDTO implements ResponseDTO {
     private RichTextDTO body;
     private boolean is_anonymous;
     private UserDTO creator;
@@ -15,9 +17,9 @@ public class SimpleAnswerDTO {
     private QuestionBasicDTO question;
     private Integer id;
 
-    public SimpleAnswerDTO(){}
+    public SimpleAnswerResponseDTO(){}
 
-    public SimpleAnswerDTO(QuestionAnswer questionAnswer){
+    public SimpleAnswerResponseDTO(QuestionAnswer questionAnswer){
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(questionAnswer.getAnswer_content(), RichTextDTO.class);
@@ -87,5 +89,15 @@ public class SimpleAnswerDTO {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @Override
+    public StatusDTO getStatus() {
+        return null;
+    }
+
+    @Override
+    public void setStatus(StatusDTO status) {
+
     }
 }

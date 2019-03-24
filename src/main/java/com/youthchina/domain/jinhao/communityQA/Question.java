@@ -49,7 +49,7 @@ public class Question implements HasId<Integer> {
         this.rela_id = questionDTO.getRela_id();
         this.ques_abbre = questionDTO.getBody().getPreviewText();
         //if(questionDTO.getAnswers() != null) {
-         //   for(RequestSimpleAnswerDTO simpleAnswerDTO : questionDTO.getAnswers()) {
+         //   for(SimpleAnswerRequestDTO simpleAnswerDTO : questionDTO.getAnswers()) {
          //       this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
          //   }
         //}

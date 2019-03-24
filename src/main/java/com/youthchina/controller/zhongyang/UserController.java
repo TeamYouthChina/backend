@@ -9,9 +9,9 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.applicant.CompCollectResponseDTO;
 import com.youthchina.dto.applicant.JobCollectResponseDTO;
-import com.youthchina.dto.community.article.EssayDTO;
+import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.question.QuestionDTO;
-import com.youthchina.dto.community.video.VideoDTO;
+import com.youthchina.dto.community.video.VideoResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -90,23 +90,23 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
             }
             case "Essay":{
                 List<ComEssay> comEssays=essayService.getAllEssayUserAttention(user_id);
-                List<EssayDTO> essayDTOS=new ArrayList<>();
+                List<EssayResponseDTO> essayResponseDTOS =new ArrayList<>();
                 for(ComEssay comEssay:comEssays){
-                    EssayDTO essayDTO=new EssayDTO(comEssay);
-                    essayDTOS.add(essayDTO);
+                    EssayResponseDTO essayResponseDTO =new EssayResponseDTO(comEssay);
+                    essayResponseDTOS.add(essayResponseDTO);
 
                 }
-                return ResponseEntity.ok((new Response(essayDTOS)));
+                return ResponseEntity.ok((new Response(essayResponseDTOS)));
 
             }
             case "Video":{
                 List<Video> videos=communityQAService.listAllUserAttenVideos(user_id);
-                List<VideoDTO> videoDTOS=new ArrayList<>();
+                List<VideoResponseDTO> videoResponseDTOS =new ArrayList<>();
                 for(Video video:videos){
-                    VideoDTO videoDTO=new VideoDTO(video);
-                    videoDTOS.add(videoDTO);
+                    VideoResponseDTO videoResponseDTO =new VideoResponseDTO(video);
+                    videoResponseDTOS.add(videoResponseDTO);
                 }
-                return ResponseEntity.ok(new Response(videoDTOS));
+                return ResponseEntity.ok(new Response(videoResponseDTOS));
 
             }
             case "Question":{
@@ -125,7 +125,6 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
 
 
     }
-
 
     @Override
     protected DomainCRUDService<User, Integer> getService() {

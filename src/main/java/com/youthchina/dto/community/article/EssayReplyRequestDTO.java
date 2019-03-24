@@ -2,14 +2,15 @@ package com.youthchina.dto.community.article;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssayReply;
+import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.RichTextDTO;
 
 
-public class RequestEssayReplyDTO {
+public class EssayReplyRequestDTO implements RequestDTO {
     private RichTextDTO body;
     private boolean isAnonymous;
 
-    public RequestEssayReplyDTO(ComEssayReply comEssayReply){
+    public EssayReplyRequestDTO(ComEssayReply comEssayReply){
         this.isAnonymous = (comEssayReply.getUser_anony()==0)? false:true;
         try{
             ObjectMapper mapper = new ObjectMapper();
@@ -20,7 +21,7 @@ public class RequestEssayReplyDTO {
         }
     }
 
-    public RequestEssayReplyDTO(){}
+    public EssayReplyRequestDTO(){}
 
     public RichTextDTO getBody(){return body;}
 

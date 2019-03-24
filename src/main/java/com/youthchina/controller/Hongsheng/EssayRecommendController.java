@@ -6,7 +6,7 @@ import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.article.EssayDTO;
+import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -45,22 +45,22 @@ public class EssayRecommendController {
 
     @GetMapping("/articles")
     public ResponseEntity getRecommendEssay() throws NotFoundException {
-        System.out.println("11111");
         List<ComEssay> essayList = essayRecommendServiceImplement.getEssayForYou();
-        List<EssayDTO> resultList = new ArrayList<>();
+        List<EssayResponseDTO> resultList = new ArrayList<>();
         for(ComEssay essay : essayList) {
-            EssayDTO essayDTO = new EssayDTO(essay);
-            ComAuthorEssayMap comAuthorEssayMap = essayServiceimpl.getEssayAuthor(essay.getEssay_id());
+            EssayResponseDTO essayResponseDTO = new EssayResponseDTO(essay);
 
-            User user = userService.get(comAuthorEssayMap.getUser_id());
 
-            if(comAuthorEssayMap.getRela_type()==2){
-                Company company = companyCURDService.get(comAuthorEssayMap.getRela_id());
-                essayDTO.setCompany(new CompanyResponseDTO(company));
+            User user = userService.get(essay.getUserId());
+
+            if(essay.getRelaType()==2){
+
+                Company company = companyCURDService.get(essay.getRelaId());
+                essayResponseDTO.setCompany(new CompanyResponseDTO(company));
             }
-            essayDTO.setAuthor(new UserDTO(user));
+            essayResponseDTO.setAuthor(new UserDTO(user));
 
-            resultList.add(essayDTO);
+            resultList.add(essayResponseDTO);
         }
 
         HashMap<String, Object> map = new HashMap<>();

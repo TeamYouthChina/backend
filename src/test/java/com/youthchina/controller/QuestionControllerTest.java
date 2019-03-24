@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.dto.community.answer.RequestSimpleAnswerDTO;
+import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 import com.youthchina.dto.community.question.RequestQuestionDTO;
 import com.youthchina.dto.util.RichTextDTO;
 import com.youthchina.util.AuthGenerator;
@@ -257,7 +257,7 @@ public class QuestionControllerTest {
 
     @Test
     public void testAddAnswer() throws Exception{
-        RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
+        SimpleAnswerRequestDTO simpleAnswerDTO = new SimpleAnswerRequestDTO();
         simpleAnswerDTO.setIs_anonymous(true);
         RichTextDTO richTextDTO = new RichTextDTO();
         //language=JSON

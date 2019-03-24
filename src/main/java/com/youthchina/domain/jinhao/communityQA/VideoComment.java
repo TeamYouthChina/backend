@@ -3,7 +3,7 @@ package com.youthchina.domain.jinhao.communityQA;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.community.comment.VideoCommentDTO;
+import com.youthchina.dto.community.comment.VideoCommentRequestDTO;
 
 import java.sql.Timestamp;
 
@@ -18,7 +18,7 @@ public class VideoComment {
     private Timestamp is_delete_time;
     private User user;
 
-    public VideoComment(VideoCommentDTO commentDTO){
+    public VideoComment(VideoCommentRequestDTO commentDTO){
         this.user_anony = (commentDTO.isIs_anonymous())? 1:0;
         try{
             ObjectMapper mapper = new ObjectMapper();

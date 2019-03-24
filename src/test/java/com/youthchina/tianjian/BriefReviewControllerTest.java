@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.dto.community.briefreview.RequestBriefReviewDTO;
-import com.youthchina.dto.community.comment.RequestCommentDTO;
+import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
+import com.youthchina.dto.community.comment.CommentRequestDTO;
 import com.youthchina.dto.util.RichTextDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Assert;
@@ -15,7 +15,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.TestExecutionListeners;
@@ -42,9 +41,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class BriefReviewControllerTest {
     @Autowired
     private WebApplicationContext context;
-
-    @Autowired
-    private ApplicationContext applicationContext;
 
     @Value("${web.url.prefix}")
     private String urlPrefix;
@@ -82,7 +78,7 @@ public class BriefReviewControllerTest {
 
     @Test
     public void updateBriefReviewTest() throws Exception {
-        RequestBriefReviewDTO requestBriefReviewDTO = new RequestBriefReviewDTO();
+        BriefReviewRequestDTO briefReviewRequestDTO = new BriefReviewRequestDTO();
         RichTextDTO richTextDTO = new RichTextDTO();
         //language=JSON
         String json = "{\n" +
@@ -112,10 +108,10 @@ public class BriefReviewControllerTest {
             Assert.fail();
         }
 
-        requestBriefReviewDTO.setBody(richTextDTO);
+        briefReviewRequestDTO.setBody(richTextDTO);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String addJson = ow.writeValueAsString(requestBriefReviewDTO);
+        java.lang.String addJson = ow.writeValueAsString(briefReviewRequestDTO);
         this.mvc.perform(
                 put(this.urlPrefix + "/editorials/1")
                         .content(addJson)
@@ -131,7 +127,7 @@ public class BriefReviewControllerTest {
 
     @Test
     public void addBriefReviewTest() throws Exception {
-        RequestBriefReviewDTO requestBriefReviewDTO = new RequestBriefReviewDTO();
+        BriefReviewRequestDTO briefReviewRequestDTO = new BriefReviewRequestDTO();
         RichTextDTO richTextDTO = new RichTextDTO();
         //language=JSON
         String json = "{\n" +
@@ -161,10 +157,10 @@ public class BriefReviewControllerTest {
             Assert.fail();
         }
 
-        requestBriefReviewDTO.setBody(richTextDTO);
+        briefReviewRequestDTO.setBody(richTextDTO);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String addJson = ow.writeValueAsString(requestBriefReviewDTO);
+        java.lang.String addJson = ow.writeValueAsString(briefReviewRequestDTO);
         this.mvc.perform(
                 post(this.urlPrefix + "/editorials")
                         .content(addJson)
@@ -177,7 +173,7 @@ public class BriefReviewControllerTest {
 
     @Test
     public void addBriefReviewCommentsTest() throws Exception {
-        RequestCommentDTO requestCommentDTO = new RequestCommentDTO();
+        CommentRequestDTO commentRequestDTO = new CommentRequestDTO();
         RichTextDTO richTextDTO = new RichTextDTO();
         //language=JSON
         String json = "{\n" +
@@ -207,12 +203,12 @@ public class BriefReviewControllerTest {
             Assert.fail();
         }
 
-        requestCommentDTO.setBody(richTextDTO);
+        commentRequestDTO.setBody(richTextDTO);
 
-        requestCommentDTO.setIs_anonymous(true);
+        commentRequestDTO.setIs_anonymous(true);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String addJson = ow.writeValueAsString(requestCommentDTO);
+        java.lang.String addJson = ow.writeValueAsString(commentRequestDTO);
         this.mvc.perform(
                 post(this.urlPrefix + "/editorials/1/comments")
                         .content(addJson)

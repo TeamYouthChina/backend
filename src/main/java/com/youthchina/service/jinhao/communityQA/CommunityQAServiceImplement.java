@@ -1,6 +1,7 @@
 package com.youthchina.service.jinhao.communityQA;
 
 import com.youthchina.dao.jinhao.CommunityQAMapper;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -461,7 +462,7 @@ public class CommunityQAServiceImplement implements CommunityQAService {
             throws NotFoundException{
         simplyGetAnswer(answer_id);
         communityQAMapper.addCommentToAnswer(comment);
-        communityQAMapper.createMapBetweenAnswerAndComment(answer_id, comment.getComment_id(),comment_level);
+        communityQAMapper.createMapBetweenAnswerAndComment(answer_id, comment.getId(),comment_level);
     }
 
 

@@ -43,7 +43,7 @@
         <collection property="questionAnswers" ofType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
             <id property="answer_id" column="ANSWER_ID"/>
         </collection>
-        <collection property="comments" ofType="com.youthchina.domain.jinhao.communityQA.Comment">
+        <collection property="comments" ofType="com.youthchina.domain.jinhao.Comment">
             <id property="comment_id" column="COMMENT_ID"/>
         </collection>
         <collection property="videoComments" ofType="com.youthchina.domain.jinhao.communityQA.VideoComment">

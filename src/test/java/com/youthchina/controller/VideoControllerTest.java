@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.dto.community.comment.VideoCommentDTO;
-import com.youthchina.dto.community.video.RequestVideoDTO;
+import com.youthchina.dto.community.comment.VideoCommentRequestDTO;
+import com.youthchina.dto.community.video.VideoRequestDTO;
 import com.youthchina.dto.util.RichTextDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Assert;
@@ -47,9 +47,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class VideoControllerTest {
     @Autowired
     private WebApplicationContext context;
-
-    @Autowired
-    private ApplicationContext applicationContext;
 
     @Value("${web.url.prefix}")
     private String urlPrefix;
@@ -104,8 +101,8 @@ public class VideoControllerTest {
 
     @Test
     public void addCommentTest() throws Exception {
-        VideoCommentDTO videoCommentDTO = new VideoCommentDTO();
-        videoCommentDTO.setIs_anonymous(false);
+        VideoCommentRequestDTO videoCommentRequestDTO = new VideoCommentRequestDTO();
+        videoCommentRequestDTO.setIs_anonymous(false);
         RichTextDTO richTextDTO = new RichTextDTO();
         //language=JSON
         String json = "{\n" +
@@ -135,11 +132,11 @@ public class VideoControllerTest {
             Assert.fail();
         }
 
-        videoCommentDTO.setBody(richTextDTO);
+        videoCommentRequestDTO.setBody(richTextDTO);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(videoCommentDTO);
+        java.lang.String requestJson = ow.writeValueAsString(videoCommentRequestDTO);
 
         this.mvc.perform(
                 post(this.urlPrefix + "/videos/1/comments").contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -184,12 +181,12 @@ public class VideoControllerTest {
 
     @Test
     public void testUploadVideo() throws Exception {
-        RequestVideoDTO requestVideoDTO = new RequestVideoDTO();
-        requestVideoDTO.setCompany_id(1);
+        VideoRequestDTO videoRequestDTO = new VideoRequestDTO();
+        videoRequestDTO.setCompany_id(1);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(requestVideoDTO);
+        String requestJson = ow.writeValueAsString(videoRequestDTO);
 
 //        ClassPathResource classPathResource = new ClassPathResource("rank.xml");
         MockMultipartFile file = new MockMultipartFile("file", "test.txt", "multipart/form-data", "hello upload".getBytes("UTF-8"));

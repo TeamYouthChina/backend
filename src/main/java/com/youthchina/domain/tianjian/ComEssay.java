@@ -2,33 +2,43 @@ package com.youthchina.domain.tianjian;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.youthchina.dto.community.article.EssayDTO;
-import com.youthchina.dto.community.article.RequestEssayDTO;
+import com.youthchina.domain.jinhao.Comment;
+import com.youthchina.dto.community.article.EssayResponseDTO;
+import com.youthchina.dto.community.article.EssayRequestDTO;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ComEssay {
-    private Integer essay_id;
-    private String essay_title;
-    private String essay_abbre;
-    private String essay_body;
-    private Timestamp essay_pub_time;
-    private Timestamp  essay_edit_time;
-    private Integer is_delete;
-    private Integer user_anony;
+    private Integer essayId;
+    private String essayTitle;
+    private String essayAbbre;
+    private ComRichText essayBody;
+    private Timestamp essayPubTime;
+    private Timestamp  essayEditTime;
+    private Integer isDelete;
+    private Integer userAnony;
+    private Integer userId;
+    private Integer relaType;
+    private Integer relaId;
+    private List<Comment> essayComment = new ArrayList<>();
 
-    public ComEssay(EssayDTO essayDTO){
-        this.essay_id = essayDTO.getId();
-        this.essay_title = essayDTO.getTitle();
-        this.essay_pub_time = essayDTO.getCreate_at();
-        this.essay_edit_time = essayDTO.getModified_at();
-        this.user_anony =  (essayDTO.isIs_anonymous()) ? 1 : 0;
-        this.essay_abbre = essayDTO.getBody().getPreviewText();
+    public ComEssay(EssayResponseDTO essayResponseDTO){
+        this.essayBody = new ComRichText();
+        this.essayId = essayResponseDTO.getId();
+        this.essayTitle = essayResponseDTO.getTitle();
+        this.essayPubTime = essayResponseDTO.getCreate_at();
+        this.essayEditTime = essayResponseDTO.getModified_at();
+        this.userAnony =  (essayResponseDTO.isIs_anonymous()) ? 1 : 0;
+        this.essayAbbre = essayResponseDTO.getBody().getPreviewText();
+        this.essayBody.setRela_type(1);
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(essayDTO.getBody());
-            this.essay_body = requestJson;
+            java.lang.String requestJson = ow.writeValueAsString(essayResponseDTO.getBody());
+            this.essayBody.setJson_content(requestJson);
+            this.essayBody.setText_content(requestJson);
         }catch (Exception e){
             System.out.println("Exception");
         }
@@ -36,86 +46,117 @@ public class ComEssay {
     }
 
 
-    public ComEssay(RequestEssayDTO requestEssayDTO){
-        this.essay_id = requestEssayDTO.getId();
-        this.essay_title = requestEssayDTO.getTitle();
-        this.essay_abbre = requestEssayDTO.getBody().getPreviewText();
+    public ComEssay(EssayRequestDTO essayRequestDTO){
+        this.essayBody = new ComRichText();
+        this.essayId = essayRequestDTO.getId();
+        this.essayTitle = essayRequestDTO.getTitle();
+        this.essayAbbre = essayRequestDTO.getBody().getPreviewText();
+        this.essayBody.setRela_type(1);
+        this.essayBody.setCompile_type(1);
+        this.essayBody.setRela_id(essayRequestDTO.getCompany_id());
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO.getBody());
-            this.essay_body = requestJson;
+            java.lang.String requestJson = ow.writeValueAsString(essayRequestDTO.getBody());
+            this.essayBody.setJson_content(requestJson);
+            this.essayBody.setText_content(requestJson);
         }catch (Exception e){
             System.out.println("Exception");
         }
-        this.user_anony = (requestEssayDTO.isIs_anonymous())? 1:0;
+        this.userAnony = (essayRequestDTO.isIs_anonymous())? 1:0;
     }
 
     public ComEssay() {
 
     }
 
-    public Integer getUser_anony() {
-        return user_anony;
+    public Integer getEssayId() {
+        return essayId;
     }
 
-    public void setUser_anony(Integer user_anony) {
-        this.user_anony = user_anony;
+    public void setEssayId(Integer essayId) {
+        this.essayId = essayId;
     }
 
-    public Integer getEssay_id() {
-        return essay_id;
+    public String getEssayTitle() {
+        return essayTitle;
     }
 
-    public void setEssay_id(Integer essay_id) {
-        this.essay_id = essay_id;
+    public void setEssayTitle(String essayTitle) {
+        this.essayTitle = essayTitle;
     }
 
-    public String getEssay_title() {
-        return essay_title;
+    public String getEssayAbbre() {
+        return essayAbbre;
     }
 
-    public void setEssay_title(String essay_title) {
-        this.essay_title = essay_title;
+    public void setEssayAbbre(String essayAbbre) {
+        this.essayAbbre = essayAbbre;
     }
 
-    public String getEssay_abbre() {
-        return essay_abbre;
+    public ComRichText getEssayBody() {
+        return essayBody;
     }
 
-    public void setEssay_abbre(String essay_abbre) {
-        this.essay_abbre = essay_abbre;
+    public void setEssayBody(ComRichText essayBody) {
+        this.essayBody = essayBody;
     }
 
-    public String getEssay_body() {
-        return essay_body;
+    public Timestamp getEssayPubTime() {
+        return essayPubTime;
     }
 
-    public void setEssay_body(String essay_body) {
-        this.essay_body = essay_body;
+    public void setEssayPubTime(Timestamp essayPubTime) {
+        this.essayPubTime = essayPubTime;
     }
 
-    public Timestamp getEssay_pub_time() {
-        return essay_pub_time;
+    public Timestamp getEssayEditTime() {
+        return essayEditTime;
     }
 
-    public void setEssay_pub_time(Timestamp essay_pub_time) {
-        this.essay_pub_time = essay_pub_time;
+    public void setEssayEditTime(Timestamp essayEditTime) {
+        this.essayEditTime = essayEditTime;
     }
 
-    public Timestamp getEssay_edit_time() {
-        return essay_edit_time;
+    public Integer getIsDelete() {
+        return isDelete;
     }
 
-    public void setEssay_edit_time(Timestamp essay_edit_time) {
-        this.essay_edit_time = essay_edit_time;
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
-    public Integer getIs_delete() {
-        return is_delete;
+    public Integer getUserAnony() {
+        return userAnony;
     }
 
-    public void setIs_delete(Integer is_delete) {
-        this.is_delete = is_delete;
+    public void setUserAnony(Integer userAnony) {
+        this.userAnony = userAnony;
     }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getRelaType() {
+        return relaType;
+    }
+
+    public void setRelaType(Integer relaType) {
+        this.relaType = relaType;
+    }
+
+    public Integer getRelaId() {
+        return relaId;
+    }
+
+    public void setRelaId(Integer relaId) {
+        this.relaId = relaId;
+    }
+
+
 }

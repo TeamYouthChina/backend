@@ -120,7 +120,7 @@
     </association>
 </resultMap>
 
-<resultMap id="commentInfo" type="com.youthchina.domain.jinhao.communityQA.Comment">
+<resultMap id="commentInfo" type="com.youthchina.domain.jinhao.Comment">
     <id property="comment_id" column="COMMENT_ID"/>
     <result property="comment_content" column="COMMENT_CONTENT"/>
     <result property="user_anony" column="USER_ANONY"/>
@@ -266,14 +266,14 @@
 
     <!-- 拿到某个评论-->
     <select id="getComment" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.jinhao.communityQA.Comment">
+            resultType="com.youthchina.domain.jinhao.Comment">
         select * from COM_ANSWER_COMMENT
         where comment_id = #{comment_id}
         and is_delete = 0
     </select>
 
     <!-- 列出某个评论的所有讨论 -->
-    <select id="listAllCommentDiscuss" parameterType="com.youthchina.domain.jinhao.communityQA.Comment"
+    <select id="listAllCommentDiscuss" parameterType="com.youthchina.domain.jinhao.Comment"
             resultType="com.youthchina.domain.jinhao.communityQA.Discuss">
         select a.* from COM_COMMENT_DISCUSS_MAP m, COM_COMMENT_DISCUSS a
         where m.comment_id = #{comment_id}
@@ -444,7 +444,7 @@
         where EVALUATE_ID=#{evaluate_id}
     </update>
     <!-- 评论回答 -->
-    <insert id="addCommentToAnswer" parameterType="com.youthchina.domain.jinhao.communityQA.Comment"
+    <insert id="addCommentToAnswer" parameterType="com.youthchina.domain.jinhao.Comment"
     useGeneratedKeys="true" keyProperty="comment_id">
         insert into COM_ANSWER_COMMENT (comment_content, user_id, user_anony, comment_pub_time, comment_edit_time,
                 is_delete)

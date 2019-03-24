@@ -2,7 +2,7 @@ package com.youthchina.dto.community.comment;
 
 import com.youthchina.dto.util.RichTextDTO;
 
-public class RequestCommentDTO {
+public class CommentRequestDTO {
     private RichTextDTO body;
     private boolean is_anonymous;
 

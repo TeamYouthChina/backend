@@ -6,6 +6,7 @@ import com.youthchina.dao.jinhao.InfluenceMapper;
 import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.Qinghong.Work;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.tianjian.ComReplyEvaluate;

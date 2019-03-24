@@ -12,7 +12,7 @@
         <collection property="comments" column="review_id"
                     select="com.youthchina.dao.jinhao.BriefReviewMapper.getCommentsByReviewId"/>
     </resultMap>
-    <resultMap id="commentInfo" type="com.youthchina.domain.jinhao.communityQA.Comment">
+    <resultMap id="commentInfo" type="com.youthchina.domain.jinhao.Comment">
         <id property="comment_id" column="COMMENT_ID"/>
         <result property="comment_content" column="COMMENT_CONTENT"/>
         <result property="user_anony" column="USER_ANONY"/>
@@ -128,7 +128,7 @@
         where m.REVIEW_ID = #{review_id} and e.EVALUATE_ID = m.EVALUATE_ID and e.EVALUATE_TYPE = 1
     </select>
 
-    <insert id="addComment" parameterType="com.youthchina.domain.jinhao.communityQA.Comment" useGeneratedKeys="true"
+    <insert id="addComment" parameterType="com.youthchina.domain.jinhao.Comment" useGeneratedKeys="true"
     keyProperty="comment_id">
         insert into COM_REVIEW_COMMENT(comment_content, user_id, comment_pub_time, COMMENT_EDIT_TIME, IS_DELETE)
         values (#{comment_content}, #{user_id}, now(), now(), 0)
@@ -156,11 +156,11 @@
               )
             )
     </update>
-    <update id="updateComment" parameterType="com.youthchina.domain.jinhao.communityQA.Comment">
+    <update id="updateComment" parameterType="com.youthchina.domain.jinhao.Comment">
         update COM_REVIEW_COMMENT set COMMENT_CONTENT=#{comment_content}, COMMENT_EDIT_TIME=now(),USER_ANONY=#{user_anony}
         where COMMENT_ID = #{comment_id}
     </update>
-    <select id="simplyGetComment" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.Comment">
+    <select id="simplyGetComment" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.Comment">
         select * from COM_REVIEW_COMMENT where COMMENT_ID=#{id} and IS_DELETE=0
     </select>
     <select id="getComment" parameterType="java.lang.Integer" resultMap="commentInfo">
@@ -173,7 +173,7 @@
         left join SYS_USER u on u.USER_ID=c.USER_ID
         where c.COMMENT_ID = m.COMMENT_ID and m.REVIEW_ID = #{id}
     </select>
-    <select id="getAllCommentsOfReview" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.Comment">
+    <select id="getAllCommentsOfReview" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.Comment">
         select c.* from COM_REVIEW_COMMENT c, COM_REVIEW_COMMENT_MAP m where c.COMMENT_ID = m.COMMENT_ID and m.REVIEW_ID=#{id}
         and c.IS_DELETE=0
     </select>

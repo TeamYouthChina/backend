@@ -1,5 +1,6 @@
 package com.youthchina.service.jinhao.communityQA;
 
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;

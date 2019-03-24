@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.VideoComment;
 import com.youthchina.dto.util.RichTextDTO;
 
-public class VideoCommentDTO {
+public class VideoCommentRequestDTO {
     private RichTextDTO body;
     private boolean is_anonymous;
 
-    public VideoCommentDTO(VideoComment videocomment){
+    public VideoCommentRequestDTO(VideoComment videocomment){
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(videocomment.getComment_content(), RichTextDTO.class);
@@ -19,7 +19,7 @@ public class VideoCommentDTO {
         this.is_anonymous = (videocomment.getUser_anony()==1)? true:false;
     }
 
-    public VideoCommentDTO(){}
+    public VideoCommentRequestDTO(){}
 
     public RichTextDTO getBody() {
         return body;

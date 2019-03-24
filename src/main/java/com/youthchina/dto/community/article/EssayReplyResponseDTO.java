@@ -2,12 +2,14 @@ package com.youthchina.dto.community.article;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssayReply;
+import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
 import com.youthchina.service.zhongyang.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class EssayReplyDTO {
+public class EssayReplyResponseDTO implements ResponseDTO {
     private Integer id;
     private UserDTO creator;
     private RichTextDTO body;
@@ -17,9 +19,9 @@ public class EssayReplyDTO {
 
     @Autowired
     UserServiceImpl userService;
-    public EssayReplyDTO(){}
+    public EssayReplyResponseDTO(){}
 
-    public EssayReplyDTO(ComEssayReply comEssayReply){
+    public EssayReplyResponseDTO(ComEssayReply comEssayReply){
         this.id = comEssayReply.getReply_id();
         try{
             ObjectMapper mapper = new ObjectMapper();
@@ -79,5 +81,15 @@ public class EssayReplyDTO {
 
     public void setIs_anonymous(boolean is_anonymous) {
         this.is_anonymous = is_anonymous;
+    }
+
+    @Override
+    public StatusDTO getStatus() {
+        return null;
+    }
+
+    @Override
+    public void setStatus(StatusDTO status) {
+
     }
 }

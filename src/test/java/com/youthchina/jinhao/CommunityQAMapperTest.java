@@ -3,6 +3,7 @@ package com.youthchina.jinhao;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.jinhao.CommunityQAMapper;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
@@ -277,24 +278,24 @@ public class CommunityQAMapperTest {
     @Test
     public void getComment() {
         Comment comment = communityQAMapper.getComment(1);
-        Assert.assertEquals("{     \"braftEditorRaw\" : {     \"entityMap\" : { },     \"blocks\" : [ {     \"key\" : \"dtj4a\",     \"text\" : \"\",     \"type\" : \"unstyled\",     \"depth\" : 0,     \"inlineStyleRanges\" : [ ],     \"entityRanges\" : [ ],     \"data\" : { }     } ]     },     \"previewText\" : \"good answer1\",     \"resourceIdList\" : [ ]     }", comment.getComment_content());
+        Assert.assertEquals("{     \"braftEditorRaw\" : {     \"entityMap\" : { },     \"blocks\" : [ {     \"key\" : \"dtj4a\",     \"text\" : \"\",     \"type\" : \"unstyled\",     \"depth\" : 0,     \"inlineStyleRanges\" : [ ],     \"entityRanges\" : [ ],     \"data\" : { }     } ]     },     \"previewText\" : \"good answer1\",     \"resourceIdList\" : [ ]     }", comment.getContent());
     }
 
     //测试能不能给回答添加评论
     @Test
     public void addComment() {
         Comment comment = new Comment();
-        comment.setComment_content("加一个");
-        comment.setUser_id(1);
-        comment.setUser_anony(1);
+        comment.setContent("加一个");
+        comment.setUserId(1);
+        comment.setIsAnony(1);
         communityQAMapper.addCommentToAnswer(comment);
-        Assert.assertNotNull(comment.getComment_id());
-        communityQAMapper.createMapBetweenAnswerAndComment(2, comment.getComment_id(), 3);
+        Assert.assertNotNull(comment.getId());
+        communityQAMapper.createMapBetweenAnswerAndComment(2, comment.getId(), 3);
         List<Comment> comments = communityQAMapper.listAllAnswerComment(2);
         Assert.assertEquals(3, comments.size());
         for (Comment comment1 : comments) {
-            if (comment1.getComment_id() != 4 && comment1.getComment_id() != 2 && comment1.getComment_id()
-                    != comment.getComment_id()) {
+            if (comment1.getId() != 4 && comment1.getId() != 2 && comment1.getId()
+                    != comment.getId()) {
                 Assert.fail();
             }
         }
@@ -306,7 +307,7 @@ public class CommunityQAMapperTest {
         List<Comment> comments = communityQAMapper.listAllAnswerComment(1);
         Assert.assertEquals(3, comments.size());
         for (Comment comment : comments) {
-            if (comment.getComment_id() != 1 && comment.getComment_id() != 3 && comment.getComment_id() != 5) {
+            if (comment.getId() != 1 && comment.getId() != 3 && comment.getId() != 5) {
                 Assert.fail();
             }
         }

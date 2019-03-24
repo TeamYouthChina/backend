@@ -1,5 +1,6 @@
 package com.youthchina.dao.jinhao;
 
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.communityQA.*;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;

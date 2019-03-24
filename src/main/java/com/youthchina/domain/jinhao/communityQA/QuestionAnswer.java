@@ -2,8 +2,9 @@ package com.youthchina.domain.jinhao.communityQA;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.community.answer.RequestSimpleAnswerDTO;
+import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
@@ -31,7 +32,7 @@ public class QuestionAnswer implements HasId<Integer> {
         this.question = question;
     }
 
-    public QuestionAnswer(RequestSimpleAnswerDTO simpleAnswerDTO) {
+    public QuestionAnswer(SimpleAnswerRequestDTO simpleAnswerDTO) {
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();

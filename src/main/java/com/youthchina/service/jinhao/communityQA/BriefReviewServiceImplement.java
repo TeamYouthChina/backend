@@ -1,6 +1,7 @@
 package com.youthchina.service.jinhao.communityQA;
 
 import com.youthchina.dao.jinhao.BriefReviewMapper;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -110,7 +111,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     @Transactional
     public Comment addComment(Comment comment, Integer review_id) {
         briefReviewMapper.addComment(comment);
-        briefReviewMapper.createCommentReviewMap(comment.getComment_id(), 1, review_id);
+        briefReviewMapper.createCommentReviewMap(comment.getId(), 1, review_id);
         return comment;
     }
 
@@ -139,9 +140,9 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     @Override
     @Transactional
     public Comment updateComment(Comment comment) throws NotFoundException {
-        checkIfCommentExist(comment.getComment_id());
+        checkIfCommentExist(comment.getId());
         briefReviewMapper.updateComment(comment);
-        comment.setComment_edit_time(new Timestamp(System.currentTimeMillis()));
+        comment.setEditTime(new Timestamp(System.currentTimeMillis()));
         return comment;
     }
 

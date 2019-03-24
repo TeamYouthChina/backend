@@ -1,14 +1,13 @@
 package com.youthchina.controller.tianjian;
 
-import com.youthchina.domain.jinhao.communityQA.Video;
-import com.youthchina.domain.jinhao.communityQA.VideoAttention;
-import com.youthchina.domain.jinhao.communityQA.VideoComment;
-import com.youthchina.domain.jinhao.communityQA.VideoEvaluate;
+import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.comment.VideoCommentDTO;
-import com.youthchina.dto.community.video.VideoDTO;
+import com.youthchina.dto.community.comment.CommentDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
+import com.youthchina.dto.community.comment.VideoCommentRequestDTO;
+import com.youthchina.dto.community.video.VideoResponseDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.CommunityQAServiceImplement;
@@ -23,7 +22,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 @RestController
 @RequestMapping("${web.url.prefix}/videos/**")
@@ -41,9 +43,9 @@ public class VideoController {
     public ResponseEntity getVideo(@PathVariable Integer id) throws NotFoundException {
         Video video = communityQaService.getVideo(id);
         URL s = fileService.getFileUrl(video.getVideo_name(), "China");
-        VideoDTO videoDTO = new VideoDTO(video);
-        videoDTO.setUrl(s.toString());
-        return ResponseEntity.ok(new Response(videoDTO, new StatusDTO(200, "success")));
+        VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
+        videoResponseDTO.setUrl(s.toString());
+        return ResponseEntity.ok(new Response(videoResponseDTO, new StatusDTO(200, "success")));
     }
 
     @DeleteMapping("/{id}")
@@ -55,7 +57,6 @@ public class VideoController {
     @PostMapping("/**")
     public ResponseEntity addVideo(@RequestPart MultipartFile file, @AuthenticationPrincipal User user) throws BaseException {
         Long id;
-        System.out.println("start here!!!!!!!!!");
         try {
             id = fileService.saveFile(file.getResource(), user.getId());
         } catch (IOException e) {
@@ -71,14 +72,13 @@ public class VideoController {
         video.setVideo_title(id.toString());
 
         video = communityQaService.addVideo(video, user.getId(), 1, 1);
-        VideoDTO videoDTO = new VideoDTO(video);
-        videoDTO.setUrl(fileService.getFileUrl(id.toString()).toString());
-        return ResponseEntity.ok(new Response(videoDTO, new StatusDTO(201, "success")));
+        VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
+        videoResponseDTO.setUrl(fileService.getFileUrl(id.toString()).toString());
+        return ResponseEntity.ok(new Response(videoResponseDTO, new StatusDTO(201, "success")));
     }
 
     @PostMapping("/{id}/comments")
-    public ResponseEntity<?> addComments(@PathVariable Integer id, @RequestBody VideoCommentDTO commentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        System.out.println("add answers");
+    public ResponseEntity<?> addComments(@PathVariable Integer id, @RequestBody VideoCommentRequestDTO commentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         VideoComment videocomment = new VideoComment(commentDTO);
         videocomment.setComment_pub_time(new Timestamp(System.currentTimeMillis()));
         videocomment.setComment_edit_time(new Timestamp(System.currentTimeMillis()));
@@ -93,10 +93,18 @@ public class VideoController {
 
     @GetMapping("/{id}/comments")
     public ResponseEntity getComments(@PathVariable Integer id) throws NotFoundException {
-        Video video = communityQaService.getVideo(id);
-        VideoDTO videoDTO = new VideoDTO(video);
+        List<VideoComment> videoCommentList = communityQaService.getVideo(id).getVideoComments();
+        CommentResponseDTO commentResponseDTO = new  CommentResponseDTO();
+        Iterator it = videoCommentList.iterator();
+        List<CommentDTO> commentDTOS = new ArrayList<>();
+        while(it.hasNext()){
+            VideoComment videoComment = (VideoComment) it.next();
+            CommentDTO commentDTO = new CommentDTO(videoComment);
+            commentDTOS.add(commentDTO);
+        }
+        commentResponseDTO.setComments(commentDTOS);
         HashMap<String, Object> comments = new HashMap<>();
-        comments.put("comments", videoDTO.getComments());
+        comments.put("comments", commentResponseDTO.getComments());
         return ResponseEntity.ok(new Response(comments, new StatusDTO(200, "success")));
     }
 
