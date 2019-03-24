@@ -28,7 +28,7 @@ public class ResponseBodyDTOAspectTest {
 
     @Test
     public void testAspectWithResponse() {
-        Assert.assertEquals(aspectTestClass.testedResponseMethod().getBody().getContent().getClass(), UserDTO.class);
+        Assert.assertEquals(((Response)aspectTestClass.testedResponseMethod().getBody()).getContent().getClass(), UserDTO.class);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class ResponseBodyDTOAspectTest {
 @Component
 class AspectTestClass {
     @ResponseBodyDTO(UserDTO.class)
-    public ResponseEntity<Response> testedResponseMethod() {
+    public ResponseEntity<?> testedResponseMethod() {
         User user = new User();
         user.setId(122);
         user.setPassword("ldskjfl");

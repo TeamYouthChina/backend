@@ -1,6 +1,5 @@
 package com.youthchina.controller.zhongyang;
 
-import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.Qinghong.JobCollect;
 import com.youthchina.domain.jinhao.communityQA.Question;
@@ -127,14 +126,6 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
 
 
     }
-
-    @GetMapping("/test")
-    @ResponseBodyDTO(UserDTO.class)
-    public ResponseEntity<Response> test() {
-        User user = new User();
-        return ResponseEntity.ok(new Response(user));
-    }
-
 
     @Override
     protected DomainCRUDService<User, Integer> getService() {
