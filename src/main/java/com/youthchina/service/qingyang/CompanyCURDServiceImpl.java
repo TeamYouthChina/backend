@@ -133,6 +133,10 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         if (industryList != null && industryList.size() > 0) {
             companyMapper.insertCompanyInd(entity.getId(), industryList);
         }
+        List<Logo> logoList = entity.getLogos();
+        if(logoList != null && logoList.size() > 0){
+            companyMapper.insertCompanyLogo(entity.getId(), logoList);
+        }
         Company companyResult = companyMapper.selectCompany(entity.getCompanyId());
         setCompanyLocation(companyResult);
         return companyResult;
