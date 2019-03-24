@@ -15,21 +15,22 @@ public class SimpleAnswerDTO {
     private QuestionBasicDTO question;
     private Integer id;
 
-    public SimpleAnswerDTO(){}
+    public SimpleAnswerDTO() {
+    }
 
-    public SimpleAnswerDTO(QuestionAnswer questionAnswer){
-        try{
+    public SimpleAnswerDTO(QuestionAnswer questionAnswer) {
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(questionAnswer.getAnswer_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
         this.id = questionAnswer.getAnswer_id();
         this.is_anonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
         this.creator = new UserDTO(questionAnswer.getAnswer_user());
         this.modified_at = questionAnswer.getAnswer_edit_time().toString();
-        this.create_at =questionAnswer.getAnswer_pub_time().toString();
+        this.create_at = questionAnswer.getAnswer_pub_time().toString();
         this.question = new QuestionBasicDTO(questionAnswer.getQuestion());
     }
 

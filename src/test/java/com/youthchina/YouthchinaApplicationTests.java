@@ -27,10 +27,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:briefreview.xml","classpath:comments.xml","classpath:users.xml","classpath:recombriefreview.xml"})
+@DatabaseSetup({"classpath:briefreview.xml", "classpath:comments.xml", "classpath:users.xml", "classpath:recombriefreview.xml"})
 @WebAppConfiguration
 public class YouthchinaApplicationTests {
     @Autowired
@@ -51,6 +52,8 @@ public class YouthchinaApplicationTests {
 
     @Autowired
     BriefReviewRecommendServiceImplement briefReviewRecommendServiceImplement;
+
+
    /* @Test
     public void testupLoadFile() {
        File file = new File("D:\\LocalFileStore\\video.mp4");
@@ -68,7 +71,7 @@ public class YouthchinaApplicationTests {
         System.out.println( staticFileSystemServiceImplALiCloud.downloadFile("2848699711584473088"));
     }*/
 
-
+/*
     @Test
     public void testGenerateId() {
         Long i = snowFlakeIdGenerate.nextId();
@@ -81,7 +84,7 @@ public class YouthchinaApplicationTests {
 //        String path = localFileManage.uploadFileToLocal(file,".mp4");
 //        System.out.println(path);
 //    }
-
+/*
     @Test
     public void testEssayService() throws NotFoundException {
         ComEssay comEssay = new ComEssay();
@@ -95,18 +98,18 @@ public class YouthchinaApplicationTests {
         comEssay.setIs_delete(0);
         comEssay.setUser_anony(0);
         List<Integer> lab = new ArrayList<Integer>();
-        int i = essayService.addEssay(comEssay,lab,1,2,5);
+        int i = essayService.addEssay(comEssay, lab, 1, 2, 5);
         System.out.println(i);
     }
 
     @Test
-    public void testgetUserAllEssayAttention(){
+    public void testgetUserAllEssayAttention() {
         List<ComEssay> list = essayService.getAllEssayUserAttention(1);
         System.out.println(list.size());
     }
 
     @Test
-    public void testgetVideoRecommend(){
+    public void testgetVideoRecommend() {
         List<Video> list = videoRecommendServiceImplement.getVideoForYou();
         System.out.println(list.size());
     }
@@ -118,3 +121,4 @@ public class YouthchinaApplicationTests {
     }
 
 }
+*/

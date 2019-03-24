@@ -9,8 +9,11 @@ import org.springframework.stereotype.Component;
 public interface FriendMapper {
 
     ComFriendRelation addFriendApplication(ComFriendRelation comFriendRelation);
+
     ComFriendRelation getFriendApplication(Integer id);
+
     ComFriendRelation updateFriendApplication(ComFriendRelation comFriendRelation);
+
     void deleteFriendApplication(Integer id);
 
 }

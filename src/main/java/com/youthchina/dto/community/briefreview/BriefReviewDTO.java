@@ -20,19 +20,19 @@ public class BriefReviewDTO {
     private UserDTO author;
 
 
-    public BriefReviewDTO (BriefReview briefReview){
+    public BriefReviewDTO(BriefReview briefReview) {
         this.id = briefReview.getReview_id();
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(briefReview.getReview_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
 
         List<CommentDTO> commentDTOS = new ArrayList<>();
         Iterator it = briefReview.getComments().iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             Comment comment = (Comment) it.next();
             CommentDTO commentDTO = new CommentDTO(comment);
             comments.getComments().add(commentDTO);
@@ -40,7 +40,8 @@ public class BriefReviewDTO {
 
     }
 
-    public BriefReviewDTO(){}
+    public BriefReviewDTO() {
+    }
 
     public Integer getId() {
         return id;

@@ -18,27 +18,32 @@ public class EssayDTO {
     private RichTextDTO body;
     private boolean is_anonymous;
 
-    public EssayDTO(ComEssay comEssay){
+    public EssayDTO(ComEssay comEssay) {
         this.id = comEssay.getEssay_id();
         this.title = comEssay.getEssay_title();
         this.create_at = comEssay.getEssay_pub_time();
         this.modified_at = comEssay.getEssay_edit_time();
-        this.is_anonymous = (comEssay.getUser_anony() == 0)? false:true;
-        try{
+        this.is_anonymous = (comEssay.getUser_anony() == 0) ? false : true;
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
-        this.is_anonymous = (comEssay.getUser_anony()==0)? false:true;
+        this.is_anonymous = (comEssay.getUser_anony() == 0) ? false : true;
     }
 
-    public EssayDTO(){}
+    public EssayDTO() {
+    }
 
-    public RichTextDTO getBody(){return body;}
+    public RichTextDTO getBody() {
+        return body;
+    }
 
-    public void setBody(RichTextDTO body){this.body = body;}
+    public void setBody(RichTextDTO body) {
+        this.body = body;
+    }
 
     public Integer getId() {
         return id;

@@ -32,18 +32,19 @@ public class QuestionAnswer implements HasId<Integer> {
     }
 
     public QuestionAnswer(RequestSimpleAnswerDTO simpleAnswerDTO) {
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
             java.lang.String requestJson = ow.writeValueAsString(simpleAnswerDTO.getBody());
             this.answer_content = requestJson;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
         this.user_anony = (simpleAnswerDTO.getIs_anonymous()) ? 1 : 0;
     }
 
-    public QuestionAnswer(){}
+    public QuestionAnswer() {
+    }
 
     public Integer getId() {
         return answer_id;
@@ -88,6 +89,7 @@ public class QuestionAnswer implements HasId<Integer> {
     public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
     }
+
     public String getAnswer_content() {
         return answer_content;
     }

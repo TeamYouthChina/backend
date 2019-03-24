@@ -139,7 +139,7 @@ public class AliCloudFileStorageService implements FileStorageService {
             ossClient.shutdown();
         }
         //if all successful
-        this.mapper.setCloudStorageId(cloudIdColName, aLiId.toString(),localId.toString());
+        this.mapper.setCloudStorageId(cloudIdColName, aLiId.toString(), localId.toString());
     }
 
     public void uploadFile(Resource resource, OSSClient ossClient, Long localId) throws IOException {

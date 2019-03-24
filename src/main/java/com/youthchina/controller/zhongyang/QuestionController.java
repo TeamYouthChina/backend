@@ -67,8 +67,8 @@ public class QuestionController extends DomainCRUDController<QuestionResponseDTO
             List<Question> qlists = communityQAService.searchQuestionByTitleOrCompanyName(company);
             if (qlists.size() != 0) {
                 List<QuestionResponseDTO> qdlist2 = new ArrayList<>();
-                for (int i = 0; i < qlists.size(); i++) {
-                    QuestionResponseDTO questionResponseDTO = DomainToDto(qlists.get(i));
+                for (Question qlist : qlists) {
+                    QuestionResponseDTO questionResponseDTO = DomainToDto(qlist);
                     qdlist2.add(questionResponseDTO);
                 }
                 HashMap<String, Object> map3 = new HashMap<>();
@@ -79,8 +79,8 @@ public class QuestionController extends DomainCRUDController<QuestionResponseDTO
             List<Question> qlists2 = communityQAService.searchQuestionByTitleOrCompanyName(job);
             if (qlists2.size() != 0) {
                 List<QuestionResponseDTO> qdlist = new ArrayList<>();
-                for (int i = 0; i < qlists2.size(); i++) {
-                    QuestionResponseDTO questionResponseDTO = DomainToDto(qlists2.get(i));
+                for (Question question : qlists2) {
+                    QuestionResponseDTO questionResponseDTO = DomainToDto(question);
                     qdlist.add(questionResponseDTO);
                 }
                 HashMap<String, Object> map3 = new HashMap<>();
@@ -93,6 +93,7 @@ public class QuestionController extends DomainCRUDController<QuestionResponseDTO
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getQuestion(@PathVariable Integer id) throws NotFoundException {
+        System.out.println("get question");
         return get(id);
     }
 
@@ -124,6 +125,7 @@ public class QuestionController extends DomainCRUDController<QuestionResponseDTO
 
     @GetMapping("/{id}/answers")
     public ResponseEntity<?> getAnswers(@PathVariable Integer id) throws NotFoundException {
+        System.out.println("get answers");
         QuestionResponseDTO questionResponseDTO = getDto(id);
         //Question question = communityQAService.get(id);
         //QuestionBasicDTO questionBasicDTO = new QuestionBasicDTO(question);
@@ -149,7 +151,6 @@ public class QuestionController extends DomainCRUDController<QuestionResponseDTO
 
     @PutMapping("/{id}/attention")
     public ResponseEntity<?> followUp(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        System.out.println("add attention");
         communityQAService.attentionQuestion(id, user.getId());
         return ResponseEntity.ok(new Response());
     }
@@ -161,6 +162,7 @@ public class QuestionController extends DomainCRUDController<QuestionResponseDTO
 
     @PostMapping("/{id}/answers")
     public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody RequestSimpleAnswerDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+        System.out.println("add answers");
         QuestionAnswer questionAnswer = new QuestionAnswer(simpleAnswerDTO);
         questionAnswer.setUser_id(user.getId());
         questionAnswer.setAnswer_pub_time(new Timestamp(System.currentTimeMillis()));

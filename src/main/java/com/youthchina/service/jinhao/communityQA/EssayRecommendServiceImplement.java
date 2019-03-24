@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class EssayRecommendServiceImplement implements EssayRecommendService {
     @Resource
@@ -21,7 +22,7 @@ public class EssayRecommendServiceImplement implements EssayRecommendService {
     public List<ComEssay> getEssayForYou() {
         List<Integer> essayIds = recommendMapper.getRandomEssay();
         List<ComEssay> comEssays = new ArrayList<>();
-        for(Integer id : essayIds){
+        for (Integer id : essayIds) {
             comEssays.add(communityMapper.getEssay(id));
         }
         return comEssays;

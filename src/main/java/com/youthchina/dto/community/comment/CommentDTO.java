@@ -16,32 +16,32 @@ public class CommentDTO {
     private Timestamp create_at;
     private boolean is_anonymous;
 
-    public CommentDTO(Comment comment){
+    public CommentDTO(Comment comment) {
         this.id = comment.getComment_id();
         this.creator = new UserDTO(comment.getUser());
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comment.getComment_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
         this.create_at = comment.getComment_pub_time();
-        this.is_anonymous = (comment.getUser_anony()==1)? true:false;
+        this.is_anonymous = (comment.getUser_anony() == 1) ? true : false;
     }
 
-    public CommentDTO(VideoComment comment){
+    public CommentDTO(VideoComment comment) {
         this.id = comment.getComment_id();
         this.creator = new UserDTO(comment.getUser());
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(comment.getComment_content(), RichTextDTO.class);
             this.body = richt;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
         this.create_at = comment.getComment_pub_time();
-        this.is_anonymous = (comment.getUser_anony()==1)? true:false;
+        this.is_anonymous = (comment.getUser_anony() == 1) ? true : false;
     }
 
     public Integer getId() {

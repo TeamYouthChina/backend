@@ -21,21 +21,22 @@ public class Comment {
     private List<Discuss> discusses;
     private List<CommentEvaluate> commentEvaluates;
 
-    public Comment(){}
+    public Comment() {
+    }
 
-    public Comment(CommentDTO commentDTO){
-        try{
+    public Comment(CommentDTO commentDTO) {
+        try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
             java.lang.String requestJson = ow.writeValueAsString(commentDTO.getBody());
             this.comment_content = requestJson;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
         this.comment_pub_time = commentDTO.getCreate_at();
         this.user = new User(commentDTO.getCreator());
         this.comment_id = commentDTO.getId();
-        this.user_anony = (commentDTO.isIs_anonymous())? 1:0;
+        this.user_anony = (commentDTO.isIs_anonymous()) ? 1 : 0;
     }
 
     public List<Discuss> getDiscusses() {

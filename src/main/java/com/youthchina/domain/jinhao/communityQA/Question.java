@@ -29,16 +29,16 @@ public class Question implements HasId<Integer> {
     private Integer rela_type;
     private Integer rela_id;
 
-    public Question(QuestionResponseDTO questionResponseDTO){
+    public Question(QuestionResponseDTO questionResponseDTO) {
         this.ques_id = questionResponseDTO.getId();
         this.ques_user = new User(questionResponseDTO.getCreator());
         this.ques_title = questionResponseDTO.getTitle();
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
             java.lang.String requestJson = ow.writeValueAsString(questionResponseDTO.getBody());
             this.ques_body = requestJson;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
 
@@ -49,20 +49,20 @@ public class Question implements HasId<Integer> {
         this.rela_id = questionResponseDTO.getRela_id();
         this.ques_abbre = questionResponseDTO.getBody().getPreviewText();
         //if(questionResponseDTO.getAnswers() != null) {
-         //   for(RequestSimpleAnswerDTO simpleAnswerDTO : questionResponseDTO.getAnswers()) {
-         //       this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
-         //   }
+        //   for(RequestSimpleAnswerDTO simpleAnswerDTO : questionResponseDTO.getAnswers()) {
+        //       this.questionAnswers.add(new QuestionAnswer(simpleAnswerDTO));
+        //   }
         //}
     }
 
     public Question(QuestionRequestDTO questionRequestDTO) {
         this.ques_title = questionRequestDTO.getTitle();
-        try{
+        try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
             java.lang.String requestJson = ow.writeValueAsString(questionRequestDTO.getBody());
             this.ques_body = requestJson;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception");
         }
         this.user_anony = (questionRequestDTO.getIs_anonymous() ? 1 : 0);
@@ -71,7 +71,8 @@ public class Question implements HasId<Integer> {
         this.ques_abbre = questionRequestDTO.getBody().getPreviewText();
     }
 
-    public Question(){}
+    public Question() {
+    }
 
     public Integer getId() {
         return ques_id;

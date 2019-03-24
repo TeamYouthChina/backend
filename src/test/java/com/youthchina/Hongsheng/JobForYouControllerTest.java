@@ -27,10 +27,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by hongshengzhang on 2/24/19.
  */
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:recommendation.xml" }) //"classpath:company.xml",,  "classpath:location.xml"
+@DatabaseSetup({"classpath:recommendation.xml"}) //"classpath:company.xml",,  "classpath:location.xml"
 //@DatabaseSetup({"classpath:"})
 @WebAppConfiguration
 public class JobForYouControllerTest {
@@ -53,7 +54,7 @@ public class JobForYouControllerTest {
     }
 
     @Test
-    public void getRecommandInternJobsTest() throws Exception {
+    public void getRecommendInternJobsTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/job-for-you/intern")
         )
@@ -62,7 +63,7 @@ public class JobForYouControllerTest {
     }
 
     @Test
-    public void getRecommandGeneralJobTest() throws Exception {
+    public void getRecommendGeneralJobTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/job-for-you/general")
         )
@@ -71,7 +72,7 @@ public class JobForYouControllerTest {
     }
 
     @Test
-    public void getRecommandCampusJobsTest() throws Exception {
+    public void getRecommendCampusJobsTest() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/job-for-you/campus")
         )
@@ -79,3 +80,4 @@ public class JobForYouControllerTest {
                 .andExpect(content().json("{\"content\":{\"jobList\":[{\"id\":1,\"name\":\"front\",\"organization\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"location\":\"北京\",\"type\":\"实习\",\"deadLine\":\"01/01/2020\",\"job_duty\":\"front\",\"job_description\":\"996\"},{\"id\":2,\"name\":\"back\",\"organization\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"location\":\"上海\",\"type\":\"实习\",\"deadLine\":\"01/01/2020\",\"job_duty\":\"back\",\"job_description\":\"996\"},{\"id\":3,\"name\":\"front-end\",\"organization\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"location\":\"上海\",\"type\":\"实习\",\"deadLine\":\"01/01/2020\",\"job_duty\":\"back\",\"job_description\":\"996\"},{\"id\":4,\"name\":\"前端工程师\",\"organization\":{\"id\":2,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},\"location\":\"哥伦比亚特区\",\"type\":\"实习\",\"deadLine\":\"01/01/2020\",\"job_duty\":\"back\",\"job_description\":\"996\"},{\"id\":5,\"name\":\"front\",\"organization\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"location\":\"哥伦比亚特区\",\"type\":\"实习\",\"deadLine\":\"01/01/2020\",\"job_duty\":\"front\",\"job_description\":\"996\"},{\"id\":6,\"name\":\"back\",\"organization\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"location\":\"北京\",\"type\":\"实习\",\"deadLine\":\"01/01/2020\",\"job_duty\":\"back\",\"job_description\":\"996\"},{\"id\":7,\"name\":\"front-end\",\"organization\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"location\":\"上海\",\"type\":\"实习\",\"deadLine\":\"01/01/2020\",\"job_duty\":\"back\",\"job_description\":\"996\"},{\"id\":8,\"name\":\"前端工程师\",\"organization\":{\"id\":2,\"name\":\"百度\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"baidu.com\",\"note\":\"baidu\",\"nation\":\"中国\"},\"location\":\"上海\",\"type\":\"实习\",\"deadLine\":\"01/01/2020\",\"job_duty\":\"back\",\"job_description\":\"996\"},{\"id\":9,\"name\":\"front\",\"organization\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"location\":\"哥伦比亚特区\",\"type\":\"实习\",\"deadLine\":\"01/01/2020\",\"job_duty\":\"front\",\"job_description\":\"996\"},{\"id\":10,\"name\":\"back\",\"organization\":{\"id\":1,\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京市\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"location\":\"哥伦比亚特区\",\"type\":\"实习\",\"deadLine\":\"01/01/2020\",\"job_duty\":\"back\",\"job_description\":\"996\"}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 }
+*/

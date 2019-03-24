@@ -72,21 +72,22 @@
         <result property="jobActive" column="JOB_ACTIVE"/>
         <result property="addTime" column="JOB_ADD_TIME"/>
         <result property="collectNum" column="JOB_COLLECT_NUM"/>
-        <association property="company" column="COMPANY_ID" javaType="com.youthchina.domain.qingyang.Company" resultMap="com.youthchina.dao.qingyang.CompanyMapper.company"/>
+        <association property="company" column="COMPANY_ID" javaType="com.youthchina.domain.qingyang.Company"
+                     resultMap="com.youthchina.dao.qingyang.CompanyMapper.company"/>
         <!--<association property="company" javaType="com.youthchina.domain.qingyang.Company">-->
-            <!--<id property="companyId" column="COMPANY_ID"/>-->
-            <!--<result property="companyName" column="COMPANY_NAME"/>-->
-            <!--<result property="companyCode" column="COMPANY_CODE"/>-->
-            <!--<result property="companyCountry" column="COMPANY_COUNTRY"/>-->
-            <!--<result property="companyIntroduc" column="COMPANY_INTRODUC"/>-->
-            <!--<result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>-->
-            <!--<result property="companyNature" column="COMPANY_NATURE"/>-->
-            <!--<result property="companyLocation" column="COMPANY_LOCATION"/>-->
-            <!--<result property="companyMail" column="COMPANY_MAIL"/>-->
-            <!--<result property="companyWebsite" column="COMPANY_WEBSITE"/>-->
-            <!--<result property="companyStartDate" column="COMPANY_START_DATE"/>-->
-            <!--<result property="companyLogo" column="COMPANY_LOGO"/>-->
-            <!--<result property="companyVerify" column="COMPANY_VERIFY"/>-->
+        <!--<id property="companyId" column="COMPANY_ID"/>-->
+        <!--<result property="companyName" column="COMPANY_NAME"/>-->
+        <!--<result property="companyCode" column="COMPANY_CODE"/>-->
+        <!--<result property="companyCountry" column="COMPANY_COUNTRY"/>-->
+        <!--<result property="companyIntroduc" column="COMPANY_INTRODUC"/>-->
+        <!--<result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>-->
+        <!--<result property="companyNature" column="COMPANY_NATURE"/>-->
+        <!--<result property="companyLocation" column="COMPANY_LOCATION"/>-->
+        <!--<result property="companyMail" column="COMPANY_MAIL"/>-->
+        <!--<result property="companyWebsite" column="COMPANY_WEBSITE"/>-->
+        <!--<result property="companyStartDate" column="COMPANY_START_DATE"/>-->
+        <!--<result property="companyLogo" column="COMPANY_LOGO"/>-->
+        <!--<result property="companyVerify" column="COMPANY_VERIFY"/>-->
         <!--</association>-->
         <association property="hr" javaType="com.youthchina.domain.qingyang.Hr">
             <id property="hrId" column="HR_ID"/>
@@ -235,18 +236,18 @@
     <!--职位详情页, 含公司和HR信息-->
     <select id="selectJobByJobId" resultMap="job" parameterType="java.lang.Integer">
         SELECT
-            <include refid="jobSelect"/>
+        <include refid="jobSelect"/>
         FROM JOB_INFO j
-            <include refid="jobJoin"/>
+        <include refid="jobJoin"/>
         WHERE
-            j.JOB_ID = #{id}
+        j.JOB_ID = #{id}
     </select>
 
     <select id="selectJobByJobIdList" resultMap="job" parameterType="java.util.List">
         SELECT
-            <include refid="jobSelect"/>
+        <include refid="jobSelect"/>
         FROM JOB_INFO j
-            <include refid="jobJoin"/>
+        <include refid="jobJoin"/>
         WHERE j.JOB_ID in
         <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
             #{id}
@@ -256,53 +257,53 @@
 
     <select id="getJobByMore" resultMap="job">
         SELECT
-            <include refid="jobSelect"/>
+        <include refid="jobSelect"/>
         FROM JOB_INFO j
-            <include refid="jobJoin"/>
+        <include refid="jobJoin"/>
         WHERE
-            j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0 AND loc.IS_DELETE = 0
-            <if test="jobId != null">
-                AND j.JOB_ID =  #{jobId}
-            </if>
-            <if test="jobName != null">
-                AND j.JOB_NAME like "%"#{jobName}"%"
-            </if>
-            <if test="comId != null">
-                AND j.COMPANY_ID = #{comId}
-            </if>
-            <if test="comName != null">
-                AND com.COMPANY_NAME like "%"#{comName}"%"
-            </if>
-            <if test="startTime != null">
-                AND j.JOB_START_TIME <![CDATA[ >= ]]> #{startTime}
-            </if>
-            <if test="endTime != null">
-                AND j.JOB_END_TIME <![CDATA[ <= ]]> #{endTime}
-            </if>
-            <if test="type != null">
-                AND j.JOB_TYPE = #{type}
-            </if>
-            <if test="salaryFloor != null">
-                AND j.JOB_SALARY_FLOOR <![CDATA[ >= ]]> #{salaryFloor}
-            </if>
-            <if test="salaryCap != null">
-                AND j.JOB_SALARY_CAP <![CDATA[ <= ]]> #{salaryCap}
-            </if>
-            <if test="active != null">
-                AND j.JOB_ACTIVE = #{active}
-            </if>
-            <if test="jobReqList != null">
-                AND degree.DEGREE_NUM IN
-                <foreach collection="jobReqList" index="index" item="item" open="(" separator="," close=")">
-                    #{item.degreeNum}
-                </foreach>
-            </if>
-            <if test="industryList != null">
-                AND class.IND_CODE IN
-                <foreach collection="industryList" index="index" item="item" open="(" separator="," close=")">
-                    #{item.indCode}
-                </foreach>
-            </if>
+        j.IS_DELETE = 0 AND com.IS_DELETE = 0 AND h.IS_DELETE = 0 AND loc.IS_DELETE = 0
+        <if test="jobId != null">
+            AND j.JOB_ID = #{jobId}
+        </if>
+        <if test="jobName != null">
+            AND j.JOB_NAME like "%"#{jobName}"%"
+        </if>
+        <if test="comId != null">
+            AND j.COMPANY_ID = #{comId}
+        </if>
+        <if test="comName != null">
+            AND com.COMPANY_NAME like "%"#{comName}"%"
+        </if>
+        <if test="startTime != null">
+            AND j.JOB_START_TIME <![CDATA[ >= ]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND j.JOB_END_TIME <![CDATA[ <= ]]> #{endTime}
+        </if>
+        <if test="type != null">
+            AND j.JOB_TYPE = #{type}
+        </if>
+        <if test="salaryFloor != null">
+            AND j.JOB_SALARY_FLOOR <![CDATA[ >= ]]> #{salaryFloor}
+        </if>
+        <if test="salaryCap != null">
+            AND j.JOB_SALARY_CAP <![CDATA[ <= ]]> #{salaryCap}
+        </if>
+        <if test="active != null">
+            AND j.JOB_ACTIVE = #{active}
+        </if>
+        <if test="jobReqList != null">
+            AND degree.DEGREE_NUM IN
+            <foreach collection="jobReqList" index="index" item="item" open="(" separator="," close=")">
+                #{item.degreeNum}
+            </foreach>
+        </if>
+        <if test="industryList != null">
+            AND class.IND_CODE IN
+            <foreach collection="industryList" index="index" item="item" open="(" separator="," close=")">
+                #{item.indCode}
+            </foreach>
+        </if>
     </select>
 
 
@@ -310,10 +311,10 @@
             useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO JOB_LOCATION
-        (   JOB_REGION_NUM,   JOB_ID,     IS_DELETE)
+        ( JOB_REGION_NUM, JOB_ID, IS_DELETE)
         VALUES
         <foreach item="item" collection="locations" separator=",">
-        (   #{item.region_num}, #{jobId}, 0)
+            ( #{item.region_num}, #{jobId}, 0)
         </foreach>
     </insert>
 
@@ -325,10 +326,10 @@
     <insert id="insertJobIndustry" useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO JOB_INDUSTRY
-        (   JOB_IND_CODE,   JOB_ID,     IS_DELETE)
+        ( JOB_IND_CODE, JOB_ID, IS_DELETE)
         VALUES
         <foreach item="item" collection="list" separator=",">
-            (   #{item.indCode}, #{item.jobId}, 0)
+            ( #{item.indCode}, #{item.jobId}, 0)
         </foreach>
     </insert>
 
@@ -340,10 +341,10 @@
     <insert id="insertJobDegree" useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO JOB_DEGREE_REQUIRE
-        (   JOB_DEGREE_NUM,   JOB_ID,     IS_DELETE)
+        ( JOB_DEGREE_NUM, JOB_ID, IS_DELETE)
         VALUES
         <foreach item="item" collection="list" separator=",">
-            (   #{item.degreeNum}, #{item.jobId}, 0)
+            ( #{item.degreeNum}, #{item.jobId}, 0)
         </foreach>
     </insert>
 
@@ -364,10 +365,6 @@
             req.IS_DELETE = 1, req.IS_DELETE_TIME = NOW()
         WHERE j.COMPANY_ID= #{comId}
     </update>
-
-
-
-
 
 
 </mapper>

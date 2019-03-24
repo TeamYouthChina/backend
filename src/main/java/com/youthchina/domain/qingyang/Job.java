@@ -1,7 +1,7 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.dto.job.SimpleJobDTO;
+import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.util.zhongyang.HasId;
 
@@ -76,16 +76,17 @@ comment '职位基本信息表';
     private Company company;
     private Hr hr;
 
-    public Job(SimpleJobDTO simpleJobDTO) {
-        this.jobId = simpleJobDTO.getId();
-        this.jobName = simpleJobDTO.getName();
-        this.company = new Company(simpleJobDTO.getOrganization());
-        for (LocationDTO locationDTO : simpleJobDTO.getJobLocationList()) {
+    public Job(JobRequestDTO jobRequestDTO) {
+        this.jobId = jobRequestDTO.getId();
+        this.jobName = jobRequestDTO.getName();
+        this.company = new Company(jobRequestDTO.getOrganization());
+        for (LocationDTO locationDTO : jobRequestDTO.getJobLocationList()) {
             this.jobLocationList.add(new Location(locationDTO));
         }
     }
 
-    public Job(){}
+    public Job() {
+    }
 
     public Integer getCollectNum() {
         return collectNum;

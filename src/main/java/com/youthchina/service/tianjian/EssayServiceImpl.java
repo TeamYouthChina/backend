@@ -34,7 +34,7 @@ public class EssayServiceImpl implements EssayService {
      */
     @Override
     public User get(Integer id) {
-       // return mapper.findOne(id);
+        // return mapper.findOne(id);
         return null;
     }
 
@@ -97,21 +97,21 @@ public class EssayServiceImpl implements EssayService {
     @Override
     public int addEssay(ComEssay essay, List<Integer> lab_num, Integer user_id, Integer rela_type, Integer rela_id) throws NotFoundException {
         ComEssay comEssaytest = mapper.getEssay(essay.getEssay_id());
-        if(comEssaytest!=null)
-            throw new NotFoundException(404,404,"this essay is exist");//todo
-        else{
+        if (comEssaytest != null)
+            throw new NotFoundException(404, 404, "this essay is exist");//todo
+        else {
             mapper.addEssay(essay);
             int essayid = essay.getEssay_id();
             List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
-            if(lab_num!=null&&lab_num.size()!=0){
-                for( int i = 0 ; i < lab_num.size() ; i++) {
+            if (lab_num != null && lab_num.size() != 0) {
+                for (int i = 0; i < lab_num.size(); i++) {
                     ComEssayLabelMap cel = new ComEssayLabelMap();
                     cel.setEssay_id(essayid);
                     cel.setLab_num(lab_num.get(i));
                     l.add(cel);
                 }
             }
-            if(l!=null&&l.size()!=0)
+            if (l != null && l.size() != 0)
                 mapper.addEssayLabel(l);
 
             ComAuthorEssayMap caem = new ComAuthorEssayMap();
@@ -123,17 +123,18 @@ public class EssayServiceImpl implements EssayService {
             return essayid;
         }
     }
+
     @Override
     public int deleteEssay(Integer essay_id, Timestamp delete_time) {
-        return mapper.deleteEssay(essay_id,delete_time);
+        return mapper.deleteEssay(essay_id, delete_time);
     }
 
     @Override
     public int updateEssay(ComEssay essay) throws NotFoundException {
         ComEssay comEssaytest = mapper.getEssay(essay.getEssay_id());
-        if(comEssaytest==null){
-                throw new NotFoundException(404,404,"this essay is not exist");//todo
-            }else {
+        if (comEssaytest == null) {
+            throw new NotFoundException(404, 404, "this essay is not exist");//todo
+        } else {
             if (essay.getEssay_pub_time() != null)
                 comEssaytest.setEssay_pub_time(essay.getEssay_pub_time());
             if (essay.getUser_anony() != null)
@@ -154,27 +155,27 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
-    public int updateEssayAuthor(ComAuthorEssayMap comAuthorEssayMap ) throws NotFoundException {
+    public int updateEssayAuthor(ComAuthorEssayMap comAuthorEssayMap) throws NotFoundException {
         ComAuthorEssayMap comAuthorEssayMap1 = mapper.getEssayAuthor(comAuthorEssayMap.getEssay_id());
-        if(comAuthorEssayMap1==null){
-            throw new NotFoundException(404,404,"this essay is not exist");//todo
-        }else
+        if (comAuthorEssayMap1 == null) {
+            throw new NotFoundException(404, 404, "this essay is not exist");//todo
+        } else
             return mapper.updateEssayAuthor(comAuthorEssayMap);
     }
 
     @Override
     public int updateEssayLabel(Integer essay_id, Integer user_id, List<Integer> lab_num) throws NotFoundException {
-         ComEssay comEssay = mapper.getEssay(essay_id);
-        if(comEssay==null){
-            throw new NotFoundException(404,404,"this essay is not exist");//todo
-        }else{
+        ComEssay comEssay = mapper.getEssay(essay_id);
+        if (comEssay == null) {
+            throw new NotFoundException(404, 404, "this essay is not exist");//todo
+        } else {
             ComAuthorEssayMap caem = new ComAuthorEssayMap();
             caem.setEssay_id(essay_id);
             caem.setUser_id(user_id);
             mapper.updateEssayAuthor(caem);
             mapper.deleteEssayLabel(essay_id);
             List<ComEssayLabelMap> l = new ArrayList<ComEssayLabelMap>();
-            for( int i = 0 ; i < lab_num.size() ; i++) {
+            for (int i = 0; i < lab_num.size(); i++) {
                 ComEssayLabelMap cel = new ComEssayLabelMap();
                 cel.setEssay_id(essay_id);
                 cel.setLab_num(lab_num.get(i));
@@ -197,8 +198,8 @@ public class EssayServiceImpl implements EssayService {
     @Override
     public int addFavoriteEssay(ComEssayAttention comessayattention, Integer essay_id) throws NotFoundException {
         ComEssay comEssay = mapper.getEssay(essay_id);
-        if(comEssay==null){
-            throw new NotFoundException(404,404,"this essay is not exist");//todo
+        if (comEssay == null) {
+            throw new NotFoundException(404, 404, "this essay is not exist");//todo
         }
         mapper.addFavoriteEssay(comessayattention);
         int attenid = comessayattention.getAtten_id();
@@ -211,17 +212,17 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public int deleteFavoriteEssay(Integer essay_id, Integer user_id) throws NotFoundException {
-        int i =  mapper.deleteFavoriteEssay(essay_id, user_id);
-        if(i==0){
-            throw new NotFoundException(404,404,"essay or user is not exist");//todo
-        }else
+        int i = mapper.deleteFavoriteEssay(essay_id, user_id);
+        if (i == 0) {
+            throw new NotFoundException(404, 404, "essay or user is not exist");//todo
+        } else
             return i;
     }
 
     @Override
     public int getFavoriteEssayWhetherAtten(Integer essay_id, Integer user_id) {
         ComEssayAttention c = mapper.getFavoriteEssayWhetherAtten(essay_id, user_id);
-        if(c!=null)
+        if (c != null)
             return 1;
         else
             return 0;
@@ -231,8 +232,8 @@ public class EssayServiceImpl implements EssayService {
     @Override
     public int addReply(ComEssayReply comessayanswer, Integer essay_id, Integer reply_level) throws NotFoundException {
         ComEssay comEssay = mapper.getEssay(essay_id);
-        if(comEssay==null){
-            throw new NotFoundException(404,404,"essay is not exist");//todo
+        if (comEssay == null) {
+            throw new NotFoundException(404, 404, "essay is not exist");//todo
         }
         mapper.addReply(comessayanswer);
         ComEssayReplyMap cerm = new ComEssayReplyMap();
@@ -244,24 +245,24 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public int updateReply(ComEssayReply comessayreply, Integer essay_id) throws NotFoundException {
-        int i = mapper.updateReply(comessayreply,essay_id);
-        if(i==0){
-            throw new NotFoundException(404,404,"reply is not exist");//todo
-        }else
+        int i = mapper.updateReply(comessayreply, essay_id);
+        if (i == 0) {
+            throw new NotFoundException(404, 404, "reply is not exist");//todo
+        } else
             return i;
     }
 
     @Override
-    public int deleteReply(Integer essay_id, Integer user_id,Integer reply_level) throws NotFoundException {
-        int i = mapper.deleteReply(essay_id,user_id,reply_level);
-        if(i==0){
-            throw new NotFoundException(404,404,"reply is not exist");//todo
-        }else
-        return i;
+    public int deleteReply(Integer essay_id, Integer user_id, Integer reply_level) throws NotFoundException {
+        int i = mapper.deleteReply(essay_id, user_id, reply_level);
+        if (i == 0) {
+            throw new NotFoundException(404, 404, "reply is not exist");//todo
+        } else
+            return i;
     }
 
     @Override
-    public  List<ComEssayReply> getReply(Integer essay_id) {
+    public List<ComEssayReply> getReply(Integer essay_id) {
         return mapper.getReply(essay_id);
     }
 
@@ -276,10 +277,10 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public int updateReplyEvaluate(ComReplyEvaluate comreplyevaluate, Integer reply_id) throws NotFoundException {
-        int i = mapper.updateReplyEvaluate(comreplyevaluate,reply_id);
-        if(i==0){
-            throw new NotFoundException(404,404,"ReplyEvaluate is not exist");//todo
-        }else
+        int i = mapper.updateReplyEvaluate(comreplyevaluate, reply_id);
+        if (i == 0) {
+            throw new NotFoundException(404, 404, "ReplyEvaluate is not exist");//todo
+        } else
             return i;
     }
 
@@ -299,7 +300,7 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
-    public List<ComEssay> getAllEssayUserAttention(Integer user_id){
+    public List<ComEssay> getAllEssayUserAttention(Integer user_id) {
         return mapper.getAllEssayUserAttention(user_id);
     }
 
