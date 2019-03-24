@@ -1,8 +1,7 @@
 package com.youthchina.dto.community.comment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.Comment;
-import com.youthchina.domain.jinhao.communityQA.VideoComment;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
 
@@ -30,7 +29,7 @@ public class CommentDTO {
         this.is_anonymous = (comment.getUser_anony()==1)? true:false;
     }
 
-    public CommentDTO(VideoComment comment){
+    public CommentDTO(Comment comment){
         this.id = comment.getComment_id();
         this.creator = new UserDTO(comment.getUser());
         try{

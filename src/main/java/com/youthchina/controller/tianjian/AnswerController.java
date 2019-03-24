@@ -1,7 +1,6 @@
 package com.youthchina.controller.tianjian;
 
-import com.youthchina.domain.jinhao.communityQA.Comment;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
+import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
@@ -11,7 +10,7 @@ import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.RequestCommentDTO;
 import com.youthchina.dto.community.comment.ResponseCommentDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.communityQA.CommunityQAServiceImplement;
+import com.youthchina.service.jinhao.CommunityQAServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,11 +29,11 @@ public class AnswerController {
 
     @GetMapping("/{id}")
     public ResponseEntity getAnswer(@PathVariable Integer id) throws NotFoundException {
-        QuestionAnswer questionAnswer = communityQAServiceImplement.getAnswer(id);
+        Answer answer = communityQAServiceImplement.getAnswer(id);
 
-        SimpleAnswerDTO simpleAnswerDTO = new SimpleAnswerDTO(questionAnswer);
+        SimpleAnswerDTO simpleAnswerDTO = new SimpleAnswerDTO(answer);
 
-         if (questionAnswer!=null)
+         if (answer !=null)
             return ResponseEntity.ok(new Response(simpleAnswerDTO, new StatusDTO(200,"success")));
          else
              return ResponseEntity.ok(new Response(simpleAnswerDTO, new StatusDTO(400,"fail")));
@@ -42,11 +41,11 @@ public class AnswerController {
 
     @PutMapping("/{id}")
     public ResponseEntity updateAnswer(@PathVariable Integer id, @RequestBody RequestSimpleAnswerDTO requestSimpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-           QuestionAnswer questionAnswer = new QuestionAnswer(requestSimpleAnswerDTO);
-           questionAnswer.setAnswer_id(id);
-           questionAnswer.setUser_id(user.getId());
-           QuestionAnswer questionAnswer1 = communityQAServiceImplement.editAnswer(questionAnswer);
-           SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(questionAnswer1);
+           Answer answer = new Answer(requestSimpleAnswerDTO);
+           answer.setAnswer_id(id);
+           answer.setUser_id(user.getId());
+           Answer answer1 = communityQAServiceImplement.editAnswer(answer);
+           SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(answer1);
           if (returnSimpleAnswer!=null)
            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
           else

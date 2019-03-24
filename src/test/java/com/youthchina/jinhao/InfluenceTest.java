@@ -6,6 +6,7 @@ import com.youthchina.dao.jinhao.InfluenceMapper;
 import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.Qinghong.Work;
+import com.youthchina.domain.jinhao.*;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.tianjian.ComReplyEvaluate;
@@ -50,17 +51,17 @@ public class InfluenceTest {
                 Assert.fail();
             }
         }
-        List<CommentEvaluate> commentEvaluates = influence.getCommentEvaluates();
+        List<Evaluate> commentEvaluates = influence.getEvaluates();
         Assert.assertEquals(3, commentEvaluates.size());
-        for(CommentEvaluate commentEvaluate : commentEvaluates){
-            if(commentEvaluate.getEvaluate_id() != 1 && commentEvaluate.getEvaluate_id() != 2 &&
-            commentEvaluate.getEvaluate_id() != 4) {
+        for(Evaluate evaluate : commentEvaluates){
+            if(evaluate.getEvaluate_id() != 1 && evaluate.getEvaluate_id() != 2 &&
+            evaluate.getEvaluate_id() != 4) {
                 Assert.fail();
             }
         }
-        List<DiscussEvaluate> discussEvaluates = influence.getDiscussEvaluates();
+        List<Evaluate> discussEvaluates = influence.getEvaluates();
         Assert.assertEquals(8, discussEvaluates.size());
-        List<VideoEvaluate> videoEvaluates = influence.getVideoEvaluates();
+        List<Evaluate> videoEvaluates = influence.getEvaluates();
         Assert.assertEquals(0, videoEvaluates.size());
         List<ComReplyEvaluate> comReplyEvaluates = influence.getComReplyEvaluates();
         Assert.assertEquals(0,comReplyEvaluates.size());
@@ -76,19 +77,19 @@ public class InfluenceTest {
                 Assert.fail();
             }
         }
-        List<CommentEvaluate> commentEvaluates = influence.getCommentEvaluates();
+        List<Evaluate> commentEvaluates = influence.getEvaluates();
         Assert.assertEquals(0, commentEvaluates.size());
-        List<DiscussEvaluate> discussEvaluates = influence.getDiscussEvaluates();
+        List<Evaluate> discussEvaluates = influence.getEvaluates();
         Assert.assertEquals(1, discussEvaluates.size());
-        for(DiscussEvaluate discussEvaluate : discussEvaluates){
-            if(discussEvaluate.getEvaluate_id() != 11){
+        for(Evaluate evaluate : discussEvaluates){
+            if(evaluate.getEvaluate_id() != 11){
                 Assert.fail();
             }
         }
-        List<VideoEvaluate> videoEvaluates = influence.getVideoEvaluates();
+        List<Evaluate> videoEvaluates = influence.getEvaluates();
         Assert.assertEquals(1, videoEvaluates.size());
-        for(VideoEvaluate videoEvaluate : videoEvaluates){
-            if(videoEvaluate.getEvaluate_id() != 1){
+        for(Evaluate evaluate : videoEvaluates){
+            if(evaluate.getEvaluate_id() != 1){
                 Assert.fail();
             }
         }
@@ -99,14 +100,14 @@ public class InfluenceTest {
                 Assert.fail();
             }
         }
-        List<QuestionAnswer> questionAnswers = influence.getQuestionAnswers();
-        Assert.assertEquals(0, questionAnswers.size());
+        List<Answer> answers = influence.getAnswers();
+        Assert.assertEquals(0, answers.size());
         List<Comment> comments = influence.getComments();
         Assert.assertEquals(0, comments.size());
-        List<VideoComment> videoComments = influence.getVideoComments();
+        List<Comment> videoComments = influence.getComments();
         Assert.assertEquals(2, videoComments.size());
-        for(VideoComment videoComment : videoComments){
-            if(videoComment.getComment_id() != 1 && videoComment.getComment_id() != 3){
+        for(Comment comment : videoComments){
+            if(comment.getComment_id() != 1 && comment.getComment_id() != 3){
                 Assert.fail();
             }
         }

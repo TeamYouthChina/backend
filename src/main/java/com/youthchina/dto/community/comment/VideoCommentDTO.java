@@ -1,14 +1,14 @@
 package com.youthchina.dto.community.comment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.VideoComment;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.dto.util.RichTextDTO;
 
 public class VideoCommentDTO {
     private RichTextDTO body;
     private boolean is_anonymous;
 
-    public VideoCommentDTO(VideoComment videocomment){
+    public VideoCommentDTO(Comment videocomment){
         try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(videocomment.getComment_content(), RichTextDTO.class);

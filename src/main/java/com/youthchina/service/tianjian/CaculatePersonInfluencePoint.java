@@ -4,6 +4,7 @@ import com.youthchina.dao.jinhao.InfluenceMapper;
 import com.youthchina.dao.tianjian.PersonInfluenceMapper;
 import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.domain.Qinghong.Student;
+import com.youthchina.domain.jinhao.*;
 import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.tianjian.ComEssayReply;
 import com.youthchina.domain.tianjian.ComFriendRelation;
@@ -245,13 +246,13 @@ public class CaculatePersonInfluencePoint {
     * 计算好友互动得分
     * */
     public static Integer caculatePersonInfluenceInteraction(List<Evaluate> evaluateList,
-                                                      List<CommentEvaluate> commentEvaluateList,
-                                                      List<DiscussEvaluate> discussEvaluatesList,
-                                                      List<VideoEvaluate> videoEvaluateList,
+                                                      List<Evaluate> commentEvaluateList,
+                                                      List<Evaluate> evaluatesList,
+                                                      List<Evaluate> videoEvaluateList,
                                                       List<ComReplyEvaluate> comReplyEvaluateList,
-                                                      List<QuestionAnswer> questionAnswersList,
+                                                      List<Answer> answersList,
                                                       List<Comment> commentList,
-                                                      List<VideoComment> videoCommentList,
+                                                      List<Comment> videoCommentList,
                                                       List<ComEssayReply> comEssayReplyList){
         Integer pers_interaction_in = new Integer(0);
 
@@ -261,8 +262,8 @@ public class CaculatePersonInfluencePoint {
         if(commentEvaluateList!=null){
             pers_interaction_in += commentEvaluateList.size();
         }
-        if(discussEvaluatesList!=null){
-            pers_interaction_in += discussEvaluatesList.size();
+        if(evaluatesList !=null){
+            pers_interaction_in += evaluatesList.size();
         }
         if(videoEvaluateList!=null){
             pers_interaction_in += videoEvaluateList.size();
@@ -270,8 +271,8 @@ public class CaculatePersonInfluencePoint {
         if(comReplyEvaluateList!=null){
             pers_interaction_in += comReplyEvaluateList.size();
         }
-        if(questionAnswersList!=null){
-            pers_interaction_in += questionAnswersList.size();
+        if(answersList !=null){
+            pers_interaction_in += answersList.size();
         }
         if(commentList !=null){
             pers_interaction_in += commentList.size();
@@ -290,9 +291,9 @@ public class CaculatePersonInfluencePoint {
     * 计算被点赞数得分
     * */
     public static Integer caculatePersonInfluenceLikeCount(List<Evaluate> evaluateList,
-                                                      List<CommentEvaluate> commentEvaluateList,
-                                                      List<DiscussEvaluate> discussEvaluatesList,
-                                                      List<VideoEvaluate> videoEvaluateList,
+                                                      List<Evaluate> commentEvaluateList,
+                                                      List<Evaluate> evaluatesList,
+                                                      List<Evaluate> videoEvaluateList,
                                                       List<ComReplyEvaluate> comReplyEvaluateList){
         Integer pers_like_count_in = new Integer(0);
         if(evaluateList !=null){
@@ -301,8 +302,8 @@ public class CaculatePersonInfluencePoint {
         if(commentEvaluateList!=null){
             pers_like_count_in += commentEvaluateList.size();
         }
-        if(discussEvaluatesList!=null){
-            pers_like_count_in += discussEvaluatesList.size();
+        if(evaluatesList !=null){
+            pers_like_count_in += evaluatesList.size();
         }
         if(videoEvaluateList!=null){
             pers_like_count_in += videoEvaluateList.size();
@@ -368,13 +369,13 @@ public class CaculatePersonInfluencePoint {
         while(itInteraction.hasNext()){
             Influence influenceinteraction = (Influence) itInteraction.next();
             interaction += caculatePersonInfluenceInteraction(influenceinteraction.getEvaluates(),
-                    influenceinteraction.getCommentEvaluates(),
-                    influenceinteraction.getDiscussEvaluates(),
-                    influenceinteraction.getVideoEvaluates(),
+                    influenceinteraction.getEvaluates(),
+                    influenceinteraction.getEvaluates(),
+                    influenceinteraction.getEvaluates(),
                     influenceinteraction.getComReplyEvaluates(),
-                    influenceinteraction.getQuestionAnswers(),
+                    influenceinteraction.getAnswers(),
                     influenceinteraction.getComments(),
-                    influenceinteraction.getVideoComments(),
+                    influenceinteraction.getComments(),
                     influenceinteraction.getComEssayReplies());
         }
         if(interaction * 3 <= 100){
@@ -384,9 +385,9 @@ public class CaculatePersonInfluencePoint {
         }
 
         pers_like_count = caculatePersonInfluenceLikeCount(influence.getEvaluates(),
-                                                           influence.getCommentEvaluates(),
-                                                           influence.getDiscussEvaluates(),
-                                                           influence.getVideoEvaluates(),
+                                                           influence.getEvaluates(),
+                                                           influence.getEvaluates(),
+                                                           influence.getEvaluates(),
                                                            influence.getComReplyEvaluates())*pers_like_count_rate;
         pers_posi_evaluate = caculatePersonInfluencePosiEvaluate()*pers_posi_evaluate_rate;
 

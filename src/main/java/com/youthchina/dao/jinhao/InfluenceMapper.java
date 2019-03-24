@@ -2,7 +2,7 @@ package com.youthchina.dao.jinhao;
 
 import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.domain.Qinghong.Work;
-import com.youthchina.domain.jinhao.communityQA.Influence;
+import com.youthchina.domain.jinhao.Influence;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;

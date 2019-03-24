@@ -1,7 +1,7 @@
 package com.youthchina.controller.zhongyang;
 
-import com.youthchina.domain.jinhao.communityQA.Question;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
+import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
@@ -13,7 +13,7 @@ import com.youthchina.dto.community.question.RequestQuestionDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
-import com.youthchina.service.jinhao.communityQA.CommunityQAService;
+import com.youthchina.service.jinhao.CommunityQAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -167,12 +167,12 @@ public class QuestionController extends DomainCRUDController<QuestionDTO, Questi
     @PostMapping("/{id}/answers")
     public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody RequestSimpleAnswerDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         System.out.println("add answers");
-        QuestionAnswer questionAnswer = new QuestionAnswer(simpleAnswerDTO);
-        questionAnswer.setUser_id(user.getId());
-        questionAnswer.setAnswer_pub_time(new Timestamp(System.currentTimeMillis()));
-        questionAnswer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
+        Answer answer = new Answer(simpleAnswerDTO);
+        answer.setUser_id(user.getId());
+        answer.setAnswer_pub_time(new Timestamp(System.currentTimeMillis()));
+        answer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
 
-        SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(communityQAService.addAnswer(questionAnswer,id,1));
+        SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(communityQAService.addAnswer(answer,id,1));
         if (returnSimpleAnswer!=null)
             return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
         else

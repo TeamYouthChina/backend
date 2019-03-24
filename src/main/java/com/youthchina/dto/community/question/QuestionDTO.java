@@ -1,8 +1,8 @@
 package com.youthchina.dto.community.question;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.Question;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
+import com.youthchina.domain.jinhao.Question;
+import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.dto.community.answer.AnswerBasicDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
@@ -46,9 +46,9 @@ public class QuestionDTO {
         this.rela_type = question.getRela_type();
         this.answers = new ArrayList<AnswerBasicDTO>();
         this.rela_id = question.getRela_id();
-        if(question.getQuestionAnswers() != null) {
-            for(QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
-                this.answers.add(new AnswerBasicDTO(questionAnswer));
+        if(question.getAnswers() != null) {
+            for(Answer answer : question.getAnswers()) {
+                this.answers.add(new AnswerBasicDTO(answer));
             }
         }
 
