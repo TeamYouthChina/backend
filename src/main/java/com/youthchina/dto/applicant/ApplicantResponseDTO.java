@@ -1,6 +1,7 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.*;
+import com.youthchina.dto.ResponseDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @author: Qinghong Wang
  * @create: 2019-02-24 15:40
  **/
-public class ApplicantResponseDTO {
+public class ApplicantResponseDTO implements ResponseDTO {
     private Integer id;
     private String name;
     private String avatarUrl;

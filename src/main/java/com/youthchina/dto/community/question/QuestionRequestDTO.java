@@ -1,14 +1,14 @@
 package com.youthchina.dto.community.question;
 
 import com.youthchina.dto.RequestDTO;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.dto.util.RichTextDTOResponse;
 
 /**
  * Created by hongshengzhang on 2/23/19.
  */
 public class QuestionRequestDTO implements RequestDTO {
     String title;
-    RichTextDTO body;
+    RichTextDTOResponse body;
     boolean is_anonymous;
     Integer rela_type;
     Integer rela_id;
@@ -21,11 +21,11 @@ public class QuestionRequestDTO implements RequestDTO {
         this.title = title;
     }
 
-    public RichTextDTO getBody() {
+    public RichTextDTOResponse getBody() {
         return body;
     }
 
-    public void setBody(RichTextDTO body) {
+    public void setBody(RichTextDTOResponse body) {
         this.body = body;
     }
 

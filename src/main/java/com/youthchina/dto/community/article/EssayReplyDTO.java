@@ -3,14 +3,14 @@ package com.youthchina.dto.community.article;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssayReply;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.dto.util.RichTextDTOResponse;
 import com.youthchina.service.zhongyang.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class EssayReplyDTO {
     private Integer id;
     private UserDTO creator;
-    private RichTextDTO body;
+    private RichTextDTOResponse body;
     private String create_at;
     private boolean is_anonymous;
     private String modified_at;
@@ -25,7 +25,7 @@ public class EssayReplyDTO {
         this.id = comEssayReply.getReply_id();
         try {
             ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(comEssayReply.getReply_content(), RichTextDTO.class);
+            RichTextDTOResponse richt = mapper.readValue(comEssayReply.getReply_content(), RichTextDTOResponse.class);
             this.body = richt;
         } catch (Exception e) {
             System.out.println("Exception");
@@ -59,11 +59,11 @@ public class EssayReplyDTO {
         this.creator = creator;
     }
 
-    public RichTextDTO getBody() {
+    public RichTextDTOResponse getBody() {
         return body;
     }
 
-    public void setBody(RichTextDTO body) {
+    public void setBody(RichTextDTOResponse body) {
         this.body = body;
     }
 

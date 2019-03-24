@@ -1,10 +1,8 @@
 package com.youthchina.dto.community.question;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.Question;
-import com.youthchina.dto.RequestDTO;
+import com.youthchina.domain.jinhao.Question;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.dto.util.RichTextDTOResponse;
 
 import java.sql.Timestamp;
 
@@ -21,39 +19,27 @@ public class QuestionBasicDTO {
     private Timestamp modified_at;
     private Integer rela_type;
     private Integer rela_id;
-    private RichTextDTO body;
+    private RichTextDTOResponse body;
 
     public QuestionBasicDTO(Question question) {
-        this.id = question.getQues_id();
-        this.creator = new UserDTO(question.getQues_user());
-        this.title = question.getQues_title();
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(question.getQues_body(), RichTextDTO.class);
-            this.body = richt;
-        } catch (Exception e) {
-            System.out.println("Exception");
-        }
-
+        this.id = question.getId();
+        this.creator = new UserDTO(question.getUser());
+        this.title = question.getTitle();
+        RichTextDTOResponse richt = new RichTextDTOResponse(question.getRichText());
+        this.body = richt;
         //this.invitation = question.getQues_invitation();
-        this.is_anonymous = (question.getUser_anony() == 1 ? true : false);
-        this.create_at = question.getQues_pub_time();
-        this.modified_at = question.getQues_edit_time();
+        this.is_anonymous = (question.getIsAnony()==1 ? true : false);
+        this.create_at = question.getPubTime();
+        this.modified_at = question.getEditTime();
         this.rela_type = question.getRela_type();
         this.rela_id = question.getRela_id();
-
     }
 
-    public QuestionBasicDTO() {
-    }
+    public QuestionBasicDTO(){}
 
-    public RichTextDTO getBody() {
-        return body;
-    }
+    public RichTextDTOResponse getBody(){return body;}
 
-    public void setBody(RichTextDTO body) {
-        this.body = body;
-    }
+    public void setBody(RichTextDTOResponse body){this.body = body;}
 
     public Integer getId() {
         return id;
@@ -107,7 +93,7 @@ public class QuestionBasicDTO {
         return rela_id;
     }
 
-    public void setRela_id(Integer rela_id) {
+    public void setRela_id(Integer rela_id){
         this.rela_id = rela_id;
     }
 

@@ -1,16 +1,5 @@
 package com.youthchina.zhongyang;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.dto.util.RichTextDTO;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import java.io.IOException;
-
 /**
  * Created by zhongyangwu on 2/26/19.
  */
@@ -43,9 +32,9 @@ public class RichTextDTOTest {
                 "  \"resourceIdList\": []\n" +
                 "}";
 
-        RichTextDTO richTextDTO = null;
+        RichTextDTOResponse richTextDTO = null;
         try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
             System.out.println(richTextDTO);
         } catch (IOException e) {
             Assert.fail();

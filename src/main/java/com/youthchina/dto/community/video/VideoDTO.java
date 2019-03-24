@@ -1,7 +1,7 @@
 package com.youthchina.dto.community.video;
 
-import com.youthchina.domain.jinhao.communityQA.Video;
-import com.youthchina.domain.jinhao.communityQA.VideoComment;
+import com.youthchina.domain.jinhao.Comment;
+import com.youthchina.domain.jinhao.Video;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.security.UserDTO;
 
@@ -15,20 +15,19 @@ public class VideoDTO {
     private List<CommentDTO> comments = new ArrayList<CommentDTO>();
     private UserDTO uploader;
 
-    public VideoDTO() {
-    }
+    public VideoDTO (){}
 
-    public VideoDTO(Video video) {
-        this.id = video.getVideo_id();
-        if (video.getVideoComments() != null) {
-            Iterator it = video.getVideoComments().iterator();
-            while (it.hasNext()) {
-                CommentDTO commentDTO = new CommentDTO((VideoComment) it.next());
+    public VideoDTO (Video video){
+        this.id = video.getId();
+        if(video.getComments() != null){
+            Iterator it = video.getComments().iterator();
+            while(it.hasNext()){
+                CommentDTO commentDTO = new CommentDTO((Comment)it.next());
                 this.comments.add(commentDTO);
             }
         }
         this.uploader = new UserDTO(video.getUser());
-        this.url = video.getVideo_name();
+        this.url = video.getName();
     }
 
     public Integer getId() {

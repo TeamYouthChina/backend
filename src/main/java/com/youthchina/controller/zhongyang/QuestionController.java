@@ -1,18 +1,19 @@
 package com.youthchina.controller.zhongyang;
 
-import com.youthchina.domain.jinhao.communityQA.Question;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
+import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.answer.RequestSimpleAnswerDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerDTO;
-import com.youthchina.dto.community.question.QuestionResponseDTO;
-import com.youthchina.dto.community.question.QuestionRequestDTO;
+import com.youthchina.dto.community.question.QuestionBasicDTO;
+import com.youthchina.dto.community.question.QuestionDTO;
+import com.youthchina.dto.community.question.RequestQuestionDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
-import com.youthchina.service.jinhao.communityQA.CommunityQAService;
+import com.youthchina.service.jinhao.CommunityQAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/questions/**")
-public class QuestionController extends DomainCRUDController<QuestionResponseDTO, Question, Integer> {
+public class QuestionController extends DomainCRUDController<QuestionDTO, Question, Integer>{
     private String url;
     private CommunityQAService communityQAService;
 
@@ -47,13 +48,13 @@ public class QuestionController extends DomainCRUDController<QuestionResponseDTO
     }
 
     @Override
-    protected QuestionResponseDTO DomainToDto(Question domain) {
-        return new QuestionResponseDTO(domain);
+    protected QuestionDTO DomainToDto(Question domain) {
+        return new QuestionDTO(domain);
     }
 
     @Override
-    protected Question DtoToDomain(QuestionResponseDTO questionResponseDTO) {
-        return new Question(questionResponseDTO);
+    protected Question DtoToDomain(QuestionDTO questionDTO) {
+        return new Question(questionDTO);
     }
 
     @Override
@@ -62,33 +63,33 @@ public class QuestionController extends DomainCRUDController<QuestionResponseDTO
     }
 
     @GetMapping("/**")
-    public ResponseEntity<?> getQuestions(@RequestParam(value = "Company") String company, @RequestParam(value = "Job") String job) throws NotFoundException {
-        if (!company.equals("")) {
-            List<Question> qlists = communityQAService.searchQuestionByTitleOrCompanyName(company);
-            if (qlists.size() != 0) {
-                List<QuestionResponseDTO> qdlist2 = new ArrayList<>();
-                for (Question qlist : qlists) {
-                    QuestionResponseDTO questionResponseDTO = DomainToDto(qlist);
-                    qdlist2.add(questionResponseDTO);
+    public ResponseEntity<?> getQuestions(@RequestParam(value = "Company") String company,@RequestParam(value = "Job") String job) throws NotFoundException {
+        if(!company.equals("")){
+            List<Question> qlists=  communityQAService.searchQuestionByTitleOrCompanyName(company);
+            if(qlists.size() != 0){
+                List<QuestionDTO> qdlist2 = new ArrayList<>();
+                for(int i = 0; i<qlists.size(); i++){
+                    QuestionDTO questionDTO = DomainToDto(qlists.get(i));
+                    qdlist2.add(questionDTO);
                 }
-                HashMap<String, Object> map3 = new HashMap<>();
+                HashMap<String,Object> map3 = new HashMap<>();
                 map3.put("questions", qdlist2);
                 return ResponseEntity.ok(new Response(map3));
             }
-        } else if (!job.equals("")) {
-            List<Question> qlists2 = communityQAService.searchQuestionByTitleOrCompanyName(job);
-            if (qlists2.size() != 0) {
-                List<QuestionResponseDTO> qdlist = new ArrayList<>();
-                for (Question question : qlists2) {
-                    QuestionResponseDTO questionResponseDTO = DomainToDto(question);
-                    qdlist.add(questionResponseDTO);
+        }else if(!job.equals("")){
+            List<Question> qlists2=  communityQAService.searchQuestionByTitleOrCompanyName(job);
+            if (qlists2.size() != 0){
+                List<QuestionDTO> qdlist = new ArrayList<>();
+                for(int i = 0; i<qlists2.size(); i++){
+                    QuestionDTO questionDTO = DomainToDto(qlists2.get(i));
+                    qdlist.add(questionDTO);
                 }
-                HashMap<String, Object> map3 = new HashMap<>();
+                HashMap<String,Object> map3 = new HashMap<>();
                 map3.put("questions", qdlist);
                 return ResponseEntity.ok(new Response(map3));
             }
         }
-        throw new NotFoundException(4000, 404, "not found questions");
+        throw new NotFoundException(4000,404,"not found questions");
     }
 
     @GetMapping("/{id}")
@@ -98,24 +99,24 @@ public class QuestionController extends DomainCRUDController<QuestionResponseDTO
     }
 
     @PostMapping("/**")
-    public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionRequestDTO questionRequestDTO, @AuthenticationPrincipal User user) {
-        Question question = new Question(questionRequestDTO);
+    public ResponseEntity<?> createQuestionInfo(@RequestBody RequestQuestionDTO requestQuestionDTO, @AuthenticationPrincipal User user) {
+        Question question = new Question(requestQuestionDTO);
         question.setQues_user(user);
 
-        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
-        questionResponseDTO.setCreator(new UserDTO(user));
+        QuestionDTO questionDTO = new QuestionDTO(question);
+        questionDTO.setCreator(new UserDTO(user));
 
-        return add(questionResponseDTO);
+        return add(questionDTO);
     }
 
     @PutMapping("/{id}/**")
-    public ResponseEntity<?> updateQuestionInfo(@PathVariable Integer id, @RequestBody QuestionRequestDTO questionRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        Question question = new Question(questionRequestDTO);
+    public ResponseEntity<?> updateQuestionInfo(@PathVariable Integer id, @RequestBody RequestQuestionDTO requestQuestionDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+        Question question = new Question(requestQuestionDTO);
         question.setQues_user(user);
-        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
-        questionResponseDTO.setId(id);
-        update(questionResponseDTO);
-        return ResponseEntity.ok(new Response(new StatusDTO(204, "updated success")));
+        QuestionDTO questionDTO = new QuestionDTO(question);
+        questionDTO.setId(id);
+        update(questionDTO);
+        return ResponseEntity.ok(new Response(new StatusDTO(204,"updated success")));
     }
 
     @DeleteMapping("/{id}")
@@ -126,23 +127,25 @@ public class QuestionController extends DomainCRUDController<QuestionResponseDTO
     @GetMapping("/{id}/answers")
     public ResponseEntity<?> getAnswers(@PathVariable Integer id) throws NotFoundException {
         System.out.println("get answers");
-        QuestionResponseDTO questionResponseDTO = getDto(id);
-        //Question question = communityQAService.get(id);
-        //QuestionBasicDTO questionBasicDTO = new QuestionBasicDTO(question);
-        HashMap<String, Object> map1 = new HashMap<>();
-        map1.put("answers", questionResponseDTO.getAnswers());
+        QuestionDTO questionDTO = getDto(id);
+        Question question = communityQAService.get(id);
+        QuestionBasicDTO questionBasicDTO = new QuestionBasicDTO(question);
+        HashMap<String,Object> map1 = new HashMap<>();
+        map1.put("answers", questionDTO.getAnswers());
 
         return ResponseEntity.ok(new Response(map1));
     }
 
     @PutMapping("/{id}/invite/**")
     public ResponseEntity<?> sendInvites(@PathVariable Integer id, @RequestBody List<Integer> userIds, @AuthenticationPrincipal User user) throws NotFoundException {
+        System.out.println("invite users to answer");
         communityQAService.invitUsersToAnswer(user.getId(), id, userIds);
         return ResponseEntity.ok(new Response());
     }
 
     @PutMapping("/{questionId}/invite/{userId}")
     public ResponseEntity<?> sendInvite(@PathVariable Integer questionId, @PathVariable Integer userId, @AuthenticationPrincipal User user) throws NotFoundException {
+        System.out.println("invite user 1 to answer");
         List<Integer> list = new ArrayList<>();
         list.add(userId);
         communityQAService.invitUsersToAnswer(user.getId(), questionId, list);
@@ -150,29 +153,30 @@ public class QuestionController extends DomainCRUDController<QuestionResponseDTO
     }
 
     @PutMapping("/{id}/attention")
-    public ResponseEntity<?> followUp(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> followUp (@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        System.out.println("add attention");
         communityQAService.attentionQuestion(id, user.getId());
         return ResponseEntity.ok(new Response());
     }
 
 
-    private QuestionResponseDTO getDto(Integer id) throws NotFoundException {
+    private QuestionDTO getDto(Integer id) throws NotFoundException {
         return this.DomainToDto(this.getService().get(id));
     }
 
     @PostMapping("/{id}/answers")
     public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody RequestSimpleAnswerDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         System.out.println("add answers");
-        QuestionAnswer questionAnswer = new QuestionAnswer(simpleAnswerDTO);
-        questionAnswer.setUser_id(user.getId());
-        questionAnswer.setAnswer_pub_time(new Timestamp(System.currentTimeMillis()));
-        questionAnswer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
+        Answer answer = new Answer(simpleAnswerDTO);
+        answer.setUser_id(user.getId());
+        answer.setAnswer_pub_time(new Timestamp(System.currentTimeMillis()));
+        answer.setAnswer_edit_time(new Timestamp(System.currentTimeMillis()));
 
-        SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(communityQAService.addAnswer(questionAnswer, id, 1));
-        if (returnSimpleAnswer.getId() != null)
-            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200, "success")));
+        SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(communityQAService.addAnswer(answer,id,1));
+        if (returnSimpleAnswer!=null)
+            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
         else
-            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(400, "fail")));
+            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(400,"fail")));
     }
 
 }

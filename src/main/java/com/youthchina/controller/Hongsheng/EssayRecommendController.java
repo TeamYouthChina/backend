@@ -10,7 +10,7 @@ import com.youthchina.dto.community.article.EssayDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.communityQA.EssayRecommendServiceImplement;
+import com.youthchina.service.jinhao.toBeDeleted.EssayRecommendServiceImplement;
 import com.youthchina.service.qingyang.CompanyCURDService;
 import com.youthchina.service.tianjian.EssayServiceImpl;
 import com.youthchina.service.zhongyang.UserService;
