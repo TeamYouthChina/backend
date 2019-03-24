@@ -110,7 +110,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         if (industryList != null && industryList.size() > 0) {
             companyMapper.insertCompanyInd(company.getId(), industryList);
         }
-        List<Logo> logoList = company.getLogos();
+        List<Logo> logoList = company.getLogoList();
         if(logoList != null && logoList.size() > 0){
             companyMapper.insertCompanyLogo(company.getId(), logoList);
         }
@@ -133,7 +133,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         if (industryList != null && industryList.size() > 0) {
             companyMapper.insertCompanyInd(entity.getId(), industryList);
         }
-        List<Logo> logoList = entity.getLogos();
+        List<Logo> logoList = entity.getLogoList();
         if(logoList != null && logoList.size() > 0){
             companyMapper.insertCompanyLogo(entity.getId(), logoList);
         }
