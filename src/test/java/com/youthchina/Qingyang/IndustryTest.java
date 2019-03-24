@@ -23,7 +23,7 @@ import java.util.List;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.dao.qingyang.CompanyMapper;
 
-
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -77,4 +77,4 @@ public class IndustryTest {
     public void testDeleteIndustry() {
         companyMapper.deleteIndustry(1);
     }
-}
+} */

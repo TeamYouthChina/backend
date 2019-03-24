@@ -27,6 +27,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -51,6 +52,8 @@ public class YouthchinaApplicationTests {
 
     @Autowired
     BriefReviewRecommendServiceImplement briefReviewRecommendServiceImplement;
+
+
    /* @Test
     public void testupLoadFile() {
        File file = new File("D:\\LocalFileStore\\video.mp4");
@@ -68,7 +71,7 @@ public class YouthchinaApplicationTests {
         System.out.println( staticFileSystemServiceImplALiCloud.downloadFile("2848699711584473088"));
     }*/
 
-
+/*
     @Test
     public void testGenerateId() {
         Long i = snowFlakeIdGenerate.nextId();
@@ -81,7 +84,7 @@ public class YouthchinaApplicationTests {
 //        String path = localFileManage.uploadFileToLocal(file,".mp4");
 //        System.out.println(path);
 //    }
-
+/*
     @Test
     public void testEssayService() throws NotFoundException {
         ComEssay comEssay = new ComEssay();
@@ -118,3 +121,4 @@ public class YouthchinaApplicationTests {
     }
 
 }
+*/

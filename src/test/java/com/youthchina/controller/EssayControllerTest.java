@@ -1,4 +1,3 @@
-
 package com.youthchina.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,7 +46,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DatabaseSetup({"classpath:users.xml"})
 @DatabaseSetup({"classpath:company.xml"})
 @WebAppConfiguration
-
 public class EssayControllerTest {
 
     @Autowired

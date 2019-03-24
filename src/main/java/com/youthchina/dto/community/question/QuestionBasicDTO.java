@@ -2,6 +2,7 @@ package com.youthchina.dto.community.question;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.jinhao.communityQA.Question;
+import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
 

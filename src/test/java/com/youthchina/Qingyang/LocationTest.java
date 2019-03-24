@@ -22,7 +22,7 @@ import java.util.List;
  * @create: 2019-02-17
  **/
 
-
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -57,4 +57,4 @@ public class LocationTest {
     }
 
 
-}
+}*/

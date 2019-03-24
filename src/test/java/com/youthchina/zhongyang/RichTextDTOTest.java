@@ -14,6 +14,7 @@ import java.io.IOException;
 /**
  * Created by zhongyangwu on 2/26/19.
  */
+/*
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class RichTextDTOTest {
@@ -60,4 +61,4 @@ public class RichTextDTOTest {
 
 
     }
-}
+}*/
