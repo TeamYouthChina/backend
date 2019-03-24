@@ -1,10 +1,9 @@
 package com.youthchina.zhongyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseOperation;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DatabaseTearDown;
+import com.google.common.collect.Lists;
 import com.youthchina.dao.zhongyang.UserMapper;
+import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,7 +24,6 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:users.xml"})
 public class UserMapperTest {
     @Autowired
     private UserMapper userMapper;
@@ -34,7 +32,7 @@ public class UserMapperTest {
     public void testGetUser() {
         User user = userMapper.findOne(1);
         Assert.assertEquals("yihao guo", user.getUsername());
-        Assert.assertEquals("None", user.getRealName());
+        Assert.assertEquals("None", user.getFirstName());
     }
 
     @Test
@@ -46,11 +44,13 @@ public class UserMapperTest {
         user.setAvatarUrl("");
         user.setEmail("test@test.com");
         user.setPhonenumber("12321312334");
-        user.setRealName("Test");
+        user.setFirstName("Test");
+        user.setLastName("test");
         user.setNation("China");
         user.setRegisterDate("2018-10-11 11:11:11");
         user.setGender("male");
-        user.setRole(1);
+        user.setHired(false);
+        user.setRole(Role.APPLICANT);
         userMapper.insert(user);
         Assert.assertNotNull(user.getId());
         User createdUser = userMapper.findOne(user.getId());
@@ -86,9 +86,9 @@ public class UserMapperTest {
     public void testUpdateUser() {
         User user = userMapper.findOne(1);
         Assert.assertNotNull(user);
-        Assert.assertEquals("China", user.getNation());
+        Assert.assertEquals("CHN", user.getNation());
         Assert.assertNotNull(user.getEmail());
-        user.setNation("US");
+        user.setNation("USA");
         userMapper.update(user);
         user = userMapper.findOne(1);
         Assert.assertEquals("US", user.getNation());
@@ -103,12 +103,24 @@ public class UserMapperTest {
         user.setAvatarUrl("");
         user.setEmail("testNew!@test.com");
         user.setPhonenumber("00000011112222");
-        user.setRealName("Test");
+        user.setFirstName("Test");
         user.setNation("China");
         user.setRegisterDate("2018-10-11 11:11:11");
         user.setGender("male");
-        user.setRole(1);
+        user.setRole(Role.APPLICANT);
         Assert.assertTrue(userMapper.canRegister(user));
     }
 
+    @Test
+    public void testGetRoles() {
+        List<Role> roles = userMapper.getRoles(1);
+        Assert.assertTrue(roles.size() != 0);
+    }
+
+    @Test
+    public void testSetRoles() {
+        List<Role> roles = Lists.newArrayList(Role.APPLICANT, Role.ADMIN);
+        userMapper.setRole(3, roles);
+
+    }
 }

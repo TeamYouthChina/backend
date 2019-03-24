@@ -1,7 +1,10 @@
 package com.youthchina.dto.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
+
+import java.util.List;
 
 /**
  * Created by zhongyangwu on 1/29/19.
@@ -17,7 +20,7 @@ public class UserDTO {
     private String gender;
     private String nation;
     private String avatar_url;
-    private Integer role;
+    private List<Role> role;
     private Integer age;
 
     public UserDTO() {
@@ -31,7 +34,7 @@ public class UserDTO {
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
         this.register_date = user.getRegisterDate();
-        this.real_name = user.getRealName();
+        this.real_name = user.getFirstName();
         this.gender = user.getGender();
         this.nation = user.getNation();
         this.avatar_url = user.getAvatarUrl();
@@ -121,11 +124,11 @@ public class UserDTO {
     }
 
 
-    public Integer getRole() {
+    public List<Role> getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(List<Role> role) {
         this.role = role;
     }
 

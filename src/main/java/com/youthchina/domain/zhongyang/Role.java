@@ -1,12 +1,25 @@
 package com.youthchina.domain.zhongyang;
 
+import org.springframework.security.core.GrantedAuthority;
+
 /**
  * Created by zhongyangwu on 2/20/19.
  */
-public class Role {
-    public static int ROOT = 0;
-    public static int ORGANIZATION = 1;
-    public static int HR = 2;
-    public static int APPLICANT = 3;
+public enum Role implements GrantedAuthority {
+    ROOT(0),
+    ADMIN(1),
+    APPLICANT(2),
+    HR(3),
+    EMPLOYER(4);
 
+    int value;
+
+    Role(int value) {
+        this.value = value;
+    }
+
+    @Override
+    public String getAuthority() {
+        return null;
+    }
 }
