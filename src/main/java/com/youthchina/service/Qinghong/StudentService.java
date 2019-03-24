@@ -80,4 +80,14 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
     Integer deleteResumeJson(Integer id) throws NotFoundException;
 
     List<ResumeJson> selectResumeJsonByStuId(Integer id) throws NotFoundException;
+
+    EducationInfo updateEducationInfo(EducationInfo educationInfo) throws NotFoundException;
+
+    Project updateProject(Project project) throws NotFoundException;
+
+    Work updateWork(Work work) throws NotFoundException;
+
+    Certificate updateCertificate(Certificate certificate) throws NotFoundException;
+
+    Activity updateActivity(Activity activity) throws NotFoundException;
 }

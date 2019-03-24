@@ -83,6 +83,8 @@ public interface ApplicantMapper {
 
     Integer deleteCertificate(Integer certificate_id);
 
+    Integer deleteSkill(Integer label_id);
+
     Integer updateEducation(EducationInfo educationInfo);
 
     Integer updateWork(Work work);
@@ -108,6 +110,12 @@ public interface ApplicantMapper {
     List<LabelInfo> getAllSkills();
 
     Integer insertAdvantageSkills(AdvantageLabel advantageLabel);
+
+    EducationInfo getEducationById(Integer edu_id);
+    Work getWorkById(Integer work_id);
+    Project getProjectById(Integer proj_id);
+    Certificate getCertificateById(Integer certificate_id);
+    Activity getActivityById(Integer act_id);
 
 
 }
