@@ -37,7 +37,7 @@ public class CompanyRequestDTO implements RequestDTO {
         this.location = new LocationDTO(domain.getLocation()); // Default: Chinese Location
         this.website = domain.getCompanyWebsite();
         this.nation = new NationDTO(domain.getCountry()); // Default: Chinese Location
-        this.avatarUrl = domain.getLogos().get(0).getDocuLocalId();
+        this.avatarUrl = domain.getLogoList().get(0).getDocuLocalId();
         this.note = domain.getCompanyIntroduc();
         this.userId = domain.getUserId();
     }

@@ -143,9 +143,9 @@ public class CompanyTest {
         Logo logo = new Logo();
         logo.setDocuLocalId("logodoc");
         logoList.add(logo);
-        company.setLogos(logoList);
+        company.setLogoList(logoList);
 
-        companyMapper.insertCompanyLogo(company.getId(), company.getLogos());
+        companyMapper.insertCompanyLogo(company.getId(), company.getLogoList());
 
     }
 
@@ -222,7 +222,7 @@ public class CompanyTest {
     @Test
     public void testGetCompanyLogo(){
         Company company = companyMapper.selectCompany(1);
-        Logo logo = company.getLogos().get(0);
+        Logo logo = company.getLogoList().get(0);
         Assert.assertEquals("COMLOGO1", logo.getDocuLocalId());
 
     }

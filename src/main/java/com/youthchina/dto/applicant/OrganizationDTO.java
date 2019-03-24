@@ -22,7 +22,7 @@ public class OrganizationDTO {
         if (company == null) return;
         this.id = company.getCompanyId();
         this.name = company.getCompanyName();
-        this.avatarUrl = company.getLogos().get(0).getDocuLocalId();
+        this.avatarUrl = company.getLogoList().get(0).getDocuLocalId();
         Location location = company.getLocation();
         this.location = location == null ? null : location.getRegion_chn(); // 中文名
         this.website = company.getCompanyWebsite();
