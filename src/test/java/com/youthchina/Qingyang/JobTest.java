@@ -82,7 +82,7 @@ public class JobTest {
         Assert.assertEquals("back", job.getJobName());
         Assert.assertEquals(1, job.getJobLocationList().size());
         Assert.assertEquals(Integer.valueOf(2), job.getJobLocationList().get(0).getRegion_num());
-        Assert.assertEquals("上海", job.getJobLocationList().get(0).getRegion_chn());
+        Assert.assertEquals("C", job.getJobLocationList().get(0).getRegion_chn());
 
     }
 
