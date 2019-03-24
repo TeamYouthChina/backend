@@ -141,6 +141,12 @@ public class JobTest {
         locations.add(location);
         job.setJobLocationList(locations);
         jobMapper.insertJobLocation(job.getId(), job.getJobLocationList());
+        List<Logo> logoList = new ArrayList<>();
+        Logo logo = new Logo();
+        logo.setDocuLocalId("JobLogo");
+        logoList.add(logo);
+        job.setLogoList(logoList);
+        jobMapper.insertJobLogo(job.getId(), job.getLogoList());
     }
 
     @Test
@@ -161,9 +167,10 @@ public class JobTest {
     public void testDeleteJob() {
         Job job = new Job();
         job.setJobId(1);
-        jobMapper.deleteJobDegree(job.getJobId());
-        jobMapper.deleteJobIndustry(job.getJobId());
-        jobMapper.deleteJobLocation(job.getJobId());
+//        jobMapper.deleteJobDegree(job.getJobId());
+//        jobMapper.deleteJobIndustry(job.getJobId());
+//        jobMapper.deleteJobLocation(job.getJobId());
+//        jobMapper.deleteJobLogo(job.getId());
         jobMapper.deleteJob(job.getJobId());
     }
 
