@@ -141,6 +141,8 @@ public class JobServiceImpl implements JobService {
         jobMapper.insertJobIndustry(job.getIndustries());
         jobMapper.deleteJobDegree(job.getJobId());
         jobMapper.insertJobDegree(job.getJobReqList());
+        jobMapper.deleteJobLogo(job.getJobId());
+        jobMapper.insertJobLogo(job.getJobId(), job.getLogoList());
         Job result = jobMapper.selectJobByJobId(job.getJobId());
         setJobLocation(result);
         return result;
@@ -159,6 +161,7 @@ public class JobServiceImpl implements JobService {
         jobMapper.insertJobIndustry(entity.getIndustries());
         jobMapper.insertJobDegree(entity.getJobReqList());
         jobMapper.insertJobLocation(entity.getId(), entity.getJobLocationList());
+        jobMapper.insertJobLogo(entity.getId(), entity.getLogoList());
         Job jobResult = jobMapper.selectJobByJobId(entity.getJobId());
         setJobLocation(jobResult);
         return jobResult;
