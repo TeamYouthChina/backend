@@ -29,6 +29,9 @@ public class JobServiceImpl implements JobService {
     @Autowired
     LocationServiceImpl locationServiceImpl;
 
+    @Autowired
+    CompanyCURDServiceImpl companyCURDServiceImpl;
+
     /**
      * 删除职位 TODO: 通过HrId 确认其有删除权限
      *
@@ -69,6 +72,7 @@ public class JobServiceImpl implements JobService {
     @Transactional
     public Job get(Integer id) throws NotFoundException {
         Job job = jobMapper.selectJobByJobId(id);
+        job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
         setJobLocation(job);
         return job;
     }
@@ -108,6 +112,7 @@ public class JobServiceImpl implements JobService {
         List<Job> jobList = jobMapper.selectJobByJobIdList(id);
         for (Job job : jobList) {
             setJobLocation(job);
+            job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
         }
         return jobList;
     }
@@ -197,6 +202,7 @@ public class JobServiceImpl implements JobService {
                 salaryFloor, salaryCap, active, null, jobReqList, industryList);
         for (Job job : results) {
             setJobLocation(job);
+            job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
         }
         return results;
     }
