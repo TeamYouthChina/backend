@@ -56,5 +56,12 @@ public class LocationTest {
         Assert.assertEquals(2, locationList.size());
     }
 
+    @Test
+    public void testGetLocationView() {
+        Location location = locationMapper.getLocationViewById(11);
+        Assert.assertEquals("CHN", location.getNation_code());
+//        Assert.assertEquals(null, location);
+    }
+
 
 }

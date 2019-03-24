@@ -31,6 +31,20 @@ public class Location {
     private String regionCity;
     private USAState usaState;
 
+    /** --For View COUNTRY_LOCATION Start-- */
+    private Integer regionId;
+
+    public Integer getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(Integer regionId) {
+        this.regionId = regionId;
+    }
+
+    /** --For View COUNTRY_LOCATION End -- */
+
+
     public String getRegionCity() {
         return regionCity;
     }

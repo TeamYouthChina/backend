@@ -85,4 +85,30 @@
     </select>
 
 
+    <resultMap id="LocationView" type="com.youthchina.domain.Qinghong.Location">
+        <id property="regionId" column="REGION_ID"/>
+        <result property="region_num" column="REGION_NUM"/>
+        <result property="region_chn" column="REGION_NAME"/>
+        <result property="nation_code" column="COUNTRY"/>
+    </resultMap>
+
+
+    <sql id="selectLocationView">
+        SELECT *
+        FROM COUNTRY_LOCATION
+    </sql>
+
+    <select id="getLocationViewById" resultMap="LocationView" parameterType="java.lang.Integer">
+        <include refid="selectLocationView"/>
+        WHERE COUNTRY_LOCATION.REGION_ID = #{id}
+    </select>
+
+    <select id="getLocationViewByIdList" resultMap="LocationView" parameterType="java.util.List">
+        <include refid="selectLocationView"/>
+        WHERE COUNTRY_LOCATION.REGION_ID IN
+        <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
 </mapper>
