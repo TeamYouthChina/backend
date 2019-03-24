@@ -4,6 +4,7 @@ import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.CompanyPhoto;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.qingyang.Logo;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -114,6 +115,10 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         if(logoList != null && logoList.size() > 0){
             companyMapper.insertCompanyLogo(company.getId(), logoList);
         }
+        List<CompanyPhoto> photoList = company.getPhotoList();
+        if(photoList != null && photoList.size() > 0){
+            companyMapper.insertCompanyPhoto(company.getId(), photoList);
+        }
         Company companyResult = companyMapper.selectCompany(company.getCompanyId());
         setCompanyLocation(companyResult);
         return companyResult;
@@ -136,6 +141,10 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         List<Logo> logoList = entity.getLogoList();
         if(logoList != null && logoList.size() > 0){
             companyMapper.insertCompanyLogo(entity.getId(), logoList);
+        }
+        List<CompanyPhoto> photoList = entity.getPhotoList();
+        if(photoList != null && photoList.size() > 0){
+            companyMapper.insertCompanyPhoto(entity.getId(), photoList);
         }
         Company companyResult = companyMapper.selectCompany(entity.getCompanyId());
         setCompanyLocation(companyResult);
