@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.jinhao.InfluenceMapper">
-    <resultMap id="influence" type="com.youthchina.domain.jinhao.communityQA.Influence">
+    <resultMap id="influence" type="com.youthchina.domain.jinhao.Influence">
         <id property="user_id" column="USER_ID"/>
         <association property="student" column="user_id"
                      select="com.youthchina.dao.Qinghong.ApplicantMapper.getStudentInfo"/>
         <collection property="comFriendRelations" column="user_id"
                     select="com.youthchina.dao.tianjian.CommunityMapper.getFriend"/>
-        <collection property="evaluates" ofType="com.youthchina.domain.jinhao.communityQA.Evaluate">
+        <collection property="evaluates" ofType="com.youthchina.domain.jinhao.Evaluate">
             <id property="evaluate_id" column="A_EVALUATE_ID"/>
         </collection>
-        <collection property="commentEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
+        <collection property="evaluates" ofType="com.youthchina.domain.jinhao.Evaluate">
             <id property="evaluate_id" column="C_EVALUATE_ID"/>
         </collection>
-        <collection property="discussEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.DiscussEvaluate">
+        <collection property="evaluates" ofType="com.youthchina.domain.jinhao.Evaluate">
             <id property="evaluate_id" column="D_EVALUATE_ID"/>
         </collection>
-        <collection property="videoEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate">
+        <collection property="evaluates" ofType="com.youthchina.domain.jinhao.Evaluate">
             <id property="evaluate_id" column="V_EVALUATE_ID"/>
         </collection>
         <collection property="comReplyEvaluates" ofType="com.youthchina.domain.tianjian.ComReplyEvaluate">
             <id property="evaluate_id" column="R_EVALUATE_ID"/>
         </collection>
     </resultMap>
-    <resultMap id="influenceOfInteraction" type="com.youthchina.domain.jinhao.communityQA.Influence">
+    <resultMap id="influenceOfInteraction" type="com.youthchina.domain.jinhao.Influence">
         <id property="user_id" column="USER_ID"/>
-        <collection property="evaluates" ofType="com.youthchina.domain.jinhao.communityQA.Evaluate">
+        <collection property="evaluates" ofType="com.youthchina.domain.jinhao.Evaluate">
             <id property="evaluate_id" column="I_A_EVALUATE_ID"/>
         </collection>
-        <collection property="commentEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.CommentEvaluate">
+        <collection property="evaluates" ofType="com.youthchina.domain.jinhao.Evaluate">
             <id property="evaluate_id" column="I_C_EVALUATE_ID"/>
         </collection>
-        <collection property="discussEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.DiscussEvaluate">
+        <collection property="evaluates" ofType="com.youthchina.domain.jinhao.Evaluate">
             <id property="evaluate_id" column="I_D_EVALUATE_ID"/>
         </collection>
-        <collection property="videoEvaluates" ofType="com.youthchina.domain.jinhao.communityQA.VideoEvaluate">
+        <collection property="evaluates" ofType="com.youthchina.domain.jinhao.Evaluate">
             <id property="evaluate_id" column="I_V_EVALUATE_ID"/>
         </collection>
         <collection property="comReplyEvaluates" ofType="com.youthchina.domain.tianjian.ComReplyEvaluate">
             <id property="evaluate_id" column="I_R_EVALUATE_ID"/>
         </collection>
-        <collection property="questionAnswers" ofType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
+        <collection property="answers" ofType="com.youthchina.domain.jinhao.Answer">
             <id property="answer_id" column="ANSWER_ID"/>
         </collection>
-        <collection property="comments" ofType="com.youthchina.domain.jinhao.communityQA.Comment">
+        <collection property="comments" ofType="com.youthchina.domain.jinhao.Comment">
             <id property="comment_id" column="COMMENT_ID"/>
         </collection>
-        <collection property="videoComments" ofType="com.youthchina.domain.jinhao.communityQA.VideoComment">
+        <collection property="comments" ofType="com.youthchina.domain.jinhao.Comment">
             <id property="comment_id" column="VIDEO_COMMENT_ID"/>
         </collection>
         <collection property="comEssayReplies" ofType="com.youthchina.domain.tianjian.ComEssayReply">

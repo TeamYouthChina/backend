@@ -1,12 +1,11 @@
 package com.youthchina.dto.community.briefreview;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.BriefReview;
-import com.youthchina.domain.jinhao.communityQA.Comment;
+import com.youthchina.domain.jinhao.BriefReview;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.ResponseCommentDTO;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.dto.util.RichTextDTOResponse;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,21 +14,15 @@ import java.util.List;
 
 public class BriefReviewDTO {
     private Integer id;
-    private RichTextDTO body;
+    private RichTextDTOResponse body;
     private ResponseCommentDTO comments = new ResponseCommentDTO();
     private UserDTO author;
 
 
     public BriefReviewDTO(BriefReview briefReview) {
-        this.id = briefReview.getReview_id();
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(briefReview.getReview_content(), RichTextDTO.class);
-            this.body = richt;
-        } catch (Exception e) {
-            System.out.println("Exception");
-        }
-
+        this.id = briefReview.getId();
+        RichTextDTOResponse richt = new RichTextDTOResponse(briefReview.getRichText());
+        this.body = richt;
         List<CommentDTO> commentDTOS = new ArrayList<>();
         Iterator it = briefReview.getComments().iterator();
         while (it.hasNext()) {
@@ -51,11 +44,11 @@ public class BriefReviewDTO {
         this.id = id;
     }
 
-    public RichTextDTO getBody() {
+    public RichTextDTOResponse getBody() {
         return body;
     }
 
-    public void setBody(RichTextDTO body) {
+    public void setBody(RichTextDTOResponse body) {
         this.body = body;
     }
 

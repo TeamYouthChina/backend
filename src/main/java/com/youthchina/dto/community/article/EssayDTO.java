@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.dto.util.RichTextDTOResponse;
 
 import java.sql.Timestamp;
 
@@ -15,7 +15,7 @@ public class EssayDTO {
     private Timestamp create_at;
     private Timestamp modified_at;
     private UserDTO author;
-    private RichTextDTO body;
+    private RichTextDTOResponse body;
     private boolean is_anonymous;
 
     public EssayDTO(ComEssay comEssay) {
@@ -26,7 +26,7 @@ public class EssayDTO {
         this.is_anonymous = (comEssay.getUser_anony() == 0) ? false : true;
         try {
             ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
+            RichTextDTOResponse richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTOResponse.class);
             this.body = richt;
         } catch (Exception e) {
             System.out.println("Exception");
@@ -37,11 +37,11 @@ public class EssayDTO {
     public EssayDTO() {
     }
 
-    public RichTextDTO getBody() {
+    public RichTextDTOResponse getBody() {
         return body;
     }
 
-    public void setBody(RichTextDTO body) {
+    public void setBody(RichTextDTOResponse body) {
         this.body = body;
     }
 

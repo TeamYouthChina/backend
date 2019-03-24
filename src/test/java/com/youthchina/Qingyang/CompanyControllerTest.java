@@ -36,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author: Qingyang Zhao
  * @create: 2019-02-16
  **/
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -140,3 +141,4 @@ public class CompanyControllerTest {
 
 
 }
+*/

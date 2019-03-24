@@ -23,7 +23,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -275,4 +275,4 @@ public class JobTest {
 
 
     }
-}
+} */

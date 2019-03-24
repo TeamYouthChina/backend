@@ -2,9 +2,7 @@ package com.youthchina.controller.tianjian;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.youthchina.domain.jinhao.communityQA.BriefReview;
-import com.youthchina.domain.jinhao.communityQA.Comment;
-import com.youthchina.domain.jinhao.communityQA.Evaluate;
+import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
@@ -14,9 +12,9 @@ import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.RequestCommentDTO;
 import com.youthchina.dto.community.comment.ResponseCommentDTO;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.dto.util.RichTextDTOResponse;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.communityQA.BriefReviewServiceImplement;
+import com.youthchina.service.jinhao.BriefReviewServiceImplement;
 import com.youthchina.service.zhongyang.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -83,7 +81,7 @@ public class BriefReviewController {
 
         try {
             ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(briefReviewReturn.getReview_content(), RichTextDTO.class);
+            RichTextDTOResponse richt = mapper.readValue(briefReviewReturn.getReview_content(), RichTextDTOResponse.class);
             briefReviewDTO.setBody(richt);
         } catch (Exception e) {
             System.out.println("Exception");
@@ -131,7 +129,7 @@ public class BriefReviewController {
 
         try {
             ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(briefReviewReturn.getReview_content(), RichTextDTO.class);
+            RichTextDTOResponse richt = mapper.readValue(briefReviewReturn.getReview_content(), RichTextDTOResponse.class);
             briefReviewDTO.setBody(richt);
         } catch (Exception e) {
             System.out.println("Exception");

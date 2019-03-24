@@ -1,38 +1,6 @@
-
 package com.youthchina.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.dto.community.article.RequestEssayDTO;
-import com.youthchina.dto.community.article.RequestEssayReplyDTO;
-import com.youthchina.dto.util.RichTextDTO;
-import com.youthchina.util.AuthGenerator;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
-import java.io.IOException;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 
 /**
@@ -47,7 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DatabaseSetup({"classpath:users.xml"})
 @DatabaseSetup({"classpath:company.xml"})
 @WebAppConfiguration
-
 public class EssayControllerTest {
 
     @Autowired
@@ -101,15 +68,15 @@ public class EssayControllerTest {
                 "  \"resourceIdList\": []\n" +
                 "}";
 
-        RichTextDTO richTextDTO = null;
+        RichTextDTOResponse richTextDTO = null;
         try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
         } catch (IOException e) {
             Assert.fail();
         }
         RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
         requestEssayDTO.setTitle("This is a new article Title");
-        //RichTextDTO richTextDTO = new RichTextDTO();
+        //RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         //richTextDTO.setBraftEditorRaw("{\n" +
         //       "  \"this\": \"that\"\n" +
         //        "}");
@@ -134,7 +101,7 @@ public class EssayControllerTest {
     public void updateEssayTest() throws Exception {
         RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
         requestEssayDTO.setTitle("This is a new Title 1");
-        RichTextDTO richTextDTO = new RichTextDTO();
+        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         //language=JSON
         String json = "{\n" +
                 "  \"braftEditorRaw\":{\n" +
@@ -157,7 +124,7 @@ public class EssayControllerTest {
                 "  \"resourceIdList\": []\n" +
                 "}";
         try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
             System.out.println(richTextDTO);
         } catch (IOException e) {
             Assert.fail();
@@ -210,7 +177,7 @@ public class EssayControllerTest {
     public void addCommentTest() throws Exception {
         RequestEssayReplyDTO essayDTO = new RequestEssayReplyDTO();
         essayDTO.setAnonymous(false);
-        RichTextDTO richTextDTO = new RichTextDTO();
+        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         String json = "{\n" +
                 "  \"braftEditorRaw\": {\n" +
                 "    \"blocks\": [\n" +
@@ -231,7 +198,7 @@ public class EssayControllerTest {
                 "  \"resourceIdList\": []\n" +
                 "}";
         try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
+            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
             System.out.println(richTextDTO);
         } catch (IOException e) {
             Assert.fail();

@@ -16,7 +16,7 @@ import com.youthchina.dto.community.article.RequestEssayDTO;
 import com.youthchina.dto.community.article.RequestEssayReplyDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.dto.util.RichTextDTOResponse;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.qingyang.CompanyCURDServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
@@ -91,7 +91,7 @@ public class EssayController {
         essayDTO.setAuthor(new UserDTO(user));
         try {
             ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
+            RichTextDTOResponse richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTOResponse.class);
             essayDTO.setBody(richt);
         } catch (Exception e) {
             System.out.println("Exception");
@@ -154,7 +154,7 @@ public class EssayController {
         essayDTO.setIs_anonymous(requestEssayDTO.isIs_anonymous());
         try {
             ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTO.class);
+            RichTextDTOResponse richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTOResponse.class);
             essayDTO.setBody(richt);
         } catch (Exception e) {
             System.out.println("Exception");

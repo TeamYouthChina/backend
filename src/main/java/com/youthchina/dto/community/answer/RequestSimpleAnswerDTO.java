@@ -1,35 +1,29 @@
 package com.youthchina.dto.community.answer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.dto.util.RichTextDTORequest;
+import com.youthchina.dto.util.RichTextDTOResponse;
 
 /**
  * Created by zhongyangwu on 1/2/19.
  */
 public class RequestSimpleAnswerDTO {
-    private RichTextDTO body;
+    private RichTextDTORequest body;
     private Boolean is_anonymous;
 
-    public RequestSimpleAnswerDTO(QuestionAnswer questionAnswer) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(questionAnswer.getAnswer_content(), RichTextDTO.class);
-            this.body = richt;
-        } catch (Exception e) {
-            System.out.println("Exception");
-        }
-        this.is_anonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
+    public RequestSimpleAnswerDTO(Answer answer) {
+        RichTextDTORequest richt = new RichTextDTORequest(answer.getRichText());
+        this.body = richt;
+        this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
     }
 
-    public RequestSimpleAnswerDTO() {
-    }
+    public RequestSimpleAnswerDTO(){}
 
-    public RichTextDTO getBody() {
+    public RichTextDTORequest getBody() {
         return body;
     }
 
-    public void setBody(RichTextDTO body) {
+    public void setBody(RichTextDTORequest body) {
         this.body = body;
     }
 
