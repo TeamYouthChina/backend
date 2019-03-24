@@ -185,13 +185,5 @@ public class ApplicantResponseDTO implements ResponseDTO {
         this.certifications = certifications;
     }
 
-    @Override
-    public StatusDTO getStatus() {
-        return null;
-    }
 
-    @Override
-    public void setStatus(StatusDTO status) {
-
-    }
 }

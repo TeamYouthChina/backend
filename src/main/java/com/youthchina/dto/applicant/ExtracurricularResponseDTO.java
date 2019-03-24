@@ -79,13 +79,4 @@ public class ExtracurricularResponseDTO implements ResponseDTO {
         this.note = note;
     }
 
-    @Override
-    public StatusDTO getStatus() {
-        return null;
-    }
-
-    @Override
-    public void setStatus(StatusDTO status) {
-
-    }
 }

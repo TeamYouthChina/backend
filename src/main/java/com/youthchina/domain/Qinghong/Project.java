@@ -1,5 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.domain.qingyang.Country;
 import com.youthchina.dto.applicant.ProjectRequestDTO;
 
 import java.sql.Timestamp;
@@ -8,7 +9,7 @@ import java.util.Date;
 public class Project {
     private Integer proj_id;
     private String proj_institute;
-    private String insti_country;
+    private Country insti_country;
     private String proj_name;
     private String proj_role;
     private Date proj_start_time;
@@ -106,11 +107,11 @@ public class Project {
         this.proj_institute = proj_institute;
     }
 
-    public String getInsti_country() {
+    public Country getInsti_country() {
         return insti_country;
     }
 
-    public void setInsti_country(String insti_country) {
+    public void setInsti_country(Country insti_country) {
         this.insti_country = insti_country;
     }
 

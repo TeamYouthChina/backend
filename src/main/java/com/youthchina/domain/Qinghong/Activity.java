@@ -1,5 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.domain.qingyang.Country;
 import com.youthchina.dto.applicant.ExtracurricularRequestDTO;
 
 import java.sql.Timestamp;
@@ -9,7 +10,7 @@ public class Activity {
     private Integer act_id;
     private String act_name;
     private String act_organization;
-    private String org_country;
+    private Country org_country;
     private String act_role;
     private Date act_start_time;
     private Date act_end_time;
@@ -87,11 +88,11 @@ public class Activity {
         this.act_detail = act_detail;
     }
 
-    public String getOrg_country() {
+    public Country getOrg_country() {
         return org_country;
     }
 
-    public void setOrg_country(String org_country) {
+    public void setOrg_country(Country org_country) {
         this.org_country = org_country;
     }
 

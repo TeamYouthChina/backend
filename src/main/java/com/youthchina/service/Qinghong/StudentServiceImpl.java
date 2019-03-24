@@ -58,10 +58,10 @@ public class StudentServiceImpl implements StudentService {
             throw new NotFoundException(404, 404, "cannot find user with id " + id);//todo
         } else {
             Student student = applicantMapper.getStudentInfo(id);
-            for (EducationInfo educationInfo : student.getEducationInfos()) {
-                Location location = locationService.getLocation(educationInfo.getLocation().getRegion_num());
-                educationInfo.setLocation(location);
-            }
+//            for (EducationInfo educationInfo : student.getEducationInfos()) {
+//                Location location = locationService.getLocation(educationInfo.getLocation().getRegion_num());
+//                educationInfo.setLocation(location);
+//            }
             for (Work work : student.getWorks()) {
                 Location location = locationService.getLocation(work.getLocation().getRegion_num());
                 work.setLocation(location);
@@ -89,10 +89,10 @@ public class StudentServiceImpl implements StudentService {
     public Student add(Student entity) {
         if (applicantMapper.getStudentInfo(entity.getId()) != null) {
             Student student = applicantMapper.getStudentInfo(entity.getId());
-            for (EducationInfo educationInfo : student.getEducationInfos()) {
-                Location location = locationService.getLocation(educationInfo.getLocation().getRegion_num());
-                educationInfo.setLocation(location);
-            }
+//            for (EducationInfo educationInfo : student.getEducationInfos()) {
+//                Location location = locationService.getLocation(educationInfo.getLocation().getRegion_num());
+//                educationInfo.setLocation(location);
+//            }
             for (Work work : student.getWorks()) {
                 Location location = locationService.getLocation(work.getLocation().getRegion_num());
                 work.setLocation(location);
@@ -110,12 +110,12 @@ public class StudentServiceImpl implements StudentService {
             label.setLabel_code(labelInfo.getLabel_code());
             applicantMapper.insertStuLabel(label);
         }
-        for (EducationInfo educationInfo : entity.getEducationInfos()) {
-            educationInfo.setStu_id(stu_id);
-            Location location = locationService.getLocation(educationInfo.getLocation().getRegion_num());
-            educationInfo.setLocation(location);
-            Integer integer = applicantMapper.insertEduInfo(educationInfo);
-        }
+//        for (EducationInfo educationInfo : entity.getEducationInfos()) {
+//            educationInfo.setStu_id(stu_id);
+//            Location location = locationService.getLocation(educationInfo.getLocation().getRegion_num());
+//            educationInfo.setLocation(location);
+//            Integer integer = applicantMapper.insertEduInfo(educationInfo);
+//        }
         for (Project project : entity.getProjects()) {
             project.setStu_id(stu_id);
             Integer integer = applicantMapper.insertStuProject(project);
@@ -137,10 +137,10 @@ public class StudentServiceImpl implements StudentService {
         }
         Student student = applicantMapper.getStudentInfo(entity.getId());
         //分离service并不能实现location
-        for (EducationInfo educationInfo : student.getEducationInfos()) {
-            Location location = locationService.getLocation(educationInfo.getLocation().getRegion_num());
-            educationInfo.setLocation(location);
-        }
+//        for (EducationInfo educationInfo : student.getEducationInfos()) {
+//            Location location = locationService.getLocation(educationInfo.getLocation().getRegion_num());
+//            educationInfo.setLocation(location);
+//        }
         for (Work work : student.getWorks()) {
             Location location = locationService.getLocation(work.getLocation().getRegion_num());
             work.setLocation(location);
@@ -483,10 +483,10 @@ public class StudentServiceImpl implements StudentService {
             educationInfo.setStu_id(stu_id);
             Integer integer = applicantMapper.insertEduInfo(educationInfo);
             List<EducationInfo> educationInfos = applicantMapper.getStudentInfo(user_id).getEducationInfos();
-            for (EducationInfo educationInfo1 : educationInfos) {
-                Location location = locationService.getLocation(educationInfo1.getLocation().getRegion_num());
-                educationInfo1.setLocation(location);
-            }
+//            for (EducationInfo educationInfo1 : educationInfos) {
+//                Location location = locationService.getLocation(educationInfo1.getLocation().getRegion_num());
+//                educationInfo1.setLocation(location);
+//            }
             return educationInfos;
 
         }
@@ -604,11 +604,11 @@ public class StudentServiceImpl implements StudentService {
                 applicantMapper.insertEduInfo(educationInfo);
             }
             List<EducationInfo> educationInfoList = applicantMapper.getStudentInfo(user_id).getEducationInfos();
-            for (EducationInfo educationInfo : educationInfoList) {
-                Location location = locationService.getLocation(educationInfo.getLocation().getRegion_num());
-                educationInfo.setLocation(location);
-
-            }
+//            for (EducationInfo educationInfo : educationInfoList) {
+//                Location location = locationService.getLocation(educationInfo.getLocation().getRegion_num());
+//                educationInfo.setLocation(location);
+//
+//            }
             return educationInfoList;
         }
 

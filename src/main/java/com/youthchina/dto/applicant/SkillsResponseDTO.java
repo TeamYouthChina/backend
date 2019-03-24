@@ -38,13 +38,5 @@ public class SkillsResponseDTO implements ResponseDTO {
         this.name = name;
     }
 
-    @Override
-    public StatusDTO getStatus() {
-        return null;
-    }
 
-    @Override
-    public void setStatus(StatusDTO status) {
-
-    }
 }

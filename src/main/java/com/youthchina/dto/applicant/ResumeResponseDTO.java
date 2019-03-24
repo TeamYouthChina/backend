@@ -65,13 +65,5 @@ public class ResumeResponseDTO implements ResponseDTO {
         this.jsons = jsons;
     }
 
-    @Override
-    public StatusDTO getStatus() {
-        return null;
-    }
 
-    @Override
-    public void setStatus(StatusDTO status) {
-
-    }
 }

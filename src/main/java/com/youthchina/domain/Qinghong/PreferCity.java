@@ -5,7 +5,6 @@ import java.util.Date;
 
 public class PreferCity {
     private Integer pre_city_id;
-    private String pre_country;
     private String pre_region_num;
     private Integer stu_id;
     private Integer is_delete;
@@ -17,14 +16,6 @@ public class PreferCity {
 
     public void setPre_city_id(Integer pre_city_id) {
         this.pre_city_id = pre_city_id;
-    }
-
-    public String getPre_country() {
-        return pre_country;
-    }
-
-    public void setPre_country(String pre_country) {
-        this.pre_country = pre_country;
     }
 
     public String getPre_region_num() {

@@ -121,12 +121,12 @@ public class InfluenceTest {
         EducationInfo educationInfo4 = new EducationInfo();
         EducationInfo educationInfo5 = new EducationInfo();
         EducationInfo educationInfo6 = new EducationInfo();
-        educationInfo1.setEdu_school("清华大学");
-        educationInfo2.setEdu_school("北京大学");
-        educationInfo3.setEdu_school("alili");
-        educationInfo4.setEdu_school("弟弟");
-        educationInfo5.setEdu_school("gege");
-        educationInfo6.setEdu_school("激光管");
+//        educationInfo1.setEdu_school_id(1);
+//        educationInfo2.setEdu_school_id(1);
+//        educationInfo3.setEdu_school_id(1);
+//        educationInfo4.setEdu_school_id(1);
+//        educationInfo5.setEdu_school_id(1);
+//        educationInfo6.setEdu_school_id(1);
         List<EducationInfo> educationInfos = new LinkedList<>();
         educationInfos.add(educationInfo1);
         educationInfos.add(educationInfo2);

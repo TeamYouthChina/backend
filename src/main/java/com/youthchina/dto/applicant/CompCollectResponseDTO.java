@@ -39,13 +39,5 @@ public class CompCollectResponseDTO implements ResponseDTO {
         this.organization = organization;
     }
 
-    @Override
-    public StatusDTO getStatus() {
-        return null;
-    }
 
-    @Override
-    public void setStatus(StatusDTO status) {
-
-    }
 }

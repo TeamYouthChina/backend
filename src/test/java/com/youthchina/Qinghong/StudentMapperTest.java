@@ -27,7 +27,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:applicant.xml"})
+@DatabaseSetup({"classpath:testnew.xml"})
 public class StudentMapperTest {
     @Autowired
     ApplicantMapper applicantMapper;
@@ -39,7 +39,7 @@ public class StudentMapperTest {
         if (educationInfos != null) {
             System.out.print("测试成功");
         }
-        System.out.print(educationInfos.get(1).getEdu_school());
+
     }
 
     @Test
@@ -188,13 +188,9 @@ public class StudentMapperTest {
     @Test
     public void testAddEduInfo() {
         EducationInfo educationInfo = new EducationInfo();
-        Location location = new Location();
-        educationInfo.setLocation(location);
         Degree degree = new Degree();
         degree.setDegreeNum(1);
         educationInfo.setDegree(degree);
-        educationInfo.setEdu_school("gwu");
-        educationInfo.getLocation().setRegion_num(1);
         educationInfo.setEdu_major("计算机");
         educationInfo.setEdu_college("cssa");
         educationInfo.setEdu_gpa((float) 3.3);

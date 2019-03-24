@@ -1,5 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.domain.qingyang.Country;
 import com.youthchina.dto.applicant.CertificateRequestDTO;
 
 import java.sql.Timestamp;
@@ -15,7 +16,7 @@ public class Certificate {
     private Integer certificate_id;
     private String certificate_name;
     private String certificate_insti;
-    private String insti_country;
+    private Country insti_country;
     private java.util.Date certificate_grant_date;
     private java.util.Date certificate_expir_date;
     private String docu_local_id;
@@ -97,11 +98,11 @@ public class Certificate {
         this.is_delete_time = is_delete_time;
     }
 
-    public String getInsti_country() {
+    public Country getInsti_country() {
         return insti_country;
     }
 
-    public void setInsti_country(String insti_country) {
+    public void setInsti_country(Country insti_country) {
         this.insti_country = insti_country;
     }
 

@@ -9,9 +9,8 @@ import java.util.Date;
 public class EducationInfo {
     private Integer edu_id;
     private com.youthchina.domain.qingyang.Degree degree;
-    private String edu_school;
-    private String edu_school_id;
-    private Location location;
+    private University university;
+//    private Location location;
     private String edu_major;
     private String edu_college;
     private Float edu_gpa;
@@ -23,15 +22,14 @@ public class EducationInfo {
     private Timestamp is_delete_time;
 
     public EducationInfo(EducationRequestDTO educationRequestDTO) {
-        this.edu_school= educationRequestDTO.getUniversity();
         this.edu_major= educationRequestDTO.getMajor();
         this.degree=new Degree();
         this.degree.setDegreeNum(Integer.parseInt(educationRequestDTO.getDegree()));
         this.edu_start= educationRequestDTO.getDuration().getBegin();
         this.edu_end= educationRequestDTO.getDuration().getEnd();
-        this.location=new Location();
-        this.location.setNation_code(educationRequestDTO.getLocation().getNation_code());
-        this.location.setRegion_num(Integer.parseInt(educationRequestDTO.getLocation().getLocation_code()));
+//        this.location=new Location();
+//        this.location.setNation_code(educationRequestDTO.getLocation().getNation_code());
+//        this.location.setRegion_num(Integer.parseInt(educationRequestDTO.getLocation().getLocation_code()));
 
 
         //fix location
@@ -58,21 +56,14 @@ public class EducationInfo {
         this.degree = degree;
     }
 
-    public String getEdu_school() {
-        return edu_school;
-    }
 
-    public void setEdu_school(String edu_school) {
-        this.edu_school = edu_school;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
+//    public Location getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(Location location) {
+//        this.location = location;
+//    }
 
     public String getEdu_major() {
         return edu_major;
@@ -138,12 +129,12 @@ public class EducationInfo {
         this.is_delete_time = is_delete_time;
     }
 
-    public String getEdu_school_id() {
-        return edu_school_id;
+    public University getUniversity() {
+        return university;
     }
 
-    public void setEdu_school_id(String edu_school_id) {
-        this.edu_school_id = edu_school_id;
+    public void setUniversity(University university) {
+        this.university = university;
     }
 
     public Integer getEdu_diploma_type() {

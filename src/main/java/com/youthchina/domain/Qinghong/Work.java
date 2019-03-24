@@ -8,7 +8,6 @@ import java.util.Date;
 public class Work {
     private Integer work_id;
     private String work_company;
-    private String work_country;
     private Location location;
     private String work_position;
     private String work_sector;
@@ -109,13 +108,6 @@ public class Work {
         this.work_nature = work_nature;
     }
 
-    public String getWork_country() {
-        return work_country;
-    }
-
-    public void setWork_country(String work_country) {
-        this.work_country = work_country;
-    }
 
     public Integer getStu_id() {
         return stu_id;
