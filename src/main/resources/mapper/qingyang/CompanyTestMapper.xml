@@ -24,11 +24,17 @@
         SET
             COMPANY_NAME = #{companyName},
             COMPANY_CODE = #{companyCode},
-            COMPANY_COUNTRY = #{country.countryAbbre},
+            <if test="country != null">
+                COMPANY_COUNTRY = #{country.countryAbbre},
+            </if>
             COMPANY_INTRODUC = #{companyIntroduc},
-            COMPANY_SCALE_NUM = #{companyScale.scaleNum},
-            COMPANY_NATURE = #{companyNature.natureNum},
-            COMPANY_LOCATION = #{location.regionNum},
+            <if test="companyScale != null">
+                COMPANY_SCALE_NUM = #{companyScale.scaleNum},
+            </if>
+            <if test="companyNature != null">
+                COMPANY_NATURE = #{companyNature.natureNum},
+            </if>
+            COMPANY_LOCATION = #{location.regionId},
             COMPANY_MAIL = #{companyMail},
             COMPANY_WEBSITE = #{companyWebsite},
             COMPANY_START_DATE = #{companyStartDate},
@@ -83,16 +89,11 @@
             <result property="startTime" column="COUNTRY_START_TIME"/>
         </association>
         <association property="location" javaType="com.youthchina.domain.Qinghong.Location">
-            <id property="regionNum" column="COMPANY_LOCATION"/>
-            <!--<result property="regionName" column="REGION_CHN"/>-->
-            <!--<result property="region_eng" column="REGION_ENG"/>-->
-            <!--<result property="region_level" column="REGION_LEVEL"/>-->
-            <!--<result property="region_parent_num" column="REGION_PARENT_NUM"/>-->
-            <!--<result property="start_time" column="REGION_START_TIME"/>-->
+            <id property="regionId" column="COMPANY_LOCATION"/>
         </association>
         <collection property="indList" ofType="com.youthchina.domain.qingyang.Industry">
             <id property="indNum" column="C_IND_NUM"/>
-            <result property="indCode" column="IND_CODE"/>
+            <result property="indCode" column="COMPANY_IND_CODE"/>
             <result property="indChn" column="IND_CHN"/>
             <result property="indEng" column="IND_ENG"/>
             <result property="indLevel" column="IND_LEVEL"/>
@@ -418,8 +419,8 @@
 
     <!--delete Company's Evaluations By CompanyID-->
     <update id="deleteCompanyEvaluate" parameterType="java.lang.Integer">
-        UPDATE COMPANY_EVALUATE SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE COMPANY_ID = #{id}
+        UPDATE COM_COMMENT	 SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE TARGET_TYPE = 5 AND TARGET_ID = #{id}
     </update>
 
     <!--delete Students' Collections of Company By CompanyID-->

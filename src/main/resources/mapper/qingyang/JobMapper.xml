@@ -90,8 +90,8 @@
             <result property="startTime" column="IND_START_TIME"/>
         </collection>
         <collection property="jobLocationList" ofType="com.youthchina.domain.Qinghong.Location">
-            <id property="regionNum" column="JOB_REGION_NUM"/>
-            <result property="country" column="JOB_COUNTRY"/>
+            <!--<id property="regionId" column="JOB_LOCATION_ID"/>-->
+            <result property="regionNum" column="JOB_REGION_NUM"/>
             <!--<result property="jobId" column="JOB_ID"/>-->
             <!--<result property="regionName" column="REGION_CHN"/>-->
             <!--<result property="region_eng" column="REGION_ENG"/>-->
@@ -174,7 +174,7 @@
             class.START_TIME as IND_START_TIME,
 
             loc.JOB_REGION_NUM as JOB_REGION_NUM,
-            loc.JOB_COUNTRY as JOB_COUNTRY,
+            loc.JOB_LOCATION_ID as JOB_LOCATION_ID,
 #             region.REGION_CHN as REGION_CHN,
 #             region.REGION_ENG as REGION_ENG,
 #             region.REGION_LEVEL as REGION_LEVEL,
