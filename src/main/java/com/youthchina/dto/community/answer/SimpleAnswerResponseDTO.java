@@ -3,10 +3,10 @@ package com.youthchina.dto.community.answer;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.dto.community.question.QuestionBasicDTO;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTOResponse;
+import com.youthchina.dto.util.RichTextResponseDTO;
 
 public class SimpleAnswerResponseDTO {
-    private RichTextDTOResponse body;
+    private RichTextResponseDTO body;
     private boolean is_anonymous;
     private UserDTO creator;
     private String modified_at;
@@ -17,7 +17,7 @@ public class SimpleAnswerResponseDTO {
     public SimpleAnswerResponseDTO(){}
 
     public SimpleAnswerResponseDTO(Answer answer){
-        RichTextDTOResponse richt = new RichTextDTOResponse(answer.getBody());
+        RichTextResponseDTO richt = new RichTextResponseDTO(answer.getBody());
         this.body = richt;
         this.id = answer.getId();
         this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
@@ -27,11 +27,11 @@ public class SimpleAnswerResponseDTO {
         this.question = new QuestionBasicDTO(answer.getQuestion());
     }
 
-    public RichTextDTOResponse getBody() {
+    public RichTextResponseDTO getBody() {
         return body;
     }
 
-    public void setBody(RichTextDTOResponse body) {
+    public void setBody(RichTextResponseDTO body) {
         this.body = body;
     }
 

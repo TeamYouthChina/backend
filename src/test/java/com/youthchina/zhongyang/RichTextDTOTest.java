@@ -32,9 +32,9 @@ public class RichTextDTOTest {
                 "  \"resourceIdList\": []\n" +
                 "}";
 
-        RichTextDTOResponse richTextDTO = null;
+        RichTextResponseDTO richTextDTO = null;
         try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
+            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
             System.out.println(richTextDTO);
         } catch (IOException e) {
             Assert.fail();

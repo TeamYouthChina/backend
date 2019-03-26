@@ -69,7 +69,7 @@ public class QuestionControllerTest {
     public void addQuestionTest() throws Exception {
         QuestionRequestDTO questionRequestDTO = new QuestionRequestDTO();
         questionRequestDTO.setTitle("Question No.100");
-        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
+        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
         //language=JSON
         String json = "{\n" +
                 "  \"braftEditorRaw\":{\n" +
@@ -92,7 +92,7 @@ public class QuestionControllerTest {
                 "  \"resourceIdList\": []\n" +
                 "}";
         try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
+            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
             System.out.println(richTextDTO);
         } catch (IOException e) {
             Assert.fail();
@@ -118,7 +118,7 @@ public class QuestionControllerTest {
     public void updateQuestionTest() throws Exception {
         QuestionRequestDTO questionRequestDTO = new QuestionRequestDTO();
         questionRequestDTO.setTitle("How to learn JAVA");
-        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
+        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
         //language=JSON
         String json = "{\n" +
                 "  \"braftEditorRaw\":{\n" +
@@ -141,7 +141,7 @@ public class QuestionControllerTest {
                 "  \"resourceIdList\": []\n" +
                 "}";
         try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
+            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
             System.out.println(richTextDTO);
         } catch (IOException e) {
             Assert.fail();
@@ -229,7 +229,7 @@ public class QuestionControllerTest {
     public void testAddAnswer() throws Exception {
         SimpleAnswerRequestDTO simpleAnswerDTO = new SimpleAnswerRequestDTO();
         simpleAnswerDTO.setIs_anonymous(true);
-        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
+        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
         //language=JSON
         String json = "{\n" +
                 "  \"braftEditorRaw\":{\n" +
@@ -252,7 +252,7 @@ public class QuestionControllerTest {
                 "  \"resourceIdList\": []\n" +
                 "}";
         try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
+            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
             System.out.println(richTextDTO);
         } catch (IOException e) {
             Assert.fail();

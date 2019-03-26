@@ -27,11 +27,12 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     private static final Integer evaluateTargetType = 7;
     private static final Integer attentionTargetType = 7;
 
-    public Answer(){}
-
-    public Answer(SimpleAnswerRequestDTO simpleAnswerRequestDTO){
-        this.isAnony = (simpleAnswerRequestDTO.getIs_anonymous())? 1:0;
+    public Answer(SimpleAnswerRequestDTO simpleAnswerDTO){
+        this.body.setJsonContent(simpleAnswerDTO.getBody().getBraftEditorRaw());
+        this.body.setTextContent(simpleAnswerDTO.getBody().getPreviewText());
     }
+
+    public Answer(){}
 
     @Override
     public ComRichText getBody() {

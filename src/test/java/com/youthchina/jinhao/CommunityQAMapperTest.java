@@ -16,7 +16,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 import java.sql.Timestamp;
 import java.util.List;
-
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -84,7 +84,7 @@ public class CommunityQAMapperTest {
         Assert.assertNull(newquestion);
     }
 
-
+*/
 //    //测试能不能拿到问题的标签
 //    @Test
 //    public void getQuestionLabels() {
@@ -113,7 +113,7 @@ public class CommunityQAMapperTest {
 //            }
 //        }
 //    }
-
+/*
     //测试能不能成功判断用户是否关注这个问题
     @Test
     public void isEverAttentionQuestion() {
@@ -201,7 +201,7 @@ public class CommunityQAMapperTest {
         Answer answer1 = communityQAMapper.getAnswer(1);
         Assert.assertNull(answer1);
     }
-
+*/
 //    //测试能不能列出用户做过的回答
 //    @Test
 //    public void listMyAnswer() {
@@ -213,7 +213,7 @@ public class CommunityQAMapperTest {
 //            }
 //        }
 //    }
-
+/*
     //测试能不能查看用户对回答的评价
     @Test
     public void evaluateStatus() {
@@ -223,7 +223,7 @@ public class CommunityQAMapperTest {
         Evaluate evaluate1 = communityQAMapper.evaluateStatus(1, 6);
         Assert.assertNull(evaluate1);
     }
-
+*/
 //    //测试能不能拿到某个回答评价
 //    @Test
 //    public void getAnswerEvaluate() {
@@ -232,7 +232,7 @@ public class CommunityQAMapperTest {
 //        Integer user_id = 1;
 //        Assert.assertEquals(user_id, evaluate.getUser_id());
 //    }
-
+/*
     //测试能不能新添加评价
     @Test
     public void evaluateAnswer() {
@@ -263,6 +263,7 @@ public class CommunityQAMapperTest {
         Integer expect = 2;
         Assert.assertEquals(expect, agreements);
     }
+*/
 //
 //    //测试得到回答的不赞同数
 //    @Test
@@ -271,7 +272,7 @@ public class CommunityQAMapperTest {
 //        Integer expect = 3;
 //        Assert.assertEquals(expect, disAgreements);
 //    }
-
+/*
     //测试能不能拿到评论
     @Test
     public void getComment() {
@@ -374,7 +375,7 @@ public class CommunityQAMapperTest {
         Integer expect = 2;
         Assert.assertEquals(expect, agreement);
     }
-
+*/
 //    //测试能不能列出某个评论的所有讨论
 //    @Test
 //    public void listAllCommentDiscuss() {
@@ -490,7 +491,7 @@ public class CommunityQAMapperTest {
 //        Assert.assertEquals(expect, communityQAMapper.countDiscussAgreement(1));
 //    }
 
-
+/*
     //测试能不能列出用户收到的所有邀请
     @Test
     public void listInvitationGot() {
@@ -503,7 +504,7 @@ public class CommunityQAMapperTest {
             }
         }
     }
-
+*/
 //    //测试能不能列出用户邀请过哪些用户回答某个问题
 //    @Test
 //    public void listUsersInvitedByMeToQuestion() {
@@ -525,7 +526,7 @@ public class CommunityQAMapperTest {
 //        Assert.assertEquals(ques_id, answerInvitation.getInvit_ques_id());
 //        Assert.assertEquals(invit_user_id, answerInvitation.getInvit_user_id());
 //    }
-
+/*
     //测试能不能添加邀请
     @Test
     public void addInvitation() {
@@ -546,7 +547,7 @@ public class CommunityQAMapperTest {
     }
 
 
-
+*/
 //    //测试能不能接受或者拒绝邀请
 //    @Test
 //    public void updateStatusOfInvitation() {
@@ -561,7 +562,7 @@ public class CommunityQAMapperTest {
 //            }
 //        }
 //    }
-
+/*
     //测试能不能列出前十个视频  简单地根据时间
     @Test
     public void listFirstTenVideos() {
@@ -718,14 +719,14 @@ public class CommunityQAMapperTest {
         Integer expect = 2;
         Assert.assertEquals(expect, communityQAMapper.countVideoAgreement(1));
     }
-
+*/
 //    //测试能不能拿到视频的不赞同数
 //    @Test
 //    public void countVideoDisagreement() {
 //        Integer expect = 1;
 //        Assert.assertEquals(expect, communityQAMapper.countVideoDisagreement(1));
 //    }
-
+/*
     //测试能不能拿到用户对该视频的评价状态
     @Test
     public void videoEvaluateStatus() {
@@ -737,14 +738,14 @@ public class CommunityQAMapperTest {
         Evaluate evaluate1 = communityQAMapper.videoEvaluateStatus(3, 1);
         Assert.assertNull(evaluate1);
     }
-
+*/
 //    //测试能不能拿到视频评价
 //    @Test
 //    public void getVideoEvaluate() {
 //        Evaluate videoEvaluate = communityQAMapper.getVideoEvaluate(1);
 //        Assert.assertEquals(Timestamp.valueOf("2019-1-12 11:11:22"), videoEvaluate.getEvaluate_time());
 //    }
-
+/*
     //测试能不能添加视频评价
     @Test
     public void addVideoEvaluate() {
@@ -768,6 +769,7 @@ public class CommunityQAMapperTest {
         communityQAMapper.cancelEvaluateVideo(1);
         Assert.assertEquals(Integer.valueOf(1), communityQAMapper.countVideoAgreement(1));
     }
+*/
 //
 //    @Test
 //    public void getQuestionRelaTypeAndRelaId() {
@@ -775,7 +777,7 @@ public class CommunityQAMapperTest {
 //        Assert.assertEquals(Integer.valueOf(1), questionRelaTypeAndId.getRela_type());
 //        Assert.assertEquals(Integer.valueOf(667), questionRelaTypeAndId.getRela_id());
 //    }
-
+/*
     @Test
     public void isAnswerBelongToQuestion(){
         Boolean b = communityQAMapper.isAnswerBelongToQuestion(1,1);
@@ -826,7 +828,7 @@ public class CommunityQAMapperTest {
         List<Integer> noids = communityQAMapper.getVideoIdByTitleOrCompanyName("郭德纲");
         Assert.assertEquals(0, noids.size());
     }
-
+*/
 //    @Test
 //    public void deleteAllAnswerOfQuestion(){
 //        communityQAMapper.deleteAllAnswers(1);
@@ -956,6 +958,7 @@ public class CommunityQAMapperTest {
 //            }
 //        }
 //    }
+/*
     @Test
     public void getMyAttentionQuestion(){
         List<Integer> ids = communityQAMapper.listMyAttenQuestion(1);
@@ -969,3 +972,4 @@ public class CommunityQAMapperTest {
     }
 }
 
+*/

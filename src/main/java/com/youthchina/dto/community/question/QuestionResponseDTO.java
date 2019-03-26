@@ -2,9 +2,10 @@ package com.youthchina.dto.community.question;
 
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.community.answer.AnswerBasicDTO;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTOResponse;
+import com.youthchina.dto.util.RichTextResponseDTO;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 1/2/19.
  */
-public class QuestionResponseDTO {
+public class QuestionResponseDTO implements ResponseDTO, QuestionDTO {
     private Integer id;
     private UserDTO creator;
     private String title;
@@ -21,16 +22,16 @@ public class QuestionResponseDTO {
     private Timestamp create_at;
     private Timestamp modified_at;
     private List<AnswerBasicDTO> answers;
-    //private InvitationService invitation;
+    //private AnswerInvitation invitation;
     private Integer rela_type;
     private Integer rela_id;
-    private RichTextDTOResponse body;
+    private RichTextResponseDTO body;
 
     public QuestionResponseDTO(Question question) {
         this.id = question.getId();
         this.creator = new UserDTO(question.getUser());
         this.title = question.getTitle();
-        RichTextDTOResponse richt = new RichTextDTOResponse(question.getBody());
+        RichTextResponseDTO richt = new RichTextResponseDTO(question.getBody());
         this.body = richt;
         //this.invitation = question.getQues_invitation();
         this.is_anonymous = (question.getIsAnony()==1 ? true : false);
@@ -49,9 +50,9 @@ public class QuestionResponseDTO {
 
     public QuestionResponseDTO(){}
 
-    public RichTextDTOResponse getBody(){return body;}
+    public RichTextResponseDTO getBody(){return body;}
 
-    public void setBody(RichTextDTOResponse body){this.body = body;}
+    public void setBody(RichTextResponseDTO body){this.body = body;}
 
     public Integer getId() {
         return id;
@@ -93,11 +94,11 @@ public class QuestionResponseDTO {
         this.answers = answers;
     }
 
-    /*public InvitationService getInvitation() {
+    /*public AnswerInvitation getInvitation() {
         return invitation;
     }
 
-    public void setInvitation(InvitationService invitation) {
+    public void setInvitation(AnswerInvitation invitation) {
         this.invitation = invitation;
     }*/
 

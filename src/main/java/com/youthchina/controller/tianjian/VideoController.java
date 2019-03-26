@@ -43,7 +43,7 @@ public class VideoController {
     @Autowired
     EvaluateService evaluateService;
 
-    @Autowired
+
     AttentionService attentionService;
 
     @GetMapping("/{id}")

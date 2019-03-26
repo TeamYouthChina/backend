@@ -6,6 +6,7 @@ import com.youthchina.domain.jinhao.property.Invitable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.question.QuestionRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -26,6 +27,17 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
     private static final Integer evaluateTargetType = 1;
     private static final Integer attentionTargetType = 1;
     private static final Integer inviteTargetType = 1;
+
+    public Question(QuestionRequestDTO questionRequestDTO){
+        this.title = questionRequestDTO.getTitle();
+        this.isAnony = (questionRequestDTO.getIs_anonymous()==true ? 1 : 0);
+        this.body.setJsonContent(questionRequestDTO.getBody().getBraftEditorRaw());
+        this.body.setTextContent(questionRequestDTO.getBody().getPreviewText());
+        this.rela_type = questionRequestDTO.getRela_type();
+        this.rela_id = questionRequestDTO.getRela_id();
+    }
+
+    public Question(){}
 
     @Override
     public ComRichText getBody() {

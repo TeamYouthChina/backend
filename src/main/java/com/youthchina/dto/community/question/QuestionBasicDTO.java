@@ -2,7 +2,7 @@ package com.youthchina.dto.community.question;
 
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTOResponse;
+import com.youthchina.dto.util.RichTextResponseDTO;
 
 import java.sql.Timestamp;
 
@@ -10,7 +10,7 @@ import java.sql.Timestamp;
  * Created by xiaoyiwang on 2/24/19.
  */
 
-public class QuestionBasicDTO {
+public class QuestionBasicDTO implements QuestionDTO{
     private Integer id;
     private UserDTO creator;
     private String title;
@@ -19,13 +19,13 @@ public class QuestionBasicDTO {
     private Timestamp modified_at;
     private Integer rela_type;
     private Integer rela_id;
-    private RichTextDTOResponse body;
+    private RichTextResponseDTO body;
 
     public QuestionBasicDTO(Question question) {
         this.id = question.getId();
         this.creator = new UserDTO(question.getUser());
         this.title = question.getTitle();
-        RichTextDTOResponse richt = new RichTextDTOResponse(question.getBody());
+        RichTextResponseDTO richt = new RichTextResponseDTO(question.getBody());
         this.body = richt;
         //this.invitation = question.getQues_invitation();
         this.is_anonymous = (question.getIsAnony()==1 ? true : false);
@@ -37,9 +37,9 @@ public class QuestionBasicDTO {
 
     public QuestionBasicDTO(){}
 
-    public RichTextDTOResponse getBody(){return body;}
+    public RichTextResponseDTO getBody(){return body;}
 
-    public void setBody(RichTextDTOResponse body){this.body = body;}
+    public void setBody(RichTextResponseDTO body){this.body = body;}
 
     public Integer getId() {
         return id;

@@ -11,10 +11,9 @@ import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
 import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.AnswerService;
 import com.youthchina.service.jinhao.AnswerServiceImpl;
-import com.youthchina.service.jinhao.AttentionService;
 import com.youthchina.service.jinhao.CommentServiceImpl;
+import com.youthchina.service.jinhao.EvaluateServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,12 +29,8 @@ import java.util.List;
 public class AnswerController {
     @Autowired
     private AnswerServiceImpl answerService;
-
-    @Autowired
     private CommentServiceImpl commentService;
-
-    @Autowired
-    private AttentionService attentionService;
+    private EvaluateServiceImpl evaluateService;
 
     @GetMapping("/{id}")
     public ResponseEntity getAnswer(@PathVariable Integer id) throws NotFoundException {
@@ -79,20 +74,19 @@ public class AnswerController {
            comment.setIsAnony(0);
         else
            comment.setIsAnony(1);
-        Answer answer = new Answer();
+        Answer answer = answerService.get(id);
         commentService.add(comment,answer);
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 
     @GetMapping("/{id}/comments")
     public ResponseEntity getAnswerComments(@PathVariable Integer id) throws NotFoundException {
-        Answer answer = new Answer();
-        answer.setId(id);
-        commentService.getComments(answer);
+        Answer answer = answerService.get(id);
+        List<Comment> comments = commentService.getComments(answer);
 
         List<CommentDTO> commentDTOS = new ArrayList<>();
-        if(answer.getComments()!=null){
-            Iterator it = answer.getComments().iterator();
+        if(comments!=null){
+            Iterator it = comments.iterator();
             while(it.hasNext()){
                 CommentDTO commentDTO = new CommentDTO((Comment)it.next());
                 commentDTOS.add(commentDTO);
@@ -106,10 +100,8 @@ public class AnswerController {
 
     @PutMapping ("/{id}/upvote")
     public ResponseEntity addUpvote(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
-        Answer answer = new Answer();
-        answer.setId(id);
-        attentionService.attention(answer,user.getId());
-
+        Answer answer =answerService.get(id);
+        evaluateService.upvote(answer, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 

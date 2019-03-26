@@ -13,18 +13,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RichTextDTORequest {
+public class RichTextResponseDTO {
 
     private String braftEditorRaw;
     private String previewText;
+    private Integer compiletype;
 
-    public RichTextDTORequest() {
+    public RichTextResponseDTO() {
 
     }
 
-    public RichTextDTORequest(ComRichText comRichText) {
+    public RichTextResponseDTO(ComRichText comRichText) {
         this.braftEditorRaw = comRichText.getJsonContent();
         this.previewText = comRichText.getTextContent();
+        this.compiletype = comRichText.getCompileType();
     }
 
     public void setBraftEditorRaw(String braftEditorRaw) {
@@ -81,4 +83,8 @@ public class RichTextDTORequest {
     public String getPreviewText() {
         return previewText;
     }
+
+    public void setCompiletype(Integer compiletype){ this.compiletype = compiletype; }
+
+    public Integer getCompiletype(){ return compiletype; }
 }

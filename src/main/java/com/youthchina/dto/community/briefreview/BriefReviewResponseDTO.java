@@ -5,7 +5,7 @@ import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTOResponse;
+import com.youthchina.dto.util.RichTextResponseDTO;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,14 +14,14 @@ import java.util.List;
 
 public class BriefReviewResponseDTO {
     private Integer id;
-    private RichTextDTOResponse body;
+    private RichTextResponseDTO body;
     private CommentResponseDTO comments = new CommentResponseDTO();
     private UserDTO author;
 
 
     public BriefReviewResponseDTO(BriefReview briefReview) {
         this.id = briefReview.getId();
-        RichTextDTOResponse richt = new RichTextDTOResponse(briefReview.getBody());
+        RichTextResponseDTO richt = new RichTextResponseDTO(briefReview.getBody());
         this.body = richt;
         List<CommentDTO> commentDTOS = new ArrayList<>();
         Iterator it = briefReview.getComments().iterator();
@@ -44,11 +44,11 @@ public class BriefReviewResponseDTO {
         this.id = id;
     }
 
-    public RichTextDTOResponse getBody() {
+    public RichTextResponseDTO getBody() {
         return body;
     }
 
-    public void setBody(RichTextDTOResponse body) {
+    public void setBody(RichTextResponseDTO body) {
         this.body = body;
     }
 

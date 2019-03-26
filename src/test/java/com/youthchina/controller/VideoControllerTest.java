@@ -75,7 +75,7 @@ public class VideoControllerTest {
     public void addCommentTest() throws Exception {
         VideoCommentRequestDTO videoCommentDTO = new VideoCommentRequestDTO();
         videoCommentDTO.setIs_anonymous(false);
-        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
+        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
         //language=JSON
         String json = "{\n" +
                 "  \"braftEditorRaw\":{\n" +
@@ -98,7 +98,7 @@ public class VideoControllerTest {
                 "  \"resourceIdList\": []\n" +
                 "}";
         try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
+            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
             System.out.println(richTextDTO);
         } catch (IOException e) {
             Assert.fail();

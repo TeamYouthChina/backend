@@ -2,7 +2,7 @@ package com.youthchina.dto.community.answer;
 
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTOResponse;
+import com.youthchina.dto.util.RichTextResponseDTO;
 
 /**
  * Created by xiaoyiwang on 2/24/19.
@@ -10,7 +10,7 @@ import com.youthchina.dto.util.RichTextDTOResponse;
 
 public class AnswerBasicDTO {
     private Integer id;
-    private RichTextDTOResponse body;
+    private RichTextResponseDTO body;
     private boolean is_anonymous;
     private UserDTO creator;
     private String modified_at;
@@ -19,7 +19,7 @@ public class AnswerBasicDTO {
     public AnswerBasicDTO(){}
 
     public AnswerBasicDTO(Answer answer){
-        RichTextDTOResponse richt = new RichTextDTOResponse(answer.getBody());
+        RichTextResponseDTO richt = new RichTextResponseDTO(answer.getBody());
         this.body = richt;
         this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
         this.creator = new UserDTO(answer.getUser());
@@ -28,7 +28,7 @@ public class AnswerBasicDTO {
         this.id = answer.getId();
     }
 
-    public RichTextDTOResponse getBody() {
+    public RichTextResponseDTO getBody() {
         return body;
     }
 
@@ -36,7 +36,7 @@ public class AnswerBasicDTO {
 
     public Integer getId(){return id;}
 
-    public void setBody(RichTextDTOResponse body) {
+    public void setBody(RichTextResponseDTO body) {
         this.body = body;
     }
 

@@ -6,7 +6,6 @@ import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.EssayService;
 import org.springframework.stereotype.Service;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
