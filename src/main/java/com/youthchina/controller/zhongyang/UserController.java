@@ -9,7 +9,6 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.applicant.CompCollectResponseDTO;
 import com.youthchina.dto.applicant.JobCollectResponseDTO;
-import com.youthchina.dto.community.article.EssayDTO;
 import com.youthchina.dto.community.question.QuestionDTO;
 import com.youthchina.dto.community.video.VideoDTO;
 import com.youthchina.dto.security.UserDTO;

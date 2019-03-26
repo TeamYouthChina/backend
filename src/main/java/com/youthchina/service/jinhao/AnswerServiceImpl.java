@@ -4,11 +4,11 @@ import com.youthchina.dao.jinhao.AnswerMapper;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.RichTextService;
-import com.youthchina.service.zhongyang.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -21,9 +21,6 @@ public class AnswerServiceImpl implements AnswerService{
 
     @Resource
     QuestionService questionService;
-
-    @Resource
-    UserService userService;
 
     @Resource
     CommentService commentService;
@@ -42,8 +39,7 @@ public class AnswerServiceImpl implements AnswerService{
         if(answer == null){
             throw new NotFoundException(404,404,"没有找到这个回答");
         }
-        answer.setUser(userService.get(answer.getUserId()));
-        answer.setRichText(richTextService.getComRichText(id,4));
+        richTextService.getComRichText(answer);
         answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
         return answer;
     }
@@ -56,8 +52,7 @@ public class AnswerServiceImpl implements AnswerService{
             throw new NotFoundException(404,404,"这个问题没有回答");
         }
         for(Answer answer : answers){
-            answer.setUser(userService.get(answer.getUserId()));
-            answer.setRichText(richTextService.getComRichText(answer.getId(),4));
+            richTextService.getComRichText(answer);
         }
         return answers;
     }
@@ -67,7 +62,7 @@ public class AnswerServiceImpl implements AnswerService{
     public Answer add(Answer answer) throws NotFoundException {
         questionService.isQuestionExist(answer.getTargetId());
         answerMapper.add(answer);
-        richTextService.addComRichText(answer.getRichText());
+        richTextService.addComRichText(answer.getBody());
         return answer;
     }
 
@@ -76,7 +71,7 @@ public class AnswerServiceImpl implements AnswerService{
     public Answer update(Answer answer) throws NotFoundException {
         isAnswerExist(answer.getId());
         answerMapper.update(answer);
-        richTextService.updateComRichText(answer.getRichText());
+        richTextService.updateComRichText(answer.getBody());
         return answer;
     }
 
@@ -91,8 +86,24 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public List<Answer> get(List<Integer> id) throws NotFoundException {
-        return null;
+    public List<Answer> get(List<Integer> id) throws NotFoundException{
+        List<Answer> answers = new LinkedList<>();
+        for(Integer one : id){
+            Answer answer = answerMapper.get(one);
+            if(answer != null){
+
+                try {
+                    answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
+                } catch (NotFoundException e) {
+                    e.printStackTrace();
+                }
+                answers.add(answer);
+            }
+        }
+        if(answers.size() == 0){
+            throw new NotFoundException(404,404,"没有找到这些问题");
+        }
+        return answers;
     }
 
 }

@@ -2,7 +2,6 @@ package com.youthchina.dao.tianjian;
 
 import com.youthchina.domain.tianjian.ComRichText;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,7 +14,10 @@ import java.util.List;
 public interface RichTextMapper {
     void addRichText(ComRichText comRichText);
 
-    ComRichText getRichText(@Param("rela_id") int rela_id, @Param("rela_type") int rela_type);
+    ComRichText getAnswerBody(Integer id);
+    ComRichText getQuestionBody(Integer id);
+    ComRichText getEssayBody(Integer id);
+    ComRichText getBriefReviewBody(Integer id);
 
     void updateRichText(ComRichText comRichText);
 

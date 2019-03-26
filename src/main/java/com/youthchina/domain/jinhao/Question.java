@@ -14,28 +14,27 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
     private Integer id;
     private String title;
     private String abbre;
-    private Integer body;
+    private ComRichText body;
     private Timestamp pubTime;
     private Timestamp editTime;
     private Integer isAnony;
-    private Integer userId;
     private User user;
     private List<Answer> answers;
     private Integer rela_type;
     private Integer rela_id;
-    private Integer richTextRelaType = 1;
-    private Integer evaluateTargetType = 1;
-    private Integer attentionTargetType = 1;
-    private Integer inviteTargetType = 1;
-    private ComRichText richText;
+    private static final Integer richTextRelaType = 2;
+    private static final Integer evaluateTargetType = 1;
+    private static final Integer attentionTargetType = 1;
+    private static final Integer inviteTargetType = 1;
+
+    @Override
+    public ComRichText getBody() {
+        return body;
+    }
 
     @Override
     public Integer getInviteTargetType() {
         return inviteTargetType;
-    }
-
-    public void setInviteTargetType(Integer inviteTargetType) {
-        this.inviteTargetType = inviteTargetType;
     }
 
     @Override
@@ -43,17 +42,9 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
         return attentionTargetType;
     }
 
-    public void setAttentionTargetType(Integer attentionTargetType) {
-        this.attentionTargetType = attentionTargetType;
-    }
-
     @Override
     public Integer getEvaluateTargetType() {
         return evaluateTargetType;
-    }
-
-    public void setEvaluateTargetType(Integer evaluateTargetType) {
-        this.evaluateTargetType = evaluateTargetType;
     }
 
     @Override
@@ -61,26 +52,8 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
         return richTextRelaType;
     }
 
-    public void setRichTextRelaType(Integer richTextRelaType) {
-        this.richTextRelaType = richTextRelaType;
-    }
-
-    @Override
-    public ComRichText getRichText() {
-        return richText;
-    }
-
-    @Override
-    public void setRichText(ComRichText richText) {
-        this.richText = richText;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setBody(ComRichText body) {
+        this.body = body;
     }
 
     @Override
@@ -106,14 +79,6 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
 
     public void setAbbre(String abbre) {
         this.abbre = abbre;
-    }
-
-    public Integer getBody() {
-        return body;
-    }
-
-    public void setBody(Integer body) {
-        this.body = body;
     }
 
     public Timestamp getPubTime() {

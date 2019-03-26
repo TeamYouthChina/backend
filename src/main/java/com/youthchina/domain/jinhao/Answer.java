@@ -12,29 +12,34 @@ import java.util.List;
 
 public class Answer implements Commentable, RichTextable, Evaluatable, Attentionable {
     private Integer id;
+    private ComRichText body;
     private Integer targetType;
     private Integer targetId;
     private Integer answerLevel;
     private Integer isAnony;
     private Timestamp pubTime;
     private Timestamp editTime;
-    private Integer userId;
     private User user;
     private Question question;
     private List<Comment> comments;
-    private Integer commentTargetType = 2;
-    private Integer richTextRelaType = 2;
-    private Integer evaluateTargetType = 2;
-    private Integer attentionTargetType = 2;
-    private ComRichText richText;
+    private static final Integer richTextRelaType = 4;
+    private static final Integer commentTargetType = 2;
+    private static final Integer evaluateTargetType = 2;
+    private static final Integer attentionTargetType = 2;
+
+    @Override
+    public ComRichText getBody() {
+        return body;
+    }
+
+    @Override
+    public void setBody(ComRichText body) {
+        this.body = body;
+    }
 
     @Override
     public Integer getAttentionTargetType() {
         return attentionTargetType;
-    }
-
-    public void setAttentionTargetType(Integer attentionTargetType) {
-        this.attentionTargetType = attentionTargetType;
     }
 
     @Override
@@ -42,35 +47,9 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
         return evaluateTargetType;
     }
 
-    public void setEvaluateTargetType(Integer evaluateTargetType) {
-        this.evaluateTargetType = evaluateTargetType;
-    }
-
     @Override
     public Integer getRichTextRelaType() {
         return richTextRelaType;
-    }
-
-    public void setRichTextRelaType(Integer richTextRelaType) {
-        this.richTextRelaType = richTextRelaType;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    @Override
-    public ComRichText getRichText() {
-        return richText;
-    }
-
-    @Override
-    public void setRichText(ComRichText richText) {
-        this.richText = richText;
     }
 
     public Integer getTargetType() {
@@ -151,10 +130,6 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     @Override
     public Integer getCommentTargetType() {
         return commentTargetType;
-    }
-
-    public void setCommentTargetType(Integer commentTargetType) {
-        this.commentTargetType = commentTargetType;
     }
 
     public Integer getAnswerLevel() {
