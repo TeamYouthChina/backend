@@ -20,8 +20,8 @@ public class BriefReview implements Commentable, RichTextable, Evaluatable, Atte
     private User user;
     private static final Integer richTextRelaType = 3;
     private static final Integer commentTargetType = 2;
-    private static final Integer evaluateTargetType = 2;
-    private static final Integer attentionTargetType = 2;
+    private static final Integer evaluateTargetType = 3;
+    private static final Integer attentionTargetType = 3;
 
     @Override
     public ComRichText getBody() {

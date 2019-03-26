@@ -31,12 +31,13 @@ public class BriefReviewServiceImplement implements BriefReviewService {
             throw new NotFoundException(404,404,"没有找到这个短评");
         }
         richTextService.getComRichText(briefReview);
-        commentService.getComments(briefReview);
+        List<Comment> comments = commentService.getComments(briefReview);
+        briefReview.setComments(comments);
         return briefReview;
     }
 
     @Override
-    public List<BriefReview> get(List<Integer> id) {
+    public List<BriefReview> get(List<Integer> id){
        List<BriefReview> briefReviews = new LinkedList<>();
        for(Integer one : id){
            BriefReview briefReview = briefReviewMapper.get(one);

@@ -13,8 +13,8 @@ public class Discuss implements Evaluatable, Attentionable {
     private Integer isAnony;
     private Timestamp pubTime;
     private User user;
-    private static final Integer evaluateTargetType = 2;
-    private static final Integer attentionTargetType = 2;
+    private static final Integer evaluateTargetType = 6;
+    private static final Integer attentionTargetType = 6;
 
     @Override
     public Integer getEvaluateTargetType() {

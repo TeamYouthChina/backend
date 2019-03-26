@@ -20,9 +20,8 @@ public class Video implements Commentable, Evaluatable, Attentionable {
     private Integer relaType;
     private Integer relaId;
     private static final Integer commentTargetType = 3;
-    private static final Integer evaluateTargetType = 1;
-    private static final Integer attentionTargetType = 1;
-
+    private static final Integer evaluateTargetType = 4;
+    private static final Integer attentionTargetType = 4;
     @Override
     public Integer getEvaluateTargetType() {
         return evaluateTargetType;

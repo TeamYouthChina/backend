@@ -15,7 +15,6 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     private ComRichText body;
     private Integer targetType;
     private Integer targetId;
-    private Integer answerLevel;
     private Integer isAnony;
     private Timestamp pubTime;
     private Timestamp editTime;
@@ -23,9 +22,9 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     private Question question;
     private List<Comment> comments;
     private static final Integer richTextRelaType = 4;
-    private static final Integer commentTargetType = 2;
-    private static final Integer evaluateTargetType = 2;
-    private static final Integer attentionTargetType = 2;
+    private static final Integer commentTargetType = 4;
+    private static final Integer evaluateTargetType = 7;
+    private static final Integer attentionTargetType = 7;
 
     @Override
     public ComRichText getBody() {
@@ -130,13 +129,5 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     @Override
     public Integer getCommentTargetType() {
         return commentTargetType;
-    }
-
-    public Integer getAnswerLevel() {
-        return answerLevel;
-    }
-
-    public void setAnswerLevel(Integer answerLevel) {
-        this.answerLevel = answerLevel;
     }
 }
