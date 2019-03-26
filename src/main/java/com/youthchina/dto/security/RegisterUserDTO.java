@@ -1,5 +1,6 @@
 package com.youthchina.dto.security;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.youthchina.dto.RequestDTO;
 
 /**
@@ -9,6 +10,7 @@ public class RegisterUserDTO implements RequestDTO {
     private String username;
     private String password;
     private String email;
+    private String phonenumber;
 
     public String getUsername() {
         return username;
@@ -34,4 +36,12 @@ public class RegisterUserDTO implements RequestDTO {
         this.email = email;
     }
 
+    @JsonProperty("phone_number")
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
 }

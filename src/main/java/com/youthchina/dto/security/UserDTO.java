@@ -16,7 +16,8 @@ public class UserDTO {
     private String email;
     private String phonenumber;
     private String register_date;
-    private String real_name;
+    private String firstName;
+    private String lastName;
     private String gender;
     private String nation;
     private String avatar_url;
@@ -34,7 +35,8 @@ public class UserDTO {
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
         this.register_date = user.getRegisterDate();
-        this.real_name = user.getFirstName();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
         this.gender = user.getGender();
         this.nation = user.getNation();
         this.avatar_url = user.getAvatarUrl();
@@ -91,12 +93,12 @@ public class UserDTO {
         this.register_date = register_date;
     }
 
-    public String getReal_name() {
-        return real_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setReal_name(String real_name) {
-        this.real_name = real_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getAvatar_url() {
@@ -138,5 +140,13 @@ public class UserDTO {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

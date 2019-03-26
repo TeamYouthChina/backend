@@ -43,16 +43,6 @@
         WHERE SYS_USER.USER_ID = #{id, jdbcType=INTEGER} AND
         <include refid="active"/>
     </select>
-    <select id="findAll" parameterType="java.util.List" resultMap="User">
-        SELECT
-        <include refid="userColumn"/>
-        WHERE SYS_USER.USER_ID IN
-        <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
-            #{id}
-        </foreach>
-        AND
-        <include refid="active"/>
-    </select>
     <insert id="insert" parameterType="com.youthchina.domain.zhongyang.User" useGeneratedKeys="true"
             keyProperty="id" keyColumn="USER_ID">
 
@@ -111,6 +101,7 @@
           AND USER_ID = #{user_id}
     </select>
     <insert id="setRole">
+        DELETE FROM SYS_USER_ROLE WHERE USER_ID = #{user_id} ;
         INSERT INTO SYS_USER_ROLE(USER_ID, ROLE_ID, STRAT_TIME)
         VALUES
         <foreach collection="roles" separator="," item="item">

@@ -35,17 +35,25 @@ public class User implements UserDetails, HasId<Integer> {
     private Integer age;
 
     public User() {
-
+        this.gender = "male";
+        this.age = 0;
+        this.hired = false;
+        this.firstName = "John";
+        this.lastName = "Doe";
+        this.nation = "CHN";
+        this.phonenumber = "000000000";
     }
 
     public User(UserDTO userDTO) {
+        this();
         this.id = userDTO.getId();
         this.username = userDTO.getUsername();
         this.password = userDTO.getPassword();
         this.email = userDTO.getEmail();
         this.phonenumber = userDTO.getPhonenumber();
         this.registerDate = userDTO.getRegister_date();
-        this.firstName = userDTO.getReal_name();
+        this.firstName = userDTO.getFirstName();
+        this.lastName = userDTO.getLastName();
         this.gender = userDTO.getGender();
         this.nation = userDTO.getNation();
         this.avatarUrl = userDTO.getAvatar_url();
@@ -54,9 +62,11 @@ public class User implements UserDetails, HasId<Integer> {
     }
 
     public User(RegisterUserDTO registerUserDTO) {
+        this();
         this.username = registerUserDTO.getUsername();
         this.email = registerUserDTO.getEmail();
         this.password = registerUserDTO.getPassword();
+        this.phonenumber = registerUserDTO.getPhonenumber();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.registerDate = simpleDateFormat.format(Calendar.getInstance().getTime());
         this.role = Lists.newArrayList(Role.APPLICANT);
@@ -179,7 +189,7 @@ public class User implements UserDetails, HasId<Integer> {
         this.role = role;
     }
 
-    public void setRole(Role role){
+    public void setRole(Role role) {
         this.role = Lists.newArrayList(role);
     }
 
