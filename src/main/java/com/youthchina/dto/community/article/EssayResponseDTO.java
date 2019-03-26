@@ -8,7 +8,7 @@ import com.youthchina.dto.util.RichTextDTOResponse;
 
 import java.sql.Timestamp;
 
-public class EssayDTO {
+public class EssayResponseDTO {
     private Integer id;
     private String title;
     private CompanyResponseDTO company;
@@ -18,23 +18,17 @@ public class EssayDTO {
     private RichTextDTOResponse body;
     private boolean is_anonymous;
 
-    public EssayDTO(ComEssay comEssay) {
-        this.id = comEssay.getEssay_id();
-        this.title = comEssay.getEssay_title();
-        this.create_at = comEssay.getEssay_pub_time();
-        this.modified_at = comEssay.getEssay_edit_time();
-        this.is_anonymous = (comEssay.getUser_anony() == 0) ? false : true;
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            RichTextDTOResponse richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTOResponse.class);
-            this.body = richt;
-        } catch (Exception e) {
-            System.out.println("Exception");
-        }
-        this.is_anonymous = (comEssay.getUser_anony() == 0) ? false : true;
+    public EssayResponseDTO(ComEssay comEssay) {
+        this.id = comEssay.getEssayId();
+        this.title = comEssay.getEssayTitle();
+        this.create_at = comEssay.getEssayPubTime();
+        this.modified_at = comEssay.getEssayEditTime();
+        this.is_anonymous = (comEssay.getUserAnony() == 0) ? false : true;
+        this.author = new UserDTO(comEssay.getUser());
+        this.body = new RichTextDTOResponse(comEssay.getRichText());
     }
 
-    public EssayDTO() {
+    public EssayResponseDTO() {
     }
 
     public RichTextDTOResponse getBody() {

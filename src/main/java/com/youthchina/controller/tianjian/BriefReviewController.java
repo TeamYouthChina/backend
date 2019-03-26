@@ -159,15 +159,18 @@ public class BriefReviewController {
     @PutMapping("/{id}/upvote")
     public ResponseEntity updateBriefReviewUpvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
      BriefReview briefReview = new BriefReview();
-        if (evaluate != null)
+     briefReview.setId(id);
+     evaluateService.upvote(briefReview,user.getId());
+
             return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
-        else
-            return ResponseEntity.ok(new Response(new StatusDTO(400, "fail")));
+
     }
 
     @GetMapping("/{id}/comments")
     public ResponseEntity getBriefReviewComments(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
        BriefReview briefReview = new BriefReview();
+       briefReview.setId(id);
+       briefReview.setUserId(user.getId());
         commentService.getComments(briefReview);
         List<CommentDTO> commentDTOS = new ArrayList<>();
         if (briefReview.getComments() != null) {

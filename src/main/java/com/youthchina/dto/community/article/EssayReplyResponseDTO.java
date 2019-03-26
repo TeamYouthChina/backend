@@ -7,7 +7,7 @@ import com.youthchina.dto.util.RichTextDTOResponse;
 import com.youthchina.service.zhongyang.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class EssayReplyDTO {
+public class EssayReplyResponseDTO {
     private Integer id;
     private UserDTO creator;
     private RichTextDTOResponse body;
@@ -18,10 +18,10 @@ public class EssayReplyDTO {
     @Autowired
     UserServiceImpl userService;
 
-    public EssayReplyDTO() {
+    public EssayReplyResponseDTO() {
     }
 
-    public EssayReplyDTO(ComEssayReply comEssayReply) {
+    public EssayReplyResponseDTO(ComEssayReply comEssayReply) {
         this.id = comEssayReply.getReply_id();
         try {
             ObjectMapper mapper = new ObjectMapper();

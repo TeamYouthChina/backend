@@ -28,5 +28,10 @@
         select t.* from COM_RICH_TEXT t where t.RICH_TYPE = #{rich_type}
     </select>
 
+    <!--    获取同类型的所有富文本 -->
+    <select id="getRecentSameTypeRichText" resultType="com.youthchina.domain.tianjian.ComRichText">
+        select t.* from COM_RICH_TEXT t where t.RICH_TYPE = #{rich_type} order by t.ESSAY_EDIT_TIME desc limit 10
+    </select>
+
 
 </mapper>

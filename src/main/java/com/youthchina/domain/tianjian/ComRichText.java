@@ -17,6 +17,11 @@ public class ComRichText {
         this.textContent = richTextDTORequest.getPreviewText();
     }
 
+    public ComRichText(RichTextDTOResponse richTextDTOResponse){
+        this.jsonContent = richTextDTOResponse.getBraftEditorRaw();
+        this.textContent = richTextDTOResponse.getPreviewText();
+    }
+
     public int getRelaType() {
         return relaType;
     }
