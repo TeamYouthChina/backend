@@ -13,63 +13,63 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class ComEssay implements Commentable, RichTextable, Evaluatable, Attentionable {
-    private Integer essayId;
-    private String essayTitle;
-    private String essayAbbre;
-    private Integer userId;
-    private Timestamp essayPubTime;
-    private Timestamp essayEditTime;
-    private Integer isDelete;
-    private Timestamp isDeleteTime;
-    private Integer userAnony;
+    private Integer id;
+    private String title;
+    private String abbre;
+    private ComRichText body;
+    private Timestamp pubTime;
+    private Timestamp editTime;
+    private Integer isAnony;
     private Integer relaId;
     private Integer relaType;
     private List<Comment> comments;
     private User user;
+    private Integer richTextRelaType = 1;
     private Integer commentTargetType = 2;
-    private Integer richTextRelaType = 2;
     private Integer evaluateTargetType = 2;
     private Integer attentionTargetType = 2;
-    private ComRichText richText;
 
 
     public ComEssay(EssayResponseDTO essayResponseDTO) {
-        this.essayId = essayResponseDTO.getId();
-        this.essayTitle = essayResponseDTO.getTitle();
-        this.essayPubTime = essayResponseDTO.getCreate_at();
-        this.essayEditTime = essayResponseDTO.getModified_at();
-        this.userAnony = (essayResponseDTO.isIs_anonymous()) ? 1 : 0;
-        this.essayAbbre = essayResponseDTO.getBody().getPreviewText();
-        this.richText = new ComRichText(essayResponseDTO.getBody());
+        this.id = essayResponseDTO.getId();
+        this.title = essayResponseDTO.getTitle();
+        this.pubTime = essayResponseDTO.getCreate_at();
+        this.editTime = essayResponseDTO.getModified_at();
+        this.isAnony = (essayResponseDTO.isIs_anonymous()) ? 1 : 0;
+        this.abbre = essayResponseDTO.getBody().getPreviewText();
+        this.body = new ComRichText(essayResponseDTO.getBody());
     }
 
 
     public ComEssay(EssayRequestDTO essayRequestDTO) {
-        this.essayId = essayRequestDTO.getId();
-        this.essayTitle = essayRequestDTO.getTitle();
-        this.essayAbbre = essayRequestDTO.getBody().getPreviewText();
-        this.richText = new ComRichText(essayRequestDTO.getBody());
-        this.userAnony = (essayRequestDTO.isIs_anonymous()) ? 1 : 0;
+        this.id = essayRequestDTO.getId();
+        this.title = essayRequestDTO.getTitle();
+        this.abbre = essayRequestDTO.getBody().getPreviewText();
+        this.body = new ComRichText(essayRequestDTO.getBody());
+        this.isAnony = (essayRequestDTO.isIs_anonymous()) ? 1 : 0;
     }
 
     public ComEssay() {
 
     }
 
-    public Integer getEssayId() {
-        return essayId;
+    @Override
+    public Integer getId() {
+        return id;
     }
 
-    public void setEssayId(Integer essayId) {
-        this.essayId = essayId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getEssayTitle() {
-        return essayTitle;
+    @Override
+    public ComRichText getBody() {
+        return body;
     }
 
-    public void setEssayTitle(String essayTitle) {
-        this.essayTitle = essayTitle;
+    @Override
+    public void setBody(ComRichText body) {
+        this.body = body;
     }
 
     public Integer getRelaId() {
@@ -88,60 +88,44 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
         this.relaType = relaType;
     }
 
-    public String getEssayAbbre() {
-        return essayAbbre;
+    public String getTitle() {
+        return title;
     }
 
-    public void setEssayAbbre(String essayAbbre) {
-        this.essayAbbre = essayAbbre;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getAbbre() {
+        return abbre;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setAbbre(String abbre) {
+        this.abbre = abbre;
     }
 
-    public Timestamp getEssayPubTime() {
-        return essayPubTime;
+    public Timestamp getPubTime() {
+        return pubTime;
     }
 
-    public void setEssayPubTime(Timestamp essayPubTime) {
-        this.essayPubTime = essayPubTime;
+    public void setPubTime(Timestamp pubTime) {
+        this.pubTime = pubTime;
     }
 
-    public Timestamp getEssayEditTime() {
-        return essayEditTime;
+    public Timestamp getEditTime() {
+        return editTime;
     }
 
-    public void setEssayEditTime(Timestamp essayEditTime) {
-        this.essayEditTime = essayEditTime;
+    public void setEditTime(Timestamp editTime) {
+        this.editTime = editTime;
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
+    public Integer getIsAnony() {
+        return isAnony;
     }
 
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public Timestamp getIsDeleteTime() {
-        return isDeleteTime;
-    }
-
-    public void setIsDeleteTime(Timestamp isDeleteTime) {
-        this.isDeleteTime = isDeleteTime;
-    }
-
-    public Integer getUserAnony() {
-        return userAnony;
-    }
-
-    public void setUserAnony(Integer userAnony) {
-        this.userAnony = userAnony;
+    public void setIsAnony(Integer isAnony) {
+        this.isAnony = isAnony;
     }
 
     @Override
@@ -165,11 +149,6 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
     @Override
     public Integer getCommentTargetType() {
         return commentTargetType;
-    }
-
-    @Override
-    public Integer getId() {
-        return essayId;
     }
 
     public void setCommentTargetType(Integer commentTargetType) {
@@ -201,16 +180,6 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
 
     public void setAttentionTargetType(Integer attentionTargetType) {
         this.attentionTargetType = attentionTargetType;
-    }
-
-    @Override
-    public ComRichText getRichText() {
-        return richText;
-    }
-
-    @Override
-    public void setRichText(ComRichText richText) {
-        this.richText = richText;
     }
 
 }

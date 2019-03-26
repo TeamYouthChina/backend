@@ -22,6 +22,8 @@ public interface CommunityMapper {
 
     ComEssay getEssay(Integer essay_id);
 
+    List<ComEssay> getEssayList(List<Integer> essayId);
+
     List<ComEssay> getEssayLatest();
 
     int saveFriendsRelation(ComFriendRelation comFriendRelation);

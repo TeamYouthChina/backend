@@ -4,8 +4,7 @@ import com.youthchina.dto.util.RichTextDTORequest;
 import com.youthchina.dto.util.RichTextDTOResponse;
 
 public class ComRichText {
-    private int relaType;
-    private int relaId;
+private int textId;
     private int compileType;
     private String jsonContent;
     private String textContent;
@@ -22,20 +21,12 @@ public class ComRichText {
         this.textContent = richTextDTOResponse.getPreviewText();
     }
 
-    public int getRelaType() {
-        return relaType;
+    public int getTextId() {
+        return textId;
     }
 
-    public void setRelaType(int relaType) {
-        this.relaType = relaType;
-    }
-
-    public int getRelaId() {
-        return relaId;
-    }
-
-    public void setRelaId(int relaId) {
-        this.relaId = relaId;
+    public void setTextId(int textId) {
+        this.textId = textId;
     }
 
     public int getCompileType() {
