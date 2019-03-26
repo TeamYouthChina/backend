@@ -77,7 +77,7 @@ public class JobController extends DomainCRUDController<JobRequestDTO, Job, Inte
 
 
     @PostMapping("/**")
-    public ResponseEntity<?> createJobInfo(@RequestBody JobRequestDTO jobRequestDTO) {
+    public ResponseEntity<?> createJobInfo(@RequestBody JobRequestDTO jobRequestDTO) throws  NotFoundException {
         return add(jobRequestDTO);
     }
 

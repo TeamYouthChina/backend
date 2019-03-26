@@ -17,6 +17,10 @@ import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
+import com.youthchina.service.jinhao.AttentionServiceImpl;
+import com.youthchina.service.jinhao.QuestionService;
+import com.youthchina.service.jinhao.QuestionServiceImpl;
+import com.youthchina.service.jinhao.VideoServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
 import com.youthchina.service.zhongyang.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +46,12 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
 
     @Autowired
     private StudentService studentService;
-    @Autowired
-    private CommunityQAServiceImplement communityQAService;
+
+    private AttentionServiceImpl attentionService;
     @Autowired
     private EssayServiceImpl essayService;
+    private QuestionServiceImpl questionService;
+    private VideoServiceImpl videoService;
 
     @Autowired
     public UserController(UserService userService, @Value("${web.url.prefix}") String prefix) {
@@ -99,9 +105,10 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
 
             }
             case "Video": {
-                List<Video> videos = communityQAService.listAllUserAttenVideos(user_id);
                 List<VideoDTO> videoDTOS = new ArrayList<>();
-                for (Video video : videos) {
+                List<Integer> result = attentionService.getAllIdsOfAttention(new Video(),user_id);
+                for (Integer id : result) {
+                    Video video = videoService.get(id);
                     VideoDTO videoDTO = new VideoDTO(video);
                     videoDTOS.add(videoDTO);
                 }
@@ -110,8 +117,10 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
             }
             case "Question": {
                 List<QuestionResponseDTO> questionResponseDTOS = new ArrayList<>();
-                List<Question> questions = communityQAService.listAllUserAttenQuestions(user_id);
-                for (Question question : questions) {
+                List<Integer> result = attentionService.getAllIdsOfAttention(new Question(),user_id);
+                List<Question> questions = new ArrayList<>();
+                for (Integer id : result) {
+                    Question question = questionService.get(id);
                     QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
                     questionResponseDTOS.add(questionResponseDTO);
                 }

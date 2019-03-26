@@ -2,19 +2,20 @@ package com.youthchina.domain.jinhao;
 
 import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.domain.jinhao.property.Evaluatable;
-import com.youthchina.domain.jinhao.property.Invitable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.question.QuestionRequestDTO;
+import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Question implements RichTextable, Evaluatable, Attentionable, Invitable {
+public class Question implements RichTextable, Evaluatable, Attentionable {
     private Integer id;
     private String title;
     private String abbre;
-    private Integer body;
+    private String body;
     private Timestamp pubTime;
     private Timestamp editTime;
     private Integer isAnony;
@@ -26,17 +27,7 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
     private Integer richTextRelaType = 1;
     private Integer evaluateTargetType = 1;
     private Integer attentionTargetType = 1;
-    private Integer inviteTargetType = 1;
     private ComRichText richText;
-
-    @Override
-    public Integer getInviteTargetType() {
-        return inviteTargetType;
-    }
-
-    public void setInviteTargetType(Integer inviteTargetType) {
-        this.inviteTargetType = inviteTargetType;
-    }
 
     @Override
     public Integer getAttentionTargetType() {
@@ -55,6 +46,17 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
     public void setEvaluateTargetType(Integer evaluateTargetType) {
         this.evaluateTargetType = evaluateTargetType;
     }
+
+    public Question(QuestionRequestDTO questionRequestDTO){
+        this.title = questionRequestDTO.getTitle();
+        this.isAnony = (questionRequestDTO.getIs_anonymous()==true ? 1 : 0);
+        this.richText.setJson_content(questionRequestDTO.getBody().getBraftEditorRaw());
+        this.richText.setText_content(questionRequestDTO.getBody().getPreviewText());
+        this.rela_type = questionRequestDTO.getRela_type();
+        this.rela_id = questionRequestDTO.getRela_id();
+    }
+
+    public Question(){}
 
     @Override
     public Integer getRichTextRelaType() {
@@ -108,11 +110,11 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
         this.abbre = abbre;
     }
 
-    public Integer getBody() {
+    public String getBody() {
         return body;
     }
 
-    public void setBody(Integer body) {
+    public void setBody(String body) {
         this.body = body;
     }
 
