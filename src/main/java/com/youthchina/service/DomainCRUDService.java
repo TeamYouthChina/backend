@@ -28,7 +28,7 @@ public interface DomainCRUDService<T, K extends Serializable> {
     void delete(K id) throws NotFoundException;
 
     /**
-     * @param id id
+     * @param
      * @return <p>update id</p>
      */
     T update(T t) throws NotFoundException;
