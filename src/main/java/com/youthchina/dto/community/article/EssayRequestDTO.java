@@ -1,32 +1,30 @@
 package com.youthchina.dto.community.article;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssay;
-import com.youthchina.dto.util.RichTextDTORequest;
-import com.youthchina.dto.util.RichTextDTOResponse;
+import com.youthchina.dto.util.RichTextRequestDTO;
 
 public class EssayRequestDTO {
     private Integer id;
     private String title;
     private Integer company_id;
     private boolean is_anonymous;
-    private RichTextDTORequest body;
+    private RichTextRequestDTO body;
 
     public EssayRequestDTO(ComEssay comEssay) {
         this.id = comEssay.getId();
         this.title = comEssay.getTitle();
         this.is_anonymous = (comEssay.getIsAnony()==1)? true:false;
-        this.body = new RichTextDTORequest(comEssay.getBody());
+        this.body = new RichTextRequestDTO(comEssay.getBody());
     }
 
     public EssayRequestDTO() {
     }
 
-    public RichTextDTORequest getBody() {
+    public RichTextRequestDTO getBody() {
         return body;
     }
 
-    public void setBody(RichTextDTORequest body) {
+    public void setBody(RichTextRequestDTO body) {
         this.body = body;
     }
 

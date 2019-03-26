@@ -5,7 +5,7 @@ import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.community.answer.AnswerBasicDTO;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTOResponse;
+import com.youthchina.dto.util.RichTextResponseDTO;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -25,13 +25,13 @@ public class QuestionResponseDTO implements ResponseDTO, QuestionDTO {
     //private AnswerInvitation invitation;
     private Integer rela_type;
     private Integer rela_id;
-    private RichTextDTOResponse body;
+    private RichTextResponseDTO body;
 
     public QuestionResponseDTO(Question question) {
         this.id = question.getId();
         this.creator = new UserDTO(question.getUser());
         this.title = question.getTitle();
-        RichTextDTOResponse richt = new RichTextDTOResponse(question.getBody());
+        RichTextResponseDTO richt = new RichTextResponseDTO(question.getBody());
         this.body = richt;
         //this.invitation = question.getQues_invitation();
         this.is_anonymous = (question.getIsAnony()==1 ? true : false);
@@ -50,9 +50,9 @@ public class QuestionResponseDTO implements ResponseDTO, QuestionDTO {
 
     public QuestionResponseDTO(){}
 
-    public RichTextDTOResponse getBody(){return body;}
+    public RichTextResponseDTO getBody(){return body;}
 
-    public void setBody(RichTextDTOResponse body){this.body = body;}
+    public void setBody(RichTextResponseDTO body){this.body = body;}
 
     public Integer getId() {
         return id;

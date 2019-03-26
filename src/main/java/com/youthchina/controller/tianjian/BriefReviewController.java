@@ -1,7 +1,5 @@
 package com.youthchina.controller.tianjian;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.tianjian.ComRichText;
@@ -14,8 +12,8 @@ import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
 import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTORequest;
-import com.youthchina.dto.util.RichTextDTOResponse;
+import com.youthchina.dto.util.RichTextRequestDTO;
+import com.youthchina.dto.util.RichTextResponseDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.BriefReviewServiceImplement;
 import com.youthchina.service.jinhao.CommentServiceImpl;
@@ -70,8 +68,8 @@ public class BriefReviewController {
     public ResponseEntity updateBriefReview(@PathVariable Integer id, @RequestBody BriefReviewRequestDTO briefReviewRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         BriefReview briefReview = new BriefReview();
         briefReview.setId(id);
-        RichTextDTORequest richTextDTORequest = briefReviewRequestDTO.getBody();
-        ComRichText comRichText = new ComRichText(richTextDTORequest);
+        RichTextRequestDTO richTextRequestDTO = briefReviewRequestDTO.getBody();
+        ComRichText comRichText = new ComRichText(richTextRequestDTO);
         briefReview.setBody(comRichText);
 
         Timestamp time = new Timestamp(System.currentTimeMillis());
@@ -83,8 +81,8 @@ public class BriefReviewController {
         }
         BriefReview briefReviewReturn = briefReviewServiceImplement.update(briefReview);
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO();
-        RichTextDTOResponse richTextDTOResponse = new RichTextDTOResponse(briefReviewReturn.getBody());
-        briefReviewResponseDTO.setBody(richTextDTOResponse);
+        RichTextResponseDTO richTextResponseDTO = new RichTextResponseDTO(briefReviewReturn.getBody());
+        briefReviewResponseDTO.setBody(richTextResponseDTO);
 
         briefReviewResponseDTO.setAuthor(new UserDTO(userService.get(user.getId())));
         List<CommentDTO> commentDTOList = new ArrayList<CommentDTO>();
@@ -118,7 +116,7 @@ public class BriefReviewController {
         BriefReview briefReviewReturn = briefReviewServiceImplement.add(briefReview);
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO();
 
-        briefReviewResponseDTO.setBody(new RichTextDTOResponse(briefReviewReturn.getBody()));
+        briefReviewResponseDTO.setBody(new RichTextResponseDTO(briefReviewReturn.getBody()));
 
         briefReviewResponseDTO.setAuthor(new UserDTO(userService.get(user.getId())));
         List<CommentDTO> commentDTOList = new ArrayList<CommentDTO>();

@@ -1,10 +1,9 @@
 package com.youthchina.dto.community.article;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTOResponse;
+import com.youthchina.dto.util.RichTextResponseDTO;
 
 import java.sql.Timestamp;
 
@@ -15,7 +14,7 @@ public class EssayResponseDTO {
     private Timestamp create_at;
     private Timestamp modified_at;
     private UserDTO author;
-    private RichTextDTOResponse body;
+    private RichTextResponseDTO body;
     private boolean is_anonymous;
 
     public EssayResponseDTO(ComEssay comEssay) {
@@ -25,17 +24,17 @@ public class EssayResponseDTO {
         this.modified_at = comEssay.getEditTime();
         this.is_anonymous = (comEssay.getIsAnony() == 0) ? false : true;
         this.author = new UserDTO(comEssay.getUser());
-        this.body = new RichTextDTOResponse(comEssay.getBody());
+        this.body = new RichTextResponseDTO(comEssay.getBody());
     }
 
     public EssayResponseDTO() {
     }
 
-    public RichTextDTOResponse getBody() {
+    public RichTextResponseDTO getBody() {
         return body;
     }
 
-    public void setBody(RichTextDTOResponse body) {
+    public void setBody(RichTextResponseDTO body) {
         this.body = body;
     }
 

@@ -52,7 +52,7 @@ public class BriefReviewControllerTest {
     @Test
     public void updateBriefReviewTest() throws Exception {
         BriefReviewRequestDTO requestBriefReviewDTO = new BriefReviewRequestDTO();
-        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
+        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
         //language=JSON
         String json = "{\n" +
                 "  \"braftEditorRaw\":{\n" +
@@ -75,7 +75,7 @@ public class BriefReviewControllerTest {
                 "  \"resourceIdList\": []\n" +
                 "}";
         try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
+            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
             System.out.println(richTextDTO);
         } catch (IOException e) {
             Assert.fail();
@@ -101,7 +101,7 @@ public class BriefReviewControllerTest {
     @Test
     public void addBriefReviewTest() throws Exception {
         BriefReviewRequestDTO requestBriefReviewDTO = new BriefReviewRequestDTO();
-        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
+        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
         //language=JSON
         String json = "{\n" +
                 "  \"braftEditorRaw\":{\n" +
@@ -124,7 +124,7 @@ public class BriefReviewControllerTest {
                 "  \"resourceIdList\": []\n" +
                 "}";
         try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
+            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
             System.out.println(richTextDTO);
         } catch (IOException e) {
             Assert.fail();
@@ -147,7 +147,7 @@ public class BriefReviewControllerTest {
     @Test
     public void addBriefReviewCommentsTest() throws Exception {
         CommentRequestDTO requestCommentDTO = new CommentRequestDTO();
-        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
+        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
         //language=JSON
         String json = "{\n" +
                 "  \"braftEditorRaw\":{\n" +
@@ -170,7 +170,7 @@ public class BriefReviewControllerTest {
                 "  \"resourceIdList\": []\n" +
                 "}";
         try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
+            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
             System.out.println(richTextDTO);
         } catch (IOException e) {
             Assert.fail();

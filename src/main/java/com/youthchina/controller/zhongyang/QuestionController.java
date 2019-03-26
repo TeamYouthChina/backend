@@ -131,7 +131,6 @@ public class QuestionController {
         questionService.invitUsersToAnswer(user.getId(), id, userIds);
         return ResponseEntity.ok(new Response());
     }
-
     @PutMapping("/{questionId}/invite/{userId}")
     public ResponseEntity<?> sendInvite(@PathVariable Integer questionId, @PathVariable Integer userId, @AuthenticationPrincipal User user) throws NotFoundException {
         System.out.println("invite user 1 to answer");
@@ -154,7 +153,7 @@ public class QuestionController {
     public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody SimpleAnswerRequestDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         System.out.println("add answeimport com.youthchina.service.DomainCRUDService; ");
         Answer answer = new Answer(simpleAnswerDTO);
-        answer.setUserId(user.getId());
+        answer.setUser(user);
         answer.setPubTime(new Timestamp(System.currentTimeMillis()));
         answer.setEditTime(new Timestamp(System.currentTimeMillis()));
         answer.setTargetId(id);

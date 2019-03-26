@@ -1,7 +1,7 @@
 package com.youthchina.domain.tianjian;
 
-import com.youthchina.dto.util.RichTextDTORequest;
-import com.youthchina.dto.util.RichTextDTOResponse;
+import com.youthchina.dto.util.RichTextRequestDTO;
+import com.youthchina.dto.util.RichTextResponseDTO;
 
 public class ComRichText {
 private int textId;
@@ -11,14 +11,14 @@ private int textId;
 
     public ComRichText(){}
 
-    public ComRichText(RichTextDTORequest richTextDTORequest){
-        this.jsonContent = richTextDTORequest.getBraftEditorRaw();
-        this.textContent = richTextDTORequest.getPreviewText();
+    public ComRichText(RichTextRequestDTO richTextRequestDTO){
+        this.jsonContent = richTextRequestDTO.getBraftEditorRaw();
+        this.textContent = richTextRequestDTO.getPreviewText();
     }
 
-    public ComRichText(RichTextDTOResponse richTextDTOResponse){
-        this.jsonContent = richTextDTOResponse.getBraftEditorRaw();
-        this.textContent = richTextDTOResponse.getPreviewText();
+    public ComRichText(RichTextResponseDTO richTextResponseDTO){
+        this.jsonContent = richTextResponseDTO.getBraftEditorRaw();
+        this.textContent = richTextResponseDTO.getPreviewText();
     }
 
     public int getTextId() {
