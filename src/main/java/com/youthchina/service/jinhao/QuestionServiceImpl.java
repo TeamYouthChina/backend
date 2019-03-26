@@ -1,6 +1,7 @@
 package com.youthchina.service.jinhao;
 
 import com.youthchina.dao.jinhao.QuestionMapper;
+import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.RichTextService;
@@ -35,6 +36,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    @Transactional
     public Question getBasicQuestion(Integer id) throws NotFoundException {
         Question question = questionMapper.get(id);
         if(question == null){
@@ -46,6 +48,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    @Transactional
     public Question get(Integer id) throws NotFoundException {
         Question question = questionMapper.get(id);
         if(question == null){
@@ -77,8 +80,13 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) throws NotFoundException {
-        // todo
+        List<Answer> answers = answerService.getAnswers(id);
+        for(Answer answer : answers){
+            answerService.delete(answer.getId());
+        }
+        questionMapper.delete(id);
     }
 
     @Override

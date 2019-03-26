@@ -15,14 +15,6 @@ public interface AnswerService extends DomainCRUDService<Answer, Integer> {
     List<Answer> getAnswers(Integer id) throws NotFoundException;
 
     /**
-     * add answer
-     * @param answer entity of Answer
-     * @return entity of Answer
-     * @throws NotFoundException if the target question does not exist, throw exception
-     */
-    Answer addAnswer(Answer answer) throws NotFoundException;
-
-    /**
      * to judge if one answer exists or not
      * @param id
      * @throws NotFoundException

@@ -7,15 +7,12 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.answer.RequestSimpleAnswerDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerDTO;
-import com.youthchina.dto.community.question.QuestionBasicDTO;
-import com.youthchina.dto.community.question.QuestionDTO;
 import com.youthchina.dto.community.question.QuestionRequestDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.jinhao.AnswerService;
-import com.youthchina.service.jinhao.CommunityQAService;
+import com.youthchina.service.jinhao.EvaluateService;
 import com.youthchina.service.jinhao.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +36,7 @@ public class QuestionController {
     private String url;
     private QuestionService questionService;
     private AnswerService answerService;
+    private EvaluateService evaluateService;
 
     @Autowired
     public QuestionController(QuestionService questionService, @Value("${web.url.prefix}") String prefix) {
@@ -93,7 +91,7 @@ public class QuestionController {
     }
 
     @PostMapping("/**")
-    public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionRequestDTO requestQuestionDTO, @AuthenticationPrincipal User user) {
+    public ResponseEntity<?> createQuestionInfo(@RequestBody QuestionRequestDTO requestQuestionDTO, @AuthenticationPrincipal User user) throws NotFoundException{
         Question question = new Question(requestQuestionDTO);
         question.setUser(user);
         QuestionResponseDTO questionDTO = new QuestionResponseDTO(question);
@@ -107,8 +105,6 @@ public class QuestionController {
         Question question = new Question(requestQuestionDTO);
         question.setUser(user);
         question.setId(id);
-        //QuestionResponseDTO questionDTO = new QuestionResponseDTO(question);
-        //questionDTO.setId(id);
         questionService.update(question);
         return ResponseEntity.ok(new Response(new StatusDTO(204,"updated success")));
     }
@@ -146,7 +142,9 @@ public class QuestionController {
     @PutMapping("/{id}/attention")
     public ResponseEntity<?> followUp (@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         System.out.println("add attention");
-        questionService.attentionQuestion(id, user.getId());
+        Question question = new Question();
+        question.setId(id);
+        evaluateService.upvote(question, user.getId());
         return ResponseEntity.ok(new Response());
     }
 
@@ -157,8 +155,8 @@ public class QuestionController {
         answer.setUserId(user.getId());
         answer.setPubTime(new Timestamp(System.currentTimeMillis()));
         answer.setEditTime(new Timestamp(System.currentTimeMillis()));
-
-        SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(questionService.addAnswer(answer,id,1));
+        answer.setTargetId(id);
+        SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(answerService.add(answer));
         if (returnSimpleAnswer!=null)
             return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
         else

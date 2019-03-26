@@ -25,6 +25,9 @@ public class AnswerServiceImpl implements AnswerService{
     @Resource
     UserService userService;
 
+    @Resource
+    CommentService commentService;
+
     @Override
     public void isAnswerExist(Integer id) throws NotFoundException{
         Integer cur = answerMapper.checkIfAnswerExist(id);
@@ -61,7 +64,7 @@ public class AnswerServiceImpl implements AnswerService{
 
     @Override
     @Transactional
-    public Answer addAnswer(Answer answer) throws NotFoundException {
+    public Answer add(Answer answer) throws NotFoundException {
         questionService.isQuestionExist(answer.getTargetId());
         answerMapper.add(answer);
         richTextService.addComRichText(answer.getRichText());
@@ -78,17 +81,17 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) throws NotFoundException {
-        //todo
+        isAnswerExist(id);
+        Answer answer = new Answer();
+        answer.setId(id);
+        commentService.delete(answer);
+        answerMapper.delete(id);
     }
 
     @Override
     public List<Answer> get(List<Integer> id) throws NotFoundException {
-        return null;
-    }
-
-    @Override
-    public Answer add(Answer entity){
         return null;
     }
 

@@ -2,6 +2,7 @@ package com.youthchina.service.jinhao;
 
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.property.Commentable;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 
 public interface CommentService extends DomainCRUDService<Comment, Integer> {
@@ -12,5 +13,10 @@ public interface CommentService extends DomainCRUDService<Comment, Integer> {
      */
     void getComments(Commentable entity);
 
+    void isCommentExist(Integer id) throws NotFoundException;
+
+    Comment add(Comment comment, Commentable entity) throws NotFoundException;
+
+    void delete(Commentable commentable);
 
 }

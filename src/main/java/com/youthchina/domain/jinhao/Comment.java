@@ -1,10 +1,12 @@
 package com.youthchina.domain.jinhao;
 
+import com.youthchina.domain.jinhao.property.Attentionable;
+import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.zhongyang.User;
 
 import java.sql.Timestamp;
 
-public class Comment {
+public class Comment implements Evaluatable, Attentionable {
     private Integer id;
     private String content;
     private Integer userId;
@@ -14,6 +16,26 @@ public class Comment {
     private User user;
     private Integer targetType;
     private Integer targetId;
+    private Integer evaluateTargetType = 2;
+    private Integer attentionTargetType = 2;
+
+    @Override
+    public Integer getEvaluateTargetType() {
+        return evaluateTargetType;
+    }
+
+    public void setEvaluateTargetType(Integer evaluateTargetType) {
+        this.evaluateTargetType = evaluateTargetType;
+    }
+
+    @Override
+    public Integer getAttentionTargetType() {
+        return attentionTargetType;
+    }
+
+    public void setAttentionTargetType(Integer attentionTargetType) {
+        this.attentionTargetType = attentionTargetType;
+    }
 
     public Integer getId() {
         return id;

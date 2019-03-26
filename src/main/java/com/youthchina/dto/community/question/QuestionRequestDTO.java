@@ -6,7 +6,7 @@ import com.youthchina.dto.util.RichTextDTOResponse;
 /**
  * Created by hongshengzhang on 2/23/19.
  */
-public class QuestionRequestDTO implements RequestDTO, QuestionDTO {
+public class QuestionRequestDTO implements RequestDTO {
     String title;
     RichTextDTOResponse body;
     boolean is_anonymous;
