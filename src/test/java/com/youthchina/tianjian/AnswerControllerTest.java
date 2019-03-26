@@ -38,7 +38,7 @@ public class AnswerControllerTest {
 
     @Test
     public void testUpdateAnswer() throws Exception {
-        RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
+        SimpleAnswerRequestDTO simpleAnswerDTO = new SimpleAnswerRequestDTO();
         simpleAnswerDTO.setIs_anonymous(true);
         RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         //language=JSON
@@ -96,7 +96,7 @@ public class AnswerControllerTest {
 
     @Test
     public void testAddAnswerComment() throws Exception {
-        RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
+        SimpleAnswerRequestDTO simpleAnswerDTO = new SimpleAnswerRequestDTO();
         RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         //language=JSON
         String json = "{\n" +

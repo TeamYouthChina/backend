@@ -2,6 +2,7 @@ package com.youthchina.domain.jinhao;
 
 
 import com.youthchina.domain.Qinghong.Student;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.tianjian.ComEssayReply;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.tianjian.ComReplyEvaluate;

@@ -227,7 +227,7 @@ public class QuestionControllerTest {
 
     @Test
     public void testAddAnswer() throws Exception {
-        RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
+        SimpleAnswerRequestDTO simpleAnswerDTO = new SimpleAnswerRequestDTO();
         simpleAnswerDTO.setIs_anonymous(true);
         RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         //language=JSON

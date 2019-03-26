@@ -6,7 +6,7 @@ import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.community.answer.RequestSimpleAnswerDTO;
+import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -29,9 +29,9 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     private Integer attentionTargetType = 2;
     private ComRichText richText;
 
-    public Answer(RequestSimpleAnswerDTO simpleAnswerDTO){
-        this.richText.setJson_content(simpleAnswerDTO.getBody().getBraftEditorRaw());
-        this.richText.setText_content(simpleAnswerDTO.getBody().getPreviewText());
+    public Answer(SimpleAnswerRequestDTO simpleAnswerDTO){
+        this.richText.setJsonContent(simpleAnswerDTO.getBody().getBraftEditorRaw());
+        this.richText.setTextContent(simpleAnswerDTO.getBody().getPreviewText());
     }
 
     public Answer(){}

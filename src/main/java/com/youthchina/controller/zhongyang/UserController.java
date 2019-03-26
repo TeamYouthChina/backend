@@ -4,12 +4,13 @@ import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.Qinghong.JobCollect;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.jinhao.Video;
+
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.applicant.CompCollectResponseDTO;
 import com.youthchina.dto.applicant.JobCollectResponseDTO;
-import com.youthchina.dto.community.article.EssayDTO;
+import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.community.video.VideoDTO;
 import com.youthchina.dto.security.UserDTO;
@@ -18,7 +19,6 @@ import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
 import com.youthchina.service.jinhao.AttentionServiceImpl;
-import com.youthchina.service.jinhao.QuestionService;
 import com.youthchina.service.jinhao.QuestionServiceImpl;
 import com.youthchina.service.jinhao.VideoServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
@@ -94,14 +94,15 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
 
             }
             case "Essay": {
-                List<ComEssay> comEssays = essayService.getAllEssayUserAttention(user_id);
-                List<EssayDTO> essayDTOS = new ArrayList<>();
-                for (ComEssay comEssay : comEssays) {
-                    EssayDTO essayDTO = new EssayDTO(comEssay);
-                    essayDTOS.add(essayDTO);
+                List<EssayResponseDTO> essayResponseDTOS = new ArrayList<>();
+                List<Integer> result = attentionService.getAllIdsOfAttention(new ComEssay(),user_id);
+                for (Integer id : result) {
+                    ComEssay comEssay = essayService.getEssay(id);
+                    EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
+                    essayResponseDTOS.add(essayResponseDTO);
 
                 }
-                return ResponseEntity.ok((new Response(essayDTOS)));
+                return ResponseEntity.ok((new Response(essayResponseDTOS)));
 
             }
             case "Video": {

@@ -2,16 +2,16 @@ package com.youthchina.dto.community.comment;
 
 import com.youthchina.domain.jinhao.Comment;
 
-public class VideoCommentDTO {
+public class VideoCommentRequestDTO {
     private String body;
     private boolean is_anonymous;
 
-    public VideoCommentDTO(Comment videocomment){
+    public VideoCommentRequestDTO(Comment videocomment){
         this.body = videocomment.getContent();
         this.is_anonymous = (videocomment.getIsAnony()==1)? true:false;
     }
 
-    public VideoCommentDTO(){}
+    public VideoCommentRequestDTO(){}
 
     public String getBody() {
         return body;

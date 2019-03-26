@@ -4,14 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.dto.util.RichTextDTOResponse;
 
-public class RequestEssayDTO {
+public class EssayRequestDTO {
     private Integer id;
     private String title;
     private Integer company_id;
     private boolean is_anonymous;
     private RichTextDTOResponse body;
 
-    public RequestEssayDTO(ComEssay comEssay) {
+    public EssayRequestDTO(ComEssay comEssay) {
         this.id = comEssay.getEssay_id();
         this.title = comEssay.getEssay_title();
         try {
@@ -23,7 +23,7 @@ public class RequestEssayDTO {
         }
     }
 
-    public RequestEssayDTO() {
+    public EssayRequestDTO() {
     }
 
     public RichTextDTOResponse getBody() {

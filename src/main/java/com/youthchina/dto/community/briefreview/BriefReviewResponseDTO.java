@@ -3,7 +3,7 @@ package com.youthchina.dto.community.briefreview;
 import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.dto.community.comment.CommentDTO;
-import com.youthchina.dto.community.comment.ResponseCommentDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTOResponse;
 
@@ -12,14 +12,14 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class BriefReviewDTO {
+public class BriefReviewResponseDTO {
     private Integer id;
     private RichTextDTOResponse body;
-    private ResponseCommentDTO comments = new ResponseCommentDTO();
+    private CommentResponseDTO comments = new CommentResponseDTO();
     private UserDTO author;
 
 
-    public BriefReviewDTO(BriefReview briefReview) {
+    public BriefReviewResponseDTO(BriefReview briefReview) {
         this.id = briefReview.getId();
         RichTextDTOResponse richt = new RichTextDTOResponse(briefReview.getRichText());
         this.body = richt;
@@ -33,7 +33,7 @@ public class BriefReviewDTO {
 
     }
 
-    public BriefReviewDTO() {
+    public BriefReviewResponseDTO() {
     }
 
     public Integer getId() {
@@ -52,11 +52,11 @@ public class BriefReviewDTO {
         this.body = body;
     }
 
-    public ResponseCommentDTO getComments() {
+    public CommentResponseDTO getComments() {
         return comments;
     }
 
-    public void setComments(ResponseCommentDTO comments) {
+    public void setComments(CommentResponseDTO comments) {
         this.comments = comments;
     }
 

@@ -4,6 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.jinhao.BriefReviewMapper;
 import com.youthchina.domain.jinhao.BriefReview;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -151,7 +152,7 @@ public class BriefReviewMapperTest {
     @Test
     public void getComment() {
         Comment comment = briefReviewMapper.simplyGetComment(1);
-        Assert.assertEquals("B", comment.getComment_content());
+        Assert.assertEquals("B", comment.getContent());
         Comment comment1 = briefReviewMapper.getComment(1);
         User user = comment1.getUser();
         Assert.assertEquals(Integer.valueOf(1), user.getId());
@@ -162,12 +163,12 @@ public class BriefReviewMapperTest {
     @Test
     public void addComment() {
         Comment comment = new Comment();
-        comment.setComment_content("aaaa");
-        comment.setUser_id(1);
+        comment.setContent("aaaa");
+        comment.setUserId(1);
         briefReviewMapper.addComment(comment);
-        Comment comment1 = briefReviewMapper.getComment(comment.getComment_id());
-        Assert.assertEquals(comment.getComment_id(), comment1.getComment_id());
-        briefReviewMapper.createCommentReviewMap(comment.getComment_id(), 1, 2);
+        Comment comment1 = briefReviewMapper.getComment(comment.getId());
+        Assert.assertEquals(comment.getId(), comment1.getId());
+        briefReviewMapper.createCommentReviewMap(comment.getId(), 1, 2);
         BriefReview briefReview = briefReviewMapper.get(2);
         List<Comment> comments = briefReview.getComments();
         Assert.assertEquals(1, comments.size());
@@ -191,10 +192,10 @@ public class BriefReviewMapperTest {
     @Test
     public void updateComment() {
         Comment comment = briefReviewMapper.getComment(1);
-        comment.setComment_content("12345");
+        comment.setContent("12345");
         briefReviewMapper.updateComment(comment);
         comment = briefReviewMapper.getComment(1);
-        Assert.assertEquals("12345", comment.getComment_content());
+        Assert.assertEquals("12345", comment.getContent());
     }
 
     @Test

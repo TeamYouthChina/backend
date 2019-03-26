@@ -74,7 +74,7 @@ public class EssayControllerTest {
         } catch (IOException e) {
             Assert.fail();
         }
-        RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
+        EssayRequestDTO requestEssayDTO = new EssayRequestDTO();
         requestEssayDTO.setTitle("This is a new article Title");
         //RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         //richTextDTO.setBraftEditorRaw("{\n" +
@@ -99,7 +99,7 @@ public class EssayControllerTest {
 
     @Test
     public void updateEssayTest() throws Exception {
-        RequestEssayDTO requestEssayDTO = new RequestEssayDTO();
+        EssayRequestDTO requestEssayDTO = new EssayRequestDTO();
         requestEssayDTO.setTitle("This is a new Title 1");
         RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         //language=JSON
@@ -175,7 +175,7 @@ public class EssayControllerTest {
 
     @Test
     public void addCommentTest() throws Exception {
-        RequestEssayReplyDTO essayDTO = new RequestEssayReplyDTO();
+        EssayReplyRequestDTO essayDTO = new EssayReplyRequestDTO();
         essayDTO.setAnonymous(false);
         RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         String json = "{\n" +

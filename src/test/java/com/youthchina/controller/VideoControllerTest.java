@@ -73,7 +73,7 @@ public class VideoControllerTest {
 
     @Test
     public void addCommentTest() throws Exception {
-        VideoCommentDTO videoCommentDTO = new VideoCommentDTO();
+        VideoCommentRequestDTO videoCommentDTO = new VideoCommentRequestDTO();
         videoCommentDTO.setIs_anonymous(false);
         RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
         //language=JSON

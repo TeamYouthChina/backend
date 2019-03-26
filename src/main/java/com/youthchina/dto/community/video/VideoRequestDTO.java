@@ -1,6 +1,8 @@
 package com.youthchina.dto.community.video;
 
-public class RequestVideoDTO {
+import com.youthchina.dto.RequestDTO;
+
+public class VideoRequestDTO implements RequestDTO {
     private Integer company_id;
 
     public Integer getCompany_id() {
