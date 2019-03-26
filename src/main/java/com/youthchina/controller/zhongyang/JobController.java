@@ -40,7 +40,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/jobs/**")
-public class JobController extends DomainCRUDController<JobRequestDTO, Job, Integer> {
+public class JobController {
 
     private String url;
     private JobService jobService;
@@ -55,22 +55,14 @@ public class JobController extends DomainCRUDController<JobRequestDTO, Job, Inte
         this.messageSendService = messageSendService;
     }
 
-    @Override
-    protected DomainCRUDService<Job, Integer> getService() {
-        return this.jobService;
+    protected JobResponseDTO DomainToDto(Job domain) {
+        return new JobResponseDTO(domain);
     }
 
-    @Override
-    protected JobRequestDTO DomainToDto(Job domain) {
-        return new JobRequestDTO(domain);
-    }
-
-    @Override
     protected Job DtoToDomain(JobRequestDTO jobRequestDTO) {
         return new Job(jobRequestDTO);
     }
 
-    @Override
     protected URI getUriForNewInstance(Integer id) throws URISyntaxException {
         return new URI(this.url + id.toString());
     }
@@ -78,19 +70,32 @@ public class JobController extends DomainCRUDController<JobRequestDTO, Job, Inte
 
     @PostMapping("/**")
     public ResponseEntity<?> createJobInfo(@RequestBody JobRequestDTO jobRequestDTO) throws  NotFoundException {
-        return add(jobRequestDTO);
+        Job job = new Job(jobRequestDTO);
+        Job jobresult = jobService.add(job);
+        if(jobresult.getId() != null){
+            return ResponseEntity.ok(new Response(new StatusDTO(204,"add success")));
+        }else{
+            return ResponseEntity.ok(new Response(new StatusDTO(403, "add failed")));
+        }
     }
 
     @PutMapping("/{id}/**")
-    public ResponseEntity<?> updateJobInfo(@RequestBody JobRequestDTO jobRequestDTO) throws NotFoundException {
-        return update(jobRequestDTO);
+    public ResponseEntity<?> updateJobInfo(@PathVariable Integer id, @RequestBody JobRequestDTO jobRequestDTO) throws NotFoundException {
+        Job job = new Job(jobRequestDTO);
+        job.setJobId(id);
+        Job jobresult = jobService.update(job);
+        if(jobresult.getId() != null) {
+            return ResponseEntity.ok(new Response(new StatusDTO(204, "update success")));
+        }else{
+            return ResponseEntity.ok(new Response(new StatusDTO(403, "update failed")));
+        }
     }
 
     @DeleteMapping("/{id}/**")
-    public ResponseEntity<?> deleteJobInfo(@PathVariable Integer id) throws NotFoundException {
-        return delete(id);
+    public ResponseEntity<?> deleteJobInfo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        jobService.delete(user,id);
+        return ResponseEntity.ok(new Response(new StatusDTO(204,"delete success")));
     }
-
 
     @GetMapping("/{id}/**")
     public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {

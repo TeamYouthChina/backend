@@ -105,8 +105,12 @@ public class QuestionController {
         Question question = new Question(requestQuestionDTO);
         question.setUser(user);
         question.setId(id);
-        questionService.update(question);
-        return ResponseEntity.ok(new Response(new StatusDTO(204,"updated success")));
+        Question questionresult = questionService.update(question);
+        if(questionresult != null){
+            return ResponseEntity.ok(new Response(new StatusDTO(204,"updated success")));
+        }else{
+            return ResponseEntity.ok(new Response(new StatusDTO(403,"updated failed")));
+        }
     }
 
     @DeleteMapping("/{id}")
