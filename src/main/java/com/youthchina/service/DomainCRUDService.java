@@ -37,6 +37,6 @@ public interface DomainCRUDService<T, K extends Serializable> {
      * @param entity target
      *               <p>add Entity</p>
      */
-    T add(T entity);
+    T add(T entity) throws NotFoundException;
 
 }

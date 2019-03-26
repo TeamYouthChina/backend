@@ -30,7 +30,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
         if(briefReview == null){
             throw new NotFoundException(404,404,"没有找到这个短评");
         }
-        briefReview.setComRichText(richTextService.getComRichText(id,3));
+        briefReview.setRichText(richTextService.getComRichText(id,3));
         commentService.getComments(briefReview);
         briefReview.setUser(userMapper.findOne(briefReview.getUserId()));
         return briefReview;
@@ -50,14 +50,14 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public BriefReview update(BriefReview briefReview) throws NotFoundException {
         isBriefReviewExist(briefReview.getId());
         briefReviewMapper.update(briefReview);
-        richTextService.updateComRichText(briefReview.getComRichText());
+        richTextService.updateComRichText(briefReview.getRichText());
         return  briefReview;
     }
 
     @Override
     public BriefReview add(BriefReview entity) {
         briefReviewMapper.add(entity);
-        richTextService.addComRichText(entity.getComRichText());
+        richTextService.addComRichText(entity.getRichText());
         return entity;
     }
 

@@ -8,7 +8,7 @@ import com.youthchina.util.zhongyang.HasId;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Question implements RichTextable, HasId<Integer> {
+public class Question implements RichTextable, HasId<Integer>, Evaluatable, Attentionable {
     private Integer id;
     private String title;
     private String abbre;
@@ -21,9 +21,29 @@ public class Question implements RichTextable, HasId<Integer> {
     private List<Answer> answers;
     private Integer rela_type;
     private Integer rela_id;
-    private Integer richTextRelaType = 2;
+    private Integer richTextRelaType = 1;
+    private Integer evaluateTargetType = 1;
+    private Integer attentionTargetType = 1;
     private ComRichText richText;
-    
+
+    @Override
+    public Integer getAttentionTargetType() {
+        return attentionTargetType;
+    }
+
+    public void setAttentionTargetType(Integer attentionTargetType) {
+        this.attentionTargetType = attentionTargetType;
+    }
+
+    @Override
+    public Integer getEvaluateTargetType() {
+        return evaluateTargetType;
+    }
+
+    public void setEvaluateTargetType(Integer evaluateTargetType) {
+        this.evaluateTargetType = evaluateTargetType;
+    }
+
     @Override
     public Integer getRichTextRelaType() {
         return richTextRelaType;

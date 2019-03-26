@@ -61,7 +61,7 @@ public class AnswerServiceImpl implements AnswerService{
 
     @Override
     @Transactional
-    public Answer addAnswer(Answer answer) throws NotFoundException {
+    public Answer add(Answer answer) throws NotFoundException {
         questionService.isQuestionExist(answer.getTargetId());
         answerMapper.add(answer);
         richTextService.addComRichText(answer.getRichText());
@@ -84,11 +84,6 @@ public class AnswerServiceImpl implements AnswerService{
 
     @Override
     public List<Answer> get(List<Integer> id) throws NotFoundException {
-        return null;
-    }
-
-    @Override
-    public Answer add(Answer entity){
         return null;
     }
 
