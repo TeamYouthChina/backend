@@ -2,6 +2,7 @@ package com.youthchina.Qingyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.dao.qingyang.CompanyEmployeeMapper;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.dao.qingyang.LocationMapper;
@@ -25,11 +26,17 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:company.xml"})
+@DatabaseSetup({"classpath:company.xml", "classpath:companyEmployee.xml"})
 public class CompanyEmployeeTest {
 
     @Autowired
-    private CompanyMapper companyMapper;
+    private CompanyEmployeeMapper companyEmployeeMapper;
+
+    @Test
+    public void testGetCompanyEmployee() {
+        CompanyEmployee employee = companyEmployeeMapper.getCompanyEmployee(1);
+        Assert.assertEquals(Integer.valueOf(1), employee.getCompanyId());
+    }
 
 
 }
