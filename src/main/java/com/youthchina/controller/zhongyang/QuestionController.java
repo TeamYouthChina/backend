@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("${web.url.prefix}/questions/**")
 public class QuestionController {
     private String url;
-    private CommunityQAService communityQAService;
+    private  communityQAService;
 
     @Autowired
     public QuestionController(CommunityQAService communityQAService, @Value("${web.url.prefix}") String prefix) {
