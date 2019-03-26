@@ -12,5 +12,4 @@ public interface BriefReviewMapper {
     void delete(Integer id);
     void update(BriefReview briefReview);
     Integer checkIfBriefReviewExist(Integer id);
-    Integer getRichTextId(Integer id);
 }

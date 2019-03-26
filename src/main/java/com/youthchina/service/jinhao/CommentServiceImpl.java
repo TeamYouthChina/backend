@@ -5,6 +5,7 @@ import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.property.Commentable;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.tianjian.EssayService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,9 @@ public class CommentServiceImpl implements CommentService {
     @Resource
     DiscussService discussService;
 
+    @Resource
+    EssayService essayService;
+
     @Override
     public List<Comment> getComments(Commentable entity) {
         List<Comment> comments = commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
@@ -53,6 +57,7 @@ public class CommentServiceImpl implements CommentService {
         Integer type = entity.getCommentTargetType();
         Integer targetId = entity.getId();
         switch (type){
+            case 1: essayService.get(targetId); break;
             case 2: briefReviewService.isBriefReviewExist(targetId); break;
             case 3: videoService.isVideoExist(targetId); break;
             case 4: answerService.isAnswerExist(targetId); break;

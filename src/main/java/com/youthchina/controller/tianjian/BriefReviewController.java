@@ -72,7 +72,7 @@ public class BriefReviewController {
         briefReview.setId(id);
         RichTextDTORequest richTextDTORequest = briefReviewRequestDTO.getBody();
         ComRichText comRichText = new ComRichText(richTextDTORequest);
-        briefReview.setRichText(comRichText);
+        briefReview.setBody(comRichText);
 
         Timestamp time = new Timestamp(System.currentTimeMillis());
         briefReview.setTime(time);
@@ -83,7 +83,7 @@ public class BriefReviewController {
         }
         BriefReview briefReviewReturn = briefReviewServiceImplement.update(briefReview);
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO();
-        RichTextDTOResponse richTextDTOResponse = new RichTextDTOResponse(briefReviewReturn.getRichText());
+        RichTextDTOResponse richTextDTOResponse = new RichTextDTOResponse(briefReviewReturn.getBody());
         briefReviewResponseDTO.setBody(richTextDTOResponse);
 
         briefReviewResponseDTO.setAuthor(new UserDTO(userService.get(user.getId())));
@@ -106,7 +106,7 @@ public class BriefReviewController {
     @PostMapping
     public ResponseEntity addBriefReview(@RequestBody BriefReviewRequestDTO briefReviewRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         BriefReview briefReview = new BriefReview();
-        briefReview.setRichText(new ComRichText(briefReviewRequestDTO.getBody()));
+        briefReview.setBody(new ComRichText(briefReviewRequestDTO.getBody()));
 
         Timestamp time = new Timestamp(System.currentTimeMillis());
         briefReview.setTime(time);
@@ -118,7 +118,7 @@ public class BriefReviewController {
         BriefReview briefReviewReturn = briefReviewServiceImplement.add(briefReview);
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO();
 
-        briefReviewResponseDTO.setBody(new RichTextDTOResponse(briefReviewReturn.getRichText()));
+        briefReviewResponseDTO.setBody(new RichTextDTOResponse(briefReviewReturn.getBody()));
 
         briefReviewResponseDTO.setAuthor(new UserDTO(userService.get(user.getId())));
         List<CommentDTO> commentDTOList = new ArrayList<CommentDTO>();
@@ -145,7 +145,7 @@ public class BriefReviewController {
 
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comment.setPubTime(time);
-        comment.setUserId(user.getId());
+        comment.setUser(user);
         comment.setTargetId(id);
         comment.setTargetType(2);
         comment.setIsAnony((commentRequestDTO.getIs_anonymous() == true) ? 1 : 0);
@@ -170,7 +170,7 @@ public class BriefReviewController {
     public ResponseEntity getBriefReviewComments(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
        BriefReview briefReview = new BriefReview();
        briefReview.setId(id);
-       briefReview.setUserId(user.getId());
+       briefReview.setUser(user);
         commentService.getComments(briefReview);
         List<CommentDTO> commentDTOS = new ArrayList<>();
         if (briefReview.getComments() != null) {

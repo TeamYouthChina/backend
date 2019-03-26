@@ -2,9 +2,11 @@ package com.youthchina.service.jinhao;
 
 import com.youthchina.domain.jinhao.Invitation;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class InvitationServiceImpl implements InvitationService {
 
     @Override

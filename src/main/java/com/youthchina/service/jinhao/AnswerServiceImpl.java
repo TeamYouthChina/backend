@@ -46,11 +46,8 @@ public class AnswerServiceImpl implements AnswerService{
 
     @Override
     @Transactional
-    public List<Answer> getAnswers(Integer id) throws NotFoundException{
+    public List<Answer> getAnswers(Integer id){
         List<Answer> answers = answerMapper.getAnswers(id);
-        if(answers.size() == 0){
-            throw new NotFoundException(404,404,"这个问题没有回答");
-        }
         for(Answer answer : answers){
             richTextService.getComRichText(answer);
         }
@@ -61,8 +58,9 @@ public class AnswerServiceImpl implements AnswerService{
     @Transactional
     public Answer add(Answer answer) throws NotFoundException {
         questionService.isQuestionExist(answer.getTargetId());
-        answerMapper.add(answer);
         richTextService.addComRichText(answer.getBody());
+
+        answerMapper.add(answer);
         return answer;
     }
 
@@ -91,7 +89,6 @@ public class AnswerServiceImpl implements AnswerService{
         for(Integer one : id){
             Answer answer = answerMapper.get(one);
             if(answer != null){
-
                 try {
                     answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
                 } catch (NotFoundException e) {
