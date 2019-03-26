@@ -1,7 +1,7 @@
 package com.youthchina.service.jinhao;
 
 import com.youthchina.dao.jinhao.VideoMapper;
-import com.youthchina.dao.zhongyang.UserMapper;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.Video;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,9 +15,6 @@ import java.util.List;
 public class VideoServiceImpl implements VideoService {
     @Resource
     VideoMapper videoMapper;
-
-    @Resource
-    UserMapper userMapper;
 
     @Resource
     CommentService commentService;
@@ -36,7 +33,6 @@ public class VideoServiceImpl implements VideoService {
         if(video == null){
             throw new NotFoundException(404,404,"这个视频不存在");
         }
-        video.setUser(userMapper.findOne(video.getUserId()));
         commentService.getComments(video);
         return video;
     }
@@ -48,8 +44,8 @@ public class VideoServiceImpl implements VideoService {
         for(Integer one : id){
             Video video = videoMapper.get(one);
             if(video != null){
-                video.setUser(userMapper.findOne(video.getUserId()));
-                commentService.getComments(video);
+                List<Comment> comments = commentService.getComments(video);
+                video.setComments(comments);
                 videos.add(video);
             }
         }

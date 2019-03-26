@@ -159,10 +159,14 @@ create table IF NOT EXISTS `SYS_COUNTRY` (
 
 
 create table IF NOT EXISTS `SYS_CHN_REGION` (
-                                              `REGION_NUM`        INT               AUTO_INCREMENT
+                                              `REGION_ID`        INT               AUTO_INCREMENT
+                                                COMMENT '区划ID',
+                                              `REGION_NUM`       VARCHAR(10)   NOT NULL
                                                 COMMENT '区划编号',
-                                              `REGION_CHN`        VARCHAR(100) NOT NULL
+                                              `REGION_CHN`        VARCHAR(50) NOT NULL
                                                 COMMENT '中文描述',
+                                              `REGION_FULLCHN`    VARCHAR(100) NOT NULL
+                                                COMMENT '中文全称',
                                               `REGION_ENG`        VARCHAR(100) NOT NULL
                                                 COMMENT '英文描述',
                                               `REGION_LEVEL`      INTEGER      NOT NULL
@@ -175,7 +179,7 @@ create table IF NOT EXISTS `SYS_CHN_REGION` (
                                                 COMMENT '是否删除',
                                               `IS_DELETE_TIME`    TIMESTAMP    NULL DEFAULT NULL
                                                 COMMENT '删除时间',
-                                              PRIMARY KEY (`REGION_NUM`)
+                                              PRIMARY KEY (`REGION_ID`)
 )
   COMMENT = '中国行政区划表';
 
@@ -202,7 +206,8 @@ create table IF NOT EXISTS `SYS_USA_STATE` (
 
 ##美国邮编表
 create table IF NOT EXISTS `SYS_USA_ZIPCODE`(
-                                              `ZIP_CODE` INTEGER COMMENT 'ZIPCODE',
+                                              `REGION_ID`  INT AUTO_INCREMENT COMMENT '区划ID',
+                                              `ZIP_CODE` VARCHAR(10)  NOT NULL COMMENT 'ZIPCODE',
                                               `REGION_CHN` VARCHAR(100) COMMENT '中文描述',
                                               `REGION_ENG` VARCHAR(100) NOT NULL COMMENT '英文描述',
                                               `REGION_CITY` VARCHAR(100) COMMENT '所属城市',
@@ -210,7 +215,7 @@ create table IF NOT EXISTS `SYS_USA_ZIPCODE`(
                                               `START_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
                                               `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
                                               `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                              PRIMARY KEY (`ZIP_CODE`)
+                                              PRIMARY KEY (`REGION_ID`)
 )COMMENT = '美国邮编表';
 
 
@@ -295,8 +300,6 @@ create table IF NOT EXISTS `SYS_USER` (
                                         `USER_PHOTO`       VARCHAR(200) COMMENT '照片',
                                         `USER_LOCATION`    INTEGER COMMENT '所在地',
                                         `USER_NICKNAME`    VARCHAR(200) COMMENT '昵称',
-                                        `ROLE_ID`          INTEGER      NOT NULL
-                                          COMMENT '角色ID',
                                         `USER_ON_JOB`          INTEGER      NOT NULL
                                           COMMENT '是否在职',
                                         `IS_DELETE`        INTEGER      DEFAULT '0'
@@ -309,15 +312,15 @@ create table IF NOT EXISTS `SYS_USER` (
 
 
 ##用户在职信息表
-create table IF NOT EXISTS `SYS_USER_ROLE`(
-                                            `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
-                                            `COMPANY_ID` INTEGER NOT NULL COMMENT '企业ID',
-                                            `ON_JOB_START_TIME` DATE COMMENT '工作起始时间',
-                                            `ON_JOB_VERIFY` INTEGER NOT NULL COMMENT '在职验证',
-                                            `VERIFY_TIME` TIMESTAMP NOT NULL COMMENT '验证时间',
-                                            `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                            `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                            PRIMARY KEY (`USER_ID`)
+create table IF NOT EXISTS `SYS_USER_ON_JOB`(
+                                              `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+                                              `COMPANY_ID` INTEGER NOT NULL COMMENT '企业ID',
+                                              `ON_JOB_START_TIME` DATE COMMENT '工作起始时间',
+                                              `ON_JOB_VERIFY` INTEGER NOT NULL COMMENT '在职验证',
+                                              `VERIFY_TIME` TIMESTAMP NOT NULL COMMENT '验证时间',
+                                              `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+                                              `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+                                              PRIMARY KEY (`USER_ID`)
 )COMMENT = '用户在职信息表';
 
 
@@ -501,6 +504,40 @@ create table IF NOT EXISTS `SYS_MEDIA_DOCUMENT`(
 )COMMENT = '媒体文件名称表';
 
 
+#######################################视图###############################################
+CREATE OR REPLACE VIEW `COUNTRY_LOCATION` AS
+  SELECT
+    A.`REGION_ID`   AS `REGION_ID`,
+    A.`REGION_NUM`  AS `REGION_NUM`,
+    A.`REGION_FULLCHN`  AS `REGION_NAME`,
+    'CHN'  AS `COUNTRY` ,
+    '中国'  AS `COUNTRY_CHN`
+  FROM youthchina.`SYS_CHN_REGION` A
+  UNION
+  SELECT
+    B.`REGION_ID`   AS `REGION_ID`,
+    B.`ZIP_CODE`    AS `REGION_NUM`,
+    B.`REGION_ENG`  AS `REGION_NAME`,
+    'USA'  AS `COUNTRY`,
+    '美国'  AS `COUNTRY_CHN`
+  FROM youthchina.`SYS_USA_ZIPCODE` B;
+
+
+CREATE OR REPLACE VIEW `COUNTRY_UNIVERSITY` AS
+  SELECT
+    A.`UNIVERS_ID`   AS `UNIVERS_ID`,
+    A.`UNIVERS_CHN`  AS `UNIVERS_NAME`,
+    'CHN'  AS `COUNTRY`
+  FROM youthchina.`SYS_UNIVERSITY_CHN` A
+  UNION
+  SELECT
+    A.`UNIVERS_ID`   AS `UNIVERS_ID`,
+    A.`UNIVERS_ENG`  AS `UNIVERS_NAME`,
+    'USA'  AS `COUNTRY`
+  FROM youthchina.`SYS_UNIVERSITY_USA` A;
+
+
+
 
 #######################################招聘模块数据表###############################################
 
@@ -510,14 +547,8 @@ create table IF NOT EXISTS `STU_EDU_INFO` (
                                               COMMENT '教育ID',
                                             `EDU_DEGREE`          INTEGER      NOT NULL
                                               COMMENT '学历编号',
-                                            `EDU_SCHOOL_COUNTRY`  VARCHAR(10)  NOT NULL
-                                              COMMENT '学校国别',
                                             `EDU_SCHOOL_ID` INTEGER NOT NULL
                                               COMMENT '学校ID',
-                                            `EDU_SCHOOL_CHN_NAME` VARCHAR(200) NOT NULL
-                                              COMMENT '学校中文名称',
-                                            `EDU_SCHOOL_ENG_NAME` VARCHAR(200) NOT NULL
-                                              COMMENT '学校英文名称',
                                             `EDU_MAJOR`           VARCHAR(10)      NOT NULL
                                               COMMENT '专业',
                                             `EDU_COLLEGE`         VARCHAR(200) COMMENT '学院（选填）',
@@ -527,7 +558,7 @@ create table IF NOT EXISTS `STU_EDU_INFO` (
                                               COMMENT '入学时间',
                                             `EDU_END`             DATE         NOT NULL
                                               COMMENT '毕业时间',
-                                            `user_ID`              INTEGER      NOT NULL
+                                            `STU_ID`              INTEGER      NOT NULL
                                               COMMENT '应聘者ID',
                                             `IS_DELETE`           INTEGER      DEFAULT '0'
                                               COMMENT '是否删除',
@@ -548,7 +579,7 @@ create table IF NOT EXISTS `STU_SUB_INFO` (
                                             `SUB_FOREIGN`     VARCHAR(200) COMMENT '外语语言',
                                             `SUB_INTEREST`    VARCHAR(200) COMMENT '兴趣特长',
                                             `SUB_INTRODUCTION`    VARCHAR(400) COMMENT '自我介绍',
-                                            `USER_ID`          INTEGER   NOT NULL
+                                            `STU_ID`          INTEGER   NOT NULL
                                               COMMENT '用户ID',
                                             `IS_DELETE`       INTEGER   DEFAULT '0'
                                               COMMENT '是否删除',
@@ -561,30 +592,29 @@ create table IF NOT EXISTS `STU_SUB_INFO` (
 
 ##应聘者技能证书表
 create table IF NOT EXISTS `STU_CERTIFICATE`(
-                                              `CERTIF_ID` INT AUTO_INCREMENT
+                                              `CERTIFICATE_ID` INT AUTO_INCREMENT
                                                 COMMENT '证书ID',
-                                              `CERTIF_NAME` VARCHAR(200) NOT NULL
+                                              `CERTIFICATE_NAME` VARCHAR(200) NOT NULL
                                                 COMMENT '证书名称',
-                                              `CERTIF_INSTI` VARCHAR(200) NOT NULL
+                                              `CERTIFICATE_INSTI` VARCHAR(200) NOT NULL
                                                 COMMENT '证书颁发机构',
                                               `INSTI_COUNTRY` VARCHAR(10) NOT NULL
                                                 COMMENT '机构国别',
-                                              `CERTIF_GRANT_DATE` DATE NOT NULL
+                                              `CERTIFICATE_GRANT_DATE` DATE NOT NULL
                                                 COMMENT '获得时间',
-                                              `CERTIF_EXPIR_DATE` DATE
+                                              `CERTIFICATE_EXPIR_DATE` DATE
                                                 COMMENT '到期时间',
                                               `DOCU_LOCAL_ID` VARCHAR(100) DEFAULT NULL
                                                 COMMENT '本地文件编号',
-                                              `USER_ID` INTEGER NOT NULL
+                                              `STU_ID` INTEGER NOT NULL
                                                 COMMENT '用户ID',
                                               `IS_DELETE`       INTEGER   DEFAULT '0'
                                                 COMMENT '是否删除',
                                               `IS_DELETE_TIME`  TIMESTAMP NULL DEFAULT NULL
                                                 COMMENT '删除时间',
-                                              PRIMARY KEY (`CERTIF_ID`)
+                                              PRIMARY KEY (`CERTIFICATE_ID`)
 )
   COMMENT = '技能证书表';
-
 
 
 ##应聘者相关项目表
@@ -609,7 +639,7 @@ create table IF NOT EXISTS `STU_PROJECT` (
                                              COMMENT '成果是否发表',
                                            `DELIVER_PUB_INSTI` VARCHAR(200)
                                              COMMENT '发表机构',
-                                           `USER_ID`            INTEGER      NOT NULL
+                                           `STU_ID`            INTEGER      NOT NULL
                                              COMMENT '应聘者ID',
                                            `IS_DELETE`         INTEGER      DEFAULT '0'
                                              COMMENT '是否删除',
@@ -626,9 +656,7 @@ create table IF NOT EXISTS `STU_WORK` (
                                           COMMENT '工作ID',
                                         `WORK_COMPANY`    VARCHAR(200) NOT NULL
                                           COMMENT '工作公司名称',
-                                        `WORK_COUNTRY`    VARCHAR(10)
-                                          COMMENT '工作所在国别',
-                                        `WORK_LOCATION`   VARCHAR(10)
+                                        `WORK_LOCATION`   INTEGER
                                           COMMENT '工作所在城市',
                                         `WORK_POSITION`   VARCHAR(200) NOT NULL
                                           COMMENT '工作职位',
@@ -642,7 +670,7 @@ create table IF NOT EXISTS `STU_WORK` (
                                           COMMENT '工作内容',
                                         `WORK_NATURE`     INTEGER      NOT NULL
                                           COMMENT '工作性质',
-                                        `USER_ID`          INTEGER      NOT NULL
+                                        `STU_ID`          INTEGER      NOT NULL
                                           COMMENT '应聘者ID',
                                         `IS_DELETE`       INTEGER      DEFAULT '0'
                                           COMMENT '是否删除',
@@ -671,7 +699,7 @@ create table IF NOT EXISTS `STU_ACTIVITY` (
                                               COMMENT '结束时间',
                                             `ACT_DETAIL`       VARCHAR(200) NOT NULL
                                               COMMENT '活动内容',
-                                            `USER_ID`           INTEGER      NOT NULL
+                                            `STU_ID`           INTEGER      NOT NULL
                                               COMMENT '应聘者ID',
                                             `IS_DELETE`        INTEGER      DEFAULT '0'
                                               COMMENT '是否删除',
@@ -687,9 +715,9 @@ create table IF NOT EXISTS `STU_JOB_COLLECT` (
                                                  COMMENT '收藏ID',
                                                `JOB_ID`         INTEGER   NOT NULL
                                                  COMMENT '职位ID',
-                                               `JOB_COLL_TIME`  DATE      NOT NULL
+                                               `JOB_COLL_TIME`  TIMESTAMP     NOT NULL
                                                  COMMENT '职位收藏时间',
-                                               `USER_ID`         INTEGER   NOT NULL
+                                               `STU_ID`         INTEGER   NOT NULL
                                                  COMMENT '用户ID',
                                                `IS_DELETE`      INTEGER   DEFAULT '0'
                                                  COMMENT '是否删除',
@@ -705,9 +733,9 @@ create table IF NOT EXISTS `STU_COMP_COLLECT` (
                                                   COMMENT '收藏ID',
                                                 `COMPANY_ID`        INTEGER   NOT NULL
                                                   COMMENT '企业ID',
-                                                `COMPANY_COLL_TIME` DATE      NOT NULL
+                                                `COMPANY_COLL_TIME` TIMESTAMP      NOT NULL
                                                   COMMENT '企业收藏时间',
-                                                `USER_ID`            INTEGER   NOT NULL
+                                                `STU_ID`            INTEGER   NOT NULL
                                                   COMMENT '用户ID',
                                                 `IS_DELETE`         INTEGER   DEFAULT '0'
                                                   COMMENT '是否删除',
@@ -723,7 +751,7 @@ create table IF NOT EXISTS `STU_ADVAN_LABEL` (
                                                  COMMENT '标签ID',
                                                `LABEL_CODE`      VARCHAR(20)   NOT NULL
                                                  COMMENT '优势标签',
-                                               `USER_ID`         INTEGER   NOT NULL
+                                               `STU_ID`         INTEGER   NOT NULL
                                                  COMMENT '用户ID',
                                                `IS_DELETE`      INTEGER   DEFAULT '0'
                                                  COMMENT '是否删除',
@@ -738,11 +766,9 @@ create table IF NOT EXISTS `STU_ADVAN_LABEL` (
 create table IF NOT EXISTS `STU_PREFER_CITY` (
                                                `PRE_CITY_ID`    INT    AUTO_INCREMENT
                                                  COMMENT '意向ID',
-                                               `PRE_COUNTRY` VARCHAR(10)   NOT NULL
-                                                 COMMENT '意向国家',
-                                               `PRE_REGION_NUM` VARCHAR(10)   NOT NULL
+                                               `PRE_REGION_NUM` INTEGER   NOT NULL
                                                  COMMENT '意向城市',
-                                               `USER_ID`         INTEGER   NOT NULL
+                                               `STU_ID`         INTEGER   NOT NULL
                                                  COMMENT '用户ID',
                                                `IS_DELETE`      INTEGER   DEFAULT '0'
                                                  COMMENT '是否删除',
@@ -758,7 +784,7 @@ create table IF NOT EXISTS `STU_PREFER_INDUSTRY` (
                                                      COMMENT '意向ID',
                                                    `PRE_IND_CODE`    VARCHAR(10)   NOT NULL
                                                      COMMENT '意向行业',
-                                                   `USER_ID`         INTEGER   NOT NULL
+                                                   `STU_ID`         INTEGER   NOT NULL
                                                      COMMENT '用户ID',
                                                    `IS_DELETE`      INTEGER   DEFAULT '0'
                                                      COMMENT '是否删除',
@@ -777,7 +803,7 @@ create table IF NOT EXISTS `STU_PREFER_PROF` (
                                                  COMMENT '意向职位代码',
                                                `PRE_AVAIL_TIME` DATE      NOT NULL
                                                  COMMENT '预计到岗时间',
-                                               `USER_ID`         INTEGER   NOT NULL
+                                               `STU_ID`         INTEGER   NOT NULL
                                                  COMMENT '用户ID',
                                                `IS_DELETE`      INTEGER   DEFAULT '0'
                                                  COMMENT '是否删除',
@@ -796,7 +822,7 @@ create table IF NOT EXISTS `STU_PREFER_JOB_TYPE` (
                                                      COMMENT '职位性质',
                                                    `PRE_PROF_ID` INTEGER    NOT NULL
                                                      COMMENT '意向职位ID',
-                                                   `USER_ID`         INTEGER   NOT NULL
+                                                   `STU_ID`         INTEGER   NOT NULL
                                                      COMMENT '用户ID',
                                                    `IS_DELETE`      INTEGER   DEFAULT '0'
                                                      COMMENT '是否删除',
@@ -817,7 +843,7 @@ create table IF NOT EXISTS `STU_PREFER_SALARY` (
                                                    COMMENT '意向薪资上限',
                                                  `PRE_PROF_ID` INTEGER NOT NULL
                                                    COMMENT '意向职位ID',
-                                                 `USER_ID`         INTEGER   NOT NULL
+                                                 `STU_ID`         INTEGER   NOT NULL
                                                    COMMENT '用户ID',
                                                  `IS_DELETE`      INTEGER   DEFAULT '0'
                                                    COMMENT '是否删除',
@@ -833,7 +859,7 @@ create table IF NOT EXISTS `STU_INTRODUCTION_VIDEO` (
                                                         COMMENT '视频ID',
                                                       `INTRO_VIDEO_PATH` VARCHAR(400)   NOT NULL
                                                         COMMENT '视频存储路径',
-                                                      `USER_ID`           INTEGER   NOT NULL
+                                                      `STU_ID`           INTEGER   NOT NULL
                                                         COMMENT '用户ID',
                                                       `IS_DELETE`        INTEGER   DEFAULT '0'
                                                         COMMENT '是否删除',
@@ -849,7 +875,7 @@ create table IF NOT EXISTS `STU_RESUME_TEMPLATE` (
                                                      COMMENT '模板ID',
                                                    `TEMPLATE_PATH`  VARCHAR(400) NOT NULL
                                                      COMMENT '模板存储路径',
-                                                   `USER_ID`         INTEGER      NOT NULL
+                                                   `STU_ID`         INTEGER      NOT NULL
                                                      COMMENT '用户ID',
                                                    `TEMPLATE_TIME`  TIMESTAMP    NOT NULL
                                                      COMMENT '模板生成时间',
@@ -1013,18 +1039,18 @@ create table IF NOT EXISTS `COMPANY_VERIFICATION` (
   COMMENT = '企业认证表';
 
 
-##企业评价表
+/*##企业评价表
 create table IF NOT EXISTS `COMPANY_EVALUATE`(
-                                               `EVALU_ID` INT AUTO_INCREMENT COMMENT '评价ID',
-                                               `USER_ID` INTEGER NOT NULL COMMENT '评价用户',
-                                               `EVALU_CONTENT` VARCHAR(2000) NOT NULL COMMENT '评价内容',
-                                               `EVALU_TIME` TIMESTAMP NOT NULL COMMENT '评价时间',
-                                               `COMPANY_ID` INTEGER NOT NULL COMMENT '企业ID',
-                                               `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                               `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                               PRIMARY KEY (`EVALU_ID`)
+`EVALU_ID` INT AUTO_INCREMENT COMMENT '评价ID',
+`USER_ID` INTEGER NOT NULL COMMENT '评价用户',
+`EVALU_CONTENT` VARCHAR(2000) NOT NULL COMMENT '评价内容',
+`EVALU_TIME` TIMESTAMP NOT NULL COMMENT '评价时间',
+`COMPANY_ID` INTEGER NOT NULL COMMENT '企业ID',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`EVALU_ID`)
 )
-  COMMENT = '企业评价表';
+COMMENT = '企业评价表';*/
 
 
 
@@ -1149,7 +1175,7 @@ create table IF NOT EXISTS `HR_VIDEO_INVITATION` (
 create table IF NOT EXISTS `STU_JOB_APPLY` (
                                              `APPLY_ID`         INT AUTO_INCREMENT
                                                COMMENT '申请ID',
-                                             `USER_ID`           INTEGER      NOT NULL
+                                             `STU_ID`           INTEGER      NOT NULL
                                                COMMENT '用户ID',
                                              `JOB_ID`           INTEGER      NOT NULL
                                                COMMENT '职位ID',
@@ -1193,14 +1219,15 @@ create table IF NOT EXISTS `COM_QUESTION`(
                                            `QUES_ID` INT AUTO_INCREMENT COMMENT '问题ID',
                                            `QUES_TITLE` VARCHAR(200) NOT NULL COMMENT '问题题目',
                                            `QUES_ABBRE` VARCHAR(200) NOT NULL COMMENT '问题简述',
+                                           `QUES_BODY` INTEGER NOT NULL COMMENT '问题正文',
                                            `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
                                            `USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
                                            `QUES_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
                                            `QUES_EDIT_TIME` TIMESTAMP NOT NULL COMMENT '编辑时间',
                                            `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
                                            `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                           `RELA_TYPE` INTEGER NOT NULL COMMENT '删除时间',
-                                           `RELA_ID` INTEGER COMMENT '删除时间',
+                                           `RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
+                                           `RELA_ID` INTEGER DEFAULT '0' COMMENT '关联ID',
                                            PRIMARY KEY ( `QUES_ID` )
 )COMMENT = '问题表';
 
@@ -1210,14 +1237,15 @@ create table IF NOT EXISTS `COM_ESSAY`(
                                         `ESSAY_ID` INT AUTO_INCREMENT COMMENT '文章ID',
                                         `ESSAY_TITLE` VARCHAR(200) NOT NULL COMMENT '文章题目',
                                         `ESSAY_ABBRE` VARCHAR(200) NOT NULL COMMENT '文章简述',
+                                        `ESSAY_BODY` INTEGER NOT NULL COMMENT '文章正文',
                                         `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
                                         `USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
                                         `ESSAY_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
                                         `ESSAY_EDIT_TIME` TIMESTAMP NOT NULL COMMENT '编辑时间',
                                         `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
                                         `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                        `RELA_TYPE` INTEGER NOT NULL COMMENT '删除时间',
-                                        `RELA_ID` INTEGER COMMENT '删除时间',
+                                        `RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
+                                        `RELA_ID` INTEGER DEFAULT '0' COMMENT '关联ID',
                                         PRIMARY KEY ( `ESSAY_ID` )
 )COMMENT = '文章表';
 
@@ -1226,29 +1254,30 @@ create table IF NOT EXISTS `COM_ESSAY`(
 create table IF NOT EXISTS `COM_BRIEF_REVIEW`(
                                                `REVIEW_ID` INT AUTO_INCREMENT COMMENT '短评ID',
                                                `REVIEW_TIME` TIMESTAMP NOT NULL COMMENT '短评时间',
+                                               `REVIEW_BODY` INTEGER NOT NULL COMMENT '短评内容',
                                                `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
                                                `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
                                                `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
                                                `RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
-                                               `RELA_ID` INTEGER COMMENT '关联ID',
+                                               `RELA_ID` INTEGER DEFAULT '0' COMMENT '关联ID',
                                                PRIMARY KEY (`REVIEW_ID`)
 )COMMENT = '短评表';
 
 
 ##视频表
 create table IF NOT EXISTS `COM_VIDEO`(
-                                             `VIDEO_ID` INT AUTO_INCREMENT COMMENT '视频ID',
-                                             `VIDEO_TITLE` VARCHAR(200) NOT NULL COMMENT '视频标题',
-                                             `VIDEO_NAME` VARCHAR(200) NOT NULL COMMENT '视频文件名',
-                                             `VIDEO_DECRIPTION` VARCHAR(2000) NOT NULL COMMENT '视频描述',
-                                             `VIDEO_VIEW_COUNT` INTEGER NOT NULL COMMENT '观看次数',
-                                             `VIDEO_UPLOAD_TIME` TIMESTAMP NOT NULL COMMENT '上传时间',
-                                             `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                             `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                             `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
-                                             `RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
-                                             `RELA_ID` INTEGER COMMENT '关联ID',
-                                             PRIMARY KEY (`VIDEO_ID`)
+                                        `VIDEO_ID` INT AUTO_INCREMENT COMMENT '视频ID',
+                                        `VIDEO_TITLE` VARCHAR(200) NOT NULL COMMENT '视频标题',
+                                        `VIDEO_NAME` VARCHAR(200) NOT NULL COMMENT '视频文件名',
+                                        `VIDEO_DECRIPTION` VARCHAR(2000) NOT NULL COMMENT '视频描述',
+                                        `VIDEO_VIEW_COUNT` INTEGER NOT NULL COMMENT '观看次数',
+                                        `VIDEO_UPLOAD_TIME` TIMESTAMP NOT NULL COMMENT '上传时间',
+                                        `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+                                        `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+                                        `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+                                        `RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
+                                        `RELA_ID` INTEGER DEFAULT '0' COMMENT '关联ID',
+                                        PRIMARY KEY (`VIDEO_ID`)
 )COMMENT = '视频表';
 
 
@@ -1281,9 +1310,9 @@ create table IF NOT EXISTS `COM_REPLY_INVITATION`(
 ##回答表
 create table IF NOT EXISTS `COM_ANSWER`(
                                          `ANSWER_ID` INT AUTO_INCREMENT COMMENT '回答ID',
+                                         `ANSWER_BODY` INTEGER NOT NULL COMMENT '回答内容',
                                          `TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
                                          `TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
-                                         `ANSWER_LEVEL` INTEGER NOT NULL COMMENT '回答楼层',
                                          `USER_ID` INTEGER NOT NULL COMMENT '回答作者',
                                          `USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
                                          `ANSWER_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
@@ -1311,8 +1340,7 @@ create table IF NOT EXISTS `COM_COMMENT`(
                                           `COMMENT_ID` INT AUTO_INCREMENT COMMENT '评论ID',
                                           `TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
                                           `TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
-                                          `COMMENT_LEVEL` INTEGER NOT NULL COMMENT '评论楼层',
-                                          `COMMENT_CONTENT` VARCHAR(500) NOT NULL COMMENT '评论内容',
+                                          `COMMENT_CONTENT` VARCHAR(5000) NOT NULL COMMENT '评论内容',
                                           `USER_ID` INTEGER NOT NULL COMMENT '评论作者',
                                           `USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
                                           `COMMENT_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
@@ -1323,27 +1351,10 @@ create table IF NOT EXISTS `COM_COMMENT`(
 )COMMENT = '评论表';
 
 
-##回复表
-create table IF NOT EXISTS `COM_REPLY`(
-                                        `REPLY_ID` INT AUTO_INCREMENT COMMENT '回复ID',
-                                        `COMMENT_ID` INTEGER NOT NULL COMMENT '评论ID',
-                                        `REPLY_LEVEL` INTEGER NOT NULL COMMENT '回复楼层',
-                                        `REPLY_CONTENT` VARCHAR(500) NOT NULL COMMENT '回复内容',
-                                        `USER_ID` INTEGER NOT NULL COMMENT '回复作者',
-                                        `USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
-                                        `REPLY_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
-                                        `REPLY_EDIT_TIME` TIMESTAMP NOT NULL COMMENT '编辑时间',
-                                        `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                        `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                        PRIMARY KEY ( `REPLY_ID` )
-)COMMENT = '回复表';
-
-
 ##讨论表
 create table IF NOT EXISTS `COM_DISCUSS`(
                                           `DISCUSS_ID` INT AUTO_INCREMENT COMMENT '讨论ID',
-                                          `REPLY_ID` INTEGER NOT NULL COMMENT '回复ID',
-                                          `DISCUSS_LEVEL` INTEGER NOT NULL COMMENT '讨论楼层',
+                                          `COMMENT_ID` INTEGER NOT NULL COMMENT '回复ID',
                                           `DISCUSS_CONTENT` VARCHAR(500) NOT NULL COMMENT '讨论内容',
                                           `USER_ID` INTEGER NOT NULL COMMENT '讨论作者',
                                           `USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
@@ -1356,22 +1367,12 @@ create table IF NOT EXISTS `COM_DISCUSS`(
 
 ##富文本表
 create table IF NOT EXISTS `COM_RICH_TEXT`(
-                                            `RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
-                                            `RELA_ID` INTEGER NOT NULL COMMENT '关联ID',
+                                            `TEXT_ID` INT AUTO_INCREMENT COMMENT '富文本ID',
                                             `COMPILE_TYPE` INTEGER NOT NULL COMMENT '解析类型',
                                             `JSON_CONTENT` TEXT(15000) NOT NULL COMMENT 'JSON字符串',
                                             `TEXT_CONTENT` TEXT(15000) NOT NULL COMMENT '文本字符串',
-                                            PRIMARY KEY (`RELA_TYPE`,`RELA_ID`)
+                                            PRIMARY KEY (`TEXT_ID`)
 )COMMENT = '富文本表';
-
-
-##富文本文件列表
-create table IF NOT EXISTS `COM_RICH_TEXT_LIST`(
-                                                 `LIST_ID` INT AUTO_INCREMENT COMMENT '主键ID',
-                                                 `DOCU_LOCAL_ID` VARCHAR(200) NOT NULL COMMENT '本地文件编号',
-                                                 `RICH_ID` INTEGER NOT NULL COMMENT '富文本ID',
-                                                 PRIMARY KEY (`LIST_ID`)
-)COMMENT = '富文本文件列表';
 
 
 ##好友申请记录表
@@ -1465,7 +1466,7 @@ create table IF NOT EXISTS `RECOM_JOB`(
 ##文本类推荐表
 create table IF NOT EXISTS `RECOM_TEXT`(
                                          `TEXT_ID` INTEGER COMMENT '企业ID',
-                                         `TEXT_TITLE` VARCHAR(200) COMMENT '职位名称',
+                                         `TEXT_TITLE` VARCHAR(2000) COMMENT '职位名称',
                                          `RECOM_TYPE` INTEGER COMMENT '推荐类型',
                                          `DATA_TIME` DATE COMMENT '数据日期'
 )COMMENT = '文本类推荐表';
@@ -1523,3 +1524,4 @@ create table IF NOT EXISTS `RECOM_CAMPUS_RECRUIT`(
                                                    `JOB_TYPE` INTEGER  COMMENT '职位性质',
                                                    `DATA_TIME` DATE COMMENT '数据日期'
 )COMMENT = '校园招聘表';
+

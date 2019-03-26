@@ -16,8 +16,8 @@ public class Comment implements Evaluatable, Attentionable {
     private User user;
     private Integer targetType;
     private Integer targetId;
-    private static final Integer evaluateTargetType = 2;
-    private static final Integer attentionTargetType = 2;
+    private static final Integer evaluateTargetType = 5;
+    private static final Integer attentionTargetType = 5;
 
     public Comment(){}
     public Comment(CommentRequestDTO commentRequestDTO){

@@ -4,6 +4,8 @@ import com.youthchina.dao.jinhao.AttentionMapper;
 import com.youthchina.domain.jinhao.Attention;
 import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.tianjian.EssayService;
+import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +35,9 @@ public class AttentionServiceImpl implements AttentionService{
     @Resource
     DiscussService discussService;
 
+    @Resource
+    EssayService essayService;
+
     @Override
     @Transactional
     public void attention(Attentionable entity, Integer userId) throws NotFoundException {
@@ -40,6 +45,7 @@ public class AttentionServiceImpl implements AttentionService{
         Integer id = entity.getId();
         switch (type){
             case 1: questionService.isQuestionExist(id); break;
+            case 2: essayService.get(id); break;
             case 3: briefReviewService.isBriefReviewExist(id); break;
             case 4: videoService.isVideoExist(id); break;
             case 5: commentService.isCommentExist(id); break;
@@ -67,6 +73,7 @@ public class AttentionServiceImpl implements AttentionService{
         Integer id = entity.getId();
         switch (type){
             case 1: questionService.isQuestionExist(id); break;
+            case 2: essayService.get(id); break;
             case 3: briefReviewService.isBriefReviewExist(id); break;
             case 4: videoService.isVideoExist(id); break;
             case 5: commentService.isCommentExist(id); break;
@@ -90,6 +97,7 @@ public class AttentionServiceImpl implements AttentionService{
         Integer id = entity.getId();
         switch (type){
             case 1: questionService.isQuestionExist(id); break;
+            case 2: essayService.get(id); break;
             case 3: briefReviewService.isBriefReviewExist(id); break;
             case 4: videoService.isVideoExist(id); break;
             case 5: commentService.isCommentExist(id); break;

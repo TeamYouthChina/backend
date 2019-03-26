@@ -64,7 +64,7 @@ public class DiscussServiceImpl implements DiscussService{
 
     @Override
     public void delete(Integer id) throws NotFoundException {
-        //TODO
+        discussMapper.delete(id);
     }
 
     @Override
