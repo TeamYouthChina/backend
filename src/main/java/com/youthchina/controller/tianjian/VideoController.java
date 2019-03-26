@@ -43,7 +43,7 @@ public class VideoController {
     @Autowired
     EvaluateService evaluateService;
 
-    @Autowired
+
     AttentionService attentionService;
 
     @GetMapping("/{id}")
@@ -74,7 +74,7 @@ public class VideoController {
         video.setName(id.toString());
         video.setUser(user);
         video.setTitle(id.toString());
-        video.setUserId(user.getId());
+        video.setUser(user);
         video.setRelaType(1);
         video = videoService.add(video);
         VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
@@ -87,7 +87,7 @@ public class VideoController {
         Comment videocomment = new Comment(commentDTO);
         Video video = new Video();
         video.setId(id);
-        video.setUserId(user.getId());
+        video.setUser(user);
         Comment comment = commentService.add(videocomment,video);
         if (comment.getId() == null) {
             return ResponseEntity.ok(new Response(new StatusDTO(403, "failed")));

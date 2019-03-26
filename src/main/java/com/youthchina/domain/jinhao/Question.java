@@ -2,41 +2,44 @@ package com.youthchina.domain.jinhao;
 
 import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.domain.jinhao.property.Evaluatable;
+import com.youthchina.domain.jinhao.property.Invitable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.util.zhongyang.HasId;
-import com.youthchina.dto.community.question.QuestionRequestDTO;
-import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Question implements RichTextable, HasId<Integer>, Evaluatable, Attentionable {
+public class Question implements RichTextable, Evaluatable, Attentionable, Invitable {
     private Integer id;
     private String title;
     private String abbre;
-    private String body;
+    private ComRichText body;
     private Timestamp pubTime;
     private Timestamp editTime;
     private Integer isAnony;
-    private Integer userId;
     private User user;
     private List<Answer> answers;
     private Integer rela_type;
     private Integer rela_id;
-    private Integer richTextRelaType = 1;
-    private Integer evaluateTargetType = 1;
-    private Integer attentionTargetType = 1;
-    private ComRichText richText;
+    private static final Integer richTextRelaType = 2;
+    private static final Integer evaluateTargetType = 1;
+    private static final Integer attentionTargetType = 1;
+    private static final Integer inviteTargetType = 1;
+
+    @Override
+    public ComRichText getBody() {
+        return body;
+    }
+
+    @Override
+    public Integer getInviteTargetType() {
+        return inviteTargetType;
+    }
 
     @Override
     public Integer getAttentionTargetType() {
         return attentionTargetType;
-    }
-
-    public void setAttentionTargetType(Integer attentionTargetType) {
-        this.attentionTargetType = attentionTargetType;
     }
 
     @Override
@@ -44,46 +47,13 @@ public class Question implements RichTextable, HasId<Integer>, Evaluatable, Atte
         return evaluateTargetType;
     }
 
-    public void setEvaluateTargetType(Integer evaluateTargetType) {
-        this.evaluateTargetType = evaluateTargetType;
-    }
-
-    public Question(QuestionRequestDTO questionRequestDTO){
-        this.title = questionRequestDTO.getTitle();
-        this.isAnony = (questionRequestDTO.getIs_anonymous()==true ? 1 : 0);
-        this.richText.setJsonContent(questionRequestDTO.getBody().getBraftEditorRaw());
-        this.richText.setTextContent(questionRequestDTO.getBody().getPreviewText());
-        this.rela_type = questionRequestDTO.getRela_type();
-        this.rela_id = questionRequestDTO.getRela_id();
-    }
-
-    public Question(){}
-
     @Override
     public Integer getRichTextRelaType() {
         return richTextRelaType;
     }
 
-    public void setRichTextRelaType(Integer richTextRelaType) {
-        this.richTextRelaType = richTextRelaType;
-    }
-
-    @Override
-    public ComRichText getRichText() {
-        return richText;
-    }
-
-    @Override
-    public void setRichText(ComRichText richText) {
-        this.richText = richText;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setBody(ComRichText body) {
+        this.body = body;
     }
 
     @Override
@@ -109,14 +79,6 @@ public class Question implements RichTextable, HasId<Integer>, Evaluatable, Atte
 
     public void setAbbre(String abbre) {
         this.abbre = abbre;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
     }
 
     public Timestamp getPubTime() {

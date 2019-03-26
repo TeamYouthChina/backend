@@ -12,7 +12,7 @@ import com.youthchina.dto.applicant.CompCollectResponseDTO;
 import com.youthchina.dto.applicant.JobCollectResponseDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
-import com.youthchina.dto.community.video.VideoDTO;
+import com.youthchina.dto.community.video.VideoResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -106,14 +106,14 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
 
             }
             case "Video": {
-                List<VideoDTO> videoDTOS = new ArrayList<>();
+                List<VideoResponseDTO> videoResponseDTOS = new ArrayList<>();
                 List<Integer> result = attentionService.getAllIdsOfAttention(new Video(),user_id);
                 for (Integer id : result) {
                     Video video = videoService.get(id);
-                    VideoDTO videoDTO = new VideoDTO(video);
-                    videoDTOS.add(videoDTO);
+                    VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
+                    videoResponseDTOS.add(videoResponseDTO);
                 }
-                return ResponseEntity.ok(new Response(videoDTOS));
+                return ResponseEntity.ok(new Response(videoResponseDTOS));
 
             }
             case "Question": {

@@ -6,7 +6,6 @@ import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.community.briefreview.RequestBriefReviewDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -16,19 +15,22 @@ public class BriefReview implements Commentable, RichTextable, Evaluatable, Atte
     private Timestamp time;
     private Integer relaType;
     private Integer relaId;
-    private Integer userId;
+    private ComRichText body;
     private List<Comment> comments;
     private User user;
-    private Integer commentTargetType = 2;
-    private Integer richTextRelaType = 2;
-    private Integer evaluateTargetType = 2;
-    private Integer attentionTargetType = 2;
-    private ComRichText richText;
+    private static final Integer richTextRelaType = 3;
+    private static final Integer commentTargetType = 2;
+    private static final Integer evaluateTargetType = 2;
+    private static final Integer attentionTargetType = 2;
 
-    public BriefReview(RequestBriefReviewDTO requestBriefReviewDTO){
-        this.relaId = requestBriefReviewDTO.getCompany_id();
-        this.richText.setText_content(requestBriefReviewDTO.getBody().getPreviewText());
-        this.richText.setJson_content(requestBriefReviewDTO.getBody().getBraftEditorRaw());
+    @Override
+    public ComRichText getBody() {
+        return body;
+    }
+
+    @Override
+    public void setBody(ComRichText body) {
+        this.body = body;
     }
 
     @Override
@@ -36,17 +38,9 @@ public class BriefReview implements Commentable, RichTextable, Evaluatable, Atte
         return evaluateTargetType;
     }
 
-    public void setEvaluateTargetType(Integer evaluateTargetType) {
-        this.evaluateTargetType = evaluateTargetType;
-    }
-
     @Override
     public Integer getAttentionTargetType() {
         return attentionTargetType;
-    }
-
-    public void setAttentionTargetType(Integer attentionTargetType) {
-        this.attentionTargetType = attentionTargetType;
     }
 
     @Override
@@ -82,14 +76,6 @@ public class BriefReview implements Commentable, RichTextable, Evaluatable, Atte
         this.relaId = relaId;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
     @Override
     public List<Comment> getComments() {
         return comments;
@@ -113,26 +99,8 @@ public class BriefReview implements Commentable, RichTextable, Evaluatable, Atte
         return commentTargetType;
     }
 
-    public void setCommentTargetType(Integer commentTargetType) {
-        this.commentTargetType = commentTargetType;
-    }
-
     @Override
     public Integer getRichTextRelaType() {
         return richTextRelaType;
-    }
-
-    public void setRichTextRelaType(Integer richTextRelaType) {
-        this.richTextRelaType = richTextRelaType;
-    }
-
-    @Override
-    public ComRichText getRichText() {
-        return richText;
-    }
-
-    @Override
-    public void setRichText(ComRichText richText) {
-        this.richText = richText;
     }
 }

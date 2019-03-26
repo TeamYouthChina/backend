@@ -33,74 +33,6 @@ public class EssayServiceImpl implements EssayService {
         this.mapper = mapper;
     }
 
-    /**
-     * Get User by id.
-     *
-     * @param id id of User
-     * @return User with id equals to param.
-     */
-    @Override
-    public User get(Integer id) {
-        // return mapper.findOne(id);
-        return null;
-    }
-
-    @Override
-    public List<User> get(List<Integer> id) {
-        return null;
-    }
-
-    @Override
-    public void delete(Integer id) {
-
-    }
-
-    @Override
-    public User update(User user) {
-        return null;
-    }
-
-    @Override
-    public User add(User user) {
-        return null;
-    }
-
-//    public CompanyInfo getCompanyInformation(String company_id){
-//        CompanyInfo companyInfo =  mapper.getCompanyInformation(company_id);
-//        return  companyInfo;
-//    }
-//
-//    public StuCollect getFavoriteCompany(StuCollect company){
-//        return mapper.getFavoriteCompany(company);
-//    }
-//
-//    public int addFavoriteCompany(StuCollect company){
-//        if(mapper.addFavoriteCompany(company)>0)
-//          return 1;
-//        else
-//            return 0;
-//    }
-//
-//    public int addFavoriteJob(StuCollect Job){
-//        if(mapper.addFavoriteJob(Job)>0)
-//            return 1;
-//        else
-//            return 0;
-//    }
-//
-//    public JobInfo getJobInformation(String job_id){
-//        return mapper.getJobInformation(job_id);
-//    }
-//
-//    public int deleteFavoriteCompany(StuCollect deletefavoritecompany){
-//        return mapper.deleteFavoriteCompany(deletefavoritecompany);
-//    }
-//
-//    @Override
-//    public int deleteFavoriteJob(StuCollect deletefavoritejob) {
-//        return mapper.deleteFavoriteJob(deletefavoritejob);
-//    }
-
     @Override
     public void addEssay(ComEssay essay) throws NotFoundException {
         ComEssay comEssaytest = mapper.getEssay(essay.getId());
@@ -162,4 +94,28 @@ public class EssayServiceImpl implements EssayService {
         return mapper.getAllEssayUserAttention(user_id);
     }
 
+    @Override
+    public ComEssay get(Integer id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public List<ComEssay> get(List<Integer> id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public void delete(Integer id) throws NotFoundException {
+
+    }
+
+    @Override
+    public ComEssay update(ComEssay comEssay) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public ComEssay add(ComEssay entity) throws NotFoundException {
+        return null;
+    }
 }

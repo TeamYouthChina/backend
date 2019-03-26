@@ -10,15 +10,14 @@ import java.sql.Timestamp;
 public class Comment implements Evaluatable, Attentionable {
     private Integer id;
     private String content;
-    private Integer userId;
     private Integer isAnony;
     private Timestamp pubTime;
     private Timestamp editTime;
     private User user;
     private Integer targetType;
     private Integer targetId;
-    private Integer evaluateTargetType = 2;
-    private Integer attentionTargetType = 2;
+    private static final Integer evaluateTargetType = 2;
+    private static final Integer attentionTargetType = 2;
 
     public Comment(){}
     public Comment(CommentRequestDTO commentRequestDTO){
@@ -31,17 +30,9 @@ public class Comment implements Evaluatable, Attentionable {
         return evaluateTargetType;
     }
 
-    public void setEvaluateTargetType(Integer evaluateTargetType) {
-        this.evaluateTargetType = evaluateTargetType;
-    }
-
     @Override
     public Integer getAttentionTargetType() {
         return attentionTargetType;
-    }
-
-    public void setAttentionTargetType(Integer attentionTargetType) {
-        this.attentionTargetType = attentionTargetType;
     }
 
     public Integer getId() {
@@ -58,14 +49,6 @@ public class Comment implements Evaluatable, Attentionable {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public Integer getIsAnony() {

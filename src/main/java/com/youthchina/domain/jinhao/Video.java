@@ -15,39 +15,22 @@ public class Video implements Commentable, Evaluatable, Attentionable {
     private Timestamp uploadTime;
     private String description;
     private Integer viewCount;
-    private Integer userId;
     private User user;
     private List<Comment> comments;
     private Integer relaType;
     private Integer relaId;
-    private Integer commentTargetType = 3;
-    private Integer evaluateTargetType = 1;
-    private Integer attentionTargetType = 1;
+    private static final Integer commentTargetType = 3;
+    private static final Integer evaluateTargetType = 1;
+    private static final Integer attentionTargetType = 1;
 
     @Override
     public Integer getEvaluateTargetType() {
         return evaluateTargetType;
     }
 
-    public void setEvaluateTargetType(Integer evaluateTargetType) {
-        this.evaluateTargetType = evaluateTargetType;
-    }
-
     @Override
     public Integer getAttentionTargetType() {
         return attentionTargetType;
-    }
-
-    public void setAttentionTargetType(Integer attentionTargetType) {
-        this.attentionTargetType = attentionTargetType;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public Integer getId() {
@@ -133,9 +116,5 @@ public class Video implements Commentable, Evaluatable, Attentionable {
 
     public Integer getCommentTargetType() {
         return commentTargetType;
-    }
-
-    public void setCommentTargetType(Integer commentTargetType) {
-        this.commentTargetType = commentTargetType;
     }
 }

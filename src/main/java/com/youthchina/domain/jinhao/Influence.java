@@ -16,12 +16,8 @@ public class Influence {
     private List<ComFriendRelation> comFriendRelations;
     private List<PersonInfluence> personInfluences;
     private List<Evaluate> evaluates;
-    private List<Evaluate> evaluates;
-    private List<Evaluate> evaluates;
-    private List<Evaluate> evaluates;
     private List<ComReplyEvaluate> comReplyEvaluates;
     private List<Answer> answers;
-    private List<Comment> comments;
     private List<Comment> comments;
     private List<ComEssayReply> comEssayReplies;
 
@@ -31,22 +27,6 @@ public class Influence {
 
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
     }
 
     public List<ComEssayReply> getComEssayReplies() {
@@ -88,38 +68,6 @@ public class Influence {
 
     public void setPersonInfluences(List<PersonInfluence> personInfluences) {
         this.personInfluences = personInfluences;
-    }
-
-    public List<Evaluate> getEvaluates() {
-        return evaluates;
-    }
-
-    public void setEvaluates(List<Evaluate> evaluates) {
-        this.evaluates = evaluates;
-    }
-
-    public List<Evaluate> getEvaluates() {
-        return evaluates;
-    }
-
-    public void setEvaluates(List<Evaluate> evaluates) {
-        this.evaluates = evaluates;
-    }
-
-    public List<Evaluate> getEvaluates() {
-        return evaluates;
-    }
-
-    public void setEvaluates(List<Evaluate> evaluates) {
-        this.evaluates = evaluates;
-    }
-
-    public List<Evaluate> getEvaluates() {
-        return evaluates;
-    }
-
-    public void setEvaluates(List<Evaluate> evaluates) {
-        this.evaluates = evaluates;
     }
 
     public List<ComReplyEvaluate> getComReplyEvaluates() {

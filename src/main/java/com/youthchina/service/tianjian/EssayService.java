@@ -1,7 +1,6 @@
 package com.youthchina.service.tianjian;
 
-import com.youthchina.domain.tianjian.*;
-import com.youthchina.domain.zhongyang.User;
+import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 
@@ -11,20 +10,7 @@ import java.util.List;
 /**
  * Created by mapper.tianjian on 11/8/18.
  */
-public interface EssayService extends DomainCRUDService<User, Integer> {
-//    public CompanyInfo getCompanyInformation(String company_id);
-//
-//    public StuCollect getFavoriteCompany(StuCollect company);
-//
-//    public int addFavoriteCompany(StuCollect company);
-//
-//    public JobInfo getJobInformation(String job_id);
-//
-//    public int deleteFavoriteCompany(StuCollect deletefavoritecompany);
-//
-//    public int addFavoriteJob(StuCollect job);
-//
-//    public int deleteFavoriteJob(StuCollect deletefavoritejob);
+public interface EssayService extends DomainCRUDService<ComEssay, Integer> {
 
     /**
      * 添加文章和标签和作者
