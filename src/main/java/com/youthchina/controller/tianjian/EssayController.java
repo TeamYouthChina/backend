@@ -77,7 +77,7 @@ public class EssayController {
          comEssay.setRelaType(2);
          comEssay.setRelaId(essayRequestDTO.getCompany_id());
         }
-        essayServiceimpl.updateEssay(comEssay);
+        essayServiceimpl.updateEssay(comEssay);1
 
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
         essayResponseDTO.setModified_at(time);
