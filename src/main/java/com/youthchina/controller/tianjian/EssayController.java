@@ -17,7 +17,6 @@ import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.AttentionService;
 
 import com.youthchina.service.jinhao.AttentionServiceImpl;
 import com.youthchina.service.jinhao.CommentServiceImpl;

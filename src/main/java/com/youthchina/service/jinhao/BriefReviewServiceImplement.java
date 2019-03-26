@@ -73,8 +73,8 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     @Override
     @Transactional
     public BriefReview add(BriefReview entity) {
-        briefReviewMapper.add(entity);
         richTextService.addComRichText(entity.getBody());
+        briefReviewMapper.add(entity);
         return entity;
     }
 

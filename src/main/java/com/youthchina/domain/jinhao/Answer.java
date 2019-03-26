@@ -6,7 +6,6 @@ import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -26,13 +25,6 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     private static final Integer commentTargetType = 4;
     private static final Integer evaluateTargetType = 7;
     private static final Integer attentionTargetType = 7;
-
-    public Answer(SimpleAnswerRequestDTO simpleAnswerDTO){
-        this.body.setJsonContent(simpleAnswerDTO.getBody().getBraftEditorRaw());
-        this.body.setTextContent(simpleAnswerDTO.getBody().getPreviewText());
-    }
-
-    public Answer(){}
 
     @Override
     public ComRichText getBody() {

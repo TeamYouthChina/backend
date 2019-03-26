@@ -26,8 +26,8 @@ public class CompanyRecommendServiceImplement implements CompanyRecommendService
     CompanyCURDServiceImpl companyCURDService;
 
     @Override
-    public List<Company> getPopCompanyForYou() throws NotFoundException {
-        List<Integer> companyIds = recommendMapper.getRandomPopCompany();
+    public List<Company> getPopCompanyForYou() throws NotFoundException{
+        List<Integer> companyIds =  recommendMapper.getRandomPopCompany();
         List<Company> companies = companyCURDService.get(companyIds);
 
 //                = new ArrayList<>();
@@ -41,7 +41,7 @@ public class CompanyRecommendServiceImplement implements CompanyRecommendService
     public List<Company> getNewCompanyForYou() {
         List<Integer> companyIds = recommendMapper.getRandomNewCompany();
         List<Company> companies = new ArrayList<>();
-        for (Integer id : companyIds) {
+        for(Integer id : companyIds){
             companies.add(companyMapper.selectCompany(id));
         }
         return companies;

@@ -32,8 +32,7 @@
         where REVIEW_ID=#{id}
     </update>
 
-    <select id="checkIfBriefReviewExist" parameterType="java.lang.Integer"
-            resultType="java.lang.Integer">
+    <select id="checkIfBriefReviewExist" parameterType="java.lang.Integer" resultMap="java.lang.Integer">
         select REVIEW_ID from COM_BRIEF_REVIEW where REVIEW_ID=#{id} and IS_DELETE=0
     </select>
 </mapper>

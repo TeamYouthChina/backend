@@ -38,11 +38,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getComments(Commentable entity) {
-        List<Comment> comments = commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
-        for(Comment comment : comments){
-            comment.setUser(comment.getUser());
-        }
-        return comments;
+        return commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
     }
 
     @Override
@@ -53,6 +49,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public Comment add(Comment comment, Commentable entity) throws NotFoundException{
         Integer type = entity.getCommentTargetType();
         Integer targetId = entity.getId();

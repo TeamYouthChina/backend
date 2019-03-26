@@ -91,15 +91,15 @@ public class EssayControllerTest {
 //                "  \"resourceIdList\": []\n" +
 //                "}";
 //
-//        RichTextResponseDTO richTextDTO = null;
+//        RichTextDTOResponse richTextDTO = null;
 //        try {
-//            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
+//            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
 //        } catch (IOException e) {
 //            Assert.fail();
 //        }
 //        EssayRequestDTO requestEssayDTO = new EssayRequestDTO();
 //        requestEssayDTO.setTitle("This is a new article Title");
-//        //RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
+//        //RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
 //        //richTextDTO.setBraftEditorRaw("{\n" +
 //        //       "  \"this\": \"that\"\n" +
 //        //        "}");
@@ -124,7 +124,7 @@ public class EssayControllerTest {
 //    public void updateEssayTest() throws Exception {
 //        EssayRequestDTO requestEssayDTO = new EssayRequestDTO();
 //        requestEssayDTO.setTitle("This is a new Title 1");
-//        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
+//        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
 //        //language=JSON
 //        String json = "{\n" +
 //                "  \"braftEditorRaw\":{\n" +
@@ -147,7 +147,7 @@ public class EssayControllerTest {
 //                "  \"resourceIdList\": []\n" +
 //                "}";
 //        try {
-//            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
+//            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
 //            System.out.println(richTextDTO);
 //        } catch (IOException e) {
 //            Assert.fail();
@@ -200,7 +200,7 @@ public class EssayControllerTest {
 //    public void addCommentTest() throws Exception {
 //        EssayReplyRequestDTO essayDTO = new EssayReplyRequestDTO();
 //        essayDTO.setAnonymous(false);
-//        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
+//        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
 //        String json = "{\n" +
 //                "  \"braftEditorRaw\": {\n" +
 //                "    \"blocks\": [\n" +
@@ -221,7 +221,7 @@ public class EssayControllerTest {
 //                "  \"resourceIdList\": []\n" +
 //                "}";
 //        try {
-//            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
+//            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
 //            System.out.println(richTextDTO);
 //        } catch (IOException e) {
 //            Assert.fail();

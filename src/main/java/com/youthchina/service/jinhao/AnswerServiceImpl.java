@@ -59,7 +59,6 @@ public class AnswerServiceImpl implements AnswerService{
     public Answer add(Answer answer) throws NotFoundException {
         questionService.isQuestionExist(answer.getTargetId());
         richTextService.addComRichText(answer.getBody());
-
         answerMapper.add(answer);
         return answer;
     }
