@@ -2,6 +2,7 @@ package com.youthchina.dto.community.question;
 
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.community.answer.AnswerBasicDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTOResponse;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 1/2/19.
  */
-public class QuestionResponseDTO {
+public class QuestionResponseDTO implements ResponseDTO, QuestionDTO {
     private Integer id;
     private UserDTO creator;
     private String title;

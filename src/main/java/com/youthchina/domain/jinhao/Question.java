@@ -4,11 +4,12 @@ import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.question.QuestionRequestDTO;
+import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Question implements RichTextable {
+public class Question implements RichTextable, HasId<Integer> {
     private Integer id;
     private String title;
     private String abbre;
@@ -32,6 +33,8 @@ public class Question implements RichTextable {
         this.rela_type = questionRequestDTO.getRela_type();
         this.rela_id = questionRequestDTO.getRela_id();
     }
+
+    public Question(){}
 
     @Override
     public Integer getRichTextRelaType() {
