@@ -1,10 +1,12 @@
 package com.youthchina.domain.jinhao;
 
+import com.youthchina.domain.jinhao.property.Attentionable;
+import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.zhongyang.User;
 
 import java.sql.Timestamp;
 
-public class Discuss {
+public class Discuss implements Evaluatable, Attentionable {
     private Integer id;
     private Integer commentId;
     private String content;
@@ -12,6 +14,26 @@ public class Discuss {
     private Timestamp pubTime;
     private Integer userId;
     private User user;
+    private Integer evaluateTargetType = 2;
+    private Integer attentionTargetType = 2;
+
+    @Override
+    public Integer getEvaluateTargetType() {
+        return evaluateTargetType;
+    }
+
+    public void setEvaluateTargetType(Integer evaluateTargetType) {
+        this.evaluateTargetType = evaluateTargetType;
+    }
+
+    @Override
+    public Integer getAttentionTargetType() {
+        return attentionTargetType;
+    }
+
+    public void setAttentionTargetType(Integer attentionTargetType) {
+        this.attentionTargetType = attentionTargetType;
+    }
 
     public Integer getUserId() {
         return userId;

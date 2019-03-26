@@ -1,6 +1,5 @@
 package com.youthchina.service.jinhao;
 
-import com.youthchina.dao.jinhao.CommunityQAMapper;
 import com.youthchina.domain.jinhao.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,6 @@ package com.youthchina.jinhao;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.dao.jinhao.CommunityQAMapper;
 import com.youthchina.domain.jinhao.*;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;

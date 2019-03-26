@@ -13,4 +13,5 @@ public interface CommentMapper {
     List<Comment> getComments(@Param("targetType") Integer targetType, @Param("targetId") Integer targetId);
     void add(Comment comment);
     void delete(Integer id);
+    Integer checkIfCommentExist(Integer id);
 }

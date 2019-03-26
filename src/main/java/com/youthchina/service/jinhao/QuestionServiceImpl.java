@@ -40,7 +40,7 @@ public class QuestionServiceImpl implements QuestionService {
         if(question == null){
             throw new NotFoundException(404,404,"没有找到这个问题");//todo
         }
-        question.setComRichText(richTextService.getComRichText(id,2));
+        question.setRichText(richTextService.getComRichText(id,2));
         question.setUser(userService.get(question.getUserId()));
         return question;
     }
@@ -51,7 +51,7 @@ public class QuestionServiceImpl implements QuestionService {
         if(question == null){
             throw new NotFoundException(404,404,"没有找到这个问题");//todo
         }
-        question.setComRichText(richTextService.getComRichText(id,2));
+        question.setRichText(richTextService.getComRichText(id,2));
         question.setUser(userService.get(question.getUserId()));
         question.setAnswers(answerService.getAnswers(id));
         return question;
@@ -64,7 +64,7 @@ public class QuestionServiceImpl implements QuestionService {
         for(Integer one : id){
             Question question = questionMapper.get(one);
             if(question != null){
-                question.setComRichText(richTextService.getComRichText(one,2));
+                question.setRichText(richTextService.getComRichText(one,2));
                 question.setUser(userService.get(question.getUserId()));
                 question.setAnswers(answerService.getAnswers(one));
                 questions.add(question);
@@ -86,7 +86,7 @@ public class QuestionServiceImpl implements QuestionService {
     public Question update(Question question) throws NotFoundException {
         isQuestionExist(question.getId());
         questionMapper.edit(question);
-        richTextService.updateComRichText(question.getComRichText());
+        richTextService.updateComRichText(question.getRichText());
         return question;
     }
 
@@ -94,7 +94,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     public Question add(Question entity) {
         questionMapper.add(entity);
-        richTextService.addComRichText(entity.getComRichText());
+        richTextService.addComRichText(entity.getRichText());
         return entity;
     }
 }
