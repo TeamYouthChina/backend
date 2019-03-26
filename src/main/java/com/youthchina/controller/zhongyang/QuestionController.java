@@ -8,8 +8,6 @@ import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.question.QuestionBasicDTO;
-import com.youthchina.dto.community.question.QuestionDTO;
-import com.youthchina.dto.community.question.RequestQuestionDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;

@@ -4,8 +4,8 @@
     <!--    发布文章 -->
     <insert id="addEssay" parameterType="com.youthchina.domain.tianjian.ComEssay" useGeneratedKeys="true"
             keyProperty="essayId">
-    INSERT INTO COM_ESSAY  (ESSAY_TITLE, ESSAY_ABBRE, USER_ID, ESSAY_PUB_TIME,ESSAY_EDIT_TIME,IS_DELETE,USER_ANONY,IS_DELETE_TIME,RELA_TYPE,RELA_ID)
-           values(#{essayTitle},#{essayAbbre},#{userId},#{essayPubTime},#{essayEditTime},#{isDelete},#{userAnony},#{isDeleteTime},#{relaType},#{relaId}
+    INSERT INTO COM_ESSAY  (ESSAY_TITLE, ESSAY_ABBRE, USER_ID, ESSAY_PUB_TIME,ESSAY_EDIT_TIME,IS_DELETE,USER_ANONY,IS_DELETE_TIME,RELA_TYPE,RELA_ID,ESSAY_BODY)
+           values(#{essayTitle},#{essayAbbre},#{userId},#{essayPubTime},#{essayEditTime},#{isDelete},#{userAnony},#{isDeleteTime},#{relaType},#{relaId},#{essayBody}
                  )
 
     </insert>
@@ -103,6 +103,13 @@
         select t1.*
         from COM_ESSAY t1, COM_ESSAY_ATTENTION t2, COM_ESSAY_ATTENTION_MAP t3
         where t1.ESSAY_ID = t3.ESSAY_ID and t3.ATTEN_ID = t2.ATTEN_ID and t2.USER_ID = #{user_id}
+    </select>
+    <select id="getEssayList" resultType="com.youthchina.domain.tianjian.ComEssay">
+         select * from COM_ESSAY t
+         where t.ESSAY_ID in
+        <foreach collection="list" item="essayId" index="index"  open="(" close=")" separator=",">
+          #{essayId}
+        </foreach>
     </select>
 
 </mapper>

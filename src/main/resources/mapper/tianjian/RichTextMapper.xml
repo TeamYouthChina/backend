@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.tianjian.RichTextMapper">
     <!--    添加富文本 -->
-    <insert id="addRichText" parameterType="com.youthchina.domain.tianjian.ComEssay">
-    INSERT INTO COM_RICH_TEXT (RELA_TYPE, RELA_ID, COMPILE_TYPE, JSON_CONTENT,TEXT_CONTENT)
-           values(#{rela_type},#{rela_id},#{compile_type},#{json_content},#{text_content}
+    <insert id="addRichText" parameterType="com.youthchina.domain.tianjian.ComRichText">
+    INSERT INTO COM_RICH_TEXT (TEXT_ID,COMPILE_TYPE, JSON_CONTENT,TEXT_CONTENT)
+           values(#{textId},#{compileType},#{jsonContent},#{textContent}
                  )
 
     </insert>
@@ -13,25 +13,14 @@
     <update id="updateRichText" parameterType="com.youthchina.domain.tianjian.ComRichText">
     update COM_RICH_TEXT
     set
-         COMPILE_TYPE = #{compile_type}, JSON_CONTENT = #{json_content},TEXT_CONTENT = #{text_content}
+         COMPILE_TYPE = #{compileType}, JSON_CONTENT = #{jsonContent},TEXT_CONTENT = #{textContent}
     where
-         RELA_TYPE = #{rela_type} and RELA_ID = #{rela_id}
+         TEXT_ID = #{textId}
     </update>
 
     <!--    获取富文本 -->
     <select id="getRichText" resultType="com.youthchina.domain.tianjian.ComRichText">
-   		select t.* from COM_RICH_TEXT t where t.RELA_TYPE = #{rela_type} and t.RELA_ID = #{rela_id}
+   		select t.* from COM_RICH_TEXT t where t.TEXT_ID = #{textId}
    </select>
-
-    <!--    获取同类型的所有富文本 -->
-    <select id="getSameTypeRichText" resultType="com.youthchina.domain.tianjian.ComRichText">
-        select t.* from COM_RICH_TEXT t where t.RICH_TYPE = #{rich_type}
-    </select>
-
-    <!--    获取同类型的所有富文本 -->
-    <select id="getRecentSameTypeRichText" resultType="com.youthchina.domain.tianjian.ComRichText">
-        select t.* from COM_RICH_TEXT t where t.RICH_TYPE = #{rich_type} order by t.ESSAY_EDIT_TIME desc limit 10
-    </select>
-
 
 </mapper>

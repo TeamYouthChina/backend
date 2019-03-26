@@ -2,6 +2,7 @@ package com.youthchina.dto.community.article;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.dto.util.RichTextDTORequest;
 import com.youthchina.dto.util.RichTextDTOResponse;
 
 public class EssayRequestDTO {
@@ -9,28 +10,23 @@ public class EssayRequestDTO {
     private String title;
     private Integer company_id;
     private boolean is_anonymous;
-    private RichTextDTOResponse body;
+    private RichTextDTORequest body;
 
     public EssayRequestDTO(ComEssay comEssay) {
-        this.id = comEssay.getEssay_id();
-        this.title = comEssay.getEssay_title();
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            RichTextDTOResponse richt = mapper.readValue(comEssay.getEssay_body(), RichTextDTOResponse.class);
-            this.body = richt;
-        } catch (Exception e) {
-            System.out.println("Exception");
-        }
+        this.id = comEssay.getEssayId();
+        this.title = comEssay.getEssayTitle();
+        this.is_anonymous = (comEssay.getUserAnony()==1)? true:false;
+        this.body = new RichTextDTORequest(comEssay.getRichText());
     }
 
     public EssayRequestDTO() {
     }
 
-    public RichTextDTOResponse getBody() {
+    public RichTextDTORequest getBody() {
         return body;
     }
 
-    public void setBody(RichTextDTOResponse body) {
+    public void setBody(RichTextDTORequest body) {
         this.body = body;
     }
 

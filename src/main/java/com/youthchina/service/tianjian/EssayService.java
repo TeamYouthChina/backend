@@ -57,6 +57,13 @@ public interface EssayService extends DomainCRUDService<User, Integer> {
     public ComEssay getEssay(Integer essay_id) throws NotFoundException;
 
     /**
+     * 根据文章List<id>获取文章List
+     * param Integer essay_id
+     * return ComEssay
+     */
+    public List<ComEssay> getEssay(List<Integer> essayId) throws NotFoundException;
+
+    /**
      * 获取最新10个文章
      * param
      * return List<ComEssay>
@@ -71,4 +78,6 @@ public interface EssayService extends DomainCRUDService<User, Integer> {
      * return List<ComEssay>
      */
     public List<ComEssay> getAllEssayUserAttention(Integer user_id);
+
+
 }

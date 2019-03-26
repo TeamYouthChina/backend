@@ -10,8 +10,8 @@ public class RichTextServiceImpl implements RichTextService {
     @Autowired
     RichTextMapper richTextMapper;
     @Override
-    public ComRichText getComRichText(int relaId, int relaType) {
-        return richTextMapper.getRichText(relaId,relaType);
+    public ComRichText getComRichText(int textId) {
+        return richTextMapper.getRichText(textId);
     }
 
     @Override

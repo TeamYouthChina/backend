@@ -103,16 +103,13 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public void addEssay(ComEssay essay) throws NotFoundException {
-        ComEssay comEssaytest = mapper.getEssay(essay.getEssayId());
+        ComEssay comEssaytest = mapper.getEssay(essay.getId());
         if (comEssaytest != null)
             throw new NotFoundException(404, 404, "this essay is exist");//todo
         else {
             mapper.addEssay(essay);
         }
-        essay.getRichText().setCompileType(1);
-        essay.getRichText().setRelaId(essay.getId());
-        essay.getRichText().setCompileType(1);
-        richTextMapper.addRichText(essay.getRichText());
+        richTextMapper.addRichText(essay.getBody());
     }
 
     @Override
@@ -122,24 +119,18 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public int updateEssay(ComEssay essay) throws NotFoundException {
-        ComEssay comEssaytest = mapper.getEssay(essay.getEssayId());
+        ComEssay comEssaytest = mapper.getEssay(essay.getId());
         if (comEssaytest == null) {
             throw new NotFoundException(404, 404, "this essay is not exist");//todo
         } else {
-            if (essay.getEssayPubTime() != null)
-                comEssaytest.setEssayPubTime(essay.getEssayPubTime());
-            if (essay.getUserAnony() != null)
-                comEssaytest.setUserAnony(essay.getUserAnony());
-            if (essay.getIsDelete() != null)
-                comEssaytest.setIsDelete(essay.getIsDelete());
-            if (essay.getEssayAbbre() != null)
-                comEssaytest.setEssayAbbre(essay.getEssayAbbre());
-            if (essay.getRichText() != null)
-                richTextMapper.updateRichText(essay.getRichText());
-            if (essay.getEssayEditTime() != null)
-                comEssaytest.setEssayEditTime(essay.getEssayEditTime());
-            if (essay.getEssayTitle() != null)
-                comEssaytest.setEssayTitle(essay.getEssayTitle());
+            if (essay.getIsAnony() != null)
+                comEssaytest.setIsAnony(essay.getIsAnony());
+            if (essay.getAbbre() != null)
+                comEssaytest.setAbbre(essay.getAbbre());
+            if (essay.getBody() != null)
+                richTextMapper.updateRichText(essay.getBody());
+            if (essay.getTitle() != null)
+                comEssaytest.setTitle(essay.getTitle());
 
             return mapper.updateEssay(comEssaytest);
         }
@@ -147,12 +138,18 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public ComEssay getEssay(Integer essay_id) throws NotFoundException {
-        ComRichText comRichText = richTextMapper.getRichText(essay_id,1);
-        ComEssay comessay = mapper.getEssay(essay_id);
-        comessay.setRichText(comRichText);
-        User user = userService.get(comessay.getUserId());
-        comessay.setUser(user);
-        return comessay;
+        ComEssay comEssay = mapper.getEssay(essay_id);
+        ComRichText comRichText = richTextMapper.getRichText(comEssay.getBody());
+        comEssay.setBody(comRichText);
+        User user = userService.get(comEssay.getUserId());
+        comEssay.setUser(user);
+        return comEssay;
+    }
+
+    @Override
+    public List<ComEssay> getEssay(List<Integer> essayId) {
+       List<ComEssay> comEssays = mapper.getEssayList(essayId);
+        return comEssays;
     }
 
     @Override

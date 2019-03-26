@@ -25,7 +25,7 @@ public class Answer implements Commentable, RichTextable {
     private Integer richTextRelaType = 4;
     private ComRichText richText = new ComRichText();
 
-    Answer(){}
+    public Answer(){}
 
     public Answer(SimpleAnswerRequestDTO simpleAnswerRequestDTO){
         this.richText.setJsonContent(simpleAnswerRequestDTO.getBody().getBraftEditorRaw());

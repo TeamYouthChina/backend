@@ -15,11 +15,8 @@ import java.util.List;
 public interface RichTextMapper {
     void addRichText(ComRichText comRichText);
 
-    ComRichText getRichText(@Param("rela_id") int rela_id, @Param("rela_type") int rela_type);
+    ComRichText getRichText(@Param("textId") int textId);
 
     void updateRichText(ComRichText comRichText);
 
-    List<ComRichText> getSameTypeRichText(int rich_type);
-
-    List<ComRichText> getRecentSameTypeRichText(int rich_type);
 }
