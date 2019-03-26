@@ -1,0 +1,129 @@
+<dataset>
+    <COM_QUESTION_ANSWER ANSWER_ID="1" ANSWER_CONTENT=
+            "{
+                &quot;braftEditorRaw&quot; : {
+                    &quot;entityMap&quot; : { },
+                    &quot;blocks&quot; : [ {
+                        &quot;key&quot; : &quot;dtj4a&quot;,
+                        &quot;text&quot; : &quot;这是第一个回答&quot;,
+                        &quot;type&quot; : &quot;unstyled&quot;,
+                        &quot;depth&quot; : 0,
+                        &quot;inlineStyleRanges&quot; : [ ],
+                        &quot;entityRanges&quot; : [ ],
+                        &quot;data&quot; : { }
+                    } ]
+                },
+                &quot;previewText&quot; : null,
+                &quot;resourceIdList&quot; : [ ]
+            }"
+                         USER_ID="1" USER_ANONY="0"
+                         ANSWER_PUB_TIME="2018-12-04 13:32:40" ANSWER_EDIT_TIME="2018-12-04 13:32:40"
+                         IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_QUESTION_ANSWER ANSWER_ID="2" ANSWER_CONTENT=
+            "{
+                &quot;braftEditorRaw&quot; : {
+                    &quot;entityMap&quot; : { },
+                    &quot;blocks&quot; : [ {
+                        &quot;key&quot; : &quot;dtj4a&quot;,
+                        &quot;text&quot; : &quot;这是第二个回答&quot;,
+                        &quot;type&quot; : &quot;unstyled&quot;,
+                        &quot;depth&quot; : 0,
+                        &quot;inlineStyleRanges&quot; : [ ],
+                        &quot;entityRanges&quot; : [ ],
+                        &quot;data&quot; : { }
+                    } ]
+                },
+                &quot;previewText&quot; : null,
+                &quot;resourceIdList&quot; : [ ]
+            }"
+                         USER_ID="1" USER_ANONY="0"
+                         ANSWER_PUB_TIME="2018-12-04 13:32:40" ANSWER_EDIT_TIME="2018-12-04 13:32:40"
+                         IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_QUESTION_ANSWER ANSWER_ID="3" ANSWER_CONTENT=
+            "{
+                &quot;braftEditorRaw&quot; : {
+                    &quot;entityMap&quot; : { },
+                    &quot;blocks&quot; : [ {
+                        &quot;key&quot; : &quot;dtj4a&quot;,
+                        &quot;text&quot; : &quot;这是第三个回答&quot;,
+                        &quot;type&quot; : &quot;unstyled&quot;,
+                        &quot;depth&quot; : 0,
+                        &quot;inlineStyleRanges&quot; : [ ],
+                        &quot;entityRanges&quot; : [ ],
+                        &quot;data&quot; : { }
+                    } ]
+                },
+                &quot;previewText&quot; : null,
+                &quot;resourceIdList&quot; : [ ]
+            }"
+                         USER_ID="2" USER_ANONY="0"
+                         ANSWER_PUB_TIME="2018-12-04 13:32:40" ANSWER_EDIT_TIME="2018-12-04 13:32:40"
+                         IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_QUESTION_ANSWER ANSWER_ID="4" ANSWER_CONTENT=
+            "{
+                &quot;braftEditorRaw&quot; : {
+                    &quot;entityMap&quot; : { },
+                    &quot;blocks&quot; : [ {
+                        &quot;key&quot; : &quot;dtj4a&quot;,
+                        &quot;text&quot; : &quot;这是第四个回答&quot;,
+                        &quot;type&quot; : &quot;unstyled&quot;,
+                        &quot;depth&quot; : 0,
+                        &quot;inlineStyleRanges&quot; : [ ],
+                        &quot;entityRanges&quot; : [ ],
+                        &quot;data&quot; : { }
+                    } ]
+                },
+                &quot;previewText&quot; : null,
+                &quot;resourceIdList&quot; : [ ]
+            }"
+                         USER_ID="3" USER_ANONY="0"
+                         ANSWER_PUB_TIME="2018-12-04 13:32:40" ANSWER_EDIT_TIME="2018-12-04 13:32:40"
+                         IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_QUESTION_ANSWER ANSWER_ID="5" ANSWER_CONTENT=
+            "{
+                &quot;braftEditorRaw&quot; : {
+                    &quot;entityMap&quot; : { },
+                    &quot;blocks&quot; : [ {
+                        &quot;key&quot; : &quot;dtj4a&quot;,
+                        &quot;text&quot; : &quot;这是第五个回答&quot;,
+                        &quot;type&quot; : &quot;unstyled&quot;,
+                        &quot;depth&quot; : 0,
+                        &quot;inlineStyleRanges&quot; : [ ],
+                        &quot;entityRanges&quot; : [ ],
+                        &quot;data&quot; : { }
+                    } ]
+                },
+                &quot;previewText&quot; : null,
+                &quot;resourceIdList&quot; : [ ]
+            }"
+                         USER_ID="4" USER_ANONY="0"
+                         ANSWER_PUB_TIME="2018-12-04 13:32:40" ANSWER_EDIT_TIME="2018-12-04 13:32:40"
+                         IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_QUESTION_ANSWER_MAP ANSWER_ID="1" ANSWER_LEVEL="1" QUES_ID="1"/>
+    <COM_QUESTION_ANSWER_MAP ANSWER_ID="2" ANSWER_LEVEL="2" QUES_ID="1"/>
+    <COM_QUESTION_ANSWER_MAP ANSWER_ID="3" ANSWER_LEVEL="3" QUES_ID="1"/>
+    <COM_QUESTION_ANSWER_MAP ANSWER_ID="4" ANSWER_LEVEL="4" QUES_ID="1"/>
+    <COM_QUESTION_ANSWER_MAP ANSWER_ID="5" ANSWER_LEVEL="1" QUES_ID="2"/>
+
+
+    <COM_ANSWER_EVALUATE EVALUATE_ID="1" USER_ID="1" EVALUATE_TYPE="1" EVALUATE_TIME="2018-12-04 13:32:40"/>
+    <COM_ANSWER_EVALUATE EVALUATE_ID="2" USER_ID="1" EVALUATE_TYPE="2" EVALUATE_TIME="2018-12-04 13:32:40"/>
+    <COM_ANSWER_EVALUATE EVALUATE_ID="3" USER_ID="2" EVALUATE_TYPE="1" EVALUATE_TIME="2018-12-04 13:32:40"/>
+    <COM_ANSWER_EVALUATE EVALUATE_ID="4" USER_ID="3" EVALUATE_TYPE="2" EVALUATE_TIME="2018-12-04 13:32:40"/>
+    <COM_ANSWER_EVALUATE EVALUATE_ID="5" USER_ID="1" EVALUATE_TYPE="1" EVALUATE_TIME="2018-12-04 13:32:40"/>
+    <COM_ANSWER_EVALUATE EVALUATE_ID="6" USER_ID="4" EVALUATE_TYPE="3" EVALUATE_TIME="2018-12-04 13:32:40"/>
+    <COM_ANSWER_EVALUATE EVALUATE_ID="7" USER_ID="1" EVALUATE_TYPE="1" EVALUATE_TIME="2018-12-04 13:32:40"/>
+    <COM_ANSWER_EVALUATE EVALUATE_ID="8" USER_ID="5" EVALUATE_TYPE="2" EVALUATE_TIME="2018-12-04 13:32:40"/>
+    <COM_ANSWER_EVALUATE EVALUATE_ID="9" USER_ID="6" EVALUATE_TYPE="2" EVALUATE_TIME="2018-12-04 13:32:40"/>
+
+    <COM_ANSWER_EVALUATE_MAP EVALUATE_ID="1" ANSWER_ID="1"/>
+    <COM_ANSWER_EVALUATE_MAP EVALUATE_ID="2" ANSWER_ID="2"/>
+    <COM_ANSWER_EVALUATE_MAP EVALUATE_ID="3" ANSWER_ID="1"/>
+    <COM_ANSWER_EVALUATE_MAP EVALUATE_ID="4" ANSWER_ID="1"/>
+    <COM_ANSWER_EVALUATE_MAP EVALUATE_ID="5" ANSWER_ID="3"/>
+    <COM_ANSWER_EVALUATE_MAP EVALUATE_ID="6" ANSWER_ID="2"/>
+    <COM_ANSWER_EVALUATE_MAP EVALUATE_ID="7" ANSWER_ID="5"/>
+    <COM_ANSWER_EVALUATE_MAP EVALUATE_ID="8" ANSWER_ID="2"/>
+    <COM_ANSWER_EVALUATE_MAP EVALUATE_ID="9" ANSWER_ID="2"/>
+
+</dataset>

@@ -1,14 +1,15 @@
 package com.youthchina.service.jinhao;
 
 import com.youthchina.dao.jinhao.BriefReviewMapper;
-import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.jinhao.BriefReview;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.RichTextService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -22,9 +23,6 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     @Resource
     RichTextService richTextService;
 
-    @Resource
-    UserMapper userMapper;
-
     @Override
     @Transactional
     public BriefReview get(Integer id) throws NotFoundException {
@@ -32,15 +30,24 @@ public class BriefReviewServiceImplement implements BriefReviewService {
         if(briefReview == null){
             throw new NotFoundException(404,404,"没有找到这个短评");
         }
-        briefReview.setRichText(richTextService.getComRichText(id,3));
+        richTextService.getComRichText(briefReview);
         commentService.getComments(briefReview);
-        briefReview.setUser(userMapper.findOne(briefReview.getUserId()));
         return briefReview;
     }
 
     @Override
-    public List<BriefReview> get(List<Integer> id) throws NotFoundException {
-        return null;
+    public List<BriefReview> get(List<Integer> id) {
+       List<BriefReview> briefReviews = new LinkedList<>();
+       for(Integer one : id){
+           BriefReview briefReview = briefReviewMapper.get(one);
+           if(briefReview != null){
+               richTextService.getComRichText(briefReview);
+               List<Comment> comments = commentService.getComments(briefReview);
+               briefReview.setComments(comments);
+               briefReviews.add(briefReview);
+           }
+       }
+       return briefReviews;
     }
 
     @Override
@@ -58,7 +65,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public BriefReview update(BriefReview briefReview) throws NotFoundException {
         isBriefReviewExist(briefReview.getId());
         briefReviewMapper.update(briefReview);
-        richTextService.updateComRichText(briefReview.getRichText());
+        richTextService.updateComRichText(briefReview.getBody());
         return  briefReview;
     }
 
@@ -66,7 +73,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     @Transactional
     public BriefReview add(BriefReview entity) {
         briefReviewMapper.add(entity);
-        richTextService.addComRichText(entity.getRichText());
+        richTextService.addComRichText(entity.getBody());
         return entity;
     }
 

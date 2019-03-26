@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class EvaluateServiceImpl implements EvaluateService{
@@ -126,5 +127,30 @@ public class EvaluateServiceImpl implements EvaluateService{
                 throw new NotFoundException(404,404,"No such type");
         }
         return evaluateMapper.countUpvote(type,id);
+    }
+
+    @Override
+    public Evaluate get(Integer id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public List<Evaluate> get(List<Integer> id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public void delete(Integer id) throws NotFoundException {
+
+    }
+
+    @Override
+    public Evaluate update(Evaluate evaluate) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public Evaluate add(Evaluate entity) throws NotFoundException {
+        return null;
     }
 }

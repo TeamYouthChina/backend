@@ -1,63 +1,55 @@
 package com.youthchina.domain.jinhao;
 
+import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.domain.jinhao.property.Commentable;
+import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Answer implements Commentable, RichTextable {
+public class Answer implements Commentable, RichTextable, Evaluatable, Attentionable {
     private Integer id;
+    private ComRichText body;
     private Integer targetType;
     private Integer targetId;
     private Integer answerLevel;
     private Integer isAnony;
     private Timestamp pubTime;
     private Timestamp editTime;
-    private Integer userId;
     private User user;
     private Question question;
-    private Integer commentTargetType = 4;
     private List<Comment> comments;
-    private Integer richTextRelaType = 4;
-    private ComRichText richText = new ComRichText();
+    private static final Integer richTextRelaType = 4;
+    private static final Integer commentTargetType = 2;
+    private static final Integer evaluateTargetType = 2;
+    private static final Integer attentionTargetType = 2;
 
-    public Answer(){}
+    @Override
+    public ComRichText getBody() {
+        return body;
+    }
 
-    public Answer(SimpleAnswerRequestDTO simpleAnswerRequestDTO){
-        this.richText.setJsonContent(simpleAnswerRequestDTO.getBody().getBraftEditorRaw());
-        this.richText.setTextContent(simpleAnswerRequestDTO.getBody().getPreviewText());
-        this.isAnony = (simpleAnswerRequestDTO.getIs_anonymous())? 1:0;
+    @Override
+    public void setBody(ComRichText body) {
+        this.body = body;
+    }
+
+    @Override
+    public Integer getAttentionTargetType() {
+        return attentionTargetType;
+    }
+
+    @Override
+    public Integer getEvaluateTargetType() {
+        return evaluateTargetType;
     }
 
     @Override
     public Integer getRichTextRelaType() {
         return richTextRelaType;
-    }
-
-    public void setRichTextRelaType(Integer richTextRelaType) {
-        this.richTextRelaType = richTextRelaType;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    @Override
-    public ComRichText getRichText() {
-        return richText;
-    }
-
-    @Override
-    public void setRichText(ComRichText richText) {
-        this.richText = richText;
     }
 
     public Integer getTargetType() {
@@ -138,10 +130,6 @@ public class Answer implements Commentable, RichTextable {
     @Override
     public Integer getCommentTargetType() {
         return commentTargetType;
-    }
-
-    public void setCommentTargetType(Integer commentTargetType) {
-        this.commentTargetType = commentTargetType;
     }
 
     public Integer getAnswerLevel() {
