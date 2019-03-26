@@ -76,9 +76,9 @@ comment '职位基本信息表';
 
     Integer insertJobIndustry(List<Industry> industries);
 
-    Integer insertJobDegree(List<Degree> degrees);
+    Integer insertJobDegree(@Param("jobId") Integer jobId, @Param("degreeList")List<Degree> degreeList);
 
-    Integer insertJobLocation(@Param("jobId") Integer jobId, @Param("locations") List<Location> locations);
+    Integer insertJobLocation(@Param("jobId") Integer jobId, @Param("locationList") List<Location> locationList);
 
     Integer insertJobLogo(@Param("jobId") Integer jobId, @Param("logoList") List<Logo> logoList);
 

@@ -101,7 +101,6 @@
         </collection>
         <collection property="jobReqList" ofType="com.youthchina.domain.qingyang.Degree">
             <id property="degreeNum" column="DEGREE_NUM"/>
-            <result property="jobId" column="JOB_ID"/>
             <result property="degreeChn" column="DEGREE_CHN"/>
             <result property="degreeEng" column="DEGREE_ENG"/>
             <result property="startDate" column="DEGREE_START_DATE"/>
@@ -166,7 +165,7 @@
 #             scale.START_TIME as SCALE_START_TIME,
 
             class.IND_NUM as C_IND_NUM,
-            class.IND_CODE as IND_CODE,
+            i.JOB_IND_CODE as IND_CODE,
             class.IND_CHN as IND_CHN,
             class.IND_ENG as IND_ENG,
             class.IND_LEVEL as IND_LEVEL,
@@ -174,7 +173,7 @@
             class.START_TIME as IND_START_TIME,
 
             loc.JOB_REGION_NUM as JOB_REGION_NUM,
-            loc.JOB_LOCATION_ID as JOB_LOCATION_ID,
+#             loc.JOB_LOCATION_ID as JOB_LOCATION_ID,
 #             region.REGION_CHN as REGION_CHN,
 #             region.REGION_ENG as REGION_ENG,
 #             region.REGION_LEVEL as REGION_LEVEL,
@@ -182,9 +181,9 @@
 #             region.START_TIME as REGION_START_TIME,
 
             req.JOB_REQUIRE_ID as JOB_REQUIRE_ID,
-            req.JOB_DEGREE_NUM as JOB_DEGREE_NUM,
+            req.JOB_DEGREE_NUM as DEGREE_NUM,
 
-            degree.DEGREE_NUM as DEGREE_NUM,
+
             degree.DEGREE_CHN as DEGREE_CHN,
             degree.DEGREE_ENG as DEGREE_ENG,
             degree.START_DATE as DEGREE_START_DATE,
@@ -298,10 +297,10 @@
             useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO JOB_LOCATION
-        ( JOB_REGION_NUM, JOB_COUNTRY, JOB_ID, IS_DELETE)
+        ( JOB_REGION_NUM, JOB_ID, IS_DELETE)
         VALUES
-        <foreach item="item" collection="locations" separator=",">
-            ( #{item.regionNum}, #{item.country}, #{jobId}, 0)
+        <foreach item="location" collection="locationList" separator=",">
+            ( #{location.regionNum}, #{jobId}, 0)
         </foreach>
     </insert>
 
@@ -327,12 +326,12 @@
 
     <insert id="insertJobDegree" useGeneratedKeys="true"
             keyProperty="id">
-        INSERT INTO JOB_DEGREE_REQUIRE
-        ( JOB_DEGREE_NUM, JOB_ID, IS_DELETE)
-        VALUES
-        <foreach item="item" collection="list" separator=",">
-            ( #{item.degreeNum}, #{item.jobId}, 0)
-        </foreach>
+            INSERT INTO JOB_DEGREE_REQUIRE
+            ( JOB_DEGREE_NUM, JOB_ID, IS_DELETE)
+            VALUES
+            <foreach item="degree" collection="degreeList" separator=",">
+                ( #{degree.degreeNum}, #{jobId}, 0)
+            </foreach>
     </insert>
 
     <update id="deleteJobDegree" parameterType="java.lang.Integer">

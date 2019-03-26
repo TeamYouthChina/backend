@@ -20,17 +20,23 @@ import java.util.List;
 @Service
 public class JobServiceImpl implements JobService {
 
-    @Resource
+    @Autowired
     JobMapper jobMapper;
 
-    @Resource
+    @Autowired
     LocationMapper locationMapper;
 
-    @Autowired
+    final
     LocationServiceImpl locationServiceImpl;
 
+    final
+    CompanyCURDService companyCURDServiceImpl;
+
     @Autowired
-    CompanyCURDServiceImpl companyCURDServiceImpl;
+    public JobServiceImpl(LocationServiceImpl locationServiceImpl, CompanyCURDServiceImpl companyCURDServiceImpl) {
+        this.locationServiceImpl = locationServiceImpl;
+        this.companyCURDServiceImpl = companyCURDServiceImpl;
+    }
 
     /**
      * 删除职位 TODO: 通过HrId 确认其有删除权限
@@ -95,7 +101,7 @@ public class JobServiceImpl implements JobService {
         //Set Company Location
         Location comLocation = job.getCompany().getLocation();
         if (comLocation != null) {
-            job.getCompany().setLocation(locationServiceImpl.getLocation(comLocation.getRegionNum()));
+            job.getCompany().setLocation(locationServiceImpl.getLocation(comLocation.getRegionId()));
         }
     }
 
@@ -145,11 +151,14 @@ public class JobServiceImpl implements JobService {
         jobMapper.deleteJobIndustry(job.getJobId());
         jobMapper.insertJobIndustry(job.getIndustries());
         jobMapper.deleteJobDegree(job.getJobId());
-        jobMapper.insertJobDegree(job.getJobReqList());
+        if(job.getJobReqList() != null && job.getJobReqList().size() > 0 ){
+            jobMapper.insertJobDegree(job.getId(), job.getJobReqList());
+        }
         jobMapper.deleteJobLogo(job.getJobId());
-        jobMapper.insertJobLogo(job.getJobId(), job.getLogoList());
-        Job result = jobMapper.selectJobByJobId(job.getJobId());
-        setJobLocation(result);
+        if(job.getLogoList() != null && job.getLogoList().size() > 0 ){
+            jobMapper.insertJobLogo(job.getId(), job.getLogoList());
+        }
+        Job result = this.get(job.getId());
         return result;
     }
 
@@ -164,9 +173,13 @@ public class JobServiceImpl implements JobService {
     public Job add(Job entity) {
         Integer result = jobMapper.insertJob(entity);
         jobMapper.insertJobIndustry(entity.getIndustries());
-        jobMapper.insertJobDegree(entity.getJobReqList());
+        if(entity.getJobReqList() != null && entity.getJobReqList().size() > 0 ){
+            jobMapper.insertJobDegree(entity.getId(), entity.getJobReqList());
+        }
         jobMapper.insertJobLocation(entity.getId(), entity.getJobLocationList());
-        jobMapper.insertJobLogo(entity.getId(), entity.getLogoList());
+        if(entity.getLogoList() != null && entity.getLogoList().size() > 0 ){
+            jobMapper.insertJobLogo(entity.getId(), entity.getLogoList());
+        }
         Job jobResult = jobMapper.selectJobByJobId(entity.getJobId());
         setJobLocation(jobResult);
         return jobResult;
