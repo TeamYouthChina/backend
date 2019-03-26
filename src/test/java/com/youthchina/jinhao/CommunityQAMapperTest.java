@@ -494,11 +494,11 @@ public class CommunityQAMapperTest {
     //测试能不能列出用户收到的所有邀请
     @Test
     public void listInvitationGot() {
-        List<Invitation> invitations = communityQAMapper.listInvitationGot(1);
-        Assert.assertEquals(3, invitations.size());
-        for (Invitation invitation : invitations) {
-            if (invitation.getInvit_id() != 1 && invitation.getInvit_id() != 2 &&
-                    invitation.getInvit_id() != 3) {
+        List<CommunityInvitation> communityInvitations = communityQAMapper.listInvitationGot(1);
+        Assert.assertEquals(3, communityInvitations.size());
+        for (CommunityInvitation communityInvitation : communityInvitations) {
+            if (communityInvitation.getInvit_id() != 1 && communityInvitation.getInvit_id() != 2 &&
+                    communityInvitation.getInvit_id() != 3) {
                 Assert.fail();
             }
         }
@@ -529,17 +529,17 @@ public class CommunityQAMapperTest {
     //测试能不能添加邀请
     @Test
     public void addInvitation() {
-        Invitation invitation = new Invitation();
-        invitation.setInvit_ques_id(1);
-        invitation.setInvit_user_id(5);
-        communityQAMapper.addInvitation(invitation);
-        Assert.assertNotNull(invitation.getInvit_id());
-        communityQAMapper.createMapBetweenInvitationAndQuestion(invitation.getInvit_id(), 1);
-        List<Invitation> invitations = communityQAMapper.listInvitationGot(1);
-        Assert.assertEquals(4, invitations.size());
-        for (Invitation invitation1 : invitations) {
-            if (invitation1.getInvit_id() != 1 && invitation1.getInvit_id() != 2 &&
-                    invitation1.getInvit_id() != 3 && invitation1.getInvit_id() != invitation.getInvit_id()) {
+        CommunityInvitation communityInvitation = new CommunityInvitation();
+        communityInvitation.setInvit_ques_id(1);
+        communityInvitation.setInvit_user_id(5);
+        communityQAMapper.addInvitation(communityInvitation);
+        Assert.assertNotNull(communityInvitation.getInvit_id());
+        communityQAMapper.createMapBetweenInvitationAndQuestion(communityInvitation.getInvit_id(), 1);
+        List<CommunityInvitation> communityInvitations = communityQAMapper.listInvitationGot(1);
+        Assert.assertEquals(4, communityInvitations.size());
+        for (CommunityInvitation communityInvitation1 : communityInvitations) {
+            if (communityInvitation1.getInvit_id() != 1 && communityInvitation1.getInvit_id() != 2 &&
+                    communityInvitation1.getInvit_id() != 3 && communityInvitation1.getInvit_id() != communityInvitation.getInvit_id()) {
                 Assert.fail();
             }
         }

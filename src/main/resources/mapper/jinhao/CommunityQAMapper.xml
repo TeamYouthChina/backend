@@ -597,7 +597,7 @@
     </update>
 
     <!-- 邀请回答问题-->
-    <insert id="addInvitation" parameterType="com.youthchina.domain.jinhao.Invitation"
+    <insert id="addInvitation" parameterType="com.youthchina.domain.jinhao.CommunityInvitation"
             useGeneratedKeys="true" keyProperty="invit_id">
         insert into COM_ANSWER_INVITATION (invit_time, invit_accept, invit_ques_id, invit_user_id)
         values (now(), 0, #{invit_ques_id}, #{invit_user_id})
@@ -611,7 +611,7 @@
 
     <!-- 拿到某个邀请-->
     <select id="getInvitation" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.jinhao.Invitation">
+            resultType="com.youthchina.domain.jinhao.CommunityInvitation">
         select * from COM_ANSWER_INVITATION
         where invit_id = #{invit_id}
     </select>
@@ -621,7 +621,7 @@
         select INVIT_ID from COM_ANSWER_INVITATION_MAP where INVIT_ID=#{invit_id}
     </select>
     <!-- 接受或者拒绝邀请 -->
-    <update id="updateStatusOfInvitation" parameterType="com.youthchina.domain.jinhao.Invitation">
+    <update id="updateStatusOfInvitation" parameterType="com.youthchina.domain.jinhao.CommunityInvitation">
         update COM_ANSWER_INVITATION
         set invit_accept = #{invit_accept}
         where invit_id = #{invit_id}
@@ -860,7 +860,7 @@
 
     <!-- 拿到用户收到的所有邀请 -->
     <select id="listInvitationGot" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.jinhao.Invitation">
+            resultType="com.youthchina.domain.jinhao.CommunityInvitation">
         select a.* from COM_ANSWER_INVITATION_MAP m, COM_ANSWER_INVITATION a, COM_QUESTION q
         where m.invited_user_id=#{user_id}
         and a.invit_id=m.invit_id

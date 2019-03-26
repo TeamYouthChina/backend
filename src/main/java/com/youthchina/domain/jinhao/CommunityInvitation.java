@@ -2,7 +2,7 @@ package com.youthchina.domain.jinhao;
 
 import java.sql.Timestamp;
 
-public class Invitation {
+public class CommunityInvitation {
     private Integer id;
     private Timestamp time;
     private Integer targetType;
