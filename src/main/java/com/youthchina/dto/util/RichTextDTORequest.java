@@ -23,8 +23,8 @@ public class RichTextDTORequest {
     }
 
     public RichTextDTORequest(ComRichText comRichText) {
-        this.braftEditorRaw = comRichText.getJson_content();
-        this.previewText = comRichText.getText_content();
+        this.braftEditorRaw = comRichText.getJsonContent();
+        this.previewText = comRichText.getTextContent();
     }
 
     public void setBraftEditorRaw(String braftEditorRaw) {

@@ -5,13 +5,14 @@ import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.util.zhongyang.HasId;
 import com.youthchina.dto.community.question.QuestionRequestDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Question implements RichTextable, Evaluatable, Attentionable {
+public class Question implements RichTextable, HasId<Integer>, Evaluatable, Attentionable {
     private Integer id;
     private String title;
     private String abbre;
@@ -50,8 +51,8 @@ public class Question implements RichTextable, Evaluatable, Attentionable {
     public Question(QuestionRequestDTO questionRequestDTO){
         this.title = questionRequestDTO.getTitle();
         this.isAnony = (questionRequestDTO.getIs_anonymous()==true ? 1 : 0);
-        this.richText.setJson_content(questionRequestDTO.getBody().getBraftEditorRaw());
-        this.richText.setText_content(questionRequestDTO.getBody().getPreviewText());
+        this.richText.setJsonContent(questionRequestDTO.getBody().getBraftEditorRaw());
+        this.richText.setTextContent(questionRequestDTO.getBody().getPreviewText());
         this.rela_type = questionRequestDTO.getRela_type();
         this.rela_id = questionRequestDTO.getRela_id();
     }
