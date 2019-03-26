@@ -1,15 +1,13 @@
 package com.youthchina.service.tianjian;
 
 import com.youthchina.dao.tianjian.CommunityMapper;
-import com.youthchina.dao.tianjian.RichTextMapper;
-import com.youthchina.domain.tianjian.*;
-import com.youthchina.domain.zhongyang.User;
+import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.zhongyang.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -19,14 +17,11 @@ import java.util.List;
 @Service("essayService")
 @Transactional
 public class EssayServiceImpl implements EssayService {
-    @Autowired
+    @Resource
     CommunityMapper mapper;
 
-    @Autowired
-    RichTextMapper richTextMapper;
-
-    @Autowired
-    UserService userService;
+    @Resource
+    RichTextService richTextService;
 
     @Autowired
     public EssayServiceImpl(CommunityMapper mapper) {
@@ -40,8 +35,8 @@ public class EssayServiceImpl implements EssayService {
             throw new NotFoundException(404, 404, "this essay is exist");//todo
         else {
             mapper.addEssay(essay);
+            richTextService.addComRichText(essay.getBody());
         }
-        richTextMapper.addRichText(essay.getBody());
     }
 
     @Override
@@ -60,7 +55,7 @@ public class EssayServiceImpl implements EssayService {
             if (essay.getAbbre() != null)
                 comEssaytest.setAbbre(essay.getAbbre());
             if (essay.getBody() != null)
-                richTextMapper.updateRichText(essay.getBody());
+                richTextService.updateComRichText(essay.getBody());
             if (essay.getTitle() != null)
                 comEssaytest.setTitle(essay.getTitle());
 
@@ -71,17 +66,15 @@ public class EssayServiceImpl implements EssayService {
     @Override
     public ComEssay getEssay(Integer essay_id) throws NotFoundException {
         ComEssay comEssay = mapper.getEssay(essay_id);
-        ComRichText comRichText = richTextMapper.getRichText(comEssay.getBody());
-        comEssay.setBody(comRichText);
-        User user = userService.get(comEssay.getUserId());
-        comEssay.setUser(user);
+        if(comEssay == null){
+            throw new NotFoundException(404,404,"this essay does not exist");
+        }
         return comEssay;
     }
 
     @Override
     public List<ComEssay> getEssay(List<Integer> essayId) {
-       List<ComEssay> comEssays = mapper.getEssayList(essayId);
-        return comEssays;
+       return null;
     }
 
     @Override
