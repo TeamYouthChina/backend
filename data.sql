@@ -555,7 +555,9 @@ FROM youthchina.`SYS_UNIVERSITY_USA` A;
 
 
 
-#######################################招聘模块数据表###############################################
+#######################################招聘模块数据表
+
+###############################################
 
 ##应聘者教育信息表
 create table IF NOT EXISTS `STU_EDU_INFO` (
@@ -1154,7 +1156,7 @@ create table IF NOT EXISTS `JOB_LOCATION`(
 `JOB_ID` INTEGER NOT NULL COMMENT '职位ID',
 `IS_DELETE` INTEGER NOT NULL COMMENT '是否删除',
 `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-PRIMARY KEY (`JOB_REGION_ID`)
+PRIMARY KEY (`JOB_LOCATION_ID`)
 )COMMENT = '职位工作地点表';
 
 
@@ -1206,7 +1208,9 @@ create table IF NOT EXISTS `STU_JOB_APPLY` (
 
 
 
-#######################################社区数据表###############################################
+#######################################社区数据表
+
+###############################################
 ##标签映射表
 create table IF NOT EXISTS `COM_LABEL_MAP`(
 `LAB_ID` INT AUTO_INCREMENT COMMENT '主键ID',
