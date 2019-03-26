@@ -7,17 +7,17 @@ import com.youthchina.dto.util.RichTextDTOResponse;
 /**
  * Created by zhongyangwu on 1/2/19.
  */
-public class RequestSimpleAnswerDTO {
+public class SimpleAnswerRequestDTO {
     private RichTextDTORequest body;
     private Boolean is_anonymous;
 
-    public RequestSimpleAnswerDTO(Answer answer) {
+    public SimpleAnswerRequestDTO(Answer answer) {
         RichTextDTORequest richt = new RichTextDTORequest(answer.getRichText());
         this.body = richt;
         this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
     }
 
-    public RequestSimpleAnswerDTO(){}
+    public SimpleAnswerRequestDTO(){}
 
     public RichTextDTORequest getBody() {
         return body;

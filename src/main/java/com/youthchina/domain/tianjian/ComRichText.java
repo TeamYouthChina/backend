@@ -1,51 +1,64 @@
 package com.youthchina.domain.tianjian;
 
+import com.youthchina.dto.util.RichTextDTORequest;
+import com.youthchina.dto.util.RichTextDTOResponse;
+
 public class ComRichText {
-    private int rela_type;
-    private int rela_id;
-    private int compile_type;
-    private String json_content;
-    private String text_content;
+    private int relaType;
+    private int relaId;
+    private int compileType;
+    private String jsonContent;
+    private String textContent;
 
     public ComRichText(){}
 
-    public int getRela_type() {
-        return rela_type;
+    public ComRichText(RichTextDTORequest richTextDTORequest){
+        this.jsonContent = richTextDTORequest.getBraftEditorRaw();
+        this.textContent = richTextDTORequest.getPreviewText();
     }
 
-    public void setRela_type(int rela_type) {
-        this.rela_type = rela_type;
+    public ComRichText(RichTextDTOResponse richTextDTOResponse){
+        this.jsonContent = richTextDTOResponse.getBraftEditorRaw();
+        this.textContent = richTextDTOResponse.getPreviewText();
     }
 
-    public int getRela_id() {
-        return rela_id;
+    public int getRelaType() {
+        return relaType;
     }
 
-    public void setRela_id(int rela_id) {
-        this.rela_id = rela_id;
+    public void setRelaType(int relaType) {
+        this.relaType = relaType;
     }
 
-    public int getCompile_type() {
-        return compile_type;
+    public int getRelaId() {
+        return relaId;
     }
 
-    public void setCompile_type(int compile_type) {
-        this.compile_type = compile_type;
+    public void setRelaId(int relaId) {
+        this.relaId = relaId;
     }
 
-    public String getJson_content() {
-        return json_content;
+    public int getCompileType() {
+        return compileType;
     }
 
-    public void setJson_content(String json_content) {
-        this.json_content = json_content;
+    public void setCompileType(int compileType) {
+        this.compileType = compileType;
     }
 
-    public String getText_content() {
-        return text_content;
+    public String getJsonContent() {
+        return jsonContent;
     }
 
-    public void setText_content(String text_content) {
-        this.text_content = text_content;
+    public void setJsonContent(String jsonContent) {
+        this.jsonContent = jsonContent;
+    }
+
+    public String getTextContent() {
+        return textContent;
+    }
+
+    public void setTextContent(String textContent) {
+        this.textContent = textContent;
     }
 }

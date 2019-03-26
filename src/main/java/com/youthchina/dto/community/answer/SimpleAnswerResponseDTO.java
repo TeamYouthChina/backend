@@ -5,7 +5,7 @@ import com.youthchina.dto.community.question.QuestionBasicDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTOResponse;
 
-public class SimpleAnswerDTO {
+public class SimpleAnswerResponseDTO {
     private RichTextDTOResponse body;
     private boolean is_anonymous;
     private UserDTO creator;
@@ -14,9 +14,9 @@ public class SimpleAnswerDTO {
     private QuestionBasicDTO question;
     private Integer id;
 
-    public SimpleAnswerDTO(){}
+    public SimpleAnswerResponseDTO(){}
 
-    public SimpleAnswerDTO(Answer answer){
+    public SimpleAnswerResponseDTO(Answer answer){
         RichTextDTOResponse richt = new RichTextDTOResponse(answer.getRichText());
         this.body = richt;
         this.id = answer.getId();

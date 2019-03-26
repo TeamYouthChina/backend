@@ -20,4 +20,6 @@ public interface RichTextMapper {
     void updateRichText(ComRichText comRichText);
 
     List<ComRichText> getSameTypeRichText(int rich_type);
+
+    List<ComRichText> getRecentSameTypeRichText(int rich_type);
 }

@@ -4,6 +4,7 @@ import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.Qinghong.JobCollect;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.jinhao.Video;
+
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;

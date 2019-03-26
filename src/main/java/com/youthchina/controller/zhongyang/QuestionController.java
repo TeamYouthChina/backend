@@ -5,8 +5,8 @@ import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.answer.RequestSimpleAnswerDTO;
-import com.youthchina.dto.community.answer.SimpleAnswerDTO;
+import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
+import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.question.QuestionRequestDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.security.UserDTO;
@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by zhongyangwu on 1/2/19.
@@ -153,14 +151,14 @@ public class QuestionController {
     }
 
     @PostMapping("/{id}/answers")
-    public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody RequestSimpleAnswerDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody SimpleAnswerRequestDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         System.out.println("add answeimport com.youthchina.service.DomainCRUDService; ");
         Answer answer = new Answer(simpleAnswerDTO);
         answer.setUserId(user.getId());
         answer.setPubTime(new Timestamp(System.currentTimeMillis()));
         answer.setEditTime(new Timestamp(System.currentTimeMillis()));
         answer.setTargetId(id);
-        SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(answerService.add(answer));
+        SimpleAnswerResponseDTO returnSimpleAnswer = new SimpleAnswerResponseDTO(answerService.add(answer));
         if (returnSimpleAnswer!=null)
             return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
         else

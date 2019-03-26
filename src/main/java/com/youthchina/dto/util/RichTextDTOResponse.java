@@ -24,9 +24,9 @@ public class RichTextDTOResponse {
     }
 
     public RichTextDTOResponse(ComRichText comRichText) {
-        this.braftEditorRaw = comRichText.getJson_content();
-        this.previewText = comRichText.getText_content();
-        this.compiletype = comRichText.getCompile_type();
+        this.braftEditorRaw = comRichText.getJsonContent();
+        this.previewText = comRichText.getTextContent();
+        this.compiletype = comRichText.getCompileType();
     }
 
     public void setBraftEditorRaw(String braftEditorRaw) {
