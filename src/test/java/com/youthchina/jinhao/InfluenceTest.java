@@ -7,7 +7,7 @@ import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.Qinghong.Work;
 import com.youthchina.domain.jinhao.*;
-import com.youthchina.domain.jinhao.communityQA.*;
+//import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.tianjian.ComReplyEvaluate;
 import com.youthchina.domain.tianjian.PersonInfluence;
@@ -24,7 +24,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 import java.util.LinkedList;
 import java.util.List;
-
+ /*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -181,4 +181,4 @@ public class InfluenceTest {
         System.out.println(personInfluence.getPers_work());
         System.out.println(personInfluence.getPers_total());
     }
-}
+} */
