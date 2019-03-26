@@ -30,7 +30,7 @@ public class QuestionResponseDTO {
         this.id = question.getId();
         this.creator = new UserDTO(question.getUser());
         this.title = question.getTitle();
-        RichTextDTOResponse richt = new RichTextDTOResponse(question.getRichText());
+        RichTextDTOResponse richt = new RichTextDTOResponse(question.getBody());
         this.body = richt;
         //this.invitation = question.getQues_invitation();
         this.is_anonymous = (question.getIsAnony()==1 ? true : false);

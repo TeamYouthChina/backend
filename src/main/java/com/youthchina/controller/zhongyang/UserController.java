@@ -18,6 +18,7 @@ import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
 import com.youthchina.service.jinhao.AttentionServiceImpl;
+import com.youthchina.service.jinhao.QuestionServiceImpl;
 import com.youthchina.service.jinhao.VideoService;
 import com.youthchina.service.jinhao.VideoServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
@@ -51,6 +52,8 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
     private AttentionServiceImpl attentionService;
     @Autowired
     private EssayServiceImpl essayService;
+    @Autowired
+    private QuestionServiceImpl questionService;
 
     @Autowired
     public UserController(UserService userService, @Value("${web.url.prefix}") String prefix) {
@@ -92,42 +95,44 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
                 return ResponseEntity.ok(new Response(compCollectResponseDTOS));
 
             }
-            case "Essay": {
-                List<ComEssay> comEssays = essayService.getAllEssayUserAttention(user_id);
-                List<EssayDTO> essayDTOS = new ArrayList<>();
-                for (ComEssay comEssay : comEssays) {
-                    EssayDTO essayDTO = new EssayDTO(comEssay);
-                    essayDTOS.add(essayDTO);
-
-                }
-                return ResponseEntity.ok((new Response(essayDTOS)));
-
-            }
-            case "Video": {
-                List<Video> videos = communityQAService.listAllUserAttenVideos(user_id);
-                List<VideoResponseDTO> videoResponseDTOS = new ArrayList<>();
-                for (Video video : videos) {
-                    VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
-                    videoResponseDTOS.add(videoResponseDTO);
-                }
-                return ResponseEntity.ok(new Response(videoResponseDTOS));
-
-            }
-            case "Question": {
-                List<QuestionResponseDTO> questionResponseDTOS = new ArrayList<>();
-                List<Question> questions = attentionService.getAllIdsOfAttention(,user_id);
-                for (Question question : questions) {
-                    QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
-                    questionResponseDTOS.add(questionResponseDTO);
-                }
-                return ResponseEntity.ok(new Response(questionResponseDTOS));
-            }
-            default:
-                throw new NotFoundException(404, 404, "do not have this type");
-
+//            case "Essay": {
+//                List<ComEssay> comEssays = essayService.getAllEssayUserAttention(user_id);
+//                List<EssayDTO> essayDTOS = new ArrayList<>();
+//                for (ComEssay comEssay : comEssays) {
+//                    EssayDTO essayDTO = new EssayDTO(comEssay);
+//                    essayDTOS.add(essayDTO);
+//
+//                }
+//                return ResponseEntity.ok((new Response(essayDTOS)));
+//
+//            }
+//            case "Video": {
+//                List<Video> videos = communityQAService.listAllUserAttenVideos(user_id);
+//                List<VideoResponseDTO> videoResponseDTOS = new ArrayList<>();
+//                for (Video video : videos) {
+//                    VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
+//                    videoResponseDTOS.add(videoResponseDTO);
+//                }
+//                return ResponseEntity.ok(new Response(videoResponseDTOS));
+//
+//            }
+//            case "Question": {
+//                List<QuestionResponseDTO> questionResponseDTOS = new ArrayList<>();
+//                Question question1 = new Question();
+//                List<Integer> integers = attentionService.getAllIdsOfAttention(question1,user_id);
+//                List<Question> questions = questionService.get(integers);
+//                for (Question question : questions) {
+//                    QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
+//                    questionResponseDTOS.add(questionResponseDTO);
+//                }
+//                return ResponseEntity.ok(new Response(questionResponseDTOS));
+//            }
+//            default:
+//                throw new NotFoundException(404, 404, "do not have this type");
+//
 
         }
-
+        return ResponseEntity.ok(new Response());
 
     }
 

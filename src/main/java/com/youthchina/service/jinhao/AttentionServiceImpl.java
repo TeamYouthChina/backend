@@ -4,11 +4,13 @@ import com.youthchina.dao.jinhao.AttentionMapper;
 import com.youthchina.domain.jinhao.Attention;
 import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+@Service
 public class AttentionServiceImpl implements AttentionService{
     @Resource
     AttentionMapper attentionMapper;

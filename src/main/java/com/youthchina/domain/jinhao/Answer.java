@@ -6,6 +6,7 @@ import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -26,6 +27,12 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     private static final Integer commentTargetType = 2;
     private static final Integer evaluateTargetType = 2;
     private static final Integer attentionTargetType = 2;
+
+    public Answer(){}
+
+    public Answer(SimpleAnswerRequestDTO simpleAnswerRequestDTO){
+        this.isAnony = (simpleAnswerRequestDTO.getIs_anonymous())? 1:0;
+    }
 
     @Override
     public ComRichText getBody() {

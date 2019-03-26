@@ -19,7 +19,7 @@ public class AnswerBasicDTO {
     public AnswerBasicDTO(){}
 
     public AnswerBasicDTO(Answer answer){
-        RichTextDTOResponse richt = new RichTextDTOResponse(answer.getRichText());
+        RichTextDTOResponse richt = new RichTextDTOResponse(answer.getBody());
         this.body = richt;
         this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
         this.creator = new UserDTO(answer.getUser());

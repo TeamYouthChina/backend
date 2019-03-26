@@ -53,7 +53,7 @@ public class AnswerController {
     public ResponseEntity updateAnswer(@PathVariable Integer id, @RequestBody SimpleAnswerRequestDTO simpleAnswerRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
            Answer answer = new Answer(simpleAnswerRequestDTO);
            answer.setId(id);
-           answer.setUserId(user.getId());
+           answer.setUser(user);
            Answer answer1 = answerService.update(answer);
            SimpleAnswerResponseDTO returnSimpleAnswer = new SimpleAnswerResponseDTO(answer1);
           if (returnSimpleAnswer!=null)
@@ -72,7 +72,7 @@ public class AnswerController {
     public ResponseEntity addAnswerComment(@PathVariable Integer id, @RequestBody CommentRequestDTO commentRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Comment comment = new Comment();
         comment.setContent(commentRequestDTO.getBody().toString());
-        comment.setUserId(user.getId());
+        comment.setUser(user);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comment.setPubTime(time);
         if(commentRequestDTO.getIs_anonymous()==true)
@@ -80,7 +80,6 @@ public class AnswerController {
         else
            comment.setIsAnony(1);
         Answer answer = new Answer();
-        answer.setCommentTargetType(4);
         commentService.add(comment,answer);
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
@@ -88,7 +87,6 @@ public class AnswerController {
     @GetMapping("/{id}/comments")
     public ResponseEntity getAnswerComments(@PathVariable Integer id) throws NotFoundException {
         Answer answer = new Answer();
-        answer.setCommentTargetType(4);
         answer.setId(id);
         commentService.getComments(answer);
 
@@ -110,9 +108,8 @@ public class AnswerController {
     public ResponseEntity addUpvote(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         Answer answer = new Answer();
         answer.setId(id);
-        answer.setCommentTargetType(4);
         attentionService.attention(answer,user.getId());
-        communityQAServiceImplement.evaluateAnswer(id, user.getId());
+
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 

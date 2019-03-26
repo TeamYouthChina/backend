@@ -19,6 +19,7 @@ import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.AttentionService;
 
+import com.youthchina.service.jinhao.AttentionServiceImpl;
 import com.youthchina.service.jinhao.CommentServiceImpl;
 import com.youthchina.service.qingyang.CompanyCURDServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
@@ -47,7 +48,7 @@ public class EssayController {
     UserServiceImpl userService;
 
     @Autowired
-    AttentionService attentionService;
+    AttentionServiceImpl attentionService;
 
     @Autowired
     CommentServiceImpl commentService;
@@ -147,7 +148,7 @@ public class EssayController {
         Comment comment = new Comment(commentRequestDTO);
         comment.setTargetId(id);
         comment.setTargetType(1);
-        comment.setUserId(user.getId());
+        comment.setUser(user);
         commentService.add(comment);
         return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
 

@@ -13,16 +13,16 @@ import java.util.List;
 public class VideoRecommendServiceImplement implements VideoRecommendService {
     @Resource
     RecommendMapper recommendMapper;
-    @Resource
-    CommunityQAMapper communityQAMapper;
+//    @Resource
+//    CommunityQAMapper communityQAMapper;
 
     @Override
     public List<Video> getVideoForYou() {
         List<Integer> videoId = recommendMapper.getRandomVideo();
         List<Video> videos = new ArrayList<>();
-        for (Integer id : videoId) {
-            videos.add(communityQAMapper.getVideoById(id));
-        }
+//        for (Integer id : videoId) {
+//            videos.add(communityQAMapper.getVideoById(id));
+//        }
         return videos;
     }
 

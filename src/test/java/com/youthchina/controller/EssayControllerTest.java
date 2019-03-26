@@ -1,13 +1,36 @@
 package com.youthchina.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.util.AuthGenerator;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 /**
  * Created by hongshengzhang on 2/17/19.
  */
 
-/*
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -46,208 +69,207 @@ public class EssayControllerTest {
     }
 
 
-    @Test
-    public void addEssayTest() throws Exception {
-        String json = "{\n" +
-                "  \"braftEditorRaw\": {\n" +
-                "    \"blocks\": [\n" +
-                "      {\n" +
-                "        \"key\": \"dtj4a\",\n" +
-                "        \"text\": \"dsfgdfgdfg\",\n" +
-                "        \"type\": \"unstyled\",\n" +
-                "        \"depth\": 0,\n" +
-                "        \"inlineStyleRanges\": [],\n" +
-                "        \"entityRanges\": [],\n" +
-                "        \"data\": {}\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"entityMap\": {\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"previewText\": \"This is a new article Abbre\",\n" +
-                "  \"resourceIdList\": []\n" +
-                "}";
-
-        RichTextDTOResponse richTextDTO = null;
-        try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
-        } catch (IOException e) {
-            Assert.fail();
-        }
-        EssayRequestDTO requestEssayDTO = new EssayRequestDTO();
-        requestEssayDTO.setTitle("This is a new article Title");
-        //RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
-        //richTextDTO.setBraftEditorRaw("{\n" +
-        //       "  \"this\": \"that\"\n" +
-        //        "}");
-        //richTextDTO.setPreviewText("This is a new article Abbre");
-        requestEssayDTO.setBody(richTextDTO);
-        requestEssayDTO.setCompany_id(1);
-        requestEssayDTO.setIs_anonymous(false);
-
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO);
-
-        this.mvc.perform(
-                post(this.urlPrefix + "/articles").contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content(requestJson)
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print());
-    }
-
-    @Test
-    public void updateEssayTest() throws Exception {
-        EssayRequestDTO requestEssayDTO = new EssayRequestDTO();
-        requestEssayDTO.setTitle("This is a new Title 1");
-        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
-        //language=JSON
-        String json = "{\n" +
-                "  \"braftEditorRaw\":{\n" +
-                "    \"blocks\": [\n" +
-                "      {\n" +
-                "        \"key\":\"dtj4a\",\n" +
-                "        \"text\":\"This is a new article 2/26 body\",\n" +
-                "        \"type\":\"unstyled\",\n" +
-                "        \"depth\":0,\n" +
-                "        \"inlineStyleRanges\": [],\n" +
-                "        \"entityRanges\": [],\n" +
-                "        \"data\":{\n" +
-                "        }\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"entityMap\":{\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"previewText\":\"This is a new article 2/26 Abbre\",\n" +
-                "  \"resourceIdList\": []\n" +
-                "}";
-        try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
-            System.out.println(richTextDTO);
-        } catch (IOException e) {
-            Assert.fail();
-        }
-
-        requestEssayDTO.setBody(richTextDTO);
-        requestEssayDTO.setCompany_id(2);
-
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO);
-
-        this.mvc.perform(
-
-                put(this.urlPrefix + "/articles/1").contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content(requestJson)
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print());
-
-        this.mvc.perform(
-                get(this.urlPrefix + "/articles/1")
-                        .with(authGenerator.authentication())
-
-        )
-                .andDo(print());
-    }
-
-
-    @Test
-    public void deleteEssayTest() throws Exception {
-        this.mvc.perform(
-                delete(this.urlPrefix + "/articles/1")
-                        .with(authGenerator.authentication())
-
-        )
-                .andDo(print());
-
-        this.mvc.perform(
-                get(this.urlPrefix + "/articles/1")
-                        .with(authGenerator.authentication())
-
-        )
-                .andDo(print());
-
-
-    }
-
-    @Test
-    public void addCommentTest() throws Exception {
-        EssayReplyRequestDTO essayDTO = new EssayReplyRequestDTO();
-        essayDTO.setAnonymous(false);
-        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
-        String json = "{\n" +
-                "  \"braftEditorRaw\": {\n" +
-                "    \"blocks\": [\n" +
-                "      {\n" +
-                "        \"key\": \"dtj4a\",\n" +
-                "        \"text\": \"Nizhenshigerencai\",\n" +
-                "        \"type\": \"unstyled\",\n" +
-                "        \"depth\": 0,\n" +
-                "        \"inlineStyleRanges\": [],\n" +
-                "        \"entityRanges\": [],\n" +
-                "        \"data\": {}\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"entityMap\": {\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"previewText\": null,\n" +
-                "  \"resourceIdList\": []\n" +
-                "}";
-        try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
-            System.out.println(richTextDTO);
-        } catch (IOException e) {
-            Assert.fail();
-        }
-        essayDTO.setBody(richTextDTO);
-        essayDTO.setAnonymous(false);
-
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(essayDTO);
-
-        this.mvc.perform(
-                post(this.urlPrefix + "/articles/1/comments").contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content(requestJson)
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
-    }
-
-    @Test
-    public void updateAttention() throws Exception {
-        this.mvc.perform(
-                put(this.urlPrefix + "/articles/1/attention").contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
-    }
-
-    @Test
-    public void deleteAttention() throws Exception {
-        this.mvc.perform(
-                delete(this.urlPrefix + "/articles/attentions/1").contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
-    }
-
-    @Test
-    public void getEssayComments() throws Exception {
-        this.mvc.perform(
-                get(this.urlPrefix + "/articles/1/comments")
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"reply_content42\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"Body Body 1\",\"resourceIdList\":[]},\"create_at\":\"2018-12-04 13:32:40.0\",\"is_anonymous\":false,\"modified_at\":\"2018-12-04 13:32:40.0\"}]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
-    }
+//    @Test
+//    public void addEssayTest() throws Exception {
+//        String json = "{\n" +
+//                "  \"braftEditorRaw\": {\n" +
+//                "    \"blocks\": [\n" +
+//                "      {\n" +
+//                "        \"key\": \"dtj4a\",\n" +
+//                "        \"text\": \"dsfgdfgdfg\",\n" +
+//                "        \"type\": \"unstyled\",\n" +
+//                "        \"depth\": 0,\n" +
+//                "        \"inlineStyleRanges\": [],\n" +
+//                "        \"entityRanges\": [],\n" +
+//                "        \"data\": {}\n" +
+//                "      }\n" +
+//                "    ],\n" +
+//                "    \"entityMap\": {\n" +
+//                "    }\n" +
+//                "  },\n" +
+//                "  \"previewText\": \"This is a new article Abbre\",\n" +
+//                "  \"resourceIdList\": []\n" +
+//                "}";
+//
+//        RichTextDTOResponse richTextDTO = null;
+//        try {
+//            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
+//        } catch (IOException e) {
+//            Assert.fail();
+//        }
+//        EssayRequestDTO requestEssayDTO = new EssayRequestDTO();
+//        requestEssayDTO.setTitle("This is a new article Title");
+//        //RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
+//        //richTextDTO.setBraftEditorRaw("{\n" +
+//        //       "  \"this\": \"that\"\n" +
+//        //        "}");
+//        //richTextDTO.setPreviewText("This is a new article Abbre");
+//        requestEssayDTO.setBody(richTextDTO);
+//        requestEssayDTO.setCompany_id(1);
+//        requestEssayDTO.setIs_anonymous(false);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//        java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO);
+//
+//        this.mvc.perform(
+//                post(this.urlPrefix + "/articles").contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .content(requestJson)
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print());
+//    }
+//
+//    @Test
+//    public void updateEssayTest() throws Exception {
+//        EssayRequestDTO requestEssayDTO = new EssayRequestDTO();
+//        requestEssayDTO.setTitle("This is a new Title 1");
+//        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
+//        //language=JSON
+//        String json = "{\n" +
+//                "  \"braftEditorRaw\":{\n" +
+//                "    \"blocks\": [\n" +
+//                "      {\n" +
+//                "        \"key\":\"dtj4a\",\n" +
+//                "        \"text\":\"This is a new article 2/26 body\",\n" +
+//                "        \"type\":\"unstyled\",\n" +
+//                "        \"depth\":0,\n" +
+//                "        \"inlineStyleRanges\": [],\n" +
+//                "        \"entityRanges\": [],\n" +
+//                "        \"data\":{\n" +
+//                "        }\n" +
+//                "      }\n" +
+//                "    ],\n" +
+//                "    \"entityMap\":{\n" +
+//                "    }\n" +
+//                "  },\n" +
+//                "  \"previewText\":\"This is a new article 2/26 Abbre\",\n" +
+//                "  \"resourceIdList\": []\n" +
+//                "}";
+//        try {
+//            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
+//            System.out.println(richTextDTO);
+//        } catch (IOException e) {
+//            Assert.fail();
+//        }
+//
+//        requestEssayDTO.setBody(richTextDTO);
+//        requestEssayDTO.setCompany_id(2);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//        java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO);
+//
+//        this.mvc.perform(
+//
+//                put(this.urlPrefix + "/articles/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .content(requestJson)
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print());
+//
+//        this.mvc.perform(
+//                get(this.urlPrefix + "/articles/1")
+//                        .with(authGenerator.authentication())
+//
+//        )
+//                .andDo(print());
+//    }
+//
+//
+//    @Test
+//    public void deleteEssayTest() throws Exception {
+//        this.mvc.perform(
+//                delete(this.urlPrefix + "/articles/1")
+//                        .with(authGenerator.authentication())
+//
+//        )
+//                .andDo(print());
+//
+//        this.mvc.perform(
+//                get(this.urlPrefix + "/articles/1")
+//                        .with(authGenerator.authentication())
+//
+//        )
+//                .andDo(print());
+//
+//
+//    }
+//
+//    @Test
+//    public void addCommentTest() throws Exception {
+//        EssayReplyRequestDTO essayDTO = new EssayReplyRequestDTO();
+//        essayDTO.setAnonymous(false);
+//        RichTextDTOResponse richTextDTO = new RichTextDTOResponse();
+//        String json = "{\n" +
+//                "  \"braftEditorRaw\": {\n" +
+//                "    \"blocks\": [\n" +
+//                "      {\n" +
+//                "        \"key\": \"dtj4a\",\n" +
+//                "        \"text\": \"Nizhenshigerencai\",\n" +
+//                "        \"type\": \"unstyled\",\n" +
+//                "        \"depth\": 0,\n" +
+//                "        \"inlineStyleRanges\": [],\n" +
+//                "        \"entityRanges\": [],\n" +
+//                "        \"data\": {}\n" +
+//                "      }\n" +
+//                "    ],\n" +
+//                "    \"entityMap\": {\n" +
+//                "    }\n" +
+//                "  },\n" +
+//                "  \"previewText\": null,\n" +
+//                "  \"resourceIdList\": []\n" +
+//                "}";
+//        try {
+//            richTextDTO = new ObjectMapper().readValue(json, RichTextDTOResponse.class);
+//            System.out.println(richTextDTO);
+//        } catch (IOException e) {
+//            Assert.fail();
+//        }
+//        essayDTO.setBody(richTextDTO);
+//        essayDTO.setAnonymous(false);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//        java.lang.String requestJson = ow.writeValueAsString(essayDTO);
+//
+//        this.mvc.perform(
+//                post(this.urlPrefix + "/articles/1/comments").contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .content(requestJson)
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+//    }
+//
+//    @Test
+//    public void updateAttention() throws Exception {
+//        this.mvc.perform(
+//                put(this.urlPrefix + "/articles/1/attention").contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+//    }
+//
+//    @Test
+//    public void deleteAttention() throws Exception {
+//        this.mvc.perform(
+//                delete(this.urlPrefix + "/articles/attentions/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//                .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+//    }
+//
+//    @Test
+//    public void getEssayComments() throws Exception {
+//        this.mvc.perform(
+//                get(this.urlPrefix + "/articles/1/comments")
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//                .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"reply_content42\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"Body Body 1\",\"resourceIdList\":[]},\"create_at\":\"2018-12-04 13:32:40.0\",\"is_anonymous\":false,\"modified_at\":\"2018-12-04 13:32:40.0\"}]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+//    }
 }
 
-*/

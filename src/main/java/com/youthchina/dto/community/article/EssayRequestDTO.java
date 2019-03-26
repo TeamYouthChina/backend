@@ -13,10 +13,10 @@ public class EssayRequestDTO {
     private RichTextDTORequest body;
 
     public EssayRequestDTO(ComEssay comEssay) {
-        this.id = comEssay.getEssayId();
-        this.title = comEssay.getEssayTitle();
-        this.is_anonymous = (comEssay.getUserAnony()==1)? true:false;
-        this.body = new RichTextDTORequest(comEssay.getRichText());
+        this.id = comEssay.getId();
+        this.title = comEssay.getTitle();
+        this.is_anonymous = (comEssay.getIsAnony()==1)? true:false;
+        this.body = new RichTextDTORequest(comEssay.getBody());
     }
 
     public EssayRequestDTO() {
