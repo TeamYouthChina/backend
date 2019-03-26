@@ -22,7 +22,7 @@ public class QuestionDTO {
     private Timestamp create_at;
     private Timestamp modified_at;
     private List<AnswerBasicDTO> answers;
-    //private AnswerInvitation invitation;
+    //private InvitationService invitation;
     private Integer rela_type;
     private Integer rela_id;
     private RichTextDTO body;
@@ -100,11 +100,11 @@ public class QuestionDTO {
         this.answers = answers;
     }
 
-    /*public AnswerInvitation getInvitation() {
+    /*public InvitationService getInvitation() {
         return invitation;
     }
 
-    public void setInvitation(AnswerInvitation invitation) {
+    public void setInvitation(InvitationService invitation) {
         this.invitation = invitation;
     }*/
 

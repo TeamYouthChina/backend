@@ -98,4 +98,29 @@ public class AttentionServiceImpl implements AttentionService{
         }
         return attentionMapper.getAllfollows(type,userId);
     }
+
+    @Override
+    public Attention get(Integer id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public List<Attention> get(List<Integer> id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public void delete(Integer id) throws NotFoundException {
+
+    }
+
+    @Override
+    public Attention update(Attention attention) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public Attention add(Attention entity) throws NotFoundException {
+        return null;
+    }
 }

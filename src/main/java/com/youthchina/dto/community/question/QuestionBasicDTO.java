@@ -81,11 +81,11 @@ public class QuestionBasicDTO {
         this.is_anonymous = is_anonymous;
     }
 
-/*public AnswerInvitation getInvitation() {
+/*public InvitationService getInvitation() {
         return invitation;
     }
 
-    public void setInvitation(AnswerInvitation invitation) {
+    public void setInvitation(InvitationService invitation) {
         this.invitation = invitation;
     }*/
 
