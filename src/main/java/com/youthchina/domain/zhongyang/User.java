@@ -1,6 +1,7 @@
 package com.youthchina.domain.zhongyang;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Lists;
 import com.youthchina.dto.security.RegisterUserDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.util.zhongyang.HasId;
@@ -24,25 +25,35 @@ public class User implements UserDetails, HasId<Integer> {
     private String email;
     private String phonenumber;
     private String registerDate;
-    private String realName;
+    private String firstName;
+    private String lastName;
     private String gender;
     private String nation;
     private String avatarUrl;
-    private Integer role;
+    private Boolean hired;
+    private List<Role> role;
     private Integer age;
 
     public User() {
-
+        this.gender = "male";
+        this.age = 0;
+        this.hired = false;
+        this.firstName = "John";
+        this.lastName = "Doe";
+        this.nation = "CHN";
+        this.phonenumber = "000000000";
     }
 
     public User(UserDTO userDTO) {
+        this();
         this.id = userDTO.getId();
         this.username = userDTO.getUsername();
         this.password = userDTO.getPassword();
         this.email = userDTO.getEmail();
         this.phonenumber = userDTO.getPhonenumber();
         this.registerDate = userDTO.getRegister_date();
-        this.realName = userDTO.getReal_name();
+        this.firstName = userDTO.getFirstName();
+        this.lastName = userDTO.getLastName();
         this.gender = userDTO.getGender();
         this.nation = userDTO.getNation();
         this.avatarUrl = userDTO.getAvatar_url();
@@ -51,17 +62,14 @@ public class User implements UserDetails, HasId<Integer> {
     }
 
     public User(RegisterUserDTO registerUserDTO) {
+        this();
         this.username = registerUserDTO.getUsername();
         this.email = registerUserDTO.getEmail();
         this.password = registerUserDTO.getPassword();
+        this.phonenumber = registerUserDTO.getPhonenumber();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.registerDate = simpleDateFormat.format(Calendar.getInstance().getTime());
-        this.phonenumber = registerUserDTO.getPhoneNumber();
-        this.gender = registerUserDTO.getGender();
-        this.age = registerUserDTO.getAge();
-        this.realName = registerUserDTO.getUsername();
-        this.nation = registerUserDTO.getNation();
-        this.role = 1;
+        this.role = Lists.newArrayList(Role.APPLICANT);
     }
 
     public User(Integer id) {
@@ -149,12 +157,12 @@ public class User implements UserDetails, HasId<Integer> {
         this.registerDate = registerDate;
     }
 
-    public String getRealName() {
-        return realName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getNation() {
@@ -173,12 +181,16 @@ public class User implements UserDetails, HasId<Integer> {
         this.avatarUrl = avatarUrl;
     }
 
-    public Integer getRole() {
+    public List<Role> getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(List<Role> role) {
         this.role = role;
+    }
+
+    public void setRole(Role role) {
+        this.role = Lists.newArrayList(role);
     }
 
     public Integer getAge() {
@@ -195,5 +207,21 @@ public class User implements UserDetails, HasId<Integer> {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Boolean isHired() {
+        return hired;
+    }
+
+    public void setHired(Boolean hired) {
+        this.hired = hired;
     }
 }
