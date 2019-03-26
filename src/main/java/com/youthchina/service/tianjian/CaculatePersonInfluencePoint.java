@@ -245,165 +245,165 @@ public class CaculatePersonInfluencePoint {
     /*
     * 计算好友互动得分
     * */
-    public static Integer caculatePersonInfluenceInteraction(List<Evaluate> evaluateList,
-                                                      List<Evaluate> commentEvaluateList,
-                                                      List<Evaluate> evaluatesList,
-                                                      List<Evaluate> videoEvaluateList,
-                                                      List<ComReplyEvaluate> comReplyEvaluateList,
-                                                      List<Answer> answersList,
-                                                      List<Comment> commentList,
-                                                      List<Comment> videoCommentList,
-                                                      List<ComEssayReply> comEssayReplyList){
-        Integer pers_interaction_in = new Integer(0);
-
-        if(evaluateList !=null){
-            pers_interaction_in += evaluateList.size();
-        }
-        if(commentEvaluateList!=null){
-            pers_interaction_in += commentEvaluateList.size();
-        }
-        if(evaluatesList !=null){
-            pers_interaction_in += evaluatesList.size();
-        }
-        if(videoEvaluateList!=null){
-            pers_interaction_in += videoEvaluateList.size();
-        }
-        if(comReplyEvaluateList!=null){
-            pers_interaction_in += comReplyEvaluateList.size();
-        }
-        if(answersList !=null){
-            pers_interaction_in += answersList.size();
-        }
-        if(commentList !=null){
-            pers_interaction_in += commentList.size();
-        }
-        if(videoCommentList!=null){
-            pers_interaction_in += videoCommentList.size();
-        }
-        if(comEssayReplyList!=null){
-            pers_interaction_in += comEssayReplyList.size();
-        }
-
-        return pers_interaction_in;
-    }
-
-    /*
-    * 计算被点赞数得分
-    * */
-    public static Integer caculatePersonInfluenceLikeCount(List<Evaluate> evaluateList,
-                                                      List<Evaluate> commentEvaluateList,
-                                                      List<Evaluate> evaluatesList,
-                                                      List<Evaluate> videoEvaluateList,
-                                                      List<ComReplyEvaluate> comReplyEvaluateList){
-        Integer pers_like_count_in = new Integer(0);
-        if(evaluateList !=null){
-            pers_like_count_in += evaluateList.size();
-        }
-        if(commentEvaluateList!=null){
-            pers_like_count_in += commentEvaluateList.size();
-        }
-        if(evaluatesList !=null){
-            pers_like_count_in += evaluatesList.size();
-        }
-        if(videoEvaluateList!=null){
-            pers_like_count_in += videoEvaluateList.size();
-        }
-        if(comReplyEvaluateList!=null){
-            pers_like_count_in += comReplyEvaluateList.size();
-        }
-
-        if(pers_like_count_in<100){
-            return pers_like_count_in;
-        }else{
-            return 100;
-        }
-    }
-
-    /*
-    * 计算对公司进行评价得分
-    * */
-    public static Integer caculatePersonInfluencePosiEvaluate(){
-        Integer pers_posi_evaluate_in = new Integer(100);
-        return pers_posi_evaluate_in;
-    }
-
-    /*
-    * 计算个人影响力总分
-    * */
-    public PersonInfluence caculatePersonInfluencePoint(Integer user_id){
-        Influence influence = influenceMapper.getInfluenceByUserId(user_id);
-        List<Influence> influenceInteraction = new ArrayList<Influence>();
-        pers_profile = caculatePersonInfluencePointPersonalProfile(influence.getStudent()) * pers_profile_rate;
-        pers_ident_verify = caculatePersonInfluencePointIdentifyValidation(influence.getStudent()) * pers_ident_verify_rate;
-        List<EducationInfo> educationInfos = influence.getStudent().getEducationInfos();
-        Integer universityRank = influenceMapper.getBestEducation(educationInfos);
-        pers_university = caculatePersonInfluencePointUniversity(universityRank) * pers_university_rate;
-
-        Integer companyRank = influenceMapper.getBestWork(influence.getStudent().getWorks());
-        pers_work= caculatePersonInfluencePointWork(companyRank) * pers_work_rate;
-        pers_friend_count = caculatePersonInfluenceFriendCount(influence.getComFriendRelations()) * pers_friend_count_rate;
-
-        List<Float> friendInfluenceTotal = new ArrayList<Float>();
-        List<ComFriendRelation> friendRelationList = influence.getComFriendRelations();
-        Iterator it = friendRelationList.iterator();
-        while(it.hasNext()){
-            ComFriendRelation comFriendRelation = (ComFriendRelation) it.next();
-            Integer friendId = comFriendRelation.getUser_id();
-            friendInfluenceTotal.add(influenceMapper.getFriendInfluencePoints(friendId));
-            influenceInteraction.add(influenceMapper.getInteraction(user_id,friendId));
-
-            Float friendtotal = influenceMapper.getFriendInfluencePoints(friendId);
-            if(friendtotal != null){
-                friendInfluenceTotal.add(friendtotal);
-            }
-            Influence influence1 = influenceMapper.getInteraction(user_id,friendId);
-            if(influence1 != null){
-                influenceInteraction.add(influence1);
-            }
-        }
-
-        pers_friend_quality = caculatePersonInfluenceFriendQuality(friendInfluenceTotal) * pers_friend_quality_rate;
-
-        Integer interaction = new Integer(0);
-        Iterator itInteraction = influenceInteraction.iterator();
-        while(itInteraction.hasNext()){
-            Influence influenceinteraction = (Influence) itInteraction.next();
-            interaction += caculatePersonInfluenceInteraction(influenceinteraction.getEvaluates(),
-                    influenceinteraction.getEvaluates(),
-                    influenceinteraction.getEvaluates(),
-                    influenceinteraction.getEvaluates(),
-                    influenceinteraction.getComReplyEvaluates(),
-                    influenceinteraction.getAnswers(),
-                    influenceinteraction.getComments(),
-                    influenceinteraction.getComments(),
-                    influenceinteraction.getComEssayReplies());
-        }
-        if(interaction * 3 <= 100){
-            pers_interaction = interaction * pers_interaction_rate;
-        }else{
-            pers_interaction = 100 * pers_interaction_rate;
-        }
-
-        pers_like_count = caculatePersonInfluenceLikeCount(influence.getEvaluates(),
-                                                           influence.getEvaluates(),
-                                                           influence.getEvaluates(),
-                                                           influence.getEvaluates(),
-                                                           influence.getComReplyEvaluates())*pers_like_count_rate;
-        pers_posi_evaluate = caculatePersonInfluencePosiEvaluate()*pers_posi_evaluate_rate;
-
-        personInfluence.setPers_profile(pers_profile);
-        personInfluence.setPers_ident_verify(pers_ident_verify);
-        personInfluence.setPers_university(pers_university);
-        personInfluence.setPers_work(pers_work);
-        personInfluence.setPers_friend_count(pers_friend_count);
-        personInfluence.setPers_friend_quality(pers_friend_quality);
-        personInfluence.setPers_interaction(pers_interaction);
-        personInfluence.setPers_like_count(pers_like_count);
-        personInfluence.setPers_posi_evaluate(pers_posi_evaluate);
-        Float averageTotal = (pers_profile + pers_ident_verify + pers_university + pers_work + pers_friend_count +
-                pers_friend_quality + pers_interaction + pers_like_count + pers_posi_evaluate);
-        personInfluence.setPers_total(averageTotal);
-
-        return personInfluence;
-    }
+//    public static Integer caculatePersonInfluenceInteraction(List<Evaluate> evaluateList,
+//                                                      List<Evaluate> commentEvaluateList,
+//                                                      List<Evaluate> evaluatesList,
+//                                                      List<Evaluate> videoEvaluateList,
+//                                                      List<ComReplyEvaluate> comReplyEvaluateList,
+//                                                      List<Answer> answersList,
+//                                                      List<Comment> commentList,
+//                                                      List<Comment> videoCommentList,
+//                                                      List<ComEssayReply> comEssayReplyList){
+//        Integer pers_interaction_in = new Integer(0);
+//
+//        if(evaluateList !=null){
+//            pers_interaction_in += evaluateList.size();
+//        }
+//        if(commentEvaluateList!=null){
+//            pers_interaction_in += commentEvaluateList.size();
+//        }
+//        if(evaluatesList !=null){
+//            pers_interaction_in += evaluatesList.size();
+//        }
+//        if(videoEvaluateList!=null){
+//            pers_interaction_in += videoEvaluateList.size();
+//        }
+//        if(comReplyEvaluateList!=null){
+//            pers_interaction_in += comReplyEvaluateList.size();
+//        }
+//        if(answersList !=null){
+//            pers_interaction_in += answersList.size();
+//        }
+//        if(commentList !=null){
+//            pers_interaction_in += commentList.size();
+//        }
+//        if(videoCommentList!=null){
+//            pers_interaction_in += videoCommentList.size();
+//        }
+//        if(comEssayReplyList!=null){
+//            pers_interaction_in += comEssayReplyList.size();
+//        }
+//
+//        return pers_interaction_in;
+//    }
+//
+//    /*
+//    * 计算被点赞数得分
+//    * */
+//    public static Integer caculatePersonInfluenceLikeCount(List<Evaluate> evaluateList,
+//                                                      List<Evaluate> commentEvaluateList,
+//                                                      List<Evaluate> evaluatesList,
+//                                                      List<Evaluate> videoEvaluateList,
+//                                                      List<ComReplyEvaluate> comReplyEvaluateList){
+//        Integer pers_like_count_in = new Integer(0);
+//        if(evaluateList !=null){
+//            pers_like_count_in += evaluateList.size();
+//        }
+//        if(commentEvaluateList!=null){
+//            pers_like_count_in += commentEvaluateList.size();
+//        }
+//        if(evaluatesList !=null){
+//            pers_like_count_in += evaluatesList.size();
+//        }
+//        if(videoEvaluateList!=null){
+//            pers_like_count_in += videoEvaluateList.size();
+//        }
+//        if(comReplyEvaluateList!=null){
+//            pers_like_count_in += comReplyEvaluateList.size();
+//        }
+//
+//        if(pers_like_count_in<100){
+//            return pers_like_count_in;
+//        }else{
+//            return 100;
+//        }
+//    }
+//
+//    /*
+//    * 计算对公司进行评价得分
+//    * */
+//    public static Integer caculatePersonInfluencePosiEvaluate(){
+//        Integer pers_posi_evaluate_in = new Integer(100);
+//        return pers_posi_evaluate_in;
+//    }
+//
+//    /*
+//    * 计算个人影响力总分
+//    * */
+//    public PersonInfluence caculatePersonInfluencePoint(Integer user_id){
+//        Influence influence = influenceMapper.getInfluenceByUserId(user_id);
+//        List<Influence> influenceInteraction = new ArrayList<Influence>();
+//        pers_profile = caculatePersonInfluencePointPersonalProfile(influence.getStudent()) * pers_profile_rate;
+//        pers_ident_verify = caculatePersonInfluencePointIdentifyValidation(influence.getStudent()) * pers_ident_verify_rate;
+//        List<EducationInfo> educationInfos = influence.getStudent().getEducationInfos();
+//        Integer universityRank = influenceMapper.getBestEducation(educationInfos);
+//        pers_university = caculatePersonInfluencePointUniversity(universityRank) * pers_university_rate;
+//
+//        Integer companyRank = influenceMapper.getBestWork(influence.getStudent().getWorks());
+//        pers_work= caculatePersonInfluencePointWork(companyRank) * pers_work_rate;
+//        pers_friend_count = caculatePersonInfluenceFriendCount(influence.getComFriendRelations()) * pers_friend_count_rate;
+//
+//        List<Float> friendInfluenceTotal = new ArrayList<Float>();
+//        List<ComFriendRelation> friendRelationList = influence.getComFriendRelations();
+//        Iterator it = friendRelationList.iterator();
+//        while(it.hasNext()){
+//            ComFriendRelation comFriendRelation = (ComFriendRelation) it.next();
+//            Integer friendId = comFriendRelation.getUser_id();
+//            friendInfluenceTotal.add(influenceMapper.getFriendInfluencePoints(friendId));
+//            influenceInteraction.add(influenceMapper.getInteraction(user_id,friendId));
+//
+//            Float friendtotal = influenceMapper.getFriendInfluencePoints(friendId);
+//            if(friendtotal != null){
+//                friendInfluenceTotal.add(friendtotal);
+//            }
+//            Influence influence1 = influenceMapper.getInteraction(user_id,friendId);
+//            if(influence1 != null){
+//                influenceInteraction.add(influence1);
+//            }
+//        }
+//
+//        pers_friend_quality = caculatePersonInfluenceFriendQuality(friendInfluenceTotal) * pers_friend_quality_rate;
+//
+//        Integer interaction = new Integer(0);
+//        Iterator itInteraction = influenceInteraction.iterator();
+//        while(itInteraction.hasNext()){
+//            Influence influenceinteraction = (Influence) itInteraction.next();
+//            interaction += caculatePersonInfluenceInteraction(influenceinteraction.getEvaluates(),
+//                    influenceinteraction.getEvaluates(),
+//                    influenceinteraction.getEvaluates(),
+//                    influenceinteraction.getEvaluates(),
+//                    influenceinteraction.getComReplyEvaluates(),
+//                    influenceinteraction.getAnswers(),
+//                    influenceinteraction.getComments(),
+//                    influenceinteraction.getComments(),
+//                    influenceinteraction.getComEssayReplies());
+//        }
+//        if(interaction * 3 <= 100){
+//            pers_interaction = interaction * pers_interaction_rate;
+//        }else{
+//            pers_interaction = 100 * pers_interaction_rate;
+//        }
+//
+//        pers_like_count = caculatePersonInfluenceLikeCount(influence.getEvaluates(),
+//                                                           influence.getEvaluates(),
+//                                                           influence.getEvaluates(),
+//                                                           influence.getEvaluates(),
+//                                                           influence.getComReplyEvaluates())*pers_like_count_rate;
+//        pers_posi_evaluate = caculatePersonInfluencePosiEvaluate()*pers_posi_evaluate_rate;
+//
+//        personInfluence.setPers_profile(pers_profile);
+//        personInfluence.setPers_ident_verify(pers_ident_verify);
+//        personInfluence.setPers_university(pers_university);
+//        personInfluence.setPers_work(pers_work);
+//        personInfluence.setPers_friend_count(pers_friend_count);
+//        personInfluence.setPers_friend_quality(pers_friend_quality);
+//        personInfluence.setPers_interaction(pers_interaction);
+//        personInfluence.setPers_like_count(pers_like_count);
+//        personInfluence.setPers_posi_evaluate(pers_posi_evaluate);
+//        Float averageTotal = (pers_profile + pers_ident_verify + pers_university + pers_work + pers_friend_count +
+//                pers_friend_quality + pers_interaction + pers_like_count + pers_posi_evaluate);
+//        personInfluence.setPers_total(averageTotal);
+//
+//        return personInfluence;
+//    }
 }

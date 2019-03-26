@@ -12,7 +12,7 @@ public class SimpleAnswerRequestDTO {
     private Boolean is_anonymous;
 
     public SimpleAnswerRequestDTO(Answer answer) {
-        RichTextDTORequest richt = new RichTextDTORequest(answer.getRichText());
+        RichTextDTORequest richt = new RichTextDTORequest(answer.getBody());
         this.body = richt;
         this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
     }

@@ -17,7 +17,7 @@ public class SimpleAnswerResponseDTO {
     public SimpleAnswerResponseDTO(){}
 
     public SimpleAnswerResponseDTO(Answer answer){
-        RichTextDTOResponse richt = new RichTextDTOResponse(answer.getRichText());
+        RichTextDTOResponse richt = new RichTextDTOResponse(answer.getBody());
         this.body = richt;
         this.id = answer.getId();
         this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;

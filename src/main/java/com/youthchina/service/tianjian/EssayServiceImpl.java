@@ -74,7 +74,7 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public List<ComEssay> getEssay(List<Integer> essayId) {
-       return null;
+        return mapper.getEssayList(essayId);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public List<ComEssay> get(List<Integer> id) throws NotFoundException {
-        return null;
+        return mapper.getEssayList(id);
     }
 
     @Override

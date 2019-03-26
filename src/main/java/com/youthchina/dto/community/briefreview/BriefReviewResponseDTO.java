@@ -21,7 +21,7 @@ public class BriefReviewResponseDTO {
 
     public BriefReviewResponseDTO(BriefReview briefReview) {
         this.id = briefReview.getId();
-        RichTextDTOResponse richt = new RichTextDTOResponse(briefReview.getRichText());
+        RichTextDTOResponse richt = new RichTextDTOResponse(briefReview.getBody());
         this.body = richt;
         List<CommentDTO> commentDTOS = new ArrayList<>();
         Iterator it = briefReview.getComments().iterator();

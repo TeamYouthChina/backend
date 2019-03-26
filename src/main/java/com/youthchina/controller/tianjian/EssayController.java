@@ -19,6 +19,7 @@ import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.AttentionService;
 
+import com.youthchina.service.jinhao.AttentionServiceImpl;
 import com.youthchina.service.jinhao.CommentServiceImpl;
 import com.youthchina.service.qingyang.CompanyCURDServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
@@ -47,7 +48,7 @@ public class EssayController {
     UserServiceImpl userService;
 
     @Autowired
-    AttentionService attentionService;
+    AttentionServiceImpl attentionService;
 
     @Autowired
     CommentServiceImpl commentService;
@@ -69,15 +70,14 @@ public class EssayController {
     @PutMapping("/{id}")
     public ResponseEntity updateEssay(@PathVariable Integer id, @RequestBody EssayRequestDTO essayRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = new ComEssay(essayRequestDTO);
-        comEssay.setEssayId(id);
+        comEssay.setId(id);
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        comEssay.setEssayEditTime(time);
-        comEssay.setIsDelete(0);
+        comEssay.setEditTime(time);
         if (essayRequestDTO.getCompany_id() != 1) {
          comEssay.setRelaType(2);
          comEssay.setRelaId(essayRequestDTO.getCompany_id());
         }
-        essayServiceimpl.updateEssay(comEssay);1
+        essayServiceimpl.updateEssay(comEssay);
 
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
         essayResponseDTO.setModified_at(time);
@@ -101,7 +101,7 @@ public class EssayController {
     @PutMapping("/{id}/attention")
     public ResponseEntity updateAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = new ComEssay();
-        comEssay.setEssayId(id);
+        comEssay.setId(id);
         attentionService.attention(comEssay,user.getId());
         ComEssayAttention comEssayAttention = new ComEssayAttention();
         comEssayAttention.setAtten_cancel(0);
@@ -114,7 +114,7 @@ public class EssayController {
     @DeleteMapping("/attentions/{id}")
     public ResponseEntity deleteAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
        ComEssay comEssay = new ComEssay();
-       comEssay.setEssayId(id);
+       comEssay.setId(id);
         attentionService.cancel(comEssay,user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
@@ -123,8 +123,8 @@ public class EssayController {
     public ResponseEntity addEssay(@RequestBody EssayRequestDTO essayRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = new ComEssay(essayRequestDTO);
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        comEssay.setEssayPubTime(time);
-        comEssay.setEssayEditTime(time);
+        comEssay.setPubTime(time);
+        comEssay.setEditTime(time);
         comEssay.setRelaType(1);
         if (essayRequestDTO.getCompany_id() != null) {
             comEssay.setRelaType(2);
@@ -148,7 +148,7 @@ public class EssayController {
         Comment comment = new Comment(commentRequestDTO);
         comment.setTargetId(id);
         comment.setTargetType(1);
-        comment.setUserId(user.getId());
+        comment.setUser(user);
         commentService.add(comment);
         return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
 
@@ -158,7 +158,7 @@ public class EssayController {
     public ResponseEntity getEssayComments(@PathVariable Integer id) {
         ComEssay comEssay = new ComEssay();
         comEssay.setCommentTargetType(1);
-        comEssay.setEssayId(id);
+        comEssay.setId(id);
         commentService.getComments(comEssay);
         CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
         if (comEssay.getComments() != null) {

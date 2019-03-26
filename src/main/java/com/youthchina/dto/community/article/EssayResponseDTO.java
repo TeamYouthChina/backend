@@ -19,13 +19,13 @@ public class EssayResponseDTO {
     private boolean is_anonymous;
 
     public EssayResponseDTO(ComEssay comEssay) {
-        this.id = comEssay.getEssayId();
-        this.title = comEssay.getEssayTitle();
-        this.create_at = comEssay.getEssayPubTime();
-        this.modified_at = comEssay.getEssayEditTime();
-        this.is_anonymous = (comEssay.getUserAnony() == 0) ? false : true;
+        this.id = comEssay.getId();
+        this.title = comEssay.getTitle();
+        this.create_at = comEssay.getPubTime();
+        this.modified_at = comEssay.getEditTime();
+        this.is_anonymous = (comEssay.getIsAnony() == 0) ? false : true;
         this.author = new UserDTO(comEssay.getUser());
-        this.body = new RichTextDTOResponse(comEssay.getRichText());
+        this.body = new RichTextDTOResponse(comEssay.getBody());
     }
 
     public EssayResponseDTO() {

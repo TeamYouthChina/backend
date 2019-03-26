@@ -40,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getComments(Commentable entity) {
         List<Comment> comments = commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
         for(Comment comment : comments){
-            comment.setUser(userMapper.findOne(comment.getUserId()));
+            comment.setUser(comment.getUser());
         }
         return comments;
     }
