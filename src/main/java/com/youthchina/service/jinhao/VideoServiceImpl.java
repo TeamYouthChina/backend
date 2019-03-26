@@ -5,6 +5,7 @@ import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.jinhao.Video;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
@@ -29,6 +30,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    @Transactional
     public Video get(Integer id) throws NotFoundException {
         Video video = videoMapper.get(id);
         if(video == null){
@@ -40,6 +42,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    @Transactional
     public List<Video> get(List<Integer> id) throws NotFoundException {
         List<Video> videos = new LinkedList<>();
         for(Integer one : id){
@@ -58,7 +61,11 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public void delete(Integer id) throws NotFoundException {
-        //todo
+        isVideoExist(id);
+        Video video = new Video();
+        video.setId(id);
+        commentService.delete(video);
+        videoMapper.delete(id);
     }
 
     @Override

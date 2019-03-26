@@ -1,5 +1,6 @@
 package com.youthchina.dao.jinhao;
 
+import com.youthchina.domain.jinhao.Evaluate;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
@@ -7,11 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Mapper
 public interface EvaluateMapper {
-    Integer isEverEvaluate(@Param("type") Integer type, @Param("targetId") Integer targetId, @Param("userId") Integer userId);
+    Evaluate isEverEvaluate(@Param("type") Integer type, @Param("targetId") Integer targetId, @Param("userId") Integer userId);
     void reUpvote(Integer id);
     void reDownVote(Integer id);
     void upvote(@Param("type") Integer type, @Param("targetId") Integer targetId, @Param("userId") Integer userId);
     void downvote(@Param("type") Integer type, @Param("targetId") Integer targetId, @Param("userId") Integer userId);
-    void cancel(@Param("type") Integer type, @Param("targetId") Integer targetId, @Param("userId") Integer userId);
+    void cancel(Integer id);
     Integer countUpvote(@Param("type") Integer type, @Param("targetId") Integer targetId);
 }

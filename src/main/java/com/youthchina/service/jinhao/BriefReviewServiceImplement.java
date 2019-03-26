@@ -6,6 +6,7 @@ import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.RichTextService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -25,6 +26,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     UserMapper userMapper;
 
     @Override
+    @Transactional
     public BriefReview get(Integer id) throws NotFoundException {
         BriefReview briefReview = briefReviewMapper.get(id);
         if(briefReview == null){
@@ -42,11 +44,17 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) throws NotFoundException {
-        //todo
+        isBriefReviewExist(id);
+        BriefReview briefReview = new BriefReview();
+        briefReview.setId(id);
+        commentService.delete(briefReview);
+        briefReviewMapper.delete(id);
     }
 
     @Override
+    @Transactional
     public BriefReview update(BriefReview briefReview) throws NotFoundException {
         isBriefReviewExist(briefReview.getId());
         briefReviewMapper.update(briefReview);
@@ -55,6 +63,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     }
 
     @Override
+    @Transactional
     public BriefReview add(BriefReview entity) {
         briefReviewMapper.add(entity);
         richTextService.addComRichText(entity.getRichText());

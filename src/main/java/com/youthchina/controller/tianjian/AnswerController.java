@@ -10,7 +10,6 @@ import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.RequestCommentDTO;
 import com.youthchina.dto.community.comment.ResponseCommentDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.CommunityQAServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
