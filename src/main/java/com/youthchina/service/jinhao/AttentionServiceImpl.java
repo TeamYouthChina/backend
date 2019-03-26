@@ -1,8 +1,10 @@
 package com.youthchina.service.jinhao;
 
 import com.youthchina.dao.jinhao.AttentionMapper;
+import com.youthchina.domain.jinhao.Attention;
 import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,6 +32,7 @@ public class AttentionServiceImpl implements AttentionService{
     DiscussService discussService;
 
     @Override
+    @Transactional
     public void attention(Attentionable entity, Integer userId) throws NotFoundException {
         Integer type = entity.getAttentionTargetType();
         Integer id = entity.getId();
@@ -43,11 +46,20 @@ public class AttentionServiceImpl implements AttentionService{
             default:
                 throw new NotFoundException(404,404,"No such type");
         }
-        attentionMapper.follow(type,id,userId);
+        Attention attention = attentionMapper.isEverAttention(type,id,userId);
+        if(attention == null){
+            attentionMapper.follow(type,id,userId);
+        }else{
+            if(attention.getIsCancel() == 0){
+                throw new NotFoundException(404,404,"You have already followed!");
+            }
+            attentionMapper.reFollow(attention.getId());
+        }
 
     }
 
     @Override
+    @Transactional
     public void cancel(Attentionable entity, Integer userId) throws NotFoundException {
         Integer type = entity.getAttentionTargetType();
         Integer id = entity.getId();
@@ -61,10 +73,16 @@ public class AttentionServiceImpl implements AttentionService{
             default:
                 throw new NotFoundException(404,404,"No such type");
         }
-        attentionMapper.cancel(type,id,userId);
+        Attention attention = attentionMapper.isEverAttention(type,id,userId);
+        if(attention == null || attention.getIsCancel() == 1){
+            throw new NotFoundException(404,404,"You have not followed yet, you cannot cancel!");
+        }else{
+            attentionMapper.cancel(attention.getId());
+        }
     }
 
     @Override
+    @Transactional
     public List<Integer> getAllIdsOfAttention(Attentionable entity, Integer userId) throws NotFoundException {
         Integer type = entity.getAttentionTargetType();
         Integer id = entity.getId();

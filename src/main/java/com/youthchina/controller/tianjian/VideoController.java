@@ -9,7 +9,6 @@ import com.youthchina.dto.community.comment.VideoCommentDTO;
 import com.youthchina.dto.community.video.VideoDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.CommunityQAServiceImplement;
 import com.youthchina.service.tianjian.StaticFileService;
 import com.youthchina.service.zhongyang.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

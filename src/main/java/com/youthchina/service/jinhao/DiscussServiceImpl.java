@@ -4,6 +4,7 @@ import com.youthchina.dao.jinhao.DiscussMapper;
 import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.jinhao.Discuss;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,6 +20,7 @@ public class DiscussServiceImpl implements DiscussService{
     CommentService commentService;
 
     @Override
+    @Transactional
     public List<Discuss> getDiscusses(Integer id) throws NotFoundException {
         List<Discuss> discusses = discussMapper.getDiscusses(id);
         if(discusses.size() == 0){
@@ -38,6 +40,12 @@ public class DiscussServiceImpl implements DiscussService{
     }
 
     @Override
+    public void deleteAllDiscussOfComment(Integer id) {
+        discussMapper.deleteAllDiscussOfComment(id);
+    }
+
+    @Override
+    @Transactional
     public Discuss add(Discuss discuss) throws NotFoundException {
         commentService.isCommentExist(discuss.getCommentId());
         discussMapper.add(discuss);
