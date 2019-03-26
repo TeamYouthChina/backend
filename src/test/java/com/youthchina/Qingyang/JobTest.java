@@ -27,7 +27,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:company.xml", "classpath:location.xml"})
+@DatabaseSetup({"classpath:New_Job_test.xml", "classpath:New_Dictionary_test.xml"})
 public class JobTest {
 
     @Autowired
