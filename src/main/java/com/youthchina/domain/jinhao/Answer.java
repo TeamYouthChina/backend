@@ -34,6 +34,8 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
         this.richText.setText_content(simpleAnswerDTO.getBody().getPreviewText());
     }
 
+    public Answer(){}
+
     @Override
     public Integer getAttentionTargetType() {
         return attentionTargetType;

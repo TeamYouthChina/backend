@@ -33,12 +33,12 @@ public class CommentServiceImpl implements CommentService {
     DiscussService discussService;
 
     @Override
-    public void getComments(Commentable entity) {
+    public List<Comment> getComments(Commentable entity) {
         List<Comment> comments = commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
         for(Comment comment : comments){
             comment.setUser(userMapper.findOne(comment.getUserId()));
         }
-        entity.setComments(comments);
+        return comments;
     }
 
     @Override

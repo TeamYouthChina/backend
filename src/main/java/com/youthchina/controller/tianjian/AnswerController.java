@@ -13,7 +13,7 @@ import com.youthchina.dto.community.comment.ResponseCommentDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.AnswerServiceImpl;
 import com.youthchina.service.jinhao.CommentServiceImpl;
-import com.youthchina.service.jinhao.CommunityQAServiceImplement;
+import com.youthchina.service.jinhao.EvaluateServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,6 +30,7 @@ public class AnswerController {
     @Autowired
     private AnswerServiceImpl answerService;
     private CommentServiceImpl commentService;
+    private EvaluateServiceImpl evaluateService;
 
     @GetMapping("/{id}")
     public ResponseEntity getAnswer(@PathVariable Integer id) throws NotFoundException {
@@ -80,7 +81,8 @@ public class AnswerController {
 
     @GetMapping("/{id}/comments")
     public ResponseEntity getAnswerComments(@PathVariable Integer id) throws NotFoundException {
-        List<Comment> comments = commentService.getAllAnswerComments(id);
+        Answer answer = answerService.get(id);
+        List<Comment> comments = commentService.getComments(answer);
 
         List<CommentDTO> commentDTOS = new ArrayList<>();
         if(comments!=null){
@@ -98,7 +100,8 @@ public class AnswerController {
 
     @PutMapping ("/{id}/upvote")
     public ResponseEntity addUpvote(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
-        communityQAServiceImplement.evaluateAnswer(id, user.getId());
+        Answer answer =answerService.get(id);
+        evaluateService.upvote(answer, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 
