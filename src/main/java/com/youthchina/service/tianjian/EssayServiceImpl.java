@@ -1,15 +1,13 @@
 package com.youthchina.service.tianjian;
 
 import com.youthchina.dao.tianjian.CommunityMapper;
-import com.youthchina.dao.tianjian.RichTextMapper;
-import com.youthchina.domain.tianjian.*;
-import com.youthchina.domain.zhongyang.User;
+import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.zhongyang.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -19,87 +17,16 @@ import java.util.List;
 @Service("essayService")
 @Transactional
 public class EssayServiceImpl implements EssayService {
-    @Autowired
+    @Resource
     CommunityMapper mapper;
 
-    @Autowired
-    RichTextMapper richTextMapper;
-
-    @Autowired
-    UserService userService;
+    @Resource
+    RichTextService richTextService;
 
     @Autowired
     public EssayServiceImpl(CommunityMapper mapper) {
         this.mapper = mapper;
     }
-
-    /**
-     * Get User by id.
-     *
-     * @param id id of User
-     * @return User with id equals to param.
-     */
-    @Override
-    public User get(Integer id) {
-        // return mapper.findOne(id);
-        return null;
-    }
-
-    @Override
-    public List<User> get(List<Integer> id) {
-        return null;
-    }
-
-    @Override
-    public void delete(Integer id) {
-
-    }
-
-    @Override
-    public User update(User user) {
-        return null;
-    }
-
-    @Override
-    public User add(User user) {
-        return null;
-    }
-
-//    public CompanyInfo getCompanyInformation(String company_id){
-//        CompanyInfo companyInfo =  mapper.getCompanyInformation(company_id);
-//        return  companyInfo;
-//    }
-//
-//    public StuCollect getFavoriteCompany(StuCollect company){
-//        return mapper.getFavoriteCompany(company);
-//    }
-//
-//    public int addFavoriteCompany(StuCollect company){
-//        if(mapper.addFavoriteCompany(company)>0)
-//          return 1;
-//        else
-//            return 0;
-//    }
-//
-//    public int addFavoriteJob(StuCollect Job){
-//        if(mapper.addFavoriteJob(Job)>0)
-//            return 1;
-//        else
-//            return 0;
-//    }
-//
-//    public JobInfo getJobInformation(String job_id){
-//        return mapper.getJobInformation(job_id);
-//    }
-//
-//    public int deleteFavoriteCompany(StuCollect deletefavoritecompany){
-//        return mapper.deleteFavoriteCompany(deletefavoritecompany);
-//    }
-//
-//    @Override
-//    public int deleteFavoriteJob(StuCollect deletefavoritejob) {
-//        return mapper.deleteFavoriteJob(deletefavoritejob);
-//    }
 
     @Override
     public void addEssay(ComEssay essay) throws NotFoundException {
@@ -108,8 +35,8 @@ public class EssayServiceImpl implements EssayService {
             throw new NotFoundException(404, 404, "this essay is exist");//todo
         else {
             mapper.addEssay(essay);
+            richTextService.addComRichText(essay.getBody());
         }
-        richTextMapper.addRichText(essay.getBody());
     }
 
     @Override
@@ -128,7 +55,7 @@ public class EssayServiceImpl implements EssayService {
             if (essay.getAbbre() != null)
                 comEssaytest.setAbbre(essay.getAbbre());
             if (essay.getBody() != null)
-                richTextMapper.updateRichText(essay.getBody());
+                richTextService.updateComRichText(essay.getBody());
             if (essay.getTitle() != null)
                 comEssaytest.setTitle(essay.getTitle());
 
@@ -139,17 +66,15 @@ public class EssayServiceImpl implements EssayService {
     @Override
     public ComEssay getEssay(Integer essay_id) throws NotFoundException {
         ComEssay comEssay = mapper.getEssay(essay_id);
-        ComRichText comRichText = richTextMapper.getRichText(comEssay.getBody());
-        comEssay.setBody(comRichText);
-        User user = userService.get(comEssay.getUserId());
-        comEssay.setUser(user);
+        if(comEssay == null){
+            throw new NotFoundException(404,404,"this essay does not exist");
+        }
         return comEssay;
     }
 
     @Override
     public List<ComEssay> getEssay(List<Integer> essayId) {
-       List<ComEssay> comEssays = mapper.getEssayList(essayId);
-        return comEssays;
+        return mapper.getEssayList(essayId);
     }
 
     @Override
@@ -162,4 +87,28 @@ public class EssayServiceImpl implements EssayService {
         return mapper.getAllEssayUserAttention(user_id);
     }
 
+    @Override
+    public ComEssay get(Integer id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public List<ComEssay> get(List<Integer> id) throws NotFoundException {
+        return mapper.getEssayList(id);
+    }
+
+    @Override
+    public void delete(Integer id) throws NotFoundException {
+
+    }
+
+    @Override
+    public ComEssay update(ComEssay comEssay) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public ComEssay add(ComEssay entity) throws NotFoundException {
+        return null;
+    }
 }

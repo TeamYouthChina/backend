@@ -18,9 +18,21 @@
          TEXT_ID = #{textId}
     </update>
 
-    <!--    获取富文本 -->
-    <select id="getRichText" resultType="com.youthchina.domain.tianjian.ComRichText">
-   		select t.* from COM_RICH_TEXT t where t.TEXT_ID = #{textId}
-   </select>
+    <select id="getAnswerBody" resultType="com.youthchina.domain.tianjian.ComRichText">
+        select t1 from COM_RICH_TEXT t1, COM_QUESTION_ANSWER t2
+        where t2.ANSWER_ID = #{id} and t1.TEXT_ID = t2.ANSWER_CONTENT
+    </select>
+    <select id="getQuestionBody" resultType="com.youthchina.domain.tianjian.ComRichText">
+        select t1 from COM_RICH_TEXT t1, COM_QUESTION t2
+        where t2.QUES_ID = #{id} and t1.TEXT_ID = t2.QUES_BODY
+    </select>
+    <select id="getEssayBody" resultType="com.youthchina.domain.tianjian.ComRichText">
+        select t1 from COM_RICH_TEXT t1, COM_ESSAY t2
+        where t2.ESSAY_ID = #{id} and t1.TEXT_ID = t2.ESSAY_BODY
+    </select>
+    <select id="getBriefReviewBody" resultType="com.youthchina.domain.tianjian.ComRichText">
+        select t1 from COM_RICH_TEXT t1, COM_BRIEF_REVIEW t2
+        where t2.REVIEW_ID = #{id} and t1.TEXT_ID = t2.REVIEW_CONTENT
+    </select>
 
 </mapper>

@@ -5,7 +5,7 @@
     <insert id="addEssay" parameterType="com.youthchina.domain.tianjian.ComEssay" useGeneratedKeys="true"
             keyProperty="essayId">
     INSERT INTO COM_ESSAY  (ESSAY_TITLE, ESSAY_ABBRE, USER_ID, ESSAY_PUB_TIME,ESSAY_EDIT_TIME,IS_DELETE,USER_ANONY,IS_DELETE_TIME,RELA_TYPE,RELA_ID,ESSAY_BODY)
-           values(#{essayTitle},#{essayAbbre},#{userId},#{essayPubTime},#{essayEditTime},#{isDelete},#{userAnony},#{isDeleteTime},#{relaType},#{relaId},#{essayBody}
+           values(#{essayTitle},#{essayAbbre},#{userId},#{essayPubTime},#{essayEditTime},0,#{userAnony},#{isDeleteTime},#{relaType},#{relaId},#{essayBody}
                  )
 
     </insert>
@@ -15,7 +15,7 @@
     update COM_ESSAY
     set
          ESSAY_TITLE = #{essayTitle}, ESSAY_ABBRE = #{essayAbbre}, ESSAY_BODY = #{essayBody}, ESSAY_PUB_TIME = #{essayPubTime},
-         ESSAY_EDIT_TIME = #{essayEditTime},IS_DELETE = #{isDelete},USER_ANONY=#{userAnony}
+         ESSAY_EDIT_TIME = #{essayEditTime},IS_DELETE = 0,USER_ANONY=#{userAnony}
     where
          ESSAY_ID = #{essayId}
     </update>
