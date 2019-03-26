@@ -30,13 +30,13 @@ public class LocationServiceImpl {
 //            if (location == null) {
 //                return new Location();
 //            }
-//            location.setNation_code("USA");
+//            location.setCountry("USA");
 //        } else {
 //            location = locationMapper.getChnLocation(region_num);
 //            if (location == null) {
 //                return new Location();
 //            }
-//            location.setNation_code("CHN");
+//            location.setCountry("CHN");
 //        }
 //
 //        return location;

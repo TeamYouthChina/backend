@@ -53,7 +53,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     private void setCompanyLocation(Company company) {
         Location location = company.getLocation();
         if (location != null) {
-            company.setLocation(locationServiceImpl.getLocation(location.getRegion_num()));
+            company.setLocation(locationServiceImpl.getLocation(location.getRegionNum()));
         }
     }
 

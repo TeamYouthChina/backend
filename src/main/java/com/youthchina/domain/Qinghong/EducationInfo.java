@@ -29,8 +29,8 @@ public class EducationInfo {
         this.edu_start = educationDTO.getDuration().getBegin();
         this.edu_end = educationDTO.getDuration().getEnd();
         this.location = new Location();
-        this.location.setNation_code(educationDTO.getLocation().getNation_code());
-        this.location.setRegion_num(Integer.parseInt(educationDTO.getLocation().getLocation_code()));
+        this.location.setCountry(educationDTO.getLocation().getNation_code());
+        this.location.setRegionNum(Integer.parseInt(educationDTO.getLocation().getLocation_code()));
         this.edu_school_country = educationDTO.getLocation().getNation_code();
 
         //fix location

@@ -117,7 +117,7 @@ public class CompanyTest {
         company.setCompanyNature(companyNature);
 
         Location location = new Location();
-        location.setRegion_num(1);
+        location.setRegionNum(1);
         company.setLocation(location);
 
 
@@ -200,16 +200,16 @@ public class CompanyTest {
     @Test
     public void testGetCompanyLocation() {
         Company company = companyMapper.selectCompany(1);
-        Assert.assertEquals(Integer.valueOf(1), company.getLocation().getRegion_num());
+        Assert.assertEquals(Integer.valueOf(1), company.getLocation().getRegionNum());
         Location location = company.getLocation();
-        String region = "" + location.getRegion_num();
+        String region = "" + location.getRegionNum();
         if (region.charAt(0) == '9') {
-            location = locationMapper.getUSALocation(location.getRegion_num());
+            location = locationMapper.getUSALocation(location.getRegionNum());
         } else {
-            location = locationMapper.getChnLocation(location.getRegion_num());
+            location = locationMapper.getChnLocation(location.getRegionNum());
         }
         company.setLocation(location);
-        Assert.assertEquals("北京", company.getLocation().getRegion_chn());
+        Assert.assertEquals("北京", company.getLocation().getRegionName());
 
     }
 

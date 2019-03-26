@@ -79,7 +79,7 @@ public class CompanyControllerTest {
         CompanyRequestDTO companyRequestDTO = new CompanyRequestDTO();
         companyRequestDTO.setName("Vavle");
         Location location = new Location();
-        location.setRegion_num(1);
+        location.setRegionNum(1);
         companyRequestDTO.setLocation(new LocationDTO(location));
         Country country = new Country();
         country.setCountryAbbre("USA");
@@ -111,7 +111,7 @@ public class CompanyControllerTest {
         companyRequestDTO.setId(id);
         companyRequestDTO.setName("Vavle");
         Location location = new Location();
-        location.setRegion_num(1);
+        location.setRegionNum(1);
         companyRequestDTO.setLocation(new LocationDTO(location));
         Country country = new Country();
         country.setCountryAbbre("USA");

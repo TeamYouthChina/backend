@@ -50,7 +50,7 @@ public class JobTest {
         Assert.assertEquals("国企", job.getCompany().getCompanyNature().getNatureChn());
         Assert.assertEquals(2, job.getIndustries().size());
         Assert.assertEquals("A", job.getIndustries().get(0).getIndCode());
-        Assert.assertEquals(Integer.valueOf(1), job.getJobLocationList().get(0).getRegion_num());
+        Assert.assertEquals(Integer.valueOf(1), job.getJobLocationList().get(0).getRegionNum());
         Assert.assertEquals("前端", job.getProfession().getProfChn());
     }
 
@@ -58,31 +58,31 @@ public class JobTest {
     public void testGetJobLocation() throws Exception {
         Job job = jobMapper.selectJobByJobId(2);
         List<Location> locationList = job.getJobLocationList();
-        String region0 = "" + locationList.get(0).getRegion_num();
+        String region0 = "" + locationList.get(0).getRegionNum();
         if (region0.charAt(0) == '9') {
             locationList = locationMapper.getUSALocationByLocationList(locationList);
         } else {
             locationList = locationMapper.getChnLocationByLocationList(locationList);
         }
-        Assert.assertEquals("Shanghai", locationList.get(0).getRegion_eng());
+        Assert.assertEquals("Shanghai", locationList.get(0).getRegionName());
 
         job = jobMapper.selectJobByJobId(4);
         locationList = job.getJobLocationList();
-        region0 = "" + locationList.get(0).getRegion_num();
+        region0 = "" + locationList.get(0).getRegionNum();
         if (region0.charAt(0) == '9') {
             locationList = locationMapper.getUSALocationByLocationList(locationList);
         } else {
             locationList = locationMapper.getChnLocationByLocationList(locationList);
         }
-        Assert.assertEquals("District of Columbia", locationList.get(0).getRegion_eng());
+        Assert.assertEquals("District of Columbia", locationList.get(0).getRegionName());
 
 
         //Service Test
         job = jobService.get(2);
         Assert.assertEquals("back", job.getJobName());
         Assert.assertEquals(1, job.getJobLocationList().size());
-        Assert.assertEquals(Integer.valueOf(2), job.getJobLocationList().get(0).getRegion_num());
-        Assert.assertEquals("C", job.getJobLocationList().get(0).getRegion_chn());
+        Assert.assertEquals(Integer.valueOf(2), job.getJobLocationList().get(0).getRegionNum());
+        Assert.assertEquals("C", job.getJobLocationList().get(0).getRegionName());
 
     }
 
@@ -136,8 +136,8 @@ public class JobTest {
         jobMapper.insertJobDegree(degrees);
         List<Location> locations = new ArrayList<>();
         Location location = new Location();
-        location.setRegion_num(1);
-        location.setNation_code("CHN");
+        location.setRegionNum(1);
+        location.setCountry("CHN");
         locations.add(location);
         job.setJobLocationList(locations);
         jobMapper.insertJobLocation(job.getId(), job.getJobLocationList());
@@ -152,7 +152,7 @@ public class JobTest {
     @Test
     public void testUpdateJob() {
         Job job = jobMapper.selectJobByJobId(1);
-        Assert.assertEquals(Integer.valueOf(1), job.getJobLocationList().get(0).getRegion_num());
+        Assert.assertEquals(Integer.valueOf(1), job.getJobLocationList().get(0).getRegionNum());
         job.getCompany().setCompanyId(2);
         jobMapper.updateJob(job);
         jobMapper.deleteJobLocation(job.getJobId());

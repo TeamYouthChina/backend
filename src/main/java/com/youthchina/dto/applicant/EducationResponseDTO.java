@@ -27,7 +27,7 @@ public class EducationResponseDTO {
         this.major = educationInfo.getEdu_major();
         this.degree = educationInfo.getDegree().getDegreeChn();
         this.duration = new DurationDTO(educationInfo.getEdu_start(), educationInfo.getEdu_end());
-        this.location = educationInfo.getLocation().getRegion_chn();
+        this.location = educationInfo.getLocation().getRegionName();
 
     }
 

@@ -12,7 +12,7 @@
             IS_DELETE_TIME)
         VALUES
         (   #{companyName},     #{companyCode},   #{country.countryAbbre},
-            #{companyIntroduc}, #{companyScale.scaleNum}, #{companyNature.natureNum},   #{location.region_num},
+            #{companyIntroduc}, #{companyScale.scaleNum}, #{companyNature.natureNum},   #{location.regionNum},
             #{companyMail},     #{companyWebsite}, #{companyStartDate},
                  #{companyVerify},   #{userId},   NOW(),       0,
             NULL)
@@ -28,7 +28,7 @@
             COMPANY_INTRODUC = #{companyIntroduc},
             COMPANY_SCALE_NUM = #{companyScale.scaleNum},
             COMPANY_NATURE = #{companyNature.natureNum},
-            COMPANY_LOCATION = #{location.region_num},
+            COMPANY_LOCATION = #{location.regionNum},
             COMPANY_MAIL = #{companyMail},
             COMPANY_WEBSITE = #{companyWebsite},
             COMPANY_START_DATE = #{companyStartDate},
@@ -83,8 +83,8 @@
             <result property="startTime" column="COUNTRY_START_TIME"/>
         </association>
         <association property="location" javaType="com.youthchina.domain.Qinghong.Location">
-            <id property="region_num" column="COMPANY_LOCATION"/>
-            <!--<result property="region_chn" column="REGION_CHN"/>-->
+            <id property="regionNum" column="COMPANY_LOCATION"/>
+            <!--<result property="regionName" column="REGION_CHN"/>-->
             <!--<result property="region_eng" column="REGION_ENG"/>-->
             <!--<result property="region_level" column="REGION_LEVEL"/>-->
             <!--<result property="region_parent_num" column="REGION_PARENT_NUM"/>-->

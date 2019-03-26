@@ -349,7 +349,7 @@ public class ApplicantControllerTest {
 //    public void testInsertEducation() throws Exception{
 //        EducationDTO educationDTO=new EducationDTO();
 //        LocationDTO locationDTO=new LocationDTO();
-//        locationDTO.setNation_code("USA");
+//        locationDTO.setCountry("USA");
 //        locationDTO.setLocation_code("920001");
 //        educationDTO.setUniversity("gwu");
 //        educationDTO.setMajor("cs");
@@ -379,7 +379,7 @@ public class ApplicantControllerTest {
 //    @Test
 //    public void testInsertWorks() throws Exception{
 //        LocationDTO locationDTO=new LocationDTO();
-//        locationDTO.setNation_code("USA");
+//        locationDTO.setCountry("USA");
 //        locationDTO.setLocation_code("920001");
 //        List<WorkDTO> workDTOS=new ArrayList<>();
 //        WorkDTO workDTO=new WorkDTO();
@@ -411,7 +411,7 @@ public class ApplicantControllerTest {
 //    @Test
 //    public void testInsertProjects() throws Exception{
 //        LocationDTO locationDTO=new LocationDTO();
-//        locationDTO.setNation_code("USA");
+//        locationDTO.setCountry("USA");
 //        locationDTO.setLocation_code("920001");
 //        long begin=1111111;
 //        long end=2222222;
@@ -440,7 +440,7 @@ public class ApplicantControllerTest {
 //    @Test
 //    public void testInsertExtracurriculars() throws Exception{
 //        LocationDTO locationDTO=new LocationDTO();
-//        locationDTO.setNation_code("USA");
+//        locationDTO.setCountry("USA");
 //        locationDTO.setLocation_code("920001");
 //        long begin=1111111;
 //        long end=2222222;
@@ -470,7 +470,7 @@ public class ApplicantControllerTest {
 //    @Test
 //    public void testInsertCertificates() throws Exception{
 //        LocationDTO locationDTO=new LocationDTO();
-//        locationDTO.setNation_code("USA");
+//        locationDTO.setCountry("USA");
 //        locationDTO.setLocation_code("920001");
 //        long begin=1111111;
 //        long end=2222222;

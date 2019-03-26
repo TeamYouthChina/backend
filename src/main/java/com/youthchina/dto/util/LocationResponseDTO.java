@@ -12,7 +12,7 @@ public class LocationResponseDTO {
     private String location;
 
     public LocationResponseDTO(Location location) {
-        this.location = location.getRegion_chn();
+        this.location = location.getRegionName();
     }
 
     public String getLocation() {

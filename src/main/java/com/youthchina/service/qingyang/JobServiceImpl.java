@@ -87,7 +87,7 @@ public class JobServiceImpl implements JobService {
         if (locationList != null) {
             for (int i = 0; i < locationList.size(); i++) {
 
-                Integer regionNum = locationList.get(i).getRegion_num();
+                Integer regionNum = locationList.get(i).getRegionNum();
                 locationList.set(i, locationServiceImpl.getLocation(regionNum));
             }
         }
@@ -95,7 +95,7 @@ public class JobServiceImpl implements JobService {
         //Set Company Location
         Location comLocation = job.getCompany().getLocation();
         if (comLocation != null) {
-            job.getCompany().setLocation(locationServiceImpl.getLocation(comLocation.getRegion_num()));
+            job.getCompany().setLocation(locationServiceImpl.getLocation(comLocation.getRegionNum()));
         }
     }
 
