@@ -9,6 +9,7 @@ import java.util.List;
 @Component
 @Mapper
 public interface AnswerMapper {
+    // get all answers of a question by id of question
     List<Answer> getAnswers(Integer id);
     Answer get(Integer id);
     void add(Answer answer);

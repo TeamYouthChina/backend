@@ -13,4 +13,5 @@ public interface DiscussMapper {
     void add(Discuss discuss);
     void delete(Integer id);
     Integer checkIfDiscussExist(Integer id);
+    void deleteAllDiscussOfComment(Integer id);
 }

@@ -17,4 +17,6 @@ public interface CommentService extends DomainCRUDService<Comment, Integer> {
 
     Comment add(Comment comment, Commentable entity) throws NotFoundException;
 
+    void delete(Commentable commentable);
+
 }

@@ -13,6 +13,7 @@ public class Answer implements Commentable, RichTextable {
     private Integer id;
     private Integer targetType;
     private Integer targetId;
+    private Integer answerLevel;
     private Integer isAnony;
     private Timestamp pubTime;
     private Timestamp editTime;
@@ -141,5 +142,13 @@ public class Answer implements Commentable, RichTextable {
 
     public void setCommentTargetType(Integer commentTargetType) {
         this.commentTargetType = commentTargetType;
+    }
+
+    public Integer getAnswerLevel() {
+        return answerLevel;
+    }
+
+    public void setAnswerLevel(Integer answerLevel) {
+        this.answerLevel = answerLevel;
     }
 }

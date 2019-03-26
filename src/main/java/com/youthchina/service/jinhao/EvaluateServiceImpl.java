@@ -1,6 +1,7 @@
 package com.youthchina.service.jinhao;
 
 import com.youthchina.dao.jinhao.EvaluateMapper;
+import com.youthchina.domain.jinhao.Evaluate;
 import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,16 @@ public class EvaluateServiceImpl implements EvaluateService{
             default:
                 throw new NotFoundException(404,404,"No such type");
         }
-        evaluateMapper.upvote(type,id,userId);
+        Evaluate evaluate = evaluateMapper.isEverEvaluate(type,id,userId);
+        if(evaluate == null){
+            evaluateMapper.upvote(type,id,userId);
+        }else{
+            if(evaluate.getType() == 1){
+                throw new NotFoundException(404,404,"You have already upvoted! You cannot upvote again!");
+            }else{
+                evaluateMapper.reUpvote(evaluate.getId());
+            }
+        }
     }
 
     @Override
@@ -65,7 +75,16 @@ public class EvaluateServiceImpl implements EvaluateService{
             default:
                 throw new NotFoundException(404,404,"No such type");
         }
-        evaluateMapper.downvote(type,id,userId);
+        Evaluate evaluate = evaluateMapper.isEverEvaluate(type,id,userId);
+        if(evaluate == null){
+            evaluateMapper.downvote(type,id,userId);
+        }else{
+            if(evaluate.getType() == 2){
+                throw new NotFoundException(404,404,"You have already downvoted! You cannot downvote again!");
+            }else{
+                evaluateMapper.reDownVote(evaluate.getId());
+            }
+        }
     }
 
     @Override
@@ -83,7 +102,12 @@ public class EvaluateServiceImpl implements EvaluateService{
             default:
                 throw new NotFoundException(404,404,"No such type");
         }
-        evaluateMapper.cancel(type,id,userId);
+        Evaluate evaluate = evaluateMapper.isEverEvaluate(type,id,userId);
+        if(evaluate == null || evaluate.getType() == 3){
+            throw new NotFoundException(404,404,"You have not evaluated! You cannot cancel!");
+        }else{
+            evaluateMapper.cancel(evaluate.getId());
+        }
     }
 
     @Override
