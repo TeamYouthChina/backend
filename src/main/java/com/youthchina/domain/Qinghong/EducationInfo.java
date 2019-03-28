@@ -22,16 +22,16 @@ public class EducationInfo {
     private Timestamp is_delete_time;
 
     public EducationInfo(EducationDTO educationDTO) {
-        this.edu_school=educationDTO.getUniversity();
-        this.edu_major=educationDTO.getMajor();
-        this.degree=new Degree();
+        this.edu_school = educationDTO.getUniversity();
+        this.edu_major = educationDTO.getMajor();
+        this.degree = new Degree();
         this.degree.setDegreeNum(Integer.parseInt(educationDTO.getDegree()));
-        this.edu_start=educationDTO.getDuration().getBegin();
-        this.edu_end=educationDTO.getDuration().getEnd();
-        this.location=new Location();
+        this.edu_start = educationDTO.getDuration().getBegin();
+        this.edu_end = educationDTO.getDuration().getEnd();
+        this.location = new Location();
         this.location.setNation_code(educationDTO.getLocation().getNation_code());
         this.location.setRegion_num(Integer.parseInt(educationDTO.getLocation().getLocation_code()));
-        this.edu_school_country=educationDTO.getLocation().getNation_code();
+        this.edu_school_country = educationDTO.getLocation().getNation_code();
 
         //fix location
         //空值的设置

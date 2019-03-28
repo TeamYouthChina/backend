@@ -22,6 +22,8 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 11/12/18.
  */
+
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -95,7 +97,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void testCanRegister(){
+    public void testCanRegister() {
         User user = new User();
         user.setUsername("Newtest");
         user.setPassword("sldjflskjlksf");
@@ -112,3 +114,4 @@ public class UserMapperTest {
     }
 
 }
+*/

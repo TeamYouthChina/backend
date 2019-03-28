@@ -2,34 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.jinhao.EvaluateMapper">
     <resultMap id="evaluate" type="com.youthchina.domain.jinhao.Evaluate">
-        <id property="id" column="EVALU_ID"/>
-        <result property="type" column="EVALU_TYPE"/>
+        <id property="id" column="EVALUATE_ID"/>
+        <result property="type" column="EVALUATE_TYPE"/>
     </resultMap>
 
     <select id="isEverEvaluate" resultMap="evaluate">
-        select EVALU_ID,EVALU_TYPE from COM_EVALUATE
+        select EVALUATE_ID,EVALUATE_TYPE from COM_EVALUATE
         where TARGET_TYPE=#{type} and TARGET_ID=#{targetId} and USER_ID=#{userId}
     </select>
 
     <update id="reUpvote" parameterType="java.lang.Integer">
-        update COM_EVALUATE set EVALU_TYPE=1 where EVALU_ID=#{id}
+        update COM_EVALUATE set EVALUATE_TYPE=1 where EVALUATE_ID=#{id}
     </update>
     <update id="reDownVote" parameterType="java.lang.Integer">
-        update COM_EVALUATE set EVALU_TYPE=2 where EVALU_ID=#{id}
+        update COM_EVALUATE set EVALUATE_TYPE=2 where EVALUATE_ID=#{id}
     </update>
     <insert id="upvote" useGeneratedKeys="true" keyProperty="id">
-        insert into COM_EVALUATE(target_type, target_id, user_id, evalu_type, evalu_time)
+        insert into COM_EVALUATE(target_type, target_id, user_id, evaluate_type, evaluate_time)
         values (#{type},#{targetId},#{userId},1,now())
     </insert>
     <insert id="downvote" useGeneratedKeys="true" keyProperty="id">
-        insert into COM_EVALUATE(target_type, target_id, user_id, evalu_type, evalu_time)
+        insert into COM_EVALUATE(target_type, target_id, user_id, evaluate_type, evaluate_time)
         VALUES (#{type},#{targetId},#{userId},2,now())
     </insert>
     <update id="cancel" parameterType="java.lang.Integer">
-        update COM_EVALUATE set EVALU_TYPE=3, EVALU_TIME=now()
-        where EVALU_ID=#{id}
+        update COM_EVALUATE set EVALUATE_TYPE=3, EVALUATE_TIME=now()
+        where EVALUATE_ID=#{id}
     </update>
-    <select id="countUpvote" resultMap="java.lang.Integer">
-        select count(EVALU_ID) from COM_EVALUATE where TARGET_TYPE=#{type} and TARGET_ID=#{targetId}
+    <select id="countUpvote" resultType="java.lang.Integer">
+        select count(EVALUATE_ID) from COM_EVALUATE where TARGET_TYPE=#{type} and TARGET_ID=#{targetId}
     </select>
 </mapper>

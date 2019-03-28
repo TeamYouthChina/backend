@@ -21,17 +21,17 @@
     <insert id="add" parameterType="com.youthchina.domain.jinhao.Question" useGeneratedKeys="true"
     keyProperty="id">
         insert into COM_QUESTION(ques_title, ques_abbre, ques_body, user_id, user_anony, ques_pub_time, ques_edit_time, rela_type, rela_id)
-        values (#{title},#{abbre},#{body.id},#{user.id},#{idAnony},now(),now(),#{relaType},#{relaId})
+        values (#{title},#{abbre},#{body.textId},#{user.id},#{isAnony},now(),now(),#{relaType},#{relaId})
     </insert>
     <update id="delete" parameterType="java.lang.Integer">
-        update COM_QUESTION set IS_DELETE=0, IS_DELETE_TIME=now()
+        update COM_QUESTION set IS_DELETE=1, IS_DELETE_TIME=now()
         where QUES_ID=#{id}
     </update>
-    <update id="edit" parameterType="java.lang.Integer">
+    <update id="edit" parameterType="com.youthchina.domain.jinhao.Question">
         update COM_QUESTION set QUES_TITLE=#{title}, QUES_ABBRE=#{abbre}, USER_ANONY=#{isAnony}, QUES_EDIT_TIME=now()
         where QUES_ID=#{id}
     </update>
     <select id="checkIfQuestionExist" resultType="java.lang.Integer">
-        select QUES_ID from COM_QUESTION where QUES_ID=#{id}
+        select QUES_ID from COM_QUESTION where QUES_ID=#{id} and IS_DELETE=0
     </select>
 </mapper>

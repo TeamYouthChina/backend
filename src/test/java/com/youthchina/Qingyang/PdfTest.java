@@ -20,7 +20,6 @@ import java.util.regex.Pattern;
 public class PdfTest {
 
 
-
     private String resume = null;
     private String name = null;
     private String phone = null;
@@ -92,7 +91,7 @@ public class PdfTest {
 
     public String mailSearch(String resume) {
         String MAIL_REG = "\\w+(\\.\\w+)*@\\w+(\\.\\w{2,3}){1,3}";
-        return regexMatch(MAIL_REG,resume);
+        return regexMatch(MAIL_REG, resume);
     }
 
     public String addressSearch(String resume) {
@@ -173,7 +172,6 @@ public class PdfTest {
         } else {
             Assert.fail();
         }
-
 
 
     }

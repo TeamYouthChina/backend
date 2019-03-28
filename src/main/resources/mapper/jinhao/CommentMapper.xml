@@ -7,19 +7,18 @@
         <result property="isAnony" column="USER_ANONY"/>
         <result property="pubTime" column="COMMENT_PUB_TIME"/>
         <result property="editTime" column="COMMENT_EDIT_TIME"/>
-        <result property="userId" column="USER_ID"/>
-        <association property="answer_user" javaType="com.youthchina.domain.zhongyang.User"
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
                      resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
     </resultMap>
 
     <select id="getComments" resultMap="comment">
-        select c.* from COM_COMMENT c
+        select u.*,c.* from COM_COMMENT c
         left join SYS_USER u on u.USER_ID = c.USER_ID and u.IS_DELETE=0
         where c.TARGET_TYPE=#{targetType} and c.TARGET_ID=#{targetId} and c.IS_DELETE=0
     </select>
     
     <select id="get" resultMap="comment">
-        select c.* from COM_COMMENT c
+        select u.*,c.* from COM_COMMENT c
         left join SYS_USER u on u.USER_ID = c.USER_ID and u.IS_DELETE=0
         where c.COMMENT_ID=#{id} and c.IS_DELETE=0
     </select>
@@ -37,7 +36,7 @@
         update COM_COMMENT set IS_DELETE=1,IS_DELETE_TIME=now()
         where TARGET_TYPE=#{type} and TARGET_ID=#{id}
     </update>
-    <select id="checkIfCommentExist" parameterType="java.lang.Integer">
-        select COMMENT_ID from COM_COMMENT where COMMENT_ID=#{id}
+    <select id="checkIfCommentExist" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select COMMENT_ID from COM_COMMENT where COMMENT_ID=#{id} and IS_DELETE=0
     </select>
 </mapper>

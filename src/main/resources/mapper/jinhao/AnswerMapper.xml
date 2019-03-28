@@ -5,11 +5,10 @@
         <id property="id" column="ANSWER_ID"/>
         <result property="targetType" column="TARGET_TYPE"/>
         <result property="targetId" column="TARGET_ID"/>
-        <result property="userId" column="USER_ID"/>
         <result property="isAnony" column="USER_ANONY"/>
         <result property="pubTime" column="ANSWER_PUB_TIME"/>
         <result property="editTime" column="ANSWER_EDIT_TIME"/>
-        <association property="answer_user" javaType="com.youthchina.domain.zhongyang.User"
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
                      resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
     </resultMap>
 
@@ -28,7 +27,7 @@
     <insert id="add" parameterType="com.youthchina.domain.jinhao.Answer" useGeneratedKeys="true"
     keyProperty="id">
         insert into COM_ANSWER(ANSWER_BODY,target_type, target_id, user_id, user_anony, answer_pub_time, answer_edit_time)
-        values (#{body.id},#{targetType},#{targetId},#{user.id},#{isAnony},now(),now())
+        values (#{body.textId},#{targetType},#{targetId},#{user.id},#{isAnony},now(),now())
     </insert>
 
     <update id="update" parameterType="com.youthchina.domain.jinhao.Answer">

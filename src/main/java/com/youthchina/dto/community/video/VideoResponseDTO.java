@@ -9,16 +9,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class VideoDTO {
+public class VideoResponseDTO {
     private Integer id;
     private String url;
     private List<CommentDTO> comments = new ArrayList<CommentDTO>();
     private UserDTO uploader;
 
-    public VideoDTO (){}
+    public VideoResponseDTO(){}
 
-    public VideoDTO (Video video){
-        this.id = video.getVideo_id();
+    public VideoResponseDTO(Video video){
+        this.id = video.getId();
         if(video.getComments() != null){
             Iterator it = video.getComments().iterator();
             while(it.hasNext()){
@@ -27,7 +27,7 @@ public class VideoDTO {
             }
         }
         this.uploader = new UserDTO(video.getUser());
-        this.url = video.getVideo_name();
+        this.url = video.getName();
     }
 
     public Integer getId() {

@@ -17,18 +17,25 @@ public class InvitationServiceImpl implements InvitationService {
 
 
     @Override
-    public void add(Invitable entity, Integer userId, Integer invitedUserId) {
+    public void add(Invitable entity, Integer userId, Integer invitedUserId) throws NotFoundException{
         Integer type = entity.getInviteTargetType();
         Integer id = entity.getId();
+        Integer invitId = communityInvitationMapper.checkIfInvitationExist(type,id,userId,invitedUserId);
+        if(invitId != null){
+            throw new NotFoundException(404,404,"you have invited this user");
+        }
         communityInvitationMapper.add(type,id,userId,invitedUserId);
     }
 
     @Override
-    public void accept(Integer id)throws NotFoundException {
-        if(communityInvitationMapper.checkIfInvitationExist(id) == null){
+    public void accept(Invitable entity, Integer userId, Integer invitedUserId)throws NotFoundException {
+        Integer type = entity.getInviteTargetType();
+        Integer id = entity.getId();
+        Integer invitId = communityInvitationMapper.checkIfInvitationExist(type,id,userId,invitedUserId);
+        if(invitId == null){
             throw new NotFoundException(404,404,"没有找到这个邀请");
         }
-        communityInvitationMapper.update(id);
+        communityInvitationMapper.update(invitId);
     }
 
     @Override

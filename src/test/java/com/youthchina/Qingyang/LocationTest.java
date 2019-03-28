@@ -22,11 +22,11 @@ import java.util.List;
  * @create: 2019-02-17
  **/
 
-
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:company.xml","classpath:location.xml"})
+@DatabaseSetup({"classpath:company.xml", "classpath:location.xml"})
 public class LocationTest {
     @Autowired
     private LocationMapper locationMapper;
@@ -44,7 +44,7 @@ public class LocationTest {
     }
 
     @Test
-    public void testGetUSALocationByLocationList(){
+    public void testGetUSALocationByLocationList() {
         List<Location> input = new ArrayList<>();
         Location l1 = new Location();
         Location l2 = new Location();
@@ -57,5 +57,4 @@ public class LocationTest {
     }
 
 
-
-}
+}*/

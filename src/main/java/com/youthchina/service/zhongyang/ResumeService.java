@@ -15,7 +15,7 @@ public interface ResumeService extends DomainCRUDService<Resume, String> {
     /**
      * get resume by resume Id
      *
-     * @param user   user
+     * @param user     user
      * @param resumeId resume id
      * @return resume
      * @throws NotBelongException throw if user does not have target resume

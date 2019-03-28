@@ -29,7 +29,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        if(authentication.isAuthenticated()){
+        if (authentication.isAuthenticated()) {
             return authentication;
         }
         User intentUser = (User) authentication.getPrincipal();
@@ -39,7 +39,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         } catch (NotFoundException e) {
             throw new UsernameNotFoundException("Cannot find user");
         }
-        if(actualUser == null){
+        if (actualUser == null) {
             //if no user with target id is in DB
             return null;
         }

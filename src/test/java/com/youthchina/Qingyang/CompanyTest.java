@@ -1,28 +1,6 @@
 package com.youthchina.Qingyang;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.dao.qingyang.CompanyMapper;
-import com.youthchina.dao.qingyang.HrMapper;
-import com.youthchina.dao.qingyang.JobMapper;
-import com.youthchina.dao.qingyang.LocationMapper;
-import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.domain.qingyang.*;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
-
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
@@ -58,7 +36,7 @@ public class CompanyTest {
         List<CompanyVerification> companyVerifications = companyMapper.selectCompanyVerificationByIdList(ids);
         Assert.assertEquals(2, companyVerifications.size());
         for (CompanyVerification companyVerification : companyVerifications) {
-            if(companyVerification.getVerifyId() != 1 && companyVerification.getVerifyId()  != 2){
+            if (companyVerification.getVerifyId() != 1 && companyVerification.getVerifyId() != 2) {
                 Assert.fail();
             }
         }
@@ -153,7 +131,7 @@ public class CompanyTest {
         List<Company> companies = companyMapper.selectCompanyByIdList(ids);
         Assert.assertEquals(2, companies.size());
         for (Company company : companies) {
-            if(company.getCompanyId() != 1 && company.getCompanyId()  != 2){
+            if (company.getCompanyId() != 1 && company.getCompanyId() != 2) {
                 Assert.fail();
             }
         }
@@ -183,7 +161,7 @@ public class CompanyTest {
     }
 
     @Test
-    public void testGetCompanyByName(){
+    public void testGetCompanyByName() {
         List<Company> companyList = companyMapper.selectCompanyByName("腾讯");
         Assert.assertEquals(2, companyList.size());
         Assert.assertEquals("腾讯", companyList.get(0).getCompanyName());
@@ -194,12 +172,12 @@ public class CompanyTest {
     }
 
     @Test
-    public void testGetCompanyLocation(){
+    public void testGetCompanyLocation() {
         Company company = companyMapper.selectCompany(1);
         Assert.assertEquals(Integer.valueOf(1), company.getLocation().getRegion_num());
         Location location = company.getLocation();
         String region = "" + location.getRegion_num();
-        if(region.charAt(0) == '9'){
+        if (region.charAt(0) == '9') {
             location = locationMapper.getUSALocation(location.getRegion_num());
         } else {
             location = locationMapper.getChnLocation(location.getRegion_num());
@@ -210,10 +188,10 @@ public class CompanyTest {
     }
 
     @Test
-    public void testGetCompanyCollectionNum(){
+    public void testGetCompanyCollectionNum() {
         Company company = companyMapper.selectCompany(1);
         Assert.assertEquals(Integer.valueOf(2), company.getCollectNum());
     }
-    
 
-}
+
+} */

@@ -5,6 +5,7 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.security.RegisterUserDTO;
 import com.youthchina.exception.zhongyang.ClientException;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.zhongyang.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class RegisterController {
     }
 
     @PostMapping("${web.url.prefix}/applicants/register")
-    public ResponseEntity register(@RequestBody RegisterUserDTO registerUser) throws ClientException {
+    public ResponseEntity register(@RequestBody RegisterUserDTO registerUser) throws ClientException, NotFoundException{
         User user = new User(registerUser);
         user.setRole(Role.APPLICANT);
         if (userService.canRegister(user)) {

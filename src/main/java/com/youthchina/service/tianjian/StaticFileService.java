@@ -61,7 +61,7 @@ public class StaticFileService {
         try {
             //save fileInfo
             for (FileStorageService fileStorageService : fileStorageServices.values()) {
-                fileStorageService.uploadFile(resource,id);
+                fileStorageService.uploadFile(resource, id);
             }
         } catch (Exception e) {
 
@@ -69,8 +69,8 @@ public class StaticFileService {
         return id;
     }
 
-    public URL getFileUrl(String fileId){
-        return getFileUrl(fileId,"China");
+    public URL getFileUrl(String fileId) {
+        return getFileUrl(fileId, "China");
     }
 
     public URL getFileUrl(String fileId, String location) {

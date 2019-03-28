@@ -9,8 +9,8 @@ import com.youthchina.dto.applicant.SendingEmailDTO;
 import com.youthchina.dto.application.JobApplyDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.job.JobSearchDTO;
-import com.youthchina.dto.job.JobSearchResultDTO;
-import com.youthchina.dto.job.SimpleJobDTO;
+import com.youthchina.dto.job.JobSearchResponseDTO;
+import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -40,58 +40,62 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/jobs/**")
-public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integer> {
+public class JobController {
 
     private String url;
     private JobService jobService;
     private StudentService studentService;
-    @Autowired
-    private MessageSendService messageSendService;
+    private final MessageSendService messageSendService;
 
     @Autowired
-    public JobController(JobService jobService, StudentService studentService, @Value("${web.url.prefix}") String prefix) {
+    public JobController(JobService jobService, StudentService studentService, @Value("${web.url.prefix}") String prefix, MessageSendService messageSendService) {
         this.jobService = jobService;
         this.studentService = studentService;
         this.url = prefix + "/jobs/";
+        this.messageSendService = messageSendService;
     }
 
-    @Override
-    protected DomainCRUDService<Job, Integer> getService() {
-        return this.jobService;
+    protected JobResponseDTO DomainToDto(Job domain) {
+        return new JobResponseDTO(domain);
     }
 
-    @Override
-    protected SimpleJobDTO DomainToDto(Job domain) {
-        return new SimpleJobDTO(domain);
+    protected Job DtoToDomain(JobRequestDTO jobRequestDTO) {
+        return new Job(jobRequestDTO);
     }
 
-    @Override
-    protected Job DtoToDomain(SimpleJobDTO simpleJobDTO) {
-        return new Job(simpleJobDTO);
-    }
-
-    @Override
     protected URI getUriForNewInstance(Integer id) throws URISyntaxException {
         return new URI(this.url + id.toString());
     }
 
 
-
     @PostMapping("/**")
-    public ResponseEntity<?> createJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) {
-        return add(simpleJobDTO);
+    public ResponseEntity<?> createJobInfo(@RequestBody JobRequestDTO jobRequestDTO) throws  NotFoundException {
+        Job job = new Job(jobRequestDTO);
+        Job jobresult = jobService.add(job);
+        if(jobresult.getId() != null){
+            return ResponseEntity.ok(new Response(new StatusDTO(204,"add success")));
+        }else{
+            return ResponseEntity.ok(new Response(new StatusDTO(403, "add failed")));
+        }
     }
 
     @PutMapping("/{id}/**")
-    public ResponseEntity<?> updateJobInfo(@RequestBody SimpleJobDTO simpleJobDTO) throws NotFoundException {
-        return update(simpleJobDTO);
+    public ResponseEntity<?> updateJobInfo(@PathVariable Integer id, @RequestBody JobRequestDTO jobRequestDTO) throws NotFoundException {
+        Job job = new Job(jobRequestDTO);
+        job.setJobId(id);
+        Job jobresult = jobService.update(job);
+        if(jobresult.getId() != null) {
+            return ResponseEntity.ok(new Response(new StatusDTO(204, "update success")));
+        }else{
+            return ResponseEntity.ok(new Response(new StatusDTO(403, "update failed")));
+        }
     }
 
     @DeleteMapping("/{id}/**")
-    public ResponseEntity<?> deleteJobInfo(@PathVariable Integer id) throws NotFoundException {
-        return delete(id);
+    public ResponseEntity<?> deleteJobInfo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        jobService.delete(user,id);
+        return ResponseEntity.ok(new Response(new StatusDTO(204,"delete success")));
     }
-
 
     @GetMapping("/{id}/**")
     public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
@@ -125,10 +129,10 @@ public class JobController extends DomainCRUDController<SimpleJobDTO, Job, Integ
         for (Job job : searchResultJob) {
             searchResultJobDTO.add(new JobResponseDTO(job));
         }
-        JobSearchResultDTO jobSearchResultDTO = new JobSearchResultDTO();
-        jobSearchResultDTO.setSearchResult(searchResultJobDTO);
+        JobSearchResponseDTO jobSearchResponseDTO = new JobSearchResponseDTO();
+        jobSearchResponseDTO.setSearchResult(searchResultJobDTO);
 
-        return ResponseEntity.ok(new Response(jobSearchResultDTO));
+        return ResponseEntity.ok(new Response(jobSearchResponseDTO));
     }
 
     /**

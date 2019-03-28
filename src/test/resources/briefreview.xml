@@ -20,7 +20,7 @@
                       REVIEW_TIME="2018-12-04 13:32:40" IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
     <COM_BRIEF_REVIEW REVIEW_ID="2" REVIEW_CONTENT=
 
-    "{
+            "{
     &quot;braftEditorRaw&quot; : {
     &quot;entityMap&quot; : { },
     &quot;blocks&quot; : [ {
@@ -40,7 +40,7 @@
     <COM_BRIEF_REVIEW_MAP REVIEW_ID="1" USER_ID="1" RELA_TYPE="2" RELA_ID="1"/>
     <COM_BRIEF_REVIEW_MAP REVIEW_ID="2" USER_ID="2" RELA_TYPE="1" RELA_ID="0"/>
     <COM_REVIEW_COMMENT COMMENT_ID="1" COMMENT_CONTENT=
-    "{
+            "{
     &quot;braftEditorRaw&quot; : {
     &quot;entityMap&quot; : { },
     &quot;blocks&quot; : [ {
@@ -59,7 +59,7 @@
                         USER_ID="1" USER_ANONY="0" COMMENT_PUB_TIME="2018-12-04 13:32:40"
                         COMMENT_EDIT_TIME="2018-12-04 13:32:40" IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
     <COM_REVIEW_COMMENT COMMENT_ID="2" COMMENT_CONTENT=
-    "{
+            "{
     &quot;braftEditorRaw&quot; : {
     &quot;entityMap&quot; : { },
     &quot;blocks&quot; : [ {
@@ -77,8 +77,8 @@
     }"
                         USER_ID="3" USER_ANONY="0" COMMENT_PUB_TIME="2018-12-04 13:32:40"
                         COMMENT_EDIT_TIME="2018-12-04 13:32:40" IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
-    <COM_REVIEW_COMMENT_EVALUATE EVALUATE_ID="1" USER_ID="2" EVALUATE_TYPE="2" EVALUATE_TIME="2018-12-04 13:32:40" />
-    <COM_REVIEW_COMMENT_EVALUATE EVALUATE_ID="2" USER_ID="4" EVALUATE_TYPE="2" EVALUATE_TIME="2018-12-04 13:32:40" />
+    <COM_REVIEW_COMMENT_EVALUATE EVALUATE_ID="1" USER_ID="2" EVALUATE_TYPE="2" EVALUATE_TIME="2018-12-04 13:32:40"/>
+    <COM_REVIEW_COMMENT_EVALUATE EVALUATE_ID="2" USER_ID="4" EVALUATE_TYPE="2" EVALUATE_TIME="2018-12-04 13:32:40"/>
     <COM_REVIEW_COMMENT_EVALUATE_MAP EVALUATE_ID="1" COMMENT_ID="1"/>
     <COM_REVIEW_COMMENT_EVALUATE_MAP EVALUATE_ID="2" COMMENT_ID="2"/>
     <COM_REVIEW_COMMENT_MAP COMMENT_ID="1" COMMENT_LEVEL="12" REVIEW_ID="1"/>

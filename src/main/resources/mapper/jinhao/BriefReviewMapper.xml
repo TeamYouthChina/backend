@@ -6,7 +6,7 @@
         <result property="time" column="REVIEW_TIME"/>
         <result property="relaType" column="RELA_TYPE"/>
         <result property="relaId" column="RELA_ID"/>
-        <association property="answer_user" javaType="com.youthchina.domain.zhongyang.User"
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
                      resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
     </resultMap>
 
@@ -19,7 +19,7 @@
     <insert id="add" parameterType="com.youthchina.domain.jinhao.BriefReview" useGeneratedKeys="true"
             keyProperty="id">
         insert into COM_BRIEF_REVIEW(review_time, REVIEW_BODY, user_id, rela_type, rela_id)
-        values (now(),#{body.id},#{user.id},#{relaType},#{relaId})
+        values (now(),#{body.textId},#{user.id},#{relaType},#{relaId})
     </insert>
 
     <update id="delete" parameterType="java.lang.Integer">
@@ -28,11 +28,11 @@
     </update>
 
     <update id="update" parameterType="com.youthchina.domain.jinhao.BriefReview">
-        update COM_BRIEF_REVIEW set REVIEW_TIME=now()
+        update COM_BRIEF_REVIEW set REVIEW_TIME=now(), RELA_TYPE=#{relaType}, RELA_ID=#{relaId}
         where REVIEW_ID=#{id}
     </update>
 
-    <select id="checkIfBriefReviewExist" parameterType="java.lang.Integer" resultMap="java.lang.Integer">
+    <select id="checkIfBriefReviewExist" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select REVIEW_ID from COM_BRIEF_REVIEW where REVIEW_ID=#{id} and IS_DELETE=0
     </select>
 </mapper>
