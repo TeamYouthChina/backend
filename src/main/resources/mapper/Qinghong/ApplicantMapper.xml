@@ -385,7 +385,7 @@
 
     <!--获取某个认证信息-->
     <select id="getCertificateById" resultMap="CertificateResultMap">
-        SELECT b.*
+        SELECT b.*,m.*
         FROM STU_CERTIFICATE b
         LEFT JOIN SYS_COUNTRY m ON b.INSTI_COUNTRY=m.COUNTRY_ABBRE AND m.IS_DELETE=0
         WHERE b.CERTIFICATE_ID=#{certificate_id} AND b.IS_DELETE=0
@@ -400,7 +400,7 @@
 
     <!--获取某个活动信息-->
     <select id="getActivityById" resultMap="ActivityResultMap">
-        SELECT b.*
+        SELECT b.*,i.*
         FROM STU_ACTIVITY b
         LEFT JOIN SYS_COUNTRY i ON b.ORG_COUNTRY=i.COUNTRY_ABBRE AND i.IS_DELETE=0
         WHERE b.ACT_ID=#{act_id} AND b.IS_DELETE=0

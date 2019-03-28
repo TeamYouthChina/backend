@@ -9,6 +9,7 @@ import com.youthchina.dto.util.LocationDTO;
  * Created by zhong on 2018/12/30.
  */
 public class WorkRequestDTO implements RequestDTO {
+    private Integer id;
     private String employer;
     private String position;
     private DurationDTO duration;
@@ -24,6 +25,14 @@ public class WorkRequestDTO implements RequestDTO {
         this.duration = new DurationDTO(work.getWork_start_time(), work.getWork_end_time());
         this.location = new LocationDTO(work.getLocation());
 
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getEmployer() {

@@ -25,6 +25,9 @@ public class Certificate {
     private Timestamp is_delete_time;
 
     public Certificate(CertificateRequestDTO certificateRequestDTO) {
+        this.certificate_id=certificateRequestDTO.getId();
+        this.insti_country=new Country();
+        insti_country.setCountryAbbre(certificateRequestDTO.getCountry());
         this.certificate_name= certificateRequestDTO.getName();
         this.certificate_insti= certificateRequestDTO.getAuthority();
         this.certificate_grant_date= certificateRequestDTO.getDuration().getBegin();

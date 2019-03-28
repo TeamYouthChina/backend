@@ -481,19 +481,18 @@ public class StudentServiceImpl implements StudentService {
     * @Date: 2019/3/24 
     */
     @Override
-    public List<EducationInfo> insertEducation(EducationInfo educationInfo, Integer user_id) throws NotFoundException {
+    public EducationInfo insertEducation(EducationInfo educationInfo, Integer user_id) throws NotFoundException {
         UserInfo userInfo  = applicantMapper.getUserInfo(user_id);
         if (userInfo == null) {
             throw new NotFoundException(404, 404, "cannot find user with id " + user_id);
         } else {
             educationInfo.setStu_id(user_id);
             Integer integer = applicantMapper.insertEduInfo(educationInfo);
-            List<EducationInfo> educationInfos = applicantMapper.getStudentInfo(user_id).getEducationInfos();
+            return applicantMapper.getEducationById(integer);
 //            for (EducationInfo educationInfo1 : educationInfos) {
 //                Location location = locationService.getLocation(educationInfo1.getLocation().getRegion_num());
 //                educationInfo1.setLocation(location);
 //            }
-            return educationInfos;
 
         }
     }
@@ -506,22 +505,20 @@ public class StudentServiceImpl implements StudentService {
     * @Date: 2019/3/24 
     */
     @Override
-    public List<Work> insertWork(Work work, Integer user_id) throws NotFoundException {
+    public Work insertWork(Work work, Integer user_id) throws NotFoundException {
         UserInfo userInfo=applicantMapper.getUserInfo(user_id);
         if (userInfo == null) {
             throw new NotFoundException(404, 404, "cannot find user with id " + user_id);
         } else {
             work.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuWork(work);
-            List<Work> works = applicantMapper.getStudentInfo(user_id).getWorks();
-            for (Work work1 : works) {
-                Location location = locationService.getLocation(work1.getLocation().getRegion_num());
-                work1.setLocation(location);
-            }
-
-            return works;
+            Work work1=applicantMapper.getWorkById(integer);
+            Location location = locationService.getLocation(work1.getLocation().getRegion_num());
+            work1.setLocation(location);
+            return work1;
 
         }
+
 
     }
     
@@ -533,15 +530,15 @@ public class StudentServiceImpl implements StudentService {
     * @Date: 2019/3/24 
     */
     @Override
-    public List<Project> insertProject(Project project, Integer user_id) throws NotFoundException {
+    public Project insertProject(Project project, Integer user_id) throws NotFoundException {
         UserInfo baseInfo = applicantMapper.getUserInfo(user_id);
         if (baseInfo == null) {
             throw new NotFoundException(404, 404, "cannot find user with id " + user_id);
         } else {
             project.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuProject(project);
-            List<Project> projects = applicantMapper.getProjects(user_id);
-            return projects;
+            Project project1=applicantMapper.getProjectById(integer);
+            return project1;
 
         }
     }
@@ -555,15 +552,15 @@ public class StudentServiceImpl implements StudentService {
     */
 
     @Override
-    public List<Activity> insertActivity(Activity activity, Integer user_id) throws NotFoundException {
+    public Activity insertActivity(Activity activity, Integer user_id) throws NotFoundException {
         UserInfo baseInfo = applicantMapper.getUserInfo(user_id);
         if (baseInfo == null) {
             throw new NotFoundException(404, 404, "cannot find user with id " + user_id);
         } else {
             activity.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuActivity(activity);
-            List<Activity> activities = applicantMapper.getActivities(user_id);
-            return activities;
+            Activity activity1=applicantMapper.getActivityById(integer);
+            return activity1;
 
         }
 
@@ -577,15 +574,15 @@ public class StudentServiceImpl implements StudentService {
     * @Date: 2019/3/24 
     */
     @Override
-    public List<Certificate> insertCertificate(Certificate certificate, Integer user_id) throws NotFoundException {
+    public Certificate insertCertificate(Certificate certificate, Integer user_id) throws NotFoundException {
         UserInfo baseInfo = applicantMapper.getUserInfo(user_id);
         if (baseInfo == null) {
             throw new NotFoundException(404, 404, "cannot find user with id " + user_id);
         } else {
             certificate.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuCertificate(certificate);
-            List<Certificate> certificates = applicantMapper.getCertificates(user_id);
-            return certificates;
+            Certificate certificate1=applicantMapper.getCertificateById(integer);
+            return certificate1;
 
         }
 

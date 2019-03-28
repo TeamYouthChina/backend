@@ -20,6 +20,7 @@ public class Work {
     private Timestamp is_delete_time;
 
     public Work(WorkRequestDTO workRequestDTO) {
+        this.work_id=workRequestDTO.getId();
         this.work_company= workRequestDTO.getEmployer();
         this.work_position= workRequestDTO.getPosition();
         this.work_start_time= workRequestDTO.getDuration().getBegin();

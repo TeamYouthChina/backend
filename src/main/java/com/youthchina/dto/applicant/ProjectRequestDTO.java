@@ -8,6 +8,7 @@ import com.youthchina.dto.util.DurationDTO;
  * Created by zhong on 2018/12/30.
  */
 public class ProjectRequestDTO implements RequestDTO {
+    private Integer id;
     private String name;
     private String role;
     private DurationDTO duration;
@@ -20,6 +21,14 @@ public class ProjectRequestDTO implements RequestDTO {
         this.name = project.getProj_name();
         this.role = project.getProj_role();
         this.duration = new DurationDTO(project.getProj_start_time(), project.getProj_end_time());
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

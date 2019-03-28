@@ -22,6 +22,9 @@ public class EducationInfo {
     private Timestamp is_delete_time;
 
     public EducationInfo(EducationRequestDTO educationRequestDTO) {
+        this.edu_id=educationRequestDTO.getId();
+        this.university=new University();
+        university.setUnivers_id(educationRequestDTO.getUniversity_id());
         this.edu_major= educationRequestDTO.getMajor();
         this.degree=new Degree();
         this.degree.setDegreeNum(Integer.parseInt(educationRequestDTO.getDegree()));

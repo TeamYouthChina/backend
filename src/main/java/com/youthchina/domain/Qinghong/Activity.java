@@ -20,6 +20,7 @@ public class Activity {
     private Timestamp is_delete_time;
 
     public Activity(ExtracurricularRequestDTO extracurricularRequestDTO) {
+        this.act_id=extracurricularRequestDTO.getId();
         this.act_name= extracurricularRequestDTO.getName();
         this.act_role= extracurricularRequestDTO.getRole();
         this.act_organization= extracurricularRequestDTO.getOrganization();

@@ -8,6 +8,7 @@ import com.youthchina.dto.util.DurationDTO;
  * Created by zhong on 2018/12/30.
  */
 public class ExtracurricularRequestDTO implements RequestDTO {
+    private Integer id;
     private String name;
     private String role;
     private String organization;
@@ -22,6 +23,14 @@ public class ExtracurricularRequestDTO implements RequestDTO {
         this.role = activity.getAct_role();
         this.organization = activity.getAct_organization();
         this.duration = new DurationDTO(activity.getAct_start_time(), activity.getAct_end_time());
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

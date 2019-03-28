@@ -22,6 +22,7 @@ public class Project {
     private Timestamp is_delete_time;
 
     public Project(ProjectRequestDTO projectRequestDTO) {
+        this.proj_id=projectRequestDTO.getId();
         this.proj_name= projectRequestDTO.getName();
         this.proj_role= projectRequestDTO.getRole();
         this.proj_start_time= projectRequestDTO.getDuration().getBegin();

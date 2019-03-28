@@ -7,11 +7,14 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.applicant.*;
 import com.youthchina.dto.application.JobApplyDTO;
+import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -369,6 +372,173 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
         return  ResponseEntity.ok(listResponse);
     }
 
+    @PostMapping("/{id}/education")
+    public ResponseEntity<?> insertEducation(@PathVariable Integer id,@RequestBody EducationRequestDTO educationRequestDTO,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            EducationInfo educationInfo=new EducationInfo(educationRequestDTO);
+            EducationResponseDTO educationResponseDTO=new EducationResponseDTO(studentService.insertEducation(educationInfo,user.getId()));
+            return ResponseEntity.ok(new Response(educationResponseDTO));
+        }else {
+            throw new ForbiddenException();
+        }
+
+    }
+    @PostMapping("/{id}/experience")
+    public ResponseEntity<?> insertWork(@PathVariable Integer id,@RequestBody WorkRequestDTO workRequestDTO,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            Work work=new Work(workRequestDTO);
+            Work work1=studentService.insertWork(work,user.getId());
+            WorkResponseDTO workResponseDTO=new WorkResponseDTO(work1);
+            return ResponseEntity.ok(workResponseDTO);
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PostMapping("/{id}/project")
+    public ResponseEntity<?> insertProject(@PathVariable Integer id,@RequestBody ProjectRequestDTO projectRequestDTO,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            Project project=new Project(projectRequestDTO);
+            Project project1=studentService.insertProject(project,user.getId());
+            ProjectResponseDTO projectResponseDTO=new ProjectResponseDTO(project1);
+            return ResponseEntity.ok(projectResponseDTO);
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PostMapping("/{id}/certificate")
+    public ResponseEntity<?> insertCertificate(@PathVariable Integer id,@RequestBody CertificateRequestDTO certificateRequestDTO,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            Certificate certificate=new Certificate(certificateRequestDTO);
+            Certificate certificate1=studentService.insertCertificate(certificate,user.getId());
+            CertificateResponseDTO certificateResponseDTO=new CertificateResponseDTO(certificate1);
+            return ResponseEntity.ok(certificateResponseDTO);
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PostMapping("/{id}/extracurricular")
+    public ResponseEntity<?> insertExtracurricular(@PathVariable Integer id,@RequestBody ExtracurricularRequestDTO extracurricularRequestDTO,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            Activity activity=new Activity(extracurricularRequestDTO);
+            Activity activity1=studentService.insertActivity(activity,user.getId());
+            ExtracurricularResponseDTO extracurricularResponseDTO=new ExtracurricularResponseDTO(activity1);
+            return ResponseEntity.ok(extracurricularResponseDTO);
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @DeleteMapping("/{id}/educations/{eduId}")
+    public ResponseEntity<?> deleteEducation(@PathVariable("id") Integer id,@PathVariable("eduId") Integer edu_id,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            studentService.deleteEducation(edu_id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @DeleteMapping("/{id}/projects/{projectId}")
+    public ResponseEntity<?> deleteProject(@PathVariable("id") Integer id,@PathVariable("projectId") Integer proj_id,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            studentService.deleteProject(proj_id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @DeleteMapping("/{id}/certificates/{certificateId}")
+    public ResponseEntity<?> deleteCertificate(@PathVariable("id") Integer id,@PathVariable("certificateId") Integer certificate_id,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            studentService.deleteCertificate(certificate_id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @DeleteMapping("/{id}/experiences/{workId}")
+    public ResponseEntity<?> deleteWork(@PathVariable("id") Integer id,@PathVariable("workId") Integer work_id,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            studentService.deleteWork(work_id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @DeleteMapping("/{id}/extracurriculars/{actId}")
+    public ResponseEntity<?> deleteExtracurricular(@PathVariable("id") Integer id,@PathVariable("actId") Integer act_id,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            studentService.deleteActivity(act_id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PutMapping("/{id}/education/{eduId}")
+    public ResponseEntity<?> updateEducation(@PathVariable("id") Integer id,@PathVariable("eduId") Integer edu_id,@RequestBody EducationRequestDTO educationRequestDTO,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            EducationInfo educationInfo=new EducationInfo(educationRequestDTO);
+            EducationInfo educationInfo1=studentService.updateEducationInfo(educationInfo);
+            return ResponseEntity.ok(new Response(educationInfo1));
+
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PutMapping("/{id}/project/{projectId}")
+    public ResponseEntity<?> updateProject(@PathVariable("id") Integer id,@PathVariable("projectId") Integer proj_id,@RequestBody ProjectRequestDTO projectRequestDTO,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            Project project=new Project(projectRequestDTO);
+            Project project1=studentService.updateProject(project);
+            return ResponseEntity.ok(new Response(project1));
+
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PutMapping("/{id}/work/{workId}")
+    public ResponseEntity<?> updateWork(@PathVariable("id") Integer id,@PathVariable("workId") Integer work_id,@RequestBody WorkRequestDTO workRequestDTO,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            Work work=new Work(workRequestDTO);
+            Work work1=studentService.updateWork(work);
+            return ResponseEntity.ok(new Response(work1));
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PutMapping("/{id}/certificate/{certificateId}")
+    public ResponseEntity<?> updateCertificate(@PathVariable("id") Integer id,@PathVariable("certificateId") Integer certificate_id,@RequestBody CertificateRequestDTO certificateRequestDTO,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            Certificate certificate=new Certificate(certificateRequestDTO);
+            Certificate certificate1=studentService.updateCertificate(certificate);
+            return ResponseEntity.ok(new Response(certificate1));
+
+        }else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PutMapping("/{id}/extracurricular/{actId}")
+    public ResponseEntity<?> updateExtracurriculars(@PathVariable("id") Integer id,@PathVariable("actId") Integer act_id,@RequestBody ExtracurricularRequestDTO extracurricularRequestDTO,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            Activity activity=new Activity(extracurricularRequestDTO);
+            Activity activity1=studentService.updateActivity(activity);
+            return ResponseEntity.ok(new Response(activity1));
+
+        }else {
+            throw new ForbiddenException();
+        }
+    }
 
 
 
@@ -378,4 +548,8 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
 
 
 
-}
+
+
+
+
+    }

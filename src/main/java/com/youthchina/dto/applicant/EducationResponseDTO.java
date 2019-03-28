@@ -24,6 +24,7 @@ public class EducationResponseDTO implements ResponseDTO {
     }
 
     public EducationResponseDTO(EducationInfo educationInfo) {
+        this.university=educationInfo.getUniversity().getUnivers_name();
         this.id = educationInfo.getEdu_id();
         this.major = educationInfo.getEdu_major();
         this.degree = educationInfo.getDegree().getDegreeChn();

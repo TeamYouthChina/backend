@@ -15,6 +15,7 @@ public class CertificateResponseDTO implements ResponseDTO {
     private Integer id;
     private String name;
     private String authority;
+    private String country;
     private DurationDTO duration;
     private String note;
 
@@ -22,6 +23,7 @@ public class CertificateResponseDTO implements ResponseDTO {
     }
 
     public CertificateResponseDTO(Certificate certificate) {
+        this.country=certificate.getInsti_country().getCountryChn();
         this.id = certificate.getCertificate_id();
         this.name = certificate.getCertificate_name();
         this.authority = certificate.getCertificate_insti();
@@ -68,5 +70,11 @@ public class CertificateResponseDTO implements ResponseDTO {
         this.note = note;
     }
 
+    public String getCountry() {
+        return country;
+    }
 
+    public void setCountry(String country) {
+        this.country = country;
+    }
 }

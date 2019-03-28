@@ -8,8 +8,10 @@ import com.youthchina.dto.util.DurationDTO;
  * Created by zhong on 2018/12/30.
  */
 public class CertificateRequestDTO implements RequestDTO {
+    private Integer id;
     private String name;
     private String authority;
+    private String country;
     private DurationDTO duration;
     private String note;
 
@@ -20,6 +22,14 @@ public class CertificateRequestDTO implements RequestDTO {
         this.name = certificate.getCertificate_name();
         this.authority = certificate.getCertificate_insti();
         this.duration = new DurationDTO(certificate.getCertificate_grant_date(), certificate.getCertificate_expir_date());
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -52,5 +62,13 @@ public class CertificateRequestDTO implements RequestDTO {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
