@@ -1,9 +1,8 @@
 package com.youthchina.dto.community.question;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.Question;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
-import com.youthchina.dto.RequestDTO;
+import com.youthchina.domain.jinhao.Question;
+import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.dto.community.answer.AnswerBasicDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
@@ -15,7 +14,7 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 1/2/19.
  */
-public class QuestionResponseDTO implements RequestDTO {
+public class QuestionDTO {
     private Integer id;
     private UserDTO creator;
     private String title;
@@ -23,48 +22,43 @@ public class QuestionResponseDTO implements RequestDTO {
     private Timestamp create_at;
     private Timestamp modified_at;
     private List<AnswerBasicDTO> answers;
-    //private AnswerInvitation invitation;
+    //private InvitationService invitation;
     private Integer rela_type;
     private Integer rela_id;
     private RichTextDTO body;
 
-    public QuestionResponseDTO(Question question) {
+    public QuestionDTO(Question question) {
         this.id = question.getQues_id();
         this.creator = new UserDTO(question.getQues_user());
         this.title = question.getQues_title();
-        try {
+        try{
             ObjectMapper mapper = new ObjectMapper();
             RichTextDTO richt = mapper.readValue(question.getQues_body(), RichTextDTO.class);
             this.body = richt;
-        } catch (Exception e) {
+        }catch (Exception e){
             System.out.println("Exception");
         }
 
         //this.invitation = question.getQues_invitation();
-        this.is_anonymous = (question.getUser_anony() == 1 ? true : false);
+        this.is_anonymous = (question.getUser_anony()==1 ? true : false);
         this.create_at = question.getQues_pub_time();
         this.modified_at = question.getQues_edit_time();
         this.rela_type = question.getRela_type();
         this.answers = new ArrayList<AnswerBasicDTO>();
         this.rela_id = question.getRela_id();
-        if (question.getQuestionAnswers() != null) {
-            for (QuestionAnswer questionAnswer : question.getQuestionAnswers()) {
-                this.answers.add(new AnswerBasicDTO(questionAnswer));
+        if(question.getAnswers() != null) {
+            for(Answer answer : question.getAnswers()) {
+                this.answers.add(new AnswerBasicDTO(answer));
             }
         }
 
     }
 
-    public QuestionResponseDTO() {
-    }
+    public QuestionDTO(){}
 
-    public RichTextDTO getBody() {
-        return body;
-    }
+    public RichTextDTO getBody(){return body;}
 
-    public void setBody(RichTextDTO body) {
-        this.body = body;
-    }
+    public void setBody(RichTextDTO body){this.body = body;}
 
     public Integer getId() {
         return id;
@@ -106,11 +100,11 @@ public class QuestionResponseDTO implements RequestDTO {
         this.answers = answers;
     }
 
-    /*public AnswerInvitation getInvitation() {
+    /*public InvitationService getInvitation() {
         return invitation;
     }
 
-    public void setInvitation(AnswerInvitation invitation) {
+    public void setInvitation(InvitationService invitation) {
         this.invitation = invitation;
     }*/
 
@@ -126,7 +120,7 @@ public class QuestionResponseDTO implements RequestDTO {
         return rela_id;
     }
 
-    public void setRela_id(Integer rela_id) {
+    public void setRela_id(Integer rela_id){
         this.rela_id = rela_id;
     }
 

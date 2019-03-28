@@ -1,7 +1,7 @@
 package com.youthchina.dto.community.question;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.Question;
+import com.youthchina.domain.jinhao.Question;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextDTO;
 
@@ -86,11 +86,11 @@ public class QuestionBasicDTO {
         this.is_anonymous = is_anonymous;
     }
 
-/*public AnswerInvitation getInvitation() {
+/*public InvitationService getInvitation() {
         return invitation;
     }
 
-    public void setInvitation(AnswerInvitation invitation) {
+    public void setInvitation(InvitationService invitation) {
         this.invitation = invitation;
     }*/
 

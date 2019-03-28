@@ -1,7 +1,6 @@
 package com.youthchina.controller.tianjian;
 
-import com.youthchina.domain.jinhao.communityQA.Comment;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
+import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
@@ -11,7 +10,6 @@ import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.RequestCommentDTO;
 import com.youthchina.dto.community.comment.ResponseCommentDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.communityQA.CommunityQAServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,33 +28,33 @@ public class AnswerController {
 
     @GetMapping("/{id}")
     public ResponseEntity getAnswer(@PathVariable Integer id) throws NotFoundException {
-        QuestionAnswer questionAnswer = communityQAServiceImplement.getAnswer(id);
+        Answer answer = communityQAServiceImplement.getAnswer(id);
 
-        SimpleAnswerDTO simpleAnswerDTO = new SimpleAnswerDTO(questionAnswer);
+        SimpleAnswerDTO simpleAnswerDTO = new SimpleAnswerDTO(answer);
 
-        if (questionAnswer != null)
-            return ResponseEntity.ok(new Response(simpleAnswerDTO, new StatusDTO(200, "success")));
-        else
-            return ResponseEntity.ok(new Response(simpleAnswerDTO, new StatusDTO(400, "fail")));
+         if (answer !=null)
+            return ResponseEntity.ok(new Response(simpleAnswerDTO, new StatusDTO(200,"success")));
+         else
+             return ResponseEntity.ok(new Response(simpleAnswerDTO, new StatusDTO(400,"fail")));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity updateAnswer(@PathVariable Integer id, @RequestBody RequestSimpleAnswerDTO requestSimpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        QuestionAnswer questionAnswer = new QuestionAnswer(requestSimpleAnswerDTO);
-        questionAnswer.setAnswer_id(id);
-        questionAnswer.setUser_id(user.getId());
-        QuestionAnswer questionAnswer1 = communityQAServiceImplement.editAnswer(questionAnswer);
-        SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(questionAnswer1);
-        if (returnSimpleAnswer != null)
-            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200, "success")));
-        else
-            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(400, "fail")));
+           Answer answer = new Answer(requestSimpleAnswerDTO);
+           answer.setAnswer_id(id);
+           answer.setUser_id(user.getId());
+           Answer answer1 = communityQAServiceImplement.editAnswer(answer);
+           SimpleAnswerDTO returnSimpleAnswer = new SimpleAnswerDTO(answer1);
+          if (returnSimpleAnswer!=null)
+           return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
+          else
+              return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(400,"fail")));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteAnswer(@PathVariable Integer id) throws NotFoundException {
-        communityQAServiceImplement.deleteAnswer(id);
-        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
+            communityQAServiceImplement.deleteAnswer(id);
+            return ResponseEntity.ok(new Response(new StatusDTO(204,"success")));
     }
 
     @PostMapping("/{id}/comments")
@@ -67,12 +65,12 @@ public class AnswerController {
         comment.setUser_id(user.getId());
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comment.setComment_pub_time(time);
-        if (requestCommentDTO.getIs_anonymous() == true)
-            comment.setUser_anony(0);
+        if(requestCommentDTO.getIs_anonymous()==true)
+           comment.setUser_anony(0);
         else
-            comment.setUser_anony(1);
-        communityQAServiceImplement.addCommentToAnswer(id, comment, 1);
-        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
+           comment.setUser_anony(1);
+        communityQAServiceImplement.addCommentToAnswer(id, comment,1);
+        return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 
     @GetMapping("/{id}/comments")
@@ -80,23 +78,23 @@ public class AnswerController {
         List<Comment> comments = communityQAServiceImplement.getAllAnswerComments(id);
 
         List<CommentDTO> commentDTOS = new ArrayList<>();
-        if (comments != null) {
+        if(comments!=null){
             Iterator it = comments.iterator();
-            while (it.hasNext()) {
-                CommentDTO commentDTO = new CommentDTO((Comment) it.next());
+            while(it.hasNext()){
+                CommentDTO commentDTO = new CommentDTO((Comment)it.next());
                 commentDTOS.add(commentDTO);
             }
         }
         ResponseCommentDTO responseCommentDTO = new ResponseCommentDTO();
         responseCommentDTO.setComments(commentDTOS);
 
-        return ResponseEntity.ok(new Response(responseCommentDTO, new StatusDTO(200, "success")));
+            return ResponseEntity.ok(new Response(responseCommentDTO, new StatusDTO(200,"success")));
     }
 
-    @PutMapping("/{id}/upvote")
-    public ResponseEntity addUpvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+    @PutMapping ("/{id}/upvote")
+    public ResponseEntity addUpvote(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         communityQAServiceImplement.evaluateAnswer(id, user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
+        return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 
 }

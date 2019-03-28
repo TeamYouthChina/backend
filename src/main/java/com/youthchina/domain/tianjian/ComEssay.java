@@ -1,121 +1,160 @@
 package com.youthchina.domain.tianjian;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.youthchina.dto.community.article.EssayDTO;
-import com.youthchina.dto.community.article.RequestEssayDTO;
+import com.youthchina.domain.jinhao.Comment;
+import com.youthchina.domain.jinhao.property.Attentionable;
+import com.youthchina.domain.jinhao.property.Commentable;
+import com.youthchina.domain.jinhao.property.Evaluatable;
+import com.youthchina.domain.jinhao.property.RichTextable;
+import com.youthchina.domain.zhongyang.User;
 
 import java.sql.Timestamp;
+import java.util.List;
 
-public class ComEssay {
-    private Integer essay_id;
-    private String essay_title;
-    private String essay_abbre;
-    private String essay_body;
-    private Timestamp essay_pub_time;
-    private Timestamp essay_edit_time;
-    private Integer is_delete;
-    private Integer user_anony;
+public class ComEssay implements Commentable, RichTextable, Evaluatable, Attentionable {
+    private Integer id;
+    private String title;
+    private String abbre;
+    private ComRichText body;
+    private Timestamp pubTime;
+    private Timestamp editTime;
+    private Integer isAnony;
+    private Integer relaId;
+    private Integer relaType;
+    private List<Comment> comments;
+    private User user;
+    private Integer richTextRelaType = 1;
+    private Integer commentTargetType = 2;
+    private Integer evaluateTargetType = 2;
+    private Integer attentionTargetType = 2;
 
-    public ComEssay(EssayDTO essayDTO) {
-        this.essay_id = essayDTO.getId();
-        this.essay_title = essayDTO.getTitle();
-        this.essay_pub_time = essayDTO.getCreate_at();
-        this.essay_edit_time = essayDTO.getModified_at();
-        this.user_anony = (essayDTO.isIs_anonymous()) ? 1 : 0;
-        this.essay_abbre = essayDTO.getBody().getPreviewText();
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(essayDTO.getBody());
-            this.essay_body = requestJson;
-        } catch (Exception e) {
-            System.out.println("Exception");
-        }
+    @Override
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public ComRichText getBody() {
+        return body;
+    }
+
+    @Override
+    public void setBody(ComRichText body) {
+        this.body = body;
+    }
+
+    public Integer getRelaId() {
+        return relaId;
+    }
+
+    public void setRelaId(Integer relaId) {
+        this.relaId = relaId;
+    }
+
+    public Integer getRelaType() {
+        return relaType;
+    }
+
+    public void setRelaType(Integer relaType) {
+        this.relaType = relaType;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAbbre() {
+        return abbre;
+    }
+
+    public void setAbbre(String abbre) {
+        this.abbre = abbre;
+    }
+
+    public Timestamp getPubTime() {
+        return pubTime;
+    }
+
+    public void setPubTime(Timestamp pubTime) {
+        this.pubTime = pubTime;
+    }
+
+    public Timestamp getEditTime() {
+        return editTime;
+    }
+
+    public void setEditTime(Timestamp editTime) {
+        this.editTime = editTime;
+    }
+
+    public Integer getIsAnony() {
+        return isAnony;
+    }
+
+    public void setIsAnony(Integer isAnony) {
+        this.isAnony = isAnony;
+    }
+
+    @Override
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    @Override
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public Integer getCommentTargetType() {
+        return commentTargetType;
+    }
+
+    public void setCommentTargetType(Integer commentTargetType) {
+        this.commentTargetType = commentTargetType;
+    }
+
+    @Override
+    public Integer getRichTextRelaType() {
+        return richTextRelaType;
+    }
+
+    public void setRichTextRelaType(Integer richTextRelaType) {
+        this.richTextRelaType = richTextRelaType;
+    }
+
+    @Override
+    public Integer getEvaluateTargetType() {
+        return evaluateTargetType;
+    }
+
+    public void setEvaluateTargetType(Integer evaluateTargetType) {
+        this.evaluateTargetType = evaluateTargetType;
+    }
+
+    @Override
+    public Integer getAttentionTargetType() {
+        return attentionTargetType;
+    }
+
+    public void setAttentionTargetType(Integer attentionTargetType) {
+        this.attentionTargetType = attentionTargetType;
     }
 
 
-    public ComEssay(RequestEssayDTO requestEssayDTO) {
-        this.essay_id = requestEssayDTO.getId();
-        this.essay_title = requestEssayDTO.getTitle();
-        this.essay_abbre = requestEssayDTO.getBody().getPreviewText();
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO.getBody());
-            this.essay_body = requestJson;
-        } catch (Exception e) {
-            System.out.println("Exception");
-        }
-        this.user_anony = (requestEssayDTO.isIs_anonymous()) ? 1 : 0;
-    }
-
-    public ComEssay() {
-
-    }
-
-    public Integer getUser_anony() {
-        return user_anony;
-    }
-
-    public void setUser_anony(Integer user_anony) {
-        this.user_anony = user_anony;
-    }
-
-    public Integer getEssay_id() {
-        return essay_id;
-    }
-
-    public void setEssay_id(Integer essay_id) {
-        this.essay_id = essay_id;
-    }
-
-    public String getEssay_title() {
-        return essay_title;
-    }
-
-    public void setEssay_title(String essay_title) {
-        this.essay_title = essay_title;
-    }
-
-    public String getEssay_abbre() {
-        return essay_abbre;
-    }
-
-    public void setEssay_abbre(String essay_abbre) {
-        this.essay_abbre = essay_abbre;
-    }
-
-    public String getEssay_body() {
-        return essay_body;
-    }
-
-    public void setEssay_body(String essay_body) {
-        this.essay_body = essay_body;
-    }
-
-    public Timestamp getEssay_pub_time() {
-        return essay_pub_time;
-    }
-
-    public void setEssay_pub_time(Timestamp essay_pub_time) {
-        this.essay_pub_time = essay_pub_time;
-    }
-
-    public Timestamp getEssay_edit_time() {
-        return essay_edit_time;
-    }
-
-    public void setEssay_edit_time(Timestamp essay_edit_time) {
-        this.essay_edit_time = essay_edit_time;
-    }
-
-    public Integer getIs_delete() {
-        return is_delete;
-    }
-
-    public void setIs_delete(Integer is_delete) {
-        this.is_delete = is_delete;
-    }
 }

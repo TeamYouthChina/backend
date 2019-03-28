@@ -1,8 +1,7 @@
 package com.youthchina.dto.community.briefreview;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.BriefReview;
-import com.youthchina.domain.jinhao.communityQA.Comment;
+import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.ResponseCommentDTO;
 import com.youthchina.dto.security.UserDTO;

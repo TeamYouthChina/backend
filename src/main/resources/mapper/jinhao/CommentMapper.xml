@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.jinhao.CommentMapperr">
+    <resultMap id="comment" type="com.youthchina.domain.jinhao.Comment">
+        <id property="id" column="COMMENT_ID"/>
+        <result property="content" column="COMMENT_CONTENT"/>
+        <result property="isAnony" column="USER_ANONY"/>
+        <result property="pubTime" column="COMMENT_PUB_TIME"/>
+        <result property="editTime" column="COMMENT_EDIT_TIME"/>
+        <result property="userId" column="USER_ID"/>
+    </resultMap>
+
+    <select id="getComments" resultMap="comment">
+        select * from COM_COMMENT where TARGET_TYPE=#{targetType} and TARGET_ID=#{targetId} and IS_DELETE=0
+    </select>
+</mapper>

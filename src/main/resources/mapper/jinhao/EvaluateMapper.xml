@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.jinhao.EvaluateMapper">
+    <resultMap id="evaluate" type="com.youthchina.domain.jinhao.Evaluate">
+        <id property="id" column="EVALU_ID"/>
+        <result property="type" column="EVALU_TYPE"/>
+    </resultMap>
+
+    <select id="isEverEvaluate" resultMap="evaluate">
+        select EVALU_ID,EVALU_TYPE from COM_EVALUATE
+        where TARGET_TYPE=#{type} and TARGET_ID=#{targetId} and USER_ID=#{userId}
+    </select>
+
+    <update id="reUpvote" parameterType="java.lang.Integer">
+        update COM_EVALUATE set EVALU_TYPE=1 where EVALU_ID=#{id}
+    </update>
+    <update id="reDownVote" parameterType="java.lang.Integer">
+        update COM_EVALUATE set EVALU_TYPE=2 where EVALU_ID=#{id}
+    </update>
+    <insert id="upvote" useGeneratedKeys="true" keyProperty="id">
+        insert into COM_EVALUATE(target_type, target_id, user_id, evalu_type, evalu_time)
+        values (#{type},#{targetId},#{userId},1,now())
+    </insert>
+    <insert id="downvote" useGeneratedKeys="true" keyProperty="id">
+        insert into COM_EVALUATE(target_type, target_id, user_id, evalu_type, evalu_time)
+        VALUES (#{type},#{targetId},#{userId},2,now())
+    </insert>
+    <update id="cancel" parameterType="java.lang.Integer">
+        update COM_EVALUATE set EVALU_TYPE=3, EVALU_TIME=now()
+        where EVALU_ID=#{id}
+    </update>
+    <select id="countUpvote" resultMap="java.lang.Integer">
+        select count(EVALU_ID) from COM_EVALUATE where TARGET_TYPE=#{type} and TARGET_ID=#{targetId}
+    </select>
+</mapper>

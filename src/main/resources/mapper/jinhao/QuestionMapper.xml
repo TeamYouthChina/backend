@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.jinhao.QuestionMapper">
+    <resultMap id="question" type="com.youthchina.domain.jinhao.Question">
+        <id property="id" column="QUES_ID"/>
+        <result property="title" column="QUES_TITLE"/>
+        <result property="abbre" column="QUES_ABBRE"/>
+        <result property="pubTime" column="QUES_PUB_TIME"/>
+        <result property="editTime" column="QUES_EDIT_TIME"/>
+        <result property="relaId" column="RELA_ID"/>
+        <result property="relaType" column="RELA_TYPE"/>
+        <result property="isAnony" column="USER_ANONY"/>
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
+                     resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
+    </resultMap>
+    <select id="get" resultMap="question">
+        select q.*,u.* from COM_QUESTION q
+        left join SYS_USER u on u.USER_ID=q.USER_ID and u.IS_DELETE=0
+        where q.QUES_ID=#{id} and q.IS_DELETE=0
+    </select>
+    <insert id="add" parameterType="com.youthchina.domain.jinhao.Question" useGeneratedKeys="true"
+    keyProperty="id">
+        insert into COM_QUESTION(ques_title, ques_abbre, ques_body, user_id, user_anony, ques_pub_time, ques_edit_time, rela_type, rela_id)
+        values (#{title},#{abbre},#{body.id},#{user.id},#{idAnony},now(),now(),#{relaType},#{relaId})
+    </insert>
+    <update id="delete" parameterType="java.lang.Integer">
+        update COM_QUESTION set IS_DELETE=0, IS_DELETE_TIME=now()
+        where QUES_ID=#{id}
+    </update>
+    <update id="edit" parameterType="java.lang.Integer">
+        update COM_QUESTION set QUES_TITLE=#{title}, QUES_ABBRE=#{abbre}, USER_ANONY=#{isAnony}, QUES_EDIT_TIME=now()
+        where QUES_ID=#{id}
+    </update>
+    <select id="checkIfQuestionExist" resultType="java.lang.Integer">
+        select QUES_ID from COM_QUESTION where QUES_ID=#{id}
+    </select>
+</mapper>
