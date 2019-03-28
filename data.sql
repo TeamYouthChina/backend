@@ -555,9 +555,7 @@ FROM youthchina.`SYS_UNIVERSITY_USA` A;
 
 
 
-#######################################招聘模块数据表
-
-###############################################
+#######################################招聘模块数据表###############################################
 
 ##应聘者教育信息表
 create table IF NOT EXISTS `STU_EDU_INFO` (
@@ -998,7 +996,7 @@ create table IF NOT EXISTS `COMPANY_INFO` (
   COMMENT '企业规模',
   `COMPANY_NATURE`     INTEGER NOT NULL
   COMMENT '企业性质',
-  `COMPANY_LOCATION`   VARCHAR(10) NOT NULL
+  `COMPANY_LOCATION`   INTEGER NOT NULL
   COMMENT '企业所在地',
   `COMPANY_MAIL`       VARCHAR(200) 
   COMMENT '企业邮箱',
@@ -1152,7 +1150,7 @@ PRIMARY KEY (`JOB_REQUIRE_ID`)
 
 create table IF NOT EXISTS `JOB_LOCATION`(
 `JOB_LOCATION_ID` INT AUTO_INCREMENT COMMENT '地点ID',
-`JOB_REGION_NUM` VARCHAR(10) NOT NULL COMMENT '工作城市',
+`JOB_REGION_NUM` INTEGER NOT NULL COMMENT '工作城市',
 `JOB_ID` INTEGER NOT NULL COMMENT '职位ID',
 `IS_DELETE` INTEGER NOT NULL COMMENT '是否删除',
 `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
@@ -1208,9 +1206,7 @@ create table IF NOT EXISTS `STU_JOB_APPLY` (
 
 
 
-#######################################社区数据表
-
-###############################################
+#######################################社区数据表###############################################
 ##标签映射表
 create table IF NOT EXISTS `COM_LABEL_MAP`(
 `LAB_ID` INT AUTO_INCREMENT COMMENT '主键ID',
@@ -1288,7 +1284,7 @@ create table IF NOT EXISTS `COM_VIDEO`(
 `VIDEO_ID` INT AUTO_INCREMENT COMMENT '视频ID',
 `VIDEO_TITLE` VARCHAR(200) NOT NULL COMMENT '视频标题',
 `VIDEO_NAME` VARCHAR(200) NOT NULL COMMENT '视频文件名',
-`VIDEO_DECRIPTION` VARCHAR(2000) NOT NULL COMMENT '视频描述',
+`VIDEO_DESCRIPTION` VARCHAR(2000) NOT NULL COMMENT '视频描述',
 `VIDEO_VIEW_COUNT` INTEGER NOT NULL COMMENT '观看次数',
 `VIDEO_UPLOAD_TIME` TIMESTAMP NOT NULL COMMENT '上传时间',
 `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
@@ -1344,13 +1340,13 @@ PRIMARY KEY ( `ANSWER_ID` )
 
 ##评价表
 create table IF NOT EXISTS `COM_EVALUATE`(
-`EVALU_ID` INT AUTO_INCREMENT COMMENT '评价ID',
+`EVALUATE_ID` INT AUTO_INCREMENT COMMENT '评价ID',
 `TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
 `TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
 `USER_ID` INTEGER NOT NULL COMMENT '评价用户',
-`EVALU_TYPE` INTEGER NOT NULL COMMENT '评价类别',
-`EVALU_TIME` TIMESTAMP NOT NULL COMMENT '评价时间',
-PRIMARY KEY ( `EVALU_ID` )
+`EVALUATE_TYPE` INTEGER NOT NULL COMMENT '评价类别',
+`EVALUATE_TIME` TIMESTAMP NOT NULL COMMENT '评价时间',
+PRIMARY KEY ( `EVALUATE_ID` )
 )COMMENT = '评价表';
 
 
