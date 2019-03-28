@@ -27,7 +27,7 @@ public class DiscussServiceImpl implements DiscussService{
             throw new NotFoundException(404,404,"该评论没有讨论");
         }
         for(Discuss discuss : discusses){
-            discuss.setUser(userMapper.findOne(discuss.getUserId()));
+            discuss.setUser(discuss.getUser());
         }
         return discusses;
     }

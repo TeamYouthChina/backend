@@ -5,7 +5,6 @@ import com.youthchina.dao.tianjian.PersonInfluenceMapper;
 import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.domain.jinhao.*;
-import com.youthchina.domain.jinhao.communityQA.*;
 import com.youthchina.domain.tianjian.ComEssayReply;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.tianjian.ComReplyEvaluate;
