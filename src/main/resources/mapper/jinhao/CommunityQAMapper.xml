@@ -14,11 +14,10 @@
             <result property="email" column="NEW_EMAIL"/>
             <result property="phonenumber" column="NEW_PHONENUMBER"/>
             <result property="registerDate" column="NEW_REGISTERDATE"/>
-            <result property="realName" column="NEW_REALNAME"/>
+            <result property="firstName" column="NEW_REALNAME"/>
             <result property="gender" column="NEW_GENDER"/>
             <result property="nation" column="NEW_NATION"/>
             <result property="avatarUrl" column="NEW_AVATARURL"/>
-            <result property="role" column="NEW_ROLE"/>
             <result property="age" column="NEW_AGE"/>
         </association>
         <collection property="videoComments" ofType="com.youthchina.domain.jinhao.communityQA.VideoComment">
@@ -32,11 +31,10 @@
                 <result property="email" column="USER_MAIL"/>
                 <result property="phonenumber" column="USER_PHONE"/>
                 <result property="registerDate" column="USER_REGIST_TIME"/>
-                <result property="realName" column="USER_REAL_NAME"/>
+                <result property="firstName" column="USER_REAL_NAME"/>
                 <result property="gender" column="USER_GENDER"/>
                 <result property="nation" column="USER_NATION"/>
                 <result property="avatarUrl" column="USER_PHOTO"/>
-                <result property="role" column="ROLE_TYPE"/>
                 <result property="age" column="USER_AGE"/>
             </association>
         </collection>
@@ -57,11 +55,10 @@
             <result property="email" column="NEW_EMAIL"/>
             <result property="phonenumber" column="NEW_PHONENUMBER"/>
             <result property="registerDate" column="NEW_REGISTERDATE"/>
-            <result property="realName" column="NEW_REALNAME"/>
+            <result property="firstName" column="NEW_REALNAME"/>
             <result property="gender" column="NEW_GENDER"/>
             <result property="nation" column="NEW_NATION"/>
             <result property="avatarUrl" column="NEW_AVATARURL"/>
-            <result property="role" column="NEW_ROLE"/>
             <result property="age" column="NEW_AGE"/>
         </association>
         <collection property="questionAnswers" ofType="com.youthchina.domain.jinhao.communityQA.QuestionAnswer">
@@ -76,11 +73,10 @@
                 <result property="email" column="USER_MAIL"/>
                 <result property="phonenumber" column="USER_PHONE"/>
                 <result property="registerDate" column="USER_REGIST_TIME"/>
-                <result property="realName" column="USER_REAL_NAME"/>
+                <result property="firstName" column="USER_REAL_NAME"/>
                 <result property="gender" column="USER_GENDER"/>
                 <result property="nation" column="USER_NATION"/>
                 <result property="avatarUrl" column="USER_PHOTO"/>
-                <result property="role" column="ROLE_TYPE"/>
                 <result property="age" column="USER_AGE"/>
             </association>
         </collection>
@@ -110,11 +106,10 @@
                 <result property="email" column="NEW_EMAIL"/>
                 <result property="phonenumber" column="NEW_PHONENUMBER"/>
                 <result property="registerDate" column="NEW_REGISTERDATE"/>
-                <result property="realName" column="NEW_REALNAME"/>
+                <result property="firstName" column="NEW_REALNAME"/>
                 <result property="gender" column="NEW_GENDER"/>
                 <result property="nation" column="NEW_NATION"/>
                 <result property="avatarUrl" column="NEW_AVATARURL"/>
-                <result property="role" column="NEW_ROLE"/>
                 <result property="age" column="NEW_AGE"/>
             </association>
         </association>
