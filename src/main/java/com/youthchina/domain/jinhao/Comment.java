@@ -3,6 +3,7 @@ package com.youthchina.domain.jinhao;
 import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.comment.CommentRequestDTO;
 
 import java.sql.Timestamp;
 
@@ -17,6 +18,12 @@ public class Comment implements Evaluatable, Attentionable {
     private Integer targetId;
     private static final Integer evaluateTargetType = 5;
     private static final Integer attentionTargetType = 5;
+
+    public Comment(){}
+    public Comment(CommentRequestDTO commentRequestDTO){
+        this.content = commentRequestDTO.getBody().getPreviewText();
+        this.isAnony = (commentRequestDTO.getIs_anonymous())? 1:0;
+    }
 
     @Override
     public Integer getEvaluateTargetType() {

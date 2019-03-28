@@ -4,7 +4,6 @@ import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.qingyang.Job;
-import com.youthchina.domain.qingyang.Logo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -64,27 +63,25 @@ public interface JobMapper {
 	CV_RECEI_MAIL varchar(200) not null comment '简历接收邮箱',
 	CV_NAME_RULE varchar(200) null comment '简历命名规则',
 	JOB_ACTIVE int not null comment '职位状态',
+	HR_ID int not null comment '招聘者ID',
 	COMPANY_ID int not null comment '企业ID',
 	IS_DELETE int default 0 null comment '是否删除',
 	IS_DELETE_TIME timestamp null comment '删除时间',
 	constraint JOB_COMPANY_ID
 		foreign key (COMPANY_ID) references COMPANY_INFO (company_id),
-
+	constraint JOB_HR_ID
+		foreign key (HR_ID) references HR_INFO (hr_id)
 )
 comment '职位基本信息表';
 */
 
     Integer insertJobIndustry(List<Industry> industries);
 
-    Integer insertJobDegree(@Param("jobId") Integer jobId, @Param("degreeList")List<Degree> degreeList);
+    Integer insertJobDegree(List<Degree> degrees);
 
-    Integer insertJobLocation(@Param("jobId") Integer jobId, @Param("locationList") List<Location> locationList);
-
-    Integer insertJobLogo(@Param("jobId") Integer jobId, @Param("logoList") List<Logo> logoList);
+    Integer insertJobLocation(@Param("jobId") Integer jobId, @Param("locations") List<Location> locations);
 
     Integer deleteJobLocation(Integer jobId);
-
-    Integer deleteJobLogo(Integer jobId);
 
     Integer deleteJobIndustry(Integer jobId);
 

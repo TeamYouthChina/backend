@@ -1,4 +1,4 @@
-SET CHAR SET 'utf8';
+﻿SET CHAR SET 'utf8';
 #######################################字典表###############################################
 create table IF NOT EXISTS `SYS_MAJOR` (
                                          `MAJOR_NUM`      INT               AUTO_INCREMENT
@@ -1269,7 +1269,7 @@ create table IF NOT EXISTS `COM_VIDEO`(
                                         `VIDEO_ID` INT AUTO_INCREMENT COMMENT '视频ID',
                                         `VIDEO_TITLE` VARCHAR(200) NOT NULL COMMENT '视频标题',
                                         `VIDEO_NAME` VARCHAR(200) NOT NULL COMMENT '视频文件名',
-                                        `VIDEO_DECRIPTION` VARCHAR(2000) NOT NULL COMMENT '视频描述',
+                                        `VIDEO_DESCRIPTION` VARCHAR(2000) NOT NULL COMMENT '视频描述',
                                         `VIDEO_VIEW_COUNT` INTEGER NOT NULL COMMENT '观看次数',
                                         `VIDEO_UPLOAD_TIME` TIMESTAMP NOT NULL COMMENT '上传时间',
                                         `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
@@ -1325,13 +1325,13 @@ create table IF NOT EXISTS `COM_ANSWER`(
 
 ##评价表
 create table IF NOT EXISTS `COM_EVALUATE`(
-                                           `EVALU_ID` INT AUTO_INCREMENT COMMENT '评价ID',
+                                           `EVALUATE_ID` INT AUTO_INCREMENT COMMENT '评价ID',
                                            `TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
                                            `TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
                                            `USER_ID` INTEGER NOT NULL COMMENT '评价用户',
-                                           `EVALU_TYPE` INTEGER NOT NULL COMMENT '评价类别',
-                                           `EVALU_TIME` TIMESTAMP NOT NULL COMMENT '评价时间',
-                                           PRIMARY KEY ( `EVALU_ID` )
+                                           `EVALUATE_TYPE` INTEGER NOT NULL COMMENT '评价类别',
+                                           `EVALUATE_TIME` TIMESTAMP NOT NULL COMMENT '评价时间',
+                                           PRIMARY KEY ( `EVALUATE_ID` )
 )COMMENT = '评价表';
 
 
@@ -1370,7 +1370,7 @@ create table IF NOT EXISTS `COM_RICH_TEXT`(
                                             `TEXT_ID` INT AUTO_INCREMENT COMMENT '富文本ID',
                                             `COMPILE_TYPE` INTEGER NOT NULL COMMENT '解析类型',
                                             `JSON_CONTENT` TEXT(15000) NOT NULL COMMENT 'JSON字符串',
-                                            `TEXT_CONTENT` TEXT(15000) NOT NULL COMMENT '文本字符串',
+                                            `TEXT_CONTENT` TEXT(15000) COMMENT '文本字符串',
                                             PRIMARY KEY (`TEXT_ID`)
 )COMMENT = '富文本表';
 

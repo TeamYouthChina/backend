@@ -1,51 +1,55 @@
 package com.youthchina.domain.tianjian;
 
+import com.youthchina.dto.util.RichTextRequestDTO;
+import com.youthchina.dto.util.RichTextResponseDTO;
+
 public class ComRichText {
-    private int rela_type;
-    private int rela_id;
-    private int compile_type;
-    private String json_content;
-    private String text_content;
+private int textId;
+    private int compileType;
+    private String jsonContent;
+    private String textContent;
 
     public ComRichText(){}
 
-    public int getRela_type() {
-        return rela_type;
+    public ComRichText(RichTextRequestDTO richTextRequestDTO){
+        this.jsonContent = richTextRequestDTO.getBraftEditorRaw();
+        this.textContent = richTextRequestDTO.getPreviewText();
     }
 
-    public void setRela_type(int rela_type) {
-        this.rela_type = rela_type;
+    public ComRichText(RichTextResponseDTO richTextResponseDTO){
+        this.jsonContent = richTextResponseDTO.getBraftEditorRaw();
+        this.textContent = richTextResponseDTO.getPreviewText();
     }
 
-    public int getRela_id() {
-        return rela_id;
+    public int getTextId() {
+        return textId;
     }
 
-    public void setRela_id(int rela_id) {
-        this.rela_id = rela_id;
+    public void setTextId(int textId) {
+        this.textId = textId;
     }
 
-    public int getCompile_type() {
-        return compile_type;
+    public int getCompileType() {
+        return compileType;
     }
 
-    public void setCompile_type(int compile_type) {
-        this.compile_type = compile_type;
+    public void setCompileType(int compileType) {
+        this.compileType = compileType;
     }
 
-    public String getJson_content() {
-        return json_content;
+    public String getJsonContent() {
+        return jsonContent;
     }
 
-    public void setJson_content(String json_content) {
-        this.json_content = json_content;
+    public void setJsonContent(String jsonContent) {
+        this.jsonContent = jsonContent;
     }
 
-    public String getText_content() {
-        return text_content;
+    public String getTextContent() {
+        return textContent;
     }
 
-    public void setText_content(String text_content) {
-        this.text_content = text_content;
+    public void setTextContent(String textContent) {
+        this.textContent = textContent;
     }
 }

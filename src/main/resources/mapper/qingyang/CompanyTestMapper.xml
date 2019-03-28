@@ -8,13 +8,13 @@
         (   COMPANY_NAME,       COMPANY_CODE,     COMPANY_COUNTRY,
             COMPANY_INTRODUC,   COMPANY_SCALE_NUM,  COMPANY_NATURE,   COMPANY_LOCATION,
             COMPANY_MAIL,       COMPANY_WEBSITE,  COMPANY_START_DATE,
-                   COMPANY_VERIFY,     USER_ID,     ADD_TIME,     IS_DELETE,
+            COMPANY_LOGO,       COMPANY_VERIFY,     USER_ID,     ADD_TIME,     IS_DELETE,
             IS_DELETE_TIME)
         VALUES
         (   #{companyName},     #{companyCode},   #{country.countryAbbre},
-            #{companyIntroduc}, #{companyScale.scaleNum}, #{companyNature.natureNum},   #{location.regionNum},
+            #{companyIntroduc}, #{companyScale.scaleNum}, #{companyNature.natureNum},   #{location.region_num},
             #{companyMail},     #{companyWebsite}, #{companyStartDate},
-                 #{companyVerify},   #{userId},   NOW(),       0,
+            #{companyLogo},     #{companyVerify},   #{userId},   NOW(),       0,
             NULL)
     </insert>
 
@@ -24,20 +24,15 @@
         SET
             COMPANY_NAME = #{companyName},
             COMPANY_CODE = #{companyCode},
-            <if test="country != null">
-                COMPANY_COUNTRY = #{country.countryAbbre},
-            </if>
+            COMPANY_COUNTRY = #{country.countryAbbre},
             COMPANY_INTRODUC = #{companyIntroduc},
-            <if test="companyScale != null">
-                COMPANY_SCALE_NUM = #{companyScale.scaleNum},
-            </if>
-            <if test="companyNature != null">
-                COMPANY_NATURE = #{companyNature.natureNum},
-            </if>
-            COMPANY_LOCATION = #{location.regionId},
+            COMPANY_SCALE_NUM = #{companyScale.scaleNum},
+            COMPANY_NATURE = #{companyNature.natureNum},
+            COMPANY_LOCATION = #{location.region_num},
             COMPANY_MAIL = #{companyMail},
             COMPANY_WEBSITE = #{companyWebsite},
             COMPANY_START_DATE = #{companyStartDate},
+            COMPANY_LOGO = #{companyLogo},
             COMPANY_VERIFY = #{companyVerify},
             USER_ID = #{userId}
         WHERE
@@ -50,13 +45,6 @@
         WHERE COMPANY_ID = #{id}
     </update>
 
-    <resultMap id="logo" type="com.youthchina.domain.qingyang.Logo">
-        <id property="logoId" column="LOGO_ID"/>
-        <result property="docuLocalId" column="DOCU_LOCAL_ID"/>
-        <result property="relaType" column="RELA_TYPE"/>
-        <result property="relaId" column="RELA_ID"/>
-    </resultMap>
-
     <resultMap id="company" type="com.youthchina.domain.qingyang.Company">
         <id property="companyId" column="COMPANY_ID"/>
         <result property="companyName" column="COMPANY_NAME"/>
@@ -65,6 +53,7 @@
         <result property="companyMail" column="COMPANY_MAIL"/>
         <result property="companyWebsite" column="COMPANY_WEBSITE"/>
         <result property="companyStartDate" column="COMPANY_START_DATE"/>
+        <result property="companyLogo" column="COMPANY_LOGO"/>
         <result property="companyVerify" column="COMPANY_VERIFY"/>
         <result property="userId" column="USER_ID"/>
         <result property="addTime" column="COMPANY_ADD_TIME"/>
@@ -89,11 +78,16 @@
             <result property="startTime" column="COUNTRY_START_TIME"/>
         </association>
         <association property="location" javaType="com.youthchina.domain.Qinghong.Location">
-            <id property="regionId" column="COMPANY_LOCATION"/>
+            <id property="region_num" column="COMPANY_LOCATION"/>
+            <!--<result property="region_chn" column="REGION_CHN"/>-->
+            <!--<result property="region_eng" column="REGION_ENG"/>-->
+            <!--<result property="region_level" column="REGION_LEVEL"/>-->
+            <!--<result property="region_parent_num" column="REGION_PARENT_NUM"/>-->
+            <!--<result property="start_time" column="REGION_START_TIME"/>-->
         </association>
         <collection property="indList" ofType="com.youthchina.domain.qingyang.Industry">
             <id property="indNum" column="C_IND_NUM"/>
-            <result property="indCode" column="COMPANY_IND_CODE"/>
+            <result property="indCode" column="IND_CODE"/>
             <result property="indChn" column="IND_CHN"/>
             <result property="indEng" column="IND_ENG"/>
             <result property="indLevel" column="IND_LEVEL"/>
@@ -107,19 +101,6 @@
             <result property="verifyEndTime" column="VERIFY_END_TIME"/>
             <result property="operUserId" column="OPER_USER_ID"/>
         </collection>
-        <!--ofType="com.youthchina.dao.qingyang.CompanyMapper.logo"-->
-        <collection property="logoList" ofType="com.youthchina.domain.qingyang.Logo">
-            <id property="logoId" column="LOGO_ID"/>
-            <result property="docuLocalId" column="LOGO_DOCU_LOCAL_ID"/>
-            <result property="relaType" column="RELA_TYPE"/>
-            <result property="relaId" column="RELA_ID"/>
-        </collection>
-        <collection property="photoList" ofType="com.youthchina.domain.qingyang.CompanyPhoto">
-            <id property="photoId" column="PHOTO_ID"/>
-            <result property="docuLocalId" column="PHOTO_DOCU_LOCAL_ID"/>
-            <result property="uploadTime" column="PHOTO_UPLOAD_TIME"/>
-            <result property="companyId" column="COMPANY_ID"/>
-        </collection>
     </resultMap>
 
     <sql id="companySelect">
@@ -130,6 +111,7 @@
               com.COMPANY_MAIL as COMPANY_MAIL,
               com.COMPANY_WEBSITE as COMPANY_WEBSITE,
               com.COMPANY_START_DATE as COMPANY_START_DATE,
+              com.COMPANY_LOGO as COMPANY_LOGO,
               com.COMPANY_VERIFY as COMPANY_VERIFY,
               com.ADD_TIME as COMPANY_ADD_TIME,
               com.USER_ID as USER_ID,
@@ -166,17 +148,7 @@
               country.COUNTRY_ENG as COUNTRY_ENG,
               country.START_TIME as COUNTRY_START_TIME,
 
-              collect.COM_COLLECT as COMPANY_COLLECT_NUM,
-
-              logo.LOGO_ID as LOGO_ID,
-              logo.DOCU_LOCAL_ID as LOGO_DOCU_LOCAL_ID,
-              logo.RELA_TYPE as RELA_TYPE,
-              logo.RELA_ID as RELA_ID,
-
-              photo.PHOTO_ID as PHOTO_ID,
-              photo.DOCU_LOCAL_ID as PHOTO_DOCU_LOCAL_ID,
-              photo.PHOTO_UPLOAD_TIME as PHOTO_UPLOAD_TIME
-
+              collect.COM_COLLECT as COMPANY_COLLECT_NUM
 
 #               region.REGION_NUM as REGION_NUM,
 #               region.REGION_CHN as REGION_CHN,
@@ -187,14 +159,12 @@
     </sql>
 
     <sql id="companyJoin">
-        LEFT OUTER JOIN COMPANY_VERIFICATION v ON v.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0 AND v.IS_DELETE = 0
+        LEFT OUTER JOIN COMPANY_VERIFICAITON v ON v.COMPANY_ID = com.COMPANY_ID AND com.IS_DELETE = 0 AND v.IS_DELETE = 0
                  LEFT OUTER JOIN COMPANY_INDUSTRY i ON i.COMPANY_ID = com.COMPANY_ID AND i.IS_DELETE = 0
                  LEFT OUTER JOIN SYS_IND_CLASS	class ON class.IND_CODE = i.COMPANY_IND_CODE AND class.IS_DELETE = 0
                  LEFT OUTER JOIN SYS_COMPANY_NATURE	nature ON com.COMPANY_NATURE = nature.NATURE_NUM
                  LEFT OUTER JOIN SYS_COMPANY_SCALE	scale ON com.COMPANY_SCALE_NUM = scale.SCALE_NUM
                  LEFT OUTER JOIN SYS_COUNTRY	country ON com.COMPANY_COUNTRY = country.COUNTRY_ABBRE AND country.IS_DELETE = 0
-                 LEFT OUTER JOIN COMPANY_JOB_LOGO  logo ON logo.RELA_TYPE = 1 AND logo.RELA_ID = com.COMPANY_ID AND logo.IS_DELETE = 0
-                 LEFT OUTER JOIN COMPANY_PHOTO  photo ON photo.COMPANY_ID = com.COMPANY_ID AND photo.IS_DELETE = 0
         LEFT OUTER JOIN (SELECT COUNT(COMPANY_ID) as COM_COLLECT, COMPANY_ID FROM STU_COMP_COLLECT WHERE IS_DELETE = 0 GROUP BY COMPANY_ID) as collect ON collect.COMPANY_ID = com.COMPANY_ID
 </sql>
 
@@ -239,7 +209,7 @@
 
     <insert id="insertCompanyVerification" parameterType="com.youthchina.domain.qingyang.CompanyVerification"
             useGeneratedKeys="true" keyProperty="verifyId">
-        INSERT INTO COMPANY_VERIFICATION
+        INSERT INTO COMPANY_VERIFICAITON
         (   VERIFY_TIME,   VERIFY_END_TIME,    OPER_USER_ID,
             COMPANY_ID,   IS_DELETE, IS_DELETE_TIME)
         VALUES
@@ -250,7 +220,7 @@
 
     <update id="updateCompanyVerification" parameterType="com.youthchina.domain.qingyang.CompanyVerification"
             keyProperty="verifyId">
-        UPDATE COMPANY_VERIFICATION
+        UPDATE COMPANY_VERIFICAITON
         SET
             VERIFY_TIME = #{verifyTime},
             VERIFY_END_TIME = #{verifyEndTime},
@@ -262,7 +232,7 @@
     </update>
 
     <update id="deleteCompanyVerification" parameterType="java.lang.Integer">
-      UPDATE COMPANY_VERIFICATION SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+      UPDATE COMPANY_VERIFICAITON SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
       WHERE VERIFY_ID = #{verifyId}
     </update>
 
@@ -271,7 +241,7 @@
         SELECT
             VERIFY_ID,    VERIFY_TIME,   VERIFY_END_TIME,    OPER_USER_ID,
             COMPANY_ID
-        FROM COMPANY_VERIFICATION
+        FROM COMPANY_VERIFICAITON
         WHERE
             VERIFY_ID = #{id}
         AND IS_DELETE = 0
@@ -281,7 +251,7 @@
         SELECT
         VERIFY_ID, VERIFY_TIME, VERIFY_END_TIME, OPER_USER_ID,
         COMPANY_ID
-        FROM COMPANY_VERIFICATION
+        FROM COMPANY_VERIFICAITON
         WHERE VERIFY_ID in
         <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
             #{id}
@@ -362,28 +332,8 @@
         INSERT INTO COMPANY_INDUSTRY
         ( COMPANY_IND_CODE, COMPANY_ID, IS_DELETE, IS_DELETE_TIME)
         VALUES
-        <foreach item="ind" collection="industries" separator=",">
-            (#{ind.indCode}, #{companyId}, 0, NULL)
-        </foreach>
-    </insert>
-
-    <!--insert Company's Logos By Company's List of Logos-->
-    <insert id="insertCompanyLogo" useGeneratedKeys="true" keyProperty="logoId">
-        INSERT INTO COMPANY_JOB_LOGO
-        ( DOCU_LOCAL_ID, RELA_TYPE, RELA_ID, IS_DELETE, IS_DELETE_TIME)
-        VALUES
-        <foreach item="logo" collection="logos" separator=",">
-            (#{logo.docuLocalId}, 1, #{companyId}, 0, NULL)
-        </foreach>
-    </insert>
-
-    <!--insert Company's Logos By Company's List of Logos-->
-    <insert id="insertCompanyPhoto" useGeneratedKeys="true" keyProperty="logoId">
-        INSERT INTO COMPANY_PHOTO
-        ( DOCU_LOCAL_ID, PHOTO_UPLOAD_TIME, COMPANY_ID, IS_DELETE, IS_DELETE_TIME)
-        VALUES
-        <foreach item="photo" collection="photoList" separator=",">
-            (#{photo.docuLocalId}, NOW(), #{companyId}, 0, NULL)
+        <foreach item="ind" collection="list" separator=",">
+            (#{ind.indCode}, #{ind.companyId}, 0, NULL)
         </foreach>
     </insert>
 
@@ -401,13 +351,13 @@
 
     <!--delete Company's Verifications By VerificationID-->
     <update id="deleteCompanyVerificationById" parameterType="java.lang.Integer">
-        UPDATE COMPANY_VERIFICATION SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        UPDATE COMPANY_VERIFICAITON SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
         WHERE COMPANY_ID = #{id}
     </update>
 
     <!--delete Company's Verifications By CompanyID-->
     <update id="deleteCompanyVerificationByComId" parameterType="java.lang.Integer">
-        UPDATE COMPANY_VERIFICATION SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        UPDATE COMPANY_VERIFICAITON SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
         WHERE COMPANY_ID = #{id}
     </update>
 
@@ -419,20 +369,14 @@
 
     <!--delete Company's Evaluations By CompanyID-->
     <update id="deleteCompanyEvaluate" parameterType="java.lang.Integer">
-        UPDATE COM_COMMENT	 SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE TARGET_TYPE = 5 AND TARGET_ID = #{id}
+        UPDATE COMPANY_EVALUATE SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE COMPANY_ID = #{id}
     </update>
 
     <!--delete Students' Collections of Company By CompanyID-->
     <update id="deleteStudentComCollection" parameterType="java.lang.Integer">
         UPDATE STU_COMP_COLLECT SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
         WHERE COMPANY_ID = #{id}
-    </update>
-
-    <!--delete Logo of Company By CompanyID-->
-    <update id="deleteCompanyLogo" parameterType="java.lang.Integer">
-        UPDATE COMPANY_JOB_LOGO SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
-        WHERE RELA_TYPE = 1 AND RELA_ID = #{id}
     </update>
 
 

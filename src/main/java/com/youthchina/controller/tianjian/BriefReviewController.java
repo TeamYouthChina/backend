@@ -139,7 +139,7 @@ public class BriefReviewController {
     public ResponseEntity addBriefReviewComment(@PathVariable Integer id, @RequestBody CommentRequestDTO commentRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Comment comment = new Comment();
         comment.setUser(user);
-        comment.setContent(commentRequestDTO.getBody().getPreviewText());
+       comment.setContent(commentRequestDTO.getBody().getPreviewText());
 
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comment.setPubTime(time);
@@ -156,19 +156,19 @@ public class BriefReviewController {
 
     @PutMapping("/{id}/upvote")
     public ResponseEntity updateBriefReviewUpvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        BriefReview briefReview = new BriefReview();
-        briefReview.setId(id);
-        evaluateService.upvote(briefReview,user.getId());
+     BriefReview briefReview = new BriefReview();
+     briefReview.setId(id);
+     evaluateService.upvote(briefReview,user.getId());
 
-        return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
+            return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
 
     }
 
     @GetMapping("/{id}/comments")
     public ResponseEntity getBriefReviewComments(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        BriefReview briefReview = new BriefReview();
-        briefReview.setId(id);
-        briefReview.setUser(user);
+       BriefReview briefReview = new BriefReview();
+       briefReview.setId(id);
+       briefReview.setUser(user);
         commentService.getComments(briefReview);
         List<CommentDTO> commentDTOS = new ArrayList<>();
         if (briefReview.getComments() != null) {

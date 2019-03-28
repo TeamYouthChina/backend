@@ -1,6 +1,7 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.CompCollect;
+import com.youthchina.dto.ResponseDTO;
 
 /**
  * @program: youthchina
@@ -8,7 +9,7 @@ import com.youthchina.domain.Qinghong.CompCollect;
  * @author: Qinghong Wang
  * @create: 2019-02-26 11:31
  **/
-public class CompCollectResponseDTO {
+public class CompCollectResponseDTO implements ResponseDTO {
     private Integer id;
     private OrganizationDTO organization;
 

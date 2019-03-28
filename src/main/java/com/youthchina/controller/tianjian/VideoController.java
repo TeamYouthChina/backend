@@ -111,7 +111,7 @@ public class VideoController {
         Video video = new Video();
         video.setId(id);
         evaluateService.upvote(video,user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(403, "failed")));
+            return ResponseEntity.ok(new Response(new StatusDTO(403, "failed")));
     }
 
     @PutMapping("/{id}/attention")
@@ -119,7 +119,7 @@ public class VideoController {
         Video video = new Video();
         video.setId(id);
         attentionService.attention(video,user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(403, "failed")));
+            return ResponseEntity.ok(new Response(new StatusDTO(403, "failed")));
     }
 
 

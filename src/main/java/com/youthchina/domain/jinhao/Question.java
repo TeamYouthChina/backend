@@ -6,6 +6,7 @@ import com.youthchina.domain.jinhao.property.Invitable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.question.QuestionRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -20,13 +21,22 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
     private Integer isAnony;
     private User user;
     private List<Answer> answers;
-    private Integer rela_type;
-    private Integer rela_id;
+    private Integer relaType;
+    private Integer relaId;
     private static final Integer richTextRelaType = 2;
     private static final Integer evaluateTargetType = 1;
     private static final Integer attentionTargetType = 1;
     private static final Integer inviteTargetType = 1;
 
+    public Question(){}
+    public Question(QuestionRequestDTO questionRequestDTO){
+        this.title = questionRequestDTO.getTitle();
+        this.isAnony = (questionRequestDTO.getIs_anonymous()==true ? 1 : 0);
+        this.body.setJsonContent(questionRequestDTO.getBody().getBraftEditorRaw());
+        this.body.setTextContent(questionRequestDTO.getBody().getPreviewText());
+        this.relaType = questionRequestDTO.getRela_type();
+        this.relaId = questionRequestDTO.getRela_id();
+    }
     @Override
     public ComRichText getBody() {
         return body;
@@ -121,19 +131,19 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
         this.answers = answers;
     }
 
-    public Integer getRela_type() {
-        return rela_type;
+    public Integer getRelaType() {
+        return relaType;
     }
 
-    public void setRela_type(Integer rela_type) {
-        this.rela_type = rela_type;
+    public void setRelaType(Integer relaType) {
+        this.relaType = relaType;
     }
 
-    public Integer getRela_id() {
-        return rela_id;
+    public Integer getRelaId() {
+        return relaId;
     }
 
-    public void setRela_id(Integer rela_id) {
-        this.rela_id = rela_id;
+    public void setRelaId(Integer relaId) {
+        this.relaId = relaId;
     }
 }

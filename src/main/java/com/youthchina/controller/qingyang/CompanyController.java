@@ -12,7 +12,6 @@ import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
 import com.youthchina.service.qingyang.CompanyCURDService;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -64,7 +63,7 @@ public class CompanyController extends DomainCRUDController<CompanyRequestDTO, C
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyRequestDTO companyRequestDTO) {
+    public ResponseEntity<?> createCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyRequestDTO companyRequestDTO) throws NotFoundException{
         companyRequestDTO.setUserId(user.getId());
         return add(companyRequestDTO);
     }
@@ -80,15 +79,6 @@ public class CompanyController extends DomainCRUDController<CompanyRequestDTO, C
         Company company = this.companyService.get(companyId);
         if (detailLevel == 1) {
             return ResponseEntity.ok(new Response(new CompanyResponseDTO(company)));
-        }
-        throw new BaseException();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCompany(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
-        this.companyService.delete(companyId);
-        if (detailLevel == 1) {
-            return ResponseEntity.ok(new Response());
         }
         throw new BaseException();
     }

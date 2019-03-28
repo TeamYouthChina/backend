@@ -25,7 +25,7 @@
     <insert id="add" parameterType="com.youthchina.domain.jinhao.Discuss" useGeneratedKeys="true"
             keyProperty="id">
         insert into COM_DISCUSS(comment_id, discuss_content, user_id, USER_ANONY,discuss_pub_time)
-        values (#{commentId},#{content},#{user.id},#{isAnony},#{pubTime})
+        values (#{commentId},#{content},#{user.id},#{isAnony},now())
     </insert>
 
     <update id="delete" parameterType="java.lang.Integer">
@@ -36,7 +36,7 @@
         update COM_DISCUSS set IS_DELETE_TIME=now(), IS_DELETE=1
         where COMMENT_ID=#{id}
     </update>
-    <select id="checkIfDiscussExist" parameterType="java.lang.Integer">
-        select DISCUSS_ID from COM_DISCUSS where DISCUSS_ID=#{id}
+    <select id="checkIfDiscussExist" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select DISCUSS_ID from COM_DISCUSS where DISCUSS_ID=#{id} and IS_DELETE=0
     </select>
 </mapper>

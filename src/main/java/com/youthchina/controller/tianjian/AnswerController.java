@@ -38,29 +38,29 @@ public class AnswerController {
 
         SimpleAnswerResponseDTO simpleAnswerResponseDTO = new SimpleAnswerResponseDTO(answer);
 
-        if (answer !=null)
+         if (answer !=null)
             return ResponseEntity.ok(new Response(simpleAnswerResponseDTO, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(simpleAnswerResponseDTO, new StatusDTO(400,"fail")));
+         else
+             return ResponseEntity.ok(new Response(simpleAnswerResponseDTO, new StatusDTO(400,"fail")));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity updateAnswer(@PathVariable Integer id, @RequestBody SimpleAnswerRequestDTO simpleAnswerRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        Answer answer = new Answer(simpleAnswerRequestDTO);
-        answer.setId(id);
-        answer.setUser(user);
-        Answer answer1 = answerService.update(answer);
-        SimpleAnswerResponseDTO returnSimpleAnswer = new SimpleAnswerResponseDTO(answer1);
-        if (returnSimpleAnswer!=null)
-            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(400,"fail")));
+           Answer answer = new Answer(simpleAnswerRequestDTO);
+           answer.setId(id);
+           answer.setUser(user);
+           Answer answer1 = answerService.update(answer);
+           SimpleAnswerResponseDTO returnSimpleAnswer = new SimpleAnswerResponseDTO(answer1);
+          if (returnSimpleAnswer!=null)
+           return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
+          else
+              return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(400,"fail")));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteAnswer(@PathVariable Integer id) throws NotFoundException {
-        answerService.delete(id);
-        return ResponseEntity.ok(new Response(new StatusDTO(204,"success")));
+            answerService.delete(id);
+            return ResponseEntity.ok(new Response(new StatusDTO(204,"success")));
     }
 
     @PostMapping("/{id}/comments")
@@ -71,9 +71,9 @@ public class AnswerController {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comment.setPubTime(time);
         if(commentRequestDTO.getIs_anonymous()==true)
-            comment.setIsAnony(0);
+           comment.setIsAnony(0);
         else
-            comment.setIsAnony(1);
+           comment.setIsAnony(1);
         Answer answer = answerService.get(id);
         commentService.add(comment,answer);
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
@@ -95,7 +95,7 @@ public class AnswerController {
         CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
         commentResponseDTO.setComments(commentDTOS);
 
-        return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200,"success")));
+            return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200,"success")));
     }
 
     @PutMapping ("/{id}/upvote")

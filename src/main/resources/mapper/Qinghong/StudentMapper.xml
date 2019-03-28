@@ -205,6 +205,9 @@
             <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
             <result property="companyLogo" column="COMPANY_LOGO"/>
         </association>
+        <association property="hr" javaType="com.youthchina.domain.qingyang.Hr">
+            <id property="hrId" column="HR_ID"/>
+        </association>
         <collection property="jobLocationList" ofType="com.youthchina.domain.qingyang.JobLocation">
             <id property="jobRegionId" column="JOB_REGION_ID"/>
             <result property="jobRegionNum" column="JOB_REGION_NUM"/>
@@ -226,6 +229,7 @@
                j.CV_RECEI_MAIL       as CV_RECEI_MAIL,
                j.CV_NAME_RULE        as CV_NAME_RULE,
                j.JOB_ACTIVE          as JOB_ACTIVE,
+               j.HR_ID               as HR_ID,
                j.COMPANY_ID          as COMPANY_ID,
                com.COMPANY_NAME      as COMPANY_NAME,
                com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
@@ -233,6 +237,7 @@
                loc.JOB_REGION_ID     as JOB_REGION_ID,
                loc.JOB_REGION_NUM    as JOB_REGION_NUM
         FROM JOB_INFO j
+                 LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
                  LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
                  LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID
         WHERE j.JOB_ID = #{jobId}

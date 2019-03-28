@@ -16,59 +16,21 @@ import java.util.List;
 public interface CommunityMapper {
     int addEssay(ComEssay essay);
 
-    int deleteEssay(@Param("essay_id") Integer essay_id, @Param("delete_time") Timestamp delete_time);
+    int deleteEssay(@Param("essayId") Integer essay_id, @Param("isDeleteTime") Timestamp delete_time);
 
     int updateEssay(ComEssay essay);
 
-    ComEssay getEssay(Integer essay_id);
+    ComEssay getEssay(@Param("essayId")Integer essayId);
 
-    ComAuthorEssayMap getEssayAuthor(Integer essay_id);
-
-    int updateEssayAuthor(ComAuthorEssayMap caem);
-
-    int addEssayLabel(List<ComEssayLabelMap> cel);
-
-    int deleteEssayLabel(Integer essay_id);
-
-    int addEssayAuthor(ComAuthorEssayMap caem);
-
-    int addFavoriteEssay(ComEssayAttention comessayattention);
-
-    int addFavoriteEssayMap(ComEssayAttentionMap ceam);
-
-    int deleteFavoriteEssay(@Param("essay_id") Integer essay_id, @Param("user_id") Integer user_id);
-
-    ComEssayAttention getFavoriteEssayWhetherAtten(@Param("essay_id") Integer essay_id, @Param("user_id") Integer user_id);
-
-    int addReply(ComEssayReply comessayanswer);
-
-    int addEssayReplyMap(ComEssayReplyMap cerm);
-
-    int updateReply(@Param("comessayreply") ComEssayReply comessayreply, @Param("essay_id") Integer essay_id);
-
-    int deleteReply(@Param("essay_id") Integer essay_id, @Param("user_id") Integer user_id, @Param("reply_level") Integer reply_level);
-
-    List<ComEssayReply> getReply(Integer essay_id);
-
-    int addReplyEvaluate(ComReplyEvaluate comreplyevaluate);
-
-    int addReplyEvaluateMap(ComReplyEvaluateMap crem);
-
-    int updateReplyEvaluate(@Param("comreplyevaluate") ComReplyEvaluate comreplyevaluate, @Param("reply_id") Integer reply_id);
-
-    List<ComReplyEvaluate> getReplyEvaluate(Integer reply_id);
+    List<ComEssay> getEssayList(List<Integer> essayId);
 
     List<ComEssay> getEssayLatest();
 
-    List<ComEssayReply> getEssayReply(Integer essay_id);
-
     int saveFriendsRelation(ComFriendRelation comFriendRelation);
 
-    int saveFriendsRelationMap(ComFriendRelationMap comFriendRelationMap);
+    int deleteFriend(@Param("comFriendRelation") ComFriendRelation comFriendRelation);
 
-    int deleteFriend(@Param("comFriendRelation") ComFriendRelation comFriendRelation, @Param("own_id") Integer own_id);
-
-    List<ComFriendRelation> getFriend(Integer own_id);
+    List<ComFriendRelation> getFriend(@Param("userId")Integer userId);
 
     int saveFriendGroup(ComFriendGroup cfg);
 

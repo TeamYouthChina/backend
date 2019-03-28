@@ -1,7 +1,6 @@
 package com.youthchina.util;
 
 import com.youthchina.domain.zhongyang.JwtAuthentication;
-import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +13,7 @@ import org.springframework.test.web.servlet.request.RequestPostProcessor;
  * Created by zhongyangwu on 2/6/19.
  */
 public class AuthGenerator {
-    private JwtAuthentication createAuthentication(Role role) {
+    private JwtAuthentication createAuthentication(Integer role) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = new User();
         user.setRole(role);
@@ -28,13 +27,13 @@ public class AuthGenerator {
         return new JwtAuthentication(user, true);
     }
 
-    public RequestPostProcessor authentication(Role role) {
+    public RequestPostProcessor authentication(Integer role) {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
         securityContext.setAuthentication(this.createAuthentication(role));
         return SecurityMockMvcRequestPostProcessors.securityContext(securityContext);
     }
 
     public RequestPostProcessor authentication() {
-        return this.authentication(Role.APPLICANT);
+        return this.authentication(1);
     }
 }

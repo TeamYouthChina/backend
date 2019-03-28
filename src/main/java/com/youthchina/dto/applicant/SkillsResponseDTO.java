@@ -1,6 +1,7 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.LabelInfo;
+import com.youthchina.dto.ResponseDTO;
 
 /**
  * @program: youthchina
@@ -8,7 +9,7 @@ import com.youthchina.domain.Qinghong.LabelInfo;
  * @author: Qinghong Wang
  * @create: 2019-03-02 15:26
  **/
-public class SkillsResponseDTO {
+public class SkillsResponseDTO implements ResponseDTO {
     private String id;
     private String name;
 

@@ -63,7 +63,7 @@ public class EssayController {
         if (comEssay.getRelaType()==1){
             essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId())));
         }
-        return ResponseEntity.ok(new Response(essayResponseDTO, new StatusDTO(200, "success")));
+            return ResponseEntity.ok(new Response(essayResponseDTO, new StatusDTO(200, "success")));
 
     }
 
@@ -74,8 +74,8 @@ public class EssayController {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setEditTime(time);
         if (essayRequestDTO.getCompany_id() != null) {
-            comEssay.setRelaType(1);
-            comEssay.setRelaId(essayRequestDTO.getCompany_id());
+         comEssay.setRelaType(1);
+         comEssay.setRelaId(essayRequestDTO.getCompany_id());
         }
         essayServiceimpl.updateEssay(comEssay);
 
@@ -113,8 +113,8 @@ public class EssayController {
 
     @DeleteMapping("/attentions/{id}")
     public ResponseEntity deleteAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = new ComEssay();
-        comEssay.setId(id);
+       ComEssay comEssay = new ComEssay();
+       comEssay.setId(id);
         attentionService.cancel(comEssay,user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }

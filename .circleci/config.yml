@@ -7,7 +7,6 @@ jobs:
   build:
     machine: true
     working_directory: ~/repo
-    parallelism: 1
 
     environment:
       # Customize the JVM maximum heap limit

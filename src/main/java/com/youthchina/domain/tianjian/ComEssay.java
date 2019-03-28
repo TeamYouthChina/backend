@@ -6,6 +6,8 @@ import com.youthchina.domain.jinhao.property.Commentable;
 import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.article.EssayRequestDTO;
+import com.youthchina.dto.community.article.EssayResponseDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -26,6 +28,31 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
     private Integer commentTargetType = 2;
     private Integer evaluateTargetType = 2;
     private Integer attentionTargetType = 2;
+
+
+    public ComEssay(EssayResponseDTO essayResponseDTO) {
+        this.id = essayResponseDTO.getId();
+        this.title = essayResponseDTO.getTitle();
+        this.pubTime = essayResponseDTO.getCreate_at();
+        this.editTime = essayResponseDTO.getModified_at();
+        this.isAnony = (essayResponseDTO.isIs_anonymous()) ? 1 : 0;
+        this.abbre = essayResponseDTO.getBody().getPreviewText();
+        this.body = new ComRichText(essayResponseDTO.getBody());
+    }
+
+
+    public ComEssay(EssayRequestDTO essayRequestDTO) {
+        this.id = essayRequestDTO.getId();
+        this.title = essayRequestDTO.getTitle();
+        this.abbre = essayRequestDTO.getBody().getPreviewText();
+        this.body = new ComRichText(essayRequestDTO.getBody());
+        this.isAnony = (essayRequestDTO.isIs_anonymous()) ? 1 : 0;
+    }
+
+    public ComEssay() {
+
+    }
+
 
     @Override
     public Integer getId() {

@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper
 public interface DiscussMapper {
     List<Discuss> getDiscusses(Integer id);
+    Discuss get(Integer id);
     void add(Discuss discuss);
     void delete(Integer id);
     Integer checkIfDiscussExist(Integer id);
