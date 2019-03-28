@@ -67,7 +67,7 @@ public class EssayServiceImpl implements EssayService {
     public ComEssay getEssay(Integer essay_id) throws NotFoundException {
         ComEssay comEssay = mapper.getEssay(essay_id);
         if(comEssay == null){
-            throw new NotFoundException(404,404,"this essay does not exist");
+            throw new NotFoundException(404,404,"this essay does not exist！！！！！！！！");
         }
         return comEssay;
     }

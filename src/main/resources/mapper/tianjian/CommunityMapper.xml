@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.tianjian.CommunityMapper">
+    <resultMap id="essayresult" type="com.youthchina.domain.tianjian.ComEssay">
+        <id property="id" column="ESSAY_ID"/>
+        <result property="title" column="ESSAY_TITLE"/>
+        <result property="abbre" column="ESSAY_ABBRE"/>
+        <result property="isAnony" column="USER_ANONY"/>
+        <result property="pubTime" column="ESSAY_PUB_TIME"/>
+        <result property="editTime" column="ESSAY_EDIT_TIME"/>
+        <result property="relaType" column="RELA_TYPE"/>
+        <result property="relaId" column="RELA_ID"/>
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
+                     resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
+    </resultMap>
     <!--    发布文章 -->
     <insert id="addEssay" parameterType="com.youthchina.domain.tianjian.ComEssay" useGeneratedKeys="true"
-            keyProperty="essayId">
+            keyProperty="id">
     INSERT INTO COM_ESSAY  (ESSAY_TITLE, ESSAY_ABBRE, USER_ID, ESSAY_PUB_TIME,ESSAY_EDIT_TIME,IS_DELETE,USER_ANONY,IS_DELETE_TIME,RELA_TYPE,RELA_ID,ESSAY_BODY)
-           values(#{essayTitle},#{essayAbbre},#{userId},#{essayPubTime},#{essayEditTime},0,#{userAnony},#{isDeleteTime},#{relaType},#{relaId},#{essayBody}
+           values(#{title},#{abbre},#{user.id},#{pubTime},#{editTime},0,#{isAnony},null,#{relaType},#{relaId},#{body}
                  )
 
     </insert>
@@ -14,23 +26,23 @@
     <update id="updateEssay" parameterType="com.youthchina.domain.tianjian.ComEssay">
     update COM_ESSAY
     set
-         ESSAY_TITLE = #{essayTitle}, ESSAY_ABBRE = #{essayAbbre}, ESSAY_BODY = #{essayBody}, ESSAY_PUB_TIME = #{essayPubTime},
-         ESSAY_EDIT_TIME = #{essayEditTime},IS_DELETE = 0,USER_ANONY=#{userAnony}
+         ESSAY_TITLE = #{title}, ESSAY_ABBRE = #{abbre}, ESSAY_BODY = #{body}, ESSAY_PUB_TIME = #{pubTime},
+         ESSAY_EDIT_TIME = #{editTime},IS_DELETE = 0,USER_ANONY=#{isAnony}
     where
-         ESSAY_ID = #{essayId}
+         ESSAY_ID = #{id}
     </update>
     <!--    删除文章通过更新删除那一列设置值为1 -->
     <update id="deleteEssay">
     update COM_ESSAY
     set
-         IS_DELETE = 1, IS_DELETE_TIME = #{isDeleteTime}
+         IS_DELETE = 1, IS_DELETE_TIME = date
     where
-        ESSAY_ID = #{essayId}
+        ESSAY_ID = #{id}
     </update>
 
     <!--    根据文章id查询文章 -->
-    <select id="getEssay" resultType="com.youthchina.domain.tianjian.ComEssay">
-   		select t.* from COM_ESSAY t where t.ESSAY_ID = #{essayId} and t.IS_DELETE = 0
+    <select id="getEssay" resultMap="essayresult">
+   		select t.* from COM_ESSAY t where t.ESSAY_ID = #{id}
    </select>
 
     <!--    获取最新10个文章 -->
@@ -41,29 +53,24 @@
     <!--    添加好友关系 -->
     <insert id="saveFriendsRelation" parameterType="com.youthchina.domain.tianjian.ComFriendRelation"
             useGeneratedKeys="true" keyProperty="rela_id">
-    INSERT INTO COM_FRIEND_RELATION  (USER_ID, ADD_TIME, IS_DELETE, IS_DELETE_TIME)
-    values(#{user_id},#{add_time},#{isDelete},#{is_delete_time} )
+    INSERT INTO COM_FRIEND_RELATION  (USER_ID, ADD_TIME, IS_DELETE, IS_DELETE_TIME,FRIEND_ID)
+    values(#{userId},#{addTime},#{isDelete},#{isDeleteTime},#{friendId})
     </insert>
 
-    <!--    添加好友关系映射 -->
-    <insert id="saveFriendsRelationMap" parameterType="com.youthchina.domain.tianjian.ComFriendRelationMap">
-    INSERT INTO COM_FRIEND_RELATION_MAP  (RELA_ID, USER_ID)
-    values(#{rela_id},#{user_id})
-    </insert>
 
-    <!--    删除好友关系通过更新取消关注那一列设置值为1 -->
+    <!--    删除好友关系 -->
     <update id="deleteFriend">
-    update COM_FRIEND_RELATION t1, COM_FRIEND_RELATION_MAP t2
+    update COM_FRIEND_RELATION t
     set
-         t1.IS_DELETE = 1,
-         t1.IS_DELETE_TIME = #{comFriendRelation.is_delete_time}
+         t.IS_DELETE = 1,
+         t.IS_DELETE_TIME = #{comFriendRelation.isDeleteTime}
     where
-         t1.RELA_ID = t2.RELA_ID and t1.USER_ID = #{comFriendRelation.user_id} and t2.USER_ID = #{own_id}
+         t.USER_ID = #{comFriendRelation.userId} and t.FRIEND_ID = #{comFriendRelation.friendId}
     </update>
 
     <!--    根据user_id查询好友关系 -->
     <select id="getFriend" resultType="com.youthchina.domain.tianjian.ComFriendRelation">
-   		select t1.* from COM_FRIEND_RELATION t1, COM_FRIEND_RELATION_MAP t2 where t2.USER_ID = #{user_id} and t1.RELA_ID = t2.RELA_ID
+   		select t1.* from COM_FRIEND_RELATION t1 where t1.USER_ID = #{userId}
    </select>
 
     <!--    添加好友分组 -->
@@ -108,7 +115,7 @@
          select * from COM_ESSAY t
          where t.ESSAY_ID in
         <foreach collection="list" item="essayId" index="index"  open="(" close=")" separator=",">
-          #{essayId}
+          #{id}
         </foreach>
     </select>
 

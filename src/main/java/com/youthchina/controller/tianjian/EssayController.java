@@ -54,6 +54,7 @@ public class EssayController {
 
     @GetMapping("/{id}")
     public ResponseEntity getEssay(@PathVariable Integer id) throws NotFoundException {
+        System.out.println(id);
         ComEssay comEssay = essayServiceimpl.getEssay(id);
         if (comEssay == null) {
             throw new NotFoundException(404, 404, "没有找到这个文章"); //TODO
