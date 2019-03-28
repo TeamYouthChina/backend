@@ -62,7 +62,7 @@ public class CompanyControllerTest {
     }
 
     @Test
-    public void testgetCompany() throws Exception {
+    public void testGetCompany() throws Exception {
         Integer id = 1;
         this.mvc.perform(
                 get(this.urlPrefix + "/companies/" + id)//.param("id", "1").param("detailLevel", "1")
@@ -76,11 +76,27 @@ public class CompanyControllerTest {
     }
 
     @Test
+    public void testDeleteCompany() throws Exception {
+        Integer id = 1;
+        this.mvc.perform(
+                delete(this.urlPrefix + "/companies/" + id)//.param("id", "1").param("detailLevel", "1")
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
+        ;
+    }
+
+
+
+
+    @Test
     public void testAddCompany() throws Exception {
         CompanyRequestDTO companyRequestDTO = new CompanyRequestDTO();
         companyRequestDTO.setName("Vavle");
         Location location = new Location();
-        location.setRegionNum(1);
+        location.setRegionId(994701);
+        location.setCountry("USA");
         companyRequestDTO.setLocation(new LocationDTO(location));
         Country country = new Country();
         country.setCountryAbbre("USA");
@@ -89,10 +105,11 @@ public class CompanyControllerTest {
         companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
         companyRequestDTO.setNote("Steam");
 
+
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String insertJson = ow.writeValueAsString(companyRequestDTO);
-
+        System.out.println(insertJson);
 
         this.mvc.perform(
                 post(this.urlPrefix + "/companies")
@@ -101,7 +118,7 @@ public class CompanyControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":{\"nation_code\":\"CHN\",\"location_code\":\"1\"},\"website\":\"vavle.com\",\"nation\":{\"countryAbbre\":\"USA\"},\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\",\"userId\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 
@@ -112,7 +129,8 @@ public class CompanyControllerTest {
         companyRequestDTO.setId(id);
         companyRequestDTO.setName("Vavle");
         Location location = new Location();
-        location.setRegionNum(1);
+        location.setRegionId(994701);
+        location.setCountry("USA");
         companyRequestDTO.setLocation(new LocationDTO(location));
         Country country = new Country();
         country.setCountryAbbre("USA");
@@ -134,7 +152,7 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"location\":{\"nation_code\":\"CHN\",\"location_code\":\"1\"},\"website\":\"vavle.com\",\"nation\":{\"countryAbbre\":\"USA\"},\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\",\"userId\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
 
     }

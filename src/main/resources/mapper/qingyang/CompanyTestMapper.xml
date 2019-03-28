@@ -12,7 +12,7 @@
             IS_DELETE_TIME)
         VALUES
         (   #{companyName},     #{companyCode},   #{country.countryAbbre},
-            #{companyIntroduc}, #{companyScale.scaleNum}, #{companyNature.natureNum},   #{location.regionNum},
+            #{companyIntroduc}, #{companyScale.scaleNum}, #{companyNature.natureNum},   #{location.regionId},
             #{companyMail},     #{companyWebsite}, #{companyStartDate},
                  #{companyVerify},   #{userId},   NOW(),       0,
             NULL)
