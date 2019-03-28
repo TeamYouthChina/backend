@@ -1,5 +1,5 @@
 package com.youthchina.service.Qinghong;
-
+/*
 import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.service.DomainCRUDService;
@@ -11,3 +11,4 @@ public interface CompCollectService extends DomainCRUDService<Company, Integer> 
 
     public CompCollect addOneCompCollect(Integer stu_id, Integer comp_id);
 }
+*/

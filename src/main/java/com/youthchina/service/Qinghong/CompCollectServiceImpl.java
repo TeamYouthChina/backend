@@ -19,6 +19,7 @@ import java.util.List;
  * @author: Qinghong Wang
  * @create: 2018-11-29 17:15
  **/
+/*
 @Service
 public class CompCollectServiceImpl implements CompCollectService {
     private StudentMapper studentMapper;
@@ -55,7 +56,7 @@ public class CompCollectServiceImpl implements CompCollectService {
     public Company add(Company entity) {
         return null;
     }
-
+*/
     /**
      * @Description: 通过学生id获得该id下所有收藏的公司的具体信息
      * @Param: [stu_id]
@@ -63,6 +64,7 @@ public class CompCollectServiceImpl implements CompCollectService {
      * @Author: Qinghong Wang
      * @Date: 2018/11/29
      */
+    /*
     public List<Company> getAllCompCollect(Integer stu_id) {
         List<CompCollect> compCollects = studentMapper.getAllCompCollect(stu_id);
         List<Integer> key = new ArrayList<>();
@@ -71,7 +73,7 @@ public class CompCollectServiceImpl implements CompCollectService {
         }
         return companyMapper.selectCompanyByIdList(key);
     }
-
+*/
     /**
      * @Description: 收藏一个公司
      * @Param: [stu_id, comp_id]
@@ -79,6 +81,7 @@ public class CompCollectServiceImpl implements CompCollectService {
      * @Author: Qinghong Wang
      * @Date: 2018/11/29
      */
+    /*
     public CompCollect addOneCompCollect(Integer stu_id, Integer comp_id) {
         CompCollect compCollect = new CompCollect();
         if (studentMapper.getOneCompCollect(stu_id, comp_id) == null) {
@@ -92,3 +95,4 @@ public class CompCollectServiceImpl implements CompCollectService {
     }
 
 }
+*/

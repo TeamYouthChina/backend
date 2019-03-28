@@ -14,8 +14,8 @@ services:
     environment:
       MYSQL_DATABASE: youthchina
       MYSQL_PASSWORD: dbpass
-      MYSQL_USER:
-      MYSQL_ROOT_PASSWORdbuserD: rootpass
+      MYSQL_USER: dbuser
+      MYSQL_ROOT_PASSWORD: rootpass
   rabbitmq:
     image: rabbitmq:3.7-management
     container_name: rabbitmq
