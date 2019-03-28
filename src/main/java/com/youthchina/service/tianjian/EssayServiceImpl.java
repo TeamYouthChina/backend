@@ -21,7 +21,7 @@ public class EssayServiceImpl implements EssayService {
     CommunityMapper mapper;
 
     @Resource
-    RichTextService richTextService;
+    RichTextServiceImpl richTextService;
 
     @Autowired
     public EssayServiceImpl(CommunityMapper mapper) {
@@ -69,6 +69,7 @@ public class EssayServiceImpl implements EssayService {
         if(comEssay == null){
             throw new NotFoundException(404,404,"this essay does not exist！！！！！！！！");
         }
+        richTextService.getComRichText(comEssay);
         return comEssay;
     }
 

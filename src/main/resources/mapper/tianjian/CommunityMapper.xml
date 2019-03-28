@@ -17,7 +17,7 @@
     <insert id="addEssay" parameterType="com.youthchina.domain.tianjian.ComEssay" useGeneratedKeys="true"
             keyProperty="id">
     INSERT INTO COM_ESSAY  (ESSAY_TITLE, ESSAY_ABBRE, USER_ID, ESSAY_PUB_TIME,ESSAY_EDIT_TIME,IS_DELETE,USER_ANONY,IS_DELETE_TIME,RELA_TYPE,RELA_ID,ESSAY_BODY)
-           values(#{title},#{abbre},#{user.id},#{pubTime},#{editTime},0,#{isAnony},null,#{relaType},#{relaId},#{body}
+           values(#{title},#{abbre},#{user.id},#{pubTime},#{editTime},0,#{isAnony},null,#{relaType},#{relaId},#{body.textId}
                  )
 
     </insert>
@@ -26,7 +26,7 @@
     <update id="updateEssay" parameterType="com.youthchina.domain.tianjian.ComEssay">
     update COM_ESSAY
     set
-         ESSAY_TITLE = #{title}, ESSAY_ABBRE = #{abbre}, ESSAY_BODY = #{body}, ESSAY_PUB_TIME = #{pubTime},
+         ESSAY_TITLE = #{title}, ESSAY_ABBRE = #{abbre}, ESSAY_BODY = #{body.textId}, ESSAY_PUB_TIME = #{pubTime},
          ESSAY_EDIT_TIME = #{editTime},IS_DELETE = 0,USER_ANONY=#{isAnony}
     where
          ESSAY_ID = #{id}
@@ -35,14 +35,14 @@
     <update id="deleteEssay">
     update COM_ESSAY
     set
-         IS_DELETE = 1, IS_DELETE_TIME = date
+         IS_DELETE = 1, IS_DELETE_TIME = now()
     where
         ESSAY_ID = #{id}
     </update>
 
     <!--    根据文章id查询文章 -->
     <select id="getEssay" resultMap="essayresult">
-   		select t.* from COM_ESSAY t where t.ESSAY_ID = #{id}
+   		select t.* from COM_ESSAY t where t.ESSAY_ID = #{essayId}
    </select>
 
     <!--    获取最新10个文章 -->

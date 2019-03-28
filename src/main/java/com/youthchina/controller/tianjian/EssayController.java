@@ -73,15 +73,15 @@ public class EssayController {
         comEssay.setId(id);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setEditTime(time);
-        if (essayRequestDTO.getCompany_id() != 1) {
-         comEssay.setRelaType(2);
+        if (essayRequestDTO.getCompany_id() != null) {
+         comEssay.setRelaType(1);
          comEssay.setRelaId(essayRequestDTO.getCompany_id());
         }
         essayServiceimpl.updateEssay(comEssay);
 
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
         essayResponseDTO.setModified_at(time);
-        if (essayRequestDTO.getCompany_id() != 1)
+        if (essayRequestDTO.getCompany_id() != null)
             essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getCompany_id())));
         essayResponseDTO.setAuthor(new UserDTO(user));
 
