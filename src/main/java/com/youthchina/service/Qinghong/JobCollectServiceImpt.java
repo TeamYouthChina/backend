@@ -19,6 +19,7 @@ import java.util.List;
  * @author: Qinghong Wang
  * @create: 2018-11-29 17:29
  **/
+/*
 @Service
 public class JobCollectServiceImpt implements JobCollectService {
     private StudentMapper studentMapper;
@@ -53,7 +54,7 @@ public class JobCollectServiceImpt implements JobCollectService {
     public Job add(Job entity) {
         return null;
     }
-
+/*
     /**
      * @Description: 通过学生id获得该id下所有收藏的信息
      * @Param: [stu_id]
@@ -61,6 +62,7 @@ public class JobCollectServiceImpt implements JobCollectService {
      * @Author: Qinghong Wang
      * @Date: 2018/11/29
      */
+/*
     public List<Job> getAllJobCollect(Integer stu_id) {
         List<JobCollect> jobCollects = studentMapper.getAllJobCollect(stu_id);
         List<Integer> key = new ArrayList<>();
@@ -78,6 +80,7 @@ public class JobCollectServiceImpt implements JobCollectService {
      * @Author: Qinghong Wang
      * @Date: 2018/11/29
      */
+/*
     public Job getByJobId(Integer job_id) {
         return studentMapper.getByJobId(job_id);
     }
@@ -95,4 +98,4 @@ public class JobCollectServiceImpt implements JobCollectService {
         return jobCollect;
     }
 
-}
+}*/

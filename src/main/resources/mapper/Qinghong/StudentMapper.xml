@@ -1,463 +1,463 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.youthchina.dao.Qinghong.StudentMapper">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
+<!--<mapper namespace="com.youthchina.dao.Qinghong.StudentMapper">-->
 
-    <resultMap id="studentResultMap" type="com.youthchina.domain.Qinghong.Student">
-        <id property="stu_id" column="STU_ID"/>
-        <result property="isInJob" column="STU_IN_JOB"/>
-        <result property="currentCompanyName" column="currentCompanyName"/>
-        <association property="prefersalary" javaType="com.youthchina.domain.Qinghong.PreferSalary">
-            <id property="pre_sala_id" column="PRE_SALA_ID"/>
-            <result property="pre_sala_cap" column="pre_sala_cap"/>
-            <result property="pre_sala_floor" column="PRE_SALA_FLOOR"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+    <!--<resultMap id="studentResultMap" type="com.youthchina.domain.Qinghong.Student">-->
+        <!--<id property="stu_id" column="STU_ID"/>-->
+        <!--<result property="isInJob" column="STU_IN_JOB"/>-->
+        <!--<result property="currentCompanyName" column="currentCompanyName"/>-->
+        <!--<association property="prefersalary" javaType="com.youthchina.domain.Qinghong.PreferSalary">-->
+            <!--<id property="pre_sala_id" column="PRE_SALA_ID"/>-->
+            <!--<result property="pre_sala_cap" column="pre_sala_cap"/>-->
+            <!--<result property="pre_sala_floor" column="PRE_SALA_FLOOR"/>-->
+            <!--<result property="stu_id" column="STU_ID"/>-->
+            <!--<result property="is_delete" column="IS_DELETE"/>-->
+            <!--<result property="is_delete_time" column="IS_DELETE_TIME"/>-->
 
-        </association>
-        <association property="introducationVideo" javaType="com.youthchina.domain.Qinghong.IntroductionVideo">
-            <id property="intro_video_id" column="INTRO_VIDEO_ID"/>
-            <result property="intro_video_path" column="INTRO_VIDEO_PATH"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_time"/>
+        <!--</association>-->
+        <!--<association property="introducationVideo" javaType="com.youthchina.domain.Qinghong.IntroductionVideo">-->
+            <!--<id property="intro_video_id" column="INTRO_VIDEO_ID"/>-->
+            <!--<result property="intro_video_path" column="INTRO_VIDEO_PATH"/>-->
+            <!--<result property="stu_id" column="STU_ID"/>-->
+            <!--<result property="is_delete" column="IS_DELETE"/>-->
+            <!--<result property="is_delete_time" column="IS_DELETE_time"/>-->
 
-        </association>
-        <association property="subInfo" javaType="com.youthchina.domain.Qinghong.SubInfo">
-            <id property="sub_id" column="SUB_ID"/>
-            <result property="sub_course" column="SUB_COURSE"/>
-            <result property="sub_honor" column="SUB_HONOR"/>
-            <result property="sub_award" column="SUB_AWARD"/>
-            <result property="sub_skill" column="SUB_SKILL"/>
-            <result property="sub_certificate" column="SUB_CERTIFICATE"/>
-            <result property="sub_certif_url" column="SUB_CERTIF_URL"/>
-            <result property="sub_foreign" column="SUB_FOREIGN"/>
-            <result property="sub_interest" column="SUB_INTEREST"/>
-            <result property="sub_activity" column="SUB_ACTIVITY"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        <!--</association>-->
+        <!--<association property="subInfo" javaType="com.youthchina.domain.Qinghong.SubInfo">-->
+            <!--<id property="sub_id" column="SUB_ID"/>-->
+            <!--<result property="sub_course" column="SUB_COURSE"/>-->
+            <!--<result property="sub_honor" column="SUB_HONOR"/>-->
+            <!--<result property="sub_award" column="SUB_AWARD"/>-->
+            <!--<result property="sub_skill" column="SUB_SKILL"/>-->
+            <!--<result property="sub_certificate" column="SUB_CERTIFICATE"/>-->
+            <!--<result property="sub_certif_url" column="SUB_CERTIF_URL"/>-->
+            <!--<result property="sub_foreign" column="SUB_FOREIGN"/>-->
+            <!--<result property="sub_interest" column="SUB_INTEREST"/>-->
+            <!--<result property="sub_activity" column="SUB_ACTIVITY"/>-->
+            <!--<result property="stu_id" column="STU_ID"/>-->
+            <!--<result property="is_delete" column="IS_DELETE"/>-->
+            <!--<result property="is_delete_time" column="IS_DELETE_TIME"/>-->
 
-        </association>
-        <collection property="EducationInfos" ofType="com.youthchina.domain.Qinghong.EducationInfo">
-            <id property="edu_id" column="EDU_ID"/>
-            <result property="edu_degree" column="EDU_DEGREE"/>
-            <result property="edu_school" column="EDU_SCHOOL"/>
-            <result property="edu_school_country" column="EDU_SCHOOL_COUNTRY"/>
-            <result property="edu_school_location" column="EDU_SCHOOL_LOCATION"/>
-            <result property="edu_major" column="EDU_MAJOR"/>
-            <result property="edu_college" column="EDU_COLLEGE"/>
-            <result property="edu_gpa" column="EDU_GPA"/>
-            <result property="edu_start" column="EDU_START"/>
-            <result property="edu_end" column="EDU_END"/>
-        </collection>
-        <collection property="Works" ofType="com.youthchina.domain.Qinghong.Work">
-            <id property="work_id" column="WORK_ID"/>
-            <result property="work_company" column="WORK_COMPANY"/>
-            <result property="work_position" column="WORK_POSITION"/>
-            <result property="work_location" column="WORK_LOCATION"/>
-            <result property="work_sector" column="WORK_SECTOR"/>
-            <result property="work_start_time" column="WORK_START_TIME"/>
-            <result property="work_end_time" column="WORK_END_TIME"/>
-            <result property="work_duty" column="WORK_DUTY"/>
-            <result property="WORK_NATURE" column="WORK_NATURE"/>
-        </collection>
+        <!--</association>-->
+        <!--<collection property="EducationInfos" ofType="com.youthchina.domain.Qinghong.EducationInfo">-->
+            <!--<id property="edu_id" column="EDU_ID"/>-->
+            <!--<result property="edu_degree" column="EDU_DEGREE"/>-->
+            <!--<result property="edu_school" column="EDU_SCHOOL"/>-->
+            <!--<result property="edu_school_country" column="EDU_SCHOOL_COUNTRY"/>-->
+            <!--<result property="edu_school_location" column="EDU_SCHOOL_LOCATION"/>-->
+            <!--<result property="edu_major" column="EDU_MAJOR"/>-->
+            <!--<result property="edu_college" column="EDU_COLLEGE"/>-->
+            <!--<result property="edu_gpa" column="EDU_GPA"/>-->
+            <!--<result property="edu_start" column="EDU_START"/>-->
+            <!--<result property="edu_end" column="EDU_END"/>-->
+        <!--</collection>-->
+        <!--<collection property="Works" ofType="com.youthchina.domain.Qinghong.Work">-->
+            <!--<id property="work_id" column="WORK_ID"/>-->
+            <!--<result property="work_company" column="WORK_COMPANY"/>-->
+            <!--<result property="work_position" column="WORK_POSITION"/>-->
+            <!--<result property="work_location" column="WORK_LOCATION"/>-->
+            <!--<result property="work_sector" column="WORK_SECTOR"/>-->
+            <!--<result property="work_start_time" column="WORK_START_TIME"/>-->
+            <!--<result property="work_end_time" column="WORK_END_TIME"/>-->
+            <!--<result property="work_duty" column="WORK_DUTY"/>-->
+            <!--<result property="WORK_NATURE" column="WORK_NATURE"/>-->
+        <!--</collection>-->
 
-        <collection property="projects" ofType="com.youthchina.domain.Qinghong.Project">
-            <id property="proj_id" column="PROJ_ID"/>
-            <result property="proj_name" column="PROJ_NAME"/>
-            <result property="proj_role" column="PROJ_ROLE"/>
-            <result property="proj_start_time" column="PROJ_START_TIME"/>
-            <result property="proj_end_time" column="PROJ_END_TIME"/>
-            <result property="proj_deliver" column="PROJ_DELIVER"/>
-            <result property="delever_publish" column="DELEVER_PUBLISH"/>
-            <result property="delever_pub_insti" column="DELEVER_PUB_INSTI"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
-        </collection>
-        <collection property="activities" ofType="com.youthchina.domain.Qinghong.Activity">
-            <id property="act_id" column="ACT_ID"/>
-            <result property="act_name" column="ACT_NAME"/>
-            <result property="act_organization" column="ACT_ORGANIZATION"/>
-            <result property="act_role" column="ACT_ROLE"/>
-            <result property="act_start_time" column="ACT_START_TIME"/>
-            <result property="act_end_time" column="ACT_END_TIME"/>
-            <result property="act_detail" column="ACT_DETAIL"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
-        </collection>
-        <collection property="jobCollects" ofType="com.youthchina.domain.Qinghong.JobCollect">
-            <id property="collect_id" column="COLLECT_ID"/>
-            <result property="job_Id" column="JOB_ID"/>
-            <result property="job_coll_time" column="JOB_COLL_TIME"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
-
-
-        </collection>
-        <collection property="compCollects" ofType="com.youthchina.domain.Qinghong.CompCollect">
-            <id property="collect_id" column="COLLECT_ID"/>
-            <result property="company_id" column="COMPANY_ID"/>
-            <result property="company_coll_time" column="COMPANY_COLL_TIME"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        <!--<collection property="projects" ofType="com.youthchina.domain.Qinghong.Project">-->
+            <!--<id property="proj_id" column="PROJ_ID"/>-->
+            <!--<result property="proj_name" column="PROJ_NAME"/>-->
+            <!--<result property="proj_role" column="PROJ_ROLE"/>-->
+            <!--<result property="proj_start_time" column="PROJ_START_TIME"/>-->
+            <!--<result property="proj_end_time" column="PROJ_END_TIME"/>-->
+            <!--<result property="proj_deliver" column="PROJ_DELIVER"/>-->
+            <!--<result property="delever_publish" column="DELEVER_PUBLISH"/>-->
+            <!--<result property="delever_pub_insti" column="DELEVER_PUB_INSTI"/>-->
+            <!--<result property="stu_id" column="STU_ID"/>-->
+            <!--<result property="is_delete" column="IS_DELETE"/>-->
+            <!--<result property="is_delete_time" column="IS_DELETE_TIME"/>-->
+        <!--</collection>-->
+        <!--<collection property="activities" ofType="com.youthchina.domain.Qinghong.Activity">-->
+            <!--<id property="act_id" column="ACT_ID"/>-->
+            <!--<result property="act_name" column="ACT_NAME"/>-->
+            <!--<result property="act_organization" column="ACT_ORGANIZATION"/>-->
+            <!--<result property="act_role" column="ACT_ROLE"/>-->
+            <!--<result property="act_start_time" column="ACT_START_TIME"/>-->
+            <!--<result property="act_end_time" column="ACT_END_TIME"/>-->
+            <!--<result property="act_detail" column="ACT_DETAIL"/>-->
+            <!--<result property="stu_id" column="STU_ID"/>-->
+            <!--<result property="is_delete" column="IS_DELETE"/>-->
+            <!--<result property="is_delete_time" column="IS_DELETE_TIME"/>-->
+        <!--</collection>-->
+        <!--<collection property="jobCollects" ofType="com.youthchina.domain.Qinghong.JobCollect">-->
+            <!--<id property="collect_id" column="COLLECT_ID"/>-->
+            <!--<result property="job_Id" column="JOB_ID"/>-->
+            <!--<result property="job_coll_time" column="JOB_COLL_TIME"/>-->
+            <!--<result property="stu_id" column="STU_ID"/>-->
+            <!--<result property="is_delete" column="IS_DELETE"/>-->
+            <!--<result property="is_delete_time" column="IS_DELETE_TIME"/>-->
 
 
-        </collection>
-        <collection property="advantageLabels" ofType="com.youthchina.domain.Qinghong.AdvantageLabel">
-            <id property="label_id" column="LABEL_ID"/>
-            <result property="label_num" column="LABEL_NUM"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
-
-        </collection>
-        <collection property="preferJobs" ofType="com.youthchina.domain.Qinghong.PreferJob">
-            <id property="pre_prof_id" column="PRE_PRO_ID"/>
-            <result property="pre_prof_num" column="PRE_PROF_NUM"/>
-            <result property="pre_avail_time" column="PRE_AVAIL_TIME"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        <!--</collection>-->
+        <!--<collection property="compCollects" ofType="com.youthchina.domain.Qinghong.CompCollect">-->
+            <!--<id property="collect_id" column="COLLECT_ID"/>-->
+            <!--<result property="company_id" column="COMPANY_ID"/>-->
+            <!--<result property="company_coll_time" column="COMPANY_COLL_TIME"/>-->
+            <!--<result property="stu_id" column="STU_ID"/>-->
+            <!--<result property="is_delete" column="IS_DELETE"/>-->
+            <!--<result property="is_delete_time" column="IS_DELETE_TIME"/>-->
 
 
-        </collection>
-        <collection property="preferIndustries" ofType="com.youthchina.domain.Qinghong.PreferIndustry">
-            <id property="pre_ind_id" column="PRE_IND_ID"/>
-            <result property="pre_ind_num" column="PRE_IND_NUM"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        <!--</collection>-->
+        <!--<collection property="advantageLabels" ofType="com.youthchina.domain.Qinghong.AdvantageLabel">-->
+            <!--<id property="label_id" column="LABEL_ID"/>-->
+            <!--<result property="label_num" column="LABEL_NUM"/>-->
+            <!--<result property="stu_id" column="STU_ID"/>-->
+            <!--<result property="is_delete" column="IS_DELETE"/>-->
+            <!--<result property="is_delete_time" column="IS_DELETE_TIME"/>-->
 
-        </collection>
-        <collection property="preferCities" ofType="com.youthchina.domain.Qinghong.PreferCity">
-            <id property="pre_city_id" column="PRE_CITY_ID"/>
-            <result property="pre_region_num" column="PRE_REGION_NUM"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
-
-        </collection>
-
-        <collection property="notifications" ofType="com.youthchina.domain.Qinghong.Notification">
-            <id property="notify_id" column="NOTIFY_ID"/>
-            <result property="notify_content" column="NOTIFY_CONTENT"/>
-            <result property="notify_time" column="NOTIFY_TIME"/>
-            <result property="notify_read" column="NOTIFY_READ"/>
-            <result property="stu_Id" column="STU_ID"/>
-
-        </collection>
-        <collection property="jobApplies" ofType="com.youthchina.domain.Qinghong.JobApply">
-            <id property="apply_id" column="APPLY_ID"/>
-            <result property="stu_id" column="STU_ID"/>
-            <result property="job_id" column="JOB_ID"/>
-            <result property="job_cv_send" column="JOB_CV_SEND"/>
-            <result property="job_apply_time" column="JOB_APPLY_TIME"/>
-            <result property="job_apply_status" column="JOB_APPLY_STATUS"/>
-        </collection>
-    </resultMap>
-    <resultMap id="companyCollectMap" type="com.youthchina.domain.Qinghong.CompCollect">
-        <id property="collect_id" column="COLLECT_ID"/>
-        <result property="company_id" column="COMPANY_ID"/>
-        <result property="company_coll_time" column="COMPANY_COLL_TIME"/>
-        <result property="stu_id" column="STU_ID"/>
-        <result property="is_delete" column="IS_DELETE"/>
-        <result property="is_delete_time" column="IS_DELETE_TIME"/>
-    </resultMap>
-    <resultMap id="jobCollectMap" type="com.youthchina.domain.Qinghong.JobCollect">
-        <id property="collect_id" column="COLLECT_ID"/>
-        <result property="job_id" column="job_ID"/>
-        <result property="job_coll_time" column="job_COLL_TIME"/>
-        <result property="stu_id" column="STU_ID"/>
-        <result property="is_delete" column="IS_DELETE"/>
-        <result property="is_delete_time" column="IS_DELETE_TIME"/>
-    </resultMap>
-    <resultMap id="jobApplyMap" type="com.youthchina.domain.Qinghong.JobApply">
-        <id property="apply_id" column="APPLY_ID"/>
-        <result property="stu_id" column="STU_ID"/>
-        <result property="job_id" column="JOB_ID"/>
-        <result property="job_cv_send" column="JOB_CV_SEND"/>
-        <result property="job_apply_time" column="JOB_APPLY_TIME"/>
-        <result property="job_apply_status" column="JOB_APPLY_STATUS"/>
-    </resultMap>
-    <resultMap id="jobInfo" type="com.youthchina.domain.qingyang.Job">
-        <id property="jobId" column="JOB_ID"/>
-        <result property="jobName" column="JOB_NAME"/>
-        <result property="jobProfNum" column="JOB_PROF_NUM"/>
-        <result property="jobStartTime" column="JOB_START_TIME"/>
-        <result property="jobEndTime" column="JOB_END_TIME"/>
-        <result property="jobTime" column="JOB_TIME"/>
-        <result property="jobDescription" column="JOB_DESCRIPTION"/>
-        <result property="jobDuty" column="JOB_DUTY"/>
-        <result property="jobReq" column="JOB_REQ"/>
-        <result property="jobHighlight" column="JOB_HIGHLIGHT"/>
-        <result property="jobSalary" column="JOB_SALARY"/>
-        <result property="cvReceiMail" column="CV_RECEI_MAIL"/>
-        <result property="cvNameRule" column="CV_NAME_RULE"/>
-        <result property="jobActive" column="JOB_ACTIVE"/>
-        <association property="company" javaType="com.youthchina.domain.qingyang.Company">
-            <id property="company_id" column="COMPANY_ID"/>
-            <result property="companyName" column="COMPANY_NAME"/>
-            <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
-            <result property="companyLogo" column="COMPANY_LOGO"/>
-        </association>
-        <association property="hr" javaType="com.youthchina.domain.qingyang.Hr">
-            <id property="hrId" column="HR_ID"/>
-        </association>
-        <collection property="jobLocationList" ofType="com.youthchina.domain.qingyang.JobLocation">
-            <id property="jobRegionId" column="JOB_REGION_ID"/>
-            <result property="jobRegionNum" column="JOB_REGION_NUM"/>
-        </collection>
-    </resultMap>
-
-    <select id="getByJobId" resultMap="jobInfo" parameterType="java.lang.Integer">
-        SELECT j.JOB_ID              as JOB_ID,
-               j.JOB_NAME            as JOB_NAME,
-               j.JOB_PROF_NUM        as JOB_PROF_NUM,
-               j.JOB_START_TIME      as JOB_START_TIME,
-               j.JOB_END_TIME        as JOB_END_TIME,
-               j.JOB_TIME            as JOB_TIME,
-               j.JOB_DESCRIPTION     as JOB_DESCRIPTION,
-               j.JOB_DUTY            as JOB_DUTY,
-               j.JOB_REQ             as JOB_REQ,
-               j.JOB_HIGHLIGHT       as JOB_HIGHLIGHT,
-               j.JOB_SALARY          as JOB_SALARY,
-               j.CV_RECEI_MAIL       as CV_RECEI_MAIL,
-               j.CV_NAME_RULE        as CV_NAME_RULE,
-               j.JOB_ACTIVE          as JOB_ACTIVE,
-               j.HR_ID               as HR_ID,
-               j.COMPANY_ID          as COMPANY_ID,
-               com.COMPANY_NAME      as COMPANY_NAME,
-               com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
-               com.COMPANY_LOGO      as COMPANY_LOGO,
-               loc.JOB_REGION_ID     as JOB_REGION_ID,
-               loc.JOB_REGION_NUM    as JOB_REGION_NUM
-        FROM JOB_INFO j
-                 LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
-                 LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
-                 LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID
-        WHERE j.JOB_ID = #{jobId}
-          AND j.IS_DELETE = 0
-          AND com.IS_DELETE = 0
-          AND h.IS_DELETE = 0
-    </select>
-    <select id="getAllJobApply" resultMap="jobApplyMap">
-        select a.*, j.*, c.*
-        from STU_JOB_APPLY a.*
-                Left JOIN JOB_INFO j on j.JOB_ID = a.JOB_ID
-                Left JOIN COMPANY_INFO c on j.COMAPNY_ID = c.COMPANY_ID
-                where a.STU_ID = #{stu_id}
-    </select>
-    <select id="getByPrimaryKey" resultMap="studentResultMap">
-        select a.*,
-               b.*,
-               c.*,
-               d.*,
-               e.*,
-               f.*,
-               g.*,
-               h.*,
-               i.*,
-               j.*,
-               k.*,
-               l.*,
-               m.*,
-               n.*,
-               o.*,
-               p.*
-        from STU_INFO a;
-        LEFT JOIN STU_EDU_INFO b ON a.STU_ID = b.STU_ID
-        LEFT JOIN STU_SUB_INFO c ON a.STU_ID = c.STU_ID
-        LEFT JOIN STU_PROJECT d ON a.STU_ID = d.STU_ID
-        LEFT JOIN STU_WORK e ON a.STU_ID = e.STU_ID
-        LEFT JOIN STU_ACTIVITY f ON a.STU_ID = f.STU_ID
-        LEFT JOIN STU_JOB_COLLECT g ON a.STU_ID = g.STU_ID
-        LEFT JOIN STU_COMP_COLLECT h ON a.STU_ID = h.STU_ID
-        LEFT JOIN STU_ADVAN_LABEL i ON a.STU_ID = i.STU_ID
-        LEFT JOIN STU_PREFER_JOB j ON a.STU_ID = j.STU_ID
-        LEFT JOIN STU_PREFER_INDUSTRY k ON a.STU_ID = k.STU_ID
-        LEFT JOIN STU_PREFER_CITY l ON a.STU_ID = l.PRE_STU_ID
-        LEFT JOIN STU_PREFER_SALARY m ON a.STU_ID = m.STU_ID
-        LEFT JOIN STU_PREFER_INTRODUCTION_VIDEO n ON a.STU_ID = n.STU_ID
-        LEFT JOIN STU_PREFER_NOTIFICATION o ON a.STU_ID = o.STU_ID
-        LEFT JOIN STU_JOB_APPLY p ON a.STU_ID = p.STU_ID
-        WHERE a.USER_ID = #{user_id} AND a.IS_DELETE = 0 AND b.IS_DELETE = 0
-        AND c.IS_DELETE = 0 AND d.IS_DELETE = 0 AND e.IS_DELETE = 0 AND f.IS_DELETE = 0
-        AND g.IS_DELETE = 0 AND h.IS_DELETE = 0 AND i.IS_DELETE = 0 AND j.IS_DELETE = 0
-        AND k.IS_DELETE = 0 AND l.IS_DELETE = 0 AND m.IS_DELETE = 0 AND n.IS_DELETE = 0
-        AND o.IS_DELETE = 0 AND p.IS_DELETE = 0
-    </select>
-    <select id="getOneCompCollect" resultMap="jobCollectMap">
-        select *
-        from STU_COMP_COLLECT
-        where STU_ID = #{0}
-          and COMPANY_ID = #{1}
-    </select>
-    <select id="getOneJobCollect" resultMap="jobCollectMap">
-        select *
-        from STU_JOB_COLLECT
-        where STU_ID = #{0}
-          and JOB_ID = #{1}
-    </select>
-    <insert id="addOneCompCollect" useGeneratedKeys="true" keyProperty="collect_id">
-        insert into STU_COMP_COLLECT (COMPANY_ID, COMPANY_COLL_TIME, STU_ID, IS_DELETE, IS_DELETE_TIME)
-        values (#{company_id}, #{company_coll_time}, #{stu_id}, #{is_delete}, #{is_delete_time})
-    </insert>
-    <insert id="addOneJobCollect" useGeneratedKeys="true" keyProperty="job_id">
-        insert into STU_JOB_COLLECT (JOB_ID, JOB_COLL_TIME, STU_ID, IS_DELETE, IS_DELETE_TIME)
-        values (#{job_id}, #{job_coll_time}, #{stu_id}, #{is_delete}, #{is_delete_time})
-    </insert>
-    <insert id="add" useGeneratedKeys="true" keyProperty="stu_id">
-        INSERT into STU_INFO (STU_IN_JOB, STU_IN_JOB_COMP, USER_ID, IS_DELETE, IS_DELETE_TIME)
-        values (#{isInJob}, #{currentCompanyName}, #{user_id}, #{is_delete}, #{is_delete_time})
-
-    </insert>
-    <insert id="addEducationInfos" useGeneratedKeys="true" keyProperty="sub_id">
-        insert into STU_EDU_INFO
-        (EDU_DEGREE,EDU_SCHOOL,EDU_SCHOOL_COUNTRY,EDU_SCHOOL_LOCATION,EDU_MAJOR,
-        EDU_COLLEGE,EDU_GPA,EDU_START,EDU_END,STU_ID,IS_DELETE,IS_DELETE_TIME)
-        values
-        <foreach collection="educationInfos" item="item" separator=",">
-            (#{item.edu_degree},#{item.edu_school},#{item.edu_school_country},
-            #{item.edu_school_location},#{item.edu_major},#{item.edu_college},#{item.edu_gpa},
-            #{item.edu_start},#{item.edu_end},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})
-        </foreach>
-    </insert>
-    <insert id="addSubInfo" useGeneratedKeys="true" keyProperty="sub_id">
-        insert into STU_SUB_INFO (SUB_COURSE,
-                                  SUB_HONOR,
-                                  SUB_AWARD,
-                                  SUB_SKILL,
-                                  SUB_CERTIFICATE,
-                                  SUB_CERTIF_URL,
-                                  SUB_FOREIGN,
-                                  SUB_INTEREST,
-                                  SUB_ACTIVITY,
-                                  STU_ID,
-                                  IS_DELETE,
-                                  IS_DELETE_TIME)
-        values (#{sub_course},
-                #{sub_honor},
-                #{sub_award},
-                #{sub_skill},
-                #{sub_certificate},
-                #{sub_certif_url},
-                #{sub_foreign},
-                #{sub_interest},
-                #{sub_activity},
-                #{item.stu_id},
-                #{item.is_delete},
-                #{item.is_delete_time})
+        <!--</collection>-->
+        <!--<collection property="preferJobs" ofType="com.youthchina.domain.Qinghong.PreferJob">-->
+            <!--<id property="pre_prof_id" column="PRE_PRO_ID"/>-->
+            <!--<result property="pre_prof_num" column="PRE_PROF_NUM"/>-->
+            <!--<result property="pre_avail_time" column="PRE_AVAIL_TIME"/>-->
+            <!--<result property="stu_id" column="STU_ID"/>-->
+            <!--<result property="is_delete" column="IS_DELETE"/>-->
+            <!--<result property="is_delete_time" column="IS_DELETE_TIME"/>-->
 
 
-    </insert>
-    <insert id="addProjects" useGeneratedKeys="true" keyProperty="proj_id">
-        insert into STU_PROJECT
-        (PROJ_NAME,PROJ_ROLE,PROJ_START_TIME,PROJ_END_TIME,PROJ_DELIVER,DELEVER_PUBLISH,DELEVER_PUB_INSTI,STU_ID,IS_DELETE,IS_DELETE_TIME)
-        values
-        <foreach collection="list" item="item" separator=",">
-            (#{item.proj_name},#{item.proj_role},#{item.start_time},
-            #{item.end_time},#{item.proj_deliver},#{item.delever_publish},#{item.delever_pub_insti},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})
-        </foreach>
+        <!--</collection>-->
+        <!--<collection property="preferIndustries" ofType="com.youthchina.domain.Qinghong.PreferIndustry">-->
+            <!--<id property="pre_ind_id" column="PRE_IND_ID"/>-->
+            <!--<result property="pre_ind_num" column="PRE_IND_NUM"/>-->
+            <!--<result property="stu_id" column="STU_ID"/>-->
+            <!--<result property="is_delete" column="IS_DELETE"/>-->
+            <!--<result property="is_delete_time" column="IS_DELETE_TIME"/>-->
 
-    </insert>
-    <insert id="addWorks" useGeneratedKeys="true" keyProperty="work_id">
-        insert into STU_WORK
-        (WORK_COMPANY,WORK_LOCATION,WORK_POSITION,WORK_SECTOR,
-        WORK_START_TIME,WORK_END_TIME,WORK_DUTY,WORK_NATURE,STU_ID,IS_DELETE,IS_DELETE_TIME)
-        values
-        <foreach collection="works" item="item" separator=",">
-            (#{item.work_company},#{item.work_location},#{item.work_position},
-            #{item.work_sector},#{item.work_end_time},#{item.work_end_time},
-            #{item.work_duty},#{item.work_nature},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})
-        </foreach>
+        <!--</collection>-->
+        <!--<collection property="preferCities" ofType="com.youthchina.domain.Qinghong.PreferCity">-->
+            <!--<id property="pre_city_id" column="PRE_CITY_ID"/>-->
+            <!--<result property="pre_region_num" column="PRE_REGION_NUM"/>-->
+            <!--<result property="stu_id" column="STU_ID"/>-->
+            <!--<result property="is_delete" column="IS_DELETE"/>-->
+            <!--<result property="is_delete_time" column="IS_DELETE_TIME"/>-->
 
-    </insert>
-    <insert id="addActivities" useGeneratedKeys="true" keyProperty="act_id">
-        insert into STU_ACTIVITY
-        (ACT_TIME,ACT_ORGANIZATION,ACT_ROLE,ACT_START_TIME,ACT_END_TIME,ACT_DETAIL,STU_ID,IS_DELETE,IS_DELETE_TIME)
-        values
-        <foreach collection="activities" item="item" separator=",">
-            (#{item.act_name},#{item.act_organization},#{item.act_role},
-            #{item.act_start_time},#{item.act_end_time},#{item.act_detail},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})
-        </foreach>
+        <!--</collection>-->
 
-    </insert>
-    <insert id="addJobCollects" useGeneratedKeys="true" keyProperty="collect_id">
-        insert into STU_JOB_COLLECT
-        (JOB_ID,JOB_COLL_TIME,STU_ID,IS_DELETE,IS_DELETE_TIME)
-        values
-        <foreach collection="jobCollects" item="item" separator=",">
-            (#{item.job_id},#{item.job_coll_time},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})
-        </foreach>
+        <!--<collection property="notifications" ofType="com.youthchina.domain.Qinghong.Notification">-->
+            <!--<id property="notify_id" column="NOTIFY_ID"/>-->
+            <!--<result property="notify_content" column="NOTIFY_CONTENT"/>-->
+            <!--<result property="notify_time" column="NOTIFY_TIME"/>-->
+            <!--<result property="notify_read" column="NOTIFY_READ"/>-->
+            <!--<result property="stu_Id" column="STU_ID"/>-->
 
-    </insert>
-    <insert id="addLabels" useGeneratedKeys="true" keyProperty="label_id">
-        insert into STU_ADVAN_LABEL
-        (LABEL_NUM,STU_ID,IS_DELETE,IS_DELETE_TIME)
-        values
-        <foreach collection="labels" item="item" separator=",">
-            (#{item.label_num},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})
-        </foreach>
+        <!--</collection>-->
+        <!--<collection property="jobApplies" ofType="com.youthchina.domain.Qinghong.JobApply">-->
+            <!--<id property="apply_id" column="APPLY_ID"/>-->
+            <!--<result property="stu_id" column="STU_ID"/>-->
+            <!--<result property="job_id" column="JOB_ID"/>-->
+            <!--<result property="job_cv_send" column="JOB_CV_SEND"/>-->
+            <!--<result property="job_apply_time" column="JOB_APPLY_TIME"/>-->
+            <!--<result property="job_apply_status" column="JOB_APPLY_STATUS"/>-->
+        <!--</collection>-->
+    <!--</resultMap>-->
+    <!--<resultMap id="companyCollectMap" type="com.youthchina.domain.Qinghong.CompCollect">-->
+        <!--<id property="collect_id" column="COLLECT_ID"/>-->
+        <!--<result property="company_id" column="COMPANY_ID"/>-->
+        <!--<result property="company_coll_time" column="COMPANY_COLL_TIME"/>-->
+        <!--<result property="stu_id" column="STU_ID"/>-->
+        <!--<result property="is_delete" column="IS_DELETE"/>-->
+        <!--<result property="is_delete_time" column="IS_DELETE_TIME"/>-->
+    <!--</resultMap>-->
+    <!--<resultMap id="jobCollectMap" type="com.youthchina.domain.Qinghong.JobCollect">-->
+        <!--<id property="collect_id" column="COLLECT_ID"/>-->
+        <!--<result property="job_id" column="job_ID"/>-->
+        <!--<result property="job_coll_time" column="job_COLL_TIME"/>-->
+        <!--<result property="stu_id" column="STU_ID"/>-->
+        <!--<result property="is_delete" column="IS_DELETE"/>-->
+        <!--<result property="is_delete_time" column="IS_DELETE_TIME"/>-->
+    <!--</resultMap>-->
+    <!--<resultMap id="jobApplyMap" type="com.youthchina.domain.Qinghong.JobApply">-->
+        <!--<id property="apply_id" column="APPLY_ID"/>-->
+        <!--<result property="stu_id" column="STU_ID"/>-->
+        <!--<result property="job_id" column="JOB_ID"/>-->
+        <!--<result property="job_cv_send" column="JOB_CV_SEND"/>-->
+        <!--<result property="job_apply_time" column="JOB_APPLY_TIME"/>-->
+        <!--<result property="job_apply_status" column="JOB_APPLY_STATUS"/>-->
+    <!--</resultMap>-->
+    <!--<resultMap id="jobInfo" type="com.youthchina.domain.qingyang.Job">-->
+        <!--<id property="jobId" column="JOB_ID"/>-->
+        <!--<result property="jobName" column="JOB_NAME"/>-->
+        <!--<result property="jobProfNum" column="JOB_PROF_NUM"/>-->
+        <!--<result property="jobStartTime" column="JOB_START_TIME"/>-->
+        <!--<result property="jobEndTime" column="JOB_END_TIME"/>-->
+        <!--<result property="jobTime" column="JOB_TIME"/>-->
+        <!--<result property="jobDescription" column="JOB_DESCRIPTION"/>-->
+        <!--<result property="jobDuty" column="JOB_DUTY"/>-->
+        <!--<result property="jobReq" column="JOB_REQ"/>-->
+        <!--<result property="jobHighlight" column="JOB_HIGHLIGHT"/>-->
+        <!--<result property="jobSalary" column="JOB_SALARY"/>-->
+        <!--<result property="cvReceiMail" column="CV_RECEI_MAIL"/>-->
+        <!--<result property="cvNameRule" column="CV_NAME_RULE"/>-->
+        <!--<result property="jobActive" column="JOB_ACTIVE"/>-->
+        <!--<association property="company" javaType="com.youthchina.domain.qingyang.Company">-->
+            <!--<id property="company_id" column="COMPANY_ID"/>-->
+            <!--<result property="companyName" column="COMPANY_NAME"/>-->
+            <!--<result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>-->
+            <!--<result property="companyLogo" column="COMPANY_LOGO"/>-->
+        <!--</association>-->
+        <!--<association property="hr" javaType="com.youthchina.domain.qingyang.Hr">-->
+            <!--<id property="hrId" column="HR_ID"/>-->
+        <!--</association>-->
+        <!--<collection property="jobLocationList" ofType="com.youthchina.domain.qingyang.JobLocation">-->
+            <!--<id property="jobRegionId" column="JOB_REGION_ID"/>-->
+            <!--<result property="jobRegionNum" column="JOB_REGION_NUM"/>-->
+        <!--</collection>-->
+    <!--</resultMap>-->
 
-    </insert>
-    <insert id="addPreferJobs" useGeneratedKeys="true" keyProperty="pre_prof_Id">
-        insert into STU_PREFER_PROF
-        (PRE_PROF_NUM,PRE_AVAIL_TIME,STU_ID,IS_DELETE,IS_DELETE_TIME)
-        values
-        <foreach collection="preferjobs" item="item" separator=",">
-            (#{item.prof_num},#{pre_avail_time},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})
-        </foreach>
+    <!--<select id="getByJobId" resultMap="jobInfo" parameterType="java.lang.Integer">-->
+        <!--SELECT j.JOB_ID              as JOB_ID,-->
+               <!--j.JOB_NAME            as JOB_NAME,-->
+               <!--j.JOB_PROF_NUM        as JOB_PROF_NUM,-->
+               <!--j.JOB_START_TIME      as JOB_START_TIME,-->
+               <!--j.JOB_END_TIME        as JOB_END_TIME,-->
+               <!--j.JOB_TIME            as JOB_TIME,-->
+               <!--j.JOB_DESCRIPTION     as JOB_DESCRIPTION,-->
+               <!--j.JOB_DUTY            as JOB_DUTY,-->
+               <!--j.JOB_REQ             as JOB_REQ,-->
+               <!--j.JOB_HIGHLIGHT       as JOB_HIGHLIGHT,-->
+               <!--j.JOB_SALARY          as JOB_SALARY,-->
+               <!--j.CV_RECEI_MAIL       as CV_RECEI_MAIL,-->
+               <!--j.CV_NAME_RULE        as CV_NAME_RULE,-->
+               <!--j.JOB_ACTIVE          as JOB_ACTIVE,-->
+               <!--j.HR_ID               as HR_ID,-->
+               <!--j.COMPANY_ID          as COMPANY_ID,-->
+               <!--com.COMPANY_NAME      as COMPANY_NAME,-->
+               <!--com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,-->
+               <!--com.COMPANY_LOGO      as COMPANY_LOGO,-->
+               <!--loc.JOB_REGION_ID     as JOB_REGION_ID,-->
+               <!--loc.JOB_REGION_NUM    as JOB_REGION_NUM-->
+        <!--FROM JOB_INFO j-->
+                 <!--LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID-->
+                 <!--LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID-->
+                 <!--LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID-->
+        <!--WHERE j.JOB_ID = #{jobId}-->
+          <!--AND j.IS_DELETE = 0-->
+          <!--AND com.IS_DELETE = 0-->
+          <!--AND h.IS_DELETE = 0-->
+    <!--</select>-->
+    <!--<select id="getAllJobApply" resultMap="jobApplyMap">-->
+        <!--select a.*, j.*, c.*-->
+        <!--from STU_JOB_APPLY a.*-->
+                <!--Left JOIN JOB_INFO j on j.JOB_ID = a.JOB_ID-->
+                <!--Left JOIN COMPANY_INFO c on j.COMAPNY_ID = c.COMPANY_ID-->
+                <!--where a.STU_ID = #{stu_id}-->
+    <!--</select>-->
+    <!--<select id="getByPrimaryKey" resultMap="studentResultMap">-->
+        <!--select a.*,-->
+               <!--b.*,-->
+               <!--c.*,-->
+               <!--d.*,-->
+               <!--e.*,-->
+               <!--f.*,-->
+               <!--g.*,-->
+               <!--h.*,-->
+               <!--i.*,-->
+               <!--j.*,-->
+               <!--k.*,-->
+               <!--l.*,-->
+               <!--m.*,-->
+               <!--n.*,-->
+               <!--o.*,-->
+               <!--p.*-->
+        <!--from STU_INFO a;-->
+        <!--LEFT JOIN STU_EDU_INFO b ON a.STU_ID = b.STU_ID-->
+        <!--LEFT JOIN STU_SUB_INFO c ON a.STU_ID = c.STU_ID-->
+        <!--LEFT JOIN STU_PROJECT d ON a.STU_ID = d.STU_ID-->
+        <!--LEFT JOIN STU_WORK e ON a.STU_ID = e.STU_ID-->
+        <!--LEFT JOIN STU_ACTIVITY f ON a.STU_ID = f.STU_ID-->
+        <!--LEFT JOIN STU_JOB_COLLECT g ON a.STU_ID = g.STU_ID-->
+        <!--LEFT JOIN STU_COMP_COLLECT h ON a.STU_ID = h.STU_ID-->
+        <!--LEFT JOIN STU_ADVAN_LABEL i ON a.STU_ID = i.STU_ID-->
+        <!--LEFT JOIN STU_PREFER_JOB j ON a.STU_ID = j.STU_ID-->
+        <!--LEFT JOIN STU_PREFER_INDUSTRY k ON a.STU_ID = k.STU_ID-->
+        <!--LEFT JOIN STU_PREFER_CITY l ON a.STU_ID = l.PRE_STU_ID-->
+        <!--LEFT JOIN STU_PREFER_SALARY m ON a.STU_ID = m.STU_ID-->
+        <!--LEFT JOIN STU_PREFER_INTRODUCTION_VIDEO n ON a.STU_ID = n.STU_ID-->
+        <!--LEFT JOIN STU_PREFER_NOTIFICATION o ON a.STU_ID = o.STU_ID-->
+        <!--LEFT JOIN STU_JOB_APPLY p ON a.STU_ID = p.STU_ID-->
+        <!--WHERE a.USER_ID = #{user_id} AND a.IS_DELETE = 0 AND b.IS_DELETE = 0-->
+        <!--AND c.IS_DELETE = 0 AND d.IS_DELETE = 0 AND e.IS_DELETE = 0 AND f.IS_DELETE = 0-->
+        <!--AND g.IS_DELETE = 0 AND h.IS_DELETE = 0 AND i.IS_DELETE = 0 AND j.IS_DELETE = 0-->
+        <!--AND k.IS_DELETE = 0 AND l.IS_DELETE = 0 AND m.IS_DELETE = 0 AND n.IS_DELETE = 0-->
+        <!--AND o.IS_DELETE = 0 AND p.IS_DELETE = 0-->
+    <!--</select>-->
+    <!--<select id="getOneCompCollect" resultMap="jobCollectMap">-->
+        <!--select *-->
+        <!--from STU_COMP_COLLECT-->
+        <!--where STU_ID = #{0}-->
+          <!--and COMPANY_ID = #{1}-->
+    <!--</select>-->
+    <!--<select id="getOneJobCollect" resultMap="jobCollectMap">-->
+        <!--select *-->
+        <!--from STU_JOB_COLLECT-->
+        <!--where STU_ID = #{0}-->
+          <!--and JOB_ID = #{1}-->
+    <!--</select>-->
+    <!--<insert id="addOneCompCollect" useGeneratedKeys="true" keyProperty="collect_id">-->
+        <!--insert into STU_COMP_COLLECT (COMPANY_ID, COMPANY_COLL_TIME, STU_ID, IS_DELETE, IS_DELETE_TIME)-->
+        <!--values (#{company_id}, #{company_coll_time}, #{stu_id}, #{is_delete}, #{is_delete_time})-->
+    <!--</insert>-->
+    <!--<insert id="addOneJobCollect" useGeneratedKeys="true" keyProperty="job_id">-->
+        <!--insert into STU_JOB_COLLECT (JOB_ID, JOB_COLL_TIME, STU_ID, IS_DELETE, IS_DELETE_TIME)-->
+        <!--values (#{job_id}, #{job_coll_time}, #{stu_id}, #{is_delete}, #{is_delete_time})-->
+    <!--</insert>-->
+    <!--<insert id="add" useGeneratedKeys="true" keyProperty="stu_id">-->
+        <!--INSERT into STU_INFO (STU_IN_JOB, STU_IN_JOB_COMP, USER_ID, IS_DELETE, IS_DELETE_TIME)-->
+        <!--values (#{isInJob}, #{currentCompanyName}, #{user_id}, #{is_delete}, #{is_delete_time})-->
 
-    </insert>
-    <insert id="addPreferIndustries" useGeneratedKeys="true" keyProperty="pre_ind_id">
-        insert into STU_PREFER_INDUSTRY
-        (PRE_IND_NUM,STU_ID,IS_DELETE,IS_DELETE_TIME)
-        values
-        <foreach collection="preferIndustries" item="item" separator=",">
-            (#{item.pre_ind_num},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})
-        </foreach>
+    <!--</insert>-->
+    <!--<insert id="addEducationInfos" useGeneratedKeys="true" keyProperty="sub_id">-->
+        <!--insert into STU_EDU_INFO-->
+        <!--(EDU_DEGREE,EDU_SCHOOL,EDU_SCHOOL_COUNTRY,EDU_SCHOOL_LOCATION,EDU_MAJOR,-->
+        <!--EDU_COLLEGE,EDU_GPA,EDU_START,EDU_END,STU_ID,IS_DELETE,IS_DELETE_TIME)-->
+        <!--values-->
+        <!--<foreach collection="educationInfos" item="item" separator=",">-->
+            <!--(#{item.edu_degree},#{item.edu_school},#{item.edu_school_country},-->
+            <!--#{item.edu_school_location},#{item.edu_major},#{item.edu_college},#{item.edu_gpa},-->
+            <!--#{item.edu_start},#{item.edu_end},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})-->
+        <!--</foreach>-->
+    <!--</insert>-->
+    <!--<insert id="addSubInfo" useGeneratedKeys="true" keyProperty="sub_id">-->
+        <!--insert into STU_SUB_INFO (SUB_COURSE,-->
+                                  <!--SUB_HONOR,-->
+                                  <!--SUB_AWARD,-->
+                                  <!--SUB_SKILL,-->
+                                  <!--SUB_CERTIFICATE,-->
+                                  <!--SUB_CERTIF_URL,-->
+                                  <!--SUB_FOREIGN,-->
+                                  <!--SUB_INTEREST,-->
+                                  <!--SUB_ACTIVITY,-->
+                                  <!--STU_ID,-->
+                                  <!--IS_DELETE,-->
+                                  <!--IS_DELETE_TIME)-->
+        <!--values (#{sub_course},-->
+                <!--#{sub_honor},-->
+                <!--#{sub_award},-->
+                <!--#{sub_skill},-->
+                <!--#{sub_certificate},-->
+                <!--#{sub_certif_url},-->
+                <!--#{sub_foreign},-->
+                <!--#{sub_interest},-->
+                <!--#{sub_activity},-->
+                <!--#{item.stu_id},-->
+                <!--#{item.is_delete},-->
+                <!--#{item.is_delete_time})-->
 
-    </insert>
-    <insert id="addPreferCities" useGeneratedKeys="true" keyProperty="pre_city_id">
-        insert into STU_PREFER_CITY
-        (PRE_REGION_NUM,STU_ID,IS_DELETE,IS_DELETE_TIME)
-        values
-        <foreach collection="prefercities" item="item" separator=",">
-            (#{item.pre_region_num},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})
-        </foreach>
 
-    </insert>
-    <insert id="addPreferSalary" useGeneratedKeys="true" keyProperty="pre_sala_id">
-        insert into STU_PREFER_SALARY (PRE_SALA_CAP, PRE_SALA_FLOOR, STU_ID, IS_DELETE, IS_DELETE_TIME)
-        values (#{pre_sala_cap}, #{pre_sala_floor}, #{stu_id}, #{is_delete}, #{is_delete_time})
+    <!--</insert>-->
+    <!--<insert id="addProjects" useGeneratedKeys="true" keyProperty="proj_id">-->
+        <!--insert into STU_PROJECT-->
+        <!--(PROJ_NAME,PROJ_ROLE,PROJ_START_TIME,PROJ_END_TIME,PROJ_DELIVER,DELEVER_PUBLISH,DELEVER_PUB_INSTI,STU_ID,IS_DELETE,IS_DELETE_TIME)-->
+        <!--values-->
+        <!--<foreach collection="list" item="item" separator=",">-->
+            <!--(#{item.proj_name},#{item.proj_role},#{item.start_time},-->
+            <!--#{item.end_time},#{item.proj_deliver},#{item.delever_publish},#{item.delever_pub_insti},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})-->
+        <!--</foreach>-->
 
-    </insert>
-    <insert id="addIntroductionVideo" useGeneratedKeys="true" keyProperty="intro_video_id">
-        insert into STU_INTRODUCTION_VIDEO (INTRO_VIDEO_PATH, STU_ID, IS_DELETE, IS_DELETE_TIME)
-        values (#{intro_video_path}, #{stu_id}, #{is_delete}, #{is_delete_time})
+    <!--</insert>-->
+    <!--<insert id="addWorks" useGeneratedKeys="true" keyProperty="work_id">-->
+        <!--insert into STU_WORK-->
+        <!--(WORK_COMPANY,WORK_LOCATION,WORK_POSITION,WORK_SECTOR,-->
+        <!--WORK_START_TIME,WORK_END_TIME,WORK_DUTY,WORK_NATURE,STU_ID,IS_DELETE,IS_DELETE_TIME)-->
+        <!--values-->
+        <!--<foreach collection="works" item="item" separator=",">-->
+            <!--(#{item.work_company},#{item.work_location},#{item.work_position},-->
+            <!--#{item.work_sector},#{item.work_end_time},#{item.work_end_time},-->
+            <!--#{item.work_duty},#{item.work_nature},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})-->
+        <!--</foreach>-->
 
-    </insert>
-    <insert id="addNotifications" useGeneratedKeys="true" keyProperty="notify_id">
-        insert into STU_NOTIFICATION
-        (NOTIFY_CONTENT,NOTIFY_TIME,NOTIFY_READ,STU_ID)
-        values
-        <foreach collection="notifications" item="item" separator=",">
-            (#{item.notify_content},#{item.notify_time},#{item.notify_read},#{item.stu_id})
-        </foreach>
+    <!--</insert>-->
+    <!--<insert id="addActivities" useGeneratedKeys="true" keyProperty="act_id">-->
+        <!--insert into STU_ACTIVITY-->
+        <!--(ACT_TIME,ACT_ORGANIZATION,ACT_ROLE,ACT_START_TIME,ACT_END_TIME,ACT_DETAIL,STU_ID,IS_DELETE,IS_DELETE_TIME)-->
+        <!--values-->
+        <!--<foreach collection="activities" item="item" separator=",">-->
+            <!--(#{item.act_name},#{item.act_organization},#{item.act_role},-->
+            <!--#{item.act_start_time},#{item.act_end_time},#{item.act_detail},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})-->
+        <!--</foreach>-->
 
-    </insert>
-    <insert id="addJobApplies" useGeneratedKeys="true" keyProperty="apply_id">
-        insert into STU_JOB_APPLY
-        (JOB_CV_SEND,JOB_APPLY_TIME,JOB_APPLY_STATUS,STU_ID,JOB_ID)
-        values
-        <foreach collection="jobApplies" item="item" separator=",">
-            (#{item.job_cv_send},#{item.job_apply_time},#{item.job_apply_status},#{item.stu_id},#{item.job_id})
-        </foreach>
+    <!--</insert>-->
+    <!--<insert id="addJobCollects" useGeneratedKeys="true" keyProperty="collect_id">-->
+        <!--insert into STU_JOB_COLLECT-->
+        <!--(JOB_ID,JOB_COLL_TIME,STU_ID,IS_DELETE,IS_DELETE_TIME)-->
+        <!--values-->
+        <!--<foreach collection="jobCollects" item="item" separator=",">-->
+            <!--(#{item.job_id},#{item.job_coll_time},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})-->
+        <!--</foreach>-->
 
-    </insert>
-</mapper>
+    <!--</insert>-->
+    <!--<insert id="addLabels" useGeneratedKeys="true" keyProperty="label_id">-->
+        <!--insert into STU_ADVAN_LABEL-->
+        <!--(LABEL_NUM,STU_ID,IS_DELETE,IS_DELETE_TIME)-->
+        <!--values-->
+        <!--<foreach collection="labels" item="item" separator=",">-->
+            <!--(#{item.label_num},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})-->
+        <!--</foreach>-->
+
+    <!--</insert>-->
+    <!--<insert id="addPreferJobs" useGeneratedKeys="true" keyProperty="pre_prof_Id">-->
+        <!--insert into STU_PREFER_PROF-->
+        <!--(PRE_PROF_NUM,PRE_AVAIL_TIME,STU_ID,IS_DELETE,IS_DELETE_TIME)-->
+        <!--values-->
+        <!--<foreach collection="preferjobs" item="item" separator=",">-->
+            <!--(#{item.prof_num},#{pre_avail_time},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})-->
+        <!--</foreach>-->
+
+    <!--</insert>-->
+    <!--<insert id="addPreferIndustries" useGeneratedKeys="true" keyProperty="pre_ind_id">-->
+        <!--insert into STU_PREFER_INDUSTRY-->
+        <!--(PRE_IND_NUM,STU_ID,IS_DELETE,IS_DELETE_TIME)-->
+        <!--values-->
+        <!--<foreach collection="preferIndustries" item="item" separator=",">-->
+            <!--(#{item.pre_ind_num},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})-->
+        <!--</foreach>-->
+
+    <!--</insert>-->
+    <!--<insert id="addPreferCities" useGeneratedKeys="true" keyProperty="pre_city_id">-->
+        <!--insert into STU_PREFER_CITY-->
+        <!--(PRE_REGION_NUM,STU_ID,IS_DELETE,IS_DELETE_TIME)-->
+        <!--values-->
+        <!--<foreach collection="prefercities" item="item" separator=",">-->
+            <!--(#{item.pre_region_num},#{item.stu_id},#{item.is_delete},#{item.is_delete_time})-->
+        <!--</foreach>-->
+
+    <!--</insert>-->
+    <!--<insert id="addPreferSalary" useGeneratedKeys="true" keyProperty="pre_sala_id">-->
+        <!--insert into STU_PREFER_SALARY (PRE_SALA_CAP, PRE_SALA_FLOOR, STU_ID, IS_DELETE, IS_DELETE_TIME)-->
+        <!--values (#{pre_sala_cap}, #{pre_sala_floor}, #{stu_id}, #{is_delete}, #{is_delete_time})-->
+
+    <!--</insert>-->
+    <!--<insert id="addIntroductionVideo" useGeneratedKeys="true" keyProperty="intro_video_id">-->
+        <!--insert into STU_INTRODUCTION_VIDEO (INTRO_VIDEO_PATH, STU_ID, IS_DELETE, IS_DELETE_TIME)-->
+        <!--values (#{intro_video_path}, #{stu_id}, #{is_delete}, #{is_delete_time})-->
+
+    <!--</insert>-->
+    <!--<insert id="addNotifications" useGeneratedKeys="true" keyProperty="notify_id">-->
+        <!--insert into STU_NOTIFICATION-->
+        <!--(NOTIFY_CONTENT,NOTIFY_TIME,NOTIFY_READ,STU_ID)-->
+        <!--values-->
+        <!--<foreach collection="notifications" item="item" separator=",">-->
+            <!--(#{item.notify_content},#{item.notify_time},#{item.notify_read},#{item.stu_id})-->
+        <!--</foreach>-->
+
+    <!--</insert>-->
+    <!--<insert id="addJobApplies" useGeneratedKeys="true" keyProperty="apply_id">-->
+        <!--insert into STU_JOB_APPLY-->
+        <!--(JOB_CV_SEND,JOB_APPLY_TIME,JOB_APPLY_STATUS,STU_ID,JOB_ID)-->
+        <!--values-->
+        <!--<foreach collection="jobApplies" item="item" separator=",">-->
+            <!--(#{item.job_cv_send},#{item.job_apply_time},#{item.job_apply_status},#{item.stu_id},#{item.job_id})-->
+        <!--</foreach>-->
+
+    <!--</insert>-->
+<!--</mapper>-->
