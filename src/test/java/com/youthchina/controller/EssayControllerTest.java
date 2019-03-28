@@ -41,9 +41,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:essay.xml"})
-@DatabaseSetup({"classpath:users.xml"})
-@DatabaseSetup({"classpath:company.xml"})
+@DatabaseSetup({"classpath:New_Community_test.xml"})
+@DatabaseSetup({"classpath:sys.xml"})
+@DatabaseSetup({"classpath:New_Company_test.xml"})
 @WebAppConfiguration
 public class EssayControllerTest {
 
