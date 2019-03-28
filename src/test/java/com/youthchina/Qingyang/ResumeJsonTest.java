@@ -5,7 +5,6 @@
 //import com.youthchina.dao.qingyang.HrMapper;
 //import com.youthchina.dao.qingyang.ResumeJsonMapper;
 //import com.youthchina.domain.Qinghong.ResumeJson;
-//import com.youthchina.domain.qingyang.Hr;
 //import io.swagger.models.auth.In;
 //import org.junit.Assert;
 //import org.junit.Test;

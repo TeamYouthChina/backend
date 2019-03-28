@@ -28,4 +28,9 @@ public interface LocationMapper {
 
     List<Location> getChildrenUSA(Integer stateId);
 
+    Location getLocationViewById(Integer regionId);
+
+    List<Location> getLocationViewByIdList(List<Integer> idList);
+
+
 }

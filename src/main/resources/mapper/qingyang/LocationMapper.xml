@@ -3,8 +3,8 @@
 <mapper namespace="com.youthchina.dao.qingyang.LocationMapper">
 
     <resultMap id="LocationChn" type="com.youthchina.domain.Qinghong.Location">
-        <id property="region_num" column="REGION_NUM"/>
-        <result property="region_chn" column="REGION_CHN"/>
+        <id property="regionNum" column="REGION_NUM"/>
+        <result property="regionName" column="REGION_CHN"/>
         <result property="region_eng" column="REGION_ENG"/>
         <result property="region_level" column="REGION_LEVEL"/>
         <result property="region_parent_num" column="REGION_PARENT_NUM"/>
@@ -26,7 +26,7 @@
         WHERE IS_DELETE = 0
         AND REGION_NUM IN
         <foreach item='location' index='index' collection="list" separator="," open="(" close=")">
-            #{location.region_num}
+            #{location.regionNum}
         </foreach>
     </select>
 
@@ -39,8 +39,8 @@
     </resultMap>
 
     <resultMap id="LocationUSA" type="com.youthchina.domain.Qinghong.Location">
-        <id property="region_num" column="ZIP_CODE"/>
-        <result property="region_chn" column="REGION_CHN"/>
+        <id property="regionNum" column="ZIP_CODE"/>
+        <result property="regionName" column="REGION_CHN"/>
         <result property="region_eng" column="REGION_ENG"/>
         <result property="regionCity" column="REGION_CITY"/>
         <result property="start_time" column="ZIP_START_TIME"/>
@@ -75,7 +75,7 @@
         <include refid="selectZip"/>
         WHERE zip.ZIP_CODE IN
         <foreach item='location' index='index' collection="list" separator="," open="(" close=")">
-            #{location.region_num}
+            #{location.regionNum}
         </foreach>
     </select>
 
@@ -84,5 +84,32 @@
         WHERE zip.STATE_ID = #{stateId}
     </select>
 
+
+    <resultMap id="LocationView" type="com.youthchina.domain.Qinghong.Location">
+        <id property="regionId" column="REGION_ID"/>
+        <result property="regionNum" column="REGION_NUM"/>
+        <result property="regionName" column="REGION_NAME"/>
+        <result property="country" column="COUNTRY"/>
+        <result property="countryName" column="COUNTRY_CHN"/>
+    </resultMap>
+
+
+    <sql id="selectLocationView">
+        SELECT *
+        FROM COUNTRY_LOCATION
+    </sql>
+
+    <select id="getLocationViewById" resultMap="LocationView" parameterType="java.lang.Integer">
+        <include refid="selectLocationView"/>
+        WHERE COUNTRY_LOCATION.REGION_ID = #{id}
+    </select>
+
+    <select id="getLocationViewByIdList" resultMap="LocationView" parameterType="java.util.List">
+        <include refid="selectLocationView"/>
+        WHERE COUNTRY_LOCATION.REGION_ID IN
+        <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
 
 </mapper>

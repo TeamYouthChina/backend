@@ -195,7 +195,7 @@ public class StudentMapperTest {
         educationInfo.setDegree(degree);
         educationInfo.setEdu_school("gwu");
         educationInfo.setEdu_school_country("USA");
-        educationInfo.getLocation().setRegion_num(1);
+        educationInfo.getLocation().setRegionNum(1);
         educationInfo.setEdu_major("计算机");
         educationInfo.setEdu_college("cssa");
         educationInfo.setEdu_gpa((float) 3.3);
@@ -253,7 +253,7 @@ public class StudentMapperTest {
         Location location = new Location();
         work.setWork_company("1");
         work.setLocation(location);
-        work.getLocation().setRegion_num(1);
+        work.getLocation().setRegionNum(1);
         work.setWork_position("1");
         work.setWork_sector("1");
         work.setWork_start_time(new Date());

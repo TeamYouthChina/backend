@@ -9,28 +9,34 @@ import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotBelongException;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class JobServiceImpl implements JobService {
 
-    @Resource
+    @Autowired
     JobMapper jobMapper;
 
-    @Resource
+    @Autowired
     LocationMapper locationMapper;
 
+    final
+    LocationServiceImpl locationServiceImpl;
+
+    final
+    CompanyCURDService companyCURDServiceImpl;
+
     @Autowired
-    LocationService locationService;
+    public JobServiceImpl(LocationServiceImpl locationServiceImpl, CompanyCURDServiceImpl companyCURDServiceImpl) {
+        this.locationServiceImpl = locationServiceImpl;
+        this.companyCURDServiceImpl = companyCURDServiceImpl;
+    }
 
     /**
      * 删除职位 TODO: 通过HrId 确认其有删除权限
@@ -42,9 +48,6 @@ public class JobServiceImpl implements JobService {
     @Override
     @Transactional
     public void delete(User user, Integer jobId) throws NotFoundException {
-        jobMapper.deleteJobDegree(jobId);
-        jobMapper.deleteJobIndustry(jobId);
-        jobMapper.deleteJobLocation(jobId);
         jobMapper.deleteJob(jobId);
     }
 
@@ -75,6 +78,7 @@ public class JobServiceImpl implements JobService {
     @Transactional
     public Job get(Integer id) throws NotFoundException {
         Job job = jobMapper.selectJobByJobId(id);
+        job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
         setJobLocation(job);
         return job;
     }
@@ -89,15 +93,15 @@ public class JobServiceImpl implements JobService {
         if (locationList != null) {
             for (int i = 0; i < locationList.size(); i++) {
 
-                Integer regionNum = locationList.get(i).getRegion_num();
-                locationList.set(i, locationService.getLocation(regionNum));
+                Integer regionNum = locationList.get(i).getRegionNum();
+                locationList.set(i, locationServiceImpl.getLocation(regionNum));
             }
         }
 
         //Set Company Location
         Location comLocation = job.getCompany().getLocation();
         if (comLocation != null) {
-            job.getCompany().setLocation(locationService.getLocation(comLocation.getRegion_num()));
+            job.getCompany().setLocation(locationServiceImpl.getLocation(comLocation.getRegionId()));
         }
     }
 
@@ -114,6 +118,7 @@ public class JobServiceImpl implements JobService {
         List<Job> jobList = jobMapper.selectJobByJobIdList(id);
         for (Job job : jobList) {
             setJobLocation(job);
+            job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
         }
         return jobList;
     }
@@ -127,9 +132,6 @@ public class JobServiceImpl implements JobService {
     @Override
     @Transactional
     public void delete(Integer id) throws NotFoundException {
-        jobMapper.deleteJobDegree(id);
-        jobMapper.deleteJobIndustry(id);
-        jobMapper.deleteJobLocation(id);
         jobMapper.deleteJob(id);
     }
 
@@ -149,9 +151,14 @@ public class JobServiceImpl implements JobService {
         jobMapper.deleteJobIndustry(job.getJobId());
         jobMapper.insertJobIndustry(job.getIndustries());
         jobMapper.deleteJobDegree(job.getJobId());
-        jobMapper.insertJobDegree(job.getJobReqList());
-        Job result = jobMapper.selectJobByJobId(job.getJobId());
-        setJobLocation(result);
+        if(job.getJobReqList() != null && job.getJobReqList().size() > 0 ){
+            jobMapper.insertJobDegree(job.getId(), job.getJobReqList());
+        }
+        jobMapper.deleteJobLogo(job.getJobId());
+        if(job.getLogoList() != null && job.getLogoList().size() > 0 ){
+            jobMapper.insertJobLogo(job.getId(), job.getLogoList());
+        }
+        Job result = this.get(job.getId());
         return result;
     }
 
@@ -166,8 +173,13 @@ public class JobServiceImpl implements JobService {
     public Job add(Job entity) {
         Integer result = jobMapper.insertJob(entity);
         jobMapper.insertJobIndustry(entity.getIndustries());
-        jobMapper.insertJobDegree(entity.getJobReqList());
+        if(entity.getJobReqList() != null && entity.getJobReqList().size() > 0 ){
+            jobMapper.insertJobDegree(entity.getId(), entity.getJobReqList());
+        }
         jobMapper.insertJobLocation(entity.getId(), entity.getJobLocationList());
+        if(entity.getLogoList() != null && entity.getLogoList().size() > 0 ){
+            jobMapper.insertJobLogo(entity.getId(), entity.getLogoList());
+        }
         Job jobResult = jobMapper.selectJobByJobId(entity.getJobId());
         setJobLocation(jobResult);
         return jobResult;
@@ -203,6 +215,7 @@ public class JobServiceImpl implements JobService {
                 salaryFloor, salaryCap, active, null, jobReqList, industryList);
         for (Job job : results) {
             setJobLocation(job);
+            job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
         }
         return results;
     }
