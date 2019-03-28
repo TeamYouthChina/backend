@@ -60,7 +60,7 @@ public class EssayController {
             throw new NotFoundException(404, 404, "没有找到这个文章"); //TODO
         }
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
-        if (comEssay.getRelaType()!=1){
+        if (comEssay.getRelaType()==1){
             essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId())));
         }
             return ResponseEntity.ok(new Response(essayResponseDTO, new StatusDTO(200, "success")));
