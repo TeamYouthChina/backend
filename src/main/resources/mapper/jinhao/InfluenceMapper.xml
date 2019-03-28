@@ -183,12 +183,12 @@
     <select id="getBestWork" resultType="java.lang.Integer">
         select cr.COMPANY_RANK from SYS_TOP_COMPANY_WORLD cr where cr.COMPANY_CHN
         in
-        <foreach collection="works" item="work" index="index" open="(" close=")" separator=",">
+        <foreach collection="works" item="work" index="index"  open="(" close=")" separator=",">
             #{work.work_company}
         </foreach>
         or cr.COMPANY_ENG
         in
-        <foreach collection="works" item="work" index="index" open="(" close=")" separator=",">
+        <foreach collection="works" item="work" index="index"  open="(" close=")" separator=",">
             #{work.work_company}
         </foreach>
         order by cr.COMPANY_RANK asc
