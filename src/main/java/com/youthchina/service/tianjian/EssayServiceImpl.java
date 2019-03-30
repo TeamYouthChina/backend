@@ -1,6 +1,7 @@
 package com.youthchina.service.tianjian;
 
 import com.youthchina.dao.tianjian.CommunityMapper;
+import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.zhongyang.UserServiceImpl;
@@ -24,8 +25,8 @@ public class EssayServiceImpl implements EssayService {
     @Resource
     RichTextServiceImpl richTextService;
 
-    @Resource
-    UserServiceImpl userService;
+    @Autowired
+    UserMapper userMapper;
 
     @Autowired
     public EssayServiceImpl(CommunityMapper mapper) {
@@ -74,7 +75,7 @@ public class EssayServiceImpl implements EssayService {
             throw new NotFoundException(404,404,"this essay does not exist");
         }
         richTextService.getComRichText(comEssay);
-        comEssay.setUser(userService.get(comEssay.getUser().getId()));
+        comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
         return comEssay;
     }
 

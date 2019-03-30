@@ -24,10 +24,10 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
     private Integer relaType;
     private List<Comment> comments;
     private User user;
-    private Integer richTextRelaType = 1;
-    private Integer commentTargetType = 2;
-    private Integer evaluateTargetType = 2;
-    private Integer attentionTargetType = 2;
+    private static final Integer richTextRelaType = 1;
+    private static final Integer commentTargetType = 1;
+    private static final Integer evaluateTargetType = 2;
+    private static final Integer attentionTargetType = 2;
 
 
     public ComEssay(EssayResponseDTO essayResponseDTO) {
@@ -152,26 +152,16 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
         return commentTargetType;
     }
 
-    public void setCommentTargetType(Integer commentTargetType) {
-        this.commentTargetType = commentTargetType;
-    }
 
     @Override
     public Integer getRichTextRelaType() {
         return richTextRelaType;
     }
 
-    public void setRichTextRelaType(Integer richTextRelaType) {
-        this.richTextRelaType = richTextRelaType;
-    }
 
     @Override
     public Integer getEvaluateTargetType() {
         return evaluateTargetType;
-    }
-
-    public void setEvaluateTargetType(Integer evaluateTargetType) {
-        this.evaluateTargetType = evaluateTargetType;
     }
 
     @Override
@@ -179,9 +169,8 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
         return attentionTargetType;
     }
 
-    public void setAttentionTargetType(Integer attentionTargetType) {
-        this.attentionTargetType = attentionTargetType;
-    }
+
+
 
 
 }

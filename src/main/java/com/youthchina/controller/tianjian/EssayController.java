@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Iterator;
+import java.util.List;
 
 
 @RestController
@@ -157,17 +158,15 @@ public class EssayController {
     @GetMapping("/{id}/comments")
     public ResponseEntity getEssayComments(@PathVariable Integer id) {
         ComEssay comEssay = new ComEssay();
-        comEssay.setCommentTargetType(1);
         comEssay.setId(id);
-        commentService.getComments(comEssay);
+        List<Comment> commentList = commentService.getComments(comEssay);
         CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
-        if (comEssay.getComments() != null) {
-            Iterator it = comEssay.getComments().iterator();
+        if (commentList!= null) {
+            Iterator it = commentList.iterator();
             while (it.hasNext()) {
                 commentResponseDTO.getComments().add(new CommentDTO((Comment) it.next()));
             }
         }
-
         return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200, "success")));
 
     }

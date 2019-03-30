@@ -37,12 +37,12 @@
     set
          IS_DELETE = 1, IS_DELETE_TIME = now()
     where
-        ESSAY_ID = #{id}
+        ESSAY_ID = #{essayId}
     </update>
 
     <!--    根据文章id查询文章 -->
     <select id="getEssay" resultMap="essayresult">
-   		select t.* from COM_ESSAY t where t.ESSAY_ID = #{essayId}
+   		select t.* from COM_ESSAY t where t.ESSAY_ID = #{essayId} and t.IS_DELETE = 0
    </select>
 
     <!--    获取最新10个文章 -->

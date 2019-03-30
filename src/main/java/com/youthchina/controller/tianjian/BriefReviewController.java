@@ -51,7 +51,6 @@ public class BriefReviewController {
         BriefReview briefReview = briefReviewServiceImplement.get(id);
 
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReview);
-        briefReviewResponseDTO.setAuthor(new UserDTO(userService.get(user.getId())));
         if (briefReviewResponseDTO != null)
             return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(200, "success")));
         else
@@ -169,10 +168,10 @@ public class BriefReviewController {
        BriefReview briefReview = new BriefReview();
        briefReview.setId(id);
        briefReview.setUser(user);
-        commentService.getComments(briefReview);
+       List<Comment> comments =  commentService.getComments(briefReview);
         List<CommentDTO> commentDTOS = new ArrayList<>();
-        if (briefReview.getComments() != null) {
-            Iterator it = briefReview.getComments().iterator();
+        if (comments!= null) {
+            Iterator it = comments.iterator();
             while (it.hasNext()) {
                 CommentDTO commentDTO = new CommentDTO((Comment) it.next());
                 commentDTOS.add(commentDTO);

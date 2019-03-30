@@ -119,7 +119,6 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
             case "Question": {
                 List<QuestionResponseDTO> questionResponseDTOS = new ArrayList<>();
                 List<Integer> result = attentionService.getAllIdsOfAttention(new Question(),user_id);
-                List<Question> questions = new ArrayList<>();
                 for (Integer id : result) {
                     Question question = questionService.get(id);
                     QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
