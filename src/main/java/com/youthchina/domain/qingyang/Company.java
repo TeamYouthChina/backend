@@ -7,6 +7,7 @@ import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,7 +50,9 @@ public class Company implements HasId<Integer> {
     private Timestamp isDeleteTime;
     private Timestamp addTime;
     private List<Job> jobs; //TODO: Need Delete?
-    private List<Logo> logos;
+    private List<Logo> logoList;
+    private List<CompanyPhoto> photoList;
+
 
     /*行业信息*/
     private List<Industry> indList;
@@ -85,6 +88,10 @@ public class Company implements HasId<Integer> {
         this.companyIntroduc = companyRequestDTO.getNote();
         this.userId = companyRequestDTO.getUserId();
         //TODO: Logo
+        this.logoList = new ArrayList<>();
+        Logo logo = new Logo();
+        logo.setDocuLocalId(companyRequestDTO.getAvatarUrl());
+        this.logoList.add(logo);
 
         //TODO : API need add more params as shown below
         this.companyCode = "TODO"; //企业三证号码
@@ -257,12 +264,20 @@ public class Company implements HasId<Integer> {
         this.jobs = jobs;
     }
 
-    public List<Logo> getLogos() {
-        return logos;
+    public List<Logo> getLogoList() {
+        return logoList;
     }
 
-    public void setLogos(List<Logo> logos) {
-        this.logos = logos;
+    public void setLogoList(List<Logo> logoList) {
+        this.logoList = logoList;
+    }
+
+    public List<CompanyPhoto> getPhotoList() {
+        return photoList;
+    }
+
+    public void setPhotoList(List<CompanyPhoto> photoList) {
+        this.photoList = photoList;
     }
 
     @Override

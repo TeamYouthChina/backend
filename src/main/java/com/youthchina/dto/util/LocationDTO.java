@@ -12,7 +12,7 @@ public class LocationDTO {
 
 
     public LocationDTO(Location location) {
-        this.location_code = "" + location.getRegion_num();
+        this.location_code = "" + location.getRegionNum();
         this.nation_code = (location_code.charAt(0) == '9') ? "USA" : "CHN";
 
     }

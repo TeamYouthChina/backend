@@ -20,10 +20,10 @@ public class CompanyResponseDTO {
     public CompanyResponseDTO(Company company) {
         this.id = company.getCompanyId();
         this.name = company.getCompanyName();
-        this.avatarUrl = company.getLogos().get(0).getDocuLocalId();
+        this.avatarUrl = company.getLogoList().get(0).getDocuLocalId();
         Location location = company.getLocation();
         if (location != null) {
-            this.location = location.getRegion_chn();
+            this.location = location.getRegionName();
         }
         Country country = company.getCountry();
         if (country != null) {

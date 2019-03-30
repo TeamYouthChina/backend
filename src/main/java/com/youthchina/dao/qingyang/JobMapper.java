@@ -4,6 +4,7 @@ import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.qingyang.Job;
+import com.youthchina.domain.qingyang.Logo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -75,11 +76,15 @@ comment '职位基本信息表';
 
     Integer insertJobIndustry(List<Industry> industries);
 
-    Integer insertJobDegree(List<Degree> degrees);
+    Integer insertJobDegree(@Param("jobId") Integer jobId, @Param("degreeList")List<Degree> degreeList);
 
-    Integer insertJobLocation(@Param("jobId") Integer jobId, @Param("locations") List<Location> locations);
+    Integer insertJobLocation(@Param("jobId") Integer jobId, @Param("locationList") List<Location> locationList);
+
+    Integer insertJobLogo(@Param("jobId") Integer jobId, @Param("logoList") List<Logo> logoList);
 
     Integer deleteJobLocation(Integer jobId);
+
+    Integer deleteJobLogo(Integer jobId);
 
     Integer deleteJobIndustry(Integer jobId);
 

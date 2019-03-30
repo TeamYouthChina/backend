@@ -4,7 +4,9 @@ import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.CompanyPhoto;
 import com.youthchina.domain.qingyang.Industry;
+import com.youthchina.domain.qingyang.Logo;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
 
 
     @Autowired
-    LocationService locationService;
+    LocationServiceImpl locationServiceImpl;
 
     /**
      * 公司搜索
@@ -51,7 +53,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     private void setCompanyLocation(Company company) {
         Location location = company.getLocation();
         if (location != null) {
-            company.setLocation(locationService.getLocation(location.getRegion_num()));
+            company.setLocation(locationServiceImpl.getLocation(location.getRegionId()));
         }
     }
 
@@ -104,9 +106,18 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     public Company update(Company company) throws NotFoundException {
         Integer result = companyMapper.updateCompany(company);
         companyMapper.deleteCompanyInd(company.getCompanyId());
+        companyMapper.deleteCompanyLogo(company.getCompanyId());
         List<Industry> industryList = company.getIndList();
         if (industryList != null && industryList.size() > 0) {
-            companyMapper.insertCompanyInd(industryList);
+            companyMapper.insertCompanyInd(company.getId(), industryList);
+        }
+        List<Logo> logoList = company.getLogoList();
+        if(logoList != null && logoList.size() > 0){
+            companyMapper.insertCompanyLogo(company.getId(), logoList);
+        }
+        List<CompanyPhoto> photoList = company.getPhotoList();
+        if(photoList != null && photoList.size() > 0){
+            companyMapper.insertCompanyPhoto(company.getId(), photoList);
         }
         Company companyResult = companyMapper.selectCompany(company.getCompanyId());
         setCompanyLocation(companyResult);
@@ -125,7 +136,15 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         Integer result = companyMapper.insertCompany(entity);
         List<Industry> industryList = entity.getIndList();
         if (industryList != null && industryList.size() > 0) {
-            companyMapper.insertCompanyInd(industryList);
+            companyMapper.insertCompanyInd(entity.getId(), industryList);
+        }
+        List<Logo> logoList = entity.getLogoList();
+        if(logoList != null && logoList.size() > 0){
+            companyMapper.insertCompanyLogo(entity.getId(), logoList);
+        }
+        List<CompanyPhoto> photoList = entity.getPhotoList();
+        if(photoList != null && photoList.size() > 0){
+            companyMapper.insertCompanyPhoto(entity.getId(), photoList);
         }
         Company companyResult = companyMapper.selectCompany(entity.getCompanyId());
         setCompanyLocation(companyResult);
@@ -140,7 +159,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
      */
     @Transactional
     public void addInd(Company company) {
-        companyMapper.insertCompanyInd(company.getIndList());
+        companyMapper.insertCompanyInd(company.getId(), company.getIndList());
     }
 
     /**

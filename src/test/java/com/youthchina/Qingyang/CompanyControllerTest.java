@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:company.xml"})
+@DatabaseSetup({"classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml"})
 @WebAppConfiguration
 public class CompanyControllerTest {
 
@@ -70,7 +70,7 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"大疆\",\"avatarUrl\":\"1\",\"location\":\"北京\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"大疆\",\"avatarUrl\":\"COMLOGO1\",\"location\":\"C\",\"website\":\"dji.com\",\"note\":\"无人机\",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 
@@ -79,7 +79,7 @@ public class CompanyControllerTest {
         CompanyRequestDTO companyRequestDTO = new CompanyRequestDTO();
         companyRequestDTO.setName("Vavle");
         Location location = new Location();
-        location.setRegion_num(1);
+        location.setRegionNum(1);
         companyRequestDTO.setLocation(new LocationDTO(location));
         Country country = new Country();
         country.setCountryAbbre("USA");
@@ -111,7 +111,7 @@ public class CompanyControllerTest {
         companyRequestDTO.setId(id);
         companyRequestDTO.setName("Vavle");
         Location location = new Location();
-        location.setRegion_num(1);
+        location.setRegionNum(1);
         companyRequestDTO.setLocation(new LocationDTO(location));
         Country country = new Country();
         country.setCountryAbbre("USA");

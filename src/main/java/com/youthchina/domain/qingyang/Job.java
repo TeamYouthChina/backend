@@ -63,6 +63,7 @@ comment '职位基本信息表';
     private List<Location> jobLocationList;
     private List<Degree> jobReqList;
     private List<Industry> industries;
+    private List<Logo> logoList;
     private Profession profession;
 
     private Timestamp addTime;
@@ -289,5 +290,13 @@ comment '职位基本信息表';
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public List<Logo> getLogoList() {
+        return logoList;
+    }
+
+    public void setLogoList(List<Logo> logoList) {
+        this.logoList = logoList;
     }
 }
