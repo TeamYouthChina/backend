@@ -39,7 +39,7 @@ public class Location {
 
     public Location(LocationDTO locationDTO) {
         this.country = locationDTO.getNation_code();
-        this.regionNum = Integer.valueOf(locationDTO.getLocation_code());
+        this.regionId = Integer.valueOf(locationDTO.getLocation_code());
     }
 
     public Location() {

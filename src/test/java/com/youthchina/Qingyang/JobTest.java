@@ -188,8 +188,12 @@ public class JobTest {
 
     @Test
     public void testJobSearch() {
+        List<Job> jobList = jobMapper.getJobByMore(null, "开发", null, null,
+                null, null, null, null, null, null,
+                null, null, null);
+        Assert.assertEquals(5, jobList.size());
         //TODO:All
-//        //Base Test
+        //Base Test
 //        List<Job> jobList = jobMapper.getJobByMore(null, "front", null, "大疆",
 //                Date.valueOf("2000-1-1"), Date.valueOf("2999-1-1"), 1, 0, null, null,
 //                null, null, null);
