@@ -1,5 +1,6 @@
 package com.youthchina.controller.Hongsheng;
 
+/*
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
@@ -16,10 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+*/
 /**
  * Created by hongshengzhang on 2/24/19.
  */
+/*
 @RestController
 @RequestMapping("${web.url.prefix}/discovery")
 public class QuestionRecommedController {
@@ -43,3 +45,4 @@ public class QuestionRecommedController {
             return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
     }
 }
+*/
