@@ -25,6 +25,7 @@ public class EssayServiceImpl implements EssayService {
     @Resource
     RichTextServiceImpl richTextService;
 
+
     @Autowired
     UserMapper userMapper;
 
@@ -55,16 +56,21 @@ public class EssayServiceImpl implements EssayService {
         if (comEssaytest == null) {
             throw new NotFoundException(404, 404, "this essay is not exist");//todo
         } else {
+            richTextService.getComRichText(comEssaytest);
+            essay.getBody().setTextId(comEssaytest.getBody().getTextId());
+            essay.getBody().setCompileType(1);
             if (essay.getIsAnony() != null)
                 comEssaytest.setIsAnony(essay.getIsAnony());
             if (essay.getAbbre() != null)
                 comEssaytest.setAbbre(essay.getAbbre());
-            if (essay.getBody() != null)
+            if (essay.getBody() != null){
                 richTextService.updateComRichText(essay.getBody());
+                comEssaytest.setBody(essay.getBody());
+            }
             if (essay.getTitle() != null)
                 comEssaytest.setTitle(essay.getTitle());
-
-            return mapper.updateEssay(comEssaytest);
+           mapper.updateEssay(comEssaytest);
+           return 1;
         }
     }
 

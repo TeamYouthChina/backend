@@ -118,5 +118,11 @@
           #{id}
         </foreach>
     </select>
+    <!--    统计所有文章个数 -->
+    <select id="countEssay" resultType="java.lang.Integer">
+        select count(*)
+        from com_essay
+        where IS_DELETE=0
+    </select>
 
 </mapper>

@@ -26,6 +26,8 @@ public interface CommunityMapper {
 
     List<ComEssay> getEssayLatest();
 
+    Integer countEssay();
+
     int saveFriendsRelation(ComFriendRelation comFriendRelation);
 
     int deleteFriend(@Param("comFriendRelation") ComFriendRelation comFriendRelation);
