@@ -84,4 +84,9 @@ public class BriefReviewServiceImplement implements BriefReviewService {
             throw new NotFoundException(404,404,"没有找到这个短评");
         }
     }
+
+    @Override
+    public Integer count() {
+        return briefReviewMapper.count();
+    }
 }

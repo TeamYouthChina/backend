@@ -16,4 +16,5 @@ public interface AnswerMapper {
     void update(Answer answer);
     void delete(Integer id);
     Integer checkIfAnswerExist(Integer id);
+    Integer countAnswers(Integer id);
 }

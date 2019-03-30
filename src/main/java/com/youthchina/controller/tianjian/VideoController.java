@@ -5,7 +5,9 @@ import com.youthchina.domain.jinhao.Video;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.community.video.VideoResponseDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -24,6 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 @RestController
 @RequestMapping("${web.url.prefix}/videos/**")
@@ -43,7 +47,7 @@ public class VideoController {
     @Autowired
     EvaluateService evaluateService;
 
-
+     @Autowired
     AttentionService attentionService;
 
     @GetMapping("/{id}")
@@ -99,11 +103,15 @@ public class VideoController {
     public ResponseEntity getComments(@PathVariable Integer id){
         Video video = new Video();
         video.setId(id);
-        commentService.getComments(video);
-        VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
-        HashMap<String, Object> comments = new HashMap<>();
-        comments.put("comments", videoResponseDTO.getComments());
-        return ResponseEntity.ok(new Response(comments, new StatusDTO(200, "success")));
+       List<Comment> commentList = commentService.getComments(video);
+        CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
+        if (commentList!= null) {
+            Iterator it = commentList.iterator();
+            while (it.hasNext()) {
+                commentResponseDTO.getComments().add(new CommentDTO((Comment) it.next()));
+            }
+        }
+        return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200, "success")));
     }
 
     @PutMapping("/{id}/upvote")
@@ -111,7 +119,7 @@ public class VideoController {
         Video video = new Video();
         video.setId(id);
         evaluateService.upvote(video,user.getId());
-            return ResponseEntity.ok(new Response(new StatusDTO(403, "failed")));
+        return ResponseEntity.ok(new Response( new StatusDTO(200, "success")));
     }
 
     @PutMapping("/{id}/attention")
@@ -119,7 +127,7 @@ public class VideoController {
         Video video = new Video();
         video.setId(id);
         attentionService.attention(video,user.getId());
-            return ResponseEntity.ok(new Response(new StatusDTO(403, "failed")));
+        return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
     }
 
 

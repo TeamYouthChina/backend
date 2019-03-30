@@ -12,4 +12,5 @@ public interface QuestionMapper {
     void delete(Integer id);
     void edit(Question question);
     Integer checkIfQuestionExist(Integer id);
+    Integer count();
 }

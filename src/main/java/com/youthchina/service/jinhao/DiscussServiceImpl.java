@@ -40,6 +40,11 @@ public class DiscussServiceImpl implements DiscussService{
     }
 
     @Override
+    public Integer count(Integer id) {
+        return discussMapper.count(id);
+    }
+
+    @Override
     @Transactional
     public Discuss add(Discuss discuss) throws NotFoundException {
         commentService.isCommentExist(discuss.getCommentId());

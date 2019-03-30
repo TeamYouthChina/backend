@@ -38,7 +38,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getComments(Commentable entity) {
-        return commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
+        List<Comment> comments = commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
+        return comments;
     }
 
     @Override
@@ -70,12 +71,16 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public void delete(Commentable entity) {
-        getComments(entity);
-        List<Comment> comments = entity.getComments();
+        List<Comment> comments =  getComments(entity);
         for(Comment comment : comments){
             discussService.deleteAllDiscussOfComment(comment.getId());
         }
         commentMapper.deleteComments(entity.getCommentTargetType(), entity.getId());
+    }
+
+    @Override
+    public Integer countComments(Commentable entity) {
+        return commentMapper.count(entity.getCommentTargetType(), entity.getId());
     }
 
 

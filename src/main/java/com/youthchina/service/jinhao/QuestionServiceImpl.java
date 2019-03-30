@@ -5,7 +5,6 @@ import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.RichTextService;
-import com.youthchina.service.zhongyang.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,9 +19,6 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Resource
     RichTextService richTextService;
-
-    @Resource
-    UserService userService;
 
     @Resource
     AnswerService answerService;
@@ -44,6 +40,11 @@ public class QuestionServiceImpl implements QuestionService {
         }
         richTextService.getComRichText(question);
         return question;
+    }
+
+    @Override
+    public Integer count() {
+        return questionMapper.count();
     }
 
     @Override

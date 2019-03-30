@@ -29,7 +29,9 @@ import java.util.List;
 public class AnswerController {
     @Autowired
     private AnswerServiceImpl answerService;
+    @Autowired
     private CommentServiceImpl commentService;
+    @Autowired
     private EvaluateServiceImpl evaluateService;
 
     @GetMapping("/{id}")

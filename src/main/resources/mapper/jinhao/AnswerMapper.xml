@@ -43,4 +43,7 @@
     <select id="checkIfAnswerExist" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select ANSWER_ID from COM_ANSWER where ANSWER_ID = #{id} and IS_DELETE=0
     </select>
+    <select id="countAnswers" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(ANSWER_ID) from COM_ANSWER where TARGET_ID=#{id} and IS_DELETE=0
+    </select>
 </mapper>

@@ -32,6 +32,12 @@ public class AnswerServiceImpl implements AnswerService{
             throw new NotFoundException(404,404,"该问题不存在");
         }
     }
+
+    @Override
+    public Integer countAnswersOfQuestion(Integer id) {
+        return answerMapper.countAnswers(id);
+    }
+
     @Override
     @Transactional
     public Answer get(Integer id) throws NotFoundException {

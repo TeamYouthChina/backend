@@ -4,23 +4,23 @@
     <!--    保存文件信息进入数据库 -->
     <insert id="saveFileInfo" parameterType="com.youthchina.domain.tianjian.ComMediaDocument" useGeneratedKeys="true"
             keyProperty="docu_id">
-    INSERT INTO COM_MEDIA_DOCUMENT  (DOCU_ID,UPLOAD_USER_ID, DOCU_LOCAL_ID, DOCU_LOCAL_NAME, DOCU_LOCAL_FORMAT,DOCU_LOCAL_SIZE,DOCU_SERVER_ALI_ID,DOCU_SERVER_AWS_ID,CREATE_TIME,IS_DELETE,IS_DELETE_TIME)
+    INSERT INTO SYS_MEDIA_DOCUMENT  (DOCU_ID,UPLOAD_USER_ID, DOCU_LOCAL_ID, DOCU_LOCAL_NAME, DOCU_LOCAL_FORMAT,DOCU_LOCAL_SIZE,DOCU_SERVER_ALI_ID,DOCU_SERVER_AWS_ID,CREATE_TIME,IS_DELETE,IS_DELETE_TIME)
            values(#{docu_id},#{upload_user_id},#{docu_local_id},#{docu_local_name},#{docu_local_format},#{docu_local_size},#{docu_server_ali_id},#{docu_server_aws_id},#{create_time},#{is_delete},#{is_delete_time}
                  )
     </insert>
     <update id="setCloudStorageId">
-      UPDATE COM_MEDIA_DOCUMENT SET ${col} = #{id} where DOCU_LOCAL_ID = #{local_id}
+      UPDATE SYS_MEDIA_DOCUMENT SET ${col} = #{id} where DOCU_LOCAL_ID = #{local_id}
     </update>
     <select id="getFileSizeOfUserUploading" resultType="com.youthchina.domain.tianjian.ComMediaDocument">
         SELECT t.*
-        FROM COM_MEDIA_DOCUMENT t
+        FROM SYS_MEDIA_DOCUMENT t
         WHERE
              t.UPLOAD_USER_ID = #{upload_user_id} and <![CDATA[ datediff(t.CREATE_TIME,#{startTime}) > 0  and datediff(t.CREATE_TIME,#{endTime}) < 0
         ]]>
     </select>
     <select id="getFileInfo" resultType="com.youthchina.domain.tianjian.ComMediaDocument">
         SELECT t.*
-        FROM COM_MEDIA_DOCUMENT t
+        FROM SYS_MEDIA_DOCUMENT t
         WHERE
              t.DOCU_LOCAL_ID = #{local_id}
     </select>

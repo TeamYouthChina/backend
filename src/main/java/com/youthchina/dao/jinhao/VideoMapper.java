@@ -12,4 +12,5 @@ public interface VideoMapper {
     void delete(Integer id);
     void update(Video video);
     Integer checkIfVideoExist(Integer id);
+    Integer count();
 }

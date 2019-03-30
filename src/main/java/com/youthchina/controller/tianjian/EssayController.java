@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Iterator;
+import java.util.List;
 
 
 @RestController
@@ -54,12 +55,13 @@ public class EssayController {
 
     @GetMapping("/{id}")
     public ResponseEntity getEssay(@PathVariable Integer id) throws NotFoundException {
+        System.out.println(id);
         ComEssay comEssay = essayServiceimpl.getEssay(id);
         if (comEssay == null) {
             throw new NotFoundException(404, 404, "没有找到这个文章"); //TODO
         }
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
-        if (comEssay.getRelaType()!=1){
+        if (comEssay.getRelaType()==1){
             essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId())));
         }
             return ResponseEntity.ok(new Response(essayResponseDTO, new StatusDTO(200, "success")));
@@ -72,15 +74,15 @@ public class EssayController {
         comEssay.setId(id);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setEditTime(time);
-        if (essayRequestDTO.getCompany_id() != 1) {
-         comEssay.setRelaType(2);
+        if (essayRequestDTO.getCompany_id() != null) {
+         comEssay.setRelaType(1);
          comEssay.setRelaId(essayRequestDTO.getCompany_id());
         }
         essayServiceimpl.updateEssay(comEssay);
 
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
         essayResponseDTO.setModified_at(time);
-        if (essayRequestDTO.getCompany_id() != 1)
+        if (essayRequestDTO.getCompany_id() != null)
             essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getCompany_id())));
         essayResponseDTO.setAuthor(new UserDTO(user));
 
@@ -156,17 +158,15 @@ public class EssayController {
     @GetMapping("/{id}/comments")
     public ResponseEntity getEssayComments(@PathVariable Integer id) {
         ComEssay comEssay = new ComEssay();
-        comEssay.setCommentTargetType(1);
         comEssay.setId(id);
-        commentService.getComments(comEssay);
+        List<Comment> commentList = commentService.getComments(comEssay);
         CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
-        if (comEssay.getComments() != null) {
-            Iterator it = comEssay.getComments().iterator();
+        if (commentList!= null) {
+            Iterator it = commentList.iterator();
             while (it.hasNext()) {
                 commentResponseDTO.getComments().add(new CommentDTO((Comment) it.next()));
             }
         }
-
         return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200, "success")));
 
     }

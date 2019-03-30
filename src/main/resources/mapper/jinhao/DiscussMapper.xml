@@ -39,4 +39,7 @@
     <select id="checkIfDiscussExist" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select DISCUSS_ID from COM_DISCUSS where DISCUSS_ID=#{id} and IS_DELETE=0
     </select>
+    <select id="count" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(DISCUSS_ID) from COM_DISCUSS where COMMENT_ID=#{id} and IS_DELETE=0
+    </select>
 </mapper>

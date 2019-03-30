@@ -34,4 +34,7 @@
     <select id="checkIfQuestionExist" resultType="java.lang.Integer">
         select QUES_ID from COM_QUESTION where QUES_ID=#{id} and IS_DELETE=0
     </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(QUES_ID) from COM_QUESTION where IS_DELETE=0
+    </select>
 </mapper>

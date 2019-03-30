@@ -16,8 +16,10 @@ public interface AnswerService extends DomainCRUDService<Answer, Integer> {
 
     /**
      * to judge if one answer exists or not
-     * @param id
+     * @param id id of answer
      * @throws NotFoundException
      */
     void isAnswerExist(Integer id) throws NotFoundException;
+
+    Integer countAnswersOfQuestion(Integer id);
 }

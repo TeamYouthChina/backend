@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.tianjian.RichTextMapper">
+    <resultMap id="result" type="com.youthchina.domain.tianjian.ComRichText">
+        <id property="textId" column="TEXT_ID"/>
+        <result property="compileType" column="COMPILE_TYPE"/>
+        <result property="jsonContent" column="JSON_CONTENT"/>
+        <result property="textContent" column="TEXT_CONTENT"/>
+    </resultMap>
+
     <!--    添加富文本 -->
     <insert id="addRichText" parameterType="com.youthchina.domain.tianjian.ComRichText">
     INSERT INTO COM_RICH_TEXT (TEXT_ID,COMPILE_TYPE, JSON_CONTENT,TEXT_CONTENT)
@@ -18,21 +25,22 @@
          TEXT_ID = #{textId}
     </update>
 
-    <select id="getAnswerBody" resultType="com.youthchina.domain.tianjian.ComRichText">
-        select t1 from COM_RICH_TEXT t1, COM_QUESTION_ANSWER t2
-        where t2.ANSWER_ID = #{id} and t1.TEXT_ID = t2.ANSWER_CONTENT
+    <select id="getAnswerBody" parameterType="java.lang.Integer" resultMap="result">
+        select t1.* from COM_RICH_TEXT t1, COM_ANSWER t2
+        where t2.ANSWER_ID = #{id} and t1.TEXT_ID = t2.ANSWER_BODY
     </select>
-    <select id="getQuestionBody" resultType="com.youthchina.domain.tianjian.ComRichText">
-        select t1 from COM_RICH_TEXT t1, COM_QUESTION t2
+
+    <select id="getQuestionBody" resultMap="result">
+        select t1.* from COM_RICH_TEXT t1, COM_QUESTION t2
         where t2.QUES_ID = #{id} and t1.TEXT_ID = t2.QUES_BODY
     </select>
-    <select id="getEssayBody" resultType="com.youthchina.domain.tianjian.ComRichText">
-        select t1 from COM_RICH_TEXT t1, COM_ESSAY t2
+    <select id="getEssayBody" resultMap="result">
+        select t1.* from COM_RICH_TEXT t1, COM_ESSAY t2
         where t2.ESSAY_ID = #{id} and t1.TEXT_ID = t2.ESSAY_BODY
     </select>
-    <select id="getBriefReviewBody" resultType="com.youthchina.domain.tianjian.ComRichText">
-        select t1 from COM_RICH_TEXT t1, COM_BRIEF_REVIEW t2
-        where t2.REVIEW_ID = #{id} and t1.TEXT_ID = t2.REVIEW_CONTENT
+    <select id="getBriefReviewBody" resultMap="result">
+        select t1.* from COM_RICH_TEXT t1, COM_BRIEF_REVIEW t2
+        where t2.REVIEW_ID = #{id} and t1.TEXT_ID = t2.REVIEW_BODY
     </select>
 
 </mapper>

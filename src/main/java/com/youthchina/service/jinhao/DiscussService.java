@@ -18,4 +18,6 @@ public interface DiscussService extends DomainCRUDService<Discuss, Integer> {
     void isDiscussExist(Integer id) throws NotFoundException;
 
     void deleteAllDiscussOfComment(Integer id);
+
+    Integer count(Integer id);
 }

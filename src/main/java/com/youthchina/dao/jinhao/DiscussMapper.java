@@ -15,4 +15,5 @@ public interface DiscussMapper {
     void delete(Integer id);
     Integer checkIfDiscussExist(Integer id);
     void deleteAllDiscussOfComment(Integer id);
+    Integer count(Integer id);
 }
