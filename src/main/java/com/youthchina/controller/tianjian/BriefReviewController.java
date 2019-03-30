@@ -136,9 +136,8 @@ public class BriefReviewController {
 
     @PostMapping("/{id}/comments")
     public ResponseEntity addBriefReviewComment(@PathVariable Integer id, @RequestBody CommentRequestDTO commentRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        Comment comment = new Comment();
+        Comment comment = new Comment(commentRequestDTO);
         comment.setUser(user);
-       comment.setContent(commentRequestDTO.getBody().getPreviewText());
 
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comment.setPubTime(time);
