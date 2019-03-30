@@ -247,7 +247,7 @@ public class StudentMapperTest {
         Location location = new Location();
         work.setWork_company("1");
         work.setLocation(location);
-        work.getLocation().setRegion_num(1);
+        work.getLocation().setRegionNum(1);
         work.setWork_position("1");
         work.setWork_sector("1");
         work.setWork_start_time(new Date());

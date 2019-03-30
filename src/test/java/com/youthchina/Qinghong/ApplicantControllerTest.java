@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:applicant.xml"})
+@DatabaseSetup({"classpath:testnew.xml"})
 @WebAppConfiguration
 public class ApplicantControllerTest {
     @Autowired
@@ -346,7 +346,7 @@ public class ApplicantControllerTest {
     @Test
     public void testInsertEducation() throws Exception{
         EducationRequestDTO educationDTO=new EducationRequestDTO();
-        educationDTO.setUniversity_id(1);
+        educationDTO.setUniversity_id(10001);
         educationDTO.setMajor("cs");
         Degree degree=new Degree();
         educationDTO.setDegree("1");

@@ -14,7 +14,7 @@ public class EducationInfo {
     private String edu_major;
     private String edu_college;
     private Float edu_gpa;
-    private Integer edu_diploma_type;
+    private Diploma diploma;
     private Date edu_start;
     private Date edu_end;
     private Integer stu_id;
@@ -140,11 +140,11 @@ public class EducationInfo {
         this.university = university;
     }
 
-    public Integer getEdu_diploma_type() {
-        return edu_diploma_type;
+    public Diploma getDiploma() {
+        return diploma;
     }
 
-    public void setEdu_diploma_type(Integer edu_diploma_type) {
-        this.edu_diploma_type = edu_diploma_type;
+    public void setDiploma(Diploma diploma) {
+        this.diploma = diploma;
     }
 }

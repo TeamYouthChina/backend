@@ -9,7 +9,7 @@ import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.qingyang.JobServiceImpl;
-import com.youthchina.service.qingyang.LocationService;
+import com.youthchina.service.qingyang.LocationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +35,7 @@ public class StudentServiceImpl implements StudentService {
     private CompanyMapper companyMapper;
 
     @Autowired
-    private LocationService locationService;
+    private LocationServiceImpl locationService;
 
     @Autowired
     private JobServiceImpl jobService;
@@ -63,7 +63,7 @@ public class StudentServiceImpl implements StudentService {
 //                educationInfo.setLocation(location);
 //            }
             for (Work work : student.getWorks()) {
-                Location location = locationService.getLocation(work.getLocation().getRegion_num());
+                Location location = locationService.getLocation(work.getLocation().getRegionId());
                 work.setLocation(location);
             }
             return student;
@@ -94,7 +94,7 @@ public class StudentServiceImpl implements StudentService {
 //                educationInfo.setLocation(location);
 //            }
             for (Work work : student.getWorks()) {
-                Location location = locationService.getLocation(work.getLocation().getRegion_num());
+                Location location = locationService.getLocation(work.getLocation().getRegionNum());
                 work.setLocation(location);
             }
             return student;
@@ -123,7 +123,7 @@ public class StudentServiceImpl implements StudentService {
         }
         for (Work work : entity.getWorks()) {
             work.setStu_id(stu_id);
-            Location location = locationService.getLocation(work.getLocation().getRegion_num());
+            Location location = locationService.getLocation(work.getLocation().getRegionNum());
             work.setLocation(location);
             applicantMapper.insertStuWork(work);
         }
@@ -142,7 +142,7 @@ public class StudentServiceImpl implements StudentService {
 //            educationInfo.setLocation(location);
 //        }
         for (Work work : student.getWorks()) {
-            Location location = locationService.getLocation(work.getLocation().getRegion_num());
+            Location location = locationService.getLocation(work.getLocation().getRegionNum());
             work.setLocation(location);
         }
 
@@ -363,7 +363,7 @@ public class StudentServiceImpl implements StudentService {
         } else {
             List<CompCollect> compCollects = applicantMapper.getCompCollects(user_id);
             for (CompCollect compCollect : compCollects) {
-                Location location = locationService.getLocation(compCollect.getCompany().getLocation().getRegion_num());
+                Location location = locationService.getLocation(compCollect.getCompany().getLocation().getRegionNum());
                 compCollect.getCompany().setLocation(location);
             }
             return compCollects;
@@ -488,7 +488,7 @@ public class StudentServiceImpl implements StudentService {
         } else {
             educationInfo.setStu_id(user_id);
             Integer integer = applicantMapper.insertEduInfo(educationInfo);
-            return applicantMapper.getEducationById(integer);
+            return applicantMapper.getEducationById(educationInfo.getEdu_id());
 //            for (EducationInfo educationInfo1 : educationInfos) {
 //                Location location = locationService.getLocation(educationInfo1.getLocation().getRegion_num());
 //                educationInfo1.setLocation(location);
@@ -512,8 +512,8 @@ public class StudentServiceImpl implements StudentService {
         } else {
             work.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuWork(work);
-            Work work1=applicantMapper.getWorkById(integer);
-            Location location = locationService.getLocation(work1.getLocation().getRegion_num());
+            Work work1=applicantMapper.getWorkById(work.getWork_id());
+            Location location = locationService.getLocation(work1.getLocation().getRegionId());
             work1.setLocation(location);
             return work1;
 
@@ -655,7 +655,7 @@ public class StudentServiceImpl implements StudentService {
             }
             List<Work> works1 = applicantMapper.getStudentInfo(user_id).getWorks();
             for (Work work : works1) {
-                Location location = locationService.getLocation(work.getLocation().getRegion_num());
+                Location location = locationService.getLocation(work.getLocation().getRegionNum());
                 work.setLocation(location);
 
             }

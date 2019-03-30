@@ -137,7 +137,7 @@ public class ProfileMapperTest {
     public void testAddStuWork() {
         Work work = new Work();
         Location location = new Location();
-        location.setRegion_num(1);
+        location.setRegionNum(1);
         work.setLocation(location);
         work.setWork_company("1");
         work.setWork_position("1");
@@ -226,7 +226,7 @@ public class ProfileMapperTest {
     public void testUpdateWork(){
         Work work = new Work();
         Location location = new Location();
-        location.setRegion_num(2);
+        location.setRegionNum(2);
         work.setLocation(location);
         work.setWork_company("1");
         work.setWork_position("1");
