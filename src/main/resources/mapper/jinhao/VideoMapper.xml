@@ -38,4 +38,8 @@
     <select id="checkIfVideoExist" resultType="java.lang.Integer" parameterType="java.lang.Integer">
         select VIDEO_ID from COM_VIDEO where VIDEO_ID=#{id}
     </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(VIDEO_ID) from COM_VIDEO where IS_DELETE=0
+    </select>
 </mapper>

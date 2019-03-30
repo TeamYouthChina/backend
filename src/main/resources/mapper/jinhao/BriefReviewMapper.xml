@@ -35,4 +35,8 @@
     <select id="checkIfBriefReviewExist" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select REVIEW_ID from COM_BRIEF_REVIEW where REVIEW_ID=#{id} and IS_DELETE=0
     </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(REVIEW_ID) from COM_BRIEF_REVIEW WHERE IS_DELETE = 0
+    </select>
 </mapper>

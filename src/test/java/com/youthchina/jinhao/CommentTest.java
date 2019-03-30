@@ -47,8 +47,8 @@ public class CommentTest {
 
     @Test
     public void getComments(){
-        List<Comment> commentList = commentMapper.getComments(3,1);
-        Assert.assertEquals(2,commentList.size());
+        List<Comment> commentList = commentMapper.getComments(2,1);
+        Assert.assertEquals(1,commentList.size());
     }
 
     @Test

@@ -39,4 +39,8 @@
     <select id="checkIfCommentExist" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select COMMENT_ID from COM_COMMENT where COMMENT_ID=#{id} and IS_DELETE=0
     </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(COMMENT_ID) from COM_COMMENT
+        where TARGET_TYPE=#{targetType} and TARGET_ID=#{targetId} and IS_DELETE=0
+    </select>
 </mapper>

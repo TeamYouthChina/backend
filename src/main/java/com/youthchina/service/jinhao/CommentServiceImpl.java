@@ -78,6 +78,11 @@ public class CommentServiceImpl implements CommentService {
         commentMapper.deleteComments(entity.getCommentTargetType(), entity.getId());
     }
 
+    @Override
+    public Integer countComments(Commentable entity) {
+        return commentMapper.count(entity.getCommentTargetType(), entity.getId());
+    }
+
 
     @Override
     public Comment add(Comment comment) {

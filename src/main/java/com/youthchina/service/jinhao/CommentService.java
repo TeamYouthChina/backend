@@ -21,4 +21,5 @@ public interface CommentService extends DomainCRUDService<Comment, Integer> {
 
     void delete(Commentable commentable);
 
+    Integer countComments(Commentable entity);
 }
