@@ -13,7 +13,7 @@ import java.util.List;
  * @author: Qingyang Zhao
  * @create: 2019-02-24
  **/
-public class JobResponseDTO {
+public class JobResponseDTO implements JobDTOInterface {
     private int id;
     private String name;
     private OrganizationDTO organization;
@@ -59,6 +59,10 @@ public class JobResponseDTO {
 
         }
         int jobType = job.getJobType();
+
+        System.out.println("Get jobType:");
+        System.out.println(jobType);
+
         if (jobType == 1) {
             this.type = "实习";
         } else if (jobType == 2) {

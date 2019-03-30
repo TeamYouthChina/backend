@@ -7,10 +7,7 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.applicant.SendingEmailDTO;
 import com.youthchina.dto.application.JobApplyDTO;
-import com.youthchina.dto.job.JobResponseDTO;
-import com.youthchina.dto.job.JobSearchDTO;
-import com.youthchina.dto.job.JobSearchResponseDTO;
-import com.youthchina.dto.job.JobRequestDTO;
+import com.youthchina.dto.job.*;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -20,6 +17,7 @@ import com.youthchina.service.Qinghong.StudentService;
 import com.youthchina.service.qingyang.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -40,7 +38,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/jobs/**")
-public class JobController extends DomainCRUDController<JobRequestDTO, Job, Integer> {
+public class JobController extends DomainCRUDController<JobDTOInterface, Job, Integer> {
 
     private String url;
     private JobService jobService;
@@ -61,13 +59,13 @@ public class JobController extends DomainCRUDController<JobRequestDTO, Job, Inte
     }
 
     @Override
-    protected JobRequestDTO DomainToDto(Job domain) {
+    protected JobDTOInterface DomainToDto(Job domain) {
         return new JobRequestDTO(domain);
     }
 
     @Override
-    protected Job DtoToDomain(JobRequestDTO jobRequestDTO) {
-        return new Job(jobRequestDTO);
+    protected Job DtoToDomain(JobDTOInterface jobRequestDTO) {
+        return new Job((JobRequestDTO) jobRequestDTO);
     }
 
     @Override
@@ -77,13 +75,26 @@ public class JobController extends DomainCRUDController<JobRequestDTO, Job, Inte
 
 
     @PostMapping("/**")
-    public ResponseEntity<?> createJobInfo(@RequestBody JobRequestDTO jobRequestDTO) {
-        return add(jobRequestDTO);
+    public ResponseEntity<?> createJobInfo(@AuthenticationPrincipal User user, @RequestBody JobRequestDTO jobRequestDTO) {
+        jobRequestDTO.setUserId(user.getId());
+        //return add(jobRequestDTO);
+        Job job = jobService.add(new Job(jobRequestDTO));
+        return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
+
     }
 
     @PutMapping("/{id}/**")
-    public ResponseEntity<?> updateJobInfo(@RequestBody JobRequestDTO jobRequestDTO) throws NotFoundException {
-        return update(jobRequestDTO);
+    public ResponseEntity<?> updateJobInfo(@RequestBody JobRequestDTO jobRequestDTO) throws BaseException {
+        Job job = jobService.update(new Job(jobRequestDTO));
+
+        if(job == null) try {
+            throw new BaseException();
+        } catch (BaseException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
+
     }
 
     @DeleteMapping("/{id}/**")
@@ -95,7 +106,7 @@ public class JobController extends DomainCRUDController<JobRequestDTO, Job, Inte
     @GetMapping("/{id}/**")
     public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
         Job job = this.jobService.get(jobId);
-        if (detailLevel == 1) {
+        if (detailLevel == 1 && job != null) {
             return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
         }
         throw new BaseException();

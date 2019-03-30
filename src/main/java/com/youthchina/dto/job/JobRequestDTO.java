@@ -11,11 +11,12 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 12/2/18.
  */
-public class JobRequestDTO implements RequestDTO {
+public class JobRequestDTO implements JobDTOInterface {
     private int id;
     private String name;
     private OrganizationDTO organization;
     private String type;
+    private Integer userId;
     private List<LocationDTO> LocationList;
 
     public JobRequestDTO(Job job) {
@@ -25,6 +26,9 @@ public class JobRequestDTO implements RequestDTO {
         for (int i = 0; i < job.getJobLocationList().size(); i++) {
             this.LocationList.add(new LocationDTO(job.getJobLocationList().get(i)));  //todo: create location object
         }
+    }
+
+    public JobRequestDTO() {
     }
 
     public int getId() {
@@ -73,6 +77,18 @@ public class JobRequestDTO implements RequestDTO {
 
     public void setDeadline(Timestamp deadline) {
         this.deadline = deadline;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public List<LocationDTO> getLocationList() {
+        return LocationList;
     }
 
     private Timestamp deadline;
