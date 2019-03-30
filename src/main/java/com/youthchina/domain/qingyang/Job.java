@@ -81,8 +81,8 @@ comment '职位基本信息表';
         this.jobName = jobRequestDTO.getName();
         this.jobType = Integer.parseInt(jobRequestDTO.getType());
 
-        System.out.println("this.jobType:");
-        System.out.println(this.jobType);
+//        System.out.println("this.jobType:");
+//        System.out.println(this.jobType);
 
         this.company = new Company();
         this.company.setCompanyId(jobRequestDTO.getOrganization().getId());

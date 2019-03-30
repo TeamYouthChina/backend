@@ -60,7 +60,7 @@ public class JobController extends DomainCRUDController<JobDTOInterface, Job, In
 
     @Override
     protected JobDTOInterface DomainToDto(Job domain) {
-        return new JobRequestDTO(domain);
+        return new JobResponseDTO(domain);
     }
 
     @Override
@@ -77,23 +77,23 @@ public class JobController extends DomainCRUDController<JobDTOInterface, Job, In
     @PostMapping("/**")
     public ResponseEntity<?> createJobInfo(@AuthenticationPrincipal User user, @RequestBody JobRequestDTO jobRequestDTO) {
         jobRequestDTO.setUserId(user.getId());
-        //return add(jobRequestDTO);
-        Job job = jobService.add(new Job(jobRequestDTO));
-        return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
+        return add(jobRequestDTO);
+//        Job job = jobService.add(new Job(jobRequestDTO));
+//        return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
 
     }
 
     @PutMapping("/{id}/**")
     public ResponseEntity<?> updateJobInfo(@RequestBody JobRequestDTO jobRequestDTO) throws BaseException {
-        Job job = jobService.update(new Job(jobRequestDTO));
-
-        if(job == null) try {
-            throw new BaseException();
-        } catch (BaseException e) {
-            e.printStackTrace();
-        }
-
-        return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
+        //Job job = jobService.update(new Job(jobRequestDTO));
+        return update(jobRequestDTO);
+//        if(job == null) try {
+//            throw new BaseException();
+//        } catch (BaseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
 
     }
 

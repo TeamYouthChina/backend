@@ -31,7 +31,9 @@ public class OrganizationDTO {
             this.avatarUrl = company.getLogoList().get(0).getDocuLocalId();
         }
         Location location = company.getLocation();
-        this.location = location == null ? null : location.getRegionName(); // 中文名
+        if (location != null) {
+            this.location = location.getRegionName();
+        }
         this.website = company.getCompanyWebsite();
         Country country = company.getCountry();
         this.nation = country == null ? null : country.getCountryChn();// 中文名
