@@ -74,8 +74,10 @@ public class AnswerServiceImpl implements AnswerService{
     public Answer update(Answer answer) throws NotFoundException {
         isAnswerExist(answer.getId());
         answerMapper.update(answer);
+        Answer answer1 = get(1);
+        answer.getBody().setTextId(answer1.getBody().getTextId());
         richTextService.updateComRichText(answer.getBody());
-        return answer;
+        return get(answer.getId());
     }
 
     @Override

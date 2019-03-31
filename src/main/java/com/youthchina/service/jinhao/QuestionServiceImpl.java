@@ -93,6 +93,8 @@ public class QuestionServiceImpl implements QuestionService {
     public Question update(Question question) throws NotFoundException {
         isQuestionExist(question.getId());
         questionMapper.edit(question);
+        Question question1 = get(question.getId());
+        question.getBody().setTextId(question1.getBody().getTextId());
         richTextService.updateComRichText(question.getBody());
         return question;
     }

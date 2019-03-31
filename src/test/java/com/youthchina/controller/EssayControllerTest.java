@@ -7,12 +7,9 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.tianjian.CommunityMapper;
 import com.youthchina.dto.community.article.EssayRequestDTO;
-import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
 import com.youthchina.dto.util.RichTextRequestDTO;
-import com.youthchina.dto.util.RichTextResponseDTO;
 import com.youthchina.util.AuthGenerator;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -91,6 +88,7 @@ public class EssayControllerTest {
         RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
         richTextDTO.setBraftEditorRaw(json);
         richTextDTO.setPreviewText(pre);
+        richTextDTO.setCompiletype(1);
 
         EssayRequestDTO requestEssayDTO = new EssayRequestDTO();
         requestEssayDTO.setTitle("This is a new article Title");
@@ -100,6 +98,7 @@ public class EssayControllerTest {
         //        "}");
         //richTextDTO.setPreviewText("This is a new article Abbre");
         requestEssayDTO.setBody(richTextDTO);
+
       //  requestEssayDTO.setCompany_id(1);
         requestEssayDTO.setIs_anonymous(false);
 
@@ -125,7 +124,7 @@ public class EssayControllerTest {
         RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
         richTextDTO.setBraftEditorRaw(json);
         richTextDTO.setPreviewText(pre);
-
+        richTextDTO.setCompiletype(1);
 
         requestEssayDTO.setBody(richTextDTO);
 
@@ -179,7 +178,7 @@ public class EssayControllerTest {
         RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
         richTextDTO.setBraftEditorRaw(json);
         richTextDTO.setPreviewText(pre);
-
+        richTextDTO.setCompiletype(1);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(commentRequestDTO);
@@ -225,7 +224,7 @@ public class EssayControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":16,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"body\":\"好好好\",\"create_at\":\"2019-02-12T00:00:00.000+0000\",\"is_anonymous\":true}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"comments\":[]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
     @Test

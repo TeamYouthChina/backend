@@ -1,7 +1,12 @@
 package com.youthchina.tianjian;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
+import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.dto.util.RichTextRequestDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,9 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -61,54 +64,31 @@ public class AnswerControllerTest {
 
     }
 
-//    @Test
-//    public void testUpdateAnswer() throws Exception {
-//        SimpleAnswerRequestDTO simpleAnswerDTO = new SimpleAnswerRequestDTO();
-//        simpleAnswerDTO.setIs_anonymous(true);
-//        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
-//        //language=JSON
-//        String json = "{\n" +
-//                "  \"braftEditorRaw\":{\n" +
-//                "    \"blocks\": [\n" +
-//                "      {\n" +
-//                "        \"key\":\"dtj4a\",\n" +
-//                "        \"text\":\"qweertyuiop\",\n" +
-//                "        \"type\":\"unstyled\",\n" +
-//                "        \"depth\":0,\n" +
-//                "        \"inlineStyleRanges\": [],\n" +
-//                "        \"entityRanges\": [],\n" +
-//                "        \"data\":{\n" +
-//                "        }\n" +
-//                "      }\n" +
-//                "    ],\n" +
-//                "    \"entityMap\":{\n" +
-//                "    }\n" +
-//                "  },\n" +
-//                "  \"previewText\":null,\n" +
-//                "  \"resourceIdList\": []\n" +
-//                "}";
-//        try {
-//            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
-//            System.out.println(richTextDTO);
-//        } catch (IOException e) {
-//            Assert.fail();
-//        }
-//
-//        simpleAnswerDTO.setBody(richTextDTO);
-//
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-//        java.lang.String searchJson = ow.writeValueAsString(simpleAnswerDTO);
-//        this.mvc.perform(
-//                put(this.urlPrefix + "/answers/1")
-//                        .with(authGenerator.authentication())
-//                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-//                        .content(searchJson)
-//        )
-//                .andDo(print());
-//    }
-//
+    @Test
+    public void testUpdateAnswer() throws Exception {
+        SimpleAnswerRequestDTO simpleAnswerDTO = new SimpleAnswerRequestDTO();
+        simpleAnswerDTO.setIs_anonymous(true);
+        String json = "";
+        String pre = "pre";
+        RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
+        richTextDTO.setBraftEditorRaw(json);
+        richTextDTO.setPreviewText(pre);
+        richTextDTO.setCompiletype(1);
+
+        simpleAnswerDTO.setBody(richTextDTO);
+        simpleAnswerDTO.setIs_anonymous(false);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String searchJson = ow.writeValueAsString(simpleAnswerDTO);
+        this.mvc.perform(
+                put(this.urlPrefix + "/answers/1")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(searchJson)
+        )
+                .andDo(print());
+    }
+
     @Test
     public void testDeleteAnswer() throws Exception {
         this.mvc.perform(
@@ -118,55 +98,26 @@ public class AnswerControllerTest {
         )
                 .andDo(print());
     }
-//
-//    @Test
-//    public void testAddAnswerComment() throws Exception {
-//        SimpleAnswerRequestDTO simpleAnswerDTO = new SimpleAnswerRequestDTO();
-//        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
-//        //language=JSON
-//        String json = "{\n" +
-//                "  \"braftEditorRaw\":{\n" +
-//                "    \"blocks\": [\n" +
-//                "      {\n" +
-//                "        \"key\":\"dtj4a\",\n" +
-//                "        \"text\":\"yes 2/24/2019\",\n" +
-//                "        \"type\":\"unstyled\",\n" +
-//                "        \"depth\":0,\n" +
-//                "        \"inlineStyleRanges\": [],\n" +
-//                "        \"entityRanges\": [],\n" +
-//                "        \"data\":{\n" +
-//                "        }\n" +
-//                "      }\n" +
-//                "    ],\n" +
-//                "    \"entityMap\":{\n" +
-//                "    }\n" +
-//                "  },\n" +
-//                "  \"previewText\":null,\n" +
-//                "  \"resourceIdList\": []\n" +
-//                "}";
-//        try {
-//            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
-//            System.out.println(richTextDTO);
-//        } catch (IOException e) {
-//            Assert.fail();
-//        }
-//
-//        simpleAnswerDTO.setBody(richTextDTO);
-//        simpleAnswerDTO.setIs_anonymous(false);
-//        ObjectMapper mapper = new ObjectMapper();
-//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-//        java.lang.String addJson = ow.writeValueAsString(simpleAnswerDTO);
-//
-//        this.mvc.perform(
-//                post(this.urlPrefix + "/answers/1/comments")
-//                        .with(authGenerator.authentication())
-//                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-//                        .content(addJson)
-//        )
-//                .andDo(print())
-//                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
-//    }
-//
+
+    @Test
+    public void testAddAnswerComment() throws Exception {
+        CommentRequestDTO commentRequestDTO = new CommentRequestDTO();
+        commentRequestDTO.setBody("qqqqq");
+        commentRequestDTO.setIs_anonymous(true);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String addJson = ow.writeValueAsString(commentRequestDTO);
+
+        this.mvc.perform(
+                post(this.urlPrefix + "/answers/1/comments")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(addJson)
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
     @Test
     public void testAddUpvote() throws Exception {
         this.mvc.perform(

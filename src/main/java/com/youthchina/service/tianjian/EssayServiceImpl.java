@@ -58,7 +58,6 @@ public class EssayServiceImpl implements EssayService {
         } else {
             richTextService.getComRichText(comEssaytest);
             essay.getBody().setTextId(comEssaytest.getBody().getTextId());
-            essay.getBody().setCompileType(1);
             if (essay.getIsAnony() != null)
                 comEssaytest.setIsAnony(essay.getIsAnony());
             if (essay.getAbbre() != null)

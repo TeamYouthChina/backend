@@ -74,30 +74,17 @@ public class BriefReviewController {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         briefReview.setTime(time);
         briefReview.setUser(user);
+        briefReview.setRelaType(0);
         if (briefReviewRequestDTO.getCompany_id() != null) {
-            briefReview.setRelaType(2);
+            briefReview.setRelaType(1);
             briefReview.setRelaId(briefReviewRequestDTO.getCompany_id());
         }
         BriefReview briefReviewReturn = briefReviewServiceImplement.update(briefReview);
-        BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO();
-        RichTextResponseDTO richTextResponseDTO = new RichTextResponseDTO(briefReviewReturn.getBody());
-        briefReviewResponseDTO.setBody(richTextResponseDTO);
+        BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReviewReturn);
 
-        briefReviewResponseDTO.setAuthor(new UserDTO(userService.get(user.getId())));
-        List<CommentDTO> commentDTOList = new ArrayList<CommentDTO>();
-        Iterator<CommentDTO> it = commentDTOList.iterator();
-        while (it.hasNext()) {
-            CommentDTO commentDTOTest = it.next();
-            commentDTOList.add(commentDTOTest);
-        }
-        CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
-        commentResponseDTO.setComments(commentDTOList);
-        briefReviewResponseDTO.setComments(commentResponseDTO);
         briefReviewResponseDTO.setId(briefReviewReturn.getId());
-        if (briefReviewResponseDTO != null)
-            return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(200, "success")));
-        else
-            return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(400, "fail")));
+        return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(200, "success")));
+
     }
 
     @PostMapping
@@ -108,30 +95,15 @@ public class BriefReviewController {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         briefReview.setTime(time);
         briefReview.setUser(user);
+        briefReview.setRelaType(0);
         if (briefReviewRequestDTO.getCompany_id() != null) {
-            briefReview.setRelaType(2);
+            briefReview.setRelaType(1);
             briefReview.setRelaId(briefReviewRequestDTO.getCompany_id());
         }
         BriefReview briefReviewReturn = briefReviewServiceImplement.add(briefReview);
-        BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO();
-
-        briefReviewResponseDTO.setBody(new RichTextResponseDTO(briefReviewReturn.getBody()));
-
-        briefReviewResponseDTO.setAuthor(new UserDTO(userService.get(user.getId())));
-        List<CommentDTO> commentDTOList = new ArrayList<CommentDTO>();
-        Iterator<CommentDTO> it = commentDTOList.iterator();
-        while (it.hasNext()) {
-            CommentDTO commentDTOTest = it.next();
-            commentDTOList.add(commentDTOTest);
-        }
-        CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
-        commentResponseDTO.setComments(commentDTOList);
-        briefReviewResponseDTO.setComments(commentResponseDTO);
-        briefReviewResponseDTO.setId(briefReviewReturn.getId());
-        if (briefReviewResponseDTO != null)
+        BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReviewReturn);
             return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(201, "success")));
-        else
-            return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(400, "fail")));
+
     }
 
     @PostMapping("/{id}/comments")
@@ -145,7 +117,10 @@ public class BriefReviewController {
         comment.setTargetId(id);
         comment.setTargetType(2);
         comment.setIsAnony((commentRequestDTO.getIs_anonymous() == true) ? 1 : 0);
-        Comment commentreturn = commentService.add(comment);
+
+        BriefReview briefReview = new BriefReview();
+        briefReview.setId(id);
+        Comment commentreturn = commentService.add(comment,briefReview);
         if (commentreturn != null)
             return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
         else
