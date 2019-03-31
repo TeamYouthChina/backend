@@ -28,7 +28,7 @@ public class BriefReviewTest {
     @Test
     public void get(){
         BriefReview briefReview = briefReviewMapper.get(1);
-        Assert.assertEquals(Integer.valueOf(1),briefReview.getUser().getId());
+        Assert.assertEquals(Integer.valueOf(3),briefReview.getUser().getId());
     }
 
     @Test

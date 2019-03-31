@@ -139,6 +139,16 @@ public class VideoControllerTest {
                 .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
+    @Test
+    public void downvoteTest() throws Exception {
+        this.mvc.perform(
+                put(this.urlPrefix + "/videos/1/downvote").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
 //    @Test
 //    public void testUserAttentions() throws Exception {
 //        this.mvc.perform(

@@ -115,10 +115,18 @@ public class VideoController {
     }
 
     @PutMapping("/{id}/upvote")
-    public ResponseEntity updateVideo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity upvoteVideo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Video video = new Video();
         video.setId(id);
         evaluateService.upvote(video,user.getId());
+        return ResponseEntity.ok(new Response( new StatusDTO(200, "success")));
+    }
+
+    @PutMapping("/{id}/downvote")
+    public ResponseEntity downvoteVideo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Video video = new Video();
+        video.setId(id);
+        evaluateService.downvote(video,user.getId());
         return ResponseEntity.ok(new Response( new StatusDTO(200, "success")));
     }
 

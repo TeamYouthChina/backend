@@ -134,7 +134,15 @@ public class BriefReviewController {
      evaluateService.upvote(briefReview,user.getId());
 
             return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
+    }
 
+    @PutMapping("/{id}/downvote")
+    public ResponseEntity updateBriefReviewDownvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        BriefReview briefReview = new BriefReview();
+        briefReview.setId(id);
+        evaluateService.downvote(briefReview,user.getId());
+
+        return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
     }
 
     @GetMapping("/{id}/comments")

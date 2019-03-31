@@ -166,6 +166,5 @@ public class EssayController {
             }
         }
         return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200, "success")));
-
     }
 }

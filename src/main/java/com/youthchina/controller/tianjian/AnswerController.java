@@ -106,4 +106,11 @@ public class AnswerController {
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 
+    @PutMapping ("/{id}/downvote")
+    public ResponseEntity addDownvote(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
+        Answer answer =answerService.get(id);
+        evaluateService.downvote(answer, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
+    }
+
 }

@@ -99,7 +99,7 @@ public class BriefReviewControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":{\"resourceIdList\":[],\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<东哥拿你当兄弟，你问东哥要工资？不就是受点委屈嘛，既然做了东哥兄弟，就要体谅东哥的难处，有啥委屈自己忍着，别一天天叨逼叨没完没了的，抹黑公司形象，损害东哥人设，试问你这么不讲义气，以后东哥还怎么拿你当兄弟？———————————更新———————————没想到随便吐个槽能混这么多赞，看来不认真说几句都过意不去了。首先，目前真相未明，作为旁观者不能轻易站队，很多答案提到了，东哥说快递小哥月收入是1万朝上，而快递小哥说自己是8000元，就算认为东哥说的是税前收入，小哥说的是税后收入，数据还是对不上，究竟是一方在撒谎，还是双方都没撒谎，但东哥因为远离一线，拿到了不实数据，暂时无法求证，只能静待下文。第二，从公关的角度，东哥亲自下场手撕一个快递小哥，是非常掉段的行为。我反正没法想象AT的二马作为老总，能和一线程序员互怼，不管对错，都该交给下面的专人处理，不该由老总上场，否则就有恃强凌弱之嫌，毕竟老总的社会资源太强大了，对员工很不公平，而且舆论一旦发酵，对公司名声和老总人设都是得不偿失，有害无益。第三，东哥这次在知乎被怼成这样，是求仁得仁，大家积怨已久，早就想怼他，只是缺个机会罢了，而不能怨什么水军。平时动辄兄弟，说自己如何如何关爱员工，树了个好大哥的人设，如今一涉及利益立刻凶相毕露，大家骂你一句伪君子有啥不对？当初你diss某云，讽刺同行，高调宣扬自己仗义疏财的时候，可不是今天这样说的吧？>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\"},\"previewText\":\"东哥拿你当兄弟，你问东哥要工资？不就是受点委屈嘛，既然做了东哥兄弟，就要体谅东哥的难处，有啥委屈自己忍着，别一天天叨逼叨没完没了的，抹黑公司形象，损害东哥人设，试问你这么不讲义气，以后东哥还怎么拿你当兄弟？———————————更新———————————没想到随便吐个槽能混这么多赞，看来不认真说几句都过意不去了。首先，目前真相未明，作为旁观者不能轻易站队，很多答案提到了，东哥说快递小哥月收入是1万朝上，而快递小哥说自己是8000元，就算认为东哥说的是税前收入，小哥说的是税后收入，数据还是对不上，究竟是一方在撒谎，还是双方都没撒谎，但东哥因为远离一线，拿到了不实数据，暂时无法求证，只能静待下文。第二，从公关的角度，东哥亲自下场手撕一个快递小哥，是非常掉段的行为。我反正没法想象AT的二马作为老总，能和一线程序员互怼，不管对错，都该交给下面的专人处理，不该由老总上场，否则就有恃强凌弱之嫌，毕竟老总的社会资源太强大了，对员工很不公平，而且舆论一旦发酵，对公司名声和老总人设都是得不偿失，有害无益。第三，东哥这次在知乎被怼成这样，是求仁得仁，大家积怨已久，早就想怼他，只是缺个机会罢了，而不能怨什么水军。平时动辄兄弟，说自己如何如何关爱员工，树了个好大哥的人设，如今一涉及利益立刻凶相毕露，大家骂你一句伪君子有啥不对？当初你diss某云，讽刺同行，高调宣扬自己仗义疏财的时候，可不是今天这样说的吧？\",\"compiletype\":1},\"comments\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false}]},\"author\":{\"id\":3,\"username\":\"GHI\",\"email\":\"123456@789.com\",\"phonenumber\":\"1112223334445\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"GGG\",\"lastName\":\"GGGHHHIII\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":null,\"age\":26}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"pre\",\"compiletype\":1},\"comments\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false}]},\"author\":{\"id\":3,\"username\":\"GHI\",\"email\":\"123456@789.com\",\"phonenumber\":\"1112223334445\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"GGG\",\"lastName\":\"GGGHHHIII\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":null,\"age\":26}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
 
 
     }
@@ -157,7 +157,17 @@ public class BriefReviewControllerTest {
         )
                 .andDo(print())
                 .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
 
+    @Test
+    public void addBriefReviewDownvoteTest() throws Exception {
+        this.mvc.perform(
+                put(this.urlPrefix + "/editorials/1/downvote")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test

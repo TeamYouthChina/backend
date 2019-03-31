@@ -130,6 +130,17 @@ public class AnswerControllerTest {
     }
 
     @Test
+    public void testAddDownvote() throws Exception {
+        this.mvc.perform(
+                put(this.urlPrefix + "/answers/1/downvote")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
+    @Test
     public void testGetAllComments() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/answers/1/comments")
