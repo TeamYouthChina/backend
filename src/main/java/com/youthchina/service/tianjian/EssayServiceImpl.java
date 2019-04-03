@@ -4,6 +4,7 @@ import com.youthchina.dao.tianjian.CommunityMapper;
 import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.jinhao.CommentServiceImpl;
 import com.youthchina.service.zhongyang.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class EssayServiceImpl implements EssayService {
     @Resource
     RichTextServiceImpl richTextService;
 
+    @Resource
+    CommentServiceImpl commentService;
 
     @Autowired
     UserMapper userMapper;
@@ -47,6 +50,9 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public int deleteEssay(Integer essay_id, Timestamp delete_time) {
+        ComEssay comEssay = new ComEssay();
+        comEssay.setId(essay_id);
+        commentService.delete(comEssay);
         return mapper.deleteEssay(essay_id, delete_time);
     }
 
