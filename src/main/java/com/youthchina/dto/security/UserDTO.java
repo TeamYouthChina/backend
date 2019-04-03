@@ -2,12 +2,13 @@ package com.youthchina.dto.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.ResponseDTO;
 
 /**
  * Created by zhongyangwu on 1/29/19.
  */
-public class UserDTO implements ResponseDTO<User> {
+public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     private Integer id;
     private String username;
     private String password;
@@ -152,5 +153,10 @@ public class UserDTO implements ResponseDTO<User> {
         this.avatar_url = user.getAvatarUrl();
         this.role = user.getRole();
         this.age = user.getAge();
+    }
+
+    @Override
+    public User convertToDomain() {
+        return new User();
     }
 }

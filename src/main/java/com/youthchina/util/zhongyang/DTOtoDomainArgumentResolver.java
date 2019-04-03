@@ -1,5 +1,6 @@
 package com.youthchina.util.zhongyang;
 
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.dto.RequestDTO;
@@ -13,6 +14,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
 
 /**
  * Created by zhongyangwu on 3/24/19.
@@ -37,18 +39,29 @@ public class DTOtoDomainArgumentResolver implements HandlerMethodArgumentResolve
         HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
         Assert.state(servletRequest != null, "No HttpServletRequest");
         ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(servletRequest);
+        JavaType targetClass = null;
 
-        if (requestBodyDTO.value().equals(parameter.getParameterType())) {
-            //if match
-            RequestDTO dto = (RequestDTO) this.objectMapper.readValue(servletRequest.getReader(), dtoClass);
-            if (dto == null && checkRequired(parameter)) {
-                throw new HttpMessageNotReadableException("Required request body is missing: " +
-                        parameter.getExecutable().toGenericString(), inputMessage);
 
-            }
-            return dto.convertToDomain();
+        Class parameterType = parameter.getParameter().getType();
+        if (parameterType.isInstance(Collection.class)) {
+            Class memberClass = parameter.getMember().getDeclaringClass();
+            //if we have multiple input DTO class, like List, Array, etc.
+            targetClass = this.objectMapper.getTypeFactory().constructCollectionType(parameterType, memberClass);
+        } else {
+            targetClass = this.objectMapper.getTypeFactory().constructType(dtoClass);
         }
-        return null;
+
+
+//        if (requestBodyDTO.value().equals(parameter.getParameterType())) {
+        //if match
+        RequestDTO dto = (RequestDTO) this.objectMapper.readValue(servletRequest.getReader(), targetClass);
+        if (dto == null && checkRequired(parameter)) {
+            throw new HttpMessageNotReadableException("Required request body is missing: " +
+                    parameter.getExecutable().toGenericString(), inputMessage);
+
+        }
+        return dto.convertToDomain();
+//        }
     }
 
     private boolean checkRequired(MethodParameter parameter) {

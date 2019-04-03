@@ -11,5 +11,5 @@ import java.lang.annotation.*;
 public @interface RequestBodyDTO {
     Class value();
 
-    boolean required();
+    boolean required() default true;
 }
