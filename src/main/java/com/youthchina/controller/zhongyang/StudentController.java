@@ -67,7 +67,7 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
     }
 
     @PostMapping("/**")
-    public ResponseEntity<?> createStudentInfo(@AuthenticationPrincipal User user, @RequestBody ApplicantRequestDTO applicant) {
+    public ResponseEntity<?> createStudentInfo(@AuthenticationPrincipal User user, @RequestBody ApplicantRequestDTO applicant) throws NotFoundException {
         Student student=new Student(applicant);
         student.setId(user.getId());
         Student student1=studentService.add(student);

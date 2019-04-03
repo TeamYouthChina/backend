@@ -4,6 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.Qinghong.ApplicantMapper;
 import com.youthchina.domain.Qinghong.*;
+import com.youthchina.domain.qingyang.Country;
 import com.youthchina.domain.qingyang.Degree;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,7 +28,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:testnew.xml"})
+@DatabaseSetup({"classpath:testnew.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml"})
 public class StudentMapperTest {
     @Autowired
     ApplicantMapper applicantMapper;
@@ -147,7 +148,6 @@ public class StudentMapperTest {
     public void testGetCompCollect() {
         List<CompCollect> compCollects = applicantMapper.getCompCollects(1);
         Assert.assertNotNull(compCollects);
-        System.out.print(compCollects.get(0).getCompany().getCompanyNature().getNatureDetail());
     }
 
     @Test
@@ -178,24 +178,26 @@ public class StudentMapperTest {
 
     }
 
-    @Test
-    public void testAddStuInfo() {
-        Student student = new Student();
-        student.setCurrentCompanyName("google");
-        student.setIsInJob(true);
-        student.setId(1);
-
-        Integer integer = applicantMapper.insertStuInfo(student);
-        if (integer != 0) {
-            System.out.print(integer);
-        }
-
-    }
+//    @Test
+//    public void testAddStuInfo() {
+//        Student student = new Student();
+//        student.setCurrentCompanyName("google");
+//        student.setIsInJob(true);
+//        student.setId(1);
+//
+//        Integer integer = applicantMapper.insertStuInfo(student);
+//        if (integer != 0) {
+//            System.out.print(integer);
+//        }
+//
+//    }
 
     @Test
     public void testAddEduInfo() {
         EducationInfo educationInfo = new EducationInfo();
         Degree degree = new Degree();
+        University university=new University();
+        university.setUnivers_id(10001);
         degree.setDegreeNum(1);
         educationInfo.setDegree(degree);
         educationInfo.setEdu_major("计算机");
@@ -205,6 +207,8 @@ public class StudentMapperTest {
         educationInfo.setEdu_end(new Date());
         educationInfo.setStu_id(1);
         educationInfo.setIs_delete(0);
+        educationInfo.setUniversity(university);
+
         Integer integer = applicantMapper.insertEduInfo(educationInfo);
         if (integer != 0) {
             System.out.print(integer);
@@ -221,6 +225,9 @@ public class StudentMapperTest {
         certificate.setCertificate_grant_date(new java.sql.Date(1));
         certificate.setCertificate_expir_date(new java.sql.Date(1));
         certificate.setStu_id(1);
+        Country country=new Country();
+        country.setCountryAbbre("CHN");
+        certificate.setInsti_country(country);
 
         Integer integer = applicantMapper.insertStuCertificate(certificate);
         if (integer != 0) {

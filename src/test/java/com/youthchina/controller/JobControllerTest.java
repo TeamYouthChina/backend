@@ -4,16 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.Country;
 import com.youthchina.dto.applicant.OrganizationDTO;
-import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.job.JobRequestDTO;
-import com.youthchina.dto.job.JobSearchDTO;
-import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.dto.util.LocationDTO;
-import com.youthchina.dto.util.NationDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +26,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +75,7 @@ public class JobControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"产品信息管理实习生\",\"organization\":{\"id\":37,\"name\":\"深圳市腾讯计算机系统有限公司\",\"avatarUrl\":null,\"location\":null,\"website\":\"https://www.tencent.com\",\"note\":\"腾讯科技股份有限公司（港交所：700）是中国规模最大的互联网公司，1998年11月由马化腾、张志东、陈一丹、许晨晔、曾李青5位创始人共同创立，总部位于深圳南山区腾讯大厦。腾讯业务拓展... \",\"nation\":null},\"location\":\"广东省广州市\",\"type\":\"实习\",\"deadLine\":\"12/31/2019\",\"job_duty\":\"在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉产品信息管理\",\"job_description\":\"产品信息管理实习生\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"产品信息管理实习生\",\"organization\":{\"id\":37,\"name\":\"深圳市腾讯计算机系统有限公司\",\"avatarUrl\":null,\"location\":null,\"website\":\"https://www.tencent.com\",\"note\":\"腾讯科技股份有限公司（港交所：700）是中国规模最大的互联网公司，1998年11月由马化腾、张志东、陈一丹、许晨晔、曾李青5位创始人共同创立，总部位于深圳南山区腾讯大厦。腾讯业务拓展... \",\"nation\":\"中国\"},\"location\":\"广东省广州市\",\"type\":\"实习\",\"deadLine\":\"12/31/2019\",\"job_duty\":\"在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉产品信息管理\",\"job_description\":\"产品信息管理实习生\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
 
     }

@@ -26,7 +26,7 @@ import java.util.Date;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:testnew.xml"})
+@DatabaseSetup({"classpath:testnew.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml"})
 public class ProfileMapperTest {
     @Autowired
     ApplicantMapper applicantMapper;
