@@ -188,4 +188,14 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         }
         return companyList;
     }
+
+    @Transactional
+    public List<Company> getAll() {
+        List<Company> companyList = companyMapper.selectAllCompany();
+        for (Company company : companyList) {
+            setCompanyLocation(company);
+        }
+        return companyList;
+    }
+
 }

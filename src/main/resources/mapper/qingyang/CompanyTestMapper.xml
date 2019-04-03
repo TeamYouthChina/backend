@@ -207,6 +207,13 @@
         com.COMPANY_ID = #{id}
     </select>
 
+    <select id="selectAllCompany" resultMap="company" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="companySelect"/>
+        FROM COMPANY_INFO com
+        <include refid="companyJoin"/>
+    </select>
+
     <select id="selectCompanyByName" resultMap="company" parameterType="java.lang.String">
         SELECT
         <include refid="companySelect"/>

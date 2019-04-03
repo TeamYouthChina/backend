@@ -255,5 +255,11 @@ public class CompanyTest {
 //        Assert.assertEquals("CompanyPhotoUpdate", photo.getDocuLocalId());
     }
 
+    @Test
+    public void testGetAll(){
+        List<Company> companyList = companyMapper.selectAllCompany();
+        Assert.assertEquals(61, companyList.size());
+
+    }
 
 }

@@ -63,5 +63,7 @@ public interface CompanyMapper {
     Integer insertCompanyPhoto(@Param("companyId") Integer companyId, @Param("photoList") List<CompanyPhoto> photoList);
 
     List<Company> selectCompanyByName(String comName);
+
+    List<Company> selectAllCompany();
 }
 
