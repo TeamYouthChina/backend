@@ -5,6 +5,7 @@ import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.company.CompanyDTOInterface;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.exception.zhongyang.BaseException;
@@ -23,13 +24,14 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+
 /**
  * @author: Qingyang Zhao
  * @create: 2019-02-16
  **/
 @RestController
 @RequestMapping("${web.url.prefix}/companies/**")
-public class CompanyController extends DomainCRUDController<CompanyRequestDTO, Company, Integer> {
+public class CompanyController extends DomainCRUDController<CompanyDTOInterface, Company, Integer> {
 
 
     private String url;
@@ -49,13 +51,13 @@ public class CompanyController extends DomainCRUDController<CompanyRequestDTO, C
     }
 
     @Override
-    protected CompanyRequestDTO DomainToDto(Company domain) {
-        return new CompanyRequestDTO(domain);
+    protected CompanyDTOInterface DomainToDto(Company domain) {
+        return new CompanyResponseDTO(domain);
     }
 
     @Override
-    protected Company DtoToDomain(CompanyRequestDTO companyRequestDTO) {
-        return new Company(companyRequestDTO);
+    protected Company DtoToDomain(CompanyDTOInterface companyRequestDTO) {
+        return new Company((CompanyRequestDTO) companyRequestDTO);
     }
 
     @Override
