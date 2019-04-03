@@ -34,8 +34,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:New_Community_test.xml"})
-@DatabaseSetup({"classpath:sys.xml"})
-@DatabaseSetup({"classpath:media.xml"})
 @WebAppConfiguration
 public class VideoControllerTest {
     @Autowired

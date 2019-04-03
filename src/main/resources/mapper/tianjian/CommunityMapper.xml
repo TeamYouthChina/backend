@@ -121,7 +121,7 @@
     <!--    统计所有文章个数 -->
     <select id="countEssay" resultType="java.lang.Integer">
         select count(*)
-        from com_essay
+        from COM_ESSAY
         where IS_DELETE=0
     </select>
 

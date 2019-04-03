@@ -34,7 +34,6 @@ jobs:
       - run: docker-compose down -v
       - run: docker-compose up -d
 
-      - run: mvn test -Dtest=StudentMapperTest # why?
       - run: mvn integration-test
 
       # This line is to be able to access failing screenshots in the
