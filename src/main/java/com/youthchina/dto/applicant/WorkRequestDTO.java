@@ -1,28 +1,38 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Work;
+import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.dto.util.LocationDTO;
 
 /**
  * Created by zhong on 2018/12/30.
  */
-public class WorkDTO {
+public class WorkRequestDTO implements RequestDTO {
+    private Integer id;
     private String employer;
     private String position;
     private DurationDTO duration;
     private LocationDTO location;
     private String note;
 
-    public WorkDTO() {
+    public WorkRequestDTO() {
     }
 
-    public WorkDTO(Work work) {
+    public WorkRequestDTO(Work work) {
         this.employer = work.getWork_company();
         this.position = work.getWork_position();
         this.duration = new DurationDTO(work.getWork_start_time(), work.getWork_end_time());
         this.location = new LocationDTO(work.getLocation());
 
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getEmployer() {

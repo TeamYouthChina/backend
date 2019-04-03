@@ -53,7 +53,6 @@ public class JobCollect {
         this.stu_id = stu_id;
     }
 
-
     public Integer getIs_delete() {
         return is_delete;
     }

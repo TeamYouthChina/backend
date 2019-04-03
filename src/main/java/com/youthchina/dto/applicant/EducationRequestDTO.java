@@ -1,38 +1,46 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.EducationInfo;
+import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.dto.util.LocationDTO;
 
 /**
  * Created by zhong on 2018/12/30.
  */
-public class EducationDTO {
-    private String university;
+public class EducationRequestDTO implements RequestDTO {
+    private Integer id;
+    private Integer university_id;
     private String major;
     private String degree;
     private DurationDTO duration;
     private LocationDTO location;
     private String note;
 
-    public EducationDTO() {
+    public EducationRequestDTO() {
     }
 
-    public EducationDTO(EducationInfo educationInfo) {
-        this.university = educationInfo.getEdu_school();
+    public EducationRequestDTO(EducationInfo educationInfo){
         this.major = educationInfo.getEdu_major();
         this.degree = educationInfo.getDegree().getDegreeChn();
         this.duration = new DurationDTO(educationInfo.getEdu_start(), educationInfo.getEdu_end());
-        this.location = new LocationDTO(educationInfo.getLocation());//todo: fixme
 
     }
 
-    public String getUniversity() {
-        return university;
+    public Integer getUniversity_id() {
+        return university_id;
     }
 
-    public void setUniversity(String university) {
-        this.university = university;
+    public void setUniversity_id(Integer university_id) {
+        this.university_id = university_id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getMajor() {

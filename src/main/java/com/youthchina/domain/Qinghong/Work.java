@@ -1,6 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
-import com.youthchina.dto.applicant.WorkDTO;
+import com.youthchina.dto.applicant.WorkRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -19,17 +19,16 @@ public class Work {
     private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public Work(WorkDTO workDTO) {
-        this.work_company = workDTO.getEmployer();
-        this.work_position = workDTO.getPosition();
-        this.work_start_time = workDTO.getDuration().getBegin();
-        this.work_end_time = workDTO.getDuration().getEnd();
-        this.location = new Location();
-        this.location.setCountry(workDTO.getLocation().getNation_code());
-        this.getLocation().setRegionNum(Integer.parseInt(workDTO.getLocation().getLocation_code()));
-        this.work_duty = "backend";
-        this.work_sector = "backend";
-        this.work_nature = 1;
+    public Work(WorkRequestDTO workRequestDTO) {
+        this.work_id=workRequestDTO.getId();
+        this.work_company= workRequestDTO.getEmployer();
+        this.work_position= workRequestDTO.getPosition();
+        this.work_start_time= workRequestDTO.getDuration().getBegin();
+        this.work_end_time= workRequestDTO.getDuration().getEnd();
+        this.location=new Location(workRequestDTO.getLocation());
+        this.work_duty="backend";
+        this.work_sector="backend";
+        this.work_nature=1;
     }
 
     public Work() {
@@ -107,6 +106,7 @@ public class Work {
     public void setWork_nature(Integer work_nature) {
         this.work_nature = work_nature;
     }
+
 
     public Integer getStu_id() {
         return stu_id;

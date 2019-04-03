@@ -1,6 +1,8 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.JobCollect;
+import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 
 /**
@@ -9,7 +11,7 @@ import com.youthchina.dto.job.JobResponseDTO;
  * @author: Qinghong Wang
  * @create: 2019-02-26 11:28
  **/
-public class JobCollectResponseDTO {
+public class JobCollectResponseDTO implements ResponseDTO {
     private Integer id;
     private JobResponseDTO job;
 
@@ -36,4 +38,6 @@ public class JobCollectResponseDTO {
     public void setJob(JobResponseDTO job) {
         this.job = job;
     }
+
+
 }

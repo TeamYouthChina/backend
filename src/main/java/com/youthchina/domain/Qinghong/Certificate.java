@@ -1,6 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
-import com.youthchina.dto.applicant.CertificateDTO;
+import com.youthchina.domain.qingyang.Country;
+import com.youthchina.dto.applicant.CertificateRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -15,18 +16,22 @@ public class Certificate {
     private Integer certificate_id;
     private String certificate_name;
     private String certificate_insti;
+    private Country insti_country;
     private java.util.Date certificate_grant_date;
     private java.util.Date certificate_expir_date;
-    private String certificate_url;
+    private String docu_local_id;
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public Certificate(CertificateDTO certificateDTO) {
-        this.certificate_name = certificateDTO.getName();
-        this.certificate_insti = certificateDTO.getAuthority();
-        this.certificate_grant_date = certificateDTO.getDuration().getBegin();
-        this.certificate_expir_date = certificateDTO.getDuration().getEnd();
+    public Certificate(CertificateRequestDTO certificateRequestDTO) {
+        this.certificate_id=certificateRequestDTO.getId();
+        this.insti_country=new Country();
+        insti_country.setCountryAbbre(certificateRequestDTO.getCountry());
+        this.certificate_name= certificateRequestDTO.getName();
+        this.certificate_insti= certificateRequestDTO.getAuthority();
+        this.certificate_grant_date= certificateRequestDTO.getDuration().getBegin();
+        this.certificate_expir_date= certificateRequestDTO.getDuration().getEnd();
     }
 
     public Certificate() {
@@ -72,14 +77,6 @@ public class Certificate {
         this.certificate_expir_date = certificate_expir_date;
     }
 
-    public String getCertificate_url() {
-        return certificate_url;
-    }
-
-    public void setCertificate_url(String certificate_url) {
-        this.certificate_url = certificate_url;
-    }
-
     public Integer getStu_id() {
         return stu_id;
     }
@@ -102,5 +99,21 @@ public class Certificate {
 
     public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
+    }
+
+    public Country getInsti_country() {
+        return insti_country;
+    }
+
+    public void setInsti_country(Country insti_country) {
+        this.insti_country = insti_country;
+    }
+
+    public String getDocu_local_id() {
+        return docu_local_id;
+    }
+
+    public void setDocu_local_id(String docu_local_id) {
+        this.docu_local_id = docu_local_id;
     }
 }

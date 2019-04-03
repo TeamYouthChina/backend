@@ -1,6 +1,8 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Work;
+import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**
@@ -9,7 +11,7 @@ import com.youthchina.dto.util.DurationDTO;
  * @author: Qinghong Wang
  * @create: 2019-02-24 15:32
  **/
-public class WorkResponseDTO {
+public class WorkResponseDTO implements ResponseDTO {
     private Integer id;
     private String employer;
     private String position;
@@ -76,4 +78,6 @@ public class WorkResponseDTO {
     public void setNote(String note) {
         this.note = note;
     }
+
+
 }

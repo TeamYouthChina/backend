@@ -1,5 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.youthchina.domain.qingyang.USAState;
 import com.youthchina.dto.util.LocationDTO;
 

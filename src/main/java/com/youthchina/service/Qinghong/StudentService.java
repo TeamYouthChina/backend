@@ -39,15 +39,17 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
 
     Integer addCompCollect(Integer company_id, Integer user_id) throws NotFoundException;
 
-    List<EducationInfo> insertEducation(EducationInfo educationInfo, Integer user_id) throws NotFoundException;
+    EducationInfo insertEducation(EducationInfo educationInfo, Integer user_id) throws NotFoundException;
 
-    List<Work> insertWork(Work work, Integer user_id) throws NotFoundException;
+    Work insertWork(Work work, Integer user_id) throws NotFoundException;
 
-    List<Project> insertProject(Project project, Integer user_id) throws NotFoundException;
+    Project insertProject(Project project, Integer user_id) throws NotFoundException;
 
-    List<Activity> insertActivity(Activity activity, Integer user_id) throws NotFoundException;
+    Activity insertActivity(Activity activity, Integer user_id) throws NotFoundException;
 
-    List<Certificate> insertCertificate(Certificate certificate, Integer user_id) throws NotFoundException;
+    Certificate insertCertificate(Certificate certificate, Integer user_id) throws NotFoundException;
+
+    AdvantageLabel insertLabel(AdvantageLabel advantageLabel,Integer user_id) throws NotFoundException;
 
     Integer deleteEducation(Integer id) throws NotFoundException;
 
@@ -58,6 +60,8 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
     Integer deleteActivity(Integer id) throws NotFoundException;
 
     Integer deleteCertificate(Integer id) throws NotFoundException;
+
+    Integer deleteLabel(Integer id) throws NotFoundException;
 
     List<EducationInfo> insertEducations(List<EducationInfo> educationInfos, Integer user_id) throws NotFoundException;
 
@@ -80,4 +84,14 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
     Integer deleteResumeJson(Integer id) throws NotFoundException;
 
     List<ResumeJson> selectResumeJsonByStuId(Integer id) throws NotFoundException;
+
+    EducationInfo updateEducationInfo(EducationInfo educationInfo) throws NotFoundException;
+
+    Project updateProject(Project project) throws NotFoundException;
+
+    Work updateWork(Work work) throws NotFoundException;
+
+    Certificate updateCertificate(Certificate certificate) throws NotFoundException;
+
+    Activity updateActivity(Activity activity) throws NotFoundException;
 }

@@ -148,7 +148,7 @@ public class JobController extends DomainCRUDController<JobDTOInterface, Job, In
      * @Date: 2019/2/18
      */
 
-    @PostMapping("/{id}/apply/*")
+    @PostMapping("/{id}/apply")
     public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user) throws NotFoundException {
         JobApplyDTO jobApplyDTO = new JobApplyDTO(studentService.jobApply(job_id, user.getId()));
         return ResponseEntity.ok(new Response(jobApplyDTO, new StatusDTO(0, "")));
