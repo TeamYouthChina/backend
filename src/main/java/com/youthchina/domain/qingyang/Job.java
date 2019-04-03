@@ -79,10 +79,39 @@ comment '职位基本信息表';
     public Job(JobRequestDTO jobRequestDTO) {
         this.jobId = jobRequestDTO.getId();
         this.jobName = jobRequestDTO.getName();
-        this.company = new Company(jobRequestDTO.getOrganization());
-        for (LocationDTO locationDTO : jobRequestDTO.getJobLocationList()) {
-            this.jobLocationList.add(new Location(locationDTO));
+        this.jobType = Integer.parseInt(jobRequestDTO.getType());
+
+//        System.out.println("this.jobType:");
+//        System.out.println(this.jobType);
+
+        this.company = new Company();
+        this.company.setCompanyId(jobRequestDTO.getOrganization().getId());
+        List<LocationDTO> locationDTOList = jobRequestDTO.getJobLocationList();
+        if(locationDTOList != null && locationDTOList.size() > 0){
+            for (LocationDTO locationDTO : locationDTOList) {
+                this.jobLocationList.add(new Location(locationDTO));
+            }
         }
+        this.userId = jobRequestDTO.getUserId();
+
+        //TODO
+//        Profession profession = new Profession();
+//        profession.setProfCode("1");
+//        this.setProfession(profession);
+        this.setJobProfCode("1");
+
+        this.setJobStartTime(Date.valueOf("2010-01-01"));
+        this.setJobEndTime(Date.valueOf("2019-01-01"));
+        this.setJobDescription("Description:TODO");
+        this.setJobDuty("Duty:TODO");
+        this.setJobHighlight("Highlight:TODO");
+        this.setJobLink("JOB_LINK:TODO");
+        this.setCvReceiMail("MAIL:TODO");
+        this.setCvNameRule("RULE:TODO");
+        this.setJobActive(1);
+
+        //TODO LocationList;    jobReqList; industries; logoList;
+
     }
 
     public Job() {

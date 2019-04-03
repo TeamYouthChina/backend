@@ -6,6 +6,7 @@ import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.qingyang.Job;
+import com.youthchina.domain.qingyang.Logo;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotBelongException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -147,16 +148,25 @@ public class JobServiceImpl implements JobService {
     public Job update(Job job) throws NotFoundException {
         jobMapper.updateJob(job);
         jobMapper.deleteJobLocation(job.getJobId());
-        jobMapper.insertJobLocation(job.getId(), job.getJobLocationList());
         jobMapper.deleteJobIndustry(job.getJobId());
-        jobMapper.insertJobIndustry(job.getIndustries());
         jobMapper.deleteJobDegree(job.getJobId());
-        if(job.getJobReqList() != null && job.getJobReqList().size() > 0 ){
-            jobMapper.insertJobDegree(job.getId(), job.getJobReqList());
-        }
         jobMapper.deleteJobLogo(job.getJobId());
-        if(job.getLogoList() != null && job.getLogoList().size() > 0 ){
-            jobMapper.insertJobLogo(job.getId(), job.getLogoList());
+
+        List<Industry> industryList = job.getIndustries();
+        if(industryList != null && industryList.size() > 0){
+            jobMapper.insertJobIndustry(industryList);
+        }
+        List<Degree> degreeList = job.getJobReqList();
+        if(degreeList != null && degreeList.size() > 0 ){
+            jobMapper.insertJobDegree(job.getId(), degreeList);
+        }
+        List<Location> locationList = job.getJobLocationList();
+        if(locationList != null && locationList.size() > 0){
+            jobMapper.insertJobLocation(job.getId(), locationList);
+        }
+        List<Logo> logoList = job.getLogoList();
+        if( logoList != null && logoList.size() > 0 ){
+            jobMapper.insertJobLogo(job.getId(), logoList);
         }
         Job result = this.get(job.getId());
         return result;
@@ -172,16 +182,28 @@ public class JobServiceImpl implements JobService {
     @Transactional
     public Job add(Job entity) {
         Integer result = jobMapper.insertJob(entity);
-        jobMapper.insertJobIndustry(entity.getIndustries());
-        if(entity.getJobReqList() != null && entity.getJobReqList().size() > 0 ){
-            jobMapper.insertJobDegree(entity.getId(), entity.getJobReqList());
+        List<Industry> industryList = entity.getIndustries();
+        if(industryList != null && industryList.size() > 0){
+            jobMapper.insertJobIndustry(industryList);
         }
-        jobMapper.insertJobLocation(entity.getId(), entity.getJobLocationList());
-        if(entity.getLogoList() != null && entity.getLogoList().size() > 0 ){
-            jobMapper.insertJobLogo(entity.getId(), entity.getLogoList());
+        List<Degree> degreeList = entity.getJobReqList();
+        if(degreeList != null && degreeList.size() > 0 ){
+            jobMapper.insertJobDegree(entity.getId(), degreeList);
         }
-        Job jobResult = jobMapper.selectJobByJobId(entity.getJobId());
-        setJobLocation(jobResult);
+        List<Location> locationList = entity.getJobLocationList();
+        if(locationList != null && locationList.size() > 0){
+            jobMapper.insertJobLocation(entity.getId(), locationList);
+        }
+        List<Logo> logoList = entity.getLogoList();
+         if( logoList != null && logoList.size() > 0 ){
+            jobMapper.insertJobLogo(entity.getId(), logoList);
+        }
+        Job jobResult = null;
+        try {
+            jobResult = this.get(entity.getId());
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
         return jobResult;
     }
 

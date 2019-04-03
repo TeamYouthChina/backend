@@ -120,7 +120,7 @@ public class CompanyTest {
         company.setCompanyNature(companyNature);
 
         Location location = new Location();
-        location.setRegionNum(1);
+        location.setRegionId(110000);
         company.setLocation(location);
 
 
