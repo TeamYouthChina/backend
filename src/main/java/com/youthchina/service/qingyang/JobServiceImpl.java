@@ -124,6 +124,16 @@ public class JobServiceImpl implements JobService {
         return jobList;
     }
 
+    @Transactional
+    public List<Job> getAll() throws NotFoundException {
+        List<Job> jobList = jobMapper.selectAllJob();
+        for (Job job : jobList) {
+            setJobLocation(job);
+            job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
+        }
+        return jobList;
+    }
+
     /**
      * 按 JobId 删除职位
      *

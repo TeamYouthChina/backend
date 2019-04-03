@@ -229,6 +229,13 @@
         j.JOB_ID = #{id}
     </select>
 
+    <select id="selectAllJob" resultMap="job">
+        SELECT
+        <include refid="jobSelect"/>
+        FROM JOB_INFO j
+        <include refid="jobJoin"/>
+    </select>
+
     <select id="selectJobByJobIdList" resultMap="job" parameterType="java.util.List">
         SELECT
         <include refid="jobSelect"/>

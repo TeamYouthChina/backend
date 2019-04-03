@@ -5,7 +5,10 @@ import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.job.JobResponseDTO;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.communityQA.JobRecommendServiceImplement;
+import com.youthchina.service.qingyang.JobService;
+import com.youthchina.service.qingyang.JobServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,18 +27,33 @@ import java.util.List;
 public class JobRecommendController {
 
     private final JobRecommendServiceImplement jobRecommendServiceImplement;
+    private final JobServiceImpl jobService;
 
     @Autowired
-    public JobRecommendController(JobRecommendServiceImplement jobRecommendServiceImplement) {
+    public JobRecommendController(JobRecommendServiceImplement jobRecommendServiceImplement, JobServiceImpl jobService) {
         this.jobRecommendServiceImplement = jobRecommendServiceImplement;
+        this.jobService = jobService;
     }
 
-    @GetMapping("/jobs")
+    @GetMapping("/jobs/None") // TODO: Need Revision
     public ResponseEntity getRecommendJobs() {
         List<Job> jobList = jobRecommendServiceImplement.getInternForYou();
         List<JobResponseDTO> resultList = new ArrayList<>();
         for (Job job : jobList) {
             resultList.add(new JobResponseDTO(job));
+        }
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("jobs", resultList);
+
+        return ResponseEntity.ok(new Response(map, new StatusDTO(200, "success")));
+    }
+
+    @GetMapping("/jobs") //
+    public ResponseEntity getRecommendFiveJobs() throws NotFoundException {
+        List<Job> jobList = jobService.getAll();
+        List<JobResponseDTO> resultList = new ArrayList<>();
+        for (int i = 0 ; i < 5 ; i++) {
+            resultList.add(new JobResponseDTO(jobList.get(i)));
         }
         HashMap<String, Object> map = new HashMap<>();
         map.put("jobs", resultList);

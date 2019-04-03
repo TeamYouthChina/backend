@@ -290,6 +290,12 @@ public class JobTest {
     }
 
     @Test
+    public void testAllJob() {
+        List<Job> jobList = jobMapper.selectAllJob();
+        Assert.assertEquals(18, jobList.size());
+    }
+
+    @Test
     public void testJobSearchMapper() {
         //SalaryCap
         List<Job> jobs = jobMapper.getJobByMore(null, null, null, null,
