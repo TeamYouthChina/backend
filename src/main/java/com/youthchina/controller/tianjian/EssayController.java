@@ -55,7 +55,6 @@ public class EssayController {
 
     @GetMapping("/{id}")
     public ResponseEntity getEssay(@PathVariable Integer id) throws NotFoundException {
-        System.out.println(id);
         ComEssay comEssay = essayServiceimpl.getEssay(id);
         if (comEssay == null) {
             throw new NotFoundException(404, 404, "没有找到这个文章"); //TODO
@@ -72,6 +71,7 @@ public class EssayController {
     public ResponseEntity updateEssay(@PathVariable Integer id, @RequestBody EssayRequestDTO essayRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = new ComEssay(essayRequestDTO);
         comEssay.setId(id);
+        comEssay.setUser(user);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setEditTime(time);
         if (essayRequestDTO.getCompany_id() != null) {
@@ -84,7 +84,6 @@ public class EssayController {
         essayResponseDTO.setModified_at(time);
         if (essayRequestDTO.getCompany_id() != null)
             essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getCompany_id())));
-        essayResponseDTO.setAuthor(new UserDTO(user));
 
         return ResponseEntity.ok(new Response(essayResponseDTO, new StatusDTO(200, "success")));
     }
@@ -126,6 +125,7 @@ public class EssayController {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setPubTime(time);
         comEssay.setEditTime(time);
+        comEssay.setUser(user);
         comEssay.setRelaType(1);
         if (essayRequestDTO.getCompany_id() != null) {
             comEssay.setRelaType(2);
@@ -138,8 +138,6 @@ public class EssayController {
             CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getCompany_id()));
             essayResponseDTO.setCompany(companyResponseDTO);
         }
-        User useressay = userService.get(user.getId());
-        essayResponseDTO.setAuthor(new UserDTO(useressay));
 
         return ResponseEntity.ok(new Response(essayResponseDTO, new StatusDTO(200, "success")));
     }
@@ -168,6 +166,5 @@ public class EssayController {
             }
         }
         return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200, "success")));
-
     }
 }

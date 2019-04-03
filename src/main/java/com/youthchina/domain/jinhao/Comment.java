@@ -21,7 +21,7 @@ public class Comment implements Evaluatable, Attentionable {
 
     public Comment(){}
     public Comment(CommentRequestDTO commentRequestDTO){
-        this.content = commentRequestDTO.getBody().getPreviewText();
+        this.content = commentRequestDTO.getBody();
         this.isAnony = (commentRequestDTO.getIs_anonymous())? 1:0;
     }
 

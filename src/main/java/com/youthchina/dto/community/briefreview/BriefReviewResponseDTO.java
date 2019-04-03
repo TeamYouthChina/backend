@@ -23,13 +23,15 @@ public class BriefReviewResponseDTO {
         this.id = briefReview.getId();
         RichTextResponseDTO richt = new RichTextResponseDTO(briefReview.getBody());
         this.body = richt;
-
-        Iterator it = briefReview.getComments().iterator();
-        while (it.hasNext()) {
-            Comment comment = (Comment) it.next();
-            CommentDTO commentDTO = new CommentDTO(comment);
-            comments.getComments().add(commentDTO);
+        if(briefReview.getComments()!=null){
+            Iterator it = briefReview.getComments().iterator();
+            while (it.hasNext()) {
+                Comment comment = (Comment) it.next();
+                CommentDTO commentDTO = new CommentDTO(comment);
+                comments.getComments().add(commentDTO);
+            }
         }
+
         this.author = new UserDTO(briefReview.getUser());
     }
 

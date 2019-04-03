@@ -87,11 +87,11 @@ public class VideoController {
     }
 
     @PostMapping("/{id}/comments")
-    public ResponseEntity<?> addComments(@PathVariable Integer id, @RequestBody CommentRequestDTO commentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        Comment videocomment = new Comment(commentDTO);
+    public ResponseEntity<?> addComments(@PathVariable Integer id, @RequestBody CommentRequestDTO commentRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+        Comment videocomment = new Comment(commentRequestDTO);
         Video video = new Video();
         video.setId(id);
-        video.setUser(user);
+        videocomment.setUser(user);
         Comment comment = commentService.add(videocomment,video);
         if (comment.getId() == null) {
             return ResponseEntity.ok(new Response(new StatusDTO(403, "failed")));
@@ -115,10 +115,18 @@ public class VideoController {
     }
 
     @PutMapping("/{id}/upvote")
-    public ResponseEntity updateVideo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity upvoteVideo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Video video = new Video();
         video.setId(id);
         evaluateService.upvote(video,user.getId());
+        return ResponseEntity.ok(new Response( new StatusDTO(200, "success")));
+    }
+
+    @PutMapping("/{id}/downvote")
+    public ResponseEntity downvoteVideo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Video video = new Video();
+        video.setId(id);
+        evaluateService.downvote(video,user.getId());
         return ResponseEntity.ok(new Response( new StatusDTO(200, "success")));
     }
 

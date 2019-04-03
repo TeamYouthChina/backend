@@ -35,7 +35,7 @@ public class AnswerTest {
     @Test
     public void getAnswers(){
         List<Answer> answerList = answerMapper.getAnswers(1);
-        Assert.assertEquals(2,answerList.size());
+        Assert.assertEquals(1,answerList.size());
     }
 
     @Test

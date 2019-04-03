@@ -15,7 +15,11 @@
         left join SYS_USER u on u.USER_ID = d.USER_ID and u.IS_DELETE=0
         where d.COMMENT_ID=#{id} and d.IS_DELETE=0
     </select>
-
+    <select id="getLimitedDiscusses" parameterType="java.lang.Integer" resultMap="discuss">
+        select d.*,u.* from COM_DISCUSS d
+                                left join SYS_USER u on u.USER_ID = d.USER_ID and u.IS_DELETE=0
+        where d.COMMENT_ID=#{id} and d.IS_DELETE=0 limit #{start},#{rows}
+    </select>
     <select id="get" parameterType="java.lang.Integer" resultMap="discuss">
         select d.*,u.* from COM_DISCUSS d
         left join SYS_USER u on u.USER_ID = d.USER_ID and u.IS_DELETE=0

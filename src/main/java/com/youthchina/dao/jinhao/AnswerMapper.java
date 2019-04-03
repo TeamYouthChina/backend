@@ -11,7 +11,8 @@ import java.util.List;
 @Mapper
 public interface AnswerMapper {
     // get all answers of a question by id of question
-    List<Answer> getAnswers(@Param("id") Integer id, @Param("start") Integer start, @Param("rows") Integer rows);
+    List<Answer> getLimitedAnswers(@Param("id") Integer id, @Param("start") Integer start, @Param("rows") Integer rows);
+    List<Answer> getAnswers(@Param("id") Integer id);
     Answer get(Integer id);
     void add(Answer answer);
     void update(Answer answer);

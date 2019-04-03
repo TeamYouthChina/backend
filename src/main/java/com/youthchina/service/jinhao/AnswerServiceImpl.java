@@ -53,7 +53,17 @@ public class AnswerServiceImpl implements AnswerService{
     @Override
     @Transactional
     public List<Answer> getAnswers(Integer id, int start, int end){
-        List<Answer> answers = answerMapper.getAnswers(id, start, start-end+1);
+        List<Answer> answers = answerMapper.getLimitedAnswers(id, start, start-end+1);
+        for(Answer answer : answers){
+            richTextService.getComRichText(answer);
+        }
+        return answers;
+    }
+
+    @Override
+    @Transactional
+    public List<Answer> getAnswers(Integer id) {
+        List<Answer> answers = answerMapper.getAnswers(id);
         for(Answer answer : answers){
             richTextService.getComRichText(answer);
         }
@@ -74,10 +84,10 @@ public class AnswerServiceImpl implements AnswerService{
     public Answer update(Answer answer) throws NotFoundException {
         isAnswerExist(answer.getId());
         answerMapper.update(answer);
-        Answer answer1 = get(answer.getId());
+        Answer answer1 = get(1);
         answer.getBody().setTextId(answer1.getBody().getTextId());
         richTextService.updateComRichText(answer.getBody());
-        return answer;
+        return get(answer.getId());
     }
 
     @Override
