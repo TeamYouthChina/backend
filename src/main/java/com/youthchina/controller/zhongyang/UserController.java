@@ -2,22 +2,24 @@ package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.Qinghong.JobCollect;
-import com.youthchina.domain.jinhao.communityQA.Question;
-import com.youthchina.domain.jinhao.communityQA.Video;
+import com.youthchina.domain.jinhao.Question;
+import com.youthchina.domain.jinhao.Video;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.applicant.CompCollectResponseDTO;
 import com.youthchina.dto.applicant.JobCollectResponseDTO;
-import com.youthchina.dto.community.article.EssayDTO;
+import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
-import com.youthchina.dto.community.video.VideoDTO;
+import com.youthchina.dto.community.video.VideoResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
-import com.youthchina.service.jinhao.communityQA.CommunityQAServiceImplement;
+import com.youthchina.service.jinhao.AttentionServiceImpl;
+import com.youthchina.service.jinhao.QuestionServiceImpl;
+import com.youthchina.service.jinhao.VideoServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
 import com.youthchina.service.zhongyang.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +45,12 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
 
     @Autowired
     private StudentService studentService;
-    @Autowired
-    private CommunityQAServiceImplement communityQAService;
+
+    private AttentionServiceImpl attentionService;
     @Autowired
     private EssayServiceImpl essayService;
+    private QuestionServiceImpl questionService;
+    private VideoServiceImpl videoService;
 
     @Autowired
     public UserController(UserService userService, @Value("${web.url.prefix}") String prefix) {
@@ -89,30 +93,33 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
 
             }
             case "Essay": {
-                List<ComEssay> comEssays = essayService.getAllEssayUserAttention(user_id);
-                List<EssayDTO> essayDTOS = new ArrayList<>();
-                for (ComEssay comEssay : comEssays) {
-                    EssayDTO essayDTO = new EssayDTO(comEssay);
-                    essayDTOS.add(essayDTO);
+                List<EssayResponseDTO> essayResponseDTOS = new ArrayList<>();
+                List<Integer> result = attentionService.getAllIdsOfAttention(new ComEssay(),user_id);
+                for (Integer id : result) {
+                    ComEssay comEssay = essayService.getEssay(id);
+                    EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
+                    essayResponseDTOS.add(essayResponseDTO);
 
                 }
-                return ResponseEntity.ok((new Response(essayDTOS)));
+                return ResponseEntity.ok((new Response(essayResponseDTOS)));
 
             }
             case "Video": {
-                List<Video> videos = communityQAService.listAllUserAttenVideos(user_id);
-                List<VideoDTO> videoDTOS = new ArrayList<>();
-                for (Video video : videos) {
-                    VideoDTO videoDTO = new VideoDTO(video);
-                    videoDTOS.add(videoDTO);
+                List<VideoResponseDTO> videoResponseDTOS = new ArrayList<>();
+                List<Integer> result = attentionService.getAllIdsOfAttention(new Video(),user_id);
+                for (Integer id : result) {
+                    Video video = videoService.get(id);
+                    VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
+                    videoResponseDTOS.add(videoResponseDTO);
                 }
-                return ResponseEntity.ok(new Response(videoDTOS));
+                return ResponseEntity.ok(new Response(videoResponseDTOS));
 
             }
             case "Question": {
                 List<QuestionResponseDTO> questionResponseDTOS = new ArrayList<>();
-                List<Question> questions = communityQAService.listAllUserAttenQuestions(user_id);
-                for (Question question : questions) {
+                List<Integer> result = attentionService.getAllIdsOfAttention(new Question(),user_id);
+                for (Integer id : result) {
+                    Question question = questionService.get(id);
                     QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
                     questionResponseDTOS.add(questionResponseDTO);
                 }

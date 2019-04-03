@@ -17,7 +17,6 @@ import com.youthchina.service.Qinghong.StudentService;
 import com.youthchina.service.qingyang.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -75,7 +74,7 @@ public class JobController extends DomainCRUDController<JobDTOInterface, Job, In
 
 
     @PostMapping("/**")
-    public ResponseEntity<?> createJobInfo(@AuthenticationPrincipal User user, @RequestBody JobRequestDTO jobRequestDTO) {
+    public ResponseEntity<?> createJobInfo(@AuthenticationPrincipal User user, @RequestBody JobRequestDTO jobRequestDTO) throws NotFoundException {
         jobRequestDTO.setUserId(user.getId());
         return add(jobRequestDTO);
 //        Job job = jobService.add(new Job(jobRequestDTO));
