@@ -12,7 +12,7 @@ public interface AnswerService extends DomainCRUDService<Answer, Integer> {
      * @param id id of question
      * @return a list of Answer
      */
-    List<Answer> getAnswers(Integer id);
+    List<Answer> getAnswers(Integer id, int start, int end);
 
     /**
      * to judge if one answer exists or not

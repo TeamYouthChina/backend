@@ -15,7 +15,7 @@
     <select id="getAnswers" parameterType="java.lang.Integer" resultMap="answer">
         select a.*, u.* from COM_ANSWER a
         left join SYS_USER u on u.USER_ID=a.USER_ID and u.IS_DELETE=0
-        where a.TARGET_ID=#{id} and a.IS_DELETE=0
+        where a.TARGET_ID=#{id} and a.IS_DELETE=0 limit #{start}, #{rows}
     </select>
 
     <select id="get" parameterType="java.lang.Integer" resultMap="answer">

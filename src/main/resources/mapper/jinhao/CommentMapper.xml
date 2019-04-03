@@ -16,7 +16,11 @@
         left join SYS_USER u on u.USER_ID = c.USER_ID and u.IS_DELETE=0
         where c.TARGET_TYPE=#{targetType} and c.TARGET_ID=#{targetId} and c.IS_DELETE=0
     </select>
-    
+    <select id="getLimitedComments" resultMap="comment">
+        select u.*,c.* from COM_COMMENT c
+                                left join SYS_USER u on u.USER_ID = c.USER_ID and u.IS_DELETE=0
+        where c.TARGET_TYPE=#{targetType} and c.TARGET_ID=#{targetId} and c.IS_DELETE=0 limit #{start}, #{rows}
+    </select>
     <select id="get" resultMap="comment">
         select u.*,c.* from COM_COMMENT c
         left join SYS_USER u on u.USER_ID = c.USER_ID and u.IS_DELETE=0
