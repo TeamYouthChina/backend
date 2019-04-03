@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:testnew.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml"})
+@DatabaseSetup({"classpath:testnew.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml"})
 @WebAppConfiguration
 public class ApplicantControllerTest {
     @Autowired
@@ -277,12 +277,26 @@ public class ApplicantControllerTest {
 //        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/companyCollects",1).param("id", "2").with(authGenerator.authentication()))
 //                .andDo(print());
 //    }
+    /**
+    * @Description: 通过测试
+    * @Param: []
+    * @return: void
+    * @Author: Qinghong Wang
+    * @Date: 2019/4/3
+    */
 
     @Test
     public void testDeleteJobCollect() throws Exception{
         this.mvc.perform(delete(this.urlPrefix + "/jobs/attentions/1").with(authGenerator.authentication()))
                 .andDo(print());
     }
+    /**
+    * @Description: 通过测试
+    * @Param: []
+    * @return: void
+    * @Author: Qinghong Wang
+    * @Date: 2019/4/3
+    */
     @Test
     public void testDeleteCompCollect() throws Exception{
         this.mvc.perform
@@ -319,7 +333,7 @@ public class ApplicantControllerTest {
     }
 
     /**
-    * @Description: 通过职位id添加职位收藏
+    * @Description: 通过职位id添加职位收藏,通过测试
     * @Param: []
     * @return: void
     * @Author: Qinghong Wang
@@ -329,7 +343,7 @@ public class ApplicantControllerTest {
     @Test
     public void testAddJobCollect() throws Exception{
         this.mvc.perform
-                (put(this.urlPrefix + "/jobs/2/attention")
+                (put(this.urlPrefix + "/jobs/4/attention")
                 .with(authGenerator.authentication()))
                 .andDo(print());
     }
@@ -915,7 +929,7 @@ public class ApplicantControllerTest {
     public void testUserAttentions() throws Exception{
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/1/attentions").param("type","Company")
+                        (this.urlPrefix + "/users/1/attentions").param("type","Job")
 
                         .with(authGenerator.authentication())
         )

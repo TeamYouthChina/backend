@@ -152,7 +152,14 @@ public class StudentMapperTest {
 
     @Test
     public void testGetOneJobCollect() {
-        JobCollect jobCollect = applicantMapper.getOneJobCollect(1);
+        JobCollect jobCollect = applicantMapper.getOneJobCollect(1,1);
+        Assert.assertNotNull(jobCollect);
+        System.out.print(jobCollect.getJob_id());
+    }
+
+    @Test
+    public void testGetOneCompCollect() {
+        JobCollect jobCollect = applicantMapper.getOneJobCollect(1,1);
         Assert.assertNotNull(jobCollect);
         System.out.print(jobCollect.getJob_id());
     }

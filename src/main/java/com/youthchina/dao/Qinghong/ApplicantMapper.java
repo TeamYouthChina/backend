@@ -35,7 +35,9 @@ public interface ApplicantMapper {
 
     List<CompCollect> getCompCollects(Integer user_id);
 
-    JobCollect getOneJobCollect(Integer job_id);
+    JobCollect getOneJobCollect(Integer job_id,Integer user_id);
+
+    CompCollect getOneCompCollect(Integer company_id,Integer user_id);
 
     Integer addJobCollect(JobCollect jobCollect);
 

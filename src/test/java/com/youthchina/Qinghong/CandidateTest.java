@@ -161,25 +161,25 @@ public class CandidateTest {
         Assert.assertEquals(studentService.getCompCollect(0), compCollects);
     }
 
-    @Test
-    public void addJobCollect() throws NotFoundException {
-        UserInfo userInfo = new UserInfo();
-        Mockito.when(applicantMapper.getUserInfo(0)).thenReturn(userInfo);
-        JobCollect jobCollect = null;
-        Mockito.when(applicantMapper.getOneJobCollect(0)).thenReturn(jobCollect);
-        Job job = new Job();
-        job.setIsDelete(0);
-        Mockito.when(jobMapper.selectJobByJobId(0)).thenReturn(job);
-        JobCollect jobCollect1 = new JobCollect();
-        Mockito.when(applicantMapper.getStudentInfo(0)).thenReturn(new Student());
-        Mockito.when(applicantMapper.addJobCollect(jobCollect1)).thenReturn(0);
-        if (studentService.addJobCollection(0, 0) == 0) {
-            System.out.print("测试成功");
-        } else {
-            System.out.print("测试失败");
-        }
-
-    }
+//    @Test
+//    public void addJobCollect() throws NotFoundException {
+//        UserInfo userInfo = new UserInfo();
+//        Mockito.when(applicantMapper.getUserInfo(0)).thenReturn(userInfo);
+//        JobCollect jobCollect = null;
+//        Mockito.when(applicantMapper.getOneJobCollect(0)).thenReturn(jobCollect);
+//        Job job = new Job();
+//        job.setIsDelete(0);
+//        Mockito.when(jobMapper.selectJobByJobId(0)).thenReturn(job);
+//        JobCollect jobCollect1 = new JobCollect();
+//        Mockito.when(applicantMapper.getStudentInfo(0)).thenReturn(new Student());
+//        Mockito.when(applicantMapper.addJobCollect(jobCollect1)).thenReturn(0);
+//        if (studentService.addJobCollection(0, 0) == 0) {
+//            System.out.print("测试成功");
+//        } else {
+//            System.out.print("测试失败");
+//        }
+//
+//    }
 
 
 }

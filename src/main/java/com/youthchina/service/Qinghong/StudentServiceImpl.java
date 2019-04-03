@@ -13,6 +13,7 @@ import com.youthchina.service.qingyang.LocationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -259,15 +260,13 @@ public class StudentServiceImpl implements StudentService {
 
 
     /**
-     * @Description: 通过job_id和user_id来将申请的职位信息加入申请表中
+     * @Description: 通过job_id和user_id来将申请的职位信息加入申请表中,已通过测试
      * @Param: [job_id, user_id]
      * @return: com.youthchina.domain.Qinghong.JobApply
      * @Author: Qinghong Wang
      * @Date: 2018/12/19
      */
     public JobApply jobApply(Integer job_id, Integer user_id) throws NotFoundException {
-        BaseInfo baseInfo = applicantMapper.getBaseInfo(user_id);
-        Integer stu_id = baseInfo.getStu_id();
         Job job = jobMapper.selectJobByJobId(job_id);
         if (job == null) {
             throw new NotFoundException(4042, 404, "cannot find job with id " + job_id);
@@ -276,21 +275,21 @@ public class StudentServiceImpl implements StudentService {
             if (time.before(new Date())) {
                 throw new NotFoundException(4032, 403, "cannot apply for job because it has passed deadline");
             } else {
-                JobApply jobApply2 = applicantMapper.getOneJobApply(job_id, stu_id);
+                JobApply jobApply2 = applicantMapper.getOneJobApply(job_id, user_id);
                 if (jobApply2 != null) {
                     Job job1 = jobApply2.getJob();
                     jobService.setJobLocation(job1);
                     return jobApply2;
                 } else {
                     JobApply jobApply = new JobApply();
-                    jobApply.setStu_id(applicantMapper.getBaseInfo(user_id).getStu_id());
+                    jobApply.setStu_id(user_id);
                     jobApply.setJob_id(job_id);
                     //这里应该设计简历是否发送的判断
                     jobApply.setJob_cv_send(1);
                     jobApply.setJob_apply_status("已申请");
                     Integer integer = applicantMapper.addApply(jobApply);
-                    JobApply jobApply1 = applicantMapper.getOneJobApply(job_id, stu_id);
-                    Job job1 = jobApply1.getJob();
+                    JobApply jobApply1 = applicantMapper.getOneJobApply(job_id, user_id);
+                    Job job1 = jobService.get(jobApply1.getJob_id());
                     jobService.setJobLocation(job1);
                     jobApply1.setJob(job1);
                     return jobApply1;
@@ -300,7 +299,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
-     * @Description: 通过user_id找到该id下所有申请职位的信息
+     * @Description: 通过user_id找到该id下所有申请职位的信息,通过测试
      * @Param: [user_id]
      * @return: java.util.List<com.youthchina.domain.Qinghong.JobApply>
      * @Author: Qinghong Wang
@@ -311,11 +310,10 @@ public class StudentServiceImpl implements StudentService {
         if (userInfo == null) {
             throw new NotFoundException(4041, 404, "cannot find user with id " + user_id);
         } else {
-            BaseInfo baseInfo = applicantMapper.getBaseInfo(user_id);
-            List<JobApply> jobApplies = applicantMapper.getJobApplies(baseInfo.getStu_id());
+
+            List<JobApply> jobApplies = applicantMapper.getJobApplies(user_id);
             for (JobApply jobApply : jobApplies) {
-                Job job = jobApply.getJob();
-                jobService.setJobLocation(job);
+                Job job = jobService.get(jobApply.getJob_id());
                 jobApply.setJob(job);
 
 
@@ -339,18 +337,20 @@ public class StudentServiceImpl implements StudentService {
         } else {
             List<JobCollect> jobCollects = applicantMapper.getJobCollects(user_id);
             for (JobCollect jobCollect : jobCollects) {
-                Job job = jobCollect.getJob();
+                Job job =jobService.get(jobCollect.getJob_id());
+                jobCollect.setJob(job);
+                //设置一个job所有location
                 jobService.setJobLocation(job);
                 jobCollect.setJob(job);
 
-
             }
+
             return jobCollects;
         }
     }
 
     /**
-     * @Description: 通过user_id找到该id下所有的公司收藏信息
+     * @Description: 通过user_id找到该id下所有的公司收藏信息,通过测试
      * @Param: [user_id]
      * @return: java.util.List<com.youthchina.domain.Qinghong.CompCollect>
      * @Author: Qinghong Wang
@@ -363,7 +363,7 @@ public class StudentServiceImpl implements StudentService {
         } else {
             List<CompCollect> compCollects = applicantMapper.getCompCollects(user_id);
             for (CompCollect compCollect : compCollects) {
-                Location location = locationService.getLocation(compCollect.getCompany().getLocation().getRegionNum());
+                Location location = locationService.getLocation(compCollect.getCompany().getLocation().getRegionId());
                 compCollect.getCompany().setLocation(location);
             }
             return compCollects;
@@ -382,7 +382,7 @@ public class StudentServiceImpl implements StudentService {
         if (userInfo == null) {
             throw new NotFoundException(404, 404, "cannot find user with id " + user_id);//todo
         } else {
-            JobCollect jobCollect = applicantMapper.getOneJobCollect(job_id);
+            JobCollect jobCollect = applicantMapper.getOneJobCollect(job_id,user_id);
             if (jobCollect != null) {
                 throw new NotFoundException(404, 404, "不能收藏该职位，因为已经收藏");//todo
             } else {
@@ -391,7 +391,7 @@ public class StudentServiceImpl implements StudentService {
                     throw new NotFoundException(400, 404, "cannot collect this job,maybe the job has already delete");//todo
                 } else {
                     JobCollect jobCollect1 = new JobCollect();
-                    jobCollect1.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
+                    jobCollect1.setStu_id(userInfo.getUser_id());
                     jobCollect1.setJob_id(job_id);
                     Integer integer = applicantMapper.addJobCollect(jobCollect1);
                     return integer;
@@ -459,15 +459,21 @@ public class StudentServiceImpl implements StudentService {
         if (userInfo == null) {
             throw new NotFoundException(404, 404, "cannot find user with id " + user_id);//todo
         } else {
-            Company company = companyMapper.selectCompany(company_id);
-            if (company == null) {
-                throw new NotFoundException(400, 400, "cannot collect this company,maybe the company has already deleted");//todo
+            CompCollect compCollect2 = applicantMapper.getOneCompCollect(company_id, user_id);
+
+            if (compCollect2 != null) {
+                throw new NotFoundException(404, 404, "不能收藏该公司，因为已经收藏");
             } else {
-                CompCollect compCollect = new CompCollect();
-                compCollect.setCompany_id(company_id);
-                compCollect.setStu_id(applicantMapper.getStudentInfo(user_id).getStu_id());
-                Integer integer = applicantMapper.addCompCollect(compCollect);
-                return integer;
+                Company company = companyMapper.selectCompany(company_id);
+                if (company == null) {
+                    throw new NotFoundException(400, 400, "cannot collect this company,maybe the company has already deleted");//todo
+                } else {
+                    CompCollect compCollect = new CompCollect();
+                    compCollect.setCompany_id(company_id);
+                    compCollect.setStu_id(user_id);
+                    Integer integer = applicantMapper.addCompCollect(compCollect);
+                    return integer;
+                }
             }
         }
 
