@@ -43,6 +43,84 @@ paths:
                     $ref: '#/components/schemas/Job'
                   status:
                     $ref: '#/components/schemas/Status'
+    put:
+      tags:
+        - Job
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: job id
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRequest'
+      responses:
+        '204':
+          description: updated success
+    delete:
+      tags:
+        - Job
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: job id
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '204':
+          description: deleted successed.
+        '404':
+          description: target job does not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorStatus'
+  '/jobs':
+    post:
+      tags:
+        - Job
+      summary: create a job
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRequest'
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: job info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Job'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/jobs/search':
     post:
       tags:
@@ -2059,7 +2137,7 @@ paths:
                             id:
                               type: integer
                             video:
-                              $ref: '#/components/schemas/Article'
+                              $ref: '#/components/schemas/Video'
                   status:
                     $ref: '#/components/schemas/Status'
   '/jobs/attentions/{id}':
@@ -2695,6 +2773,46 @@ paths:
       responses:
         '201':
           description: upvote successfullly
+  '/answers/{id}/downvote':
+    put:
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '201':
+          description: downvote successfullly
+  '/answers/{id}/attention':
+    put:
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '201':
+          description: collect successful
+        '400':
+          description: 'cannot collect this answer, maybe the answer has already deleted'
   '/applicants/resgister':
     post:
       tags:
@@ -2910,7 +3028,7 @@ paths:
         '201':
           description: collect successful
         '400':
-          description: 'cannot collect this job, maybe the job has already deleted'
+          description: 'cannot collect this article, maybe the article has already deleted'
   '/articles':
     post:
       parameters:
@@ -2939,6 +3057,44 @@ paths:
                     $ref: '#/components/schemas/Article'
                   status:
                     $ref: '#/components/schemas/Status'
+  '/articles/{id}/upvote':
+    put:
+      tags:
+        - Article
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '201':
+          description: upvote successfullly
+  '/articles/{id}/downvote':
+    put:
+      tags:
+        - Article
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '201':
+          description: downvote successfullly
   '/articles/{id}/comments':
     post:
       tags:
@@ -3563,6 +3719,26 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
   '/editorials/{id}/upvote':
+    put:
+      tags:
+        - Editorials
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: editorials id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful
+  '/editorials/{id}/downvote':
     put:
       tags:
         - Editorials
@@ -4250,6 +4426,120 @@ paths:
                         type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
+  '/users/{id}/discovery':
+    get:
+      tags:
+        - Discover
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - job
+              - company
+              - question
+              - answer
+              - article
+              - video
+          description: determine what part of discovery list to return
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return one of the following based on the type parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      companies:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - company
+                          properties:
+                            id:
+                              type: integer
+                            company:
+                              $ref: '#/components/schemas/Company'
+                      jobs:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - job
+                          properties:
+                            id:
+                              type: integer
+                            job:
+                              $ref: '#/components/schemas/Job'
+                      questions:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - questions
+                          properties:
+                            id:
+                              type: integer
+                            question:
+                              $ref: '#/components/schemas/QuestionBasic'
+                      answers:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - answers
+                          properties:
+                            id:
+                              type: integer
+                            answer:
+                              $ref: '#/components/schemas/AnswerBasic'
+                      articles:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - article
+                          properties:
+                            id:
+                              type: integer
+                            article:
+                              $ref: '#/components/schemas/Article'
+                      videos:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - video
+                          properties:
+                            id:
+                              type: integer
+                            video:
+                              $ref: '#/components/schemas/Video'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/resumes':
     post:
       parameters:
@@ -4538,6 +4828,30 @@ components:
           $ref: '#/components/schemas/Organization'
         location:
           type: string
+        type:
+          type: string
+          enum:
+            - full-time
+            - part-time
+            - internship
+        deadLine:
+          type: string
+        job_description:
+          type: string
+        job_duty:
+          type: string
+    JobRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of job
+        organization_id:
+          type: integer
+        location:
+          type: array
+          items:
+            type: integer
         type:
           type: string
           enum:
