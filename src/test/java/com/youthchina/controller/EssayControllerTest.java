@@ -53,9 +53,6 @@ public class EssayControllerTest {
     private WebApplicationContext context;
 
     @Autowired
-    private ApplicationContext applicationContext;
-
-    @Autowired
     private CommunityMapper communityMapper;
 
     @Value("${web.url.prefix}")
@@ -139,13 +136,8 @@ public class EssayControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print());
+ //               .andExpect(content().json("{\"content\":{\"id\":1,\"title\":\"This is a new Title 1\",\"company\":null,\"create_at\":null,\"modified_at\":\"2019-04-03T13:47:18.437+0000\",\"author\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"phonenumber\":\"2022922222\",\"register_date\":null,\"firstName\":\"John\",\"lastName\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0},\"body\":{\"braftEditorRaw\":null,\"previewText\":\"pre\",\"compiletype\":1},\"is_anonymous\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
 
-        this.mvc.perform(
-                get(this.urlPrefix + "/articles/1")
-                        .with(authGenerator.authentication())
-
-        )
-                .andDo(print());
     }
 
 
@@ -224,7 +216,7 @@ public class EssayControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"comments\":[]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":16,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"body\":\"好好好\",\"create_at\":\"2019-02-12T00:00:00.000+0000\",\"is_anonymous\":true}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
     @Test
