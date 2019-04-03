@@ -307,7 +307,7 @@
         ( JOB_REGION_NUM, JOB_ID, IS_DELETE)
         VALUES
         <foreach item="location" collection="locationList" separator=",">
-            ( #{location.regionNum}, #{jobId}, 0)
+            ( #{location.regionId}, #{jobId}, 0)
         </foreach>
     </insert>
 

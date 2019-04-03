@@ -4,6 +4,7 @@ import com.youthchina.controller.zhongyang.DomainCRUDController;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.job.JobDTOInterface;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.service.DomainCRUDService;
@@ -25,7 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("${web.url.prefix}/home/**")
 @PermitAll
-public class HomeController extends DomainCRUDController<JobRequestDTO, Job, Integer> {
+public class HomeController extends DomainCRUDController<JobDTOInterface, Job, Integer> {
     private JobRecommendService jobRecommendService;
     private String url;
 
@@ -41,13 +42,13 @@ public class HomeController extends DomainCRUDController<JobRequestDTO, Job, Int
     }
 
     @Override
-    protected JobRequestDTO DomainToDto(Job domain) {
-        return new JobRequestDTO(domain);
+    protected JobDTOInterface DomainToDto(Job domain) {
+        return new JobResponseDTO(domain);
     }
 
     @Override
-    protected Job DtoToDomain(JobRequestDTO jobRequestDTO) {
-        return new Job(jobRequestDTO);
+    protected Job DtoToDomain(JobDTOInterface jobRequestDTO) {
+        return new Job((JobRequestDTO) jobRequestDTO);
     }
 
     @Override

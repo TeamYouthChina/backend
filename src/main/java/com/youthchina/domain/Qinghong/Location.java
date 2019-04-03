@@ -41,6 +41,11 @@ public class Location {
         this.regionId = Integer.valueOf(locationDTO.getLocation_code());
     }
 
+    
+    public Location(Integer regionId) {
+        this.regionId = regionId;
+    }
+
     public Location() {
     }
 

@@ -155,17 +155,14 @@ public class JobControllerTest {
     public void testAddJob() throws Exception {
         JobRequestDTO jobRequestDTO = new JobRequestDTO();
         jobRequestDTO.setName("front");
-        OrganizationDTO organizationDTO = new OrganizationDTO();
-        organizationDTO.setId(2);
-        jobRequestDTO.setOrganization(organizationDTO);
+        jobRequestDTO.setOrganization_id(2);
         jobRequestDTO.setType("1");
-
-        List<LocationDTO> list = new ArrayList<>();
-        LocationDTO locationDTO = new LocationDTO();
-        locationDTO.setLocation_code("994701");
-        locationDTO.setNation_code("USA");
-        list.add(locationDTO);
-        jobRequestDTO.setLocationList(list);
+        jobRequestDTO.setJob_description("996ICU");
+        jobRequestDTO.setDeadLine("4070908800");
+        jobRequestDTO.setJob_duty("FullStack");
+        List<Integer> locationIdList = new ArrayList<>();
+        locationIdList.add(994701);
+        jobRequestDTO.setLocation(locationIdList);
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -188,19 +185,16 @@ public class JobControllerTest {
     public void testUpdateJob() throws Exception {
         int id = 1;
         JobRequestDTO jobRequestDTO = new JobRequestDTO();
-        jobRequestDTO.setId(1);
+        jobRequestDTO.setId(id);
         jobRequestDTO.setName("front");
-        OrganizationDTO organizationDTO = new OrganizationDTO();
-        organizationDTO.setId(2);
-        jobRequestDTO.setOrganization(organizationDTO);
+        jobRequestDTO.setOrganization_id(2);
         jobRequestDTO.setType("1");
-
-        List<LocationDTO> list = new ArrayList<>();
-        LocationDTO locationDTO = new LocationDTO();
-        locationDTO.setLocation_code("994701");
-        locationDTO.setNation_code("USA");
-        list.add(locationDTO);
-        jobRequestDTO.setLocationList(list);
+        jobRequestDTO.setJob_description("996ICU");
+        jobRequestDTO.setDeadLine("4070908800");
+        jobRequestDTO.setJob_duty("FullStack");
+        List<Integer> locationIdList = new ArrayList<>();
+        locationIdList.add(994701);
+        jobRequestDTO.setLocation(locationIdList);
 
 
         ObjectMapper mapper = new ObjectMapper();
