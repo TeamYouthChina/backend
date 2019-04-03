@@ -6,7 +6,8 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.communityQA.CompanyRecommendServiceImplement;
+import com.youthchina.service.Qinghong.MessageSendService;
+import com.youthchina.service.jinhao.toBeDeleted.CompanyRecommendServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +24,14 @@ import java.util.List;
 @RestController
 @RequestMapping("${web.url.prefix}/discovery")
 public class CompanyRecommendController {
-    private final CompanyRecommendServiceImplement companyRecommendServiceImplement;
+    @Autowired
+    public CompanyRecommendServiceImplement companyRecommendServiceImplement;
 
     @Autowired
-    public CompanyRecommendController(CompanyRecommendServiceImplement companyRecommendServiceImplement) {
-        this.companyRecommendServiceImplement = companyRecommendServiceImplement;
-    }
+    public MessageSendService messageSendService;
 
     @GetMapping("/companies")
-    public ResponseEntity getRecommendCompany() throws NotFoundException {
+    public ResponseEntity getRecommandCompany() throws NotFoundException {
         List<Company> companyList = companyRecommendServiceImplement.getPopCompanyForYou();
         List<CompanyResponseDTO> resultList = new ArrayList<>();
         for (Company company : companyList) {
@@ -41,7 +41,7 @@ public class CompanyRecommendController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("companies", resultList);
 
-        if (resultList.size() != 0)
+        if (resultList != null)
             return ResponseEntity.ok(new Response(map, new StatusDTO(200, "success")));
         else
             return ResponseEntity.ok(new Response(map, new StatusDTO(400, "fail")));

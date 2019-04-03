@@ -1,0 +1,77 @@
+<dataset>
+    <RECOM_COMPANY    COMPANY_ID="36"	COMPANY_NAME="阿里巴巴网络技术有限公司"	COMPANY_INTRODUC="阿里巴巴集团（NYSE：BABA）创立于1999年。2014年9月19日，阿里巴巴集团在纽约证券交易所正式挂牌上市，创始人和董事局主席为马云。2018年7月19日，全球同步《财富》世界500强排行榜发布，阿里..."	COMPANY_WEBSITE="http://www.alibaba.com/"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="37"	COMPANY_NAME="深圳市腾讯计算机系统有限公司"	COMPANY_INTRODUC="腾讯科技股份有限公司（港交所：700）是中国规模最大的互联网公司，1998年11月由马化腾、张志东、陈一丹、许晨晔、曾李青5位创始人共同创立，总部位于深圳南山区腾讯大厦。腾讯业务拓展..."	COMPANY_WEBSITE="https://www.tencent.com/"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="38"	COMPANY_NAME="百度公司"	COMPANY_INTRODUC="百度（纳斯达克：BIDU），全球最大的中文搜索引擎、最大的中文网站。百度愿景是：成为最懂用户，并能帮助人们成长的全球顶级高科技公司。“百度”二字，来自于八百年前南宋词人辛弃疾..."	COMPANY_WEBSITE="https://www.baidu.com/"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="39"	COMPANY_NAME="北京京东世纪贸易有限公司"	COMPANY_INTRODUC="京东（股票代码：JD），中国自营式电商企业，创始人刘强东担任京东集团董事局主席兼首席执行官。旗下设有京东商城、京东金融、拍拍网、京东智能、O2O及海外事业部等。2013年正式获得虚..."	COMPANY_WEBSITE="https://www.jd.com"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="40"	COMPANY_NAME="网易公司"	COMPANY_INTRODUC="网易（NASDAQ：NTES）是一家互联网技术公司，利用互联网技术，加强人与人之间信息的交流和共享，实现“网聚人的力量”，创始人兼CEO是丁磊。目前提供网络游戏、门户网站、移动新闻客户端..."	COMPANY_WEBSITE="http://www.163.com/"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="41"	COMPANY_NAME="新浪公司"	COMPANY_INTRODUC="新浪（NASDAQ：SINA）新浪公司是一家服务于中国及全球华人社群的网络媒体公司，成立于1998年12月，由王志东创立，现任董事长曹国伟，服务大中华地区与海外华人，新浪拥有多家地区性网站。..."	COMPANY_WEBSITE="http://www.sina.com.cn"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="42"	COMPANY_NAME="搜狐公司"	COMPANY_INTRODUC="搜狐（NASDAQ：SOHU），是一家互联网中文门户网站。1995年，搜狐创始人张朝阳从美国麻省理工学院毕业回到中国，利用风险投资创建了爱特信信息技术有限公司，1998年正式推出搜狐网。2000年，..."	COMPANY_WEBSITE="http://www.sohu.com/"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="43"	COMPANY_NAME="北京三快在线科技有限公司"	COMPANY_INTRODUC="美团的使命是“帮大家吃得更好，生活更好”。作为中国领先的生活服务电子商务平台，公司拥有美团、大众点评、美团外卖、美团打车、摩拜单车等消费者熟知的App，服务涵盖餐饮、外卖、..."	COMPANY_WEBSITE="http://www.meituan.com/"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="44"	COMPANY_NAME="北京奇虎科技有限公司"	COMPANY_INTRODUC="奇虎360是（北京奇虎科技有限公司）的简称，由周鸿祎于2005年9月创立，主营360杀毒为代表的免费网络安全平台和拥有问答等独立业务的公司。该公司主要依靠在线广告、游戏、互联网和增值业..."	COMPANY_WEBSITE="http://www.360.com/"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="45"	COMPANY_NAME="北京小米科技有限责任公司"	COMPANY_INTRODUC="北京小米科技有限责任公司成立于2010年3月3日，是一家专注于智能硬件和电子产品研发的移动互联网公司，同时也是一家专注于高端智能手机、互联网电视以及智能家居生态链建设的创新型科..."	COMPANY_WEBSITE="http://www.mi.com/"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="46"	COMPANY_NAME="北京字节跳动科技有限公司"	COMPANY_INTRODUC="北京字节跳动科技有限公司成立于2012年3月，是最早将人工智能应用于移动互联网场景的科技企业之一。公司以建设“全球创作与交流平台”为愿景。字节跳动的全球化布局始于2015年，“技术..."	COMPANY_WEBSITE="http://www.bytedance.com"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="47"	COMPANY_NAME="网宿科技股份有限公司"	COMPANY_INTRODUC="网宿科技股份有限公司（股票代码：300017），最早成立于2000年1月，是国内领先的互联网业务平台提供商，主要向客户提供内容分发与加速、服务器托管及租用、以及网络优化解决方案等服务，..."	COMPANY_WEBSITE="http://www.wangsu.com"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="48"	COMPANY_NAME="58集团"	COMPANY_INTRODUC="58集团一直专注于中国互联网生活服务领域，遵循“用户第一、主动协作、简单可信、创业精神、学习成长”企业核心价值观，以“通过互联网让人们生活更简单”企业使命，以“人人信赖的生..."	COMPANY_WEBSITE="http://www.58.com"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="49"	COMPANY_NAME="金山软件有限公司"	COMPANY_INTRODUC="金山软件股份有限公司创建于1988年，是中国领先的应用软件产品和服务供应商。总部在北京，公司机构分别设立在广东珠海、北京、成都、大连，并在日本设有分公司。现金山软件股份有限公..."	COMPANY_WEBSITE="https://www.kingsoft.com"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="50"	COMPANY_NAME="携程计算机技术（上海）有限公司"	COMPANY_INTRODUC="携程旅行网创立于1999年，总部设在中国上海，员工超过30000人，目前公司已在北京、广州、深圳、成都、杭州、南京、厦门、重庆、青岛、武汉、三亚、南通等95个境内城市，新加坡、首尔、香..."	COMPANY_WEBSITE="http://www.ctrip.com/"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="51"	COMPANY_NAME="上海二三四五网络控股集团股份有限公司"	COMPANY_INTRODUC="上海二三四五网络科技有限公司于2005年9月建立，是一家以互联网运营和软件开发为一体，拥有高水平的产品、运营团队及雄厚资本实力的国内领先互联网企业。上海二三四五网络科技有限公司..."	COMPANY_WEBSITE="http://www.2345.com/"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="52"	COMPANY_NAME="美图公司"	COMPANY_INTRODUC="美图公司成立于2008年10月，是中国领先的移动互联网公司，围绕着“美”创造了美图秀秀、美颜相机、BeautyPlus（美颜相机海外版）、潮自拍、美妆相机、美拍、美图手机等一系列软硬件产品，..."	COMPANY_WEBSITE="---"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="53"	COMPANY_NAME="新华网股份有限公司"	COMPANY_INTRODUC="新华网股份有限公司是由新华通讯社管理的中央企业。新华网是由党中央、国务院直接部署，新华社主办的中央重点新闻网站主力军，是党和国家重要的网上舆论阵地。2016年10月28日，新华网股..."	COMPANY_WEBSITE="http://www.xinhuanet.com"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="54"	COMPANY_NAME="苏宁控股集团有限公司"	COMPANY_INTRODUC="苏宁创立于1990年，员工18万人，在中国和日本拥有两家上市公司，分别是苏宁云商(002024.SZ)和乐购仕(ラオックス【8202】<东证2部>)。秉承“引领产业生态、共创品质生活”的企业使命，苏宁产业..."	COMPANY_WEBSITE="http://www.suning.cn/"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="55"	COMPANY_NAME="北京车之家信息技术有限公司"	COMPANY_INTRODUC="汽车之家成立于2005年6月，是全球访问量最大的汽车网站。汽车之家为汽车消费者提供选车、买车、用车、换车等所有环节的全面、准确、快捷的一站式服务。汽车之家致力于通过产品服务、数..."	COMPANY_WEBSITE="http://www.autohome.com.cn/"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="56"	COMPANY_NAME="用友网络科技股份有限公司"	COMPANY_INTRODUC="用友公司成立于1988年，是亚太本土领先的企业管理软件和企业移动应用、企业云服务提供商，是中国最大的ERP、CRM、人力资源管理、商业分析、内审、小微企业管理软件和财政、汽车、烟草等..."	COMPANY_WEBSITE="http://www.yonyou.com/"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="57"	COMPANY_NAME="咪咕文化科技有限公司"	COMPANY_INTRODUC="咪咕文化科技有限公司是中国移动面向移动互联网领域设立的，负责数字内容领域产品提供、运营、服务一体化的专业子公司，是中国移动旗下音乐、视频、阅读、游戏、动漫数字内容业务板..."	COMPANY_WEBSITE="http://www.migu.cn/"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="58"	COMPANY_NAME="三七互娱（上海）科技有限公司"	COMPANY_INTRODUC="三七互娱（上海）科技有限公司（简称“三七互娱”）成立于2011年，是中国互联网二十强企业，于2015年完成整体上市（股票代码：002555），被纳入中证沪深300指数、明晟MSCI指数、高盛“新漂..."	COMPANY_WEBSITE="http://www.37wan.net/"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="59"	COMPANY_NAME="北京天盈九州网络技术有限公司"	COMPANY_INTRODUC="凤凰网（凤凰新媒体，纽交所代码：FENG)是全球领先的跨平台网络新媒体公司，整合旗下综合门户凤凰网、手机凤凰网和凤凰视频三大平台，秉承&quot;中华情怀，全球视野，兼容开放，进步力量&quot;的..."	COMPANY_WEBSITE="https://www.ifeng.com/"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_COMPANY    COMPANY_ID="60"	COMPANY_NAME="恺英网络股份有限公司"	COMPANY_INTRODUC="上海恺英网络科技有限公司，简称“恺英网络”，成立于2008年，总部位于上海，是一家拥有移动互联网流量入口、集平台运营和产品研发为一体的互联网企业。公司拥有近千人的开发运营团队..."	COMPANY_WEBSITE="---"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="7"	JOB_NAME="核心算法工程师（自然语言处理/机器学习）"	JOB_DESCRIPTION="核心算法工程师（自然语言处理/机器学习）"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="转正机会"	RECOM_TYPE="3"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="10"	JOB_NAME="后端开发工程师"	JOB_DESCRIPTION="后端开发工程师"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="五险一金，班车"	RECOM_TYPE="3"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="11"	JOB_NAME="运维开发工程师"	JOB_DESCRIPTION="运维开发工程师"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="五险一金，班车"	RECOM_TYPE="3"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="12"	JOB_NAME="网络工程师"	JOB_DESCRIPTION="网络工程师"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="五险一金，班车"	RECOM_TYPE="3"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="13"	JOB_NAME="系统工程师"	JOB_DESCRIPTION="系统工程师"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="五险一金，班车"	RECOM_TYPE="3"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="15"	JOB_NAME="自然语言处理工程师"	JOB_DESCRIPTION="自然语言处理工程师"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="五险一金，班车"	RECOM_TYPE="3"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="16"	JOB_NAME="数据采集工程师"	JOB_DESCRIPTION="数据采集工程师"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="五险一金，班车"	RECOM_TYPE="3"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="1"	JOB_NAME="产品信息管理实习生"	JOB_DESCRIPTION="产品信息管理实习生"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="转正机会"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="2"	JOB_NAME="Java/Javascript实习生"	JOB_DESCRIPTION="Java/Javascript实习生"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="转正机会"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="3"	JOB_NAME="后端开发实习生"	JOB_DESCRIPTION="后端开发实习生"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="转正机会"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="4"	JOB_NAME="数据研发实习生"	JOB_DESCRIPTION="数据研发实习生"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="转正机会"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="5"	JOB_NAME="python开发实习生"	JOB_DESCRIPTION="python开发实习生"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="转正机会"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="6"	JOB_NAME="开发测试实习生"	JOB_DESCRIPTION="开发测试实习生"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="转正机会"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="8"	JOB_NAME="产品运营实习生"	JOB_DESCRIPTION="产品运营实习生"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="转正机会"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="9"	JOB_NAME="数据挖掘实习生"	JOB_DESCRIPTION="数据挖掘实习生"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="转正机会"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="14"	JOB_NAME="搜索算法实习生"	JOB_DESCRIPTION="负责海量数据的挖掘及特征工程，优化搜索排序算法，提升内容分发效率。"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="提供有竞争力的薪酬与实习转正机会"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="17"	JOB_NAME="医药行研实习生"	JOB_DESCRIPTION="1、为研究员提供行业研究支持，如搜集资料、初步分析等。<br>2、参与医药行业深度研究报告和公司报告撰写，至少完成一篇深度报告。<br>3、其他日常工作支持，如参与制作日报、周报，整理..."	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="工作收获：<br>1、系统的行业和公司分析、研究报告撰写能力，毕业找工作和以后的正式工作中大有用处。<br>2、表现特别优秀者将有机会留用，或其他工作机会推荐。"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_PART_JOB    JOB_ID="18"	JOB_NAME="财务/销售实习生"	JOB_DESCRIPTION="财务/销售实习生"	JOB_COUNTRY="CHN"	JOB_LOCATION="440100"	JOB_HIGHLIGHT="包午餐，下午茶水果等福利"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="1"	TEXT_TITLE="腾讯好么？"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="2"	TEXT_TITLE="腾讯的问题是什么？"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="3"	TEXT_TITLE="百度这家企业还有什么存在的意义?"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="4"	TEXT_TITLE="腾讯，百度，网易，华为，小米，阿里，这六家互联网巨头公司，你最讨厌哪家公司？"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="5"	TEXT_TITLE="如何看待 百度春晚营销"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="6"	TEXT_TITLE="百度收购或投资过哪些公司？"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="7"	TEXT_TITLE="如何看待从阿里离职的漂亮女高管，从来不过情人节"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="8"	TEXT_TITLE="阿里系软件体验好吗？"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="9"	TEXT_TITLE="阿里未来会如何发展？"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="10"	TEXT_TITLE="本科生如何才能进入腾讯，阿里等一流的互联网公司？"	RECOM_TYPE="1"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="1"	TEXT_TITLE="翟天临们，放过博士学位吧"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="2"	TEXT_TITLE="为什么富人会越富，穷人还是穷人？"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="3"	TEXT_TITLE="你听过最美的网名是什么？"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="4"	TEXT_TITLE="腾讯咋样"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="5"	TEXT_TITLE="腾讯的软肋是什么？"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="6"	TEXT_TITLE="腾讯究竟强大在哪？是否被高估？"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="7"	TEXT_TITLE="你习惯用支付宝还是微信支付？"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="8"	TEXT_TITLE="如何看待温州乐清 20 岁女生乘坐滴滴顺风车遇害 ？是否反映出客服系统存在问题？"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="9"	TEXT_TITLE="你在乘坐出租车或网约车时发生过哪些让你难忘的故事？"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="10"	TEXT_TITLE="记滴滴惊魂1分钟：司机说，你陪我到床上玩玩吧"	RECOM_TYPE="2"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="1"	TEXT_TITLE="{&quot;braftEditorRaw&quot;:{&quot;blocks&quot;:[{&quot;key&quot;:&quot;dtj4a&quot;,&quot;text&quot;:&quot;&lt;有感于腾讯公司的发家史，总觉得腾讯背后有某种强大的力量，能靠微创新（也可称山寨）能发展到现如今的体量也算是世界奇观。靠模仿icq完成了资本..."	RECOM_TYPE="3"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="2"	TEXT_TITLE="{&quot;braftEditorRaw&quot;:{&quot;blocks&quot;:[{&quot;key&quot;:&quot;dtj4a&quot;,&quot;text&quot;:&quot;&lt;腾讯的背景调查是比较严格的一类了，从身份、学历、犯罪记录、工作履历和工作表现方面来查，某些岗位还会有商业利益冲突。普通员工查前三个就够了，如果岗位要求一定的工作经验的话会查工作履历和表现，一般都是第三方机构查询。腾讯的供应商都是国内最专业的公司，有一套专业的招聘风险管理体系，你的简历虚假度在一定范围内是可以接受的，但是超出底线就不行，这避免了误杀和误招。所以你简历上如实写就好，公司有考量标准的，不要弄"	RECOM_TYPE="3"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="3"	TEXT_TITLE="{&quot;braftEditorRaw&quot;:{&quot;blocks&quot;:[{&quot;key&quot;:&quot;dtj4a&quot;,&quot;text&quot;:&quot;&lt;重点说一下头条的工作体验吧。第一就是忙：大小周，就是一周工作6天一周工作5天，然后需求排不完，天天都是事情。晚上加班到11点，10点是常有的事..."	RECOM_TYPE="3"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_TEXT    TEXT_ID="4"	TEXT_TITLE="{&quot;braftEditorRaw&quot;:{&quot;blocks&quot;:[{&quot;key&quot;:&quot;dtj4a&quot;,&quot;text&quot;:&quot;&lt;个人感觉阿里的贡献远大于腾讯。从阿里的发展来看，一直在引领社会的进步，电商平台的贡献不用多说，物流，移动支付，都是阿里带给我们的，后面..."	RECOM_TYPE="3"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_VIDEO    VIDEO_ID="1"	VIDEO_TITLE="视频1"	RECOM_REASON="点击量最多"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_VIDEO    VIDEO_ID="2"	VIDEO_TITLE="视频2"	RECOM_REASON="点击量最多"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_VIDEO    VIDEO_ID="3"	VIDEO_TITLE="视频3"	RECOM_REASON="点击量最多"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_VIDEO    VIDEO_ID="4"	VIDEO_TITLE="视频4"	RECOM_REASON="点击量最多"	DATA_TIME="2019-01-01 00:00:00"/>
+    <RECOM_VIDEO    VIDEO_ID="5"	VIDEO_TITLE="视频5"	RECOM_REASON="点击量最多"	DATA_TIME="2019-01-01 00:00:00"/>
+
+
+
+</dataset>

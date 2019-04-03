@@ -1,9 +1,8 @@
 package com.youthchina.dto.community.answer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
+import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.dto.util.RichTextResponseDTO;
 
 /**
  * Created by xiaoyiwang on 2/24/19.
@@ -11,43 +10,33 @@ import com.youthchina.dto.util.RichTextDTO;
 
 public class AnswerBasicDTO {
     private Integer id;
-    private RichTextDTO body;
+    private RichTextResponseDTO body;
     private boolean is_anonymous;
     private UserDTO creator;
     private String modified_at;
     private String create_at;
 
-    public AnswerBasicDTO() {
+    public AnswerBasicDTO(){}
+
+    public AnswerBasicDTO(Answer answer){
+        RichTextResponseDTO richt = new RichTextResponseDTO(answer.getBody());
+        this.body = richt;
+        this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
+        this.creator = new UserDTO(answer.getUser());
+        this.modified_at = answer.getEditTime().toString();
+        this.create_at = answer.getPubTime().toString();
+        this.id = answer.getId();
     }
 
-    public AnswerBasicDTO(QuestionAnswer questionAnswer) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(questionAnswer.getAnswer_content(), RichTextDTO.class);
-            this.body = richt;
-        } catch (Exception e) {
-            System.out.println("Exception");
-        }
-        this.is_anonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
-        this.creator = new UserDTO(questionAnswer.getAnswer_user());
-        this.modified_at = questionAnswer.getAnswer_edit_time().toString();
-        this.create_at = questionAnswer.getAnswer_pub_time().toString();
-        this.id = questionAnswer.getAnswer_id();
-    }
-
-    public RichTextDTO getBody() {
+    public RichTextResponseDTO getBody() {
         return body;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public void setId(Integer id){this.id = id;}
 
-    public Integer getId() {
-        return id;
-    }
+    public Integer getId(){return id;}
 
-    public void setBody(RichTextDTO body) {
+    public void setBody(RichTextResponseDTO body) {
         this.body = body;
     }
 

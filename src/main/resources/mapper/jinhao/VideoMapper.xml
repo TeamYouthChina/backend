@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.jinhao.VideoMapper">
+    <resultMap id="video" type="com.youthchina.domain.jinhao.Video">
+        <id property="id" column="VIDEO_ID"/>
+        <result property="title" column="VIDEO_TITLE"/>
+        <result property="name" column="VIDEO_NAME"/>
+        <result property="uploadTime" column="VIDEO_UPLOAD_TIME"/>
+        <result property="viewCount" column="VIDEO_VIEW_COUNT"/>
+        <result property="description" column="VIDEO_DESCRIPTION"/>
+        <result property="relaId" column="RELA_ID"/>
+        <result property="relaType" column="RELA_TYPE"/>
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
+                     resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
+    </resultMap>
+    <select id="get" parameterType="java.lang.Integer" resultMap="video">
+        select v.*, u.* from COM_VIDEO v
+        left join SYS_USER u on u.USER_ID=v.USER_ID and u.IS_DELETE=0
+        where v.VIDEO_ID=#{id} and v.IS_DELETE=0
+    </select>
+
+    <insert id="add" parameterType="com.youthchina.domain.jinhao.Video" useGeneratedKeys="true"
+    keyProperty="id">
+        insert into COM_VIDEO(video_title, video_name, video_description, video_view_count, video_upload_time, user_id, rela_type, rela_id)
+        values (#{title},#{name},#{description},#{viewCount},now(),#{user.id},#{relaType},#{relaId})
+    </insert>
+
+    <update id="update" parameterType="com.youthchina.domain.jinhao.Video">
+        update COM_VIDEO set VIDEO_TITLE=#{title}, VIDEO_DESCRIPTION=#{description}, VIDEO_VIEW_COUNT=#{viewCount}
+        where VIDEO_ID=#{id}
+    </update>
+
+    <update id="delete" parameterType="java.lang.Integer">
+        update COM_VIDEO set IS_DELETE=1, IS_DELETE_TIME=now()
+        where VIDEO_ID=#{id}
+    </update>
+
+    <select id="checkIfVideoExist" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select VIDEO_ID from COM_VIDEO where VIDEO_ID=#{id}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(VIDEO_ID) from COM_VIDEO where IS_DELETE=0
+    </select>
+</mapper>

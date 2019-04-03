@@ -1,10 +1,11 @@
 package com.youthchina.controller.Hongsheng;
 
-import com.youthchina.domain.jinhao.communityQA.Video;
+import com.youthchina.domain.jinhao.Video;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.video.VideoDTO;
-import com.youthchina.service.jinhao.communityQA.VideoRecommendServiceImplement;
+import com.youthchina.dto.community.video.VideoResponseDTO;
+import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.jinhao.toBeDeleted.VideoRecommendServiceImplement;
 import com.youthchina.service.tianjian.StaticFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,31 +20,25 @@ import java.util.List;
 @RestController
 @RequestMapping("${web.url.prefix}/discovery")
 public class VideoRecommendController {
-    private final VideoRecommendServiceImplement videoRecommendServiceImplement;
-    private final StaticFileService staticFileService;
-
     @Autowired
-    public VideoRecommendController(VideoRecommendServiceImplement videoRecommendServiceImplement, StaticFileService staticFileService) {
-        this.videoRecommendServiceImplement = videoRecommendServiceImplement;
-        this.staticFileService = staticFileService;
-    }
+    private VideoRecommendServiceImplement videoRecommendServiceImplement;
+    @Autowired
+    private StaticFileService staticFileService;
 
     @GetMapping("/videos")
-    public ResponseEntity getRecommendVideos() {
+    public ResponseEntity getRecommendVideos() throws NotFoundException {
         List<Video> videoList = videoRecommendServiceImplement.getVideoForYou();
-        List<VideoDTO> resultList = new ArrayList<>();
+        List<VideoResponseDTO> resultList = new ArrayList<>();
 
-        for (Video video : videoList) {
-            VideoDTO videoDTO = new VideoDTO(video);
-            videoDTO.setUrl(staticFileService.getFileUrl(videoDTO.getUrl()).toString());
-            resultList.add(videoDTO);
+        for(Video video : videoList) {
+            VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
+            videoResponseDTO.setUrl(staticFileService.getFileUrl(videoResponseDTO.getUrl()).toString());
+            resultList.add(videoResponseDTO);
         }
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("videos", resultList);
 
-        if (resultList.size() != 0)
-            return ResponseEntity.ok(new Response(map, new StatusDTO(200, "success")));
-        else
-            return ResponseEntity.ok(new Response(map, new StatusDTO(400, "fail")));    }
+        return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
+    }
 }

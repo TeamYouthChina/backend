@@ -13,7 +13,6 @@ import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
 import com.youthchina.service.qingyang.CompanyCURDService;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -66,7 +65,7 @@ public class CompanyController extends DomainCRUDController<CompanyDTOInterface,
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyRequestDTO companyRequestDTO) {
+    public ResponseEntity<?> createCompanyInfo(@AuthenticationPrincipal User user, @RequestBody CompanyRequestDTO companyRequestDTO) throws NotFoundException {
         companyRequestDTO.setUserId(user.getId());
         return add(companyRequestDTO);
     }
