@@ -49,6 +49,8 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
 
     Certificate insertCertificate(Certificate certificate, Integer user_id) throws NotFoundException;
 
+    AdvantageLabel insertLabel(AdvantageLabel advantageLabel,Integer user_id) throws NotFoundException;
+
     Integer deleteEducation(Integer id) throws NotFoundException;
 
     Integer deleteWork(Integer id) throws NotFoundException;
@@ -58,6 +60,8 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
     Integer deleteActivity(Integer id) throws NotFoundException;
 
     Integer deleteCertificate(Integer id) throws NotFoundException;
+
+    Integer deleteLabel(Integer id) throws NotFoundException;
 
     List<EducationInfo> insertEducations(List<EducationInfo> educationInfos, Integer user_id) throws NotFoundException;
 

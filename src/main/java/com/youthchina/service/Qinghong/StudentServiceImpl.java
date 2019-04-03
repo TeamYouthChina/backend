@@ -537,7 +537,7 @@ public class StudentServiceImpl implements StudentService {
         } else {
             project.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuProject(project);
-            Project project1=applicantMapper.getProjectById(integer);
+            Project project1=applicantMapper.getProjectById(project.getProj_id());
             return project1;
 
         }
@@ -559,7 +559,7 @@ public class StudentServiceImpl implements StudentService {
         } else {
             activity.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuActivity(activity);
-            Activity activity1=applicantMapper.getActivityById(integer);
+            Activity activity1=applicantMapper.getActivityById(activity.getAct_id());
             return activity1;
 
         }
@@ -581,13 +581,27 @@ public class StudentServiceImpl implements StudentService {
         } else {
             certificate.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuCertificate(certificate);
-            Certificate certificate1=applicantMapper.getCertificateById(integer);
+            Certificate certificate1=applicantMapper.getCertificateById(certificate.getCertificate_id());
             return certificate1;
 
         }
 
     }
 
+    @Override
+    public AdvantageLabel insertLabel(AdvantageLabel advantageLabel, Integer user_id) throws NotFoundException {
+        UserInfo userInfo=applicantMapper.getUserInfo(user_id);
+        if(userInfo==null){
+            throw  new NotFoundException(404,404,"cannot find user with id"+user_id);
+        }else{
+            advantageLabel.setStu_id(user_id);
+            Integer integer=applicantMapper.insertStuLabel(advantageLabel);
+            AdvantageLabel advantageLabel1=applicantMapper.getAdvantageLabelById(advantageLabel.getLabel_id());
+            return advantageLabel1;
+
+        }
+
+    }
 
     @Override
     public Integer deleteEducation(Integer id) throws NotFoundException {
@@ -616,6 +630,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Integer deleteCertificate(Integer id) throws NotFoundException {
         Integer integer = applicantMapper.deleteCertificate(id);
+        return integer;
+    }
+
+    @Override
+    public Integer deleteLabel(Integer id) throws NotFoundException{
+        Integer integer=applicantMapper.deleteSkill(id);
         return integer;
     }
 
@@ -763,7 +783,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public EducationInfo updateEducationInfo(EducationInfo educationInfo) throws NotFoundException {
         Integer integer=applicantMapper.updateEducation(educationInfo);
-        EducationInfo educationInfo1=applicantMapper.getEducationById(integer);
+        EducationInfo educationInfo1=applicantMapper.getEducationById(educationInfo.getEdu_id());
 
         return educationInfo1;
     }
@@ -771,28 +791,30 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Project updateProject(Project project) throws NotFoundException {
         Integer integer=applicantMapper.updateProject(project);
-        Project project1=applicantMapper.getProjectById(integer);
+        Project project1=applicantMapper.getProjectById(project.getProj_id());
         return project1;
     }
 
     @Override
     public Work updateWork(Work work) throws NotFoundException {
         Integer integer=applicantMapper.updateWork(work);
-        Work work1=applicantMapper.getWorkById(integer);
+        Work work1=applicantMapper.getWorkById(work.getWork_id());
+        Location location = locationService.getLocation(work1.getLocation().getRegionId());
+        work1.setLocation(location);
         return work1;
     }
 
     @Override
     public Certificate updateCertificate(Certificate certificate) throws NotFoundException {
         Integer integer=applicantMapper.updateCertificate(certificate);
-        Certificate certificate1=applicantMapper.getCertificateById(integer);
+        Certificate certificate1=applicantMapper.getCertificateById(certificate.getCertificate_id());
         return certificate1;
     }
 
     @Override
     public Activity updateActivity(Activity activity) throws NotFoundException {
         Integer integer=applicantMapper.updateActivity(activity);
-        Activity activity1=applicantMapper.getActivityById(integer);
+        Activity activity1=applicantMapper.getActivityById(activity.getAct_id());
         return activity1;
     }
 }

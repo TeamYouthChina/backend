@@ -25,7 +25,7 @@ public class Work {
         this.work_position= workRequestDTO.getPosition();
         this.work_start_time= workRequestDTO.getDuration().getBegin();
         this.work_end_time= workRequestDTO.getDuration().getEnd();
-        this.location=new Location();
+        this.location=new Location(workRequestDTO.getLocation());
         this.work_duty="backend";
         this.work_sector="backend";
         this.work_nature=1;

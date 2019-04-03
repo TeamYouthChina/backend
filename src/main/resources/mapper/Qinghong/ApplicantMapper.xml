@@ -66,6 +66,9 @@
             <result property="work_end_time" column="WORK_END_TIME"/>
             <result property="work_duty" column="WORK_DUTY"/>
             <result property="work_nature" column="WORK_NATURE"/>
+            <result property="stu_id" column="STU_ID"/>
+            <result property="is_delete" column="IS_DELETE"/>
+            <result property="is_delete_time" column="IS_DELETE_TIME"/>
             <association property="location" javaType="com.youthchina.domain.Qinghong.Location">
                 <id property="regionId" column="WORK_LOCATION"/>
             </association>
@@ -84,6 +87,8 @@
             <result property="stu_id" column="STU_ID"/>
             <result property="is_delete" column="IS_DELETE"/>
             <result property="is_delete_time" column="IS_DELETE_TIME"/>
+            <association property="insti_country" column="INSTI_COUNTRY" javaType="com.youthchina.domain.qingyang.Country"
+                         resultMap="getCountry"/>
         </collection>
 
         <collection property="activities" ofType="com.youthchina.domain.Qinghong.Activity">
@@ -242,8 +247,12 @@
         <result property="work_end_time" column="WORK_END_TIME"/>
         <result property="work_duty" column="WORK_DUTY"/>
         <result property="work_nature" column="WORK_NATURE"/>
-        <association property="location" column="WORK_LOCATION" javaType="com.youthchina.domain.Qinghong.Location"
-                     resultMap="getWorkId"/>
+        <result property="stu_id" column="STU_ID"/>
+        <result property="is_delete" column="IS_DELETE"/>
+        <result property="is_delete_time" column="IS_DELETE_TIME"/>
+        <association property="location" javaType="com.youthchina.domain.Qinghong.Location">
+            <id property="regionId" column="WORK_LOCATION"/>
+        </association>
 
     </resultMap>
     <resultMap id="ProjectResultMap" type="com.youthchina.domain.Qinghong.Project">
@@ -454,22 +463,22 @@
     <select id="getJobCollects" resultMap="getJobCollectResultMap">
         SELECT a.*,
         <include refid="com.youthchina.dao.qingyang.JobMapper.jobSelect"/>
-        FROM STU_INFO c,
+        FROM SYS_USER c,
         STU_JOB_COLLECT a LEFT JOIN JOB_INFO j ON a.JOB_ID=j.JOB_ID AND j.IS_DELETE=0
         <include refid="com.youthchina.dao.qingyang.JobMapper.jobJoin"/>
 
-        WHERE c.USER_ID=#{user_id} AND c.STU_ID=a.STU_ID AND c.IS_DELETE=0 AND a.IS_DELETE=0
+        WHERE c.USER_ID=#{user_id} AND c.USER_ID=a.STU_ID AND c.IS_DELETE=0 AND a.IS_DELETE=0
     </select>
 
     <!--获取所有的公司收藏信息-->
     <select id="getCompCollects" resultMap="getCompCollectResultMap">
         SELECT a.*,
         <include refid="com.youthchina.dao.qingyang.CompanyMapper.companySelect"/>
-        FROM STU_INFO c, STU_COMP_COLLECT a
+        FROM SYS_USER c, STU_COMP_COLLECT a
         LEFT JOIN COMPANY_INFO com ON a.COMPANY_ID=com.COMPANY_ID AND com.IS_DELETE=0
         <include refid="com.youthchina.dao.qingyang.CompanyMapper.companyJoin"/>
 
-        WHERE c.USER_ID=#{user_id} AND c.STU_ID=a.STU_ID AND c.IS_DELETE=0 AND a.IS_DELETE=0
+        WHERE c.USER_ID=#{user_id} AND c.USER_ID=a.STU_ID AND c.IS_DELETE=0 AND a.IS_DELETE=0
     </select>
 
     <!--获取一个职位收藏-->
@@ -483,6 +492,11 @@
         SELECT *
         FROM SYS_DEGREE
         WHERE DEGREE_CHN=#{degreeChn}
+    </select>
+    <select id="getAdvantageLabelById" resultType="com.youthchina.domain.Qinghong.AdvantageLabel">
+        SELECT a.*
+        FROM STU_ADVAN_LABEL a
+        WHERE a.LABEL_ID=#{label_id} AND a.IS_DELETE=0;
     </select>
 
     <!--添加一个职位收藏-->
@@ -803,7 +817,7 @@
         WORK_POSITION=#{work_position},
         WORK_START_TIME=#{work_start_time},
         WORK_END_TIME=#{work_end_time},
-        WORK_LOCATION=#{location.region_num}
+        WORK_LOCATION=#{location.regionId}
         WHERE WORK_ID=#{work_id}
 
 

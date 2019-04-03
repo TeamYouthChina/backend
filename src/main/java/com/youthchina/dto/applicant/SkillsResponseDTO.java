@@ -11,6 +11,7 @@ import com.youthchina.dto.StatusDTO;
  * @create: 2019-03-02 15:26
  **/
 public class SkillsResponseDTO implements ResponseDTO {
+
     private String id;
     private String name;
 

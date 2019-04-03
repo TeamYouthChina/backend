@@ -116,6 +116,7 @@ public interface ApplicantMapper {
     Project getProjectById(Integer proj_id);
     Certificate getCertificateById(Integer certificate_id);
     Activity getActivityById(Integer act_id);
+    AdvantageLabel getAdvantageLabelById(Integer label_id);
 
 
 }

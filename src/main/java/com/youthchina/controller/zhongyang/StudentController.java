@@ -11,6 +11,7 @@ import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -431,6 +432,19 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
         }
     }
 
+    @PostMapping("/{id}/skill")
+    public ResponseEntity<?> insertSkill(@PathVariable Integer id,@RequestBody SkillsRequestDTO skillsRequestDTO,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            AdvantageLabel advantageLabel=new AdvantageLabel(skillsRequestDTO);
+           AdvantageLabel advantageLabel1=studentService.insertLabel(advantageLabel,user.getId());
+           AdvantageLabelResponseDTO advantageLabelResponseDTO=new AdvantageLabelResponseDTO(advantageLabel1);
+           return ResponseEntity.ok(advantageLabelResponseDTO);
+
+        }else{
+            throw new ForbiddenException();
+        }
+    }
+
     @DeleteMapping("/{id}/educations/{eduId}")
     public ResponseEntity<?> deleteEducation(@PathVariable("id") Integer id,@PathVariable("eduId") Integer edu_id,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
         if(user.getId().equals(id)){
@@ -481,12 +495,24 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
         }
     }
 
+    @DeleteMapping("/{id}/skills/{labelId}")
+    public ResponseEntity<?> deleteSkills(@PathVariable("id") Integer id,@PathVariable("labelId") Integer label_id,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
+        if(user.getId().equals(id)){
+            studentService.deleteLabel(label_id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        }else {
+            throw  new ForbiddenException();
+        }
+    }
+
+
     @PutMapping("/{id}/education/{eduId}")
     public ResponseEntity<?> updateEducation(@PathVariable("id") Integer id,@PathVariable("eduId") Integer edu_id,@RequestBody EducationRequestDTO educationRequestDTO,@AuthenticationPrincipal User user) throws ForbiddenException,NotFoundException{
         if(user.getId().equals(id)){
             EducationInfo educationInfo=new EducationInfo(educationRequestDTO);
             EducationInfo educationInfo1=studentService.updateEducationInfo(educationInfo);
-            return ResponseEntity.ok(new Response(educationInfo1));
+            EducationResponseDTO educationResponseDTO=new EducationResponseDTO(educationInfo1);
+            return ResponseEntity.ok(new Response(educationResponseDTO));
 
         }else {
             throw new ForbiddenException();
@@ -498,7 +524,8 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
         if(user.getId().equals(id)){
             Project project=new Project(projectRequestDTO);
             Project project1=studentService.updateProject(project);
-            return ResponseEntity.ok(new Response(project1));
+            ProjectResponseDTO projectResponseDTO=new ProjectResponseDTO(project1);
+            return ResponseEntity.ok(new Response(projectResponseDTO));
 
         }else {
             throw new ForbiddenException();
@@ -510,7 +537,8 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
         if(user.getId().equals(id)){
             Work work=new Work(workRequestDTO);
             Work work1=studentService.updateWork(work);
-            return ResponseEntity.ok(new Response(work1));
+            WorkResponseDTO workResponseDTO=new WorkResponseDTO(work1);
+            return ResponseEntity.ok(new Response(workResponseDTO));
         }else {
             throw new ForbiddenException();
         }
@@ -521,7 +549,8 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
         if(user.getId().equals(id)){
             Certificate certificate=new Certificate(certificateRequestDTO);
             Certificate certificate1=studentService.updateCertificate(certificate);
-            return ResponseEntity.ok(new Response(certificate1));
+            CertificateResponseDTO certificateResponseDTO=new CertificateResponseDTO(certificate1);
+            return ResponseEntity.ok(new Response(certificateResponseDTO));
 
         }else {
             throw new ForbiddenException();
@@ -533,7 +562,8 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
         if(user.getId().equals(id)){
             Activity activity=new Activity(extracurricularRequestDTO);
             Activity activity1=studentService.updateActivity(activity);
-            return ResponseEntity.ok(new Response(activity1));
+            ExtracurricularResponseDTO extracurricularResponseDTO=new ExtracurricularResponseDTO(activity1);
+            return ResponseEntity.ok(new Response(extracurricularResponseDTO));
 
         }else {
             throw new ForbiddenException();

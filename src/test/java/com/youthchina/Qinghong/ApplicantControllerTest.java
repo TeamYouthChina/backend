@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:testnew.xml"})
+@DatabaseSetup({"classpath:testnew.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml"})
 @WebAppConfiguration
 public class ApplicantControllerTest {
     @Autowired
@@ -343,6 +343,13 @@ public class ApplicantControllerTest {
     }
 
 
+    /** 
+    * @Description: 通过测试，还需核对接口 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
     @Test
     public void testInsertEducation() throws Exception{
         EducationRequestDTO educationDTO=new EducationRequestDTO();
@@ -369,12 +376,20 @@ public class ApplicantControllerTest {
         ;
 
     }
-//
+    
+
+    /** 
+    * @Description: 通过测试，还需核对接口 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
     @Test
     public void testInsertWorks() throws Exception{
         LocationDTO locationDTO=new LocationDTO();
-        locationDTO.setNation_code("USA");
-        locationDTO.setLocation_code("920001");
+        locationDTO.setNation_code("CHN");
+        locationDTO.setLocation_code("110000");
         List<WorkRequestDTO> workDTOS=new ArrayList<>();
         WorkRequestDTO workDTO=new WorkRequestDTO();
         workDTO.setEmployer("google");
@@ -401,12 +416,16 @@ public class ApplicantControllerTest {
         ;
 
     }
-//
+
+    /** 
+    * @Description: 通过测试，还需核对接口 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
     @Test
     public void testInsertProjects() throws Exception{
-        LocationDTO locationDTO=new LocationDTO();
-        locationDTO.setNation_code("USA");
-        locationDTO.setLocation_code("920001");
         long begin=1111111;
         long end=2222222;
         DurationDTO durationDTO=new DurationDTO(begin,end);
@@ -430,12 +449,16 @@ public class ApplicantControllerTest {
         ;
 
     }
-//
+
+    /** 
+    * @Description: 通过测试，还需核对接口 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
     @Test
     public void testInsertExtracurriculars() throws Exception{
-        LocationDTO locationDTO=new LocationDTO();
-        locationDTO.setNation_code("USA");
-        locationDTO.setLocation_code("920001");
         long begin=1111111;
         long end=2222222;
         DurationDTO durationDTO=new DurationDTO(begin,end);
@@ -460,12 +483,18 @@ public class ApplicantControllerTest {
         ;
 
     }
-//
+    
+    
+
+    /** 
+    * @Description: 通过测试，还需核对接口
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
     @Test
     public void testInsertCertificates() throws Exception{
-        LocationDTO locationDTO=new LocationDTO();
-        locationDTO.setNation_code("USA");
-        locationDTO.setLocation_code("920001");
         long begin=1111111;
         long end=2222222;
         DurationDTO durationDTO=new DurationDTO(begin,end);
@@ -490,6 +519,26 @@ public class ApplicantControllerTest {
         ;
 
     }
+
+    @Test
+    public void testInsertAdvantageSkill() throws Exception{
+        SkillsRequestDTO skillsRequestDTO=new SkillsRequestDTO();
+        skillsRequestDTO.setLabel_code("22");
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(skillsRequestDTO);
+        System.out.print(requestJson);
+        this.mvc.perform(
+                post
+                        (this.urlPrefix + "/applicants/1/skill").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+    }
+
     @Test
     public void testSaveEducations() throws Exception{
         List<EducationRequestDTO> educationRequestDTOS =new ArrayList<>();
@@ -889,6 +938,13 @@ public class ApplicantControllerTest {
 //                .with(authGenerator.authentication())
 //        ).andDo(print());
 //    }
+    /** 
+    * @Description: 通过测试 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
     @Test
     public void testDeleteEducation() throws Exception{
         this.mvc.perform(
@@ -899,6 +955,13 @@ public class ApplicantControllerTest {
         ;
 
     }
+    /** 
+    * @Description: 通过测试 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
 
     @Test
     public void testDeleteWork() throws Exception{
@@ -910,6 +973,13 @@ public class ApplicantControllerTest {
         ;
 
     }
+    /** 
+    * @Description: 通过测试 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
 
     @Test
     public void testDeleteProject() throws Exception{
@@ -921,6 +991,13 @@ public class ApplicantControllerTest {
         ;
 
     }
+    /** 
+    * @Description: 通过测试 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
 
     @Test
     public void testDeleteActivity() throws Exception{
@@ -932,6 +1009,13 @@ public class ApplicantControllerTest {
         ;
 
     }
+    /** 
+    * @Description: 通过测试 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
 
     @Test
     public void testDeleteCertificate() throws Exception{
@@ -943,12 +1027,38 @@ public class ApplicantControllerTest {
         ;
 
     }
+    /** 
+    * @Description: 通过测试 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/4/3 
+    */
+
+    @Test
+    public void testDeleteSkill() throws Exception{
+        this.mvc.perform(
+                delete(this.urlPrefix + "/applicants/1/skills/1")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+        ;
+
+    }
+    
+    /** 
+    * @Description: 已通过测试，差数据层更改 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
 
     @Test
     public void testUpdateEducation() throws Exception{
         EducationRequestDTO educationDTO=new EducationRequestDTO();
         educationDTO.setId(1);
-        educationDTO.setUniversity_id(1);
+        educationDTO.setUniversity_id(10001);
         educationDTO.setMajor("law");
         Degree degree=new Degree();
         educationDTO.setDegree("1");
@@ -968,12 +1078,19 @@ public class ApplicantControllerTest {
         ;
 
     }
+    /** 
+    * @Description: 已通过测试，差数据校对 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
 
     @Test
     public void testUpdateWork() throws Exception{
         LocationDTO locationDTO=new LocationDTO();
-        locationDTO.setNation_code("USA");
-        locationDTO.setLocation_code("920001");
+        locationDTO.setNation_code("CHN");
+        locationDTO.setLocation_code("110000");
         WorkRequestDTO workRequestDTO =new WorkRequestDTO();
         workRequestDTO.setId(1);
         workRequestDTO.setEmployer("amazon");
@@ -998,11 +1115,15 @@ public class ApplicantControllerTest {
         ;
 
     }
+    /** 
+    * @Description: 已通过测试，差数据校对 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
     @Test
     public void testUpdateProject() throws Exception{
-        LocationDTO locationDTO=new LocationDTO();
-        locationDTO.setNation_code("USA");
-        locationDTO.setLocation_code("920001");
         long begin=1111111;
         long end=2222222;
         DurationDTO durationDTO=new DurationDTO(begin,end);
@@ -1027,12 +1148,16 @@ public class ApplicantControllerTest {
         ;
 
     }
+    /** 
+    * @Description: 已通过数据，差测试数据 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
 
     @Test
     public void testUpdateExtracurricular() throws Exception{
-        LocationDTO locationDTO=new LocationDTO();
-        locationDTO.setNation_code("USA");
-        locationDTO.setLocation_code("920001");
         long begin=1111111;
         long end=2222222;
         DurationDTO durationDTO=new DurationDTO(begin,end);
@@ -1058,11 +1183,16 @@ public class ApplicantControllerTest {
         ;
 
     }
+    
+    /** 
+    * @Description: 已通过数据，差测试数据 
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/3/30 
+    */
     @Test
     public void testUpdateCertificate() throws Exception{
-        LocationDTO locationDTO=new LocationDTO();
-        locationDTO.setNation_code("USA");
-        locationDTO.setLocation_code("920001");
         long begin=1111111;
         long end=2222222;
         DurationDTO durationDTO=new DurationDTO(begin,end);
