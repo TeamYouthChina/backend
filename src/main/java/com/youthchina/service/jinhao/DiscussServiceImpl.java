@@ -28,6 +28,11 @@ public class DiscussServiceImpl implements DiscussService{
     }
 
     @Override
+    public List<Discuss> getDiscusses(Integer id, Integer start, Integer end) {
+        return discussMapper.getLimitedDiscusses(id,start,end-start+1);
+    }
+
+    @Override
     public void isDiscussExist(Integer id) throws NotFoundException {
         if(discussMapper.checkIfDiscussExist(id) == null){
             throw new NotFoundException(404,404,"没有找到这个讨论");

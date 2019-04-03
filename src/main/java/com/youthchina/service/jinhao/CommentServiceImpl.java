@@ -1,7 +1,6 @@
 package com.youthchina.service.jinhao;
 
 import com.youthchina.dao.jinhao.CommentMapper;
-import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.property.Commentable;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -17,9 +16,6 @@ public class CommentServiceImpl implements CommentService {
 
     @Resource
     CommentMapper commentMapper;
-
-    @Resource
-    UserMapper userMapper;
 
     @Resource
     BriefReviewService briefReviewService;
@@ -38,8 +34,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getComments(Commentable entity) {
-        List<Comment> comments = commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
-        return comments;
+        return commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
+    }
+
+    @Override
+    public List<Comment> getComments(Commentable entity, Integer start, Integer end) {
+        return commentMapper.getLimitedComments(entity.getCommentTargetType(), entity.getId(), start,end-start+1);
     }
 
     @Override

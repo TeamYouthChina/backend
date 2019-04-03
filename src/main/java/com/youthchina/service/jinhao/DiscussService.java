@@ -14,7 +14,7 @@ public interface DiscussService extends DomainCRUDService<Discuss, Integer> {
      * @throws NotFoundException
      */
     List<Discuss> getDiscusses(Integer id) throws NotFoundException;
-
+    List<Discuss> getDiscusses(Integer id, Integer start, Integer end);
     void isDiscussExist(Integer id) throws NotFoundException;
 
     void deleteAllDiscussOfComment(Integer id);
