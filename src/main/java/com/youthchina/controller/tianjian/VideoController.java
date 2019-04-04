@@ -5,7 +5,9 @@ import com.youthchina.domain.jinhao.Video;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.community.video.VideoResponseDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -23,7 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 @RestController
 @RequestMapping("${web.url.prefix}/videos/**")
@@ -43,7 +46,7 @@ public class VideoController {
     @Autowired
     EvaluateService evaluateService;
 
-
+     @Autowired
     AttentionService attentionService;
 
     @GetMapping("/{id}")
@@ -83,11 +86,11 @@ public class VideoController {
     }
 
     @PostMapping("/{id}/comments")
-    public ResponseEntity<?> addComments(@PathVariable Integer id, @RequestBody CommentRequestDTO commentDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        Comment videocomment = new Comment(commentDTO);
+    public ResponseEntity<?> addComments(@PathVariable Integer id, @RequestBody CommentRequestDTO commentRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+        Comment videocomment = new Comment(commentRequestDTO);
         Video video = new Video();
         video.setId(id);
-        video.setUser(user);
+        videocomment.setUser(user);
         Comment comment = commentService.add(videocomment,video);
         if (comment.getId() == null) {
             return ResponseEntity.ok(new Response(new StatusDTO(403, "failed")));
@@ -99,19 +102,31 @@ public class VideoController {
     public ResponseEntity getComments(@PathVariable Integer id){
         Video video = new Video();
         video.setId(id);
-        commentService.getComments(video);
-        VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
-        HashMap<String, Object> comments = new HashMap<>();
-        comments.put("comments", videoResponseDTO.getComments());
-        return ResponseEntity.ok(new Response(comments, new StatusDTO(200, "success")));
+       List<Comment> commentList = commentService.getComments(video);
+        CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
+        if (commentList!= null) {
+            Iterator it = commentList.iterator();
+            while (it.hasNext()) {
+                commentResponseDTO.getComments().add(new CommentDTO((Comment) it.next()));
+            }
+        }
+        return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200, "success")));
     }
 
     @PutMapping("/{id}/upvote")
-    public ResponseEntity updateVideo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity upvoteVideo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Video video = new Video();
         video.setId(id);
         evaluateService.upvote(video,user.getId());
-            return ResponseEntity.ok(new Response(new StatusDTO(403, "failed")));
+        return ResponseEntity.ok(new Response( new StatusDTO(200, "success")));
+    }
+
+    @PutMapping("/{id}/downvote")
+    public ResponseEntity downvoteVideo(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Video video = new Video();
+        video.setId(id);
+        evaluateService.downvote(video,user.getId());
+        return ResponseEntity.ok(new Response( new StatusDTO(200, "success")));
     }
 
     @PutMapping("/{id}/attention")
@@ -119,7 +134,7 @@ public class VideoController {
         Video video = new Video();
         video.setId(id);
         attentionService.attention(video,user.getId());
-            return ResponseEntity.ok(new Response(new StatusDTO(403, "failed")));
+        return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
     }
 
 

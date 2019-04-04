@@ -41,14 +41,12 @@ create table JOB_INFO
 	CV_RECEI_MAIL varchar(200) not null comment '简历接收邮箱',
 	CV_NAME_RULE varchar(200) null comment '简历命名规则',
 	JOB_ACTIVE int not null comment '职位状态',
-	HR_ID int not null comment '招聘者ID',
 	COMPANY_ID int not null comment '企业ID',
 	IS_DELETE int default 0 null comment '是否删除',
 	IS_DELETE_TIME timestamp null comment '删除时间',
 	constraint JOB_COMPANY_ID
 		foreign key (COMPANY_ID) references COMPANY_INFO (company_id),
-	constraint JOB_HR_ID
-		foreign key (HR_ID) references HR_INFO (hr_id)
+
 )
 comment '职位基本信息表';
 
@@ -65,24 +63,55 @@ comment '职位基本信息表';
     private List<Location> jobLocationList;
     private List<Degree> jobReqList;
     private List<Industry> industries;
+    private List<Logo> logoList;
     private Profession profession;
 
     private Timestamp addTime;
     private Integer isDelete;
     private Timestamp isDeleteTime;
 
+    private Integer userId;
+
     private Integer collectNum = 0; // Default 0
 
     private Company company;
-    private Hr hr;
 
     public Job(JobRequestDTO jobRequestDTO) {
         this.jobId = jobRequestDTO.getId();
         this.jobName = jobRequestDTO.getName();
-        this.company = new Company(jobRequestDTO.getOrganization());
-        for (LocationDTO locationDTO : jobRequestDTO.getJobLocationList()) {
-            this.jobLocationList.add(new Location(locationDTO));
+        this.jobType = Integer.parseInt(jobRequestDTO.getType());
+
+//        System.out.println("this.jobType:");
+//        System.out.println(this.jobType);
+
+        this.company = new Company();
+        this.company.setCompanyId(jobRequestDTO.getOrganization().getId());
+        List<LocationDTO> locationDTOList = jobRequestDTO.getJobLocationList();
+        if(locationDTOList != null && locationDTOList.size() > 0){
+            for (LocationDTO locationDTO : locationDTOList) {
+                this.jobLocationList.add(new Location(locationDTO));
+            }
         }
+        this.userId = jobRequestDTO.getUserId();
+
+        //TODO
+//        Profession profession = new Profession();
+//        profession.setProfCode("1");
+//        this.setProfession(profession);
+        this.setJobProfCode("1");
+
+        this.setJobStartTime(Date.valueOf("2010-01-01"));
+        this.setJobEndTime(Date.valueOf("2019-01-01"));
+        this.setJobDescription("Description:TODO");
+        this.setJobDuty("Duty:TODO");
+        this.setJobHighlight("Highlight:TODO");
+        this.setJobLink("JOB_LINK:TODO");
+        this.setCvReceiMail("MAIL:TODO");
+        this.setCvNameRule("RULE:TODO");
+        this.setJobActive(1);
+
+        //TODO LocationList;    jobReqList; industries; logoList;
+
     }
 
     public Job() {
@@ -114,15 +143,6 @@ comment '职位基本信息表';
 
     public void setCompany(Company company) {
         this.company = company;
-    }
-
-    public Hr getHr() {
-        return hr;
-    }
-
-
-    public void setHr(Hr hr) {
-        this.hr = hr;
     }
 
     public Integer getJobId() {
@@ -291,5 +311,21 @@ comment '职位基本信息表';
 
     public void setIsDeleteTime(Timestamp isDeleteTime) {
         this.isDeleteTime = isDeleteTime;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public List<Logo> getLogoList() {
+        return logoList;
+    }
+
+    public void setLogoList(List<Logo> logoList) {
+        this.logoList = logoList;
     }
 }

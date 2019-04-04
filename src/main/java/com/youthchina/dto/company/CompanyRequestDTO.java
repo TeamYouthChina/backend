@@ -1,15 +1,19 @@
 package com.youthchina.dto.company;
 
-import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.domain.qingyang.*;
 import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.dto.util.NationDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: Qingyang Zhao
  * @create: 2019-02-16
  **/
-public class CompanyRequestDTO implements RequestDTO {
+public class CompanyRequestDTO implements CompanyDTOInterface {
 
     private Integer id;
     private String name;
@@ -37,9 +41,46 @@ public class CompanyRequestDTO implements RequestDTO {
         this.location = new LocationDTO(domain.getLocation()); // Default: Chinese Location
         this.website = domain.getCompanyWebsite();
         this.nation = new NationDTO(domain.getCountry()); // Default: Chinese Location
-        this.avatarUrl = domain.getCompanyLogo();
+        List<Logo>  logoList = domain.getLogoList();
+        if(logoList != null && logoList.size() > 0){
+            this.avatarUrl = domain.getLogoList().get(0).getDocuLocalId();
+        }
         this.note = domain.getCompanyIntroduc();
         this.userId = domain.getUserId();
+    }
+
+    public Company setCompany(CompanyRequestDTO companyRequestDTO) {
+        Company company = new Company();
+        company.setCompanyId(companyRequestDTO.getId());
+        company.setCompanyName(companyRequestDTO.getName());
+        company.setLocation(new Location(companyRequestDTO.getLocation()));
+        company.setCompanyWebsite(companyRequestDTO.getWebsite());
+        company.setCountry(new Country(companyRequestDTO.getNation()));
+        company.setCompanyIntroduc(companyRequestDTO.getNote());
+        company.setUserId(companyRequestDTO.getUserId());
+
+        //TODO: Logo
+        List<Logo> logoList = new ArrayList<>();
+        Logo logo = new Logo();
+        logo.setDocuLocalId(companyRequestDTO.getAvatarUrl());
+        logoList.add(logo);
+        company.setLogoList(logoList);
+
+        //TODO : API need add more params as shown below
+
+        CompanyScale scale = new CompanyScale();
+        scale.setScaleNum(1);
+        company.setCompanyScale(scale);
+
+        CompanyNature nature = new CompanyNature();
+        nature.setNatureNum(1);
+        company.setCompanyNature(nature);
+
+        company.setCompanyMail("TODO@TODO.TODO");
+
+        company.setCompanyVerify(0);
+
+        return company;
     }
 
     public Integer getId() {

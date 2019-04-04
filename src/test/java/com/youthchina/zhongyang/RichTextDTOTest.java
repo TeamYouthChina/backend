@@ -9,6 +9,7 @@ package com.youthchina.zhongyang;
 public class RichTextDTOTest {
 
 
+
     @Test
     public void readRichTextDTO() {
         //language=JSON

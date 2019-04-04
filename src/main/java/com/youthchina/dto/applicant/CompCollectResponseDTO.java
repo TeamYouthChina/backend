@@ -2,6 +2,7 @@ package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 
 /**
  * @program: youthchina
@@ -37,4 +38,6 @@ public class CompCollectResponseDTO implements ResponseDTO {
     public void setOrganization(OrganizationDTO organization) {
         this.organization = organization;
     }
+
+
 }

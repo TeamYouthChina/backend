@@ -4,6 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.Qinghong.ApplicantMapper;
 import com.youthchina.domain.Qinghong.*;
+import com.youthchina.domain.qingyang.Country;
 import com.youthchina.domain.qingyang.Degree;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,7 +31,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:applicant.xml"})
+@DatabaseSetup({"classpath:testnew.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml"})
 public class StudentMapperTest {
     @Autowired
     ApplicantMapper applicantMapper;
@@ -42,7 +43,7 @@ public class StudentMapperTest {
         if (educationInfos != null) {
             System.out.print("测试成功");
         }
-        System.out.print(educationInfos.get(1).getEdu_school());
+
     }
 
     @Test
@@ -150,12 +151,18 @@ public class StudentMapperTest {
     public void testGetCompCollect() {
         List<CompCollect> compCollects = applicantMapper.getCompCollects(1);
         Assert.assertNotNull(compCollects);
-        System.out.print(compCollects.get(0).getCompany().getCompanyNature().getNatureDetail());
     }
 
     @Test
     public void testGetOneJobCollect() {
-        JobCollect jobCollect = applicantMapper.getOneJobCollect(1);
+        JobCollect jobCollect = applicantMapper.getOneJobCollect(1,1);
+        Assert.assertNotNull(jobCollect);
+        System.out.print(jobCollect.getJob_id());
+    }
+
+    @Test
+    public void testGetOneCompCollect() {
+        JobCollect jobCollect = applicantMapper.getOneJobCollect(1,1);
         Assert.assertNotNull(jobCollect);
         System.out.print(jobCollect.getJob_id());
     }
@@ -174,31 +181,28 @@ public class StudentMapperTest {
 
     }
 
-    @Test
-    public void testAddStuInfo() {
-        Student student = new Student();
-        student.setCurrentCompanyName("google");
-        student.setIsInJob(true);
-        student.setId(1);
-
-        Integer integer = applicantMapper.insertStuInfo(student);
-        if (integer != 0) {
-            System.out.print(integer);
-        }
-
-    }
+//    @Test
+//    public void testAddStuInfo() {
+//        Student student = new Student();
+//        student.setCurrentCompanyName("google");
+//        student.setIsInJob(true);
+//        student.setId(1);
+//
+//        Integer integer = applicantMapper.insertStuInfo(student);
+//        if (integer != 0) {
+//            System.out.print(integer);
+//        }
+//
+//    }
 
     @Test
     public void testAddEduInfo() {
         EducationInfo educationInfo = new EducationInfo();
-        Location location = new Location();
-        educationInfo.setLocation(location);
         Degree degree = new Degree();
+        University university=new University();
+        university.setUnivers_id(10001);
         degree.setDegreeNum(1);
         educationInfo.setDegree(degree);
-        educationInfo.setEdu_school("gwu");
-        educationInfo.setEdu_school_country("USA");
-        educationInfo.getLocation().setRegion_num(1);
         educationInfo.setEdu_major("计算机");
         educationInfo.setEdu_college("cssa");
         educationInfo.setEdu_gpa((float) 3.3);
@@ -206,6 +210,8 @@ public class StudentMapperTest {
         educationInfo.setEdu_end(new Date());
         educationInfo.setStu_id(1);
         educationInfo.setIs_delete(0);
+        educationInfo.setUniversity(university);
+
         Integer integer = applicantMapper.insertEduInfo(educationInfo);
         if (integer != 0) {
             System.out.print(integer);
@@ -222,7 +228,9 @@ public class StudentMapperTest {
         certificate.setCertificate_grant_date(new java.sql.Date(1));
         certificate.setCertificate_expir_date(new java.sql.Date(1));
         certificate.setStu_id(1);
-        certificate.setCertificate_url("11");
+        Country country=new Country();
+        country.setCountryAbbre("CHN");
+        certificate.setInsti_country(country);
 
         Integer integer = applicantMapper.insertStuCertificate(certificate);
         if (integer != 0) {
@@ -256,7 +264,7 @@ public class StudentMapperTest {
         Location location = new Location();
         work.setWork_company("1");
         work.setLocation(location);
-        work.getLocation().setRegion_num(1);
+        work.getLocation().setRegionNum(1);
         work.setWork_position("1");
         work.setWork_sector("1");
         work.setWork_start_time(new Date());

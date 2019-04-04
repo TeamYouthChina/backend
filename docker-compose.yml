@@ -28,44 +28,7 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=rabbitmq
       - RABBITMQ_DEFAULT_PASS=rabbitmqpass
-networks:List;
-
-/**
- * Created by zhongyangwu on 11/8/18.
- */
-@RestController
-@RequestMapping("${web.url.prefix}/users/**")
-public class UserController extends DomainCRUDController<UserDTO, User, Integer> {
-
-    private UserService userService;
-    private String url;
-
-    @Autowired
-    private StudentService studentService;
-
-    private AttentionServiceImpl attentionService;
-    @Autowired
-    private EssayServiceImpl essayService;
-    private QuestionServiceImpl questionService;
-    private VideoServiceImpl videoService;
-
-    @Autowired
-    public UserController(UserService userService, @Value("${web.url.prefix}") String prefix) {
-        this.userService = userService;
-        this.url = prefix + "/users/";
-    }
-
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findUser(@PathVariable Integer id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
-        if (user.getId().equals(id)) {
-            return get(id);
-        } else {
-            throw new ForbiddenException();
-        }
-    }
-
-    @GetMapping("/{id}/attentions")
+networks:
   backend:
     ipam:
       config:

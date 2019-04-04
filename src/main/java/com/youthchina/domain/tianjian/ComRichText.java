@@ -14,11 +14,13 @@ private int textId;
     public ComRichText(RichTextRequestDTO richTextRequestDTO){
         this.jsonContent = richTextRequestDTO.getBraftEditorRaw();
         this.textContent = richTextRequestDTO.getPreviewText();
+        this.compileType = richTextRequestDTO.getCompiletype();
     }
 
     public ComRichText(RichTextResponseDTO richTextResponseDTO){
         this.jsonContent = richTextResponseDTO.getBraftEditorRaw();
         this.textContent = richTextResponseDTO.getPreviewText();
+        this.compileType = richTextResponseDTO.getCompiletype();
     }
 
     public int getTextId() {

@@ -28,8 +28,8 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     private static final Integer attentionTargetType = 7;
 
     public Answer(SimpleAnswerRequestDTO simpleAnswerDTO){
-        this.body.setJsonContent(simpleAnswerDTO.getBody().getBraftEditorRaw());
-        this.body.setTextContent(simpleAnswerDTO.getBody().getPreviewText());
+        this.body = new ComRichText(simpleAnswerDTO.getBody());
+        this.isAnony = (simpleAnswerDTO.getIs_anonymous())? 1:0;
     }
 
     public Answer(){}

@@ -1,17 +1,39 @@
 package com.youthchina.controller;
 
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.util.AuthGenerator;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-/*
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:videos.xml"})
-@DatabaseSetup({"classpath:users.xml"})
-@DatabaseSetup({"classpath:media.xml"})
+@DatabaseSetup({"classpath:New_Community_test.xml"})
 @WebAppConfiguration
 public class VideoControllerTest {
     @Autowired
@@ -49,7 +71,7 @@ public class VideoControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"Body of the comment 1\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"create_at\":\"2018-10-11T11:11:22.000+0000\",\"is_anonymous\":false},{\"id\":3,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"Body of the comment 3\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"create_at\":\"2018-10-11T11:11:22.000+0000\",\"is_anonymous\":false}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":6,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"body\":\"好好好\",\"create_at\":\"2019-02-20T00:00:00.000+0000\",\"is_anonymous\":false},{\"id\":7,\"creator\":{\"id\":3,\"username\":\"GHI\",\"email\":\"123456@789.com\",\"phonenumber\":\"1112223334445\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"GGG\",\"lastName\":\"GGGHHHIII\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":null,\"age\":26},\"body\":\"一般般\",\"create_at\":\"2016-06-13T00:00:00.000+0000\",\"is_anonymous\":false}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
     @Test
@@ -73,42 +95,14 @@ public class VideoControllerTest {
 
     @Test
     public void addCommentTest() throws Exception {
-        VideoCommentRequestDTO videoCommentDTO = new VideoCommentRequestDTO();
-        videoCommentDTO.setIs_anonymous(false);
-        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
-        //language=JSON
-        String json = "{\n" +
-                "  \"braftEditorRaw\":{\n" +
-                "    \"blocks\": [\n" +
-                "      {\n" +
-                "        \"key\":\"dtj4a\",\n" +
-                "        \"text\":\"haoshipin\",\n" +
-                "        \"type\":\"unstyled\",\n" +
-                "        \"depth\":0,\n" +
-                "        \"inlineStyleRanges\": [],\n" +
-                "        \"entityRanges\": [],\n" +
-                "        \"data\":{\n" +
-                "        }\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"entityMap\":{\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"previewText\":null,\n" +
-                "  \"resourceIdList\": []\n" +
-                "}";
-        try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
-            System.out.println(richTextDTO);
-        } catch (IOException e) {
-            Assert.fail();
-        }
-
-        videoCommentDTO.setBody(richTextDTO);
+        CommentRequestDTO commentRequestDTO = new CommentRequestDTO();
+        commentRequestDTO.setIs_anonymous(false);
+        String json = "comment";
+        commentRequestDTO.setBody(json);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(videoCommentDTO);
+        java.lang.String requestJson = ow.writeValueAsString(commentRequestDTO);
 
         this.mvc.perform(
                 post(this.urlPrefix + "/videos/1/comments").contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -126,7 +120,7 @@ public class VideoControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
@@ -136,41 +130,50 @@ public class VideoControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
-    public void testUserAttentions() throws Exception {
+    public void downvoteTest() throws Exception {
         this.mvc.perform(
-                get
-                        (this.urlPrefix + "/users/1/attentions").param("type", "Video")
-
+                put(this.urlPrefix + "/videos/1/downvote").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
         )
-                .andDo(print());
-    }
-
-
-    @Test
-    public void testUploadVideo() throws Exception {
-        RequestVideoDTO requestVideoDTO = new RequestVideoDTO();
-        requestVideoDTO.setCompany_id(1);
-
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(requestVideoDTO);
-
-//        ClassPathResource classPathResource = new ClassPathResource("rank.xml");
-        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "multipart/form-data", "hello upload".getBytes("UTF-8"));
-
-        this.mvc.perform(MockMvcRequestBuilders.multipart(this.urlPrefix + "/videos")
-                .file(file).with(authGenerator.authentication()))
                 .andDo(print())
-                .andExpect(status().is2xxSuccessful())
-                .andReturn().getResponse().getContentAsString();
-
-
+                .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
+
+//    @Test
+//    public void testUserAttentions() throws Exception {
+//        this.mvc.perform(
+//                get
+//                        (this.urlPrefix + "/users/1/attentions").param("type", "Video")
+//
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print());
+//    }
+
+
+//    @Test
+//    public void testUploadVideo() throws Exception {
+//        VideoRequestDTO requestVideoDTO = new VideoRequestDTO();
+//        requestVideoDTO.setCompany_id(1);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//        String requestJson = ow.writeValueAsString(requestVideoDTO);
+//
+////        ClassPathResource classPathResource = new ClassPathResource("rank.xml");
+//        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "multipart/form-data", "hello upload".getBytes("UTF-8"));
+//
+//        this.mvc.perform(MockMvcRequestBuilders.multipart(this.urlPrefix + "/videos")
+//                .file(file).with(authGenerator.authentication()))
+//                .andDo(print())
+//                .andExpect(status().is2xxSuccessful())
+//                .andReturn().getResponse().getContentAsString();
+//
+//
+//    }
 
 }
- */

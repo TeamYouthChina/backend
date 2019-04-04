@@ -1,8 +1,10 @@
 package com.youthchina.service.tianjian;
 
 import com.youthchina.dao.tianjian.CommunityMapper;
+import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.jinhao.CommentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +23,13 @@ public class EssayServiceImpl implements EssayService {
     CommunityMapper mapper;
 
     @Resource
-    RichTextService richTextService;
+    RichTextServiceImpl richTextService;
+
+    @Resource
+    CommentServiceImpl commentService;
+
+    @Autowired
+    UserMapper userMapper;
 
     @Autowired
     public EssayServiceImpl(CommunityMapper mapper) {
@@ -41,6 +49,9 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public int deleteEssay(Integer essay_id, Timestamp delete_time) {
+        ComEssay comEssay = new ComEssay();
+        comEssay.setId(essay_id);
+        commentService.delete(comEssay);
         return mapper.deleteEssay(essay_id, delete_time);
     }
 
@@ -50,16 +61,20 @@ public class EssayServiceImpl implements EssayService {
         if (comEssaytest == null) {
             throw new NotFoundException(404, 404, "this essay is not exist");//todo
         } else {
+            richTextService.getComRichText(comEssaytest);
+            essay.getBody().setTextId(comEssaytest.getBody().getTextId());
             if (essay.getIsAnony() != null)
                 comEssaytest.setIsAnony(essay.getIsAnony());
             if (essay.getAbbre() != null)
                 comEssaytest.setAbbre(essay.getAbbre());
-            if (essay.getBody() != null)
+            if (essay.getBody() != null){
                 richTextService.updateComRichText(essay.getBody());
+                comEssaytest.setBody(essay.getBody());
+            }
             if (essay.getTitle() != null)
                 comEssaytest.setTitle(essay.getTitle());
-
-            return mapper.updateEssay(comEssaytest);
+           mapper.updateEssay(comEssaytest);
+           return 1;
         }
     }
 
@@ -69,6 +84,8 @@ public class EssayServiceImpl implements EssayService {
         if(comEssay == null){
             throw new NotFoundException(404,404,"this essay does not exist");
         }
+        richTextService.getComRichText(comEssay);
+        comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
         return comEssay;
     }
 

@@ -35,68 +35,67 @@ public class Student extends User implements HasId<Integer> {
     private List<Certificate> certificates;
     private List<LabelInfo> labelInfos;
 
-    public Student(ApplicantDTO applicantDTO) {
-        this.isInJob = applicantDTO.getIsInJob();
-        this.setUsername(applicantDTO.getName());
-        this.setAvatarUrl(applicantDTO.getAvatarUrl());
-        this.currentCompanyName = applicantDTO.getCurrentCompanyId().toString();
+    public Student(ApplicantRequestDTO applicantRequestDTO) {
+        this.isInJob= applicantRequestDTO.getIsInJob();
+        this.setUsername(applicantRequestDTO.getName());
+        this.setAvatarUrl(applicantRequestDTO.getAvatarUrl());
+        this.currentCompanyName= applicantRequestDTO.getCurrentCompanyId().toString();
         //对于教育信息的转化
-        List<EducationInfo> educationInfos = new ArrayList<>();
-        for (EducationDTO educationDTO : applicantDTO.getEducations()) {
-            EducationInfo educationInfo = new EducationInfo(educationDTO);
+        List<EducationInfo> educationInfos=new ArrayList<>();
+        for(EducationRequestDTO educationRequestDTO : applicantRequestDTO.getEducations()){
+            EducationInfo educationInfo=new EducationInfo(educationRequestDTO);
             educationInfos.add(educationInfo);
         }
-        this.educationInfos = educationInfos;
+        this.educationInfos=educationInfos;
         //目前联系人问题
-        this.setEmail(applicantDTO.getContacts().getEmails().get(0));
-        this.setPhonenumber(applicantDTO.getContacts().getPhonenumbers().get(0));
+        this.setEmail(applicantRequestDTO.getContacts().getEmails().get(0));
+        this.setPhonenumber(applicantRequestDTO.getContacts().getPhonenumbers().get(0));
         //对于职位的转化
-        List<Work> works = new ArrayList<>();
-        for (WorkDTO workDTO : applicantDTO.getExperiences()) {
-            Work work = new Work(workDTO);
+        List<Work> works=new ArrayList<>();
+        for(WorkRequestDTO workRequestDTO : applicantRequestDTO.getExperiences()){
+            Work work=new Work(workRequestDTO);
             works.add(work);
         }
-        this.works = works;
+        this.works=works;
         //对于项目的转化
-        List<Project> projects = new ArrayList<>();
-        for (ProjectDTO projectDTO : applicantDTO.getProjects()) {
-            Project project = new Project(projectDTO);
+        List<Project> projects=new ArrayList<>();
+        for(ProjectRequestDTO projectRequestDTO : applicantRequestDTO.getProjects()){
+            Project project=new Project(projectRequestDTO);
             projects.add(project);
         }
-        this.projects = projects;
+        this.projects=projects;
         //对于组织活动的转化
-        List<Activity> activities = new ArrayList<>();
-        for (ExtracurricularDTO extracurricularDTO : applicantDTO.getExtracurriculars()) {
-            Activity activity = new Activity(extracurricularDTO);
+        List<Activity> activities=new ArrayList<>();
+        for(ExtracurricularRequestDTO extracurricularRequestDTO : applicantRequestDTO.getExtracurriculars()){
+            Activity activity=new Activity(extracurricularRequestDTO);
             activities.add(activity);
         }
-        this.activities = activities;
+        this.activities=activities;
 
         //对于技能证书的转化
-        List<Certificate> certificates = new ArrayList<>();
-        for (CertificateDTO certificateDTO : applicantDTO.getCertifications()) {
-            Certificate certificate = new Certificate(certificateDTO);
+        List<Certificate> certificates=new ArrayList<>();
+        for(CertificateRequestDTO certificateRequestDTO : applicantRequestDTO.getCertifications()){
+            Certificate certificate=new Certificate(certificateRequestDTO);
             certificates.add(certificate);
         }
-        this.certificates = certificates;
+        this.certificates=certificates;
         //公司信息的设置
 
 //        Company company=new Company();
 //        this.company=company;
-//        company.setCompanyId(applicantDTO.getId());
+//        company.setCompanyId(applicantRequestDTO.getId());
 
         //优势标签的设置
-        List<LabelInfo> labelInfos = new ArrayList<>();
-        for (String s : applicantDTO.getSkills()) {
-            LabelInfo labelInfo = new LabelInfo();
+        List<LabelInfo> labelInfos=new ArrayList<>();
+        for(String s: applicantRequestDTO.getSkills()){
+            LabelInfo labelInfo=new LabelInfo();
             labelInfo.setLabel_code(s);
             labelInfos.add(labelInfo);
         }
-        this.labelInfos = labelInfos;
+        this.labelInfos=labelInfos;
     }
 
-    public Student() {
-    }
+    public Student(){}
 
 
     public Integer getStu_id() {

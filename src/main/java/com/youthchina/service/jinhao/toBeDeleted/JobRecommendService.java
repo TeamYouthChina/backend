@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface JobRecommendService extends DomainCRUDService<Job, Integer> {
     List<Job> getInternForYou();
-
     List<Job> getJobForYou();
 
 //    List<Job> get(List<Integer> ids) throws NotFoundException;

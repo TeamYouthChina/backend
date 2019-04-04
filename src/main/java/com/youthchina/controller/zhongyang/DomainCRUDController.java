@@ -58,7 +58,7 @@ public abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Se
      * @param dto data transfer model
      * @return 201 if added
      */
-    protected ResponseEntity<?> add(DTO dto) throws NotFoundException{
+    protected ResponseEntity<?> add(DTO dto) throws NotFoundException {
         T created = getService().add(DtoToDomain(dto));
         try {
             return ResponseEntity.created(getUriForNewInstance(created.getId())).body(DtoToResponse(DomainToDto(created)));

@@ -32,6 +32,12 @@ public class AnswerServiceImpl implements AnswerService{
             throw new NotFoundException(404,404,"该问题不存在");
         }
     }
+
+    @Override
+    public Integer countAnswersOfQuestion(Integer id) {
+        return answerMapper.countAnswers(id);
+    }
+
     @Override
     @Transactional
     public Answer get(Integer id) throws NotFoundException {
@@ -46,7 +52,17 @@ public class AnswerServiceImpl implements AnswerService{
 
     @Override
     @Transactional
-    public List<Answer> getAnswers(Integer id){
+    public List<Answer> getAnswers(Integer id, int start, int end){
+        List<Answer> answers = answerMapper.getLimitedAnswers(id, start, start-end+1);
+        for(Answer answer : answers){
+            richTextService.getComRichText(answer);
+        }
+        return answers;
+    }
+
+    @Override
+    @Transactional
+    public List<Answer> getAnswers(Integer id) {
         List<Answer> answers = answerMapper.getAnswers(id);
         for(Answer answer : answers){
             richTextService.getComRichText(answer);
@@ -59,7 +75,6 @@ public class AnswerServiceImpl implements AnswerService{
     public Answer add(Answer answer) throws NotFoundException {
         questionService.isQuestionExist(answer.getTargetId());
         richTextService.addComRichText(answer.getBody());
-
         answerMapper.add(answer);
         return answer;
     }
@@ -69,8 +84,10 @@ public class AnswerServiceImpl implements AnswerService{
     public Answer update(Answer answer) throws NotFoundException {
         isAnswerExist(answer.getId());
         answerMapper.update(answer);
+        Answer answer1 = get(1);
+        answer.getBody().setTextId(answer1.getBody().getTextId());
         richTextService.updateComRichText(answer.getBody());
-        return answer;
+        return get(answer.getId());
     }
 
     @Override

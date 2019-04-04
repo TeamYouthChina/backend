@@ -1,6 +1,9 @@
 package com.youthchina.dao.tianjian;
 
-import com.youthchina.domain.tianjian.*;
+import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.domain.tianjian.ComFriendGroup;
+import com.youthchina.domain.tianjian.ComFriendGroupMap;
+import com.youthchina.domain.tianjian.ComFriendRelation;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -20,19 +23,19 @@ public interface CommunityMapper {
 
     int updateEssay(ComEssay essay);
 
-    ComEssay getEssay(Integer essay_id);
+    ComEssay getEssay(@Param("essayId") Integer essayId);
 
     List<ComEssay> getEssayList(List<Integer> essayId);
 
     List<ComEssay> getEssayLatest();
 
+    Integer countEssay();
+
     int saveFriendsRelation(ComFriendRelation comFriendRelation);
 
-    int saveFriendsRelationMap(ComFriendRelationMap comFriendRelationMap);
+    int deleteFriend(@Param("comFriendRelation") ComFriendRelation comFriendRelation);
 
-    int deleteFriend(@Param("comFriendRelation") ComFriendRelation comFriendRelation, @Param("own_id") Integer own_id);
-
-    List<ComFriendRelation> getFriend(Integer own_id);
+    List<ComFriendRelation> getFriend(@Param("userId") Integer userId);
 
     int saveFriendGroup(ComFriendGroup cfg);
 

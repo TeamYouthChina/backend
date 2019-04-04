@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.5.3
+  version: 1.5.4
   title: YouthChina
   license:
     name: MIT
@@ -43,6 +43,84 @@ paths:
                     $ref: '#/components/schemas/Job'
                   status:
                     $ref: '#/components/schemas/Status'
+    put:
+      tags:
+        - Job
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: job id
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRequest'
+      responses:
+        '204':
+          description: updated success
+    delete:
+      tags:
+        - Job
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: job id
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '204':
+          description: deleted successed.
+        '404':
+          description: target job does not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorStatus'
+  '/jobs':
+    post:
+      tags:
+        - Job
+      summary: create a job
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRequest'
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: job info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Job'
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/jobs/search':
     post:
       tags:
@@ -62,6 +140,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '201':
           description: search result
@@ -73,10 +169,24 @@ paths:
                   content:
                     type: object
                     properties:
-                      searchResult:
+                      data:
                         type: array
                         items:
                           $ref: '#/components/schemas/Job'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/applicants/{id}':
@@ -377,6 +487,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: return target user's educations
@@ -392,6 +520,20 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/EducationInfo'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -518,6 +660,90 @@ paths:
                 status:
                   code: 4041
                   reason: Cannot find user with id 14
+  '/applicants/{id}/educations/{educationID}':
+    get:
+      tags:
+        - applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: educationID
+          in: path
+          description: education id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target user's educations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/EducationInfo'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: Cannot find user with id 14
+    delete:
+      tags:
+        - applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: educationID
+          in: path
+          description: education id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/applicants/{id}/projects':
     get:
       tags:
@@ -535,6 +761,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: return target user's projects
@@ -544,9 +788,26 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Project'
+                    type: object
+                    properties:
+                      projects:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Project'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -664,6 +925,90 @@ paths:
                 status:
                   code: 4041
                   reason: Cannot find user with id 14
+  '/applicants/{id}/projects/{projectID}':
+    get:
+      tags:
+        - applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: projectID
+          in: path
+          description: projet id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target user's projects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Project'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: Cannot find user with id 14
+    delete:
+      tags:
+        - applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: projectID
+          in: path
+          description: projet id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/applicants/{id}/experiences':
     get:
       tags:
@@ -681,6 +1026,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: return target user's works
@@ -696,6 +1059,20 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/WorkExperienceInfo'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -827,6 +1204,90 @@ paths:
                 status:
                   code: 4041
                   reason: Cannot find user with id 14
+  '/applicants/{id}/experiences/{experienceID}':
+    get:
+      tags:
+        - applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: experienceID
+          in: path
+          description: experience id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target user's works
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/WorkExperienceInfo'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: Cannot find user with id 14
+    delete:
+      tags:
+        - applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: experienceID
+          in: path
+          description: experience id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/applicants/{id}/certificates':
     get:
       tags:
@@ -844,6 +1305,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: return target user's works
@@ -859,6 +1338,20 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Certification'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -985,6 +1478,90 @@ paths:
                 status:
                   code: 4041
                   reason: Cannot find user with id 14
+  '/applicants/{id}/certificates/{certificateID}':
+    get:
+      tags:
+        - applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: certificateID
+          in: path
+          description: certificate id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target user's works
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Certification'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: Cannot find user with id 14
+    delete:
+      tags:
+        - applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: certificateID
+          in: path
+          description: certificate id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/applicants/{id}/extracurriculars':
     get:
       tags:
@@ -1002,6 +1579,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: return target user's works
@@ -1017,6 +1612,20 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Extracurricular'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -1137,6 +1746,90 @@ paths:
                 status:
                   code: 4041
                   reason: Cannot find user with id 14
+  '/applicants/{id}/extracurriculars/{extracurricularID}':
+    get:
+      tags:
+        - applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: extracurricularID
+          in: path
+          description: extracurricular id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: return target user's works
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Extracurricular'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+              example:
+                status:
+                  code: 4041
+                  reason: Cannot find user with id 14
+    delete:
+      tags:
+        - applicant
+      parameters:
+        - name: id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: extracurricularID
+          in: path
+          description: extracurricular id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: cannot find
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/jobs/{id}/apply':
     post:
       tags:
@@ -1250,6 +1943,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: return the application of users
@@ -1259,9 +1970,26 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Application'
+                    type: object
+                    properties:
+                      applications:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Application'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
         '404':
@@ -1409,7 +2137,7 @@ paths:
                             id:
                               type: integer
                             video:
-                              $ref: '#/components/schemas/Article'
+                              $ref: '#/components/schemas/Video'
                   status:
                     $ref: '#/components/schemas/Status'
   '/jobs/attentions/{id}':
@@ -1542,6 +2270,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: search job
@@ -1556,6 +2302,20 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Question'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
         '400':
@@ -1660,6 +2420,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: the answer list of target question
@@ -1675,6 +2453,20 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/AnswerBasic'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
     post:
@@ -1913,6 +2705,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -1928,6 +2738,20 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Comment'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/answers/{id}/upvote':
@@ -1949,6 +2773,46 @@ paths:
       responses:
         '201':
           description: upvote successfullly
+  '/answers/{id}/downvote':
+    put:
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '201':
+          description: downvote successfullly
+  '/answers/{id}/attention':
+    put:
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '201':
+          description: collect successful
+        '400':
+          description: 'cannot collect this answer, maybe the answer has already deleted'
   '/applicants/resgister':
     post:
       tags:
@@ -2164,7 +3028,7 @@ paths:
         '201':
           description: collect successful
         '400':
-          description: 'cannot collect this job, maybe the job has already deleted'
+          description: 'cannot collect this article, maybe the article has already deleted'
   '/articles':
     post:
       parameters:
@@ -2193,6 +3057,44 @@ paths:
                     $ref: '#/components/schemas/Article'
                   status:
                     $ref: '#/components/schemas/Status'
+  '/articles/{id}/upvote':
+    put:
+      tags:
+        - Article
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '201':
+          description: upvote successfullly
+  '/articles/{id}/downvote':
+    put:
+      tags:
+        - Article
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '201':
+          description: downvote successfullly
   '/articles/{id}/comments':
     post:
       tags:
@@ -2232,6 +3134,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -2247,6 +3167,20 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Comment'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/companies/{id}':
@@ -2499,6 +3433,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -2514,6 +3466,20 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Comment'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/videos/{id}/upvote':
@@ -2703,6 +3669,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: successful
@@ -2718,9 +3702,43 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Comment'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/editorials/{id}/upvote':
+    put:
+      tags:
+        - Editorials
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: editorials id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful
+  '/editorials/{id}/downvote':
     put:
       tags:
         - Editorials
@@ -2764,6 +3782,25 @@ paths:
     get:
       tags:
         - Discover
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: success
@@ -2779,12 +3816,45 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Job'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/job-for-you/campus':
     get:
       tags:
         - Discover
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: success
@@ -2800,12 +3870,45 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Job'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/job-for-you/general':
     get:
       tags:
         - Discover
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: success
@@ -2821,12 +3924,45 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Job'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/home/new':
     get:
       tags:
         - Discover
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: success
@@ -2842,12 +3978,45 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Job'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/home/hot':
     get:
       tags:
         - Discover
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: success
@@ -2863,12 +4032,45 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Job'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/discovery/users':
     get:
       tags:
         - Discover
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: recommend users
@@ -2884,12 +4086,45 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/User'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/discovery/companies':
     get:
       tags:
         - Discover
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: recommend company
@@ -2905,12 +4140,45 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Company'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/disconvery/articles':
     get:
       tags:
         - Discover
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: recommend users
@@ -2926,12 +4194,45 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Article'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/discovery/questions':
     get:
       tags:
         - Discover
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: recommend questions
@@ -2947,12 +4248,45 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Question'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/discovery/jobs':
     get:
       tags:
         - Discover
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: recommend jobs
@@ -2968,12 +4302,45 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Job'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/discovery/videos':
     get:
       tags:
         - Discover
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: recommend jobs
@@ -2989,12 +4356,45 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Video'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/discovery/editorials':
     get:
       tags:
         - Discover
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: recommend jobs
@@ -3010,6 +4410,134 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/schemas/Editorial'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/users/{id}/discovery':
+    get:
+      tags:
+        - Discover
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - job
+              - company
+              - question
+              - answer
+              - article
+              - video
+          description: determine what part of discovery list to return
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return one of the following based on the type parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      companies:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - company
+                          properties:
+                            id:
+                              type: integer
+                            company:
+                              $ref: '#/components/schemas/Company'
+                      jobs:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - job
+                          properties:
+                            id:
+                              type: integer
+                            job:
+                              $ref: '#/components/schemas/Job'
+                      questions:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - questions
+                          properties:
+                            id:
+                              type: integer
+                            question:
+                              $ref: '#/components/schemas/QuestionBasic'
+                      answers:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - answers
+                          properties:
+                            id:
+                              type: integer
+                            answer:
+                              $ref: '#/components/schemas/AnswerBasic'
+                      articles:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - article
+                          properties:
+                            id:
+                              type: integer
+                            article:
+                              $ref: '#/components/schemas/Article'
+                      videos:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - video
+                          properties:
+                            id:
+                              type: integer
+                            video:
+                              $ref: '#/components/schemas/Video'
                   status:
                     $ref: '#/components/schemas/Status'
   '/resumes':
@@ -3120,6 +4648,24 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
         '200':
           description: resumes
@@ -3140,6 +4686,20 @@ paths:
                             type: array
                             items:
                               type: object
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count: 
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/friends/{id}/apply':
@@ -3222,28 +4782,7 @@ components:
           $ref: '#/components/schemas/Status'
     JobSearch:
       type: object
-      required:
-        - page
-        - size
       properties:
-        id:
-          type: integer
-        jobName:
-          type: string
-        companyName:
-          type: string
-        duration:
-          $ref: '#/components/schemas/Duration'
-        jobType:
-          type: integer
-        salaryFloor:
-          type: integer
-        salaryCap:
-          type: integer
-        activate:
-          type: boolean
-        location:
-          $ref: '#/components/schemas/Location'
         industry:
           type: array
           items:
@@ -3252,10 +4791,6 @@ components:
           type: array
           items:
             type: string
-        page:
-          type: integer
-        size:
-          type: integer
     Job:
       type: object
       properties:
@@ -3268,6 +4803,30 @@ components:
           $ref: '#/components/schemas/Organization'
         location:
           type: string
+        type:
+          type: string
+          enum:
+            - full-time
+            - part-time
+            - internship
+        deadLine:
+          type: string
+        job_description:
+          type: string
+        job_duty:
+          type: string
+    JobRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of job
+        organization_id:
+          type: integer
+        location:
+          type: array
+          items:
+            type: integer
         type:
           type: string
           enum:
@@ -3622,14 +5181,12 @@ components:
     JobResponse:
       allOf:
         - $ref: '#/components/schemas/Job'
-        - type: object
-          properties:
+        - properties:
             status:
               $ref: '#/components/schemas/Status'
     Company:
       allOf:
         - $ref: '#/components/schemas/Organization'
-        - type: object
     Application:
       type: object
       required:

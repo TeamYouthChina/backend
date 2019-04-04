@@ -10,13 +10,13 @@ import com.youthchina.domain.tianjian.ComRichText;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class RichTextRequestDTO {
 
     private String braftEditorRaw;
     private String previewText;
+    private Integer compiletype;
 
     public RichTextRequestDTO() {
 
@@ -25,6 +25,7 @@ public class RichTextRequestDTO {
     public RichTextRequestDTO(ComRichText comRichText) {
         this.braftEditorRaw = comRichText.getJsonContent();
         this.previewText = comRichText.getTextContent();
+        this.compiletype = comRichText.getCompileType();
     }
 
     public void setBraftEditorRaw(String braftEditorRaw) {
@@ -80,5 +81,13 @@ public class RichTextRequestDTO {
 
     public String getPreviewText() {
         return previewText;
+    }
+
+    public Integer getCompiletype() {
+        return compiletype;
+    }
+
+    public void setCompiletype(Integer compiletype) {
+        this.compiletype = compiletype;
     }
 }

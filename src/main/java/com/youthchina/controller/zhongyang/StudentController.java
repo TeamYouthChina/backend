@@ -4,14 +4,16 @@ import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
-import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.applicant.*;
 import com.youthchina.dto.application.JobApplyDTO;
+import com.youthchina.dto.util.PageRequest;
+import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/applicants/**")
-public class StudentController extends DomainCRUDController<ApplicantDTO, Student, Integer> {
+public class StudentController extends DomainCRUDController<ApplicantRequestDTO, Student, Integer> {
     private String url;
     private StudentService studentService;
 
@@ -42,13 +44,13 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     }
 
     @Override
-    protected ApplicantDTO DomainToDto(Student domain) {
-        return new ApplicantDTO(domain);
+    protected ApplicantRequestDTO DomainToDto(Student domain) {
+        return new ApplicantRequestDTO(domain);
     }
 
     @Override
-    protected Student DtoToDomain(ApplicantDTO applicantDTO) {
-        return new Student(applicantDTO);
+    protected Student DtoToDomain(ApplicantRequestDTO applicantRequestDTO) {
+        return new Student(applicantRequestDTO);
     }
 
     @Override
@@ -63,7 +65,7 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     }
 
     @PostMapping("/**")
-    public ResponseEntity<?> createStudentInfo(@AuthenticationPrincipal User user, @RequestBody ApplicantDTO applicant) throws NotFoundException{
+    public ResponseEntity<?> createStudentInfo(@AuthenticationPrincipal User user, @RequestBody ApplicantRequestDTO applicant) throws NotFoundException {
         Student student = new Student(applicant);
         student.setId(user.getId());
         Student student1 = studentService.add(student);
@@ -71,7 +73,7 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     }
 
     @PutMapping("/{id}/**")
-    public ResponseEntity<?> updateStudentInfo(@RequestBody ApplicantDTO applicant) throws NotFoundException {
+    public ResponseEntity<?> updateStudentInfo(@RequestBody ApplicantRequestDTO applicant) throws NotFoundException {
         return update(applicant);
     }
 
@@ -87,9 +89,9 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     }
 
     @GetMapping("/{id}/educations")
-    public ResponseEntity<?> getApplicantsEducations(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity<?> getApplicantsEducations(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
         Student student = studentService.get(id);
-        ListResponse listResponse = new ListResponse(new ApplicantResponseDTO(student).getEducations(), "educations");
+        ListResponse listResponse = new ListResponse(pageRequest, student.getEducationInfos().size(), new ApplicantResponseDTO(student).getEducations());
         return ResponseEntity.ok(listResponse);
     }
 
@@ -100,23 +102,23 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
     }
 
     @GetMapping("/{id}/experiences")
-    public ResponseEntity<?> getApplicantsExperiences(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity<?> getApplicantsExperiences(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
         Student student = studentService.get(id);
-        ListResponse listResponse = new ListResponse(new ApplicantResponseDTO(student).getExperiences(), "experiences");
+        ListResponse listResponse = new ListResponse(pageRequest, student.getWorks().size(), new ApplicantResponseDTO(student).getExperiences());
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/certificates")
-    public ResponseEntity<?> getApplicantsCertificates(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity<?> getApplicantsCertificates(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
         Student student = studentService.get(id);
-        ListResponse listResponse = new ListResponse(new ApplicantResponseDTO(student).getCertifications(), "certificates");
+        ListResponse listResponse = new ListResponse(pageRequest, student.getCertificates().size(), new ApplicantResponseDTO(student).getCertifications());
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/extracurriculars")
-    public ResponseEntity<?> getApplicantsExtracurriculars(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity<?> getApplicantsExtracurriculars(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
         Student student = studentService.get(id);
-        ListResponse listResponse = new ListResponse(new ApplicantResponseDTO(student).getExtracurriculars(), "extracurriculars");
+        ListResponse listResponse = new ListResponse(pageRequest, student.getActivities().size(), new ApplicantResponseDTO(student).getExtracurriculars());
         return ResponseEntity.ok(listResponse);
     }
 
@@ -138,7 +140,7 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
         return ResponseEntity.ok(new Response(labelInfos1));
     }
 
-    private ApplicantDTO getDto(Integer id) throws NotFoundException {
+    private ApplicantRequestDTO getDto(Integer id) throws NotFoundException {
         return this.DomainToDto(this.getService().get(id));
     }
 
@@ -151,90 +153,34 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
      * @Date: 2019/2/18
      */
     @GetMapping("/{id}/applications")
-    public ResponseEntity<?> getApplicantsJobApplies(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity<?> getApplicantsJobApplies(@PathVariable Integer id, @AuthenticationPrincipal User user, PageRequest pageRequest) throws NotFoundException, ForbiddenException {
+        if (!user.getId().equals(id)) {
+            //use access control
+            throw new ForbiddenException();
+        }
         List<JobApply> jobApplies = studentService.getJobApplies(id);
         List<JobApplyDTO> jobApplyDTOS = new ArrayList<>();
         for (JobApply jobApply : jobApplies) {
             JobApplyDTO jobApplyDTO = new JobApplyDTO(jobApply);
             jobApplyDTOS.add(jobApplyDTO);
         }
-        return ResponseEntity.ok(new Response(jobApplyDTOS, new StatusDTO(0, "")));
+        return ResponseEntity.ok(new ListResponse());
     }
 
-//    @PostMapping("/{id}/educations")
-//    public ResponseEntity<?> getApplicantsEducation(@RequestBody EducationDTO educationDTO,@AuthenticationPrincipal User user,@PathVariable Integer id) throws NotFoundException{
-//        EducationInfo educationInfo=new EducationInfo(educationDTO);
-//        List<EducationResponseDTO> educationResponseDTOS=new ArrayList<>();
-//        List<EducationInfo> educationInfos=studentService.insertEducation(educationInfo,user.getId());
-//        for(EducationInfo educationInfo1:educationInfos){
-//            EducationResponseDTO educationResponseDTO=new EducationResponseDTO(educationInfo1);
-//            educationResponseDTOS.add(educationResponseDTO);
-//        }
-//        return ResponseEntity.ok(new Response(educationResponseDTOS));
-//    }
-//
-//    @PostMapping("/{id}/experiences")
-//    public ResponseEntity<?> getApplicantsWork(@RequestBody WorkDTO workDTO,@AuthenticationPrincipal User user,@PathVariable Integer id)throws NotFoundException{
-//        Work work=new Work(workDTO);
-//        List<WorkResponseDTO> workResponseDTOS=new ArrayList<>();
-//        List<Work> works=studentService.insertWork(work,user.getId());
-//        for(Work work1:works){
-//            WorkResponseDTO workResponseDTO=new WorkResponseDTO(work1);
-//            workResponseDTOS.add(workResponseDTO);
-//        }
-//        return ResponseEntity.ok(new Response(workResponseDTOS));
-//    }
-//
-//    @PostMapping("/{id}/projects")
-//    public ResponseEntity<?> getApplicantsProject(@RequestBody ProjectDTO projectDTO,@AuthenticationPrincipal User user,@PathVariable Integer id) throws NotFoundException{
-//        Project project=new Project(projectDTO);
-//        List<ProjectResponseDTO> projectResponseDTOS=new ArrayList<>();
-//        List<Project> projects=studentService.insertProject(project,user.getId());
-//        for(Project project1:projects){
-//            ProjectResponseDTO projectResponseDTO=new ProjectResponseDTO(project1);
-//            projectResponseDTOS.add(projectResponseDTO);
-//        }
-//        return ResponseEntity.ok(new Response(projectResponseDTOS));
-//    }
-//
-//    @PostMapping("/{id}/extracurriculars")
-//    public ResponseEntity<?> getApplicantsExtracurriculars(@RequestBody ExtracurricularDTO extracurricularDTO,@AuthenticationPrincipal User user,@PathVariable Integer id)throws NotFoundException{
-//        Activity activity=new Activity(extracurricularDTO);
-//        List<ExtracurricularResponseDTO> extracurricularResponseDTOS=new ArrayList<>();
-//        List<Activity> activities=studentService.insertActivity(activity,user.getId());
-//        for(Activity activity1:activities){
-//            ExtracurricularResponseDTO extracurricularResponseDTO=new ExtracurricularResponseDTO(activity1);
-//            extracurricularResponseDTOS.add(extracurricularResponseDTO);
-//        }
-//        return ResponseEntity.ok(new Response(extracurricularResponseDTOS));
-//
-//    }
-//
-//    @PostMapping("/{id}/certificates")
-//    public ResponseEntity<?> getApplicantsCertificates(@RequestBody CertificateDTO certificateDTO,@AuthenticationPrincipal User user,@PathVariable Integer id)throws NotFoundException{
-//        Certificate certificate=new Certificate(certificateDTO);
-//        List<CertificateResponseDTO> certificateResponseDTOS=new ArrayList<>();
-//        List<Certificate> certificates=studentService.insertCertificate(certificate,user.getId());
-//        for(Certificate certificate1:certificates){
-//            CertificateResponseDTO certificateResponseDTO=new CertificateResponseDTO(certificate1);
-//            certificateResponseDTOS.add(certificateResponseDTO);
-//        }
-//        return ResponseEntity.ok(new Response(certificateResponseDTOS));
-//    }
 
     /**
      * @Description: 实现education的保存操作
-     * @Param: [educationDTOS, user]
+     * @Param: [educationRequestDTOS, user]
      * @return: org.springframework.http.ResponseEntity<?>
      * @Author: Qinghong Wang
      * @Date: 2019/2/25
      */
 
     @RequestMapping(value = "/{id}/educations", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> saveApplicantsEducations(@RequestBody List<EducationDTO> educationDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
+    public ResponseEntity<?> saveApplicantsEducations(@RequestBody List<EducationRequestDTO> educationRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
         List<EducationInfo> educationInfos = new ArrayList<>();
-        for (EducationDTO educationDTO : educationDTOS) {
-            EducationInfo educationInfo = new EducationInfo(educationDTO);
+        for (EducationRequestDTO educationRequestDTO : educationRequestDTOS) {
+            EducationInfo educationInfo = new EducationInfo(educationRequestDTO);
             educationInfos.add(educationInfo);
         }
         List<EducationInfo> educationInfos1 = studentService.insertEducations(educationInfos, user.getId());
@@ -248,41 +194,41 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
 
     /**
      * @Description: 实现work的保存操作
-     * @Param: [workDTOS, user]
+     * @Param: [workRequestDTOS, user]
      * @return: org.springframework.http.ResponseEntity<?>
      * @Author: Qinghong Wang
      * @Date: 2019/2/25
      */
 
     @RequestMapping(value = "/{id}/experiences", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> saveApplicantsWorks(@RequestBody List<WorkDTO> workDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
+    public ResponseEntity<?> saveApplicantsWorks(@RequestBody List<WorkRequestDTO> workRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id, PageRequest pageRequest) throws NotFoundException {
         List<Work> works = new ArrayList<>();
-        for (WorkDTO workDTO : workDTOS) {
-            Work work = new Work(workDTO);
+        for (WorkRequestDTO workRequestDTO : workRequestDTOS) {
+            Work work = new Work(workRequestDTO);
             works.add(work);
         }
         List<Work> works1 = studentService.insertWorks(works, user.getId());
-        List<WorkResponseDTO> workResponseDTOS = new ArrayList<>();
+        List<WorkResponseDTO> workresponsedtos = new ArrayList<>();
         for (Work work : works1) {
             WorkResponseDTO workResponseDTO = new WorkResponseDTO(work);
-            workResponseDTOS.add(workResponseDTO);
+            workresponsedtos.add(workResponseDTO);
         }
-        ListResponse listResponse = new ListResponse(workResponseDTOS, "experiences");
+        ListResponse listResponse = new ListResponse(pageRequest, workresponsedtos.size(), workresponsedtos);
         return ResponseEntity.ok(listResponse);
     }
 
     /**
      * @Description: 实现项目的保存操作
-     * @Param: [projectDTOS, user]
+     * @Param: [projectRequestDTOS, user]
      * @return: org.springframework.http.ResponseEntity<?>
      * @Author: Qinghong Wang
      * @Date: 2019/2/26
      */
     @RequestMapping(value = "/{id}/projects", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> saveApplicantsProjects(@RequestBody List<ProjectDTO> projectDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
+    public ResponseEntity<?> saveApplicantsProjects(@RequestBody List<ProjectRequestDTO> projectRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
         List<Project> projects = new ArrayList<>();
-        for (ProjectDTO projectDTO : projectDTOS) {
-            Project project = new Project(projectDTO);
+        for (ProjectRequestDTO projectRequestDTO : projectRequestDTOS) {
+            Project project = new Project(projectRequestDTO);
             projects.add(project);
         }
         List<Project> projects1 = studentService.insertProjects(projects, user.getId());
@@ -296,16 +242,16 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
 
     /**
      * @Description: 实现课外经历的保存
-     * @Param: [extracurricularDTOS, user]
+     * @Param: [extracurricularRequestDTOS, user]
      * @return: org.springframework.http.ResponseEntity<?>
      * @Author: Qinghong Wang
      * @Date: 2019/2/26
      */
     @RequestMapping(value = "/{id}/extracurriculars", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> saveApplicantsExtracurriculars(@RequestBody List<ExtracurricularDTO> extracurricularDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
+    public ResponseEntity<?> saveApplicantsExtracurriculars(@RequestBody List<ExtracurricularRequestDTO> extracurricularRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
         List<Activity> activities = new ArrayList<>();
-        for (ExtracurricularDTO extracurricularDTO : extracurricularDTOS) {
-            Activity activity = new Activity(extracurricularDTO);
+        for (ExtracurricularRequestDTO extracurricularRequestDTO : extracurricularRequestDTOS) {
+            Activity activity = new Activity(extracurricularRequestDTO);
             activities.add(activity);
         }
         List<Activity> activities1 = studentService.insertActivities(activities, user.getId());
@@ -319,17 +265,17 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
 
     /**
      * @Description: 实现证书信息的保存
-     * @Param: [certificateDTOS, user]
+     * @Param: [certificateRequestDTOS, user]
      * @return: org.springframework.http.ResponseEntity<?>
      * @Author: Qinghong Wang
      * @Date: 2019/2/26
      */
 
     @RequestMapping(value = "/{id}/certificates", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> saveApplicantsCertificates(@RequestBody List<CertificateDTO> certificateDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
+    public ResponseEntity<?> saveApplicantsCertificates(@RequestBody List<CertificateRequestDTO> certificateRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id, PageRequest pageRequest) throws NotFoundException {
         List<Certificate> certificates1 = new ArrayList<>();
-        for (CertificateDTO certificateDTO : certificateDTOS) {
-            Certificate certificate = new Certificate(certificateDTO);
+        for (CertificateRequestDTO certificateRequestDTO : certificateRequestDTOS) {
+            Certificate certificate = new Certificate(certificateRequestDTO);
             certificates1.add(certificate);
         }
         List<Certificate> certificates = studentService.insertCertificates(certificates1, user.getId());
@@ -338,7 +284,7 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
             CertificateResponseDTO certificateResponseDTO = new CertificateResponseDTO(certificate);
             certificateResponseDTOS.add(certificateResponseDTO);
         }
-        ListResponse listResponse = new ListResponse(certificateResponseDTOS, "certificates");
+        ListResponse listResponse = new ListResponse(pageRequest, certificateResponseDTOS.size(), certificateResponseDTOS);
         return ResponseEntity.ok(listResponse);
     }
 
@@ -354,24 +300,217 @@ public class StudentController extends DomainCRUDController<ApplicantDTO, Studen
 
     }
 
-//    @RequestMapping(value = "/{id}/contacts",method ={RequestMethod.POST,RequestMethod.PUT})
-//    public ResponseEntity<?> saveApplicantsContacts(@RequestBody List<ContactDTO> contactDTOS,@AuthenticationPrincipal User user,@PathVariable ("id") Integer id)throws NotFoundException{
-//        List<>
-//    }
-
 
     @GetMapping("/{id}/resumes")
-    public ResponseEntity<?> getApplicantsResumes(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity<?> getApplicantsResumes(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
         List<ResumeJson> resumeJsonList = studentService.selectResumeJsonByStuId(id);
         if (resumeJsonList == null || resumeJsonList.size() == 0) {
             throw new NotFoundException(404, 404, "No Resume available.");
         }
-        List<ResumeResponseDTO> responseDTOList = new ArrayList<>();
+        List<ResumeResponseDTO> resumeResponseDTOList = new ArrayList<>();
         for (ResumeJson resumeJson : resumeJsonList) {
-            responseDTOList.add(new ResumeResponseDTO(resumeJson));
+            resumeResponseDTOList.add(new ResumeResponseDTO(resumeJson));
         }
-        ListResponse listResponse = new ListResponse(responseDTOList, "resumes");
+        ListResponse listResponse = new ListResponse(pageRequest, resumeResponseDTOList.size(), resumeResponseDTOList);
         return ResponseEntity.ok(listResponse);
+    }
+
+    @PostMapping("/{id}/education")
+    public ResponseEntity<?> insertEducation(@PathVariable Integer id, @RequestBody EducationRequestDTO educationRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            EducationInfo educationInfo = new EducationInfo(educationRequestDTO);
+            EducationResponseDTO educationResponseDTO = new EducationResponseDTO(studentService.insertEducation(educationInfo, user.getId()));
+            return ResponseEntity.ok(new Response(educationResponseDTO));
+        } else {
+            throw new ForbiddenException();
+        }
+
+    }
+
+    @PostMapping("/{id}/experience")
+    public ResponseEntity<?> insertWork(@PathVariable Integer id, @RequestBody WorkRequestDTO workRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            Work work = new Work(workRequestDTO);
+            Work work1 = studentService.insertWork(work, user.getId());
+            WorkResponseDTO workResponseDTO = new WorkResponseDTO(work1);
+            return ResponseEntity.ok(workResponseDTO);
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PostMapping("/{id}/project")
+    public ResponseEntity<?> insertProject(@PathVariable Integer id, @RequestBody ProjectRequestDTO projectRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            Project project = new Project(projectRequestDTO);
+            Project project1 = studentService.insertProject(project, user.getId());
+            ProjectResponseDTO projectResponseDTO = new ProjectResponseDTO(project1);
+            return ResponseEntity.ok(projectResponseDTO);
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PostMapping("/{id}/certificate")
+    public ResponseEntity<?> insertCertificate(@PathVariable Integer id, @RequestBody CertificateRequestDTO certificateRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            Certificate certificate = new Certificate(certificateRequestDTO);
+            Certificate certificate1 = studentService.insertCertificate(certificate, user.getId());
+            CertificateResponseDTO certificateResponseDTO = new CertificateResponseDTO(certificate1);
+            return ResponseEntity.ok(certificateResponseDTO);
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PostMapping("/{id}/extracurricular")
+    public ResponseEntity<?> insertExtracurricular(@PathVariable Integer id, @RequestBody ExtracurricularRequestDTO extracurricularRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            Activity activity = new Activity(extracurricularRequestDTO);
+            Activity activity1 = studentService.insertActivity(activity, user.getId());
+            ExtracurricularResponseDTO extracurricularResponseDTO = new ExtracurricularResponseDTO(activity1);
+            return ResponseEntity.ok(extracurricularResponseDTO);
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PostMapping("/{id}/skill")
+    public ResponseEntity<?> insertSkill(@PathVariable Integer id, @RequestBody SkillsRequestDTO skillsRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            AdvantageLabel advantageLabel = new AdvantageLabel(skillsRequestDTO);
+            AdvantageLabel advantageLabel1 = studentService.insertLabel(advantageLabel, user.getId());
+            AdvantageLabelResponseDTO advantageLabelResponseDTO = new AdvantageLabelResponseDTO(advantageLabel1);
+            return ResponseEntity.ok(advantageLabelResponseDTO);
+
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @DeleteMapping("/{id}/educations/{eduId}")
+    public ResponseEntity<?> deleteEducation(@PathVariable("id") Integer id, @PathVariable("eduId") Integer edu_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            studentService.deleteEducation(edu_id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @DeleteMapping("/{id}/projects/{projectId}")
+    public ResponseEntity<?> deleteProject(@PathVariable("id") Integer id, @PathVariable("projectId") Integer proj_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            studentService.deleteProject(proj_id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @DeleteMapping("/{id}/certificates/{certificateId}")
+    public ResponseEntity<?> deleteCertificate(@PathVariable("id") Integer id, @PathVariable("certificateId") Integer certificate_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            studentService.deleteCertificate(certificate_id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @DeleteMapping("/{id}/experiences/{workId}")
+    public ResponseEntity<?> deleteWork(@PathVariable("id") Integer id, @PathVariable("workId") Integer work_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            studentService.deleteWork(work_id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @DeleteMapping("/{id}/extracurriculars/{actId}")
+    public ResponseEntity<?> deleteExtracurricular(@PathVariable("id") Integer id, @PathVariable("actId") Integer act_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            studentService.deleteActivity(act_id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @DeleteMapping("/{id}/skills/{labelId}")
+    public ResponseEntity<?> deleteSkills(@PathVariable("id") Integer id, @PathVariable("labelId") Integer label_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            studentService.deleteLabel(label_id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+
+    @PutMapping("/{id}/education/{eduId}")
+    public ResponseEntity<?> updateEducation(@PathVariable("id") Integer id, @PathVariable("eduId") Integer edu_id, @RequestBody EducationRequestDTO educationRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            EducationInfo educationInfo = new EducationInfo(educationRequestDTO);
+            EducationInfo educationInfo1 = studentService.updateEducationInfo(educationInfo);
+            EducationResponseDTO educationResponseDTO = new EducationResponseDTO(educationInfo1);
+            return ResponseEntity.ok(new Response(educationResponseDTO));
+
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PutMapping("/{id}/project/{projectId}")
+    public ResponseEntity<?> updateProject(@PathVariable("id") Integer id, @PathVariable("projectId") Integer proj_id, @RequestBody ProjectRequestDTO projectRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            Project project = new Project(projectRequestDTO);
+            Project project1 = studentService.updateProject(project);
+            ProjectResponseDTO projectResponseDTO = new ProjectResponseDTO(project1);
+            return ResponseEntity.ok(new Response(projectResponseDTO));
+
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PutMapping("/{id}/work/{workId}")
+    public ResponseEntity<?> updateWork(@PathVariable("id") Integer id, @PathVariable("workId") Integer work_id, @RequestBody WorkRequestDTO workRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            Work work = new Work(workRequestDTO);
+            Work work1 = studentService.updateWork(work);
+            WorkResponseDTO workResponseDTO = new WorkResponseDTO(work1);
+            return ResponseEntity.ok(new Response(workResponseDTO));
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PutMapping("/{id}/certificate/{certificateId}")
+    public ResponseEntity<?> updateCertificate(@PathVariable("id") Integer id, @PathVariable("certificateId") Integer certificate_id, @RequestBody CertificateRequestDTO certificateRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            Certificate certificate = new Certificate(certificateRequestDTO);
+            Certificate certificate1 = studentService.updateCertificate(certificate);
+            CertificateResponseDTO certificateResponseDTO = new CertificateResponseDTO(certificate1);
+            return ResponseEntity.ok(new Response(certificateResponseDTO));
+
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PutMapping("/{id}/extracurricular/{actId}")
+    public ResponseEntity<?> updateExtracurriculars(@PathVariable("id") Integer id, @PathVariable("actId") Integer act_id, @RequestBody ExtracurricularRequestDTO extracurricularRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            Activity activity = new Activity(extracurricularRequestDTO);
+            Activity activity1 = studentService.updateActivity(activity);
+            ExtracurricularResponseDTO extracurricularResponseDTO = new ExtracurricularResponseDTO(activity1);
+            return ResponseEntity.ok(new Response(extracurricularResponseDTO));
+
+        } else {
+            throw new ForbiddenException();
+        }
     }
 
 

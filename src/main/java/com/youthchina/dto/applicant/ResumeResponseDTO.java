@@ -2,6 +2,7 @@ package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.ResumeJson;
 import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,4 +64,6 @@ public class ResumeResponseDTO implements ResponseDTO {
     public void setJsons(List<String> jsons) {
         this.jsons = jsons;
     }
+
+
 }

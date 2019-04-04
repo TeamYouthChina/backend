@@ -2,6 +2,7 @@ package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.LabelInfo;
 import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 
 /**
  * @program: youthchina
@@ -10,6 +11,7 @@ import com.youthchina.dto.ResponseDTO;
  * @create: 2019-03-02 15:26
  **/
 public class SkillsResponseDTO implements ResponseDTO {
+
     private String id;
     private String name;
 
@@ -36,4 +38,6 @@ public class SkillsResponseDTO implements ResponseDTO {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

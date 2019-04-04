@@ -15,10 +15,13 @@ public interface CommentService extends DomainCRUDService<Comment, Integer> {
      */
     List<Comment> getComments(Commentable entity);
 
+    List<Comment> getComments(Commentable entity, Integer start, Integer end);
+
     void isCommentExist(Integer id) throws NotFoundException;
 
     Comment add(Comment comment, Commentable entity) throws NotFoundException;
 
     void delete(Commentable commentable);
 
+    Integer countComments(Commentable entity);
 }

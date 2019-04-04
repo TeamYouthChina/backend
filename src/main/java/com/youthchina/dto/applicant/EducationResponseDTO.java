@@ -2,6 +2,7 @@ package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**
@@ -23,12 +24,11 @@ public class EducationResponseDTO implements ResponseDTO {
     }
 
     public EducationResponseDTO(EducationInfo educationInfo) {
+        this.university=educationInfo.getUniversity().getUnivers_name();
         this.id = educationInfo.getEdu_id();
-        this.university = educationInfo.getEdu_school();
         this.major = educationInfo.getEdu_major();
         this.degree = educationInfo.getDegree().getDegreeChn();
         this.duration = new DurationDTO(educationInfo.getEdu_start(), educationInfo.getEdu_end());
-        this.location = educationInfo.getLocation().getRegion_chn();
 
     }
 
@@ -87,4 +87,5 @@ public class EducationResponseDTO implements ResponseDTO {
     public void setNote(String note) {
         this.note = note;
     }
+
 }

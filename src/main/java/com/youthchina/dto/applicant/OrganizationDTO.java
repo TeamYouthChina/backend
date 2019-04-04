@@ -3,6 +3,9 @@ package com.youthchina.dto.applicant;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Country;
+import com.youthchina.domain.qingyang.Logo;
+
+import java.util.List;
 
 /**
  * Created by zhongyangwu on 12/2/18.
@@ -22,13 +25,22 @@ public class OrganizationDTO {
         if (company == null) return;
         this.id = company.getCompanyId();
         this.name = company.getCompanyName();
-        this.avatarUrl = company.getCompanyLogo();
+        //TODO
+        List<Logo> logoList = company.getLogoList();
+        if(logoList != null && logoList.size() > 0){
+            this.avatarUrl = company.getLogoList().get(0).getDocuLocalId();
+        }
         Location location = company.getLocation();
-        this.location = location == null ? null : location.getRegion_chn(); // 中文名
+        if (location != null) {
+            this.location = location.getRegionName();
+        }
         this.website = company.getCompanyWebsite();
         Country country = company.getCountry();
         this.nation = country == null ? null : country.getCountryChn();// 中文名
         this.note = company.getCompanyIntroduc();
+    }
+
+    public OrganizationDTO() {
     }
 
     public String getLocation() {

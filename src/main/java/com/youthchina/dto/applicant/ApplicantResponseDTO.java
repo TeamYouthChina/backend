@@ -2,6 +2,7 @@ package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -183,4 +184,6 @@ public class ApplicantResponseDTO implements ResponseDTO {
     public void setCertifications(List<CertificateResponseDTO> certifications) {
         this.certifications = certifications;
     }
+
+
 }

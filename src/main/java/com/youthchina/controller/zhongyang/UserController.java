@@ -4,7 +4,6 @@ import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.Qinghong.JobCollect;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.jinhao.Video;
-
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
@@ -119,7 +118,6 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
             case "Question": {
                 List<QuestionResponseDTO> questionResponseDTOS = new ArrayList<>();
                 List<Integer> result = attentionService.getAllIdsOfAttention(new Question(),user_id);
-                List<Question> questions = new ArrayList<>();
                 for (Integer id : result) {
                     Question question = questionService.get(id);
                     QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);

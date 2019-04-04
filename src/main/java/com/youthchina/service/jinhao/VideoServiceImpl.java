@@ -27,6 +27,11 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    public Integer count() {
+        return videoMapper.count();
+    }
+
+    @Override
     @Transactional
     public Video get(Integer id) throws NotFoundException {
         Video video = videoMapper.get(id);
