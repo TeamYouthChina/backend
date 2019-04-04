@@ -39,8 +39,8 @@ public class Location {
     }
 
     
-    public Location(Integer regionId) {
-        this.regionId = regionId;
+    public Location(Integer regionNum) {
+        this.regionNum = regionNum;
     }
 
     public Location() {

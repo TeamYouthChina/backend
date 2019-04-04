@@ -99,10 +99,6 @@ comment '职位基本信息表';
         this.jobDuty = jobRequestDTO.getJob_duty();
         this.jobEndTime = new Date(Long.parseLong(jobRequestDTO.getDeadLine()));
 
-        //TODO
-//        Profession profession = new Profession();
-//        profession.setProfCode("1");
-//        this.setProfession(profession);
         this.setJobProfCode("1");
         this.setJobStartTime(Date.valueOf("2010-01-01"));
         this.setJobHighlight("Highlight:TODO");
@@ -110,8 +106,6 @@ comment '职位基本信息表';
         this.setCvReceiMail("MAIL:TODO");
         this.setCvNameRule("RULE:TODO");
         this.setJobActive(1);
-
-        //TODO LocationList;    jobReqList; industries; logoList;
 
     }
 
