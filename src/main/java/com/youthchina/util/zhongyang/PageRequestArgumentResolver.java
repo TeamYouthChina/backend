@@ -1,6 +1,6 @@
 package com.youthchina.util.zhongyang;
 
-import com.youthchina.domain.zhongyang.PageRequest;
+import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.ClientException;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -32,7 +32,7 @@ public class PageRequestArgumentResolver implements HandlerMethodArgumentResolve
                 pageRequest.setOffset(Integer.valueOf(queryMap.get("limit")[0]));
             }
         } else {
-            return null;
+            return pageRequest;
         }
 
 
