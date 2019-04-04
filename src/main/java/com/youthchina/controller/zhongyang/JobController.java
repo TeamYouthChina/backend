@@ -2,6 +2,7 @@ package com.youthchina.controller.zhongyang;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.qingyang.Job;
+import com.youthchina.domain.zhongyang.PageRequest;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
@@ -112,7 +113,7 @@ public class JobController extends DomainCRUDController<JobDTOInterface, Job, In
     }
 
     @PostMapping("/search")
-    public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, Authentication authentication) throws BaseException {
+    public ResponseEntity<?> search(@RequestBody JobSearchDTO jobSearchDTO, PageRequest pageRequest) throws BaseException {
         Date startDate = null;
         Date endDate = null;
         DurationDTO durationDTO = jobSearchDTO.getDurationDTO();
