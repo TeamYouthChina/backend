@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
  * Created by zhongyangwu on 2/6/19.
  */
 
-/*
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -112,4 +112,3 @@ public class JobControllerTest {
     }
 
 }
-*/
