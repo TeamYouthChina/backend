@@ -1,0 +1,51 @@
+<dataConfig>
+    <dataSource type="JdbcDataSource"
+                driver="com.mysql.jdbc.Driver"
+                url="jdbc:mysql://172.28.1.1:3306/youthchina"
+                user="root"
+                password="rootpass"/>
+
+    <document>
+        <entity name="question"
+                pk="QUES_ID"
+                query="SELECT QUES_ID, QUES_TITLE, QUES_ABBRE FROM COM_QUESTION">
+            <field column="QUES_ID" name="ques_id"/>
+            <field column="QUES_TITLE" name="ques_title"/>
+            <field column="QUES_ABBRE" name="ques_abbre"/>
+        </entity>
+
+        <entity name="user"
+                pk="USER_ID"
+                query="SELECT USER_ID, USER_NAME, USER_GENDER FROM SYS_USER">
+            <field column="USER_ID" name="user_id"/>
+            <field column="USER_NAME" name="user_name"/>
+            <field column="USER_GENDER" name="user_gender"/>
+        </entity>
+
+        <entity name="essay"
+                pk="ESSAY_ID"
+                query="SELECT ESSAY_ID, ESSAY_TITLE, ESSAY_ABBRE FROM COM_ESSAY">
+            <field column="ESSAY_ID" name="essay_id"/>
+            <field column="ESSAY_TITLE" name="essay_title"/>
+            <field column="ESSAY_ABBRE" name="essay_abbre"/>
+        </entity>
+
+        <entity name="video"
+                pk="VIDEO_ID"
+                query="SELECT VIDEO_ID, VIDEO_TITLE, VIDEO_NAME FROM COM_VIDEO">
+            <field column="VIDEO_ID" name="video_id"/>
+            <field column="VIDEO_TITLE" name="video_title"/>
+            <field column="VIDEO_ABBRE" name="video_name"/>
+        </entity>
+
+        <entity name="job"
+                pk="JOB_ID"
+                query="SELECT JOB_ID, JOB_NAME, JOB_TYPE FROM JOB_INFO">
+            <field column="JOB_ID" name="job_id"/>
+            <field column="JOB_NAME" name="job_title"/>
+            <field column="JOB_TYPE" name="job_type"/>
+        </entity>
+
+    </document>
+
+</dataConfig>
