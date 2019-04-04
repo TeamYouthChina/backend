@@ -1,4 +1,4 @@
-package com.youthchina.controller;
+package com.youthchina.Qingyang;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -20,16 +21,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Created by zhongyangwu on 4/4/19.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:recommendation.xml"})
+@DatabaseSetup({"classpath:New_Company_test.xml", "classpath:New_Dictionary_test.xml", "classpath:New_SYS_test.xml"})
 @WebAppConfiguration
-public class HomeControllerTest {
+public class JobControllerTest {
     @Autowired
     private WebApplicationContext context;
 
@@ -48,20 +51,23 @@ public class HomeControllerTest {
         this.mvc = MockMvcBuilders.webAppContextSetup(context).apply(SecurityMockMvcConfigurers.springSecurity()).build();
     }
 
+
     @Test
-    public void getNewJob() throws Exception {
+    public void testSearchJob() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/home/new")
-        ).andDo(print())
-                .andExpect(status().is2xxSuccessful())
+                post(this.urlPrefix + "/jobs/search?page=1&limit=10")
+                        .content("{\n" +
+                                "  \"industry\": [\n" +
+                                "    \"test\",\n" +
+                                "    \"test\"\n" +
+                                "  ]\n" +
+                                "}")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
         ;
     }
 
-    @Test
-    public void getHotJob() throws Exception {
-        this.mvc.perform(
-                get(this.urlPrefix + "/home/hot")
-        ).andDo(print())
-                .andExpect(status().is2xxSuccessful());
-    }
 }
