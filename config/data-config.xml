@@ -8,10 +8,11 @@
     <document>
         <entity name="question"
                 pk="QUES_ID"
-                query="SELECT QUES_ID, QUES_TITLE, QUES_ABBRE FROM COM_QUESTION">
+                query="SELECT QUES_ID, QUES_TITLE, QUES_ABBRE, QUES_BODY FROM COM_QUESTION">
             <field column="QUES_ID" name="ques_id"/>
             <field column="QUES_TITLE" name="ques_title"/>
             <field column="QUES_ABBRE" name="ques_abbre"/>
+            <field column="QUES_BODY" name="ques_body"/>
         </entity>
 
         <entity name="user"
@@ -24,18 +25,34 @@
 
         <entity name="essay"
                 pk="ESSAY_ID"
-                query="SELECT ESSAY_ID, ESSAY_TITLE, ESSAY_ABBRE FROM COM_ESSAY">
+                query="SELECT ESSAY_ID, ESSAY_TITLE, ESSAY_ABBRE, ESSAY_BODY FROM COM_ESSAY">
             <field column="ESSAY_ID" name="essay_id"/>
             <field column="ESSAY_TITLE" name="essay_title"/>
             <field column="ESSAY_ABBRE" name="essay_abbre"/>
+            <field column="ESSAY_BODY" name="essay_body"/>
         </entity>
 
         <entity name="job"
                 pk="JOB_ID"
-                query="SELECT JOB_ID, JOB_NAME, JOB_TYPE FROM JOB_INFO">
+                query="SELECT JOB_ID, JOB_NAME, JOB_DESCRIPTION FROM JOB_INFO">
             <field column="JOB_ID" name="job_id"/>
-            <field column="JOB_NAME" name="job_title"/>
-            <field column="JOB_TYPE" name="job_type"/>
+            <field column="JOB_NAME" name="job_name"/>
+            <field column="JOB_DESCRIPTION" name="job_description"/>
+        </entity>
+
+        <entity name="company"
+                pk="COMPANY_ID"
+                query="SELECT COMPANY_ID, COMPANY_NAME, COMPANY_LOCATION FROM COMPANY_INFO">
+            <field column="COMPANY_ID" name="company_id"/>
+            <field column="COMPANY_NAME" name="company_name"/>
+            <field column="COMPANY_LOCATION" name="company_location"/>
+        </entity>
+
+        <entity name="comment"
+                pk="COMMENT_ID"
+                query="SELECT COMMENT_ID, COMMENT_CONTENT FROM COM_COMMENT">
+            <field column="COMMENT_ID" name="comment_id"/>
+            <field column="COMMENT_CONTENT" name="comment_content"/>
         </entity>
 
         <entity name="company"
@@ -60,6 +77,13 @@
             <field column="VIDEO_NAME" name="video_name"/>
             <field column="VIDEO_TITLE" name="video_title"/>
             <field column="VIDEO_DESCRIPTION" name="video_de"/>
+        </entity>
+
+        <entity name="answer"
+                pk="ANSWER_ID"
+                query="SELECT ANSWER_ID, VIDEO_NAME,  FROM COM_ANSWER">
+            <field column="ANSWER_ID" name="answer_id"/>
+            <field column="ANSWER_BODY" name="answer_body"/>
         </entity>
 
     </document>

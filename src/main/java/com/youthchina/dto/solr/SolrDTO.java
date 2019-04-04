@@ -1,13 +1,20 @@
 package com.youthchina.dto.solr;
 
-import org.apache.solr.client.solrj.beans.Field;
-
 public class SolrDTO {
 
-    @Field(value="id")
-    private Integer id;
+    private Object obejct;
+    private String type;
 
-    public void setId(Integer id){this.id =id;}
+    public SolrDTO(String type, Object obejct){
+        this.obejct = obejct;
+        this.type = type;
+    }
 
-    public Integer getId(){ return this.id; }
+    public void setObejct(Object obejct){this.obejct =obejct;}
+
+    public Object getObejct(){ return this.obejct; }
+
+    public void setType(String type){this.type =type;}
+
+    public String getType(){ return this.type; }
 }

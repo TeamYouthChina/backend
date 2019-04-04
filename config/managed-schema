@@ -114,28 +114,31 @@
     <!-- docValues are enabled by default for long type so we don't need to index the version field  -->
     <field name="_version_" type="plong" indexed="false" stored="false"/>
     1
-
     <field name="ques_id" type="string" indexed="true" stored="true" />
     <field name="ques_title" type="string" indexed="true" stored="true" />
     <field name="ques_abbre" type="string" indexed="true" stored="true" />
+    <field name="ques_body" type="string" indexed="true" stored="true" />
     <field name="user_id" type="string" indexed="true" stored="true" />
     <field name="user_name" type="string" indexed="true" stored="true" />
-    <field name="user_gender" type="string" indexed="true" stored="true" />
+    <field name="user_phone" type="string" indexed="true" stored="true" />
     <field name="essay_id" type="string" indexed="true" stored="true" />
     <field name="essay_title" type="string" indexed="true" stored="true" />
     <field name="essay_abbre" type="string" indexed="true" stored="true" />
+    <field name="essay_body" type="string" indexed="true" stored="true" />
     <field name="video_id" type="string" indexed="true" stored="true" />
-    <field name="video_name" type="string" indexed="true" stored="true" />
     <field name="video_title" type="string" indexed="true" stored="true" />
+    <field name="video_name" type="string" indexed="true" stored="true" />
+    <field name="video_description" type="string" indexed="true" stored="true" />
     <field name="job_id" type="string" indexed="true" stored="true" />
-    <field name="job_title" type="string" indexed="true" stored="true" />
-    <field name="job_type" type="string" indexed="true" stored="true" />
+    <field name="job_name" type="string" indexed="true" stored="true" />
+    <field name="job_description" type="string" indexed="true" stored="true" />
     <field name="company_id" type="string" indexed="true" stored="true" />
     <field name="company_name" type="string" indexed="true" stored="true" />
     <field name="company_location" type="string" indexed="true" stored="true" />
     <field name="comment_id" type="string" indexed="true" stored="true" />
     <field name="comment_content" type="string" indexed="true" stored="true" />
-
+    <field name="answer_id" type="string" indexed="true" stored="true" />
+    <field name="answer_body" type="string" indexed="true" stored="true" />
 
     <field name="_root_" type="string" indexed="true" stored="false" docValues="false" />
     <field name="_text_" type="text_general" indexed="true" stored="false" multiValued="true"/>
