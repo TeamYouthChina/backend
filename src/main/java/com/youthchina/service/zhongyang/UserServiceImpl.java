@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,12 +31,23 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User get(Integer id) {
-        return mapper.findOne(id);
+        User user = mapper.findOne(id);
+        if(user != null) {
+            user.setRole(mapper.getRoles(user.getId()));
+        }
+        return user;
     }
 
     @Override
     public List<User> get(List<Integer> id) {
-        return mapper.findAll(id);
+        List<User> result = new ArrayList<>();
+        for (Integer i : id) {
+            User user = get(i);
+            if (user != null) {
+                result.add(user);
+            }
+        }
+        return result;
     }
 
     @Override
@@ -53,6 +65,7 @@ public class UserServiceImpl implements UserService {
     public User add(User user) {
         encryptPassword(user); //encryptPassword
         mapper.insert(user);
+        mapper.setRole(user.getId(), user.getRole());
         return mapper.findOne(user.getId());
     }
 

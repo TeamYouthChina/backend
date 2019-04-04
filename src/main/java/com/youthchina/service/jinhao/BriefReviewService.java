@@ -7,4 +7,5 @@ import com.youthchina.service.DomainCRUDService;
 
 public interface BriefReviewService extends DomainCRUDService<BriefReview, Integer> {
     void isBriefReviewExist(Integer id) throws NotFoundException;
+    Integer count();
 }

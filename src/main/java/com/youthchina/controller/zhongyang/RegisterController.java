@@ -11,14 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by zhongyangwu on 2/10/19.
  */
 @RestController
-@RequestMapping("")
 public class RegisterController {
 
     UserService userService;
@@ -29,7 +27,7 @@ public class RegisterController {
     }
 
     @PostMapping("${web.url.prefix}/applicants/register")
-    public ResponseEntity register(@RequestBody RegisterUserDTO registerUser) throws ClientException, NotFoundException{
+    public ResponseEntity register(@RequestBody RegisterUserDTO registerUser) throws ClientException, NotFoundException {
         User user = new User(registerUser);
         user.setRole(Role.APPLICANT);
         if (userService.canRegister(user)) {

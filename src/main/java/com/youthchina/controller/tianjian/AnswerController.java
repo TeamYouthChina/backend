@@ -29,7 +29,9 @@ import java.util.List;
 public class AnswerController {
     @Autowired
     private AnswerServiceImpl answerService;
+    @Autowired
     private CommentServiceImpl commentService;
+    @Autowired
     private EvaluateServiceImpl evaluateService;
 
     @GetMapping("/{id}")
@@ -65,8 +67,7 @@ public class AnswerController {
 
     @PostMapping("/{id}/comments")
     public ResponseEntity addAnswerComment(@PathVariable Integer id, @RequestBody CommentRequestDTO commentRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        Comment comment = new Comment();
-        comment.setContent(commentRequestDTO.getBody().toString());
+        Comment comment = new Comment(commentRequestDTO);
         comment.setUser(user);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comment.setPubTime(time);
@@ -102,6 +103,13 @@ public class AnswerController {
     public ResponseEntity addUpvote(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         Answer answer =answerService.get(id);
         evaluateService.upvote(answer, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
+    }
+
+    @PutMapping ("/{id}/downvote")
+    public ResponseEntity addDownvote(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
+        Answer answer =answerService.get(id);
+        evaluateService.downvote(answer, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 

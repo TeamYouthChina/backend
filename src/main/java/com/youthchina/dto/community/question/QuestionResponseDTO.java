@@ -1,7 +1,7 @@
 package com.youthchina.dto.community.question;
 
-import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.domain.jinhao.Question;
 import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.community.answer.AnswerBasicDTO;
 import com.youthchina.dto.security.UserDTO;
@@ -37,9 +37,9 @@ public class QuestionResponseDTO implements ResponseDTO, QuestionDTO {
         this.is_anonymous = (question.getIsAnony()==1 ? true : false);
         this.create_at = question.getPubTime();
         this.modified_at = question.getEditTime();
-        this.rela_type = question.getRela_type();
+        this.rela_type = question.getRelaType();
         this.answers = new ArrayList<AnswerBasicDTO>();
-        this.rela_id = question.getRela_id();
+        this.rela_id = question.getRelaId();
         if(question.getAnswers() != null) {
             for(Answer answer : question.getAnswers()) {
                 this.answers.add(new AnswerBasicDTO(answer));

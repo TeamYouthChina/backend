@@ -66,15 +66,17 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public BriefReview update(BriefReview briefReview) throws NotFoundException {
         isBriefReviewExist(briefReview.getId());
         briefReviewMapper.update(briefReview);
+        BriefReview briefReview1 = get(briefReview.getId());
+        briefReview.getBody().setTextId(briefReview1.getBody().getTextId());
         richTextService.updateComRichText(briefReview.getBody());
-        return  briefReview;
+        return  get(briefReview.getId());
     }
 
     @Override
     @Transactional
     public BriefReview add(BriefReview entity) {
-        briefReviewMapper.add(entity);
         richTextService.addComRichText(entity.getBody());
+        briefReviewMapper.add(entity);
         return entity;
     }
 
@@ -83,5 +85,10 @@ public class BriefReviewServiceImplement implements BriefReviewService {
         if(briefReviewMapper.checkIfBriefReviewExist(id) == null){
             throw new NotFoundException(404,404,"没有找到这个短评");
         }
+    }
+
+    @Override
+    public Integer count() {
+        return briefReviewMapper.count();
     }
 }

@@ -1,11 +1,39 @@
 package com.youthchina.tianjian;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
+import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.dto.util.RichTextRequestDTO;
+import com.youthchina.util.AuthGenerator;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-/*
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:answers.xml", "classpath:comments.xml", "classpath:users.xml"})
+@DatabaseSetup({"classpath:New_Community_test.xml"})
+@DatabaseSetup({"classpath:sys.xml"})
 @WebAppConfiguration
 public class AnswerControllerTest {
 
@@ -31,8 +59,8 @@ public class AnswerControllerTest {
                         .with(authGenerator.authentication())
 
         )
-                .andDo(print());
-        // .andExpect(content().json("{\"content\":{\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"这是第一个回答\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"is_anonymous\":false,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\",\"question\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"title\":\"第一个问题\",\"is_anonymous\":true,\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"rela_type\":1,\"rela_id\":3,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"Body of the question 1 but42\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"Abbreviation of the question 1 but 42\",\"resourceIdList\":[]}},\"id\":1},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andDo(print())
+           .andExpect(content().json("{\"content\":{\"body\":{\"braftEditorRaw\":{\"resourceIdList\":[],\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要做的，就是保持住这个地位。但技术不是静止不动的，不断有新的技术生长出来，在成千上万种技术中，有一种会长成参天大树，利润无比丰厚，取代原来的技术平台，成为新的主流趋势。到了今天，微软在互联网时代江河日下，谷歌和facebook大肆收购，花上百亿美元去买下新兴的技术，为的是什么？就是在押宝呀。技术在不断向前升级，哪一个方向才是未来的主流趋势呢？没有人知道。对于腾讯来说，也是一样的。小马哥每天都在为这件事情而焦虑。截至目前，在国内，押中两次宝的就只有腾讯和阿里。阿里押中了淘宝和支付宝，腾讯押中了QQ和微信。在移动互联网时代，腾讯可以稍稍松一口气了，但是在下一个主流技术趋势到来的时候，还有这个好运气么？>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\"},\"previewText\":\"在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要做的，就是保持住这个地位。但技术不是静止不动的，不断有新的技术生长出来，在成千上万种技术中，有一种会长成参天大树，利润无比丰厚，取代原来的技术平台，成为新的主流趋势。到了今天，微软在互联网时代江河日下，谷歌和facebook大肆收购，花上百亿美元去买下新兴的技术，为的是什么？就是在押宝呀。技术在不断向前升级，哪一个方向才是未来的主流趋势呢？没有人知道。对于腾讯来说，也是一样的。小马哥每天都在为这件事情而焦虑。截至目前，在国内，押中两次宝的就只有腾讯和阿里。阿里押中了淘宝和支付宝，腾讯押中了QQ和微信。在移动互联网时代，腾讯可以稍稍松一口气了，但是在下一个主流技术趋势到来的时候，还有这个好运气么？\",\"compiletype\":1},\"is_anonymous\":false,\"creator\":{\"id\":5,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"modified_at\":\"2018-02-03 00:00:00.0\",\"create_at\":\"2018-02-03 00:00:00.0\",\"question\":{\"id\":1,\"creator\":{\"id\":1,\"username\":null,\"email\":null,\"phonenumber\":null,\"register_date\":null,\"firstName\":null,\"lastName\":null,\"gender\":null,\"nation\":null,\"avatar_url\":null,\"role\":null,\"age\":null},\"title\":\"腾讯好么？\",\"is_anonymous\":true,\"create_at\":\"2019-01-01T00:00:00.000+0000\",\"modified_at\":\"2019-01-01T00:00:00.000+0000\",\"rela_type\":1,\"rela_id\":37,\"body\":{\"braftEditorRaw\":{\"resourceIdList\":[],\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<asdasd>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\"},\"previewText\":\"asdasd\",\"compiletype\":1}},\"id\":1},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
 
     }
 
@@ -40,41 +68,18 @@ public class AnswerControllerTest {
     public void testUpdateAnswer() throws Exception {
         SimpleAnswerRequestDTO simpleAnswerDTO = new SimpleAnswerRequestDTO();
         simpleAnswerDTO.setIs_anonymous(true);
-        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
-        //language=JSON
-        String json = "{\n" +
-                "  \"braftEditorRaw\":{\n" +
-                "    \"blocks\": [\n" +
-                "      {\n" +
-                "        \"key\":\"dtj4a\",\n" +
-                "        \"text\":\"qweertyuiop\",\n" +
-                "        \"type\":\"unstyled\",\n" +
-                "        \"depth\":0,\n" +
-                "        \"inlineStyleRanges\": [],\n" +
-                "        \"entityRanges\": [],\n" +
-                "        \"data\":{\n" +
-                "        }\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"entityMap\":{\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"previewText\":null,\n" +
-                "  \"resourceIdList\": []\n" +
-                "}";
-        try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
-            System.out.println(richTextDTO);
-        } catch (IOException e) {
-            Assert.fail();
-        }
+        String json = "";
+        String pre = "pre";
+        RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
+        richTextDTO.setBraftEditorRaw(json);
+        richTextDTO.setPreviewText(pre);
+        richTextDTO.setCompiletype(1);
 
         simpleAnswerDTO.setBody(richTextDTO);
-
-
+        simpleAnswerDTO.setIs_anonymous(false);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String searchJson = ow.writeValueAsString(simpleAnswerDTO);
+        String searchJson = ow.writeValueAsString(simpleAnswerDTO);
         this.mvc.perform(
                 put(this.urlPrefix + "/answers/1")
                         .with(authGenerator.authentication())
@@ -96,41 +101,12 @@ public class AnswerControllerTest {
 
     @Test
     public void testAddAnswerComment() throws Exception {
-        SimpleAnswerRequestDTO simpleAnswerDTO = new SimpleAnswerRequestDTO();
-        RichTextResponseDTO richTextDTO = new RichTextResponseDTO();
-        //language=JSON
-        String json = "{\n" +
-                "  \"braftEditorRaw\":{\n" +
-                "    \"blocks\": [\n" +
-                "      {\n" +
-                "        \"key\":\"dtj4a\",\n" +
-                "        \"text\":\"yes 2/24/2019\",\n" +
-                "        \"type\":\"unstyled\",\n" +
-                "        \"depth\":0,\n" +
-                "        \"inlineStyleRanges\": [],\n" +
-                "        \"entityRanges\": [],\n" +
-                "        \"data\":{\n" +
-                "        }\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"entityMap\":{\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"previewText\":null,\n" +
-                "  \"resourceIdList\": []\n" +
-                "}";
-        try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextResponseDTO.class);
-            System.out.println(richTextDTO);
-        } catch (IOException e) {
-            Assert.fail();
-        }
-
-        simpleAnswerDTO.setBody(richTextDTO);
-        simpleAnswerDTO.setIs_anonymous(false);
+        CommentRequestDTO commentRequestDTO = new CommentRequestDTO();
+        commentRequestDTO.setBody("qqqqq");
+        commentRequestDTO.setIs_anonymous(true);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String addJson = ow.writeValueAsString(simpleAnswerDTO);
+        String addJson = ow.writeValueAsString(commentRequestDTO);
 
         this.mvc.perform(
                 post(this.urlPrefix + "/answers/1/comments")
@@ -154,6 +130,17 @@ public class AnswerControllerTest {
     }
 
     @Test
+    public void testAddDownvote() throws Exception {
+        this.mvc.perform(
+                put(this.urlPrefix + "/answers/1/downvote")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
+    @Test
     public void testGetAllComments() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/answers/1/comments")
@@ -161,7 +148,7 @@ public class AnswerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"good answer1\",\"resourceIdList\":[]},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false},{\"id\":3,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"good answer3\",\"resourceIdList\":[]},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false},{\"id\":5,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"good answer5\",\"resourceIdList\":[]},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"comments\":[]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
-}*/
+}

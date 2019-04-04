@@ -1,8 +1,5 @@
 package com.youthchina.domain.tianjian;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-
 import java.sql.Timestamp;
 
 public class ComEssayReply {

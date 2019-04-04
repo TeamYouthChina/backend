@@ -2,6 +2,7 @@ package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Activity;
 import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**

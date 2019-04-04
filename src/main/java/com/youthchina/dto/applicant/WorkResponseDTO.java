@@ -2,6 +2,7 @@ package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Work;
 import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**
@@ -26,7 +27,7 @@ public class WorkResponseDTO implements ResponseDTO {
         this.employer = work.getWork_company();
         this.position = work.getWork_position();
         this.duration = new DurationDTO(work.getWork_start_time(), work.getWork_end_time());
-        this.location = work.getLocation().getRegion_chn();
+        this.location = work.getLocation().getRegionName();
 
     }
 
@@ -77,4 +78,6 @@ public class WorkResponseDTO implements ResponseDTO {
     public void setNote(String note) {
         this.note = note;
     }
+
+
 }

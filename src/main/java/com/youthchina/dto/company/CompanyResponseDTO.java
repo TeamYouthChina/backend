@@ -3,12 +3,15 @@ package com.youthchina.dto.company;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Country;
+import com.youthchina.domain.qingyang.Logo;
+
+import java.util.List;
 
 /**
  * @author: Qingyang Zhao
  * @create: 2019-02-24
  **/
-public class CompanyResponseDTO {
+public class CompanyResponseDTO implements CompanyDTOInterface{
     private Integer id;
     private String name;
     private String avatarUrl;
@@ -20,10 +23,13 @@ public class CompanyResponseDTO {
     public CompanyResponseDTO(Company company) {
         this.id = company.getCompanyId();
         this.name = company.getCompanyName();
-        this.avatarUrl = company.getCompanyLogo();
+        List<Logo> logoList = company.getLogoList();
+        if(logoList != null && logoList.size() > 0){
+            this.avatarUrl = company.getLogoList().get(0).getDocuLocalId();
+        }
         Location location = company.getLocation();
         if (location != null) {
-            this.location = location.getRegion_chn();
+            this.location = location.getRegionName();
         }
         Country country = company.getCountry();
         if (country != null) {

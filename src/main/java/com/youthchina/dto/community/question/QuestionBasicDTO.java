@@ -31,8 +31,8 @@ public class QuestionBasicDTO implements QuestionDTO{
         this.is_anonymous = (question.getIsAnony()==1 ? true : false);
         this.create_at = question.getPubTime();
         this.modified_at = question.getEditTime();
-        this.rela_type = question.getRela_type();
-        this.rela_id = question.getRela_id();
+        this.rela_type = question.getRelaType();
+        this.rela_id = question.getRelaId();
     }
 
     public QuestionBasicDTO(){}

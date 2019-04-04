@@ -11,14 +11,14 @@ public interface FriendsService {
      * parameter ComFriendRelation comfriendrelation, Integer own_id
      * return 0 or 1;
      * */
-    public int saveFriend(ComFriendRelation comFriendRelation, Integer own_Id);
+    public int saveFriend(ComFriendRelation comFriendRelation);
 
     /*
      * 删除好友关系
      * parameter ComFriendRelation comfriendrelation, Integer own_id
      * return 0 or 1;
      * */
-    public int deleteFriend(ComFriendRelation comFriendRelation, Integer own_Id);
+    public int deleteFriend(ComFriendRelation comFriendRelation);
 
     /*
      * 通过id获取他的所有好友关系

@@ -1,7 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
 import com.youthchina.domain.qingyang.Degree;
-import com.youthchina.dto.applicant.EducationDTO;
+import com.youthchina.dto.applicant.EducationRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -9,29 +9,31 @@ import java.util.Date;
 public class EducationInfo {
     private Integer edu_id;
     private com.youthchina.domain.qingyang.Degree degree;
-    private String edu_school;
-    private String edu_school_country;
-    private Location location;
+    private University university;
+//    private Location location;
     private String edu_major;
     private String edu_college;
     private Float edu_gpa;
+    private Diploma diploma;
     private Date edu_start;
     private Date edu_end;
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public EducationInfo(EducationDTO educationDTO) {
-        this.edu_school = educationDTO.getUniversity();
-        this.edu_major = educationDTO.getMajor();
-        this.degree = new Degree();
-        this.degree.setDegreeNum(Integer.parseInt(educationDTO.getDegree()));
-        this.edu_start = educationDTO.getDuration().getBegin();
-        this.edu_end = educationDTO.getDuration().getEnd();
-        this.location = new Location();
-        this.location.setNation_code(educationDTO.getLocation().getNation_code());
-        this.location.setRegion_num(Integer.parseInt(educationDTO.getLocation().getLocation_code()));
-        this.edu_school_country = educationDTO.getLocation().getNation_code();
+    public EducationInfo(EducationRequestDTO educationRequestDTO) {
+        this.edu_id=educationRequestDTO.getId();
+        this.university=new University();
+        university.setUnivers_id(educationRequestDTO.getUniversity_id());
+        this.edu_major= educationRequestDTO.getMajor();
+        this.degree=new Degree();
+        this.degree.setDegreeNum(Integer.parseInt(educationRequestDTO.getDegree()));
+        this.edu_start= educationRequestDTO.getDuration().getBegin();
+        this.edu_end= educationRequestDTO.getDuration().getEnd();
+//        this.location=new Location();
+//        this.location.setNation_code(educationRequestDTO.getLocation().getNation_code());
+//        this.location.setRegion_num(Integer.parseInt(educationRequestDTO.getLocation().getLocation_code()));
+
 
         //fix location
         //空值的设置
@@ -57,29 +59,14 @@ public class EducationInfo {
         this.degree = degree;
     }
 
-    public String getEdu_school() {
-        return edu_school;
-    }
 
-    public void setEdu_school(String edu_school) {
-        this.edu_school = edu_school;
-    }
-
-    public String getEdu_school_country() {
-        return edu_school_country;
-    }
-
-    public void setEdu_school_country(String edu_school_country) {
-        this.edu_school_country = edu_school_country;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
+//    public Location getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(Location location) {
+//        this.location = location;
+//    }
 
     public String getEdu_major() {
         return edu_major;
@@ -143,5 +130,21 @@ public class EducationInfo {
 
     public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
+    }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
+    }
+
+    public Diploma getDiploma() {
+        return diploma;
+    }
+
+    public void setDiploma(Diploma diploma) {
+        this.diploma = diploma;
     }
 }

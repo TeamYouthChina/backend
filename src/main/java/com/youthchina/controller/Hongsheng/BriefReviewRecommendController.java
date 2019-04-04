@@ -1,4 +1,4 @@
-package com.youthchina.controller.Hongsheng;
+/*package com.youthchina.controller.Hongsheng;
 
 import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.dto.Response;
@@ -43,3 +43,4 @@ public class BriefReviewRecommendController {
             return ResponseEntity.ok(new Response(map, new StatusDTO(400,"fail")));
     }
 }
+*/

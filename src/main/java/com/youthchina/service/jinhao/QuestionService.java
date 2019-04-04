@@ -14,4 +14,5 @@ public interface QuestionService extends DomainCRUDService<Question, Integer> {
      * @throws NotFoundException
      */
     Question getBasicQuestion(Integer id) throws NotFoundException;
+    Integer count();
 }

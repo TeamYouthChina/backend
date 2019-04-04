@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.qingyang.CompanyEmployeeMapper">
+    <resultMap id="companyEmployee" type="com.youthchina.domain.qingyang.CompanyEmployee">
+        <id property="employeeId" column="EMPLOYEE_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="companyId" column="COMPANY_ID"/>
+        <result property="workStartTime" column="WORK_START_TIME"/>
+        <result property="workEndTime" column="WORK_END_TIME"/>
+    </resultMap>
+
+    <insert id="insertCompanyEmployee" parameterType="com.youthchina.domain.qingyang.CompanyEmployee"
+            useGeneratedKeys="true" keyProperty="employeeId">
+        INSERT INTO COMPANY_EMPLOYEE
+        (   USER_ID,    COMPANY_ID,     WORK_START_TIME,  WORK_END_TIME,
+            IS_DELETE,  IS_DELETE_TIME)
+        VALUES
+        (   #{userId},  #{companyId},   #{workStartTime}, #{workEndTime},
+            0,  NULL)
+    </insert>
+
+    <update id="updateCompanyEmployee" parameterType="com.youthchina.domain.qingyang.CompanyEmployee"
+            keyProperty="employeeId">
+        UPDATE COMPANY_EMPLOYEE
+        SET
+            USER_ID = #{userId},
+            COMPANY_ID = #{companyId},
+            WORK_START_TIME = #{workStartTime},
+            WORK_END_TIME = #{workEndTime}
+        WHERE
+            EMPLOYEE_ID = #{employeeId}
+            AND IS_DELETE = 0
+    </update>
+
+    <update id="deleteCompanyEmployee" parameterType="java.lang.Integer">
+        UPDATE COMPANY_EMPLOYEE         SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
+        WHERE EMPLOYEE_ID = #{id}
+    </update>
+
+    <sql id="companyEmployeeSelect">
+
+    </sql>
+
+    <select id="getCompanyEmployee" resultMap="companyEmployee" parameterType="java.lang.Integer">
+        SELECT *
+        FROM COMPANY_EMPLOYEE
+        WHERE
+            EMPLOYEE_ID = #{id}
+    </select>
+</mapper>
