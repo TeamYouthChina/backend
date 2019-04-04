@@ -213,7 +213,7 @@ public class ApplicantControllerTest {
 
     /**
     * @Description: 通过user_id对于所有该用户下所有职位申请信息测试的完成
-    * @Param: []
+    * param: []
     * @return: void
     * @Author: Qinghong Wang
     * @Date: 2019/2/18
