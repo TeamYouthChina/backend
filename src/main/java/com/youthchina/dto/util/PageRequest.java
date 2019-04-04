@@ -9,7 +9,7 @@ public class PageRequest implements Pagination {
     private int offset;
 
     public PageRequest() {
-        this.limit = Integer.MAX_VALUE;
+        this.limit = Integer.MAX_VALUE - 1;
         this.offset = 0;
     }
 

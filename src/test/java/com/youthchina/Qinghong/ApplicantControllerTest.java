@@ -97,7 +97,7 @@ public class ApplicantControllerTest {
     @Test
     public void testGetEducations() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/10/educations")
+                get(this.urlPrefix + "/applicants/10/educations?limit=0&offset=0")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())

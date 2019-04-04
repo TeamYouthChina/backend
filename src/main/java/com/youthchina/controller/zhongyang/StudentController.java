@@ -91,13 +91,20 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
     @GetMapping("/{id}/educations")
     public ResponseEntity<?> getApplicantsEducations(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
         Student student = studentService.get(id);
-        ListResponse listResponse = new ListResponse(pageRequest, student.getEducationInfos().size(), new ApplicantResponseDTO(student).getEducations());
+        List<EducationResponseDTO> dtos = new ApplicantResponseDTO(student).getEducations();
+        List<EducationResponseDTO> result =dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
+        ListResponse listResponse = new ListResponse(pageRequest, student.getEducationInfos().size(),result);
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/projects")
-    public ResponseEntity<?> getApplicantsProjects(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity<?> getApplicantsProjects(@PathVariable Integer id,PageRequest pageRequest) throws NotFoundException {
         Student student = studentService.get(id);
+        List<ProjectResponseDTO> dtos=new ApplicantResponseDTO(student).getProjects();
+        List<ProjectResponseDTO> result=new ArrayList<>();
+        for(int i = pageRequest.getStart(); i < Math.min(pageRequest.getEnd() + 1, dtos.size()); i++){
+            result.add(dtos.get(i));
+        }
         return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getProjects()));
     }
 
