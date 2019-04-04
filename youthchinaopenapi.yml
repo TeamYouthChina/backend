@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.5.3
+  version: 1.5.4
   title: YouthChina
   license:
     name: MIT
@@ -4782,28 +4782,7 @@ components:
           $ref: '#/components/schemas/Status'
     JobSearch:
       type: object
-      required:
-        - page
-        - size
       properties:
-        id:
-          type: integer
-        jobName:
-          type: string
-        companyName:
-          type: string
-        duration:
-          $ref: '#/components/schemas/Duration'
-        jobType:
-          type: integer
-        salaryFloor:
-          type: integer
-        salaryCap:
-          type: integer
-        activate:
-          type: boolean
-        location:
-          $ref: '#/components/schemas/Location'
         industry:
           type: array
           items:
@@ -4812,10 +4791,6 @@ components:
           type: array
           items:
             type: string
-        page:
-          type: integer
-        size:
-          type: integer
     Job:
       type: object
       properties:
