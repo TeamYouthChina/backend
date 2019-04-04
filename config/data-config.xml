@@ -16,10 +16,10 @@
 
         <entity name="user"
                 pk="USER_ID"
-                query="SELECT USER_ID, USER_NAME, USER_GENDER FROM SYS_USER">
+                query="SELECT USER_ID, USER_NAME, USER_PHONE FROM SYS_USER">
             <field column="USER_ID" name="user_id"/>
             <field column="USER_NAME" name="user_name"/>
-            <field column="USER_GENDER" name="user_gender"/>
+            <field column="USER_PHONE" name="user_phone"/>
         </entity>
 
         <entity name="essay"
@@ -44,6 +44,14 @@
             <field column="JOB_ID" name="job_id"/>
             <field column="JOB_NAME" name="job_title"/>
             <field column="JOB_TYPE" name="job_type"/>
+        </entity>
+
+        <entity name="company"
+                pk="COMPANY_ID"
+                query="SELECT COMPANY_ID, COMPANY_NAME, COMPANY_LOCATION FROM COMPANY_INFO">
+            <field column="COMPANY_ID" name="company_id"/>
+            <field column="COMPANY_NAME" name="company_name"/>
+            <field column="COMPANY_LOCATION" name="company_location"/>
         </entity>
 
     </document>

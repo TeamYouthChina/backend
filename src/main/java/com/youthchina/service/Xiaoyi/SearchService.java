@@ -7,6 +7,7 @@ import com.youthchina.domain.jinhao.Video;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.solr.SolrDTO;
 
 import java.util.List;
@@ -17,19 +18,19 @@ import java.util.List;
 
 public interface SearchService<T> {
 
-    List<ComEssay> essaysearch(String http);
+    List<ComEssay> essaySearch(String http);
 
-    List<Question> questionsearch(String http);
+    List<Question> questionSearch(String http);
 
-    List<Company> companysearch(String http);
+    List<Company> companySearch(String http);
 
-    List<T> multiplesearch(String http);
+    List<T> multipleSearch(String http);
 
-    List<Job> jobsearch(String http);
+    List<Job> jobSearch(String http);
 
-    List<Comment> commmentsearch(String http);
+    List<Comment> commmentSearch(String http);
 
-    List<Video> videosearch(String http);
+    List<Video> videoSearch(String http);
 
-    List<SolrDTO> usersearch(String http);
+    List<User> userSearch(String http);
 }
