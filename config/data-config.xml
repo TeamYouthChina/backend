@@ -8,26 +8,28 @@
     <document>
         <entity name="question"
                 pk="QUES_ID"
-                query="SELECT QUES_ID, QUES_TITLE, QUES_ABBRE FROM COM_QUESTION">
+                query="SELECT QUES_ID, QUES_TITLE, QUES_ABBRE, QUES_BODY FROM COM_QUESTION">
             <field column="QUES_ID" name="ques_id"/>
             <field column="QUES_TITLE" name="ques_title"/>
             <field column="QUES_ABBRE" name="ques_abbre"/>
+            <field column="QUES_BODY" name="ques_body"/>
         </entity>
 
         <entity name="user"
                 pk="USER_ID"
-                query="SELECT USER_ID, USER_NAME, USER_GENDER FROM SYS_USER">
+                query="SELECT USER_ID, USER_NAME, USER_PHONE FROM SYS_USER">
             <field column="USER_ID" name="user_id"/>
             <field column="USER_NAME" name="user_name"/>
-            <field column="USER_GENDER" name="user_gender"/>
+            <field column="USER_PHONE" name="user_phone"/>
         </entity>
 
         <entity name="essay"
                 pk="ESSAY_ID"
-                query="SELECT ESSAY_ID, ESSAY_TITLE, ESSAY_ABBRE FROM COM_ESSAY">
+                query="SELECT ESSAY_ID, ESSAY_TITLE, ESSAY_ABBRE, ESSAY_BODY FROM COM_ESSAY">
             <field column="ESSAY_ID" name="essay_id"/>
             <field column="ESSAY_TITLE" name="essay_title"/>
             <field column="ESSAY_ABBRE" name="essay_abbre"/>
+            <field column="ESSAY_BODY" name="essay_body"/>
         </entity>
 
         <entity name="video"
@@ -35,7 +37,8 @@
                 query="SELECT VIDEO_ID, VIDEO_TITLE, VIDEO_NAME FROM COM_VIDEO">
             <field column="VIDEO_ID" name="video_id"/>
             <field column="VIDEO_TITLE" name="video_title"/>
-            <field column="VIDEO_ABBRE" name="video_name"/>
+            <field column="VIDEO_NAME" name="video_name"/>
+            <field column="VIDEO_DECRIPTION" name="video_name"/>
         </entity>
 
         <entity name="job"

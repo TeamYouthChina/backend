@@ -1,16 +1,30 @@
 package com.youthchina.service.Xiaoyi;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.youthchina.domain.jinhao.Comment;
+import com.youthchina.domain.jinhao.Question;
+import com.youthchina.domain.jinhao.Video;
+import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Job;
+import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.solr.SolrDTO;
+import com.youthchina.service.jinhao.CommentService;
+import com.youthchina.service.jinhao.QuestionService;
+import com.youthchina.service.jinhao.VideoService;
+import com.youthchina.service.qingyang.CompanyCURDService;
+import com.youthchina.service.qingyang.JobService;
+import com.youthchina.service.tianjian.EssayService;
+import com.youthchina.service.zhongyang.UserService;
 import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
-import org.apache.solr.client.solrj.impl.HttpSolrClient.Builder;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
-import org.apache.solr.common.SolrInputDocument;
 
 /**
  * Created by Xiaoyi Wang on 2019/3/31.
@@ -19,13 +33,19 @@ import org.apache.solr.common.SolrInputDocument;
 public class SearchServiceImplement {
 
     private final static String SOLR_URL = "http://localhost:8983/solr/";
+    private UserService userService;
+    private EssayService essayService;
+    private QuestionService questionService;
+    private JobService jobService;
+    private CommentService commentService;
+    private VideoService videoService;
+    private CompanyCURDService companyCURDService;
 
-    public List<SolrDTO> usersearch(String sql) throws Exception {
-
+    List<User> usersearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
         //下面设置solr查询参数
-        query.set("q", "*:*");// 参数q  查询所有
+        query.set("q", "user_name"+ keyword);// 参数q  查询所有
         //query.set("q","周星驰");//相关查询，比如某条数据某个字段含有周、星、驰三个字  将会查询出来 ，这个作用适用于联想查询
 
         //参数fq, 给query增加过滤查询条件
@@ -41,8 +61,8 @@ public class SearchServiceImplement {
         //query.setSort("id",SolrQuery.ORDER.desc);
 
         //设置分页参数
-        //query.setStart(0);
-        //query.setRows(10);//每一页多少值
+        query.setStart(0);
+        query.setRows(10);//每一页多少值
 
         //参数hl,设置高亮
         //query.setHighlight(true);
@@ -61,20 +81,188 @@ public class SearchServiceImplement {
         //System.out.println("通过文档集合获取查询的结果");
         //System.out.println("查询结果的总数量：" + solrDocumentList.getNumFound());
         //遍历列表
-        //for (SolrDocument doc : solrDocumentList) {
-        //    System.out.println("id:" + doc.get("id") + "   name:" + doc.get("name") + "    gender:" + doc.get("gender"));
+        List<Integer> useridlist = new ArrayList<>();
+        for (SolrDocument doc : solrDocumentList) {
+            //System.out.println("id:" + doc.get("id") + "   name:" + doc.get("name") + "    gender:" + doc.get("gender"));
             //System.out.println(doc);
-        //}
-        //得到实体对象
-
-        List<SolrDTO> tmpLists = response.getBeans(SolrDTO.class);
-        if (tmpLists != null && tmpLists.size() > 0) {
-            System.out.println("通过文档集合获取查询的结果");
-            for (SolrDTO per : tmpLists) {
-                System.out.println("id:" + per.getId());
-            }
+            useridlist.add(Integer.parseInt(doc.get("user_id").toString()));
         }
-        return tmpLists;
+
+        query.set("q", "user_phone:"+ keyword);// 参数q  查询所有
+        query.setStart(0);
+        query.setRows(10);//每一页多少值
+        response = solrServer.query(query);
+        solrDocumentList = response.getResults();
+        for (SolrDocument doc : solrDocumentList) {
+            useridlist.add(Integer.parseInt(doc.get("user_id").toString()));
+        }
+
+        List<User> userlist = userService.get(useridlist);
+        return userlist;
     }
 
+    List<ComEssay> essaysearch(String keyword) throws Exception {
+        List<Integer> essayidlist = new ArrayList<>();
+        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
+        SolrQuery query = new SolrQuery();
+        query.set("q", "essay_name:"+ keyword);// 参数q  查询所有
+        query.setStart(0);
+        query.setRows(10);//每一页多少值
+        QueryResponse response = solrServer.query(query);
+        SolrDocumentList solrDocumentList = response.getResults();
+        for (SolrDocument doc : solrDocumentList) {
+            essayidlist.add(Integer.parseInt(doc.get("essay_id").toString()));
+        }
+
+        query.set("q", "essay_abbre:"+ keyword);// 参数q  查询所有
+        query.setStart(0);
+        query.setRows(10);//每一页多少值
+        response = solrServer.query(query);
+        solrDocumentList = response.getResults();
+        for (SolrDocument doc : solrDocumentList) {
+            essayidlist.add(Integer.parseInt(doc.get("essay_id").toString()));
+        }
+
+        query.set("q", "essay_body:"+ keyword);// 参数q  查询所有
+        query.setStart(0);
+        query.setRows(10);//每一页多少值
+        response = solrServer.query(query);
+        solrDocumentList = response.getResults();
+        for (SolrDocument doc : solrDocumentList) {
+            essayidlist.add(Integer.parseInt(doc.get("essay_id").toString()));
+        }
+
+        List<ComEssay> essaylist = essayService.get(essayidlist);
+        return essaylist;
+    }
+
+    List<Question> questionsearch(String keyword) throws Exception {
+        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
+        SolrQuery query = new SolrQuery();
+        query.set("q", keyword);// 参数q  查询所有
+        query.setStart(0);
+        query.setRows(10);//每一页多少值
+        QueryResponse response = solrServer.query(query);
+        SolrDocumentList solrDocumentList = response.getResults();
+        List<Integer> quesidlist = new ArrayList<>();
+        for (SolrDocument doc : solrDocumentList) {
+            quesidlist.add(Integer.parseInt(doc.get("ques_id").toString()));
+        }
+        List<Question> queslist = questionService.get(quesidlist);
+        return queslist;
+    }
+
+    List<Job> jobsearch(String keyword) throws Exception {
+        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
+        SolrQuery query = new SolrQuery();
+        query.set("q", keyword);// 参数q  查询所有
+        query.setStart(0);
+        query.setRows(10);//每一页多少值
+        QueryResponse response = solrServer.query(query);
+        SolrDocumentList solrDocumentList = response.getResults();
+        List<Integer> jobidlist = new ArrayList<>();
+        for (SolrDocument doc : solrDocumentList) {
+            jobidlist.add(Integer.parseInt(doc.get("job_id").toString()));
+        }
+        List<Job> joblist = jobService.get(jobidlist);
+        return joblist;
+    }
+
+    List<Comment> commentsearch(String keyword) throws Exception {
+        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
+        SolrQuery query = new SolrQuery();
+        query.set("q", keyword);// 参数q  查询所有
+        query.setStart(0);
+        query.setRows(10);//每一页多少值
+        QueryResponse response = solrServer.query(query);
+        SolrDocumentList solrDocumentList = response.getResults();
+        List<Integer> comidlist = new ArrayList<>();
+        for (SolrDocument doc : solrDocumentList) {
+            comidlist.add(Integer.parseInt(doc.get("comm_id").toString()));
+        }
+        List<Comment> comlist = commentService.get(comidlist);
+        return comlist;
+    }
+
+    List<Video> videosearch(String keyword) throws Exception {
+        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
+        SolrQuery query = new SolrQuery();
+        query.set("q", keyword);// 参数q  查询所有
+        query.setStart(0);
+        query.setRows(10);//每一页多少值
+        QueryResponse response = solrServer.query(query);
+        SolrDocumentList solrDocumentList = response.getResults();
+        List<Integer> videoidlist = new ArrayList<>();
+        for (SolrDocument doc : solrDocumentList) {
+            videoidlist.add(Integer.parseInt(doc.get("video_id").toString()));
+        }
+        List<Video> videolist = videoService.get(videoidlist);
+        return videolist;
+    }
+
+    List<Company> companysearch(String keyword) throws Exception {
+        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
+        SolrQuery query = new SolrQuery();
+        query.set("q", keyword);// 参数q  查询所有
+        query.setStart(0);
+        query.setRows(10);//每一页多少值
+        QueryResponse response = solrServer.query(query);
+        SolrDocumentList solrDocumentList = response.getResults();
+        List<Integer> companyidlist = new ArrayList<>();
+        for (SolrDocument doc : solrDocumentList) {
+            companyidlist.add(Integer.parseInt(doc.get("video_id").toString()));
+        }
+        List<Company> companylist = companyCURDService.get(companyidlist);
+        return companylist;
+    }
+
+    List<HashMap<String,Object>> multiplesearch(String keyword) throws Exception{
+        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
+        SolrQuery query = new SolrQuery();
+        query.set("q", "*:"+ keyword);// 参数q  查询所有
+        query.setStart(0);
+        query.setRows(10);//每一页多少值
+        QueryResponse response = solrServer.query(query);
+        SolrDocumentList solrDocumentList = response.getResults();
+        List<HashMap<String,Object>> map2 = new ArrayList<>();
+        for (SolrDocument doc : solrDocumentList) {
+            HashMap<String,Object> map = new HashMap<>();
+            if(doc.get("user_id") != null){
+                User user = userService.get(Integer.parseInt(doc.get("user_id").toString()));
+                map.put("User", user);
+                map2.add(map);
+            }
+            else if(doc.get("ques_id") != null){
+                Question question = questionService.get(Integer.parseInt(doc.get("ques_id").toString()));
+                map.put("Ques", question);
+                map2.add(map);
+            }
+            else if(doc.get("essay_id") != null){
+                ComEssay comEssay = essayService.get(Integer.parseInt(doc.get("essay_id").toString()));
+                map.put("Essay", comEssay);
+                map2.add(map);
+            }
+            else if(doc.get("video_id") != null){
+                Video video = videoService.get(Integer.parseInt(doc.get("video_id").toString()));
+                map.put("Essay", video);
+                map2.add(map);
+            }
+            else if(doc.get("comment_id") != null){
+                Comment comment = commentService.get(Integer.parseInt(doc.get("comment_id").toString()));
+                map.put("Comment", comment);
+                map2.add(map);
+            }
+            else if(doc.get("job_id") != null){
+                Job job = jobService.get(Integer.parseInt(doc.get("job_id").toString()));
+                map.put("Job", job);
+                map2.add(map);
+            }
+            else if(doc.get("company_id") != null){
+                Company company = companyCURDService.get(Integer.parseInt(doc.get("company_id").toString()));
+                map.put("Job", company);
+                map2.add(map);
+            }
+        }
+        return map2;
+    }
 }
