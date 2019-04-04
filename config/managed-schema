@@ -113,7 +113,8 @@
     <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <!-- docValues are enabled by default for long type so we don't need to index the version field  -->
     <field name="_version_" type="plong" indexed="false" stored="false"/>
-    1
+
+
     <field name="ques_id" type="string" indexed="true" stored="true" />
     <field name="ques_title" type="string" indexed="true" stored="true" />
     <field name="ques_abbre" type="string" indexed="true" stored="true" />
@@ -137,6 +138,10 @@
     <field name="company_location" type="string" indexed="true" stored="true" />
     <field name="comment_id" type="string" indexed="true" stored="true" />
     <field name="comment_content" type="string" indexed="true" stored="true" />
+    <field name="answer_id" type="string" indexed="true" stored="true" />
+    <field name="answer_body" type="string" indexed="true" stored="true" />
+
+
 
     <field name="_root_" type="string" indexed="true" stored="false" docValues="false" />
     <field name="_text_" type="text_general" indexed="true" stored="false" multiValued="true"/>

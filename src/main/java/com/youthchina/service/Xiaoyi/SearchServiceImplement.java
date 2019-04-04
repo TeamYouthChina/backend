@@ -2,6 +2,7 @@ package com.youthchina.service.Xiaoyi;
 
 import java.util.*;
 
+import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.jinhao.Video;
@@ -10,6 +11,7 @@ import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.solr.SolrDTO;
+import com.youthchina.service.jinhao.AnswerService;
 import com.youthchina.service.jinhao.CommentService;
 import com.youthchina.service.jinhao.QuestionService;
 import com.youthchina.service.jinhao.VideoService;
@@ -17,13 +19,14 @@ import com.youthchina.service.qingyang.CompanyCURDService;
 import com.youthchina.service.qingyang.JobService;
 import com.youthchina.service.tianjian.EssayService;
 import com.youthchina.service.zhongyang.UserService;
+
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
@@ -32,6 +35,7 @@ import javax.annotation.Resource;
 
 @Service
 public class SearchServiceImplement implements SearchService{
+
     private final static String SOLR_URL = "http://localhost:8983/solr/";
 
     @Resource
@@ -54,6 +58,9 @@ public class SearchServiceImplement implements SearchService{
 
     @Resource
     private CompanyCURDService companyCURDService;
+
+    @Resource
+    private AnswerService answerService;
 
     @Override
     public List<User> usersearch(String keyword) throws Exception {
@@ -156,7 +163,7 @@ public class SearchServiceImplement implements SearchService{
     public List<Question> questionsearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
-        query.set("q", "ques_title:"+keyword);// 参数q  查询所有
+        query.set("q", "ques_title:"+ keyword);// 参数q  查询所有
         query.setStart(0);
         query.setRows(10);//每一页多少值
         QueryResponse response = solrServer.query(query);
@@ -192,7 +199,7 @@ public class SearchServiceImplement implements SearchService{
     public List<Job> jobsearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
-        query.set("q", "job_name:"+keyword);// 参数q  查询所有
+        query.set("q", "job_name:"+ keyword);// 参数q  查询所有
         query.setStart(0);
         query.setRows(10);//每一页多少值
         QueryResponse response = solrServer.query(query);
@@ -202,7 +209,7 @@ public class SearchServiceImplement implements SearchService{
             jobidlist.add(Integer.parseInt(doc.get("job_id").toString()));
         }
 
-        query.set("q", "job_description:"+keyword);// 参数q  查询所有
+        query.set("q", "job_description:"+ keyword);// 参数q  查询所有
         query.setStart(0);
         query.setRows(10);//每一页多少值
         response = solrServer.query(query);
@@ -219,7 +226,7 @@ public class SearchServiceImplement implements SearchService{
     public List<Comment> commentsearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
-        query.set("q", "comment_content:"+keyword);// 参数q  查询所有
+        query.set("q", "comment_content:"+ keyword);// 参数q  查询所有
         query.setStart(0);
         query.setRows(10);//每一页多少值
         QueryResponse response = solrServer.query(query);
@@ -236,7 +243,7 @@ public class SearchServiceImplement implements SearchService{
     public List<Video> videosearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
-        query.set("q", "video_title:"+keyword);// 参数q  查询所有
+        query.set("q", "video_title:"+ keyword);// 参数q  查询所有
         query.setStart(0);
         query.setRows(10);//每一页多少值
         QueryResponse response = solrServer.query(query);
@@ -296,6 +303,23 @@ public class SearchServiceImplement implements SearchService{
     }
 
     @Override
+    public List<Answer> answersearch(String keyword) throws Exception {
+        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
+        SolrQuery query = new SolrQuery();
+        query.set("q", "answer_body:"+ keyword);// 参数q  查询所有
+        query.setStart(0);
+        query.setRows(10);//每一页多少值
+        QueryResponse response = solrServer.query(query);
+        SolrDocumentList solrDocumentList = response.getResults();
+        List<Integer> answeridlist = new ArrayList<>();
+        for (SolrDocument doc : solrDocumentList) {
+            answeridlist.add(Integer.parseInt(doc.get("answer_id").toString()));
+        }
+        List<Answer> answerlist = answerService.get(answeridlist);
+        return answerlist;
+    }
+
+    @Override
     public List<SolrDTO> multiplesearch(String keyword) throws Exception{
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
@@ -346,15 +370,12 @@ public class SearchServiceImplement implements SearchService{
 
         int size = solrlist.size();//随机打乱
         Random random = new Random();
-
         for(int i = 0; i < size; i++) {
             // 获取随机位置
             int randomPos = random.nextInt(size);
-
             // 当前元素与随机元素交换
             Collections.swap(solrlist, i, randomPos);
         }
-
         return solrlist;
     }
 }

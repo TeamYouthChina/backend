@@ -1,6 +1,6 @@
 package com.youthchina.service.Xiaoyi;
 
-
+import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.jinhao.Video;
@@ -31,6 +31,8 @@ public interface SearchService {
     List<Comment> commentsearch(String keyword) throws Exception;
 
     List<Video> videosearch(String keyword) throws Exception;
+
+    List<Answer> answersearch(String keyword) throws Exception;
 
     List<User> usersearch(String keyword) throws Exception;
 }

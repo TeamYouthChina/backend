@@ -64,6 +64,13 @@
             <field column="COMMENT_CONTENT" name="comment_content"/>
         </entity>
 
+        <entity name="answer"
+                pk="ANSWER_ID"
+                query="SELECT ANSWER_ID, ANSWER_BODY FROM COM_ANSWER">
+            <field column="ANSWER_ID" name="answer_id"/>
+            <field column="ANSWER_BODY" name="answer_body"/>
+        </entity>
+
     </document>
 
 </dataConfig>
