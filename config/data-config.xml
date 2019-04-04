@@ -30,14 +30,6 @@
             <field column="ESSAY_ABBRE" name="essay_abbre"/>
         </entity>
 
-        <entity name="video"
-                pk="VIDEO_ID"
-                query="SELECT VIDEO_ID, VIDEO_TITLE, VIDEO_NAME FROM COM_VIDEO">
-            <field column="VIDEO_ID" name="video_id"/>
-            <field column="VIDEO_TITLE" name="video_title"/>
-            <field column="VIDEO_ABBRE" name="video_name"/>
-        </entity>
-
         <entity name="job"
                 pk="JOB_ID"
                 query="SELECT JOB_ID, JOB_NAME, JOB_TYPE FROM JOB_INFO">
@@ -52,6 +44,22 @@
             <field column="COMPANY_ID" name="company_id"/>
             <field column="COMPANY_NAME" name="company_name"/>
             <field column="COMPANY_LOCATION" name="company_location"/>
+        </entity>
+
+        <entity name="comment"
+                pk="COMMENT_ID"
+                query="SELECT COMMENT_ID, COMPANY_NAME, COMPANY_LOCATION FROM COM_COMMENT">
+            <field column="COMMENT_ID" name="comment_id"/>
+            <field column="COMPAN_CONTENT" name="comment_content"/>
+        </entity>
+
+        <entity name="video"
+                pk="VIDEO_ID"
+                query="SELECT VIDEO_ID, VIDEO_NAME, VIDEO_TITLE FROM COM_VIDEO">
+            <field column="VIDEO_ID" name="video_id"/>
+            <field column="VIDEO_NAME" name="video_name"/>
+            <field column="VIDEO_TITLE" name="video_title"/>
+            <field column="VIDEO_DESCRIPTION" name="video_de"/>
         </entity>
 
     </document>
