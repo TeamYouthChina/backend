@@ -26,14 +26,14 @@ import java.util.Date;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:testnew.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml"})
+@DatabaseSetup({"classpath:New_Stu_test.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml"})
 public class ProfileMapperTest {
     @Autowired
     ApplicantMapper applicantMapper;
 
     @Test
     public void testGetStudentInfo() {
-        Student student = applicantMapper.getStudentInfo(1);
+        Student student = applicantMapper.getStudentInfo(10);
         System.out.print(student.getLabelInfos().get(0).getLabel_chn());
 
     }
