@@ -34,7 +34,31 @@ public class AuthGenerator {
         return SecurityMockMvcRequestPostProcessors.securityContext(securityContext);
     }
 
+    public RequestPostProcessor authentication(Role role, Integer userId) {
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(this.createAuthentication(role, userId));
+        return SecurityMockMvcRequestPostProcessors.securityContext(securityContext);
+    }
+
+    private JwtAuthentication createAuthentication(Role role, Integer userId) {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        User user = new User();
+        user.setRole(role);
+        user.setUsername("YihaoGuo");
+        user.setPassword(encoder.encode("123456"));
+        user.setId(userId);
+        user.setEmail("test@test.com");
+        user.setNation("China");
+        user.setGender("male");
+        user.setPhonenumber("2022922222");
+        return new JwtAuthentication(user, true);
+    }
+
     public RequestPostProcessor authentication() {
         return this.authentication(Role.APPLICANT);
+    }
+
+    public RequestPostProcessor authentication(Integer userId) {
+        return this.authentication(Role.APPLICANT, userId);
     }
 }
