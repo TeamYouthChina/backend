@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.domain.qingyang.Degree;
+import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.dto.applicant.*;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.dto.util.LocationDTO;
@@ -43,7 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:testnew.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml"})
+@DatabaseSetup({"classpath:New_Stu_test.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml","classpath:New_SYS_test.xml"})
 @WebAppConfiguration
 public class ApplicantControllerTest {
     @Autowired
@@ -71,8 +72,8 @@ public class ApplicantControllerTest {
     @Test
     public void testGet() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/1")
-                        .with(authGenerator.authentication())
+                get(this.urlPrefix + "/applicants/10")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
       //  .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"yihao guo\",\"avatarUrl\":null,\"educations\":[{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000-0400\",\"end\":\"2020-05-14T00:00:00.000-0400\"},\"location\":{\"region_num\":null},\"note\":null},{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000-0400\",\"end\":\"2020-05-14T00:00:00.000-0400\"},\"location\":{\"region_num\":null},\"note\":null}],\"experiences\":[{\"employer\":\"Facebook\",\"position\":\"SDE\",\"duration\":{\"begin\":\"2017-09-11T00:00:00.000-0400\",\"end\":\"2018-10-11T00:00:00.000-0400\"},\"location\":\"中国江苏\",\"note\":null}],\"projects\":[{\"name\":\"web develop\",\"role\":\"backend\",\"duration\":{\"begin\":\"2018-09-11T00:00:00.000-0400\",\"end\":\"2018-10-11T00:00:00.000-0400\"},\"note\":null}],\"extracurriculars\":[{\"name\":\"volunteer\",\"role\":\"worker\",\"organization\":\"gwu\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000-0400\",\"end\":\"2018-10-12T00:00:00.000-0400\"},\"location\":null,\"note\":null}],\"certificates\":[{\"name\":\"Java skill\",\"authority\":\"CSSA\",\"duration\":{\"begin\":\"2016-10-01T00:00:00.000-0400\",\"end\":\"2018-10-11T00:00:00.000-0400\"},\"note\":null}],\"contacts\":{\"emails\":[null],\"phonenumbers\":[\"18463722634\"]}},\"status\":{\"code\":2000,\"reason\":\"\"}}\n", false))
@@ -85,8 +86,8 @@ public class ApplicantControllerTest {
     @Test
     public void testGetContacts() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/1/contacts")
-                        .with(authGenerator.authentication())
+                get(this.urlPrefix + "/applicants/10/contacts")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
 //                .andExpect(content().json("{\"content\":{\"emails\":[\"test@test.com\"],\"phonenumbers\":[\"18463722634\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
@@ -96,8 +97,8 @@ public class ApplicantControllerTest {
     @Test
     public void testGetEducations() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/1/educations")
-                        .with(authGenerator.authentication())
+                get(this.urlPrefix + "/applicants/10/educations")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
 //                .andExpect(content().json("{\"content\":[{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000+0000\",\"end\":\"2020-05-14T00:00:00.000+0000\"},\"location\":{\"region_num\":null},\"note\":null},{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000+0000\",\"end\":\"2020-05-14T00:00:00.000+0000\"},\"location\":{\"region_num\":null},\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
@@ -107,8 +108,8 @@ public class ApplicantControllerTest {
     @Test
     public void testGetProjects() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/1/projects")
-                        .with(authGenerator.authentication())
+                get(this.urlPrefix + "/applicants/10/projects")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
 //                .andExpect(content().json("{\"content\":[{\"name\":\"web develop\",\"role\":\"backend\",\"duration\":{\"begin\":\"2018-09-11T00:00:00.000+0000\",\"end\":\"2018-10-11T00:00:00.000+0000\"},\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}",false))
@@ -118,8 +119,8 @@ public class ApplicantControllerTest {
     @Test
     public void testGetExperiences() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/1/experiences")
-                        .with(authGenerator.authentication())
+                get(this.urlPrefix + "/applicants/10/experiences")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
 //                .andExpect(content().json("{\"content\":[{\"employer\":\"Facebook\",\"position\":\"SDE\",\"duration\":{\"begin\":\"2017-09-11T00:00:00.000+0000\",\"end\":\"2018-10-11T00:00:00.000+0000\"},\"location\":\"中国江苏\",\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
@@ -129,8 +130,8 @@ public class ApplicantControllerTest {
     @Test
     public void testGetCertificates() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/1/certificates")
-                        .with(authGenerator.authentication())
+                get(this.urlPrefix + "/applicants/10/certificates")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
 //                .andExpect(content().json("{\"content\":[{\"name\":\"Java skill\",\"authority\":\"CSSA\",\"duration\":{\"begin\":\"2016-10-01T00:00:00.000+0000\",\"end\":\"2018-10-11T00:00:00.000+0000\"},\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
@@ -140,8 +141,8 @@ public class ApplicantControllerTest {
     @Test
     public void testGetExtracurriculars() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/1/extracurriculars")
-                        .with(authGenerator.authentication())
+                get(this.urlPrefix + "/applicants/10/extracurriculars")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
 //                .andExpect(content().json("{\"content\":[{\"name\":\"volunteer\",\"role\":\"worker\",\"organization\":\"gwu\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000+0000\",\"end\":\"2018-10-12T00:00:00.000+0000\"},\"location\":null,\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
@@ -151,8 +152,8 @@ public class ApplicantControllerTest {
     @Test
     public void testGetSkills()throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/1/skills")
-                        .with(authGenerator.authentication())
+                get(this.urlPrefix + "/applicants/10/skills")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
 //                .andExpect(content().json("{\"content\":[{\"name\":\"volunteer\",\"role\":\"worker\",\"organization\":\"gwu\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000+0000\",\"end\":\"2018-10-12T00:00:00.000+0000\"},\"location\":null,\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
@@ -163,7 +164,7 @@ public class ApplicantControllerTest {
     public void testGetAllSkills()throws Exception{
         this.mvc.perform(
                 get(this.urlPrefix + "/applicants/skills")
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
 //                .andExpect(content().json("{\"content\":[{\"name\":\"volunteer\",\"role\":\"worker\",\"organization\":\"gwu\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000+0000\",\"end\":\"2018-10-12T00:00:00.000+0000\"},\"location\":null,\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
@@ -192,7 +193,7 @@ public class ApplicantControllerTest {
 
     @Test
     public void testDeleteJobCollect() throws Exception{
-        this.mvc.perform(delete(this.urlPrefix + "/jobs/attentions/1").with(authGenerator.authentication()))
+        this.mvc.perform(delete(this.urlPrefix + "/jobs/attentions/1").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
     /**
@@ -206,7 +207,7 @@ public class ApplicantControllerTest {
     public void testDeleteCompCollect() throws Exception{
         this.mvc.perform
                 (delete(this.urlPrefix + "/companies/attentions/1")
-                        .with(authGenerator.authentication()))
+                        .with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
 
@@ -220,7 +221,7 @@ public class ApplicantControllerTest {
 
     @Test
     public void testGetJobApplies() throws Exception{
-        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/applications",1).with(authGenerator.authentication()))
+        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/applications",10).with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
     /**
@@ -233,7 +234,7 @@ public class ApplicantControllerTest {
 
     @Test
     public void testAddJobApply() throws Exception{
-        this.mvc.perform(post(this.urlPrefix + "/jobs/3/apply").with(authGenerator.authentication()))
+        this.mvc.perform(post(this.urlPrefix + "/jobs/3/apply").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
 
@@ -249,7 +250,7 @@ public class ApplicantControllerTest {
     public void testAddJobCollect() throws Exception{
         this.mvc.perform
                 (put(this.urlPrefix + "/jobs/4/attention")
-                .with(authGenerator.authentication()))
+                .with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
 
@@ -257,7 +258,7 @@ public class ApplicantControllerTest {
     public void testAddCompCollect() throws Exception{
         this.mvc.perform
                 (put(this.urlPrefix + "/companies/2/attention")
-                        .with(authGenerator.authentication()))
+                        .with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
 
@@ -286,10 +287,10 @@ public class ApplicantControllerTest {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/1/education").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/education").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -326,10 +327,10 @@ public class ApplicantControllerTest {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/1/experience").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/experience").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -359,10 +360,10 @@ public class ApplicantControllerTest {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/1/project").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/project").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -393,10 +394,10 @@ public class ApplicantControllerTest {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/1/extracurricular").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/extracurricular").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -429,10 +430,10 @@ public class ApplicantControllerTest {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/1/certificate").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/certificate").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -449,10 +450,10 @@ public class ApplicantControllerTest {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/1/skill").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/skill").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -463,9 +464,9 @@ public class ApplicantControllerTest {
     public void testUserAttentions() throws Exception{
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/1/attentions").param("type","Job")
+                        (this.urlPrefix + "/users/10/attentions").param("type","Job")
 
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -481,8 +482,8 @@ public class ApplicantControllerTest {
     @Test
     public void testDeleteEducation() throws Exception{
         this.mvc.perform(
-                delete(this.urlPrefix + "/applicants/1/educations/1")
-                        .with(authGenerator.authentication())
+                delete(this.urlPrefix + "/applicants/10/educations/1")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -499,8 +500,8 @@ public class ApplicantControllerTest {
     @Test
     public void testDeleteWork() throws Exception{
         this.mvc.perform(
-                delete(this.urlPrefix + "/applicants/1/experiences/1")
-                        .with(authGenerator.authentication())
+                delete(this.urlPrefix + "/applicants/10/experiences/1")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -517,8 +518,8 @@ public class ApplicantControllerTest {
     @Test
     public void testDeleteProject() throws Exception{
         this.mvc.perform(
-                delete(this.urlPrefix + "/applicants/1/projects/1")
-                        .with(authGenerator.authentication())
+                delete(this.urlPrefix + "/applicants/10/projects/1")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -535,8 +536,8 @@ public class ApplicantControllerTest {
     @Test
     public void testDeleteActivity() throws Exception{
         this.mvc.perform(
-                delete(this.urlPrefix + "/applicants/1/extracurriculars/1")
-                        .with(authGenerator.authentication())
+                delete(this.urlPrefix + "/applicants/10/extracurriculars/1")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -553,8 +554,8 @@ public class ApplicantControllerTest {
     @Test
     public void testDeleteCertificate() throws Exception{
         this.mvc.perform(
-                delete(this.urlPrefix + "/applicants/1/certificates/1")
-                        .with(authGenerator.authentication())
+                delete(this.urlPrefix + "/applicants/10/certificates/1")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -571,8 +572,8 @@ public class ApplicantControllerTest {
     @Test
     public void testDeleteSkill() throws Exception{
         this.mvc.perform(
-                delete(this.urlPrefix + "/applicants/1/skills/1")
-                        .with(authGenerator.authentication())
+                delete(this.urlPrefix + "/applicants/10/skills/1")
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -603,9 +604,9 @@ public class ApplicantControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(educationDTO);
         this.mvc.perform(
-                put(this.urlPrefix + "/applicants/1/education/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                put(this.urlPrefix + "/applicants/10/education/1").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -639,10 +640,10 @@ public class ApplicantControllerTest {
         System.out.print(requestJson);
         this.mvc.perform(
                 put
-                        (this.urlPrefix + "/applicants/1/work/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/work/1").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -672,10 +673,10 @@ public class ApplicantControllerTest {
         System.out.print(requestJson);
         this.mvc.perform(
                 put
-                        (this.urlPrefix + "/applicants/1/project/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/project/1").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -707,10 +708,10 @@ public class ApplicantControllerTest {
         System.out.print(requestJson);
         this.mvc.perform(
                 put
-                        (this.urlPrefix + "/applicants/1/extracurricular/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/extracurricular/1").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -742,10 +743,10 @@ public class ApplicantControllerTest {
         System.out.print(requestJson);
         this.mvc.perform(
                 put
-                        (this.urlPrefix + "/applicants/1/certificate/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/certificate/1").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
-                        .with(authGenerator.authentication())
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
