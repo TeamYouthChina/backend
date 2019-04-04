@@ -130,6 +130,7 @@ public class JobTest {
         List<Location> locations = new ArrayList<>();
         Location location = new Location();
         location.setRegionNum(1);
+        location.setRegionId(444000);
         location.setCountry("CHN");
         locations.add(location);
         job.setJobLocationList(locations);
@@ -287,6 +288,12 @@ public class JobTest {
 //
 //        job = jobMapper.selectJobByJobId(2);
 //        Assert.assertEquals(Integer.valueOf(0), job.getCollectNum());
+    }
+
+    @Test
+    public void testAllJob() {
+        List<Job> jobList = jobMapper.selectAllJob();
+        Assert.assertEquals(18, jobList.size());
     }
 
     @Test
