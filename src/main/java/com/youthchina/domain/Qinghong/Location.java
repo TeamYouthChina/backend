@@ -1,10 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.youthchina.domain.qingyang.USAState;
 import com.youthchina.dto.util.LocationDTO;
-
-import java.sql.Timestamp;
 
 /**
  * @program: V-0.1
@@ -40,6 +36,11 @@ public class Location {
     public Location(LocationDTO locationDTO) {
         this.country = locationDTO.getNation_code();
         this.regionId = Integer.valueOf(locationDTO.getLocation_code());
+    }
+
+    
+    public Location(Integer regionId) {
+        this.regionId = regionId;
     }
 
     public Location() {

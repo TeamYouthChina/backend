@@ -8,7 +8,6 @@ import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.qingyang.CompanyCURDServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -255,5 +254,11 @@ public class CompanyTest {
 //        Assert.assertEquals("CompanyPhotoUpdate", photo.getDocuLocalId());
     }
 
+    @Test
+    public void testGetAll(){
+        List<Company> companyList = companyMapper.selectAllCompany();
+        Assert.assertEquals(61, companyList.size());
+
+    }
 
 }

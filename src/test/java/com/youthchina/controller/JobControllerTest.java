@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.dto.applicant.OrganizationDTO;
 import com.youthchina.dto.job.JobRequestDTO;
-import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,6 +77,19 @@ public class JobControllerTest {
 
     }
 
+    @Test
+    public void testGetRecommendFiveJob() throws Exception {
+        this.mvc.perform(
+                get(this.urlPrefix + "/discovery/jobs")//.param("id", "1").param("detailLevel", "1")
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
+                //.andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"产品信息管理实习生\",\"organization\":{\"id\":37,\"name\":\"深圳市腾讯计算机系统有限公司\",\"avatarUrl\":null,\"location\":null,\"website\":\"https://www.tencent.com\",\"note\":\"腾讯科技股份有限公司（港交所：700）是中国规模最大的互联网公司，1998年11月由马化腾、张志东、陈一丹、许晨晔、曾李青5位创始人共同创立，总部位于深圳南山区腾讯大厦。腾讯业务拓展... \",\"nation\":null},\"location\":\"广东省广州市\",\"type\":\"实习\",\"deadLine\":\"12/31/2019\",\"job_duty\":\"在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉产品信息管理\",\"job_description\":\"产品信息管理实习生\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+        ;
+
+    }
+
 
 
     @Test
@@ -133,17 +144,14 @@ public class JobControllerTest {
     public void testAddJob() throws Exception {
         JobRequestDTO jobRequestDTO = new JobRequestDTO();
         jobRequestDTO.setName("front");
-        OrganizationDTO organizationDTO = new OrganizationDTO();
-        organizationDTO.setId(2);
-        jobRequestDTO.setOrganization(organizationDTO);
+        jobRequestDTO.setOrganization_id(2);
         jobRequestDTO.setType("1");
-
-        List<LocationDTO> list = new ArrayList<>();
-        LocationDTO locationDTO = new LocationDTO();
-        locationDTO.setLocation_code("994701");
-        locationDTO.setNation_code("USA");
-        list.add(locationDTO);
-        jobRequestDTO.setLocationList(list);
+        jobRequestDTO.setJob_description("996ICU");
+        jobRequestDTO.setDeadLine("4070908800");
+        jobRequestDTO.setJob_duty("FullStack");
+        List<Integer> locationIdList = new ArrayList<>();
+        locationIdList.add(994701);
+        jobRequestDTO.setLocation(locationIdList);
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -166,19 +174,16 @@ public class JobControllerTest {
     public void testUpdateJob() throws Exception {
         int id = 1;
         JobRequestDTO jobRequestDTO = new JobRequestDTO();
-        jobRequestDTO.setId(1);
+        jobRequestDTO.setId(id);
         jobRequestDTO.setName("front");
-        OrganizationDTO organizationDTO = new OrganizationDTO();
-        organizationDTO.setId(2);
-        jobRequestDTO.setOrganization(organizationDTO);
+        jobRequestDTO.setOrganization_id(2);
         jobRequestDTO.setType("1");
-
-        List<LocationDTO> list = new ArrayList<>();
-        LocationDTO locationDTO = new LocationDTO();
-        locationDTO.setLocation_code("994701");
-        locationDTO.setNation_code("USA");
-        list.add(locationDTO);
-        jobRequestDTO.setLocationList(list);
+        jobRequestDTO.setJob_description("996ICU");
+        jobRequestDTO.setDeadLine("4070908800");
+        jobRequestDTO.setJob_duty("FullStack");
+        List<Integer> locationIdList = new ArrayList<>();
+        locationIdList.add(994701);
+        jobRequestDTO.setLocation(locationIdList);
 
 
         ObjectMapper mapper = new ObjectMapper();
