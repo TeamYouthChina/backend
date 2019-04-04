@@ -5,7 +5,7 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.video.VideoResponseDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.toBeDeleted.VideoRecommendServiceImplement;
+//import com.youthchina.service.jinhao.toBeDeleted.VideoRecommendServiceImplement;
 import com.youthchina.service.tianjian.StaticFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+/*
 @RestController
 @RequestMapping("${web.url.prefix}/discovery")
 public class VideoRecommendController {
@@ -42,3 +42,4 @@ public class VideoRecommendController {
         return ResponseEntity.ok(new Response(map, new StatusDTO(200,"success")));
     }
 }
+*/

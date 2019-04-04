@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 @Service
 public class QuestionRecommendServiceImplement implements QuestionRecommendService{
     @Resource
@@ -52,3 +52,4 @@ public class QuestionRecommendServiceImplement implements QuestionRecommendServi
         return null;
     }
 }
+*/

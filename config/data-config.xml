@@ -34,19 +34,34 @@
 
         <entity name="video"
                 pk="VIDEO_ID"
-                query="SELECT VIDEO_ID, VIDEO_TITLE, VIDEO_NAME FROM COM_VIDEO">
+                query="SELECT VIDEO_ID, VIDEO_TITLE, VIDEO_NAME, VIDEO_DESCRIPTION FROM COM_VIDEO">
             <field column="VIDEO_ID" name="video_id"/>
             <field column="VIDEO_TITLE" name="video_title"/>
             <field column="VIDEO_NAME" name="video_name"/>
-            <field column="VIDEO_DECRIPTION" name="video_name"/>
+            <field column="VIDEO_DESCRIPTION" name="video_description"/>
         </entity>
 
         <entity name="job"
                 pk="JOB_ID"
-                query="SELECT JOB_ID, JOB_NAME, JOB_TYPE FROM JOB_INFO">
+                query="SELECT JOB_ID, JOB_NAME, JOB_DESCRIPTION FROM JOB_INFO">
             <field column="JOB_ID" name="job_id"/>
-            <field column="JOB_NAME" name="job_title"/>
-            <field column="JOB_TYPE" name="job_type"/>
+            <field column="JOB_NAME" name="job_name"/>
+            <field column="JOB_DESCRIPTION" name="job_description"/>
+        </entity>
+
+        <entity name="company"
+                pk="COMPANY_ID"
+                query="SELECT COMPANY_ID, COMPANY_NAME, COMPANY_LOCATION FROM COMPANY_INFO">
+            <field column="COMPANY_ID" name="company_id"/>
+            <field column="COMPANY_NAME" name="company_name"/>
+            <field column="COMPANY_LOCATION" name="company_location"/>
+        </entity>
+
+        <entity name="comment"
+                pk="COMMENT_ID"
+                query="SELECT COMMENT_ID, COMMENT_CONTENT FROM COM_COMMENT">
+            <field column="COMMENT_ID" name="comment_id"/>
+            <field column="COMMENT_CONTENT" name="comment_content"/>
         </entity>
 
     </document>

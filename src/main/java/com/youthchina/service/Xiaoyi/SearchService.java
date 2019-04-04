@@ -10,7 +10,6 @@ import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.solr.SolrDTO;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,19 +18,19 @@ import java.util.List;
 
 public interface SearchService {
 
-    List<ComEssay> essaysearch(String keyword);
+    List<ComEssay> essaysearch(String keyword) throws Exception;
 
-    List<Question> questionsearch(String keyword);
+    List<Question> questionsearch(String keyword) throws Exception;
 
-    List<Company> companysearch(String keyword);
+    List<Company> companysearch(String keyword) throws Exception;
 
-    List<HashMap<String,Object>> multiplesearch(String keyword);
+    List<SolrDTO> multiplesearch(String keyword) throws Exception;
 
-    List<Job> jobsearch(String keyword);
+    List<Job> jobsearch(String keyword) throws Exception;
 
-    List<Comment> commentsearch(String keyword);
+    List<Comment> commentsearch(String keyword) throws Exception;
 
-    List<Video> videosearch(String keyword);
+    List<Video> videosearch(String keyword) throws Exception;
 
-    List<User> usersearch(String keyword);
+    List<User> usersearch(String keyword) throws Exception;
 }
