@@ -6,7 +6,7 @@ import com.youthchina.dto.util.PageResponse;
 /**
  * Created by zhongyangwu on 1/31/19.
  */
-public class ListResponse implements ResponseDTO {
+public class ListResponse implements HasStatus {
     private PageResponse content;
     private StatusDTO status;
 

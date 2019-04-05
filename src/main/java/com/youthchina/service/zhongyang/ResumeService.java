@@ -5,7 +5,6 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.NotBelongException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
-import org.springframework.stereotype.Service;
 
 /**
  * Created by zhongyangwu on 11/18/18.

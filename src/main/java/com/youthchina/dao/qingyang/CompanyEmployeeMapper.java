@@ -1,6 +1,6 @@
 package com.youthchina.dao.qingyang;
 
-import com.youthchina.domain.qingyang.*;
+import com.youthchina.domain.qingyang.CompanyEmployee;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

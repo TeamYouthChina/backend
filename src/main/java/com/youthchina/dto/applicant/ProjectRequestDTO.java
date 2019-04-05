@@ -7,7 +7,7 @@ import com.youthchina.dto.util.DurationDTO;
 /**
  * Created by zhong on 2018/12/30.
  */
-public class ProjectRequestDTO implements RequestDTO {
+public class ProjectRequestDTO implements RequestDTO<Project> {
     private Integer id;
     private String name;
     private String role;
@@ -61,5 +61,10 @@ public class ProjectRequestDTO implements RequestDTO {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public Project convertToDomain() {
+        return new Project(this);
     }
 }

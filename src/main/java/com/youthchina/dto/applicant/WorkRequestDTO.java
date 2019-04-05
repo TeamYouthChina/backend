@@ -8,7 +8,7 @@ import com.youthchina.dto.util.LocationDTO;
 /**
  * Created by zhong on 2018/12/30.
  */
-public class WorkRequestDTO implements RequestDTO {
+public class WorkRequestDTO implements RequestDTO<Work> {
     private Integer id;
     private String employer;
     private String position;
@@ -73,5 +73,10 @@ public class WorkRequestDTO implements RequestDTO {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public Work convertToDomain() {
+        return new Work(this);
     }
 }
