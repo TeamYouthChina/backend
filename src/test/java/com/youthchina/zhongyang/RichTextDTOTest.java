@@ -19,6 +19,7 @@ import java.io.IOException;
 public class RichTextDTOTest {
 
 
+
     @Test
     public void readRichTextDTO() {
         //language=JSON

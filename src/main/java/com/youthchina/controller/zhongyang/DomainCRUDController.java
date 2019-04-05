@@ -1,5 +1,6 @@
 package com.youthchina.controller.zhongyang;
 
+import com.youthchina.dto.Response;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.util.zhongyang.HasId;
@@ -13,16 +14,13 @@ import java.net.URISyntaxException;
 /**
  * Created by zhongyangwu on 11/21/18.
  */
-public abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Serializable> extends ResponseController<DTO, T, K> {
+public abstract class DomainCRUDController<T extends HasId<K>, K extends Serializable> {
 
     /**
      * @return DomainCRUDService to access the domain model
      */
     protected abstract DomainCRUDService<T, K> getService();
 
-    protected abstract DTO DomainToDto(T domain);
-
-    protected abstract T DtoToDomain(DTO dto);
 
     /**
      * @param key key of domain model
@@ -31,17 +29,17 @@ public abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Se
      */
     protected ResponseEntity<?> get(K key) throws NotFoundException {
         T t = getService().get(key);
-        return ResponseEntity.ok(DtoToResponse(DomainToDto(t)));
+        return ResponseEntity.ok(new Response(t));
     }
 
     /**
-     * @param dto Data Transfer Model
+     * @param domain Data Transfer Model
      * @return 200 if updated
      * @throws NotFoundException cannot find domain model based on the key
      */
-    protected ResponseEntity<?> update(DTO dto) throws NotFoundException {
-        T updatedT = getService().update(DtoToDomain(dto));
-        return ResponseEntity.ok(DtoToResponse(DomainToDto(updatedT)));
+    protected ResponseEntity<?> update(T domain) throws NotFoundException {
+        T updatedT = getService().update(domain);
+        return ResponseEntity.ok(new Response(updatedT));
     }
 
     /**
@@ -51,17 +49,17 @@ public abstract class DomainCRUDController<DTO, T extends HasId<K>, K extends Se
      */
     protected ResponseEntity<?> delete(K key) throws NotFoundException {
         getService().delete(key);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(DtoToResponse());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
     }
 
     /**
      * @param dto data transfer model
      * @return 201 if added
      */
-    protected ResponseEntity<?> add(DTO dto) {
-        T created = getService().add(DtoToDomain(dto));
+    protected ResponseEntity<?> add(T domain) throws NotFoundException {
+        T created = getService().add(domain);
         try {
-            return ResponseEntity.created(getUriForNewInstance(created.getId())).body(DtoToResponse(DomainToDto(created)));
+            return ResponseEntity.created(getUriForNewInstance(created.getId())).body(created);
         } catch (URISyntaxException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

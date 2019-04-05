@@ -13,12 +13,13 @@ import java.util.List;
  * 行业CURD
  */
 @Service
-public class IndustryCURDServiceImpl implements IndustryCURDService{
+public class IndustryCURDServiceImpl implements IndustryCURDService {
     @Resource
     CompanyMapper companyMapper;
 
     /**
      * 搜索行业
+     *
      * @param id 行业Id
      * @return
      * @throws NotFoundException
@@ -31,6 +32,7 @@ public class IndustryCURDServiceImpl implements IndustryCURDService{
 
     /**
      * 返回行业List
+     *
      * @param id 行业ID List
      * @return
      * @throws NotFoundException
@@ -43,6 +45,7 @@ public class IndustryCURDServiceImpl implements IndustryCURDService{
 
     /**
      * 按行业Id删除行业
+     *
      * @param id id
      * @throws NotFoundException
      */
@@ -54,6 +57,7 @@ public class IndustryCURDServiceImpl implements IndustryCURDService{
 
     /**
      * 更新行业
+     *
      * @param industry 行业类
      * @return 更新后的行业类
      * @throws NotFoundException
@@ -62,11 +66,12 @@ public class IndustryCURDServiceImpl implements IndustryCURDService{
     @Transactional
     public Industry update(Industry industry) throws NotFoundException {
         Integer result = companyMapper.updateIndustry(industry);
-        return  companyMapper.selectIndustry(industry.getIndNum());
+        return companyMapper.selectIndustry(industry.getIndNum());
     }
 
     /**
      * 添加行业
+     *
      * @param entity 行业类
      * @return 添加的行业类
      */

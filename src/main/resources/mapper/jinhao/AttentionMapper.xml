@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.jinhao.AttentionMapper">
+    <resultMap id="attention" type="com.youthchina.domain.jinhao.Attention">
+        <id property="id" column="ATTEN_ID"/>
+        <result property="isCancel" column="ATTEN_CANCEL"/>
+    </resultMap>
+    <select id="isEverAttention" resultMap="attention">
+        select * from COM_ATTENTION WHERE TARGET_TYPE=#{type} and TARGET_ID=#{targetId} and USER_ID=#{userId}
+    </select>
+
+    <update id="reFollow" parameterType="java.lang.Integer">
+        update COM_ATTENTION set ATTEN_CANCEL=0, ATTEN_TIME=now() where ATTEN_ID=#{id}
+    </update>
+
+    <insert id="follow" useGeneratedKeys="true" keyProperty="id">
+        insert into COM_ATTENTION(target_type, target_id, user_id, atten_time, ATTEN_CANCEL)
+        values (#{type},#{targetId},#{userId},now(),0)
+    </insert>
+
+    <update id="cancel" parameterType="java.lang.Integer">
+        update COM_ATTENTION set ATTEN_CANCEL=1, ATTEN_CANCEL_TIME=now() where ATTEN_ID=#{id}
+    </update>
+
+    <select id="getAllfollows" resultType="java.lang.Integer">
+        select TARGET_ID from COM_ATTENTION where TARGET_TYPE=#{type} and USER_ID=#{userId} and ATTEN_CANCEL=0
+    </select>
+
+    <select id="get" parameterType="java.lang.Integer" resultMap="attention">
+        select * from COM_ATTENTION where ATTEN_ID=#{id} and ATTEN_CANCEL=0
+    </select>
+</mapper>

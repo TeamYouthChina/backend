@@ -4,6 +4,7 @@ import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.qingyang.Job;
+import com.youthchina.domain.qingyang.Logo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -15,25 +16,37 @@ import java.util.List;
 @Mapper
 @Component
 public interface JobMapper {
-    /**insert Job*/
+    /**
+     * insert Job
+     */
     Integer insertJob(Job job);
 
-    /**update Job*/
+    /**
+     * update Job
+     */
     Integer updateJob(Job job);
 
-    /**delete Job*/
+    /**
+     * delete Job
+     */
     Integer deleteJob(Integer id);
 
-    /**select Job information by Job_ID*/
+    /**
+     * select Job information by Job_ID
+     */
     Job selectJobByJobId(Integer id);
 
-    /**select Job information by Job_ID List*/
+    /**
+     * select Job information by Job_ID List
+     */
     List<Job> selectJobByJobIdList(List<Integer> ids);
 
-    List<Job> getJobByMore(@Param("jobId")Integer jobId, @Param("jobName")String jobName, @Param("comId")Integer comId, @Param("comName")String comName,
-                           @Param("startTime")Date startTime, @Param("endTime")Date endTime, @Param("type")Integer type, @Param("salaryFloor")Integer salaryFloor, @Param("salaryCap")Integer salaryCap,
-                           @Param("active")Integer active, @Param("location")String location, @Param("jobReqList")List<Degree> jobReqList,
-                           @Param("industryList")List<Industry> industryList);
+    List<Job> selectAllJob();
+
+    List<Job> getJobByMore(@Param("jobId") Integer jobId, @Param("jobName") String jobName, @Param("comId") Integer comId, @Param("comName") String comName,
+                           @Param("startTime") Date startTime, @Param("endTime") Date endTime, @Param("type") Integer type, @Param("salaryFloor") Integer salaryFloor, @Param("salaryCap") Integer salaryCap,
+                           @Param("active") Integer active, @Param("location") String location, @Param("jobReqList") List<Degree> jobReqList,
+                           @Param("industryList") List<Industry> industryList);
 
     /*create table JOB_INFO
 (
@@ -53,25 +66,27 @@ public interface JobMapper {
 	CV_RECEI_MAIL varchar(200) not null comment '简历接收邮箱',
 	CV_NAME_RULE varchar(200) null comment '简历命名规则',
 	JOB_ACTIVE int not null comment '职位状态',
-	HR_ID int not null comment '招聘者ID',
 	COMPANY_ID int not null comment '企业ID',
 	IS_DELETE int default 0 null comment '是否删除',
 	IS_DELETE_TIME timestamp null comment '删除时间',
 	constraint JOB_COMPANY_ID
 		foreign key (COMPANY_ID) references COMPANY_INFO (company_id),
-	constraint JOB_HR_ID
-		foreign key (HR_ID) references HR_INFO (hr_id)
+
 )
 comment '职位基本信息表';
 */
-    
+
     Integer insertJobIndustry(List<Industry> industries);
 
-    Integer insertJobDegree(List<Degree> degrees);
+    Integer insertJobDegree(@Param("jobId") Integer jobId, @Param("degreeList")List<Degree> degreeList);
 
-    Integer insertJobLocation(@Param("jobId")Integer jobId, @Param("locations")List<Location> locations);
+    Integer insertJobLocation(@Param("jobId") Integer jobId, @Param("locationList") List<Location> locationList);
+
+    Integer insertJobLogo(@Param("jobId") Integer jobId, @Param("logoList") List<Logo> logoList);
 
     Integer deleteJobLocation(Integer jobId);
+
+    Integer deleteJobLogo(Integer jobId);
 
     Integer deleteJobIndustry(Integer jobId);
 

@@ -1,5 +1,6 @@
 package com.youthchina.util;
 
+import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.util.zhongyang.DomainToDTOConverterFactory;
@@ -17,7 +18,7 @@ public class DomainToDTOConverterFactoryTest {
         DomainToDTOConverterFactory domainToDTOConverterFactory = new DomainToDTOConverterFactory();
         Converter<Object, UserDTO> converter = domainToDTOConverterFactory.getConverter(UserDTO.class);
         User user = new User();
-        user.setRole(1);
+        user.setRole(Role.APPLICANT);
         user.setUsername("YihaoGuo");
         user.setPassword("123456");
         user.setId(1);

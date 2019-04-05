@@ -16,12 +16,21 @@ import java.util.List;
 public interface LocationMapper {
 
     Location getChnLocation(Integer regionNum);
+
     List<Location> getChildrenChn(Integer parentId);
+
     List<Location> getChnLocationByLocationList(List<Location> locationList);
 
 
     Location getUSALocation(Integer zipCode);
+
     List<Location> getUSALocationByLocationList(List<Location> locationList);
+
     List<Location> getChildrenUSA(Integer stateId);
+
+    Location getLocationViewById(Integer regionId);
+
+    List<Location> getLocationViewByIdList(List<Integer> idList);
+
 
 }

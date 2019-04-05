@@ -1,11 +1,10 @@
 package com.youthchina.domain.Qinghong;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class PreferCity {
     private Integer pre_city_id;
-    private String pre_city_code;
+    private String pre_region_num;
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
@@ -18,12 +17,12 @@ public class PreferCity {
         this.pre_city_id = pre_city_id;
     }
 
-    public String getPre_city_code() {
-        return pre_city_code;
+    public String getPre_region_num() {
+        return pre_region_num;
     }
 
-    public void setPre_city_code(String pre_city_code) {
-        this.pre_city_code = pre_city_code;
+    public void setPre_region_num(String pre_region_num) {
+        this.pre_region_num = pre_region_num;
     }
 
     public Integer getStu_id() {

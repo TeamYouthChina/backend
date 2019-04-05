@@ -3,17 +3,17 @@ package com.youthchina.domain.tianjian;
 import java.sql.Timestamp;
 
 public class ComMediaDocument {
-  private Integer docu_id;
-  private String docu_local_id;
-  private String docu_local_name;
-  private String docu_local_format;
-  private String docu_server_ali_id;
-  private String docu_server_aws_id;
-  private Timestamp create_time;
-  private Integer is_delete;
-  private Timestamp is_delete_time;
-  private String docu_local_size;
-  private Integer upload_user_id;
+    private Integer docu_id;
+    private String docu_local_id;
+    private String docu_local_name;
+    private String docu_local_format;
+    private String docu_server_ali_id;
+    private String docu_server_aws_id;
+    private Timestamp create_time;
+    private Integer is_delete;
+    private Timestamp is_delete_time;
+    private String docu_local_size;
+    private Integer upload_user_id;
 
     public Integer getDocu_id() {
         return docu_id;

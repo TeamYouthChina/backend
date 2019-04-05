@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.dto.community.briefreview.RequestBriefReviewDTO;
-import com.youthchina.dto.community.comment.RequestCommentDTO;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
+import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.dto.util.RichTextRequestDTO;
 import com.youthchina.util.AuthGenerator;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,17 +26,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.io.IOException;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:briefreview.xml","classpath:users.xml","classpath:comments.xml"})
+@DatabaseSetup({"classpath:New_Community_test.xml"})
+@DatabaseSetup({"classpath:New_SYS_test.xml"})
 @WebAppConfiguration
 public class BriefReviewControllerTest {
     @Autowired
@@ -65,14 +62,14 @@ public class BriefReviewControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"QQQEERTT\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"comments\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"qwe\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}]},\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
-                // change register_date, real_name
+                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":{\"resourceIdList\":[],\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<有感于腾讯公司的发家史，总觉得腾讯背后有某种强大的力量，能靠微创新（也可称山寨）能发展到现如今的体量也算是世界奇观。靠模仿icq完成了资本的原始积累并实现了滚雪球，可以这么说腾讯的今天是一切都建立在oicq（qq）之上的，从qq堂，qq飞车，qq劲舞，腾讯的发家史就是一个复制粘贴史。。。并且发展到如今规模，企业文化还是坚强的延续下来，复制粘贴的企业文化从高层到底层，已深入骨髓，从领子烂到里子。。对创新型企业来说，腾讯如一颗毒瘤存在，注定不会得到大家尊重。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\"},\"previewText\":\"有感于腾讯公司的发家史，总觉得腾讯背后有某种强大的力量，能靠微创新（也可称山寨）能发展到现如今的体量也算是世界奇观。靠模仿icq完成了资本的原始积累并实现了滚雪球，可以这么说腾讯的今天是一切都建立在oicq（qq）之上的，从qq堂，qq飞车，qq劲舞，腾讯的发家史就是一个复制粘贴史。。。并且发展到如今规模，企业文化还是坚强的延续下来，复制粘贴的企业文化从高层到底层，已深入骨髓，从领子烂到里子。。对创新型企业来说，腾讯如一颗毒瘤存在，注定不会得到大家尊重。\",\"compiletype\":1},\"comments\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false}]},\"author\":{\"id\":1,\"username\":null,\"email\":null,\"phonenumber\":null,\"register_date\":null,\"firstName\":null,\"lastName\":null,\"gender\":null,\"nation\":null,\"avatar_url\":null,\"role\":null,\"age\":null}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+        // change register_date, real_name
     }
 
     @Test
     public void deleteBriefReviewTest() throws Exception {
         this.mvc.perform(
-                 delete(this.urlPrefix + "/editorials/1")
+                delete(this.urlPrefix + "/editorials/1")
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
@@ -82,40 +79,18 @@ public class BriefReviewControllerTest {
 
     @Test
     public void updateBriefReviewTest() throws Exception {
-        RequestBriefReviewDTO requestBriefReviewDTO = new RequestBriefReviewDTO();
-        RichTextDTO richTextDTO = new RichTextDTO();
-        //language=JSON
-        String json = "{\n" +
-                "  \"braftEditorRaw\":{\n" +
-                "    \"blocks\": [\n" +
-                "      {\n" +
-                "        \"key\":\"dtj4a\",\n" +
-                "        \"text\":\"update\",\n" +
-                "        \"type\":\"unstyled\",\n" +
-                "        \"depth\":0,\n" +
-                "        \"inlineStyleRanges\": [],\n" +
-                "        \"entityRanges\": [],\n" +
-                "        \"data\":{\n" +
-                "        }\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"entityMap\":{\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"previewText\":null,\n" +
-                "  \"resourceIdList\": []\n" +
-                "}";
-        try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
-            System.out.println(richTextDTO);
-        } catch (IOException e) {
-            Assert.fail();
-        }
-
+        BriefReviewRequestDTO requestBriefReviewDTO = new BriefReviewRequestDTO();
+        String json = "";
+        String pre = "pre";
+        RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
+        richTextDTO.setBraftEditorRaw(json);
+        richTextDTO.setPreviewText(pre);
+        richTextDTO.setCompiletype(1);
         requestBriefReviewDTO.setBody(richTextDTO);
+
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String addJson = ow.writeValueAsString(requestBriefReviewDTO);
+        String addJson = ow.writeValueAsString(requestBriefReviewDTO);
         this.mvc.perform(
                 put(this.urlPrefix + "/editorials/1")
                         .content(addJson)
@@ -124,47 +99,25 @@ public class BriefReviewControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"update\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"comments\":{\"comments\":[]},\"author\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"pre\",\"compiletype\":1},\"comments\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false}]},\"author\":{\"id\":1,\"username\":null,\"email\":null,\"phonenumber\":null,\"register_date\":null,\"firstName\":null,\"lastName\":null,\"gender\":null,\"nation\":null,\"avatar_url\":null,\"role\":null,\"age\":null}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
 
 
     }
 
     @Test
     public void addBriefReviewTest() throws Exception {
-        RequestBriefReviewDTO requestBriefReviewDTO = new RequestBriefReviewDTO();
-        RichTextDTO richTextDTO = new RichTextDTO();
-        //language=JSON
-        String json = "{\n" +
-                "  \"braftEditorRaw\":{\n" +
-                "    \"blocks\": [\n" +
-                "      {\n" +
-                "        \"key\":\"dtj4a\",\n" +
-                "        \"text\":\"dsafsaf\",\n" +
-                "        \"type\":\"unstyled\",\n" +
-                "        \"depth\":0,\n" +
-                "        \"inlineStyleRanges\": [],\n" +
-                "        \"entityRanges\": [],\n" +
-                "        \"data\":{\n" +
-                "        }\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"entityMap\":{\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"previewText\":null,\n" +
-                "  \"resourceIdList\": []\n" +
-                "}";
-        try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
-            System.out.println(richTextDTO);
-        } catch (IOException e) {
-            Assert.fail();
-        }
+        BriefReviewRequestDTO requestBriefReviewDTO = new BriefReviewRequestDTO();
+        String json = "";
+        String pre = "pre";
+        RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
+        richTextDTO.setBraftEditorRaw(json);
+        richTextDTO.setPreviewText(pre);
+        richTextDTO.setCompiletype(1);
 
         requestBriefReviewDTO.setBody(richTextDTO);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String addJson = ow.writeValueAsString(requestBriefReviewDTO);
+        String addJson = ow.writeValueAsString(requestBriefReviewDTO);
         this.mvc.perform(
                 post(this.urlPrefix + "/editorials")
                         .content(addJson)
@@ -177,42 +130,14 @@ public class BriefReviewControllerTest {
 
     @Test
     public void addBriefReviewCommentsTest() throws Exception {
-        RequestCommentDTO requestCommentDTO = new RequestCommentDTO();
-        RichTextDTO richTextDTO = new RichTextDTO();
-        //language=JSON
-        String json = "{\n" +
-                "  \"braftEditorRaw\":{\n" +
-                "    \"blocks\": [\n" +
-                "      {\n" +
-                "        \"key\":\"dtj4a\",\n" +
-                "        \"text\":\"qqqrrr\",\n" +
-                "        \"type\":\"unstyled\",\n" +
-                "        \"depth\":0,\n" +
-                "        \"inlineStyleRanges\": [],\n" +
-                "        \"entityRanges\": [],\n" +
-                "        \"data\":{\n" +
-                "        }\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"entityMap\":{\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"previewText\":null,\n" +
-                "  \"resourceIdList\": []\n" +
-                "}";
-        try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
-            System.out.println(richTextDTO);
-        } catch (IOException e) {
-            Assert.fail();
-        }
+        CommentRequestDTO commentRequestDTO = new CommentRequestDTO();
+        String json = "comment";
+        commentRequestDTO.setBody(json);
 
-        requestCommentDTO.setBody(richTextDTO);
-
-        requestCommentDTO.setIs_anonymous(true);
+        commentRequestDTO.setIs_anonymous(true);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String addJson = ow.writeValueAsString(requestCommentDTO);
+        String addJson = ow.writeValueAsString(commentRequestDTO);
         this.mvc.perform(
                 post(this.urlPrefix + "/editorials/1/comments")
                         .content(addJson)
@@ -232,7 +157,17 @@ public class BriefReviewControllerTest {
         )
                 .andDo(print())
                 .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
 
+    @Test
+    public void addBriefReviewDownvoteTest() throws Exception {
+        this.mvc.perform(
+                put(this.urlPrefix + "/editorials/1/downvote")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
@@ -243,7 +178,7 @@ public class BriefReviewControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-               .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"qwe\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"is_anonymous\":false}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
 
     }
 }

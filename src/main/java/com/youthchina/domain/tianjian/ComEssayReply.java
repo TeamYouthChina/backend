@@ -1,9 +1,5 @@
 package com.youthchina.domain.tianjian;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.youthchina.dto.community.article.RequestEssayReplyDTO;
-
 import java.sql.Timestamp;
 
 public class ComEssayReply {
@@ -16,19 +12,8 @@ public class ComEssayReply {
     private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public ComEssayReply(RequestEssayReplyDTO requestEssayReplyDTO){
-        this.user_anony = (requestEssayReplyDTO.isAnonymous())? 1:0;
-        try{
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            java.lang.String requestJson = ow.writeValueAsString(requestEssayReplyDTO.getBody());
-            this.reply_content = requestJson;
-        }catch (Exception e){
-            System.out.println("Exception");
-        }
+    public ComEssayReply() {
     }
-
-    public ComEssayReply(){}
 
     public Integer getReply_id() {
         return reply_id;

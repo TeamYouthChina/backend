@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.jinhao.AnswerMapper">
+    <resultMap id="answer" type="com.youthchina.domain.jinhao.Answer">
+        <id property="id" column="ANSWER_ID"/>
+        <result property="targetType" column="TARGET_TYPE"/>
+        <result property="targetId" column="TARGET_ID"/>
+        <result property="isAnony" column="USER_ANONY"/>
+        <result property="pubTime" column="ANSWER_PUB_TIME"/>
+        <result property="editTime" column="ANSWER_EDIT_TIME"/>
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
+                     resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
+    </resultMap>
+
+    <select id="getLimitedAnswers" parameterType="java.lang.Integer" resultMap="answer">
+        select a.*, u.* from COM_ANSWER a
+        left join SYS_USER u on u.USER_ID=a.USER_ID and u.IS_DELETE=0
+        where a.TARGET_ID=#{id} and a.IS_DELETE=0 limit #{start}, #{rows}
+    </select>
+
+    <select id="getAnswers" parameterType="java.lang.Integer" resultMap="answer">
+        select a.*, u.* from COM_ANSWER a
+                                 left join SYS_USER u on u.USER_ID=a.USER_ID and u.IS_DELETE=0
+        where a.TARGET_ID=#{id} and a.IS_DELETE=0
+    </select>
+
+    <select id="get" parameterType="java.lang.Integer" resultMap="answer">
+        select a.*, u.* from COM_ANSWER a
+        left join SYS_USER u on u.USER_ID=a.USER_ID and u.IS_DELETE=0
+        where ANSWER_ID = #{id} and a.IS_DELETE=0
+    </select>
+
+    <insert id="add" parameterType="com.youthchina.domain.jinhao.Answer" useGeneratedKeys="true"
+    keyProperty="id">
+        insert into COM_ANSWER(ANSWER_BODY,target_type, target_id, user_id, user_anony, answer_pub_time, answer_edit_time)
+        values (#{body.textId},#{targetType},#{targetId},#{user.id},#{isAnony},now(),now())
+    </insert>
+
+    <update id="update" parameterType="com.youthchina.domain.jinhao.Answer">
+        update COM_ANSWER set USER_ANONY=#{isAnony}, ANSWER_EDIT_TIME=now()
+        where ANSWER_ID=#{id}
+    </update>
+
+    <update id="delete" parameterType="java.lang.Integer">
+        update COM_ANSWER set IS_DELETE = 1, IS_DELETE_TIME=now()
+        where ANSWER_ID=#{id}
+    </update>
+
+    <select id="checkIfAnswerExist" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select ANSWER_ID from COM_ANSWER where ANSWER_ID = #{id} and IS_DELETE=0
+    </select>
+    <select id="countAnswers" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(ANSWER_ID) from COM_ANSWER where TARGET_ID=#{id} and IS_DELETE=0
+    </select>
+</mapper>

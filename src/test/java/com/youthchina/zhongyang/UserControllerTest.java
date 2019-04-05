@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup(value = {"classpath:users.xml"}, type = DatabaseOperation.CLEAN_INSERT)
+@DatabaseSetup(value = {"classpath:sys.xml"}, type = DatabaseOperation.CLEAN_INSERT)
 @WebAppConfiguration
 public class UserControllerTest {
     @Autowired
@@ -59,11 +59,11 @@ public class UserControllerTest {
     @Test
     public void testLogin() throws Exception {
         this.mvc.perform(post(this.urlPrefix + "/login").contentType(MediaType.APPLICATION_JSON_UTF8).content("{\n" +
-                "  \"id\": 1,\n" +
+                "  \"id\": 2,\n" +
                 "  \"password\": \"123456\"\n" +
                 "}"))
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":[\"ADMIN\"],\"age\":28},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
                 .andExpect(header().exists("X-AUTHENTICATION"));
     }
 
@@ -86,8 +86,6 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.content.username").value("testUser"))
                 .andExpect(jsonPath("$.content.email").value("testNew!@test.com"))
                 .andExpect(jsonPath("$.content.phonenumber").value("12315213"))
-                .andExpect(jsonPath("$.content.realName").value("testUser"))
-                .andExpect(jsonPath("$.content.nation").value("China"))
         ;
 
         this.mvc.perform(post(this.urlPrefix + "/applicants/register")

@@ -8,6 +8,7 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.security.UserDTO;
+import com.youthchina.dto.util.PageRequest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:users.xml"})
+@DatabaseSetup({"classpath:sys.xml"})
 @WebAppConfiguration
 public class ResponseBodyDTOAspectTest {
     @Autowired
@@ -75,7 +76,7 @@ public class ResponseBodyDTOAspectTest {
 
     @Test
     public void testAspectWithListResponse() {
-        List list = (List) aspectTestClass.testedListResponseMethod().getBody().getContent().get("users");
+        List list = (List) aspectTestClass.testedListResponseMethod().getBody().getContent().getData();
         Assert.assertEquals(list.size(), 3);
         Assert.assertEquals(list.get(0).getClass(), UserDTO.class);
     }
@@ -122,7 +123,7 @@ class AspectTestClass {
             user.setPhonenumber("2323987948");
             users.add(user);
         }
-        return ResponseEntity.ok(new ListResponse(users, "users"));
+        return ResponseEntity.ok(new ListResponse(new PageRequest(), 12, users));
     }
 }
 

@@ -1,7 +1,8 @@
 package com.youthchina.domain.Qinghong;
 
+import com.youthchina.dto.applicant.SkillsRequestDTO;
+
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class AdvantageLabel {
     private Integer label_id;
@@ -9,6 +10,14 @@ public class AdvantageLabel {
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
+
+    public AdvantageLabel() {
+
+    }
+
+    public AdvantageLabel(SkillsRequestDTO skillsRequestDTO) {
+        this.label_code = skillsRequestDTO.getLabel_code();
+    }
 
     public Integer getLabel_id() {
         return label_id;

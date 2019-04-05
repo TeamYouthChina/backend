@@ -1,7 +1,7 @@
 package com.youthchina.dao.tianjian;
 
 import com.youthchina.domain.Qinghong.UserInfo;
-import com.youthchina.domain.tianjian.*;
+import com.youthchina.domain.tianjian.PersonInfluence;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface PersonInfluenceMapper {
-   int savePersonInfluence(PersonInfluence personInfluence);
+    int savePersonInfluence(PersonInfluence personInfluence);
 
-   int updatePersonInfluence(PersonInfluence personInfluence);
+    int updatePersonInfluence(PersonInfluence personInfluence);
 
-   PersonInfluence getPersonInfluence(Integer user_id);
+    PersonInfluence getPersonInfluence(Integer user_id);
 
-   UserInfo getUserInfo(Integer user_id);
+    UserInfo getUserInfo(Integer user_id);
 }

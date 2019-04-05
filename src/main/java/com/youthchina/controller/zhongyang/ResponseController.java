@@ -50,7 +50,7 @@ abstract class ResponseController<DTO, T extends HasId<K>, K extends Serializabl
         return new Response(null, status, message);
     }
 
-    protected HasStatus DtoToResponse(){
+    protected HasStatus DtoToResponse() {
         return new Response();
     }
 }

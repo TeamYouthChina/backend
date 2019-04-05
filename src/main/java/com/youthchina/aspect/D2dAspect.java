@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zhongyangwu on 3/21/19.
@@ -48,17 +47,14 @@ public class D2dAspect {
         }
         if (responseEntity.getBody() instanceof ListResponse) {
             ListResponse listResponse = (ListResponse) responseEntity.getBody();
-            for (Map.Entry<String, Object> entry : listResponse.getContent().entrySet()) {
-                if (!entry.getValue().equals("pagination")) {
-                    Converter converter = domainToDTOConverterFactory.getConverter(responseBodyDTOAnnotation.value());
-                    Collection collection = (Collection) entry.getValue();
-                    List result = new ArrayList();
-                    for (Object object : collection) {
-                        result.add(converter.convert(object));
-                    }
-                    listResponse.getContent().put(entry.getKey(), result);
-                }
+            Object data = listResponse.getContent().getData();
+            Converter converter = domainToDTOConverterFactory.getConverter(responseBodyDTOAnnotation.value());
+            Collection collection = (Collection) data;
+            List result = new ArrayList();
+            for (Object object : collection) {
+                result.add(converter.convert(object));
             }
+            listResponse.getContent().setData(result);
         }
         return responseEntity;
     }

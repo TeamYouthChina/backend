@@ -52,4 +52,9 @@ public class BaseException extends Exception implements HasStatus {
     public int getStatusCode() {
         return this.statusCode;
     }
+
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
+    }
 }

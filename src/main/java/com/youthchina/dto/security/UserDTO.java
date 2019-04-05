@@ -1,9 +1,12 @@
 package com.youthchina.dto.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.ResponseDTO;
+
+import java.util.List;
 
 /**
  * Created by zhongyangwu on 1/29/19.
@@ -15,11 +18,12 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     private String email;
     private String phonenumber;
     private String register_date;
-    private String real_name;
+    private String firstName;
+    private String lastName;
     private String gender;
     private String nation;
     private String avatar_url;
-    private Integer role;
+    private List<Role> role;
     private Integer age;
 
     public UserDTO() {
@@ -33,7 +37,8 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
         this.register_date = user.getRegisterDate();
-        this.real_name = user.getRealName();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
         this.gender = user.getGender();
         this.nation = user.getNation();
         this.avatar_url = user.getAvatarUrl();
@@ -90,12 +95,12 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.register_date = register_date;
     }
 
-    public String getReal_name() {
-        return real_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setReal_name(String real_name) {
-        this.real_name = real_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getAvatar_url() {
@@ -123,11 +128,11 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     }
 
 
-    public Integer getRole() {
+    public List<Role> getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(List<Role> role) {
         this.role = role;
     }
 
@@ -139,6 +144,14 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.age = age;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     @Override
     public void convertToDTO(User user) {
         this.id = user.getId();
@@ -147,7 +160,8 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
         this.register_date = user.getRegisterDate();
-        this.real_name = user.getRealName();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
         this.gender = user.getGender();
         this.nation = user.getNation();
         this.avatar_url = user.getAvatarUrl();
@@ -157,6 +171,6 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
 
     @Override
     public User convertToDomain() {
-        return new User();
+        return new User(this);
     }
 }

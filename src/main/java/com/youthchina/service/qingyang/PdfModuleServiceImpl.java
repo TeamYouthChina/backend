@@ -9,9 +9,10 @@ import java.io.File;
 import java.io.IOException;
 
 @Service
-public class PdfModuleServiceImpl implements PdfModuleService{
+public class PdfModuleServiceImpl implements PdfModuleService {
     /**
      * 按段落读取Pdf, 返回String数组
+     *
      * @param file
      * @return
      * @throws IOException

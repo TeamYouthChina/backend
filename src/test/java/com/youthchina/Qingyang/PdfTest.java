@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,7 +17,6 @@ import java.util.regex.Pattern;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PdfTest {
-
 
 
     private String resume = null;
@@ -92,7 +90,7 @@ public class PdfTest {
 
     public String mailSearch(String resume) {
         String MAIL_REG = "\\w+(\\.\\w+)*@\\w+(\\.\\w{2,3}){1,3}";
-        return regexMatch(MAIL_REG,resume);
+        return regexMatch(MAIL_REG, resume);
     }
 
     public String addressSearch(String resume) {
@@ -173,7 +171,6 @@ public class PdfTest {
         } else {
             Assert.fail();
         }
-
 
 
     }
