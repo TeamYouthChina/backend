@@ -30,7 +30,7 @@ public class PageResponse {
     }
 
     public PageResponse(PageRequest pageRequest, int itemCount) {
-        this(pageRequest.getStart(), pageRequest.getEnd(), itemCount, pageRequest.getLimit());
+        this(pageRequest.getStart(), pageRequest.getEnd(), itemCount, pageRequest.getLimit() == 0 ? 1 : pageRequest.getLimit());
     }
 
     public PageResponse(PageRequest pageRequest, int itemCount, Object data){

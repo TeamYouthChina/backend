@@ -17,18 +17,26 @@ public class EducationResponseDTO implements ResponseDTO {
     private String major;
     private String degree;
     private DurationDTO duration;
-    private String location;
     private String note;
 
     public EducationResponseDTO() {
     }
 
     public EducationResponseDTO(EducationInfo educationInfo) {
-        this.university=educationInfo.getUniversity().getUnivers_name();
-        this.id = educationInfo.getEdu_id();
-        this.major = educationInfo.getEdu_major();
-        this.degree = educationInfo.getDegree().getDegreeChn();
-        this.duration = new DurationDTO(educationInfo.getEdu_start(), educationInfo.getEdu_end());
+        if(educationInfo!=null){
+            if(educationInfo.getUniversity()!=null){
+                this.university=educationInfo.getUniversity().getUnivers_name();
+            }
+            this.id = educationInfo.getEdu_id();
+            this.major = educationInfo.getEdu_major();
+
+            if(educationInfo.getDegree()!=null){
+                this.degree = educationInfo.getDegree().getDegreeChn();
+            }
+
+            this.duration = new DurationDTO(educationInfo.getEdu_start(), educationInfo.getEdu_end());
+        }
+
 
     }
 
@@ -72,13 +80,6 @@ public class EducationResponseDTO implements ResponseDTO {
         this.duration = duration;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public String getNote() {
         return note;

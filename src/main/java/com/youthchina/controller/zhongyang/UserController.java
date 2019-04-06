@@ -67,8 +67,15 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
             throw new ForbiddenException();
         }
     }
+    /**
+    * @Description: 需要添加分页
+    * @Param: [user_id, type]
+    * @return: org.springframework.http.ResponseEntity<?>
+    * @Author: Qinghong Wang
+    * @Date: 2019/4/4
+    */
 
-    @GetMapping("/{id}/attentions/**")
+    @GetMapping("/{id}/attentions")
     public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id, @RequestParam(value = "type") String type) throws NotFoundException {
         switch (type) {
             case "Job": {

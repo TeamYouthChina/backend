@@ -15,8 +15,14 @@ public class CompCollectResponseDTO implements ResponseDTO {
     private OrganizationDTO organization;
 
     public CompCollectResponseDTO(CompCollect compCollect) {
-        this.id = compCollect.getCollect_id();
-        this.organization = new OrganizationDTO(compCollect.getCompany());
+        if(compCollect!=null){
+            this.id = compCollect.getCollect_id();
+            if(compCollect.getCompany()!=null){
+                this.organization = new OrganizationDTO(compCollect.getCompany());
+            }
+
+        }
+
     }
 
     public CompCollectResponseDTO() {

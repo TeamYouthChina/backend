@@ -101,31 +101,35 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
     public ResponseEntity<?> getApplicantsProjects(@PathVariable Integer id,PageRequest pageRequest) throws NotFoundException {
         Student student = studentService.get(id);
         List<ProjectResponseDTO> dtos=new ApplicantResponseDTO(student).getProjects();
-        List<ProjectResponseDTO> result=new ArrayList<>();
-        for(int i = pageRequest.getStart(); i < Math.min(pageRequest.getEnd() + 1, dtos.size()); i++){
-            result.add(dtos.get(i));
-        }
-        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getProjects()));
+        List<ProjectResponseDTO> result =dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
+        ListResponse listResponse = new ListResponse(pageRequest, student.getEducationInfos().size(),result);
+        return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/experiences")
     public ResponseEntity<?> getApplicantsExperiences(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
         Student student = studentService.get(id);
-        ListResponse listResponse = new ListResponse(pageRequest, student.getWorks().size(), new ApplicantResponseDTO(student).getExperiences());
+        List<WorkResponseDTO> dtos=new ApplicantResponseDTO(student).getExperiences();
+        List<WorkResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
+        ListResponse listResponse = new ListResponse(pageRequest, student.getWorks().size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/certificates")
     public ResponseEntity<?> getApplicantsCertificates(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
         Student student = studentService.get(id);
-        ListResponse listResponse = new ListResponse(pageRequest, student.getCertificates().size(), new ApplicantResponseDTO(student).getCertifications());
+        List<CertificateResponseDTO> dtos=new ApplicantResponseDTO(student).getCertifications();
+        List<CertificateResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
+        ListResponse listResponse = new ListResponse(pageRequest, student.getCertificates().size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/extracurriculars")
     public ResponseEntity<?> getApplicantsExtracurriculars(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
         Student student = studentService.get(id);
-        ListResponse listResponse = new ListResponse(pageRequest, student.getActivities().size(), new ApplicantResponseDTO(student).getExtracurriculars());
+        List<ExtracurricularResponseDTO> dtos=new ApplicantResponseDTO(student).getExtracurriculars();
+        List<ExtracurricularResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
+        ListResponse listResponse = new ListResponse(pageRequest, student.getActivities().size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
@@ -171,141 +175,143 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
             JobApplyDTO jobApplyDTO = new JobApplyDTO(jobApply);
             jobApplyDTOS.add(jobApplyDTO);
         }
-        return ResponseEntity.ok(new Response(jobApplyDTOS));
-    }
-
-
-    /**
-     * @Description: 实现education的保存操作
-     * @Param: [educationRequestDTOS, user]
-     * @return: org.springframework.http.ResponseEntity<?>
-     * @Author: Qinghong Wang
-     * @Date: 2019/2/25
-     */
-
-    @RequestMapping(value = "/{id}/educations", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> saveApplicantsEducations(@RequestBody List<EducationRequestDTO> educationRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
-        List<EducationInfo> educationInfos = new ArrayList<>();
-        for (EducationRequestDTO educationRequestDTO : educationRequestDTOS) {
-            EducationInfo educationInfo = new EducationInfo(educationRequestDTO);
-            educationInfos.add(educationInfo);
-        }
-        List<EducationInfo> educationInfos1 = studentService.insertEducations(educationInfos, user.getId());
-        List<EducationResponseDTO> educationResponseDTOS = new ArrayList<>();
-        for (EducationInfo educationInfo : educationInfos1) {
-            EducationResponseDTO educationResponseDTO = new EducationResponseDTO(educationInfo);
-            educationResponseDTOS.add(educationResponseDTO);
-        }
-        return ResponseEntity.ok(new Response(educationResponseDTOS));
-    }
-
-    /**
-     * @Description: 实现work的保存操作
-     * @Param: [workRequestDTOS, user]
-     * @return: org.springframework.http.ResponseEntity<?>
-     * @Author: Qinghong Wang
-     * @Date: 2019/2/25
-     */
-
-    @RequestMapping(value = "/{id}/experiences", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> saveApplicantsWorks(@RequestBody List<WorkRequestDTO> workRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id, PageRequest pageRequest) throws NotFoundException {
-        List<Work> works = new ArrayList<>();
-        for (WorkRequestDTO workRequestDTO : workRequestDTOS) {
-            Work work = new Work(workRequestDTO);
-            works.add(work);
-        }
-        List<Work> works1 = studentService.insertWorks(works, user.getId());
-        List<WorkResponseDTO> workresponsedtos = new ArrayList<>();
-        for (Work work : works1) {
-            WorkResponseDTO workResponseDTO = new WorkResponseDTO(work);
-            workresponsedtos.add(workResponseDTO);
-        }
-        ListResponse listResponse = new ListResponse(pageRequest, workresponsedtos.size(), workresponsedtos);
+        List<JobApplyDTO> result=jobApplyDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,jobApplyDTOS.size()));
+        ListResponse listResponse = new ListResponse(pageRequest, jobApplyDTOS.size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
-    /**
-     * @Description: 实现项目的保存操作
-     * @Param: [projectRequestDTOS, user]
-     * @return: org.springframework.http.ResponseEntity<?>
-     * @Author: Qinghong Wang
-     * @Date: 2019/2/26
-     */
-    @RequestMapping(value = "/{id}/projects", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> saveApplicantsProjects(@RequestBody List<ProjectRequestDTO> projectRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
-        List<Project> projects = new ArrayList<>();
-        for (ProjectRequestDTO projectRequestDTO : projectRequestDTOS) {
-            Project project = new Project(projectRequestDTO);
-            projects.add(project);
-        }
-        List<Project> projects1 = studentService.insertProjects(projects, user.getId());
-        List<ProjectResponseDTO> projectResponseDTOS = new ArrayList<>();
-        for (Project project : projects1) {
-            ProjectResponseDTO projectResponseDTO = new ProjectResponseDTO(project);
-            projectResponseDTOS.add(projectResponseDTO);
-        }
-        return ResponseEntity.ok(new Response(projectResponseDTOS));
-    }
 
-    /**
-     * @Description: 实现课外经历的保存
-     * @Param: [extracurricularRequestDTOS, user]
-     * @return: org.springframework.http.ResponseEntity<?>
-     * @Author: Qinghong Wang
-     * @Date: 2019/2/26
-     */
-    @RequestMapping(value = "/{id}/extracurriculars", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> saveApplicantsExtracurriculars(@RequestBody List<ExtracurricularRequestDTO> extracurricularRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
-        List<Activity> activities = new ArrayList<>();
-        for (ExtracurricularRequestDTO extracurricularRequestDTO : extracurricularRequestDTOS) {
-            Activity activity = new Activity(extracurricularRequestDTO);
-            activities.add(activity);
-        }
-        List<Activity> activities1 = studentService.insertActivities(activities, user.getId());
-        List<ExtracurricularResponseDTO> extracurricularResponseDTOS = new ArrayList<>();
-        for (Activity activity : activities1) {
-            ExtracurricularResponseDTO extracurricularResponseDTO = new ExtracurricularResponseDTO(activity);
-            extracurricularResponseDTOS.add(extracurricularResponseDTO);
-        }
-        return ResponseEntity.ok(new Response(extracurricularResponseDTOS));
-    }
-
-    /**
-     * @Description: 实现证书信息的保存
-     * @Param: [certificateRequestDTOS, user]
-     * @return: org.springframework.http.ResponseEntity<?>
-     * @Author: Qinghong Wang
-     * @Date: 2019/2/26
-     */
-
-    @RequestMapping(value = "/{id}/certificates", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> saveApplicantsCertificates(@RequestBody List<CertificateRequestDTO> certificateRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id, PageRequest pageRequest) throws NotFoundException {
-        List<Certificate> certificates1 = new ArrayList<>();
-        for (CertificateRequestDTO certificateRequestDTO : certificateRequestDTOS) {
-            Certificate certificate = new Certificate(certificateRequestDTO);
-            certificates1.add(certificate);
-        }
-        List<Certificate> certificates = studentService.insertCertificates(certificates1, user.getId());
-        List<CertificateResponseDTO> certificateResponseDTOS = new ArrayList<>();
-        for (Certificate certificate : certificates) {
-            CertificateResponseDTO certificateResponseDTO = new CertificateResponseDTO(certificate);
-            certificateResponseDTOS.add(certificateResponseDTO);
-        }
-        ListResponse listResponse = new ListResponse(pageRequest, certificateResponseDTOS.size(), certificateResponseDTOS);
-        return ResponseEntity.ok(listResponse);
-    }
-
-    @RequestMapping(value = "/{id}/skills", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> saveApplicantsSkills(@RequestBody List<String> skills, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
-        List<LabelInfo> labelInfos = studentService.insertLabels(skills, id);
-        List<SkillsResponseDTO> skillsResponseDTOS = new ArrayList<>();
-        for (LabelInfo labelInfo : labelInfos) {
-            SkillsResponseDTO skillsResponseDTO = new SkillsResponseDTO(labelInfo);
-            skillsResponseDTOS.add(skillsResponseDTO);
-        }
-        return ResponseEntity.ok(new Response(skillsResponseDTOS));
-
-    }
+//    /**
+//     * @Description: 实现education的保存操作
+//     * @Param: [educationRequestDTOS, user]
+//     * @return: org.springframework.http.ResponseEntity<?>
+//     * @Author: Qinghong Wang
+//     * @Date: 2019/2/25
+//     */
+//
+//    @RequestMapping(value = "/{id}/educations", method = {RequestMethod.POST, RequestMethod.PUT})
+//    public ResponseEntity<?> saveApplicantsEducations(@RequestBody List<EducationRequestDTO> educationRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
+//        List<EducationInfo> educationInfos = new ArrayList<>();
+//        for (EducationRequestDTO educationRequestDTO : educationRequestDTOS) {
+//            EducationInfo educationInfo = new EducationInfo(educationRequestDTO);
+//            educationInfos.add(educationInfo);
+//        }
+//        List<EducationInfo> educationInfos1 = studentService.insertEducations(educationInfos, user.getId());
+//        List<EducationResponseDTO> educationResponseDTOS = new ArrayList<>();
+//        for (EducationInfo educationInfo : educationInfos1) {
+//            EducationResponseDTO educationResponseDTO = new EducationResponseDTO(educationInfo);
+//            educationResponseDTOS.add(educationResponseDTO);
+//        }
+//        return ResponseEntity.ok(new Response(educationResponseDTOS));
+//    }
+//
+//    /**
+//     * @Description: 实现work的保存操作
+//     * @Param: [workRequestDTOS, user]
+//     * @return: org.springframework.http.ResponseEntity<?>
+//     * @Author: Qinghong Wang
+//     * @Date: 2019/2/25
+//     */
+//
+//    @RequestMapping(value = "/{id}/experiences", method = {RequestMethod.POST, RequestMethod.PUT})
+//    public ResponseEntity<?> saveApplicantsWorks(@RequestBody List<WorkRequestDTO> workRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id, PageRequest pageRequest) throws NotFoundException {
+//        List<Work> works = new ArrayList<>();
+//        for (WorkRequestDTO workRequestDTO : workRequestDTOS) {
+//            Work work = new Work(workRequestDTO);
+//            works.add(work);
+//        }
+//        List<Work> works1 = studentService.insertWorks(works, user.getId());
+//        List<WorkResponseDTO> workresponsedtos = new ArrayList<>();
+//        for (Work work : works1) {
+//            WorkResponseDTO workResponseDTO = new WorkResponseDTO(work);
+//            workresponsedtos.add(workResponseDTO);
+//        }
+//        ListResponse listResponse = new ListResponse(pageRequest, workresponsedtos.size(), workresponsedtos);
+//        return ResponseEntity.ok(listResponse);
+//    }
+//
+//    /**
+//     * @Description: 实现项目的保存操作
+//     * @Param: [projectRequestDTOS, user]
+//     * @return: org.springframework.http.ResponseEntity<?>
+//     * @Author: Qinghong Wang
+//     * @Date: 2019/2/26
+//     */
+//    @RequestMapping(value = "/{id}/projects", method = {RequestMethod.POST, RequestMethod.PUT})
+//    public ResponseEntity<?> saveApplicantsProjects(@RequestBody List<ProjectRequestDTO> projectRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
+//        List<Project> projects = new ArrayList<>();
+//        for (ProjectRequestDTO projectRequestDTO : projectRequestDTOS) {
+//            Project project = new Project(projectRequestDTO);
+//            projects.add(project);
+//        }
+//        List<Project> projects1 = studentService.insertProjects(projects, user.getId());
+//        List<ProjectResponseDTO> projectResponseDTOS = new ArrayList<>();
+//        for (Project project : projects1) {
+//            ProjectResponseDTO projectResponseDTO = new ProjectResponseDTO(project);
+//            projectResponseDTOS.add(projectResponseDTO);
+//        }
+//        return ResponseEntity.ok(new Response(projectResponseDTOS));
+//    }
+//
+//    /**
+//     * @Description: 实现课外经历的保存
+//     * @Param: [extracurricularRequestDTOS, user]
+//     * @return: org.springframework.http.ResponseEntity<?>
+//     * @Author: Qinghong Wang
+//     * @Date: 2019/2/26
+//     */
+//    @RequestMapping(value = "/{id}/extracurriculars", method = {RequestMethod.POST, RequestMethod.PUT})
+//    public ResponseEntity<?> saveApplicantsExtracurriculars(@RequestBody List<ExtracurricularRequestDTO> extracurricularRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
+//        List<Activity> activities = new ArrayList<>();
+//        for (ExtracurricularRequestDTO extracurricularRequestDTO : extracurricularRequestDTOS) {
+//            Activity activity = new Activity(extracurricularRequestDTO);
+//            activities.add(activity);
+//        }
+//        List<Activity> activities1 = studentService.insertActivities(activities, user.getId());
+//        List<ExtracurricularResponseDTO> extracurricularResponseDTOS = new ArrayList<>();
+//        for (Activity activity : activities1) {
+//            ExtracurricularResponseDTO extracurricularResponseDTO = new ExtracurricularResponseDTO(activity);
+//            extracurricularResponseDTOS.add(extracurricularResponseDTO);
+//        }
+//        return ResponseEntity.ok(new Response(extracurricularResponseDTOS));
+//    }
+//
+//    /**
+//     * @Description: 实现证书信息的保存
+//     * @Param: [certificateRequestDTOS, user]
+//     * @return: org.springframework.http.ResponseEntity<?>
+//     * @Author: Qinghong Wang
+//     * @Date: 2019/2/26
+//     */
+//
+//    @RequestMapping(value = "/{id}/certificates", method = {RequestMethod.POST, RequestMethod.PUT})
+//    public ResponseEntity<?> saveApplicantsCertificates(@RequestBody List<CertificateRequestDTO> certificateRequestDTOS, @AuthenticationPrincipal User user, @PathVariable("id") Integer id, PageRequest pageRequest) throws NotFoundException {
+//        List<Certificate> certificates1 = new ArrayList<>();
+//        for (CertificateRequestDTO certificateRequestDTO : certificateRequestDTOS) {
+//            Certificate certificate = new Certificate(certificateRequestDTO);
+//            certificates1.add(certificate);
+//        }
+//        List<Certificate> certificates = studentService.insertCertificates(certificates1, user.getId());
+//        List<CertificateResponseDTO> certificateResponseDTOS = new ArrayList<>();
+//        for (Certificate certificate : certificates) {
+//            CertificateResponseDTO certificateResponseDTO = new CertificateResponseDTO(certificate);
+//            certificateResponseDTOS.add(certificateResponseDTO);
+//        }
+//        ListResponse listResponse = new ListResponse(pageRequest, certificateResponseDTOS.size(), certificateResponseDTOS);
+//        return ResponseEntity.ok(listResponse);
+//    }
+//
+//    @RequestMapping(value = "/{id}/skills", method = {RequestMethod.POST, RequestMethod.PUT})
+//    public ResponseEntity<?> saveApplicantsSkills(@RequestBody List<String> skills, @AuthenticationPrincipal User user, @PathVariable("id") Integer id) throws NotFoundException {
+//        List<LabelInfo> labelInfos = studentService.insertLabels(skills, id);
+//        List<SkillsResponseDTO> skillsResponseDTOS = new ArrayList<>();
+//        for (LabelInfo labelInfo : labelInfos) {
+//            SkillsResponseDTO skillsResponseDTO = new SkillsResponseDTO(labelInfo);
+//            skillsResponseDTOS.add(skillsResponseDTO);
+//        }
+//        return ResponseEntity.ok(new Response(skillsResponseDTOS));
+//
+//    }
 
 
     @GetMapping("/{id}/resumes")
