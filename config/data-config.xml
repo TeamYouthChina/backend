@@ -1,9 +1,9 @@
 <dataConfig>
     <dataSource type="JdbcDataSource"
                 driver="com.mysql.jdbc.Driver"
-                url="jdbc:mysql://172.28.1.1:3306/youthchina"
-                user="root"
-                password="rootpass"/>
+                url="jdbc:mysql://127.0.0.1:3306/youthchina"
+                user="dbuser"
+                password="dbpass"/>
 
     <document>
         <entity name="question"

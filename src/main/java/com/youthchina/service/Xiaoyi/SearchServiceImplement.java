@@ -1,5 +1,9 @@
 package com.youthchina.service.Xiaoyi;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
 
 import com.youthchina.domain.jinhao.Answer;
@@ -30,8 +34,10 @@ import javax.annotation.Resource;
  */
 
 @Service
-public class SearchServiceImplement implements SearchService{
+public class SearchServiceImplement implements SearchService {
     private final static String SOLR_URL = "http://localhost:8983/solr/";
+    URL url = new URL("http://localhost:8983/solr/youthchinacore/dataimport?command=full-import");
+    URLConnection im = url.openConnection();
 
     @Resource
     private UserService userService;
@@ -56,6 +62,9 @@ public class SearchServiceImplement implements SearchService{
 
     @Resource
     private AnswerService answerService;
+
+    public SearchServiceImplement() throws IOException {
+    }
 
     @Override
     public List<User> userSearch(String keyword) throws Exception {
