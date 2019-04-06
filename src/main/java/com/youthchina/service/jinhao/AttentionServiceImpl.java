@@ -93,18 +93,6 @@ public class AttentionServiceImpl implements AttentionService{
     @Transactional
     public List<Integer> getAllIdsOfAttention(Attentionable entity, Integer userId) throws NotFoundException {
         Integer type = entity.getAttentionTargetType();
-        Integer id = entity.getId();
-        switch (type){
-            case 1: questionService.isQuestionExist(id); break;
-            case 2: essayService.get(id); break;
-            case 3: briefReviewService.isBriefReviewExist(id); break;
-            case 4: videoService.isVideoExist(id); break;
-            case 5: commentService.isCommentExist(id); break;
-            case 6: discussService.isDiscussExist(id); break;
-            case 7: answerService.isAnswerExist(id); break;
-            default:
-                throw new NotFoundException(404,404,"No such type");
-        }
         return attentionMapper.getAllfollows(type,userId);
     }
 

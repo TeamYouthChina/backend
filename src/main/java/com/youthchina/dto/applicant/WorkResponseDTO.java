@@ -22,11 +22,17 @@ public class WorkResponseDTO implements ResponseDTO<Work> {
     }
 
     public WorkResponseDTO(Work work) {
-        this.id = work.getWork_id();
-        this.employer = work.getWork_company();
-        this.position = work.getWork_position();
-        this.duration = new DurationDTO(work.getWork_start_time(), work.getWork_end_time());
-        this.location = work.getLocation().getRegionName();
+        if(work!=null){
+            this.id = work.getWork_id();
+            this.employer = work.getWork_company();
+            this.position = work.getWork_position();
+            this.duration = new DurationDTO(work.getWork_start_time(), work.getWork_end_time());
+            if(work.getLocation()!=null){
+                this.location = work.getLocation().getRegionName();
+            }
+
+        }
+
 
     }
 
