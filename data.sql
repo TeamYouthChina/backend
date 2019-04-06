@@ -1,4 +1,4 @@
-﻿﻿SET CHAR SET 'utf8';
+﻿SET CHAR SET 'utf8';
 
 create table IF NOT EXISTS `SYS_MAJOR`
 (
