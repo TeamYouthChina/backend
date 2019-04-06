@@ -1,9 +1,8 @@
 package com.youthchina.dao.qingyang;
 
-import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.CompanyVerification;
-import com.youthchina.domain.qingyang.Industry;
+import com.youthchina.domain.qingyang.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public interface CompanyMapper {
     Integer updateIndustry(Industry industry);
 
     Integer insertIndustry(Industry entity);
-    
+
     CompanyVerification selectCompanyVerification(Integer id);
 
     List<CompanyVerification> selectCompanyVerificationByIdList(List<Integer> id);
@@ -44,13 +43,24 @@ public interface CompanyMapper {
     Integer insertCompanyVerification(CompanyVerification entity);
 
     Integer deleteCompanyInd(Integer id);
+
     Integer deleteCompanyEmployee(Integer id);
+
     Integer deleteCompanyVerificationByComId(Integer id);
+
     Integer deleteCompanyPhoto(Integer id);
+
     Integer deleteCompanyEvaluate(Integer id);
+
     Integer deleteStudentComCollection(Integer id);
 
-    Integer insertCompanyInd(List<Industry> industries);
+    Integer deleteCompanyLogo(Integer id);
+
+    Integer insertCompanyInd(@Param("companyId") Integer companyId, @Param("industries") List<Industry> industries);
+
+    Integer insertCompanyLogo(@Param("companyId") Integer companyId, @Param("logos") List<Logo> logos);
+
+    Integer insertCompanyPhoto(@Param("companyId") Integer companyId, @Param("photoList") List<CompanyPhoto> photoList);
 
     List<Company> selectCompanyByName(String comName);
 }

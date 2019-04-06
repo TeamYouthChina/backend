@@ -6,7 +6,7 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.communityQA.JobRecommendServiceImplement;
+import com.youthchina.service.jinhao.toBeDeleted.JobRecommendServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +31,7 @@ public class JobForYouController {
     }
 
     @GetMapping({"/intern", "/general", "/campus"})
-    public ResponseEntity getRecommandInternJobs() throws NotFoundException {
+    public ResponseEntity getRecommendInternJobs() throws NotFoundException {
         List<Job> jobList = jobRecommendServiceImplement.getInternForYou();
         List<JobResponseDTO> resultList = new ArrayList<>();
         for (Job job : jobList) {

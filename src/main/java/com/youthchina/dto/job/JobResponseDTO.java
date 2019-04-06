@@ -13,7 +13,7 @@ import java.util.List;
  * @author: Qingyang Zhao
  * @create: 2019-02-24
  **/
-public class JobResponseDTO {
+public class JobResponseDTO implements JobDTOInterface {
     private int id;
     private String name;
     private OrganizationDTO organization;
@@ -51,17 +51,21 @@ public class JobResponseDTO {
         Company company = job.getCompany();
         this.organization = company == null ? null : new OrganizationDTO(company);
         List<Location> locationList = job.getJobLocationList();
-        if(locationList != null && locationList.size() > 0 ){
+        if (locationList != null && locationList.size() > 0) {
             Location location = locationList.get(0);
-            if(location != null){
-                this.location = location.getRegion_chn(); // 默认中文名
+            if (location != null) {
+                this.location = location.getRegionName(); // 默认中文名
             }
 
         }
         int jobType = job.getJobType();
-        if(jobType == 1){
+
+        System.out.println("Get jobType:");
+        System.out.println(jobType);
+
+        if (jobType == 1) {
             this.type = "实习";
-        } else if (jobType == 2 ){
+        } else if (jobType == 2) {
             this.type = "兼职";
         } else {
             this.type = "全职";

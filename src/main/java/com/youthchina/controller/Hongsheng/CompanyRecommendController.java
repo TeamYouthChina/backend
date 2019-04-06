@@ -7,7 +7,7 @@ import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.Qinghong.MessageSendService;
-import com.youthchina.service.jinhao.communityQA.CompanyRecommendServiceImplement;
+import com.youthchina.service.jinhao.toBeDeleted.CompanyRecommendServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

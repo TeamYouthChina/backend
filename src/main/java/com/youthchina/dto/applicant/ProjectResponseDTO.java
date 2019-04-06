@@ -1,6 +1,8 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Project;
+import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**
@@ -9,7 +11,7 @@ import com.youthchina.dto.util.DurationDTO;
  * @author: Qinghong Wang
  * @create: 2019-02-24 15:37
  **/
-public class ProjectResponseDTO {
+public class ProjectResponseDTO implements ResponseDTO {
     private Integer id;
     private String name;
     private String role;
@@ -20,7 +22,7 @@ public class ProjectResponseDTO {
     }
 
     public ProjectResponseDTO(Project project) {
-        this.id=project.getProj_id();
+        this.id = project.getProj_id();
         this.name = project.getProj_name();
         this.role = project.getProj_role();
         this.duration = new DurationDTO(project.getProj_start_time(), project.getProj_end_time());

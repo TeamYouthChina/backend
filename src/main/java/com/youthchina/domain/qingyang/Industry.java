@@ -33,7 +33,7 @@ public class Industry {
     private Integer companyId;
     private Integer jobId;
 
-    public Industry(){
+    public Industry() {
 
     }
 

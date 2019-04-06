@@ -1,12 +1,15 @@
 package com.youthchina.domain.Qinghong;
 
-import com.youthchina.dto.applicant.ProjectDTO;
+import com.youthchina.domain.qingyang.Country;
+import com.youthchina.dto.applicant.ProjectRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
 public class Project {
     private Integer proj_id;
+    private String proj_institute;
+    private Country insti_country;
     private String proj_name;
     private String proj_role;
     private Date proj_start_time;
@@ -18,11 +21,12 @@ public class Project {
     private Integer is_delete;
     private Timestamp is_delete_time;
 
-    public Project(ProjectDTO projectDTO) {
-        this.proj_name=projectDTO.getName();
-        this.proj_role=projectDTO.getRole();
-        this.proj_start_time=projectDTO.getDuration().getBegin();
-        this.proj_end_time=projectDTO.getDuration().getEnd();
+    public Project(ProjectRequestDTO projectRequestDTO) {
+        this.proj_id=projectRequestDTO.getId();
+        this.proj_name= projectRequestDTO.getName();
+        this.proj_role= projectRequestDTO.getRole();
+        this.proj_start_time= projectRequestDTO.getDuration().getBegin();
+        this.proj_end_time= projectRequestDTO.getDuration().getEnd();
         this.proj_deliver="相对论";
         this.deliver_publish=1;
         this.deliver_pub_insti="新华社";
@@ -94,6 +98,22 @@ public class Project {
 
     public void setDeliver_pub_insti(String deliver_pub_insti) {
         this.deliver_pub_insti = deliver_pub_insti;
+    }
+
+    public String getProj_institute() {
+        return proj_institute;
+    }
+
+    public void setProj_institute(String proj_institute) {
+        this.proj_institute = proj_institute;
+    }
+
+    public Country getInsti_country() {
+        return insti_country;
+    }
+
+    public void setInsti_country(Country insti_country) {
+        this.insti_country = insti_country;
     }
 
     public Integer getStu_id() {

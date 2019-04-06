@@ -4,7 +4,6 @@ import com.youthchina.dao.tianjian.CommunityMapper;
 import com.youthchina.domain.tianjian.ComFriendGroup;
 import com.youthchina.domain.tianjian.ComFriendGroupMap;
 import com.youthchina.domain.tianjian.ComFriendRelation;
-import com.youthchina.domain.tianjian.ComFriendRelationMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,31 +17,25 @@ public class FriendsServiceImpl implements FriendsService {
     CommunityMapper friendsMapper;
 
     @Override
-    public int saveFriend(ComFriendRelation comFriendRelation, Integer own_Id) {
+    public int saveFriend(ComFriendRelation comFriendRelation) {
         friendsMapper.saveFriendsRelation(comFriendRelation);
-        ComFriendRelationMap comFriendRelationMap = new ComFriendRelationMap();
-        comFriendRelationMap.setRela_id(comFriendRelation.getRela_id());
-        comFriendRelationMap.setUser_id(own_Id);
-        friendsMapper.saveFriendsRelationMap(comFriendRelationMap);
 
         ComFriendRelation comFriendRelation1 = new ComFriendRelation();
-        comFriendRelation1.setAdd_time(comFriendRelation.getAdd_time());
-        comFriendRelation1.setIs_delete(0);
-        comFriendRelation1.setUser_id(own_Id);
-        friendsMapper.saveFriendsRelation(comFriendRelation1);
-        ComFriendRelationMap comFriendRelationMap1 = new ComFriendRelationMap();
-        comFriendRelationMap1.setRela_id(comFriendRelation1.getRela_id());
-        comFriendRelationMap1.setUser_id(comFriendRelation.getUser_id());
-        return friendsMapper.saveFriendsRelationMap(comFriendRelationMap1);
+        comFriendRelation1.setAddTime(comFriendRelation.getAddTime());
+        comFriendRelation1.setIsDelete(0);
+        comFriendRelation1.setUserId(comFriendRelation.getFriendId());
+        comFriendRelation1.setFriendId(comFriendRelation.getUserId());
+        return friendsMapper.saveFriendsRelation(comFriendRelation1);
     }
 
     @Override
-    public int deleteFriend(ComFriendRelation comFriendRelation, Integer own_Id) {
-        ComFriendRelation comFriendRelationAnother= new ComFriendRelation();
-        comFriendRelationAnother.setUser_id(own_Id);
-        comFriendRelationAnother.setIs_delete_time(comFriendRelation.getIs_delete_time());
-        friendsMapper.deleteFriend(comFriendRelation,own_Id);
-        return friendsMapper.deleteFriend(comFriendRelationAnother,comFriendRelation.getUser_id());
+    public int deleteFriend(ComFriendRelation comFriendRelation) {
+        ComFriendRelation comFriendRelationAnother = new ComFriendRelation();
+        comFriendRelationAnother.setUserId(comFriendRelation.getFriendId());
+        comFriendRelationAnother.setIsDeleteTime(comFriendRelation.getIsDeleteTime());
+        comFriendRelationAnother.setFriendId(comFriendRelation.getUserId());
+        friendsMapper.deleteFriend(comFriendRelation);
+        return friendsMapper.deleteFriend(comFriendRelationAnother);
     }
 
     @Override
@@ -61,12 +54,12 @@ public class FriendsServiceImpl implements FriendsService {
 
     @Override
     public int updateFriendGroup(ComFriendGroup comFriendGroup, Integer rela_Id) {
-        return friendsMapper.updateFriendGroup(comFriendGroup,rela_Id);
+        return friendsMapper.updateFriendGroup(comFriendGroup, rela_Id);
     }
 
     @Override
-    public  List<ComFriendGroup> getFriendGroup(Integer own_Id) {
-        List<ComFriendRelation>  comFriendRelation = friendsMapper.getFriend(own_Id);
+    public List<ComFriendGroup> getFriendGroup(Integer own_Id) {
+        List<ComFriendRelation> comFriendRelation = friendsMapper.getFriend(own_Id);
         List<ComFriendGroup> comFriendGroups = friendsMapper.getFriendGroup(comFriendRelation);
         return comFriendGroups;
     }
