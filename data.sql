@@ -1,5 +1,5 @@
 ﻿SET CHAR SET 'utf8';
-
+#######################################字典表###############################################
 create table IF NOT EXISTS `SYS_MAJOR`
 (
   `MAJOR_NUM`      INT AUTO_INCREMENT
@@ -14,7 +14,7 @@ create table IF NOT EXISTS `SYS_MAJOR`
     COMMENT '专业中文全称',
   `MAJOR_ENG`      VARCHAR(100) NOT NULL
     COMMENT '专业英文全称',
-  `START_DATE`     TIMESTAMP    NOT NULL
+  `START_TIME`     TIMESTAMP    NOT NULL
     COMMENT '启用时间',
   `IS_DELETE`      INTEGER           DEFAULT '0'
     COMMENT '是否删除',
@@ -33,28 +33,28 @@ create table IF NOT EXISTS `SYS_DEGREE`
     COMMENT '中文描述',
   `DEGREE_ENG` VARCHAR(100) NOT NULL
     COMMENT '英文描述',
-  `START_DATE` TIMESTAMP    NOT NULL
+  `START_TIME` TIMESTAMP    NOT NULL
     COMMENT '启用时间',
   PRIMARY KEY (`DEGREE_NUM`)
 )
   COMMENT = '学历表';
 
-create table IF NOT EXISTS SYS_DIPLOMA
+
+create table IF NOT EXISTS `SYS_DIPLOMA`
 (
-  DIPLOMA_NUM       INT AUTO_INCREMENT
+  `DIPLOMA_NUM`       INT AUTO_INCREMENT
     COMMENT '学位编号',
-  DIPLOMA_CHN       VARCHAR(100) NOT NULL
+  `DIPLOMA_CHN`       VARCHAR(100) NOT NULL
     COMMENT '中文描述',
-  DIPLOMA_ENG       VARCHAR(100) NOT NULL
+  `DIPLOMA_ENG`       VARCHAR(100) NOT NULL
     COMMENT '英文描述',
-  DIPLOMA_ENG_ABBRE VARCHAR(100) NOT NULL
+  `DIPLOMA_ENG_ABBRE` VARCHAR(100) NOT NULL
     COMMENT '英文简称',
-  START_DATE        TIMESTAMP    NOT NULL
+  `START_DATE`        TIMESTAMP    NOT NULL
     COMMENT '启用时间',
-  PRIMARY KEY (DIPLOMA_NUM)
+  PRIMARY KEY (`DIPLOMA_NUM`)
 )
   COMMENT = '学位表';
-
 
 
 create table IF NOT EXISTS `SYS_ADVAN_LABEL_CLASS`
