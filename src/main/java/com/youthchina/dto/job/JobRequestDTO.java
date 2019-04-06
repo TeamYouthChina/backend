@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 12/2/18.
  */
-public class JobRequestDTO implements JobDTOInterface, RequestDTO<Job> {
+public class JobRequestDTO implements RequestDTO<Job> {
     /*
     * {
   "name": "string",
