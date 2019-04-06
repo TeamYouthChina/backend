@@ -120,4 +120,18 @@ public class AttentionServiceImpl implements AttentionService{
     public Attention add(Attention entity) throws NotFoundException {
         return null;
     }
+    @Override
+    public Integer isEverAttention(Attentionable entity, Integer userId) {
+        Attention attention = attentionMapper.isEverAttention(entity.getAttentionTargetType(), entity.getId(),userId);
+        if(attention == null){
+            return 0;
+        }else{
+            return attention.getIsCancel();
+        }
+    }
+
+    @Override
+    public Integer countAttention(Attentionable entity) {
+        return attentionMapper.countAttention(entity.getAttentionTargetType(), entity.getId());
+    }
 }
