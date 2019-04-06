@@ -22,11 +22,16 @@ public class CertificateResponseDTO implements ResponseDTO<Certificate> {
     }
 
     public CertificateResponseDTO(Certificate certificate) {
-        this.country=certificate.getInsti_country().getCountryChn();
-        this.id = certificate.getCertificate_id();
-        this.name = certificate.getCertificate_name();
-        this.authority = certificate.getCertificate_insti();
-        this.duration = new DurationDTO(certificate.getCertificate_grant_date(), certificate.getCertificate_expir_date());
+        if(certificate!=null){
+            if(certificate.getInsti_country()!=null){
+                this.country=certificate.getInsti_country().getCountryChn();
+            }
+            this.id = certificate.getCertificate_id();
+            this.name = certificate.getCertificate_name();
+            this.authority = certificate.getCertificate_insti();
+            this.duration = new DurationDTO(certificate.getCertificate_grant_date(), certificate.getCertificate_expir_date());
+        }
+
     }
 
     public Integer getId() {

@@ -12,7 +12,10 @@ public class AdvantageLabelResponseDTO {
     private Integer id;
 
     public AdvantageLabelResponseDTO(AdvantageLabel advantageLabel) {
-        this.id = advantageLabel.getLabel_id();
+        if(advantageLabel!=null){
+            this.id = advantageLabel.getLabel_id();
+        }
+
     }
 
     public AdvantageLabelResponseDTO() {

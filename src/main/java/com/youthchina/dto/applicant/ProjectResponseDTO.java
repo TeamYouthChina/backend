@@ -21,10 +21,16 @@ public class ProjectResponseDTO implements ResponseDTO<Project> {
     }
 
     public ProjectResponseDTO(Project project) {
-        this.id = project.getProj_id();
-        this.name = project.getProj_name();
-        this.role = project.getProj_role();
-        this.duration = new DurationDTO(project.getProj_start_time(), project.getProj_end_time());
+        if(project!=null){
+            this.id = project.getProj_id();
+            this.name = project.getProj_name();
+            this.role = project.getProj_role();
+            this.duration = new DurationDTO(project.getProj_start_time(), project.getProj_end_time());
+        }
+
+
+
+
     }
 
     public Integer getId() {

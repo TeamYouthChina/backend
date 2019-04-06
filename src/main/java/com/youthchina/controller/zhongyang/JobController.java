@@ -16,6 +16,7 @@ import com.youthchina.dto.job.JobSearchDTO;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.BaseException;
+import com.youthchina.exception.zhongyang.ClientException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.MessageSendService;
@@ -156,7 +157,7 @@ public class JobController extends DomainCRUDController<Job, Integer> {
      */
 
     @PostMapping("/{id}/apply")
-    public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user) throws NotFoundException, ClientException {
         JobApplyDTO jobApplyDTO = new JobApplyDTO(studentService.jobApply(job_id, user.getId()));
         return ResponseEntity.ok(new Response(jobApplyDTO, new StatusDTO(0, "")));
 
