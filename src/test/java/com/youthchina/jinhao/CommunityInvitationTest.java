@@ -3,6 +3,8 @@ package com.youthchina.jinhao;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.jinhao.CommunityInvitationMapper;
+import com.youthchina.domain.jinhao.CommunityInvitation;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,5 +33,12 @@ public class CommunityInvitationTest {
     public void get(){
 //        CommunityInvitation communityInvitation = communityInvitationMapper.get(1);
 
+    }
+
+    @Test
+    public void invit(){
+        communityInvitationMapper.add(1,1,2,3);
+        CommunityInvitation communityInvitation = communityInvitationMapper.get(1);
+        Assert.assertNotNull(communityInvitation);
     }
 }

@@ -13,6 +13,7 @@ import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.AnswerService;
 import com.youthchina.service.jinhao.EvaluateService;
+import com.youthchina.service.jinhao.InvitationService;
 import com.youthchina.service.jinhao.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,10 +21,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by zhongyangwu on 1/2/19.
@@ -33,8 +36,15 @@ import java.util.HashMap;
 public class QuestionController {
     private String url;
     private QuestionService questionService;
+
+    @Resource
     private AnswerService answerService;
+
+    @Resource
     private EvaluateService evaluateService;
+
+    @Resource
+    InvitationService invitationService;
 
     @Autowired
     public QuestionController(QuestionService questionService, @Value("${web.url.prefix}") String prefix) {
@@ -125,24 +135,23 @@ public class QuestionController {
         return ResponseEntity.ok(new Response(map1));
     }
 
-    /*@PutMapping("/{id}/invite/**")
+    @PutMapping("/{id}/invite/**")
     public ResponseEntity<?> sendInvites(@PathVariable Integer id, @RequestBody List<Integer> userIds, @AuthenticationPrincipal User user) throws NotFoundException {
-        System.out.println("invite users to answer");
-        questionService.invitUsersToAnswer(user.getId(), id, userIds);
+        Question question = new Question();
+        question.setId(id);
+        invitationService.invitList(question,user.getId(),userIds);
         return ResponseEntity.ok(new Response());
     }
     @PutMapping("/{questionId}/invite/{userId}")
     public ResponseEntity<?> sendInvite(@PathVariable Integer questionId, @PathVariable Integer userId, @AuthenticationPrincipal User user) throws NotFoundException {
-        System.out.println("invite user 1 to answer");
-        List<Integer> list = new ArrayList<>();
-        list.add(userId);
-        questionService.invitUsersToAnswer(user.getId(), questionId, list);
+        Question question = new Question();
+        question.setId(questionId);
+        invitationService.add(question,user.getId(),userId);
         return ResponseEntity.ok(new Response());
-    }*/
+    }
 
     @PutMapping("/{id}/attention")
     public ResponseEntity<?> followUp (@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        System.out.println("add attention");
         Question question = new Question();
         question.setId(id);
         evaluateService.upvote(question, user.getId());
@@ -151,7 +160,6 @@ public class QuestionController {
 
     @PostMapping("/{id}/answers")
     public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody SimpleAnswerRequestDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        System.out.println("add answeimport com.youthchina.service.DomainCRUDService; ");
         Answer answer = new Answer(simpleAnswerDTO);
         answer.setUser(user);
         answer.setPubTime(new Timestamp(System.currentTimeMillis()));

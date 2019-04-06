@@ -17,7 +17,7 @@ public interface EssayService extends DomainCRUDService<ComEssay, Integer> {
      * param ComEssay essay, List<Integer> lab_num, Integer user_id
      * return 0 or 1
      */
-    public void addEssay(ComEssay essay) throws NotFoundException;
+    public ComEssay addEssay(ComEssay essay) throws NotFoundException;
 
     /**
      * 删除文章

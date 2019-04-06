@@ -15,6 +15,7 @@ import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.AttentionServiceImpl;
 import com.youthchina.service.jinhao.CommentServiceImpl;
+import com.youthchina.service.jinhao.EvaluateService;
 import com.youthchina.service.qingyang.CompanyCURDServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
 import com.youthchina.service.zhongyang.UserServiceImpl;
@@ -23,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
@@ -46,6 +48,9 @@ public class EssayController {
 
     @Autowired
     CommentServiceImpl commentService;
+
+    @Resource
+    EvaluateService evaluateService;
 
     @GetMapping("/{id}")
     public ResponseEntity getEssay(@PathVariable Integer id) throws NotFoundException {
@@ -160,5 +165,19 @@ public class EssayController {
             }
         }
         return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200, "success")));
+    }
+
+    @PutMapping ("/{id}/upvote")
+    public ResponseEntity addUpvote(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
+        ComEssay essay = essayServiceimpl.getEssay(id);
+        evaluateService.upvote(essay, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
+    }
+
+    @PutMapping ("/{id}/downvote")
+    public ResponseEntity addDownvote(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
+        ComEssay essay = essayServiceimpl.getEssay(id);
+        evaluateService.downvote(essay, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 }

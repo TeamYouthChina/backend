@@ -37,6 +37,7 @@ public class RichTextServiceImpl implements RichTextService {
     }
     @Override
     public void addComRichText(ComRichText comRichText) {
+
         richTextMapper.addRichText(comRichText);
     }
 

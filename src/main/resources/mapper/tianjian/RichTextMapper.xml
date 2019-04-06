@@ -10,10 +10,8 @@
 
     <!--    添加富文本 -->
     <insert id="addRichText" parameterType="com.youthchina.domain.tianjian.ComRichText" useGeneratedKeys="true" keyProperty="textId">
-    INSERT INTO COM_RICH_TEXT (TEXT_ID,COMPILE_TYPE, JSON_CONTENT,TEXT_CONTENT)
-           values(#{textId},#{compileType},#{jsonContent},#{textContent}
-                 )
-
+    INSERT INTO COM_RICH_TEXT (COMPILE_TYPE, JSON_CONTENT,TEXT_CONTENT)
+           values(#{compileType},#{jsonContent},#{textContent})
     </insert>
 
     <!--    更新富文本 -->

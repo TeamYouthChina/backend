@@ -37,14 +37,15 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
-    public void addEssay(ComEssay essay) throws NotFoundException {
+    public ComEssay addEssay(ComEssay essay) throws NotFoundException {
         ComEssay comEssaytest = mapper.getEssay(essay.getId());
         if (comEssaytest != null)
             throw new NotFoundException(404, 404, "this essay is exist");//todo
         else {
-            mapper.addEssay(essay);
             richTextService.addComRichText(essay.getBody());
+            mapper.addEssay(essay);
         }
+        return getEssay(essay.getId());
     }
 
     @Override

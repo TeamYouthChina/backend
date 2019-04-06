@@ -76,7 +76,7 @@ public class EssayControllerTest {
 
     @Test
     public void addEssayTest() throws Exception {
-        String json = "";
+        String json = "{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<asdasd>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}";
         String pre = "pre";
         RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
         richTextDTO.setBraftEditorRaw(json);
@@ -218,5 +218,25 @@ public class EssayControllerTest {
     @Test
     public void countEssay(){
         System.out.println(communityMapper.countEssay());
+    }
+
+    @Test
+    public void upvoteTest() throws Exception {
+        this.mvc.perform(
+                put(this.urlPrefix + "/articles/1/upvote").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
+    @Test
+    public void downvoteTest() throws Exception {
+        this.mvc.perform(
+                put(this.urlPrefix + "/articles/1/downvote").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":201,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 }

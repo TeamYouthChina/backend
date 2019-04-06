@@ -17,6 +17,18 @@ public class InvitationServiceImpl implements InvitationService {
 
 
     @Override
+    public void invitList(Invitable entity, Integer userId, List<Integer> invitedUserId) {
+        Integer type = entity.getInviteTargetType();
+        Integer id = entity.getId();
+        for(Integer userid : invitedUserId){
+            if(communityInvitationMapper.checkIfInvitationExist(type,id,userId,userId) != null){
+                continue;
+            }
+            communityInvitationMapper.add(type,id,userId,userid);
+        }
+    }
+
+    @Override
     public void add(Invitable entity, Integer userId, Integer invitedUserId) throws NotFoundException{
         Integer type = entity.getInviteTargetType();
         Integer id = entity.getId();
