@@ -157,8 +157,6 @@ public class BriefReviewControllerTest {
                         "    \"reason\": \"success\"\n" +
                         "  }\n" +
                         "}", false));
-
-
     }
 
     @Test

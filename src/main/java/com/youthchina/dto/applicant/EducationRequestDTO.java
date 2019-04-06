@@ -14,7 +14,7 @@ public class EducationRequestDTO implements RequestDTO<EducationInfo> {
     private String major;
     private String degree;
     private DurationDTO duration;
-    private LocationDTO location;
+//    private LocationDTO location;
     private String note;
 
     public EducationRequestDTO() {
@@ -67,13 +67,6 @@ public class EducationRequestDTO implements RequestDTO<EducationInfo> {
         this.duration = duration;
     }
 
-    public LocationDTO getLocation() {
-        return location;
-    }
-
-    public void setLocation(LocationDTO location) {
-        this.location = location;
-    }
 
     public String getNote() {
         return note;
