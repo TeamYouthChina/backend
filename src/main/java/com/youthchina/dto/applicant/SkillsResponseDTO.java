@@ -2,7 +2,6 @@ package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.LabelInfo;
 import com.youthchina.dto.ResponseDTO;
-import com.youthchina.dto.StatusDTO;
 
 /**
  * @program: youthchina
@@ -10,7 +9,7 @@ import com.youthchina.dto.StatusDTO;
  * @author: Qinghong Wang
  * @create: 2019-03-02 15:26
  **/
-public class SkillsResponseDTO implements ResponseDTO {
+public class SkillsResponseDTO implements ResponseDTO<LabelInfo> {
 
     private String id;
     private String name;
@@ -40,4 +39,9 @@ public class SkillsResponseDTO implements ResponseDTO {
     }
 
 
+    @Override
+    public void convertToDTO(LabelInfo labelInfo) {
+        this.id = labelInfo.getLabel_code();
+        this.name = labelInfo.getLabel_chn();
+    }
 }

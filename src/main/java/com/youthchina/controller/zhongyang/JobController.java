@@ -1,6 +1,8 @@
 package com.youthchina.controller.zhongyang;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.youthchina.annotation.RequestBodyDTO;
+import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
@@ -8,7 +10,6 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.applicant.SendingEmailDTO;
 import com.youthchina.dto.application.JobApplyDTO;
-import com.youthchina.dto.job.JobDTOInterface;
 import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.job.JobSearchDTO;
@@ -43,7 +44,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/jobs/**")
-public class JobController extends DomainCRUDController<JobDTOInterface, Job, Integer> {
+public class JobController extends DomainCRUDController<Job, Integer> {
 
     private String url;
     private JobService jobService;
@@ -64,32 +65,24 @@ public class JobController extends DomainCRUDController<JobDTOInterface, Job, In
     }
 
     @Override
-    protected JobDTOInterface DomainToDto(Job domain) {
-        return new JobResponseDTO(domain);
-    }
-
-    @Override
-    protected Job DtoToDomain(JobDTOInterface jobRequestDTO) {
-        return new Job((JobRequestDTO) jobRequestDTO);
-    }
-
-    @Override
     protected URI getUriForNewInstance(Integer id) throws URISyntaxException {
         return new URI(this.url + id.toString());
     }
 
 
     @PostMapping("/**")
-    public ResponseEntity<?> createJobInfo(@AuthenticationPrincipal User user, @RequestBody JobRequestDTO jobRequestDTO) throws NotFoundException {
-        jobRequestDTO.setUserId(user.getId());
-        return add(jobRequestDTO);
+    @ResponseBodyDTO(JobResponseDTO.class)
+    public ResponseEntity<?> createJobInfo(@AuthenticationPrincipal User user, @RequestBodyDTO(JobRequestDTO.class) Job job) throws NotFoundException {
+        job.setUserId(user.getId());
+        return add(job);
 //        Job job = jobService.add(new Job(jobRequestDTO));
 //        return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
 
     }
 
     @PutMapping("/{id}/**")
-    public ResponseEntity<?> updateJobInfo(@RequestBody JobRequestDTO jobRequestDTO) throws BaseException {
+    @ResponseBodyDTO(JobResponseDTO.class)
+    public ResponseEntity<?> updateJobInfo(@RequestBodyDTO(JobRequestDTO.class) Job jobRequestDTO) throws BaseException {
         //Job job = jobService.update(new Job(jobRequestDTO));
         return update(jobRequestDTO);
 //        if(job == null) try {
