@@ -12,7 +12,7 @@ import java.util.List;
  * @author: Qingyang Zhao
  * @create: 2019-02-24
  **/
-public class CompanyResponseDTO implements CompanyDTOInterface, ResponseDTO<Company> {
+public class CompanyResponseDTO implements ResponseDTO<Company> {
     private Integer id;
     private String name;
     private String avatarUrl;
