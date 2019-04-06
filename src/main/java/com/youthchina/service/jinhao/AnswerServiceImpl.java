@@ -76,6 +76,7 @@ public class AnswerServiceImpl implements AnswerService{
         questionService.isQuestionExist(answer.getTargetId());
         richTextService.addComRichText(answer.getBody());
         answerMapper.add(answer);
+        answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
         return answer;
     }
 

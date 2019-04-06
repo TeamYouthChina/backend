@@ -32,10 +32,10 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
     public Question(QuestionRequestDTO questionRequestDTO){
         this.title = questionRequestDTO.getTitle();
         this.isAnony = (questionRequestDTO.getIs_anonymous()==true ? 1 : 0);
-        this.body.setJsonContent(questionRequestDTO.getBody().getBraftEditorRaw());
-        this.body.setTextContent(questionRequestDTO.getBody().getPreviewText());
+        this.body = new ComRichText(questionRequestDTO.getBody());
         this.relaType = questionRequestDTO.getRela_type();
         this.relaId = questionRequestDTO.getRela_id();
+        this.abbre = questionRequestDTO.getBody().getPreviewText();
     }
     @Override
     public ComRichText getBody() {

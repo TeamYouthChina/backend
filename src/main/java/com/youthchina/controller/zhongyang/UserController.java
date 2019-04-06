@@ -117,10 +117,11 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
             }
             case "Question": {
                 List<QuestionResponseDTO> questionResponseDTOS = new ArrayList<>();
-                List<Integer> result = attentionService.getAllIdsOfAttention(new Question(),user_id);
+                Question question = new Question();
+                List<Integer> result = attentionService.getAllIdsOfAttention(question,user_id);
                 for (Integer id : result) {
-                    Question question = questionService.get(id);
-                    QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
+                    Question question1 = questionService.get(id);
+                    QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question1);
                     questionResponseDTOS.add(questionResponseDTO);
                 }
                 return ResponseEntity.ok(new Response(questionResponseDTOS));

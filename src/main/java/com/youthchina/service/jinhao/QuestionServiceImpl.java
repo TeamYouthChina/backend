@@ -5,10 +5,13 @@ import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.RichTextService;
+import com.youthchina.service.zhongyang.UserServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,6 +25,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Resource
     AnswerService answerService;
+
+    @Resource
+    UserServiceImpl userService;
 
     @Override
     public void isQuestionExist(Integer id) throws NotFoundException{
@@ -75,6 +81,25 @@ public class QuestionServiceImpl implements QuestionService {
             throw new NotFoundException(404,4040,"没有根据这些id找到问题");
         }
         return questions;
+    }
+
+    @Override
+    @Transactional
+    public List<Question> get(Integer relaType, Integer relaId) throws NotFoundException{
+        List<Question> questions = questionMapper.getListQuestions(relaType, relaId);
+        List<Question> questionsReturn = new ArrayList<>();
+        Iterator it = questions.iterator();
+        while(it.hasNext()){
+            Question question = (Question) it.next();
+                richTextService.getComRichText(question);
+                question.setAnswers(answerService.getAnswers(question.getId()));
+                question.setUser(userService.get(question.getUser().getId()));
+                questionsReturn.add(question);
+        }
+        if(questionsReturn.size() == 0){
+            throw new NotFoundException(404,4040,"没有找到问题");
+        }
+        return questionsReturn;
     }
 
     @Override

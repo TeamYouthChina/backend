@@ -3,6 +3,7 @@ package com.youthchina.controller.tianjian;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
@@ -10,6 +11,7 @@ import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
 import com.youthchina.dto.community.comment.CommentResponseDTO;
+import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.AnswerServiceImpl;
 import com.youthchina.service.jinhao.CommentServiceImpl;
@@ -81,7 +83,7 @@ public class AnswerController {
     }
 
     @GetMapping("/{id}/comments")
-    public ResponseEntity getAnswerComments(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity getAnswerComments(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
         Answer answer = answerService.get(id);
         List<Comment> comments = commentService.getComments(answer);
 
@@ -95,7 +97,6 @@ public class AnswerController {
         }
         CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
         commentResponseDTO.setComments(commentDTOS);
-
             return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200,"success")));
     }
 
