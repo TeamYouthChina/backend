@@ -4,6 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.service.zhongyang.JwtService;
+import com.youthchina.util.AuthGenerator;
 import com.youthchina.util.zhongyang.JwtAuthenticationProvider;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,6 +49,7 @@ public class UserControllerTest {
 
     @Autowired
     JwtService jwtService;
+    private AuthGenerator authGenerator = new AuthGenerator();
 
     @Before
     public void setup() {
@@ -104,19 +106,4 @@ public class UserControllerTest {
                 .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4000,\"reason\":\"cannot register because there are already user registered with same email or username\"}}"));
     }
 
-//
-//    @Test
-//    public void testRenewToken() {
-//        MockHttpServletResponse mockHttpServletResponse = new MockHttpServletResponse();
-//        try {
-//            User user = new User();
-//            user.setId(1);
-//            jwtService.addAuthentication(mockHttpServletResponse, user);
-//            String token = mockHttpServletResponse.getHeader("X-AUTHENTICATION");
-//        } catch (IOException e) {
-//            Assert.fail();
-//        }
-//
-//    }
-    //todo: test
 }

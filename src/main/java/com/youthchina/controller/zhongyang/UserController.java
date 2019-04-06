@@ -12,7 +12,6 @@ import com.youthchina.dto.applicant.JobCollectResponseDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.community.video.VideoResponseDTO;
-import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -38,7 +37,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/users/**")
-public class UserController extends DomainCRUDController<UserDTO, User, Integer> {
+public class UserController extends DomainCRUDController<User, Integer> {
 
     private UserService userService;
     private String url;
@@ -68,7 +67,7 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
         }
     }
 
-    @GetMapping("/{id}/attentions")
+    @GetMapping("/{id}/attentions/**")
     public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id, @RequestParam(value = "type") String type) throws NotFoundException {
         switch (type) {
             case "Job": {
@@ -139,16 +138,6 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
     @Override
     protected DomainCRUDService<User, Integer> getService() {
         return this.userService;
-    }
-
-    @Override
-    protected UserDTO DomainToDto(User domain) {
-        return new UserDTO(domain);
-    }
-
-    @Override
-    protected User DtoToDomain(UserDTO userDTO) {
-        return new User(userDTO);
     }
 
     @Override

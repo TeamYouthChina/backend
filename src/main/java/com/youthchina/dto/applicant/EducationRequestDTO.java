@@ -8,7 +8,7 @@ import com.youthchina.dto.util.LocationDTO;
 /**
  * Created by zhong on 2018/12/30.
  */
-public class EducationRequestDTO implements RequestDTO {
+public class EducationRequestDTO implements RequestDTO<EducationInfo> {
     private Integer id;
     private Integer university_id;
     private String major;
@@ -20,7 +20,7 @@ public class EducationRequestDTO implements RequestDTO {
     public EducationRequestDTO() {
     }
 
-    public EducationRequestDTO(EducationInfo educationInfo){
+    public EducationRequestDTO(EducationInfo educationInfo) {
         this.major = educationInfo.getEdu_major();
         this.degree = educationInfo.getDegree().getDegreeChn();
         this.duration = new DurationDTO(educationInfo.getEdu_start(), educationInfo.getEdu_end());
@@ -81,5 +81,10 @@ public class EducationRequestDTO implements RequestDTO {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public EducationInfo convertToDomain() {
+        return new EducationInfo(this);
     }
 }
