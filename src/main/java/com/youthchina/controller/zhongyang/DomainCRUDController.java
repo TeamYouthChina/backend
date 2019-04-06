@@ -53,13 +53,13 @@ public abstract class DomainCRUDController<T extends HasId<K>, K extends Seriali
     }
 
     /**
-     * @param dto data transfer model
+     * @param domain data transfer model
      * @return 201 if added
      */
     protected ResponseEntity<?> add(T domain) throws NotFoundException {
         T created = getService().add(domain);
         try {
-            return ResponseEntity.created(getUriForNewInstance(created.getId())).body(created);
+            return ResponseEntity.created(getUriForNewInstance(created.getId())).body(new Response(created));
         } catch (URISyntaxException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
