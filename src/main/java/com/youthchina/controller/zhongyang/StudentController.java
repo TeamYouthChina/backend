@@ -318,7 +318,7 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
 //        return ResponseEntity.ok(listResponse);
 //    }
 
-    @PostMapping("/{id}/education")
+    @PostMapping("/{id}/educations")
     public ResponseEntity<?> insertEducation(@PathVariable Integer id, @RequestBody EducationRequestDTO educationRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             EducationInfo educationInfo = new EducationInfo(educationRequestDTO);
@@ -330,7 +330,7 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
 
     }
 
-    @PostMapping("/{id}/experience")
+    @PostMapping("/{id}/experiences")
     public ResponseEntity<?> insertWork(@PathVariable Integer id, @RequestBody WorkRequestDTO workRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             Work work = new Work(workRequestDTO);
@@ -342,7 +342,7 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @PostMapping("/{id}/project")
+    @PostMapping("/{id}/projects")
     public ResponseEntity<?> insertProject(@PathVariable Integer id, @RequestBody ProjectRequestDTO projectRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             Project project = new Project(projectRequestDTO);
@@ -354,7 +354,7 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @PostMapping("/{id}/certificate")
+    @PostMapping("/{id}/certificates")
     public ResponseEntity<?> insertCertificate(@PathVariable Integer id, @RequestBody CertificateRequestDTO certificateRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             Certificate certificate = new Certificate(certificateRequestDTO);
@@ -366,7 +366,7 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @PostMapping("/{id}/extracurricular")
+    @PostMapping("/{id}/extracurriculars")
     public ResponseEntity<?> insertExtracurricular(@PathVariable Integer id, @RequestBody ExtracurricularRequestDTO extracurricularRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             Activity activity = new Activity(extracurricularRequestDTO);
@@ -378,7 +378,7 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @PostMapping("/{id}/skill")
+    @PostMapping("/{id}/skills")
     public ResponseEntity<?> insertSkill(@PathVariable Integer id, @RequestBody SkillsRequestDTO skillsRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             AdvantageLabel advantageLabel = new AdvantageLabel(skillsRequestDTO);
@@ -391,8 +391,8 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @DeleteMapping("/{id}/educations/{eduId}")
-    public ResponseEntity<?> deleteEducation(@PathVariable("id") Integer id, @PathVariable("eduId") Integer edu_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    @DeleteMapping("/{id}/educations/{educationID}")
+    public ResponseEntity<?> deleteEducation(@PathVariable("id") Integer id, @PathVariable("educationID") Integer edu_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             studentService.deleteEducation(edu_id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
@@ -401,8 +401,8 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @DeleteMapping("/{id}/projects/{projectId}")
-    public ResponseEntity<?> deleteProject(@PathVariable("id") Integer id, @PathVariable("projectId") Integer proj_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    @DeleteMapping("/{id}/projects/{projectID}")
+    public ResponseEntity<?> deleteProject(@PathVariable("id") Integer id, @PathVariable("projectID") Integer proj_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             studentService.deleteProject(proj_id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
@@ -411,8 +411,8 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @DeleteMapping("/{id}/certificates/{certificateId}")
-    public ResponseEntity<?> deleteCertificate(@PathVariable("id") Integer id, @PathVariable("certificateId") Integer certificate_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    @DeleteMapping("/{id}/certificates/{certificateID}")
+    public ResponseEntity<?> deleteCertificate(@PathVariable("id") Integer id, @PathVariable("certificateID") Integer certificate_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             studentService.deleteCertificate(certificate_id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
@@ -421,8 +421,8 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @DeleteMapping("/{id}/experiences/{workId}")
-    public ResponseEntity<?> deleteWork(@PathVariable("id") Integer id, @PathVariable("workId") Integer work_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    @DeleteMapping("/{id}/experiences/{experienceID}")
+    public ResponseEntity<?> deleteWork(@PathVariable("id") Integer id, @PathVariable("experienceID") Integer work_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             studentService.deleteWork(work_id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
@@ -431,8 +431,8 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @DeleteMapping("/{id}/extracurriculars/{actId}")
-    public ResponseEntity<?> deleteExtracurricular(@PathVariable("id") Integer id, @PathVariable("actId") Integer act_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    @DeleteMapping("/{id}/extracurriculars/{extracurricularID}")
+    public ResponseEntity<?> deleteExtracurricular(@PathVariable("id") Integer id, @PathVariable("extracurricularID") Integer act_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             studentService.deleteActivity(act_id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
@@ -452,8 +452,8 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     }
 
 
-    @PutMapping("/{id}/education/{eduId}")
-    public ResponseEntity<?> updateEducation(@PathVariable("id") Integer id, @PathVariable("eduId") Integer edu_id, @RequestBody EducationRequestDTO educationRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    @PutMapping("/{id}/educations/{educationID}")
+    public ResponseEntity<?> updateEducation(@PathVariable("id") Integer id, @PathVariable("educationID") Integer edu_id, @RequestBody EducationRequestDTO educationRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             EducationInfo educationInfo = new EducationInfo(educationRequestDTO);
             EducationInfo educationInfo1 = studentService.updateEducationInfo(educationInfo);
@@ -465,8 +465,8 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @PutMapping("/{id}/project/{projectId}")
-    public ResponseEntity<?> updateProject(@PathVariable("id") Integer id, @PathVariable("projectId") Integer proj_id, @RequestBody ProjectRequestDTO projectRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    @PutMapping("/{id}/projects/{projectID}")
+    public ResponseEntity<?> updateProject(@PathVariable("id") Integer id, @PathVariable("projectID") Integer proj_id, @RequestBody ProjectRequestDTO projectRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             Project project = new Project(projectRequestDTO);
             Project project1 = studentService.updateProject(project);
@@ -478,8 +478,8 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @PutMapping("/{id}/work/{workId}")
-    public ResponseEntity<?> updateWork(@PathVariable("id") Integer id, @PathVariable("workId") Integer work_id, @RequestBody WorkRequestDTO workRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    @PutMapping("/{id}/experiences/{experienceID}")
+    public ResponseEntity<?> updateWork(@PathVariable("id") Integer id, @PathVariable("experienceID") Integer work_id, @RequestBody WorkRequestDTO workRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             Work work = new Work(workRequestDTO);
             Work work1 = studentService.updateWork(work);
@@ -490,8 +490,8 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @PutMapping("/{id}/certificate/{certificateId}")
-    public ResponseEntity<?> updateCertificate(@PathVariable("id") Integer id, @PathVariable("certificateId") Integer certificate_id, @RequestBody CertificateRequestDTO certificateRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    @PutMapping("/{id}/certificates/{certificateID}")
+    public ResponseEntity<?> updateCertificate(@PathVariable("id") Integer id, @PathVariable("certificateID") Integer certificate_id, @RequestBody CertificateRequestDTO certificateRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             Certificate certificate = new Certificate(certificateRequestDTO);
             Certificate certificate1 = studentService.updateCertificate(certificate);
@@ -503,8 +503,8 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @PutMapping("/{id}/extracurricular/{actId}")
-    public ResponseEntity<?> updateExtracurriculars(@PathVariable("id") Integer id, @PathVariable("actId") Integer act_id, @RequestBody ExtracurricularRequestDTO extracurricularRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    @PutMapping("/{id}/extracurriculars/{extracurricularID}")
+    public ResponseEntity<?> updateExtracurriculars(@PathVariable("id") Integer id, @PathVariable("extracurricularID") Integer act_id, @RequestBody ExtracurricularRequestDTO extracurricularRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             Activity activity = new Activity(extracurricularRequestDTO);
             Activity activity1 = studentService.updateActivity(activity);

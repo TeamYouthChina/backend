@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:New_Stu_test.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml","classpath:New_SYS_test.xml"})
+@DatabaseSetup({"classpath:New_Stu_test.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml","classpath:New_SYS_test.xml","classpath:New_Community_test.xml"})
 @WebAppConfiguration
 public class StudentProfileController {
     @Autowired
@@ -80,11 +80,18 @@ public class StudentProfileController {
 
         ;
     }
+    /**
+    * @Description: 分页已完成测试，major还未决定
+    * @Param: []
+    * @return: void
+    * @Author: Qinghong Wang
+    * @Date: 2019/4/6
+    */
 
     @Test
     public void testGetEducations() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/10/educations")
+                get(this.urlPrefix + "/applicants/10/educations?limit=0&offset=1")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
@@ -93,7 +100,7 @@ public class StudentProfileController {
     }
 
     /**
-     * @Description: 通过测试，还需核对接口
+     * @Description: 通过测试，location已删除
      * @Param: []
      * @return: void
      * @Author: Qinghong Wang
@@ -104,10 +111,10 @@ public class StudentProfileController {
         EducationRequestDTO educationDTO=new EducationRequestDTO();
         educationDTO.setUniversity_id(10001);
         educationDTO.setMajor("cs");
-        Degree degree=new Degree();
-        educationDTO.setDegree("1");
-        long begin=1111111;
-        long end=2222222;
+        educationDTO.setDegree("2");
+
+        String begin="2018-10-09";
+        String end="2018-12-09";
         DurationDTO durationDTO=new DurationDTO(begin,end);
         educationDTO.setDuration(durationDTO);
         ObjectMapper mapper = new ObjectMapper();
@@ -116,7 +123,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/10/education").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/educations").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -127,29 +134,29 @@ public class StudentProfileController {
     }
 
     /**
-     * @Description: 已通过测试，差数据层更改
+     * @Description: 已通过测试
      * @Param: []
      * @return: void
      * @Author: Qinghong Wang
      * @Date: 2019/3/30
      */
 
+    @Test
     public void testUpdateEducation() throws Exception{
         EducationRequestDTO educationDTO=new EducationRequestDTO();
         educationDTO.setId(1);
         educationDTO.setUniversity_id(10001);
         educationDTO.setMajor("law");
-        Degree degree=new Degree();
         educationDTO.setDegree("1");
-        long begin=1111111;
-        long end=2222222;
+        String begin="2014-10-07";
+        String end="2018-10-07";
         DurationDTO durationDTO=new DurationDTO(begin,end);
         educationDTO.setDuration(durationDTO);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(educationDTO);
         this.mvc.perform(
-                put(this.urlPrefix + "/applicants/10/education/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                put(this.urlPrefix + "/applicants/10/educations/1").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
@@ -186,11 +193,18 @@ public class StudentProfileController {
 ////                .andExpect(content().json("{\"content\":{\"emails\":[\"test@test.com\"],\"phonenumbers\":[\"18463722634\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
 //        ;
 //    }
-
+    
+    /** 
+    * @Description: 通过测试
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/4/6 
+    */
     @Test
     public void testGetProjects() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/10/projects")
+                get(this.urlPrefix + "/applicants/10/projects?limit=0&offset=0")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
@@ -221,7 +235,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/10/project").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/projects").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -255,7 +269,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 put
-                        (this.urlPrefix + "/applicants/10/project/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/projects/1").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -284,7 +298,7 @@ public class StudentProfileController {
 
     }
     /**
-    * @Description: 获得所有工作经验
+    * @Description: 通过测试
     * @Param: []
     * @return: void
     * @Author: Qinghong Wang
@@ -303,7 +317,7 @@ public class StudentProfileController {
     }
 
     /**
-     * @Description: 通过测试，还需核对接口
+     * @Description: 通过测试
      * @Param: []
      * @return: void
      * @Author: Qinghong Wang
@@ -314,7 +328,6 @@ public class StudentProfileController {
         LocationDTO locationDTO=new LocationDTO();
         locationDTO.setNation_code("CHN");
         locationDTO.setLocation_code("110000");
-        List<WorkRequestDTO> workDTOS=new ArrayList<>();
         WorkRequestDTO workDTO=new WorkRequestDTO();
         workDTO.setEmployer("google");
         workDTO.setPosition("backend");
@@ -323,7 +336,6 @@ public class StudentProfileController {
         DurationDTO durationDTO=new DurationDTO(begin,end);
         workDTO.setDuration(durationDTO);
         workDTO.setLocation(locationDTO);
-        workDTOS.add(workDTO);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -331,7 +343,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/10/experience").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/experiences").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -342,7 +354,7 @@ public class StudentProfileController {
     }
 
     /**
-     * @Description: 已通过测试，差数据校对
+     * @Description: 已通过测试
      * @Param: []
      * @return: void
      * @Author: Qinghong Wang
@@ -369,7 +381,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 put
-                        (this.urlPrefix + "/applicants/10/work/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/experiences/1").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -397,6 +409,13 @@ public class StudentProfileController {
         ;
 
     }
+    /** 
+    * @Description: 通过测试，多了一个country的属性
+    * @Param: [] 
+    * @return: void 
+    * @Author: Qinghong Wang 
+    * @Date: 2019/4/6 
+    */
 
     @Test
     public void testGetCertificates() throws Exception{
@@ -433,7 +452,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/10/certificate").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/certificates").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -468,7 +487,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 put
-                        (this.urlPrefix + "/applicants/10/certificate/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/certificates/1").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -509,7 +528,7 @@ public class StudentProfileController {
     }
 
     /**
-     * @Description: 通过测试，还需核对接口
+     * @Description: 通过测试
      * @Param: []
      * @return: void
      * @Author: Qinghong Wang
@@ -532,7 +551,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/10/extracurricular").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/extracurriculars").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -543,7 +562,7 @@ public class StudentProfileController {
     }
 
     /**
-     * @Description: 已通过数据，差测试数据
+     * @Description: 已通过数据
      * @Param: []
      * @return: void
      * @Author: Qinghong Wang
@@ -568,7 +587,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 put
-                        (this.urlPrefix + "/applicants/10/extracurricular/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/extracurriculars/1").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -629,7 +648,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 post
-                        (this.urlPrefix + "/applicants/10/skill").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/skills").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -668,7 +687,7 @@ public class StudentProfileController {
     public void testUserAttentions() throws Exception{
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/10/attentions").param("type","Job")
+                        (this.urlPrefix + "/users/6/attentions?type=question")
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
@@ -760,7 +779,7 @@ public class StudentProfileController {
 
     @Test
     public void testAddJobApply() throws Exception{
-        this.mvc.perform(post(this.urlPrefix + "/jobs/4/apply").with(authGenerator.authentication(Role.APPLICANT, 10)))
+        this.mvc.perform(post(this.urlPrefix + "/jobs/5/apply").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
 
