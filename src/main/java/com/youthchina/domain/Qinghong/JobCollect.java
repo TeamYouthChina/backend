@@ -3,7 +3,6 @@ package com.youthchina.domain.Qinghong;
 import com.youthchina.domain.qingyang.Job;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * @program: youthchina

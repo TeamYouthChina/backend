@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.5.4
+  version: 1.5.3
   title: YouthChina
   license:
     name: MIT
@@ -4466,78 +4466,17 @@ paths:
                   content:
                     type: object
                     properties:
-                      companies:
+                      discovery:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - company
                           properties:
-                            id:
-                              type: integer
-                            company:
-                              $ref: '#/components/schemas/Company'
-                      jobs:
-                        type: array
-                        items:
-                          type: object
-                          required:
-                            - id
-                            - job
-                          properties:
-                            id:
-                              type: integer
-                            job:
-                              $ref: '#/components/schemas/Job'
-                      questions:
-                        type: array
-                        items:
-                          type: object
-                          required:
-                            - id
-                            - questions
-                          properties:
-                            id:
-                              type: integer
-                            question:
-                              $ref: '#/components/schemas/QuestionBasic'
-                      answers:
-                        type: array
-                        items:
-                          type: object
-                          required:
-                            - id
-                            - answers
-                          properties:
-                            id:
-                              type: integer
-                            answer:
-                              $ref: '#/components/schemas/AnswerBasic'
-                      articles:
-                        type: array
-                        items:
-                          type: object
-                          required:
-                            - id
-                            - article
-                          properties:
-                            id:
-                              type: integer
-                            article:
-                              $ref: '#/components/schemas/Article'
-                      videos:
-                        type: array
-                        items:
-                          type: object
-                          required:
-                            - id
-                            - video
-                          properties:
-                            id:
-                              type: integer
-                            video:
-                              $ref: '#/components/schemas/Video'
+                            type: 
+                              type: string
+                              description: the type of object
+                            object:
+                              type: object
+                              description: the object of given type(may be Article, User, ...) 
                   status:
                     $ref: '#/components/schemas/Status'
   '/resumes':

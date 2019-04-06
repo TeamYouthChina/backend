@@ -2,7 +2,6 @@ package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Certificate;
 import com.youthchina.dto.ResponseDTO;
-import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**
@@ -11,7 +10,7 @@ import com.youthchina.dto.util.DurationDTO;
  * @author: Qinghong Wang
  * @create: 2019-02-24 15:39
  **/
-public class CertificateResponseDTO implements ResponseDTO {
+public class CertificateResponseDTO implements ResponseDTO<Certificate> {
     private Integer id;
     private String name;
     private String authority;
@@ -81,5 +80,14 @@ public class CertificateResponseDTO implements ResponseDTO {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    @Override
+    public void convertToDTO(Certificate certificate) {
+        this.country=certificate.getInsti_country().getCountryChn();
+        this.id = certificate.getCertificate_id();
+        this.name = certificate.getCertificate_name();
+        this.authority = certificate.getCertificate_insti();
+        this.duration = new DurationDTO(certificate.getCertificate_grant_date(), certificate.getCertificate_expir_date());
     }
 }

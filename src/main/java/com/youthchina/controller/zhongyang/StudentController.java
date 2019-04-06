@@ -1,5 +1,7 @@
 package com.youthchina.controller.zhongyang;
 
+import com.youthchina.annotation.RequestBodyDTO;
+import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("${web.url.prefix}/applicants/**")
-public class StudentController extends DomainCRUDController<ApplicantRequestDTO, Student, Integer> {
+public class StudentController extends DomainCRUDController<Student, Integer> {
     private String url;
     private StudentService studentService;
 
@@ -43,15 +45,6 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
         return this.studentService;
     }
 
-    @Override
-    protected ApplicantRequestDTO DomainToDto(Student domain) {
-        return new ApplicantRequestDTO(domain);
-    }
-
-    @Override
-    protected Student DtoToDomain(ApplicantRequestDTO applicantRequestDTO) {
-        return new Student(applicantRequestDTO);
-    }
 
     @Override
     protected URI getUriForNewInstance(Integer id) throws URISyntaxException {
@@ -65,15 +58,16 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
     }
 
     @PostMapping("/**")
-    public ResponseEntity<?> createStudentInfo(@AuthenticationPrincipal User user, @RequestBody ApplicantRequestDTO applicant) throws NotFoundException {
-        Student student = new Student(applicant);
+    @ResponseBodyDTO(ApplicantResponseDTO.class)
+    public ResponseEntity<?> createStudentInfo(@AuthenticationPrincipal User user, @RequestBodyDTO(ApplicantRequestDTO.class) Student student) throws NotFoundException {
         student.setId(user.getId());
         Student student1 = studentService.add(student);
-        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student1)));
+        return ResponseEntity.ok(new Response(student1));
     }
 
     @PutMapping("/{id}/**")
-    public ResponseEntity<?> updateStudentInfo(@RequestBody ApplicantRequestDTO applicant) throws NotFoundException {
+    @ResponseBodyDTO(ApplicantResponseDTO.class)
+    public ResponseEntity<?> updateStudentInfo(@RequestBodyDTO(ApplicantRequestDTO.class) Student applicant) throws NotFoundException {
         return update(applicant);
     }
 
@@ -149,10 +143,6 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
         }
 
         return ResponseEntity.ok(new Response(labelInfos1));
-    }
-
-    private ApplicantRequestDTO getDto(Integer id) throws NotFoundException {
-        return this.DomainToDto(this.getService().get(id));
     }
 
 
@@ -313,20 +303,20 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
 //
 //    }
 
-
-    @GetMapping("/{id}/resumes")
-    public ResponseEntity<?> getApplicantsResumes(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
-        List<ResumeJson> resumeJsonList = studentService.selectResumeJsonByStuId(id);
-        if (resumeJsonList == null || resumeJsonList.size() == 0) {
-            throw new NotFoundException(404, 404, "No Resume available.");
-        }
-        List<ResumeResponseDTO> resumeResponseDTOList = new ArrayList<>();
-        for (ResumeJson resumeJson : resumeJsonList) {
-            resumeResponseDTOList.add(new ResumeResponseDTO(resumeJson));
-        }
-        ListResponse listResponse = new ListResponse(pageRequest, resumeResponseDTOList.size(), resumeResponseDTOList);
-        return ResponseEntity.ok(listResponse);
-    }
+//
+//    @GetMapping("/{id}/resumes")
+//    public ResponseEntity<?> getApplicantsResumes(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
+//        List<ResumeJson> resumeJsonList = studentService.selectResumeJsonByStuId(id);
+//        if (resumeJsonList == null || resumeJsonList.size() == 0) {
+//            throw new NotFoundException(404, 404, "No Resume available.");
+//        }
+//        List<ResumeResponseDTO> resumeResponseDTOList = new ArrayList<>();
+//        for (ResumeJson resumeJson : resumeJsonList) {
+//            resumeResponseDTOList.add(new ResumeResponseDTO(resumeJson));
+//        }
+//        ListResponse listResponse = new ListResponse(pageRequest, resumeResponseDTOList.size(), resumeResponseDTOList);
+//        return ResponseEntity.ok(listResponse);
+//    }
 
     @PostMapping("/{id}/education")
     public ResponseEntity<?> insertEducation(@PathVariable Integer id, @RequestBody EducationRequestDTO educationRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {

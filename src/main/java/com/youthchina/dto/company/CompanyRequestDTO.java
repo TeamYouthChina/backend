@@ -13,7 +13,7 @@ import java.util.List;
  * @author: Qingyang Zhao
  * @create: 2019-02-16
  **/
-public class CompanyRequestDTO implements CompanyDTOInterface {
+public class CompanyRequestDTO implements CompanyDTOInterface, RequestDTO<Company> {
 
     private Integer id;
     private String name;
@@ -137,5 +137,10 @@ public class CompanyRequestDTO implements CompanyDTOInterface {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public Company convertToDomain() {
+        return new Company(this);
     }
 }

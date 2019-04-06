@@ -3,7 +3,6 @@ package com.youthchina.Qinghong;
 import com.youthchina.dao.Qinghong.ApplicantMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.*;
-import com.youthchina.domain.qingyang.Job;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.Qinghong.StudentService;
 import com.youthchina.service.Qinghong.StudentServiceImpl;

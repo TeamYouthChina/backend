@@ -1,7 +1,7 @@
 package com.youthchina.dao.tianjian;
 
 import com.youthchina.domain.Qinghong.UserInfo;
-import com.youthchina.domain.tianjian.*;
+import com.youthchina.domain.tianjian.PersonInfluence;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

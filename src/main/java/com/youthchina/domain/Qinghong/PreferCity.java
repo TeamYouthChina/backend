@@ -1,7 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class PreferCity {
     private Integer pre_city_id;

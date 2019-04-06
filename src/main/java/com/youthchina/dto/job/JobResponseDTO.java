@@ -3,6 +3,7 @@ package com.youthchina.dto.job;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.applicant.OrganizationDTO;
 
 import java.text.DateFormat;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author: Qingyang Zhao
  * @create: 2019-02-24
  **/
-public class JobResponseDTO implements JobDTOInterface {
+public class JobResponseDTO implements JobDTOInterface, ResponseDTO<Job> {
     private int id;
     private String name;
     private OrganizationDTO organization;
@@ -45,6 +46,11 @@ public class JobResponseDTO implements JobDTOInterface {
     "reason": "string"
   }
 }*/
+
+    public JobResponseDTO() {
+
+    }
+
     public JobResponseDTO(Job job) {
         this.id = job.getJobId();
         this.name = job.getJobName();
@@ -139,5 +145,37 @@ public class JobResponseDTO implements JobDTOInterface {
 
     public void setJob_description(String job_description) {
         this.job_description = job_description;
+    }
+
+    @Override
+    public void convertToDTO(Job job) {
+        this.id = job.getJobId();
+        this.name = job.getJobName();
+        Company company = job.getCompany();
+        this.organization = company == null ? null : new OrganizationDTO(company);
+        List<Location> locationList = job.getJobLocationList();
+        if (locationList != null && locationList.size() > 0) {
+            Location location = locationList.get(0);
+            if (location != null) {
+                this.location = location.getRegionName(); // 默认中文名
+            }
+
+        }
+        int jobType = job.getJobType();
+
+        System.out.println("Get jobType:");
+        System.out.println(jobType);
+
+        if (jobType == 1) {
+            this.type = "实习";
+        } else if (jobType == 2) {
+            this.type = "兼职";
+        } else {
+            this.type = "全职";
+        }
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        this.deadLine = df.format(job.getJobEndTime());
+        this.job_duty = job.getJobDuty();
+        this.job_description = job.getJobDescription();
     }
 }

@@ -1,12 +1,11 @@
 package com.youthchina.dto.security;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.youthchina.dto.RequestDTO;
 
 /**
  * Created by zhongyangwu on 2/10/19.
  */
-public class RegisterUserDTO implements RequestDTO {
+public class RegisterUserDTO {
     private String username;
     private String password;
     private String email;
