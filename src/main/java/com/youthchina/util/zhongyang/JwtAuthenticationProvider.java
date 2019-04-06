@@ -41,7 +41,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         }
         if (actualUser == null) {
             //if no user with target id is in DB
-            return null;
+            throw new BadCredentialsException("No such user");
         }
         if (passwordEncoder.matches(intentUser.getPassword(), actualUser.getPassword())) {
             //if password is correct

@@ -63,7 +63,7 @@ public class SearchServiceImplement implements SearchService{
     private AnswerService answerService;
 
     @Override
-    public List<User> usersearch(String keyword) throws Exception {
+    public List<User> userSearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
         //下面设置solr查询参数
@@ -124,7 +124,7 @@ public class SearchServiceImplement implements SearchService{
     }
 
     @Override
-    public List<ComEssay> essaysearch(String keyword) throws Exception {
+    public List<ComEssay> essaySearch(String keyword) throws Exception {
         List<Integer> essayidlist = new ArrayList<>();
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
@@ -160,7 +160,7 @@ public class SearchServiceImplement implements SearchService{
     }
 
     @Override
-    public List<Question> questionsearch(String keyword) throws Exception {
+    public List<Question> questionSearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
         query.set("q", "ques_title:"+ keyword);// 参数q  查询所有
@@ -196,7 +196,7 @@ public class SearchServiceImplement implements SearchService{
     }
 
     @Override
-    public List<Job> jobsearch(String keyword) throws Exception {
+    public List<Job> jobSearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
         query.set("q", "job_name:"+ keyword);// 参数q  查询所有
@@ -223,7 +223,7 @@ public class SearchServiceImplement implements SearchService{
     }
 
     @Override
-    public List<Comment> commentsearch(String keyword) throws Exception {
+    public List<Comment> commentSearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
         query.set("q", "comment_content:"+ keyword);// 参数q  查询所有
@@ -240,7 +240,7 @@ public class SearchServiceImplement implements SearchService{
     }
 
     @Override
-    public List<Video> videosearch(String keyword) throws Exception {
+    public List<Video> videoSearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
         query.set("q", "video_title:"+ keyword);// 参数q  查询所有
@@ -277,7 +277,7 @@ public class SearchServiceImplement implements SearchService{
     }
 
     @Override
-    public List<Company> companysearch(String keyword) throws Exception {
+    public List<Company> companySearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
         query.set("q", "company_name:"+keyword);// 参数q  查询所有
@@ -303,7 +303,7 @@ public class SearchServiceImplement implements SearchService{
     }
 
     @Override
-    public List<Answer> answersearch(String keyword) throws Exception {
+    public List<Answer> answerSearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
         query.set("q", "answer_body:"+ keyword);// 参数q  查询所有
@@ -320,7 +320,7 @@ public class SearchServiceImplement implements SearchService{
     }
 
     @Override
-    public List<SolrDTO> multiplesearch(String keyword) throws Exception{
+    public List<SolrDTO> multipleSearch(String keyword) throws Exception{
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
         query.set("q", "*:"+ keyword);// 参数q  查询所有

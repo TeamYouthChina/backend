@@ -164,7 +164,7 @@ public class StudentController extends DomainCRUDController<ApplicantRequestDTO,
             JobApplyDTO jobApplyDTO = new JobApplyDTO(jobApply);
             jobApplyDTOS.add(jobApplyDTO);
         }
-        return ResponseEntity.ok(new ListResponse());
+        return ResponseEntity.ok(new Response(jobApplyDTOS));
     }
 
 

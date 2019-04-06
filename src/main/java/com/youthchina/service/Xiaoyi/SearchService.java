@@ -18,21 +18,21 @@ import java.util.List;
 
 public interface SearchService {
 
-    List<ComEssay> essaysearch(String keyword) throws Exception;
+    List<ComEssay> essaySearch(String keyword) throws Exception;
 
-    List<Question> questionsearch(String keyword) throws Exception;
+    List<Question> questionSearch(String keyword) throws Exception;
 
-    List<Company> companysearch(String keyword) throws Exception;
+    List<Company> companySearch(String keyword) throws Exception;
 
-    List<SolrDTO> multiplesearch(String keyword) throws Exception;
+    List<SolrDTO> multipleSearch(String keyword) throws Exception;
 
-    List<Job> jobsearch(String keyword) throws Exception;
+    List<Job> jobSearch(String keyword) throws Exception;
 
-    List<Comment> commentsearch(String keyword) throws Exception;
+    List<Comment> commentSearch(String keyword) throws Exception;
 
-    List<Video> videosearch(String keyword) throws Exception;
+    List<Video> videoSearch(String keyword) throws Exception;
 
-    List<Answer> answersearch(String keyword) throws Exception;
+    List<Answer> answerSearch(String keyword) throws Exception;
 
-    List<User> usersearch(String keyword) throws Exception;
+    List<User> userSearch(String keyword) throws Exception;
 }

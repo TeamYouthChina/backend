@@ -68,7 +68,7 @@ public class UserController extends DomainCRUDController<UserDTO, User, Integer>
         }
     }
 
-    @GetMapping("/{id}/attentions")
+    @GetMapping("/{id}/attentions/**")
     public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id, @RequestParam(value = "type") String type) throws NotFoundException {
         switch (type) {
             case "Job": {

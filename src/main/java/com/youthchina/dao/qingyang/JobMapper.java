@@ -41,6 +41,8 @@ public interface JobMapper {
      */
     List<Job> selectJobByJobIdList(List<Integer> ids);
 
+    List<Job> selectAllJob();
+
     List<Job> getJobByMore(@Param("jobId") Integer jobId, @Param("jobName") String jobName, @Param("comId") Integer comId, @Param("comName") String comName,
                            @Param("startTime") Date startTime, @Param("endTime") Date endTime, @Param("type") Integer type, @Param("salaryFloor") Integer salaryFloor, @Param("salaryCap") Integer salaryCap,
                            @Param("active") Integer active, @Param("location") String location, @Param("jobReqList") List<Degree> jobReqList,

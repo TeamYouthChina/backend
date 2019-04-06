@@ -2,11 +2,11 @@ package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.dto.job.JobRequestDTO;
-import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Job implements HasId<Integer> {
@@ -85,32 +85,27 @@ comment '职位基本信息表';
 //        System.out.println(this.jobType);
 
         this.company = new Company();
-        this.company.setCompanyId(jobRequestDTO.getOrganization().getId());
-        List<LocationDTO> locationDTOList = jobRequestDTO.getJobLocationList();
-        if(locationDTOList != null && locationDTOList.size() > 0){
-            for (LocationDTO locationDTO : locationDTOList) {
-                this.jobLocationList.add(new Location(locationDTO));
+        this.company.setCompanyId(jobRequestDTO.getOrganization_id());
+        List<Integer> locationIdList = jobRequestDTO.getLocation();
+
+        if(locationIdList != null && locationIdList.size() > 0){
+            this.jobLocationList = new ArrayList<>();
+            for (Integer locationIndex : locationIdList) {
+                this.jobLocationList.add(new Location(locationIndex));
             }
         }
         this.userId = jobRequestDTO.getUserId();
+        this.jobDescription = jobRequestDTO.getJob_description();
+        this.jobDuty = jobRequestDTO.getJob_duty();
+        this.jobEndTime = new Date(Long.parseLong(jobRequestDTO.getDeadLine()));
 
-        //TODO
-//        Profession profession = new Profession();
-//        profession.setProfCode("1");
-//        this.setProfession(profession);
         this.setJobProfCode("1");
-
         this.setJobStartTime(Date.valueOf("2010-01-01"));
-        this.setJobEndTime(Date.valueOf("2019-01-01"));
-        this.setJobDescription("Description:TODO");
-        this.setJobDuty("Duty:TODO");
         this.setJobHighlight("Highlight:TODO");
         this.setJobLink("JOB_LINK:TODO");
         this.setCvReceiMail("MAIL:TODO");
         this.setCvNameRule("RULE:TODO");
         this.setJobActive(1);
-
-        //TODO LocationList;    jobReqList; industries; logoList;
 
     }
 
