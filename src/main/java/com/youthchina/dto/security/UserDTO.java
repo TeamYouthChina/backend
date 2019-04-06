@@ -3,13 +3,15 @@ package com.youthchina.dto.security;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.RequestDTO;
+import com.youthchina.dto.ResponseDTO;
 
 import java.util.List;
 
 /**
  * Created by zhongyangwu on 1/29/19.
  */
-public class UserDTO {
+public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     private Integer id;
     private String username;
     private String password;
@@ -148,5 +150,27 @@ public class UserDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public void convertToDTO(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.phonenumber = user.getPhonenumber();
+        this.register_date = user.getRegisterDate();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.gender = user.getGender();
+        this.nation = user.getNation();
+        this.avatar_url = user.getAvatarUrl();
+        this.role = user.getRole();
+        this.age = user.getAge();
+    }
+
+    @Override
+    public User convertToDomain() {
+        return new User(this);
     }
 }

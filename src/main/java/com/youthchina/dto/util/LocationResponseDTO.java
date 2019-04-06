@@ -9,7 +9,7 @@ import com.youthchina.dto.ResponseDTO;
  * @author: Qinghong Wang
  * @create: 2019-02-23 16:29
  **/
-public class LocationResponseDTO implements ResponseDTO {
+public class LocationResponseDTO implements ResponseDTO<Location> {
     private String location;
 
     public LocationResponseDTO(Location location) {
@@ -22,5 +22,10 @@ public class LocationResponseDTO implements ResponseDTO {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @Override
+    public void convertToDTO(Location domain) {
+        this.location = domain.getRegionName();
     }
 }

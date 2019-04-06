@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by zhong on 2018/12/30.
  */
-public class ApplicantRequestDTO implements RequestDTO {
+public class ApplicantRequestDTO implements RequestDTO<Student> {
     private String name;
     private String avatarUrl;
     private Boolean isInJob;
@@ -142,6 +142,12 @@ public class ApplicantRequestDTO implements RequestDTO {
 
     public void setContacts(ContactDTO contacts) {
         this.contacts = contacts;
+    }
+
+    @Override
+    public Student convertToDomain() {
+        Student student = new Student(this);
+        return student;
     }
 }
 

@@ -7,7 +7,7 @@ import com.youthchina.dto.util.DurationDTO;
 /**
  * Created by zhong on 2018/12/30.
  */
-public class CertificateRequestDTO implements RequestDTO {
+public class CertificateRequestDTO implements RequestDTO<Certificate> {
     private Integer id;
     private String name;
     private String authority;
@@ -70,5 +70,10 @@ public class CertificateRequestDTO implements RequestDTO {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    @Override
+    public Certificate convertToDomain() {
+        return new Certificate(this);
     }
 }

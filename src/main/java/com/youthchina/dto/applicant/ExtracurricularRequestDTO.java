@@ -7,7 +7,7 @@ import com.youthchina.dto.util.DurationDTO;
 /**
  * Created by zhong on 2018/12/30.
  */
-public class ExtracurricularRequestDTO implements RequestDTO {
+public class ExtracurricularRequestDTO implements RequestDTO<Activity> {
     private Integer id;
     private String name;
     private String role;
@@ -72,5 +72,10 @@ public class ExtracurricularRequestDTO implements RequestDTO {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public Activity convertToDomain() {
+        return new Activity(this);
     }
 }

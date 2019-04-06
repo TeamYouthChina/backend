@@ -4,7 +4,6 @@ import com.youthchina.domain.Qinghong.Candidate;
 import com.youthchina.domain.Qinghong.Invitation;
 
 import java.util.List;
-import java.util.Map;
 
 public interface EmployerPageService {
 

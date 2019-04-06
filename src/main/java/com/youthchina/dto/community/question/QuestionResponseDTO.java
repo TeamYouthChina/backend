@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 1/2/19.
  */
-public class QuestionResponseDTO implements ResponseDTO, QuestionDTO {
+public class QuestionResponseDTO implements ResponseDTO<Question>, QuestionDTO {
     private Integer id;
     private UserDTO creator;
     private String title;
@@ -132,5 +132,26 @@ public class QuestionResponseDTO implements ResponseDTO, QuestionDTO {
 
     public void setModified_at(Timestamp modified_at) {
         this.modified_at = modified_at;
+    }
+
+    @Override
+    public void convertToDTO(Question question) {
+        this.id = question.getId();
+        this.creator = new UserDTO(question.getUser());
+        this.title = question.getTitle();
+        RichTextResponseDTO richt = new RichTextResponseDTO(question.getBody());
+        this.body = richt;
+        //this.invitation = question.getQues_invitation();
+        this.is_anonymous = (question.getIsAnony()==1 ? true : false);
+        this.create_at = question.getPubTime();
+        this.modified_at = question.getEditTime();
+        this.rela_type = question.getRelaType();
+        this.answers = new ArrayList<AnswerBasicDTO>();
+        this.rela_id = question.getRelaId();
+        if(question.getAnswers() != null) {
+            for(Answer answer : question.getAnswers()) {
+                this.answers.add(new AnswerBasicDTO(answer));
+            }
+        }
     }
 }
