@@ -29,6 +29,7 @@ import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 
 
@@ -72,7 +73,7 @@ public class JobControllerTest {
 
         )
                 .andDo(print())
-//                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"产品信息管理实习生\",\"organization\":{\"id\":37,\"name\":\"深圳市腾讯计算机系统有限公司\",\"avatarUrl\":null,\"location\":null,\"website\":\"https://www.tencent.com\",\"note\":\"腾讯科技股份有限公司（港交所：700）是中国规模最大的互联网公司，1998年11月由马化腾、张志东、陈一丹、许晨晔、曾李青5位创始人共同创立，总部位于深圳南山区腾讯大厦。腾讯业务拓展... \",\"nation\":\"中国\"},\"location\":\"广东省广州市\",\"type\":\"实习\",\"deadLine\":\"12/31/2019\",\"job_duty\":\"在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉产品信息管理\",\"job_description\":\"产品信息管理实习生\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"产品信息管理实习生\",\"organization\":{\"id\":37,\"name\":\"深圳市腾讯计算机系统有限公司\",\"avatarUrl\":null,\"location\":null,\"website\":\"https://www.tencent.com\",\"note\":\"腾讯科技股份有限公司（港交所：700）是中国规模最大的互联网公司，1998年11月由马化腾、张志东、陈一丹、许晨晔、曾李青5位创始人共同创立，总部位于深圳南山区腾讯大厦。腾讯业务拓展... \",\"nation\":\"中国\"},\"location\":\"广东省广州市\",\"type\":\"实习\",\"deadLine\":\"12/31/2019\",\"job_duty\":\"在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉产品信息管理\",\"job_description\":\"产品信息管理实习生\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
 
     }
@@ -89,7 +90,6 @@ public class JobControllerTest {
         ;
 
     }
-
 
 
     @Test
@@ -166,7 +166,7 @@ public class JobControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                //.andExpect(content().json("{\"content\"}", false))
+                .andExpect(content().json("{\"content\":{\"name\":\"front\",\"organization\":{\"id\":2,\"name\":\"中国石油天然气股份有限公司\",\"avatarUrl\":null,\"location\":\"北京市\",\"website\":\"http://www.petrochina.com.cn\",\"note\":\"中国石油天然气股份有限公司是中国油气行业占主导地位的最大的油气生产和销售商，是国有企业，是中国销售收入最大的公司之一，也是世界最大的石油公司之一。\",\"nation\":\"中国\"},\"location\":\"Berkeley\",\"type\":\"实习\",\"deadLine\":\"02/17/1970\",\"job_duty\":\"FullStack\",\"job_description\":\"996ICU\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 
@@ -199,7 +199,7 @@ public class JobControllerTest {
 
         )
                 .andDo(print())
-                //.andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"front\",\"organization\":{\"id\":2,\"name\":\"中国石油天然气股份有限公司\",\"avatarUrl\":null,\"location\":\"北京市\",\"website\":\"http://www.petrochina.com.cn\",\"note\":\"中国石油天然气股份有限公司是中国油气行业占主导地位的最大的油气生产和销售商，是国有企业，是中国销售收入最大的公司之一，也是世界最大的石油公司之一。\",\"nation\":\"中国\"},\"location\":\"Berkeley\",\"type\":\"实习\",\"deadLine\":\"02/17/1970\",\"job_duty\":\"FullStack\",\"job_description\":\"996ICU\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 
