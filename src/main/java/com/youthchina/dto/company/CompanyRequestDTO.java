@@ -30,6 +30,7 @@ public class CompanyRequestDTO implements RequestDTO<Company> {
         this.userId = userId;
     }
 
+
     public Integer getId() {
         return id;
     }
