@@ -31,14 +31,14 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:testnew.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml"})
+@DatabaseSetup({"classpath:New_Stu_test.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml"})
 public class StudentMapperTest {
     @Autowired
     ApplicantMapper applicantMapper;
 
     @Test
     public void testGetEducations() {
-        List<EducationInfo> educationInfos = applicantMapper.getEducations(1);
+        List<EducationInfo> educationInfos = applicantMapper.getEducations(10);
         System.out.print(educationInfos.get(0));
         if (educationInfos != null) {
             System.out.print("测试成功");
@@ -48,7 +48,7 @@ public class StudentMapperTest {
 
     @Test
     public void testGetWorks() {
-        List<Work> works = applicantMapper.getWorks(1);
+        List<Work> works = applicantMapper.getWorks(10);
         Assert.assertNotNull(works);
         System.out.print(works.get(0).getWork_company());
 
@@ -56,7 +56,7 @@ public class StudentMapperTest {
 
     @Test
     public void testGetActivities() {
-        List<Activity> activities = applicantMapper.getActivities(1);
+        List<Activity> activities = applicantMapper.getActivities(10);
         Assert.assertNotNull(activities);
         System.out.print(activities.get(0).getAct_detail());
 
@@ -64,7 +64,7 @@ public class StudentMapperTest {
 
     @Test
     public void testGetProjects() {
-        List<Project> projects = applicantMapper.getProjects(1);
+        List<Project> projects = applicantMapper.getProjects(10);
         Assert.assertNotNull(projects);
         System.out.print(projects.get(0).getDeliver_pub_insti());
 
@@ -72,7 +72,7 @@ public class StudentMapperTest {
 
     @Test
     public void testGetCertificates() {
-        List<Certificate> certificates = applicantMapper.getCertificates(1);
+        List<Certificate> certificates = applicantMapper.getCertificates(10);
         Assert.assertNotNull(certificates);
         System.out.print(certificates.get(0).getCertificate_insti());
 
@@ -80,7 +80,7 @@ public class StudentMapperTest {
 
     @Test
     public void testGetStudentInfo() {
-        Student student = applicantMapper.getStudentInfo(1);
+        Student student = applicantMapper.getStudentInfo(10);
         System.out.print(student.getLabelInfos().get(0).getLabel_chn());
 
     }
@@ -105,7 +105,7 @@ public class StudentMapperTest {
 
     @Test
     public void testGetJobApplies() {
-        List<JobApply> jobApplies = applicantMapper.getJobApplies(1);
+        List<JobApply> jobApplies = applicantMapper.getJobApplies(10);
         Assert.assertNotNull(jobApplies);
         System.out.print(jobApplies.get(0).getJob_cv_send());
 
@@ -141,7 +141,7 @@ public class StudentMapperTest {
 
     @Test
     public void testGetJobCollect() {
-        List<JobCollect> jobCollects = applicantMapper.getJobCollects(1);
+        List<JobCollect> jobCollects = applicantMapper.getJobCollects(10);
         Assert.assertNotNull(jobCollects);
         System.out.print(jobCollects.get(0).getJob().getCvReceiMail());
 
@@ -149,20 +149,20 @@ public class StudentMapperTest {
 
     @Test
     public void testGetCompCollect() {
-        List<CompCollect> compCollects = applicantMapper.getCompCollects(1);
+        List<CompCollect> compCollects = applicantMapper.getCompCollects(10);
         Assert.assertNotNull(compCollects);
     }
 
     @Test
     public void testGetOneJobCollect() {
-        JobCollect jobCollect = applicantMapper.getOneJobCollect(1,1);
+        JobCollect jobCollect = applicantMapper.getOneJobCollect(1,10);
         Assert.assertNotNull(jobCollect);
         System.out.print(jobCollect.getJob_id());
     }
 
     @Test
     public void testGetOneCompCollect() {
-        JobCollect jobCollect = applicantMapper.getOneJobCollect(1,1);
+        JobCollect jobCollect = applicantMapper.getOneJobCollect(1,10);
         Assert.assertNotNull(jobCollect);
         System.out.print(jobCollect.getJob_id());
     }
@@ -300,7 +300,7 @@ public class StudentMapperTest {
 
     @Test
     public void testGetOneJobApply() {
-        JobApply jobApply = applicantMapper.getOneJobApply(1, 1);
+        JobApply jobApply = applicantMapper.getOneJobApply(1, 10);
         Assert.assertNotNull(jobApply);
         System.out.print(jobApply.getJob().getCompany().getCompanyName());
     }

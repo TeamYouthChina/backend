@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.sql.Date;
 import java.util.List;
 
@@ -117,6 +116,16 @@ public class JobServiceImpl implements JobService {
     @Transactional
     public List<Job> get(List<Integer> id) throws NotFoundException {
         List<Job> jobList = jobMapper.selectJobByJobIdList(id);
+        for (Job job : jobList) {
+            setJobLocation(job);
+            job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
+        }
+        return jobList;
+    }
+
+    @Transactional
+    public List<Job> getAll() throws NotFoundException {
+        List<Job> jobList = jobMapper.selectAllJob();
         for (Job job : jobList) {
             setJobLocation(job);
             job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));

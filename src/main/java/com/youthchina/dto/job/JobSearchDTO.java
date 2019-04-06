@@ -1,7 +1,6 @@
 package com.youthchina.dto.job;
 
 import com.youthchina.domain.qingyang.Industry;
-import com.youthchina.dto.SearchDTO;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.dto.util.LocationDTO;
 
@@ -10,14 +9,8 @@ import java.util.List;
 /**
  * Created by zhongyangwu on 12/2/18.
  */
-public class JobSearchDTO implements SearchDTO {
-    private List<String> industry;
-    private List<String> tags;
-    private int page;
-    private int size;
-    private String key;
+public class JobSearchDTO {
 
-    private Integer id;
     private String jobName;
     private Integer comId;
     private String companyName;
@@ -26,43 +19,10 @@ public class JobSearchDTO implements SearchDTO {
     private Integer salaryFloor;
     private Integer salaryCap;
     private Boolean activate;
-    //private String location;
-    //private List<Degree> jobReqList;
     private List<Industry> industryList;
     private DurationDTO durationDTO;
     private LocationDTO location;
 
-    public List<String> getIndustry() {
-        return industry;
-    }
-
-    public void setIndustry(List<String> industry) {
-        this.industry = industry;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getJobName() {
         return jobName;
@@ -150,32 +110,5 @@ public class JobSearchDTO implements SearchDTO {
 
     public void setLocation(LocationDTO location) {
         this.location = location;
-    }
-
-    @Override
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    @Override
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    @Override
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
     }
 }

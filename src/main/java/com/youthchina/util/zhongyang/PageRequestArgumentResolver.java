@@ -29,7 +29,7 @@ public class PageRequestArgumentResolver implements HandlerMethodArgumentResolve
             if (queryMap.get("limit").length != 1) {
                 throw new ClientException("limit can only have 1 number");
             } else {
-                pageRequest.setOffset(Integer.valueOf(queryMap.get("limit")[0]));
+                pageRequest.setLimit(Integer.valueOf(queryMap.get("limit")[0]));
             }
         } else {
             return pageRequest;
