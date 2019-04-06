@@ -46,19 +46,6 @@ public class RichTextRequestDTO {
         return null;
     }
 
-//    @JsonGetter("braftEditorRaw")
-//    public HashMap<String, Object> getJson() {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        try {
-//            return new ObjectMapper().readValue(this.braftEditorRaw, new TypeReference<HashMap<String, Object>>() {
-//            });
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-//
-//    @JsonIgnore
     public String getBraftEditorRaw() {
         return this.braftEditorRaw;
     }
