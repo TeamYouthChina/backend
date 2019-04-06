@@ -13,7 +13,7 @@ import java.util.List;
  * @author: Qingyang Zhao
  * @create: 2019-02-16
  **/
-public class CompanyRequestDTO implements CompanyDTOInterface, RequestDTO<Company> {
+public class CompanyRequestDTO implements RequestDTO<Company> {
 
     private Integer id;
     private String name;
