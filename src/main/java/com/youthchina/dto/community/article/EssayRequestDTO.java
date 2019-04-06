@@ -1,9 +1,10 @@
 package com.youthchina.dto.community.article;
 
 import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.RichTextRequestDTO;
 
-public class EssayRequestDTO {
+public class EssayRequestDTO implements RequestDTO<ComEssay> {
     private Integer id;
     private String title;
     private Integer company_id;
@@ -58,5 +59,10 @@ public class EssayRequestDTO {
 
     public void setIs_anonymous(boolean is_anonymous) {
         this.is_anonymous = is_anonymous;
+    }
+
+    @Override
+    public ComEssay convertToDomain() {
+        return new ComEssay(this);
     }
 }

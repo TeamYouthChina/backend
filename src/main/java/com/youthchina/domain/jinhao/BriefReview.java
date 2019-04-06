@@ -6,6 +6,7 @@ import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -22,6 +23,16 @@ public class BriefReview implements Commentable, RichTextable, Evaluatable, Atte
     private static final Integer commentTargetType = 2;
     private static final Integer evaluateTargetType = 3;
     private static final Integer attentionTargetType = 3;
+
+    public BriefReview(){}
+    public BriefReview(BriefReviewRequestDTO briefReviewRequestDTO) {
+        this.body = new ComRichText(briefReviewRequestDTO.getBody());
+        if(briefReviewRequestDTO.getCompany_id()!=null){
+            this.relaId = briefReviewRequestDTO.getCompany_id();
+            this.relaType = 1;
+        }else
+            this.relaType = 0;
+    }
 
     @Override
     public ComRichText getBody() {

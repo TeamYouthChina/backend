@@ -41,7 +41,6 @@ public class AnswerController {
     private EvaluateServiceImpl evaluateService;
 
     @GetMapping("/{id}")
-    @ResponseBodyDTO(SimpleAnswerResponseDTO.class)
     public ResponseEntity getAnswer(@PathVariable Integer id) throws NotFoundException {
         Answer answer = answerService.get(id);
         SimpleAnswerResponseDTO simpleAnswerResponseDTO = new SimpleAnswerResponseDTO(answer);
@@ -50,7 +49,6 @@ public class AnswerController {
     }
 
     @PutMapping("/{id}")
-    @ResponseBodyDTO(SimpleAnswerResponseDTO.class)
     public ResponseEntity<Response> updateAnswer(@PathVariable Integer id, @RequestBodyDTO(SimpleAnswerRequestDTO.class) Answer answer, @AuthenticationPrincipal User user) throws NotFoundException {
            answer.setId(id);
            answer.setUser(user);

@@ -7,7 +7,9 @@ public class CommentRequestDTO implements RequestDTO<Comment> {
     private String body;
     private boolean is_anonymous;
 
-    CommentRequestDTO(Comment comment){
+    public CommentRequestDTO(){}
+
+    public CommentRequestDTO(Comment comment){
         this.body = comment.getContent();
         this.is_anonymous = (comment.getIsAnony()==0)? false:true;
     }

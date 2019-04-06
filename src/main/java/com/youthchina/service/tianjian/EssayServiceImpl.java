@@ -42,8 +42,8 @@ public class EssayServiceImpl implements EssayService {
         if (comEssaytest != null)
             throw new NotFoundException(404, 404, "this essay is exist");//todo
         else {
-            mapper.addEssay(essay);
             richTextService.addComRichText(essay.getBody());
+            mapper.addEssay(essay);
         }
     }
 

@@ -148,7 +148,7 @@ public class AnswerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"comments\":[]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"offset\":0,\"limit\":2147483647,\"data\":[],\"page_count\":0,\"item_count\":0,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
 }
