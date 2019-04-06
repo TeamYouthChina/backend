@@ -114,7 +114,7 @@ public class CompanyControllerTest {
         companyRequestDTO.setLocation(new LocationDTO(location));
         companyRequestDTO.setNation("USA");
         companyRequestDTO.setWebsite("vavle.com");
-        companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        //companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
         companyRequestDTO.setNote("Steam");
 
 
@@ -147,7 +147,7 @@ public class CompanyControllerTest {
         companyRequestDTO.setLocation(new LocationDTO(location));
         companyRequestDTO.setNation("USA");
         companyRequestDTO.setWebsite("vavle.com");
-        companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        //companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
         companyRequestDTO.setNote("Steam");
 
         ObjectMapper mapper = new ObjectMapper();
