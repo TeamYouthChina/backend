@@ -3,7 +3,6 @@ package com.youthchina.domain.Qinghong;
 import com.youthchina.dto.applicant.SkillsRequestDTO;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class AdvantageLabel {
     private Integer label_id;

@@ -1,12 +1,13 @@
 package com.youthchina.dto.community.question;
 
+import com.youthchina.domain.jinhao.Question;
 import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.RichTextRequestDTO;
 
 /**
  * Created by hongshengzhang on 2/23/19.
  */
-public class QuestionRequestDTO implements RequestDTO, QuestionDTO {
+public class QuestionRequestDTO implements RequestDTO<Question>, QuestionDTO {
     String title;
     RichTextRequestDTO body;
     boolean is_anonymous;
@@ -55,5 +56,10 @@ public class QuestionRequestDTO implements RequestDTO, QuestionDTO {
 
     public void setRela_id(Integer rela_id) {
         this.rela_id = rela_id;
+    }
+
+    @Override
+    public Question convertToDomain() {
+        return new Question(this);
     }
 }

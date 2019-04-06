@@ -1,11 +1,14 @@
 package com.youthchina.dto.job;
 
+import com.youthchina.domain.qingyang.Job;
+import com.youthchina.dto.RequestDTO;
+
 import java.util.List;
 
 /**
  * Created by zhongyangwu on 12/2/18.
  */
-public class JobRequestDTO implements JobDTOInterface {
+public class JobRequestDTO implements JobDTOInterface, RequestDTO<Job> {
     /*
     * {
   "name": "string",
@@ -102,5 +105,10 @@ public class JobRequestDTO implements JobDTOInterface {
 
     public void setJob_duty(String job_duty) {
         this.job_duty = job_duty;
+    }
+
+    @Override
+    public Job convertToDomain() {
+        return new Job(this);
     }
 }
