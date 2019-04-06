@@ -170,10 +170,12 @@ public class EssayControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(commentRequestDTO);
-
         this.mvc.perform(
                 post(this.urlPrefix + "/articles/1/comments").contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content(requestJson)
+                        .content("{\n" +
+                                "  \"body\" : null,\n" +
+                                "  \"is_anonymous\" : false\n" +
+                                "}")
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
