@@ -75,7 +75,7 @@ public class CompanyRequestDTO implements CompanyDTOInterface, RequestDTO<Compan
         CompanyNature nature = new CompanyNature();
         nature.setNatureNum(1);
         company.setCompanyNature(nature);
-
+https://app.getpocket.com/
         company.setCompanyMail("TODO@TODO.TODO");
 
         company.setCompanyVerify(0);

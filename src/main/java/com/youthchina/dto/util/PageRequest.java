@@ -41,6 +41,6 @@ public class PageRequest implements Pagination {
 
     @Override
     public int getEnd() {
-        return this.offset + limit;
+        return this.offset + (limit - 1);
     }
 }
