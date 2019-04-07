@@ -42,7 +42,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DatabaseSetup({"classpath:New_Company_test.xml",
         "classpath:New_Dictionary_test.xml",
         "classpath:New_SYS_test.xml",
-        "classpath:New_Job_test.xml"
+        "classpath:New_Job_test.xml",
+        "classpath:New_Community_test.xml"
 })
 public class SearchControllerTest {
 
