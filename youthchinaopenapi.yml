@@ -2955,7 +2955,35 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/User'
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        format: int64
+                      username:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      phonenumber:
+                        type: string
+                      register_date:
+                        type: string
+                      real_name:
+                        type: string
+                      gender:
+                        type: string
+                        enum:
+                          - male
+                          - female
+                      nation:
+                        type: string
+                      avatar_url:
+                        type: string
+                      role:
+                        type: string
+                      age:
+                        type: integer
                   status:
                     $ref: '#/components/schemas/Status'
   '/articles/{id}':
