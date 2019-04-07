@@ -12,6 +12,7 @@ public class CommentDTO {
     private String body;
     private Timestamp create_at;
     private boolean is_anonymous;
+    private Timestamp modified_at;
     private Integer upvoteCount;
     private Integer downvoteCount;
     private Integer evaluateStatus;
@@ -22,6 +23,7 @@ public class CommentDTO {
         this.body = comment.getContent();
         this.create_at = comment.getPubTime();
         this.is_anonymous = (comment.getIsAnony()==1)? true:false;
+        this.modified_at = comment.getEditTime();
     }
 
     public Integer getId() {
@@ -86,5 +88,13 @@ public class CommentDTO {
 
     public void setEvaluateStatus(Integer evaluateStatus) {
         this.evaluateStatus = evaluateStatus;
+    }
+
+    public Timestamp getModified_at() {
+        return modified_at;
+    }
+
+    public void setModified_at(Timestamp modified_at) {
+        this.modified_at = modified_at;
     }
 }
