@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.dto.util.RichTextRequestDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -77,64 +79,46 @@ public class BriefReviewControllerTest {
 
     @Test
     public void updateBriefReviewTest() throws Exception {
+        BriefReviewRequestDTO briefReviewRequestDTO = new BriefReviewRequestDTO();
+        String json = "ttererer";
+        String pre = "pre";
+        RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
+        richTextDTO.setBraftEditorRaw(json);
+        richTextDTO.setPreviewText(pre);
+        richTextDTO.setCompiletype(1);
+        briefReviewRequestDTO.setBody(richTextDTO);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String addJson = ow.writeValueAsString(briefReviewRequestDTO);
         this.mvc.perform(
                 put(this.urlPrefix + "/editorials/1")
-                        .content("{\n" +
-                                "  \"body\": {\n" +
-                                "    \"braftEditorRaw\": {\n" +
-                                "      \"blocks\": [\n" +
-                                "        {\n" +
-                                "          \"key\": \"dtj4a\",\n" +
-                                "          \"text\": \"<有感于腾讯公司的发家史，总觉得腾讯背后有某种强大的力量，能靠微创新（也可称山寨）能发展到现如今的体量也算是世界奇观。靠模仿icq完成了资本的原始积累并实现了滚雪球，可以这么说腾讯的今天是一切都建立在oicq（qq）之上的，从qq堂，qq飞车，qq劲舞，腾讯的发家史就是一个复制粘贴史。。。并且发展到如今规模，企业文化还是坚强的延续下来，复制粘贴的企业文化从高层到底层，已深入骨髓，从领子烂到里子。。对创新型企业来说，腾讯如一颗毒瘤存在，注定不会得到大家尊重。>\",\n" +
-                                "          \"type\": \"unstyled\",\n" +
-                                "          \"depth\": 0,\n" +
-                                "          \"inlineStyleRanges\": [],\n" +
-                                "          \"entityRanges\": [],\n" +
-                                "          \"data\": {}\n" +
-                                "        }\n" +
-                                "      ],\n" +
-                                "      \"entityMap\": {}\n" +
-                                "    },\n" +
-                                "    \"previewText\": \"pre\",\n" +
-                                "    \"compiletype\": 1\n" +
-                                "  },\n" +
-                                "  \"company_id\": null\n" +
-                                "}")
+                        .content(addJson)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":\"{\\\"blocks\\\":[{\\\"key\\\":\\\"dtj4a\\\",\\\"text\\\":\\\"<有感于腾讯公司的发家史，总觉得腾讯背后有某种强大的力量，能靠微创新（也可称山寨）能发展到现如今的体量也算是世界奇观。靠模仿icq完成了资本的原始积累并实现了滚雪球，可以这么说腾讯的今天是一切都建立在oicq（qq）之上的，从qq堂，qq飞车，qq劲舞，腾讯的发家史就是一个复制粘贴史。。。并且发展到如今规模，企业文化还是坚强的延续下来，复制粘贴的企业文化从高层到底层，已深入骨髓，从领子烂到里子。。对创新型企业来说，腾讯如一颗毒瘤存在，注定不会得到大家尊重。>\\\",\\\"type\\\":\\\"unstyled\\\",\\\"depth\\\":0,\\\"inlineStyleRanges\\\":[],\\\"entityRanges\\\":[],\\\"data\\\":{}}],\\\"entityMap\\\":{}}\",\"previewText\":\"pre\",\"compiletype\":1},\"comments\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false}]},\"author\":{\"id\":1,\"username\":\"Admin\",\"email\":\"123456@123.com\",\"phonenumber\":\"1234657890123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"Admin\",\"lastName\":\"Admin\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":null,\"age\":25}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":\"ttererer\",\"previewText\":\"pre\",\"compiletype\":1},\"comments\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false,\"upvoteCount\":null,\"downvoteCount\":null,\"evaluateStatus\":null}]},\"author\":{\"id\":1,\"username\":\"Admin\",\"email\":\"123456@123.com\",\"phonenumber\":\"1234657890123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"Admin\",\"lastName\":\"Admin\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":null,\"age\":25},\"upvoteCount\":null,\"downvoteCount\":null,\"attentionCount\":null,\"evaluateStatus\":null,\"attention\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
 
 
     }
 
     @Test
     public void addBriefReviewTest() throws Exception {
+        BriefReviewRequestDTO briefReviewRequestDTO = new BriefReviewRequestDTO();
+        String json = "erer";
+        String pre = "pre";
+        RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
+        richTextDTO.setBraftEditorRaw(json);
+        richTextDTO.setPreviewText(pre);
+        richTextDTO.setCompiletype(1);
+        briefReviewRequestDTO.setBody(richTextDTO);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String addJson = ow.writeValueAsString(briefReviewRequestDTO);
         this.mvc.perform(
                 post(this.urlPrefix + "/editorials")
-                        .content("{\n" +
-                                "  \"body\": {\n" +
-                                "    \"braftEditorRaw\": {\n" +
-                                "      \"blocks\": [\n" +
-                                "        {\n" +
-                                "          \"key\": \"dtj4a\",\n" +
-                                "          \"text\": \"<有感于腾讯公司的发家史，总觉得腾讯背后有某种强大的力量，能靠微创新（也可称山寨）能发展到现如今的体量也算是世界奇观。靠模仿icq完成了资本的原始积累并实现了滚雪球，可以这么说腾讯的今天是一切都建立在oicq（qq）之上的，从qq堂，qq飞车，qq劲舞，腾讯的发家史就是一个复制粘贴史。。。并且发展到如今规模，企业文化还是坚强的延续下来，复制粘贴的企业文化从高层到底层，已深入骨髓，从领子烂到里子。。对创新型企业来说，腾讯如一颗毒瘤存在，注定不会得到大家尊重。>\",\n" +
-                                "          \"type\": \"unstyled\",\n" +
-                                "          \"depth\": 0,\n" +
-                                "          \"inlineStyleRanges\": [],\n" +
-                                "          \"entityRanges\": [],\n" +
-                                "          \"data\": {}\n" +
-                                "        }\n" +
-                                "      ],\n" +
-                                "      \"entityMap\": {}\n" +
-                                "    },\n" +
-                                "    \"previewText\": \"pre\",\n" +
-                                "    \"compiletype\": 1\n" +
-                                "  },\n" +
-                                "  \"company_id\": null\n" +
-                                "}")
+                        .content(addJson)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
 
@@ -192,7 +176,7 @@ public class BriefReviewControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false}]},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"offset\":0,\"limit\":2147483646,\"data\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"firstName\":\"DDD\",\"lastName\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":null,\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false,\"upvoteCount\":2,\"downvoteCount\":2,\"evaluateStatus\":3}],\"page_count\":0,\"item_count\":1,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
 
     }
 }

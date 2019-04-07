@@ -8,6 +8,7 @@ import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.article.EssayRequestDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
+import io.swagger.models.auth.In;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -24,6 +25,10 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
     private Integer relaType;
     private List<Comment> comments;
     private User user;
+    private Integer upvotecount;
+    private Integer downvotecount;
+    private Integer isAttention;
+    private Integer evaluatestatus;
     private static final Integer richTextRelaType = 1;
     private static final Integer commentTargetType = 1;
     private static final Integer evaluateTargetType = 2;
@@ -145,6 +150,38 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getUpvotecount() {
+        return upvotecount;
+    }
+
+    public void setUpvotecount(Integer upvotecount) {
+        this.upvotecount = upvotecount;
+    }
+
+    public Integer getDownvotecount() {
+        return downvotecount;
+    }
+
+    public void setDownvotecount(Integer downvotecount) {
+        this.downvotecount = downvotecount;
+    }
+
+    public Integer getIsAttention() {
+        return isAttention;
+    }
+
+    public void setIsAttention(Integer isAttention) {
+        this.isAttention = isAttention;
+    }
+
+    public Integer getEvaluatestatus() {
+        return evaluatestatus;
+    }
+
+    public void setEvaluatestatus(Integer evaluatestatus) {
+        this.evaluatestatus = evaluatestatus;
     }
 
     @Override

@@ -15,4 +15,5 @@ public interface EvaluateMapper {
     void downvote(@Param("type") Integer type, @Param("targetId") Integer targetId, @Param("userId") Integer userId);
     void cancel(Integer id);
     Integer countUpvote(@Param("type") Integer type, @Param("targetId") Integer targetId);
+    Integer countDownvote(@Param("type") Integer type, @Param("targetId") Integer targetId);
 }
