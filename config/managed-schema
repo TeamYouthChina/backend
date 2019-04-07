@@ -113,7 +113,7 @@
     <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <!-- docValues are enabled by default for long type so we don't need to index the version field  -->
     <field name="_version_" type="plong" indexed="false" stored="false"/>
-    1
+
     <field name="ques_id" type="string" indexed="true" stored="true" />
     <field name="ques_title" type="string" indexed="true" stored="true" />
     <field name="ques_abbre" type="string" indexed="true" stored="true" />

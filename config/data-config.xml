@@ -40,14 +40,6 @@
             <field column="JOB_DESCRIPTION" name="job_description"/>
         </entity>
 
-        <entity name="company"
-                pk="COMPANY_ID"
-                query="SELECT COMPANY_ID, COMPANY_NAME, COMPANY_LOCATION FROM COMPANY_INFO">
-            <field column="COMPANY_ID" name="company_id"/>
-            <field column="COMPANY_NAME" name="company_name"/>
-            <field column="COMPANY_LOCATION" name="company_location"/>
-        </entity>
-
         <entity name="comment"
                 pk="COMMENT_ID"
                 query="SELECT COMMENT_ID, COMMENT_CONTENT FROM COM_COMMENT">
@@ -63,12 +55,6 @@
             <field column="COMPANY_LOCATION" name="company_location"/>
         </entity>
 
-        <entity name="comment"
-                pk="COMMENT_ID"
-                query="SELECT COMMENT_ID, COMPANY_NAME, COMPANY_LOCATION FROM COM_COMMENT">
-            <field column="COMMENT_ID" name="comment_id"/>
-            <field column="COMPAN_CONTENT" name="comment_content"/>
-        </entity>
 
         <entity name="video"
                 pk="VIDEO_ID"
@@ -81,7 +67,7 @@
 
         <entity name="answer"
                 pk="ANSWER_ID"
-                query="SELECT ANSWER_ID, VIDEO_NAME,  FROM COM_ANSWER">
+                query="SELECT ANSWER_ID, ANSWER_NAME,  FROM COM_ANSWER">
             <field column="ANSWER_ID" name="answer_id"/>
             <field column="ANSWER_BODY" name="answer_body"/>
         </entity>
