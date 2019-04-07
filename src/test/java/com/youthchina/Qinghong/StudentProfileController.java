@@ -91,7 +91,7 @@ public class StudentProfileController {
     @Test
     public void testGetEducations() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/10/educations?limit=0&offset=1")
+                get(this.urlPrefix + "/applicants/10/educations?limit=0&offset=0")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
@@ -204,7 +204,7 @@ public class StudentProfileController {
     @Test
     public void testGetProjects() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/10/projects?limit=0&offset=0")
+                get(this.urlPrefix + "/applicants/10/projects?limit=2&offset=0")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
@@ -687,7 +687,7 @@ public class StudentProfileController {
     public void testUserAttentions() throws Exception{
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/6/attentions?type=question")
+                        (this.urlPrefix + "/users/1/attentions?type=question")
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )

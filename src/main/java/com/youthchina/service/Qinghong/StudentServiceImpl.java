@@ -43,6 +43,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private ResumeJsonMapper resumeJsonMapper;
+    @Autowired
+    private StudentService studentService;
 
 
     /**
@@ -58,15 +60,12 @@ public class StudentServiceImpl implements StudentService {
         if (userInfo == null) {
             throw new NotFoundException(404, 404, "cannot find user with id " + id);//todo
         } else {
-            Student student = applicantMapper.getStudentInfo(id);
-//            for (EducationInfo educationInfo : student.getEducationInfos()) {
-//                Location location = locationService.getLocation(educationInfo.getLocation().getRegion_num());
-//                educationInfo.setLocation(location);
-//            }
-            for (Work work : student.getWorks()) {
-                Location location = locationService.getLocation(work.getLocation().getRegionId());
-                work.setLocation(location);
-            }
+            Student student=new Student();
+            student.setEducationInfos(studentService.getEducations(id));
+            student.setActivities(studentService.getActivities(id));
+            student.setWorks(studentService.getWorks(id));
+            student.setCertificates(studentService.getCertificates(id));
+            student.setProjects(studentService.getProjects(id));
             return student;
         }
     }
@@ -195,6 +194,10 @@ public class StudentServiceImpl implements StudentService {
             throw new NotFoundException(404, 404, "cannot find user with id " + id);//todo
         } else {
             List<Work> works = applicantMapper.getWorks(id);
+            for (Work work : works) {
+                Location location = locationService.getLocation(work.getLocation().getRegionId());
+                work.setLocation(location);
+            }
             return works;
         }
 
@@ -788,6 +791,9 @@ public class StudentServiceImpl implements StudentService {
     public EducationInfo updateEducationInfo(EducationInfo educationInfo) throws NotFoundException {
         Integer integer=applicantMapper.updateEducation(educationInfo);
         EducationInfo educationInfo1=applicantMapper.getEducationById(educationInfo.getEdu_id());
+        if(educationInfo1==null){
+            throw new NotFoundException(404,404,"can not find this education");
+        }
 
         return educationInfo1;
     }
@@ -796,6 +802,9 @@ public class StudentServiceImpl implements StudentService {
     public Project updateProject(Project project) throws NotFoundException {
         Integer integer=applicantMapper.updateProject(project);
         Project project1=applicantMapper.getProjectById(project.getProj_id());
+        if(project1==null){
+            throw new NotFoundException(404,404,"can not find this project");
+        }
         return project1;
     }
 
@@ -803,6 +812,9 @@ public class StudentServiceImpl implements StudentService {
     public Work updateWork(Work work) throws NotFoundException {
         Integer integer=applicantMapper.updateWork(work);
         Work work1=applicantMapper.getWorkById(work.getWork_id());
+        if(work1==null){
+            throw new NotFoundException(404,404,"cannot find this work");
+        }
         Location location = locationService.getLocation(work1.getLocation().getRegionId());
         work1.setLocation(location);
         return work1;
@@ -812,6 +824,9 @@ public class StudentServiceImpl implements StudentService {
     public Certificate updateCertificate(Certificate certificate) throws NotFoundException {
         Integer integer=applicantMapper.updateCertificate(certificate);
         Certificate certificate1=applicantMapper.getCertificateById(certificate.getCertificate_id());
+        if(certificate1==null){
+            throw  new NotFoundException(404,404,"can not find this certificate");
+        }
         return certificate1;
     }
 
@@ -819,6 +834,9 @@ public class StudentServiceImpl implements StudentService {
     public Activity updateActivity(Activity activity) throws NotFoundException {
         Integer integer=applicantMapper.updateActivity(activity);
         Activity activity1=applicantMapper.getActivityById(activity.getAct_id());
+        if(activity1==null){
+            throw new NotFoundException(404,404,"can not find this activity");
+        }
         return activity1;
     }
 }
