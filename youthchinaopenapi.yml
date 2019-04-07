@@ -2969,7 +2969,9 @@ paths:
                         type: string
                       register_date:
                         type: string
-                      real_name:
+                      first_name:
+                        type: string
+                      last_name:
                         type: string
                       gender:
                         type: string
