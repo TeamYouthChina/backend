@@ -1,11 +1,12 @@
 package com.youthchina.dto.community.answer;
 
 import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.community.question.QuestionBasicDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextResponseDTO;
 
-public class SimpleAnswerResponseDTO {
+public class SimpleAnswerResponseDTO implements ResponseDTO<Answer>{
     private RichTextResponseDTO body;
     private boolean is_anonymous;
     private UserDTO creator;
@@ -16,7 +17,7 @@ public class SimpleAnswerResponseDTO {
 
     public SimpleAnswerResponseDTO(){}
 
-    public SimpleAnswerResponseDTO(Answer answer){
+    public SimpleAnswerResponseDTO(Answer answer)  {
         RichTextResponseDTO richt = new RichTextResponseDTO(answer.getBody());
         this.body = richt;
         this.id = answer.getId();
@@ -81,5 +82,17 @@ public class SimpleAnswerResponseDTO {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @Override
+    public void convertToDTO(Answer answer) {
+        RichTextResponseDTO richt = new RichTextResponseDTO(answer.getBody());
+        this.body = richt;
+        this.id = answer.getId();
+        this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
+        this.creator = new UserDTO(answer.getUser());
+        this.modified_at = answer.getEditTime().toString();
+        this.create_at = answer.getPubTime().toString();
+        this.question = new QuestionBasicDTO(answer.getQuestion());
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * @author: Qingyang Zhao
  * @create: 2019-02-24
  **/
-public class JobResponseDTO implements JobDTOInterface, ResponseDTO<Job> {
+public class JobResponseDTO implements ResponseDTO<Job> {
     private int id;
     private String name;
     private OrganizationDTO organization;

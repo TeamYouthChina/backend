@@ -30,6 +30,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 
 /**
  * @author: Qingyang Zhao
@@ -70,7 +72,8 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-//                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"avatarUrl\":null,\"location\":\"北京市\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                //TODO : "avatarUrl":null,???
+                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"location\":\"北京市\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 
@@ -110,11 +113,9 @@ public class CompanyControllerTest {
         location.setRegionId(994701);
         location.setCountry("USA");
         companyRequestDTO.setLocation(new LocationDTO(location));
-        Country country = new Country();
-        country.setCountryAbbre("USA");
-        companyRequestDTO.setNation(new NationDTO(country));
+        companyRequestDTO.setNation("USA");
         companyRequestDTO.setWebsite("vavle.com");
-        companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        //companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
         companyRequestDTO.setNote("Steam");
 
 
@@ -130,6 +131,9 @@ public class CompanyControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
+                //,"avatarUrl":"vavle.com/AvatarUrl"
+                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+
         ;
     }
 
@@ -143,11 +147,9 @@ public class CompanyControllerTest {
         location.setRegionId(994701);
         location.setCountry("USA");
         companyRequestDTO.setLocation(new LocationDTO(location));
-        Country country = new Country();
-        country.setCountryAbbre("USA");
-        companyRequestDTO.setNation(new NationDTO(country));
+        companyRequestDTO.setNation("USA");
         companyRequestDTO.setWebsite("vavle.com");
-        companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        //companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
         companyRequestDTO.setNote("Steam");
 
         ObjectMapper mapper = new ObjectMapper();
@@ -163,7 +165,8 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-//                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                //,"avatarUrl":"vavle.com/AvatarUrl"
+                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
 
     }

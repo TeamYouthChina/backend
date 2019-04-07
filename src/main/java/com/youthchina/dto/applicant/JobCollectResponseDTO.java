@@ -15,8 +15,14 @@ public class JobCollectResponseDTO implements ResponseDTO<JobCollect> {
     private JobResponseDTO job;
 
     public JobCollectResponseDTO(JobCollect jobCollect) {
-        this.id = jobCollect.getCollect_id();
-        this.job = new JobResponseDTO(jobCollect.getJob());
+        if(jobCollect!=null){
+            this.id = jobCollect.getCollect_id();
+            if(jobCollect.getJob()!=null){
+                this.job = new JobResponseDTO(jobCollect.getJob());
+            }
+
+        }
+
     }
 
     public JobCollectResponseDTO() {
