@@ -1,9 +1,11 @@
 package com.youthchina.controller.tianjian;
 
+import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.tianjian.ComEssayAttention;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.article.EssayRequestDTO;
@@ -12,6 +14,7 @@ import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
 import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
+import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.AttentionServiceImpl;
 import com.youthchina.service.jinhao.CommentServiceImpl;
@@ -24,6 +27,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -114,22 +118,17 @@ public class EssayController {
     }
 
     @PostMapping
-    public ResponseEntity addEssay(@RequestBody EssayRequestDTO essayRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = new ComEssay(essayRequestDTO);
+    public ResponseEntity addEssay(@RequestBodyDTO(EssayRequestDTO.class)  ComEssay comEssay , @AuthenticationPrincipal User user) throws NotFoundException {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setPubTime(time);
         comEssay.setEditTime(time);
         comEssay.setUser(user);
         comEssay.setRelaType(1);
-        if (essayRequestDTO.getCompany_id() != null) {
-            comEssay.setRelaType(2);
-            comEssay.setRelaId(essayRequestDTO.getCompany_id());
-        }
         essayServiceimpl.addEssay(comEssay);
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
 
-        if (essayRequestDTO.getCompany_id() != null) {
-            CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getCompany_id()));
+        if (comEssay.getRelaId() != null&&comEssay.getRelaType()==1) {
+            CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId()));
             essayResponseDTO.setCompany(companyResponseDTO);
         }
 
@@ -137,8 +136,7 @@ public class EssayController {
     }
 
     @PostMapping("/{id}/comments")
-    public ResponseEntity addEssayComments(@PathVariable Integer id, @RequestBody CommentRequestDTO commentRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        Comment comment = new Comment(commentRequestDTO);
+    public ResponseEntity addEssayComments(@PathVariable Integer id, @RequestBodyDTO(CommentRequestDTO.class)  Comment comment, @AuthenticationPrincipal User user) {
         comment.setTargetId(id);
         comment.setTargetType(1);
         comment.setUser(user);
@@ -148,17 +146,20 @@ public class EssayController {
     }
 
     @GetMapping("/{id}/comments")
-    public ResponseEntity getEssayComments(@PathVariable Integer id) {
+    public ResponseEntity getEssayComments(@PathVariable Integer id, PageRequest pageRequest) {
         ComEssay comEssay = new ComEssay();
         comEssay.setId(id);
-        List<Comment> commentList = commentService.getComments(comEssay);
-        CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
-        if (commentList!= null) {
-            Iterator it = commentList.iterator();
+        List<Comment> comments = commentService.getComments(comEssay);
+
+        List<CommentDTO> commentDTOS = new ArrayList<>();
+        if(comments!=null) {
+            Iterator it = comments.iterator();
             while (it.hasNext()) {
-                commentResponseDTO.getComments().add(new CommentDTO((Comment) it.next()));
+                CommentDTO commentDTO = new CommentDTO((Comment) it.next());
+                commentDTOS.add(commentDTO);
             }
         }
-        return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200, "success")));
+        ListResponse listResponse = new ListResponse(pageRequest, commentDTOS.size(), commentDTOS);
+        return ResponseEntity.ok(new Response(listResponse, new StatusDTO(200, "success")));
     }
 }

@@ -1,13 +1,14 @@
 package com.youthchina.dto.community.article;
 
 import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextResponseDTO;
 
 import java.sql.Timestamp;
 
-public class EssayResponseDTO {
+public class EssayResponseDTO implements ResponseDTO<ComEssay> {
     private Integer id;
     private String title;
     private CompanyResponseDTO company;
@@ -92,5 +93,16 @@ public class EssayResponseDTO {
 
     public void setIs_anonymous(boolean is_anonymous) {
         this.is_anonymous = is_anonymous;
+    }
+
+    @Override
+    public void convertToDTO(ComEssay comEssay) {
+        this.id = comEssay.getId();
+        this.title = comEssay.getTitle();
+        this.create_at = comEssay.getPubTime();
+        this.modified_at = comEssay.getEditTime();
+        this.is_anonymous = (comEssay.getIsAnony() == 0) ? false : true;
+        this.author = new UserDTO(comEssay.getUser());
+        this.body = new RichTextResponseDTO(comEssay.getBody());
     }
 }
