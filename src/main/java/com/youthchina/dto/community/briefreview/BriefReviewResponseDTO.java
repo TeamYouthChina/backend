@@ -7,9 +7,6 @@ import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextResponseDTO;
-import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.EvaluateServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.ws.Response;
 import java.util.Iterator;
@@ -27,9 +24,8 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
     private boolean isAttention;
     private Integer evaluateStatus;
 
-    @Autowired
-    EvaluateServiceImpl evaluateService;
-    public BriefReviewResponseDTO(BriefReview briefReview) throws NotFoundException {
+
+    public BriefReviewResponseDTO(BriefReview briefReview) {
         this.id = briefReview.getId();
         RichTextResponseDTO richt = new RichTextResponseDTO(briefReview.getBody());
         this.body = richt;
@@ -38,8 +34,6 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
             while (it.hasNext()) {
                 Comment comment = (Comment) it.next();
                 CommentDTO commentDTO = new CommentDTO(comment);
-                commentDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
-                commentDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
                 comments.getComments().add(commentDTO);
             }
         }
