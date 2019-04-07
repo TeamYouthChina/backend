@@ -204,7 +204,7 @@
         FROM COMPANY_INFO com
         <include refid="companyJoin"/>
         WHERE
-        com.COMPANY_ID = #{id}
+        com.COMPANY_ID = #{id} AND com.IS_DELETE = 0
     </select>
 
     <select id="selectAllCompany" resultMap="company" parameterType="java.lang.Integer">
