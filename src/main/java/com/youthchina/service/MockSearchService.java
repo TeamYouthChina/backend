@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by zhongyangwu on 4/7/19.
  */
-@Service
+@Service("SearchService")
 public class MockSearchService implements SearchService {
     @Override
     public SearchResult search(String type, String title, String body, Integer startIndex, Integer endIndex) {
