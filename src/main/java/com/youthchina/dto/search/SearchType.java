@@ -18,4 +18,5 @@ public enum SearchType {
     public String toString() {
         return this.type;
     }
+
 }
