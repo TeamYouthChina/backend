@@ -41,6 +41,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Transactional
     public Company get(Integer id) throws NotFoundException {
         Company company = companyMapper.selectCompany(id);
+        if(company == null) throw new NotFoundException(4040, 404, "No such company");
         setCompanyLocation(company);
         return company;
     }

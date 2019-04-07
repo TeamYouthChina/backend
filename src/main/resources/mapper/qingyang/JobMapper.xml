@@ -226,7 +226,7 @@
         FROM JOB_INFO j
         <include refid="jobJoin"/>
         WHERE
-        j.JOB_ID = #{id}
+        j.JOB_ID = #{id} AND j.IS_DELETE = 0
     </select>
 
     <select id="selectAllJob" resultMap="job">
