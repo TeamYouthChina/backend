@@ -100,13 +100,13 @@ public class SearchServiceImplement implements SearchService{
 
         //查询得到文档的集合
         SolrDocumentList solrDocumentList = response.getResults();
-        //System.out.println("通过文档集合获取查询的结果");
-        //System.out.println("查询结果的总数量：" + solrDocumentList.getNumFound());
+        System.out.println("通过文档集合获取查询的结果");
+        System.out.println("查询结果的总数量：" + solrDocumentList.getNumFound());
         //遍历列表
         List<Integer> useridlist = new ArrayList<>();
         for (SolrDocument doc : solrDocumentList) {
             //System.out.println("id:" + doc.get("id") + "   name:" + doc.get("name") + "    gender:" + doc.get("gender"));
-            //System.out.println(doc);
+            System.out.println(doc);
             useridlist.add(Integer.parseInt(doc.get("user_id").toString()));
         }
 
