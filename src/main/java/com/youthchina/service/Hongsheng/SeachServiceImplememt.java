@@ -72,6 +72,7 @@ public class SeachServiceImplememt implements SearchService {
                 return searchResult;
             }
             case("question"): {
+                System.out.println(type);
                 List<SearchResultItem> searchList = new ArrayList<>();
                 List<Question> questions = questionSearch(title, body, startIndex, endIndex);
                 for (Question i : questions) {
@@ -233,7 +234,8 @@ public class SeachServiceImplememt implements SearchService {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
         if (title != null) {
-            query.set("q", "title:"+ title);
+            query.set("q", "title:"+title);
+            query.set("fq","type:ESSAY");
             // 参数q  查询所有
             query.setStart(startIndex);
             query.setRows(endIndex - startIndex + 1);//每一页多少值
@@ -247,6 +249,7 @@ public class SeachServiceImplememt implements SearchService {
 
         if (body != null) {
             query.set("q", "body:"+ body);
+            query.set("fq","type:ESSAY");
             // 参数q  查询所有
             query.setStart(startIndex);
             query.setRows(endIndex - startIndex + 1);//每一页多少值
@@ -268,6 +271,7 @@ public class SeachServiceImplememt implements SearchService {
         SolrQuery query = new SolrQuery();
         if (title != null) {
             query.set("q", "title:"+ title);
+            query.set("fq","type:QUESTION");
             // 参数q  查询所有
             query.setStart(startIndex);
             query.setRows(endIndex - startIndex + 1);//每一页多少值
@@ -281,6 +285,7 @@ public class SeachServiceImplememt implements SearchService {
 
         if (body != null) {
             query.set("q", "body:"+ body);
+            query.set("fq","type:QUESTION");
             // 参数q  查询所有
             query.setStart(startIndex);
             query.setRows(endIndex - startIndex + 1);//每一页多少值
@@ -301,6 +306,7 @@ public class SeachServiceImplememt implements SearchService {
         SolrQuery query = new SolrQuery();
         if (body != null) {
             query.set("q", "body:"+ body);
+            query.set("fq","type:ANSWER");
             // 参数q  查询所有
             query.setStart(startIndex);
             query.setRows(endIndex - startIndex + 1);//每一页多少值
@@ -322,6 +328,7 @@ public class SeachServiceImplememt implements SearchService {
         SolrQuery query = new SolrQuery();
         if (name != null) {
             query.set("q", "name:"+ name);
+            query.set("fq","type:JOB");
             // 参数q  查询所有
             query.setStart(startIndex);
             query.setRows(endIndex - startIndex + 1);//每一页多少值
@@ -335,6 +342,7 @@ public class SeachServiceImplememt implements SearchService {
 
         if (body != null) {
             query.set("q", "body:"+ body);
+            query.set("fq","type:JOB");
             // 参数q  查询所有
             query.setStart(startIndex);
             query.setRows(endIndex - startIndex + 1);//每一页多少值
@@ -355,6 +363,7 @@ public class SeachServiceImplememt implements SearchService {
         SolrQuery query = new SolrQuery();
         if (name != null) {
             query.set("q", "name:"+ name);
+            query.set("fq","type:COMPANY");
             // 参数q  查询所有
             query.setStart(startIndex);
             query.setRows(endIndex - startIndex + 1);//每一页多少值
@@ -368,6 +377,7 @@ public class SeachServiceImplememt implements SearchService {
 
         if (body != null) {
             query.set("q", "body:"+ body);
+            query.set("fq","type:COMPANY");
             // 参数q  查询所有
             query.setStart(startIndex);
             query.setRows(endIndex - startIndex + 1);//每一页多少值
@@ -448,6 +458,7 @@ public class SeachServiceImplememt implements SearchService {
         SolrQuery query = new SolrQuery();
         if (title != null) {
             query.set("q", "title:"+ title);
+            query.set("fq","type:VIDEO");
             // 参数q  查询所有
             query.setStart(startIndex);
             query.setRows(endIndex - startIndex + 1);//每一页多少值
@@ -468,6 +479,7 @@ public class SeachServiceImplememt implements SearchService {
         SolrQuery query = new SolrQuery();
         if (body != null) {
             query.set("q", "body:"+ body);
+            query.set("fq","type:REVIEW");
             // 参数q  查询所有
             query.setStart(startIndex);
             query.setRows(endIndex - startIndex + 1);//每一页多少值
@@ -488,6 +500,7 @@ public class SeachServiceImplememt implements SearchService {
         SolrQuery query = new SolrQuery();
         if (body != null) {
             query.set("q", "body:"+ body);
+            query.set("fq","type:COMMENT");
             // 参数q  查询所有
             query.setStart(startIndex);
             query.setRows(endIndex - startIndex + 1);//每一页多少值
