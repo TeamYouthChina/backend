@@ -2887,37 +2887,7 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        format: int64
-                      username:
-                        type: string
-                      email:
-                        type: string
-                        format: email
-                      phonenumber:
-                        type: string
-                      register_date:
-                        type: string
-                      first_name:
-                        type: string
-                      last_name:
-                        type: string
-                      gender:
-                        type: string
-                        enum:
-                          - male
-                          - female
-                      nation:
-                        type: string
-                      avatar_url:
-                        type: string
-                      role:
-                        type: string
-                      age:
-                        type: integer
+                    $ref: '#/components/schemas/User'
                   status:
                     $ref: '#/components/schemas/Status'
         '401':
@@ -2955,37 +2925,7 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        format: int64
-                      username:
-                        type: string
-                      email:
-                        type: string
-                        format: email
-                      phonenumber:
-                        type: string
-                      register_date:
-                        type: string
-                      first_name:
-                        type: string
-                      last_name:
-                        type: string
-                      gender:
-                        type: string
-                        enum:
-                          - male
-                          - female
-                      nation:
-                        type: string
-                      avatar_url:
-                        type: string
-                      role:
-                        type: string
-                      age:
-                        type: integer
+                    $ref: '#/components/schemas/User'
                   status:
                     $ref: '#/components/schemas/Status'
   '/articles/{id}':
@@ -4955,8 +4895,10 @@ components:
           type: string
         register_date:
           type: string
-        real_name:
+        first_name:
           type: string
+        last_name:
+            ype: string
         gender:
           type: string
           enum:
