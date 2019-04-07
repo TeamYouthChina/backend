@@ -177,7 +177,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -524,7 +524,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -798,7 +798,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -1063,7 +1063,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -1342,7 +1342,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -1616,7 +1616,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -1980,7 +1980,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -2306,7 +2306,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -2457,7 +2457,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -2742,7 +2742,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -3171,7 +3171,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -3470,7 +3470,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -3706,7 +3706,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -3820,7 +3820,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -3874,7 +3874,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -3928,7 +3928,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -3982,7 +3982,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4036,7 +4036,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4090,7 +4090,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4144,7 +4144,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4198,7 +4198,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4252,7 +4252,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4306,7 +4306,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4360,7 +4360,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4414,7 +4414,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4471,12 +4471,12 @@ paths:
                         items:
                           type: object
                           properties:
-                            type: 
+                            type:
                               type: string
                               description: the type of object
                             object:
                               type: object
-                              description: the object of given type(may be Article, User, ...) 
+                              description: the object of given type(may be Article, User, ...)
                   status:
                     $ref: '#/components/schemas/Status'
   '/resumes':
@@ -4629,7 +4629,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4858,7 +4858,12 @@ components:
           type: string
           pattern: '(http|https)://(.?)*'
         location:
-          type: string
+          type: object
+          properties:
+            nation:
+              type: string
+            location:
+              type: string
         website:
           type: string
           pattern: '(http|https)://(.?)*'
