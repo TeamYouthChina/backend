@@ -77,28 +77,3 @@ public class SearchControllerTest {
     }
 
 }
-
-@Service("SearchService")
-class MockSearchService implements SearchService {
-
-    private EssayService essayService;
-
-    @Autowired
-    public MockSearchService(EssayService essayService) {
-        this.essayService = essayService;
-    }
-
-    @Override
-    public SearchResult search(String type, String title, String body, Integer startIndex, Integer endIndex) {
-        try {
-            List<SearchResultItem> items = new ArrayList<>();
-            ComEssay comEssay = this.essayService.getEssay(1);
-            items.add(new SearchResultItem(comEssay, "article"));
-            return new SearchResult(items, 3);
-        } catch (
-                NotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-}

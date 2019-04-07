@@ -1,6 +1,6 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
-<!--<mapper namespace="com.youthchina.dao.Qinghong.EmployerPageMapper">-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.Qinghong.EmployerPageMapper">
     <!--<resultMap id="Candidate" type="com.youthchina.domain.Qinghong.Candidate">-->
         <!--<constructor>-->
             <!--<idArg column="CANDIDATE_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
@@ -149,4 +149,4 @@
         <!--FROM TABLE_CANDIDATE-->
     <!--</select>-->
 
-<!--</mapper>-->
+</mapper>
