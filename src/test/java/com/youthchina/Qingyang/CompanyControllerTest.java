@@ -114,7 +114,7 @@ public class CompanyControllerTest {
         companyRequestDTO.setLocation(new LocationDTO(location));
         companyRequestDTO.setNation("USA");
         companyRequestDTO.setWebsite("vavle.com");
-        companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        //companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
         companyRequestDTO.setNote("Steam");
 
 
@@ -130,7 +130,8 @@ public class CompanyControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                //,"avatarUrl":"vavle.com/AvatarUrl"
+                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
 
         ;
     }
@@ -147,7 +148,7 @@ public class CompanyControllerTest {
         companyRequestDTO.setLocation(new LocationDTO(location));
         companyRequestDTO.setNation("USA");
         companyRequestDTO.setWebsite("vavle.com");
-        companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        //companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
         companyRequestDTO.setNote("Steam");
 
         ObjectMapper mapper = new ObjectMapper();
@@ -163,7 +164,8 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                //,"avatarUrl":"vavle.com/AvatarUrl"
+                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
 
     }

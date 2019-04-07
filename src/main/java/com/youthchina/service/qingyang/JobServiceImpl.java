@@ -78,6 +78,7 @@ public class JobServiceImpl implements JobService {
     @Transactional
     public Job get(Integer id) throws NotFoundException {
         Job job = jobMapper.selectJobByJobId(id);
+        if(job == null) throw new NotFoundException(4040,404,"No such Job");
         job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
         setJobLocation(job);
         return job;

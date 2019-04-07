@@ -15,7 +15,7 @@ public class CompanyRequestDTO implements RequestDTO<Company> {
     private LocationDTO location;
     private String website; // pattern: (http|https)://(.?)*
     private String nation;
-    private String avatarUrl;
+//    private String avatarUrl;
     private String note;
     private Integer userId;
 
@@ -71,13 +71,13 @@ public class CompanyRequestDTO implements RequestDTO<Company> {
         this.nation = nation;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
+//    public String getAvatarUrl() {
+//        return avatarUrl;
+//    }
+//
+//    public void setAvatarUrl(String avatarUrl) {
+//        this.avatarUrl = avatarUrl;
+//    }
 
     public String getNote() {
         return note;
