@@ -4,6 +4,10 @@ import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.Video;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.security.UserDTO;
+import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.jinhao.EvaluateService;
+import com.youthchina.service.jinhao.EvaluateServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,12 +26,16 @@ public class VideoResponseDTO {
 
     public VideoResponseDTO(){}
 
-    public VideoResponseDTO(Video video){
+    @Autowired
+    EvaluateServiceImpl evaluateService;
+    public VideoResponseDTO(Video video) throws NotFoundException {
         this.id = video.getId();
         if(video.getComments() != null){
             Iterator it = video.getComments().iterator();
             while(it.hasNext()){
                 CommentDTO commentDTO = new CommentDTO((Comment)it.next());
+                commentDTO.setUpvoteCount(evaluateService.countUpvote(video));
+                commentDTO.setDownvoteCount(evaluateService.countDownvote(video));
                 this.comments.add(commentDTO);
             }
         }
