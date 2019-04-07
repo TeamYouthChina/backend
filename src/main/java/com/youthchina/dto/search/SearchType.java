@@ -4,7 +4,17 @@ package com.youthchina.dto.search;
  * Created by zhongyangwu on 4/7/19.
  */
 public enum SearchType {
-    ARTICLE("article");
+    ARTICLE("article"),
+    QUESTION("question"),
+    ANSWER("answer"),
+    JOB("job"),
+    COMPANY("company"),
+    USER("user"),
+    VIDEO("video"),
+    COMMENT("comment"),
+    BRIEFREVIEW("briefReview");
+
+
 
 
     private final String type;

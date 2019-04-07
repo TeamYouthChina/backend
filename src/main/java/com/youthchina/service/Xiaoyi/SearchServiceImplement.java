@@ -1,5 +1,9 @@
 package com.youthchina.service.Xiaoyi;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
 
 import com.youthchina.domain.jinhao.Answer;
@@ -11,22 +15,18 @@ import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.solr.SolrDTO;
-import com.youthchina.service.jinhao.AnswerService;
-import com.youthchina.service.jinhao.CommentService;
-import com.youthchina.service.jinhao.QuestionService;
-import com.youthchina.service.jinhao.VideoService;
+import com.youthchina.service.jinhao.*;
 import com.youthchina.service.qingyang.CompanyCURDService;
 import com.youthchina.service.qingyang.JobService;
 import com.youthchina.service.tianjian.EssayService;
 import com.youthchina.service.zhongyang.UserService;
-
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
-
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 
 /**
@@ -34,9 +34,10 @@ import javax.annotation.Resource;
  */
 
 @Service
-public class SearchServiceImplement implements SearchService{
-
+public class SearchServiceImplement implements SearchService {
     private final static String SOLR_URL = "http://localhost:8983/solr/";
+    URL url = new URL("http://localhost:8983/solr/youthchinacore/dataimport?command=full-import");
+    URLConnection im = url.openConnection();
 
     @Resource
     private UserService userService;
@@ -61,6 +62,9 @@ public class SearchServiceImplement implements SearchService{
 
     @Resource
     private AnswerService answerService;
+
+    public SearchServiceImplement() throws IOException {
+    }
 
     @Override
     public List<User> userSearch(String keyword) throws Exception {
@@ -100,13 +104,13 @@ public class SearchServiceImplement implements SearchService{
 
         //查询得到文档的集合
         SolrDocumentList solrDocumentList = response.getResults();
-        System.out.println("通过文档集合获取查询的结果");
-        System.out.println("查询结果的总数量：" + solrDocumentList.getNumFound());
+        //System.out.println("通过文档集合获取查询的结果");
+        //System.out.println("查询结果的总数量：" + solrDocumentList.getNumFound());
         //遍历列表
         List<Integer> useridlist = new ArrayList<>();
         for (SolrDocument doc : solrDocumentList) {
             //System.out.println("id:" + doc.get("id") + "   name:" + doc.get("name") + "    gender:" + doc.get("gender"));
-            System.out.println(doc);
+            //System.out.println(doc);
             useridlist.add(Integer.parseInt(doc.get("user_id").toString()));
         }
 
@@ -163,7 +167,7 @@ public class SearchServiceImplement implements SearchService{
     public List<Question> questionSearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
-        query.set("q", "ques_title:"+ keyword);// 参数q  查询所有
+        query.set("q", "ques_title:"+keyword);// 参数q  查询所有
         query.setStart(0);
         query.setRows(10);//每一页多少值
         QueryResponse response = solrServer.query(query);
@@ -199,7 +203,7 @@ public class SearchServiceImplement implements SearchService{
     public List<Job> jobSearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
-        query.set("q", "job_name:"+ keyword);// 参数q  查询所有
+        query.set("q", "job_name:"+keyword);// 参数q  查询所有
         query.setStart(0);
         query.setRows(10);//每一页多少值
         QueryResponse response = solrServer.query(query);
@@ -209,7 +213,7 @@ public class SearchServiceImplement implements SearchService{
             jobidlist.add(Integer.parseInt(doc.get("job_id").toString()));
         }
 
-        query.set("q", "job_description:"+ keyword);// 参数q  查询所有
+        query.set("q", "job_description:"+keyword);// 参数q  查询所有
         query.setStart(0);
         query.setRows(10);//每一页多少值
         response = solrServer.query(query);
@@ -226,7 +230,7 @@ public class SearchServiceImplement implements SearchService{
     public List<Comment> commentSearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
-        query.set("q", "comment_content:"+ keyword);// 参数q  查询所有
+        query.set("q", "comment_content:"+keyword);// 参数q  查询所有
         query.setStart(0);
         query.setRows(10);//每一页多少值
         QueryResponse response = solrServer.query(query);
@@ -243,7 +247,7 @@ public class SearchServiceImplement implements SearchService{
     public List<Video> videoSearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
-        query.set("q", "video_title:"+ keyword);// 参数q  查询所有
+        query.set("q", "video_title:"+keyword);// 参数q  查询所有
         query.setStart(0);
         query.setRows(10);//每一页多少值
         QueryResponse response = solrServer.query(query);
@@ -306,7 +310,7 @@ public class SearchServiceImplement implements SearchService{
     public List<Answer> answerSearch(String keyword) throws Exception {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
-        query.set("q", "answer_body:"+ keyword);// 参数q  查询所有
+        query.set("q", "answer_body:"+keyword);// 参数q  查询所有
         query.setStart(0);
         query.setRows(10);//每一页多少值
         QueryResponse response = solrServer.query(query);
@@ -315,6 +319,8 @@ public class SearchServiceImplement implements SearchService{
         for (SolrDocument doc : solrDocumentList) {
             answeridlist.add(Integer.parseInt(doc.get("answer_id").toString()));
         }
+
+
         List<Answer> answerlist = answerService.get(answeridlist);
         return answerlist;
     }
@@ -370,12 +376,15 @@ public class SearchServiceImplement implements SearchService{
 
         int size = solrlist.size();//随机打乱
         Random random = new Random();
+
         for(int i = 0; i < size; i++) {
             // 获取随机位置
             int randomPos = random.nextInt(size);
+
             // 当前元素与随机元素交换
             Collections.swap(solrlist, i, randomPos);
         }
+
         return solrlist;
     }
 }

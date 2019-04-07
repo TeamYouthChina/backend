@@ -1,9 +1,12 @@
 package com.youthchina.dto.community.comment;
 
+import com.youthchina.domain.jinhao.Comment;
+import com.youthchina.dto.ResponseDTO;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentResponseDTO {
+public class CommentResponseDTO implements ResponseDTO<Comment> {
     private List<CommentDTO> comments;
 
     public CommentResponseDTO() {
@@ -16,5 +19,10 @@ public class CommentResponseDTO {
 
     public void setComments(List<CommentDTO> comments) {
         this.comments = comments;
+    }
+
+    @Override
+    public void convertToDTO(Comment comment) {
+
     }
 }

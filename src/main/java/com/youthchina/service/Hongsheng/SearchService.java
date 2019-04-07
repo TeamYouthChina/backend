@@ -7,5 +7,5 @@ import com.youthchina.domain.zhongyang.SearchResult;
  */
 public interface SearchService {
 
-    SearchResult search(String type, String title, String body, Integer startIndex, Integer endIndex);
+    SearchResult search(String type, String title, String body, Integer startIndex, Integer endIndex) throws Exception;
 }

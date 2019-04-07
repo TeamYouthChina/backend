@@ -1,5 +1,5 @@
 package com.youthchina.controller.tianjian;
-
+/*
 import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.tianjian.ComRichText;
@@ -166,3 +166,4 @@ public class BriefReviewController {
     }
 
 }
+*/
