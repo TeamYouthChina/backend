@@ -66,7 +66,7 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
     @PutMapping("/{id}")
     @ResponseBodyDTO(CompanyResponseDTO.class)
     public ResponseEntity<?> updateCompanyInfo(@PathVariable Integer id, @AuthenticationPrincipal User user, @RequestBodyDTO(CompanyRequestDTO.class) Company company) throws NotFoundException {
-
+        company.setCompanyId(id);
         company.setUserId(user.getId());
         return update(company);
     }
