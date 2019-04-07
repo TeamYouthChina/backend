@@ -11,4 +11,6 @@ public interface AttentionService extends DomainCRUDService<Attention,Integer> {
     void attention(Attentionable entity, Integer userId) throws NotFoundException;
     void cancel(Attentionable entity, Integer userId) throws NotFoundException;
     List<Integer> getAllIdsOfAttention(Attentionable entity, Integer userId) throws NotFoundException;
+    Integer isEverAttention(Attentionable entity, Integer userId);
+    Integer countAttention(Attentionable entity);
 }

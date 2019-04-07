@@ -16,4 +16,5 @@ public interface AttentionMapper {
     void cancel(Integer id);
     List<Integer> getAllfollows(@Param("type") Integer type, @Param("userId") Integer userId);
     Attention get(Integer id);
+    Integer countAttention(@Param("type") Integer type, @Param("targetId") Integer targetId);
 }
