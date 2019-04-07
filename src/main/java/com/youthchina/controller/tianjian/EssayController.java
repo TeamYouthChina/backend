@@ -62,11 +62,6 @@ public class EssayController {
             throw new NotFoundException(404, 404, "没有找到这个文章"); //TODO
         }
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
-        essayResponseDTO.setAttentionCount(attentionService.countAttention(comEssay));
-        essayResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(comEssay,user.getId()));
-        essayResponseDTO.setUpvoteCount(evaluateService.countUpvote(comEssay));
-        essayResponseDTO.setDownvoteCount(evaluateService.countDownvote(comEssay));
-        essayResponseDTO.setAttention((attentionService.isEverAttention(comEssay,user.getId()))==0? false:true);
         if (comEssay.getRelaType()==1){
             essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId())));
         }
