@@ -39,12 +39,18 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
         this.currentCompany = null;
         this.skills = new ArrayList<>();
         for (LabelInfo labelInfo : student.getLabelInfos()) {
-            String label_chn = labelInfo.getLabel_chn();
-            this.skills.add(label_chn);
+            if(labelInfo!=null){
+                String label_chn = labelInfo.getLabel_chn();
+                this.skills.add(label_chn);
+            }
         }
         this.educations = new ArrayList<>(student.getEducationInfos().size());
+
         for (EducationInfo educationInfo : student.getEducationInfos()) {
-            this.educations.add(new EducationResponseDTO(educationInfo));
+            if(educationInfo!=null){
+                this.educations.add(new EducationResponseDTO(educationInfo));
+            }
+
         }
         //contactDTO添加
         this.contacts = new ContactDTO(student.getEmail(), student.getPhonenumber());
@@ -53,20 +59,33 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
 //        this.phonenumbers = new ArrayList<>();
 //        this.phonenumbers.add(student.getPhonenumber());
         this.experiences = new ArrayList<>(student.getWorks().size());
+
         for (Work work : student.getWorks()) {
-            this.experiences.add(new WorkResponseDTO(work));
+            if(work!=null){
+                this.experiences.add(new WorkResponseDTO(work));
+            }
         }
+
         this.projects = new ArrayList<>(student.getProjects().size());
         for (Project project : student.getProjects()) {
-            this.projects.add(new ProjectResponseDTO(project));
+            if(project!=null){
+                this.projects.add(new ProjectResponseDTO(project));
+            }
+
         }
         this.extracurriculars = new ArrayList<>(student.getActivities().size());
         for (Activity activity : student.getActivities()) {
-            this.extracurriculars.add(new ExtracurricularResponseDTO(activity));
+            if(activity!=null){
+                this.extracurriculars.add(new ExtracurricularResponseDTO(activity));
+            }
+
         }
         List<CertificateResponseDTO> certificates = new ArrayList<>(student.getCertificates().size());
         for (Certificate certificate : student.getCertificates()) {
-            certificates.add(new CertificateResponseDTO(certificate));
+            if(certificate!=null){
+                certificates.add(new CertificateResponseDTO(certificate));
+            }
+
         }
         this.setCertifications(certificates);
     }

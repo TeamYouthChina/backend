@@ -2,6 +2,7 @@ package com.youthchina.controller.zhongyang;
 
 import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.Qinghong.JobCollect;
+import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.jinhao.Video;
 import com.youthchina.domain.tianjian.ComEssay;
@@ -9,6 +10,7 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.applicant.CompCollectResponseDTO;
 import com.youthchina.dto.applicant.JobCollectResponseDTO;
+import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.community.video.VideoResponseDTO;
@@ -16,6 +18,7 @@ import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
+import com.youthchina.service.jinhao.AnswerServiceImpl;
 import com.youthchina.service.jinhao.AttentionServiceImpl;
 import com.youthchina.service.jinhao.QuestionServiceImpl;
 import com.youthchina.service.jinhao.VideoServiceImpl;
@@ -44,12 +47,16 @@ public class UserController extends DomainCRUDController<User, Integer> {
 
     @Autowired
     private StudentService studentService;
-
+    @Autowired
     private AttentionServiceImpl attentionService;
     @Autowired
     private EssayServiceImpl essayService;
+    @Autowired
     private QuestionServiceImpl questionService;
+    @Autowired
     private VideoServiceImpl videoService;
+    @Autowired
+    private AnswerServiceImpl answerService;
 
     @Autowired
     public UserController(UserService userService, @Value("${web.url.prefix}") String prefix) {
@@ -66,63 +73,100 @@ public class UserController extends DomainCRUDController<User, Integer> {
             throw new ForbiddenException();
         }
     }
+    /**
+    * @Description: 需要添加分页
+    * @Param: [user_id, type]
+    * @return: org.springframework.http.ResponseEntity<?>
+    * @Author: Qinghong Wang
+    * @Date: 2019/4/4
+    */
 
-    @GetMapping("/{id}/attentions/**")
+    @GetMapping("/{id}/attentions")
     public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id, @RequestParam(value = "type") String type) throws NotFoundException {
         switch (type) {
-            case "Job": {
+            case "job": {
                 List<JobCollect> jobCollects = studentService.getJobCollect(user_id);
                 List<JobCollectResponseDTO> jobCollectResponseDTOS = new ArrayList<>();
-                for (JobCollect jobCollect : jobCollects) {
-                    JobCollectResponseDTO jobCollectResponseDTO = new JobCollectResponseDTO(jobCollect);
-                    jobCollectResponseDTOS.add(jobCollectResponseDTO);
+                if(jobCollects!=null){
+                    for (JobCollect jobCollect : jobCollects) {
+                        JobCollectResponseDTO jobCollectResponseDTO = new JobCollectResponseDTO(jobCollect);
+                        jobCollectResponseDTOS.add(jobCollectResponseDTO);
+                }
+
                 }
                 return ResponseEntity.ok(new Response(jobCollectResponseDTOS));
 
             }
 
-            case "Company": {
+            case "company": {
                 List<CompCollect> compCollects = studentService.getCompCollect(user_id);
                 List<CompCollectResponseDTO> compCollectResponseDTOS = new ArrayList<>();
-                for (CompCollect compCollect : compCollects) {
-                    CompCollectResponseDTO compCollectResponseDTO = new CompCollectResponseDTO(compCollect);
-                    compCollectResponseDTOS.add(compCollectResponseDTO);
+                if(compCollects!=null){
+                    for (CompCollect compCollect : compCollects) {
+                        CompCollectResponseDTO compCollectResponseDTO = new CompCollectResponseDTO(compCollect);
+                        compCollectResponseDTOS.add(compCollectResponseDTO);
+                }
+
                 }
                 return ResponseEntity.ok(new Response(compCollectResponseDTOS));
 
             }
-            case "Essay": {
+            case "article": {
                 List<EssayResponseDTO> essayResponseDTOS = new ArrayList<>();
                 List<Integer> result = attentionService.getAllIdsOfAttention(new ComEssay(),user_id);
-                for (Integer id : result) {
-                    ComEssay comEssay = essayService.getEssay(id);
-                    EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
-                    essayResponseDTOS.add(essayResponseDTO);
+                if(result!=null){
+                    for (Integer id : result) {
+                        ComEssay comEssay = essayService.getEssay(id);
+                        EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
+                        essayResponseDTOS.add(essayResponseDTO);
+
+                }
+
 
                 }
                 return ResponseEntity.ok((new Response(essayResponseDTOS)));
 
             }
-            case "Video": {
+            case "video": {
                 List<VideoResponseDTO> videoResponseDTOS = new ArrayList<>();
                 List<Integer> result = attentionService.getAllIdsOfAttention(new Video(),user_id);
-                for (Integer id : result) {
-                    Video video = videoService.get(id);
-                    VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
-                    videoResponseDTOS.add(videoResponseDTO);
+                if(result!=null){
+                    for (Integer id : result) {
+                        Video video = videoService.get(id);
+                        VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
+                        videoResponseDTOS.add(videoResponseDTO);
+                }
+
                 }
                 return ResponseEntity.ok(new Response(videoResponseDTOS));
 
             }
-            case "Question": {
+            case "question": {
                 List<QuestionResponseDTO> questionResponseDTOS = new ArrayList<>();
                 List<Integer> result = attentionService.getAllIdsOfAttention(new Question(),user_id);
-                for (Integer id : result) {
-                    Question question = questionService.get(id);
-                    QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
-                    questionResponseDTOS.add(questionResponseDTO);
+                if(result!=null){
+                    for (Integer id : result) {
+                        Question question = questionService.get(id);
+                        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
+                        questionResponseDTOS.add(questionResponseDTO);
+                }
+
                 }
                 return ResponseEntity.ok(new Response(questionResponseDTOS));
+            }
+            case "answer":{
+                List<SimpleAnswerResponseDTO> answerResponseDTOS=new ArrayList<>();
+                List<Integer> result=new ArrayList<>();
+                result=attentionService.getAllIdsOfAttention(new Answer(),user_id);
+                if(result!=null){
+                    for(Integer id:result){
+                        Answer answer=answerService.get(id);
+                        SimpleAnswerResponseDTO answerResponseDTO=new SimpleAnswerResponseDTO(answer);
+                        answerResponseDTOS.add(answerResponseDTO);
+                    }
+                }
+
+                return ResponseEntity.ok(new Response(answerResponseDTOS));
             }
             default:
                 throw new NotFoundException(404, 404, "do not have this type");

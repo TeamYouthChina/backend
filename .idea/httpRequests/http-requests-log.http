@@ -1,0 +1,51 @@
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json;utf-8
+
+{ "id": 10, "password":"123456" }
+
+###
+
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json;utf-8
+
+{ "id": 10, "password":"123456" }
+
+###
+
+POST http://47.252.87.2181:8080/api/v1/login
+Content-Type: application/json;utf-8
+
+{ "id": 10, "password":"123456" }
+
+###
+
+POST http://127.0.0.1:8080/api/v1/login
+Content-Type: application/json;utf-8
+
+{ "id": 10, "password":"123456" }
+
+<> 2019-04-06T054946.200.json
+
+###
+
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json;utf-8
+
+{ "id": 10, "password":"123456" }
+
+###
+
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json;utf-8
+
+{ "id": 10, "password":"123456" }
+
+###
+
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json;utf-8
+
+{ "id":2, "password":"123456" }
+
+###
+

@@ -3,7 +3,6 @@ package com.youthchina.dto.applicant;
 import com.youthchina.domain.Qinghong.EducationInfo;
 import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.DurationDTO;
-import com.youthchina.dto.util.LocationDTO;
 
 /**
  * Created by zhong on 2018/12/30.
@@ -14,7 +13,7 @@ public class EducationRequestDTO implements RequestDTO<EducationInfo> {
     private String major;
     private String degree;
     private DurationDTO duration;
-    private LocationDTO location;
+//    private LocationDTO location;
     private String note;
 
     public EducationRequestDTO() {
@@ -67,13 +66,6 @@ public class EducationRequestDTO implements RequestDTO<EducationInfo> {
         this.duration = duration;
     }
 
-    public LocationDTO getLocation() {
-        return location;
-    }
-
-    public void setLocation(LocationDTO location) {
-        this.location = location;
-    }
 
     public String getNote() {
         return note;

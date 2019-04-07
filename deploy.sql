@@ -13,7 +13,7 @@ create table IF NOT EXISTS `SYS_MAJOR` (
   COMMENT '专业中文全称',
   `MAJOR_ENG`      VARCHAR(100) NOT NULL
   COMMENT '专业英文全称',
-  `START_TIME`     TIMESTAMP    NOT NULL
+  `START_DATE`     TIMESTAMP    NOT NULL
   COMMENT '启用时间',
   `IS_DELETE`      INTEGER      DEFAULT '0'
   COMMENT '是否删除',
@@ -31,7 +31,7 @@ create table IF NOT EXISTS `SYS_DEGREE` (
   COMMENT '中文描述',
   `DEGREE_ENG` VARCHAR(100) NOT NULL
   COMMENT '英文描述',
-  `START_TIME` TIMESTAMP    NOT NULL
+  `START_DATE` TIMESTAMP    NOT NULL
   COMMENT '启用时间',
   PRIMARY KEY (`DEGREE_NUM`)
 )
@@ -2572,7 +2572,7 @@ INSERT INTO `youthchina`.`COM_RICH_TEXT` (`TEXT_ID`, `COMPILE_TYPE`, `JSON_CONTE
 
 ############################################字典表###########################################################
 TRUNCATE TABLE `youthchina`.`SYS_MAJOR`;
-INSERT INTO `youthchina`.`SYS_MAJOR` (`MAJOR_NUM`, `MAJOR_LEVEL`, `MAJOR_CODE`, `MAJOR_ABBRE`, `MAJOR_CHN`, `MAJOR_ENG`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
+INSERT INTO `youthchina`.`SYS_MAJOR` (`MAJOR_NUM`, `MAJOR_LEVEL`, `MAJOR_CODE`, `MAJOR_ABBRE`, `MAJOR_CHN`, `MAJOR_ENG`, `START_DATE`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
  ('1', '1', '1', '哲学', '哲学', 'philosophy', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
  ('2', '2', '101', '哲学类', '哲学类', 'philosophy', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
  ('3', '3', '10101', '哲学', '哲学', 'philosophy', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -3186,7 +3186,7 @@ INSERT INTO `youthchina`.`SYS_MAJOR` (`MAJOR_NUM`, `MAJOR_LEVEL`, `MAJOR_CODE`, 
 
 
 TRUNCATE TABLE `youthchina`.`SYS_DEGREE`;
-INSERT INTO `youthchina`.`SYS_DEGREE` (`DEGREE_NUM`, `DEGREE_CHN`, `DEGREE_ENG`, `START_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_DEGREE` (`DEGREE_NUM`, `DEGREE_CHN`, `DEGREE_ENG`, `START_DATE`) VALUES
  ('1', '初中', 'Junior', '2019-01-01 00:00:00'),
  ('2', '高中', 'Senior', '2019-01-01 00:00:00'),
  ('3', '本科', 'Undergraduate', '2019-01-01 00:00:00'),

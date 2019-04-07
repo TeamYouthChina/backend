@@ -7,6 +7,7 @@ import com.youthchina.dao.qingyang.ResumeJsonMapper;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
+import com.youthchina.exception.zhongyang.ClientException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.qingyang.JobServiceImpl;
 import com.youthchina.service.qingyang.LocationServiceImpl;
@@ -265,7 +266,7 @@ public class StudentServiceImpl implements StudentService {
      * @Author: Qinghong Wang
      * @Date: 2018/12/19
      */
-    public JobApply jobApply(Integer job_id, Integer user_id) throws NotFoundException {
+    public JobApply jobApply(Integer job_id, Integer user_id) throws NotFoundException,ClientException {
         Job job = jobMapper.selectJobByJobId(job_id);
         if (job == null) {
             throw new NotFoundException(4042, 404, "cannot find job with id " + job_id);
@@ -276,9 +277,7 @@ public class StudentServiceImpl implements StudentService {
             } else {
                 JobApply jobApply2 = applicantMapper.getOneJobApply(job_id, user_id);
                 if (jobApply2 != null) {
-                    Job job1 = jobApply2.getJob();
-                    jobService.setJobLocation(job1);
-                    return jobApply2;
+                    throw  new ClientException("this job has already been applied");
                 } else {
                     JobApply jobApply = new JobApply();
                     jobApply.setStu_id(user_id);
