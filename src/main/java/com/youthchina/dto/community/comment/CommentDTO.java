@@ -14,8 +14,6 @@ public class CommentDTO {
     private boolean is_anonymous;
     private Integer upvoteCount;
     private Integer downvoteCount;
-    private Integer attentionCount;
-    private boolean isAttention;
     private Integer evaluateStatus;
 
     public CommentDTO(Comment comment){
@@ -80,22 +78,6 @@ public class CommentDTO {
 
     public void setDownvoteCount(Integer downvoteCount) {
         this.downvoteCount = downvoteCount;
-    }
-
-    public Integer getAttentionCount() {
-        return attentionCount;
-    }
-
-    public void setAttentionCount(Integer attentionCount) {
-        this.attentionCount = attentionCount;
-    }
-
-    public boolean isAttention() {
-        return isAttention;
-    }
-
-    public void setAttention(boolean attention) {
-        isAttention = attention;
     }
 
     public Integer getEvaluateStatus() {

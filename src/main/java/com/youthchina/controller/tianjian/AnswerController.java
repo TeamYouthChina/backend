@@ -18,6 +18,7 @@ import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.AnswerServiceImpl;
+import com.youthchina.service.jinhao.AttentionServiceImpl;
 import com.youthchina.service.jinhao.CommentServiceImpl;
 import com.youthchina.service.jinhao.EvaluateServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +40,18 @@ public class AnswerController {
     private CommentServiceImpl commentService;
     @Autowired
     private EvaluateServiceImpl evaluateService;
+    @Autowired
+    private AttentionServiceImpl attentionService;
 
     @GetMapping("/{id}")
-    public ResponseEntity getAnswer(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity getAnswer(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         Answer answer = answerService.get(id);
         SimpleAnswerResponseDTO simpleAnswerResponseDTO = new SimpleAnswerResponseDTO(answer);
+        simpleAnswerResponseDTO.setAttentionCount(attentionService.countAttention(answer));
+        simpleAnswerResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
+        simpleAnswerResponseDTO.setUpvoteCount(evaluateService.countUpvote(answer));
+        simpleAnswerResponseDTO.setDownvoteCount(evaluateService.countDownvote(answer));
+        simpleAnswerResponseDTO.setAttention((attentionService.isEverAttention(answer,user.getId()))==0? false:true);
         return ResponseEntity.ok(new Response(simpleAnswerResponseDTO, new StatusDTO(200,"success")));
 
     }
@@ -74,7 +82,7 @@ public class AnswerController {
     }
 
     @GetMapping("/{id}/comments")
-    public ResponseEntity getAnswerComments(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
+    public ResponseEntity getAnswerComments(@PathVariable Integer id, PageRequest pageRequest,@AuthenticationPrincipal User user) throws NotFoundException {
         Answer answer = answerService.get(id);
         List<Comment> comments = commentService.getComments(answer);
         List<CommentDTO> commentDTOS = new ArrayList<>();
@@ -82,6 +90,9 @@ public class AnswerController {
             Iterator it = comments.iterator();
             while (it.hasNext()) {
                 CommentDTO commentDTO = new CommentDTO((Comment) it.next());
+                commentDTO.setUpvoteCount(evaluateService.countUpvote(answer));
+                commentDTO.setDownvoteCount(evaluateService.countDownvote(answer));
+                commentDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
                 commentDTOS.add(commentDTO);
             }
         }

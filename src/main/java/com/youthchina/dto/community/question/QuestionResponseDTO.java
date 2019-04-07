@@ -26,11 +26,8 @@ public class QuestionResponseDTO implements ResponseDTO<Question>, QuestionDTO {
     private Integer rela_type;
     private Integer rela_id;
     private RichTextResponseDTO body;
-    private Integer upvoteCount;
-    private Integer downvoteCount;
-    private Integer attentionCount;
     private boolean isAttention;
-    private Integer evaluateStatus;
+
 
     public QuestionResponseDTO(Question question) {
         this.id = question.getId();
@@ -143,30 +140,6 @@ public class QuestionResponseDTO implements ResponseDTO<Question>, QuestionDTO {
         return is_anonymous;
     }
 
-    public Integer getUpvoteCount() {
-        return upvoteCount;
-    }
-
-    public void setUpvoteCount(Integer upvoteCount) {
-        this.upvoteCount = upvoteCount;
-    }
-
-    public Integer getDownvoteCount() {
-        return downvoteCount;
-    }
-
-    public void setDownvoteCount(Integer downvoteCount) {
-        this.downvoteCount = downvoteCount;
-    }
-
-    public Integer getAttentionCount() {
-        return attentionCount;
-    }
-
-    public void setAttentionCount(Integer attentionCount) {
-        this.attentionCount = attentionCount;
-    }
-
     public boolean isAttention() {
         return isAttention;
     }
@@ -175,13 +148,6 @@ public class QuestionResponseDTO implements ResponseDTO<Question>, QuestionDTO {
         isAttention = attention;
     }
 
-    public Integer getEvaluateStatus() {
-        return evaluateStatus;
-    }
-
-    public void setEvaluateStatus(Integer evaluateStatus) {
-        this.evaluateStatus = evaluateStatus;
-    }
 
     @Override
     public void convertToDTO(Question question) {

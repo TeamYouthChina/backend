@@ -18,6 +18,7 @@ import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.AnswerService;
+import com.youthchina.service.jinhao.AttentionServiceImpl;
 import com.youthchina.service.jinhao.EvaluateService;
 import com.youthchina.service.jinhao.QuestionService;
 import com.youthchina.service.qingyang.CompanyCURDServiceImpl;
@@ -54,6 +55,9 @@ public class QuestionController {
     private CompanyCURDServiceImpl companyCURDService;
 
     @Autowired
+    private AttentionServiceImpl attentionService;
+
+    @Autowired
     private JobServiceImpl jobService;
 
     @Autowired
@@ -73,14 +77,16 @@ public class QuestionController {
     }
 
     @GetMapping("/**")
-    public ResponseEntity<?> getQuestions(@RequestParam(value = "Company") String company, @RequestParam(value = "Job") String job, PageRequest pageRequest) throws NotFoundException {
+    public ResponseEntity<?> getQuestions(@RequestParam(value = "Company") String company, @RequestParam(value = "Job") String job, PageRequest pageRequest,@AuthenticationPrincipal User user) throws NotFoundException {
         List<QuestionResponseDTO> questionResponseDTOArrayList = new ArrayList<>();
         if(!job.equals("")){
            List<Job> jobs =  jobService.getJobByMore(null,job,null,null,null,null,null,null,null,null,null,null,null);
            List<Question> questionList1 = questionService.get(2,jobs.get(0).getJobId());
            Iterator it = questionList1.iterator();
             while(it.hasNext()){
-                QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO((Question) it.next());
+                Question question = (Question) it.next();
+                QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
+                questionResponseDTO.setAttention((attentionService.isEverAttention(question,user.getId()))==0? false:true);
                 questionResponseDTOArrayList.add(questionResponseDTO);
             }
             if(questionResponseDTOArrayList.size() != 0){
@@ -92,7 +98,9 @@ public class QuestionController {
             List<Question> questionList=  questionService.get(1,companies.get(0).getCompanyId());
             Iterator it = questionList.iterator();
             while(it.hasNext()){
+                Question question = (Question) it.next();
                 QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO((Question) it.next());
+                questionResponseDTO.setAttention((attentionService.isEverAttention(question,user.getId()))==0? false:true);
                 questionResponseDTOArrayList.add(questionResponseDTO);
             }
             if(questionResponseDTOArrayList.size() != 0){
@@ -104,8 +112,11 @@ public class QuestionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getQuestion(@PathVariable Integer id) throws NotFoundException {
-        QuestionResponseDTO responseDTO = DomainToDto(questionService.get(id));
+    public ResponseEntity<?> getQuestion(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
+       Question question = questionService.get(id);
+        QuestionResponseDTO responseDTO = DomainToDto(question);
+        responseDTO.setAttention((attentionService.isEverAttention(question,user.getId()))==0? false:true);
+
         return ResponseEntity.ok(new Response(responseDTO));
     }
 

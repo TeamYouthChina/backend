@@ -17,6 +17,7 @@ import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.dto.util.RichTextRequestDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.jinhao.AttentionServiceImpl;
 import com.youthchina.service.jinhao.BriefReviewServiceImplement;
 import com.youthchina.service.jinhao.CommentServiceImpl;
 import com.youthchina.service.jinhao.EvaluateServiceImpl;
@@ -48,11 +49,19 @@ public class BriefReviewController {
     @Autowired
     EvaluateServiceImpl evaluateService;
 
+    @Autowired
+    AttentionServiceImpl attentionService;
+
     @GetMapping("/{id}")
-    public ResponseEntity getBriefReview(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity getBriefReview(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         BriefReview briefReview = briefReviewServiceImplement.get(id);
 
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReview);
+        briefReviewResponseDTO.setAttentionCount(attentionService.countAttention(briefReview));
+        briefReviewResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
+        briefReviewResponseDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
+        briefReviewResponseDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
+        briefReviewResponseDTO.setAttention((attentionService.isEverAttention(briefReview,user.getId()))==0? false:true);
         if (briefReviewResponseDTO != null)
             return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(200, "success")));
         else
@@ -130,7 +139,7 @@ public class BriefReviewController {
     }
 
     @GetMapping("/{id}/comments")
-    public ResponseEntity getBriefReviewComments(@PathVariable Integer id, @AuthenticationPrincipal User user, PageRequest pageRequest) {
+    public ResponseEntity getBriefReviewComments(@PathVariable Integer id, @AuthenticationPrincipal User user, PageRequest pageRequest) throws NotFoundException {
        BriefReview briefReview = new BriefReview();
        briefReview.setId(id);
        briefReview.setUser(user);
@@ -140,6 +149,9 @@ public class BriefReviewController {
             Iterator it = comments.iterator();
             while (it.hasNext()) {
                 CommentDTO commentDTO = new CommentDTO((Comment) it.next());
+                commentDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
+                commentDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
+                commentDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
                 commentDTOS.add(commentDTO);
             }
         }

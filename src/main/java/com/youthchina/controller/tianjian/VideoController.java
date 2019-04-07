@@ -54,11 +54,16 @@ public class VideoController {
     AttentionService attentionService;
 
     @GetMapping("/{id}")
-    public ResponseEntity getVideo(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity getVideo(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         Video video = videoService.get(id);
         URL s = fileService.getFileUrl(video.getName(), "China");
         VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
         videoResponseDTO.setUrl(s.toString());
+        videoResponseDTO.setAttentionCount(attentionService.countAttention(video));
+        videoResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(video,user.getId()));
+        videoResponseDTO.setUpvoteCount(evaluateService.countUpvote(video));
+        videoResponseDTO.setDownvoteCount(evaluateService.countDownvote(video));
+        videoResponseDTO.setAttention((attentionService.isEverAttention(video,user.getId()))==0? false:true);
         return ResponseEntity.ok(new Response(videoResponseDTO, new StatusDTO(200, "success")));
     }
 
@@ -102,7 +107,7 @@ public class VideoController {
     }
 
     @GetMapping("/{id}/comments")
-    public ResponseEntity getComments(@PathVariable Integer id, PageRequest pageRequest){
+    public ResponseEntity getComments(@PathVariable Integer id, PageRequest pageRequest,@AuthenticationPrincipal User user) throws NotFoundException {
         Video video = new Video();
         video.setId(id);
        List<Comment> comments = commentService.getComments(video);
@@ -112,6 +117,9 @@ public class VideoController {
             Iterator it = comments.iterator();
             while (it.hasNext()) {
                 CommentDTO commentDTO = new CommentDTO((Comment) it.next());
+                commentDTO.setUpvoteCount(evaluateService.countUpvote(video));
+                commentDTO.setDownvoteCount(evaluateService.countDownvote(video));
+                commentDTO.setEvaluateStatus(evaluateService.evaluateStatus(video,user.getId()));
                 commentDTOS.add(commentDTO);
             }
         }
@@ -142,6 +150,5 @@ public class VideoController {
         attentionService.attention(video,user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
     }
-
 
 }
