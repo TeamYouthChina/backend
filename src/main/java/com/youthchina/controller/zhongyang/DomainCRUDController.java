@@ -44,12 +44,12 @@ public abstract class DomainCRUDController<T extends HasId<K>, K extends Seriali
 
     /**
      * @param key primary key of domain model
-     * @return 204 if success
+     * @return 200 if success
      * @throws NotFoundException cannot find domain model based on the key
      */
     protected ResponseEntity<?> delete(K key) throws NotFoundException {
         getService().delete(key);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());
+        return ResponseEntity.ok(new Response());
     }
 
     /**
