@@ -9,6 +9,8 @@ public class BriefReviewRequestDTO implements RequestDTO<BriefReview> {
 
     private Integer company_id;
 
+    public BriefReviewRequestDTO(){}
+
     public RichTextRequestDTO getBody() {
         return body;
     }
