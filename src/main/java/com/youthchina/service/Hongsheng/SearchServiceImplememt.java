@@ -18,14 +18,19 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.xml.ws.ServiceMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class SeachServiceImplememt implements SearchService {
+import static org.aspectj.util.LangUtil.split;
+
+@Service("SearchService")
+public class SearchServiceImplememt implements SearchService {
     private final static String SOLR_URL = "http://localhost:8983/solr/";
 
     @Resource
@@ -60,7 +65,7 @@ public class SeachServiceImplememt implements SearchService {
         SearchResult searchResult;
         int count = 0;
         switch (type) {
-            case("article"): {
+            case "article": {
                 List<SearchResultItem> searchList = new ArrayList<>();
                 List<ComEssay> essays = essaySearch(title, body, startIndex, endIndex);
                 for (ComEssay i : essays) {
@@ -71,7 +76,7 @@ public class SeachServiceImplememt implements SearchService {
                 searchResult = new SearchResult(searchList,count);
                 return searchResult;
             }
-            case("question"): {
+            case "question": {
                 System.out.println(type);
                 List<SearchResultItem> searchList = new ArrayList<>();
                 List<Question> questions = questionSearch(title, body, startIndex, endIndex);
@@ -83,7 +88,7 @@ public class SeachServiceImplememt implements SearchService {
                 searchResult = new SearchResult(searchList,count);
                 return searchResult;
             }
-            case("answer"): {
+            case "answer" : {
                 List<SearchResultItem> searchList = new ArrayList<>();
                 List<Answer> answers = answerSearch(title, body, startIndex, endIndex);
                 for (Answer i : answers) {
@@ -94,7 +99,7 @@ public class SeachServiceImplememt implements SearchService {
                 searchResult = new SearchResult(searchList,count);
                 return searchResult;
             }
-            case("job"): {
+            case "job" : {
                 List<SearchResultItem> searchList = new ArrayList<>();
                 List<Job> jobs = jobSearch(title, body, startIndex, endIndex);
                 for (Job i : jobs) {
@@ -105,7 +110,7 @@ public class SeachServiceImplememt implements SearchService {
                 searchResult = new SearchResult(searchList,count);
                 return searchResult;
             }
-            case("company"): {
+            case "company" : {
                 List<SearchResultItem> searchList = new ArrayList<>();
                 List<Company> companies = companySearch(title, body, startIndex, endIndex);
                 for (Company i : companies) {
@@ -116,7 +121,7 @@ public class SeachServiceImplememt implements SearchService {
                 searchResult = new SearchResult(searchList,count);
                 return searchResult;
             }
-            case("video"): {
+            case "video" : {
                 List<SearchResultItem> searchList = new ArrayList<>();
                 List<Video> videos = videoSearch(title, body, startIndex, endIndex);
                 for (Video i : videos) {
@@ -127,7 +132,7 @@ public class SeachServiceImplememt implements SearchService {
                 searchResult = new SearchResult(searchList,count);
                 return searchResult;
             }
-            case("briefReview"): {
+            case "briefReview" : {
                 List<SearchResultItem> searchList = new ArrayList<>();
                 List<BriefReview> briefReviews = briefReviewSearch(title, body, startIndex, endIndex);
                 for (BriefReview i : briefReviews) {
@@ -138,7 +143,7 @@ public class SeachServiceImplememt implements SearchService {
                 searchResult = new SearchResult(searchList,count);
                 return searchResult;
             }
-            case("comment"): {
+            case "comment" : {
                 List<SearchResultItem> searchList = new ArrayList<>();
                 List<Comment> comments = commentSearch(title, body, startIndex, endIndex);
                 for (Comment i : comments) {
@@ -149,7 +154,7 @@ public class SeachServiceImplememt implements SearchService {
                 searchResult = new SearchResult(searchList,count);
                 return searchResult;
             }
-            case("all"): {
+            case "all" : {
                 List<SearchResultItem> searchList = new ArrayList<>();
                 List<ComEssay> essays = essaySearch(title, body, startIndex, endIndex);
                 for (ComEssay i : essays) {
@@ -242,7 +247,9 @@ public class SeachServiceImplememt implements SearchService {
             QueryResponse response = solrServer.query(query);
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
-                essayIdList.add(Integer.parseInt(doc.get("id").toString()));
+                String id = doc.get("id").toString();
+                String[] sp = id.split("_");
+                essayIdList.add(Integer.parseInt(sp[1]));
             }
         }
 
@@ -278,7 +285,13 @@ public class SeachServiceImplememt implements SearchService {
             QueryResponse response = solrServer.query(query);
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
-                quesIdList.add(Integer.parseInt(doc.get("id").toString()));
+
+                String id = doc.get("id").toString();
+                System.out.println(id);
+                String[] sp = id.split("_");
+                System.out.println(sp[1]);
+                quesIdList.add(Integer.parseInt(sp[1]));
+
             }
         }
 
@@ -292,7 +305,9 @@ public class SeachServiceImplememt implements SearchService {
             QueryResponse response = solrServer.query(query);
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
-                quesIdList.add(Integer.parseInt(doc.get("id").toString()));
+                String id = doc.get("id").toString();
+                String[] sp = id.split("_");
+                quesIdList.add(Integer.parseInt(sp[1]));
             }
         }
 
