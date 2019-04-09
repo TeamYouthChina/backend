@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
  * @author: Qinghong Wang
  * @create: 2019-03-05 11:32
  **/
+
 @Service
 public class MessageSendServiceImpt implements MessageSendService {
 
