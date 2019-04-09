@@ -1,12 +1,13 @@
 package com.youthchina.dto.community.comment;
 
 import com.youthchina.domain.jinhao.Comment;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 
 import java.sql.Timestamp;
 
 
-public class CommentDTO {
+public class CommentDTO implements ResponseDTO<Comment> {
     private Integer id;
     private UserDTO creator;
     private String body;
@@ -16,12 +17,12 @@ public class CommentDTO {
     private Integer downvoteCount;
     private Integer evaluateStatus;
 
-    public CommentDTO(Comment comment){
+    public CommentDTO(Comment comment) {
         this.id = comment.getId();
         this.creator = new UserDTO(comment.getUser());
         this.body = comment.getContent();
         this.create_at = comment.getPubTime();
-        this.is_anonymous = (comment.getIsAnony()==1)? true:false;
+        this.is_anonymous = (comment.getIsAnony() == 1) ? true : false;
     }
 
     public Integer getId() {
@@ -86,5 +87,14 @@ public class CommentDTO {
 
     public void setEvaluateStatus(Integer evaluateStatus) {
         this.evaluateStatus = evaluateStatus;
+    }
+
+    @Override
+    public void convertToDTO(Comment comment) {
+        this.id = comment.getId();
+        this.creator = new UserDTO(comment.getUser());
+        this.body = comment.getContent();
+        this.create_at = comment.getPubTime();
+        this.is_anonymous = (comment.getIsAnony() == 1) ? true : false;
     }
 }

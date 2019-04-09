@@ -8,9 +8,7 @@ import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextResponseDTO;
 
-import javax.xml.ws.Response;
 import java.util.Iterator;
-import java.util.Map;
 
 
 public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
