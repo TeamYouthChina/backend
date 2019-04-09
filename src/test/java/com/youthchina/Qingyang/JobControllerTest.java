@@ -27,9 +27,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 /**
  * Created by zhongyangwu on 4/4/19.
  */
+
+
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
+@TestExecutionListeners(value = {DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
 @DatabaseSetup({"classpath:New_Company_test.xml", "classpath:New_Dictionary_test.xml", "classpath:New_SYS_test.xml"})
 @WebAppConfiguration
 public class JobControllerTest {

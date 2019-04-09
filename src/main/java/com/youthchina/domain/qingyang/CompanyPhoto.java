@@ -12,6 +12,12 @@ public class CompanyPhoto {
     private Timestamp uploadTime;
     private Integer companyId;
 
+    public CompanyPhoto(String docuLocalId) {
+        this.docuLocalId = docuLocalId;
+    }
+
+    public CompanyPhoto() {
+    }
 
     public Integer getPhotoId() {
         return photoId;

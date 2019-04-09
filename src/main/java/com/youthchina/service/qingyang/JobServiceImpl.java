@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -116,10 +117,9 @@ public class JobServiceImpl implements JobService {
     @Override
     @Transactional
     public List<Job> get(List<Integer> id) throws NotFoundException {
-        List<Job> jobList = jobMapper.selectJobByJobIdList(id);
-        for (Job job : jobList) {
-            setJobLocation(job);
-            job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
+        List<Job> jobList = new ArrayList<Job>();
+        for (Integer i: id) {
+            jobList.add(this.get(i));
         }
         return jobList;
     }

@@ -4,6 +4,8 @@ import com.youthchina.domain.qingyang.Company;
 import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.LocationDTO;
 
+import java.util.List;
+
 /**
  * @author: Qingyang Zhao
  * @create: 2019-02-16
@@ -15,9 +17,10 @@ public class CompanyRequestDTO implements RequestDTO<Company> {
     private LocationDTO location;
     private String website; // pattern: (http|https)://(.?)*
     private String nation;
-//    private String avatarUrl;
+    private String avatarUrl;
     private String note;
     private Integer userId;
+    private List<String> photoUrlList;
 
     public CompanyRequestDTO() {
     }
@@ -71,13 +74,21 @@ public class CompanyRequestDTO implements RequestDTO<Company> {
         this.nation = nation;
     }
 
-//    public String getAvatarUrl() {
-//        return avatarUrl;
-//    }
-//
-//    public void setAvatarUrl(String avatarUrl) {
-//        this.avatarUrl = avatarUrl;
-//    }
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public List<String> getPhotoUrlList() {
+        return photoUrlList;
+    }
+
+    public void setPhotoUrlList(List<String> photoUrlList) {
+        this.photoUrlList = photoUrlList;
+    }
 
     public String getNote() {
         return note;
@@ -91,4 +102,6 @@ public class CompanyRequestDTO implements RequestDTO<Company> {
     public Company convertToDomain() {
         return new Company(this);
     }
+
+
 }

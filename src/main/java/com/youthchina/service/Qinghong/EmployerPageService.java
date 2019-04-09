@@ -1,5 +1,5 @@
 package com.youthchina.service.Qinghong;
-
+/*
 import com.youthchina.domain.Qinghong.Candidate;
 import com.youthchina.domain.Qinghong.Invitation;
 
@@ -57,3 +57,4 @@ public interface EmployerPageService {
 
 
 }
+*/

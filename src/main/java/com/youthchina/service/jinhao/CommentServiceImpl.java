@@ -5,10 +5,12 @@ import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.property.Commentable;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.EssayService;
+import com.youthchina.service.zhongyang.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,14 +34,31 @@ public class CommentServiceImpl implements CommentService {
     @Resource
     EssayService essayService;
 
+    @Resource
+    UserService userService;
+
     @Override
     public List<Comment> getComments(Commentable entity) {
-        return commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
+        List<Comment> comments = commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
+        for(Comment comment : comments){
+            try {
+                comment.setUser(userService.get(comment.getUser().getId()));
+            } catch (NotFoundException e) {
+            }
+        }
+        return comments;
     }
 
     @Override
     public List<Comment> getComments(Commentable entity, Integer start, Integer end) {
-        return commentMapper.getLimitedComments(entity.getCommentTargetType(), entity.getId(), start,end-start+1);
+        List<Comment> comments =  commentMapper.getLimitedComments(entity.getCommentTargetType(), entity.getId(), start,end-start+1);
+        for(Comment comment : comments){
+            try {
+                comment.setUser(userService.get(comment.getUser().getId()));
+            } catch (NotFoundException e) {
+            }
+        }
+        return comments;
     }
 
     @Override
@@ -104,12 +123,20 @@ public class CommentServiceImpl implements CommentService {
         if(comment == null){
             throw new NotFoundException(404,404,"没有找到这个评论");
         }
+        comment.setUser(userService.get(comment.getUser().getId()));
         return comment;
     }
 
     @Override
     public List<Comment> get(List<Integer> id) throws NotFoundException {
-        return null;
+        List<Comment> comments = new ArrayList<>();
+        for (Integer i : id) {
+            try {
+                comments.add(this.get(i));
+            } catch (NotFoundException ignored) {
+            }
+        }
+        return comments;
     }
 
     @Override

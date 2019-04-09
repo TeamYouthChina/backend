@@ -5,6 +5,7 @@ import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.RichTextService;
+import com.youthchina.service.zhongyang.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,9 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     @Resource
     RichTextService richTextService;
 
+    @Resource
+    UserService userService;
+
     @Override
     @Transactional
     public BriefReview get(Integer id) throws NotFoundException {
@@ -30,6 +34,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
         if(briefReview == null){
             throw new NotFoundException(404,404,"没有找到这个短评");
         }
+        briefReview.setUser(userService.get(briefReview.getUser().getId()));
         richTextService.getComRichText(briefReview);
         List<Comment> comments = commentService.getComments(briefReview);
         briefReview.setComments(comments);
@@ -40,12 +45,10 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public List<BriefReview> get(List<Integer> id){
        List<BriefReview> briefReviews = new LinkedList<>();
        for(Integer one : id){
-           BriefReview briefReview = briefReviewMapper.get(one);
-           if(briefReview != null){
-               richTextService.getComRichText(briefReview);
-               List<Comment> comments = commentService.getComments(briefReview);
-               briefReview.setComments(comments);
-               briefReviews.add(briefReview);
+           try {
+               briefReviews.add(get(one));
+           } catch (NotFoundException e) {
+
            }
        }
        return briefReviews;

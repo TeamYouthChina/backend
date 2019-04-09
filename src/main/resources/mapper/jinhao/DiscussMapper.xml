@@ -7,22 +7,22 @@
         <result property="isAnony" column="USER_ANONY"/>
         <result property="pubTime" column="DISCUSS_PUB_TIME"/>
         <result property="commentId" column="COMMENT_ID"/>
-        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
-                     resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User">
+            <constructor>
+                <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            </constructor>
+        </association>
     </resultMap>
     <select id="getDiscusses" parameterType="java.lang.Integer" resultMap="discuss">
-        select d.*,u.* from COM_DISCUSS d
-        left join SYS_USER u on u.USER_ID = d.USER_ID and u.IS_DELETE=0
+        select d.* from COM_DISCUSS d
         where d.COMMENT_ID=#{id} and d.IS_DELETE=0
     </select>
     <select id="getLimitedDiscusses" parameterType="java.lang.Integer" resultMap="discuss">
-        select d.*,u.* from COM_DISCUSS d
-                                left join SYS_USER u on u.USER_ID = d.USER_ID and u.IS_DELETE=0
+        select d.* from COM_DISCUSS d
         where d.COMMENT_ID=#{id} and d.IS_DELETE=0 limit #{start},#{rows}
     </select>
     <select id="get" parameterType="java.lang.Integer" resultMap="discuss">
-        select d.*,u.* from COM_DISCUSS d
-        left join SYS_USER u on u.USER_ID = d.USER_ID and u.IS_DELETE=0
+        select d.* from COM_DISCUSS d
         where d.DISCUSS_ID=#{id} and d.IS_DELETE=0
     </select>
 
