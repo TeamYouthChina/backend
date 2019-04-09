@@ -39,9 +39,6 @@ public class DiscussController {
         return ResponseEntity.ok(listResponse);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity getDiscuss(@PathVariable Integer id) throws NotFoundException  {
 
-    }
 
 }
