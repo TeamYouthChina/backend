@@ -18,6 +18,8 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
 
     List<Project> getProjects(Integer id) throws NotFoundException;
 
+    List<AdvantageLabel> getAdvantageLabel(Integer id) throws NotFoundException;
+
     JobApply jobApply(Integer job_id, Integer user_id) throws NotFoundException, ClientException;
 
     List<JobApply> getJobApplies(Integer user_id) throws NotFoundException;
