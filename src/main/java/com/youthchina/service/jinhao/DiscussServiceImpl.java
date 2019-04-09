@@ -22,7 +22,7 @@ public class DiscussServiceImpl implements DiscussService{
     public List<Discuss> getDiscusses(Integer id) throws NotFoundException {
         List<Discuss> discusses = discussMapper.getDiscusses(id);
         if(discusses.size() == 0){
-            throw new NotFoundException(404,404,"该评论没有讨论");
+            throw new NotFoundException(4040,404,"该评论没有讨论");//todo
         }
         return discusses;
     }
@@ -35,7 +35,7 @@ public class DiscussServiceImpl implements DiscussService{
     @Override
     public void isDiscussExist(Integer id) throws NotFoundException {
         if(discussMapper.checkIfDiscussExist(id) == null){
-            throw new NotFoundException(404,404,"没有找到这个讨论");
+            throw new NotFoundException(4040,404,"没有找到这个讨论");//todo
         }
     }
 

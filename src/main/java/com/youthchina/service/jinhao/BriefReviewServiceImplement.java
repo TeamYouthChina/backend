@@ -28,7 +28,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public BriefReview get(Integer id) throws NotFoundException {
         BriefReview briefReview = briefReviewMapper.get(id);
         if(briefReview == null){
-            throw new NotFoundException(404,404,"没有找到这个短评");
+            throw new NotFoundException(4040,404,"没有找到这个短评");//todo
         }
         richTextService.getComRichText(briefReview);
         List<Comment> comments = commentService.getComments(briefReview);
@@ -83,7 +83,7 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     @Override
     public void isBriefReviewExist(Integer id) throws NotFoundException {
         if(briefReviewMapper.checkIfBriefReviewExist(id) == null){
-            throw new NotFoundException(404,404,"没有找到这个短评");
+            throw new NotFoundException(4040,404,"没有找到这个短评");//todo
         }
     }
 

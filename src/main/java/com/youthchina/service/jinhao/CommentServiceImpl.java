@@ -111,7 +111,7 @@ public class CommentServiceImpl implements CommentService {
     public Comment get(Integer id) throws NotFoundException {
         Comment comment = commentMapper.get(id);
         if (comment == null) {
-            throw new NotFoundException(404, 404, "没有找到这个评论");
+            throw new NotFoundException(4040, 404, "没有找到这个评论");//todo
         }
         return comment;
     }

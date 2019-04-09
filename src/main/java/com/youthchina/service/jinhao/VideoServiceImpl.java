@@ -22,7 +22,7 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void isVideoExist(Integer id) throws NotFoundException {
         if(videoMapper.checkIfVideoExist(id) == null){
-            throw new NotFoundException(404,404,"该视频不存在");
+            throw new NotFoundException(4040,404,"该视频不存在");//todo
         }
     }
 
@@ -36,7 +36,7 @@ public class VideoServiceImpl implements VideoService {
     public Video get(Integer id) throws NotFoundException {
         Video video = videoMapper.get(id);
         if(video == null){
-            throw new NotFoundException(404,404,"这个视频不存在");
+            throw new NotFoundException(4040,404,"这个视频不存在");//todo
         }
         commentService.getComments(video);
         return video;
@@ -55,7 +55,7 @@ public class VideoServiceImpl implements VideoService {
             }
         }
         if(videos.size() == 0){
-            throw new NotFoundException(404,404,"没有找到这些视频");
+            throw new NotFoundException(4040,404,"没有找到这些视频");//todo
         }
         return videos;
     }
