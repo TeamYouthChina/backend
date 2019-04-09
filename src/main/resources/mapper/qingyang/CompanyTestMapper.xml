@@ -99,7 +99,7 @@
             <result property="indLevel" column="IND_LEVEL"/>
             <result property="indParentCode" column="IND_PARENT_CODE"/>
             <result property="startTime" column="START_TIME"/>
-            <result property="companyId" column="COMPANY_ID"/>
+            <!--<result property="companyId" column="COMPANY_ID"/>-->
         </collection>
         <collection property="verificationList" ofType="com.youthchina.domain.qingyang.CompanyVerification">
             <id property="verifyId" column="VERIFY_ID"/>
@@ -118,7 +118,7 @@
             <id property="photoId" column="PHOTO_ID"/>
             <result property="docuLocalId" column="PHOTO_DOCU_LOCAL_ID"/>
             <result property="uploadTime" column="PHOTO_UPLOAD_TIME"/>
-            <result property="companyId" column="COMPANY_ID"/>
+            <!--<result property="companyId" column="COMPANY_ID"/>-->
         </collection>
     </resultMap>
 
@@ -385,7 +385,7 @@
     </insert>
 
     <!--insert Company's Logos By Company's List of Logos-->
-    <insert id="insertCompanyPhoto" useGeneratedKeys="true" keyProperty="logoId">
+    <insert id="insertCompanyPhoto" useGeneratedKeys="true" keyProperty="photoId">
         INSERT INTO COMPANY_PHOTO
         ( DOCU_LOCAL_ID, PHOTO_UPLOAD_TIME, COMPANY_ID, IS_DELETE, IS_DELETE_TIME)
         VALUES
