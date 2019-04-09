@@ -2,6 +2,7 @@ package com.youthchina.service.tianjian;
 
 import com.youthchina.domain.tianjian.ComFriendGroup;
 import com.youthchina.domain.tianjian.ComFriendRelation;
+import com.youthchina.exception.zhongyang.NotFoundException;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface FriendsService {
      * parameter ComFriendRelation comfriendrelation, Integer own_id
      * return 0 or 1;
      * */
-    public int deleteFriend(ComFriendRelation comFriendRelation);
+    public void deleteFriend(ComFriendRelation comFriendRelation) throws NotFoundException;
 
     /*
      * 通过id获取他的所有好友关系

@@ -4,38 +4,48 @@ import com.youthchina.dao.tianjian.CommunityMapper;
 import com.youthchina.domain.tianjian.ComFriendGroup;
 import com.youthchina.domain.tianjian.ComFriendGroupMap;
 import com.youthchina.domain.tianjian.ComFriendRelation;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import java.util.Iterator;
 import java.util.List;
 
 @Service("friendsService")
 @Transactional
 public class FriendsServiceImpl implements FriendsService {
-    @Autowired
+    @Resource
     CommunityMapper friendsMapper;
 
     @Override
     public int saveFriend(ComFriendRelation comFriendRelation) {
         friendsMapper.saveFriendsRelation(comFriendRelation);
-
         ComFriendRelation comFriendRelation1 = new ComFriendRelation();
-        comFriendRelation1.setAddTime(comFriendRelation.getAddTime());
-        comFriendRelation1.setIsDelete(0);
         comFriendRelation1.setUserId(comFriendRelation.getFriendId());
         comFriendRelation1.setFriendId(comFriendRelation.getUserId());
         return friendsMapper.saveFriendsRelation(comFriendRelation1);
     }
 
     @Override
-    public int deleteFriend(ComFriendRelation comFriendRelation) {
+    public void deleteFriend(ComFriendRelation comFriendRelation) throws NotFoundException {
+        List<ComFriendRelation> comFriendRelations = friendsMapper.getFriend(comFriendRelation.getUserId());
+        boolean flag = false;
+        Iterator it = comFriendRelations.iterator();
+        while(it.hasNext()){
+            ComFriendRelation comFriendRelation1 = (ComFriendRelation) it.next();
+            if(comFriendRelation1.getFriendId()==comFriendRelation.getFriendId()&&comFriendRelation1.getUserId()==comFriendRelation.getUserId())
+                flag = true;
+        }
+        if (flag==false)
+            throw new NotFoundException(404, 404, "this relation is not exist");//todo
         ComFriendRelation comFriendRelationAnother = new ComFriendRelation();
         comFriendRelationAnother.setUserId(comFriendRelation.getFriendId());
         comFriendRelationAnother.setIsDeleteTime(comFriendRelation.getIsDeleteTime());
         comFriendRelationAnother.setFriendId(comFriendRelation.getUserId());
         friendsMapper.deleteFriend(comFriendRelation);
-        return friendsMapper.deleteFriend(comFriendRelationAnother);
+        friendsMapper.deleteFriend(comFriendRelationAnother);
     }
 
     @Override
@@ -44,11 +54,11 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
-    public int saveFriendGroup(ComFriendGroup comFriendGroup, Integer rela_Id) {
+    public int saveFriendGroup(ComFriendGroup comFriendGroup, Integer relaId) {
         friendsMapper.saveFriendGroup(comFriendGroup);
         ComFriendGroupMap cfgm = new ComFriendGroupMap();
-        cfgm.setGroup_id(comFriendGroup.getGroup_id());
-        cfgm.setRela_id(rela_Id);
+        cfgm.setGroupId(comFriendGroup.getGroupId());
+        cfgm.setRelaId(relaId);
         return friendsMapper.saveFriendGroupMap(cfgm);
     }
 

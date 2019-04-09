@@ -41,9 +41,9 @@ public interface CommunityMapper {
 
     int saveFriendGroupMap(ComFriendGroupMap cfgm);
 
-    int updateFriendGroup(@Param("comFriendGroup") ComFriendGroup comFriendGroup, @Param("rela_id") Integer rela_id);
+    int updateFriendGroup(@Param("comFriendGroup") ComFriendGroup comFriendGroup, @Param("relaId") Integer rela_id);
 
     List<ComFriendGroup> getFriendGroup(List<ComFriendRelation> comFriendRelation);
 
-    List<ComEssay> getAllEssayUserAttention(@Param("user_id") Integer user_id);
+    List<ComEssay> getAllEssayUserAttention(@Param("userId") Integer user_id);
 }

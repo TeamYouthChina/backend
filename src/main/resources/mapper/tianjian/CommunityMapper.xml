@@ -13,6 +13,14 @@
         <association property="user" javaType="com.youthchina.domain.zhongyang.User"
                      resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
     </resultMap>
+    <resultMap id="friendrelationresult" type="com.youthchina.domain.tianjian.ComFriendRelation">
+        <id property="relaId" column="RELA_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="addTime" column="ADD_TIME"/>
+        <result property="isDelete" column="IS_DELETE"/>
+        <result property="isDeleteTime" column="IS_DELETE_TIME"/>
+        <result property="friendId" column="FRIEND_ID"/>
+    </resultMap>
     <!--    发布文章 -->
     <insert id="addEssay" parameterType="com.youthchina.domain.tianjian.ComEssay" useGeneratedKeys="true"
             keyProperty="id">
@@ -52,9 +60,9 @@
 
     <!--    添加好友关系 -->
     <insert id="saveFriendsRelation" parameterType="com.youthchina.domain.tianjian.ComFriendRelation"
-            useGeneratedKeys="true" keyProperty="rela_id">
-    INSERT INTO COM_FRIEND_RELATION  (USER_ID, ADD_TIME, IS_DELETE, IS_DELETE_TIME,FRIEND_ID)
-    values(#{userId},#{addTime},#{isDelete},#{isDeleteTime},#{friendId})
+            useGeneratedKeys="true" keyProperty="relaId">
+    INSERT INTO COM_FRIEND_RELATION  (USER_ID, ADD_TIME, IS_DELETE, FRIEND_ID)
+    values(#{userId},now(),0,#{friendId})
     </insert>
 
 
@@ -69,30 +77,30 @@
     </update>
 
     <!--    根据user_id查询好友关系 -->
-    <select id="getFriend" resultType="com.youthchina.domain.tianjian.ComFriendRelation">
-   		select t1.* from COM_FRIEND_RELATION t1 where t1.USER_ID = #{userId}
+    <select id="getFriend" resultMap="friendrelationresult">
+   		select * from COM_FRIEND_RELATION where USER_ID = #{userId} and IS_DELETE = 0
    </select>
 
     <!--    添加好友分组 -->
     <insert id="saveFriendGroup" parameterType="com.youthchina.domain.tianjian.ComFriendGroup">
     INSERT INTO COM_FRIEND_GROUP  (GROUP_NUM, GROUP_NAME, ADD_TIME, IS_DELETE, IS_DELETE_TIME)
-    values(#{group_num},#{group_name},#{add_time},#{isDelete},#{is_delete_time})
+    values(#{groupNum},#{groupName},#{addTime},#{isDelete},#{isDeleteTime})
     </insert>
 
     <!--    添加好友分组映射 -->
     <insert id="saveFriendGroupMap" parameterType="com.youthchina.domain.tianjian.ComFriendGroupMap">
     INSERT INTO COM_FRIEND_GROUP_MAP  (GROUP_ID, RELA_ID)
-    values(#{group_id},#{rela_id})
+    values(#{groupId},#{relaId})
     </insert>
 
     <!--    更新好友分组 -->
     <update id="updateFriendGroup">
     update COM_FRIEND_GROUP t1, COM_FRIEND_GROUP_MAP t2
     set
-         t1.GROUP_NUM = #{comFriendGroup.group_num},
-         t1.GROUP_NAME = #{comFriendGroup.group_name}
+         t1.GROUP_NUM = #{comFriendGroup.groupNum},
+         t1.GROUP_NAME = #{comFriendGroup.groupName}
     where
-         t1.GROUP_ID = t2.GROUP_ID and t2.RELA_ID = #{rela_id}
+         t1.GROUP_ID = t2.GROUP_ID and t2.RELA_ID = #{relaId}
     </update>
 
     <!--    根据个人关系的List查询所有好友分组 -->
@@ -101,7 +109,7 @@
         from COM_FRIEND_GROUP t1, COM_FRIEND_GROUP_MAP t2
         where t2.RELA_ID in
         <foreach collection="list" item="valueList" open="(" close=")" separator=",">
-            #{valueList.rela_id}
+            #{valueList.relaId}
         </foreach>
         and
         t1.GROUP_ID = t2.GROUP_ID
@@ -109,7 +117,7 @@
     <select id="getAllEssayUserAttention" resultType="com.youthchina.domain.tianjian.ComEssay">
         select t1.*
         from COM_ESSAY t1, COM_ESSAY_ATTENTION t2, COM_ESSAY_ATTENTION_MAP t3
-        where t1.ESSAY_ID = t3.ESSAY_ID and t3.ATTEN_ID = t2.ATTEN_ID and t2.USER_ID = #{user_id}
+        where t1.ESSAY_ID = t3.ESSAY_ID and t3.ATTEN_ID = t2.ATTEN_ID and t2.USER_ID = #{userId}
     </select>
     <select id="getEssayList" resultType="com.youthchina.domain.tianjian.ComEssay">
          select * from COM_ESSAY t

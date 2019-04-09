@@ -3,58 +3,58 @@ package com.youthchina.domain.tianjian;
 import java.sql.Timestamp;
 
 public class ComFriendGroup {
-    private Integer group_id;
-    private Integer group_num;
-    private String group_name;
-    private Timestamp add_time;
-    private Integer is_delete;
-    private Timestamp is_delete_time;
+    private Integer groupId;
+    private Integer groupNum;
+    private String groupName;
+    private Timestamp addTime;
+    private Integer isDelete;
+    private Timestamp isDeleteTime;
 
-    public Integer getGroup_id() {
-        return group_id;
+    public Integer getGroupId() {
+        return groupId;
     }
 
-    public void setGroup_id(Integer group_id) {
-        this.group_id = group_id;
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
     }
 
-    public Integer getGroup_num() {
-        return group_num;
+    public Integer getGroupNum() {
+        return groupNum;
     }
 
-    public void setGroup_num(Integer group_num) {
-        this.group_num = group_num;
+    public void setGroupNum(Integer groupNum) {
+        this.groupNum = groupNum;
     }
 
-    public String getGroup_name() {
-        return group_name;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setGroup_name(String group_name) {
-        this.group_name = group_name;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
-    public Timestamp getAdd_time() {
-        return add_time;
+    public Timestamp getAddTime() {
+        return addTime;
     }
 
-    public void setAdd_time(Timestamp add_time) {
-        this.add_time = add_time;
+    public void setAddTime(Timestamp addTime) {
+        this.addTime = addTime;
     }
 
-    public Integer getIs_delete() {
-        return is_delete;
+    public Integer getIsDelete() {
+        return isDelete;
     }
 
-    public void setIs_delete(Integer is_delete) {
-        this.is_delete = is_delete;
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
-    public Timestamp getIs_delete_time() {
-        return is_delete_time;
+    public Timestamp getIsDeleteTime() {
+        return isDeleteTime;
     }
 
-    public void setIs_delete_time(Timestamp is_delete_time) {
-        this.is_delete_time = is_delete_time;
+    public void setIsDeleteTime(Timestamp isDeleteTime) {
+        this.isDeleteTime = isDeleteTime;
     }
 }
