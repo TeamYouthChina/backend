@@ -33,7 +33,7 @@ public class AnswerServiceImpl implements AnswerService{
     public void isAnswerExist(Integer id) throws NotFoundException{
         Integer cur = answerMapper.checkIfAnswerExist(id);
         if(cur == null){
-            throw new NotFoundException(404,404,"该问题不存在");
+            throw new NotFoundException(4040,404,"该问题不存在");//todo
         }
     }
 
@@ -47,7 +47,7 @@ public class AnswerServiceImpl implements AnswerService{
     public Answer get(Integer id) throws NotFoundException {
         Answer answer = answerMapper.get(id);
         if(answer == null){
-            throw new NotFoundException(404,404,"没有找到这个回答");
+            throw new NotFoundException(4040,404,"没有找到这个回答");//todo
         }
         answer.setUser(userService.get(answer.getUser().getId()));
         richTextService.getComRichText(answer);

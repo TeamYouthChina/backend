@@ -32,7 +32,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void isQuestionExist(Integer id) throws NotFoundException{
         if(questionMapper.checkIfQuestionExist(id) == null){
-            throw new NotFoundException(404,404,"The question does not exist");
+            throw new NotFoundException(4040,404,"The question does not exist");
         }
 
     }
@@ -57,7 +57,7 @@ public class QuestionServiceImpl implements QuestionService {
     public Question get(Integer id) throws NotFoundException {
         Question question = questionMapper.get(id);
         if(question == null){
-            throw new NotFoundException(404,404,"没有找到这个问题");//todo
+            throw new NotFoundException(4040,404,"没有找到这个问题");//todo
         }
         question.setUser(userService.get(question.getUser().getId()));
         richTextService.getComRichText(question);
