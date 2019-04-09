@@ -511,6 +511,18 @@
         WHERE a.JOB_ID=#{param1} AND a.STU_ID=#{param2} AND a.IS_DELETE=0;
     </select>
 
+    <select id="getJobCollectById" resultType="com.youthchina.domain.Qinghong.JobCollect">
+        SELECT a.*
+        FROM STU_JOB_COLLECT a
+        WHERE a.COLLECT_ID=#{id} AND a.IS_DELETE=0;
+    </select>
+
+    <select id="getCompCollectById" resultType="com.youthchina.domain.Qinghong.CompCollect">
+        SELECT a.*
+        FROM STU_COMP_COLLECT a
+        WHERE a.COLLECT_ID=#{id} AND a.IS_DELETE=0;
+    </select>
+
     <!--获取一个公司收藏-->
     <select id="getOneCompCollect" resultType="com.youthchina.domain.Qinghong.CompCollect">
         SELECT a.*
@@ -533,9 +545,10 @@
 
     </select>
 
-    <select id="getAdvantageLabelById" resultType="com.youthchina.domain.Qinghong.AdvantageLabel">
-        SELECT a.*
+    <select id="getAdvantageLabelById" resultMap="getSkills">
+        SELECT a.*,o.*
         FROM STU_ADVAN_LABEL a
+        LEFT JOIN SYS_ADVAN_LABEL_CLASS o ON o.LABEL_CODE=a.LABEL_CODE AND o.IS_DELETE=0
         WHERE a.LABEL_ID=#{label_id} AND a.IS_DELETE=0;
     </select>
 
