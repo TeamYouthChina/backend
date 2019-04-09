@@ -22,6 +22,52 @@ public class Video implements Commentable, Evaluatable, Attentionable {
     private static final Integer commentTargetType = 3;
     private static final Integer evaluateTargetType = 4;
     private static final Integer attentionTargetType = 4;
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer isAttention;
+    private Integer evaluateStatus;
+    private Integer attentionCount;
+
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
+
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
+
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getIsAttention() {
+        return isAttention;
+    }
+
+    public void setIsAttention(Integer isAttention) {
+        this.isAttention = isAttention;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
+    }
+
+    public Integer getAttentionCount() {
+        return attentionCount;
+    }
+
+    public void setAttentionCount(Integer attentionCount) {
+        this.attentionCount = attentionCount;
+    }
+
     @Override
     public Integer getEvaluateTargetType() {
         return evaluateTargetType;

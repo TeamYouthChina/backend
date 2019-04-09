@@ -5,6 +5,31 @@ Content-Type: application/json;utf-8
 
 ###
 
+GET http://zzc-tongji.com/dfsf
+Content-Type: application/json;utf-8
+
+{ "id": 10, "password":"123456" }
+
+<> 2019-04-07T012637.200.html
+
+###
+
+GET http://zzc-tongji.com/
+Content-Type: application/json;utf-8
+
+{ "id": 10, "password":"123456" }
+
+<> 2019-04-07T012628.200.html
+
+###
+
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json;utf-8
+
+{ "id": 10, "password":"123456" }
+
+###
+
 POST http://47.252.87.218:8080/api/v1/login
 Content-Type: application/json;utf-8
 

@@ -2,7 +2,6 @@ package com.youthchina.dto.community.video;
 
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.Video;
-import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.security.UserDTO;
 
@@ -10,11 +9,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class VideoResponseDTO implements ResponseDTO<Video> {
+public class VideoResponseDTO {
     private Integer id;
     private String url;
     private List<CommentDTO> comments = new ArrayList<CommentDTO>();
     private UserDTO uploader;
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer attentionCount;
+    private boolean isAttention;
+    private Integer evaluateStatus;
 
     public VideoResponseDTO(){}
 
@@ -63,17 +67,43 @@ public class VideoResponseDTO implements ResponseDTO<Video> {
         this.uploader = uploader;
     }
 
-    @Override
-    public void convertToDTO(Video video) {
-        this.id = video.getId();
-        if(video.getComments() != null){
-            Iterator it = video.getComments().iterator();
-            while(it.hasNext()){
-                CommentDTO commentDTO = new CommentDTO((Comment)it.next());
-                this.comments.add(commentDTO);
-            }
-        }
-        this.uploader = new UserDTO(video.getUser());
-        this.url = video.getName();
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
+
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
+
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getAttentionCount() {
+        return attentionCount;
+    }
+
+    public void setAttentionCount(Integer attentionCount) {
+        this.attentionCount = attentionCount;
+    }
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
     }
 }

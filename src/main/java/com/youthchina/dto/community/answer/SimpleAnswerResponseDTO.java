@@ -6,7 +6,7 @@ import com.youthchina.dto.community.question.QuestionBasicDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextResponseDTO;
 
-public class SimpleAnswerResponseDTO implements ResponseDTO<Answer>{
+public class SimpleAnswerResponseDTO implements ResponseDTO<Answer> {
     private RichTextResponseDTO body;
     private boolean is_anonymous;
     private UserDTO creator;
@@ -14,10 +14,15 @@ public class SimpleAnswerResponseDTO implements ResponseDTO<Answer>{
     private String create_at;
     private QuestionBasicDTO question;
     private Integer id;
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer attentionCount;
+    private boolean isAttention;
+    private Integer evaluateStatus;
 
     public SimpleAnswerResponseDTO(){}
 
-    public SimpleAnswerResponseDTO(Answer answer)  {
+    public SimpleAnswerResponseDTO(Answer answer){
         RichTextResponseDTO richt = new RichTextResponseDTO(answer.getBody());
         this.body = richt;
         this.id = answer.getId();
@@ -82,6 +87,50 @@ public class SimpleAnswerResponseDTO implements ResponseDTO<Answer>{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public boolean isIs_anonymous() {
+        return is_anonymous;
+    }
+
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
+
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
+
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getAttentionCount() {
+        return attentionCount;
+    }
+
+    public void setAttentionCount(Integer attentionCount) {
+        this.attentionCount = attentionCount;
+    }
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
     }
 
     @Override

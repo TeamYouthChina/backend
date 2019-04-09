@@ -52,8 +52,12 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     }
 
     @GetMapping("/{id}/**")
-    public ResponseEntity<?> getStudent(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity<?> getStudent(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         Student student = studentService.get(id);
+        student.setId(user.getId());
+        student.setIsInJob(user.isHired());
+        student.setUsername(user.getUsername());
+        student.setAvatarUrl(user.getAvatarUrl());
         return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student)));
     }
 
@@ -76,62 +80,92 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         return delete(id);
     }
 
-    @GetMapping("/{id}/contacts")
-    public ResponseEntity<?> getApplicantsContacts(@PathVariable Integer id) throws NotFoundException {
-        Student student = studentService.get(id);
-        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getContacts()));
-    }
+//    @GetMapping("/{id}/contacts")
+//    public ResponseEntity<?> getApplicantsContacts(@PathVariable Integer id) throws NotFoundException {
+//        Student student = studentService.get(id);
+//        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getContacts()));
+//    }
 
     @GetMapping("/{id}/educations")
     public ResponseEntity<?> getApplicantsEducations(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
-        Student student = studentService.get(id);
-        List<EducationResponseDTO> dtos = new ApplicantResponseDTO(student).getEducations();
+        List<EducationInfo> educationInfos=studentService.getEducations(id);
+        List<EducationResponseDTO> dtos=new ArrayList<>();
+        if(educationInfos!=null&&educationInfos.size()!=0){
+            for(EducationInfo educationInfo:educationInfos){
+                EducationResponseDTO educationResponseDTO=new EducationResponseDTO(educationInfo);
+                dtos.add(educationResponseDTO);
+            }
+        }
         List<EducationResponseDTO> result =dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
-        ListResponse listResponse = new ListResponse(pageRequest, student.getEducationInfos().size(),result);
+        ListResponse listResponse = new ListResponse(pageRequest, educationInfos.size(),result);
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/projects")
     public ResponseEntity<?> getApplicantsProjects(@PathVariable Integer id,PageRequest pageRequest) throws NotFoundException {
-        Student student = studentService.get(id);
-        List<ProjectResponseDTO> dtos=new ApplicantResponseDTO(student).getProjects();
+        List<Project> projects=studentService.getProjects(id);
+        List<ProjectResponseDTO> dtos=new ArrayList<>();
+        if(projects!=null&&projects.size()!=0){
+            for(Project project:projects){
+                ProjectResponseDTO projectResponseDTO=new ProjectResponseDTO(project);
+                dtos.add(projectResponseDTO);
+            }
+        }
         List<ProjectResponseDTO> result =dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
-        ListResponse listResponse = new ListResponse(pageRequest, student.getEducationInfos().size(),result);
+        ListResponse listResponse = new ListResponse(pageRequest, projects.size(),result);
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/experiences")
     public ResponseEntity<?> getApplicantsExperiences(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
-        Student student = studentService.get(id);
-        List<WorkResponseDTO> dtos=new ApplicantResponseDTO(student).getExperiences();
+        List<Work> works=studentService.getWorks(id);
+        List<WorkResponseDTO> dtos=new ArrayList<>();
+        if(works!=null&&works.size()!=0){
+            for(Work work:works){
+                WorkResponseDTO workResponseDTO=new WorkResponseDTO(work);
+                dtos.add(workResponseDTO);
+            }
+        }
         List<WorkResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
-        ListResponse listResponse = new ListResponse(pageRequest, student.getWorks().size(), result);
+        ListResponse listResponse = new ListResponse(pageRequest, works.size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/certificates")
     public ResponseEntity<?> getApplicantsCertificates(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
-        Student student = studentService.get(id);
-        List<CertificateResponseDTO> dtos=new ApplicantResponseDTO(student).getCertifications();
+        List<Certificate> certificates=studentService.getCertificates(id);
+        List<CertificateResponseDTO> dtos=new ArrayList<>();
+        if(certificates!=null&&certificates.size()!=0){
+            for(Certificate certificate:certificates){
+                CertificateResponseDTO certificateResponseDTO=new CertificateResponseDTO(certificate);
+                dtos.add(certificateResponseDTO);
+            }
+        }
         List<CertificateResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
-        ListResponse listResponse = new ListResponse(pageRequest, student.getCertificates().size(), result);
+        ListResponse listResponse = new ListResponse(pageRequest, certificates.size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/extracurriculars")
     public ResponseEntity<?> getApplicantsExtracurriculars(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
-        Student student = studentService.get(id);
-        List<ExtracurricularResponseDTO> dtos=new ApplicantResponseDTO(student).getExtracurriculars();
+        List<Activity> activities=studentService.getActivities(id);
+        List<ExtracurricularResponseDTO> dtos=new ArrayList<>();
+        if(activities!=null&&activities.size()!=0){
+            for(Activity activity:activities){
+                ExtracurricularResponseDTO extracurricularResponseDTO=new ExtracurricularResponseDTO(activity);
+                dtos.add(extracurricularResponseDTO);
+            }
+        }
         List<ExtracurricularResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
-        ListResponse listResponse = new ListResponse(pageRequest, student.getActivities().size(), result);
+        ListResponse listResponse = new ListResponse(pageRequest, activities.size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
-    @GetMapping("/{id}/skills")
-    public ResponseEntity<?> getApplicantsSkills(@PathVariable Integer id) throws NotFoundException {
-        Student student = studentService.get(id);
-        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getSkills()));
-    }
+//    @GetMapping("/{id}/skills")
+//    public ResponseEntity<?> getApplicantsSkills(@PathVariable Integer id) throws NotFoundException {
+//        Student student = studentService.get(id);
+//        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getSkills()));
+//    }
 
     @GetMapping("/skills/**")
     public ResponseEntity<?> getAllSkills() throws NotFoundException {

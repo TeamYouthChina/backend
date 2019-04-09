@@ -17,6 +17,11 @@ public class EssayResponseDTO implements ResponseDTO<ComEssay> {
     private UserDTO author;
     private RichTextResponseDTO body;
     private boolean is_anonymous;
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer attentionCount;
+    private boolean isAttention;
+    private Integer evaluateStatus;
 
     public EssayResponseDTO(ComEssay comEssay) {
         this.id = comEssay.getId();
@@ -95,13 +100,53 @@ public class EssayResponseDTO implements ResponseDTO<ComEssay> {
         this.is_anonymous = is_anonymous;
     }
 
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
+
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
+
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getAttentionCount() {
+        return attentionCount;
+    }
+
+    public void setAttentionCount(Integer attentionCount) {
+        this.attentionCount = attentionCount;
+    }
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
+    }
+
     @Override
     public void convertToDTO(ComEssay comEssay) {
         this.id = comEssay.getId();
         this.title = comEssay.getTitle();
         this.create_at = comEssay.getPubTime();
         this.modified_at = comEssay.getEditTime();
-        this.is_anonymous = comEssay.getIsAnony() != 0;
+        this.is_anonymous = (comEssay.getIsAnony() == 0) ? false : true;
         this.author = new UserDTO(comEssay.getUser());
         this.body = new RichTextResponseDTO(comEssay.getBody());
     }

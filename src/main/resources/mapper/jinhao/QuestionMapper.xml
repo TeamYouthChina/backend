@@ -37,4 +37,10 @@
     <select id="count" resultType="java.lang.Integer">
         select count(QUES_ID) from COM_QUESTION where IS_DELETE=0
     </select>
+    <select id="getListQuestions" resultMap="question">
+       select q.*,u.* from COM_QUESTION q
+        left join SYS_USER u on u.USER_ID=q.USER_ID and u.IS_DELETE=0
+        where q.IS_DELETE=0 and q.RELA_ID=#{relaId} and q.RELA_TYPE = #{relaType}
+    </select>
+
 </mapper>

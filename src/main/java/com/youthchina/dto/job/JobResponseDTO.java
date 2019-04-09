@@ -66,8 +66,8 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         }
         int jobType = job.getJobType();
 
-        System.out.println("Get jobType:");
-        System.out.println(jobType);
+//        System.out.println("Get jobType:");
+//        System.out.println(jobType);
 
         if (jobType == 1) {
             this.type = "实习";
