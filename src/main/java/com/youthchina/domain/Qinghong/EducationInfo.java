@@ -11,7 +11,7 @@ public class EducationInfo {
     private com.youthchina.domain.qingyang.Degree degree;
     private University university;
 //    private Location location;
-    private String edu_major;
+    private Major major;
     private String edu_college;
     private Float edu_gpa;
     private Diploma diploma;
@@ -25,7 +25,8 @@ public class EducationInfo {
         this.edu_id=educationRequestDTO.getId();
         this.university=new University();
         university.setUnivers_id(educationRequestDTO.getUniversity_id());
-        this.edu_major= educationRequestDTO.getMajor();
+        this.major=new Major();
+        major.setMajor_code(educationRequestDTO.getMajor());
         this.degree=new Degree();
         this.degree.setDegreeNum(Integer.parseInt(educationRequestDTO.getDegree()));
         this.edu_start= educationRequestDTO.getDuration().getBegin();
@@ -68,12 +69,13 @@ public class EducationInfo {
 //        this.location = location;
 //    }
 
-    public String getEdu_major() {
-        return edu_major;
+
+    public Major getMajor() {
+        return major;
     }
 
-    public void setEdu_major(String edu_major) {
-        this.edu_major = edu_major;
+    public void setMajor(Major major) {
+        this.major = major;
     }
 
     public String getEdu_college() {

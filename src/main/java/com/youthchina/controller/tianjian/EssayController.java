@@ -12,7 +12,6 @@ import com.youthchina.dto.community.article.EssayRequestDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
-import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.NotFoundException;

@@ -7,23 +7,23 @@
         <result property="isAnony" column="USER_ANONY"/>
         <result property="pubTime" column="COMMENT_PUB_TIME"/>
         <result property="editTime" column="COMMENT_EDIT_TIME"/>
-        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
-                     resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User">
+            <constructor>
+                <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            </constructor>
+        </association>
     </resultMap>
 
     <select id="getComments" resultMap="comment">
-        select u.*,c.* from COM_COMMENT c
-        left join SYS_USER u on u.USER_ID = c.USER_ID and u.IS_DELETE=0
+        select c.* from COM_COMMENT c
         where c.TARGET_TYPE=#{targetType} and c.TARGET_ID=#{targetId} and c.IS_DELETE=0
     </select>
     <select id="getLimitedComments" resultMap="comment">
-        select u.*,c.* from COM_COMMENT c
-                                left join SYS_USER u on u.USER_ID = c.USER_ID and u.IS_DELETE=0
+        select c.* from COM_COMMENT c
         where c.TARGET_TYPE=#{targetType} and c.TARGET_ID=#{targetId} and c.IS_DELETE=0 limit #{start}, #{rows}
     </select>
     <select id="get" resultMap="comment">
-        select u.*,c.* from COM_COMMENT c
-        left join SYS_USER u on u.USER_ID = c.USER_ID and u.IS_DELETE=0
+        select c.* from COM_COMMENT c
         where c.COMMENT_ID=#{id} and c.IS_DELETE=0
     </select>
 

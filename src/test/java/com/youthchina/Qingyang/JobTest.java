@@ -1,5 +1,6 @@
 package com.youthchina.Qingyang;
 
+
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.qingyang.CompanyMapper;
@@ -23,7 +24,6 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

@@ -76,7 +76,7 @@ public class StudentProfileController {
         ;
     }
     /**
-    * @Description: 分页已完成测试，major还未决定
+    * @Description: 分页已完成测试
     * @Param: []
     * @return: void
     * @Author: Qinghong Wang
@@ -86,7 +86,7 @@ public class StudentProfileController {
     @Test
     public void testGetEducations() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/10/educations?limit=0&offset=1")
+                get(this.urlPrefix + "/applicants/10/educations?limit=1&offset=0")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
@@ -105,9 +105,8 @@ public class StudentProfileController {
     public void testInsertEducation() throws Exception{
         EducationRequestDTO educationDTO=new EducationRequestDTO();
         educationDTO.setUniversity_id(10001);
-        educationDTO.setMajor("cs");
+        educationDTO.setMajor("10101");
         educationDTO.setDegree("2");
-
         String begin="2018-10-09";
         String end="2018-12-09";
         DurationDTO durationDTO=new DurationDTO(begin,end);
@@ -141,7 +140,7 @@ public class StudentProfileController {
         EducationRequestDTO educationDTO=new EducationRequestDTO();
         educationDTO.setId(1);
         educationDTO.setUniversity_id(10001);
-        educationDTO.setMajor("law");
+        educationDTO.setMajor("10101");
         educationDTO.setDegree("1");
         String begin="2014-10-07";
         String end="2018-10-07";
@@ -199,7 +198,7 @@ public class StudentProfileController {
     @Test
     public void testGetProjects() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/10/projects?limit=0&offset=0")
+                get(this.urlPrefix + "/applicants/10/projects?limit=1&offset=0")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
@@ -253,7 +252,7 @@ public class StudentProfileController {
         long end=2222222;
         DurationDTO durationDTO=new DurationDTO(begin,end);
         ProjectRequestDTO projectRequestDTO =new ProjectRequestDTO();
-        projectRequestDTO.setId(1);
+        projectRequestDTO.setId(6);
         projectRequestDTO.setName("做网站");
         projectRequestDTO.setRole("做网站");
         projectRequestDTO.setDuration(durationDTO);
@@ -264,7 +263,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 put
-                        (this.urlPrefix + "/applicants/10/projects/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/projects/5").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -362,7 +361,7 @@ public class StudentProfileController {
         locationDTO.setNation_code("CHN");
         locationDTO.setLocation_code("110000");
         WorkRequestDTO workRequestDTO =new WorkRequestDTO();
-        workRequestDTO.setId(1);
+        workRequestDTO.setId(6);
         workRequestDTO.setEmployer("amazon");
         workRequestDTO.setPosition("SDE");
         long begin=1111111;
@@ -376,7 +375,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 put
-                        (this.urlPrefix + "/applicants/10/experiences/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/experiences/6").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -474,7 +473,7 @@ public class StudentProfileController {
         certificateRequestDTO.setName("计算机证书");
         certificateRequestDTO.setAuthority("教育部");
         certificateRequestDTO.setDuration(durationDTO);
-        certificateRequestDTO.setCountry("CHN");
+        certificateRequestDTO.setCountry("111");
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -570,7 +569,7 @@ public class StudentProfileController {
         long end=2222222;
         DurationDTO durationDTO=new DurationDTO(begin,end);
         ExtracurricularRequestDTO extracurricularRequestDTO =new ExtracurricularRequestDTO();
-        extracurricularRequestDTO.setId(1);
+        extracurricularRequestDTO.setId(2);
         extracurricularRequestDTO.setName("volunteer");
         extracurricularRequestDTO.setRole("help students");
         extracurricularRequestDTO.setOrganization("儿童基金组织");
@@ -582,7 +581,7 @@ public class StudentProfileController {
         System.out.print(requestJson);
         this.mvc.perform(
                 put
-                        (this.urlPrefix + "/applicants/10/extracurriculars/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        (this.urlPrefix + "/applicants/10/extracurriculars/3").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -682,7 +681,7 @@ public class StudentProfileController {
     public void testUserAttentions() throws Exception{
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/6/attentions?type=question")
+                        (this.urlPrefix + "/users/1/attentions?type=question")
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )

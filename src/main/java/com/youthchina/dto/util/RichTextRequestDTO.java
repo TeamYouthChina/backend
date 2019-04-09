@@ -1,11 +1,8 @@
 package com.youthchina.dto.util;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComRichText;
-
-import java.util.Map;
 
 public class RichTextRequestDTO {
 

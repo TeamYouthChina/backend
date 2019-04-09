@@ -27,7 +27,10 @@ public class ExtracurricularResponseDTO implements ResponseDTO<Activity> {
             this.name = activity.getAct_name();
             this.role = activity.getAct_role();
             this.organization = activity.getAct_organization();
-            this.duration = new DurationDTO(activity.getAct_start_time(), activity.getAct_end_time());
+            if(activity.getAct_start_time()!=null||activity.getAct_end_time()!=null){
+                this.duration = new DurationDTO(activity.getAct_start_time(), activity.getAct_end_time());
+            }
+
         }
 
     }

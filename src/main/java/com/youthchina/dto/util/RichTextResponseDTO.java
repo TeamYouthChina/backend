@@ -15,9 +15,11 @@ public class RichTextResponseDTO {
     }
 
     public RichTextResponseDTO(ComRichText comRichText) {
-        this.braftEditorRaw = comRichText.getJsonContent();
-        this.previewText = comRichText.getTextContent();
-        this.compiletype = comRichText.getCompileType();
+        if(comRichText != null){
+            this.braftEditorRaw = comRichText.getJsonContent();
+            this.previewText = comRichText.getTextContent();
+            this.compiletype = comRichText.getCompileType();
+        }
     }
 
     public void setBraftEditorRaw(String braftEditorRaw) {

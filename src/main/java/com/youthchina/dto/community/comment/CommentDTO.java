@@ -1,23 +1,24 @@
 package com.youthchina.dto.community.comment;
 
 import com.youthchina.domain.jinhao.Comment;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 
 import java.sql.Timestamp;
 
 
-public class CommentDTO {
+public class CommentDTO implements ResponseDTO<Comment> {
     private Integer id;
     private UserDTO creator;
     private String body;
+    private Timestamp modified_at;
     private Timestamp create_at;
     private boolean is_anonymous;
-    private Timestamp modified_at;
     private Integer upvoteCount;
     private Integer downvoteCount;
     private Integer evaluateStatus;
 
-    public CommentDTO(Comment comment){
+    public CommentDTO(Comment comment) {
         this.id = comment.getId();
         if (comment.getIsAnony()==0)
             this.creator = new UserDTO(comment.getUser());
@@ -25,8 +26,16 @@ public class CommentDTO {
             this.creator = null;
         this.body = comment.getContent();
         this.create_at = comment.getPubTime();
-        this.is_anonymous = (comment.getIsAnony()==1)? true:false;
         this.modified_at = comment.getEditTime();
+        this.is_anonymous = (comment.getIsAnony() == 1) ? true : false;
+    }
+
+    public Timestamp getModified_at() {
+        return modified_at;
+    }
+
+    public void setModified_at(Timestamp modified_at) {
+        this.modified_at = modified_at;
     }
 
     public Integer getId() {
@@ -93,11 +102,12 @@ public class CommentDTO {
         this.evaluateStatus = evaluateStatus;
     }
 
-    public Timestamp getModified_at() {
-        return modified_at;
-    }
-
-    public void setModified_at(Timestamp modified_at) {
-        this.modified_at = modified_at;
+    @Override
+    public void convertToDTO(Comment comment) {
+        this.id = comment.getId();
+        this.creator = new UserDTO(comment.getUser());
+        this.body = comment.getContent();
+        this.create_at = comment.getPubTime();
+        this.is_anonymous = (comment.getIsAnony() == 1) ? true : false;
     }
 }

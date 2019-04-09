@@ -65,7 +65,8 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
 
     @PutMapping("/{id}")
     @ResponseBodyDTO(CompanyResponseDTO.class)
-    public ResponseEntity<?> updateCompanyInfo(@AuthenticationPrincipal User user, @RequestBodyDTO(CompanyRequestDTO.class) Company company) throws NotFoundException {
+    public ResponseEntity<?> updateCompanyInfo(@PathVariable Integer id, @AuthenticationPrincipal User user, @RequestBodyDTO(CompanyRequestDTO.class) Company company) throws NotFoundException {
+        company.setCompanyId(id);
         company.setUserId(user.getId());
         return update(company);
     }
@@ -81,11 +82,12 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCompany(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
-        this.companyService.delete(companyId);
-        if (detailLevel == 1) {
-            return ResponseEntity.ok(new Response());
-        }
-        throw new BaseException();
+//        this.companyService.delete(companyId);
+//        if (detailLevel == 1) {
+//            return ResponseEntity.ok(new Response());
+//        }
+//        throw new BaseException();
+        return delete(companyId);
     }
 
     /**

@@ -1,11 +1,23 @@
 package com.youthchina.controller.zhongyang;
 
+import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.domain.jinhao.BriefReview;
+import com.youthchina.domain.jinhao.Comment;
+import com.youthchina.domain.jinhao.Question;
+import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.SearchResult;
 import com.youthchina.domain.zhongyang.SearchResultItem;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.ResponseDTO;
+import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
+import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
+import com.youthchina.dto.community.comment.CommentDTO;
+import com.youthchina.dto.community.question.QuestionResponseDTO;
+import com.youthchina.dto.company.CompanyResponseDTO;
+import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.search.SearchResponseDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.BaseException;
@@ -37,7 +49,7 @@ public class SearchController {
 
 
     @GetMapping("/")
-    public ResponseEntity<ListResponse> search(@RequestParam(value = "type", defaultValue = "all") String type, @RequestParam(value = "title", defaultValue = "*") String title, @RequestParam(value = "text", defaultValue = "*") String body, PageRequest pageRequest) throws BaseException {
+    public ResponseEntity<ListResponse> search(@RequestParam(value = "type", defaultValue = "all") String type, @RequestParam(value = "title",required = false) String title, @RequestParam(value = "text",required = false) String body, PageRequest pageRequest) throws Exception {
         SearchResult searchResult = searchService.search(type, title, body, pageRequest.getStart(), pageRequest.getEnd());
         List<SearchResponseDTO> searchResultDtos = new ArrayList<>();
         for (SearchResultItem item : searchResult.getResult()) {
@@ -50,6 +62,24 @@ public class SearchController {
         switch (item.getType()) {
             case "article": {
                 return new EssayResponseDTO((ComEssay) item.getDomain());
+            }
+            case "question": {
+                return new QuestionResponseDTO((Question) item.getDomain());
+            }
+            case "answer": {
+                return new SimpleAnswerResponseDTO((Answer) item.getDomain());
+            }
+            case "job": {
+                return new JobResponseDTO((Job) item.getDomain());
+            }
+            case "company": {
+                return new CompanyResponseDTO((Company) item.getDomain());
+            }
+            case "briefReview": {
+                return new BriefReviewResponseDTO((BriefReview) item.getDomain());
+            }
+            case "comment": {
+                return new CommentDTO((Comment) item.getDomain());
             }
             default:
                 throw new BaseException(5000, 500, "no suitable converter found for search result");

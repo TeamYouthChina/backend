@@ -1,9 +1,9 @@
 package com.youthchina.service.jinhao;
 
 import com.youthchina.dao.jinhao.VideoMapper;
-import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.Video;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.zhongyang.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +18,9 @@ public class VideoServiceImpl implements VideoService {
 
     @Resource
     CommentService commentService;
+
+    @Resource
+    UserService userService;
 
     @Override
     public void isVideoExist(Integer id) throws NotFoundException {
@@ -38,24 +41,21 @@ public class VideoServiceImpl implements VideoService {
         if(video == null){
             throw new NotFoundException(404,404,"这个视频不存在");
         }
+        video.setUser(userService.get(video.getUser().getId()));
         commentService.getComments(video);
         return video;
     }
 
     @Override
     @Transactional
-    public List<Video> get(List<Integer> id) throws NotFoundException {
+    public List<Video> get(List<Integer> id) {
         List<Video> videos = new LinkedList<>();
-        for(Integer one : id){
-            Video video = videoMapper.get(one);
-            if(video != null){
-                List<Comment> comments = commentService.getComments(video);
-                video.setComments(comments);
-                videos.add(video);
+        for(Video video : videos){
+            try {
+                video.setUser(userService.get(video.getUser().getId()));
+            } catch (NotFoundException e) {
+
             }
-        }
-        if(videos.size() == 0){
-            throw new NotFoundException(404,404,"没有找到这些视频");
         }
         return videos;
     }

@@ -1,5 +1,6 @@
 package com.youthchina.service.Qinghong;
 
+/*
 import com.youthchina.dao.Qinghong.EmployerPageMapper;
 import com.youthchina.dao.Qinghong.InvitationMapper;
 import com.youthchina.domain.Qinghong.Candidate;
@@ -139,3 +140,4 @@ public class EmployerPageServiceImpl implements EmployerPageService {
         return invitationMapper.findInvitationMapper(id);
     }
 }
+*/
