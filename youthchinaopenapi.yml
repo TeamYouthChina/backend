@@ -177,7 +177,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -524,7 +524,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -798,7 +798,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -1063,7 +1063,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -1342,7 +1342,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -1616,7 +1616,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -1980,7 +1980,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -2306,7 +2306,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -2457,7 +2457,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -2742,7 +2742,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -2771,26 +2771,8 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        '201':
           description: upvote successfullly
-    delete:
-      tags:
-        - Answer
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-          '200':
-            description: delete upvote successfully
   '/answers/{id}/downvote':
     put:
       tags:
@@ -2808,26 +2790,8 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        '201':
           description: downvote successfullly
-    delete:
-      tags:
-        - Answer
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: delete downvote successfullly
   '/answers/{id}/attention':
     put:
       tags:
@@ -2930,6 +2894,13 @@ paths:
           description: not loged in
   '/login':
     post:
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
       tags:
         - Security
       requestBody:
@@ -3103,26 +3074,8 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        '201':
           description: upvote successfullly
-    delete:
-      tags:
-        - Article
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: delete upvote successfullly
   '/articles/{id}/downvote':
     put:
       tags:
@@ -3140,26 +3093,8 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        '201':
           description: downvote successfullly
-    delete:
-      tags:
-        - Article
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: delete downvote successfullly
   '/articles/{id}/comments':
     post:
       tags:
@@ -3236,7 +3171,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -3332,7 +3267,6 @@ paths:
                   description: company name
                 location:
                   $ref: '#/components/schemas/Location'
-                  description: company location
                 nation:
                   type: string
                   description: company nation
@@ -3535,7 +3469,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -3567,64 +3501,6 @@ paths:
       responses:
         '200':
           description: successful
-    delete:
-      tags:
-        - Video
-      parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: video id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: delete successful
-  '/videos/{id}/downvote':
-    put:
-      tags:
-        - Video
-      parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: video id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful
-    delete:
-      tags:
-        - Video
-      parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: video id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: delete successful
   '/videos/{id}/attention':
     put:
       tags:
@@ -3829,7 +3705,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -3861,25 +3737,6 @@ paths:
       responses:
         '200':
           description: successful
-    delete:
-      tags:
-        - Editorials
-      parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: editorials id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: delete successful
   '/editorials/{id}/downvote':
     put:
       tags:
@@ -3900,25 +3757,6 @@ paths:
       responses:
         '200':
           description: successful
-    delete:
-      tags:
-        - Editorials
-      parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: editorials id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: delete successful
   '/editorials/{id}/attention':
     put:
       tags:
@@ -3981,7 +3819,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4035,7 +3873,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4089,7 +3927,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4143,7 +3981,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4197,7 +4035,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4251,7 +4089,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4305,7 +4143,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4359,7 +4197,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4413,7 +4251,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4467,7 +4305,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4521,7 +4359,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4575,7 +4413,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4632,12 +4470,12 @@ paths:
                         items:
                           type: object
                           properties:
-                            type: 
+                            type:
                               type: string
                               description: the type of object
                             object:
                               type: object
-                              description: the object of given type(may be Article, User, ...) 
+                              description: the object of given type(may be Article, User, ...)
                   status:
                     $ref: '#/components/schemas/Status'
   '/resumes':
@@ -4729,7 +4567,7 @@ paths:
           schema:
             type: string
       responses:
-        '204':
+        '200':
           description: deleted
   '/applicant/{id}/resumes':
     get:
@@ -4790,7 +4628,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count: 
+                      page_count:
                         type: integer
                       item_count:
                         type: integer
@@ -4883,6 +4721,12 @@ paths:
           schema:
             type: string
           required: false
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
         - name: limit
           in: query
           required: false
@@ -4929,32 +4773,146 @@ paths:
                         type: boolean
                       is_last:
                         type: boolean
-  '/recommend':
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/comments/{id}':
     get:
       tags:
-        - Util
+        - Comment
       parameters:
-        - name: type
-          description: search entity type, default to be null, means search everything
-          in: query
+        - name: id
+          in: path
+          required: true
           schema:
-            type: string
-          required: false
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
           schema:
             type: string
       responses:
         '200':
-          description: search result
+          description:
+            "nike"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Comment'
+    put:
+      tags:
+        - Comment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+      responses:
+        '200':
+          description: 'nike'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Comment'
+    delete:
+      tags:
+        - Comment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'nike'
+  '/comments':
+    post:
+      tags:
+        - Comment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+      responses:
+        '200':
+          description: 'nike'
+  '/comments/(comment_id)/upvote':
+    put:
+      tags:
+        - Comment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'nike'
+  '/comments/(comment_id)/downvote':
+    put:
+      tags:
+        - Comment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'nike'
+  '/answers/{answer_id}/comments/{comment_id}':
+    get:
+      tags:
+        - Comment
+      responses:
+        '200':
+          description: 'nike'
           content:
             application/json:
               schema:
@@ -4971,7 +4929,7 @@ paths:
                             type:
                               type: string
                             content:
-                              $ref: '#/components/schemas/Article'
+                              $ref: '#/components/schemas/Comment'
                       offset:
                         type: integer
                       limit:
@@ -4986,6 +4944,292 @@ paths:
                         type: boolean
                       is_last:
                         type: boolean
+                  status:
+                    $ref: '#/components/schemas/Status'
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: answer_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+  '/articles/{article_id}/comments/{comment_id}':
+    get:
+      tags:
+        - Comment
+      responses:
+        '200':
+          description: 'nike'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                            content:
+                              $ref: '#/components/schemas/Comment'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count:
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
+                  status:
+                    $ref: '#/components/schemas/Status'
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: article_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+  '/comments/{comment_id}/replies/{reply_id}':
+    get:
+      tags:
+        - Comment
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: reply_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'nike'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Comment'
+    put:
+      tags:
+        - Comment
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: reply_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+      responses:
+        '200':
+          description: 'nike'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Comment'
+    delete:
+      tags:
+        - Comment
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: reply_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'nike'
+  '/comments/{comment_id}/reply/{reply_id}/upvote':
+    put:
+      tags:
+        - Comment
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: reply_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'nike'
+    delete:
+      tags:
+        - Comment
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: reply_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'nike'
+  '/comments/{comment_id}/reply/{reply_id}/downvote':
+    put:
+      tags:
+        - Comment
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: reply_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'nike'
+    delete:
+      tags:
+        - Comment
+      parameters:
+        - name: comment_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: reply_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'nike'
 components:
   schemas:
     ContentRequest:
@@ -5154,7 +5398,6 @@ components:
         - major
         - degree
         - duration
-        - location
       properties:
         university:
           type: string
@@ -5164,20 +5407,17 @@ components:
           type: string
         duration:
           $ref: '#/components/schemas/Duration'
-        location:
-          type: string
         note:
           type: string
     EducationInfoRequest:
       type: object
       required:
-        - university
+        - university_id
         - major
         - degree
         - duration
-        - location
       properties:
-        university:
+        university_id:
           type: string
         major:
           type: string
@@ -5534,7 +5774,7 @@ components:
         creator:
           $ref: '#/components/schemas/User'
         body:
-          $ref: '#/components/schemas/RichText'
+          type: string
         create_at:
           type: integer
         is_anonymous:
