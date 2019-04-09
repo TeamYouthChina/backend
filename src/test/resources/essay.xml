@@ -1,31 +1,15 @@
 <dataset>
-    <COM_ESSAY ESSAY_ID="1" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" ESSAY_BODY=
-            "{
-    &quot;braftEditorRaw&quot; : {
-    &quot;entityMap&quot; : { },
-    &quot;blocks&quot; : [ {
-    &quot;key&quot; : &quot;dtj4a&quot;,
-    &quot;text&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;unstyled&quot;,
-    &quot;depth&quot; : 0,
-    &quot;inlineStyleRanges&quot; : [ ],
-    &quot;entityRanges&quot; : [ ],
-    &quot;data&quot; : { }
-    } ]
-    },
-    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,
-    &quot;resourceIdList&quot; : [ ]
-    }"
+    <COM_ESSAY ESSAY_ID="2" ESSAY_TITLE="title" ESSAY_ABBRE="Abbreviation of the essay 1 but42" USER_ID="1" USER_ANONY="1"
                ESSAY_PUB_TIME="2018-12-04 13:32:40" ESSAY_EDIT_TIME="2018-12-04 13:32:40"
-               IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+               IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"
+               RELA_TYPE="2" RELA_ID="2"/>
     <COM_AUTHOR_ESSAY_MAP ESSAY_ID="1" USER_ID="1" RELA_TYPE="2" RELA_ID="1"/>
-    <COM_ESSAY_LABEL_MAP LAB_ID="1" LAB_NUM="6" ESSAY_ID="1"/>
+    <COM_ESSAY_LABEL_MAP LAB_ID="1" LAB_NUM="6" ESSAY_ID="1" />
     <COM_ESSAY_ATTENTION_MAP ATTEN_ID="1" ESSAY_ID="1"/>
-    <COM_ESSAY_ATTENTION ATTEN_ID="1" USER_ID="1" ATTEN_TIME="2018-12-04 13:32:40" ATTEN_CANCEL="0"
-                         ATTEN_CANCEL_TIME="2018-12-04 13:32:40"/>
+    <COM_ESSAY_ATTENTION ATTEN_ID="1" USER_ID="1" ATTEN_TIME="2018-12-04 13:32:40" ATTEN_CANCEL="0" ATTEN_CANCEL_TIME="2018-12-04 13:32:40"/>
     <COM_ESSAY_REPLY_MAP REPLY_ID="1" REPLY_LEVEL="1" ESSAY_ID="1"/>
     <COM_ESSAY_REPLY REPLY_ID="1" REPLY_CONTENT=
-            "{
+    "{
     &quot;braftEditorRaw&quot; : {
     &quot;entityMap&quot; : { },
     &quot;blocks&quot; : [ {
@@ -41,15 +25,29 @@
     &quot;previewText&quot; : &quot;Body Body 1&quot;,
     &quot;resourceIdList&quot; : [ ]
     }"
-                     USER_ID="2" USER_ANONY="0" REPLY_PUB_TIME="2018-12-04 13:32:40"
-                     REPLY_EDIT_TIME="2018-12-04 13:32:40"
-                     IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+                     USER_ID="2" USER_ANONY="0" REPLY_PUB_TIME="2018-12-04 13:32:40" REPLY_EDIT_TIME="2018-12-04 13:32:40"
+     IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+
+    <COM_RICH_TEXT RELA_TYPE="1" RELA_ID="2" COMPILE_TYPE="1" JSON_CONTENT="{
+    &quot;braftEditorRaw&quot; : {
+    &quot;entityMap&quot; : { },
+    &quot;blocks&quot; : [ {
+    &quot;key&quot; : &quot;dtj4a&quot;,
+    &quot;text&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;unstyled&quot;,
+    &quot;depth&quot; : 0,
+    &quot;inlineStyleRanges&quot; : [ ],
+    &quot;entityRanges&quot; : [ ],
+    &quot;data&quot; : { }
+    } ]
+    },
+    &quot;previewText&quot; : &quot;Abbreviation of the essay 1 but42&quot;,
+    &quot;resourceIdList&quot; : [ ]
+    }" TEXT_CONTENT="qqqeee"/>
     <COM_REPLY_EVALUATE_MAP EVALUATE_ID="1" REPLY_ID="1"/>
     <COM_REPLY_EVALUATE EVALUATE_ID="1" USER_ID="1" EVALUATE_TYPE="1" EVALUATE_TIME="2018-12-04 13:32:40"/>
-    <COM_FRIEND_RELATION RELA_ID="1" USER_ID="2" ADD_TIME="2018-12-04 13:32:40" IS_DELETE="0"
-                         IS_DELETE_TIME="2018-12-04 13:32:40"/>
-    <COM_FRIEND_RELATION_MAP RELA_ID="1" USER_ID="1"/>
-    <COM_FRIEND_GROUP GROUP_ID="1" GROUP_NUM="1" GROUP_NAME="fg" ADD_TIME="2018-12-04 13:32:40" IS_DELETE="0"
-                      IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_FRIEND_RELATION RELA_ID="1" USER_ID="2" ADD_TIME="2018-12-04 13:32:40" IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
+    <COM_FRIEND_RELATION_MAP RELA_ID="1" USER_ID="1" />
+    <COM_FRIEND_GROUP GROUP_ID="1" GROUP_NUM="1" GROUP_NAME="fg" ADD_TIME="2018-12-04 13:32:40" IS_DELETE="0" IS_DELETE_TIME="2018-12-04 13:32:40"/>
     <COM_FRIEND_GROUP_MAP GROUP_ID="1" RELA_ID="6"/>
 </dataset>

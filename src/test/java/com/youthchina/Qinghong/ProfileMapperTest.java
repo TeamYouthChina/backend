@@ -76,7 +76,9 @@ public class ProfileMapperTest {
         university.setUnivers_id(1);
         educationInfo.setUniversity(university);
         educationInfo.setDegree(degree);
-        educationInfo.setEdu_major("计算机");
+        Major major=new Major();
+        major.setMajor_code("10101");
+        educationInfo.setMajor(major);
         educationInfo.setEdu_college("cssa");
         educationInfo.setEdu_gpa((float) 3.3);
         educationInfo.setEdu_start(new Date());
@@ -194,7 +196,9 @@ public class ProfileMapperTest {
         university.setUnivers_id(1);
         educationInfo.setUniversity(university);
         educationInfo.setDegree(degree);
-        educationInfo.setEdu_major("cs");
+        Major major=new Major();
+        major.setMajor_code("10101");
+        educationInfo.setMajor(major);
         educationInfo.setEdu_college("111");
         educationInfo.setEdu_gpa((float) 3.5);
         educationInfo.setEdu_start(new Date());

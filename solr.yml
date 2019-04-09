@@ -1,0 +1,25 @@
+version: "3"
+services:
+  solr:
+    image: solr:7.6.0
+    container_name: youthchina-solr
+    networks:
+      default:
+        ipv4_address: 172.28.1.2
+    ports:
+      - 8983:8983
+    volumes:
+      - solrdata:/opt/solr/server/solr
+      - ./config:/config
+      - ./mysql-connector-java-8.0.15.jar:/opt/solr/contrib/dataimporthandler/lib/mysql-connector-java-8.0.15.jar
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - youthchinacore
+      - /config
+volumes:
+  solrdata:
+networks:
+  default:
+    external:
+      name: backend_backend

@@ -1,7 +1,7 @@
 package com.youthchina.service.Hongsheng;
 
 /*
-import com.youthchina.dao.Hongsheng.FriendMapper;
+import com.youthchina.dao.com.youthchina.Hongsheng.FriendMapper;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.tianjian.ComFriendRelationMap;
 import org.springframework.beans.factory.annotation.Autowired;

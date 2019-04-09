@@ -3,7 +3,6 @@ package com.youthchina.dto.community.question;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.RichTextRequestDTO;
-import com.youthchina.dto.util.RichTextResponseDTO;
 
 /**
  * Created by hongshengzhang on 2/23/19.
