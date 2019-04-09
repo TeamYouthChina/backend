@@ -32,7 +32,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void isQuestionExist(Integer id) throws NotFoundException{
         if(questionMapper.checkIfQuestionExist(id) == null){
-            throw new NotFoundException(404,404,"The question does not exist");
+            throw new NotFoundException(4040,404,"The question does not exist");
         }
 
     }
@@ -56,7 +56,7 @@ public class QuestionServiceImpl implements QuestionService {
     public Question get(Integer id) throws NotFoundException {
         Question question = questionMapper.get(id);
         if(question == null){
-            throw new NotFoundException(404,404,"没有找到这个问题");//todo
+            throw new NotFoundException(4040,404,"没有找到这个问题");//todo
         }
         richTextService.getComRichText(question);
         question.setAnswers(answerService.getAnswers(id));
@@ -76,7 +76,7 @@ public class QuestionServiceImpl implements QuestionService {
             }
         }
         if(questions.size() == 0){
-            throw new NotFoundException(404,4040,"没有根据这些id找到问题");
+            throw new NotFoundException(4040,404,"没有根据这些id找到问题");//todo
         }
         return questions;
     }
@@ -95,7 +95,7 @@ public class QuestionServiceImpl implements QuestionService {
                 questionsReturn.add(question);
         }
         if(questionsReturn.size() == 0){
-            throw new NotFoundException(404,4040,"没有找到问题");
+            throw new NotFoundException(4040,404,"没有找到问题");//todo
         }
         return questionsReturn;
     }

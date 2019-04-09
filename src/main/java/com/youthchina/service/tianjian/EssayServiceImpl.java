@@ -49,7 +49,7 @@ public class EssayServiceImpl implements EssayService {
     public void addEssay(ComEssay essay) throws NotFoundException {
         ComEssay comEssaytest = mapper.getEssay(essay.getId());
         if (comEssaytest != null)
-            throw new NotFoundException(404, 404, "this essay is exist");//todo
+            throw new NotFoundException(4040, 404, "this essay is exist");//todo
         else {
             richTextService.addComRichText(essay.getBody());
             mapper.addEssay(essay);
@@ -68,7 +68,7 @@ public class EssayServiceImpl implements EssayService {
     public int updateEssay(ComEssay essay) throws NotFoundException {
         ComEssay comEssaytest = mapper.getEssay(essay.getId());
         if (comEssaytest == null) {
-            throw new NotFoundException(404, 404, "this essay is not exist");//todo
+            throw new NotFoundException(4040, 404, "this essay is not exist");//todo
         } else {
             richTextService.getComRichText(comEssaytest);
             essay.getBody().setTextId(comEssaytest.getBody().getTextId());
