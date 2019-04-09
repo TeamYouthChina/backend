@@ -28,6 +28,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.io.*;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -171,7 +173,19 @@ public class VideoControllerTest {
         String requestJson = ow.writeValueAsString(requestVideoDTO);
 
 //        ClassPathResource classPathResource = new ClassPathResource("rank.xml");
-        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "multipart/form-data", "hello upload".getBytes("UTF-8"));
+        File file1 = new File("D:\\video.mp4");
+        InputStream inputStream = new FileInputStream(file1);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(1000);
+        byte[] buffer =null;
+        byte[] b = new byte[inputStream.available()];
+        int n;
+        while ((n = inputStream.read(b)) != -1) {
+            bos.write(b, 0, n);
+        }
+        inputStream.close();
+        bos.close();
+        buffer = bos.toByteArray();
+        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "multipart/form-data", buffer);
 
         this.mvc.perform(MockMvcRequestBuilders.multipart(this.urlPrefix + "/videos")
                 .file(file).with(authGenerator.authentication()))

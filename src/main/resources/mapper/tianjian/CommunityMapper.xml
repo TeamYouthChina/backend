@@ -26,6 +26,13 @@
         <result property="groupName" column="GROUP_NAME"/>
         <result property="groupNum" column="GROUP_NUM"/>
     </resultMap>
+    <resultMap id="friendapplyresult" type="com.youthchina.domain.tianjian.ComFriendApply">
+        <id property="applyId" column="APPLY_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="friendId" column="FRIEND_ID"/>
+        <result property="friApplyTime" column="FRI_APPLY_TIME"/>
+        <result property="friApplyAccept" column="FRI_APPLY_ACCEPT"/>
+    </resultMap>
     <!--    发布文章 -->
     <insert id="addEssay" parameterType="com.youthchina.domain.tianjian.ComEssay" useGeneratedKeys="true"
             keyProperty="id">
@@ -139,4 +146,16 @@
         where IS_DELETE=0
     </select>
 
+    <insert id="addFriendApply" parameterType="com.youthchina.domain.tianjian.ComFriendApply">
+      insert into COM_FRIEND_APPLY (USER_ID, FRIEND_ID, FRI_APPLY_TIME,FRI_APPLY_ACCEPT)
+      value (#{userId} ,#{friendId} ,now(),0)
+    </insert>
+
+    <select id="getAllFriendApply" resultMap="friendapplyresult">
+      select * from COM_FRIEND_APPLY where USER_ID = #{userId};
+    </select>
+
+    <select id="getFriendApply" resultMap="friendapplyresult">
+        select * from COM_FRIEND_APPLY where USER_ID = #{userId} and FRIEND_ID = #{friendId}
+    </select>
 </mapper>

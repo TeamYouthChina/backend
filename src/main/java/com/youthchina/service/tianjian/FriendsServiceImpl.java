@@ -1,9 +1,11 @@
 package com.youthchina.service.tianjian;
 
 import com.youthchina.dao.tianjian.CommunityMapper;
+import com.youthchina.domain.tianjian.ComFriendApply;
 import com.youthchina.domain.tianjian.ComFriendGroup;
 import com.youthchina.domain.tianjian.ComFriendGroupMap;
 import com.youthchina.domain.tianjian.ComFriendRelation;
+import com.youthchina.exception.zhongyang.ConflictException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,5 +74,23 @@ public class FriendsServiceImpl implements FriendsService {
         List<ComFriendRelation> comFriendRelation = friendsMapper.getFriend(own_Id);
         List<ComFriendGroup> comFriendGroups = friendsMapper.getFriendGroup(comFriendRelation);
         return comFriendGroups;
+    }
+
+    @Override
+    public void addFriendApply(ComFriendApply comFriendApply) throws ConflictException {
+        ComFriendApply comFriendApply1 = friendsMapper.getFriendApply(comFriendApply.getUserId(),comFriendApply.getFriendId());
+        if(comFriendApply1!=null)
+            throw new ConflictException(409, 409, "Application is already existing");
+        friendsMapper.addFriendApply(comFriendApply);
+    }
+
+    @Override
+    public List<ComFriendApply>  getAllFriendApply(Integer userId) {
+        return friendsMapper.getAllFriendApply(userId);
+    }
+
+    @Override
+    public ComFriendApply getFriendApply(Integer userId, Integer friendId) {
+        return friendsMapper.getFriendApply(userId,friendId);
     }
 }

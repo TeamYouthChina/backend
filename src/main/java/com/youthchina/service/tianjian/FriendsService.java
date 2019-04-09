@@ -1,7 +1,9 @@
 package com.youthchina.service.tianjian;
 
+import com.youthchina.domain.tianjian.ComFriendApply;
 import com.youthchina.domain.tianjian.ComFriendGroup;
 import com.youthchina.domain.tianjian.ComFriendRelation;
+import com.youthchina.exception.zhongyang.ConflictException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 
 import java.util.List;
@@ -48,6 +50,19 @@ public interface FriendsService {
      * return List<ComFriendGroup>;
      * */
     public List<ComFriendGroup> getFriendGroup(Integer own_Id);
-
-
+    /*
+     * 添加好友申请
+     * parameter Integer own_id
+     * */
+     public void addFriendApply(ComFriendApply comFriendApply) throws ConflictException;
+    /*
+     * 获取所有的好友申请
+     * parameter Integer own_id
+     * */
+    public List<ComFriendApply> getAllFriendApply(Integer userId);
+    /*
+     * 获取好友申请
+     * parameter Integer own_id
+     * */
+    public ComFriendApply getFriendApply(Integer userId, Integer friendId);
 }
