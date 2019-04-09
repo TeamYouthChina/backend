@@ -28,6 +28,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -116,6 +119,12 @@ public class CompanyControllerTest {
         companyRequestDTO.setWebsite("vavle.com");
         companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
         companyRequestDTO.setNote("Steam");
+        List<String> photoUrlList = new ArrayList<>();
+        photoUrlList.add("photo1");
+        photoUrlList.add("photo2");
+        photoUrlList.add("photo3");
+        photoUrlList.add("photo4");
+        companyRequestDTO.setPhotoUrlList(photoUrlList);
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -150,6 +159,12 @@ public class CompanyControllerTest {
         companyRequestDTO.setWebsite("vavle.com");
         companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
         companyRequestDTO.setNote("Steam");
+        List<String> photoUrlList = new ArrayList<>();
+        photoUrlList.add("photo1");
+        photoUrlList.add("photo2");
+        photoUrlList.add("photo3");
+        photoUrlList.add("photo4");
+        companyRequestDTO.setPhotoUrlList(photoUrlList);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();

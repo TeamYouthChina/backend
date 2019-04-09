@@ -95,6 +95,10 @@ public class CompanyTest {
         Assert.assertEquals(1, company.getIndList().size());
         Assert.assertEquals("B07", company.getIndList().get(0).getIndCode());
 
+        //Test Photo
+        company = companyMapper.selectCompany(86);
+//        Assert.assertEquals(3, company.getPhotoList().size());
+
     }
 
 
@@ -149,6 +153,13 @@ public class CompanyTest {
 
         companyMapper.insertCompanyLogo(company.getId(), company.getLogoList());
 
+        List<CompanyPhoto> photoList = new ArrayList<>();
+        photoList.add(new CompanyPhoto("photo1"));
+        photoList.add(new CompanyPhoto("photo2"));
+        photoList.add(new CompanyPhoto("photo3"));
+        company.setPhotoList(photoList);
+
+        companyMapper.insertCompanyPhoto(company.getId(), company.getPhotoList());
     }
 
     @Test
@@ -244,13 +255,29 @@ public class CompanyTest {
     }
 
     @Test
+    public void testInsertCompanyPhoto(){
+//        CompanyPhoto photo = company.getPhotoList().get(0);
+//        photo.setDocuLocalId("CompanyPhotoUpdate");
+//        List<CompanyPhoto> photoList = new ArrayList<>();
+//        photoList.add(photo);
+//        photoList.add(photo);
+//        companyMapper.insertCompanyPhoto(1, )
+    }
+
+    @Test
     public void testUpdateCompanyPhoto(){
         //TODO:
 //        Company company = companyMapper.selectCompany(1);
 //        CompanyPhoto photo = company.getPhotoList().get(0);
 //        photo.setDocuLocalId("CompanyPhotoUpdate");
+//        List<CompanyPhoto> photoList = new ArrayList<>();
+//        photoList.add(photo);
+//        photoList.add(photo);
+//        company.setPhotoList(photoList);
 //        companyMapper.updateCompany(company);
+//        companyMapper.insertCompanyPhoto(company.getId(), company.getPhotoList());
 //        company = companyMapper.selectCompany(company.getCompanyId());
+//        Assert.assertEquals(2, company.getPhotoList().size());
 //        Assert.assertEquals("CompanyPhotoUpdate", photo.getDocuLocalId());
     }
 
@@ -260,5 +287,7 @@ public class CompanyTest {
         Assert.assertEquals(61, companyList.size());
 
     }
+
+
 
 }

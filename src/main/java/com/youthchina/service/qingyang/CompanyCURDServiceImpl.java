@@ -109,6 +109,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         Integer result = companyMapper.updateCompany(company);
         companyMapper.deleteCompanyInd(company.getCompanyId());
         companyMapper.deleteCompanyLogo(company.getCompanyId());
+        companyMapper.deleteCompanyPhoto(company.getCompanyId());
         List<Industry> industryList = company.getIndList();
         if (industryList != null && industryList.size() > 0) {
             companyMapper.insertCompanyInd(company.getId(), industryList);

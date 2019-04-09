@@ -2,10 +2,12 @@ package com.youthchina.dto.company;
 
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.CompanyPhoto;
 import com.youthchina.domain.qingyang.Country;
 import com.youthchina.domain.qingyang.Logo;
 import com.youthchina.dto.ResponseDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,29 +22,14 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
     private String website;
     private String note;
     private String nation;
+    private List<String> photoUrlList;
 
     public CompanyResponseDTO() {
 
     }
 
     public CompanyResponseDTO(Company company) {
-        this.id = company.getCompanyId();
-        this.name = company.getCompanyName();
-        List<Logo> logoList = company.getLogoList();
-        if (logoList != null && logoList.size() > 0) {
-            this.avatarUrl = company.getLogoList().get(0).getDocuLocalId();
-        }
-        Location location = company.getLocation();
-        if (location != null) {
-            this.location = location.getRegionName();
-        }
-        Country country = company.getCountry();
-        if (country != null) {
-            this.nation = country.getCountryChn();
-        }
-        this.website = company.getCompanyWebsite();
-        this.note = company.getCompanyIntroduc();
-
+        convertToDTO(company);
     }
 
     public Integer getId() {
@@ -101,6 +88,14 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.note = note;
     }
 
+    public List<String> getPhotoUrlList() {
+        return photoUrlList;
+    }
+
+    public void setPhotoUrlList(List<String> photoUrlList) {
+        this.photoUrlList = photoUrlList;
+    }
+
     @Override
     public void convertToDTO(Company company) {
         this.id = company.getCompanyId();
@@ -116,6 +111,19 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         Country country = company.getCountry();
         if (country != null) {
             this.nation = country.getCountryChn();
+        }
+        //Test
+        System.out.println("convertToDTO(Company company)");
+        List<CompanyPhoto> photoList = company.getPhotoList();
+        if(photoList != null && photoList.size() > 0){
+            //Test
+            System.out.println("photoList.size() : " + photoList.size());
+            this.photoUrlList = new ArrayList<>();
+            for(CompanyPhoto photo : photoList){
+                //Test
+                System.out.println("photo.getDocuLocalId() : " + photo.getDocuLocalId() );
+                this.photoUrlList.add(photo.getDocuLocalId());
+            }
         }
         this.website = company.getCompanyWebsite();
         this.note = company.getCompanyIntroduc();
