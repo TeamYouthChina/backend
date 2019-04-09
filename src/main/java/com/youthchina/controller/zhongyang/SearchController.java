@@ -47,7 +47,7 @@ public class SearchController {
 
 
     @GetMapping("/")
-    public ResponseEntity<ListResponse> search(@RequestParam(value = "type", defaultValue = "all") String type, @RequestParam(value = "title", defaultValue = "*") String title, @RequestParam(value = "text", defaultValue = "*") String body, PageRequest pageRequest) throws Exception {
+    public ResponseEntity<ListResponse> search(@RequestParam(value = "type", defaultValue = "all") String type, @RequestParam(value = "title",required = false) String title, @RequestParam(value = "text",required = false) String body, PageRequest pageRequest) throws Exception {
         SearchResult searchResult = searchService.search(type, title, body, pageRequest.getStart(), pageRequest.getEnd());
         List<SearchResponseDTO> searchResultDtos = new ArrayList<>();
         for (SearchResultItem item : searchResult.getResult()) {
