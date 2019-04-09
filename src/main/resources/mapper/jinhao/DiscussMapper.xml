@@ -13,10 +13,7 @@
             </constructor>
         </association>
     </resultMap>
-    <select id="getDiscusses" parameterType="java.lang.Integer" resultMap="discuss">   isDiscussExist(id);
-        discussMapper.delete(id);
-    }
-
+    <select id="getDiscusses" parameterType="java.lang.Integer" resultMap="discuss">
         select d.* from COM_DISCUSS d
         where d.COMMENT_ID=#{id} and d.IS_DELETE=0
     </select>

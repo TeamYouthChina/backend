@@ -201,7 +201,7 @@ public class QuestionControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":404,\"reason\":\"没有找到这个问题\"}}", false));
+                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4040,\"reason\":\"没有找到这个问题\"}}", false));
 
     }
 

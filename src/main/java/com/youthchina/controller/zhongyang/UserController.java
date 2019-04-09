@@ -82,7 +82,10 @@ public class UserController extends DomainCRUDController<User, Integer> {
     */
 
     @GetMapping("/{id}/attentions")
-    public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id, @RequestParam(value = "type") String type) throws NotFoundException {
+    public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id, @RequestParam(value = "type") String type,@AuthenticationPrincipal User user) throws NotFoundException,ForbiddenException {
+        if(user.getId()!=user_id){
+            throw new ForbiddenException();
+        }
         switch (type) {
             case "job": {
                 List<JobCollect> jobCollects = studentService.getJobCollect(user_id);

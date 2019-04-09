@@ -51,14 +51,14 @@ public class AttentionServiceImpl implements AttentionService{
             case 6: discussService.isDiscussExist(id); break;
             case 7: answerService.isAnswerExist(id); break;
             default:
-                throw new NotFoundException(404,404,"No such type");
+                throw new NotFoundException(4040,404,"No such type");//todo
         }
         Attention attention = attentionMapper.isEverAttention(type,id,userId);
         if(attention == null){
             attentionMapper.follow(type,id,userId);
         }else{
             if(attention.getIsCancel() == 0){
-                throw new NotFoundException(404,404,"You have already followed!");
+                throw new NotFoundException(4040,404,"You have already followed!");//todo
             }
             attentionMapper.reFollow(attention.getId());
         }
@@ -79,11 +79,11 @@ public class AttentionServiceImpl implements AttentionService{
             case 6: discussService.isDiscussExist(id); break;
             case 7: answerService.isAnswerExist(id); break;
             default:
-                throw new NotFoundException(404,404,"No such type");
+                throw new NotFoundException(4040,404,"No such type");//todo
         }
         Attention attention = attentionMapper.isEverAttention(type,id,userId);
         if(attention == null || attention.getIsCancel() == 1){
-            throw new NotFoundException(404,404,"You have not followed yet, you cannot cancel!");
+            throw new NotFoundException(4040,404,"You have not followed yet, you cannot cancel!");//todo
         }else{
             attentionMapper.cancel(attention.getId());
         }

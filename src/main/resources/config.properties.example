@@ -26,4 +26,4 @@ staticfile.accessKeyId=${YOUTHCHINAACCESSKEYID}
 staticfile.accessKeySecret=${YOUTHCHINAACCESSKEYIDKEYSECRET}
 staticfile.idColName=DOCU_SERVER_ALI_ID
 
-search.url=http://localhost:8983/
+search.url=http://localhost:8983/solr
