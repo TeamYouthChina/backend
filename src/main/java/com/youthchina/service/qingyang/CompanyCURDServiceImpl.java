@@ -2,6 +2,7 @@ package com.youthchina.service.qingyang;
 
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
+import com.youthchina.dao.tianjian.StaticFileSystemMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.CompanyPhoto;
@@ -28,6 +29,9 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
 
     @Resource
     JobMapper jobMapper;
+
+    @Resource
+    StaticFileSystemMapper staticFileSystemMapper;
 
 
     @Autowired
@@ -58,7 +62,8 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         List<Logo> logoList = company.getLogoList();
         if(logoList != null && logoList.size() > 0){
             for(Logo logo : logoList){//TODO : 中美服务器?
-               URL url =  (staticFileServiceImpl.getFileUrl(logo.getDocuLocalId(), "China"));
+               String aliId = staticFileSystemMapper.getFileInfo(logo.getDocuLocalId()).getDocu_server_ali_id();
+               URL url =  (staticFileServiceImpl.getFileUrl(aliId, "China"));
                logo.setDocuLocalId(url.toString());
             }
         }
@@ -68,7 +73,8 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         List<CompanyPhoto> photoList = company.getPhotoList();
         if(photoList != null && photoList.size() > 0){
             for(CompanyPhoto photo : photoList){//TODO : 中美服务器?
-                URL url =  (staticFileServiceImpl.getFileUrl(photo.getDocuLocalId(), "China"));
+                String aliId = staticFileSystemMapper.getFileInfo(photo.getDocuLocalId()).getDocu_server_ali_id();
+                URL url =  (staticFileServiceImpl.getFileUrl(aliId, "China"));
                 photo.setDocuLocalId(url.toString());
             }
         }

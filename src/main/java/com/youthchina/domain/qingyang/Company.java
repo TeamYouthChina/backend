@@ -96,7 +96,7 @@ public class Company implements HasId<Integer> {
             this.logoList.add(logo);
         }
 
-        List<String> photoUrlList = companyRequestDTO.getPhotoUrlList();
+        List<String> photoUrlList = companyRequestDTO.getPhotoIdList();
 
         if(photoUrlList != null && photoUrlList.size() > 0){
             this.photoList = new ArrayList<>();
