@@ -1,10 +1,8 @@
 package com.youthchina.controller.tianjian;
 
 import com.youthchina.annotation.RequestBodyDTO;
-import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Comment;
-import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
@@ -13,9 +11,7 @@ import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
-import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.dto.util.RichTextRequestDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.AttentionServiceImpl;
 import com.youthchina.service.jinhao.BriefReviewServiceImplement;

@@ -1,24 +1,10 @@
 package com.youthchina.service.zhongyang;
 
-import com.youthchina.dao.tianjian.StaticFileSystemMapper;
-import com.youthchina.domain.zhongyang.User;
-import com.youthchina.service.tianjian.*;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import java.io.IOException;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 /**
  * Created by zhongyangwu on 2/14/19.
  */
+
+/*
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class StaticFileServiceTest {
@@ -64,4 +50,4 @@ public class StaticFileServiceTest {
 //        Assert.assertEquals(url.getHost(), "alicoud.oss.com");
 //    }
 
-}
+} */

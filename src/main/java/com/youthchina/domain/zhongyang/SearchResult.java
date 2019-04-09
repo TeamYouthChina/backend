@@ -14,6 +14,10 @@ public class SearchResult {
         this.count = count;
     }
 
+    public SearchResult() {
+
+    }
+
     public List<SearchResultItem> getResult() {
         return result;
     }
