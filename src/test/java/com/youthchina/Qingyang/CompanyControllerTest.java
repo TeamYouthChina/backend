@@ -95,18 +95,18 @@ public class CompanyControllerTest {
         ;
     }
 
-    @Test
-    public void testGetRecommendFiveCompany() throws Exception {
-        this.mvc.perform(
-                get(this.urlPrefix + "/discovery/companies/")//.param("id", "1").param("detailLevel", "1")
-                        .with(authGenerator.authentication())
-
-        )
-                .andDo(print())
-//                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"\",\"avatarUrl\":\"\",\"location\":\"\",\"website\":\"\",\"note\":\"\",\"nation\":\"\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
-                //.andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"avatarUrl\":null,\"location\":\"北京市\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
-        ;
-    }
+//    @Test
+//    public void testGetRecommendFiveCompany() throws Exception {
+//        this.mvc.perform(
+//                get(this.urlPrefix + "/discovery/companies/")//.param("id", "1").param("detailLevel", "1")
+//                        .with(authGenerator.authentication())
+//
+//        )
+//                .andDo(print())
+////                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"\",\"avatarUrl\":\"\",\"location\":\"\",\"website\":\"\",\"note\":\"\",\"nation\":\"\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+//                //.andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"avatarUrl\":null,\"location\":\"北京市\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+//        ;
+//    }
 
     @Test
     public void testDeleteCompany() throws Exception {
@@ -156,7 +156,8 @@ public class CompanyControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-               // .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\",\"photoUrlList\":[\"photo1\",\"photo2\",\"photo3\",\"photo4\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                //,"avatarUrl":""
+                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
 
         ;
     }
@@ -173,13 +174,12 @@ public class CompanyControllerTest {
         companyRequestDTO.setLocation(new LocationDTO(location));
         companyRequestDTO.setNation("USA");
         companyRequestDTO.setWebsite("vavle.com");
-        companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        companyRequestDTO.setAvatarUrl("2858461057087705088");
         companyRequestDTO.setNote("Steam");
         List<String> photoUrlList = new ArrayList<>();
-        photoUrlList.add("photo1");
-        photoUrlList.add("photo2");
-        photoUrlList.add("photo3");
-        photoUrlList.add("photo4");
+        photoUrlList.add("2856306669745344512");
+        photoUrlList.add("2858461057087705088");
+
         companyRequestDTO.setPhotoIdList(photoUrlList);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -195,8 +195,8 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-
-                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\",\"photoUrlList\":[\"photo1\",\"photo2\",\"photo3\",\"photo4\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                //,"avatarUrl":"" photoUrl
+                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
 
     }
