@@ -1,3 +1,16 @@
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json;utf-8
+
+{ "id":10, "password":"123456" }
+
+###
+
+GET http://47.252.:8080/api/v1/search?title=腾
+Content-Type: application/json;utf-8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
+
+###
+
 GET http://localhost:8080/api/v1/search?title=腾
 Content-Type: application/json;utf-8
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
