@@ -11,6 +11,7 @@ public class CommentDTO implements ResponseDTO<Comment> {
     private Integer id;
     private UserDTO creator;
     private String body;
+    private Timestamp modified_at;
     private Timestamp create_at;
     private boolean is_anonymous;
     private Integer upvoteCount;
@@ -22,7 +23,16 @@ public class CommentDTO implements ResponseDTO<Comment> {
         this.creator = new UserDTO(comment.getUser());
         this.body = comment.getContent();
         this.create_at = comment.getPubTime();
+        this.modified_at = comment.getEditTime();
         this.is_anonymous = (comment.getIsAnony() == 1) ? true : false;
+    }
+
+    public Timestamp getModified_at() {
+        return modified_at;
+    }
+
+    public void setModified_at(Timestamp modified_at) {
+        this.modified_at = modified_at;
     }
 
     public Integer getId() {

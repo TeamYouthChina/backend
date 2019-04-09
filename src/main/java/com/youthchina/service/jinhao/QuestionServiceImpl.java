@@ -42,6 +42,7 @@ public class QuestionServiceImpl implements QuestionService {
     public Question getBasicQuestion(Integer id){
         Question question = questionMapper.get(id);
         if(question == null) return null;
+        question.setUser(userService.get(question.getUser().getId()));
         richTextService.getComRichText(question);
         return question;
     }
@@ -58,6 +59,7 @@ public class QuestionServiceImpl implements QuestionService {
         if(question == null){
             throw new NotFoundException(404,404,"没有找到这个问题");//todo
         }
+        question.setUser(userService.get(question.getUser().getId()));
         richTextService.getComRichText(question);
         question.setAnswers(answerService.getAnswers(id));
         return question;
@@ -65,14 +67,13 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     @Transactional
-    public List<Question> get(List<Integer> id) throws NotFoundException{
+    public List<Question> get(List<Integer> id){
         List<Question> questions = new LinkedList<>();
         for(Integer one : id){
-            Question question = questionMapper.get(one);
-            if(question != null){
-                richTextService.getComRichText(question);
-                question.setAnswers(answerService.getAnswers(one));
-                questions.add(question);
+            try {
+                questions.add(get(one));
+            } catch (NotFoundException e) {
+
             }
         }
         return questions;
@@ -80,19 +81,16 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     @Transactional
-    public List<Question> get(Integer relaType, Integer relaId) throws NotFoundException{
+    public List<Question> get(Integer relaType, Integer relaId){
         List<Question> questions = questionMapper.getListQuestions(relaType, relaId);
         List<Question> questionsReturn = new ArrayList<>();
         Iterator it = questions.iterator();
         while(it.hasNext()){
             Question question = (Question) it.next();
-                richTextService.getComRichText(question);
-                question.setAnswers(answerService.getAnswers(question.getId()));
-                question.setUser(userService.get(question.getUser().getId()));
-                questionsReturn.add(question);
-        }
-        if(questionsReturn.size() == 0){
-            throw new NotFoundException(404,4040,"没有找到问题");
+            richTextService.getComRichText(question);
+            question.setAnswers(answerService.getAnswers(question.getId()));
+            question.setUser(userService.get(question.getUser().getId()));
+            questionsReturn.add(question);
         }
         return questionsReturn;
     }
@@ -103,7 +101,11 @@ public class QuestionServiceImpl implements QuestionService {
         isQuestionExist(id);
         List<Answer> answers = answerService.getAnswers(id);
         for(Answer answer : answers){
-            answerService.delete(answer.getId());
+            try {
+                answerService.delete(answer.getId());
+            } catch (NotFoundException e) {
+
+            }
         }
         questionMapper.delete(id);
     }
@@ -122,8 +124,8 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     @Transactional
     public Question add(Question entity) {
-        questionMapper.add(entity);
         richTextService.addComRichText(entity.getBody());
+        questionMapper.add(entity);
         return entity;
     }
 }

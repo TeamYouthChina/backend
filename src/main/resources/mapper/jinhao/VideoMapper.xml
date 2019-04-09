@@ -10,12 +10,14 @@
         <result property="description" column="VIDEO_DESCRIPTION"/>
         <result property="relaId" column="RELA_ID"/>
         <result property="relaType" column="RELA_TYPE"/>
-        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
-                     resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User">
+            <constructor>
+                <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            </constructor>
+        </association>
     </resultMap>
     <select id="get" parameterType="java.lang.Integer" resultMap="video">
-        select v.*, u.* from COM_VIDEO v
-        left join SYS_USER u on u.USER_ID=v.USER_ID and u.IS_DELETE=0
+        select v.* from COM_VIDEO v
         where v.VIDEO_ID=#{id} and v.IS_DELETE=0
     </select>
 
