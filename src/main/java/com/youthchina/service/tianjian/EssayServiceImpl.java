@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,22 +76,22 @@ public class EssayServiceImpl implements EssayService {
                 comEssaytest.setIsAnony(essay.getIsAnony());
             if (essay.getAbbre() != null)
                 comEssaytest.setAbbre(essay.getAbbre());
-            if (essay.getBody() != null){
+            if (essay.getBody() != null) {
                 richTextService.updateComRichText(essay.getBody());
                 comEssaytest.setBody(essay.getBody());
             }
             if (essay.getTitle() != null)
                 comEssaytest.setTitle(essay.getTitle());
-           mapper.updateEssay(comEssaytest);
-           return 1;
+            mapper.updateEssay(comEssaytest);
+            return 1;
         }
     }
 
     @Override
     public ComEssay getEssay(Integer essay_id) throws NotFoundException {
         ComEssay comEssay = mapper.getEssay(essay_id);
-        if(comEssay == null){
-            throw new NotFoundException(404,404,"this essay does not exist");
+        if (comEssay == null) {
+            throw new NotFoundException(404, 404, "this essay does not exist");
         }
         richTextService.getComRichText(comEssay);
         comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
@@ -121,7 +122,14 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public List<ComEssay> get(List<Integer> id) throws NotFoundException {
-        return mapper.getEssayList(id);
+        List<ComEssay> res = new ArrayList<>();
+        for (Integer i : id) {
+            ComEssay essay = this.getEssay(i);
+            if (essay != null) {
+                res.add(essay);
+            }
+        }
+        return res;
     }
 
     @Override

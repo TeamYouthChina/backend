@@ -3,27 +3,61 @@ package com.youthchina.controller.Xiaoyi;
 import com.youthchina.domain.jinhao.Discuss;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
+import com.youthchina.dto.Response;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.discuss.DiscussDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.NotFoundException;;
 import com.youthchina.service.jinhao.DiscussService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.youthchina.service.jinhao.EvaluateService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Null;
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("${web.url.prefix}/reply")
+@RequestMapping("${web.url.prefix}/comments")
 public class DiscussController {
-    @Autowired
+    @Resource
     DiscussService discussService;
+
+    @Resource
+    EvaluateService evaluateService;
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteComment(@PathVariable Integer id) throws NotFoundException {
+        discussService.delete(id);
+        return ResponseEntity.ok(new Response(new StatusDTO(204,"success")));
+    }
+
+    @GetMapping("/{id}/exist")
+    public ResponseEntity<?> isDiscussExist(@PathVariable Integer id) throws NotFoundException {
+        discussService.isDiscussExist(id);
+        return ResponseEntity.ok(new Response(new StatusDTO(204,"success")));
+    }
+
+    @GetMapping("/{id}/count")
+    public ResponseEntity<?> count(@PathVariable Integer id) {
+        int count = discussService.count(id);
+        return ResponseEntity.ok(new Response(count));
+    }
+
+    @GetMapping("/{id}/upvote")
+    public ResponseEntity<?> upvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws  NotFoundException{
+        Discuss discuss = discussService.get(id);
+        evaluateService.upvote(discuss, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(204,"success")));
+    }
+
+    @GetMapping("/{id}/downvote")
+    public ResponseEntity<?> downvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws  NotFoundException{
+        Discuss discuss = discussService.get(id);
+        evaluateService.downvote(discuss, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(204,"success")));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity getDiscuss(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException  {
@@ -38,7 +72,4 @@ public class DiscussController {
         ListResponse listResponse = new ListResponse(pageRequest, discussDTOS.size(),discussDTOS);
         return ResponseEntity.ok(listResponse);
     }
-
-
-
 }

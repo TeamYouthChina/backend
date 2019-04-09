@@ -9,7 +9,6 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
-import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.community.video.VideoResponseDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.BaseException;

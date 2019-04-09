@@ -12,7 +12,6 @@ import com.youthchina.dto.community.article.EssayRequestDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
-import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -59,7 +58,7 @@ public class EssayController {
     public ResponseEntity getEssay(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = essayServiceimpl.getEssay(id);
         if (comEssay == null) {
-            throw new NotFoundException(404, 404, "没有找到这个文章"); //TODO
+            throw new NotFoundException(4040, 404, "没有找到这个文章");
         }
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
         essayResponseDTO.setAttentionCount(attentionService.countAttention(comEssay));

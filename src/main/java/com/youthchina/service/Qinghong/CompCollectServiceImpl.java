@@ -1,18 +1,5 @@
 package com.youthchina.service.Qinghong;
 
-import com.youthchina.dao.Qinghong.StudentMapper;
-import com.youthchina.dao.qingyang.CompanyMapper;
-import com.youthchina.domain.Qinghong.CompCollect;
-import com.youthchina.domain.qingyang.Company;
-import com.youthchina.exception.zhongyang.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
  * @program: youthchina
  * @description: 公司收藏的Service层具体实现
