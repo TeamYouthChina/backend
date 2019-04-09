@@ -26,6 +26,8 @@ public class QuestionResponseDTO implements ResponseDTO<Question>, QuestionDTO {
     private Integer rela_type;
     private Integer rela_id;
     private RichTextResponseDTO body;
+    private boolean isAttention;
+
 
     public QuestionResponseDTO(Question question) {
         this.id = question.getId();
@@ -133,6 +135,19 @@ public class QuestionResponseDTO implements ResponseDTO<Question>, QuestionDTO {
     public void setModified_at(Timestamp modified_at) {
         this.modified_at = modified_at;
     }
+
+    public boolean isIs_anonymous() {
+        return is_anonymous;
+    }
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
+
 
     @Override
     public void convertToDTO(Question question) {

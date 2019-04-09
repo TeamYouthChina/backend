@@ -76,6 +76,7 @@ public class AnswerServiceImpl implements AnswerService{
         questionService.isQuestionExist(answer.getTargetId());
         richTextService.addComRichText(answer.getBody());
         answerMapper.add(answer);
+        answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
         return answer;
     }
 
@@ -106,11 +107,7 @@ public class AnswerServiceImpl implements AnswerService{
         for(Integer one : id){
             Answer answer = answerMapper.get(one);
             if(answer != null){
-                try {
-                    answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
-                } catch (NotFoundException e) {
-                    e.printStackTrace();
-                }
+                answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
                 answers.add(answer);
             }
         }

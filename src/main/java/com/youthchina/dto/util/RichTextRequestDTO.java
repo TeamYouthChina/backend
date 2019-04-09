@@ -27,15 +27,6 @@ public class RichTextRequestDTO {
         this.braftEditorRaw = braftEditorRaw;
     }
 
-    @JsonSetter
-    public void setBraftEditorRaw(Map<String, Object> braftEditorRaw) {
-        try {
-            this.braftEditorRaw = new ObjectMapper().writeValueAsString(braftEditorRaw);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public String toString() {
         try {
