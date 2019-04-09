@@ -10,6 +10,7 @@ public class AdvantageLabel {
     private Integer stu_id;
     private Integer is_delete;
     private Timestamp is_delete_time;
+    private LabelInfo labelInfo;
 
     public AdvantageLabel() {
 
@@ -57,5 +58,13 @@ public class AdvantageLabel {
 
     public void setIs_delete_time(Timestamp is_delete_time) {
         this.is_delete_time = is_delete_time;
+    }
+
+    public LabelInfo getLabelInfo() {
+        return labelInfo;
+    }
+
+    public void setLabelInfo(LabelInfo labelInfo) {
+        this.labelInfo = labelInfo;
     }
 }

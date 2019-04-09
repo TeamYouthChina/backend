@@ -83,9 +83,10 @@ public class JobController extends DomainCRUDController<Job, Integer> {
 
     @PutMapping("/{id}/**")
     @ResponseBodyDTO(JobResponseDTO.class)
-    public ResponseEntity<?> updateJobInfo(@RequestBodyDTO(JobRequestDTO.class) Job jobRequestDTO) throws BaseException {
+    public ResponseEntity<?> updateJobInfo(@PathVariable Integer id, @RequestBodyDTO(JobRequestDTO.class) Job job) throws BaseException {
         //Job job = jobService.update(new Job(jobRequestDTO));
-        return update(jobRequestDTO);
+        job.setJobId(id);
+        return update(job);
 //        if(job == null) try {
 //            throw new BaseException();
 //        } catch (BaseException e) {

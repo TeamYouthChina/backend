@@ -17,10 +17,10 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
     private String name;
     private String avatarUrl;
     private Boolean isInJob;
-    private OrganizationDTO currentCompany;
-    private List<String> skills;
+//    private OrganizationDTO currentCompany;
+//    private List<String> skills;
     private List<EducationResponseDTO> educations;
-    private ContactDTO contacts;
+//    private ContactDTO contacts;
     //    private List<String> emails;
 //    private List<String> phonenumbers;
     private List<WorkResponseDTO> experiences;
@@ -36,14 +36,14 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
         this.name = student.getUsername();
         this.avatarUrl = student.getAvatarUrl();
         this.isInJob = student.getIsInJob();
-        this.currentCompany = null;
-        this.skills = new ArrayList<>();
-        for (LabelInfo labelInfo : student.getLabelInfos()) {
-            if(labelInfo!=null){
-                String label_chn = labelInfo.getLabel_chn();
-                this.skills.add(label_chn);
-            }
-        }
+//        this.currentCompany = null;
+//        this.skills = new ArrayList<>();
+//        for (LabelInfo labelInfo : student.getLabelInfos()) {
+//            if(labelInfo!=null){
+//                String label_chn = labelInfo.getLabel_chn();
+//                this.skills.add(label_chn);
+//            }
+//        }
         this.educations = new ArrayList<>(student.getEducationInfos().size());
 
         for (EducationInfo educationInfo : student.getEducationInfos()) {
@@ -53,7 +53,7 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
 
         }
         //contactDTO添加
-        this.contacts = new ContactDTO(student.getEmail(), student.getPhonenumber());
+//        this.contacts = new ContactDTO(student.getEmail(), student.getPhonenumber());
 //        this.emails = new ArrayList<>();
 //        this.emails.add(student.getEmail());
 //        this.phonenumbers = new ArrayList<>();
@@ -90,62 +90,6 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
         this.setCertifications(certificates);
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    public Boolean getIsInJob() {
-        return isInJob;
-    }
-
-    public void setIsInJob(Boolean inJob) {
-        isInJob = inJob;
-    }
-
-    public ContactDTO getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(ContactDTO contacts) {
-        this.contacts = contacts;
-    }
-
-
-    public OrganizationDTO getCurrentCompany() {
-        return currentCompany;
-    }
-
-    public void setCurrentCompany(OrganizationDTO currentCompany) {
-        this.currentCompany = currentCompany;
-    }
-
-    public List<String> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(List<String> skills) {
-        this.skills = skills;
-    }
 
     public List<EducationResponseDTO> getEducations() {
         return educations;
@@ -210,18 +154,18 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
         this.name = student.getUsername();
         this.avatarUrl = student.getAvatarUrl();
         this.isInJob = student.getIsInJob();
-        this.currentCompany = null;
-        this.skills = new ArrayList<>();
-        for (LabelInfo labelInfo : student.getLabelInfos()) {
-            String label_chn = labelInfo.getLabel_chn();
-            this.skills.add(label_chn);
-        }
+//        this.currentCompany = null;
+//        this.skills = new ArrayList<>();
+//        for (LabelInfo labelInfo : student.getLabelInfos()) {
+//            String label_chn = labelInfo.getLabel_chn();
+//            this.skills.add(label_chn);
+//        }
         this.educations = new ArrayList<>(student.getEducationInfos().size());
         for (EducationInfo educationInfo : student.getEducationInfos()) {
             this.educations.add(new EducationResponseDTO(educationInfo));
         }
-        //contactDTO添加
-        this.contacts = new ContactDTO(student.getEmail(), student.getPhonenumber());
+//        //contactDTO添加
+//        this.contacts = new ContactDTO(student.getEmail(), student.getPhonenumber());
 //        this.emails = new ArrayList<>();
 //        this.emails.add(student.getEmail());
 //        this.phonenumbers = new ArrayList<>();
@@ -243,5 +187,37 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
             certificates.add(new CertificateResponseDTO(certificate));
         }
         this.setCertifications(certificates);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public Boolean getInJob() {
+        return isInJob;
+    }
+
+    public void setInJob(Boolean inJob) {
+        isInJob = inJob;
     }
 }
