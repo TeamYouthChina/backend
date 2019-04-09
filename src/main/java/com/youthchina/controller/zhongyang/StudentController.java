@@ -9,6 +9,7 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.applicant.*;
 import com.youthchina.dto.application.JobApplyDTO;
 import com.youthchina.dto.util.PageRequest;
+import com.youthchina.exception.zhongyang.ClientException;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -487,8 +488,11 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
 
 
     @PutMapping("/{id}/educations/{educationID}")
-    public ResponseEntity<?> updateEducation(@PathVariable("id") Integer id, @PathVariable("educationID") Integer edu_id, @RequestBody EducationRequestDTO educationRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    public ResponseEntity<?> updateEducation(@PathVariable("id") Integer id, @PathVariable("educationID") Integer edu_id, @RequestBody EducationRequestDTO educationRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException, ClientException {
         if (user.getId().equals(id)) {
+            if(educationRequestDTO.getId()!=edu_id){
+                throw new ClientException("can not update because the id difference");
+            }
             EducationInfo educationInfo = new EducationInfo(educationRequestDTO);
             EducationInfo educationInfo1 = studentService.updateEducationInfo(educationInfo);
             EducationResponseDTO educationResponseDTO = new EducationResponseDTO(educationInfo1);
@@ -500,8 +504,11 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     }
 
     @PutMapping("/{id}/projects/{projectID}")
-    public ResponseEntity<?> updateProject(@PathVariable("id") Integer id, @PathVariable("projectID") Integer proj_id, @RequestBody ProjectRequestDTO projectRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    public ResponseEntity<?> updateProject(@PathVariable("id") Integer id, @PathVariable("projectID") Integer proj_id, @RequestBody ProjectRequestDTO projectRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException,ClientException {
         if (user.getId().equals(id)) {
+            if(proj_id!=projectRequestDTO.getId()){
+                throw new ClientException("can not update because the id difference");
+            }
             Project project = new Project(projectRequestDTO);
             Project project1 = studentService.updateProject(project);
             ProjectResponseDTO projectResponseDTO = new ProjectResponseDTO(project1);
@@ -513,8 +520,11 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     }
 
     @PutMapping("/{id}/experiences/{experienceID}")
-    public ResponseEntity<?> updateWork(@PathVariable("id") Integer id, @PathVariable("experienceID") Integer work_id, @RequestBody WorkRequestDTO workRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    public ResponseEntity<?> updateWork(@PathVariable("id") Integer id, @PathVariable("experienceID") Integer work_id, @RequestBody WorkRequestDTO workRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException,ClientException {
         if (user.getId().equals(id)) {
+            if(work_id!=workRequestDTO.getId()){
+                throw new ClientException("can not update because the id difference");
+            }
             Work work = new Work(workRequestDTO);
             Work work1 = studentService.updateWork(work);
             WorkResponseDTO workResponseDTO = new WorkResponseDTO(work1);
@@ -525,8 +535,11 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     }
 
     @PutMapping("/{id}/certificates/{certificateID}")
-    public ResponseEntity<?> updateCertificate(@PathVariable("id") Integer id, @PathVariable("certificateID") Integer certificate_id, @RequestBody CertificateRequestDTO certificateRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    public ResponseEntity<?> updateCertificate(@PathVariable("id") Integer id, @PathVariable("certificateID") Integer certificate_id, @RequestBody CertificateRequestDTO certificateRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException,ClientException {
         if (user.getId().equals(id)) {
+            if(certificateRequestDTO.getId()!=certificate_id){
+                throw new ClientException("can not update because the id difference");
+            }
             Certificate certificate = new Certificate(certificateRequestDTO);
             Certificate certificate1 = studentService.updateCertificate(certificate);
             CertificateResponseDTO certificateResponseDTO = new CertificateResponseDTO(certificate1);
@@ -538,8 +551,11 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     }
 
     @PutMapping("/{id}/extracurriculars/{extracurricularID}")
-    public ResponseEntity<?> updateExtracurriculars(@PathVariable("id") Integer id, @PathVariable("extracurricularID") Integer act_id, @RequestBody ExtracurricularRequestDTO extracurricularRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    public ResponseEntity<?> updateExtracurriculars(@PathVariable("id") Integer id, @PathVariable("extracurricularID") Integer act_id, @RequestBody ExtracurricularRequestDTO extracurricularRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException,ClientException {
         if (user.getId().equals(id)) {
+            if(act_id!=extracurricularRequestDTO.getId()){
+                throw new ClientException("can not update because the id difference");
+            }
             Activity activity = new Activity(extracurricularRequestDTO);
             Activity activity1 = studentService.updateActivity(activity);
             ExtracurricularResponseDTO extracurricularResponseDTO = new ExtracurricularResponseDTO(activity1);
