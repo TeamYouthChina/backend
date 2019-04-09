@@ -27,7 +27,10 @@ public class EducationResponseDTO implements ResponseDTO<EducationInfo> {
                 this.university=educationInfo.getUniversity().getUnivers_name();
             }
             this.id = educationInfo.getEdu_id();
-            this.major = educationInfo.getEdu_major();
+            if(educationInfo.getMajor()!=null){
+                this.major = educationInfo.getMajor().getMajor_chn();
+            }
+
 
             if(educationInfo.getDegree()!=null){
                 this.degree = educationInfo.getDegree().getDegreeChn();
@@ -93,7 +96,7 @@ public class EducationResponseDTO implements ResponseDTO<EducationInfo> {
     public void convertToDTO(EducationInfo educationInfo) {
         this.university=educationInfo.getUniversity().getUnivers_name();
         this.id = educationInfo.getEdu_id();
-        this.major = educationInfo.getEdu_major();
+        this.major = educationInfo.getMajor().getMajor_chn();
         this.degree = educationInfo.getDegree().getDegreeChn();
         this.duration = new DurationDTO(educationInfo.getEdu_start(), educationInfo.getEdu_end());
     }
