@@ -20,7 +20,6 @@ public class StudentMapperTest {
     @Test
     public void testGetEducations() {
         List<EducationInfo> educationInfos = applicantMapper.getEducations(10);
-        System.out.print(educationInfos.get(0));
         if (educationInfos != null) {
             System.out.print("测试成功");
         }
@@ -38,7 +37,6 @@ public class StudentMapperTest {
     @Test
     public void testGetActivities() {
         List<Activity> activities = applicantMapper.getActivities(10);
-        Assert.assertNotNull(activities);
         System.out.print(activities.get(0).getAct_detail());
 
     }
@@ -57,6 +55,12 @@ public class StudentMapperTest {
         Assert.assertNotNull(certificates);
         System.out.print(certificates.get(0).getCertificate_insti());
 
+    }
+
+    @Test
+    public void testGetAdvantageSkills(){
+        List<AdvantageLabel> advantageLabels=applicantMapper.getAdvantageLabels(10);
+        System.out.print("1");
     }
 
     @Test

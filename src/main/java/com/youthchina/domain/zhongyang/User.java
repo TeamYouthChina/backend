@@ -52,8 +52,8 @@ public class User implements UserDetails, HasId<Integer> {
         this.email = userDTO.getEmail();
         this.phonenumber = userDTO.getPhonenumber();
         this.registerDate = userDTO.getRegister_date();
-        this.firstName = userDTO.getFirstName();
-        this.lastName = userDTO.getLastName();
+        this.firstName = userDTO.getFirst_name();
+        this.lastName = userDTO.getLast_name();
         this.gender = userDTO.getGender();
         this.nation = userDTO.getNation();
         this.avatarUrl = userDTO.getAvatar_url();

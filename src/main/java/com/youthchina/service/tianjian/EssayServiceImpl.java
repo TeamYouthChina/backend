@@ -4,7 +4,9 @@ import com.youthchina.dao.tianjian.CommunityMapper;
 import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.jinhao.AttentionService;
 import com.youthchina.service.jinhao.CommentServiceImpl;
+import com.youthchina.service.jinhao.EvaluateServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,12 @@ public class EssayServiceImpl implements EssayService {
     @Resource
     CommentServiceImpl commentService;
 
+    @Resource
+    AttentionService attentionService;
+
+    @Resource
+    EvaluateServiceImpl evaluateService;
+
     @Autowired
     UserMapper userMapper;
 
@@ -43,8 +51,8 @@ public class EssayServiceImpl implements EssayService {
         if (comEssaytest != null)
             throw new NotFoundException(404, 404, "this essay is exist");//todo
         else {
-            mapper.addEssay(essay);
             richTextService.addComRichText(essay.getBody());
+            mapper.addEssay(essay);
         }
     }
 
@@ -87,6 +95,8 @@ public class EssayServiceImpl implements EssayService {
         }
         richTextService.getComRichText(comEssay);
         comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
+        comEssay.setUpvotecount(evaluateService.countUpvote(comEssay));
+        //comEssay.setDownvotecount();
         return comEssay;
     }
 

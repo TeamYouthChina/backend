@@ -18,8 +18,8 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     private String email;
     private String phonenumber;
     private String register_date;
-    private String firstName;
-    private String lastName;
+    private String first_name;
+    private String last_name;
     private String gender;
     private String nation;
     private String avatar_url;
@@ -37,8 +37,8 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
         this.register_date = user.getRegisterDate();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
+        this.first_name = user.getFirstName();
+        this.last_name = user.getLastName();
         this.gender = user.getGender();
         this.nation = user.getNation();
         this.avatar_url = user.getAvatarUrl();
@@ -95,14 +95,6 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.register_date = register_date;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getAvatar_url() {
         return avatar_url;
     }
@@ -144,12 +136,20 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.age = age;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
     @Override
@@ -160,8 +160,8 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
         this.register_date = user.getRegisterDate();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
+        this.first_name = user.getFirstName();
+        this.last_name = user.getLastName();
         this.gender = user.getGender();
         this.nation = user.getNation();
         this.avatar_url = user.getAvatarUrl();

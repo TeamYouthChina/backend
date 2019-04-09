@@ -194,6 +194,21 @@ public class EvaluateServiceImpl implements EvaluateService {
     }
 
     @Override
+    public Integer countDownvote(Evaluatable entity){
+        return evaluateMapper.countDownvote(entity.getEvaluateTargetType(), entity.getId());
+    }
+
+    @Override
+    public Integer evaluateStatus(Evaluatable evaluatable, Integer userId) {
+        Evaluate evaluate = evaluateMapper.isEverEvaluate(evaluatable.getEvaluateTargetType(),evaluatable.getId(),userId);
+        if(evaluate == null){
+            return 3;
+        }else{
+            return evaluate.getType();
+        }
+    }
+
+    @Override
     public Evaluate get(Integer id) throws NotFoundException {
         return null;
     }

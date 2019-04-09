@@ -31,7 +31,6 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
         this.body = new ComRichText(simpleAnswerDTO.getBody());
         this.isAnony = (simpleAnswerDTO.getIs_anonymous())? 1:0;
     }
-
     public Answer(){}
 
     @Override

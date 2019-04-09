@@ -13,13 +13,16 @@ public class CommentDTO implements ResponseDTO<Comment> {
     private String body;
     private Timestamp create_at;
     private boolean is_anonymous;
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer evaluateStatus;
 
-    public CommentDTO(Comment comment){
+    public CommentDTO(Comment comment) {
         this.id = comment.getId();
         this.creator = new UserDTO(comment.getUser());
         this.body = comment.getContent();
         this.create_at = comment.getPubTime();
-        this.is_anonymous = (comment.getIsAnony()==1)? true:false;
+        this.is_anonymous = (comment.getIsAnony() == 1) ? true : false;
     }
 
     public Integer getId() {
@@ -62,12 +65,36 @@ public class CommentDTO implements ResponseDTO<Comment> {
         this.is_anonymous = is_anonymous;
     }
 
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
+
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
+
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
+    }
+
     @Override
     public void convertToDTO(Comment comment) {
         this.id = comment.getId();
         this.creator = new UserDTO(comment.getUser());
         this.body = comment.getContent();
         this.create_at = comment.getPubTime();
-        this.is_anonymous = (comment.getIsAnony()==1)? true:false;
+        this.is_anonymous = (comment.getIsAnony() == 1) ? true : false;
     }
 }

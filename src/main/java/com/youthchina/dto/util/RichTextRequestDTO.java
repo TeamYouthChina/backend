@@ -1,11 +1,8 @@
 package com.youthchina.dto.util;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.domain.tianjian.ComRichText;
-
-import java.util.Map;
 
 public class RichTextRequestDTO {
 
@@ -25,15 +22,6 @@ public class RichTextRequestDTO {
 
     public void setBraftEditorRaw(String braftEditorRaw) {
         this.braftEditorRaw = braftEditorRaw;
-    }
-
-    @JsonSetter
-    public void setBraftEditorRaw(Map<String, Object> braftEditorRaw) {
-        try {
-            this.braftEditorRaw = new ObjectMapper().writeValueAsString(braftEditorRaw);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

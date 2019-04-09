@@ -177,7 +177,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -524,7 +524,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -798,7 +798,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -1063,7 +1063,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -1342,7 +1342,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -1616,7 +1616,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -1980,7 +1980,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -2306,7 +2306,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -2457,7 +2457,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -2742,7 +2742,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -2771,8 +2771,26 @@ paths:
           schema:
             type: string
       responses:
-        '201':
+        '200':
           description: upvote successfullly
+    delete:
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+          '200':
+            description: delete upvote successfully
   '/answers/{id}/downvote':
     put:
       tags:
@@ -2790,8 +2808,26 @@ paths:
           schema:
             type: string
       responses:
-        '201':
+        '200':
           description: downvote successfullly
+    delete:
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: delete downvote successfullly
   '/answers/{id}/attention':
     put:
       tags:
@@ -2894,13 +2930,6 @@ paths:
           description: not loged in
   '/login':
     post:
-      parameters:
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
       tags:
         - Security
       requestBody:
@@ -3074,8 +3103,26 @@ paths:
           schema:
             type: string
       responses:
-        '201':
+        '200':
           description: upvote successfullly
+    delete:
+      tags:
+        - Article
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: delete upvote successfullly
   '/articles/{id}/downvote':
     put:
       tags:
@@ -3093,8 +3140,26 @@ paths:
           schema:
             type: string
       responses:
-        '201':
+        '200':
           description: downvote successfullly
+    delete:
+      tags:
+        - Article
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: delete downvote successfullly
   '/articles/{id}/comments':
     post:
       tags:
@@ -3171,7 +3236,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -3470,7 +3535,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -3502,6 +3567,64 @@ paths:
       responses:
         '200':
           description: successful
+    delete:
+      tags:
+        - Video
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: video id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: delete successful
+  '/videos/{id}/downvote':
+    put:
+      tags:
+        - Video
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: video id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful
+    delete:
+      tags:
+        - Video
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: video id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: delete successful
   '/videos/{id}/attention':
     put:
       tags:
@@ -3706,7 +3829,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -3738,6 +3861,25 @@ paths:
       responses:
         '200':
           description: successful
+    delete:
+      tags:
+        - Editorials
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: editorials id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: delete successful
   '/editorials/{id}/downvote':
     put:
       tags:
@@ -3758,6 +3900,25 @@ paths:
       responses:
         '200':
           description: successful
+    delete:
+      tags:
+        - Editorials
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: editorials id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: delete successful
   '/editorials/{id}/attention':
     put:
       tags:
@@ -3820,7 +3981,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -3874,7 +4035,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -3928,7 +4089,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -3982,7 +4143,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -4036,7 +4197,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -4090,7 +4251,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -4144,7 +4305,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -4198,7 +4359,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -4252,7 +4413,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -4306,7 +4467,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -4360,7 +4521,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -4414,7 +4575,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -4471,12 +4632,12 @@ paths:
                         items:
                           type: object
                           properties:
-                            type:
+                            type: 
                               type: string
                               description: the type of object
                             object:
                               type: object
-                              description: the object of given type(may be Article, User, ...)
+                              description: the object of given type(may be Article, User, ...) 
                   status:
                     $ref: '#/components/schemas/Status'
   '/resumes':
@@ -4629,7 +4790,7 @@ paths:
                         type: integer
                       limit:
                         type: integer
-                      page_count:
+                      page_count: 
                         type: integer
                       item_count:
                         type: integer
@@ -4718,6 +4879,63 @@ paths:
           required: false
         - name: text
           description: search element in title
+          in: query
+          schema:
+            type: string
+          required: false
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+      responses:
+        '200':
+          description: search result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                            content:
+                              $ref: '#/components/schemas/Article'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count:
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
+  '/recommend':
+    get:
+      tags:
+        - Util
+      parameters:
+        - name: type
+          description: search entity type, default to be null, means search everything
           in: query
           schema:
             type: string
@@ -4858,12 +5076,7 @@ components:
           type: string
           pattern: '(http|https)://(.?)*'
         location:
-          type: object
-          properties:
-            nation:
-              type: string
-            location:
-              type: string
+          type: string
         website:
           type: string
           pattern: '(http|https)://(.?)*'

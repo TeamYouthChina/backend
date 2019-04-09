@@ -25,8 +25,6 @@
             <result property="sub_interest" column="SUB_INTEREST"/>
             <result property="sub_introduction" column="SUB_INTRODUCTION"/>
             <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
         </association>
         <collection property="educationInfos" ofType="com.youthchina.domain.Qinghong.EducationInfo">
             <id property="edu_id" column="EDU_ID"/>
@@ -36,8 +34,6 @@
             <result property="edu_start" column="EDU_START"/>
             <result property="edu_end" column="EDU_END"/>
             <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
             <association property="degree" column="DEGREE" javaType="com.youthchina.domain.qingyang.Degree"
                          resultMap="getDegree"/>
             <association property="university" column="EDU_SCHOOL_ID" javaType="com.youthchina.domain.Qinghong.University"
@@ -54,8 +50,6 @@
             <result property="certificate_expir_date" column="CERTIFICATE_EXPIR_DATE"/>
             <result property="docu_local_id" column="DOCU_LOCAL_ID"/>
             <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
             <association property="insti_country" column="INSTI_COUNTRY" javaType="com.youthchina.domain.qingyang.Country"
                          resultMap="getCountry"/>
         </collection>
@@ -69,8 +63,6 @@
             <result property="work_duty" column="WORK_DUTY"/>
             <result property="work_nature" column="WORK_NATURE"/>
             <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
             <association property="location" javaType="com.youthchina.domain.Qinghong.Location">
                 <id property="regionId" column="WORK_LOCATION"/>
             </association>
@@ -87,8 +79,6 @@
             <result property="deliver_publish" column="DELIVER_PUBLISH"/>
             <result property="deliver_pub_insti" column="DELIVER_PUB_INSTI"/>
             <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
             <association property="insti_country" column="INSTI_COUNTRY" javaType="com.youthchina.domain.qingyang.Country"
                          resultMap="getCountry"/>
         </collection>
@@ -102,8 +92,6 @@
             <result property="act_end_time" column="ACT_END_TIME"/>
             <result property="act_detail" column="ACT_DETAIL"/>
             <result property="stu_id" column="STU_ID"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
             <association property="org_country" column="ORG_COUNTRY" javaType="com.youthchina.domain.qingyang.Country"
                          resultMap="getCountry"/>
         </collection>
@@ -115,8 +103,6 @@
             <result property="label_chn" column="LABEL_CHN"/>
             <result property="label_eng" column="LABEL_ENG"/>
             <result property="start_time" column="START_TIME"/>
-            <result property="is_delete" column="IS_DELETE"/>
-            <result property="is_delete_time" column="IS_DELETE_TIME"/>
         </collection>
     </resultMap>
 
@@ -311,6 +297,22 @@
         <result property="diploma_eng_abbre" column="DIPLOMA_ENG_ABBRE"/>
         <result property="start_date" column="START_DATE"/>
     </resultMap>
+
+    <resultMap id="getSkills" type="com.youthchina.domain.Qinghong.AdvantageLabel">
+        <id property="label_id" column="LABEL_ID"/>
+        <result property="label_code" column="LABEL_CODE"/>
+        <result property="stu_id" column="STU_ID"/>
+        <association property="labelInfo" javaType="com.youthchina.domain.Qinghong.LabelInfo">
+            <id property="label_id" column="LABEL_ID"/>
+            <result property="label_level" column="LABEL_LEVEL"/>
+            <result property="label_code" column="LABEL_CODE"/>
+            <result property="label_parent_code" column="LABEL_PARENT_CODE"/>
+            <result property="label_chn" column="LABEL_CHN"/>
+            <result property="label_eng" column="LABEL_ENG"/>
+            <result property="start_time" column="START_TIME"/>
+        </association>
+
+    </resultMap>
     <!--&lt;!&ndash;获取地区信息字典表&ndash;&gt;-->
     <!--<select id="getLocation" resultType="com.youthchina.domain.Qinghong.Location">-->
     <!--SELECT a.* OR b.*-->
@@ -354,9 +356,10 @@
     </select>
 
     <!--获取申请者的项目信息-->
-    <select id="getProjects" resultType="com.youthchina.domain.Qinghong.Project">
-        SELECT b.*
+    <select id="getProjects" resultMap="ProjectResultMap">
+        SELECT b.*,n.*
         FROM STU_PROJECT b
+        LEFT JOIN SYS_COUNTRY n ON b.INSTI_COUNTRY=n.COUNTRY_ABBRE AND n.IS_DELETE=0
         WHERE b.STU_ID=#{user_id}  AND b.IS_DELETE=0
     </select>
 
@@ -369,9 +372,12 @@
     </select>
 
     <!--获取申请者的教育信息-->
-    <select id="getEducations" resultType="com.youthchina.domain.Qinghong.EducationInfo">
-        SELECT b.*
+    <select id="getEducations" resultMap="educationResultMap">
+        SELECT b.*,p.*,u.*,z.*
         FROM STU_EDU_INFO b
+        LEFT JOIN SYS_DEGREE p ON b.EDU_DEGREE=p.DEGREE_NUM
+        LEFT JOIN COUNTRY_UNIVERSITY u ON b.EDU_SCHOOL_ID=u.UNIVERS_ID
+        LEFT JOIN SYS_DIPLOMA z ON z.DIPLOMA_NUM=b.EDU_DIPLOMA_TYPE
         WHERE b.STU_ID=#{user_id} AND b.IS_DELETE=0
     </select>
 
@@ -385,11 +391,12 @@
     </select>
 
     <!--获取申请者的工作经历信息-->
-    <select id="getWorks" resultType="com.youthchina.domain.Qinghong.Work">
+    <select id="getWorks" resultMap="WorkResultMap">
         SELECT b.*
         FROM STU_WORK b
         WHERE b.STU_ID=#{user_id} AND b.IS_DELETE=0
     </select>
+
 
     <!--获取某个工作经历信息-->
     <select id="getWorkById" resultMap="WorkResultMap">
@@ -399,9 +406,10 @@
     </select>
 
     <!--获取申请者的认证信息-->
-    <select id="getCertificates" resultType="com.youthchina.domain.Qinghong.Certificate">
-        SELECT b.*
+    <select id="getCertificates" resultMap="CertificateResultMap">
+        SELECT b.*,m.*
         FROM STU_CERTIFICATE b
+        LEFT JOIN SYS_COUNTRY m ON b.INSTI_COUNTRY=m.COUNTRY_ABBRE AND m.IS_DELETE=0
         WHERE b.STU_ID=#{user_id} AND b.IS_DELETE=0
     </select>
 
@@ -414,9 +422,10 @@
     </select>
 
     <!--获取申请者的活动信息-->
-    <select id="getActivities" resultType="com.youthchina.domain.Qinghong.Activity">
-        SELECT b.*
+    <select id="getActivities" resultMap="ActivityResultMap">
+        SELECT b.*,i.*
         FROM STU_ACTIVITY b
+        LEFT JOIN SYS_COUNTRY i ON b.ORG_COUNTRY=i.COUNTRY_ABBRE AND i.IS_DELETE=0
         WHERE b.STU_ID=#{user_id} AND b.IS_DELETE=0
     </select>
 
@@ -502,6 +511,16 @@
         FROM SYS_DEGREE
         WHERE DEGREE_CHN=#{degreeChn}
     </select>
+
+    <!--获取某用户所有技能信息-->
+    <select id="getAdvantageLabels" resultMap="getSkills">
+        SELECT a.*,o.*
+        FROM STU_ADVAN_LABEL a
+        LEFT JOIN SYS_ADVAN_LABEL_CLASS o ON o.LABEL_CODE=a.LABEL_CODE AND o.IS_DELETE=0
+        WHERE a.STU_ID=#{id} AND a.IS_DELETE=0;
+
+    </select>
+
     <select id="getAdvantageLabelById" resultType="com.youthchina.domain.Qinghong.AdvantageLabel">
         SELECT a.*
         FROM STU_ADVAN_LABEL a

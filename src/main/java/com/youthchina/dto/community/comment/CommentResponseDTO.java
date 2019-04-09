@@ -22,7 +22,7 @@ public class CommentResponseDTO implements ResponseDTO<Comment> {
     }
 
     @Override
-    public void convertToDTO(Comment comment) {
+    public void convertToDTO(Comment domain) {
 
     }
 }
