@@ -51,7 +51,7 @@ public class DiscussServiceImpl implements DiscussService{
     @Override
     public void isDiscussExist(Integer id) throws NotFoundException {
         if(discussMapper.checkIfDiscussExist(id) == null){
-            throw new NotFoundException(404,404,"没有找到这个讨论");
+            throw new NotFoundException(4040,404,"没有找到这个讨论");
         }
     }
 

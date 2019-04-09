@@ -21,7 +21,7 @@ public class PersonInfluenceServiceImpl implements PersonInfluenceService {
     public int updatePersonInfluence(PersonInfluence personInfluence) throws NotFoundException {
         PersonInfluence comEssay = personInfluenceMapper.getPersonInfluence(personInfluence.getUser_id());
         if(comEssay==null){
-            throw new NotFoundException(404,404,"this personInfluence is not exist");
+            throw new NotFoundException(4040,404,"this personInfluence is not exist");//todo
         }
         return personInfluenceMapper.updatePersonInfluence(personInfluence);
     }
@@ -30,7 +30,7 @@ public class PersonInfluenceServiceImpl implements PersonInfluenceService {
     public PersonInfluence getPersonInfluence(Integer user_id) throws NotFoundException {
         PersonInfluence comEssay = personInfluenceMapper.getPersonInfluence(user_id);
         if(comEssay==null){
-            throw new NotFoundException(404,404,"this personInfluence is not exist");
+            throw new NotFoundException(4040,404,"this personInfluence is not exist");//todo
         }
        return personInfluenceMapper.getPersonInfluence(user_id);
     }
