@@ -21,7 +21,6 @@ import java.util.List;
 @RestController
 @RequestMapping("${web.url.prefix}/discusses")
 public class DiscussController {
-
     @Resource
     DiscussService discussService;
 
@@ -39,6 +38,7 @@ public class DiscussController {
         discussService.isDiscussExist(id);
         return ResponseEntity.ok(new Response(new StatusDTO(204,"success")));
     }
+
     @GetMapping("/{id}/count")
     public ResponseEntity<?> count(@PathVariable Integer id) {
         int count = discussService.count(id);
