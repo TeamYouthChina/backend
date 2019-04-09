@@ -96,12 +96,12 @@ public class Company implements HasId<Integer> {
             this.logoList.add(logo);
         }
 
-        List<String> photoUrlList = companyRequestDTO.getPhotoIdList();
+        List<String> photoIdList = companyRequestDTO.getPhotoIdList();
 
-        if(photoUrlList != null && photoUrlList.size() > 0){
+        if(photoIdList != null && photoIdList.size() > 0){
             this.photoList = new ArrayList<>();
-            for(String photoUrl : photoUrlList){
-                this.photoList.add(new CompanyPhoto(photoUrl));
+            for(String photoId : photoIdList){
+                this.photoList.add(new CompanyPhoto(photoId));
             }
         }
 

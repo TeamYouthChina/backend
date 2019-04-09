@@ -30,10 +30,6 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Resource
     JobMapper jobMapper;
 
-    @Resource
-    StaticFileSystemMapper staticFileSystemMapper;
-
-
     @Autowired
     LocationServiceImpl locationServiceImpl;
 
@@ -62,20 +58,20 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         List<Logo> logoList = company.getLogoList();
         if(logoList != null && logoList.size() > 0){
             for(Logo logo : logoList){//TODO : 中美服务器?
-               String aliId = staticFileSystemMapper.getFileInfo(logo.getDocuLocalId()).getDocu_server_ali_id();
-               URL url =  (staticFileServiceImpl.getFileUrl(aliId, "China"));
-               logo.setDocuLocalId(url.toString());
+//               String aliId = staticFileSystemMapper.getFileInfo(logo.getDocuLocalId()).getDocu_server_ali_id();
+               URL url =  (staticFileServiceImpl.getFileUrl(logo.getDocuLocalId(), "China"));
+               logo.setUrl(url.toString());
             }
         }
     }
 
     private void setCompanyPhoto(Company company) {
         List<CompanyPhoto> photoList = company.getPhotoList();
+
         if(photoList != null && photoList.size() > 0){
             for(CompanyPhoto photo : photoList){//TODO : 中美服务器?
-                String aliId = staticFileSystemMapper.getFileInfo(photo.getDocuLocalId()).getDocu_server_ali_id();
-                URL url =  (staticFileServiceImpl.getFileUrl(aliId, "China"));
-                photo.setDocuLocalId(url.toString());
+                URL url =  (staticFileServiceImpl.getFileUrl(photo.getDocuLocalId(), "China"));
+                photo.setUrl(url.toString());
             }
         }
     }

@@ -7,6 +7,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.util.LocationDTO;
+import com.youthchina.service.tianjian.FileStorageService;
+import com.youthchina.service.tianjian.StaticFileService;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -47,6 +50,9 @@ public class CompanyControllerTest {
 
     @Autowired
     private WebApplicationContext context;
+
+    @Autowired
+    private StaticFileService staticFileService;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -119,6 +125,9 @@ public class CompanyControllerTest {
 
     @Test
     public void testAddCompany() throws Exception {
+//        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "multipart/form-data", "hello upload".getBytes("UTF-8"));
+//        MockMultipartFile file2 = new MockMultipartFile("file2", "test2.txt", "multipart/form-data", "hello upload2".getBytes("UTF-8"));
+
         CompanyRequestDTO companyRequestDTO = new CompanyRequestDTO();
         companyRequestDTO.setName("Vavle");
         Location location = new Location();
@@ -127,7 +136,7 @@ public class CompanyControllerTest {
         companyRequestDTO.setLocation(new LocationDTO(location));
         companyRequestDTO.setNation("USA");
         companyRequestDTO.setWebsite("vavle.com");
-        companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        companyRequestDTO.setAvatarUrl("2856306669745344512");
         companyRequestDTO.setNote("Steam");
         List<String> photoIdList = new ArrayList<>();
         photoIdList.add("2856306669745344512");
@@ -147,7 +156,6 @@ public class CompanyControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-
                // .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\",\"photoUrlList\":[\"photo1\",\"photo2\",\"photo3\",\"photo4\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
 
         ;
@@ -190,6 +198,16 @@ public class CompanyControllerTest {
 
                 .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\",\"photoUrlList\":[\"photo1\",\"photo2\",\"photo3\",\"photo4\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
+
+    }
+
+    @Test
+    public void getFileUrl(){
+        String s = staticFileService.getFileUrl("2856306669745344512","China").toString();
+        System.out.println(s);
+         s = staticFileService.getFileUrl("2858461057087705088","China").toString();
+        System.out.println(s);
+
 
     }
 
