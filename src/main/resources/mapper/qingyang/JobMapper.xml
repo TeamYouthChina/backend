@@ -241,7 +241,7 @@
         <include refid="jobSelect"/>
         FROM JOB_INFO j
         <include refid="jobJoin"/>
-        WHERE j.JOB_ID in
+        WHERE j.IS_DELETE = 0 AND j.JOB_ID in
         <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
             #{id}
         </foreach>

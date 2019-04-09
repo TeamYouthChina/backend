@@ -69,6 +69,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Transactional
     public List<Company> get(List<Integer> id) throws NotFoundException {
         List<Company> companyList = companyMapper.selectCompanyByIdList(id);
+        if(companyList == null || companyList.size() == 0) throw new NotFoundException(4040, 404, "No such company");
         for (Company company : companyList) {
             setCompanyLocation(company);
         }
@@ -110,6 +111,10 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         companyMapper.deleteCompanyInd(company.getCompanyId());
         companyMapper.deleteCompanyLogo(company.getCompanyId());
         companyMapper.deleteCompanyPhoto(company.getCompanyId());
+        return addRelatedInfo(company);
+    }
+
+    private Company addRelatedInfo(Company company) throws NotFoundException{
         List<Industry> industryList = company.getIndList();
         if (industryList != null && industryList.size() > 0) {
             companyMapper.insertCompanyInd(company.getId(), industryList);
@@ -122,9 +127,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         if(photoList != null && photoList.size() > 0){
             companyMapper.insertCompanyPhoto(company.getId(), photoList);
         }
-        Company companyResult = companyMapper.selectCompany(company.getCompanyId());
-        setCompanyLocation(companyResult);
-        return companyResult;
+        return this.get(company.getCompanyId());
     }
 
     /**
@@ -135,23 +138,9 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
      */
     @Override
     @Transactional
-    public Company add(Company entity) {
+    public Company add(Company entity) throws NotFoundException{
         Integer result = companyMapper.insertCompany(entity);
-        List<Industry> industryList = entity.getIndList();
-        if (industryList != null && industryList.size() > 0) {
-            companyMapper.insertCompanyInd(entity.getId(), industryList);
-        }
-        List<Logo> logoList = entity.getLogoList();
-        if(logoList != null && logoList.size() > 0){
-            companyMapper.insertCompanyLogo(entity.getId(), logoList);
-        }
-        List<CompanyPhoto> photoList = entity.getPhotoList();
-        if(photoList != null && photoList.size() > 0){
-            companyMapper.insertCompanyPhoto(entity.getId(), photoList);
-        }
-        Company companyResult = companyMapper.selectCompany(entity.getCompanyId());
-        setCompanyLocation(companyResult);
-        return companyResult;
+        return addRelatedInfo(entity);
     }
 
 
