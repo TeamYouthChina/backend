@@ -1,6 +1,9 @@
 package com.youthchina.controller.zhongyang;
 
-import com.youthchina.domain.jinhao.*;
+import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.domain.jinhao.BriefReview;
+import com.youthchina.domain.jinhao.Comment;
+import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
@@ -13,7 +16,6 @@ import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
-import com.youthchina.dto.community.video.VideoResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.search.SearchResponseDTO;
@@ -72,9 +74,6 @@ public class SearchController {
             }
             case "company": {
                 return new CompanyResponseDTO((Company) item.getDomain());
-            }
-            case "video": {
-                return new VideoResponseDTO((Video) item.getDomain());
             }
             case "briefReview": {
                 return new BriefReviewResponseDTO((BriefReview) item.getDomain());
