@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Transactional
     public Company get(Integer id) throws NotFoundException {
         Company company = companyMapper.selectCompany(id);
-        if(company == null) throw new NotFoundException(4040, 404, "No such company");
+        if (company == null) throw new NotFoundException(4040, 404, "No such company");
         setCompanyLocation(company);
         return company;
     }
@@ -68,9 +69,13 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Override
     @Transactional
     public List<Company> get(List<Integer> id) throws NotFoundException {
-        List<Company> companyList = companyMapper.selectCompanyByIdList(id);
-        for (Company company : companyList) {
-            setCompanyLocation(company);
+        List<Company> companyList = new ArrayList<>();
+        for (Integer i : id) {
+            try {
+                companyList.add(this.get(i));
+            } catch (NotFoundException ignore) {
+
+            }
         }
         return companyList;
     }
@@ -113,11 +118,11 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
             companyMapper.insertCompanyInd(company.getId(), industryList);
         }
         List<Logo> logoList = company.getLogoList();
-        if(logoList != null && logoList.size() > 0){
+        if (logoList != null && logoList.size() > 0) {
             companyMapper.insertCompanyLogo(company.getId(), logoList);
         }
         List<CompanyPhoto> photoList = company.getPhotoList();
-        if(photoList != null && photoList.size() > 0){
+        if (photoList != null && photoList.size() > 0) {
             companyMapper.insertCompanyPhoto(company.getId(), photoList);
         }
         Company companyResult = companyMapper.selectCompany(company.getCompanyId());
@@ -140,11 +145,11 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
             companyMapper.insertCompanyInd(entity.getId(), industryList);
         }
         List<Logo> logoList = entity.getLogoList();
-        if(logoList != null && logoList.size() > 0){
+        if (logoList != null && logoList.size() > 0) {
             companyMapper.insertCompanyLogo(entity.getId(), logoList);
         }
         List<CompanyPhoto> photoList = entity.getPhotoList();
-        if(photoList != null && photoList.size() > 0){
+        if (photoList != null && photoList.size() > 0) {
             companyMapper.insertCompanyPhoto(entity.getId(), photoList);
         }
         Company companyResult = companyMapper.selectCompany(entity.getCompanyId());

@@ -75,9 +75,6 @@ public class QuestionServiceImpl implements QuestionService {
                 questions.add(question);
             }
         }
-        if(questions.size() == 0){
-            throw new NotFoundException(404,4040,"没有根据这些id找到问题");
-        }
         return questions;
     }
 
