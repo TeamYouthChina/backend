@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.domain.tianjian.ComFriendGroup;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
@@ -28,6 +29,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -70,5 +73,25 @@ public class FriendServiceTest {
         comFriendRelation.setUserId(2);
         comFriendRelation.setFriendId(3);
         friendsService.deleteFriend(comFriendRelation);
+    }
+
+    @Test
+    public void testgetFriend(){
+        List<ComFriendRelation> comFriendRelationList = friendsService.getFriend(2);
+        System.out.println(comFriendRelationList.size());
+    }
+
+    @Test
+    public void testaddFriendGroup(){
+        ComFriendGroup comFriendGroup = new ComFriendGroup();
+        comFriendGroup.setGroupName("qqwet");
+        comFriendGroup.setGroupNum(1);
+        friendsService.saveFriendGroup(comFriendGroup,1);
+    }
+
+    @Test
+    public void testgetFriendGroup(){
+        List<ComFriendGroup> comFriendGroups = friendsService.getFriendGroup(4);
+        System.out.println(comFriendGroups.size());
     }
 }
