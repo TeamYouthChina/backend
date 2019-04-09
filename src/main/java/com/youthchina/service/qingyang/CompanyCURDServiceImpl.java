@@ -95,6 +95,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         companyMapper.deleteCompanyEmployee(comId);
         companyMapper.deleteCompanyEvaluate(comId);
         companyMapper.deleteCompanyPhoto(comId);
+        companyMapper.deleteCompanyLogo(comId);
         companyMapper.deleteStudentComCollection(comId);
         companyMapper.deleteCompanyInd(comId);
         companyMapper.deleteCompany(comId);
@@ -113,6 +114,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         Integer result = companyMapper.updateCompany(company);
         companyMapper.deleteCompanyInd(company.getCompanyId());
         companyMapper.deleteCompanyLogo(company.getCompanyId());
+        companyMapper.deleteCompanyPhoto(company.getCompanyId());
         List<Industry> industryList = company.getIndList();
         if (industryList != null && industryList.size() > 0) {
             companyMapper.insertCompanyInd(company.getId(), industryList);

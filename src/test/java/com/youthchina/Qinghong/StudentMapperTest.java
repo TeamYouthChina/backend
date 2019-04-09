@@ -207,7 +207,9 @@ public class StudentMapperTest {
         university.setUnivers_id(10001);
         degree.setDegreeNum(1);
         educationInfo.setDegree(degree);
-        educationInfo.setEdu_major("计算机");
+        Major major=new Major();
+        major.setMajor_code("10101");
+        educationInfo.setMajor(major);
         educationInfo.setEdu_college("cssa");
         educationInfo.setEdu_gpa((float) 3.3);
         educationInfo.setEdu_start(new Date());

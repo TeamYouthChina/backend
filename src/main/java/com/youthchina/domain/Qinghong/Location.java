@@ -35,6 +35,7 @@ public class Location {
 
     public Location(LocationDTO locationDTO) {
         this.country = locationDTO.getNation_code();
+        //todo string 转成Intger的异常判断
         this.regionId = Integer.valueOf(locationDTO.getLocation_code());
     }
 
