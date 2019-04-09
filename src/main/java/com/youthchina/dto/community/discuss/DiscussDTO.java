@@ -1,14 +1,13 @@
-package com.youthchina.dto.community.comment;
+package com.youthchina.dto.community.discuss;
 
-import com.youthchina.domain.jinhao.Comment;
-import com.youthchina.dto.ResponseDTO;
+import com.youthchina.domain.jinhao.Discuss;
 import com.youthchina.dto.security.UserDTO;
 
 import java.sql.Timestamp;
 
-
-public class CommentDTO implements ResponseDTO<Comment> {
+public class DiscussDTO {
     private Integer id;
+    private Integer commentId;
     private UserDTO creator;
     private String body;
     private Timestamp create_at;
@@ -18,13 +17,18 @@ public class CommentDTO implements ResponseDTO<Comment> {
     private Integer downvoteCount;
     private Integer evaluateStatus;
 
-    public CommentDTO(Comment comment){
-        this.id = comment.getId();
-        this.creator = new UserDTO(comment.getUser());
-        this.body = comment.getContent();
-        this.create_at = comment.getPubTime();
-        this.is_anonymous = (comment.getIsAnony()==1)? true:false;
-        this.modified_at = comment.getEditTime();
+    public DiscussDTO (){
+
+    }
+
+    public DiscussDTO(Discuss discuss) {
+        this.id = discuss.getId();
+        this.commentId = discuss.getCommentId();
+        this.creator = new UserDTO(discuss.getUser());
+        this.body = discuss.getContent();
+        this.create_at = discuss.getPubTime();
+        this.is_anonymous = (discuss.getIsAnony()==1)? true:false;
+        this.modified_at = discuss.getEditTime();
     }
 
     public Integer getId() {
@@ -33,6 +37,14 @@ public class CommentDTO implements ResponseDTO<Comment> {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
 
     public UserDTO getCreator() {
@@ -97,15 +109,5 @@ public class CommentDTO implements ResponseDTO<Comment> {
 
     public void setModified_at(Timestamp modified_at) {
         this.modified_at = modified_at;
-    }
-
-    @Override
-    public void convertToDTO(Comment comment) {
-        this.id = comment.getId();
-        this.creator = new UserDTO(comment.getUser());
-        this.body = comment.getContent();
-        this.create_at = comment.getPubTime();
-        this.is_anonymous = (comment.getIsAnony()==1)? true:false;
-        this.modified_at = comment.getEditTime();
     }
 }
