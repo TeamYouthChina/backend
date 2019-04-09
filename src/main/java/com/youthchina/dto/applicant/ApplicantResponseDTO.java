@@ -19,6 +19,7 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
     private Boolean isInJob;
 //    private OrganizationDTO currentCompany;
 //    private List<String> skills;
+    private List<AdvantageLabelResponseDTO> skills;
     private List<EducationResponseDTO> educations;
 //    private ContactDTO contacts;
     //    private List<String> emails;
@@ -36,14 +37,12 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
         this.name = student.getUsername();
         this.avatarUrl = student.getAvatarUrl();
         this.isInJob = student.getIsInJob();
-//        this.currentCompany = null;
-//        this.skills = new ArrayList<>();
-//        for (LabelInfo labelInfo : student.getLabelInfos()) {
-//            if(labelInfo!=null){
-//                String label_chn = labelInfo.getLabel_chn();
-//                this.skills.add(label_chn);
-//            }
-//        }
+        this.skills=new ArrayList<>();
+        for(AdvantageLabel advantageLabel:student.getAdvantageLabels()){
+            if(advantageLabel!=null){
+                this.skills.add(new AdvantageLabelResponseDTO(advantageLabel));
+            }
+        }
         this.educations = new ArrayList<>(student.getEducationInfos().size());
 
         for (EducationInfo educationInfo : student.getEducationInfos()) {
@@ -219,5 +218,13 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
 
     public void setInJob(Boolean inJob) {
         isInJob = inJob;
+    }
+
+    public List<AdvantageLabelResponseDTO> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<AdvantageLabelResponseDTO> skills) {
+        this.skills = skills;
     }
 }

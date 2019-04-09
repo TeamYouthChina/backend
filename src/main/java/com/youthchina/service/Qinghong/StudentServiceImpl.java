@@ -66,6 +66,7 @@ public class StudentServiceImpl implements StudentService {
             student.setWorks(studentService.getWorks(id));
             student.setCertificates(studentService.getCertificates(id));
             student.setProjects(studentService.getProjects(id));
+            student.setAdvantageLabels(studentService.getAdvantageLabel(id));
             return student;
         }
     }
@@ -261,6 +262,16 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+    @Override
+    public List<AdvantageLabel> getAdvantageLabel(Integer id) throws NotFoundException {
+        UserInfo userInfo=applicantMapper.getUserInfo(id);
+        if(userInfo==null){
+            throw new NotFoundException(404,404,"cannot find user with id " + id);
+        }else {
+            List<AdvantageLabel> advantageLabels=applicantMapper.getAdvantageLabels(id);
+            return advantageLabels;
+        }
+    }
 
     /**
      * @Description: 通过job_id和user_id来将申请的职位信息加入申请表中,已通过测试
@@ -429,6 +440,9 @@ public class StudentServiceImpl implements StudentService {
      */
 
     public Integer deleteJobCollect(Integer collect_id) throws NotFoundException {
+        if(applicantMapper.getJobCollectById(collect_id)==null){
+            throw new NotFoundException(4040,404,"cannot find this jobCollect");
+        }
         Integer num = applicantMapper.deleteJobCollect(collect_id);
         return num;
     }
@@ -442,6 +456,9 @@ public class StudentServiceImpl implements StudentService {
      */
 
     public Integer deleteCompCollect(Integer collect_id) throws NotFoundException {
+        if(applicantMapper.getCompCollectById(collect_id)==null){
+            throw new NotFoundException(4040,404,"cannot find this CompCollect");
+        }
         Integer num = applicantMapper.deleteCompCollect(collect_id);
         return num;
     }
@@ -612,36 +629,54 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Integer deleteEducation(Integer id) throws NotFoundException {
+        if(applicantMapper.getEducationById(id)==null){
+            throw new NotFoundException(4040,404,"can not find this education");
+        }
         Integer integer = applicantMapper.deleteEduInfo(id);
         return integer;
     }
 
     @Override
     public Integer deleteWork(Integer id) throws NotFoundException {
+        if(applicantMapper.getWorkById(id)==null){
+            throw new NotFoundException(4040,404,"can not find this Work");
+        }
         Integer integer = applicantMapper.deleteWork(id);
         return integer;
     }
 
     @Override
     public Integer deleteProject(Integer id) throws NotFoundException {
+        if(applicantMapper.getProjectById(id)==null){
+            throw new NotFoundException(4040,404,"can not find this Project");
+        }
         Integer integer = applicantMapper.deleteProject(id);
         return integer;
     }
 
     @Override
     public Integer deleteActivity(Integer id) throws NotFoundException {
+        if(applicantMapper.getActivityById(id)==null){
+            throw new NotFoundException(4040,404,"can not find this activity");
+        }
         Integer integer = applicantMapper.deleteActivity(id);
         return integer;
     }
 
     @Override
     public Integer deleteCertificate(Integer id) throws NotFoundException {
+        if(applicantMapper.getCertificateById(id)==null){
+            throw new NotFoundException(4040,404,"can not find this certificate");
+        }
         Integer integer = applicantMapper.deleteCertificate(id);
         return integer;
     }
 
     @Override
     public Integer deleteLabel(Integer id) throws NotFoundException{
+        if(applicantMapper.getAdvantageLabelById(id)==null){
+            throw new NotFoundException(4040,404,"can not find this skills");
+        }
         Integer integer=applicantMapper.deleteSkill(id);
         return integer;
     }
