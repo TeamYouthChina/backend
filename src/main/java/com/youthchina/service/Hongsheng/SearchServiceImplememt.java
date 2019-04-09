@@ -156,6 +156,7 @@ public class SearchServiceImplememt implements SearchService {
             }
             case "all" : {
                 List<SearchResultItem> searchList = new ArrayList<>();
+
                 List<ComEssay> essays = essaySearch(title, body, startIndex, endIndex);
                 for (ComEssay i : essays) {
                     SearchResultItem item = new SearchResultItem(i,"article");
