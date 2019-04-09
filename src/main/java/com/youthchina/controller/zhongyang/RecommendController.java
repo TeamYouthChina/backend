@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by zhongyangwu on 4/9/19.
  */
 @RestController
-@RequestMapping("${web.url.prefix}/recommend/**")
+@RequestMapping({"${web.url.prefix}/recommend/**", "${web.url.prefix}/discovery/**"})
 public class RecommendController {
 
     private final SearchController searchController;
