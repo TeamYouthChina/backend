@@ -90,6 +90,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         companyMapper.deleteCompanyEmployee(comId);
         companyMapper.deleteCompanyEvaluate(comId);
         companyMapper.deleteCompanyPhoto(comId);
+        companyMapper.deleteCompanyLogo(comId);
         companyMapper.deleteStudentComCollection(comId);
         companyMapper.deleteCompanyInd(comId);
         companyMapper.deleteCompany(comId);

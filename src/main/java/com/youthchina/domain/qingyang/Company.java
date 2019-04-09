@@ -87,11 +87,12 @@ public class Company implements HasId<Integer> {
         this.country = new Country(companyRequestDTO.getNation());
         this.companyIntroduc = companyRequestDTO.getNote();
         this.userId = companyRequestDTO.getUserId();
-        //TODO: Logo
-//        this.logoList = new ArrayList<>();
-//        Logo logo = new Logo();
-//        logo.setDocuLocalId(companyRequestDTO.getAvatarUrl());
-//        this.logoList.add(logo);
+
+        this.logoList = new ArrayList<>();
+        Logo logo = new Logo();
+        logo.setDocuLocalId(companyRequestDTO.getAvatarUrl());
+        this.logoList.add(logo);
+
 
         //TODO : API need add more params as shown below
         this.companyCode = "TODO"; //企业三证号码

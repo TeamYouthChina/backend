@@ -437,7 +437,7 @@
     </update>
 
     <!--delete Logo of Company By CompanyID-->
-    <update id="deleteCompanyLogo" parameterType="java.lang.Integer">
+    <update id="ddeleteCompanyLogo" parameterType="java.lang.Integer">
         UPDATE COMPANY_JOB_LOGO SET IS_DELETE = 1, IS_DELETE_TIME = NOW()
         WHERE RELA_TYPE = 1 AND RELA_ID = #{id}
     </update>
