@@ -18,45 +18,51 @@ public class SearchServiceTest {
 
     @Test
     public void  testQuestion() throws Exception{
-        SearchResult result = searchService.search("question","腾讯","",1,10);
-        System.out.println(result.getCount());
+        searchService.search("question","腾讯",null,1,10);
+        searchService.search("question",null,"腾讯",1,10);
     }
 
     @Test
-    public void  testEssaytion() throws Exception{
-        SearchResult result = searchService.search("essay","腾讯","",1,10);
-        System.out.println(result.getCount());
-    }
-    @Test
     public void  testAnswer() throws Exception{
-        SearchResult result = searchService.search("question","腾讯","",1,10);
-        System.out.println(result.getCount());
+        searchService.search("answer",null,"1",1,10);
     }
+
     @Test
-    public void  testReview() throws Exception{
-        SearchResult result = searchService.search("question","腾讯","",1,10);
-        System.out.println(result.getCount());
+    public void  testJob() throws Exception{
+        searchService.search("job","实习生",null,1,10);
+        searchService.search("job",null,"实习生",1,10);
     }
 
     @Test
     public void  testCompany() throws Exception{
-        SearchResult result = searchService.search("question","腾讯","",1,10);
-        System.out.println(result.getCount());
+        searchService.search("company","中国",null,1,10);
+        searchService.search("company",null,"中国",1,10);
     }
+
     @Test
-    public void  testJob() throws Exception{
-        SearchResult result = searchService.search("question","腾讯","",1,10);
-        System.out.println(result.getCount());
-    }
-    @Test
-    public void  testComment() throws Exception{
-        SearchResult result = searchService.search("question","腾讯","",1,10);
-        System.out.println(result.getCount());
-    }
+    public void  testEssay() throws Exception{
+        searchService.search("essay","中国",null,1,10);
+        searchService.search("essay",null,"中国",1,10);
+    }// todo: have problem need to fix
+
     @Test
     public void  testVideo() throws Exception{
-        SearchResult result = searchService.search("question","腾讯","",1,10);
-        System.out.println(result.getCount());
+        searchService.search("video","视频1",null,1,10);
     }
+
+    @Test
+    public void  testReview() throws Exception{
+        searchService.search("briefReview",null,"阿里",1,10);
+    }
+
+    @Test
+    public void  testComment() throws Exception{
+        searchService.search("comment",null,"好好好",1,10);
+    } // todo: have problem need to fix
+
+    @Test
+    public void  testMuti() throws Exception{
+        searchService.search("all",null,"好好好",1,10);
+    } // todo: have problem need to fix
 
 }

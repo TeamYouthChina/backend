@@ -248,6 +248,7 @@ public class SearchServiceImplememt implements SearchService {
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
                 String id = doc.get("id").toString();
+                System.out.println(id);
                 String[] sp = id.split("_");
                 essayIdList.add(Integer.parseInt(sp[1]));
             }
@@ -263,7 +264,10 @@ public class SearchServiceImplememt implements SearchService {
             QueryResponse response = solrServer.query(query);
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
-                essayIdList.add(Integer.parseInt(doc.get("id").toString()));
+                String id = doc.get("id").toString();
+                System.out.println(id);
+                String[] sp = id.split("_");
+                essayIdList.add(Integer.parseInt(sp[1]));
             }
         }
 
@@ -289,7 +293,6 @@ public class SearchServiceImplememt implements SearchService {
                 String id = doc.get("id").toString();
                 System.out.println(id);
                 String[] sp = id.split("_");
-                System.out.println(sp[1]);
                 quesIdList.add(Integer.parseInt(sp[1]));
 
             }
@@ -305,6 +308,7 @@ public class SearchServiceImplememt implements SearchService {
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
                 String id = doc.get("id").toString();
+                System.out.println(id);
                 String[] sp = id.split("_");
                 quesIdList.add(Integer.parseInt(sp[1]));
             }
@@ -327,7 +331,10 @@ public class SearchServiceImplememt implements SearchService {
             QueryResponse response = solrServer.query(query);
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
-                answerIdList.add(Integer.parseInt(doc.get("id").toString()));
+                String id = doc.get("id").toString();
+                System.out.println(id);
+                String[] sp = id.split("_");
+                answerIdList.add(Integer.parseInt(sp[1]));
             }
         }
 
@@ -349,7 +356,10 @@ public class SearchServiceImplememt implements SearchService {
             QueryResponse response = solrServer.query(query);
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
-                jobIdList.add(Integer.parseInt(doc.get("id").toString()));
+                String id = doc.get("id").toString();
+                System.out.println(id);
+                String[] sp = id.split("_");
+                jobIdList.add(Integer.parseInt(sp[1]));
             }
         }
 
@@ -363,7 +373,10 @@ public class SearchServiceImplememt implements SearchService {
             QueryResponse response = solrServer.query(query);
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
-                jobIdList.add(Integer.parseInt(doc.get("id").toString()));
+                String id = doc.get("id").toString();
+                System.out.println(id);
+                String[] sp = id.split("_");
+                jobIdList.add(Integer.parseInt(sp[1]));
             }
         }
 
@@ -384,7 +397,10 @@ public class SearchServiceImplememt implements SearchService {
             QueryResponse response = solrServer.query(query);
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
-                companyIdList.add(Integer.parseInt(doc.get("id").toString()));
+                String id = doc.get("id").toString();
+                System.out.println(id);
+                String[] sp = id.split("_");
+                companyIdList.add(Integer.parseInt(sp[1]));
             }
         }
 
@@ -398,7 +414,10 @@ public class SearchServiceImplememt implements SearchService {
             QueryResponse response = solrServer.query(query);
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
-                companyIdList.add(Integer.parseInt(doc.get("id").toString()));
+                String id = doc.get("id").toString();
+                System.out.println(id);
+                String[] sp = id.split("_");
+                companyIdList.add(Integer.parseInt(sp[1]));
             }
         }
         List<Company> companyList = companyCURDService.get(companyIdList);
@@ -479,7 +498,10 @@ public class SearchServiceImplememt implements SearchService {
             QueryResponse response = solrServer.query(query);
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
-                videoIdList.add(Integer.parseInt(doc.get("id").toString()));
+                String id = doc.get("id").toString();
+                System.out.println(id);
+                String[] sp = id.split("_");
+                videoIdList.add(Integer.parseInt(sp[1]));
             }
         }
 
@@ -500,7 +522,10 @@ public class SearchServiceImplememt implements SearchService {
             QueryResponse response = solrServer.query(query);
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
-                briefReviewIdList.add(Integer.parseInt(doc.get("id").toString()));
+                String id = doc.get("id").toString();
+                System.out.println(id);
+                String[] sp = id.split("_");
+                briefReviewIdList.add(Integer.parseInt(sp[1]));
             }
         }
 
@@ -521,7 +546,10 @@ public class SearchServiceImplememt implements SearchService {
             QueryResponse response = solrServer.query(query);
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
-                comIdList.add(Integer.parseInt(doc.get("id").toString()));
+                String id = doc.get("id").toString();
+                System.out.println(id);
+                String[] sp = id.split("_");
+                comIdList.add(Integer.parseInt(sp[1]));
             }
         }
         List<Comment> comList = commentService.get(comIdList);

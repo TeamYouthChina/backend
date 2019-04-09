@@ -91,6 +91,6 @@ public class SearchController {
             }
             default:
                 throw new BaseException(5000, 500, "no suitable converter found for search result");
-        }
+        }//todo: test controller
     }
 }
