@@ -24,7 +24,7 @@ import java.sql.Date;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:New_Company_test.xml", "classpath:companyEmployee.xml"})
+@DatabaseSetup({"classpath:test.xml"})
 public class CompanyEmployeeTest {
 
     @Autowired
