@@ -10,12 +10,14 @@
         <result property="relaId" column="RELA_ID"/>
         <result property="relaType" column="RELA_TYPE"/>
         <result property="isAnony" column="USER_ANONY"/>
-        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
-                     resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User">
+            <constructor>
+                <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            </constructor>
+        </association>
     </resultMap>
     <select id="get" resultMap="question">
-        select q.*,u.* from COM_QUESTION q
-        left join SYS_USER u on u.USER_ID=q.USER_ID and u.IS_DELETE=0
+        select q.* from COM_QUESTION q
         where q.QUES_ID=#{id} and q.IS_DELETE=0
     </select>
     <insert id="add" parameterType="com.youthchina.domain.jinhao.Question" useGeneratedKeys="true"
@@ -38,8 +40,7 @@
         select count(QUES_ID) from COM_QUESTION where IS_DELETE=0
     </select>
     <select id="getListQuestions" resultMap="question">
-       select q.*,u.* from COM_QUESTION q
-        left join SYS_USER u on u.USER_ID=q.USER_ID and u.IS_DELETE=0
+        select q.* from COM_QUESTION q
         where q.IS_DELETE=0 and q.RELA_ID=#{relaId} and q.RELA_TYPE = #{relaType}
     </select>
 

@@ -1,3 +1,98 @@
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json;utf-8
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-09T012136.200.json
+
+###
+
+POST http://test.zzc-tongji.com/api/v1/login
+Content-Type: application/json;utf-8
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-09T012104.403.json
+
+###
+
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json;utf-8
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-09T012037.200.json
+
+###
+
+GET http://localhost:8080/api/v1/recommend?limit=10
+Content-Type: application/json;utf-8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-09T125254.200.json
+
+###
+
+GET http://localhost:8080/api/v1/recommend
+Content-Type: application/json;utf-8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-09T125115.200.json
+
+###
+
+GET http://localhost:8080/api/v1/recommend
+Content-Type: application/json;utf-8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-09T123011.500.json
+
+###
+
+GET http://localhost:8080/api/v1/recommend
+Content-Type: application/json;utf-8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-09T122757.500.json
+
+###
+
+GET http://localhost:8080/api/v1/recommend
+Content-Type: application/json;utf-8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-09T122651.4040.json
+
+###
+
+GET http://localhost:8080/api/v1/recommend
+Content-Type: application/json;utf-8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-09T121030.4040.json
+
+###
+
+GET http://localhost:8080/api/v1/recommend
+Content-Type: application/json;utf-8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+
+{ "id":10, "password":"123456" }
+
+###
+
 GET http://47.252.87.218:8080/api/v1/search?title=测
 Content-Type: application/json;utf-8
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
@@ -341,13 +436,6 @@ POST http://47.252.87.218:8080/api/v1/login
 Content-Type: application/json;utf-8
 
 { "id": 10, "password":"123456" }
-
-###
-
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json;utf-8
-
-{ "id":2, "password":"123456" }
 
 ###
 

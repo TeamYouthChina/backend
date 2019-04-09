@@ -1,12 +1,31 @@
 package com.youthchina.Qinghong;
 
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.dao.Qinghong.ApplicantMapper;
+import com.youthchina.domain.Qinghong.*;
+import com.youthchina.domain.qingyang.Country;
+import com.youthchina.domain.qingyang.Degree;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+
+import java.util.Date;
+import java.util.List;
+
 /**
  * @program: V-0.1
  * @description: 对于studentmapper进行测试
  * @author: Qinghong Wang
  * @create: 2019-01-01 21:43
  **/
-/*
+
 
 
 @RunWith(SpringRunner.class)
@@ -310,5 +329,3 @@ public class StudentMapperTest {
 
 
 }
-
- */
