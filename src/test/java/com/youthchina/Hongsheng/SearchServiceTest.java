@@ -19,7 +19,44 @@ public class SearchServiceTest {
     @Test
     public void  testQuestion() throws Exception{
         SearchResult result = searchService.search("question","腾讯","",1,10);
-        System.out.println(result);
+        System.out.println(result.getCount());
+    }
+
+    @Test
+    public void  testEssaytion() throws Exception{
+        SearchResult result = searchService.search("essay","腾讯","",1,10);
+        System.out.println(result.getCount());
+    }
+    @Test
+    public void  testAnswer() throws Exception{
+        SearchResult result = searchService.search("question","腾讯","",1,10);
+        System.out.println(result.getCount());
+    }
+    @Test
+    public void  testReview() throws Exception{
+        SearchResult result = searchService.search("question","腾讯","",1,10);
+        System.out.println(result.getCount());
+    }
+
+    @Test
+    public void  testCompany() throws Exception{
+        SearchResult result = searchService.search("question","腾讯","",1,10);
+        System.out.println(result.getCount());
+    }
+    @Test
+    public void  testJob() throws Exception{
+        SearchResult result = searchService.search("question","腾讯","",1,10);
+        System.out.println(result.getCount());
+    }
+    @Test
+    public void  testComment() throws Exception{
+        SearchResult result = searchService.search("question","腾讯","",1,10);
+        System.out.println(result.getCount());
+    }
+    @Test
+    public void  testVideo() throws Exception{
+        SearchResult result = searchService.search("question","腾讯","",1,10);
+        System.out.println(result.getCount());
     }
 
 }

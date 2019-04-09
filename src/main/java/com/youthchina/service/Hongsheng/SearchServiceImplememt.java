@@ -277,7 +277,7 @@ public class SearchServiceImplememt implements SearchService {
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
         if (title != null) {
-            query.set("q", "title:"+ title);
+            query.set("q", "title:"+title);
             query.set("fq","type:QUESTION");
             // 参数q  查询所有
             query.setStart(startIndex);
@@ -295,9 +295,8 @@ public class SearchServiceImplememt implements SearchService {
             }
         }
 
-
         if (body != null) {
-            query.set("q", "body:"+ body);
+            query.set("q", "body:"+body);
             query.set("fq","type:QUESTION");
             // 参数q  查询所有
             query.setStart(startIndex);
