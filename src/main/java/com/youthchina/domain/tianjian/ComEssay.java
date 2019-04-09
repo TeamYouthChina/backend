@@ -8,7 +8,6 @@ import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.article.EssayRequestDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
-import io.swagger.models.auth.In;
 
 import java.sql.Timestamp;
 import java.util.List;

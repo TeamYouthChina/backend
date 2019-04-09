@@ -1,18 +1,5 @@
 package com.youthchina.service.Qinghong;
 
-import com.youthchina.dao.Qinghong.StudentMapper;
-import com.youthchina.dao.qingyang.JobMapper;
-import com.youthchina.domain.Qinghong.JobCollect;
-import com.youthchina.domain.qingyang.Job;
-import com.youthchina.exception.zhongyang.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
  * @program: youthchina
  * @description: 职位收藏的Service层具体实现

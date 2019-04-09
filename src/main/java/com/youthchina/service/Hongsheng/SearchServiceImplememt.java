@@ -1,12 +1,14 @@
 package com.youthchina.service.Hongsheng;
 
-import com.youthchina.domain.jinhao.*;
+import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.domain.jinhao.BriefReview;
+import com.youthchina.domain.jinhao.Comment;
+import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.SearchResult;
 import com.youthchina.domain.zhongyang.SearchResultItem;
-import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.service.jinhao.*;
 import com.youthchina.service.qingyang.CompanyCURDService;
@@ -21,13 +23,10 @@ import org.apache.solr.common.SolrDocumentList;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.xml.ws.ServiceMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import static org.aspectj.util.LangUtil.split;
 
 @Service("SearchService")
 public class SearchServiceImplememt implements SearchService {
@@ -77,7 +76,6 @@ public class SearchServiceImplememt implements SearchService {
                 return searchResult;
             }
             case "question": {
-                System.out.println(type);
                 List<SearchResultItem> searchList = new ArrayList<>();
                 List<Question> questions = questionSearch(title, body, startIndex, endIndex);
                 for (Question i : questions) {
@@ -115,17 +113,6 @@ public class SearchServiceImplememt implements SearchService {
                 List<Company> companies = companySearch(title, body, startIndex, endIndex);
                 for (Company i : companies) {
                     SearchResultItem item = new SearchResultItem(i,"company");
-                    searchList.add(item);
-                    count++;
-                }
-                searchResult = new SearchResult(searchList,count);
-                return searchResult;
-            }
-            case "video" : {
-                List<SearchResultItem> searchList = new ArrayList<>();
-                List<Video> videos = videoSearch(title, body, startIndex, endIndex);
-                for (Video i : videos) {
-                    SearchResultItem item = new SearchResultItem(i,"video");
                     searchList.add(item);
                     count++;
                 }
@@ -188,13 +175,6 @@ public class SearchServiceImplememt implements SearchService {
                 List<Company> companies = companySearch(title, body, startIndex, endIndex);
                 for (Company i : companies) {
                     SearchResultItem item = new SearchResultItem(i,"company");
-                    searchList.add(item);
-                    count++;
-                }
-
-                List<Video> videos = videoSearch(title, body, startIndex, endIndex);
-                for (Video i : videos) {
-                    SearchResultItem item = new SearchResultItem(i,"video");
                     searchList.add(item);
                     count++;
                 }
@@ -486,29 +466,6 @@ public class SearchServiceImplememt implements SearchService {
         return userlist;
     }
     */
-    public List<Video> videoSearch(String title, String body,Integer startIndex, Integer endIndex) throws Exception {
-        List<Integer> videoIdList = new ArrayList<>();
-        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
-        SolrQuery query = new SolrQuery();
-        if (title != null) {
-            query.set("q", "title:"+ title);
-            query.set("fq","type:VIDEO");
-            // 参数q  查询所有
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-            for (SolrDocument doc : solrDocumentList) {
-                String id = doc.get("id").toString();
-                System.out.println(id);
-                String[] sp = id.split("_");
-                videoIdList.add(Integer.parseInt(sp[1]));
-            }
-        }
-
-        List<Video> videoList = videoService.get(videoIdList);
-        return videoList;
-    }
 
     public List<BriefReview> briefReviewSearch(String title, String body, Integer startIndex, Integer endIndex) throws Exception {
         List<Integer> briefReviewIdList = new ArrayList<>();
@@ -534,7 +491,7 @@ public class SearchServiceImplememt implements SearchService {
         return briefReviewList;
     }
 
-    public List<Comment> commentSearch(String title, String body, Integer startIndex, Integer endIndex) throws Exception {
+    public List<Comment>  commentSearch(String title, String body, Integer startIndex, Integer endIndex) throws Exception {
         List<Integer> comIdList = new ArrayList<>();
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();

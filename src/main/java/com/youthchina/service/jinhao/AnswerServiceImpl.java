@@ -111,9 +111,6 @@ public class AnswerServiceImpl implements AnswerService{
                 answers.add(answer);
             }
         }
-        if(answers.size() == 0){
-            throw new NotFoundException(404,404,"没有找到这些问题");
-        }
         return answers;
     }
 
