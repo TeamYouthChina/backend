@@ -8,9 +8,12 @@ import com.youthchina.domain.qingyang.CompanyPhoto;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.qingyang.Logo;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.tianjian.StaticFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.net.URL;
+
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,8 +33,11 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Autowired
     LocationServiceImpl locationServiceImpl;
 
+    @Autowired
+    StaticFileService staticFileServiceImpl;
+
     /**
-     * 公司搜索
+     * 通过公司Id获取公司
      *
      * @param id 公司Id
      * @return 公司类
@@ -43,7 +49,29 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         Company company = companyMapper.selectCompany(id);
         if(company == null) throw new NotFoundException(4040, 404, "No such company");
         setCompanyLocation(company);
+        setCompanyLogo(company);
+        setCompanyPhoto(company);
         return company;
+    }
+
+    private void setCompanyLogo(Company company) {
+        List<Logo> logoList = company.getLogoList();
+        if(logoList != null && logoList.size() > 0){
+            for(Logo logo : logoList){//TODO : 中美服务器?
+               URL url =  (staticFileServiceImpl.getFileUrl(logo.getDocuLocalId(), "China"));
+               logo.setDocuLocalId(url.toString());
+            }
+        }
+    }
+
+    private void setCompanyPhoto(Company company) {
+        List<CompanyPhoto> photoList = company.getPhotoList();
+        if(photoList != null && photoList.size() > 0){
+            for(CompanyPhoto photo : photoList){//TODO : 中美服务器?
+                URL url =  (staticFileServiceImpl.getFileUrl(photo.getDocuLocalId(), "China"));
+                photo.setDocuLocalId(url.toString());
+            }
+        }
     }
 
     /**
