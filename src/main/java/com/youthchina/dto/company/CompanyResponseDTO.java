@@ -112,16 +112,10 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         if (country != null) {
             this.nation = country.getCountryChn();
         }
-        //Test
-        System.out.println("convertToDTO(Company company)");
         List<CompanyPhoto> photoList = company.getPhotoList();
         if(photoList != null && photoList.size() > 0){
-            //Test
-            System.out.println("photoList.size() : " + photoList.size());
             this.photoUrlList = new ArrayList<>();
             for(CompanyPhoto photo : photoList){
-                //Test
-                System.out.println("photo.getDocuLocalId() : " + photo.getDocuLocalId() );
                 this.photoUrlList.add(photo.getDocuLocalId());
             }
         }

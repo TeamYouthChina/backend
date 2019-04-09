@@ -74,8 +74,20 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-                //TODO : "avatarUrl":null,???
                 .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"location\":\"北京市\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+        ;
+    }
+
+    @Test
+    public void testGetCompany2() throws Exception {
+        Integer id = 2;
+        this.mvc.perform(
+                get(this.urlPrefix + "/companies/" + id)//.param("id", "1").param("detailLevel", "1")
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
+                //.andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"location\":\"北京市\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 
@@ -140,7 +152,7 @@ public class CompanyControllerTest {
         )
                 .andDo(print())
 
-                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\",\"photoUrlList\":[\"photo1\",\"photo2\",\"photo3\",\"photo4\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
 
         ;
     }
@@ -180,7 +192,7 @@ public class CompanyControllerTest {
         )
                 .andDo(print())
 
-                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\",\"photoUrlList\":[\"photo1\",\"photo2\",\"photo3\",\"photo4\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
 
     }

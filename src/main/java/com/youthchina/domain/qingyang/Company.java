@@ -97,15 +97,13 @@ public class Company implements HasId<Integer> {
         }
 
         List<String> photoUrlList = companyRequestDTO.getPhotoUrlList();
+
         if(photoUrlList != null && photoUrlList.size() > 0){
             this.photoList = new ArrayList<>();
             for(String photoUrl : photoUrlList){
-                //System.out.println("TestPhoto :" + photoUrl); // Success
                 this.photoList.add(new CompanyPhoto(photoUrl));
             }
         }
-
-        this.photoList = new ArrayList<>();
 
 
         //TODO : API need add more params as shown below

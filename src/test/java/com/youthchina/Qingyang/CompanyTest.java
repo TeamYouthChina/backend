@@ -8,6 +8,7 @@ import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.qingyang.CompanyCURDServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,9 @@ public class CompanyTest {
 
     @Autowired
     private JobMapper jobMapper;
+
+    @Autowired
+    private CompanyCURDServiceImpl companyCURDService;
 
 
     @Autowired
@@ -255,29 +259,28 @@ public class CompanyTest {
     }
 
     @Test
-    public void testInsertCompanyPhoto(){
-//        CompanyPhoto photo = company.getPhotoList().get(0);
-//        photo.setDocuLocalId("CompanyPhotoUpdate");
-//        List<CompanyPhoto> photoList = new ArrayList<>();
-//        photoList.add(photo);
-//        photoList.add(photo);
-//        companyMapper.insertCompanyPhoto(1, )
+    public void testInsertCompanyPhotoMapper(){
+        CompanyPhoto photo = new CompanyPhoto("CompanyPhotoUpdate");
+        List<CompanyPhoto> photoList = new ArrayList<>();
+        photoList.add(photo);
+        photoList.add(photo);
+        companyMapper.insertCompanyPhoto(1, photoList);
     }
 
     @Test
-    public void testUpdateCompanyPhoto(){
+    public void testUpdateCompanyPhotoMapper(){
         //TODO:
-//        Company company = companyMapper.selectCompany(1);
-//        CompanyPhoto photo = company.getPhotoList().get(0);
-//        photo.setDocuLocalId("CompanyPhotoUpdate");
-//        List<CompanyPhoto> photoList = new ArrayList<>();
-//        photoList.add(photo);
-//        photoList.add(photo);
-//        company.setPhotoList(photoList);
-//        companyMapper.updateCompany(company);
-//        companyMapper.insertCompanyPhoto(company.getId(), company.getPhotoList());
-//        company = companyMapper.selectCompany(company.getCompanyId());
-//        Assert.assertEquals(2, company.getPhotoList().size());
+        Company company = companyMapper.selectCompany(2);
+        CompanyPhoto photo = new CompanyPhoto("CompanyPhotoUpdate");
+        List<CompanyPhoto> photoList = new ArrayList<>();
+        photoList.add(photo);
+        photoList.add(photo);
+        company.setPhotoList(photoList);
+        companyMapper.updateCompany(company);
+        companyMapper.deleteCompanyPhoto(company.getCompanyId());
+        companyMapper.insertCompanyPhoto(company.getId(), company.getPhotoList());
+        company = companyMapper.selectCompany(company.getCompanyId());
+        Assert.assertEquals(2, company.getPhotoList().size());
 //        Assert.assertEquals("CompanyPhotoUpdate", photo.getDocuLocalId());
     }
 
@@ -287,6 +290,8 @@ public class CompanyTest {
         Assert.assertEquals(61, companyList.size());
 
     }
+
+
 
 
 
