@@ -20,6 +20,8 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,7 +32,7 @@ import java.util.Random;
 
 @Service("SearchService")
 public class SearchServiceImplememt implements SearchService {
-    private final static String SOLR_URL = "http://localhost:8983/solr/";
+    private static String SOLR_URL;
 
     @Resource
     private UserService userService;
@@ -58,6 +60,11 @@ public class SearchServiceImplememt implements SearchService {
 
     @Resource
     private BriefReviewService briefReviewService;
+
+    @Autowired
+    public SearchServiceImplememt(@Value("${search.url}") String solr_url) {
+        SOLR_URL = solr_url;
+    }
 
     @Override
     public SearchResult search(String type, String title, String body, Integer startIndex, Integer endIndex) throws Exception{

@@ -20,7 +20,7 @@ public class EducationRequestDTO implements RequestDTO<EducationInfo> {
     }
 
     public EducationRequestDTO(EducationInfo educationInfo) {
-        this.major = educationInfo.getEdu_major();
+        this.major = educationInfo.getMajor().getMajor_chn();
         this.degree = educationInfo.getDegree().getDegreeChn();
         this.duration = new DurationDTO(educationInfo.getEdu_start(), educationInfo.getEdu_end());
 
