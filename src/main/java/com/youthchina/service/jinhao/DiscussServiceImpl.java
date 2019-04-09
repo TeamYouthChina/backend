@@ -3,6 +3,7 @@ package com.youthchina.service.jinhao;
 import com.youthchina.dao.jinhao.DiscussMapper;
 import com.youthchina.domain.jinhao.Discuss;
 import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.service.zhongyang.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,19 +18,34 @@ public class DiscussServiceImpl implements DiscussService{
     @Resource
     CommentService commentService;
 
+    @Resource
+    UserService userService;
+
     @Override
     @Transactional
-    public List<Discuss> getDiscusses(Integer id) throws NotFoundException {
+    public List<Discuss> getDiscusses(Integer id) {
         List<Discuss> discusses = discussMapper.getDiscusses(id);
-        if(discusses.size() == 0){
-            throw new NotFoundException(404,404,"该评论没有讨论");
+        for(Discuss discuss : discusses){
+            try {
+                discuss.setUser(userService.get(discuss.getUser().getId()));
+            } catch (NotFoundException e) {
+
+            }
         }
         return discusses;
     }
 
     @Override
     public List<Discuss> getDiscusses(Integer id, Integer start, Integer end) {
-        return discussMapper.getLimitedDiscusses(id,start,end-start+1);
+        List<Discuss> discusses =  discussMapper.getLimitedDiscusses(id,start,end-start+1);
+        for(Discuss discuss : discusses){
+            try {
+                discuss.setUser(userService.get(discuss.getUser().getId()));
+            } catch (NotFoundException e) {
+
+            }
+        }
+        return discusses;
     }
 
     @Override
