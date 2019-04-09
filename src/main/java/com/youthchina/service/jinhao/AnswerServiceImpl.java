@@ -4,6 +4,7 @@ import com.youthchina.dao.jinhao.AnswerMapper;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.RichTextService;
+import com.youthchina.service.zhongyang.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,9 @@ public class AnswerServiceImpl implements AnswerService{
     @Resource
     CommentService commentService;
 
+    @Resource
+    UserService userService;
+
     @Override
     public void isAnswerExist(Integer id) throws NotFoundException{
         Integer cur = answerMapper.checkIfAnswerExist(id);
@@ -45,6 +49,7 @@ public class AnswerServiceImpl implements AnswerService{
         if(answer == null){
             throw new NotFoundException(404,404,"没有找到这个回答");
         }
+        answer.setUser(userService.get(answer.getUser().getId()));
         richTextService.getComRichText(answer);
         answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
         return answer;
@@ -55,6 +60,11 @@ public class AnswerServiceImpl implements AnswerService{
     public List<Answer> getAnswers(Integer id, int start, int end){
         List<Answer> answers = answerMapper.getLimitedAnswers(id, start, start-end+1);
         for(Answer answer : answers){
+            try {
+                answer.setUser(userService.get(answer.getUser().getId()));
+            } catch (NotFoundException e) {
+
+            }
             richTextService.getComRichText(answer);
         }
         return answers;
@@ -65,6 +75,11 @@ public class AnswerServiceImpl implements AnswerService{
     public List<Answer> getAnswers(Integer id) {
         List<Answer> answers = answerMapper.getAnswers(id);
         for(Answer answer : answers){
+            try {
+                answer.setUser(userService.get(answer.getUser().getId()));
+            } catch (NotFoundException e) {
+
+            }
             richTextService.getComRichText(answer);
         }
         return answers;
@@ -85,7 +100,7 @@ public class AnswerServiceImpl implements AnswerService{
     public Answer update(Answer answer) throws NotFoundException {
         isAnswerExist(answer.getId());
         answerMapper.update(answer);
-        Answer answer1 = get(1);
+        Answer answer1 = get(answer.getId());
         answer.getBody().setTextId(answer1.getBody().getTextId());
         richTextService.updateComRichText(answer.getBody());
         return get(answer.getId());
@@ -102,13 +117,13 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public List<Answer> get(List<Integer> id) throws NotFoundException{
+    public List<Answer> get(List<Integer> id){
         List<Answer> answers = new LinkedList<>();
         for(Integer one : id){
-            Answer answer = answerMapper.get(one);
-            if(answer != null){
-                answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
-                answers.add(answer);
+            try {
+                answers.add(get(one));
+            } catch (NotFoundException e) {
+
             }
         }
         return answers;

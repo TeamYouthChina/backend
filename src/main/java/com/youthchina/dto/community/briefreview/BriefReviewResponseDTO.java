@@ -35,7 +35,6 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
                 comments.getComments().add(commentDTO);
             }
         }
-
         this.author = new UserDTO(briefReview.getUser());
     }
 
