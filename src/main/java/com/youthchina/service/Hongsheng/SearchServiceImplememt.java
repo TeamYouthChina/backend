@@ -9,6 +9,7 @@ import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.SearchResult;
 import com.youthchina.domain.zhongyang.SearchResultItem;
+import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.service.jinhao.*;
 import com.youthchina.service.qingyang.CompanyCURDService;
@@ -148,6 +149,17 @@ public class SearchServiceImplememt implements SearchService {
                 searchResult = new SearchResult(searchList,count);
                 return searchResult;
             }
+            case "user" : {
+                List<SearchResultItem> searchList = new ArrayList<>();
+                List<User> users = userSearch(title, body, startIndex, endIndex);
+                for (User i : users) {
+                    SearchResultItem item = new SearchResultItem(i,"user");
+                    searchList.add(item);
+                    count++;
+                }
+                searchResult = new SearchResult(searchList,count);
+                return searchResult;
+            }
             case "all" : {
                 List<SearchResultItem> searchList = new ArrayList<>();
 
@@ -200,10 +212,16 @@ public class SearchServiceImplememt implements SearchService {
                     count++;
                 }
 
+                List<User> users = userSearch(title, body, startIndex, endIndex);
+                for (User i : users) {
+                    SearchResultItem item = new SearchResultItem(i,"user");
+                    searchList.add(item);
+                    count++;
+                }
+
 
                 int size = searchList.size();//随机打乱
                 Random random = new Random();
-
                 for(int i = 0; i < size; i++) {
                     // 获取随机位置
                     int randomPos = random.nextInt(size);
@@ -236,7 +254,7 @@ public class SearchServiceImplememt implements SearchService {
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
                 String id = doc.get("id").toString();
-                System.out.println(id);
+                //System.out.println(id);
                 String[] sp = id.split("_");
                 essayIdList.add(Integer.parseInt(sp[1]));
             }
@@ -253,7 +271,7 @@ public class SearchServiceImplememt implements SearchService {
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
                 String id = doc.get("id").toString();
-                System.out.println(id);
+                //System.out.println(id);
                 String[] sp = id.split("_");
                 essayIdList.add(Integer.parseInt(sp[1]));
             }
@@ -279,7 +297,7 @@ public class SearchServiceImplememt implements SearchService {
             for (SolrDocument doc : solrDocumentList) {
 
                 String id = doc.get("id").toString();
-                System.out.println(id);
+                //System.out.println(id);
                 String[] sp = id.split("_");
                 quesIdList.add(Integer.parseInt(sp[1]));
 
@@ -296,7 +314,7 @@ public class SearchServiceImplememt implements SearchService {
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
                 String id = doc.get("id").toString();
-                System.out.println(id);
+                //System.out.println(id);
                 String[] sp = id.split("_");
                 quesIdList.add(Integer.parseInt(sp[1]));
             }
@@ -320,7 +338,7 @@ public class SearchServiceImplememt implements SearchService {
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
                 String id = doc.get("id").toString();
-                System.out.println(id);
+                //System.out.println(id);
                 String[] sp = id.split("_");
                 answerIdList.add(Integer.parseInt(sp[1]));
             }
@@ -345,7 +363,7 @@ public class SearchServiceImplememt implements SearchService {
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
                 String id = doc.get("id").toString();
-                System.out.println(id);
+                //System.out.println(id);
                 String[] sp = id.split("_");
                 jobIdList.add(Integer.parseInt(sp[1]));
             }
@@ -362,7 +380,7 @@ public class SearchServiceImplememt implements SearchService {
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
                 String id = doc.get("id").toString();
-                System.out.println(id);
+                //System.out.println(id);
                 String[] sp = id.split("_");
                 jobIdList.add(Integer.parseInt(sp[1]));
             }
@@ -386,7 +404,7 @@ public class SearchServiceImplememt implements SearchService {
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
                 String id = doc.get("id").toString();
-                System.out.println(id);
+                //System.out.println(id);
                 String[] sp = id.split("_");
                 companyIdList.add(Integer.parseInt(sp[1]));
             }
@@ -403,7 +421,7 @@ public class SearchServiceImplememt implements SearchService {
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
                 String id = doc.get("id").toString();
-                System.out.println(id);
+                //System.out.println(id);
                 String[] sp = id.split("_");
                 companyIdList.add(Integer.parseInt(sp[1]));
             }
@@ -411,68 +429,29 @@ public class SearchServiceImplememt implements SearchService {
         List<Company> companyList = companyCURDService.get(companyIdList);
         return companyList;
     }
-/*
-    public List<User> userSearch(String keyword) throws Exception {
+
+    public List<User> userSearch(String title, String body,Integer startIndex, Integer endIndex) throws Exception {
         List<Integer> userIdList = new ArrayList<>();
         HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
         SolrQuery query = new SolrQuery();
-        //下面设置solr查询参数
-        query.set("q", "user_name"+ keyword);// 参数q  查询所有
-        //query.set("q","周星驰");//相关查询，比如某条数据某个字段含有周、星、驰三个字  将会查询出来 ，这个作用适用于联想查询
+        if (title != null) {
+            query.set("q", "title:"+ title);
+            query.set("fq","type:USER");
+            query.setStart(startIndex);
+            query.setRows(endIndex - startIndex + 1);//每一页多少值
+            QueryResponse response = solrServer.query(query);
+            SolrDocumentList solrDocumentList = response.getResults();
 
-        //参数fq, 给query增加过滤查询条件
-        //query.addFilterQuery("id:[0 TO 9]");//id为0-44
-
-        //给query增加布尔过滤条件
-        //query.addFilterQuery("description:演员");  //description字段中含有“演员”两字的数据
-
-        //参数df,给query设置默认搜索域
-        //query.set("df", "name");
-
-        //参数sort,设置返回结果的排序规则
-        //query.setSort("id",SolrQuery.ORDER.desc);
-
-        //设置分页参数
-        query.setStart(0);
-        query.setRows(10);//每一页多少值
-
-        //参数hl,设置高亮
-        //query.setHighlight(true);
-        //设置高亮的字段
-        //query.addHighlightField("name");
-        //设置高亮的样式
-        //query.setHighlightSimplePre("<font color='red'>");
-        //query.setHighlightSimplePost("</font>");
-
-        //获取查询结
-        QueryResponse response = solrServer.query(query);
-        //两种结果获取：得到文档集合或者实体对象
-
-        //查询得到文档的集合
-        SolrDocumentList solrDocumentList = response.getResults();
-        //System.out.println("通过文档集合获取查询的结果");
-        //System.out.println("查询结果的总数量：" + solrDocumentList.getNumFound());
-        //遍历列表
-        List<Integer> useridlist = new ArrayList<>();
-        for (SolrDocument doc : solrDocumentList) {
-            //System.out.println("id:" + doc.get("id") + "   name:" + doc.get("name") + "    gender:" + doc.get("gender"));
-            //System.out.println(doc);
-            useridlist.add(Integer.parseInt(doc.get("user_id").toString()));
+            for (SolrDocument doc : solrDocumentList) {
+                String id = doc.get("id").toString();
+                //System.out.println(id);
+                String[] sp = id.split("_");
+                userIdList.add(Integer.parseInt(sp[1]));
+            }
         }
-
-        query.set("q", "user_phone:"+ keyword);// 参数q  查询所有
-        query.setStart(0);
-        query.setRows(10);//每一页多少值
-        response = solrServer.query(query);
-        solrDocumentList = response.getResults();
-        for (SolrDocument doc : solrDocumentList) {
-            useridlist.add(Integer.parseInt(doc.get("user_id").toString()));
-        }
-
-        List<User> userlist = userService.get(useridlist);
-        return userlist;
+        List<User> userList = userService.get(userIdList);
+        return userList;
     }
-    */
 
     public List<BriefReview> briefReviewSearch(String title, String body, Integer startIndex, Integer endIndex) throws Exception {
         List<Integer> briefReviewIdList = new ArrayList<>();
@@ -488,7 +467,7 @@ public class SearchServiceImplememt implements SearchService {
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
                 String id = doc.get("id").toString();
-                System.out.println(id);
+                //System.out.println(id);
                 String[] sp = id.split("_");
                 briefReviewIdList.add(Integer.parseInt(sp[1]));
             }
@@ -512,7 +491,7 @@ public class SearchServiceImplememt implements SearchService {
             SolrDocumentList solrDocumentList = response.getResults();
             for (SolrDocument doc : solrDocumentList) {
                 String id = doc.get("id").toString();
-                System.out.println(id);
+                //System.out.println(id);
                 String[] sp = id.split("_");
                 comIdList.add(Integer.parseInt(sp[1]));
             }
