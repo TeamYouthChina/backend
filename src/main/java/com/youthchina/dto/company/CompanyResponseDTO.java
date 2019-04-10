@@ -102,7 +102,7 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.name = company.getCompanyName();
         List<Logo> logoList = company.getLogoList();
         if (logoList != null && logoList.size() > 0) {
-            this.avatarUrl = company.getLogoList().get(0).getDocuLocalId();
+            this.avatarUrl = company.getLogoList().get(0).getUrl();
         }
         Location location = company.getLocation();
         if (location != null) {
@@ -116,7 +116,7 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         if(photoList != null && photoList.size() > 0){
             this.photoUrlList = new ArrayList<>();
             for(CompanyPhoto photo : photoList){
-                this.photoUrlList.add(photo.getDocuLocalId());
+                this.photoUrlList.add(photo.getUrl());
             }
         }
         this.website = company.getCompanyWebsite();

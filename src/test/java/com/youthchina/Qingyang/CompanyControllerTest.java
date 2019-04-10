@@ -7,6 +7,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.util.LocationDTO;
+import com.youthchina.service.tianjian.FileStorageService;
+import com.youthchina.service.tianjian.StaticFileService;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -47,6 +50,9 @@ public class CompanyControllerTest {
 
     @Autowired
     private WebApplicationContext context;
+
+    @Autowired
+    private StaticFileService staticFileService;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -97,9 +103,9 @@ public class CompanyControllerTest {
 //
 //        )
 //                .andDo(print())
-//                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"\",\"avatarUrl\":\"\",\"location\":\"\",\"website\":\"\",\"note\":\"\",\"nation\":\"\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
-                //.andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"avatarUrl\":null,\"location\":\"北京市\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
-        ;
+////                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"\",\"avatarUrl\":\"\",\"location\":\"\",\"website\":\"\",\"note\":\"\",\"nation\":\"\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+//                //.andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"avatarUrl\":null,\"location\":\"北京市\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+//        ;
 //    }
 
     @Test
@@ -119,6 +125,9 @@ public class CompanyControllerTest {
 
     @Test
     public void testAddCompany() throws Exception {
+//        MockMultipartFile file = new MockMultipartFile("file", "test.txt", "multipart/form-data", "hello upload".getBytes("UTF-8"));
+//        MockMultipartFile file2 = new MockMultipartFile("file2", "test2.txt", "multipart/form-data", "hello upload2".getBytes("UTF-8"));
+
         CompanyRequestDTO companyRequestDTO = new CompanyRequestDTO();
         companyRequestDTO.setName("Vavle");
         Location location = new Location();
@@ -127,14 +136,12 @@ public class CompanyControllerTest {
         companyRequestDTO.setLocation(new LocationDTO(location));
         companyRequestDTO.setNation("USA");
         companyRequestDTO.setWebsite("vavle.com");
-        companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        companyRequestDTO.setAvatarUrl("2856306669745344512");
         companyRequestDTO.setNote("Steam");
-        List<String> photoUrlList = new ArrayList<>();
-        photoUrlList.add("photo1");
-        photoUrlList.add("photo2");
-        photoUrlList.add("photo3");
-        photoUrlList.add("photo4");
-        companyRequestDTO.setPhotoUrlList(photoUrlList);
+        List<String> photoIdList = new ArrayList<>();
+        photoIdList.add("2856306669745344512");
+        photoIdList.add("2858461057087705088");
+        companyRequestDTO.setPhotoIdList(photoIdList);
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -149,8 +156,8 @@ public class CompanyControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-
-                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\",\"photoUrlList\":[\"photo1\",\"photo2\",\"photo3\",\"photo4\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                //,"avatarUrl":""
+                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
 
         ;
     }
@@ -167,14 +174,13 @@ public class CompanyControllerTest {
         companyRequestDTO.setLocation(new LocationDTO(location));
         companyRequestDTO.setNation("USA");
         companyRequestDTO.setWebsite("vavle.com");
-        companyRequestDTO.setAvatarUrl("vavle.com/AvatarUrl");
+        companyRequestDTO.setAvatarUrl("2858461057087705088");
         companyRequestDTO.setNote("Steam");
         List<String> photoUrlList = new ArrayList<>();
-        photoUrlList.add("photo1");
-        photoUrlList.add("photo2");
-        photoUrlList.add("photo3");
-        photoUrlList.add("photo4");
-        companyRequestDTO.setPhotoUrlList(photoUrlList);
+        photoUrlList.add("2856306669745344512");
+        photoUrlList.add("2858461057087705088");
+
+        companyRequestDTO.setPhotoIdList(photoUrlList);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -189,11 +195,21 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-
-                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"avatarUrl\":\"vavle.com/AvatarUrl\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\",\"photoUrlList\":[\"photo1\",\"photo2\",\"photo3\",\"photo4\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                //,"avatarUrl":"" photoUrl
+                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
 
     }
+
+//    @Test
+//    public void getFileUrl(){
+//        String s = staticFileService.getFileUrl("2856306669745344512","China").toString();
+//        System.out.println(s);
+//         s = staticFileService.getFileUrl("2858461057087705088","China").toString();
+//        System.out.println(s);
+//
+//
+//    }
 
 
 }

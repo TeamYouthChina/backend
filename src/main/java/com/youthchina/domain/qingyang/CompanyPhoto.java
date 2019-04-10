@@ -11,6 +11,7 @@ public class CompanyPhoto {
     private String docuLocalId;
     private Timestamp uploadTime;
     private Integer companyId;
+    private String url;
 
     public CompanyPhoto(String docuLocalId) {
         this.docuLocalId = docuLocalId;
@@ -49,5 +50,13 @@ public class CompanyPhoto {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
