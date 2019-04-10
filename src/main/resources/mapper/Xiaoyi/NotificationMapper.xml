@@ -20,7 +20,7 @@
 
     <insert id="add" parameterType="com.youthchina.domain.Hongsheng.Notification" useGeneratedKeys="true"
             keyProperty="id">
-        insert into COM_ANSWER(notify_content, notify_time, user_id, notify_read)
+        insert into SYS_NOTIFICATION(notify_content, notify_time, user_id, notify_read)
         values (#{content},#{notifyTime},#{user.id},#{isRead})
     </insert>
 
