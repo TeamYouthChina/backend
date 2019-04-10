@@ -20,6 +20,7 @@ public class JobResponseDTO implements ResponseDTO<Job> {
     private OrganizationDTO organization;
     private String location;
     private String type;
+    private String startTime;
     private String deadLine;
     private String job_duty;
     private String job_description;
@@ -144,6 +145,14 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.job_description = job_description;
     }
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
     @Override
     public void convertToDTO(Job job) {
         this.id = job.getJobId();
@@ -168,6 +177,7 @@ public class JobResponseDTO implements ResponseDTO<Job> {
             this.type = "全职";
         }
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        this.startTime = df.format(job.getJobStartTime());
         this.deadLine = df.format(job.getJobEndTime());
         this.job_duty = job.getJobDuty();
         this.job_description = job.getJobDescription();

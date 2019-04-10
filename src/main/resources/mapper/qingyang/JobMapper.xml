@@ -8,7 +8,10 @@
         INSERT INTO JOB_INFO
         (
             COMPANY_ID,               JOB_NAME,     JOB_PROF_CODE,
-            JOB_START_TIME, JOB_END_TIME,   JOB_TYPE,     JOB_DESCRIPTION,
+
+            JOB_START_TIME,
+
+            JOB_END_TIME,   JOB_TYPE,     JOB_DESCRIPTION,
             JOB_DUTY,       JOB_HIGHLIGHT, JOB_SALARY_FLOOR, JOB_SALARY_CAP,
             JOB_LINK,   CV_RECEI_MAIL,  CV_NAME_RULE, JOB_ACTIVE, USER_ID, ADD_TIME, IS_DELETE,
             IS_DELETE_TIME
@@ -16,7 +19,15 @@
         VALUES
         (
             #{company.companyId},          #{jobName},     #{jobProfCode},
-            #{jobStartTime},#{jobEndTime},  #{jobType},     #{jobDescription},
+        <!--<choose>-->
+            <!--<when test="jobStartTime != null">-->
+                #{jobStartTime},
+            <!--</when>-->
+            <!--<otherwise>-->
+                <!--NOW(),-->
+            <!--</otherwise>-->
+        <!--</choose>-->
+            #{jobEndTime},  #{jobType},     #{jobDescription},
             #{jobDuty},   #{jobHighlight},  #{jobSalaryFloor}, #{jobSalaryCap},
             #{jobLink},  #{cvReceiMail}, #{cvNameRule},  #{jobActive}, #{userId}, NOW(), 0,
             NULL
@@ -241,7 +252,7 @@
         <include refid="jobSelect"/>
         FROM JOB_INFO j
         <include refid="jobJoin"/>
-        WHERE j.JOB_ID in
+        WHERE j.IS_DELETE = 0 AND j.JOB_ID in
         <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
             #{id}
         </foreach>

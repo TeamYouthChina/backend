@@ -32,9 +32,11 @@ public class CommentController {
     @Resource
     DiscussService discussService;
 
-    @PostMapping("/discuss/{id}")
-    public ResponseEntity<?> addDiscuss(@RequestBody DiscussDTO discussDTO) throws NotFoundException {
+    @PostMapping("/{id}/replies")
+    public ResponseEntity<?> addDiscuss(@PathVariable Integer id, @RequestBody DiscussDTO discussDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Discuss discuss = new Discuss(discussDTO);
+        discuss.setCommentId(id);
+        discuss.setUser(user);
         Discuss retrunDiscuss = discussService.add(discuss);
         DiscussDTO returndiscussDTO = new DiscussDTO(retrunDiscuss);
         if (returndiscussDTO.getId() != null) {
