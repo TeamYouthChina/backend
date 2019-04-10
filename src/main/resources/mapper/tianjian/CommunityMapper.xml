@@ -13,6 +13,26 @@
         <association property="user" javaType="com.youthchina.domain.zhongyang.User"
                      resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
     </resultMap>
+    <resultMap id="friendrelationresult" type="com.youthchina.domain.tianjian.ComFriendRelation">
+        <id property="relaId" column="RELA_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="addTime" column="ADD_TIME"/>
+        <result property="isDelete" column="IS_DELETE"/>
+        <result property="isDeleteTime" column="IS_DELETE_TIME"/>
+        <result property="friendId" column="FRIEND_ID"/>
+    </resultMap>
+    <resultMap id="friendgroupresult" type="com.youthchina.domain.tianjian.ComFriendGroup">
+        <id property="groupId" column="GROUP_ID"/>
+        <result property="groupName" column="GROUP_NAME"/>
+        <result property="groupNum" column="GROUP_NUM"/>
+    </resultMap>
+    <resultMap id="friendapplyresult" type="com.youthchina.domain.tianjian.ComFriendApply">
+        <id property="applyId" column="APPLY_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="friendId" column="FRIEND_ID"/>
+        <result property="friApplyTime" column="FRI_APPLY_TIME"/>
+        <result property="friApplyAccept" column="FRI_APPLY_ACCEPT"/>
+    </resultMap>
     <!--    发布文章 -->
     <insert id="addEssay" parameterType="com.youthchina.domain.tianjian.ComEssay" useGeneratedKeys="true"
             keyProperty="id">
@@ -52,9 +72,9 @@
 
     <!--    添加好友关系 -->
     <insert id="saveFriendsRelation" parameterType="com.youthchina.domain.tianjian.ComFriendRelation"
-            useGeneratedKeys="true" keyProperty="rela_id">
-    INSERT INTO COM_FRIEND_RELATION  (USER_ID, ADD_TIME, IS_DELETE, IS_DELETE_TIME,FRIEND_ID)
-    values(#{userId},#{addTime},#{isDelete},#{isDeleteTime},#{friendId})
+            useGeneratedKeys="true" keyProperty="relaId">
+    INSERT INTO COM_FRIEND_RELATION  (USER_ID, ADD_TIME, IS_DELETE, FRIEND_ID)
+    values(#{userId},now(),0,#{friendId})
     </insert>
 
 
@@ -69,47 +89,43 @@
     </update>
 
     <!--    根据user_id查询好友关系 -->
-    <select id="getFriend" resultType="com.youthchina.domain.tianjian.ComFriendRelation">
-   		select t1.* from COM_FRIEND_RELATION t1 where t1.USER_ID = #{userId}
+    <select id="getFriend" resultMap="friendrelationresult">
+   		select * from COM_FRIEND_RELATION where USER_ID = #{userId} and IS_DELETE = 0
    </select>
 
     <!--    添加好友分组 -->
-    <insert id="saveFriendGroup" parameterType="com.youthchina.domain.tianjian.ComFriendGroup">
-    INSERT INTO COM_FRIEND_GROUP  (GROUP_NUM, GROUP_NAME, ADD_TIME, IS_DELETE, IS_DELETE_TIME)
-    values(#{group_num},#{group_name},#{add_time},#{isDelete},#{is_delete_time})
+    <insert id="saveFriendGroup" parameterType="com.youthchina.domain.tianjian.ComFriendGroup" useGeneratedKeys="true"
+            keyProperty="groupId">
+    INSERT INTO COM_FRIEND_GROUP  (GROUP_NUM, GROUP_NAME, ADD_TIME, IS_DELETE)
+    values(#{groupNum},#{groupName},now(),0)
     </insert>
 
     <!--    添加好友分组映射 -->
-    <insert id="saveFriendGroupMap" parameterType="com.youthchina.domain.tianjian.ComFriendGroupMap">
+    <insert id="saveFriendGroupMap" parameterType="com.youthchina.domain.tianjian.ComFriendGroupMap" >
     INSERT INTO COM_FRIEND_GROUP_MAP  (GROUP_ID, RELA_ID)
-    values(#{group_id},#{rela_id})
+    values(#{groupId},#{relaId})
     </insert>
 
     <!--    更新好友分组 -->
     <update id="updateFriendGroup">
     update COM_FRIEND_GROUP t1, COM_FRIEND_GROUP_MAP t2
     set
-         t1.GROUP_NUM = #{comFriendGroup.group_num},
-         t1.GROUP_NAME = #{comFriendGroup.group_name}
+         t1.GROUP_NUM = #{comFriendGroup.groupNum},
+         t1.GROUP_NAME = #{comFriendGroup.groupName}
     where
-         t1.GROUP_ID = t2.GROUP_ID and t2.RELA_ID = #{rela_id}
+         t1.GROUP_ID = t2.GROUP_ID and t2.RELA_ID = #{relaId}
     </update>
 
     <!--    根据个人关系的List查询所有好友分组 -->
-    <select id="getFriendGroup" resultType="com.youthchina.domain.tianjian.ComFriendGroup">
+    <select id="getFriendGroup" resultMap="friendgroupresult">
         select t1.*
         from COM_FRIEND_GROUP t1, COM_FRIEND_GROUP_MAP t2
         where t2.RELA_ID in
         <foreach collection="list" item="valueList" open="(" close=")" separator=",">
-            #{valueList.rela_id}
+            #{valueList.relaId}
         </foreach>
         and
         t1.GROUP_ID = t2.GROUP_ID
-    </select>
-    <select id="getAllEssayUserAttention" resultType="com.youthchina.domain.tianjian.ComEssay">
-        select t1.*
-        from COM_ESSAY t1, COM_ESSAY_ATTENTION t2, COM_ESSAY_ATTENTION_MAP t3
-        where t1.ESSAY_ID = t3.ESSAY_ID and t3.ATTEN_ID = t2.ATTEN_ID and t2.USER_ID = #{user_id}
     </select>
     <select id="getEssayList" resultType="com.youthchina.domain.tianjian.ComEssay">
          select * from COM_ESSAY t
@@ -125,4 +141,31 @@
         where IS_DELETE=0
     </select>
 
+    <insert id="addFriendApply" parameterType="com.youthchina.domain.tianjian.ComFriendApply" useGeneratedKeys="true"
+            keyProperty="applyId">
+      insert into COM_FRIEND_APPLY (USER_ID, FRIEND_ID, FRI_APPLY_TIME,FRI_APPLY_ACCEPT)
+      value (#{userId} ,#{friendId} ,NOW(),0)
+    </insert>
+
+    <select id="getAllFriendApply" resultMap="friendapplyresult">
+      select * from COM_FRIEND_APPLY where USER_ID = #{userId};
+    </select>
+
+    <select id="getFriendApply" resultMap="friendapplyresult">
+        select * from COM_FRIEND_APPLY where USER_ID = #{userId} and FRIEND_ID = #{friendId}
+    </select>
+    <select id="getAllEssayByUserId" resultMap="friendapplyresult">
+        select * from COM_ESSAY where USER_ID = #{userId} and IS_DELETE = 0
+    </select>
+    <select id="getFriendApplication" resultMap="friendapplyresult">
+        select * from COM_FRIEND_APPLY
+        where APPLY_ID = #{applicationId};
+    </select>
+    <update id="changeApplicationStatus">
+    update COM_FRIEND_APPLY
+    set
+         FRI_APPLY_ACCEPT = #{friApplyAccept}
+    where
+         APPLY_ID = #{applyId}
+    </update>
 </mapper>

@@ -134,6 +134,15 @@ public class BriefReviewController {
         return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
     }
 
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity cancelBriefReviewvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        BriefReview briefReview = new BriefReview();
+        briefReview.setId(id);
+        evaluateService.cancel(briefReview,user.getId());
+
+        return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
+    }
+
     @GetMapping("/{id}/comments")
     public ResponseEntity getBriefReviewComments(@PathVariable Integer id, @AuthenticationPrincipal User user, PageRequest pageRequest) throws NotFoundException {
        BriefReview briefReview = new BriefReview();
@@ -153,6 +162,22 @@ public class BriefReviewController {
         }
         ListResponse listResponse = new ListResponse(pageRequest, commentDTOS.size(), commentDTOS);
         return ResponseEntity.ok(listResponse);
+    }
+
+    @PutMapping("/{id}/attention")
+    public ResponseEntity updateAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        BriefReview briefReview = new BriefReview();
+        briefReview.setId(id);
+        attentionService.attention(briefReview,user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
+    }
+
+    @DeleteMapping("/attentions/{id}")
+    public ResponseEntity deleteAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        BriefReview briefReview = new BriefReview();
+        briefReview.setId(id);
+        attentionService.cancel(briefReview,user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
 }

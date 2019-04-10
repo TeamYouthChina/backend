@@ -23,7 +23,10 @@ public class QuestionBasicDTO implements QuestionDTO{
 
     public QuestionBasicDTO(Question question) {
         this.id = question.getId();
-        this.creator = new UserDTO(question.getUser());
+        if(question.getIsAnony()==0)
+            this.creator = new UserDTO(question.getUser());
+        else
+            this.creator = null;
         this.title = question.getTitle();
         RichTextResponseDTO richt = new RichTextResponseDTO(question.getBody());
         this.body = richt;

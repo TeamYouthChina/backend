@@ -1,9 +1,6 @@
 package com.youthchina.dao.tianjian;
 
-import com.youthchina.domain.tianjian.ComEssay;
-import com.youthchina.domain.tianjian.ComFriendGroup;
-import com.youthchina.domain.tianjian.ComFriendGroupMap;
-import com.youthchina.domain.tianjian.ComFriendRelation;
+import com.youthchina.domain.tianjian.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -41,9 +38,19 @@ public interface CommunityMapper {
 
     int saveFriendGroupMap(ComFriendGroupMap cfgm);
 
-    int updateFriendGroup(@Param("comFriendGroup") ComFriendGroup comFriendGroup, @Param("rela_id") Integer rela_id);
+    int updateFriendGroup(@Param("comFriendGroup") ComFriendGroup comFriendGroup, @Param("relaId") Integer rela_id);
 
     List<ComFriendGroup> getFriendGroup(List<ComFriendRelation> comFriendRelation);
 
-    List<ComEssay> getAllEssayUserAttention(@Param("user_id") Integer user_id);
+    void addFriendApply(ComFriendApply comFriendApply);
+
+    List<ComFriendApply>  getAllFriendApply(@Param("userId")Integer userId);
+
+    ComFriendApply getFriendApply(@Param("userId")Integer userId,@Param("friendId")Integer friendId);
+
+    List<ComEssay> getAllEssayByUserId(@Param("userId") Integer user_id);
+
+   ComFriendApply getFriendApplication(@Param("applicationId") Integer applicationId);
+
+   void changeApplicationStatus(ComFriendApply comFriendApply);
 }
