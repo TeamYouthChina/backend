@@ -4,8 +4,6 @@ import com.youthchina.domain.jinhao.BriefReview;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Mapper
 @Component
 public interface BriefReviewMapper {
@@ -15,5 +13,4 @@ public interface BriefReviewMapper {
     void update(BriefReview briefReview);
     Integer checkIfBriefReviewExist(Integer id);
     Integer count();
-    List<BriefReview> getMyBriefReview(Integer id);
 }

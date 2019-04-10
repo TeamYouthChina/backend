@@ -18,5 +18,4 @@ public interface QuestionService extends DomainCRUDService<Question, Integer> {
     Question getBasicQuestion(Integer id);
     Integer count();
     List<Question> get(Integer relaType, Integer relaId)throws NotFoundException;
-    List<Question> getMyQuestion(Integer id);
 }

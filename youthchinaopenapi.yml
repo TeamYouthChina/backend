@@ -6335,6 +6335,8 @@ components:
             - full-time
             - part-time
             - internship
+        startTime:
+          type: string
         deadLine:
           type: string
         job_description:

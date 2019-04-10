@@ -233,8 +233,14 @@ public class JobServiceImpl implements JobService {
         return results;
     }
 
-    public List<Job> getJobByUserId(Integer userId){
+    public List<Job> getJobByUserId(Integer userId) throws NotFoundException {
         List<Job> jobList = jobMapper.getJobByUserId(userId);
+        if(jobList != null && jobList.size() > 0){
+            for(Job job : jobList){
+                job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
+                setJobLocation(job);
+            }
+        }
         return jobList;
     }
 

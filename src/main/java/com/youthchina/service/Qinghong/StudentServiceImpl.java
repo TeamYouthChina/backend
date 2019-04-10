@@ -103,6 +103,7 @@ public class StudentServiceImpl implements StudentService {
         applicantMapper.updateUserInfo(entity);
         applicantMapper.insertStuInfo(entity);
         BaseInfo baseInfo = applicantMapper.getBaseInfo(entity.getId());
+        System.out.print(baseInfo);
         Integer stu_id = baseInfo.getStu_id();
         for (LabelInfo labelInfo : entity.getLabelInfos()) {
             AdvantageLabel label = new AdvantageLabel();
@@ -119,6 +120,7 @@ public class StudentServiceImpl implements StudentService {
         for (Project project : entity.getProjects()) {
             project.setStu_id(stu_id);
             Integer integer = applicantMapper.insertStuProject(project);
+            System.out.print(integer);
         }
         for (Work work : entity.getWorks()) {
             work.setStu_id(stu_id);
@@ -686,6 +688,7 @@ public class StudentServiceImpl implements StudentService {
             throw new NotFoundException(4040, 404, "cannot find user with id " + user_id);//todo
         } else {
             Integer EduNum = applicantMapper.deleteAllEduInfo(baseInfo.getStu_id());
+            System.out.print(EduNum);
             for (EducationInfo educationInfo : educationInfos) {
                 educationInfo.setStu_id(baseInfo.getStu_id());
                 applicantMapper.insertEduInfo(educationInfo);

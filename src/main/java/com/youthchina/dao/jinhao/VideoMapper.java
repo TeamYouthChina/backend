@@ -4,8 +4,6 @@ import com.youthchina.domain.jinhao.Video;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @Mapper
 public interface VideoMapper {
@@ -15,5 +13,4 @@ public interface VideoMapper {
     void update(Video video);
     Integer checkIfVideoExist(Integer id);
     Integer count();
-    List<Video> getMyVideo(Integer id);
 }

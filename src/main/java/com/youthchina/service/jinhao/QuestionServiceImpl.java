@@ -5,7 +5,7 @@ import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.RichTextService;
-import com.youthchina.service.zhongyang.UserService;
+import com.youthchina.service.zhongyang.UserServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +27,7 @@ public class QuestionServiceImpl implements QuestionService {
     AnswerService answerService;
 
     @Resource
-    UserService userService;
+    UserServiceImpl userService;
 
     @Override
     public void isQuestionExist(Integer id) throws NotFoundException{
@@ -42,11 +42,7 @@ public class QuestionServiceImpl implements QuestionService {
     public Question getBasicQuestion(Integer id){
         Question question = questionMapper.get(id);
         if(question == null) return null;
-        try {
-            question.setUser(userService.get(question.getUser().getId()));
-        } catch (NotFoundException e) {
-
-        }
+        question.setUser(userService.get(question.getUser().getId()));
         richTextService.getComRichText(question);
         return question;
     }
@@ -93,28 +89,10 @@ public class QuestionServiceImpl implements QuestionService {
             Question question = (Question) it.next();
             richTextService.getComRichText(question);
             question.setAnswers(answerService.getAnswers(question.getId()));
-            try {
-                question.setUser(userService.get(question.getUser().getId()));
-            } catch (NotFoundException e) {
-
-            }
+            question.setUser(userService.get(question.getUser().getId()));
             questionsReturn.add(question);
         }
         return questionsReturn;
-    }
-
-    @Override
-    public List<Question> getMyQuestion(Integer id) {
-        List<Question> questions = questionMapper.getMyQuestion(id);
-        for(Question question : questions){
-            try {
-                question.setUser(userService.get(question.getUser().getId()));
-            } catch (NotFoundException e) {
-
-            }
-            richTextService.getComRichText(question);
-        }
-        return questions;
     }
 
     @Override

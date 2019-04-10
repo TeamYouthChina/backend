@@ -47,8 +47,4 @@
         select count(COMMENT_ID) from COM_COMMENT
         where TARGET_TYPE=#{targetType} and TARGET_ID=#{targetId} and IS_DELETE=0
     </select>
-
-    <select id="getMyComment" parameterType="java.lang.Integer" resultMap="comment">
-        select * from COM_COMMENT where USER_ID = #{id} and IS_DELETE = 0
-    </select>
 </mapper>

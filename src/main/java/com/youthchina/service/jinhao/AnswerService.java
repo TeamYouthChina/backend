@@ -7,7 +7,11 @@ import com.youthchina.service.DomainCRUDService;
 import java.util.List;
 
 public interface AnswerService extends DomainCRUDService<Answer, Integer> {
-
+    /**
+     * get all the answers of a question
+     * @param id id of question
+     * @return a list of Answer
+     */
     List<Answer> getAnswers(Integer id, int start, int end);
     List<Answer> getAnswers(Integer id);
     /**
@@ -18,6 +22,4 @@ public interface AnswerService extends DomainCRUDService<Answer, Integer> {
     void isAnswerExist(Integer id) throws NotFoundException;
 
     Integer countAnswersOfQuestion(Integer id);
-
-    List<Answer> getMyAnswers(Integer id);
 }

@@ -33,12 +33,6 @@
         select count(EVALUATE_ID) from COM_EVALUATE where TARGET_TYPE=#{type} and TARGET_ID=#{targetId}
     </select>
     <select id="countDownvote" resultType="java.lang.Integer">
-        select count(EVALUATE_ID) from COM_EVALUATE where TARGET_TYPE=#{type} and TARGET_ID=#{targetId} and EVALUATE_TYPE=2
-    </select>
-    <select id="getMyUpvote" resultType="java.lang.Integer">
-        select TARGET_ID from COM_EVALUATE where TARGET_TYPE = #{type} and USER_ID = #{userId} and EVALUATE_TYPE = 1
-    </select>
-    <select id="getMyDownVote" resultType="java.lang.Integer">
-        select TARGET_ID from COM_EVALUATE where TARGET_TYPE = #{type} and USER_ID = #{userId} and EVALUATE_TYPE = 2
-    </select>
+    select count(EVALUATE_ID) from COM_EVALUATE where TARGET_TYPE=#{type} and TARGET_ID=#{targetId} and EVALUATE_TYPE=2
+</select>
 </mapper>

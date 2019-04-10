@@ -43,21 +43,6 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public List<Answer> getMyAnswers(Integer id) {
-        List<Answer> answers = answerMapper.getMyAnswers(id);
-        for(Answer answer : answers){
-            try {
-                answer.setUser(userService.get(answer.getUser().getId()));
-            } catch (NotFoundException e) {
-
-            }
-            richTextService.getComRichText(answer);
-            answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
-        }
-        return answers;
-    }
-
-    @Override
     @Transactional
     public Answer get(Integer id) throws NotFoundException {
         Answer answer = answerMapper.get(id);

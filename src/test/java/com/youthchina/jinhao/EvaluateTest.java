@@ -15,7 +15,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -58,13 +57,5 @@ public class EvaluateTest {
     @Test
     public  void count(){
         Assert.assertEquals(Integer.valueOf(2), evaluateMapper.countUpvote(1,1));
-    }
-
-    @Test
-    public void getMy(){
-        List<Integer> upvotes = evaluateMapper.getMyUpvote(1,2);
-        List<Integer> downvotes = evaluateMapper.getMyDownVote(1,2);
-        Assert.assertEquals(2,upvotes.size());
-        Assert.assertEquals(1,downvotes.size());
     }
 }
