@@ -9,6 +9,7 @@ public class Logo {
     private String docuLocalId;
     private Integer relaType;
     private Integer relaId;
+    private String url;
 
     public Integer getLogoId() {
         return logoId;
@@ -40,5 +41,13 @@ public class Logo {
 
     public void setRelaId(Integer relaId) {
         this.relaId = relaId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
