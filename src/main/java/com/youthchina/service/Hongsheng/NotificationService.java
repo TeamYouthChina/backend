@@ -1,12 +1,8 @@
-package com.youthchina.dao.Hongsheng;
+package com.youthchina.service.Hongsheng;
 
 import com.youthchina.domain.Hongsheng.Notification;
-import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
 
-@Mapper
-@Component
-public interface NotificationMapper {
+public interface NotificationService {
     Notification get(Integer id);
     void add(Notification notification);
     void update(Notification notification);
