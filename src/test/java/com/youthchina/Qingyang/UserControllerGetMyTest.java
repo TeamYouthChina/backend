@@ -73,4 +73,16 @@ public class UserControllerGetMyTest {
         ;
     }
 
+    @Test
+    public void getMyNone() throws Exception {
+        Integer id = 2;
+        this.mvc.perform(
+                get(this.urlPrefix + "/users/" + id + "/my")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4030,\"reason\":\"Cannot access\"}}", false))
+        ;
+    }
 }
