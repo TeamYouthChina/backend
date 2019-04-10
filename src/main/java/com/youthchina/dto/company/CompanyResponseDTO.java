@@ -1,10 +1,7 @@
 package com.youthchina.dto.company;
 
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.CompanyPhoto;
-import com.youthchina.domain.qingyang.Country;
-import com.youthchina.domain.qingyang.Logo;
+import com.youthchina.domain.qingyang.*;
 import com.youthchina.dto.ResponseDTO;
 
 import java.util.ArrayList;
@@ -24,6 +21,7 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
     private String nation;
     private List<String> photoUrlList;
     private Integer jobCount;
+    private List<String> industryList;
 
     public CompanyResponseDTO() {
 
@@ -40,6 +38,14 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
 
     public void setJobCount(Integer jobCount) {
         this.jobCount = jobCount;
+    }
+
+    public List<String> getIndustryList() {
+        return industryList;
+    }
+
+    public void setIndustryList(List<String> industryList) {
+        this.industryList = industryList;
     }
 
     public Integer getId() {
@@ -132,5 +138,12 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.website = company.getCompanyWebsite();
         this.note = company.getCompanyIntroduc();
         this.jobCount = company.getJobCount();
+        List<Industry> industryObjList = company.getIndList();
+        if(industryObjList != null && industryObjList.size() > 0){
+            this.industryList = new ArrayList<>();
+            for(Industry ind : industryObjList){
+                this.industryList.add(ind.getIndChn());
+            }
+        }
     }
 }
