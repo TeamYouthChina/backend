@@ -15,6 +15,7 @@ import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.community.video.VideoResponseDTO;
+import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
@@ -198,7 +199,22 @@ public class UserController extends DomainCRUDController<User, Integer> {
     @GetMapping("/{id}/my")
     public ResponseEntity<?> getMy(@PathVariable Integer id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
+
             Map<String, Object> result = new HashMap<>();
+
+            /**收藏的公司*/
+            List<CompCollect> compCollects = studentService.getCompCollect(id);
+            List<CompanyResponseDTO> companyResponseDTOList = new ArrayList<>();
+            if(compCollects != null && compCollects.size() > 0){
+                for(CompCollect compCollect : compCollects){
+                    CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO();
+                    companyResponseDTO.convertToDTO(compCollect.getCompany());
+                    companyResponseDTOList.add(companyResponseDTO);
+                }
+            }
+            result.put("companies", companyResponseDTOList);
+
+            /**发布的职位*/
             List<Job> jobsOwnedByUserId = jobService.getJobByUserId(id);
             List<JobResponseDTO> jobResponseDTOList = new JobResponseDTO().convertToDTO(jobsOwnedByUserId);
             result.put("jobs", jobResponseDTOList);
