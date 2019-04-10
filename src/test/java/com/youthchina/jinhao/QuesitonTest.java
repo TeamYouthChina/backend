@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:New_Community_test.xml","classpath:New_SYS_test.xml"})
+@DatabaseSetup({"classpath:test.xml"})
 public class QuesitonTest {
     @Resource
     QuestionMapper questionMapper;

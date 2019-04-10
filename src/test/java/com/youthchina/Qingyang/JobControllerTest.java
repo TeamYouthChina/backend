@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners(value = {DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:New_Company_test.xml", "classpath:New_Dictionary_test.xml", "classpath:New_SYS_test.xml"})
+@DatabaseSetup({"classpath:test.xml"})
 @WebAppConfiguration
 public class JobControllerTest {
     @Autowired

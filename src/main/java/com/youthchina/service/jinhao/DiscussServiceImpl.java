@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class DiscussServiceImpl implements DiscussService{
+public class DiscussServiceImpl implements DiscussService {
     @Resource
     DiscussMapper discussMapper;
 
@@ -23,9 +23,9 @@ public class DiscussServiceImpl implements DiscussService{
 
     @Override
     @Transactional
-    public List<Discuss> getDiscusses(Integer id) {
+    public List<Discuss> getDiscussesByCommentId(Integer id) {
         List<Discuss> discusses = discussMapper.getDiscusses(id);
-        for(Discuss discuss : discusses){
+        for (Discuss discuss : discusses) {
             try {
                 discuss.setUser(userService.get(discuss.getUser().getId()));
             } catch (NotFoundException e) {
@@ -36,9 +36,9 @@ public class DiscussServiceImpl implements DiscussService{
     }
 
     @Override
-    public List<Discuss> getDiscusses(Integer id, Integer start, Integer end) {
-        List<Discuss> discusses =  discussMapper.getLimitedDiscusses(id,start,end-start+1);
-        for(Discuss discuss : discusses){
+    public List<Discuss> getDiscussesByCommentId(Integer id, Integer start, Integer end) {
+        List<Discuss> discusses = discussMapper.getLimitedDiscusses(id, start, end - start + 1);
+        for (Discuss discuss : discusses) {
             try {
                 discuss.setUser(userService.get(discuss.getUser().getId()));
             } catch (NotFoundException e) {
@@ -50,8 +50,8 @@ public class DiscussServiceImpl implements DiscussService{
 
     @Override
     public void isDiscussExist(Integer id) throws NotFoundException {
-        if(discussMapper.checkIfDiscussExist(id) == null){
-            throw new NotFoundException(4040,404,"没有找到这个讨论");
+        if (discussMapper.checkIfDiscussExist(id) == null) {
+            throw new NotFoundException(404, 404, "没有找到这个讨论");
         }
     }
 
@@ -75,7 +75,13 @@ public class DiscussServiceImpl implements DiscussService{
 
     @Override
     public Discuss get(Integer id) throws NotFoundException {
-        return null;
+        Discuss discuss = discussMapper.get(id);
+        if (discuss == null) {
+            throw new NotFoundException(4040, 404, "No entity found");
+        } else {
+            discuss.setUser(userService.get(discuss.getUser().getId()));
+            return discuss;
+        }
     }
 
     @Override
