@@ -850,8 +850,13 @@ public class StudentServiceImpl implements StudentService {
         if(work1==null){
             throw new NotFoundException(4040,404,"cannot find this work");//todo
         }
-        Location location = locationService.getLocation(work1.getLocation().getRegionId());
-        work1.setLocation(location);
+        if(work.getLocation().getRegionId()!=null){
+            Location location = locationService.getLocation(work1.getLocation().getRegionId());
+            work1.setLocation(location);
+        }
+
+
+
         return work1;
     }
 
