@@ -1254,94 +1254,96 @@ paths:
           description: success
         '403':
           description: do not have authority to delete answer
-  # '/answers/{id}/comments':
-  #   post:
-  #     tags:
-  #       - Answer
-  #     parameters:
-  #       - name: id
-  #         in: path
-  #         schema:
-  #           type: integer
-  #         required: true
-  #       - in: header
-  #         name: X-AUTHENTICATION
-  #         required: true
-  #         description: authentication header
-  #         schema:
-  #           type: string
-  #     requestBody:
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/CommentRequest'
-  #     responses:
-  #       '201':
-  #         description: comments successfully
-  #   get:
-  #     tags:
-  #       - Answer
-  #     parameters:
-  #       - name: id
-  #         in: path
-  #         schema:
-  #           type: integer
-  #         required: true
-  #       - in: header
-  #         name: X-AUTHENTICATION
-  #         required: true
-  #         description: authentication header
-  #         schema:
-  #           type: string
-  #       - name: offset
-  #         in: query
-  #         required: false
-  #         description: start index of element
-  #         schema:
-  #           type: string
-  #       - name: limit
-  #         in: query
-  #         required: false
-  #         description: start index of element
-  #         schema:
-  #           type: string
-  #       - name: page
-  #         in: query
-  #         required: false
-  #         description: start index of element
-  #         schema:
-  #           type: string
-  #     responses:
-  #       '200':
-  #         description: successful
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               properties:
-  #                 content:
-  #                   type: object
-  #                   properties:
-  #                     data:
-  #                       type: array
-  #                       items:
-  #                         $ref: '#/components/schemas/Comment'
-  #                     offset:
-  #                       type: integer
-  #                     limit:
-  #                       type: integer
-  #                     page_count:
-  #                       type: integer
-  #                     item_count:
-  #                       type: integer
-  #                     page_index:
-  #                       type: integer
-  #                     is_first:
-  #                       type: boolean
-  #                     is_last:
-  #                       type: boolean
-  #                 status:
-  #                   $ref: '#/components/schemas/Status'
+  '/answers/{id}/comments':
+    post:
+      summary: 发布回答评论
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+      responses:
+        '201':
+          description: comments successfully
+    get:
+      summary: 获得回答全部评论
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count:
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/answers/{id}/upvote':
     put:
       summary: 点赞答案
@@ -1362,25 +1364,25 @@ paths:
       responses:
         '201':
           description: upvote successfullly
-    delete:
-      summary: 取消答案
-      tags:
-        - Answer
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '201':
-          description: upvote successfullly
+    # delete:
+    #   summary: 取消答案
+    #   tags:
+    #     - Answer
+    #   parameters:
+    #     - name: id
+    #       required: true
+    #       in: path
+    #       schema:
+    #         type: integer
+    #     - in: header
+    #       name: X-AUTHENTICATION
+    #       required: true
+    #       description: authentication header
+    #       schema:
+    #         type: string
+    #   responses:
+    #     '201':
+    #       description: upvote successfullly
   '/answers/{id}/downvote':
     put:
       summary: 反对答案
@@ -1401,16 +1403,37 @@ paths:
       responses:
         '201':
           description: downvote successfullly
+    # delete:
+    #   summary: 取消反对
+    #   tags:
+    #     - Answer
+    #   parameters:
+    #     - name: id
+    #       required: true
+    #       in: path
+    #       schema:
+    #         type: integer
+    #     - in: header
+    #       name: X-AUTHENTICATION
+    #       required: true
+    #       description: authentication header
+    #       schema:
+    #         type: string
+    #   responses:
+    #     '201':
+    #       description: downvote successfullly
+  '/answers/{id}/cancel':
     delete:
-      summary: 取消反对
+      summary: 取消点赞或反对
       tags:
-        - Answer
+        - Editorials
       parameters:
         - name: id
-          required: true
-          in: path
           schema:
             type: integer
+          in: path
+          required: true
+          description: editorials id
         - in: header
           name: X-AUTHENTICATION
           required: true
@@ -1418,8 +1441,8 @@ paths:
           schema:
             type: string
       responses:
-        '201':
-          description: downvote successfullly
+        '200':
+          description: successful
   '/answers/{id}/attention':
     put:
       summary: 收藏回答
@@ -1691,6 +1714,50 @@ paths:
                     $ref: '#/components/schemas/Article'
                   status:
                     $ref: '#/components/schemas/Status'
+  '/articles/{id}/comments':
+    put:
+      summary: 发布文章评论
+      tags:
+        - Article
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+      responses:
+        '201':
+          description: comments successfully
+    get:
+      summary: 获得文章全部评论
+      tags:
+        - Article
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '201':
+          description: comments successfully
   '/articles/{id}/upvote':
     put:
       summary: 点赞文章
@@ -1711,25 +1778,25 @@ paths:
       responses:
         '201':
           description: upvote successfullly
-    delete:
-      summary: 取消点赞
-      tags:
-        - Article
-      parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '201':
-          description: upvote successfullly
+    # delete:
+    #   summary: 取消点赞
+    #   tags:
+    #     - Article
+    #   parameters:
+    #     - name: id
+    #       required: true
+    #       in: path
+    #       schema:
+    #         type: integer
+    #     - in: header
+    #       name: X-AUTHENTICATION
+    #       required: true
+    #       description: authentication header
+    #       schema:
+    #         type: string
+    #   responses:
+    #     '201':
+    #       description: upvote successfullly
   '/articles/{id}/downvote':
     put:
       summary: 反对文章
@@ -1750,16 +1817,37 @@ paths:
       responses:
         '201':
           description: downvote successfullly
+    # delete:
+    #   summary: 取消反对
+    #   tags:
+    #     - Article
+    #   parameters:
+    #     - name: id
+    #       required: true
+    #       in: path
+    #       schema:
+    #         type: integer
+    #     - in: header
+    #       name: X-AUTHENTICATION
+    #       required: true
+    #       description: authentication header
+    #       schema:
+    #         type: string
+    #   responses:
+    #     '201':
+    #       description: downvote successfullly
+  '/Articles/{id}/cancel':
     delete:
-      summary: 取消反对
+      summary: 取消点赞或反对
       tags:
-        - Article
+        - Editorials
       parameters:
         - name: id
-          required: true
-          in: path
           schema:
             type: integer
+          in: path
+          required: true
+          description: editorials id
         - in: header
           name: X-AUTHENTICATION
           required: true
@@ -1767,8 +1855,8 @@ paths:
           schema:
             type: string
       responses:
-        '201':
-          description: downvote successfullly
+        '200':
+          description: successful
   # '/articles/{id}/comments':
   #   post:
   #     tags:
@@ -2309,96 +2397,98 @@ paths:
                     $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
-  # '/editorials/{id}/comments':
-  #   post:
-  #     tags:
-  #       - Editorials
-  #     parameters:
-  #       - name: id
-  #         schema:
-  #           type: integer
-  #         in: path
-  #         required: true
-  #         description: editorials id
-  #       - in: header
-  #         name: X-AUTHENTICATION
-  #         required: true
-  #         description: authentication header
-  #         schema:
-  #           type: string
-  #     requestBody:
-  #       content:
-  #         application/json:
-  #           schema:
-  #             $ref: '#/components/schemas/CommentRequest'
-  #     responses:
-  #       '201':
-  #         description: successful
-  #   get:
-  #     tags:
-  #       - Editorials
-  #     parameters:
-  #       - name: id
-  #         schema:
-  #           type: integer
-  #         in: path
-  #         required: true
-  #         description: video id
-  #       - in: header
-  #         name: X-AUTHENTICATION
-  #         required: true
-  #         description: authentication header
-  #         schema:
-  #           type: string
-  #       - name: offset
-  #         in: query
-  #         required: false
-  #         description: start index of element
-  #         schema:
-  #           type: string
-  #       - name: limit
-  #         in: query
-  #         required: false
-  #         description: start index of element
-  #         schema:
-  #           type: string
-  #       - name: page
-  #         in: query
-  #         required: false
-  #         description: start index of element
-  #         schema:
-  #           type: string
-  #     responses:
-  #       '200':
-  #         description: successful
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               properties:
-  #                 content:
-  #                   type: object
-  #                   properties:
-  #                     data:
-  #                       type: array
-  #                       items:
-  #                         $ref: '#/components/schemas/Comment'
-  #                     offset:
-  #                       type: integer
-  #                     limit:
-  #                       type: integer
-  #                     page_count:
-  #                       type: integer
-  #                     item_count:
-  #                       type: integer
-  #                     page_index:
-  #                       type: integer
-  #                     is_first:
-  #                       type: boolean
-  #                     is_last:
-  #                       type: boolean
-  #                 status:
-  #                   $ref: '#/components/schemas/Status'
+  '/editorials/{id}/comments':
+    post:
+      summary: 发布短则评论
+      tags:
+        - Editorials
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: editorials id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+      responses:
+        '201':
+          description: successful
+    get:
+      summary: 获得短则全部评论
+      tags:
+        - Editorials
+      parameters:
+        - name: id
+          schema:
+            type: integer
+          in: path
+          required: true
+          description: video id
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count:
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/editorials/{id}/upvote':
     put:
       summary: 点赞短则
@@ -2420,26 +2510,26 @@ paths:
       responses:
         '200':
           description: successful
-    delete:
-      summary: 取消点赞
-      tags:
-        - Editorials
-      parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: editorials id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful
+    # delete:
+    #   summary: 取消点赞
+    #   tags:
+    #     - Editorials
+    #   parameters:
+    #     - name: id
+    #       schema:
+    #         type: integer
+    #       in: path
+    #       required: true
+    #       description: editorials id
+    #     - in: header
+    #       name: X-AUTHENTICATION
+    #       required: true
+    #       description: authentication header
+    #       schema:
+    #         type: string
+    #   responses:
+    #     '200':
+    #       description: successful
   '/editorials/{id}/downvote':
     put:
       summary: 反对短则
@@ -2461,8 +2551,29 @@ paths:
       responses:
         '200':
           description: successful
+    # delete:
+    #   summary: 取消反对
+    #   tags:
+    #     - Editorials
+    #   parameters:
+    #     - name: id
+    #       schema:
+    #         type: integer
+    #       in: path
+    #       required: true
+    #       description: editorials id
+    #     - in: header
+    #       name: X-AUTHENTICATION
+    #       required: true
+    #       description: authentication header
+    #       schema:
+    #         type: string
+    #   responses:
+    #     '200':
+    #       description: successful
+  '/editorials/{id}/cancel':
     delete:
-      summary: 取消反对
+      summary: 取消点赞或反对
       tags:
         - Editorials
       parameters:
@@ -3744,37 +3855,37 @@ paths:
                 properties:
                   content:
                     $ref: '#/components/schemas/Comment'
-    put:
-      summary: 发布评论
-      description: 发布评论
-      tags:
-        - Comment
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CommentRequest'
-      responses:
-        '200':
-          description: 'nike'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    $ref: '#/components/schemas/Comment'
+    # put:
+    #   summary: 发布评论
+    #   description: 发布评论
+    #   tags:
+    #     - Comment
+    #   parameters:
+    #     - name: id
+    #       in: path
+    #       required: true
+    #       schema:
+    #         type: integer
+    #     - name: X-AUTHENTICATION
+    #       in: header
+    #       required: true
+    #       schema:
+    #         type: string
+    #   requestBody:
+    #     content:
+    #       application/json:
+    #         schema:
+    #           $ref: '#/components/schemas/CommentRequest'
+    #   responses:
+    #     '200':
+    #       description: 'nike'
+    #       content:
+    #         application/json:
+    #           schema:
+    #             type: object
+    #             properties:
+    #               content:
+    #                 $ref: '#/components/schemas/Comment'
     delete:
       summary: 删除评论
       description: 删除评论
@@ -4220,14 +4331,14 @@ paths:
   #     responses:
   #       '200':
   #         description: 'nike'
-  '/comments/replies/{id}':
+  '/comments/replies/{commentid}':
     get:
       summary: 获得评论所有回复
       description: 返回评论全部回复
       tags:
         - Comment
       parameters:
-        - name: id
+        - name: commentid
           in: path
           required: true
           schema:
