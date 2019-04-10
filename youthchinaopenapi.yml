@@ -6208,7 +6208,7 @@ paths:
   '/static/location':
     get:
       tags:
-       - static
+       - Static
       parameters:
        - in: query
          name: target
@@ -6245,7 +6245,7 @@ paths:
   '/static/{id}':
     get:
       tags:
-       - static
+       - Static
       parameters:
        - in: path
          name: id
@@ -6267,13 +6267,14 @@ paths:
   '/static':
     post:
       tags:
-       - static
+       - Static
       parameters:
        - in: path
          name: id
          schema:
           type: integer
-          
+      requestBody:
+        description: "File to upload"
       responses:
         '200':
           description: "null"
