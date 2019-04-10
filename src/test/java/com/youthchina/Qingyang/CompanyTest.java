@@ -151,7 +151,7 @@ public class CompanyTest {
 
         List<Logo> logoList = new ArrayList<>();
         Logo logo = new Logo();
-        logo.setDocuLocalId("logodoc");
+        logo.setDocuLocalId("2856306669745344512");
         logoList.add(logo);
         company.setLogoList(logoList);
 
