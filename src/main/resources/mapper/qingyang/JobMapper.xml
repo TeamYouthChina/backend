@@ -240,6 +240,15 @@
         j.JOB_ID = #{id} AND j.IS_DELETE = 0
     </select>
 
+    <select id="getJobByUserId" resultMap="job" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="jobSelect"/>
+        FROM JOB_INFO j
+        <include refid="jobJoin"/>
+        WHERE
+        j.USER_ID = #{userId} AND j.IS_DELETE = 0
+    </select>
+
     <select id="selectAllJob" resultMap="job">
         SELECT
         <include refid="jobSelect"/>

@@ -41,6 +41,8 @@ public interface JobMapper {
      */
     List<Job> selectJobByJobIdList(List<Integer> ids);
 
+    List<Job> getJobByUserId(Integer userId);
+
     List<Job> selectAllJob();
 
     List<Job> getJobByMore(@Param("jobId") Integer jobId, @Param("jobName") String jobName, @Param("comId") Integer comId, @Param("comName") String comName,
