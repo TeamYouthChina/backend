@@ -5,8 +5,11 @@ import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
+import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.service.jinhao.AnswerServiceImpl;
 import com.youthchina.service.jinhao.QuestionServiceImpl;
+import com.youthchina.service.tianjian.EssayServiceImpl;
 import com.youthchina.service.zhongyang.JwtService;
 import com.youthchina.util.AuthGenerator;
 import com.youthchina.util.zhongyang.JwtAuthenticationProvider;
@@ -64,6 +67,8 @@ public class UserControllerGetMyTest {
     QuestionServiceImpl questionService;
     @Autowired
     AnswerServiceImpl answerService;
+    @Autowired
+    EssayServiceImpl essayService;
 
     private AuthGenerator authGenerator = new AuthGenerator();
 
@@ -102,6 +107,16 @@ public class UserControllerGetMyTest {
         answerList = answerService.getMyAnswers(id);
         Assert.assertEquals(13, answerList.size());
 
+    }
+
+    @Test
+    public void getMyEssayServiceTest() throws Exception {
+        Integer id = 1;
+        List<ComEssay> comEssayList = essayService.getAllEssayByUserId(id);
+        Assert.assertEquals(6, comEssayList.size());
+//        ComEssay comEssay1 = comEssayList.get(0);
+//        EssayResponseDTO essayResponseDTO = new EssayResponseDTO();
+//        essayResponseDTO.convertToDTO(comEssay1);
     }
 
     @Test

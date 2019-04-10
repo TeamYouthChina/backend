@@ -154,7 +154,7 @@
     <select id="getFriendApply" resultMap="friendapplyresult">
         select * from COM_FRIEND_APPLY where USER_ID = #{userId} and FRIEND_ID = #{friendId}
     </select>
-    <select id="getAllEssayByUserId" resultMap="friendapplyresult">
+    <select id="getAllEssayByUserId" resultMap="essayresult">
         select * from COM_ESSAY where USER_ID = #{userId} and IS_DELETE = 0
     </select>
     <select id="getFriendApplication" resultMap="friendapplyresult">

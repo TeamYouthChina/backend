@@ -246,11 +246,21 @@ public class UserController extends DomainCRUDController<User, Integer> {
             result.put("answers", answerResponseDTOList);
 
             /**我的Essay*/
-//            List<ComEssay> comEssayList = essayService.
-//            List<EssayResponseDTO>
-
+            List<ComEssay> comEssayList = essayService.getAllEssayByUserId(id);
+            //TestTest
+            System.out.println("comEssayList.size() : " + comEssayList.size());
+            List<EssayResponseDTO> essayResponseDTOList = new ArrayList<>();
+            if(comEssayList != null && comEssayList.size() > 0){
+                for(ComEssay comEssay : comEssayList){
+                    EssayResponseDTO essayResponseDTO = new EssayResponseDTO();
+                    essayResponseDTO.convertToDTO(comEssay);
+                    essayResponseDTOList.add(essayResponseDTO);
+                }
+            }
+            result.put("articles", essayResponseDTOList);
 
             return ResponseEntity.ok(new Response(result));
+
         } else {
             throw new ForbiddenException();
         }
