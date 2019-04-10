@@ -6242,7 +6242,50 @@ paths:
                               type: string
                   status:
                     $ref: '#/components/schemas/Status'
+  '/static/{id}':
+    get:
+      tags:
+       - static
+      parameters:
+       - in: path
+         name: id
+         schema:
+          type: integer
           
+      responses:
+        '200':
+          description: "null"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: integer
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/static':
+    post:
+      tags:
+       - static
+      parameters:
+       - in: path
+         name: id
+         schema:
+          type: integer
+          
+      responses:
+        '200':
+          description: "null"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: integer
+                  status:
+                    $ref: '#/components/schemas/Status'
 components:
   schemas:
     ContentRequest:
