@@ -5,6 +5,7 @@ import com.youthchina.domain.Qinghong.JobCollect;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.jinhao.Video;
+import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
@@ -14,6 +15,7 @@ import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.community.video.VideoResponseDTO;
+import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -22,6 +24,7 @@ import com.youthchina.service.jinhao.AnswerServiceImpl;
 import com.youthchina.service.jinhao.AttentionServiceImpl;
 import com.youthchina.service.jinhao.QuestionServiceImpl;
 import com.youthchina.service.jinhao.VideoServiceImpl;
+import com.youthchina.service.qingyang.JobServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
 import com.youthchina.service.zhongyang.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +36,9 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhongyangwu on 11/8/18.
@@ -57,6 +62,8 @@ public class UserController extends DomainCRUDController<User, Integer> {
     private VideoServiceImpl videoService;
     @Autowired
     private AnswerServiceImpl answerService;
+    @Autowired
+    private JobServiceImpl jobService;
 
     @Autowired
     public UserController(UserService userService, @Value("${web.url.prefix}") String prefix) {
@@ -178,6 +185,19 @@ public class UserController extends DomainCRUDController<User, Integer> {
         }
 
 
+    }
+
+    @GetMapping("/{id}/my")
+    public ResponseEntity<?> getMy(@PathVariable Integer id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+        if (user.getId().equals(id)) {
+            Map<String, Object> result = new HashMap<>();
+            List<Job> jobsOwnedByUserId = jobService.getJobByUserId(id);
+            List<JobResponseDTO> jobResponseDTOList = new JobResponseDTO().convertToDTO(jobsOwnedByUserId);
+            result.put("jobs", jobResponseDTOList);
+            return ResponseEntity.ok(new Response(result));
+        } else {
+            throw new ForbiddenException();
+        }
     }
 
 
