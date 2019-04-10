@@ -77,7 +77,7 @@ public class AnswerTest {
 
     @Test
     public void getMyAnswer(){
-        List<Answer> answers = answerMapper.getMyAnswers(2);
-        Assert.assertEquals(1,answers.size());
+        List<Answer> answers = answerMapper.getMyAnswers(5);
+        Assert.assertEquals(13,answers.size());
     }
 }

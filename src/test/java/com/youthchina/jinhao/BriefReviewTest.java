@@ -16,6 +16,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -63,5 +64,10 @@ public class BriefReviewTest {
         briefReview.setRelaId(38);
         briefReviewMapper.update(briefReview);
         Assert.assertEquals(Integer.valueOf(38), briefReviewMapper.get(1).getRelaId());
+    }
+    @Test
+    public void getMyBriefReview(){
+        List<BriefReview> briefReviewList = briefReviewMapper.getMyBriefReview(1);
+        Assert.assertEquals(4,briefReviewList.size());
     }
 }

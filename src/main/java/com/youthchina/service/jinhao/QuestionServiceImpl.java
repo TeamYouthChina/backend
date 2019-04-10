@@ -112,6 +112,7 @@ public class QuestionServiceImpl implements QuestionService {
             } catch (NotFoundException e) {
 
             }
+            richTextService.getComRichText(question);
         }
         return questions;
     }

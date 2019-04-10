@@ -51,6 +51,8 @@ public class AnswerServiceImpl implements AnswerService{
             } catch (NotFoundException e) {
 
             }
+            richTextService.getComRichText(answer);
+            answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
         }
         return answers;
     }

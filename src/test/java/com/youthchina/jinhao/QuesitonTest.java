@@ -16,6 +16,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -61,5 +62,11 @@ public class QuesitonTest {
         question.setTitle("avcd");
         questionMapper.edit(question);
         Assert.assertEquals("avcd",questionMapper.get(1).getTitle());
+    }
+
+    @Test
+    public void getMy(){
+        List<Question> questionList = questionMapper.getMyQuestion(1);
+        Assert.assertEquals(49,questionList.size());
     }
 }
