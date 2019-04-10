@@ -54,7 +54,7 @@ public interface FriendsService {
      * 添加好友申请
      * parameter Integer own_id
      * */
-     public void addFriendApply(ComFriendApply comFriendApply) throws ConflictException;
+     public ComFriendApply addFriendApply(ComFriendApply comFriendApply) throws ConflictException;
     /*
      * 获取所有的好友申请
      * parameter Integer own_id
@@ -62,7 +62,17 @@ public interface FriendsService {
     public List<ComFriendApply> getAllFriendApply(Integer userId);
     /*
      * 获取好友申请
-     * parameter Integer own_id
+     * parameter Integer userId, Integer friendId
      * */
     public ComFriendApply getFriendApply(Integer userId, Integer friendId);
+    /*
+     * 获取好友申请
+     * parameter Integer applicationId
+     * */
+    public ComFriendApply  getFriendApplication(Integer applicationId);
+    /*
+     * 更改申请状态
+     * parameter Integer applicationId
+     * */
+    public void changeApplicationStatus(ComFriendApply comFriendApply);
 }

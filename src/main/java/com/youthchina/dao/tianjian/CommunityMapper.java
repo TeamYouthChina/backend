@@ -42,11 +42,15 @@ public interface CommunityMapper {
 
     List<ComFriendGroup> getFriendGroup(List<ComFriendRelation> comFriendRelation);
 
-    List<ComEssay> getAllEssayUserAttention(@Param("userId") Integer user_id);
-
     void addFriendApply(ComFriendApply comFriendApply);
 
     List<ComFriendApply>  getAllFriendApply(@Param("userId")Integer userId);
 
     ComFriendApply getFriendApply(@Param("userId")Integer userId,@Param("friendId")Integer friendId);
+
+    List<ComEssay> getAllEssayByUserId(@Param("userId") Integer user_id);
+
+   ComFriendApply getFriendApplication(@Param("applicationId") Integer applicationId);
+
+   void changeApplicationStatus(ComFriendApply comFriendApply);
 }

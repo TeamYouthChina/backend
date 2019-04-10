@@ -77,16 +77,27 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
-    public void addFriendApply(ComFriendApply comFriendApply) throws ConflictException {
+    public ComFriendApply addFriendApply(ComFriendApply comFriendApply) throws ConflictException {
         ComFriendApply comFriendApply1 = friendsMapper.getFriendApply(comFriendApply.getUserId(),comFriendApply.getFriendId());
         if(comFriendApply1!=null)
             throw new ConflictException(409, 409, "Application is already existing");
         friendsMapper.addFriendApply(comFriendApply);
+        return friendsMapper.getFriendApplication(comFriendApply.getApplyId());
     }
 
     @Override
     public List<ComFriendApply>  getAllFriendApply(Integer userId) {
         return friendsMapper.getAllFriendApply(userId);
+    }
+
+    @Override
+    public ComFriendApply getFriendApplication(Integer applicationId) {
+        return friendsMapper.getFriendApplication(applicationId);
+    }
+
+    @Override
+    public void changeApplicationStatus(ComFriendApply comFriendApply) {
+       friendsMapper.changeApplicationStatus(comFriendApply);
     }
 
     @Override

@@ -50,14 +50,14 @@ public class CommentController {
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
-    @GetMapping("/{id}/upvote")
+    @PutMapping("/{id}/upvote")
     public ResponseEntity<?> upvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Comment comment = commentService.get(id);
         evaluateService.upvote(comment, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
-    @GetMapping("/{id}/downvote")
+    @PutMapping("/{id}/downvote")
     public ResponseEntity<?> downvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Comment comment = commentService.get(id);
         evaluateService.downvote(comment, user.getId());

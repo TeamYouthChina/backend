@@ -127,11 +127,6 @@
         and
         t1.GROUP_ID = t2.GROUP_ID
     </select>
-    <select id="getAllEssayUserAttention" resultType="com.youthchina.domain.tianjian.ComEssay">
-        select t1.*
-        from COM_ESSAY t1, COM_ESSAY_ATTENTION t2, COM_ESSAY_ATTENTION_MAP t3
-        where t1.ESSAY_ID = t3.ESSAY_ID and t3.ATTEN_ID = t2.ATTEN_ID and t2.USER_ID = #{userId}
-    </select>
     <select id="getEssayList" resultType="com.youthchina.domain.tianjian.ComEssay">
          select * from COM_ESSAY t
          where t.ESSAY_ID in
@@ -146,9 +141,10 @@
         where IS_DELETE=0
     </select>
 
-    <insert id="addFriendApply" parameterType="com.youthchina.domain.tianjian.ComFriendApply">
+    <insert id="addFriendApply" parameterType="com.youthchina.domain.tianjian.ComFriendApply" useGeneratedKeys="true"
+            keyProperty="applyId">
       insert into COM_FRIEND_APPLY (USER_ID, FRIEND_ID, FRI_APPLY_TIME,FRI_APPLY_ACCEPT)
-      value (#{userId} ,#{friendId} ,now(),0)
+      value (#{userId} ,#{friendId} ,NOW(),0)
     </insert>
 
     <select id="getAllFriendApply" resultMap="friendapplyresult">
@@ -158,4 +154,18 @@
     <select id="getFriendApply" resultMap="friendapplyresult">
         select * from COM_FRIEND_APPLY where USER_ID = #{userId} and FRIEND_ID = #{friendId}
     </select>
+    <select id="getAllEssayByUserId" resultMap="friendapplyresult">
+        select * from COM_ESSAY where USER_ID = #{userId} and IS_DELETE = 0
+    </select>
+    <select id="getFriendApplication" resultMap="friendapplyresult">
+        select * from COM_FRIEND_APPLY
+        where APPLY_ID = #{applicationId};
+    </select>
+    <update id="changeApplicationStatus">
+    update COM_FRIEND_APPLY
+    set
+         FRI_APPLY_ACCEPT = #{friApplyAccept}
+    where
+         APPLY_ID = #{applyId}
+    </update>
 </mapper>
