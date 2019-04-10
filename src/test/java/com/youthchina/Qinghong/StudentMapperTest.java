@@ -30,7 +30,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:New_Stu_test.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml"})
+@DatabaseSetup({"classpath:test.xml"})
 public class StudentMapperTest {
     @Autowired
     ApplicantMapper applicantMapper;
