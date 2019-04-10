@@ -1840,7 +1840,7 @@ paths:
     delete:
       summary: 取消点赞或反对
       tags:
-        - Editorials
+        - Article
       parameters:
         - name: id
           schema:
@@ -3948,25 +3948,25 @@ paths:
       responses:
         '200':
           description: 'nike'
-    delete:
-      summary: 删除点赞
-      description: 评论点赞
-      tags:
-        - Comment
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'nike'
+    # delete:
+    #   summary: 删除点赞
+    #   description: 评论点赞
+    #   tags:
+    #     - Comment
+    #   parameters:
+    #     - name: id
+    #       in: path
+    #       required: true
+    #       schema:
+    #         type: integer
+    #     - name: X-AUTHENTICATION
+    #       in: header
+    #       required: true
+    #       schema:
+    #         type: string
+    #   responses:
+    #     '200':
+    #       description: 'nike'
   '/comments/(comment_id)/downvote':
     put:
       summary: 反对评论
@@ -3987,9 +3987,29 @@ paths:
       responses:
         '200':
           description: 'nike'
+    # delete:
+    #   summary: 删除反对
+    #   description: 评论反对
+    #   tags:
+    #     - Comment
+    #   parameters:
+    #     - name: id
+    #       in: path
+    #       required: true
+    #       schema:
+    #         type: integer
+    #     - name: X-AUTHENTICATION
+    #       in: header
+    #       required: true
+    #       schema:
+    #         type: string
+    #   responses:
+    #     '200':
+    #       description: 'nike'
+  '/comments/(comment_id)/cancel':
     delete:
-      summary: 删除反对
-      description: 评论反对
+      summary: 取消点赞和反对
+      description: 评论点赞
       tags:
         - Comment
       parameters:
@@ -4464,30 +4484,30 @@ paths:
       responses:
         '200':
           description: 'nike'
-    delete:
-      summary: 删除点赞
-      description: 回复反对
-      tags:
-        - Comment
-      parameters:
-        - name: comment_id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: reply_id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'nike'
+    # delete:
+    #   summary: 删除点赞
+    #   description: 回复反对
+    #   tags:
+    #     - Comment
+    #   parameters:
+    #     - name: comment_id
+    #       in: path
+    #       required: true
+    #       schema:
+    #         type: integer
+    #     - name: reply_id
+    #       in: path
+    #       required: true
+    #       schema:
+    #         type: integer
+    #     - name: X-AUTHENTICATION
+    #       in: header
+    #       required: true
+    #       schema:
+    #         type: string
+    #   responses:
+    #     '200':
+    #       description: 'nike'
   '/comments/reply/{reply_id}/downvote':
     put:
       summary: 反对回复
@@ -4512,8 +4532,33 @@ paths:
       responses:
         '200':
           description: 'nike'
+    # delete:
+    #   summary: 删除反对
+    #   tags:
+    #     - Comment
+    #   parameters:
+    #     - name: comment_id
+    #       in: path
+    #       required: true
+    #       schema:
+    #         type: integer
+    #     - name: reply_id
+    #       in: path
+    #       required: true
+    #       schema:
+    #         type: integer
+    #     - name: X-AUTHENTICATION
+    #       in: header
+    #       required: true
+    #       schema:
+    #         type: string
+    #   responses:
+    #     '200':
+    #       description: 'nike'
+  '/comments/reply/{reply_id}/cancel':
     delete:
-      summary: 删除反对
+      summary: 取消点赞和反对
+      description: 回复点赞
       tags:
         - Comment
       parameters:
