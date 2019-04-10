@@ -66,14 +66,14 @@ public class EvaluateServiceImpl implements EvaluateService {
                 answerService.isAnswerExist(id);
                 break;
             default:
-                throw new NotFoundException(404, 404, "No such type");
+                throw new NotFoundException(4040, 404, "No such type");//todo
         }
         Evaluate evaluate = evaluateMapper.isEverEvaluate(type, id, userId);
         if (evaluate == null) {
             evaluateMapper.upvote(type, id, userId);
         } else {
             if (evaluate.getType() == 1) {
-                throw new NotFoundException(404, 404, "You have already upvoted! You cannot upvote again!");
+                throw new NotFoundException(4040, 404, "You have already upvoted! You cannot upvote again!");//todo
             } else {
                 evaluateMapper.reUpvote(evaluate.getId());
             }
@@ -108,14 +108,14 @@ public class EvaluateServiceImpl implements EvaluateService {
                 answerService.isAnswerExist(id);
                 break;
             default:
-                throw new NotFoundException(404, 404, "No such type");
+                throw new NotFoundException(4040, 404, "No such type");//todo
         }
         Evaluate evaluate = evaluateMapper.isEverEvaluate(type, id, userId);
         if (evaluate == null) {
             evaluateMapper.downvote(type, id, userId);
         } else {
             if (evaluate.getType() == 2) {
-                throw new NotFoundException(404, 404, "You have already downvoted! You cannot downvote again!");
+                throw new NotFoundException(4040, 404, "You have already downvoted! You cannot downvote again!");//todo
             } else {
                 evaluateMapper.reDownVote(evaluate.getId());
             }
@@ -150,11 +150,11 @@ public class EvaluateServiceImpl implements EvaluateService {
                 answerService.isAnswerExist(id);
                 break;
             default:
-                throw new NotFoundException(404, 404, "No such type");
+                throw new NotFoundException(4040, 404, "No such type");//todo
         }
         Evaluate evaluate = evaluateMapper.isEverEvaluate(type, id, userId);
         if (evaluate == null || evaluate.getType() == 3) {
-            throw new NotFoundException(404, 404, "You have not evaluated! You cannot cancel!");
+            throw new NotFoundException(4040, 404, "You have not evaluated! You cannot cancel!");//todo
         } else {
             evaluateMapper.cancel(evaluate.getId());
         }
@@ -188,7 +188,7 @@ public class EvaluateServiceImpl implements EvaluateService {
                 answerService.isAnswerExist(id);
                 break;
             default:
-                throw new NotFoundException(404, 404, "No such type");
+                throw new NotFoundException(4040, 404, "No such type");//todo
         }
         return evaluateMapper.countUpvote(type, id);
     }

@@ -94,10 +94,13 @@ comment '职位基本信息表';
         this.userId = jobRequestDTO.getUserId();
         this.jobDescription = jobRequestDTO.getJob_description();
         this.jobDuty = jobRequestDTO.getJob_duty();
+        //if(jobRequestDTO.getStartTime() != null){
+            this.jobStartTime = new Date(Long.parseLong(jobRequestDTO.getStartTime()));
+        //}
         this.jobEndTime = new Date(Long.parseLong(jobRequestDTO.getDeadLine()));
 
+        //TODO : new API??
         this.setJobProfCode("1");
-        this.setJobStartTime(Date.valueOf("2010-01-01"));
         this.setJobHighlight("Highlight:TODO");
         this.setJobLink("JOB_LINK:TODO");
         this.setCvReceiMail("MAIL:TODO");

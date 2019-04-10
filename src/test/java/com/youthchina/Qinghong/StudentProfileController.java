@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:New_Stu_test.xml","classpath:New_Company_test.xml","classpath:New_Dictionary_test.xml","classpath:New_Job_test.xml","classpath:New_SYS_test.xml","classpath:New_Community_test.xml"})
+@DatabaseSetup({"classpath:test.xml"})
 @WebAppConfiguration
 public class StudentProfileController {
     @Autowired
@@ -138,7 +138,6 @@ public class StudentProfileController {
     @Test
     public void testUpdateEducation() throws Exception{
         EducationRequestDTO educationDTO=new EducationRequestDTO();
-        educationDTO.setId(1);
         educationDTO.setUniversity_id(10001);
         educationDTO.setMajor("10101");
         educationDTO.setDegree("1");
@@ -150,7 +149,7 @@ public class StudentProfileController {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(educationDTO);
         this.mvc.perform(
-                put(this.urlPrefix + "/applicants/10/educations/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                put(this.urlPrefix + "/applicants/10/educations/50").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
@@ -169,7 +168,7 @@ public class StudentProfileController {
     @Test
     public void testDeleteEducation() throws Exception{
         this.mvc.perform(
-                delete(this.urlPrefix + "/applicants/10/educations/1")
+                delete(this.urlPrefix + "/applicants/10/educations/10")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
@@ -635,7 +634,7 @@ public class StudentProfileController {
     @Test
     public void testInsertAdvantageSkill() throws Exception{
         SkillsRequestDTO skillsRequestDTO=new SkillsRequestDTO();
-        skillsRequestDTO.setLabel_code("22");
+        skillsRequestDTO.setLabel_code("I6510");
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(skillsRequestDTO);
@@ -681,7 +680,7 @@ public class StudentProfileController {
     public void testUserAttentions() throws Exception{
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/1/attentions?type=question")
+                        (this.urlPrefix + "/users/10/attentions?type=company")
 
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
@@ -700,7 +699,7 @@ public class StudentProfileController {
     @Test
     public void testAddJobCollect() throws Exception{
         this.mvc.perform
-                (put(this.urlPrefix + "/jobs/4/attention")
+                (put(this.urlPrefix + "/jobs/3/attention")
                         .with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
@@ -715,7 +714,7 @@ public class StudentProfileController {
     @Test
     public void testAddCompCollect() throws Exception{
         this.mvc.perform
-                (put(this.urlPrefix + "/companies/5/attention")
+                (put(this.urlPrefix + "/companies/4/attention")
                         .with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
@@ -730,7 +729,7 @@ public class StudentProfileController {
 
     @Test
     public void testDeleteJobCollect() throws Exception{
-        this.mvc.perform(delete(this.urlPrefix + "/jobs/attentions/1").with(authGenerator.authentication(Role.APPLICANT, 10)))
+        this.mvc.perform(delete(this.urlPrefix + "/jobs/attentions/2").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
 
@@ -744,7 +743,7 @@ public class StudentProfileController {
     @Test
     public void testDeleteCompCollect() throws Exception{
         this.mvc.perform
-                (delete(this.urlPrefix + "/companies/attentions/1")
+                (delete(this.urlPrefix + "/companies/attentions/2")
                         .with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
@@ -773,7 +772,7 @@ public class StudentProfileController {
 
     @Test
     public void testAddJobApply() throws Exception{
-        this.mvc.perform(post(this.urlPrefix + "/jobs/5/apply").with(authGenerator.authentication(Role.APPLICANT, 10)))
+        this.mvc.perform(post(this.urlPrefix + "/jobs/4/apply").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
 

@@ -3,6 +3,7 @@ package com.youthchina.domain.jinhao;
 import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.discuss.DiscussDTO;
 
 import java.sql.Timestamp;
 
@@ -12,9 +13,21 @@ public class Discuss implements Evaluatable, Attentionable {
     private String content;
     private Integer isAnony;
     private Timestamp pubTime;
+    private Timestamp editTime;
     private User user;
     private static final Integer evaluateTargetType = 6;
     private static final Integer attentionTargetType = 6;
+
+    public Discuss() {
+
+    }
+
+    public Discuss(DiscussDTO discussDTO) {
+        this.id = discussDTO.getId();
+        this.commentId = discussDTO.getCommentId();
+        this.content = discussDTO.getBody();
+        this.isAnony = (discussDTO.isIs_anonymous())? 1:0;
+    }
 
     @Override
     public Integer getEvaluateTargetType() {
@@ -64,6 +77,14 @@ public class Discuss implements Evaluatable, Attentionable {
 
     public void setPubTime(Timestamp pubTime) {
         this.pubTime = pubTime;
+    }
+
+    public Timestamp getEditTime() {
+        return editTime;
+    }
+
+    public void setEditTime(Timestamp editTime) {
+        this.editTime = editTime;
     }
 
     public User getUser() {
