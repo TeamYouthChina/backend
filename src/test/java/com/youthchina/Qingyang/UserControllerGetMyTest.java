@@ -3,9 +3,14 @@ package com.youthchina.Qingyang;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.domain.jinhao.Question;
+import com.youthchina.service.jinhao.AnswerServiceImpl;
+import com.youthchina.service.jinhao.QuestionServiceImpl;
 import com.youthchina.service.zhongyang.JwtService;
 import com.youthchina.util.AuthGenerator;
 import com.youthchina.util.zhongyang.JwtAuthenticationProvider;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +26,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.List;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -53,6 +60,11 @@ public class UserControllerGetMyTest {
 
     @Autowired
     JwtService jwtService;
+    @Autowired
+    QuestionServiceImpl questionService;
+    @Autowired
+    AnswerServiceImpl answerService;
+
     private AuthGenerator authGenerator = new AuthGenerator();
 
     @Before
@@ -71,6 +83,25 @@ public class UserControllerGetMyTest {
                 .andDo(print())
                 //.andExpect(content().json("", false))
         ;
+    }
+
+    @Test
+    public void getMyQuestionServiceTest() throws Exception {
+        Integer id = 1;
+        List<Question> questionList = questionService.getMyQuestion(id);
+        Assert.assertEquals(49, questionList.size());
+    }
+
+    @Test
+    public void getMyAnswerServiceTest() throws Exception {
+        Integer id = 1;
+        List<Answer> answerList = answerService.getMyAnswers(id);
+        Assert.assertEquals(0, answerList.size());
+
+        id = 5;
+        answerList = answerService.getMyAnswers(id);
+        Assert.assertEquals(13, answerList.size());
+
     }
 
     @Test

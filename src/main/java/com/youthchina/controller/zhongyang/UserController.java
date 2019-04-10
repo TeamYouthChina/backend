@@ -219,6 +219,36 @@ public class UserController extends DomainCRUDController<User, Integer> {
             List<JobResponseDTO> jobResponseDTOList = new JobResponseDTO().convertToDTO(jobsOwnedByUserId);
             result.put("jobs", jobResponseDTOList);
 
+            /**我的问题*/
+            List<Question> questionList = questionService.getMyQuestion(id);
+            List<QuestionResponseDTO> questionResponseDTOList = new ArrayList<>();
+            //TestTest
+            //System.out.println("questionList.size() : " + questionList.size());//49
+            if(questionList != null && questionList.size() > 0){
+                for(Question question : questionList){
+                    QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
+                    questionResponseDTO.convertToDTO(question);
+                    questionResponseDTOList.add(questionResponseDTO);
+                }
+            }
+            result.put("questions", questionResponseDTOList);
+
+            /**我的回答*/
+            List<Answer> answerList = answerService.getMyAnswers(id);
+            List<SimpleAnswerResponseDTO> answerResponseDTOList = new ArrayList<>();
+            if(answerList != null && answerList.size() > 0){
+                for(Answer answer : answerList){
+                    SimpleAnswerResponseDTO answerResponseDTO = new SimpleAnswerResponseDTO();
+                    answerResponseDTO.convertToDTO(answer);
+                    answerResponseDTOList.add(answerResponseDTO);
+                }
+            }
+            result.put("answers", answerResponseDTOList);
+
+            /**我的Essay*/
+//            List<ComEssay> comEssayList = essayService.
+//            List<EssayResponseDTO>
+
 
             return ResponseEntity.ok(new Response(result));
         } else {
