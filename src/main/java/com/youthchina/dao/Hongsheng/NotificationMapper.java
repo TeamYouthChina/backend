@@ -10,5 +10,5 @@ public interface NotificationMapper {
     Notification get(Integer id);
     void add(Notification notification);
     void update(Notification notification);
-    Integer checkIfNotificationExist();
+    Integer checkIfNotificationExist(Integer id);
 }
