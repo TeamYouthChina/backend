@@ -6205,6 +6205,44 @@ paths:
   #               properties:
   #                 status:
   #                   $ref: '#/components/schemas/Status'
+  '/static/location':
+    get:
+      tags:
+       - static
+      parameters:
+       - in: query
+         name: target
+         description: the region
+         schema:
+          type: integer
+       - in: query
+         name: id
+         schema:
+          type: integer
+          
+      responses:
+        '200':
+          description: "null"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      locations:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            value:
+                              type: string
+                  status:
+                    $ref: '#/components/schemas/Status'
+          
 components:
   schemas:
     ContentRequest:
