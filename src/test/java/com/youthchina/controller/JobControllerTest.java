@@ -42,11 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:New_Company_test.xml",
-        "classpath:New_Dictionary_test.xml",
-        "classpath:New_SYS_test.xml",
-        "classpath:New_Job_test.xml"
-})
+@DatabaseSetup({"classpath:test.xml"})
 @WebAppConfiguration
 public class JobControllerTest {
 
@@ -95,8 +91,8 @@ public class JobControllerTest {
 //    }
 
 
-    @Test
-    public void testSearch() throws Exception {
+//    @Test
+//    public void testSearch() throws Exception {
 //        JobSearchDTO jobSearchDTO = new JobSearchDTO();
 //        jobSearchDTO.setId(1);
 //        jobSearchDTO.setJobName("front");
@@ -128,8 +124,8 @@ public class JobControllerTest {
 //                .andDo(print())
 //
 //        //.andExpect(content().json("{\"content\":{\"searchResult\":[{\"jobId\":1,\"jobName\":\"front\",\"jobProfCode\":\"A\",\"jobStartTime\":\"2019-01-01\",\"jobEndTime\":\"2020-01-01\",\"jobType\":1,\"jobDescription\":\"996\",\"jobDuty\":\"front\",\"jobHighlight\":\"50K\",\"jobSalaryFloor\":5000,\"jobSalaryCap\":6000,\"jobLink\":\"job.com\",\"cvReceiMail\":\"youth@china\",\"cvNameRule\":\"nameRule\",\"jobActive\":1,\"jobLocationList\":[{\"region_num\":1,\"region_chn\":\"北京\",\"region_eng\":\"Beijing\",\"region_level\":1,\"region_parent_num\":1,\"start_time\":\"2019-01-01T11:11:22.000+0000\",\"is_delete\":0,\"is_delete_time\":null,\"jobId\":null,\"nation_code\":\"CHN\",\"regionCity\":null,\"usaState\":null}],\"jobReqList\":[{\"degreeNum\":1,\"degreeChn\":\"本科\",\"degreeEng\":\"Bachelor\",\"startDate\":\"2019-01-01T11:11:22.000+0000\",\"jobId\":1},{\"degreeNum\":2,\"degreeChn\":\"硕士\",\"degreeEng\":\"Master\",\"startDate\":\"2019-01-02T11:11:22.000+0000\",\"jobId\":1}],\"industries\":[{\"indNum\":1,\"indCode\":\"A\",\"indChn\":\"工\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"A3\",\"startTime\":\"2018-10-11T11:11:22.000+0000\",\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":null,\"jobId\":1},{\"indNum\":2,\"indCode\":\"B\",\"indChn\":\"农\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"B3\",\"startTime\":\"2018-10-11T11:11:22.000+0000\",\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":null,\"jobId\":1}],\"profession\":{\"profNum\":1,\"profLevel\":1,\"profCode\":\"A\",\"profParentCode\":\"A\",\"profChn\":\"前端\",\"profEng\":\"frontEnd\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"addTime\":\"2019-01-01T11:11:23.000+0000\",\"isDelete\":null,\"isDeleteTime\":null,\"company\":{\"companyId\":1,\"companyName\":\"大疆\",\"companyCode\":\"2\",\"companyIntroduc\":\"无人机\",\"companyNature\":{\"natureNum\":1,\"natureChn\":\"国企\",\"natureEng\":\"public\",\"natureDetail\":\"good\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"companyScale\":{\"scaleNum\":1,\"scaleChn\":\"大\",\"scaleEng\":\"big\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"location\":{\"region_num\":1,\"region_chn\":\"北京\",\"region_eng\":\"Beijing\",\"region_level\":1,\"region_parent_num\":1,\"start_time\":\"2019-01-01T11:11:22.000+0000\",\"is_delete\":0,\"is_delete_time\":null,\"jobId\":null,\"nation_code\":\"CHN\",\"regionCity\":null,\"usaState\":null},\"country\":null,\"companyMail\":\"dji@com\",\"companyWebsite\":\"dji.com\",\"companyStartDate\":\"2005-11-20\",\"companyLogo\":\"1\",\"companyVerify\":1,\"userId\":null,\"isDelete\":null,\"isDeleteTime\":null,\"addTime\":null,\"jobs\":null,\"indList\":[{\"indNum\":1,\"indCode\":\"A\",\"indChn\":\"工\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"A3\",\"startTime\":null,\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":1,\"jobId\":null},{\"indNum\":2,\"indCode\":\"B\",\"indChn\":\"农\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"B3\",\"startTime\":null,\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":1,\"jobId\":null}],\"verificationList\":[],\"id\":1},\"hr\":{\"hrId\":1,\"companyId\":1,\"hrOnJob\":1,\"userId\":null,\"isDelete\":null,\"isDeleteTime\":null},\"id\":1}],\"status\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
-        ;
-    }
+//        ;
+//    }
 
     @Test
     public void testDeleteJob() throws Exception {
@@ -150,7 +146,8 @@ public class JobControllerTest {
         jobRequestDTO.setOrganization_id(2);
         jobRequestDTO.setType("1");
         jobRequestDTO.setJob_description("996ICU");
-        jobRequestDTO.setDeadLine("4070908800");
+        jobRequestDTO.setStartTime("14070908800");
+        jobRequestDTO.setDeadLine("15070908800");
         jobRequestDTO.setJob_duty("FullStack");
         List<Integer> locationIdList = new ArrayList<>();
         locationIdList.add(994701);
@@ -169,7 +166,7 @@ public class JobControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"name\":\"front\",\"organization\":{\"id\":2,\"name\":\"中国石油天然气股份有限公司\",\"avatarUrl\":null,\"location\":\"北京市\",\"website\":\"http://www.petrochina.com.cn\",\"note\":\"中国石油天然气股份有限公司是中国油气行业占主导地位的最大的油气生产和销售商，是国有企业，是中国销售收入最大的公司之一，也是世界最大的石油公司之一。\",\"nation\":\"中国\"},\"location\":\"Berkeley\",\"type\":\"实习\",\"deadLine\":\"02/17/1970\",\"job_duty\":\"FullStack\",\"job_description\":\"996ICU\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"name\":\"front\",\"organization\":{\"id\":2,\"name\":\"中国石油天然气股份有限公司\",\"avatarUrl\":null,\"location\":\"北京市\",\"website\":\"http://www.petrochina.com.cn\",\"note\":\"中国石油天然气股份有限公司是中国油气行业占主导地位的最大的油气生产和销售商，是国有企业，是中国销售收入最大的公司之一，也是世界最大的石油公司之一。\",\"nation\":\"中国\"},\"location\":\"Berkeley\",\"type\":\"实习\",\"startTime\":\"06/12/1970\",\"deadLine\":\"06/24/1970\",\"job_duty\":\"FullStack\",\"job_description\":\"996ICU\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 
@@ -182,7 +179,8 @@ public class JobControllerTest {
         jobRequestDTO.setOrganization_id(2);
         jobRequestDTO.setType("1");
         jobRequestDTO.setJob_description("996ICU");
-        jobRequestDTO.setDeadLine("4070908800");
+        jobRequestDTO.setStartTime("4070908800");
+        jobRequestDTO.setDeadLine("41070908800");
         jobRequestDTO.setJob_duty("FullStack");
         List<Integer> locationIdList = new ArrayList<>();
         locationIdList.add(994701);
@@ -202,7 +200,7 @@ public class JobControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"front\",\"organization\":{\"id\":2,\"name\":\"中国石油天然气股份有限公司\",\"avatarUrl\":null,\"location\":\"北京市\",\"website\":\"http://www.petrochina.com.cn\",\"note\":\"中国石油天然气股份有限公司是中国油气行业占主导地位的最大的油气生产和销售商，是国有企业，是中国销售收入最大的公司之一，也是世界最大的石油公司之一。\",\"nation\":\"中国\"},\"location\":\"Berkeley\",\"type\":\"实习\",\"deadLine\":\"02/17/1970\",\"job_duty\":\"FullStack\",\"job_description\":\"996ICU\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"front\",\"organization\":{\"id\":2,\"name\":\"中国石油天然气股份有限公司\",\"avatarUrl\":null,\"location\":\"北京市\",\"website\":\"http://www.petrochina.com.cn\",\"note\":\"中国石油天然气股份有限公司是中国油气行业占主导地位的最大的油气生产和销售商，是国有企业，是中国销售收入最大的公司之一，也是世界最大的石油公司之一。\",\"nation\":\"中国\"},\"location\":\"Berkeley\",\"type\":\"实习\",\"startTime\":\"02/17/1970\",\"deadLine\":\"04/21/1971\",\"job_duty\":\"FullStack\",\"job_description\":\"996ICU\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 

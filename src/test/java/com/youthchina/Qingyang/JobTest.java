@@ -28,7 +28,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:New_Company_test.xml", "classpath:New_Job_test.xml", "classpath:New_Dictionary_test.xml"})
+@DatabaseSetup({"classpath:test.xml"})
 public class JobTest {
 
     @Autowired
@@ -137,7 +137,7 @@ public class JobTest {
         jobMapper.insertJobLocation(job.getId(), job.getJobLocationList());
         List<Logo> logoList = new ArrayList<>();
         Logo logo = new Logo();
-        logo.setDocuLocalId("JobLogo");
+        logo.setDocuLocalId("2856306669745344512");
         logoList.add(logo);
         job.setLogoList(logoList);
         jobMapper.insertJobLogo(job.getId(), job.getLogoList());

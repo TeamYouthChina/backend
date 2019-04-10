@@ -27,6 +27,7 @@ public class JobRequestDTO implements RequestDTO<Job> {
     private String type;
     private Integer userId;
     private List<Integer> location;
+    private String startTime;
     private String deadLine;
     private String job_description;
     private String job_duty;
@@ -105,6 +106,14 @@ public class JobRequestDTO implements RequestDTO<Job> {
 
     public void setJob_duty(String job_duty) {
         this.job_duty = job_duty;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
     @Override
