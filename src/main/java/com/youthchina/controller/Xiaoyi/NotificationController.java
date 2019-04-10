@@ -1,15 +1,12 @@
 package com.youthchina.controller.Xiaoyi;
 
-import com.youthchina.dao.Hongsheng.NotificationMapper;
 import com.youthchina.domain.Hongsheng.Notification;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.discuss.DiscussDTO;
 import com.youthchina.dto.notification.NotificationDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.Hongsheng.NotificationService;
-import com.youthchina.service.zhongyang.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -49,5 +46,4 @@ public class NotificationController {
             return ResponseEntity.ok(new Response(new StatusDTO(403, "add failed")));
         }
     }
-
 }
