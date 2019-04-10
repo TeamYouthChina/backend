@@ -23,6 +23,7 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
     private String note;
     private String nation;
     private List<String> photoUrlList;
+    private Integer jobCount;
 
     public CompanyResponseDTO() {
 
@@ -30,6 +31,15 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
 
     public CompanyResponseDTO(Company company) {
         convertToDTO(company);
+    }
+
+
+    public Integer getJobCount() {
+        return jobCount;
+    }
+
+    public void setJobCount(Integer jobCount) {
+        this.jobCount = jobCount;
     }
 
     public Integer getId() {
@@ -121,5 +131,6 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         }
         this.website = company.getCompanyWebsite();
         this.note = company.getCompanyIntroduc();
+        this.jobCount = company.getJobCount();
     }
 }

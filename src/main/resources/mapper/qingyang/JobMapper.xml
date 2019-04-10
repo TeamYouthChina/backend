@@ -267,6 +267,12 @@
         </foreach>
     </select>
 
+    <select id="countJobByComId" resultType="Integer" parameterType="Integer">
+        SELECT COUNT(*)
+        FROM JOB_INFO j
+        WHERE j.IS_DELETE = 0 AND j.COMPANY_ID = #{id}
+    </select>
+
 
     <select id="getJobByMore" resultMap="job">
         SELECT

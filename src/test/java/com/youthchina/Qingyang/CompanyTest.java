@@ -291,6 +291,11 @@ public class CompanyTest {
 
     }
 
+    @Test
+    public void testCountJobByCompanyId(){
+        int countJob = companyCURDService.countJobByComId(37);
+        Assert.assertEquals(18, countJob);
+    }
 
 
 
