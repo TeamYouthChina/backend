@@ -9,6 +9,7 @@ import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.SearchResult;
 import com.youthchina.domain.zhongyang.SearchResultItem;
+import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
@@ -19,6 +20,7 @@ import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.search.SearchResponseDTO;
+import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.service.Hongsheng.SearchService;
@@ -80,6 +82,9 @@ public class SearchController {
             }
             case "comment": {
                 return new CommentDTO((Comment) item.getDomain());
+            }
+            case "user": {
+                return new UserDTO((User) item.getDomain());
             }
             default:
                 throw new BaseException(5000, 500, "no suitable converter found for search result");
