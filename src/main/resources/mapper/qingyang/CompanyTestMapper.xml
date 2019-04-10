@@ -228,7 +228,7 @@
         <include refid="companySelect"/>
         FROM COMPANY_INFO com
         <include refid="companyJoin"/>
-        WHERE com.COMPANY_ID in
+        WHERE com.IS_DELETE = 0 AND com.COMPANY_ID in
         <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
             #{id}
         </foreach>

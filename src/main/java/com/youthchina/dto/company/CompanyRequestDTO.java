@@ -20,7 +20,7 @@ public class CompanyRequestDTO implements RequestDTO<Company> {
     private String avatarUrl;
     private String note;
     private Integer userId;
-    private List<String> photoUrlList;
+    private List<String> photoIdList;
 
     public CompanyRequestDTO() {
     }
@@ -82,12 +82,12 @@ public class CompanyRequestDTO implements RequestDTO<Company> {
         this.avatarUrl = avatarUrl;
     }
 
-    public List<String> getPhotoUrlList() {
-        return photoUrlList;
+    public List<String> getPhotoIdList() {
+        return photoIdList;
     }
 
-    public void setPhotoUrlList(List<String> photoUrlList) {
-        this.photoUrlList = photoUrlList;
+    public void setPhotoIdList(List<String> photoIdList) {
+        this.photoIdList = photoIdList;
     }
 
     public String getNote() {

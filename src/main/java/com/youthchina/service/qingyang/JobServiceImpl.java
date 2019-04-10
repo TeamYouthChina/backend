@@ -161,7 +161,24 @@ public class JobServiceImpl implements JobService {
         jobMapper.deleteJobIndustry(job.getJobId());
         jobMapper.deleteJobDegree(job.getJobId());
         jobMapper.deleteJobLogo(job.getJobId());
+        return this.addRelatedInfo(job);
+    }
 
+    /**
+     * 添加职位
+     *
+     * @param entity target
+     * @return 返回添加后的职位详情
+     */
+    @Override
+    @Transactional
+    public Job add(Job entity) throws NotFoundException {
+        Integer result = jobMapper.insertJob(entity);
+        return addRelatedInfo(entity);
+    }
+
+
+    private Job addRelatedInfo(Job job) throws NotFoundException{
         List<Industry> industryList = job.getIndustries();
         if(industryList != null && industryList.size() > 0){
             jobMapper.insertJobIndustry(industryList);
@@ -178,43 +195,7 @@ public class JobServiceImpl implements JobService {
         if( logoList != null && logoList.size() > 0 ){
             jobMapper.insertJobLogo(job.getId(), logoList);
         }
-        Job result = this.get(job.getId());
-        return result;
-    }
-
-    /**
-     * 添加职位
-     *
-     * @param entity target
-     * @return 返回添加后的职位详情
-     */
-    @Override
-    @Transactional
-    public Job add(Job entity) {
-        Integer result = jobMapper.insertJob(entity);
-        List<Industry> industryList = entity.getIndustries();
-        if(industryList != null && industryList.size() > 0){
-            jobMapper.insertJobIndustry(industryList);
-        }
-        List<Degree> degreeList = entity.getJobReqList();
-        if(degreeList != null && degreeList.size() > 0 ){
-            jobMapper.insertJobDegree(entity.getId(), degreeList);
-        }
-        List<Location> locationList = entity.getJobLocationList();
-        if(locationList != null && locationList.size() > 0){
-            jobMapper.insertJobLocation(entity.getId(), locationList);
-        }
-        List<Logo> logoList = entity.getLogoList();
-         if( logoList != null && logoList.size() > 0 ){
-            jobMapper.insertJobLogo(entity.getId(), logoList);
-        }
-        Job jobResult = null;
-        try {
-            jobResult = this.get(entity.getId());
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
-        return jobResult;
+        return this.get(job.getJobId());
     }
 
     /**

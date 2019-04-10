@@ -137,7 +137,7 @@ public class JobTest {
         jobMapper.insertJobLocation(job.getId(), job.getJobLocationList());
         List<Logo> logoList = new ArrayList<>();
         Logo logo = new Logo();
-        logo.setDocuLocalId("JobLogo");
+        logo.setDocuLocalId("2856306669745344512");
         logoList.add(logo);
         job.setLogoList(logoList);
         jobMapper.insertJobLogo(job.getId(), job.getLogoList());
