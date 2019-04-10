@@ -25,6 +25,11 @@ public class DiscussController {
     @Resource
     EvaluateService evaluateService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity getDiscuss(@PathVariable Integer id) throws NotFoundException {
+        return ResponseEntity.ok(new Response(this.discussService.get(id)));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteComment(@PathVariable Integer id) throws NotFoundException {
         discussService.delete(id);
@@ -37,29 +42,24 @@ public class DiscussController {
         return ResponseEntity.ok(new Response(count));
     }
 
-    @GetMapping("/{id}/upvote")
+    @PutMapping("/{id}/upvote")
     public ResponseEntity<?> upvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Discuss discuss = discussService.get(id);
         evaluateService.upvote(discuss, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
-    @GetMapping("/{id}/downvote")
+    @PutMapping("/{id}/downvote")
     public ResponseEntity<?> downvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Discuss discuss = discussService.get(id);
         evaluateService.downvote(discuss, user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(2040, "success")));
+        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
     @DeleteMapping({"/{id}/upvote", "/{id}/downvote"})
     public ResponseEntity<?> cancelVote(@PathVariable Integer id) throws NotFoundException {
         Discuss discuss = discussService.get(id);
         evaluateService.cancel(discuss, id);
-        return ResponseEntity.ok(new Response(new StatusDTO(2040, "success")));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity getDiscuss(@PathVariable Integer id) throws NotFoundException {
-        return ResponseEntity.ok(new Response(this.discussService.get(id)));
+        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 }
