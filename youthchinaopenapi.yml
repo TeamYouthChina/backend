@@ -3685,12 +3685,18 @@ paths:
               schema:
                 type: object
                 properties:
-                  reference_id:
-                    type: integer
-                  create_at:
-                    type: string
-  '/friends/{id}/delete':
-    post:
+                  content:
+                    type: object
+                    properties:
+                      reference_id:
+                        type: integer
+                      create_at:
+                        type: string
+                  status:
+                    $ref: '#/components/schemas/Status'
+                        
+  '/friends/{id}':
+    delete:
       tags:
         - Friends
       parameters:
@@ -3707,17 +3713,63 @@ paths:
           schema:
             type: string
       responses:
-        '201':
+        '200':
           description: created
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  reference_id:
-                    type: integer
-                  create_at:
-                    type: string
+                  content:
+                    type: object
+                    properties:
+                      reference_id:
+                        type: integer
+                      create_at:
+                        type: string
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/friends/application/{reference_id}/approval':
+    put:
+      tags:
+        - Friends
+      parameters:
+        - name: reference_id
+          description:  reference_id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "approval"
+  '/friends/application/{reference_id}/deny':
+    put:
+      tags:
+        - Friends
+      parameters:
+        - name: reference_id
+          description:  reference_id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "deny"
+                    
   '/friends/applications/{id}':
     get:
       tags:
@@ -3743,10 +3795,15 @@ paths:
               schema:
                 type: object
                 properties:
-                  user:
-                    $ref: '#/components/schemas/User'
-                  create_at:
-                    type: string
+                  content:
+                    type: object
+                    properties:
+                      reference_id:
+                        type: integer
+                      create_at:
+                        type: string
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/search':
     get:
       tags:
@@ -6148,6 +6205,87 @@ paths:
   #               properties:
   #                 status:
   #                   $ref: '#/components/schemas/Status'
+  '/static/location':
+    get:
+      tags:
+       - static
+      parameters:
+       - in: query
+         name: target
+         description: the region
+         schema:
+          type: integer
+       - in: query
+         name: id
+         schema:
+          type: integer
+          
+      responses:
+        '200':
+          description: "null"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      locations:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            value:
+                              type: string
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/static/{id}':
+    get:
+      tags:
+       - static
+      parameters:
+       - in: path
+         name: id
+         schema:
+          type: integer
+          
+      responses:
+        '200':
+          description: "null"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: integer
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/static':
+    post:
+      tags:
+       - static
+      parameters:
+       - in: path
+         name: id
+         schema:
+          type: integer
+          
+      responses:
+        '200':
+          description: "null"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: integer
+                  status:
+                    $ref: '#/components/schemas/Status'
 components:
   schemas:
     ContentRequest:
