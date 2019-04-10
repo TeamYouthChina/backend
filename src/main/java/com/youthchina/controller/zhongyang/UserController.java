@@ -187,6 +187,14 @@ public class UserController extends DomainCRUDController<User, Integer> {
 
     }
 
+    /**
+     * 返回我的 收藏公司 发布职位
+     * @param id
+     * @param user
+     * @return
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     */
     @GetMapping("/{id}/my")
     public ResponseEntity<?> getMy(@PathVariable Integer id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
@@ -194,6 +202,8 @@ public class UserController extends DomainCRUDController<User, Integer> {
             List<Job> jobsOwnedByUserId = jobService.getJobByUserId(id);
             List<JobResponseDTO> jobResponseDTOList = new JobResponseDTO().convertToDTO(jobsOwnedByUserId);
             result.put("jobs", jobResponseDTOList);
+
+
             return ResponseEntity.ok(new Response(result));
         } else {
             throw new ForbiddenException();
