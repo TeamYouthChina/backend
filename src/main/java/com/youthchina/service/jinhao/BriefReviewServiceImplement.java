@@ -94,4 +94,19 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     public Integer count() {
         return briefReviewMapper.count();
     }
+
+    @Override
+    public List<BriefReview> getMyBriefReview(Integer id) {
+        List<BriefReview> briefReviews = briefReviewMapper.getMyBriefReview(id);
+        for(BriefReview briefReview : briefReviews){
+
+            try {
+                briefReview.setUser(userService.get(briefReview.getUser().getId()));
+            } catch (NotFoundException e) {
+
+            }
+
+        }
+        return briefReviews;
+    }
 }

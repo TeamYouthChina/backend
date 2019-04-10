@@ -5,10 +5,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.domain.qingyang.Country;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.util.LocationDTO;
-import com.youthchina.dto.util.NationDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -142,7 +140,6 @@ public class CompanyControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String insertJson = ow.writeValueAsString(companyRequestDTO);
-        System.out.println(insertJson);
 
         this.mvc.perform(
                 post(this.urlPrefix + "/companies")
@@ -182,7 +179,6 @@ public class CompanyControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String insertJson = ow.writeValueAsString(companyRequestDTO);
 
-        System.out.println(insertJson);
         this.mvc.perform(
                 put(this.urlPrefix + "/companies/" + id)
                         .with(authGenerator.authentication())

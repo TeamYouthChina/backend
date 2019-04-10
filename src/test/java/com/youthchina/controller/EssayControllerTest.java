@@ -219,6 +219,6 @@ public class EssayControllerTest {
 
     @Test
     public void countEssay(){
-        System.out.println(communityMapper.countEssay());
+
     }
 }

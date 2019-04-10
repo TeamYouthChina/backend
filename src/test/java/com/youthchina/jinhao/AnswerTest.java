@@ -74,4 +74,10 @@ public class AnswerTest {
         int i = answerMapper.checkIfAnswerExist(1);
         Assert.assertEquals(1,i);
     }
+
+    @Test
+    public void getMyAnswer(){
+        List<Answer> answers = answerMapper.getMyAnswers(2);
+        Assert.assertEquals(1,answers.size());
+    }
 }
