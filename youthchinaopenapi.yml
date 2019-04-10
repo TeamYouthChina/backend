@@ -1426,7 +1426,7 @@ paths:
     delete:
       summary: 取消点赞或反对
       tags:
-        - Editorials
+        - Answer
       parameters:
         - name: id
           schema:
