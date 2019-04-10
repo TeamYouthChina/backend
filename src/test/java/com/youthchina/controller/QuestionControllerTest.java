@@ -39,10 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:New_Community_test.xml"})
-@DatabaseSetup({"classpath:New_Company_test.xml"})
-@DatabaseSetup({"classpath:New_SYS_test.xml"})
-@DatabaseSetup({"classpath:rank.xml"})
+@DatabaseSetup({"classpath:test.xml"})
 @WebAppConfiguration
 public class QuestionControllerTest {
     @Autowired
@@ -204,7 +201,7 @@ public class QuestionControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":404,\"reason\":\"没有找到这个问题\"}}", false));
+                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4040,\"reason\":\"没有找到这个问题\"}}", false));
 
     }
 

@@ -162,11 +162,20 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         return ResponseEntity.ok(listResponse);
     }
 
-//    @GetMapping("/{id}/skills")
-//    public ResponseEntity<?> getApplicantsSkills(@PathVariable Integer id) throws NotFoundException {
-//        Student student = studentService.get(id);
-//        return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student).getSkills()));
-//    }
+    @GetMapping("/{id}/skills")
+    public ResponseEntity<?> getApplicantsSkills(@PathVariable Integer id,PageRequest pageRequest) throws NotFoundException {
+        List<AdvantageLabel> advantageLabels=studentService.getAdvantageLabel(id);
+        List<AdvantageLabelResponseDTO> dtos=new ArrayList<>();
+        if(advantageLabels!=null&&advantageLabels.size()!=0){
+            for (AdvantageLabel advantageLabel:advantageLabels){
+                AdvantageLabelResponseDTO advantageLabelResponseDTO=new AdvantageLabelResponseDTO(advantageLabel);
+                dtos.add(advantageLabelResponseDTO);
+            }
+        }
+        List<AdvantageLabelResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
+        ListResponse listResponse=new ListResponse(pageRequest,advantageLabels.size(),result);
+        return ResponseEntity.ok(listResponse);
+    }
 
     @GetMapping("/skills/**")
     public ResponseEntity<?> getAllSkills() throws NotFoundException {
@@ -490,6 +499,9 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     @PutMapping("/{id}/educations/{educationID}")
     public ResponseEntity<?> updateEducation(@PathVariable("id") Integer id, @PathVariable("educationID") Integer edu_id, @RequestBody EducationRequestDTO educationRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException, ClientException {
         if (user.getId().equals(id)) {
+            if(educationRequestDTO.getId()==null){
+                educationRequestDTO.setId(edu_id);
+            }
             if(educationRequestDTO.getId()!=edu_id){
                 throw new ClientException("can not update because the id difference");
             }
@@ -506,6 +518,9 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     @PutMapping("/{id}/projects/{projectID}")
     public ResponseEntity<?> updateProject(@PathVariable("id") Integer id, @PathVariable("projectID") Integer proj_id, @RequestBody ProjectRequestDTO projectRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException,ClientException {
         if (user.getId().equals(id)) {
+            if(projectRequestDTO.getId()==null){
+                projectRequestDTO.setId(proj_id);
+            }
             if(proj_id!=projectRequestDTO.getId()){
                 throw new ClientException("can not update because the id difference");
             }
@@ -522,6 +537,9 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     @PutMapping("/{id}/experiences/{experienceID}")
     public ResponseEntity<?> updateWork(@PathVariable("id") Integer id, @PathVariable("experienceID") Integer work_id, @RequestBody WorkRequestDTO workRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException,ClientException {
         if (user.getId().equals(id)) {
+            if(workRequestDTO.getId()==null){
+                workRequestDTO.setId(work_id);
+            }
             if(work_id!=workRequestDTO.getId()){
                 throw new ClientException("can not update because the id difference");
             }
@@ -537,6 +555,10 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     @PutMapping("/{id}/certificates/{certificateID}")
     public ResponseEntity<?> updateCertificate(@PathVariable("id") Integer id, @PathVariable("certificateID") Integer certificate_id, @RequestBody CertificateRequestDTO certificateRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException,ClientException {
         if (user.getId().equals(id)) {
+            if (certificateRequestDTO.getId()==null){
+                certificateRequestDTO.setId(certificate_id);
+            }
+
             if(certificateRequestDTO.getId()!=certificate_id){
                 throw new ClientException("can not update because the id difference");
             }
@@ -553,6 +575,9 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     @PutMapping("/{id}/extracurriculars/{extracurricularID}")
     public ResponseEntity<?> updateExtracurriculars(@PathVariable("id") Integer id, @PathVariable("extracurricularID") Integer act_id, @RequestBody ExtracurricularRequestDTO extracurricularRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException,ClientException {
         if (user.getId().equals(id)) {
+            if(extracurricularRequestDTO.getId()==0){
+                extracurricularRequestDTO.setId(act_id);
+            }
             if(act_id!=extracurricularRequestDTO.getId()){
                 throw new ClientException("can not update because the id difference");
             }

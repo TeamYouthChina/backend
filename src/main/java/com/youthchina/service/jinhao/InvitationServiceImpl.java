@@ -22,7 +22,7 @@ public class InvitationServiceImpl implements InvitationService {
         Integer id = entity.getId();
         Integer invitId = communityInvitationMapper.checkIfInvitationExist(type,id,userId,invitedUserId);
         if(invitId != null){
-            throw new NotFoundException(404,404,"you have invited this user");
+            throw new NotFoundException(4040,404,"you have invited this user");//todo
         }
         communityInvitationMapper.add(type,id,userId,invitedUserId);
     }
@@ -33,7 +33,7 @@ public class InvitationServiceImpl implements InvitationService {
         Integer id = entity.getId();
         Integer invitId = communityInvitationMapper.checkIfInvitationExist(type,id,userId,invitedUserId);
         if(invitId == null){
-            throw new NotFoundException(404,404,"没有找到这个邀请");
+            throw new NotFoundException(4040,404,"没有找到这个邀请");//todo
         }
         communityInvitationMapper.update(invitId);
     }

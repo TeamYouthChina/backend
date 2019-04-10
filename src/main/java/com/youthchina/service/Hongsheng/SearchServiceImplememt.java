@@ -150,6 +150,7 @@ public class SearchServiceImplememt implements SearchService {
             }
             case "all" : {
                 List<SearchResultItem> searchList = new ArrayList<>();
+
                 List<ComEssay> essays = essaySearch(title, body, startIndex, endIndex);
                 for (ComEssay i : essays) {
                     SearchResultItem item = new SearchResultItem(i,"article");
@@ -286,7 +287,7 @@ public class SearchServiceImplememt implements SearchService {
         }
 
         if (body != null) {
-            query.set("q", "body:"+ body);
+            query.set("q", "body:"+body);
             query.set("fq","type:QUESTION");
             // 参数q  查询所有
             query.setStart(startIndex);

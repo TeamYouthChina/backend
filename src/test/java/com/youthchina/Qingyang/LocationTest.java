@@ -26,7 +26,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:New_Dictionary_test.xml"})
+@DatabaseSetup({"classpath:test.xml"})
 public class LocationTest {
     @Autowired
     private LocationMapper locationMapper;

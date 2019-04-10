@@ -13,11 +13,11 @@ public interface DiscussService extends DomainCRUDService<Discuss, Integer> {
      * @return a list of comment
      * @throws NotFoundException
      */
-    List<Discuss> getDiscusses(Integer id) throws NotFoundException;
-    List<Discuss> getDiscusses(Integer id, Integer start, Integer end);
+
+    List<Discuss> getDiscussesByCommentId(Integer id) throws NotFoundException;
+    List<Discuss> getDiscussesByCommentId(Integer id, Integer start, Integer end);
+
     void isDiscussExist(Integer id) throws NotFoundException;
-
     void deleteAllDiscussOfComment(Integer id);
-
     Integer count(Integer id);
 }
