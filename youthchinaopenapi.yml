@@ -557,7 +557,7 @@ paths:
                               $ref: '#/components/schemas/Video'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/users/{id}/my':
+  '/my':
     get:
       summary: 获得我发布的文章，职位等
       tags:
@@ -1422,7 +1422,7 @@ paths:
     #   responses:
     #     '201':
     #       description: downvote successfullly
-  '/answers/{id}/cancel':
+  '/answers/{id}/vote':
     delete:
       summary: 取消点赞或反对
       tags:
@@ -1836,7 +1836,7 @@ paths:
     #   responses:
     #     '201':
     #       description: downvote successfullly
-  '/Articles/{id}/cancel':
+  '/articles/{id}/cancel':
     delete:
       summary: 取消点赞或反对
       tags:
@@ -2571,7 +2571,7 @@ paths:
     #   responses:
     #     '200':
     #       description: successful
-  '/editorials/{id}/cancel':
+  '/editorials/{id}/vote':
     delete:
       summary: 取消点赞或反对
       tags:
@@ -3267,7 +3267,7 @@ paths:
                         type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
-  '/users/{id}/discovery':
+  '/discovery':
     get:
       summary: 混合推荐
       tags:
@@ -3366,7 +3366,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
     get:
-      summary: 获得电子简历
+      summary: 获得所有电子简历
       tags:
         - Resume
       parameters:
@@ -3419,8 +3419,7 @@ paths:
       responses:
         '200':
           description: deleted
-  '/resumes/online/user/{id}':
-    
+  '/resumes/online/{id}':
     get:
       summary: 获得所有电子简历
       parameters:
@@ -3501,7 +3500,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
     get:
-      summary: 获得pdf简历
+      summary: 获得所有pdf简历
       tags:
         - Resume
       parameters:
@@ -3554,9 +3553,9 @@ paths:
       responses:
         '200':
           description: deleted
-  '/resumes/pdf/user/{id}':
+  '/resumes/pdf/{id}':
     get:
-      summary: 获得所有pdf简历
+      summary: 获得pdf简历
       parameters:
         - name: id
           in: path
@@ -4006,7 +4005,7 @@ paths:
     #   responses:
     #     '200':
     #       description: 'nike'
-  '/comments/(comment_id)/cancel':
+  '/comments/(comment_id)/vote':
     delete:
       summary: 取消点赞和反对
       description: 评论点赞
@@ -4249,35 +4248,6 @@ paths:
   #         description: start index of element
   #         schema:
   #           type: string
-  '/comments/resource/{comment_id}':
-    get:
-      summary: 获得具体评论内容
-      description: 返回某评论内容
-      tags:
-        - Comment
-      parameters:
-        - name: comment_id
-          description: the id of articles, answer and more
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description:
-            "nike"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    $ref: '#/components/schemas/Comment'
   # '/comments/{comment_id}':
   #   get:
   #     tags:
@@ -4351,7 +4321,7 @@ paths:
   #     responses:
   #       '200':
   #         description: 'nike'
-  '/comments/replies/{commentid}':
+  '/comments/{commentid}/replies':
     get:
       summary: 获得评论所有回复
       description: 返回评论全部回复
@@ -4411,55 +4381,7 @@ paths:
                 properties:
                   content:
                     $ref: '#/components/schemas/Comment'
-    delete:
-      summary: 删除回复
-      description: 删除回复
-      tags:
-        - Comment
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'nike'
-  '/replies/resource/{reply_id}':
-    get:
-      summary: 获得评论具体内容
-      description: 返回某回复内容
-      tags:
-        - Comment
-      parameters:
-        - name: reply_id
-          description: the id of articles, answer and more
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description:
-            "nike"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    $ref: '#/components/schemas/Comment'
-  '/comments/reply/{reply_id}/upvote':
+  '/replies/{reply_id}/upvote':
     put:
       summary: 点赞回复
       description: 回复点赞
@@ -4508,7 +4430,7 @@ paths:
     #   responses:
     #     '200':
     #       description: 'nike'
-  '/comments/reply/{reply_id}/downvote':
+  '/replies/{reply_id}/downvote':
     put:
       summary: 反对回复
       tags:
@@ -4555,7 +4477,7 @@ paths:
     #   responses:
     #     '200':
     #       description: 'nike'
-  '/comments/reply/{reply_id}/cancel':
+  '/replies/{reply_id}/vote':
     delete:
       summary: 取消点赞和反对
       description: 回复点赞
