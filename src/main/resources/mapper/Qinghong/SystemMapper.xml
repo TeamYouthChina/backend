@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.Qinghong.DictionaryMapper">
+    <resultMap id="getMajorByAbbre" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="MAJOR_CODE"/>
+        <result property="name" column="MAJOR_ABBRE"/>
+    </resultMap>
+
+    <resultMap id="getMajorByFull" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="MAJOR_CODE"/>
+        <result property="name" column="MAJOR_CHN"/>
+    </resultMap>
+
+
+    <resultMap id="getDegree" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="DEGREE_NUM"/>
+        <result property="name" column="DEGREE_CHN"/>
+    </resultMap>
+
+    <resultMap id="getDiploma" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="DEGREE_NUM"/>
+        <result property="name" column="DEGREE_CHN"/>
+    </resultMap>
+
+    
+    <resultMap id="getLocation" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="REGION_ID"/>
+        <result property="name" column="REGION_CHN"/>
+    </resultMap>
+
+
+
+    <select id="getMajorByAbbre" resultMap="getMajorByAbbre">
+        SELECT a.MAJOR_CODE,a.MAJOR_ABBRE
+        FROM SYS_MAJOR a
+        WHERE a.IS_DELETE=0;
+    </select>
+
+    <select id="getMajorByFull" resultMap="getMajorByFull">
+        SELECT a.MAJOR_CODE,a.MAJOR_CHN
+        FROM SYS_MAJOR a
+        WHERE a.IS_DELETE=0;
+    </select>
+
+    <select id="getDegree" resultMap="getDegree">
+        SELECT a.DEGREE_NUM,a.DEGREE_CHN
+        FROM SYS_DEGREE a
+        WHERE a.IS_DELETE=0;
+    </select>
+    
+    <select id="getDiploma" resultMap="getDiploma">
+        SELECT a.DEGREE_NUM,a.DEGREE_CHN
+        FROM SYS_DEGREE a
+    </select>
+
+    <select id="getLocation" resultMap="getLocation">
+        SELECT a.REGION_ID,a.REGION_CHN
+        FROM SYS_CHN_REGION a
+        WHERE a.REGION_LEVEL=#{param1} AND a.REGION_PARENT_NUM=#{param2} AND a.IS_DELETE=0
+    </select>
+
+
+
+
+</mapper>
