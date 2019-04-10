@@ -201,15 +201,15 @@ public class CompanyControllerTest {
 
     }
 
-    @Test
-    public void getFileUrl(){
-        String s = staticFileService.getFileUrl("2856306669745344512","China").toString();
-        System.out.println(s);
-         s = staticFileService.getFileUrl("2858461057087705088","China").toString();
-        System.out.println(s);
-
-
-    }
+//    @Test
+//    public void getFileUrl(){
+//        String s = staticFileService.getFileUrl("2856306669745344512","China").toString();
+//        System.out.println(s);
+//         s = staticFileService.getFileUrl("2858461057087705088","China").toString();
+//        System.out.println(s);
+//
+//
+//    }
 
 
 }
