@@ -32,9 +32,6 @@ public class EssayServiceImpl implements EssayService {
     CommentServiceImpl commentService;
 
     @Resource
-    AttentionService attentionService;
-
-    @Resource
     EvaluateServiceImpl evaluateService;
 
     @Autowired
@@ -111,8 +108,8 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
-    public List<ComEssay> getAllEssayUserAttention(Integer user_id) {
-        return mapper.getAllEssayUserAttention(user_id);
+    public List<ComEssay> getAllEssayByUserId(Integer userId) {
+        return mapper.getAllEssayByUserId(userId);
     }
 
     @Override

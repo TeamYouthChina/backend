@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.tianjian.PDFUploadMapper">
+    <insert id="add" parameterType="com.youthchina.domain.tianjian.StuResume" useGeneratedKeys="true" keyProperty="resumeId">
+        insert into STU_RESUME (RESUME_NAME, DOCU_LOCAL_ID,GENERATE_METHOD,GENERATE_TIME,STU_ID,IS_DELETE,IS_DELETE_TIME)
+        value (#{resumeName},#{docu_local_id},#{generateMethod},now(),#{stuId},0,#{isDeleteTime})
+    </insert>
+    <update id="update" parameterType="com.youthchina.domain.tianjian.StuResume">
+        update STU_RESUME
+        set
+         RESUME_NAME = #{resumeName}, DOCU_LOCAL_ID = #{docuLocalId}, GENERATE_METHOD = #{generateMethod},STU_ID = #{stuId},
+         IS_DELETE = 0
+    where
+         RESUME_ID = #{resumeId}
+    </update>
+
+    <select id="get" resultType="com.youthchina.domain.tianjian.StuResume">
+        select * from STU_RESUME
+        where RESUME_ID = #{resumeId} and IS_DELETE = 0
+    </select>
+
+    <update id="delete">
+        update STU_RESUME
+        set
+           IS_DELETE = 1,IS_DELETE_TIME = #{isDeleteTime}
+    where
+           RESUME_ID = #{resumeId}
+    </update>
+</mapper>
