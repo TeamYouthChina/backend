@@ -209,6 +209,16 @@ public class EvaluateServiceImpl implements EvaluateService {
     }
 
     @Override
+    public List<Integer> getMyUpvote(Evaluatable evaluatable, Integer userId) {
+        return evaluateMapper.getMyUpvote(evaluatable.getEvaluateTargetType(), userId);
+    }
+
+    @Override
+    public List<Integer> getMyDownvote(Evaluatable evaluatable, Integer userId) {
+        return evaluateMapper.getMyDownVote(evaluatable.getEvaluateTargetType(), userId);
+    }
+
+    @Override
     public Evaluate get(Integer id) throws NotFoundException {
         return null;
     }

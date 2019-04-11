@@ -240,6 +240,15 @@
         j.JOB_ID = #{id} AND j.IS_DELETE = 0
     </select>
 
+    <select id="getJobByUserId" resultMap="job" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="jobSelect"/>
+        FROM JOB_INFO j
+        <include refid="jobJoin"/>
+        WHERE
+        j.USER_ID = #{userId} AND j.IS_DELETE = 0
+    </select>
+
     <select id="selectAllJob" resultMap="job">
         SELECT
         <include refid="jobSelect"/>
@@ -256,6 +265,12 @@
         <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
             #{id}
         </foreach>
+    </select>
+
+    <select id="countJobByComId" resultType="Integer" parameterType="Integer">
+        SELECT COUNT(*)
+        FROM JOB_INFO j
+        WHERE j.IS_DELETE = 0 AND j.COMPANY_ID = #{id}
     </select>
 
 

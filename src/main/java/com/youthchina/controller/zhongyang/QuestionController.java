@@ -41,12 +41,16 @@ import java.util.List;
 @RequestMapping("${web.url.prefix}/questions/**")
 public class QuestionController {
     private String url;
+
     @Autowired
     private QuestionService questionService;
+
     @Autowired
     private AnswerService answerService;
+
     @Autowired
     private EvaluateService evaluateService;
+
     @Autowired
     private CompanyCURDServiceImpl companyCURDService;
 
@@ -68,8 +72,7 @@ public class QuestionController {
         return new Question(questionDTO);
     }
 
-    protected URI getUriForNewInstance(Integer id) throws URISyntaxException {
-        return new URI(this.url + id.toString());
+    protected URI getUriForNewInstance(Integer id) throws URISyntaxException { return new URI(this.url + id.toString());
     }
 
     @GetMapping("/**")

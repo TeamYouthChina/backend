@@ -30,7 +30,7 @@ public interface StudentMapper {
 
     List<Integer> addPreCities(List<PreferCity> preferCities);
 
-    List<Integer> addNotifications(List<Notification> notifications);
+    List<Integer> addNotifications(List<Noti> notis);
 
     List<Integer> addJobApplies(List<JobApply> jobApplies);
 

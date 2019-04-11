@@ -5,6 +5,7 @@ import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.qingyang.Logo;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -40,6 +41,8 @@ public interface JobMapper {
      * select Job information by Job_ID List
      */
     List<Job> selectJobByJobIdList(List<Integer> ids);
+
+    List<Job> getJobByUserId(Integer userId);
 
     List<Job> selectAllJob();
 
@@ -93,5 +96,7 @@ comment '职位基本信息表';
     Integer deleteJobDegree(Integer jobId);
 
     Integer deleteJobByComId(Integer comId);
+
+    Integer countJobByComId(Integer comId);
 }
 
