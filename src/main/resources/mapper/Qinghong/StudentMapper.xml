@@ -143,7 +143,7 @@
 
         </collection>
 
-        <collection property="notifications" ofType="com.youthchina.domain.Qinghong.Notification">
+        <collection property="notis" ofType="com.youthchina.domain.Qinghong.Noti">
             <id property="notify_id" column="NOTIFY_ID"/>
             <result property="notify_content" column="NOTIFY_CONTENT"/>
             <result property="notify_time" column="NOTIFY_TIME"/>
@@ -441,7 +441,7 @@
         insert into STU_NOTIFICATION
         (NOTIFY_CONTENT,NOTIFY_TIME,NOTIFY_READ,STU_ID)
         values
-        <foreach collection="notifications" item="item" separator=",">
+        <foreach collection="notis" item="item" separator=",">
             (#{item.notify_content},#{item.notify_time},#{item.notify_read},#{item.stu_id})
         </foreach>
 

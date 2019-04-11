@@ -30,7 +30,7 @@ public class Student extends User implements HasId<Integer> {
     private List<PreferCity> preferCities;
     private PreferSalary preferSalary;
     private IntroductionVideo introductionVideo;
-    private List<Notification> notifications;
+    private List<Noti> notis;
     private List<JobApply> jobApplies;
     private List<Certificate> certificates;
     private List<LabelInfo> labelInfos;
@@ -227,12 +227,12 @@ public class Student extends User implements HasId<Integer> {
         this.introductionVideo = introductionVideo;
     }
 
-    public List<Notification> getNotifications() {
-        return notifications;
+    public List<Noti> getNotis() {
+        return notis;
     }
 
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
+    public void setNotis(List<Noti> notis) {
+        this.notis = notis;
     }
 
     public List<JobApply> getJobApplies() {
