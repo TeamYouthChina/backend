@@ -675,9 +675,9 @@ public class StudentProfileController {
     public void testUserAttentions() throws Exception{
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/10/attentions?type=company")
+                        (this.urlPrefix + "/users/2/attentions?type=company")
 
-                        .with(authGenerator.authentication(Role.APPLICANT, 10))
+                        .with(authGenerator.authentication(Role.APPLICANT, 2))
         )
                 .andDo(print())
         ;
