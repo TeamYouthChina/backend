@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
-
 @Service("NotificationService")
 public class NotificationServiceImplement implements NotificationService{
     @Resource
@@ -21,7 +20,7 @@ public class NotificationServiceImplement implements NotificationService{
     @Override
     public void ifNotificationExist(Integer id) throws NotFoundException {
         if(notificationMapper.checkIfNotificationExist(id) == null) {
-            throw new NotFoundException(4040,404,"Not found this Notification");
+            throw new NotFoundException(4040,404,"Not found this Noti");
         }
     }
 
@@ -29,7 +28,7 @@ public class NotificationServiceImplement implements NotificationService{
     public Notification get(Integer id) throws NotFoundException {
         Notification notification = notificationMapper.get(id);
         if (notification == null) {
-            throw new NotFoundException(4040,404,"Not found this Notification");
+            throw new NotFoundException(4040,404,"Not found this Noti");
         }
         notification.setUser(userService.get(notification.getUser().getId()));
         return notification;
