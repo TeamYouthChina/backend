@@ -530,7 +530,7 @@ paths:
                               $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/my':
+  '/users/{id}/my':
     get:
       summary: 获得我发布的文章，职位等
       tags:

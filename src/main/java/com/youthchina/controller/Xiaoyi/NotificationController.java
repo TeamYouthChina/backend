@@ -28,14 +28,15 @@ public class NotificationController {
     @PutMapping("/{id}")
     public ResponseEntity updateNotification(@PathVariable Integer id, @RequestBody NotificationDTO notificationDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Notification notification = new Notification(notificationDTO);
+        notification.setId(id);
         notification.setUser(user);
         Notification returnNotification = notificationService.update(notification);
         NotificationDTO notificationDTO1 = new NotificationDTO(returnNotification);
         return ResponseEntity.ok(new Response(notificationDTO1));
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity addNotification(@PathVariable Integer id, @RequestBody NotificationDTO notificationDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+    @PostMapping("/")
+    public ResponseEntity addNotification(@RequestBody NotificationDTO notificationDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Notification notification = new Notification(notificationDTO);
         notification.setUser(user);
         Notification returnNotification = notificationService.add(notification);
