@@ -7,10 +7,12 @@ import com.youthchina.util.zhongyang.DomainToDTOConverterFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by zhongyangwu on 3/21/19.
  */
+@Transactional
 public class DomainToDTOConverterFactoryTest {
 
     @Test

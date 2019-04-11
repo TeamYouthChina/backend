@@ -1,7 +1,5 @@
 package com.youthchina.Qingyang;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.dao.qingyang.LocationMapper;
@@ -14,10 +12,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -26,8 +22,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:test.xml"})
+@Transactional
 public class CompanyTest {
 
     @Autowired
@@ -96,7 +91,7 @@ public class CompanyTest {
         Company company = companyMapper.selectCompany(1);
         Assert.assertEquals("中国石油化工股份有限公司", company.getCompanyName());
         Assert.assertEquals(Integer.valueOf(1), company.getCompanyVerify());
-        Assert.assertEquals(1, company.getIndList().size());
+        Assert.assertEquals(4, company.getIndList().size());
         Assert.assertEquals("B07", company.getIndList().get(0).getIndCode());
 
         //Test Photo
