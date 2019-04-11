@@ -8,6 +8,7 @@ import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextResponseDTO;
 
+import java.sql.Timestamp;
 import java.util.Iterator;
 
 
@@ -21,6 +22,7 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
     private Integer attentionCount;
     private boolean isAttention;
     private Integer evaluateStatus;
+    private Timestamp modified_at;
 
 
     public BriefReviewResponseDTO(BriefReview briefReview) {
@@ -36,6 +38,7 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
             }
         }
         this.author = new UserDTO(briefReview.getUser());
+        this.modified_at = briefReview.getTime();
     }
 
     public BriefReviewResponseDTO() {

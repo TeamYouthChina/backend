@@ -127,7 +127,7 @@
         and
         t1.GROUP_ID = t2.GROUP_ID
     </select>
-    <select id="getEssayList" resultType="com.youthchina.domain.tianjian.ComEssay">
+    <select id="getEssayList" resultMap="essayresult">
          select * from COM_ESSAY t
          where t.ESSAY_ID in
         <foreach collection="list" item="essayId" index="index"  open="(" close=")" separator=",">
