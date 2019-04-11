@@ -485,8 +485,8 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
-    @DeleteMapping("/{id}/skills/{labelId}")
-    public ResponseEntity<?> deleteSkills(@PathVariable("id") Integer id, @PathVariable("labelId") Integer label_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
+    @DeleteMapping("/{id}/skills/{labelID}")
+    public ResponseEntity<?> deleteSkills(@PathVariable("id") Integer id, @PathVariable("labelID") Integer label_id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
             studentService.deleteLabel(label_id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response());

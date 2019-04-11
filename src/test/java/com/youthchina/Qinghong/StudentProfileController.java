@@ -319,8 +319,8 @@ public class StudentProfileController {
     @Test
     public void testInsertWorks() throws Exception{
         LocationDTO locationDTO=new LocationDTO();
-        locationDTO.setNation_code("CHN");
-        locationDTO.setLocation_code("110000");
+        locationDTO.setNation_code("1");
+        locationDTO.setLocation_code("1");
         WorkRequestDTO workDTO=new WorkRequestDTO();
         workDTO.setEmployer("google");
         workDTO.setPosition("backend");
@@ -358,7 +358,7 @@ public class StudentProfileController {
     public void testUpdateWork() throws Exception{
         LocationDTO locationDTO=new LocationDTO();
         locationDTO.setNation_code("CHN");
-        locationDTO.setLocation_code("110000");
+        locationDTO.setLocation_code("");
         WorkRequestDTO workRequestDTO =new WorkRequestDTO();
         workRequestDTO.setId(6);
         workRequestDTO.setEmployer("amazon");

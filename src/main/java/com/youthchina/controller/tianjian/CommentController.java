@@ -6,7 +6,8 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.discuss.DiscussDTO;
+import com.youthchina.dto.community.discuss.DiscussRequestDTO;
+import com.youthchina.dto.community.discuss.DiscussResponseDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.CommentService;
@@ -33,14 +34,14 @@ public class CommentController {
     DiscussService discussService;
 
     @PostMapping("/{id}/replies")
-    public ResponseEntity<?> addDiscuss(@PathVariable Integer id, @RequestBody DiscussDTO discussDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-        Discuss discuss = new Discuss(discussDTO);
+    public ResponseEntity<?> addDiscuss(@PathVariable Integer id, @RequestBody DiscussRequestDTO discussRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+        Discuss discuss = new Discuss(discussRequestDTO);
         discuss.setCommentId(id);
         discuss.setUser(user);
         Discuss retrunDiscuss = discussService.add(discuss);
-        DiscussDTO returndiscussDTO = new DiscussDTO(retrunDiscuss);
-        if (returndiscussDTO.getId() != null) {
-            return ResponseEntity.ok(new Response(returndiscussDTO));
+        DiscussResponseDTO returndiscussResponseDTO = new DiscussResponseDTO(retrunDiscuss);
+        if (returndiscussResponseDTO.getId() != null) {
+            return ResponseEntity.ok(new Response(returndiscussResponseDTO));
         } else {
             return ResponseEntity.ok(new Response(new StatusDTO(403, "add failed")));
         }
@@ -69,14 +70,14 @@ public class CommentController {
     @GetMapping("/{id}/replies")
     public ResponseEntity<?> getAllReplies(@PathVariable Integer id, PageRequest pageRequest) {
         List<Discuss> discusses = discussService.getDiscussesByCommentId(id, pageRequest.getStart(), pageRequest.getEnd());
-        List<DiscussDTO> discussDTOS = new ArrayList<>();
+        List<DiscussResponseDTO> discussResponseDTOS = new ArrayList<>();
         if (discusses != null) {
             for (Discuss discuss : discusses) {
-                DiscussDTO discussDTO = new DiscussDTO(discuss);
-                discussDTOS.add(discussDTO);
+                DiscussResponseDTO discussResponseDTO = new DiscussResponseDTO(discuss);
+                discussResponseDTOS.add(discussResponseDTO);
             }
         }
-        ListResponse listResponse = new ListResponse(pageRequest, discussDTOS.size(), discussDTOS);
+        ListResponse listResponse = new ListResponse(pageRequest, discussResponseDTOS.size(), discussResponseDTOS);
         return ResponseEntity.ok(listResponse);
     }
 
