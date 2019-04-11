@@ -227,6 +227,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         return  result != null;
     }
 
+    @Override
     public Company getCompanyWithCollected(Integer companyId, Integer userId) throws NotFoundException {
         Company company = this.get(companyId);
         company.setCollected(isCollected(companyId, userId));

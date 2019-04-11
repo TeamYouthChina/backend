@@ -22,6 +22,7 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
     private List<String> photoUrlList;
     private Integer jobCount;
 //    private List<String> industryList;
+    private Boolean isCollected = false;
 
     public CompanyResponseDTO() {
 
@@ -112,6 +113,14 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.photoUrlList = photoUrlList;
     }
 
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
+    }
+
     @Override
     public void convertToDTO(Company company) {
         this.id = company.getCompanyId();
@@ -138,6 +147,9 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.website = company.getCompanyWebsite();
         this.note = company.getCompanyIntroduc();
         this.jobCount = company.getJobCount();
+        if(company.getCollected() != null){
+            this.isCollected = company.getCollected();
+        }
 //        List<Industry> industryObjList = company.getIndList();
 //        if(industryObjList != null && industryObjList.size() > 0){
 //            this.industryList = new ArrayList<>();

@@ -72,8 +72,13 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getCompanyDetail(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
-        Company company = this.companyService.get(companyId);
+    public ResponseEntity<?> getCompanyDetail(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, @AuthenticationPrincipal User user) throws BaseException {
+        Company company = null ;
+        if(user != null){
+            company = companyService.getCompanyWithCollected(companyId, user.getId());
+        } else {
+            company = companyService.get(companyId);
+        }
         if (detailLevel == 1) {
             return ResponseEntity.ok(new Response(new CompanyResponseDTO(company)));
         }
@@ -81,7 +86,7 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCompany(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
+    public ResponseEntity<?> deleteCompany(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, @AuthenticationPrincipal User user) throws BaseException {
 //        this.companyService.delete(companyId);
 //        if (detailLevel == 1) {
 //            return ResponseEntity.ok(new Response());
