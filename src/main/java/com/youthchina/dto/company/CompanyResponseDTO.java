@@ -21,7 +21,8 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
     private String nation;
     private List<String> photoUrlList;
     private Integer jobCount;
-    private List<String> industryList;
+//    private List<String> industryList;
+    private Boolean isCollected = false;
 
     public CompanyResponseDTO() {
 
@@ -40,13 +41,13 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.jobCount = jobCount;
     }
 
-    public List<String> getIndustryList() {
-        return industryList;
-    }
-
-    public void setIndustryList(List<String> industryList) {
-        this.industryList = industryList;
-    }
+//    public List<String> getIndustryList() {
+//        return industryList;
+//    }
+//
+//    public void setIndustryList(List<String> industryList) {
+//        this.industryList = industryList;
+//    }
 
     public Integer getId() {
         return id;
@@ -112,6 +113,14 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.photoUrlList = photoUrlList;
     }
 
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
+    }
+
     @Override
     public void convertToDTO(Company company) {
         this.id = company.getCompanyId();
@@ -138,12 +147,15 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.website = company.getCompanyWebsite();
         this.note = company.getCompanyIntroduc();
         this.jobCount = company.getJobCount();
-        List<Industry> industryObjList = company.getIndList();
-        if(industryObjList != null && industryObjList.size() > 0){
-            this.industryList = new ArrayList<>();
-            for(Industry ind : industryObjList){
-                this.industryList.add(ind.getIndChn());
-            }
+        if(company.getCollected() != null){
+            this.isCollected = company.getCollected();
         }
+//        List<Industry> industryObjList = company.getIndList();
+//        if(industryObjList != null && industryObjList.size() > 0){
+//            this.industryList = new ArrayList<>();
+//            for(Industry ind : industryObjList){
+//                this.industryList.add(ind.getIndChn());
+//            }
+//        }
     }
 }
