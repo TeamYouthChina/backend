@@ -1,3 +1,4 @@
+
 package com.youthchina.tianjian;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,8 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:test.xml"})
+@Transactional
 @WebAppConfiguration
 public class FriendServiceTest {
 

@@ -87,13 +87,6 @@ public class JobController extends DomainCRUDController<Job, Integer> {
         //Job job = jobService.update(new Job(jobRequestDTO));
         job.setJobId(id);
         return update(job);
-//        if(job == null) try {
-//            throw new BaseException();
-//        } catch (BaseException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
 
     }
 

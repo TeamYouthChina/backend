@@ -2,8 +2,6 @@ package com.youthchina.Qinghong;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.dto.applicant.*;
 import com.youthchina.dto.util.DurationDTO;
@@ -16,13 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -37,8 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
  **/
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:test.xml"})
+@Transactional
 @WebAppConfiguration
 public class StudentProfileController {
     @Autowired
@@ -319,8 +314,8 @@ public class StudentProfileController {
     @Test
     public void testInsertWorks() throws Exception{
         LocationDTO locationDTO=new LocationDTO();
-        locationDTO.setNation_code("CHN");
-        locationDTO.setLocation_code("110000");
+        locationDTO.setNation_code("1");
+        locationDTO.setLocation_code("1");
         WorkRequestDTO workDTO=new WorkRequestDTO();
         workDTO.setEmployer("google");
         workDTO.setPosition("backend");
@@ -358,7 +353,7 @@ public class StudentProfileController {
     public void testUpdateWork() throws Exception{
         LocationDTO locationDTO=new LocationDTO();
         locationDTO.setNation_code("CHN");
-        locationDTO.setLocation_code("110000");
+        locationDTO.setLocation_code("");
         WorkRequestDTO workRequestDTO =new WorkRequestDTO();
         workRequestDTO.setId(6);
         workRequestDTO.setEmployer("amazon");
