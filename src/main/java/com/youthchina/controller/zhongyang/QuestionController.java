@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -222,14 +221,9 @@ public class QuestionController {
     public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody SimpleAnswerRequestDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Answer answer = new Answer(simpleAnswerDTO);
         answer.setUser(user);
-        answer.setPubTime(new Timestamp(System.currentTimeMillis()));
-        answer.setEditTime(new Timestamp(System.currentTimeMillis()));
         answer.setTargetId(id);
         answer.setTargetType(1);
         SimpleAnswerResponseDTO returnSimpleAnswer = new SimpleAnswerResponseDTO(answerService.add(answer));
-        if (returnSimpleAnswer!=null)
-            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(400,"fail")));
+        return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
     }
 }
