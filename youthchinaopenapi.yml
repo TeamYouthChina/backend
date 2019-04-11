@@ -15,11 +15,6 @@ paths:
       description: get job info by id
       operationId: getJob
       parameters:
-        - in: query
-          name: detailLevel
-          required: true
-          schema:
-            type: integer
         - in: path
           name: id
           required: true
@@ -465,6 +460,7 @@ paths:
               - answer
               - article
               - video
+              - editorials
           description: determine what part of attention list to return
         - in: header
           name: X-AUTHENTICATION
@@ -555,6 +551,18 @@ paths:
                               type: integer
                             video:
                               $ref: '#/components/schemas/Video'
+                      editorials:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - editorial
+                          properties:
+                            id:
+                              type: integer
+                            editorial:
+                              $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
   '/my':
@@ -1836,7 +1844,7 @@ paths:
     #   responses:
     #     '201':
     #       description: downvote successfullly
-  '/articles/{id}/cancel':
+  '/articles/{id}/vote':
     delete:
       summary: 取消点赞或反对
       tags:
@@ -3686,12 +3694,7 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: object
-                    properties:
-                      reference_id:
-                        type: integer
-                      create_at:
-                        type: string
+                    $ref: '#/components/schemas/FriendApplication'
                   status:
                     $ref: '#/components/schemas/Status'
                         
@@ -3721,15 +3724,10 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: object
-                    properties:
-                      reference_id:
-                        type: integer
-                      create_at:
-                        type: string
+                    type: string
                   status:
                     $ref: '#/components/schemas/Status'
-  '/friends/application/{reference_id}/approval':
+  '/friends/applications/{reference_id}/approval':
     put:
       tags:
         - Friends
@@ -3749,7 +3747,7 @@ paths:
       responses:
         '200':
           description: "approval"
-  '/friends/application/{reference_id}/deny':
+  '/friends/applications/{reference_id}/deny':
     put:
       tags:
         - Friends
@@ -3796,12 +3794,127 @@ paths:
                 type: object
                 properties:
                   content:
+                    $ref: '#/components/schemas/FriendApplication'
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/friends':
+    get:
+      tags:
+        - Friends
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+      responses:
+        '200':
+          description: friends representation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
                     type: object
                     properties:
-                      reference_id:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/User'
+                      offset:
                         type: integer
-                      create_at:
-                        type: string
+                      limit:
+                        type: integer
+                      page_count:
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/friends/applications':
+    get:
+      tags:
+        - Friends
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+      responses:
+        '200':
+          description: applications representation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/FriendApplication'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count:
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
                   status:
                     $ref: '#/components/schemas/Status'
   '/search':
@@ -4438,6 +4551,43 @@ paths:
                 properties:
                   content:
                     $ref: '#/components/schemas/Comment'
+  '/replies/{reply_id}':
+    get:
+      summary: 获得回复
+      tags:
+        - Comment
+      parameters:
+        - name: id
+          required: true
+          in: path
+          description: reply id
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return target reply
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Reply'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: target question does not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorStatus'
+        
   '/replies/{reply_id}/upvote':
     put:
       summary: 点赞回复
@@ -6269,10 +6419,11 @@ paths:
       tags:
        - Static
       parameters:
-       - in: path
-         name: id
-         schema:
-          type: integer
+        - in: path
+          required: true
+          name: id
+          schema:
+            type: integer
       requestBody:
         description: "File to upload"
       responses:
@@ -6285,6 +6436,58 @@ paths:
                 properties:
                   content:
                     type: integer
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/static/dictionaries':
+    get:
+      tags:
+        - Static
+      parameters:
+        - name: type
+          required: true
+          in: query
+          schema:
+            type: string
+            enum:
+              - major
+              - degree
+              - diploma
+              - advantageSkill
+              - industry
+              - job
+              - companyScale
+              - companyNature
+              - country
+              - chinaRegion
+              - USAState
+              - USARegion
+              - CHNUniversity
+              - USAUniversity
+              - GBRUniversity
+              - GANUniversity
+              - TimesRank
+              - USNEWSRank
+              - QSRank
+        - name: length
+          required: false
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: dictionary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
                   status:
                     $ref: '#/components/schemas/Status'
 components:
@@ -6807,16 +7010,14 @@ components:
       required:
         - braftEditorRaw
         - previewText
-        - resourceList
+        - compiletype
       properties:
         braftEditorRaw:
-          type: object
+          type: string
         previewText:
-          type: object
-        resourceList:
-          type: array
-          items:
-            type: string
+          type: string
+        compiletype:
+          type: integer
     Comment:
       type: object
       required:
@@ -6929,3 +7130,55 @@ components:
           type: string
         location_code:
           type: string
+    Reply:
+      type: object
+      required:
+        - id
+        - commentId
+        - creator
+        - body
+        - create_at
+        - is_anonymous
+        - modified_at
+        - upvoteCount
+        - downvoteCount
+        - evaluateStatus
+      properties:
+        id:
+          type: integer
+        commentId:
+          type: integer
+        creator:
+          $ref: '#/components/schemas/User'
+        body:
+          type: string
+        create_at:
+          type: string
+        is_anonymous:
+          type: boolean
+        modified_at:
+          type: string
+        upvoteCount:
+          type: integer
+        downvoteCount:
+          type: integer
+        evaluateStatus:
+          type: integer
+    FriendApplication:
+      type: object
+      required:
+        - reference_id
+        - create_at
+        - applicant
+        - is_read
+      properties:
+        reference_id:
+          type: integer
+        create_at:
+          type: string
+        applicant:
+          $ref: '#/components/schemas/User'
+        is_read:
+          type: boolean
+      
+      

@@ -61,7 +61,7 @@ public class DictionaryControllerTest {
     @Test
     public void getDictionary() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/static/dictionary?type=university")
+                get(this.urlPrefix + "/static/dictionaries?type=location")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
