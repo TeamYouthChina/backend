@@ -223,7 +223,8 @@ public class QuestionController {
         answer.setUser(user);
         answer.setTargetId(id);
         answer.setTargetType(1);
-        SimpleAnswerResponseDTO returnSimpleAnswer = new SimpleAnswerResponseDTO(answerService.add(answer));
+        Answer answer1 = answerService.add(answer);
+        SimpleAnswerResponseDTO returnSimpleAnswer = new SimpleAnswerResponseDTO();
         return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
     }
 }
