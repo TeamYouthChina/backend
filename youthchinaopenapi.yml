@@ -15,11 +15,6 @@ paths:
       description: get job info by id
       operationId: getJob
       parameters:
-        - in: query
-          name: detailLevel
-          required: true
-          schema:
-            type: integer
         - in: path
           name: id
           required: true
@@ -3686,12 +3681,7 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: object
-                    properties:
-                      reference_id:
-                        type: integer
-                      create_at:
-                        type: string
+                    $ref: '#/components/schemas/FriendApplication'
                   status:
                     $ref: '#/components/schemas/Status'
                         
@@ -3721,12 +3711,7 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: object
-                    properties:
-                      reference_id:
-                        type: integer
-                      create_at:
-                        type: string
+                    type: string
                   status:
                     $ref: '#/components/schemas/Status'
   '/friends/applications/{reference_id}/approval':
