@@ -3,7 +3,8 @@ package com.youthchina.domain.jinhao;
 import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.community.discuss.DiscussDTO;
+import com.youthchina.dto.community.discuss.DiscussRequestDTO;
+import com.youthchina.dto.community.discuss.DiscussResponseDTO;
 
 import java.sql.Timestamp;
 
@@ -22,11 +23,9 @@ public class Discuss implements Evaluatable, Attentionable {
 
     }
 
-    public Discuss(DiscussDTO discussDTO) {
-        this.id = discussDTO.getId();
-        this.commentId = discussDTO.getCommentId();
-        this.content = discussDTO.getBody();
-        this.isAnony = (discussDTO.isIs_anonymous())? 1:0;
+    public Discuss(DiscussRequestDTO discussRequestDTO) {
+        this.content = discussRequestDTO.getBody();
+        this.isAnony = (discussRequestDTO.isIs_anonymous())? 1:0;
     }
 
     @Override
