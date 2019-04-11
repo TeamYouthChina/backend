@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface NotificationMapper {
     Notification get(Integer id);
-    void add(Notification notification);
-    void update(Notification notification);
+    Notification add(Notification notification);
+    Notification update(Notification notification);
     Integer checkIfNotificationExist(Integer id);
 }
