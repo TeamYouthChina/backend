@@ -77,9 +77,16 @@ public class StaticFileService {
         switch (location) {
             case "China": {
                 ComMediaDocument comMediaDocument = fileSystemMapper.getFileInfo(fileId);
+                if (comMediaDocument == null) {
+                    return null;
+                }
                 return getFileStorageService(AliCloudFileStorageService.class.getSimpleName()).downloadFile(comMediaDocument.getDocu_server_ali_id());
             }
             case "US": {
+                ComMediaDocument comMediaDocument = fileSystemMapper.getFileInfo(fileId);
+                if (comMediaDocument == null) {
+                    return null;
+                }
                 return getFileStorageService("AWSFileStorageService").downloadFile(fileId);
             }
         }

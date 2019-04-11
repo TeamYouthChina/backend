@@ -9,10 +9,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by zhongyangwu on 2/6/19.
  */
+@Transactional
 public class AuthGenerator {
     private JwtAuthentication createAuthentication(Role role) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();

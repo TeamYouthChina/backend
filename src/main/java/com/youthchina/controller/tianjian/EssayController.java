@@ -126,7 +126,6 @@ public class EssayController {
         comEssay.setPubTime(time);
         comEssay.setEditTime(time);
         comEssay.setUser(user);
-        comEssay.setRelaType(1);
         essayServiceimpl.addEssay(comEssay);
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
 
