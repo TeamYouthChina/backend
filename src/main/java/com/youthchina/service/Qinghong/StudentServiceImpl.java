@@ -7,6 +7,7 @@ import com.youthchina.dao.qingyang.ResumeJsonMapper;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
+import com.youthchina.domain.qingyang.ResumeJson;
 import com.youthchina.exception.zhongyang.ClientException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.qingyang.JobServiceImpl;
@@ -806,7 +807,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public ResumeJson insertResumeJson(ResumeJson resumeJson) throws NotFoundException {
         Integer id = resumeJsonMapper.insertResumeJson(resumeJson);
-        return resumeJsonMapper.selectResumeJson(resumeJson.getResume_id());
+        return resumeJsonMapper.selectResumeJson(resumeJson.getResumeId());
     }
 
     @Override

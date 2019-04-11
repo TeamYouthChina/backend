@@ -1,5 +1,6 @@
 package com.youthchina.dto.applicant;
 
+import com.youthchina.domain.qingyang.ResumeJson;
 import com.youthchina.dto.RequestDTO;
 
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ public class ResumeRequestDTO implements RequestDTO<ResumeJson> {
 
     public void setResume(String resume) {
         this.json = new ArrayList<>();
-        this.json.add(resume);
     }
 
     @Override

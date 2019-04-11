@@ -12,11 +12,13 @@ import java.util.List;
 public interface ResumeJsonMapper {
     Integer insertResumeJson(ResumeJson resumeJson);
 
-    ResumeJson selectResumeJson(Integer resume_id);
+    ResumeJson selectResumeJson(Integer resumeId);
 
-    List<ResumeJson> selectResumeJsonByStuId(Integer stu_id);
+    List<ResumeJson> selectResumeJsonByStuId(Integer userId);
 
-    Integer deleteResumeJson(Integer resume_id);
+    Integer deleteResumeJson(Integer resumeId);
+
+    Integer updateResumeJson(ResumeJson resumeJson);
 
 
 }
