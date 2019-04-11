@@ -65,5 +65,8 @@ public interface CompanyMapper {
     List<Company> selectCompanyByName(String comName);
 
     List<Company> selectAllCompany();
+
+    Integer isCollected(@Param("companyId") Integer companyId, @Param("stuId") Integer stuId);
+
 }
 

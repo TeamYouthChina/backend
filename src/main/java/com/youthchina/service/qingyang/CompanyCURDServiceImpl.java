@@ -3,10 +3,7 @@ package com.youthchina.service.qingyang;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.CompanyPhoto;
-import com.youthchina.domain.qingyang.Industry;
-import com.youthchina.domain.qingyang.Logo;
+import com.youthchina.domain.qingyang.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.StaticFileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -223,6 +220,17 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     public Integer countJobByComId(Integer companyId) {
         Integer jobCount = jobMapper.countJobByComId(companyId);
         return jobCount;
+    }
+
+    public Boolean isCollected(Integer companyId, Integer userId){
+        Integer result = companyMapper.isCollected(companyId, userId);
+        return  result != null;
+    }
+
+    public Company getCompanyWithCollected(Integer companyId, Integer userId) throws NotFoundException {
+        Company company = this.get(companyId);
+        company.setCollected(isCollected(companyId, userId));
+        return company;
     }
 
 }
