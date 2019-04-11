@@ -131,7 +131,8 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         }
         Location location = company.getLocation();
         if (location != null) {
-            this.location = location.getRegionName();
+            this.location = "" + location.getRegionId();
+                    //.getRegionName();
         }
         Country country = company.getCountry();
         if (country != null) {

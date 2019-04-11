@@ -173,7 +173,8 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         if (locationList != null && locationList.size() > 0) {
             Location location = locationList.get(0);
             if (location != null) {
-                this.location = location.getRegionName(); // 默认中文名
+                this.location = "" + location.getRegionId();
+                        //.getRegionName(); // 默认中文名
             }
 
         }
