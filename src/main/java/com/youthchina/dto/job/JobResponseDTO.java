@@ -19,7 +19,7 @@ public class JobResponseDTO implements ResponseDTO<Job> {
     private int id;
     private String name;
     private OrganizationDTO organization;
-    private String location;
+    private List<String> location;
     private String type;
     private String startTime;
     private String deadLine;
@@ -61,11 +61,14 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.organization = company == null ? null : new OrganizationDTO(company);
         List<Location> locationList = job.getJobLocationList();
         if (locationList != null && locationList.size() > 0) {
-            Location location = locationList.get(0);
-            if (location != null) {
-                this.location = location.getRegionName(); // 默认中文名
+//            Location location = locationList.get(0);
+//            if (location != null) {
+//                this.location = location.getRegionName(); // 默认中文名
+//            }
+            this.location = new ArrayList<>();
+            for(Location location : locationList){
+                this.location.add("" + location.getRegionId());
             }
-
         }
         int jobType = job.getJobType();
 
@@ -107,11 +110,20 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.organization = organization;
     }
 
-    public String getLocation() {
+//    public String getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(String location) {
+//        this.location = location;
+//    }
+
+
+    public List<String> getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(List<String> location) {
         this.location = location;
     }
 
@@ -171,12 +183,14 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.organization = company == null ? null : new OrganizationDTO(company);
         List<Location> locationList = job.getJobLocationList();
         if (locationList != null && locationList.size() > 0) {
-            Location location = locationList.get(0);
-            if (location != null) {
-                this.location = "" + location.getRegionId();
-                        //.getRegionName(); // 默认中文名
+//            Location location = locationList.get(0);
+//            if (location != null) {
+//                this.location = location.getRegionName(); // 默认中文名
+//            }
+            this.location = new ArrayList<>();
+            for(Location location : locationList){
+                this.location.add("" + location.getRegionId());
             }
-
         }
         int jobType = job.getJobType();
 
