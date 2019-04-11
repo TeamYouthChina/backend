@@ -39,9 +39,9 @@ public class NotificationController {
         Notification notification = new Notification(notificationDTO);
         notification.setUser(user);
         Notification returnNotification = notificationService.add(notification);
-        NotificationDTO retrunnotificationDTO = new NotificationDTO(returnNotification);
-        if(retrunnotificationDTO.getId() != null){
-            return ResponseEntity.ok(new Response(retrunnotificationDTO));
+        NotificationDTO retrunNotificationDTO = new NotificationDTO(returnNotification);
+        if(retrunNotificationDTO.getId() != null){
+            return ResponseEntity.ok(new Response(retrunNotificationDTO));
         }else{
             return ResponseEntity.ok(new Response(new StatusDTO(403, "add failed")));
         }
