@@ -9,7 +9,7 @@ import com.youthchina.domain.Qinghong.Entry;
  * @create: 2019-04-10 14:59
  **/
 public class EntryResponseDTO {
-    private Integer id;
+    private String id;
     private String name;
 
     public EntryResponseDTO() {
@@ -21,11 +21,11 @@ public class EntryResponseDTO {
         this.name=entry.getName();
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

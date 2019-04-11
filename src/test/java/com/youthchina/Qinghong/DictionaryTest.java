@@ -37,4 +37,144 @@ public class DictionaryTest {
         System.out.print(locations);
     }
 
+    @Test
+    public void getMajorAbbre(){
+        List<Entry> entries=dictionaryMapper.getMajorByAbbre();
+        System.out.print(entries);
+
+    }
+
+    @Test
+    public void getMajorFull(){
+        List<Entry> entries=dictionaryMapper.getMajorByFull();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getDegree(){
+        List<Entry> entries=dictionaryMapper.getDegree();
+        System.out.print(entries);
+
+    }
+
+    @Test
+    public void getDiploma(){
+        List<Entry> entries=dictionaryMapper.getDiploma();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getSkill(){
+        List<Entry> entries=dictionaryMapper.getAdvantageSkill();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getIndustry(){
+        List<Entry> entries=dictionaryMapper.getIndustry();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getJob(){
+        List<Entry> entries=dictionaryMapper.getJob();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getCompanyScale(){
+        List<Entry> entries=dictionaryMapper.getCompanyScale();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getCompanyNature(){
+        List<Entry> entries=dictionaryMapper.getCompanyNature();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getCountry(){
+        List<Entry> entries=dictionaryMapper.getCountry();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getChinaRegionAbbre(){
+        List<Entry> entries=dictionaryMapper.getChinaRegionByAbbre();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getChinaRegionFull(){
+        List<Entry> entries=dictionaryMapper.getChinaRegionByFull();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getUSASTATEAbbre(){
+        List<Entry> entries=dictionaryMapper.getUSAStateByAbbre();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getUSASTATEFull(){
+        List<Entry> entries=dictionaryMapper.getUSAStateByFull();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getUSARegion(){
+        List<Entry> entries=dictionaryMapper.getUSARegion();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getCHNUniversity(){
+        List<Entry> entries=dictionaryMapper.getCHNUniversity();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getUSAUniversity(){
+        List<Entry> entries=dictionaryMapper.getUSAUniversity();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getGBRUniversity(){
+        List<Entry> entries=dictionaryMapper.getGBRUniversity();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getCANUniversity(){
+        List<Entry> entries=dictionaryMapper.getCANUniversity();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getTimesRank(){
+        List<Entry> entries=dictionaryMapper.getTIMESRank();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getUSNEWSRank(){
+        List<Entry> entries=dictionaryMapper.getUSNEWSRank();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getQSrank(){
+        List<Entry> entries=dictionaryMapper.getQSRank();
+        System.out.print(entries);
+    }
+
+    @Test
+    public void getTopCompany(){
+        List<Entry> entries=dictionaryMapper.getTopCompany();
+        System.out.print(entries);
+    }
+
 }

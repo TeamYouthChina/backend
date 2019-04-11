@@ -10,4 +10,28 @@ import java.util.List;
 @Component
 public interface DictionaryMapper {
     List<Entry> getLocation(Integer target,Integer id);
+    List<Entry> getMajorByAbbre();
+    List<Entry> getMajorByFull();
+    List<Entry> getDegree();
+    List<Entry> getDiploma();
+    List<Entry> getAdvantageSkill();
+    List<Entry> getIndustry();
+    List<Entry> getJob();
+    List<Entry> getCompanyScale();
+    List<Entry> getCompanyNature();
+    List<Entry> getCountry();
+    List<Entry> getChinaRegionByAbbre();
+    List<Entry> getChinaRegionByFull();
+    List<Entry> getUSAStateByAbbre();
+    List<Entry> getUSAStateByFull();
+    List<Entry> getUSARegion();
+    List<Entry> getCHNUniversity();
+    List<Entry> getUSAUniversity();
+    List<Entry> getGBRUniversity();
+    List<Entry> getCANUniversity();
+    List<Entry> getTIMESRank();
+    List<Entry> getUSNEWSRank();
+    List<Entry> getQSRank();
+    List<Entry> getTopCompany();
+
 }

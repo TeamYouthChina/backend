@@ -18,14 +18,109 @@
     </resultMap>
 
     <resultMap id="getDiploma" type="com.youthchina.domain.Qinghong.Entry">
-        <id property="id" column="DEGREE_NUM"/>
-        <result property="name" column="DEGREE_CHN"/>
+        <id property="id" column="DIPLOMA_NUM"/>
+        <result property="name" column="DIPLOMA_CHN"/>
     </resultMap>
 
     
     <resultMap id="getLocation" type="com.youthchina.domain.Qinghong.Entry">
         <id property="id" column="REGION_ID"/>
         <result property="name" column="REGION_CHN"/>
+    </resultMap>
+
+    <resultMap id="getAdvantageSkill" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="LABEL_CODE"/>
+        <result property="name" column="LABEL_CHN"/>
+    </resultMap>
+
+    <resultMap id="getIndustry" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="IND_CODE"/>
+        <result property="name" column="IND_CHN"/>
+    </resultMap>
+
+    <resultMap id="getJob" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="PROF_CODE"/>
+        <result property="name" column="PROF_CHN"/>
+    </resultMap>
+
+    <resultMap id="getCompanyScale" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="SCALE_NUM"/>
+        <result property="name" column="SCALE_CHN"/>
+    </resultMap>
+
+    <resultMap id="getCompanyNature" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="NATURE_NUM"/>
+        <result property="name" column="NATURE_CHN"/>
+    </resultMap>
+
+    <resultMap id="getCountry" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="COUNTRY_ABBRE"/>
+        <result property="name" column="COUNTRY_CHN"/>
+    </resultMap>
+
+    <resultMap id="getChinaRegionByAbbre" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="REGION_ID"/>
+        <result property="name" column="REGION_CHN"/>
+    </resultMap>
+
+    <resultMap id="getChinaRegionByFull" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="REGION_ID"/>
+        <result property="name" column="REGION_FULLCHN"/>
+    </resultMap>
+
+    <resultMap id="getUSAStateByAbbre" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="STATE_ID"/>
+        <result property="name" column="STATE_CHN"/>
+    </resultMap>
+
+    <resultMap id="getUSAStateByFull" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="STATE_ID"/>
+        <result property="name" column="STATE_ABBRE"/>
+    </resultMap>
+
+    <resultMap id="getUSARegion" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="ZIP_CODE"/>
+        <result property="name" column="REGION_CHN"/>
+    </resultMap>
+
+    <resultMap id="getCHNUniversity" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="UNIVERS_ID"/>
+        <result property="name" column="UNIVERS_CHN"/>
+    </resultMap>
+
+    <resultMap id="getUSAUniversity" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="UNIVERS_ID"/>
+        <result property="name" column="UNIVERS_CHN"/>
+    </resultMap>
+
+    <resultMap id="getGBRUniversity" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="UNIVERS_ID"/>
+        <result property="name" column="UNIVERS_CHN"/>
+    </resultMap>
+
+    <resultMap id="getCANUniversity" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="UNIVERS_ID"/>
+        <result property="name" column="UNIVERS_CHN"/>
+    </resultMap>
+
+    <resultMap id="getTIMESRank" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="UNIVERS_ID"/>
+        <result property="name" column="UNIVERS_CHN"/>
+    </resultMap>
+
+    <resultMap id="getUSNEWSRank" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="UNIVERS_ID"/>
+        <result property="name" column="UNIVERS_CHN"/>
+    </resultMap>
+
+    <resultMap id="getQSRank" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="UNIVERS_ID"/>
+        <result property="name" column="UNIVERS_CHN"/>
+    </resultMap>
+
+    <resultMap id="getTopCompany" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="COMPANY_ID"/>
+        <result property="name" column="COMPANY_CHN"/>
     </resultMap>
 
 
@@ -45,12 +140,11 @@
     <select id="getDegree" resultMap="getDegree">
         SELECT a.DEGREE_NUM,a.DEGREE_CHN
         FROM SYS_DEGREE a
-        WHERE a.IS_DELETE=0;
     </select>
     
     <select id="getDiploma" resultMap="getDiploma">
-        SELECT a.DEGREE_NUM,a.DEGREE_CHN
-        FROM SYS_DEGREE a
+        SELECT a.DIPLOMA_NUM,a.DIPLOMA_CHN
+        FROM SYS_DIPLOMA a
     </select>
 
     <select id="getLocation" resultMap="getLocation">
@@ -58,6 +152,133 @@
         FROM SYS_CHN_REGION a
         WHERE a.REGION_LEVEL=#{param1} AND a.REGION_PARENT_NUM=#{param2} AND a.IS_DELETE=0
     </select>
+
+    <select id="getAdvantageSkill" resultMap="getAdvantageSkill">
+        SELECT a.LABEL_CODE,a.LABEL_CHN
+        FROM SYS_ADVAN_LABEL_CLASS a
+        WHERE a.IS_DELETE=0;
+
+    </select>
+
+    <select id="getIndustry" resultMap="getIndustry">
+        SELECT a.IND_CODE,a.IND_CHN
+        FROM SYS_IND_CLASS a
+        WHERE a.IS_DELETE=0;
+
+    </select>
+
+    <select id="getJob" resultMap="getJob">
+        SELECT a.PROF_CODE,a.PROF_CHN
+        FROM SYS_PROF_CLASS a
+        WHERE a.IS_DELETE=0
+
+    </select>
+
+    <select id="getCompanyScale" resultMap="getCompanyScale">
+        SELECT a.SCALE_NUM,a.SCALE_CHN
+        FROM SYS_COMPANY_SCALE a
+    </select>
+
+    <select id="getCompanyNature" resultMap="getCompanyNature">
+        SELECT a.NATURE_NUM,a.NATURE_CHN
+        FROM SYS_COMPANY_NATURE a
+
+    </select>
+
+    <select id="getCountry" resultMap="getCountry">
+        SELECT a.COUNTRY_ABBRE,a.COUNTRY_CHN
+        FROM SYS_COUNTRY a
+        WHERE a.IS_DELETE=0;
+
+    </select>
+
+    <select id="getChinaRegionByAbbre" resultMap="getChinaRegionByAbbre">
+        SELECT a.REGION_ID,a.REGION_CHN
+        FROM SYS_CHN_REGION a
+        WHERE a.IS_DELETE=0
+
+    </select>
+
+    <select id="getChinaRegionByFull" resultMap="getChinaRegionByFull">
+        SELECT a.REGION_ID,a.REGION_FULLCHN
+        FROM SYS_CHN_REGION a
+        WHERE a.IS_DELETE=0
+
+    </select>
+
+    <select id="getUSAStateByAbbre" resultMap="getUSAStateByAbbre">
+        SELECT a.STATE_ID,a.STATE_CHN
+        FROM SYS_USA_STATE a
+        WHERE a.IS_DELETE=0
+
+    </select>
+
+    <select id="getUSAStateByFull" resultMap="getUSAStateByFull">
+        SELECT a.STATE_ID,a.STATE_ABBRE
+        FROM SYS_USA_STATE a
+        WHERE a.IS_DELETE=0
+
+    </select>
+
+    <select id="getUSARegion" resultMap="getUSARegion">
+        SELECT a.ZIP_CODE,a.REGION_CHN
+        FROM SYS_USA_ZIPCODE a
+        WHERE a.IS_DELETE=0
+
+    </select>
+
+    <select id="getCHNUniversity" resultMap="getCHNUniversity">
+        SELECT a.UNIVERS_ID,a.UNIVERS_CHN
+        FROM SYS_UNIVERSITY_CHN a
+        WHERE a.IS_DELETE=0
+
+    </select>
+
+    <select id="getUSAUniversity" resultMap="getUSAUniversity">
+        SELECT a.UNIVERS_ID,a.UNIVERS_CHN
+        FROM SYS_UNIVERSITY_USA a
+        WHERE a.IS_DELETE=0
+
+    </select>
+
+    <select id="getGBRUniversity" resultMap="getGBRUniversity">
+        SELECT a.UNIVERS_ID,a.UNIVERS_CHN
+        FROM SYS_UNIVERSITY_GBR a
+        WHERE a.IS_DELETE=0
+
+    </select>
+
+    <select id="getCANUniversity" resultMap="getCANUniversity">
+        SELECT a.UNIVERS_ID,a.UNIVERS_CHN
+        FROM SYS_UNIVERSITY_CAN a
+        WHERE a.IS_DELETE=0
+
+    </select>
+
+    <select id="getTIMESRank" resultMap="getTIMESRank">
+        SELECT a.UNIVERS_ID,a.UNIVERS_CHN
+        FROM SYS_UNIVERSITY_RANK_TIMES a
+
+    </select>
+
+    <select id="getUSNEWSRank" resultMap="getUSNEWSRank">
+        SELECT a.UNIVERS_ID,a.UNIVERS_CHN
+        FROM SYS_UNIVERSITY_RANK_USNEWS a
+
+    </select>
+
+    <select id="getQSRank" resultMap="getQSRank">
+        SELECT a.UNIVERS_ID,a.UNIVERS_CHN
+        FROM SYS_UNIVERSITY_RANK_QS a
+
+    </select>
+
+    <select id="getTopCompany" resultMap="getTopCompany">
+        SELECT a.COMPANY_ID,a.COMPANY_CHN
+        FROM SYS_TOP_COMPANY_WORLD a
+    </select>
+
+
 
 
 

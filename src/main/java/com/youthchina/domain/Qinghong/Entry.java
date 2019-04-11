@@ -7,14 +7,14 @@ package com.youthchina.domain.Qinghong;
  * @create: 2019-04-10 11:44
  **/
 public class Entry {
-    private Integer id;
+    private String id;
     private String name;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
