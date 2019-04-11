@@ -460,6 +460,7 @@ paths:
               - answer
               - article
               - video
+              - editorials
           description: determine what part of attention list to return
         - in: header
           name: X-AUTHENTICATION
@@ -550,6 +551,18 @@ paths:
                               type: integer
                             video:
                               $ref: '#/components/schemas/Video'
+                      editorials:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - id
+                            - editorial
+                          properties:
+                            id:
+                              type: integer
+                            editorial:
+                              $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
   '/my':
@@ -6461,7 +6474,22 @@ paths:
           schema:
             type: string
       responses:
-        
+        '200':
+          description: dictionary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                  status:
+                    $ref: '#/components/schemas/Status'
 components:
   schemas:
     ContentRequest:
@@ -6982,16 +7010,14 @@ components:
       required:
         - braftEditorRaw
         - previewText
-        - resourceList
+        - compiletype
       properties:
         braftEditorRaw:
-          type: object
+          type: string
         previewText:
-          type: object
-        resourceList:
-          type: array
-          items:
-            type: string
+          type: string
+        compiletype:
+          type: integer
     Comment:
       type: object
       required:
