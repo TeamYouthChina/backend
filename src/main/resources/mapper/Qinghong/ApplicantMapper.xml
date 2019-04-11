@@ -35,7 +35,8 @@
             <result property="stu_id" column="STU_ID"/>
             <association property="degree" column="DEGREE" javaType="com.youthchina.domain.qingyang.Degree"
                          resultMap="getDegree"/>
-            <association property="university" column="EDU_SCHOOL_ID" javaType="com.youthchina.domain.Qinghong.University"
+            <association property="university" column="EDU_SCHOOL_ID"
+                         javaType="com.youthchina.domain.Qinghong.University"
                          resultMap="getUniversity"/>
             <association property="diploma" column="DIPLOMA" javaType="com.youthchina.domain.Qinghong.Diploma"
                          resultMap="getDiploma"/>
@@ -49,7 +50,8 @@
             <result property="certificate_expir_date" column="CERTIFICATE_EXPIR_DATE"/>
             <result property="docu_local_id" column="DOCU_LOCAL_ID"/>
             <result property="stu_id" column="STU_ID"/>
-            <association property="insti_country" column="INSTI_COUNTRY" javaType="com.youthchina.domain.qingyang.Country"
+            <association property="insti_country" column="INSTI_COUNTRY"
+                         javaType="com.youthchina.domain.qingyang.Country"
                          resultMap="getCountry"/>
         </collection>
         <collection property="works" ofType="com.youthchina.domain.Qinghong.Work">
@@ -78,7 +80,8 @@
             <result property="deliver_publish" column="DELIVER_PUBLISH"/>
             <result property="deliver_pub_insti" column="DELIVER_PUB_INSTI"/>
             <result property="stu_id" column="STU_ID"/>
-            <association property="insti_country" column="INSTI_COUNTRY" javaType="com.youthchina.domain.qingyang.Country"
+            <association property="insti_country" column="INSTI_COUNTRY"
+                         javaType="com.youthchina.domain.qingyang.Country"
                          resultMap="getCountry"/>
         </collection>
 
@@ -334,79 +337,99 @@
     <select id="getUserInfo" resultType="com.youthchina.domain.Qinghong.UserInfo">
         select *
         from SYS_USER
-        where USER_ID=#{user_id} AND IS_DELETE=0
+        where USER_ID = #{user_id}
     </select>
 
     <!--通过user_id获取stu_id-->
     <select id="getBaseInfo" resultType="com.youthchina.domain.Qinghong.BaseInfo">
         SELECT *
         FROM STU_INFO
-        WHERE USER_ID=#{user_id} AND IS_DELETE=0
+        WHERE USER_ID = #{user_id}
+          AND IS_DELETE = 0
     </select>
 
     <!--获取申请者的信息-->
     <select id="getStudentInfo" resultMap="studentResultMap">
-        select a.*,b.*,p.*,u.*,g.*,m.*,d.*,n.*,e.*,f.*,i.*,c.*,o.*,z.*
+        select a.*,
+               b.*,
+               p.*,
+               u.*,
+               g.*,
+               m.*,
+               d.*,
+               n.*,
+               e.*,
+               f.*,
+               i.*,
+               c.*,
+               o.*,
+               z.*
         from SYS_USER a
-        LEFT JOIN STU_EDU_INFO b ON a.USER_ID=b.STU_ID AND b.IS_DELETE=0
-        LEFT JOIN SYS_DEGREE p ON b.EDU_DEGREE=p.DEGREE_NUM
-        LEFT JOIN COUNTRY_UNIVERSITY u ON b.EDU_SCHOOL_ID=u.UNIVERS_ID
-        LEFT JOIN SYS_DIPLOMA z ON z.DIPLOMA_NUM=b.EDU_DIPLOMA_TYPE
-        LEFT JOIN STU_CERTIFICATE g ON a.USER_ID=g.STU_ID AND g.IS_DELETE=0
-        LEFT JOIN SYS_COUNTRY m ON g.INSTI_COUNTRY=m.COUNTRY_ABBRE AND m.IS_DELETE=0
-        LEFT JOIN STU_PROJECT d ON a.USER_ID=d.STU_ID AND d.IS_DELETE=0
-        LEFT JOIN SYS_COUNTRY n ON d.INSTI_COUNTRY=n.COUNTRY_ABBRE AND n.IS_DELETE=0
-        LEFT JOIN STU_WORK e ON a.USER_ID=e.STU_ID AND e.IS_DELETE=0
-        LEFT JOIN STU_ACTIVITY f ON a.USER_ID=f.STU_ID AND f.IS_DELETE=0
-        LEFT JOIN SYS_COUNTRY i ON f.ORG_COUNTRY=i.COUNTRY_ABBRE AND i.IS_DELETE=0
-        LEFT JOIN STU_SUB_INFO c ON a.USER_ID=c.STU_ID AND c.IS_DELETE=0
-        LEFT JOIN STU_ADVAN_LABEL h ON a.USER_ID=h.STU_ID AND h.IS_DELETE=0
-        LEFT JOIN SYS_ADVAN_LABEL_CLASS o ON o.LABEL_CODE=h.LABEL_CODE AND o.IS_DELETE=0
-        WHERE a.USER_ID=#{id} AND a.IS_DELETE=0
+                 LEFT JOIN STU_EDU_INFO b ON a.USER_ID = b.STU_ID AND b.IS_DELETE = 0
+                 LEFT JOIN SYS_DEGREE p ON b.EDU_DEGREE = p.DEGREE_NUM
+                 LEFT JOIN COUNTRY_UNIVERSITY u ON b.EDU_SCHOOL_ID = u.UNIVERS_ID
+                 LEFT JOIN SYS_DIPLOMA z ON z.DIPLOMA_NUM = b.EDU_DIPLOMA_TYPE
+                 LEFT JOIN STU_CERTIFICATE g ON a.USER_ID = g.STU_ID AND g.IS_DELETE = 0
+                 LEFT JOIN SYS_COUNTRY m ON g.INSTI_COUNTRY = m.COUNTRY_ABBRE AND m.IS_DELETE = 0
+                 LEFT JOIN STU_PROJECT d ON a.USER_ID = d.STU_ID AND d.IS_DELETE = 0
+                 LEFT JOIN SYS_COUNTRY n ON d.INSTI_COUNTRY = n.COUNTRY_ABBRE AND n.IS_DELETE = 0
+                 LEFT JOIN STU_WORK e ON a.USER_ID = e.STU_ID AND e.IS_DELETE = 0
+                 LEFT JOIN STU_ACTIVITY f ON a.USER_ID = f.STU_ID AND f.IS_DELETE = 0
+                 LEFT JOIN SYS_COUNTRY i ON f.ORG_COUNTRY = i.COUNTRY_ABBRE AND i.IS_DELETE = 0
+                 LEFT JOIN STU_SUB_INFO c ON a.USER_ID = c.STU_ID AND c.IS_DELETE = 0
+                 LEFT JOIN STU_ADVAN_LABEL h ON a.USER_ID = h.STU_ID AND h.IS_DELETE = 0
+                 LEFT JOIN SYS_ADVAN_LABEL_CLASS o ON o.LABEL_CODE = h.LABEL_CODE AND o.IS_DELETE = 0
+        WHERE a.USER_ID = #{id}
+          AND a.IS_DELETE = 0
     </select>
 
     <!--获取申请者的项目信息-->
     <select id="getProjects" resultMap="ProjectResultMap">
-        SELECT b.*,n.*
+        SELECT b.*, n.*
         FROM STU_PROJECT b
-        LEFT JOIN SYS_COUNTRY n ON b.INSTI_COUNTRY=n.COUNTRY_ABBRE AND n.IS_DELETE=0
-        WHERE b.STU_ID=#{user_id}  AND b.IS_DELETE=0
+                 LEFT JOIN SYS_COUNTRY n ON b.INSTI_COUNTRY = n.COUNTRY_ABBRE AND n.IS_DELETE = 0
+        WHERE b.STU_ID = #{user_id}
+          AND b.IS_DELETE = 0
     </select>
 
     <!--获取某个项目信息-->
     <select id="getProjectById" resultMap="ProjectResultMap">
         SELECT b.*
         FROM STU_PROJECT b
-        LEFT JOIN SYS_COUNTRY n ON b.INSTI_COUNTRY=n.COUNTRY_ABBRE AND n.IS_DELETE=0
-        WHERE b.PROJ_ID=#{proj_id}  AND b.IS_DELETE=0
+                 LEFT JOIN SYS_COUNTRY n ON b.INSTI_COUNTRY = n.COUNTRY_ABBRE AND n.IS_DELETE = 0
+        WHERE b.PROJ_ID = #{proj_id}
+          AND b.IS_DELETE = 0
     </select>
 
     <!--获取申请者的教育信息-->
     <select id="getEducations" resultMap="educationResultMap">
-        SELECT b.*,p.*,u.*,z.*,m.*
+        SELECT b.*, p.*, u.*, z.*, m.*
         FROM STU_EDU_INFO b
-        LEFT JOIN SYS_DEGREE p ON b.EDU_DEGREE=p.DEGREE_NUM
-        LEFT JOIN COUNTRY_UNIVERSITY u ON b.EDU_SCHOOL_ID=u.UNIVERS_ID
-        LEFT JOIN SYS_DIPLOMA z ON z.DIPLOMA_NUM=b.EDU_DIPLOMA_TYPE
-        LEFT JOIN SYS_MAJOR m ON b.EDU_MAJOR=m.MAJOR_CODE AND m.IS_DELETE=0
-        WHERE b.STU_ID=#{user_id} AND b.IS_DELETE=0
+                 LEFT JOIN SYS_DEGREE p ON b.EDU_DEGREE = p.DEGREE_NUM
+                 LEFT JOIN COUNTRY_UNIVERSITY u ON b.EDU_SCHOOL_ID = u.UNIVERS_ID
+                 LEFT JOIN SYS_DIPLOMA z ON z.DIPLOMA_NUM = b.EDU_DIPLOMA_TYPE
+                 LEFT JOIN SYS_MAJOR m ON b.EDU_MAJOR = m.MAJOR_CODE AND m.IS_DELETE = 0
+        WHERE b.STU_ID = #{user_id}
+          AND b.IS_DELETE = 0
     </select>
 
     <!--获取某个教育信息-->
     <select id="getEducationById" resultMap="educationResultMap">
-        SELECT b.*,p.*,u.*,m.*
+        SELECT b.*, p.*, u.*, m.*
         FROM STU_EDU_INFO b
-        LEFT JOIN SYS_DEGREE p ON b.EDU_DEGREE=p.DEGREE_NUM
-        LEFT JOIN COUNTRY_UNIVERSITY u ON b.EDU_SCHOOL_ID=u.UNIVERS_ID
-        LEFT JOIN SYS_MAJOR m ON b.EDU_MAJOR=m.MAJOR_CODE AND m.IS_DELETE=0
-        WHERE b.EDU_ID=#{edu_id} AND b.IS_DELETE=0
+                 LEFT JOIN SYS_DEGREE p ON b.EDU_DEGREE = p.DEGREE_NUM
+                 LEFT JOIN COUNTRY_UNIVERSITY u ON b.EDU_SCHOOL_ID = u.UNIVERS_ID
+                 LEFT JOIN SYS_MAJOR m ON b.EDU_MAJOR = m.MAJOR_CODE AND m.IS_DELETE = 0
+        WHERE b.EDU_ID = #{edu_id}
+          AND b.IS_DELETE = 0
     </select>
 
     <!--获取申请者的工作经历信息-->
     <select id="getWorks" resultMap="WorkResultMap">
         SELECT b.*
         FROM STU_WORK b
-        WHERE b.STU_ID=#{user_id} AND b.IS_DELETE=0
+        WHERE b.STU_ID = #{user_id}
+          AND b.IS_DELETE = 0
     </select>
 
 
@@ -414,39 +437,44 @@
     <select id="getWorkById" resultMap="WorkResultMap">
         SELECT b.*
         FROM STU_WORK b
-        WHERE b.WORK_ID=#{work_id} AND b.IS_DELETE=0
+        WHERE b.WORK_ID = #{work_id}
+          AND b.IS_DELETE = 0
     </select>
 
     <!--获取申请者的认证信息-->
     <select id="getCertificates" resultMap="CertificateResultMap">
-        SELECT b.*,m.*
+        SELECT b.*, m.*
         FROM STU_CERTIFICATE b
-        LEFT JOIN SYS_COUNTRY m ON b.INSTI_COUNTRY=m.COUNTRY_ABBRE AND m.IS_DELETE=0
-        WHERE b.STU_ID=#{user_id} AND b.IS_DELETE=0
+                 LEFT JOIN SYS_COUNTRY m ON b.INSTI_COUNTRY = m.COUNTRY_ABBRE AND m.IS_DELETE = 0
+        WHERE b.STU_ID = #{user_id}
+          AND b.IS_DELETE = 0
     </select>
 
     <!--获取某个认证信息-->
     <select id="getCertificateById" resultMap="CertificateResultMap">
-        SELECT b.*,m.*
+        SELECT b.*, m.*
         FROM STU_CERTIFICATE b
-        LEFT JOIN SYS_COUNTRY m ON b.INSTI_COUNTRY=m.COUNTRY_ABBRE AND m.IS_DELETE=0
-        WHERE b.CERTIFICATE_ID=#{certificate_id} AND b.IS_DELETE=0
+                 LEFT JOIN SYS_COUNTRY m ON b.INSTI_COUNTRY = m.COUNTRY_ABBRE AND m.IS_DELETE = 0
+        WHERE b.CERTIFICATE_ID = #{certificate_id}
+          AND b.IS_DELETE = 0
     </select>
 
     <!--获取申请者的活动信息-->
     <select id="getActivities" resultMap="ActivityResultMap">
-        SELECT b.*,i.*
+        SELECT b.*, i.*
         FROM STU_ACTIVITY b
-        LEFT JOIN SYS_COUNTRY i ON b.ORG_COUNTRY=i.COUNTRY_ABBRE AND i.IS_DELETE=0
-        WHERE b.STU_ID=#{user_id} AND b.IS_DELETE=0
+                 LEFT JOIN SYS_COUNTRY i ON b.ORG_COUNTRY = i.COUNTRY_ABBRE AND i.IS_DELETE = 0
+        WHERE b.STU_ID = #{user_id}
+          AND b.IS_DELETE = 0
     </select>
 
     <!--获取某个活动信息-->
     <select id="getActivityById" resultMap="ActivityResultMap">
-        SELECT b.*,i.*
+        SELECT b.*, i.*
         FROM STU_ACTIVITY b
-        LEFT JOIN SYS_COUNTRY i ON b.ORG_COUNTRY=i.COUNTRY_ABBRE AND i.IS_DELETE=0
-        WHERE b.ACT_ID=#{act_id} AND b.IS_DELETE=0
+                 LEFT JOIN SYS_COUNTRY i ON b.ORG_COUNTRY = i.COUNTRY_ABBRE AND i.IS_DELETE = 0
+        WHERE b.ACT_ID = #{act_id}
+          AND b.IS_DELETE = 0
     </select>
 
 
@@ -508,48 +536,56 @@
     <select id="getOneJobCollect" resultType="com.youthchina.domain.Qinghong.JobCollect">
         SELECT a.*
         FROM STU_JOB_COLLECT a
-        WHERE a.JOB_ID=#{param1} AND a.STU_ID=#{param2} AND a.IS_DELETE=0;
+        WHERE a.JOB_ID = #{param1}
+          AND a.STU_ID = #{param2}
+          AND a.IS_DELETE = 0;
     </select>
 
     <select id="getJobCollectById" resultType="com.youthchina.domain.Qinghong.JobCollect">
         SELECT a.*
         FROM STU_JOB_COLLECT a
-        WHERE a.COLLECT_ID=#{id} AND a.IS_DELETE=0;
+        WHERE a.COLLECT_ID = #{id}
+          AND a.IS_DELETE = 0;
     </select>
 
     <select id="getCompCollectById" resultType="com.youthchina.domain.Qinghong.CompCollect">
         SELECT a.*
         FROM STU_COMP_COLLECT a
-        WHERE a.COLLECT_ID=#{id} AND a.IS_DELETE=0;
+        WHERE a.COLLECT_ID = #{id}
+          AND a.IS_DELETE = 0;
     </select>
 
     <!--获取一个公司收藏-->
     <select id="getOneCompCollect" resultType="com.youthchina.domain.Qinghong.CompCollect">
         SELECT a.*
         FROM STU_COMP_COLLECT a
-        WHERE a.COMPANY_ID=#{param1} AND a.STU_ID=#{param2} AND a.IS_DELETE=0;
+        WHERE a.COMPANY_ID = #{param1}
+          AND a.STU_ID = #{param2}
+          AND a.IS_DELETE = 0;
     </select>
 
     <select id="getDegreeNum" resultType="com.youthchina.domain.qingyang.Degree">
         SELECT *
         FROM SYS_DEGREE
-        WHERE DEGREE_CHN=#{degreeChn}
+        WHERE DEGREE_CHN = #{degreeChn}
     </select>
 
     <!--获取某用户所有技能信息-->
     <select id="getAdvantageLabels" resultMap="getSkills">
-        SELECT a.*,o.*
+        SELECT a.*, o.*
         FROM STU_ADVAN_LABEL a
-        LEFT JOIN SYS_ADVAN_LABEL_CLASS o ON o.LABEL_CODE=a.LABEL_CODE AND o.IS_DELETE=0
-        WHERE a.STU_ID=#{id} AND a.IS_DELETE=0;
+                 LEFT JOIN SYS_ADVAN_LABEL_CLASS o ON o.LABEL_CODE = a.LABEL_CODE AND o.IS_DELETE = 0
+        WHERE a.STU_ID = #{id}
+          AND a.IS_DELETE = 0;
 
     </select>
 
     <select id="getAdvantageLabelById" resultMap="getSkills">
-        SELECT a.*,o.*
+        SELECT a.*, o.*
         FROM STU_ADVAN_LABEL a
-        LEFT JOIN SYS_ADVAN_LABEL_CLASS o ON o.LABEL_CODE=a.LABEL_CODE AND o.IS_DELETE=0
-        WHERE a.LABEL_ID=#{label_id} AND a.IS_DELETE=0;
+                 LEFT JOIN SYS_ADVAN_LABEL_CLASS o ON o.LABEL_CODE = a.LABEL_CODE AND o.IS_DELETE = 0
+        WHERE a.LABEL_ID = #{label_id}
+          AND a.IS_DELETE = 0;
     </select>
 
     <!--添加一个职位收藏-->
@@ -666,7 +702,6 @@
     </update>
 
 
-
     <!--删除所有标签表-->
     <update id="deleteAllSkills">
         UPDATE STU_ADVAN_LABEL set
@@ -727,16 +762,16 @@
     </update>
 
     <!--<insert id="insertStuInfo" parameterType="com.youthchina.domain.Qinghong.BaseInfo" useGeneratedKeys="true"-->
-            <!--keyProperty="STU_ID">-->
-        <!--INSERT INTO STU_INFO-->
-        <!--(-->
-        <!--STU_IN_JOB,STU_IN_JOB_COMP,USER_ID,IS_DELETE,IS_DELETE_TIME-->
+    <!--keyProperty="STU_ID">-->
+    <!--INSERT INTO STU_INFO-->
+    <!--(-->
+    <!--STU_IN_JOB,STU_IN_JOB_COMP,USER_ID,IS_DELETE,IS_DELETE_TIME-->
 
-        <!--)-->
-        <!--VALUES (-->
-        <!--#{isInJob},#{currentCompanyName},#{id},0,NULL-->
+    <!--)-->
+    <!--VALUES (-->
+    <!--#{isInJob},#{currentCompanyName},#{id},0,NULL-->
 
-        <!--)-->
+    <!--)-->
 
     <!--</insert>-->
 
@@ -917,7 +952,19 @@
     <select id="getAllSkills" resultType="com.youthchina.domain.Qinghong.LabelInfo">
         SELECT *
         FROM SYS_ADVAN_LABEL_CLASS
-        WHERE IS_DELETE=0
+        WHERE IS_DELETE = 0
+    </select>
+    <select id="getCollectionByJobId" resultType="java.lang.Integer">
+        SELECT COLLECT_ID
+        FROM youthchina.STU_JOB_COLLECT
+        WHERE STU_ID = #{user_id}
+          AND JOB_ID = #{job_id}
+    </select>
+    <select id="getCompanyByCompanyId" resultType="java.lang.Integer">
+        SELECT COLLECT_ID
+        FROM youthchina.STU_COMP_COLLECT
+        WHERE STU_ID = #{user_id}
+          AND COMPANY_ID = #{company_id}
     </select>
 
 

@@ -3,7 +3,6 @@ package com.youthchina.controller.tianjian;
 import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Comment;
-import com.youthchina.domain.tianjian.ComEssayAttention;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
@@ -41,14 +40,14 @@ public class AnswerController {
     private AttentionServiceImpl attentionService;
 
     @GetMapping("/{id}")
-    public ResponseEntity getAnswer(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity getAnswer(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException{
         Answer answer = answerService.get(id);
         SimpleAnswerResponseDTO simpleAnswerResponseDTO = new SimpleAnswerResponseDTO(answer);
         simpleAnswerResponseDTO.setAttentionCount(attentionService.countAttention(answer));
         simpleAnswerResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
         simpleAnswerResponseDTO.setUpvoteCount(evaluateService.countUpvote(answer));
         simpleAnswerResponseDTO.setDownvoteCount(evaluateService.countDownvote(answer));
-        simpleAnswerResponseDTO.setAttention((attentionService.isEverAttention(answer,user.getId()))==0? false:true);
+        simpleAnswerResponseDTO.setAttention((attentionService.isEverAttention(answer, user.getId())) != 0);
         return ResponseEntity.ok(new Response(simpleAnswerResponseDTO, new StatusDTO(200,"success")));
 
     }
@@ -73,7 +72,8 @@ public class AnswerController {
         comment.setUser(user);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comment.setPubTime(time);
-        Answer answer = answerService.get(id);
+        Answer answer = new Answer();
+        answer.setId(id);
         commentService.add(comment,answer);
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
@@ -111,7 +111,7 @@ public class AnswerController {
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 
-    @PutMapping("/{id}/cancel")
+    @DeleteMapping("/{id}/vote")
     public ResponseEntity<?> cancelVote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Answer answer =answerService.get(id);
         evaluateService.cancel(answer, user.getId());

@@ -460,6 +460,7 @@ paths:
               - answer
               - article
               - video
+              - editorials
           description: determine what part of attention list to return
         - in: header
           name: X-AUTHENTICATION
@@ -482,74 +483,51 @@ paths:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - company
                           properties:
-                            id:
-                              type: integer
                             company:
                               $ref: '#/components/schemas/Company'
                       jobs:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - job
                           properties:
-                            id:
-                              type: integer
                             job:
                               $ref: '#/components/schemas/Job'
                       questions:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - questions
                           properties:
-                            id:
-                              type: integer
                             question:
                               $ref: '#/components/schemas/QuestionBasic'
                       answers:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - answers
                           properties:
-                            id:
-                              type: integer
                             answer:
                               $ref: '#/components/schemas/AnswerBasic'
                       articles:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - article
                           properties:
-                            id:
-                              type: integer
                             article:
                               $ref: '#/components/schemas/Article'
                       videos:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - video
                           properties:
-                            id:
-                              type: integer
                             video:
                               $ref: '#/components/schemas/Video'
+                      editorials:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            editorial:
+                              $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
   '/my':
@@ -667,13 +645,13 @@ paths:
                               $ref: '#/components/schemas/Video'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/jobs/attentions/{id}':
+  '/jobs/attentions/{job_id}':
     delete:
       summary: 删除收藏的工作
       tags:
         - Collection
       parameters:
-        - name: id
+        - name: job_id
           required: true
           in: path
           schema:
@@ -688,13 +666,13 @@ paths:
       responses:
         '204':
           description: delete target collection
-  '/companies/attentions/{id}':
+  '/companies/attentions/{company_id}':
     delete:
       summary: 删除收藏的公司
       tags:
         - Collection
       parameters:
-        - name: id
+        - name: company_id
           required: true
           in: path
           schema:
@@ -709,13 +687,13 @@ paths:
       responses:
         '204':
           description: delete target collection
-  '/questions/attentions/{id}':
+  '/questions/attentions/{question_id}':
     delete:
       summary: 删除收藏的问题
       tags:
         - Collection
       parameters:
-        - name: id
+        - name: question_id
           required: true
           in: path
           schema:
@@ -730,13 +708,13 @@ paths:
       responses:
         '204':
           description: delete target collection
-  '/answers/attentions/{id}':
+  '/answers/attentions/{answer_id}':
     delete:
       summary: 删除收藏的答案
       tags:
         - Collection
       parameters:
-        - name: id
+        - name: answer_id
           required: true
           in: path
           schema:
@@ -751,13 +729,13 @@ paths:
       responses:
         '204':
           description: delete target collection
-  '/editorials/attentions/{id}':
+  '/editorials/attentions/{editorial_id}':
     delete:
       summary: 删除收藏的短则
       tags:
         - Collection
       parameters:
-        - name: id
+        - name: editorial_id
           required: true
           in: path
           schema:
@@ -772,13 +750,13 @@ paths:
       responses:
         '204':
           description: delete target collection
-  '/articles/attentions/{id}':
+  '/articles/attentions/{article_id}':
     delete:
       summary: 删除收藏的文章
       tags:
         - Collection
       parameters:
-        - name: id
+        - name: article_id
           required: true
           in: path
           schema:
@@ -1710,7 +1688,7 @@ paths:
                   status:
                     $ref: '#/components/schemas/Status'
   '/articles/{id}/comments':
-    put:
+    post:
       summary: 发布文章评论
       tags:
         - Article
@@ -1734,6 +1712,15 @@ paths:
       responses:
         '201':
           description: comments successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/Comment'
+                  status:
+                    $ref: '#/components/schemas/Status'
     get:
       summary: 获得文章全部评论
       tags:
@@ -1750,9 +1737,55 @@ paths:
           description: authentication header
           schema:
             type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
       responses:
-        '201':
-          description: comments successfully
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Comment'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count:
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/articles/{id}/upvote':
     put:
       summary: 点赞文章
@@ -1991,7 +2024,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Company'
+              $ref: '#/components/schemas/CompanyRequest'
       responses:
         '200':
           description: successful
@@ -2020,22 +2053,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: company name
-                location:
-                  $ref: '#/components/schemas/Location'
-                nation:
-                  type: string
-                  description: company nation
-                website:
-                  type: string
-                  description: company website
-                note:
-                  type: string
-                  description: introduction
+              $ref: '#/components/schemas/CompanyRequest'
       responses:
         '201':
           description: successful
@@ -4490,7 +4508,6 @@ paths:
           required: true
           schema:
             type: integer
-        
         - name: X-AUTHENTICATION
           in: header
           required: true
@@ -4512,7 +4529,7 @@ paths:
       tags:
         - Comment
       parameters:
-        - name: id
+        - name: commentid
           in: path
           required: true
           schema:
@@ -6461,7 +6478,22 @@ paths:
           schema:
             type: string
       responses:
-        
+        '200':
+          description: dictionary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                  status:
+                    $ref: '#/components/schemas/Status'
 components:
   schemas:
     ContentRequest:
@@ -6504,8 +6536,11 @@ components:
         organization:
           $ref: '#/components/schemas/Organization'
         location:
-          type: string
+          type: array
+          items:
+            type: string
         type:
+          description: 1实习 2兼职 3全职
           type: string
           enum:
             - full-time
@@ -6517,6 +6552,10 @@ components:
           type: string
         job_duty:
           type: string
+        startTime:
+          type: string
+        isCollected:
+          type: boolean
     JobRequest:
       type: object
       properties:
@@ -6528,7 +6567,7 @@ components:
         location:
           type: array
           items:
-            type: integer
+            $ref: '#/components/schemas/Location'
         type:
           type: string
           enum:
@@ -6540,6 +6579,8 @@ components:
         job_description:
           type: string
         job_duty:
+          type: string
+        startTime:
           type: string
     Organization:
       type: object
@@ -6560,6 +6601,14 @@ components:
           type: string
         nation:
           type: string
+        photoUrlList:
+          type: array
+          items:
+            type: string
+        jobCount:
+          type: integer
+        isCollected:
+          type: boolean
     User:
       type: object
       required:
@@ -6584,7 +6633,9 @@ components:
           type: string
         register_date:
           type: string
-        real_name:
+        first_name:
+          type: string
+        last_name:
           type: string
         gender:
           type: string
@@ -6885,6 +6936,27 @@ components:
     Company:
       allOf:
         - $ref: '#/components/schemas/Organization'
+    CompanyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: company name
+        location:
+          $ref: '#/components/schemas/Location'
+        nation:
+          type: string
+          description: company nation
+        website:
+          type: string
+          description: company website
+        note:
+          type: string
+          description: introduction
+        photoIdList:
+          type: array
+          items:
+            type: string
     Application:
       type: object
       required:
@@ -6982,24 +7054,16 @@ components:
       required:
         - braftEditorRaw
         - previewText
-        - resourceList
+        - compiletype
       properties:
         braftEditorRaw:
-          type: object
+          type: string
         previewText:
-          type: object
-        resourceList:
-          type: array
-          items:
-            type: string
+          type: string
+        compiletype:
+          type: integer
     Comment:
       type: object
-      required:
-        - id
-        - creator
-        - body
-        - create_at
-        - is_anonymous
       properties:
         id:
           type: integer
@@ -7012,6 +7076,14 @@ components:
         is_anonymous:
           type: boolean
           default: false
+        modified_at:
+          type: string
+        upvoteCount:
+          type: integer
+        downvoteCount:
+          type: integer
+        evaluateStatus:
+          type: integer
     CommentRequest:
       allOf:
         - $ref: '#/components/schemas/ContentRequest'

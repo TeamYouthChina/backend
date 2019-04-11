@@ -1,3 +1,7 @@
+DELETE http://localhost:8080/api/v1/jobs/**/attentions/{id}
+
+###
+
 PUT http://localhost:8080/api/v1/applicants/**/{id}/extracurriculars/{extracurricularID}
 
 ###
@@ -479,16 +483,6 @@ Content-Type: application/json
 { "id":10, "password":"123456" }
 
 <> 2019-04-10T044814-3.200.json
-
-###
-
-GET http://47.252.87.218:8080/api/v1/questions/1/answers
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
-Content-Type: application/json
-
-{ "id":10, "password":"123456" }
-
-<> 2019-04-10T044814-2.200.json
 
 ###
 

@@ -29,16 +29,16 @@ public class DiscussController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteComment(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity deleteDiscuss(@PathVariable Integer id) throws NotFoundException {
         discussService.delete(id);
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
-    @GetMapping("/{id}/count")
+   /* @GetMapping("/{id}/count")
     public ResponseEntity<?> count(@PathVariable Integer id) {
         int count = discussService.count(id);
         return ResponseEntity.ok(new Response(count));
-    }
+    }*/
 
     @PutMapping("/{id}/upvote")
     public ResponseEntity<?> upvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
@@ -54,10 +54,10 @@ public class DiscussController {
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
-    @DeleteMapping({"/{id}/upvote", "/{id}/downvote"})
-    public ResponseEntity<?> cancelVote(@PathVariable Integer id) throws NotFoundException {
+    @DeleteMapping({"/{id}/vote"})
+    public ResponseEntity<?> cancelVote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Discuss discuss = discussService.get(id);
-        evaluateService.cancel(discuss, id);
+        evaluateService.cancel(discuss, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 }

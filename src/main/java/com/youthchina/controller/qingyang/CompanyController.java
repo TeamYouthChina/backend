@@ -124,8 +124,12 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
      */
 
     @DeleteMapping("/attentions/{id}")
-    public ResponseEntity<?> deleteCompanyCollection(@PathVariable("id") Integer collect_id, @AuthenticationPrincipal User user) throws NotFoundException {
-        Integer integer = studentService.deleteCompCollect(collect_id);
+    public ResponseEntity<?> deleteCompanyCollection(@PathVariable("id") Integer company_id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Integer collectionId = studentService.getCollectionByCompanyId(company_id, user.getId());
+        if (collectionId != null) {
+            return ResponseEntity.status(400).body(new StatusDTO(400, "no such company collection"));
+        }
+        Integer integer = studentService.deleteCompCollect(collectionId);
         if (integer == 1) {
             return ResponseEntity.ok(new Response
                     (integer));
