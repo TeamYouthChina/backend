@@ -53,7 +53,7 @@ public class DiscussControllerTest extends BaseControllerTest {
                 put(this.urlPrefix + "/replies/1/upvote")
                         .with(this.authGenerator.authentication())
         )
-                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4040,\"reason\":\"You have already upvoted! You cannot upvote again!\"}}", false))
+                .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
                 .andDo(print());
     }
 
@@ -86,12 +86,12 @@ public class DiscussControllerTest extends BaseControllerTest {
 
     @Test
     public void testDeleteUpvote() throws Exception {
-       /* this.mvc.perform(
+        this.mvc.perform(
                 put(this.urlPrefix + "/replies/1/upvote")
                         .with(this.authGenerator.authentication())
         )
                 .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
-                .andDo(print());*/
+                .andDo(print());
         this.mvc.perform(
                 delete(this.urlPrefix + "/replies/1/vote")
                         .with(this.authGenerator.authentication())
