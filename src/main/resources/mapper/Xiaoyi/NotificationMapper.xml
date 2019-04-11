@@ -24,7 +24,7 @@
         values (#{content},#{notifyTime},#{user.id},#{isRead})
     </insert>
 
-    <update id="update" parameterType="com.youthchina.domain.jinhao.Notification">
+    <update id="update" parameterType="com.youthchina.domain.Hongsheng.Notification">
         update SYS_NOTIFICATION set NOTIFY_CONTENT=#{content}, NOTIFY_TIME=now(), NOTIFY_READ=#{isRead}
         where NOTIFY_ID=#{id}
     </update>

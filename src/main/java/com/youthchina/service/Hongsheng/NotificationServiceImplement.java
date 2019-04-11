@@ -4,11 +4,13 @@ import com.youthchina.dao.Hongsheng.NotificationMapper;
 import com.youthchina.domain.Hongsheng.Notification;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.zhongyang.UserService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
 
+@Service("NotificationService")
 public class NotificationServiceImplement implements NotificationService{
     @Resource
     NotificationMapper notificationMapper;
