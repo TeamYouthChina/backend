@@ -134,7 +134,7 @@ public class BriefReviewController {
         return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
     }
 
-    @PutMapping("/{id}/cancel")
+    @DeleteMapping("/{id}/vote")
     public ResponseEntity cancelBriefReviewvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         BriefReview briefReview = new BriefReview();
         briefReview.setId(id);
