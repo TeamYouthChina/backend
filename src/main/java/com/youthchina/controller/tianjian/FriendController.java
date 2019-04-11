@@ -53,7 +53,7 @@ public class FriendController {
     }
 
     @GetMapping("/applications/{id}")
-    public ResponseEntity getFriendApplication(@PathVariable Integer id){
+    public ResponseEntity getApplication(@PathVariable Integer id){
         ComFriendApply comFriendApply = friendsService.getFriendApplication(id);
         FriendApplicationResponseDTO friendApplicationResponseDTO = new FriendApplicationResponseDTO(comFriendApply);
         return ResponseEntity.ok(new Response(friendApplicationResponseDTO,new StatusDTO(200,"success")));
@@ -91,10 +91,17 @@ public class FriendController {
     }
 
     @GetMapping("/applications")
-    public ResponseEntity getUserAllApplication(@PathVariable Integer id){
-        ComFriendApply comFriendApply = friendsService.getFriendApplication(id);
-        FriendApplicationResponseDTO friendApplicationResponseDTO = new FriendApplicationResponseDTO(comFriendApply);
+    public ResponseEntity getUserAllApplication(@AuthenticationPrincipal User user,PageRequest pageRequest){
+        List<ComFriendApply> comFriendApply = friendsService.getAllFriendApply(user.getId());
+        List<FriendApplicationResponseDTO> friendApplicationResponseDTOS = new ArrayList<>();
+        Iterator iterator = comFriendApply.iterator();
+        while(iterator.hasNext()){
+            ComFriendApply comFriendApply1 = (ComFriendApply) iterator.next();
+            FriendApplicationResponseDTO friendApplicationResponseDTO = new FriendApplicationResponseDTO(comFriendApply1);
+            friendApplicationResponseDTOS.add(friendApplicationResponseDTO);
+        }
+        ListResponse listResponse = new ListResponse(pageRequest, friendApplicationResponseDTOS.size(), friendApplicationResponseDTOS);
 
-        return ResponseEntity.ok(new Response(friendApplicationResponseDTO,new StatusDTO(200,"success")));
+        return ResponseEntity.ok(new Response(listResponse,new StatusDTO(200,"success")));
     }
 }

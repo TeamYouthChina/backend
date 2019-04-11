@@ -92,7 +92,8 @@ public class EssayControllerTest {
 
         //  requestEssayDTO.setCompany_id(1);
         requestEssayDTO.setIs_anonymous(false);
-
+        requestEssayDTO.setRela_id(1);
+        requestEssayDTO.setRela_type(1);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(requestEssayDTO);
@@ -118,6 +119,8 @@ public class EssayControllerTest {
         richTextDTO.setCompiletype(1);
 
         requestEssayDTO.setBody(richTextDTO);
+        requestEssayDTO.setRela_id(1);
+        requestEssayDTO.setRela_type(1);
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -225,4 +228,6 @@ public class EssayControllerTest {
              //   .andExpect(content().json("{\"content\":{\"content\":{\"offset\":0,\"limit\":2147483646,\"data\":[{\"id\":16,\"creator\":null,\"body\":\"好好好\",\"create_at\":\"2019-02-12T00:00:00.000+0000\",\"is_anonymous\":true,\"modified_at\":\"2019-02-12T00:00:00.000+0000\",\"upvoteCount\":2,\"downvoteCount\":1,\"evaluateStatus\":3}],\"page_count\":0,\"item_count\":1,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
 
     }
+
+
 }

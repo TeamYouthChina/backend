@@ -1,3 +1,195 @@
+DELETE http://47.252.87.218:8080/api/v1​/editorials​/attentions​/2
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+Content-Type: application/json
+
+{   "body": "",   "is_anonymous": false }
+
+<> 2019-04-11T063056.404.json
+
+###
+
+DELETE http://47.252.87.218:8080/api/v1​/editorials​/attentions​/1
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+Content-Type: application/json
+
+{   "body": "",   "is_anonymous": false }
+
+<> 2019-04-11T063047.404.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/articles/4/comments
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+Content-Type: application/json
+
+{   "body": "",   "is_anonymous": false }
+
+<> 2019-04-11T061312.200.json
+
+###
+
+POST http://47.252.87.218:8080/api/v1/articles/4/comments
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+Content-Type: application/json
+
+{   "body": "",   "is_anonymous": false }
+
+<> 2019-04-11T061155.200.json
+
+###
+
+POST http://47.252.87.218:8080/api/v1/articles/4/comment
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+Content-Type: application/json
+
+{   "body": "",   "is_anonymous": false }
+
+<> 2019-04-11T061148.404.json
+
+###
+
+POST http://47.252.87.218:8080/api/v1/articles/4/comment
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+Content-Type: application/json
+
+{   "body": {     "braftEditorRaw": "string",     "previewText": "string",     "compiletype": 0   },   "is_anonymous": false }
+
+<> 2019-04-11T061101.404.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/articles/4
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+Content-Type: application/json
+
+{   "id":1,   "password":"123456" }
+
+<> 2019-04-11T061010.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/articles/2
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+Content-Type: application/json
+
+{   "id":1,   "password":"123456" }
+
+<> 2019-04-11T061009.404.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/articles/3
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+Content-Type: application/json
+
+{   "id":1,   "password":"123456" }
+
+<> 2019-04-11T061007.404.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/articles​/3
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+Content-Type: application/json
+
+{   "id":1,   "password":"123456" }
+
+<> 2019-04-11T060956.404.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/articles​/3
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+Content-Type: application/json
+
+{   "id":1,   "password":"123456" }
+
+<> 2019-04-11T060948.404.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/articles​/3
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+
+{   "id":1,   "password":"123456" }
+
+<> 2019-04-11T060917.404.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/articles​/3
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+
+{   "id":1,   "password":"123456" }
+
+<> 2019-04-11T060803.404.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/articles​/3
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+
+{   "id":1,   "password":"123456" }
+
+###
+
+GET http://47.254.46.117:8080/api/v1/articles​/3
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+
+{   "id":1,   "password":"123456" }
+
+###
+
+GET http://47.252.87.218:8080/api/v1/articles​/3
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+
+{   "id":1,   "password":"123456" }
+
+<> 2019-04-11T060746.404.json
+
+###
+
+GET http://47.254.46.117:8080/api/v1/articles​/3
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+
+{   "id":1,   "password":"123456" }
+
+###
+
 GET http://47.252.87.218:8080/api/v1/recommend?type=article&limit=2
 Content-Type: application/json;utf-8
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTcwMzgzOX0.46dQnVtfwGGksDujdQa7Ti6DtPt6O0Rh068t_xf2nfvDir--Dcr8w__hQhTqJNVucPL4xQpykMEw7noIW2S1dg
@@ -299,152 +491,6 @@ X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NT
 { "id": 10, "password":"123456" }
 
 <> 2019-04-07T050752.200.json
-
-###
-
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json;utf-8
-
-{ "id": 10, "password":"123456" }
-
-<> 2019-04-07T050422.200.json
-
-###
-
-DELETE http://127.0.0.1:8080/api/v1/jobs/16
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDY2NjQ4M30.An-oTfnBpxROYTKs26jkaPxIOqPIcgVegY3HZdSDYTg3tr4s1JC6xDyDGy2iIBVeXtUMnAgwRMOk9Grr1QAUPA
-
-{ "id": 10, "password":"123456" }
-
-<> 2019-04-07T034659.200.json
-
-###
-
-POST http://127.0.0.1:8080/api/v1/jobs/16
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDY2NjQ4M30.An-oTfnBpxROYTKs26jkaPxIOqPIcgVegY3HZdSDYTg3tr4s1JC6xDyDGy2iIBVeXtUMnAgwRMOk9Grr1QAUPA
-
-{ "id": 10, "password":"123456" }
-
-<> 2019-04-07T034654.500.json
-
-###
-
-POST http://127.0.0.1:8080/api/v1/login
-Content-Type: application/json;utf-8
-
-{ "id": 10, "password":"123456" }
-
-<> 2019-04-07T034637.200.json
-
-###
-
-POST http://127.0.0.1:8080/api/v1/login
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDY2NjE1NH0.oDdhUBrAuo7MJhy-OYUGv9QrpYGJY77Wng-Qtbm5vRX1501Bkz0LfaJMwG7HpzdL9urxq4mnnj6A8nLSkIrAoA
-
-{ "id": 10, "password":"123456" }
-
-###
-
-DELETE http://127.0.0.1:8080/api/v1/jobs/14
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDY2NjE1NH0.oDdhUBrAuo7MJhy-OYUGv9QrpYGJY77Wng-Qtbm5vRX1501Bkz0LfaJMwG7HpzdL9urxq4mnnj6A8nLSkIrAoA
-
-{ "id": 10, "password":"123456" }
-
-###
-
-DELETE http://127.0.0.1:8080/api/v1/jobs/15
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDY2NjE1NH0.oDdhUBrAuo7MJhy-OYUGv9QrpYGJY77Wng-Qtbm5vRX1501Bkz0LfaJMwG7HpzdL9urxq4mnnj6A8nLSkIrAoA
-
-{ "id": 10, "password":"123456" }
-
-###
-
-DELETE http://127.0.0.1:8080/api/v1/jobs/15
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDY2NjE1NH0.oDdhUBrAuo7MJhy-OYUGv9QrpYGJY77Wng-Qtbm5vRX1501Bkz0LfaJMwG7HpzdL9urxq4mnnj6A8nLSkIrAoA
-
-{ "id": 10, "password":"123456" }
-
-###
-
-DELETE http://127.0.0.1:8080/api/v1/jobs/15
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDY2NjE1NH0.oDdhUBrAuo7MJhy-OYUGv9QrpYGJY77Wng-Qtbm5vRX1501Bkz0LfaJMwG7HpzdL9urxq4mnnj6A8nLSkIrAoA
-
-{ "id": 10, "password":"123456" }
-
-###
-
-DELETE http://127.0.0.1:8080/api/v1/companies/15
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDY2NjE1NH0.oDdhUBrAuo7MJhy-OYUGv9QrpYGJY77Wng-Qtbm5vRX1501Bkz0LfaJMwG7HpzdL9urxq4mnnj6A8nLSkIrAoA
-
-{ "id": 10, "password":"123456" }
-
-<> 2019-04-07T034133.200.json
-
-###
-
-POST http://127.0.0.1:8080/api/v1/companies/15
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDY2NjE1NH0.oDdhUBrAuo7MJhy-OYUGv9QrpYGJY77Wng-Qtbm5vRX1501Bkz0LfaJMwG7HpzdL9urxq4mnnj6A8nLSkIrAoA
-
-{ "id": 10, "password":"123456" }
-
-<> 2019-04-07T034125.500.json
-
-###
-
-POST http://127.0.0.1:8080/api/v1/login
-Content-Type: application/json;utf-8
-
-{ "id": 10, "password":"123456" }
-
-<> 2019-04-07T034107.200.json
-
-###
-
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json;utf-8
-
-{ "id": 10, "password":"123456" }
-
-###
-
-GET http://zzc-tongji.com/dfsf
-Content-Type: application/json;utf-8
-
-{ "id": 10, "password":"123456" }
-
-<> 2019-04-07T012637.200.html
-
-###
-
-GET http://zzc-tongji.com/
-Content-Type: application/json;utf-8
-
-{ "id": 10, "password":"123456" }
-
-<> 2019-04-07T012628.200.html
-
-###
-
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json;utf-8
-
-{ "id": 10, "password":"123456" }
-
-###
-
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json;utf-8
-
-{ "id": 10, "password":"123456" }
 
 ###
 
