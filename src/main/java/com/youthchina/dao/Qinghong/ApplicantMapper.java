@@ -4,6 +4,7 @@ import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Job;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -126,4 +127,8 @@ public interface ApplicantMapper {
     List<AdvantageLabel> getAdvantageLabels(Integer id);
 
 
+    Integer getCollectionByJobId(@Param("job_id") Integer job_id, @Param("user_id") Integer user_id);
+
+
+    Integer getCompanyByCompanyId(Integer company_id, Integer user_id);
 }
