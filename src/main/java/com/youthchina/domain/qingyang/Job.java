@@ -22,7 +22,7 @@ public class Job implements HasId<Integer> {
     private String jobDuty;
     private String jobHighlight;
 
-    private boolean isCollected;
+    private Boolean isCollected;
 
 /*
 create table JOB_INFO
