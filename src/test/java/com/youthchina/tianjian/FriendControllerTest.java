@@ -81,13 +81,13 @@ public class FriendControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"reference_id\":2,\"create_at\":\"2018-12-04 13:32:40.0\"},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"reference_id\":2,\"create_at\":\"2019-01-01 00:00:00.0\"},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
     @Test
     public void testaddApprovalApplication() throws Exception {
         this.mvc.perform(
-                put(this.urlPrefix + "/friends/application/2/approval").param("id", "2")
+                put(this.urlPrefix + "/friends/applications/2/approval").param("id", "2")
                         .with(authGenerator.authentication())
 
         )
@@ -98,7 +98,7 @@ public class FriendControllerTest {
     @Test
     public void testaddDenyApplication() throws Exception {
         this.mvc.perform(
-                put(this.urlPrefix + "/friends/application/2/deny").param("id", "2")
+                put(this.urlPrefix + "/friends/applications/2/deny").param("id", "2")
                         .with(authGenerator.authentication())
 
         )
