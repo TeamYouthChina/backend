@@ -3796,12 +3796,7 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: object
-                    properties:
-                      reference_id:
-                        type: integer
-                      create_at:
-                        type: string
+                    $ref: '#/components/schemas/FriendApplication'
                   status:
                     $ref: '#/components/schemas/Status'
   '/friends':
@@ -3809,6 +3804,12 @@ paths:
       tags:
         - Friends
       parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
         - name: offset
           in: query
           required: false
@@ -3863,6 +3864,12 @@ paths:
       tags:
         - Friends
       parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
         - name: offset
           in: query
           required: false
