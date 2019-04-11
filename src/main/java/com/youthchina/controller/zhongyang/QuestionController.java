@@ -177,7 +177,7 @@ public class QuestionController {
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 
-    @DeleteMapping("/attention/{id}")
+    @DeleteMapping("/attentions/{id}")
     public ResponseEntity<?> cancelFollowUp(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Question question = new Question();
         question.setId(id);
