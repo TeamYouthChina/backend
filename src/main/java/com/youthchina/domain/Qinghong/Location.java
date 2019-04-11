@@ -44,7 +44,10 @@ public class Location {
 //            throw new BaseException(4040, 404, "Location Format Error");
 //        }
         //todo string 转成Intger的异常判断
-        this.regionId = Integer.valueOf(locationDTO.getLocation_code());
+        if(locationDTO.getLocation_code()!=""){
+            this.regionId = Integer.valueOf(locationDTO.getLocation_code());
+        }
+
     }
 
     
