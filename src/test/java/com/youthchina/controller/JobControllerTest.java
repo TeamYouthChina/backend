@@ -3,6 +3,7 @@ package com.youthchina.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.dto.job.JobRequestDTO;
+import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -144,9 +145,13 @@ public class JobControllerTest {
         jobRequestDTO.setStartTime("14070908800");
         jobRequestDTO.setDeadLine("15070908800");
         jobRequestDTO.setJob_duty("FullStack");
-        List<Integer> locationIdList = new ArrayList<>();
-        locationIdList.add(994701);
-        jobRequestDTO.setLocation(locationIdList);
+//        List<Integer> locationIdList = new ArrayList<>();
+//        locationIdList.add(994701);
+        List<LocationDTO> locationDTOList = new ArrayList<>();
+        LocationDTO locationDTO = new LocationDTO();
+        locationDTO.setLocation_code("994701");
+        locationDTOList.add(locationDTO);
+        jobRequestDTO.setLocation(locationDTOList);
 
 
         ObjectMapper mapper = new ObjectMapper();
@@ -175,9 +180,13 @@ public class JobControllerTest {
         jobRequestDTO.setStartTime("4070908800");
         jobRequestDTO.setDeadLine("41070908800");
         jobRequestDTO.setJob_duty("FullStack");
-        List<Integer> locationIdList = new ArrayList<>();
-        locationIdList.add(994701);
-        jobRequestDTO.setLocation(locationIdList);
+//        List<Integer> locationIdList = new ArrayList<>();
+//        locationIdList.add(994701);
+        List<LocationDTO> locationDTOList = new ArrayList<>();
+        LocationDTO locationDTO = new LocationDTO();
+        locationDTO.setLocation_code("994701");
+        locationDTOList.add(locationDTO);
+        jobRequestDTO.setLocation(locationDTOList);
 
 
         ObjectMapper mapper = new ObjectMapper();
