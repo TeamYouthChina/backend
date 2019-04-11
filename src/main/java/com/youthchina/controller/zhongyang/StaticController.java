@@ -34,7 +34,7 @@ public class StaticController {
         } catch (IOException e) {
             throw new BaseException(5000, 500, "Cannot upload file because server end error");
         }
-        return ResponseEntity.ok(new Response(id));
+         return ResponseEntity.ok(new Response(id));
     }
 
     @GetMapping("/{id}")
