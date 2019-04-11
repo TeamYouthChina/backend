@@ -2,6 +2,7 @@ package com.youthchina.dto.job;
 
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.RequestDTO;
+import com.youthchina.dto.util.LocationDTO;
 
 import java.util.List;
 
@@ -26,7 +27,8 @@ public class JobRequestDTO implements RequestDTO<Job> {
     private Integer organization_id;
     private String type;
     private Integer userId;
-    private List<Integer> location;
+    private List<LocationDTO> location;
+//    private List<Integer> location;
     private String startTime;
     private String deadLine;
     private String job_description;
@@ -76,11 +78,20 @@ public class JobRequestDTO implements RequestDTO<Job> {
         this.organization_id = organization_id;
     }
 
-    public List<Integer> getLocation() {
+//    public List<Integer> getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(List<Integer> location) {
+//        this.location = location;
+//    }
+
+
+    public List<LocationDTO> getLocation() {
         return location;
     }
 
-    public void setLocation(List<Integer> location) {
+    public void setLocation(List<LocationDTO> location) {
         this.location = location;
     }
 
