@@ -63,4 +63,235 @@ public class StaticController {
         }
         return ResponseEntity.ok(new Response(entryResponseDTOS));
     }
+
+    @GetMapping("/dictionary")
+    public ResponseEntity<?> getDictionary(@RequestParam(value = "type") String type, @RequestParam(value = "length",required = false) String length) throws NotFoundException {
+        List<EntryResponseDTO> entryResponseDTOS = new ArrayList<>();
+        switch (type) {
+            case "major": {
+                if(length==null){
+                    throw new NotFoundException(404,404,"cannot find this length");
+                }
+                if (length .equals("full")) {
+                    List<Entry> entries = dictionaryService.getMajorByFull();
+                    for (Entry entry : entries) {
+                        EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                        entryResponseDTOS.add(entryResponseDTO);
+                    }
+                } else {
+                    List<Entry> entries = dictionaryService.getMajorByAbbre();
+                    for (Entry entry : entries) {
+                        EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                        entryResponseDTOS.add(entryResponseDTO);
+                    }
+                }
+                break;
+            }
+            case "degree": {
+                List<Entry> entries = dictionaryService.getDegree();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+            case "diploma": {
+                List<Entry> entries = dictionaryService.getDiploma();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+            }
+            case "advantageSkill": {
+                List<Entry> entries = dictionaryService.getAdvantageSkill();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+            }
+            case "industry": {
+                List<Entry> entries = dictionaryService.getIndustry();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+            }
+
+            case "job": {
+                List<Entry> entries = dictionaryService.getJob();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+
+            case "companyScale": {
+                List<Entry> entries = dictionaryService.getCompanyScale();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+
+            case "companyNature": {
+                List<Entry> entries = dictionaryService.getCompanyNature();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+            case "country": {
+                List<Entry> entries = dictionaryService.getCountry();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+
+            case "chinaRegion": {
+                if(length==null){
+                    throw new NotFoundException(404,404,"cannot find this length");
+                }
+                if (length .equals("full")) {
+                    List<Entry> entries = dictionaryService.getChinaRegionByFull();
+                    for (Entry entry : entries) {
+                        EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                        entryResponseDTOS.add(entryResponseDTO);
+                    }
+                } else {
+                    List<Entry> entries = dictionaryService.getChinaRegionByAbbre();
+                    for (Entry entry : entries) {
+                        EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                        entryResponseDTOS.add(entryResponseDTO);
+                    }
+                }
+                break;
+
+            }
+            case "USAState": {
+                if(length==null){
+                    throw new NotFoundException(404,404,"cannot find this length");
+                }
+                if (length.equals("full")) {
+                    List<Entry> entries = dictionaryService.getUSAStateByFull();
+                    for (Entry entry : entries) {
+                        EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                        entryResponseDTOS.add(entryResponseDTO);
+                    }
+                } else {
+                    List<Entry> entries = dictionaryService.getUSAStateByAbbre();
+                    for (Entry entry : entries) {
+                        EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                        entryResponseDTOS.add(entryResponseDTO);
+                    }
+                }
+                break;
+
+            }
+            case "USARegion": {
+                List<Entry> entries = dictionaryService.getUSARegion();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+
+            case "CHNUniversity": {
+                List<Entry> entries = dictionaryService.getCANUniversity();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+            case "USAUniversity": {
+                List<Entry> entries = dictionaryService.getUSAUniversity();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+
+            case "GBRUniversity": {
+                List<Entry> entries = dictionaryService.getGBRUniversity();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+            case "CANUniversity": {
+                List<Entry> entries = dictionaryService.getCANUniversity();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+            case "TimesRank": {
+                List<Entry> entries = dictionaryService.getTIMESRank();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+
+            case "USNEWSRank": {
+                List<Entry> entries = dictionaryService.getUSNEWSRank();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+
+            case "QSRank": {
+                List<Entry> entries = dictionaryService.getQSRank();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+
+            case "topCompany": {
+                List<Entry> entries = dictionaryService.getTopCompany();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+
+            }
+
+            default:
+                throw new NotFoundException(404, 404, "do not have this type");
+
+
+        }
+        return ResponseEntity.ok(new Response(entryResponseDTOS));
+    }
 }
