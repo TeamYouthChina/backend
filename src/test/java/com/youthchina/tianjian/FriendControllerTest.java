@@ -105,4 +105,5 @@ public class FriendControllerTest {
                 .andDo(print())
                 .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
+    
 }
