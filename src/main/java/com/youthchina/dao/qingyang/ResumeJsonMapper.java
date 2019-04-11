@@ -1,6 +1,6 @@
 package com.youthchina.dao.qingyang;
 
-import com.youthchina.domain.Qinghong.ResumeJson;
+import com.youthchina.domain.qingyang.ResumeJson;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

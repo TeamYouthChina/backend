@@ -1,23 +1,30 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.qingyang.ResumeJsonMapper">
 
+    <resultMap id="resume" type="com.youthchina.domain.qingyang.ResumeJson">
+        <id property="jobId" column="JOB_ID"/>
+        <result property="jobName" column="JOB_NAME"/>
+        <result property="jobProfCode" column="JOB_PROF_CODE"/>
+    </resultMap>
 
     <select id="selectResumeJson" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.Qinghong.ResumeJson">
-        SELECT *
+            resultMap="resume" >
+        SELECT
+            RESUME_ID AS
         FROM STU_RESUME_JSON
         WHERE RESUME_ID = #{resume_id} AND IS_DELETE=0
     </select>
 
     <select id="selectResumeJsonByStuId" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.Qinghong.ResumeJson">
+            resultMap="resume" >
         SELECT *
         FROM STU_RESUME_JSON
         WHERE STU_ID = #{stu_id} AND IS_DELETE=0
     </select>
 
-    <insert id="insertResumeJson" parameterType="com.youthchina.domain.Qinghong.ResumeJson" useGeneratedKeys="true"
+    <insert id="insertResumeJson" parameterType="com.youthchina.domain.qingyang.ResumeJson" useGeneratedKeys="true"
             keyProperty="resume_id">
         INSERT INTO STU_RESUME_JSON
         (JSON_COUNT,JSON_1,JSON_2,JSON_3,JSON_4,JSON_5,JSON_6,JSON_7,JSON_8,JSON_9,JSON_10,STU_ID,CREATE_TIME,IS_DELETE,IS_DELETE_TIME)

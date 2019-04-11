@@ -1,6 +1,5 @@
 package com.youthchina.dto.applicant;
 
-import com.youthchina.domain.Qinghong.ResumeJson;
 import com.youthchina.dto.RequestDTO;
 
 import java.util.ArrayList;
