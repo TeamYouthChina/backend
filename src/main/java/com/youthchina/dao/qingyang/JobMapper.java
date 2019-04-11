@@ -98,5 +98,7 @@ comment '职位基本信息表';
     Integer deleteJobByComId(Integer comId);
 
     Integer countJobByComId(Integer comId);
+
+    Integer isCollect(@Param("jobId") Integer jobId, @Param("stuId") Integer stuId);
 }
 

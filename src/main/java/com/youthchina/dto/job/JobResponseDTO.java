@@ -25,6 +25,7 @@ public class JobResponseDTO implements ResponseDTO<Job> {
     private String deadLine;
     private String job_duty;
     private String job_description;
+    private Boolean isCollected = false;
 
     /*{
   "content": {
@@ -154,6 +155,14 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.startTime = startTime;
     }
 
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
+    }
+
     @Override
     public void convertToDTO(Job job) {
         this.id = job.getJobId();
@@ -182,6 +191,9 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.deadLine = df.format(job.getJobEndTime());
         this.job_duty = job.getJobDuty();
         this.job_description = job.getJobDescription();
+        if(job.getCollected() != null){
+            this.isCollected = job.getCollected();
+        }
     }
 
     public List<JobResponseDTO> convertToDTO(List<Job> jobList){

@@ -97,8 +97,13 @@ public class JobController extends DomainCRUDController<Job, Integer> {
 
 
     @GetMapping("/{id}/**")
-    public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
-        Job job = this.jobService.get(jobId);
+    public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, @AuthenticationPrincipal User user) throws BaseException {
+        Job job = null;
+        if(user != null){
+            job = jobService.getJobWithCollected(jobId, user.getId());
+        } else {
+            job = jobService.get(jobId);
+        }
         if (detailLevel == 1 && job != null) {
             return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
         }
