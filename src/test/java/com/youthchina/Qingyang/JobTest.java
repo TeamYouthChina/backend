@@ -316,4 +316,17 @@ public class JobTest {
         Assert.assertEquals(0, jobList.size());
 
     }
+
+    @Test
+    public void isCollectTest(){
+        Integer res = jobMapper.isCollect(1 ,10);
+        Assert.assertEquals(Integer.valueOf(1), res);
+        res = jobMapper.isCollect(1,1);
+        Assert.assertEquals(null, res);
+        boolean isCollected = jobService.isCollected(1,10);
+        Assert.assertEquals(true, isCollected);
+        isCollected = jobService.isCollected(1,1);
+        Assert.assertEquals(false, isCollected);
+
+    }
 }

@@ -22,6 +22,8 @@ public class Job implements HasId<Integer> {
     private String jobDuty;
     private String jobHighlight;
 
+    private boolean isCollected;
+
 /*
 create table JOB_INFO
 (
@@ -126,6 +128,14 @@ comment '职位基本信息表';
 
     public void setAddTime(Timestamp addTime) {
         this.addTime = addTime;
+    }
+
+    public boolean isCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(boolean collected) {
+        isCollected = collected;
     }
 
     public Integer getId() {

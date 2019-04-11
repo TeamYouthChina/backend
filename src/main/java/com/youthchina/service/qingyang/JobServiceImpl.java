@@ -238,6 +238,11 @@ public class JobServiceImpl implements JobService {
         return jobList;
     }
 
+    public boolean isCollected(Integer jobId, Integer stuId){
+        Integer result = jobMapper.isCollect(jobId,stuId);
+        return  result != null;
+    }
+
 }
 
 
