@@ -157,8 +157,6 @@ public class JobControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String insertJson = ow.writeValueAsString(jobRequestDTO);
-        System.out.println(insertJson);
-
         this.mvc.perform(
                 post(this.urlPrefix + "/jobs")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -190,8 +188,6 @@ public class JobControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String insertJson = ow.writeValueAsString(jobRequestDTO);
-
-        System.out.println(insertJson);
         this.mvc.perform(
                 put(this.urlPrefix + "/jobs/" + id)
                         .with(authGenerator.authentication())

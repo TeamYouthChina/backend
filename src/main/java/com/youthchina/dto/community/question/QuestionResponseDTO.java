@@ -31,7 +31,10 @@ public class QuestionResponseDTO implements ResponseDTO<Question>, QuestionDTO {
 
     public QuestionResponseDTO(Question question) {
         this.id = question.getId();
-        this.creator = new UserDTO(question.getUser());
+        if(question.getIsAnony()==0)
+            this.creator = new UserDTO(question.getUser());
+        else
+            this.creator = null;
         this.title = question.getTitle();
         RichTextResponseDTO richt = new RichTextResponseDTO(question.getBody());
         this.body = richt;
