@@ -21,7 +21,7 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
     private String nation;
     private List<String> photoUrlList;
     private Integer jobCount;
-    private List<String> industryList;
+//    private List<String> industryList;
 
     public CompanyResponseDTO() {
 
@@ -40,13 +40,13 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.jobCount = jobCount;
     }
 
-    public List<String> getIndustryList() {
-        return industryList;
-    }
-
-    public void setIndustryList(List<String> industryList) {
-        this.industryList = industryList;
-    }
+//    public List<String> getIndustryList() {
+//        return industryList;
+//    }
+//
+//    public void setIndustryList(List<String> industryList) {
+//        this.industryList = industryList;
+//    }
 
     public Integer getId() {
         return id;
@@ -138,12 +138,12 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.website = company.getCompanyWebsite();
         this.note = company.getCompanyIntroduc();
         this.jobCount = company.getJobCount();
-        List<Industry> industryObjList = company.getIndList();
-        if(industryObjList != null && industryObjList.size() > 0){
-            this.industryList = new ArrayList<>();
-            for(Industry ind : industryObjList){
-                this.industryList.add(ind.getIndChn());
-            }
-        }
+//        List<Industry> industryObjList = company.getIndList();
+//        if(industryObjList != null && industryObjList.size() > 0){
+//            this.industryList = new ArrayList<>();
+//            for(Industry ind : industryObjList){
+//                this.industryList.add(ind.getIndChn());
+//            }
+//        }
     }
 }
