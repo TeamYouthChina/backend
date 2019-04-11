@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.tianjian.LogoUploadMapper">
+    <insert id="add" parameterType="com.youthchina.domain.qingyang.Logo" useGeneratedKeys="true" keyProperty="logoId">
+        insert into STU_RESUME (RESUME_NAME, DOCU_LOCAL_ID,GENERATE_METHOD,GENERATE_TIME,STU_ID,IS_DELETE)
+        value (#{resumeName},#{docu_local_id},#{generateMethod},now(),#{stuId},0)
+    </insert>
+    <update id="update" parameterType="com.youthchina.domain.qingyang.Logo">
+        update COMPANY_JOB_LOGO
+        set
+          DOCU_LOCAL_ID = #{docuLocalId}, RELA_TYPE = #{relaType},RELA_ID = #{relaId},
+          IS_DELETE = 0
+    where
+         LOGO_ID = #{logoId}
+    </update>
+
+    <select id="get" resultType="com.youthchina.domain.qingyang.Logo">
+        select * from COMPANY_JOB_LOGO
+        where LOGO_ID = #{logoId} and IS_DELETE = 0
+    </select>
+
+    <update id="delete">
+        update COMPANY_JOB_LOGO
+        set
+           IS_DELETE = 1,IS_DELETE_TIME = now()
+    where
+           LOGO_ID = #{logoId}
+    </update>
+</mapper>

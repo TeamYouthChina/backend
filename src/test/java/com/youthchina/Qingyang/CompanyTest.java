@@ -151,16 +151,16 @@ public class CompanyTest {
 
         List<Logo> logoList = new ArrayList<>();
         Logo logo = new Logo();
-        logo.setDocuLocalId("logodoc");
+        logo.setDocuLocalId("2856306669745344512");
         logoList.add(logo);
         company.setLogoList(logoList);
 
         companyMapper.insertCompanyLogo(company.getId(), company.getLogoList());
 
         List<CompanyPhoto> photoList = new ArrayList<>();
-        photoList.add(new CompanyPhoto("photo1"));
-        photoList.add(new CompanyPhoto("photo2"));
-        photoList.add(new CompanyPhoto("photo3"));
+        photoList.add(new CompanyPhoto("2856306669745344512"));
+        photoList.add(new CompanyPhoto("2858461057087705088"));
+        photoList.add(new CompanyPhoto("2858465896022675456"));
         company.setPhotoList(photoList);
 
         companyMapper.insertCompanyPhoto(company.getId(), company.getPhotoList());
@@ -260,18 +260,19 @@ public class CompanyTest {
 
     @Test
     public void testInsertCompanyPhotoMapper(){
-        CompanyPhoto photo = new CompanyPhoto("CompanyPhotoUpdate");
+        CompanyPhoto photo = new CompanyPhoto("2856306669745344512");
         List<CompanyPhoto> photoList = new ArrayList<>();
         photoList.add(photo);
         photoList.add(photo);
-        companyMapper.insertCompanyPhoto(1, photoList);
+        Integer id = 1;
+        companyMapper.insertCompanyPhoto(id, photoList);
     }
 
     @Test
     public void testUpdateCompanyPhotoMapper(){
         //TODO:
         Company company = companyMapper.selectCompany(2);
-        CompanyPhoto photo = new CompanyPhoto("CompanyPhotoUpdate");
+        CompanyPhoto photo = new CompanyPhoto("2856306669745344512");
         List<CompanyPhoto> photoList = new ArrayList<>();
         photoList.add(photo);
         photoList.add(photo);
@@ -281,7 +282,6 @@ public class CompanyTest {
         companyMapper.insertCompanyPhoto(company.getId(), company.getPhotoList());
         company = companyMapper.selectCompany(company.getCompanyId());
         Assert.assertEquals(2, company.getPhotoList().size());
-//        Assert.assertEquals("CompanyPhotoUpdate", photo.getDocuLocalId());
     }
 
     @Test
@@ -291,6 +291,11 @@ public class CompanyTest {
 
     }
 
+    @Test
+    public void testCountJobByCompanyId(){
+        int countJob = companyCURDService.countJobByComId(37);
+        Assert.assertEquals(18, countJob);
+    }
 
 
 

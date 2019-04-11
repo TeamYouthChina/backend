@@ -8,6 +8,7 @@ import com.youthchina.dto.applicant.OrganizationDTO;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ public class JobResponseDTO implements ResponseDTO<Job> {
     private OrganizationDTO organization;
     private String location;
     private String type;
+    private String startTime;
     private String deadLine;
     private String job_duty;
     private String job_description;
@@ -144,6 +146,14 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.job_description = job_description;
     }
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
     @Override
     public void convertToDTO(Job job) {
         this.id = job.getJobId();
@@ -168,8 +178,23 @@ public class JobResponseDTO implements ResponseDTO<Job> {
             this.type = "全职";
         }
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        this.startTime = df.format(job.getJobStartTime());
         this.deadLine = df.format(job.getJobEndTime());
         this.job_duty = job.getJobDuty();
         this.job_description = job.getJobDescription();
+    }
+
+    public List<JobResponseDTO> convertToDTO(List<Job> jobList){
+        if(jobList != null && jobList.size() > 0){
+            List<JobResponseDTO> jobResponseDTOList = new ArrayList<>();
+            for(Job job : jobList){
+                JobResponseDTO jobResponseDTO = new JobResponseDTO();
+                jobResponseDTO.convertToDTO(job);
+                jobResponseDTOList.add(jobResponseDTO);
+            }
+            return jobResponseDTOList;
+        } else {
+            return null;
+        }
     }
 }

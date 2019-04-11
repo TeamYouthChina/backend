@@ -52,6 +52,7 @@ public class Company implements HasId<Integer> {
     private List<Job> jobs; //TODO: Need Delete?
     private List<Logo> logoList;
     private List<CompanyPhoto> photoList;
+    private Integer jobCount;
 
 
     /*行业信息*/
@@ -96,12 +97,12 @@ public class Company implements HasId<Integer> {
             this.logoList.add(logo);
         }
 
-        List<String> photoUrlList = companyRequestDTO.getPhotoUrlList();
+        List<String> photoIdList = companyRequestDTO.getPhotoIdList();
 
-        if(photoUrlList != null && photoUrlList.size() > 0){
+        if(photoIdList != null && photoIdList.size() > 0){
             this.photoList = new ArrayList<>();
-            for(String photoUrl : photoUrlList){
-                this.photoList.add(new CompanyPhoto(photoUrl));
+            for(String photoId : photoIdList){
+                this.photoList.add(new CompanyPhoto(photoId));
             }
         }
 
@@ -291,6 +292,15 @@ public class Company implements HasId<Integer> {
 
     public void setPhotoList(List<CompanyPhoto> photoList) {
         this.photoList = photoList;
+    }
+
+
+    public Integer getJobCount() {
+        return jobCount;
+    }
+
+    public void setJobCount(Integer jobCount) {
+        this.jobCount = jobCount;
     }
 
     @Override
