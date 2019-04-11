@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.dto.community.discuss.DiscussDTO;
+import com.youthchina.dto.community.discuss.DiscussRequestDTO;
+import com.youthchina.dto.community.discuss.DiscussResponseDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -96,12 +97,12 @@ public class CommentControllerTest {
 
     @Test
     public void testAddDiscuss() throws Exception {
-        DiscussDTO discussDTO = new DiscussDTO();
-        discussDTO.setBody("This is a discuss test.");
-        discussDTO.setIs_anonymous(true);
+        DiscussRequestDTO discussRequestDTO = new DiscussRequestDTO();
+        discussRequestDTO.setBody("This is a discuss test.");
+        discussRequestDTO.setIs_anonymous(true);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String addJson = ow.writeValueAsString(discussDTO);
+        String addJson = ow.writeValueAsString(discussRequestDTO);
         this.mvc.perform(
                 post(this.urlPrefix + "/comments/2/replies")
                         .with(authGenerator.authentication())

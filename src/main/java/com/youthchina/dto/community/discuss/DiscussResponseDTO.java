@@ -1,11 +1,12 @@
 package com.youthchina.dto.community.discuss;
 
 import com.youthchina.domain.jinhao.Discuss;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 
 import java.sql.Timestamp;
 
-public class DiscussDTO {
+public class DiscussResponseDTO implements ResponseDTO<Discuss> {
     private Integer id;
     private Integer commentId;
     private UserDTO creator;
@@ -17,11 +18,11 @@ public class DiscussDTO {
     private Integer downvoteCount;
     private Integer evaluateStatus;
 
-    public DiscussDTO (){
+    public DiscussResponseDTO(){
 
     }
 
-    public DiscussDTO(Discuss discuss) {
+    public DiscussResponseDTO(Discuss discuss) {
         this.id = discuss.getId();
         this.commentId = discuss.getCommentId();
         this.creator = new UserDTO(discuss.getUser());
@@ -109,5 +110,16 @@ public class DiscussDTO {
 
     public void setModified_at(Timestamp modified_at) {
         this.modified_at = modified_at;
+    }
+
+    @Override
+    public void convertToDTO(Discuss discuss) {
+        this.id = discuss.getId();
+        this.commentId = discuss.getCommentId();
+        this.creator = new UserDTO(discuss.getUser());
+        this.body = discuss.getContent();
+        this.create_at = discuss.getPubTime();
+        this.is_anonymous = (discuss.getIsAnony()==1)? true:false;
+        this.modified_at = discuss.getEditTime();
     }
 }

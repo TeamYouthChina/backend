@@ -2,7 +2,7 @@ package com.youthchina.domain.Qinghong;
 
 import java.sql.Timestamp;
 
-public class Notification {
+public class Noti {
     private Integer notify_id;
     private String notify_content;
     private Timestamp notify_time;
