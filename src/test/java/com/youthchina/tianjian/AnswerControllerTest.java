@@ -6,6 +6,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextRequestDTO;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;

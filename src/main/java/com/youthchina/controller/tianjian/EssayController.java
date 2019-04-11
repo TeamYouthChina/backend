@@ -170,21 +170,21 @@ public class EssayController {
 
     @PutMapping("/{id}/upvote")
     public ResponseEntity<?> upvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = essayServiceimpl.get(id);
+        ComEssay comEssay = essayServiceimpl.getEssay(id);
         evaluateService.upvote(comEssay, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
     @PutMapping("/{id}/downvote")
     public ResponseEntity<?> downvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = essayServiceimpl.get(id);
+        ComEssay comEssay = essayServiceimpl.getEssay(id);
         evaluateService.downvote(comEssay, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
     @PutMapping("/{id}/cancel")
     public ResponseEntity<?> cancelVote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = essayServiceimpl.get(id);
+        ComEssay comEssay = essayServiceimpl.getEssay(id);
         evaluateService.cancel(comEssay, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }

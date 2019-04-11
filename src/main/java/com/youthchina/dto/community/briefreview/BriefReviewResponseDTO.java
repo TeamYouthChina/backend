@@ -9,13 +9,15 @@ import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextResponseDTO;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 
 public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
     private Integer id;
     private RichTextResponseDTO body;
-    private CommentResponseDTO comments = new CommentResponseDTO();
+    private List<CommentDTO> comments = new ArrayList<>();
     private UserDTO author;
     private Integer upvoteCount;
     private Integer downvoteCount;
@@ -34,7 +36,7 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
             while (it.hasNext()) {
                 Comment comment = (Comment) it.next();
                 CommentDTO commentDTO = new CommentDTO(comment);
-                comments.getComments().add(commentDTO);
+                comments.add(commentDTO);
             }
         }
         this.author = new UserDTO(briefReview.getUser());
@@ -60,12 +62,20 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
         this.body = body;
     }
 
-    public CommentResponseDTO getComments() {
+    public List<CommentDTO> getComments() {
         return comments;
     }
 
-    public void setComments(CommentResponseDTO comments) {
+    public void setComments(List<CommentDTO> comments) {
         this.comments = comments;
+    }
+
+    public Timestamp getModified_at() {
+        return modified_at;
+    }
+
+    public void setModified_at(Timestamp modified_at) {
+        this.modified_at = modified_at;
     }
 
     public UserDTO getAuthor() {
@@ -126,7 +136,7 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
             while (it.hasNext()) {
                 Comment comment = (Comment) it.next();
                 CommentDTO commentDTO = new CommentDTO(comment);
-                comments.getComments().add(commentDTO);
+                comments.add(commentDTO);
             }
         }
 
