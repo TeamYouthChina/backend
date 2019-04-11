@@ -1,7 +1,10 @@
 package com.youthchina.service.tianjian;
 
+import com.youthchina.domain.tianjian.ComFriendApply;
 import com.youthchina.domain.tianjian.ComFriendGroup;
 import com.youthchina.domain.tianjian.ComFriendRelation;
+import com.youthchina.exception.zhongyang.ConflictException;
+import com.youthchina.exception.zhongyang.NotFoundException;
 
 import java.util.List;
 
@@ -18,7 +21,7 @@ public interface FriendsService {
      * parameter ComFriendRelation comfriendrelation, Integer own_id
      * return 0 or 1;
      * */
-    public int deleteFriend(ComFriendRelation comFriendRelation);
+    public void deleteFriend(ComFriendRelation comFriendRelation) throws NotFoundException;
 
     /*
      * 通过id获取他的所有好友关系
@@ -47,6 +50,29 @@ public interface FriendsService {
      * return List<ComFriendGroup>;
      * */
     public List<ComFriendGroup> getFriendGroup(Integer own_Id);
-
-
+    /*
+     * 添加好友申请
+     * parameter Integer own_id
+     * */
+     public ComFriendApply addFriendApply(ComFriendApply comFriendApply) throws ConflictException;
+    /*
+     * 获取所有的好友申请
+     * parameter Integer own_id
+     * */
+    public List<ComFriendApply> getAllFriendApply(Integer userId);
+    /*
+     * 获取好友申请
+     * parameter Integer userId, Integer friendId
+     * */
+    public ComFriendApply getFriendApply(Integer userId, Integer friendId);
+    /*
+     * 获取好友申请
+     * parameter Integer applicationId
+     * */
+    public ComFriendApply  getFriendApplication(Integer applicationId);
+    /*
+     * 更改申请状态
+     * parameter Integer applicationId
+     * */
+    public void changeApplicationStatus(ComFriendApply comFriendApply);
 }

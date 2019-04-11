@@ -41,4 +41,8 @@
     <select id="count" resultType="java.lang.Integer">
         select count(REVIEW_ID) from COM_BRIEF_REVIEW WHERE IS_DELETE = 0
     </select>
+
+    <select id="getMyBriefReview" parameterType="java.lang.Integer" resultMap="briefReview">
+        select * from COM_BRIEF_REVIEW where USER_ID = #{id} and IS_DELETE = 0
+    </select>
 </mapper>

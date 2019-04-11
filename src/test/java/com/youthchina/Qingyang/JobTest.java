@@ -10,6 +10,7 @@ import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.qingyang.JobService;
+import com.youthchina.service.qingyang.JobServiceImpl;
 import com.youthchina.service.qingyang.LocationServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
@@ -42,7 +43,7 @@ public class JobTest {
     private LocationServiceImpl locationServiceImpl;
 
     @Autowired
-    private JobService jobService;
+    private JobServiceImpl jobService;
 
     @Test
     public void testGetJob() { // Base Get
@@ -303,6 +304,16 @@ public class JobTest {
                 null, null, null, null, 6500, null,
                 null, null, null);
         Assert.assertEquals(11, jobs.size());
+
+    }
+
+    @Test
+    public void testGetJobByUserId(){
+        List<Job> jobList = jobService.getJobByUserId(1);
+        Assert.assertEquals(18, jobList.size());
+
+        jobList = jobService.getJobByUserId(2);
+        Assert.assertEquals(0, jobList.size());
 
     }
 }

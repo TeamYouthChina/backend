@@ -44,4 +44,8 @@
     <select id="count" resultType="java.lang.Integer">
         select count(VIDEO_ID) from COM_VIDEO where IS_DELETE=0
     </select>
+
+    <select id="getMyVideo" parameterType="java.lang.Integer" resultMap="video">
+        select * from COM_VIDEO where USER_ID = #{id} and IS_DELETE = 0
+    </select>
 </mapper>
