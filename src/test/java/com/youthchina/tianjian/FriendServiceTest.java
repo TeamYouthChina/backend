@@ -71,7 +71,7 @@ public class FriendServiceTest {
     public void testdeleteFriend() throws NotFoundException {
         ComFriendRelation comFriendRelation = new ComFriendRelation();
         comFriendRelation.setUserId(2);
-        comFriendRelation.setFriendId(3);
+        comFriendRelation.setFriendId(4);
         friendsService.deleteFriend(comFriendRelation);
     }
 
