@@ -314,8 +314,8 @@ public class StudentProfileController {
     @Test
     public void testInsertWorks() throws Exception{
         LocationDTO locationDTO=new LocationDTO();
-        locationDTO.setNation_code("1");
-        locationDTO.setLocation_code("1");
+        locationDTO.setNation_code("440000");
+        locationDTO.setLocation_code("440000");
         WorkRequestDTO workDTO=new WorkRequestDTO();
         workDTO.setEmployer("google");
         workDTO.setPosition("backend");

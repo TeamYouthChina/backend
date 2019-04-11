@@ -28,7 +28,7 @@ public class WorkResponseDTO implements ResponseDTO<Work> {
             this.position = work.getWork_position();
             this.duration = new DurationDTO(work.getWork_start_time(), work.getWork_end_time());
             if(work.getLocation()!=null){
-                this.location = work.getLocation().getRegionName();
+                this.location = work.getLocation().getRegionId() + "";
             }
 
         }
