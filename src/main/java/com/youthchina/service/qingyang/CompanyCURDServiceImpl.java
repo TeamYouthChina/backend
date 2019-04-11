@@ -51,6 +51,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         setCompanyLocation(company);
         setCompanyLogo(company);
         setCompanyPhoto(company);
+        company.setJobCount(countJobByComId(id));
         return company;
     }
 
@@ -218,6 +219,12 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
             setCompanyLocation(company);
         }
         return companyList;
+    }
+
+    @Transactional
+    public Integer countJobByComId(Integer companyId){
+        Integer jobCount = jobMapper.countJobByComId(companyId);
+        return jobCount;
     }
 
 }

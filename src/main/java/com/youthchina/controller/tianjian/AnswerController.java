@@ -3,6 +3,7 @@ package com.youthchina.controller.tianjian;
 import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Comment;
+import com.youthchina.domain.tianjian.ComEssayAttention;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
@@ -108,6 +109,29 @@ public class AnswerController {
         Answer answer =answerService.get(id);
         evaluateService.downvote(answer, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
+    }
+
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<?> cancelVote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Answer answer =answerService.get(id);
+        evaluateService.cancel(answer, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
+    }
+
+    @PutMapping("/{id}/attention")
+    public ResponseEntity updateAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Answer answer = new Answer();
+        answer.setId(id);
+        attentionService.attention(answer,user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
+    }
+
+    @DeleteMapping("/attentions/{id}")
+    public ResponseEntity deleteAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Answer answer = new Answer();
+        answer.setId(id);
+        attentionService.cancel(answer,user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
 }

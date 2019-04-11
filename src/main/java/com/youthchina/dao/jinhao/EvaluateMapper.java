@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Mapper
 public interface EvaluateMapper {
@@ -16,4 +18,6 @@ public interface EvaluateMapper {
     void cancel(Integer id);
     Integer countUpvote(@Param("type") Integer type, @Param("targetId") Integer targetId);
     Integer countDownvote(@Param("type") Integer type, @Param("targetId") Integer targetId);
+    List<Integer> getMyUpvote(@Param("type") Integer type, @Param("userId") Integer id);
+    List<Integer> getMyDownVote(@Param("type") Integer type, @Param("userId") Integer id);
 }

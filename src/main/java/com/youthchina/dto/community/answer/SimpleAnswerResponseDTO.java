@@ -27,7 +27,10 @@ public class SimpleAnswerResponseDTO implements ResponseDTO<Answer> {
         this.body = richt;
         this.id = answer.getId();
         this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
-        this.creator = new UserDTO(answer.getUser());
+        if (answer.getIsAnony()==0)
+            this.creator = new UserDTO(answer.getUser());
+        else
+            this.creator = null;
         this.modified_at = answer.getEditTime().toString();
         this.create_at = answer.getPubTime().toString();
         this.question = new QuestionBasicDTO(answer.getQuestion());

@@ -43,5 +43,7 @@
         select q.* from COM_QUESTION q
         where q.IS_DELETE=0 and q.RELA_ID=#{relaId} and q.RELA_TYPE = #{relaType}
     </select>
-
+    <select id="getMyQuestion" parameterType="java.lang.Integer" resultMap="question">
+        select * from COM_QUESTION where USER_ID = #{id} and IS_DELETE = 0
+    </select>
 </mapper>

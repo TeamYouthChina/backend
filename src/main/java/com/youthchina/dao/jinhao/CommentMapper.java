@@ -19,4 +19,5 @@ public interface CommentMapper {
     void deleteComments(@Param("type") Integer type, @Param("id") Integer id);
     Integer checkIfCommentExist(Integer id);
     Integer count(@Param("targetType") Integer targetType, @Param("targetId") Integer targetId);
+    List<Comment> getMyComment(Integer id);
 }
