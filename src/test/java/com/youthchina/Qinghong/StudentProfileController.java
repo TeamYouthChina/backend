@@ -675,9 +675,9 @@ public class StudentProfileController {
     public void testUserAttentions() throws Exception{
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/2/attentions?type=company")
+                        (this.urlPrefix + "/users/10/attentions?type=job&limit=2&offset=0")
 
-                        .with(authGenerator.authentication(Role.APPLICANT, 2))
+                        .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
         ;
@@ -694,8 +694,8 @@ public class StudentProfileController {
     @Test
     public void testAddJobCollect() throws Exception{
         this.mvc.perform
-                (put(this.urlPrefix + "/jobs/3/attention")
-                        .with(authGenerator.authentication(Role.APPLICANT, 10)))
+                (put(this.urlPrefix + "/jobs/4/attention")
+                        .with(authGenerator.authentication(Role.APPLICANT, 1)))
                 .andDo(print());
     }
     /** 

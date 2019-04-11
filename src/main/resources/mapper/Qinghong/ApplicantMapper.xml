@@ -334,7 +334,7 @@
     <select id="getUserInfo" resultType="com.youthchina.domain.Qinghong.UserInfo">
         select *
         from SYS_USER
-        where USER_ID=#{user_id}
+        where USER_ID=#{user_id} AND IS_DELETE=0
     </select>
 
     <!--通过user_id获取stu_id-->

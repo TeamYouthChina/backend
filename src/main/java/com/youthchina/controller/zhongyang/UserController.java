@@ -3,28 +3,30 @@ package com.youthchina.controller.zhongyang;
 import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.Qinghong.JobCollect;
 import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.jinhao.Video;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
+import com.youthchina.dto.applicant.CertificateResponseDTO;
 import com.youthchina.dto.applicant.CompCollectResponseDTO;
 import com.youthchina.dto.applicant.JobCollectResponseDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
+import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.community.video.VideoResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.job.JobResponseDTO;
+import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.Qinghong.StudentService;
-import com.youthchina.service.jinhao.AnswerServiceImpl;
-import com.youthchina.service.jinhao.AttentionServiceImpl;
-import com.youthchina.service.jinhao.QuestionServiceImpl;
-import com.youthchina.service.jinhao.VideoServiceImpl;
+import com.youthchina.service.jinhao.*;
 import com.youthchina.service.qingyang.JobServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
 import com.youthchina.service.zhongyang.UserService;
@@ -65,6 +67,8 @@ public class UserController extends DomainCRUDController<User, Integer> {
     private AnswerServiceImpl answerService;
     @Autowired
     private JobServiceImpl jobService;
+    @Autowired
+    private BriefReviewService briefReviewService;
 
     @Autowired
     public UserController(UserService userService, @Value("${web.url.prefix}") String prefix) {
@@ -90,7 +94,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
     */
 
     @GetMapping("/{id}/attentions")
-    public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id, @RequestParam(value = "type") String type,@AuthenticationPrincipal User user) throws NotFoundException,ForbiddenException {
+    public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id, @RequestParam(value = "type") String type, @AuthenticationPrincipal User user, PageRequest pageRequest) throws NotFoundException,ForbiddenException {
         if(user.getId()!=user_id){
             throw new ForbiddenException();
         }
@@ -105,7 +109,9 @@ public class UserController extends DomainCRUDController<User, Integer> {
                 }
 
                 }
-                return ResponseEntity.ok(new Response(jobCollectResponseDTOS));
+                List<JobCollectResponseDTO> result=jobCollectResponseDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,jobCollectResponseDTOS.size()));
+                ListResponse listResponse = new ListResponse(pageRequest, jobCollects.size(), result);
+                return ResponseEntity.ok(listResponse);
 
             }
 
@@ -119,7 +125,9 @@ public class UserController extends DomainCRUDController<User, Integer> {
                 }
 
                 }
-                return ResponseEntity.ok(new Response(compCollectResponseDTOS));
+                List<CompCollectResponseDTO> result=compCollectResponseDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,compCollectResponseDTOS.size()));
+                ListResponse listResponse = new ListResponse(pageRequest, compCollects.size(), result);
+                return ResponseEntity.ok(listResponse);
 
             }
             case "article": {
@@ -135,21 +143,25 @@ public class UserController extends DomainCRUDController<User, Integer> {
 
 
                 }
-                return ResponseEntity.ok((new Response(essayResponseDTOS)));
+                List<EssayResponseDTO> results=essayResponseDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,result.size()));
+                ListResponse listResponse = new ListResponse(pageRequest, result.size(), results);
+                return ResponseEntity.ok(listResponse);
 
             }
-            case "video": {
-                List<VideoResponseDTO> videoResponseDTOS = new ArrayList<>();
-                List<Integer> result = attentionService.getAllIdsOfAttention(new Video(),user_id);
+            case "briefReview": {
+                List<BriefReviewResponseDTO> briefReviewResponseDTOS = new ArrayList<>();
+                List<Integer> result = attentionService.getAllIdsOfAttention(new BriefReview(),user_id);
                 if(result!=null){
                     for (Integer id : result) {
-                        Video video = videoService.get(id);
-                        VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
-                        videoResponseDTOS.add(videoResponseDTO);
+                        BriefReview briefReview = briefReviewService.get(id);
+                        BriefReviewResponseDTO briefReviewResponseDTO=new BriefReviewResponseDTO(briefReview);
+                        briefReviewResponseDTOS.add(briefReviewResponseDTO);
                 }
 
                 }
-                return ResponseEntity.ok(new Response(videoResponseDTOS));
+                List<BriefReviewResponseDTO> results=briefReviewResponseDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,result.size()));
+                ListResponse listResponse = new ListResponse(pageRequest, result.size(), results);
+                return ResponseEntity.ok(listResponse);
 
             }
             case "question": {
@@ -163,12 +175,13 @@ public class UserController extends DomainCRUDController<User, Integer> {
                 }
 
                 }
-                return ResponseEntity.ok(new Response(questionResponseDTOS));
+                List<QuestionResponseDTO> results=questionResponseDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,result.size()));
+                ListResponse listResponse = new ListResponse(pageRequest, result.size(), results);
+                return ResponseEntity.ok(listResponse);
             }
             case "answer":{
                 List<SimpleAnswerResponseDTO> answerResponseDTOS=new ArrayList<>();
-                List<Integer> result=new ArrayList<>();
-                result=attentionService.getAllIdsOfAttention(new Answer(),user_id);
+                List<Integer> result=attentionService.getAllIdsOfAttention(new Answer(),user_id);
                 if(result!=null){
                     for(Integer id:result){
                         Answer answer=answerService.get(id);
@@ -176,8 +189,10 @@ public class UserController extends DomainCRUDController<User, Integer> {
                         answerResponseDTOS.add(answerResponseDTO);
                     }
                 }
+                List<SimpleAnswerResponseDTO> results=answerResponseDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,result.size()));
+                ListResponse listResponse = new ListResponse(pageRequest, result.size(), results);
+                return ResponseEntity.ok(listResponse);
 
-                return ResponseEntity.ok(new Response(answerResponseDTOS));
             }
             default:
                 throw new NotFoundException(404, 404, "do not have this type");
