@@ -181,5 +181,10 @@ public class DictionaryTest {
         List<Entry> entries=dictionaryMapper.getUniversity();
         System.out.print(entries);
     }
+    @Test
+    public void getAllLocation(){
+        List<Entry> entries=dictionaryMapper.getAllLocation();
+        System.out.print(entries);
+    }
 
 }

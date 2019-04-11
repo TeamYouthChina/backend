@@ -34,5 +34,6 @@ public interface DictionaryMapper {
     List<Entry> getQSRank();
     List<Entry> getTopCompany();
     List<Entry> getUniversity();
+    List<Entry> getAllLocation();
 
 }

@@ -144,4 +144,9 @@ public class DictionaryServiceImpl implements DictionaryService {
     public List<Entry> getUniversity() {
         return dictionaryMapper.getUniversity();
     }
+
+    @Override
+    public List<Entry> getAllLocation() {
+        return dictionaryMapper.getAllLocation();
+    }
 }
