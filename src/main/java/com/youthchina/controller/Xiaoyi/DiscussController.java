@@ -29,7 +29,7 @@ public class DiscussController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteComment(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity deleteDiscuss(@PathVariable Integer id) throws NotFoundException {
         discussService.delete(id);
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
