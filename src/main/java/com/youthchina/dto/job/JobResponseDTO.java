@@ -8,6 +8,7 @@ import com.youthchina.dto.applicant.OrganizationDTO;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -181,5 +182,19 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.deadLine = df.format(job.getJobEndTime());
         this.job_duty = job.getJobDuty();
         this.job_description = job.getJobDescription();
+    }
+
+    public List<JobResponseDTO> convertToDTO(List<Job> jobList){
+        if(jobList != null && jobList.size() > 0){
+            List<JobResponseDTO> jobResponseDTOList = new ArrayList<>();
+            for(Job job : jobList){
+                JobResponseDTO jobResponseDTO = new JobResponseDTO();
+                jobResponseDTO.convertToDTO(job);
+                jobResponseDTOList.add(jobResponseDTO);
+            }
+            return jobResponseDTOList;
+        } else {
+            return null;
+        }
     }
 }

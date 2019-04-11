@@ -17,4 +17,5 @@ public interface QuestionMapper {
     Integer checkIfQuestionExist(Integer id);
     Integer count();
     List<Question> getListQuestions(@Param("relaType") Integer relaType, @Param("relaId") Integer relaId);
+    List<Question> getMyQuestion(Integer id);
 }

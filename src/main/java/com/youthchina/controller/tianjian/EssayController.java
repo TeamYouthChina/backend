@@ -109,11 +109,6 @@ public class EssayController {
         ComEssay comEssay = new ComEssay();
         comEssay.setId(id);
         attentionService.attention(comEssay,user.getId());
-        ComEssayAttention comEssayAttention = new ComEssayAttention();
-        comEssayAttention.setAtten_cancel(0);
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-        comEssayAttention.setAtten_time(time);
-        comEssayAttention.setUser_id(user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
     }
 
@@ -172,5 +167,26 @@ public class EssayController {
         }
         ListResponse listResponse = new ListResponse(pageRequest, commentDTOS.size(), commentDTOS);
         return ResponseEntity.ok(new Response(listResponse, new StatusDTO(200, "success")));
+    }
+
+    @PutMapping("/{id}/upvote")
+    public ResponseEntity<?> upvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        ComEssay comEssay = essayServiceimpl.get(id);
+        evaluateService.upvote(comEssay, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
+    }
+
+    @PutMapping("/{id}/downvote")
+    public ResponseEntity<?> downvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        ComEssay comEssay = essayServiceimpl.get(id);
+        evaluateService.downvote(comEssay, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
+    }
+
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<?> cancelVote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        ComEssay comEssay = essayServiceimpl.get(id);
+        evaluateService.cancel(comEssay, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 }

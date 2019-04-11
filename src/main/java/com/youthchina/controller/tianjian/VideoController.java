@@ -87,6 +87,8 @@ public class VideoController {
         video.setTitle(id.toString());
         video.setUser(user);
         video.setRelaType(1);
+        video.setDescription("1111");
+        video.setViewCount(12);
         video = videoService.add(video);
         VideoResponseDTO videoResponseDTO = new VideoResponseDTO(video);
         videoResponseDTO.setUrl(fileService.getFileUrl(id.toString()).toString());

@@ -46,4 +46,8 @@
     <select id="count" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select count(DISCUSS_ID) from COM_DISCUSS where COMMENT_ID=#{id} and IS_DELETE=0
     </select>
+
+    <select id="getMyDiscuss" parameterType="java.lang.Integer" resultMap="discuss">
+        select * from COM_DISCUSS where USER_ID = #{id} and IS_DELETE = 0
+    </select>
 </mapper>

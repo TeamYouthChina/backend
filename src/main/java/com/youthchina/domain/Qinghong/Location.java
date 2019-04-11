@@ -1,6 +1,7 @@
 package com.youthchina.domain.Qinghong;
 
 import com.youthchina.dto.util.LocationDTO;
+import com.youthchina.exception.zhongyang.BaseException;
 
 /**
  * @program: V-0.1
@@ -35,6 +36,13 @@ public class Location {
 
     public Location(LocationDTO locationDTO) {
         this.country = locationDTO.getNation_code();
+        String locationCode = locationDTO.getLocation_code().trim();
+        if(locationCode.length() == 5){ // Convert to USA
+            locationCode = 9 + locationCode;
+        }
+//        else if(locationCode.length() != 6){
+//            throw new BaseException(4040, 404, "Location Format Error");
+//        }
         //todo string 转成Intger的异常判断
         if(locationDTO.getLocation_code()!=""){
             this.regionId = Integer.valueOf(locationDTO.getLocation_code());

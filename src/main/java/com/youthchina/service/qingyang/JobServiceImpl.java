@@ -233,6 +233,11 @@ public class JobServiceImpl implements JobService {
         return results;
     }
 
+    public List<Job> getJobByUserId(Integer userId){
+        List<Job> jobList = jobMapper.getJobByUserId(userId);
+        return jobList;
+    }
+
 }
 
 
