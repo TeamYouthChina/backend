@@ -110,16 +110,20 @@ public class JobServiceImpl implements JobService {
     /**
      * 多职位详情
      *
-     * @param id list of id
+     * @param idList list of id
      * @return
      * @throws NotFoundException
      */
     @Override
     @Transactional
-    public List<Job> get(List<Integer> id) throws NotFoundException {
+    public List<Job> get(List<Integer> idList) throws NotFoundException {
         List<Job> jobList = new ArrayList<Job>();
-        for (Integer i: id) {
-            jobList.add(this.get(i));
+        for (Integer i: idList) {
+            try {
+                jobList.add(this.get(i));
+            } catch (NotFoundException ignored) {
+
+            }
         }
         return jobList;
     }
@@ -241,6 +245,25 @@ public class JobServiceImpl implements JobService {
     public Boolean isCollected(Integer jobId, Integer stuId){
         Integer result = jobMapper.isCollect(jobId,stuId);
         return  result != null;
+    }
+
+    @Override
+    public Job getJobWithCollected(Integer jobId, Integer userId) throws NotFoundException {
+       Job job = this.get(jobId);
+       job.setCollected(isCollected(jobId, userId));
+       return job;
+    }
+
+    public List<Job> getJobListWithCollected(List<Integer> idList, Integer userId) throws NotFoundException {
+        List<Job> jobList = new ArrayList<Job>();
+        for (Integer jobId: idList) {
+            try {
+                jobList.add(this.getJobWithCollected(jobId, userId));
+            } catch (NotFoundException ignored) {
+
+            }
+        }
+        return jobList;
     }
 
 }

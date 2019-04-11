@@ -21,7 +21,6 @@ public class Job implements HasId<Integer> {
     private String jobDescription;
     private String jobDuty;
     private String jobHighlight;
-
     private Boolean isCollected;
 
 /*
@@ -51,7 +50,6 @@ create table JOB_INFO
 
 )
 comment '职位基本信息表';
-
 
 */
 
@@ -128,14 +126,6 @@ comment '职位基本信息表';
 
     public void setAddTime(Timestamp addTime) {
         this.addTime = addTime;
-    }
-
-    public boolean isCollected() {
-        return isCollected;
-    }
-
-    public void setCollected(boolean collected) {
-        isCollected = collected;
     }
 
     public Integer getId() {
@@ -332,5 +322,13 @@ comment '职位基本信息表';
 
     public void setLogoList(List<Logo> logoList) {
         this.logoList = logoList;
+    }
+
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
     }
 }
