@@ -105,4 +105,33 @@ public class CommentControllerTest {
                 .andDo(print());
 
     }
+
+    @Test
+    public void testGetComment() throws Exception {
+        this.mvc.perform(
+                get(this.urlPrefix + "/comments/2")
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"id\":2,\"creator\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"phonenumber\":\"2022922222\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0},\"body\":\"短评评论2\",\"create_at\":\"2014-05-08T00:00:00.000+0000\",\"is_anonymous\":true,\"modified_at\":\"2014-05-08T00:00:00.000+0000\",\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+
+    }
+
+    @Test
+    public void testDeletevote() throws Exception {
+        this.mvc.perform(
+                put(this.urlPrefix + "/comments/1/downvote")
+                        .with(this.authGenerator.authentication())
+        )
+                .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andDo(print());
+
+        this.mvc.perform(
+                delete(this.urlPrefix + "/comments/1/vote")
+                        .with(this.authGenerator.authentication())
+        )
+                .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andDo(print());
+    }
 }
