@@ -80,9 +80,13 @@ public class JobResponseDTO implements ResponseDTO<Job> {
             this.type = "全职";
         }
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        this.startTime = df.format(job.getJobStartTime());
         this.deadLine = df.format(job.getJobEndTime());
         this.job_duty = job.getJobDuty();
         this.job_description = job.getJobDescription();
+        if(job.getCollected() != null){
+            this.isCollected = job.getCollected();
+        }
     }
 
 
