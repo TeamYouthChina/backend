@@ -8,6 +8,7 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.community.answer.AnswerBasicDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.question.QuestionRequestDTO;
@@ -85,6 +86,17 @@ public class QuestionController {
                 Question question = (Question) it.next();
                 QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
                 questionResponseDTO.setAttention((attentionService.isEverAttention(question,user.getId()))==0? false:true);
+                Iterator iterator = questionResponseDTO.getAnswers().iterator();
+                while (iterator.hasNext()){
+                    AnswerBasicDTO answerBasicDTO = (AnswerBasicDTO) iterator.next();
+                    Answer answer = new Answer();
+                    answer.setId(answerBasicDTO.getId());
+                    answerBasicDTO.setUpvoteCount(evaluateService.countUpvote(answer));
+                    answerBasicDTO.setDownvoteCount(evaluateService.countDownvote(answer));
+                    answerBasicDTO.setAttention(attentionService.isEverAttention(answer,user.getId())==1? true:false);
+                    answerBasicDTO.setAttentionCount(attentionService.countAttention(answer));
+                    answerBasicDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
+                }
                 questionResponseDTOArrayList.add(questionResponseDTO);
             }
             if(questionResponseDTOArrayList.size() != 0){
@@ -99,6 +111,17 @@ public class QuestionController {
                 Question question = (Question) it.next();
                 QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO((Question) it.next());
                 questionResponseDTO.setAttention((attentionService.isEverAttention(question,user.getId()))==0? false:true);
+                Iterator iterator = questionResponseDTO.getAnswers().iterator();
+                while (iterator.hasNext()){
+                    AnswerBasicDTO answerBasicDTO = (AnswerBasicDTO) iterator.next();
+                    Answer answer = new Answer();
+                    answer.setId(answerBasicDTO.getId());
+                    answerBasicDTO.setUpvoteCount(evaluateService.countUpvote(answer));
+                    answerBasicDTO.setDownvoteCount(evaluateService.countDownvote(answer));
+                    answerBasicDTO.setAttention(attentionService.isEverAttention(answer,user.getId())==1? true:false);
+                    answerBasicDTO.setAttentionCount(attentionService.countAttention(answer));
+                    answerBasicDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
+                }
                 questionResponseDTOArrayList.add(questionResponseDTO);
             }
             if(questionResponseDTOArrayList.size() != 0){
@@ -111,10 +134,20 @@ public class QuestionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getQuestion(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
-       Question question = questionService.get(id);
+        Question question = questionService.get(id);
         QuestionResponseDTO responseDTO = DomainToDto(question);
         responseDTO.setAttention((attentionService.isEverAttention(question,user.getId()))==0? false:true);
-
+        Iterator iterator = responseDTO.getAnswers().iterator();
+        while (iterator.hasNext()){
+            AnswerBasicDTO answerBasicDTO = (AnswerBasicDTO) iterator.next();
+            Answer answer = new Answer();
+            answer.setId(answerBasicDTO.getId());
+            answerBasicDTO.setUpvoteCount(evaluateService.countUpvote(answer));
+            answerBasicDTO.setDownvoteCount(evaluateService.countDownvote(answer));
+            answerBasicDTO.setAttention(attentionService.isEverAttention(answer,user.getId())==1? true:false);
+            answerBasicDTO.setAttentionCount(attentionService.countAttention(answer));
+            answerBasicDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
+        }
         return ResponseEntity.ok(new Response(responseDTO));
     }
 
