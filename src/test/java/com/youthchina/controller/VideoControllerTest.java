@@ -39,8 +39,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:New_Community_test.xml"})
-@DatabaseSetup({"classpath:New_SYS_test.xml"})
+@DatabaseSetup({"classpath:test.xml"})
+
 
 @WebAppConfiguration
 public class VideoControllerTest {
