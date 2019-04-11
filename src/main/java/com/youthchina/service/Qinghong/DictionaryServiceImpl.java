@@ -139,4 +139,9 @@ public class DictionaryServiceImpl implements DictionaryService {
     public List<Entry> getTopCompany() {
         return dictionaryMapper.getTopCompany();
     }
+
+    @Override
+    public List<Entry> getUniversity() {
+        return dictionaryMapper.getUniversity();
+    }
 }

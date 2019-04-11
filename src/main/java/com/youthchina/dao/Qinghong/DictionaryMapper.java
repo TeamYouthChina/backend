@@ -33,5 +33,6 @@ public interface DictionaryMapper {
     List<Entry> getUSNEWSRank();
     List<Entry> getQSRank();
     List<Entry> getTopCompany();
+    List<Entry> getUniversity();
 
 }

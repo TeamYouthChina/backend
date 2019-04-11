@@ -176,5 +176,10 @@ public class DictionaryTest {
         List<Entry> entries=dictionaryMapper.getTopCompany();
         System.out.print(entries);
     }
+    @Test
+    public void getUniversity(){
+        List<Entry> entries=dictionaryMapper.getUniversity();
+        System.out.print(entries);
+    }
 
 }
