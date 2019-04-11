@@ -460,6 +460,7 @@ paths:
               - answer
               - article
               - video
+              - editorials
           description: determine what part of attention list to return
         - in: header
           name: X-AUTHENTICATION
@@ -482,74 +483,51 @@ paths:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - company
                           properties:
-                            id:
-                              type: integer
                             company:
                               $ref: '#/components/schemas/Company'
                       jobs:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - job
                           properties:
-                            id:
-                              type: integer
                             job:
                               $ref: '#/components/schemas/Job'
                       questions:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - questions
                           properties:
-                            id:
-                              type: integer
                             question:
                               $ref: '#/components/schemas/QuestionBasic'
                       answers:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - answers
                           properties:
-                            id:
-                              type: integer
                             answer:
                               $ref: '#/components/schemas/AnswerBasic'
                       articles:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - article
                           properties:
-                            id:
-                              type: integer
                             article:
                               $ref: '#/components/schemas/Article'
                       videos:
                         type: array
                         items:
                           type: object
-                          required:
-                            - id
-                            - video
                           properties:
-                            id:
-                              type: integer
                             video:
                               $ref: '#/components/schemas/Video'
+                      editorials:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            editorial:
+                              $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
   '/my':
@@ -667,13 +645,13 @@ paths:
                               $ref: '#/components/schemas/Video'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/jobs/attentions/{id}':
+  '/jobs/attentions/{job_id}':
     delete:
       summary: 删除收藏的工作
       tags:
         - Collection
       parameters:
-        - name: id
+        - name: job_id
           required: true
           in: path
           schema:
@@ -688,13 +666,13 @@ paths:
       responses:
         '204':
           description: delete target collection
-  '/companies/attentions/{id}':
+  '/companies/attentions/{company_id}':
     delete:
       summary: 删除收藏的公司
       tags:
         - Collection
       parameters:
-        - name: id
+        - name: company_id
           required: true
           in: path
           schema:
@@ -709,13 +687,13 @@ paths:
       responses:
         '204':
           description: delete target collection
-  '/questions/attentions/{id}':
+  '/questions/attentions/{question_id}':
     delete:
       summary: 删除收藏的问题
       tags:
         - Collection
       parameters:
-        - name: id
+        - name: question_id
           required: true
           in: path
           schema:
@@ -730,13 +708,13 @@ paths:
       responses:
         '204':
           description: delete target collection
-  '/answers/attentions/{id}':
+  '/answers/attentions/{answer_id}':
     delete:
       summary: 删除收藏的答案
       tags:
         - Collection
       parameters:
-        - name: id
+        - name: answer_id
           required: true
           in: path
           schema:
@@ -751,13 +729,13 @@ paths:
       responses:
         '204':
           description: delete target collection
-  '/editorials/attentions/{id}':
+  '/editorials/attentions/{editorial_id}':
     delete:
       summary: 删除收藏的短则
       tags:
         - Collection
       parameters:
-        - name: id
+        - name: editorial_id
           required: true
           in: path
           schema:
@@ -772,13 +750,13 @@ paths:
       responses:
         '204':
           description: delete target collection
-  '/articles/attentions/{id}':
+  '/articles/attentions/{article_id}':
     delete:
       summary: 删除收藏的文章
       tags:
         - Collection
       parameters:
-        - name: id
+        - name: article_id
           required: true
           in: path
           schema:
@@ -6461,7 +6439,22 @@ paths:
           schema:
             type: string
       responses:
-        
+        '200':
+          description: dictionary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                  status:
+                    $ref: '#/components/schemas/Status'
 components:
   schemas:
     ContentRequest:
@@ -6982,16 +6975,14 @@ components:
       required:
         - braftEditorRaw
         - previewText
-        - resourceList
+        - compiletype
       properties:
         braftEditorRaw:
-          type: object
+          type: string
         previewText:
-          type: object
-        resourceList:
-          type: array
-          items:
-            type: string
+          type: string
+        compiletype:
+          type: integer
     Comment:
       type: object
       required:

@@ -2,6 +2,7 @@ package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.dto.job.JobRequestDTO;
+import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Date;
@@ -83,12 +84,19 @@ comment '职位基本信息表';
 
         this.company = new Company();
         this.company.setCompanyId(jobRequestDTO.getOrganization_id());
-        List<Integer> locationIdList = jobRequestDTO.getLocation();
-
-        if(locationIdList != null && locationIdList.size() > 0){
+//        List<Integer> locationIdList = jobRequestDTO.getLocation();
+//        if(locationIdList != null && locationIdList.size() > 0){
+//            this.jobLocationList = new ArrayList<>();
+//            for (Integer locationIndex : locationIdList) {
+//                this.jobLocationList.add(new Location(locationIndex));
+//            }
+//        }
+        List<LocationDTO> locationDTOList = jobRequestDTO.getLocation();
+        if(locationDTOList != null && locationDTOList.size() > 0){
             this.jobLocationList = new ArrayList<>();
-            for (Integer locationIndex : locationIdList) {
-                this.jobLocationList.add(new Location(locationIndex));
+            for(LocationDTO locationDTO : locationDTOList){
+                Integer locationId = Integer.valueOf(locationDTO.getLocation_code());
+                this.jobLocationList.add(new Location(locationId));
             }
         }
         this.userId = jobRequestDTO.getUserId();
