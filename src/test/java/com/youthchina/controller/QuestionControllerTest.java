@@ -182,6 +182,15 @@ public class QuestionControllerTest {
     }
 
     @Test
+    public void cancelAttention() throws Exception {
+        this.mvc.perform(
+                delete(this.urlPrefix + "/questions/attention/2")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print());
+    }
+
+    @Test
     public void deleteQuestionTest() throws Exception {
         this.mvc.perform(
                 delete(this.urlPrefix + "/questions/4")

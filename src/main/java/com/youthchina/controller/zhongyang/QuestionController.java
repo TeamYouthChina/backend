@@ -173,7 +173,15 @@ public class QuestionController {
     public ResponseEntity<?> followUp (@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Question question = new Question();
         question.setId(id);
-        evaluateService.upvote(question, user.getId());
+        attentionService.attention(question, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
+    }
+
+    @DeleteMapping("/attention/{id}")
+    public ResponseEntity<?> cancelFollowUp(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Question question = new Question();
+        question.setId(id);
+        attentionService.cancel(question, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 
