@@ -3,20 +3,14 @@ package com.youthchina.controller.qingyang;
 import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.controller.zhongyang.DomainCRUDController;
-import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.ResumeJson;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.Response;
 import com.youthchina.dto.applicant.ResumeJsonRequestDTO;
 import com.youthchina.dto.applicant.ResumeJsonResponseDTO;
-import com.youthchina.dto.company.CompanyRequestDTO;
-import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
-import com.youthchina.service.Qinghong.StudentService;
-import com.youthchina.service.qingyang.CompanyCURDService;
 import com.youthchina.service.qingyang.ResumeJsonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +35,7 @@ public class ResumeController extends DomainCRUDController<ResumeJson, Integer> 
 
     @Autowired
     public ResumeController(@Value("${web.url.prefix}") String prefix, ResumeJsonServiceImpl resumeJsonService
-                            ) {
+    ) {
         this.url = prefix + "/resumes/";
         this.resumeJsonService = resumeJsonService;
     }
@@ -57,7 +51,7 @@ public class ResumeController extends DomainCRUDController<ResumeJson, Integer> 
     @ResponseBodyDTO(ResumeJsonResponseDTO.class)
     public ResponseEntity<?> updateResumeJson(@PathVariable Integer id, @AuthenticationPrincipal User user, @RequestBodyDTO(ResumeJsonRequestDTO.class) ResumeJson resumeJson) throws NotFoundException, ForbiddenException {
         ResumeJson result = resumeJsonService.get(id);
-        if(user.getId() == result.getUserId()){
+        if (user.getId() == result.getUserId()) {
             return update(resumeJson);
         } else {
             throw new ForbiddenException();
@@ -68,7 +62,7 @@ public class ResumeController extends DomainCRUDController<ResumeJson, Integer> 
     @ResponseBodyDTO(ResumeJsonResponseDTO.class)
     public ResponseEntity<?> getResumeJson(@PathVariable Integer id, @AuthenticationPrincipal User user) throws BaseException {
         ResumeJson result = resumeJsonService.get(id);
-        if(user.getId() == result.getUserId()){
+        if (user.getId() == result.getUserId()) {
             return get(id);
         } else {
             throw new ForbiddenException();
@@ -76,9 +70,9 @@ public class ResumeController extends DomainCRUDController<ResumeJson, Integer> 
     }
 
     @DeleteMapping("/online/{id}")
-    public ResponseEntity<?> deleteResumeJson(@PathVariable Integer id, @AuthenticationPrincipal User user) throws BaseException, ForbiddenException {
+    public ResponseEntity<?> deleteResumeJson(@PathVariable Integer id, @AuthenticationPrincipal User user) throws BaseException {
         ResumeJson result = resumeJsonService.get(id);
-        if(user.getId() == result.getUserId()){
+        if (user.getId() == result.getUserId()) {
             return delete(id);
         } else {
             throw new ForbiddenException();
