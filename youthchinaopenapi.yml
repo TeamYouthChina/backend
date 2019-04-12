@@ -6550,16 +6550,18 @@ components:
         type:
           type: string
           enum:
-            - full-time
-            - part-time
-            - internship
-        deadLine:
+            - 1, means full-time
+            - 2, means part-time
+            - 3, meansinternship
+        dead_line:
           type: string
         job_description:
           type: string
         job_duty:
           type: string
-        startTime:
+        start_time:
+          type: string
+        end_time:
           type: string
     Organization:
       type: object
@@ -7139,10 +7141,9 @@ components:
       allOf:
         - $ref: '#/components/schemas/ContentRequest'
         - properties:
-            rela_type:
+            company_id:
               type: integer
-            rela_id:
-              type: integer
+              description: related company
     Location:
       type: object
       required:
