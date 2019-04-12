@@ -482,52 +482,31 @@ paths:
                       companies:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            company:
-                              $ref: '#/components/schemas/Company'
+                          $ref: '#/components/schemas/Company'
                       jobs:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            job:
-                              $ref: '#/components/schemas/Job'
+                          $ref: '#/components/schemas/Job'
                       questions:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            question:
-                              $ref: '#/components/schemas/QuestionBasic'
+                          $ref: '#/components/schemas/QuestionBasic'
                       answers:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            answer:
-                              $ref: '#/components/schemas/AnswerBasic'
+                          $ref: '#/components/schemas/AnswerBasic'
                       articles:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            article:
-                              $ref: '#/components/schemas/Article'
+                          $ref: '#/components/schemas/Article'
                       videos:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            video:
-                              $ref: '#/components/schemas/Video'
+                          $ref: '#/components/schemas/Video'
                       editorials:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            editorial:
-                              $ref: '#/components/schemas/Editorial'
+                          $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
   '/users/{id}/my':
@@ -7119,8 +7098,6 @@ components:
           type: string
         body:
           $ref: '#/components/schemas/RichText'
-        company:
-          $ref: '#/components/schemas/Company'
         create_at:
           type: string
         modified_at:
@@ -7226,5 +7203,3 @@ components:
           $ref: '#/components/schemas/User'
         is_read:
           type: boolean
-      
-      
