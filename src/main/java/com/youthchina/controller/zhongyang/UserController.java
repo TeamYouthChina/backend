@@ -82,31 +82,32 @@ public class UserController extends DomainCRUDController<User, Integer> {
             throw new ForbiddenException();
         }
     }
+
     /**
-    * @Description: 需要添加分页
-    * @Param: [user_id, type]
-    * @return: org.springframework.http.ResponseEntity<?>
-    * @Author: Qinghong Wang
-    * @Date: 2019/4/4
-    */
+     * @Description: 需要添加分页
+     * @Param: [user_id, type]
+     * @return: org.springframework.http.ResponseEntity<?>
+     * @Author: Qinghong Wang
+     * @Date: 2019/4/4
+     */
 
     @GetMapping("/{id}/attentions")
-    public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id, @RequestParam(value = "type") String type, @AuthenticationPrincipal User user, PageRequest pageRequest) throws NotFoundException,ForbiddenException {
-        if(user.getId()!=user_id){
+    public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id, @RequestParam(value = "type") String type, @AuthenticationPrincipal User user, PageRequest pageRequest) throws NotFoundException, ForbiddenException {
+        if (user.getId() != user_id) {
             throw new ForbiddenException();
         }
         switch (type) {
             case "job": {
                 List<JobCollect> jobCollects = studentService.getJobCollect(user_id);
                 List<JobCollectResponseDTO> jobCollectResponseDTOS = new ArrayList<>();
-                if(jobCollects!=null){
+                if (jobCollects != null) {
                     for (JobCollect jobCollect : jobCollects) {
                         JobCollectResponseDTO jobCollectResponseDTO = new JobCollectResponseDTO(jobCollect);
                         jobCollectResponseDTOS.add(jobCollectResponseDTO);
-                }
+                    }
 
                 }
-                List<JobCollectResponseDTO> result=jobCollectResponseDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,jobCollectResponseDTOS.size()));
+                List<JobCollectResponseDTO> result = jobCollectResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, jobCollectResponseDTOS.size()));
                 ListResponse listResponse = new ListResponse(pageRequest, jobCollects.size(), result);
                 return ResponseEntity.ok(listResponse);
 
@@ -115,78 +116,78 @@ public class UserController extends DomainCRUDController<User, Integer> {
             case "company": {
                 List<CompCollect> compCollects = studentService.getCompCollect(user_id);
                 List<CompCollectResponseDTO> compCollectResponseDTOS = new ArrayList<>();
-                if(compCollects!=null){
+                if (compCollects != null) {
                     for (CompCollect compCollect : compCollects) {
                         CompCollectResponseDTO compCollectResponseDTO = new CompCollectResponseDTO(compCollect);
                         compCollectResponseDTOS.add(compCollectResponseDTO);
-                }
+                    }
 
                 }
-                List<CompCollectResponseDTO> result=compCollectResponseDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,compCollectResponseDTOS.size()));
+                List<CompCollectResponseDTO> result = compCollectResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, compCollectResponseDTOS.size()));
                 ListResponse listResponse = new ListResponse(pageRequest, compCollects.size(), result);
                 return ResponseEntity.ok(listResponse);
 
             }
             case "article": {
                 List<EssayResponseDTO> essayResponseDTOS = new ArrayList<>();
-                List<Integer> result = attentionService.getAllIdsOfAttention(new ComEssay(),user_id);
-                if(result!=null){
+                List<Integer> result = attentionService.getAllIdsOfAttention(new ComEssay(), user_id);
+                if (result != null) {
                     for (Integer id : result) {
                         ComEssay comEssay = essayService.getEssay(id);
                         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
                         essayResponseDTOS.add(essayResponseDTO);
 
-                }
+                    }
 
 
                 }
-                List<EssayResponseDTO> results=essayResponseDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,result.size()));
+                List<EssayResponseDTO> results = essayResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, result.size()));
                 ListResponse listResponse = new ListResponse(pageRequest, result.size(), results);
                 return ResponseEntity.ok(listResponse);
 
             }
             case "briefReview": {
                 List<BriefReviewResponseDTO> briefReviewResponseDTOS = new ArrayList<>();
-                List<Integer> result = attentionService.getAllIdsOfAttention(new BriefReview(),user_id);
-                if(result!=null){
+                List<Integer> result = attentionService.getAllIdsOfAttention(new BriefReview(), user_id);
+                if (result != null) {
                     for (Integer id : result) {
                         BriefReview briefReview = briefReviewService.get(id);
-                        BriefReviewResponseDTO briefReviewResponseDTO=new BriefReviewResponseDTO(briefReview);
+                        BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReview);
                         briefReviewResponseDTOS.add(briefReviewResponseDTO);
-                }
+                    }
 
                 }
-                List<BriefReviewResponseDTO> results=briefReviewResponseDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,result.size()));
+                List<BriefReviewResponseDTO> results = briefReviewResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, result.size()));
                 ListResponse listResponse = new ListResponse(pageRequest, result.size(), results);
                 return ResponseEntity.ok(listResponse);
 
             }
             case "question": {
                 List<QuestionResponseDTO> questionResponseDTOS = new ArrayList<>();
-                List<Integer> result = attentionService.getAllIdsOfAttention(new Question(),user_id);
-                if(result!=null){
+                List<Integer> result = attentionService.getAllIdsOfAttention(new Question(), user_id);
+                if (result != null) {
                     for (Integer id : result) {
                         Question question = questionService.get(id);
                         QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
                         questionResponseDTOS.add(questionResponseDTO);
-                }
+                    }
 
                 }
-                List<QuestionResponseDTO> results=questionResponseDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,result.size()));
+                List<QuestionResponseDTO> results = questionResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, result.size()));
                 ListResponse listResponse = new ListResponse(pageRequest, result.size(), results);
                 return ResponseEntity.ok(listResponse);
             }
-            case "answer":{
-                List<SimpleAnswerResponseDTO> answerResponseDTOS=new ArrayList<>();
-                List<Integer> result=attentionService.getAllIdsOfAttention(new Answer(),user_id);
-                if(result!=null){
-                    for(Integer id:result){
-                        Answer answer=answerService.get(id);
-                        SimpleAnswerResponseDTO answerResponseDTO=new SimpleAnswerResponseDTO(answer);
+            case "answer": {
+                List<SimpleAnswerResponseDTO> answerResponseDTOS = new ArrayList<>();
+                List<Integer> result = attentionService.getAllIdsOfAttention(new Answer(), user_id);
+                if (result != null) {
+                    for (Integer id : result) {
+                        Answer answer = answerService.get(id);
+                        SimpleAnswerResponseDTO answerResponseDTO = new SimpleAnswerResponseDTO(answer);
                         answerResponseDTOS.add(answerResponseDTO);
                     }
                 }
-                List<SimpleAnswerResponseDTO> results=answerResponseDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,result.size()));
+                List<SimpleAnswerResponseDTO> results = answerResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, result.size()));
                 ListResponse listResponse = new ListResponse(pageRequest, result.size(), results);
                 return ResponseEntity.ok(listResponse);
 
@@ -202,6 +203,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
 
     /**
      * 返回我的 收藏公司 发布职位
+     *
      * @param id
      * @param user
      * @return
@@ -217,8 +219,8 @@ public class UserController extends DomainCRUDController<User, Integer> {
             /**收藏的公司*/
             List<CompCollect> compCollects = studentService.getCompCollect(id);
             List<CompanyResponseDTO> companyResponseDTOList = new ArrayList<>();
-            if(compCollects != null && compCollects.size() > 0){
-                for(CompCollect compCollect : compCollects){
+            if (compCollects != null && compCollects.size() > 0) {
+                for (CompCollect compCollect : compCollects) {
                     CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO();
                     companyResponseDTO.convertToDTO(compCollect.getCompany());
                     companyResponseDTOList.add(companyResponseDTO);
@@ -236,8 +238,8 @@ public class UserController extends DomainCRUDController<User, Integer> {
             List<QuestionResponseDTO> questionResponseDTOList = new ArrayList<>();
             //TestTest
             //System.out.println("questionList.size() : " + questionList.size());//49
-            if(questionList != null && questionList.size() > 0){
-                for(Question question : questionList){
+            if (questionList != null && questionList.size() > 0) {
+                for (Question question : questionList) {
                     QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
                     questionResponseDTO.convertToDTO(question);
                     questionResponseDTOList.add(questionResponseDTO);
@@ -248,8 +250,8 @@ public class UserController extends DomainCRUDController<User, Integer> {
             /**我的回答*/
             List<Answer> answerList = answerService.getMyAnswers(id);
             List<SimpleAnswerResponseDTO> answerResponseDTOList = new ArrayList<>();
-            if(answerList != null && answerList.size() > 0){
-                for(Answer answer : answerList){
+            if (answerList != null && answerList.size() > 0) {
+                for (Answer answer : answerList) {
                     SimpleAnswerResponseDTO answerResponseDTO = new SimpleAnswerResponseDTO();
                     answerResponseDTO.convertToDTO(answer);
                     answerResponseDTOList.add(answerResponseDTO);
@@ -262,8 +264,8 @@ public class UserController extends DomainCRUDController<User, Integer> {
             //TestTest
             System.out.println("comEssayList.size() : " + comEssayList.size());
             List<EssayResponseDTO> essayResponseDTOList = new ArrayList<>();
-            if(comEssayList != null && comEssayList.size() > 0){
-                for(ComEssay comEssay : comEssayList){
+            if (comEssayList != null && comEssayList.size() > 0) {
+                for (ComEssay comEssay : comEssayList) {
                     EssayResponseDTO essayResponseDTO = new EssayResponseDTO();
                     essayResponseDTO.convertToDTO(comEssay);
                     essayResponseDTOList.add(essayResponseDTO);
