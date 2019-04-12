@@ -1,6 +1,8 @@
 package com.youthchina.domain.tianjian;
 
 
+import com.youthchina.domain.zhongyang.User;
+
 import java.sql.Timestamp;
 
 public class ComFriendApply {
@@ -9,6 +11,8 @@ public class ComFriendApply {
     private Integer friendId;
     private Timestamp friApplyTime;
     private Integer friApplyAccept;
+    private Integer friIsRead;
+    private User user;
 
     public Integer getApplyId() {
         return applyId;
@@ -48,5 +52,21 @@ public class ComFriendApply {
 
     public void setFriApplyAccept(Integer friApplyAccept) {
         this.friApplyAccept = friApplyAccept;
+    }
+
+    public Integer getFriIsRead() {
+        return friIsRead;
+    }
+
+    public void setFriIsRead(Integer friIsRead) {
+        this.friIsRead = friIsRead;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

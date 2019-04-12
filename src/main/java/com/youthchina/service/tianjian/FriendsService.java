@@ -14,7 +14,7 @@ public interface FriendsService {
      * parameter ComFriendRelation comfriendrelation, Integer own_id
      * return 0 or 1;
      * */
-    public int saveFriend(ComFriendRelation comFriendRelation);
+    public void addFriend(ComFriendRelation comFriendRelation) throws NotFoundException;
 
     /*
      * 删除好友关系

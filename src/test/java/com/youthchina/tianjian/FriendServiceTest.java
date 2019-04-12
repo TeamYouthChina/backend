@@ -45,10 +45,12 @@ public class FriendServiceTest {
 
     @Test
     public void testAddfriend() throws Exception {
+        //1给2发过申请，2作为user 将1 作为好友添加
         ComFriendRelation comFriendRelation = new ComFriendRelation();
-        comFriendRelation.setUserId(1);
-        comFriendRelation.setFriendId(2);
-        friendsService.saveFriend(comFriendRelation);
+        comFriendRelation.setUserId(2);
+        comFriendRelation.setFriendId(1);
+
+        friendsService.addFriend(comFriendRelation);
     }
 
     @Test
