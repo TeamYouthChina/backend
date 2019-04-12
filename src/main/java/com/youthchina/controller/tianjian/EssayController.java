@@ -64,7 +64,7 @@ public class EssayController {
         essayResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(comEssay,user.getId()));
         essayResponseDTO.setUpvoteCount(evaluateService.countUpvote(comEssay));
         essayResponseDTO.setDownvoteCount(evaluateService.countDownvote(comEssay));
-        essayResponseDTO.setAttention((attentionService.isEverAttention(comEssay, user.getId())) != 0);
+        essayResponseDTO.setAttention((attentionService.isEverAttention(comEssay,user.getId()))==0? false:true);
         if (comEssay.getRelaType()==1){
             try {
                 essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId())));
@@ -83,17 +83,13 @@ public class EssayController {
         comEssay.setUser(user);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setEditTime(time);
-        if (essayRequestDTO.getCompany_id() != null) {
-         comEssay.setRelaType(1);
-         comEssay.setRelaId(essayRequestDTO.getCompany_id());
-        }
         essayServiceimpl.updateEssay(comEssay);
 
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
         essayResponseDTO.setModified_at(time);
-        if (essayRequestDTO.getCompany_id() != null) {
+        if (essayRequestDTO.getRela_id()==1) {
             try {
-                essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getCompany_id())));
+                essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getRela_id())));
             } catch (NotFoundException e) {
 
             }
@@ -129,21 +125,15 @@ public class EssayController {
     }
 
     @PostMapping
-    public ResponseEntity addEssay(@RequestBodyDTO(EssayRequestDTO.class)  ComEssay comEssay , @AuthenticationPrincipal User user)throws NotFoundException{
+    public ResponseEntity addEssay(@RequestBodyDTO(EssayRequestDTO.class)  ComEssay comEssay, @AuthenticationPrincipal User user) throws NotFoundException {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setPubTime(time);
         comEssay.setEditTime(time);
         comEssay.setUser(user);
         essayServiceimpl.addEssay(comEssay);
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
-
-        if (comEssay.getRelaId() != null&&comEssay.getRelaType()==1) {
-            CompanyResponseDTO companyResponseDTO = null;
-            try {
-                companyResponseDTO = new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId()));
-            } catch (NotFoundException e) {
-
-            }
+        if (comEssay.getRelaType()==1) {
+            CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId()));
             essayResponseDTO.setCompany(companyResponseDTO);
         }
 

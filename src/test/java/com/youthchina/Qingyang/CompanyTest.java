@@ -91,7 +91,7 @@ public class CompanyTest {
         Company company = companyMapper.selectCompany(1);
         Assert.assertEquals("中国石油化工股份有限公司", company.getCompanyName());
         Assert.assertEquals(Integer.valueOf(1), company.getCompanyVerify());
-        Assert.assertEquals(4, company.getIndList().size());
+        Assert.assertEquals(2, company.getIndList().size());
         Assert.assertEquals("B07", company.getIndList().get(0).getIndCode());
 
         //Test Photo

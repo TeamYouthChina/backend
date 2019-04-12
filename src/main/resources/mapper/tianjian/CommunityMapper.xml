@@ -31,6 +31,7 @@
         <result property="userId" column="USER_ID"/>
         <result property="friendId" column="FRIEND_ID"/>
         <result property="friApplyTime" column="FRI_APPLY_TIME"/>
+        <result property="friIsRead" column="FRI_IS_READ"/>
         <result property="friApplyAccept" column="FRI_APPLY_ACCEPT"/>
     </resultMap>
     <!--    发布文章 -->
@@ -143,8 +144,8 @@
 
     <insert id="addFriendApply" parameterType="com.youthchina.domain.tianjian.ComFriendApply" useGeneratedKeys="true"
             keyProperty="applyId">
-      insert into COM_FRIEND_APPLY (USER_ID, FRIEND_ID, FRI_APPLY_TIME,FRI_APPLY_ACCEPT)
-      value (#{userId} ,#{friendId} ,NOW(),0)
+      insert into COM_FRIEND_APPLY (USER_ID, FRIEND_ID, FRI_APPLY_TIME,FRI_IS_READ,FRI_APPLY_ACCEPT)
+      value (#{userId} ,#{friendId} ,NOW(),0,0)
     </insert>
 
     <select id="getAllFriendApply" resultMap="friendapplyresult">
@@ -164,7 +165,7 @@
     <update id="changeApplicationStatus">
     update COM_FRIEND_APPLY
     set
-         FRI_APPLY_ACCEPT = #{friApplyAccept}
+         FRI_APPLY_ACCEPT = #{friApplyAccept}, FRI_IS_READ = #{friIsRead}
     where
          APPLY_ID = #{applyId}
     </update>
