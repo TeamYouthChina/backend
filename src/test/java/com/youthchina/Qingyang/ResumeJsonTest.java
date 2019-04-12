@@ -1,5 +1,7 @@
 package com.youthchina.Qingyang;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -8,6 +10,7 @@ import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.qingyang.ResumeJson;
 import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.dto.applicant.ResumeJsonRequestDTO;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.AnswerServiceImpl;
 import com.youthchina.service.jinhao.QuestionServiceImpl;
@@ -117,17 +120,58 @@ public class ResumeJsonTest {
 
 
     @Test
-    public void testResumeJson() throws Exception {
-        ResumeJson resumeJson = new ResumeJson();
-        resumeJson.setJsonContent("TestContent");
+    public void testResumeJsonPost() throws Exception {
         Integer id = 1;
+        ResumeJsonRequestDTO resumeJsonRequestDTO = new ResumeJsonRequestDTO();
+        resumeJsonRequestDTO.setResume("TestPost");
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String insertJson = ow.writeValueAsString(resumeJsonRequestDTO);
+        System.out.println(insertJson);
+
         this.mvc.perform(
                 post(this.urlPrefix + "/resumes/online")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(insertJson)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"jsons\":[\"TestPost\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+        ;
+    }
+
+    @Test
+    public void testResumeJsonGetDelete() throws Exception{
+        Integer id = 1;
+        ResumeJson resumeJson = new ResumeJson();
+        resumeJson.setJsonContent("TestContent");
+        resumeJson.setUserId(id);
+        resumeJsonMapper.insertResumeJson(resumeJson);
+        this.mvc.perform(
+                get(this.urlPrefix + "/resumes/online/" + resumeJson.getId())
                         .with(authGenerator.authentication())
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{}", false))
+                .andExpect(content().json("{\"content\":{\"jsons\":[\"TestContent\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+        ;
+
+        this.mvc.perform(
+                delete(this.urlPrefix + "/resumes/online/" + resumeJson.getId())
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+        ;
+
+        this.mvc.perform(
+                get(this.urlPrefix + "/resumes/online/" + resumeJson.getId())
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4040,\"reason\":\"ResumeJson Not Found\"}}", false))
         ;
     }
 
