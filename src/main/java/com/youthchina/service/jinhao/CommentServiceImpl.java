@@ -40,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> getComments(Commentable entity) {
         List<Comment> comments = commentMapper.getComments(entity.getCommentTargetType(), entity.getId());
-        for(Comment comment : comments){
+        for (Comment comment : comments) {
             try {
                 comment.setUser(userService.get(comment.getUser().getId()));
             } catch (NotFoundException e) {
@@ -51,8 +51,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getComments(Commentable entity, Integer start, Integer end) {
-        List<Comment> comments =  commentMapper.getLimitedComments(entity.getCommentTargetType(), entity.getId(), start,end-start+1);
-        for(Comment comment : comments){
+        List<Comment> comments = commentMapper.getLimitedComments(entity.getCommentTargetType(), entity.getId(), start, end - start + 1);
+        for (Comment comment : comments) {
             try {
                 comment.setUser(userService.get(comment.getUser().getId()));
             } catch (NotFoundException e) {
@@ -63,23 +63,31 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void isCommentExist(Integer id) throws NotFoundException {
-        if(commentMapper.checkIfCommentExist(id) == null){
-            throw new NotFoundException(404,404,"该评论不存在");
+        if (commentMapper.checkIfCommentExist(id) == null) {
+            throw new NotFoundException(404, 404, "该评论不存在");
         }
     }
 
     @Override
     @Transactional
-    public Comment add(Comment comment, Commentable entity) throws NotFoundException{
+    public Comment add(Comment comment, Commentable entity) throws NotFoundException {
         Integer type = entity.getCommentTargetType();
         Integer targetId = entity.getId();
-        switch (type){
-            case 1: essayService.get(targetId); break;
-            case 2: briefReviewService.isBriefReviewExist(targetId); break;
-            case 3: videoService.isVideoExist(targetId); break;
-            case 4: answerService.isAnswerExist(targetId); break;
+        switch (type) {
+            case 1:
+                essayService.get(targetId);
+                break;
+            case 2:
+                briefReviewService.isBriefReviewExist(targetId);
+                break;
+            case 3:
+                videoService.isVideoExist(targetId);
+                break;
+            case 4:
+                answerService.isAnswerExist(targetId);
+                break;
             default:
-                throw new NotFoundException(404,404,"No such type");
+                throw new NotFoundException(404, 404, "No such type");
         }
         comment.setTargetType(type);
         comment.setTargetId(targetId);
@@ -90,8 +98,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public void delete(Commentable entity) {
-        List<Comment> comments =  getComments(entity);
-        for(Comment comment : comments){
+        List<Comment> comments = getComments(entity);
+        for (Comment comment : comments) {
             discussService.deleteAllDiscussOfComment(comment.getId());
         }
         commentMapper.deleteComments(entity.getCommentTargetType(), entity.getId());
@@ -120,8 +128,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment get(Integer id) throws NotFoundException {
         Comment comment = commentMapper.get(id);
-        if(comment == null){
-            throw new NotFoundException(404,404,"没有找到这个评论");
+        if (comment == null) {
+            throw new NotFoundException(404, 404, "没有找到这个评论");
         }
         comment.setUser(userService.get(comment.getUser().getId()));
         return comment;
