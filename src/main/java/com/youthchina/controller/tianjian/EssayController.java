@@ -88,11 +88,9 @@ public class EssayController {
 
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
         essayResponseDTO.setModified_at(time);
-        if (essayRequestDTO.getRela_id()==1)
-            essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getRela_id())));
-        if (essayRequestDTO.getCompany_id() != null) {
+        if (essayRequestDTO.getRela_id()==1) {
             try {
-                essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getCompany_id())));
+                essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getRela_id())));
             } catch (NotFoundException e) {
 
             }

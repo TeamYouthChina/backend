@@ -181,7 +181,7 @@ public class EssayControllerTest {
     @Test
     public void updateAttention() throws Exception {
         this.mvc.perform(
-                put(this.urlPrefix + "/articles/1/attention").contentType(MediaType.APPLICATION_JSON_UTF8)
+                put(this.urlPrefix + "/articles/3/attention").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
         )
                 .andDo(print())

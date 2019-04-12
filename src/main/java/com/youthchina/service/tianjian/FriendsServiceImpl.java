@@ -103,7 +103,6 @@ public class FriendsServiceImpl implements FriendsService {
         while(it.hasNext()){
             ComFriendApply comFriendApply = (ComFriendApply) it.next();
             comFriendApply.setUser(userMapper.findOne(comFriendApply.getUserId()));
-            comFriendApplies.add(comFriendApply);
         }
         return comFriendApplies;
     }
