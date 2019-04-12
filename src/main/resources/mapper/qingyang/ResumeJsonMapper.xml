@@ -2,32 +2,55 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.qingyang.ResumeJsonMapper">
 
+    <resultMap id="resume" type="com.youthchina.domain.qingyang.ResumeJson">
+        <id property="resumeId" column="RESUME_ID"/>
+        <result property="jsonContent" column="JSON_CONTENT"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="createTime" column="CREATE_TIME"/>
+    </resultMap>
 
     <select id="selectResumeJson" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.Qinghong.ResumeJson">
+            resultMap="resume">
         SELECT *
         FROM STU_RESUME_JSON
-        WHERE RESUME_ID = #{resume_id} AND IS_DELETE=0
+        WHERE RESUME_ID = #{resumeId}
+          AND IS_DELETE = 0
+    </select>
+
+    <select id="selectResumeJsonByIdList" resultMap="resume" parameterType="java.util.List">
+        SELECT *
+        FROM STU_RESUME_JSON
+        WHERE IS_DELETE = 0 AND RESUME_ID in
+        <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
+            #{id}
+        </foreach>
     </select>
 
     <select id="selectResumeJsonByStuId" parameterType="java.lang.Integer"
-            resultType="com.youthchina.domain.Qinghong.ResumeJson">
+            resultMap="resume">
         SELECT *
         FROM STU_RESUME_JSON
-        WHERE STU_ID = #{stu_id} AND IS_DELETE=0
+        WHERE USER_ID = #{userId}
+          AND IS_DELETE = 0
     </select>
 
-    <insert id="insertResumeJson" parameterType="com.youthchina.domain.Qinghong.ResumeJson" useGeneratedKeys="true"
-            keyProperty="resume_id">
+    <insert id="insertResumeJson" parameterType="com.youthchina.domain.qingyang.ResumeJson" useGeneratedKeys="true"
+            keyProperty="resumeId">
         INSERT INTO STU_RESUME_JSON
-        (JSON_COUNT,JSON_1,JSON_2,JSON_3,JSON_4,JSON_5,JSON_6,JSON_7,JSON_8,JSON_9,JSON_10,STU_ID,CREATE_TIME,IS_DELETE,IS_DELETE_TIME)
-        VALUES
-        (#{json_count},#{json_1},#{json_2},#{json_3},#{json_4},#{json_5},#{json_6},#{json_7},#{json_8},#{json_9},#{json_10},#{stu_id},NOW(),0,NULL)
+            (JSON_CONTENT, USER_ID, CREATE_TIME, IS_DELETE, IS_DELETE_TIME)
+        VALUES (#{jsonContent}, #{userId}, NOW(), 0, NULL)
     </insert>
+    <update id="updateResumeJson" parameterType="com.youthchina.domain.qingyang.ResumeJson">
+        UPDATE STU_RESUME_JSON
+        SET JSON_CONTENT = #{jsonContent}
+        WHERE RESUME_ID = #{resumeId}
+          AND IS_DELETE = 0
+    </update>
     <update id="deleteResumeJson" parameterType="java.lang.Integer">
-        UPDATE STU_RESUME_JSON SET
-        IS_DELETE=1,IS_DELETE_TIME=NOW()
-        WHERE RESUME_ID=#{resume_id}
+        UPDATE STU_RESUME_JSON
+        SET IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE RESUME_ID = #{resumeId}
     </update>
 
 
