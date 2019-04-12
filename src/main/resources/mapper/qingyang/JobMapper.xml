@@ -273,6 +273,11 @@
         WHERE j.IS_DELETE = 0 AND j.COMPANY_ID = #{id}
     </select>
 
+    <select id = "isCollect" resultType="Integer">
+        SELECT COLLECT_ID
+        FROM STU_JOB_COLLECT
+        WHERE JOB_ID = #{jobId} AND STU_ID = #{stuId} AND IS_DELETE = 0
+    </select>
 
     <select id="getJobByMore" resultMap="job">
         SELECT

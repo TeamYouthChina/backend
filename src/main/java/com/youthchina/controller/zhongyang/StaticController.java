@@ -44,7 +44,7 @@ public class StaticController {
         } catch (IOException e) {
             throw new BaseException(5000, 500, "Cannot upload file because server end error");
         }
-        return ResponseEntity.ok(new Response(id));
+         return ResponseEntity.ok(new Response(id));
     }
 
     @GetMapping("/{id}")
@@ -64,7 +64,7 @@ public class StaticController {
         return ResponseEntity.ok(new Response(entryResponseDTOS));
     }
 
-    @GetMapping("/dictionary")
+    @GetMapping("/dictionaries")
     public ResponseEntity<?> getDictionary(@RequestParam(value = "type") String type, @RequestParam(value = "length",required = false) String length) throws NotFoundException {
         List<EntryResponseDTO> entryResponseDTOS = new ArrayList<>();
         switch (type) {
@@ -285,6 +285,22 @@ public class StaticController {
                 }
                 break;
 
+            }
+            case "university":{
+                List<Entry> entries = dictionaryService.getUniversity();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+            }
+            case "location":{
+                List<Entry> entries = dictionaryService.getAllLocation();
+                for (Entry entry : entries) {
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
             }
 
             default:

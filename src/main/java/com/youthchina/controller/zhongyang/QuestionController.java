@@ -8,6 +8,7 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.community.answer.AnswerBasicDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.question.QuestionRequestDTO;
@@ -28,7 +29,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -40,12 +40,16 @@ import java.util.List;
 @RequestMapping("${web.url.prefix}/questions/**")
 public class QuestionController {
     private String url;
+
     @Autowired
     private QuestionService questionService;
+
     @Autowired
     private AnswerService answerService;
+
     @Autowired
     private EvaluateService evaluateService;
+
     @Autowired
     private CompanyCURDServiceImpl companyCURDService;
 
@@ -67,8 +71,7 @@ public class QuestionController {
         return new Question(questionDTO);
     }
 
-    protected URI getUriForNewInstance(Integer id) throws URISyntaxException {
-        return new URI(this.url + id.toString());
+    protected URI getUriForNewInstance(Integer id) throws URISyntaxException { return new URI(this.url + id.toString());
     }
 
     @GetMapping("/**")
@@ -82,6 +85,17 @@ public class QuestionController {
                 Question question = (Question) it.next();
                 QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
                 questionResponseDTO.setAttention((attentionService.isEverAttention(question,user.getId()))==0? false:true);
+                Iterator iterator = questionResponseDTO.getAnswers().iterator();
+                while (iterator.hasNext()){
+                    AnswerBasicDTO answerBasicDTO = (AnswerBasicDTO) iterator.next();
+                    Answer answer = new Answer();
+                    answer.setId(answerBasicDTO.getId());
+                    answerBasicDTO.setUpvoteCount(evaluateService.countUpvote(answer));
+                    answerBasicDTO.setDownvoteCount(evaluateService.countDownvote(answer));
+                    answerBasicDTO.setAttention(attentionService.isEverAttention(answer,user.getId())==1? true:false);
+                    answerBasicDTO.setAttentionCount(attentionService.countAttention(answer));
+                    answerBasicDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
+                }
                 questionResponseDTOArrayList.add(questionResponseDTO);
             }
             if(questionResponseDTOArrayList.size() != 0){
@@ -96,6 +110,17 @@ public class QuestionController {
                 Question question = (Question) it.next();
                 QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO((Question) it.next());
                 questionResponseDTO.setAttention((attentionService.isEverAttention(question,user.getId()))==0? false:true);
+                Iterator iterator = questionResponseDTO.getAnswers().iterator();
+                while (iterator.hasNext()){
+                    AnswerBasicDTO answerBasicDTO = (AnswerBasicDTO) iterator.next();
+                    Answer answer = new Answer();
+                    answer.setId(answerBasicDTO.getId());
+                    answerBasicDTO.setUpvoteCount(evaluateService.countUpvote(answer));
+                    answerBasicDTO.setDownvoteCount(evaluateService.countDownvote(answer));
+                    answerBasicDTO.setAttention(attentionService.isEverAttention(answer,user.getId())==1? true:false);
+                    answerBasicDTO.setAttentionCount(attentionService.countAttention(answer));
+                    answerBasicDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
+                }
                 questionResponseDTOArrayList.add(questionResponseDTO);
             }
             if(questionResponseDTOArrayList.size() != 0){
@@ -108,10 +133,20 @@ public class QuestionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getQuestion(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
-       Question question = questionService.get(id);
+        Question question = questionService.get(id);
         QuestionResponseDTO responseDTO = DomainToDto(question);
         responseDTO.setAttention((attentionService.isEverAttention(question,user.getId()))==0? false:true);
-
+        Iterator iterator = responseDTO.getAnswers().iterator();
+        while (iterator.hasNext()){
+            AnswerBasicDTO answerBasicDTO = (AnswerBasicDTO) iterator.next();
+            Answer answer = new Answer();
+            answer.setId(answerBasicDTO.getId());
+            answerBasicDTO.setUpvoteCount(evaluateService.countUpvote(answer));
+            answerBasicDTO.setDownvoteCount(evaluateService.countDownvote(answer));
+            answerBasicDTO.setAttention(attentionService.isEverAttention(answer,user.getId())==1? true:false);
+            answerBasicDTO.setAttentionCount(attentionService.countAttention(answer));
+            answerBasicDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
+        }
         return ResponseEntity.ok(new Response(responseDTO));
     }
 
@@ -170,7 +205,15 @@ public class QuestionController {
     public ResponseEntity<?> followUp (@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Question question = new Question();
         question.setId(id);
-        evaluateService.upvote(question, user.getId());
+        attentionService.attention(question, user.getId());
+        return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
+    }
+
+    @DeleteMapping("/attentions/{id}")
+    public ResponseEntity<?> cancelFollowUp(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Question question = new Question();
+        question.setId(id);
+        attentionService.cancel(question, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(201,"success")));
     }
 
@@ -178,14 +221,10 @@ public class QuestionController {
     public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody SimpleAnswerRequestDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Answer answer = new Answer(simpleAnswerDTO);
         answer.setUser(user);
-        answer.setPubTime(new Timestamp(System.currentTimeMillis()));
-        answer.setEditTime(new Timestamp(System.currentTimeMillis()));
         answer.setTargetId(id);
         answer.setTargetType(1);
-        SimpleAnswerResponseDTO returnSimpleAnswer = new SimpleAnswerResponseDTO(answerService.add(answer));
-        if (returnSimpleAnswer!=null)
-            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
-        else
-            return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(400,"fail")));
+        Answer answer1 = answerService.add(answer);
+        SimpleAnswerResponseDTO returnSimpleAnswer = new SimpleAnswerResponseDTO();
+        return ResponseEntity.ok(new Response(returnSimpleAnswer, new StatusDTO(200,"success")));
     }
 }

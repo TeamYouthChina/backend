@@ -2,6 +2,7 @@ package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.dto.job.JobRequestDTO;
+import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.util.zhongyang.HasId;
 
 import java.sql.Date;
@@ -21,6 +22,7 @@ public class Job implements HasId<Integer> {
     private String jobDescription;
     private String jobDuty;
     private String jobHighlight;
+    private Boolean isCollected;
 
 /*
 create table JOB_INFO
@@ -49,7 +51,6 @@ create table JOB_INFO
 
 )
 comment '职位基本信息表';
-
 
 */
 
@@ -83,12 +84,19 @@ comment '职位基本信息表';
 
         this.company = new Company();
         this.company.setCompanyId(jobRequestDTO.getOrganization_id());
-        List<Integer> locationIdList = jobRequestDTO.getLocation();
-
-        if(locationIdList != null && locationIdList.size() > 0){
+//        List<Integer> locationIdList = jobRequestDTO.getLocation();
+//        if(locationIdList != null && locationIdList.size() > 0){
+//            this.jobLocationList = new ArrayList<>();
+//            for (Integer locationIndex : locationIdList) {
+//                this.jobLocationList.add(new Location(locationIndex));
+//            }
+//        }
+        List<LocationDTO> locationDTOList = jobRequestDTO.getLocation();
+        if(locationDTOList != null && locationDTOList.size() > 0){
             this.jobLocationList = new ArrayList<>();
-            for (Integer locationIndex : locationIdList) {
-                this.jobLocationList.add(new Location(locationIndex));
+            for(LocationDTO locationDTO : locationDTOList){
+                Integer locationId = Integer.valueOf(locationDTO.getLocation_code());
+                this.jobLocationList.add(new Location(locationId));
             }
         }
         this.userId = jobRequestDTO.getUserId();
@@ -322,5 +330,13 @@ comment '职位基本信息表';
 
     public void setLogoList(List<Logo> logoList) {
         this.logoList = logoList;
+    }
+
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
     }
 }

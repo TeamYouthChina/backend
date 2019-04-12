@@ -48,7 +48,7 @@ public class FriendController {
         return ResponseEntity.ok(new Response(friendResponseDTO,new StatusDTO(200,"success")));
     }
 
-    @PutMapping("application/{reference_id}/approval")
+    @PutMapping("applications/{reference_id}/approval")
     public ResponseEntity addApprovalApplication(@PathVariable Integer reference_id){
         ComFriendApply comFriendApply = friendsService.getFriendApplication(reference_id);
         comFriendApply.setFriApplyAccept(1);
@@ -56,7 +56,7 @@ public class FriendController {
         return ResponseEntity.ok(new Response(new StatusDTO(200,"success")));
     }
 
-    @PutMapping("application/{reference_id}/deny")
+    @PutMapping("applications/{reference_id}/deny")
     public ResponseEntity addDenyApplication(@PathVariable Integer reference_id){
         ComFriendApply comFriendApply = friendsService.getFriendApplication(reference_id);
         comFriendApply.setFriApplyAccept(0);

@@ -61,7 +61,7 @@ public class StudentServiceImpl implements StudentService {
         if (userInfo == null) {
             throw new NotFoundException(4040, 404, "cannot find user with id " + id);//todo
         } else {
-            Student student=new Student();
+            Student student = new Student();
             student.setEducationInfos(studentService.getEducations(id));
             student.setActivities(studentService.getActivities(id));
             student.setWorks(studentService.getWorks(id));
@@ -263,23 +263,23 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<AdvantageLabel> getAdvantageLabel(Integer id) throws NotFoundException {
-        UserInfo userInfo=applicantMapper.getUserInfo(id);
-        if(userInfo==null){
-            throw new NotFoundException(404,404,"cannot find user with id " + id);
-        }else {
-            List<AdvantageLabel> advantageLabels=applicantMapper.getAdvantageLabels(id);
+        UserInfo userInfo = applicantMapper.getUserInfo(id);
+        if (userInfo == null) {
+            throw new NotFoundException(404, 404, "cannot find user with id " + id);
+        } else {
+            List<AdvantageLabel> advantageLabels = applicantMapper.getAdvantageLabels(id);
             return advantageLabels;
         }
     }
 
     /**
-     * @Description: 通过job_id和user_id来将申请的职位信息加入申请表中,已通过测试
+     * @Description: 通过job_id和user_id来将申请的职位信息加入申请表中, 已通过测试
      * @Param: [job_id, user_id]
      * @return: com.youthchina.domain.Qinghong.JobApply
      * @Author: Qinghong Wang
      * @Date: 2018/12/19
      */
-    public JobApply jobApply(Integer job_id, Integer user_id) throws NotFoundException,ClientException {
+    public JobApply jobApply(Integer job_id, Integer user_id) throws NotFoundException, ClientException {
         Job job = jobMapper.selectJobByJobId(job_id);
         if (job == null) {
             throw new NotFoundException(4042, 404, "cannot find job with id " + job_id);
@@ -290,7 +290,7 @@ public class StudentServiceImpl implements StudentService {
             } else {
                 JobApply jobApply2 = applicantMapper.getOneJobApply(job_id, user_id);
                 if (jobApply2 != null) {
-                    throw  new ClientException("this job has already been applied");
+                    throw new ClientException("this job has already been applied");
                 } else {
                     JobApply jobApply = new JobApply();
                     jobApply.setStu_id(user_id);
@@ -310,7 +310,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
-     * @Description: 通过user_id找到该id下所有申请职位的信息,通过测试
+     * @Description: 通过user_id找到该id下所有申请职位的信息, 通过测试
      * @Param: [user_id]
      * @return: java.util.List<com.youthchina.domain.Qinghong.JobApply>
      * @Author: Qinghong Wang
@@ -348,7 +348,7 @@ public class StudentServiceImpl implements StudentService {
         } else {
             List<JobCollect> jobCollects = applicantMapper.getJobCollects(user_id);
             for (JobCollect jobCollect : jobCollects) {
-                Job job =jobService.get(jobCollect.getJob_id());
+                Job job = jobService.get(jobCollect.getJob_id());
                 jobCollect.setJob(job);
                 //设置一个job所有location
                 jobService.setJobLocation(job);
@@ -361,7 +361,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
-     * @Description: 通过user_id找到该id下所有的公司收藏信息,通过测试
+     * @Description: 通过user_id找到该id下所有的公司收藏信息, 通过测试
      * @Param: [user_id]
      * @return: java.util.List<com.youthchina.domain.Qinghong.CompCollect>
      * @Author: Qinghong Wang
@@ -393,7 +393,7 @@ public class StudentServiceImpl implements StudentService {
         if (userInfo == null) {
             throw new NotFoundException(4040, 404, "cannot find user with id " + user_id);//todo
         } else {
-            JobCollect jobCollect = applicantMapper.getOneJobCollect(job_id,user_id);
+            JobCollect jobCollect = applicantMapper.getOneJobCollect(job_id, user_id);
             if (jobCollect != null) {
                 throw new NotFoundException(4040, 404, "不能收藏该职位，因为已经收藏");//todo
             } else {
@@ -439,8 +439,8 @@ public class StudentServiceImpl implements StudentService {
      */
 
     public Integer deleteJobCollect(Integer collect_id) throws NotFoundException {
-        if(applicantMapper.getJobCollectById(collect_id)==null){
-            throw new NotFoundException(4040,404,"cannot find this jobCollect");
+        if (applicantMapper.getJobCollectById(collect_id) == null) {
+            throw new NotFoundException(4040, 404, "cannot find this jobCollect");
         }
         Integer num = applicantMapper.deleteJobCollect(collect_id);
         return num;
@@ -455,8 +455,8 @@ public class StudentServiceImpl implements StudentService {
      */
 
     public Integer deleteCompCollect(Integer collect_id) throws NotFoundException {
-        if(applicantMapper.getCompCollectById(collect_id)==null){
-            throw new NotFoundException(4040,404,"cannot find this CompCollect");
+        if (applicantMapper.getCompCollectById(collect_id) == null) {
+            throw new NotFoundException(4040, 404, "cannot find this CompCollect");
         }
         Integer num = applicantMapper.deleteCompCollect(collect_id);
         return num;
@@ -495,17 +495,17 @@ public class StudentServiceImpl implements StudentService {
         }
 
     }
-    
-    /** 
-    * @Description: 单个插入教育信息，通过user_id实现 
-    * @Param: [educationInfo, user_id] 
-    * @return: java.util.List<com.youthchina.domain.Qinghong.EducationInfo> 
-    * @Author: Qinghong Wang 
-    * @Date: 2019/3/24 
-    */
+
+    /**
+     * @Description: 单个插入教育信息，通过user_id实现
+     * @Param: [educationInfo, user_id]
+     * @return: java.util.List<com.youthchina.domain.Qinghong.EducationInfo>
+     * @Author: Qinghong Wang
+     * @Date: 2019/3/24
+     */
     @Override
     public EducationInfo insertEducation(EducationInfo educationInfo, Integer user_id) throws NotFoundException {
-        UserInfo userInfo  = applicantMapper.getUserInfo(user_id);
+        UserInfo userInfo = applicantMapper.getUserInfo(user_id);
         if (userInfo == null) {
             throw new NotFoundException(4040, 404, "cannot find user with id " + user_id);//todo
         } else {
@@ -519,23 +519,23 @@ public class StudentServiceImpl implements StudentService {
 
         }
     }
-    
-    /** 
-    * @Description: 完成工作信息的单个插入 
-    * @Param: [work, user_id] 
-    * @return: java.util.List<com.youthchina.domain.Qinghong.Work> 
-    * @Author: Qinghong Wang 
-    * @Date: 2019/3/24 
-    */
+
+    /**
+     * @Description: 完成工作信息的单个插入
+     * @Param: [work, user_id]
+     * @return: java.util.List<com.youthchina.domain.Qinghong.Work>
+     * @Author: Qinghong Wang
+     * @Date: 2019/3/24
+     */
     @Override
     public Work insertWork(Work work, Integer user_id) throws NotFoundException {
-        UserInfo userInfo=applicantMapper.getUserInfo(user_id);
+        UserInfo userInfo = applicantMapper.getUserInfo(user_id);
         if (userInfo == null) {
             throw new NotFoundException(4040, 404, "cannot find user with id " + user_id);//todo
         } else {
             work.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuWork(work);
-            Work work1=applicantMapper.getWorkById(work.getWork_id());
+            Work work1 = applicantMapper.getWorkById(work.getWork_id());
             Location location = locationService.getLocation(work1.getLocation().getRegionId());
             work1.setLocation(location);
             return work1;
@@ -544,14 +544,14 @@ public class StudentServiceImpl implements StudentService {
 
 
     }
-    
-    /** 
-    * @Description: 实现项目信息的单个插入 
-    * @Param: [project, user_id] 
-    * @return: java.util.List<com.youthchina.domain.Qinghong.Project> 
-    * @Author: Qinghong Wang 
-    * @Date: 2019/3/24 
-    */
+
+    /**
+     * @Description: 实现项目信息的单个插入
+     * @Param: [project, user_id]
+     * @return: java.util.List<com.youthchina.domain.Qinghong.Project>
+     * @Author: Qinghong Wang
+     * @Date: 2019/3/24
+     */
     @Override
     public Project insertProject(Project project, Integer user_id) throws NotFoundException {
         UserInfo baseInfo = applicantMapper.getUserInfo(user_id);
@@ -560,19 +560,19 @@ public class StudentServiceImpl implements StudentService {
         } else {
             project.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuProject(project);
-            Project project1=applicantMapper.getProjectById(project.getProj_id());
+            Project project1 = applicantMapper.getProjectById(project.getProj_id());
             return project1;
 
         }
     }
-    
-    /** 
-    * @Description: 实现对于活动信息的单个插入 
-    * @Param: [activity, user_id] 
-    * @return: java.util.List<com.youthchina.domain.Qinghong.Activity> 
-    * @Author: Qinghong Wang 
-    * @Date: 2019/3/24 
-    */
+
+    /**
+     * @Description: 实现对于活动信息的单个插入
+     * @Param: [activity, user_id]
+     * @return: java.util.List<com.youthchina.domain.Qinghong.Activity>
+     * @Author: Qinghong Wang
+     * @Date: 2019/3/24
+     */
 
     @Override
     public Activity insertActivity(Activity activity, Integer user_id) throws NotFoundException {
@@ -582,20 +582,20 @@ public class StudentServiceImpl implements StudentService {
         } else {
             activity.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuActivity(activity);
-            Activity activity1=applicantMapper.getActivityById(activity.getAct_id());
+            Activity activity1 = applicantMapper.getActivityById(activity.getAct_id());
             return activity1;
 
         }
 
     }
-    
-    /** 
-    * @Description: 实现对于证书信息的单个插入 
-    * @Param: [certificate, user_id] 
-    * @return: java.util.List<com.youthchina.domain.Qinghong.Certificate> 
-    * @Author: Qinghong Wang 
-    * @Date: 2019/3/24 
-    */
+
+    /**
+     * @Description: 实现对于证书信息的单个插入
+     * @Param: [certificate, user_id]
+     * @return: java.util.List<com.youthchina.domain.Qinghong.Certificate>
+     * @Author: Qinghong Wang
+     * @Date: 2019/3/24
+     */
     @Override
     public Certificate insertCertificate(Certificate certificate, Integer user_id) throws NotFoundException {
         UserInfo baseInfo = applicantMapper.getUserInfo(user_id);
@@ -604,7 +604,7 @@ public class StudentServiceImpl implements StudentService {
         } else {
             certificate.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuCertificate(certificate);
-            Certificate certificate1=applicantMapper.getCertificateById(certificate.getCertificate_id());
+            Certificate certificate1 = applicantMapper.getCertificateById(certificate.getCertificate_id());
             return certificate1;
 
         }
@@ -613,13 +613,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public AdvantageLabel insertLabel(AdvantageLabel advantageLabel, Integer user_id) throws NotFoundException {
-        UserInfo userInfo=applicantMapper.getUserInfo(user_id);
-        if(userInfo==null){
-            throw  new NotFoundException(4040,404,"cannot find user with id"+user_id);//todo
-        }else{
+        UserInfo userInfo = applicantMapper.getUserInfo(user_id);
+        if (userInfo == null) {
+            throw new NotFoundException(4040, 404, "cannot find user with id" + user_id);//todo
+        } else {
             advantageLabel.setStu_id(user_id);
-            Integer integer=applicantMapper.insertStuLabel(advantageLabel);
-            AdvantageLabel advantageLabel1=applicantMapper.getAdvantageLabelById(advantageLabel.getLabel_id());
+            Integer integer = applicantMapper.insertStuLabel(advantageLabel);
+            AdvantageLabel advantageLabel1 = applicantMapper.getAdvantageLabelById(advantageLabel.getLabel_id());
             return advantageLabel1;
 
         }
@@ -628,8 +628,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Integer deleteEducation(Integer id) throws NotFoundException {
-        if(applicantMapper.getEducationById(id)==null){
-            throw new NotFoundException(4040,404,"can not find this education");
+        if (applicantMapper.getEducationById(id) == null) {
+            throw new NotFoundException(4040, 404, "can not find this education");
         }
         Integer integer = applicantMapper.deleteEduInfo(id);
         return integer;
@@ -637,8 +637,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Integer deleteWork(Integer id) throws NotFoundException {
-        if(applicantMapper.getWorkById(id)==null){
-            throw new NotFoundException(4040,404,"can not find this Work");
+        if (applicantMapper.getWorkById(id) == null) {
+            throw new NotFoundException(4040, 404, "can not find this Work");
         }
         Integer integer = applicantMapper.deleteWork(id);
         return integer;
@@ -646,8 +646,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Integer deleteProject(Integer id) throws NotFoundException {
-        if(applicantMapper.getProjectById(id)==null){
-            throw new NotFoundException(4040,404,"can not find this Project");
+        if (applicantMapper.getProjectById(id) == null) {
+            throw new NotFoundException(4040, 404, "can not find this Project");
         }
         Integer integer = applicantMapper.deleteProject(id);
         return integer;
@@ -655,8 +655,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Integer deleteActivity(Integer id) throws NotFoundException {
-        if(applicantMapper.getActivityById(id)==null){
-            throw new NotFoundException(4040,404,"can not find this activity");
+        if (applicantMapper.getActivityById(id) == null) {
+            throw new NotFoundException(4040, 404, "can not find this activity");
         }
         Integer integer = applicantMapper.deleteActivity(id);
         return integer;
@@ -664,19 +664,19 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Integer deleteCertificate(Integer id) throws NotFoundException {
-        if(applicantMapper.getCertificateById(id)==null){
-            throw new NotFoundException(4040,404,"can not find this certificate");
+        if (applicantMapper.getCertificateById(id) == null) {
+            throw new NotFoundException(4040, 404, "can not find this certificate");
         }
         Integer integer = applicantMapper.deleteCertificate(id);
         return integer;
     }
 
     @Override
-    public Integer deleteLabel(Integer id) throws NotFoundException{
-        if(applicantMapper.getAdvantageLabelById(id)==null){
-            throw new NotFoundException(4040,404,"can not find this skills");
+    public Integer deleteLabel(Integer id) throws NotFoundException {
+        if (applicantMapper.getAdvantageLabelById(id) == null) {
+            throw new NotFoundException(4040, 404, "can not find this skills");
         }
-        Integer integer=applicantMapper.deleteSkill(id);
+        Integer integer = applicantMapper.deleteSkill(id);
         return integer;
     }
 
@@ -822,10 +822,10 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public EducationInfo updateEducationInfo(EducationInfo educationInfo) throws NotFoundException {
-        Integer integer=applicantMapper.updateEducation(educationInfo);
-        EducationInfo educationInfo1=applicantMapper.getEducationById(educationInfo.getEdu_id());
-        if(educationInfo1==null){
-            throw new NotFoundException(4040,404,"can not find this education");//todo
+        Integer integer = applicantMapper.updateEducation(educationInfo);
+        EducationInfo educationInfo1 = applicantMapper.getEducationById(educationInfo.getEdu_id());
+        if (educationInfo1 == null) {
+            throw new NotFoundException(4040, 404, "can not find this education");//todo
         }
 
         return educationInfo1;
@@ -833,26 +833,25 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Project updateProject(Project project) throws NotFoundException {
-        Integer integer=applicantMapper.updateProject(project);
-        Project project1=applicantMapper.getProjectById(project.getProj_id());
-        if(project1==null){
-            throw new NotFoundException(4040,404,"can not find this project");//todo
+        Integer integer = applicantMapper.updateProject(project);
+        Project project1 = applicantMapper.getProjectById(project.getProj_id());
+        if (project1 == null) {
+            throw new NotFoundException(4040, 404, "can not find this project");//todo
         }
         return project1;
     }
 
     @Override
     public Work updateWork(Work work) throws NotFoundException {
-        Integer integer=applicantMapper.updateWork(work);
-        Work work1=applicantMapper.getWorkById(work.getWork_id());
-        if(work1==null){
-            throw new NotFoundException(4040,404,"cannot find this work");//todo
+        Integer integer = applicantMapper.updateWork(work);
+        Work work1 = applicantMapper.getWorkById(work.getWork_id());
+        if (work1 == null) {
+            throw new NotFoundException(4040, 404, "cannot find this work");//todo
         }
-        if(work.getLocation().getRegionId()!=null){
+        if (work.getLocation().getRegionId() != null) {
             Location location = locationService.getLocation(work1.getLocation().getRegionId());
             work1.setLocation(location);
         }
-
 
 
         return work1;
@@ -860,21 +859,30 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Certificate updateCertificate(Certificate certificate) throws NotFoundException {
-        Integer integer=applicantMapper.updateCertificate(certificate);
-        Certificate certificate1=applicantMapper.getCertificateById(certificate.getCertificate_id());
-        if(certificate1==null){
-            throw  new NotFoundException(4040,404,"can not find this certificate");//todo
+        Integer integer = applicantMapper.updateCertificate(certificate);
+        Certificate certificate1 = applicantMapper.getCertificateById(certificate.getCertificate_id());
+        if (certificate1 == null) {
+            throw new NotFoundException(4040, 404, "can not find this certificate");//todo
         }
         return certificate1;
     }
 
     @Override
     public Activity updateActivity(Activity activity) throws NotFoundException {
-        Integer integer=applicantMapper.updateActivity(activity);
-        Activity activity1=applicantMapper.getActivityById(activity.getAct_id());
-        if(activity1==null){
-            throw new NotFoundException(4040,404,"can not find this activity");//todo
+        Integer integer = applicantMapper.updateActivity(activity);
+        Activity activity1 = applicantMapper.getActivityById(activity.getAct_id());
+        if (activity1 == null) {
+            throw new NotFoundException(4040, 404, "can not find this activity");//todo
         }
         return activity1;
+    }
+
+    public Integer getCollectionByJobId(Integer company_id, Integer user_id) {
+        return applicantMapper.getCollectionByJobId(company_id, user_id);
+    }
+
+    @Override
+    public Integer getCollectionByCompanyId(Integer company_id, Integer user_id) {
+        return applicantMapper.getCompanyByCompanyId(company_id, user_id);
     }
 }

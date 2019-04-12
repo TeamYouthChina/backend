@@ -16,6 +16,8 @@ public class EssayRequestDTO implements RequestDTO<ComEssay> {
         this.title = comEssay.getTitle();
         this.is_anonymous = (comEssay.getIsAnony()==1)? true:false;
         this.body = new RichTextRequestDTO(comEssay.getBody());
+        if(comEssay.getRelaType()==1)
+        this.company_id = comEssay.getRelaId();
     }
 
     public EssayRequestDTO() {

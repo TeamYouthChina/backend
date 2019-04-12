@@ -53,6 +53,7 @@ public class Company implements HasId<Integer> {
     private List<Logo> logoList;
     private List<CompanyPhoto> photoList;
     private Integer jobCount;
+    private Boolean isCollected;
 
 
     /*行业信息*/
@@ -301,6 +302,14 @@ public class Company implements HasId<Integer> {
 
     public void setJobCount(Integer jobCount) {
         this.jobCount = jobCount;
+    }
+
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
     }
 
     @Override

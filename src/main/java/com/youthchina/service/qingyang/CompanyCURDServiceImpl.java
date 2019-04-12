@@ -2,21 +2,16 @@ package com.youthchina.service.qingyang;
 
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
-import com.youthchina.dao.tianjian.StaticFileSystemMapper;
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.CompanyPhoto;
-import com.youthchina.domain.qingyang.Industry;
-import com.youthchina.domain.qingyang.Logo;
+import com.youthchina.domain.qingyang.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.StaticFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.net.URL;
-
 
 import javax.annotation.Resource;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -47,7 +42,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Transactional
     public Company get(Integer id) throws NotFoundException {
         Company company = companyMapper.selectCompany(id);
-        if(company == null) throw new NotFoundException(4040, 404, "No such company");
+        if (company == null) throw new NotFoundException(4040, 404, "No such company");
         setCompanyLocation(company);
         setCompanyLogo(company);
         setCompanyPhoto(company);
@@ -57,11 +52,11 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
 
     private void setCompanyLogo(Company company) {
         List<Logo> logoList = company.getLogoList();
-        if(logoList != null && logoList.size() > 0){
-            for(Logo logo : logoList){//TODO : 中美服务器?
+        if (logoList != null && logoList.size() > 0) {
+            for (Logo logo : logoList) {//TODO : 中美服务器?
 //               String aliId = staticFileSystemMapper.getFileInfo(logo.getDocuLocalId()).getDocu_server_ali_id();
-               URL url =  (staticFileServiceImpl.getFileUrl(logo.getDocuLocalId(), "China"));
-               logo.setUrl(url.toString());
+                URL url = (staticFileServiceImpl.getFileUrl(logo.getDocuLocalId(), "China"));
+                logo.setUrl(url != null ? url.toString() : null);
             }
         }
     }
@@ -69,10 +64,10 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     private void setCompanyPhoto(Company company) {
         List<CompanyPhoto> photoList = company.getPhotoList();
 
-        if(photoList != null && photoList.size() > 0){
-            for(CompanyPhoto photo : photoList){//TODO : 中美服务器?
-                URL url =  (staticFileServiceImpl.getFileUrl(photo.getDocuLocalId(), "China"));
-                photo.setUrl(url.toString());
+        if (photoList != null && photoList.size() > 0) {
+            for (CompanyPhoto photo : photoList) {//TODO : 中美服务器?
+                URL url = staticFileServiceImpl.getFileUrl(photo.getDocuLocalId(), "China");
+                photo.setUrl(url != null ? url.toString() : null);
             }
         }
     }
@@ -100,7 +95,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Transactional
     public List<Company> get(List<Integer> id) throws NotFoundException {
         List<Company> companyList = companyMapper.selectCompanyByIdList(id);
-        if(companyList == null || companyList.size() == 0) throw new NotFoundException(4040, 404, "No such company");
+        if (companyList == null || companyList.size() == 0) throw new NotFoundException(4040, 404, "No such company");
         for (Company company : companyList) {
             setCompanyLocation(company);
         }
@@ -145,17 +140,17 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         return addRelatedInfo(company);
     }
 
-    private Company addRelatedInfo(Company company) throws NotFoundException{
+    private Company addRelatedInfo(Company company) throws NotFoundException {
         List<Industry> industryList = company.getIndList();
         if (industryList != null && industryList.size() > 0) {
             companyMapper.insertCompanyInd(company.getId(), industryList);
         }
         List<Logo> logoList = company.getLogoList();
-        if(logoList != null && logoList.size() > 0){
+        if (logoList != null && logoList.size() > 0) {
             companyMapper.insertCompanyLogo(company.getId(), logoList);
         }
         List<CompanyPhoto> photoList = company.getPhotoList();
-        if(photoList != null && photoList.size() > 0){
+        if (photoList != null && photoList.size() > 0) {
             companyMapper.insertCompanyPhoto(company.getId(), photoList);
         }
         return this.get(company.getCompanyId());
@@ -169,7 +164,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
      */
     @Override
     @Transactional
-    public Company add(Company entity) throws NotFoundException{
+    public Company add(Company entity) throws NotFoundException {
         Integer result = companyMapper.insertCompany(entity);
         return addRelatedInfo(entity);
     }
@@ -222,9 +217,21 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     }
 
     @Transactional
-    public Integer countJobByComId(Integer companyId){
+    public Integer countJobByComId(Integer companyId) {
         Integer jobCount = jobMapper.countJobByComId(companyId);
         return jobCount;
+    }
+
+    public Boolean isCollected(Integer companyId, Integer userId){
+        Integer result = companyMapper.isCollected(companyId, userId);
+        return  result != null;
+    }
+
+    @Override
+    public Company getCompanyWithCollected(Integer companyId, Integer userId) throws NotFoundException {
+        Company company = this.get(companyId);
+        company.setCollected(isCollected(companyId, userId));
+        return company;
     }
 
 }

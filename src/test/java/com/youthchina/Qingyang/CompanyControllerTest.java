@@ -2,12 +2,9 @@ package com.youthchina.Qingyang;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.util.LocationDTO;
-import com.youthchina.service.tianjian.FileStorageService;
 import com.youthchina.service.tianjian.StaticFileService;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
@@ -18,15 +15,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
@@ -43,8 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  **/
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:test.xml"})
+@Transactional
 @WebAppConfiguration
 public class CompanyControllerTest {
 
@@ -78,7 +71,7 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"location\":\"北京市\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"location\":\"110000\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":\"中国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 
@@ -117,7 +110,7 @@ public class CompanyControllerTest {
 //        )
 //                .andDo(print())
 ////                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"\",\"avatarUrl\":\"\",\"location\":\"\",\"website\":\"\",\"note\":\"\",\"nation\":\"\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
-//                //.andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"avatarUrl\":null,\"location\":\"北京市\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+//                //.andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"avatarUrl\":null,\"location\":\"110000\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
 //        ;
 //    }
 
@@ -170,7 +163,7 @@ public class CompanyControllerTest {
         )
                 .andDo(print())
                 //,"avatarUrl":""
-                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"name\":\"Vavle\",\"location\":\"994701\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
 
         ;
     }
@@ -209,7 +202,7 @@ public class CompanyControllerTest {
         )
                 .andDo(print())
                 //,"avatarUrl":"" photoUrl
-                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"location\":\"Berkeley\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"location\":\"994701\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
 
     }

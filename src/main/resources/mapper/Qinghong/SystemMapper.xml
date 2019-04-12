@@ -123,6 +123,16 @@
         <result property="name" column="COMPANY_CHN"/>
     </resultMap>
 
+    <resultMap id="getUniversity" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="UNIVERS_ID"/>
+        <result property="name" column="UNIVERS_NAME"/>
+    </resultMap>
+
+    <resultMap id="getAllLocation" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="REGION_NUM"/>
+        <id property="name" column="REGION_NAME"/>
+    </resultMap>
+
 
 
     <select id="getMajorByAbbre" resultMap="getMajorByAbbre">
@@ -276,6 +286,16 @@
     <select id="getTopCompany" resultMap="getTopCompany">
         SELECT a.COMPANY_ID,a.COMPANY_CHN
         FROM SYS_TOP_COMPANY_WORLD a
+    </select>
+
+    <select id="getUniversity" resultMap="getUniversity">
+        SELECT a.UNIVERS_ID,UNIVERS_NAME
+        FROM COUNTRY_UNIVERSITY a
+    </select>
+
+    <select id="getAllLocation" resultMap="getAllLocation">
+        SELECT a.REGION_NUM,REGION_NAME
+        FROM COUNTRY_LOCATION a
     </select>
 
 

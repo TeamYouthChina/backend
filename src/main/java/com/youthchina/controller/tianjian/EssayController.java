@@ -3,7 +3,6 @@ package com.youthchina.controller.tianjian;
 import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.tianjian.ComEssay;
-import com.youthchina.domain.tianjian.ComEssayAttention;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
@@ -55,7 +54,7 @@ public class EssayController {
     EvaluateServiceImpl evaluateService;
 
     @GetMapping("/{id}")
-    public ResponseEntity getEssay(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity getEssay(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException{
         ComEssay comEssay = essayServiceimpl.getEssay(id);
         if (comEssay == null) {
             throw new NotFoundException(4040, 404, "没有找到这个文章");
@@ -65,16 +64,20 @@ public class EssayController {
         essayResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(comEssay,user.getId()));
         essayResponseDTO.setUpvoteCount(evaluateService.countUpvote(comEssay));
         essayResponseDTO.setDownvoteCount(evaluateService.countDownvote(comEssay));
-        essayResponseDTO.setAttention((attentionService.isEverAttention(comEssay,user.getId()))==0? false:true);
+        essayResponseDTO.setAttention((attentionService.isEverAttention(comEssay, user.getId())) != 0);
         if (comEssay.getRelaType()==1){
-            essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId())));
+            try {
+                essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId())));
+            } catch (NotFoundException e) {
+
+            }
         }
-            return ResponseEntity.ok(new Response(essayResponseDTO, new StatusDTO(200, "success")));
+        return ResponseEntity.ok(new Response(essayResponseDTO, new StatusDTO(200, "success")));
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateEssay(@PathVariable Integer id, @RequestBody EssayRequestDTO essayRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity updateEssay(@PathVariable Integer id, @RequestBody EssayRequestDTO essayRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException{
         ComEssay comEssay = new ComEssay(essayRequestDTO);
         comEssay.setId(id);
         comEssay.setUser(user);
@@ -88,8 +91,13 @@ public class EssayController {
 
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
         essayResponseDTO.setModified_at(time);
-        if (essayRequestDTO.getCompany_id() != null)
-            essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getCompany_id())));
+        if (essayRequestDTO.getCompany_id() != null) {
+            try {
+                essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getCompany_id())));
+            } catch (NotFoundException e) {
+
+            }
+        }
 
         return ResponseEntity.ok(new Response(essayResponseDTO, new StatusDTO(200, "success")));
     }
@@ -121,17 +129,21 @@ public class EssayController {
     }
 
     @PostMapping
-    public ResponseEntity addEssay(@RequestBodyDTO(EssayRequestDTO.class)  ComEssay comEssay , @AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity addEssay(@RequestBodyDTO(EssayRequestDTO.class)  ComEssay comEssay , @AuthenticationPrincipal User user)throws NotFoundException{
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setPubTime(time);
         comEssay.setEditTime(time);
         comEssay.setUser(user);
-        comEssay.setRelaType(1);
         essayServiceimpl.addEssay(comEssay);
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
 
         if (comEssay.getRelaId() != null&&comEssay.getRelaType()==1) {
-            CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId()));
+            CompanyResponseDTO companyResponseDTO = null;
+            try {
+                companyResponseDTO = new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId()));
+            } catch (NotFoundException e) {
+
+            }
             essayResponseDTO.setCompany(companyResponseDTO);
         }
 
@@ -149,7 +161,7 @@ public class EssayController {
     }
 
     @GetMapping("/{id}/comments")
-    public ResponseEntity getEssayComments(@PathVariable Integer id, PageRequest pageRequest,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity getEssayComments(@PathVariable Integer id, PageRequest pageRequest,@AuthenticationPrincipal User user) {
         ComEssay comEssay = new ComEssay();
         comEssay.setId(id);
         List<Comment> comments = commentService.getComments(comEssay);
@@ -171,21 +183,21 @@ public class EssayController {
 
     @PutMapping("/{id}/upvote")
     public ResponseEntity<?> upvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = essayServiceimpl.get(id);
+        ComEssay comEssay = essayServiceimpl.getEssay(id);
         evaluateService.upvote(comEssay, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
     @PutMapping("/{id}/downvote")
     public ResponseEntity<?> downvote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = essayServiceimpl.get(id);
+        ComEssay comEssay = essayServiceimpl.getEssay(id);
         evaluateService.downvote(comEssay, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
-    @PutMapping("/{id}/cancel")
+    @DeleteMapping("/{id}/vote")
     public ResponseEntity<?> cancelVote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = essayServiceimpl.get(id);
+        ComEssay comEssay = essayServiceimpl.getEssay(id);
         evaluateService.cancel(comEssay, user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
