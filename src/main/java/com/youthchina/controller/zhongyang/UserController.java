@@ -150,7 +150,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
 
                 }
                 return ResponseEntity.ok(new Response(videoResponseDTOS));
-
+                // todo
             }
             case "question": {
                 List<QuestionResponseDTO> questionResponseDTOS = new ArrayList<>();
@@ -161,7 +161,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
                         QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
                         questionResponseDTOS.add(questionResponseDTO);
                 }
-
+                // todo
                 }
                 return ResponseEntity.ok(new Response(questionResponseDTOS));
             }
@@ -176,7 +176,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
                         answerResponseDTOS.add(answerResponseDTO);
                     }
                 }
-
+                // todo  第174行的异常要catch住  上面有todo有同样的问题
                 return ResponseEntity.ok(new Response(answerResponseDTOS));
             }
             default:

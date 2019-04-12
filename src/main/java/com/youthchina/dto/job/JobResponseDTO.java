@@ -19,12 +19,13 @@ public class JobResponseDTO implements ResponseDTO<Job> {
     private int id;
     private String name;
     private OrganizationDTO organization;
-    private String location;
+    private List<String> location;
     private String type;
     private String startTime;
     private String deadLine;
     private String job_duty;
     private String job_description;
+    private Boolean isCollected = false;
 
     /*{
   "content": {
@@ -60,11 +61,14 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.organization = company == null ? null : new OrganizationDTO(company);
         List<Location> locationList = job.getJobLocationList();
         if (locationList != null && locationList.size() > 0) {
-            Location location = locationList.get(0);
-            if (location != null) {
-                this.location = location.getRegionName(); // 默认中文名
+//            Location location = locationList.get(0);
+//            if (location != null) {
+//                this.location = location.getRegionName(); // 默认中文名
+//            }
+            this.location = new ArrayList<>();
+            for(Location location : locationList){
+                this.location.add("" + location.getRegionId());
             }
-
         }
         int jobType = job.getJobType();
 
@@ -76,9 +80,13 @@ public class JobResponseDTO implements ResponseDTO<Job> {
             this.type = "全职";
         }
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        this.startTime = df.format(job.getJobStartTime());
         this.deadLine = df.format(job.getJobEndTime());
         this.job_duty = job.getJobDuty();
         this.job_description = job.getJobDescription();
+        if(job.getCollected() != null){
+            this.isCollected = job.getCollected();
+        }
     }
 
 
@@ -106,11 +114,20 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.organization = organization;
     }
 
-    public String getLocation() {
+//    public String getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(String location) {
+//        this.location = location;
+//    }
+
+
+    public List<String> getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(List<String> location) {
         this.location = location;
     }
 
@@ -154,6 +171,14 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.startTime = startTime;
     }
 
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
+    }
+
     @Override
     public void convertToDTO(Job job) {
         this.id = job.getJobId();
@@ -162,11 +187,14 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.organization = company == null ? null : new OrganizationDTO(company);
         List<Location> locationList = job.getJobLocationList();
         if (locationList != null && locationList.size() > 0) {
-            Location location = locationList.get(0);
-            if (location != null) {
-                this.location = location.getRegionName(); // 默认中文名
+//            Location location = locationList.get(0);
+//            if (location != null) {
+//                this.location = location.getRegionName(); // 默认中文名
+//            }
+            this.location = new ArrayList<>();
+            for(Location location : locationList){
+                this.location.add("" + location.getRegionId());
             }
-
         }
         int jobType = job.getJobType();
 
@@ -182,6 +210,9 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.deadLine = df.format(job.getJobEndTime());
         this.job_duty = job.getJobDuty();
         this.job_description = job.getJobDescription();
+        if(job.getCollected() != null){
+            this.isCollected = job.getCollected();
+        }
     }
 
     public List<JobResponseDTO> convertToDTO(List<Job> jobList){

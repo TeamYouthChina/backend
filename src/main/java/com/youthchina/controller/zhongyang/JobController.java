@@ -87,13 +87,6 @@ public class JobController extends DomainCRUDController<Job, Integer> {
         //Job job = jobService.update(new Job(jobRequestDTO));
         job.setJobId(id);
         return update(job);
-//        if(job == null) try {
-//            throw new BaseException();
-//        } catch (BaseException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
 
     }
 
@@ -104,8 +97,13 @@ public class JobController extends DomainCRUDController<Job, Integer> {
 
 
     @GetMapping("/{id}/**")
-    public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
-        Job job = this.jobService.get(jobId);
+    public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, @AuthenticationPrincipal User user) throws BaseException {
+        Job job = null;
+        if(user != null){
+            job = jobService.getJobWithCollected(jobId, user.getId());
+        } else {
+            job = jobService.get(jobId);
+        }
         if (detailLevel == 1 && job != null) {
             return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
         }
@@ -193,7 +191,7 @@ public class JobController extends DomainCRUDController<Job, Integer> {
      * @Author: Qinghong Wang
      * @Date: 2019/2/18
      */
-//添加职位还有一些情况没有判断，在api缺少
+
     @PutMapping("/{id}/attention")
     public ResponseEntity<?> putJobCollection(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user) throws NotFoundException {
         Integer integer = studentService.addJobCollection(job_id, user.getId());
@@ -216,8 +214,12 @@ public class JobController extends DomainCRUDController<Job, Integer> {
      * @Date: 2019/2/19
      */
     @DeleteMapping("/attentions/{id}")
-    public ResponseEntity<?> deleteJobCollection(@PathVariable("id") Integer collect_id, @AuthenticationPrincipal User user) throws NotFoundException {
-        Integer integer = studentService.deleteJobCollect(collect_id);
+    public ResponseEntity<?> deleteJobCollection(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Integer collectionId = studentService.getCollectionByJobId(job_id, user.getId());
+        if (collectionId == null) {
+            return ResponseEntity.status(400).body(new Response(new StatusDTO(400, "Collection doest not exist.")));
+        }
+        Integer integer = studentService.deleteJobCollect(collectionId);
         if (integer == 1) {
             return ResponseEntity.ok(new Response
                     (integer));

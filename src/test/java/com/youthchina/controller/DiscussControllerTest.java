@@ -1,15 +1,15 @@
 package com.youthchina.controller;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.youthchina.domain.jinhao.Discuss;
+import com.youthchina.service.jinhao.EvaluateService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -22,11 +22,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:test.xml"})
+@Transactional
 @WebAppConfiguration
 public class DiscussControllerTest extends BaseControllerTest {
-
+    @Resource
+    EvaluateService evaluateService;
     @Test
     public void testGetDiscuses() throws Exception {
         this.mvc.perform(
@@ -77,7 +77,7 @@ public class DiscussControllerTest extends BaseControllerTest {
                 .andDo(print());
 
         this.mvc.perform(
-                delete(this.urlPrefix + "/replies/1/downvote")
+                delete(this.urlPrefix + "/replies/1/vote")
                         .with(this.authGenerator.authentication())
         )
                 .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
@@ -93,7 +93,7 @@ public class DiscussControllerTest extends BaseControllerTest {
                 .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
                 .andDo(print());
         this.mvc.perform(
-                delete(this.urlPrefix + "/replies/1/upvote")
+                delete(this.urlPrefix + "/replies/1/vote")
                         .with(this.authGenerator.authentication())
         )
                 .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))

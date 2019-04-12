@@ -72,8 +72,13 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getCompanyDetail(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
-        Company company = this.companyService.get(companyId);
+    public ResponseEntity<?> getCompanyDetail(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, @AuthenticationPrincipal User user) throws BaseException {
+        Company company = null ;
+        if(user != null){
+            company = companyService.getCompanyWithCollected(companyId, user.getId());
+        } else {
+            company = companyService.get(companyId);
+        }
         if (detailLevel == 1) {
             return ResponseEntity.ok(new Response(new CompanyResponseDTO(company)));
         }
@@ -81,7 +86,7 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCompany(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, Authentication authentication) throws BaseException {
+    public ResponseEntity<?> deleteCompany(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, @AuthenticationPrincipal User user) throws BaseException {
 //        this.companyService.delete(companyId);
 //        if (detailLevel == 1) {
 //            return ResponseEntity.ok(new Response());
@@ -119,8 +124,12 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
      */
 
     @DeleteMapping("/attentions/{id}")
-    public ResponseEntity<?> deleteCompanyCollection(@PathVariable("id") Integer collect_id, @AuthenticationPrincipal User user) throws NotFoundException {
-        Integer integer = studentService.deleteCompCollect(collect_id);
+    public ResponseEntity<?> deleteCompanyCollection(@PathVariable("id") Integer company_id, @AuthenticationPrincipal User user) throws NotFoundException {
+        Integer collectionId = studentService.getCollectionByCompanyId(company_id, user.getId());
+        if (collectionId != null) {
+            return ResponseEntity.status(400).body(new StatusDTO(400, "no such company collection"));
+        }
+        Integer integer = studentService.deleteCompCollect(collectionId);
         if (integer == 1) {
             return ResponseEntity.ok(new Response
                     (integer));

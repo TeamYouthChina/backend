@@ -2,8 +2,6 @@ package com.youthchina.tianjian;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
 import com.youthchina.dto.util.RichTextRequestDTO;
@@ -17,13 +15,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -32,8 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:test.xml"})
+@Transactional
 @WebAppConfiguration
 public class BriefReviewControllerTest {
     @Autowired
@@ -175,6 +170,49 @@ public class BriefReviewControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"offset\":0,\"limit\":2147483646,\"data\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"first_name\":\"DDD\",\"last_name\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":[\"ADMIN\"],\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false,\"modified_at\":\"2018-02-03T00:00:00.000+0000\",\"upvoteCount\":2,\"downvoteCount\":2,\"evaluateStatus\":3}],\"page_count\":0,\"item_count\":1,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\n" +
+                        "  \"content\": {\n" +
+                        "    \"offset\": 0,\n" +
+                        "    \"limit\": 2147483646,\n" +
+                        "    \"data\": [\n" +
+                        "      {\n" +
+                        "        \"id\": 1,\n" +
+                        "        \"creator\": {\n" +
+                        "          \"id\": 2,\n" +
+                        "          \"username\": \"DEF\",\n" +
+                        "          \"email\": \"123456@456.com\",\n" +
+                        "          \"phonenumber\": \"9876543210123\",\n" +
+                        "          \"register_date\": \"2019-01-01 00:00:00.0\",\n" +
+                        "          \"first_name\": \"DDD\",\n" +
+                        "          \"last_name\": \"DDDEEEFFF\",\n" +
+                        "          \"gender\": \"Female\",\n" +
+                        "          \"nation\": \"USA\",\n" +
+                        "          \"avatar_url\": \"---\",\n" +
+                        "          \"role\": [\n" +
+                        "            \"ADMIN\"\n" +
+                        "          ],\n" +
+                        "          \"age\": 28\n" +
+                        "        },\n" +
+                        "        \"body\": \"短评评论1\",\n" +
+                        "        \"create_at\": \"2018-02-03T00:00:00.000+0000\",\n" +
+                        "        \"is_anonymous\": false,\n" +
+                        "        \"modified_at\": \"2018-02-03T00:00:00.000+0000\",\n" +
+                        "        \"upvoteCount\": 2,\n" +
+                        "        \"downvoteCount\": 2,\n" +
+                        "        \"evaluateStatus\": 3\n" +
+                        "      }\n" +
+                        "    ],\n" +
+                        "    \"page_count\": 0,\n" +
+                        "    \"item_count\": 1,\n" +
+                        "    \"page_index\": 0,\n" +
+                        "    \"is_first\": true,\n" +
+                        "    \"is_last\": false\n" +
+                        "  },\n" +
+                        "  \"status\": {\n" +
+                        "    \"code\": 2000,\n" +
+                        "    \"reason\": \"\"\n" +
+                        "  }\n" +
+                        "}", false));
+
     }
 }

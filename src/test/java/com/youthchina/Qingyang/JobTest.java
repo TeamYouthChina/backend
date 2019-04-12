@@ -1,15 +1,12 @@
 package com.youthchina.Qingyang;
 
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.*;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.qingyang.JobService;
 import com.youthchina.service.qingyang.JobServiceImpl;
 import com.youthchina.service.qingyang.LocationServiceImpl;
 import org.junit.Assert;
@@ -17,10 +14,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -28,8 +23,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:test.xml"})
+@Transactional
 public class JobTest {
 
     @Autowired
@@ -314,6 +308,19 @@ public class JobTest {
 
         jobList = jobService.getJobByUserId(2);
         Assert.assertEquals(0, jobList.size());
+
+    }
+
+    @Test
+    public void isCollectTest(){
+        Integer res = jobMapper.isCollect(1 ,10);
+        Assert.assertEquals(Integer.valueOf(1), res);
+        res = jobMapper.isCollect(1,1);
+        Assert.assertEquals(null, res);
+        boolean isCollected = jobService.isCollected(1,10);
+        Assert.assertEquals(true, isCollected);
+        isCollected = jobService.isCollected(1,1);
+        Assert.assertEquals(false, isCollected);
 
     }
 }

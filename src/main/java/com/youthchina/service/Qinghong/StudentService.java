@@ -52,7 +52,7 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
 
     Certificate insertCertificate(Certificate certificate, Integer user_id) throws NotFoundException;
 
-    AdvantageLabel insertLabel(AdvantageLabel advantageLabel,Integer user_id) throws NotFoundException;
+    AdvantageLabel insertLabel(AdvantageLabel advantageLabel, Integer user_id) throws NotFoundException;
 
     Integer deleteEducation(Integer id) throws NotFoundException;
 
@@ -97,4 +97,8 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
     Certificate updateCertificate(Certificate certificate) throws NotFoundException;
 
     Activity updateActivity(Activity activity) throws NotFoundException;
+
+    Integer getCollectionByJobId(Integer company_id, Integer user_id);
+
+    Integer getCollectionByCompanyId(Integer company_id, Integer user_id);
 }

@@ -1,496 +1,488 @@
-DELETE http://47.252.87.218:8080/api/v1​/editorials​/attentions​/2
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+POST http://47.252.87.218:8080/api/v1/questions
+Content-Type: application/json;utf-8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU1ODc0NjA5fQ.BqA_j_qFEB_AW4yubRoiv25U5ufeGWlYObDh1f--etNEfnw-ObrrgPFeUl-64jzGNStjyTY7S5goQGnj5UjEuQ
+
+{   "title": "string",   "body": {     "braftEditorRaw": "ss",     "previewText": "ss",     "compiletype": 1  },   "is_anonymous": true,   "rela_type": 0,   "rela_id": 0 }
+
+<> 2019-04-11T054446.200.json
+
+###
+
+POST http://47.252.87.218:8080/api/v1/questions
+Content-Type: application/json;utf-8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU1ODc0NjA5fQ.BqA_j_qFEB_AW4yubRoiv25U5ufeGWlYObDh1f--etNEfnw-ObrrgPFeUl-64jzGNStjyTY7S5goQGnj5UjEuQ
+
+{   "title": "string",   "body": {     "braftEditorRaw": "ss",     "previewText": "ss",     "compiletype":   },   "is_anonymous": true,   "rela_type": 0,   "rela_id": 0 }
+
+<> 2019-04-11T054402.400.json
+
+###
+
+DELETE http://localhost:8080/api/v1/jobs/**/attentions/{id}
+
+###
+
+PUT http://localhost:8080/api/v1/applicants/**/{id}/extracurriculars/{extracurricularID}
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1/answers%20%20
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
 Content-Type: application/json
 
-{   "body": "",   "is_anonymous": false }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-11T063056.404.json
+<> 2019-04-10T044832.400.json
 
 ###
 
-DELETE http://47.252.87.218:8080/api/v1​/editorials​/attentions​/1
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+GET http://47.252.87.218:8080/api/v1/questions/1/answers%20
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
 Content-Type: application/json
 
-{   "body": "",   "is_anonymous": false }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-11T063047.404.json
+<> 2019-04-10T044826.400.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/articles/4/comments
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
 Content-Type: application/json
 
-{   "body": "",   "is_anonymous": false }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-11T061312.200.json
+<> 2019-04-10T044822-1.200.json
 
 ###
 
-POST http://47.252.87.218:8080/api/v1/articles/4/comments
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
 Content-Type: application/json
 
-{   "body": "",   "is_anonymous": false }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-11T061155.200.json
+<> 2019-04-10T044822.200.json
 
 ###
 
-POST http://47.252.87.218:8080/api/v1/articles/4/comment
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
 Content-Type: application/json
 
-{   "body": "",   "is_anonymous": false }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-11T061148.404.json
+<> 2019-04-10T044821-4.200.json
 
 ###
 
-POST http://47.252.87.218:8080/api/v1/articles/4/comment
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
 Content-Type: application/json
 
-{   "body": {     "braftEditorRaw": "string",     "previewText": "string",     "compiletype": 0   },   "is_anonymous": false }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-11T061101.404.json
+<> 2019-04-10T044821-3.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/articles/4
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
 Content-Type: application/json
 
-{   "id":1,   "password":"123456" }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-11T061010.200.json
+<> 2019-04-10T044821-2.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/articles/2
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
 Content-Type: application/json
 
-{   "id":1,   "password":"123456" }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-11T061009.404.json
+<> 2019-04-10T044821-1.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/articles/3
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
 Content-Type: application/json
 
-{   "id":1,   "password":"123456" }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-11T061007.404.json
+<> 2019-04-10T044821.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/articles​/3
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
 Content-Type: application/json
 
-{   "id":1,   "password":"123456" }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-11T060956.404.json
+<> 2019-04-10T044820-5.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/articles​/3
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
 Content-Type: application/json
 
-{   "id":1,   "password":"123456" }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-11T060948.404.json
-
-###
-
-GET http://47.252.87.218:8080/api/v1/articles​/3
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
-
-{   "id":1,   "password":"123456" }
-
-<> 2019-04-11T060917.404.json
+<> 2019-04-10T044820-4.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/articles​/3
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
-
-{   "id":1,   "password":"123456" }
-
-<> 2019-04-11T060803.404.json
-
-###
-
-GET http://47.254.46.117:8080/api/v1/articles​/3
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
-
-{   "id":1,   "password":"123456" }
-
-###
-
-GET http://47.254.46.117:8080/api/v1/articles​/3
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
-
-{   "id":1,   "password":"123456" }
-
-###
-
-GET http://47.252.87.218:8080/api/v1/articles​/3
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
-
-{   "id":1,   "password":"123456" }
-
-<> 2019-04-11T060746.404.json
-
-###
-
-GET http://47.254.46.117:8080/api/v1/articles​/3
-Accept: */*
-Cache-Control: no-cache
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTg4MjE4NX0.Ee8F8ZSuJHfmzePDsvNy-XmDEcBMRR-o-g_9gOSIhL0UokGBRgcU___vKziU3Quv87V-wXz12nApyCWlhHC_Nw
-
-{   "id":1,   "password":"123456" }
-
-###
-
-GET http://47.252.87.218:8080/api/v1/recommend?type=article&limit=2
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTcwMzgzOX0.46dQnVtfwGGksDujdQa7Ti6DtPt6O0Rh068t_xf2nfvDir--Dcr8w__hQhTqJNVucPL4xQpykMEw7noIW2S1dg
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T035905.200.json
+<> 2019-04-10T044820-3.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/recommend?type=article
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTcwMzgzOX0.46dQnVtfwGGksDujdQa7Ti6DtPt6O0Rh068t_xf2nfvDir--Dcr8w__hQhTqJNVucPL4xQpykMEw7noIW2S1dg
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T035851.200.json
+<> 2019-04-10T044820-2.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/jobs/1
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTcwMzgzOX0.46dQnVtfwGGksDujdQa7Ti6DtPt6O0Rh068t_xf2nfvDir--Dcr8w__hQhTqJNVucPL4xQpykMEw7noIW2S1dg
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T035738.200.json
+<> 2019-04-10T044820-1.200.json
 
 ###
 
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json;utf-8
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T035719.200.json
+<> 2019-04-10T044820.200.json
 
 ###
 
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json;utf-8
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T012136.200.json
+<> 2019-04-10T044819-5.200.json
 
 ###
 
-POST http://test.zzc-tongji.com/api/v1/login
-Content-Type: application/json;utf-8
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T012104.403.json
+<> 2019-04-10T044819-4.200.json
 
 ###
 
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json;utf-8
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T012037.200.json
+<> 2019-04-10T044819-3.200.json
 
 ###
 
-GET http://localhost:8080/api/v1/recommend?limit=10
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T125254.200.json
+<> 2019-04-10T044819-2.200.json
 
 ###
 
-GET http://localhost:8080/api/v1/recommend
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T125115.200.json
+<> 2019-04-10T044819-1.200.json
 
 ###
 
-GET http://localhost:8080/api/v1/recommend
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T123011.500.json
+<> 2019-04-10T044819.200.json
 
 ###
 
-GET http://localhost:8080/api/v1/recommend
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T122757.500.json
+<> 2019-04-10T044818-5.200.json
 
 ###
 
-GET http://localhost:8080/api/v1/recommend
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T122651.4040.json
+<> 2019-04-10T044818-4.200.json
 
 ###
 
-GET http://localhost:8080/api/v1/recommend
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T121030.4040.json
+<> 2019-04-10T044818-3.200.json
 
 ###
 
-GET http://localhost:8080/api/v1/recommend
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-###
-
-GET http://47.252.87.218:8080/api/v1/search?title=测
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
-
-<> 2019-04-09T113240.500.json
+<> 2019-04-10T044818-2.200.json
 
 ###
 
-POST http://47.252.87.218:8080/api/v1/search?title=测
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTY4NzgzOH0.I9tUQR4rCB-2mVeHEvi4llMWh4GApckmLFvlEzZqzzUJUAhBqFE0PCB7rFwJ1PVo_ipoHv6UW1G-GERvd7lOzA
-
-<> 2019-04-09T113232.405.json
-
-###
-
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json;utf-8
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-<> 2019-04-09T113039.200.json
+<> 2019-04-10T044818-1.200.json
 
 ###
 
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json;utf-8
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
 { "id":10, "password":"123456" }
 
-###
-
-GET http://47.252.:8080/api/v1/search?title=腾
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
+<> 2019-04-10T044818.200.json
 
 ###
 
-GET http://localhost:8080/api/v1/search?title=腾
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
-<> 2019-04-09T095555.200.json
+{ "id":10, "password":"123456" }
 
-###
-
-GET http://localhost:8080/api/v1/search?title=腾
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
+<> 2019-04-10T044817-5.200.json
 
 ###
 
-GET http://localhost:8080/api/v1/search?title=腾&type=article
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
-<> 2019-04-08T095805.200.json
+{ "id":10, "password":"123456" }
 
-###
-
-GET http://localhost:8080
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
-
-{  "title": "string",  "body": {    "braftEditorRaw": "",    "previewText": "",    "compiletype": 1  },  "id": 0,  "company_id": 0,  "is_anonymous": false }
-
-<> 2019-04-08T095750.404.json
+<> 2019-04-10T044817-4.200.json
 
 ###
 
-GET http://localhost:8080/api/v1/search
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
-{  "title": "string",  "body": {    "braftEditorRaw": "",    "previewText": "",    "compiletype": 1  },  "id": 0,  "company_id": 0,  "is_anonymous": false }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-08T095605.4040.json
-
-###
-
-GET http://localhost:8080/api/v1/search
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
-
-{  "title": "string",  "body": {    "braftEditorRaw": "",    "previewText": "",    "compiletype": 1  },  "id": 0,  "company_id": 0,  "is_anonymous": false }
-
-<> 2019-04-08T095604.4040.json
+<> 2019-04-10T044817-3.200.json
 
 ###
 
-GET http://localhost:8080/api/v1/search
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
-{  "title": "string",  "body": {    "braftEditorRaw": "",    "previewText": "",    "compiletype": 1  },  "id": 0,  "company_id": 0,  "is_anonymous": false }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-08T095441.4040.json
-
-###
-
-GET http://localhost:8080/api/v1/search
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
-
-{  "title": "string",  "body": {    "braftEditorRaw": "",    "previewText": "",    "compiletype": 1  },  "id": 0,  "company_id": 0,  "is_anonymous": false }
-
-<> 2019-04-08T095349.400.json
+<> 2019-04-10T044817-2.200.json
 
 ###
 
-GET http://localhost:8080/api/v1/search
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
-{  "title": "string",  "body": {    "braftEditorRaw": "",    "previewText": "",    "compiletype": 1  },  "id": 0,  "company_id": 0,  "is_anonymous": false }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-08T095228.500.json
-
-###
-
-PUT http://localhost:8080/api/v1/search
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
-
-{  "title": "string",  "body": {    "braftEditorRaw": "",    "previewText": "",    "compiletype": 1  },  "id": 0,  "company_id": 0,  "is_anonymous": false }
-
-<> 2019-04-08T095224.405.json
+<> 2019-04-10T044817-1.200.json
 
 ###
 
-PUT http://47.252.87.218:8080/api/v1/articles/5
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
-{  "title": "string",  "body": {    "braftEditorRaw": "",    "previewText": "",    "compiletype": 1  },  "id": 0,  "company_id": 0,  "is_anonymous": false }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-07T052248.404.json
-
-###
-
-PUT http://47.252.87.218:8080/api/v1/articles/5
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
-
-{  "title": "string",  "body": {    "braftEditorRaw": "",    "previewText": "",    "compiletype": 1  },  "id": 0,  "company_id": 0,  "is_anonymous": false }
-
-<> 2019-04-07T052235.404.json
+<> 2019-04-10T044817.200.json
 
 ###
 
-PUT http://47.252.87.218:8080/api/v1/articles/3
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
-{  "title": "string",  "body": {    "braftEditorRaw": "",    "previewText": "",    "compiletype": 1  },  "id": 0,  "company_id": 0,  "is_anonymous": false }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-07T051333.404.json
+<> 2019-04-10T044816-5.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/articles/3
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NTUzNTA2Mn0.Ft5T5bTOuo-X4xbwVpdDuwSiKsOuK2gyzp2G_9LycfgBjRH0Doi3t0Wx7RyuIhcUI7C7q-OK-Gb7xfWqG1ptaA
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
 
-{ "id": 10, "password":"123456" }
+{ "id":10, "password":"123456" }
 
-<> 2019-04-07T050752.200.json
+<> 2019-04-10T044816-4.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-10T044816-3.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-10T044816-2.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-10T044816-1.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-10T044816.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-10T044815-5.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-10T044815-4.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-10T044815-3.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-10T044815-2.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-10T044815-1.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-10T044815.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1/answers
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NDkzNTcwOH0.JZ8unKf5O2IeXEgkbooXLW0OAMIR0Mi52p5yHTxO7To-k4scHHujTJ8ZB0GpeikRPv01eBm4UrcrbV90LgeVOg
+Content-Type: application/json
+
+{ "id":10, "password":"123456" }
+
+<> 2019-04-10T044814-5.200.json
 
 ###
 

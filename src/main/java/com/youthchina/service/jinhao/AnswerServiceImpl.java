@@ -107,7 +107,7 @@ public class AnswerServiceImpl implements AnswerService{
         richTextService.addComRichText(answer.getBody());
         answerMapper.add(answer);
         answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
-        return answer;
+        return get(answer.getId());
     }
 
     @Override
