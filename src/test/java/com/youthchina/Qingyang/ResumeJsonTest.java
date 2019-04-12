@@ -8,8 +8,10 @@ import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.qingyang.ResumeJson;
 import com.youthchina.domain.tianjian.ComEssay;
+import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.jinhao.AnswerServiceImpl;
 import com.youthchina.service.jinhao.QuestionServiceImpl;
+import com.youthchina.service.qingyang.ResumeJsonServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
 import com.youthchina.service.zhongyang.JwtService;
 import com.youthchina.util.AuthGenerator;
@@ -29,8 +31,10 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -38,15 +42,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 /**
  * @author: Qingyang Zhao
  * @create: 2019-04-11
  **/
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup(value = {"classpath:test.xml"}, type = DatabaseOperation.CLEAN_INSERT)
-@WebAppConfiguration
+@Transactional
 public class ResumeJsonTest {
     @Autowired
     WebApplicationContext context;
@@ -69,6 +74,8 @@ public class ResumeJsonTest {
     EssayServiceImpl essayService;
     @Autowired
     ResumeJsonMapper resumeJsonMapper;
+    @Autowired
+    ResumeJsonServiceImpl resumeJsonService;
 
     private AuthGenerator authGenerator = new AuthGenerator();
 
@@ -92,11 +99,36 @@ public class ResumeJsonTest {
         resumeJsonMapper.deleteResumeJson(resumeJson.getResumeId());
         resumeJson = resumeJsonMapper.selectResumeJson(resumeJson.getResumeId());
         Assert.assertEquals(null, resumeJson);
+
+        resumeJson = new ResumeJson();
+        resumeJson.setJsonContent("TestContent");
+        resumeJson.setUserId(1);
+        resumeJsonMapper.insertResumeJson(resumeJson);
+        Integer id1 = resumeJson.getResumeId();
+        resumeJsonMapper.insertResumeJson(resumeJson);
+        Integer id2 = resumeJson.getResumeId();
+        List<Integer> idList = new ArrayList<>();
+        idList.add(id1);
+        idList.add(id2);
+        List<ResumeJson> resumeJsonList = resumeJsonMapper.selectResumeJsonByIdList(idList);
+        Assert.assertEquals(2, resumeJsonList.size());
+
     }
 
+
     @Test
-    public void testResumeJsonService(){
-        
+    public void testResumeJson() throws Exception {
+        ResumeJson resumeJson = new ResumeJson();
+        resumeJson.setJsonContent("TestContent");
+        Integer id = 1;
+        this.mvc.perform(
+                post(this.urlPrefix + "/resumes/online")
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{}", false))
+        ;
     }
 
 

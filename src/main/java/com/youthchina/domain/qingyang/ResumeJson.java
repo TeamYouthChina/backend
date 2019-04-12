@@ -1,16 +1,27 @@
 package com.youthchina.domain.qingyang;
 
+import com.youthchina.dto.applicant.ResumeJsonRequestDTO;
+import com.youthchina.util.zhongyang.HasId;
+
 import java.sql.Timestamp;
 
 /**
  * @author: Qingyang Zhao
  * @create: 2019-04-11
  **/
-public class ResumeJson {
+public class ResumeJson implements HasId<Integer> {
     private Integer resumeId;
     private String jsonContent;
     private Integer userId;
     private Timestamp createTime;
+
+    public ResumeJson() {
+    }
+
+    public ResumeJson(ResumeJsonRequestDTO resumeJsonRequestDTO) {
+        this.jsonContent = resumeJsonRequestDTO.getResume();
+        this.userId = resumeJsonRequestDTO.getUserId();
+    }
 
     public Integer getResumeId() {
         return resumeId;
@@ -42,5 +53,10 @@ public class ResumeJson {
 
     public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public Integer getId() {
+        return this.resumeId;
     }
 }

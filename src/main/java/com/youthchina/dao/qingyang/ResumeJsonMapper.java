@@ -20,6 +20,6 @@ public interface ResumeJsonMapper {
 
     Integer updateResumeJson(ResumeJson resumeJson);
 
-
+    List<ResumeJson> selectResumeJsonByIdList(List<Integer> idList);
 }
 

@@ -17,6 +17,15 @@
           AND IS_DELETE = 0
     </select>
 
+    <select id="selectResumeJsonByIdList" resultMap="resume" parameterType="java.util.List">
+        SELECT *
+        FROM STU_RESUME_JSON
+        WHERE IS_DELETE = 0 AND RESUME_ID in
+        <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
     <select id="selectResumeJsonByStuId" parameterType="java.lang.Integer"
             resultMap="resume">
         SELECT *

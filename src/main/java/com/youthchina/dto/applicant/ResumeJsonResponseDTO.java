@@ -12,16 +12,12 @@ import java.util.List;
  * @author: Qinghong Wang
  * @create: 2019-02-28 10:04
  **/
-public class ResumeResponseDTO implements ResponseDTO<ResumeJson> {
+public class ResumeJsonResponseDTO implements ResponseDTO<ResumeJson> {
     private Integer id;
     private List<String> jsons;
 
-    public ResumeResponseDTO() {
+    public ResumeJsonResponseDTO() {
 
-    }
-
-    public ResumeResponseDTO(ResumeJson resumeJson) {
-        List<String> list = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -43,6 +39,8 @@ public class ResumeResponseDTO implements ResponseDTO<ResumeJson> {
 
     @Override
     public void convertToDTO(ResumeJson domain) {
-
+        this.id = domain.getResumeId();
+        this.jsons = new ArrayList<>();
+        this.jsons.add(domain.getJsonContent());
     }
 }
