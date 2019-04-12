@@ -7,7 +7,8 @@ import com.youthchina.dto.util.RichTextRequestDTO;
 public class EssayRequestDTO implements RequestDTO<ComEssay> {
     private Integer id;
     private String title;
-    private Integer company_id;
+    private Integer rela_id;
+    private Integer rela_type;
     private boolean is_anonymous;
     private RichTextRequestDTO body;
 
@@ -16,8 +17,8 @@ public class EssayRequestDTO implements RequestDTO<ComEssay> {
         this.title = comEssay.getTitle();
         this.is_anonymous = (comEssay.getIsAnony()==1)? true:false;
         this.body = new RichTextRequestDTO(comEssay.getBody());
-        if(comEssay.getRelaType()==1)
-        this.company_id = comEssay.getRelaId();
+        this.rela_id = comEssay.getRelaId();
+        this.rela_type = comEssay.getRelaType();
     }
 
     public EssayRequestDTO() {
@@ -47,12 +48,20 @@ public class EssayRequestDTO implements RequestDTO<ComEssay> {
         this.title = title;
     }
 
-    public Integer getCompany_id() {
-        return company_id;
+    public Integer getRela_id() {
+        return rela_id;
     }
 
-    public void setCompany_id(Integer company_id) {
-        this.company_id = company_id;
+    public void setRela_id(Integer rela_id) {
+        this.rela_id = rela_id;
+    }
+
+    public Integer getRela_type() {
+        return rela_type;
+    }
+
+    public void setRela_type(Integer rela_type) {
+        this.rela_type = rela_type;
     }
 
     public boolean isIs_anonymous() {

@@ -1,5 +1,6 @@
 package com.youthchina.dto.job;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.util.LocationDTO;
@@ -28,8 +29,8 @@ public class JobRequestDTO implements RequestDTO<Job> {
     private String type;
     private Integer userId;
     private List<LocationDTO> location;
-//    private List<Integer> location;
     private String startTime;
+    private String endTime;
     private String deadLine;
     private String job_description;
     private String job_duty;
@@ -95,6 +96,7 @@ public class JobRequestDTO implements RequestDTO<Job> {
         this.location = location;
     }
 
+    @JsonProperty("dead_line")
     public String getDeadLine() {
         return deadLine;
     }
@@ -119,6 +121,7 @@ public class JobRequestDTO implements RequestDTO<Job> {
         this.job_duty = job_duty;
     }
 
+    @JsonProperty("start_time")
     public String getStartTime() {
         return startTime;
     }
@@ -127,8 +130,19 @@ public class JobRequestDTO implements RequestDTO<Job> {
         this.startTime = startTime;
     }
 
+    @JsonProperty("end_time")
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
     @Override
     public Job convertToDomain() {
         return new Job(this);
     }
+
+
 }
