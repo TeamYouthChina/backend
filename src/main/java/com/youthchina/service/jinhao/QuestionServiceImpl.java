@@ -145,9 +145,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     @Transactional
-    public Question add(Question entity) {
+    public Question add(Question entity) throws NotFoundException {
         richTextService.addComRichText(entity.getBody());
         questionMapper.add(entity);
-        return entity;
+        return get(entity.getId());
     }
 }
