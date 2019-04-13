@@ -96,6 +96,9 @@ public class JobServiceImpl implements JobService {
             for (int i = 0; i < locationList.size(); i++) {
 
                 Integer regionNum = locationList.get(i).getRegionNum();
+                if(regionNum < 100000){
+                    regionNum += 900000;
+                }
                 locationList.set(i, locationServiceImpl.getLocation(regionNum));
             }
         }
