@@ -131,13 +131,20 @@ public class UserController extends DomainCRUDController<User, Integer> {
             }
             case "article": {
                 List<EssayResponseDTO> essayResponseDTOS = new ArrayList<>();
-                List<Integer> result = attentionService.getAllIdsOfAttention(new ComEssay(), user_id);
+                List<Integer> result = new ArrayList<>();
+                try {
+                    result = attentionService.getAllIdsOfAttention(new ComEssay(), user_id);
+                } catch (NotFoundException ignore) {
+                }
                 if (result != null) {
                     for (Integer id : result) {
-                        ComEssay comEssay = essayService.getEssay(id);
-                        EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
-                        essayResponseDTOS.add(essayResponseDTO);
-
+                        try {
+                            ComEssay comEssay = null;
+                            comEssay = essayService.getEssay(id);
+                            EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
+                            essayResponseDTOS.add(essayResponseDTO);
+                        } catch (NotFoundException ignore) {
+                        }
                     }
 
 
@@ -152,9 +159,14 @@ public class UserController extends DomainCRUDController<User, Integer> {
                 List<Integer> result = attentionService.getAllIdsOfAttention(new BriefReview(), user_id);
                 if (result != null) {
                     for (Integer id : result) {
-                        BriefReview briefReview = briefReviewService.get(id);
-                        BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReview);
-                        briefReviewResponseDTOS.add(briefReviewResponseDTO);
+                        try {
+                            BriefReview briefReview = briefReviewService.get(id);
+                            BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReview);
+                            briefReviewResponseDTOS.add(briefReviewResponseDTO);
+                        } catch (NotFoundException ignore) {
+
+                        }
+
                     }
 
                 }
@@ -168,9 +180,14 @@ public class UserController extends DomainCRUDController<User, Integer> {
                 List<Integer> result = attentionService.getAllIdsOfAttention(new Question(), user_id);
                 if (result != null) {
                     for (Integer id : result) {
-                        Question question = questionService.get(id);
-                        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
-                        questionResponseDTOS.add(questionResponseDTO);
+                        try {
+                            Question question = questionService.get(id);
+                            QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
+                            questionResponseDTOS.add(questionResponseDTO);
+                        } catch (NotFoundException ignore) {
+
+                        }
+
                     }
 
                 }
@@ -183,9 +200,14 @@ public class UserController extends DomainCRUDController<User, Integer> {
                 List<Integer> result = attentionService.getAllIdsOfAttention(new Answer(), user_id);
                 if (result != null) {
                     for (Integer id : result) {
-                        Answer answer = answerService.get(id);
-                        SimpleAnswerResponseDTO answerResponseDTO = new SimpleAnswerResponseDTO(answer);
-                        answerResponseDTOS.add(answerResponseDTO);
+                        try {
+                            Answer answer = answerService.get(id);
+                            SimpleAnswerResponseDTO answerResponseDTO = new SimpleAnswerResponseDTO(answer);
+                            answerResponseDTOS.add(answerResponseDTO);
+                        } catch (NotFoundException ignore) {
+
+                        }
+
                     }
                 }
                 List<SimpleAnswerResponseDTO> results = answerResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, result.size()));
