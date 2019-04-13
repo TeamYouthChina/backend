@@ -1,7 +1,10 @@
 package com.youthchina.dto.company;
 
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.domain.qingyang.*;
+import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.CompanyPhoto;
+import com.youthchina.domain.qingyang.Country;
+import com.youthchina.domain.qingyang.Logo;
 import com.youthchina.dto.ResponseDTO;
 
 import java.util.ArrayList;
@@ -21,7 +24,6 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
     private String nation;
     private List<String> photoUrlList;
     private Integer jobCount;
-//    private List<String> industryList;
     private Boolean isCollected = false;
 
     public CompanyResponseDTO() {
