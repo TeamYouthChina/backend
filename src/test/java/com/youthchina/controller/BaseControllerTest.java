@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -43,13 +44,13 @@ public class BaseControllerTest {
 
     }
 
-    protected String readJson(String filepath) {
+    protected String readJson(String filepath) throws FileNotFoundException {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = null;
         try {
             jsonString = mapper.writeValueAsString(mapper.readValue(new ClassPathResource(filepath).getFile(), Object.class));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileNotFoundException();
         }
         return jsonString;
     }
