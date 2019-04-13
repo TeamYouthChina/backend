@@ -196,8 +196,11 @@ public class StudentServiceImpl implements StudentService {
         } else {
             List<Work> works = applicantMapper.getWorks(id);
             for (Work work : works) {
-                Location location = locationService.getLocation(work.getLocation().getRegionId());
-                work.setLocation(location);
+                if(work.getLocation()!=null&&work.getLocation().getRegionId()!=null){
+                    Location location = locationService.getLocation(work.getLocation().getRegionId());
+                    work.setLocation(location);
+                }
+
             }
             return works;
         }
@@ -542,8 +545,11 @@ public class StudentServiceImpl implements StudentService {
             work.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuWork(work);
             Work work1 = applicantMapper.getWorkById(work.getWork_id());
-            Location location = locationService.getLocation(work1.getLocation().getRegionId());
-            work1.setLocation(location);
+            if(work1.getLocation()!=null&&work1.getLocation().getRegionId()!=null){
+                Location location = locationService.getLocation(work1.getLocation().getRegionId());
+                work1.setLocation(location);
+            }
+
             return work1;
 
         }

@@ -48,7 +48,7 @@ public class DictionaryControllerTest {
     @Test
     public void getLocation() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/static/location?target=50000&id=50000000")
+                get(this.urlPrefix + "/static/location?target=1&id=0")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
