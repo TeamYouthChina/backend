@@ -154,7 +154,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
                 return ResponseEntity.ok(listResponse);
 
             }
-            case "briefReview": {
+            case "editorial": {
                 List<BriefReviewResponseDTO> briefReviewResponseDTOS = new ArrayList<>();
                 List<Integer> result = attentionService.getAllIdsOfAttention(new BriefReview(), user_id);
                 if (result != null) {
