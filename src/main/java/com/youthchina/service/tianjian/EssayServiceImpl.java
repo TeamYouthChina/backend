@@ -4,7 +4,6 @@ import com.youthchina.dao.tianjian.CommunityMapper;
 import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.AttentionService;
 import com.youthchina.service.jinhao.CommentServiceImpl;
 import com.youthchina.service.jinhao.EvaluateServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +98,17 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public List<ComEssay> getEssay(List<Integer> essayId) {
-        return mapper.getEssayList(essayId);
+        List<ComEssay> res = new ArrayList<>();
+        for (Integer i : essayId) {
+            try {
+                ComEssay essay = this.getEssay(i);
+                res.add(essay);
+            } catch (NotFoundException ignore) {
+
+            }
+
+        }
+        return res;
     }
 
     @Override
@@ -119,14 +128,7 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public List<ComEssay> get(List<Integer> id) throws NotFoundException {
-        List<ComEssay> res = new ArrayList<>();
-        for (Integer i : id) {
-            ComEssay essay = this.getEssay(i);
-            if (essay != null) {
-                res.add(essay);
-            }
-        }
-        return res;
+        return this.getEssay(id);
     }
 
     @Override

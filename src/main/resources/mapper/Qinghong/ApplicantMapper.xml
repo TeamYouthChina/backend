@@ -964,7 +964,7 @@
         SELECT COLLECT_ID
         FROM youthchina.STU_COMP_COLLECT
         WHERE STU_ID = #{user_id}
-          AND COMPANY_ID = #{company_id}
+          AND COMPANY_ID = #{company_id} AND IS_DELETE = 0
     </select>
 
 
