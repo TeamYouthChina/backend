@@ -3,7 +3,10 @@ package com.youthchina.service.qingyang;
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.domain.qingyang.*;
+import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.CompanyPhoto;
+import com.youthchina.domain.qingyang.Industry;
+import com.youthchina.domain.qingyang.Logo;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.tianjian.StaticFileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -94,8 +98,15 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Override
     @Transactional
     public List<Company> get(List<Integer> id) throws NotFoundException {
-        List<Company> companyList = companyMapper.selectCompanyByIdList(id);
-        if (companyList == null || companyList.size() == 0) throw new NotFoundException(4040, 404, "No such company");
+        List<Company> companyList = new ArrayList<>();
+        for (Integer i : id) {
+            try {
+                companyList.add(this.get(i));
+            } catch (NotFoundException ignore) {
+
+            }
+        }
+        if (companyList.size() == 0) throw new NotFoundException(4040, 404, "No such company");
         for (Company company : companyList) {
             setCompanyLocation(company);
         }
@@ -222,9 +233,9 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         return jobCount;
     }
 
-    public Boolean isCollected(Integer companyId, Integer userId){
+    public Boolean isCollected(Integer companyId, Integer userId) {
         Integer result = companyMapper.isCollected(companyId, userId);
-        return  result != null;
+        return result != null;
     }
 
     @Override
