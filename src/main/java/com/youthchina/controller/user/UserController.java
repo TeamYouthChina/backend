@@ -149,7 +149,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
 
 
                 }
-                List<EssayResponseDTO> results = essayResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, result.size()));
+                List<EssayResponseDTO> results = essayResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, essayResponseDTOS.size()));
                 ListResponse listResponse = new ListResponse(pageRequest, result.size(), results);
                 return ResponseEntity.ok(listResponse);
 
@@ -170,7 +170,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
                     }
 
                 }
-                List<BriefReviewResponseDTO> results = briefReviewResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, result.size()));
+                List<BriefReviewResponseDTO> results = briefReviewResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, briefReviewResponseDTOS.size()));
                 ListResponse listResponse = new ListResponse(pageRequest, result.size(), results);
                 return ResponseEntity.ok(listResponse);
 
@@ -191,7 +191,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
                     }
 
                 }
-                List<QuestionResponseDTO> results = questionResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, result.size()));
+                List<QuestionResponseDTO> results = questionResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, questionResponseDTOS.size()));
                 ListResponse listResponse = new ListResponse(pageRequest, result.size(), results);
                 return ResponseEntity.ok(listResponse);
             }
@@ -210,7 +210,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
 
                     }
                 }
-                List<SimpleAnswerResponseDTO> results = answerResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, result.size()));
+                List<SimpleAnswerResponseDTO> results = answerResponseDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, answerResponseDTOS.size()));
                 ListResponse listResponse = new ListResponse(pageRequest, result.size(), results);
                 return ResponseEntity.ok(listResponse);
 
