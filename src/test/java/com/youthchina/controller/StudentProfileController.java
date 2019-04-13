@@ -295,6 +295,7 @@ public class StudentProfileController {
 
     @Test
     public void testGetExperiences() throws Exception{
+
         this.mvc.perform(
                 get(this.urlPrefix + "/applicants/7/experiences")
                         .with(authGenerator.authentication(Role.APPLICANT, 7))
@@ -315,7 +316,7 @@ public class StudentProfileController {
     public void testInsertWorks() throws Exception{
         LocationDTO locationDTO=new LocationDTO();
         locationDTO.setNation_code("440000");
-        locationDTO.setLocation_code("440000");
+        locationDTO.setLocation_code("");
         WorkRequestDTO workDTO=new WorkRequestDTO();
         workDTO.setEmployer("google");
         workDTO.setPosition("backend");
