@@ -60,6 +60,8 @@ public class StaticController {
             EntryResponseDTO entryResponseDTO=new EntryResponseDTO(entry);
             entryResponseDTOS.add(entryResponseDTO);
         }
+        EntryResponseDTO entryResponseDTO=new EntryResponseDTO(id+"");
+        entryResponseDTOS.add(entryResponseDTO);
         return ResponseEntity.ok(new Response(entryResponseDTOS));
     }
 
