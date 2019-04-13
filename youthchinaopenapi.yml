@@ -189,7 +189,7 @@ paths:
   
   '/jobs/{id}/apply':
     post:
-      summary: 发起申请不提交任何东西
+      summary: 发起不提交任何东西
       tags:
         - Application
       parameters:
@@ -337,7 +337,7 @@ paths:
                     $ref: '#/components/schemas/Status'
   '/applicants/{id}/applications':
     get:
-      summary: 获得所有申请的公司
+      summary: 获得所有申请的职位
       tags:
         - Application
       parameters:
