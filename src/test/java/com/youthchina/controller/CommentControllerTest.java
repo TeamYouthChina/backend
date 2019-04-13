@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import static com.youthchina.util.CustomMockMvcMatchers.partialContent;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -96,12 +97,14 @@ public class CommentControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String addJson = ow.writeValueAsString(discussRequestDTO);
+        String[] ignores = {"$.content.id","$.content.create_at","content.modified_at"};
         this.mvc.perform(
                 post(this.urlPrefix + "/comments/2/replies")
                         .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(addJson)
         )
+                .andExpect(partialContent("{\"content\":{\"id\":34,\"commentId\":2,\"creator\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"phonenumber\":\"2022922222\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0},\"body\":\"This is a discuss test.\",\"create_at\":\"2019-04-13T19:00:27.060+0000\",\"is_anonymous\":true,\"modified_at\":\"2019-04-13T19:00:27.060+0000\",\"upvoteCount\":null,\"downvoteCount\":null,\"evaluateStatus\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}",ignores))
                 .andDo(print());
 
     }
@@ -115,7 +118,6 @@ public class CommentControllerTest {
         )
                 .andDo(print())
                 .andExpect(content().json("{\"content\":{\"id\":2,\"creator\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"phonenumber\":\"2022922222\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0},\"body\":\"短评评论2\",\"create_at\":\"2014-05-08T00:00:00.000+0000\",\"is_anonymous\":true,\"modified_at\":\"2014-05-08T00:00:00.000+0000\",\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
-
     }
 
     @Test
