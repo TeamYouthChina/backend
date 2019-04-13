@@ -20,6 +20,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,9 @@ public class CommentController {
         Discuss discuss = new Discuss(discussRequestDTO);
         discuss.setCommentId(id);
         discuss.setUser(user);
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        discuss.setEditTime(time);
+        discuss.setPubTime(time);
         Discuss retrunDiscuss = discussService.add(discuss);
         DiscussResponseDTO returndiscussResponseDTO = new DiscussResponseDTO(retrunDiscuss);
         if (returndiscussResponseDTO.getId() != null) {

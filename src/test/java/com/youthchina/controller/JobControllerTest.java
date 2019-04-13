@@ -64,12 +64,10 @@ public class JobControllerTest extends BaseControllerTest {
         this.mvc.perform(
                 get(this.urlPrefix + "/jobs/1").param("id", "1").param("detailLevel", "1")
                         .with(authGenerator.authentication())
-
         )
                 .andDo(print())
                 .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"产品信息管理实习生\",\"organization\":{\"id\":37,\"name\":\"深圳市腾讯计算机系统有限公司\",\"avatarUrl\":null,\"location\":null,\"website\":\"https://www.tencent.com\",\"note\":\"腾讯科技股份有限公司（港交所：700）是中国规模最大的互联网公司，1998年11月由马化腾、张志东、陈一丹、许晨晔、曾李青5位创始人共同创立，总部位于深圳南山区腾讯大厦。腾讯业务拓展... \",\"nation\":\"中国\"},\"location\":[\"440100\"],\"type\":\"实习\",\"deadLine\":\"12/31/2019\",\"job_duty\":\"在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉产品信息管理\",\"job_description\":\"产品信息管理实习生\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
-
     }
 
     @Test
@@ -78,7 +76,6 @@ public class JobControllerTest extends BaseControllerTest {
         this.mvc.perform(
                 delete(this.urlPrefix + "/jobs/" + id)//.param("id", "1").param("detailLevel", "1")
                         .with(authGenerator.authentication())
-
         )
                 .andDo(print())
         ;
