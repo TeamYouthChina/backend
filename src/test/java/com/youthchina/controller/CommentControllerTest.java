@@ -136,4 +136,14 @@ public class CommentControllerTest {
                 .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
                 .andDo(print());
     }
+
+    @Test
+    public void testDeletevote2() throws Exception{
+        this.mvc.perform(
+                delete(this.urlPrefix + "/comments/1/vote")
+                        .with(this.authGenerator.authentication())
+        )
+                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4040,\"reason\":\"You have not evaluated! You cannot cancel!\"}}",false))
+                .andDo(print());
+    }
 }
