@@ -201,7 +201,6 @@ public class CompanyControllerTest {
 
         )
                 .andDo(print())
-                //,"avatarUrl":"" photoUrl
                 .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"name\":\"Vavle\",\"location\":\"994701\",\"website\":\"vavle.com\",\"note\":\"Steam\",\"nation\":\"美国\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
 
