@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,8 +93,6 @@ public class EssayServiceImpl implements EssayService {
         }
         richTextService.getComRichText(comEssay);
         comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
-        comEssay.setUpvotecount(evaluateService.countUpvote(comEssay));
-        //comEssay.setDownvotecount();
         return comEssay;
     }
 
@@ -114,7 +113,13 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public ComEssay get(Integer id) throws NotFoundException {
-        return null;
+        ComEssay comEssay = mapper.getEssay(id);
+        if (comEssay == null) {
+            throw new NotFoundException(4040, 404, "this essay does not exist");//todo
+        }
+        richTextService.getComRichText(comEssay);
+        comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
+        return comEssay;
     }
 
     @Override
@@ -131,16 +136,45 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public void delete(Integer id) throws NotFoundException {
-
+        ComEssay comEssay = new ComEssay();
+        comEssay.setId(id);
+        commentService.delete(comEssay);
+        Timestamp delete_time = new Timestamp(System.currentTimeMillis());
+        mapper.deleteEssay(id, delete_time);
     }
 
     @Override
-    public ComEssay update(ComEssay comEssay) throws NotFoundException {
-        return null;
+    public ComEssay update(ComEssay essay) throws NotFoundException {
+        ComEssay comEssaytest = mapper.getEssay(essay.getId());
+        if (comEssaytest == null) {
+            throw new NotFoundException(4040, 404, "this essay is not exist");//todo
+        } else {
+            richTextService.getComRichText(comEssaytest);
+            essay.getBody().setTextId(comEssaytest.getBody().getTextId());
+            if (essay.getIsAnony() != null)
+                comEssaytest.setIsAnony(essay.getIsAnony());
+            if (essay.getAbbre() != null)
+                comEssaytest.setAbbre(essay.getAbbre());
+            if (essay.getBody() != null) {
+                richTextService.updateComRichText(essay.getBody());
+                comEssaytest.setBody(essay.getBody());
+            }
+            if (essay.getTitle() != null)
+                comEssaytest.setTitle(essay.getTitle());
+            mapper.updateEssay(comEssaytest);
+            return mapper.getEssay(essay.getId());
+        }
     }
 
     @Override
     public ComEssay add(ComEssay entity) throws NotFoundException {
-        return null;
+        ComEssay comEssaytest = mapper.getEssay(entity.getId());
+        if (comEssaytest != null)
+            throw new NotFoundException(4040, 404, "this essay is exist");//todo
+        else {
+            richTextService.addComRichText(entity.getBody());
+            mapper.addEssay(entity);
+        }
+        return entity;
     }
 }
