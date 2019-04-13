@@ -4,5 +4,6 @@
     "previewText": "string",
     "compiletype": 0
   },
-  "company_id": 1
+  "rela_type": 1,
+  "rela_id": 1
 }
