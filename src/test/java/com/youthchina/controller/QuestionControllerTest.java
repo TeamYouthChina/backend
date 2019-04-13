@@ -2,58 +2,32 @@ package com.youthchina.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 import com.youthchina.dto.community.question.QuestionRequestDTO;
 import com.youthchina.dto.util.RichTextRequestDTO;
-import com.youthchina.util.AuthGenerator;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.WebApplicationContext;
 
+import static com.youthchina.util.CustomMockMvcMatchers.partialContent;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by hongshengzhang on 2/10/19.
  */
 
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 @WebAppConfiguration
-public class QuestionControllerTest {
-    @Autowired
-    private WebApplicationContext context;
-
-    @Autowired
-    private ApplicationContext applicationContext;
-
-    @Value("${web.url.prefix}")
-    private String urlPrefix;
-
-    private AuthGenerator authGenerator = new AuthGenerator();
-
-    MockMvc mvc;
-
-    @Before
-    public void setup() {
-        this.mvc = MockMvcBuilders.webAppContextSetup(context).apply(SecurityMockMvcConfigurers.springSecurity()).build();
-    }
+public class QuestionControllerTest extends BaseControllerTest {
 
     @Test
     public void getAnswersTest() throws Exception {
@@ -146,7 +120,7 @@ public class QuestionControllerTest {
 
     }
 
-//    @Test
+    //    @Test
 //    public void invitesAnswerTest() throws Exception {
 //        List<Integer> userlist = new ArrayList<>();
 //        userlist.add(1);
@@ -211,27 +185,15 @@ public class QuestionControllerTest {
 
     @Test
     public void testAddAnswer() throws Exception {
-        SimpleAnswerRequestDTO simpleAnswerDTO = new SimpleAnswerRequestDTO();
-        simpleAnswerDTO.setIs_anonymous(true);
-        String json = "";
-        String pre = "pre";
-        RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
-        richTextDTO.setBraftEditorRaw(json);
-        richTextDTO.setPreviewText(pre);
-        richTextDTO.setCompiletype(1);
-        simpleAnswerDTO.setBody(richTextDTO);
-
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String searchJson = ow.writeValueAsString(simpleAnswerDTO);
         this.mvc.perform(
                 post(this.urlPrefix + "/questions/2/answers")
                         .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content(searchJson)
+                        .content(readJson("requests/post-answer.json"))
         )
-                .andDo(print());
-          //      .andExpect(content().json("{\"content\":{\"body\":{\"braftEditorRaw\":null,\"previewText\":\"pre\",\"compiletype\":1},\"is_anonymous\":true,\"creator\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"phonenumber\":\"2022922222\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0},\"modified_at\":\"2019-04-04 16:28:56.829\",\"create_at\":\"2019-04-04 16:28:56.829\",\"question\":{\"id\":2,\"creator\":{\"id\":1,\"username\":\"Admin\",\"email\":\"123456@123.com\",\"phonenumber\":\"1234657890123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"first_name\":\"Admin\",\"last_name\":\"Admin\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":null,\"age\":25},\"title\":\"腾讯的问题是什么？\",\"is_anonymous\":true,\"create_at\":\"2019-01-01T00:00:00.000+0000\",\"modified_at\":\"2019-01-01T00:00:00.000+0000\",\"rela_type\":1,\"rela_id\":37,\"body\":{\"braftEditorRaw\":{\"resourceIdList\":[],\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要做的，就是保持住这个地位。但技术不是静止不动的，不断有新的技术生长出来，在成千上万种技术中，有一种会长成参天大树，利润无比丰厚，取代原来的技术平台，成为新的主流趋势。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\"},\"previewText\":\"在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要做的，就是保持住这个地位。但技术不是静止不动的，不断有新的技术生长出来，在成千上万种技术中，有一种会长成参天大树，利润无比丰厚，取代原来的技术平台，成为新的主流趋势。\",\"compiletype\":1}},\"id\":54},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(partialContent(readJson("responses/post-answer.json"), "$.content.modified_at", "$.content.create_at", "$.content.id"));
     }
 
 //    @Test

@@ -134,4 +134,22 @@ public class JobControllerTest extends BaseControllerTest {
     }
 
 
+    @Test
+    public void testSearchJob() throws Exception {
+        this.mvc.perform(
+                post(this.urlPrefix + "/jobs/search?page=1&limit=10")
+                        .content("{\n" +
+                                "  \"industry\": [\n" +
+                                "    \"test\",\n" +
+                                "    \"test\"\n" +
+                                "  ]\n" +
+                                "}")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
+        ;
+    }
+
 }
