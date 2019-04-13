@@ -18,15 +18,19 @@ public class CommentDTO implements ResponseDTO<Comment> {
     private Integer downvoteCount;
     private Integer evaluateStatus;
 
-    public CommentDTO(Comment comment){
+    public CommentDTO() {
+
+    }
+
+    public CommentDTO(Comment comment) {
         this.id = comment.getId();
-        if (comment.getIsAnony()==0)
+        if (comment.getIsAnony() == 0)
             this.creator = new UserDTO(comment.getUser());
         else
             this.creator = null;
         this.body = comment.getContent();
         this.create_at = comment.getPubTime();
-        this.is_anonymous = (comment.getIsAnony()==1)? true:false;
+        this.is_anonymous = (comment.getIsAnony() == 1) ? true : false;
         this.modified_at = comment.getEditTime();
     }
 
@@ -108,7 +112,7 @@ public class CommentDTO implements ResponseDTO<Comment> {
         this.creator = new UserDTO(comment.getUser());
         this.body = comment.getContent();
         this.create_at = comment.getPubTime();
-        this.is_anonymous = (comment.getIsAnony()==1)? true:false;
+        this.is_anonymous = (comment.getIsAnony() == 1) ? true : false;
         this.modified_at = comment.getEditTime();
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -97,8 +98,15 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Override
     @Transactional
     public List<Company> get(List<Integer> id) throws NotFoundException {
-        List<Company> companyList = companyMapper.selectCompanyByIdList(id);
-        if (companyList == null || companyList.size() == 0) throw new NotFoundException(4040, 404, "No such company");
+        List<Company> companyList = new ArrayList<>();
+        for (Integer i : id) {
+            try {
+                companyList.add(this.get(i));
+            } catch (NotFoundException ignore) {
+
+            }
+        }
+        if (companyList.size() == 0) throw new NotFoundException(4040, 404, "No such company");
         for (Company company : companyList) {
             setCompanyLocation(company);
         }
@@ -223,6 +231,18 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     public Integer countJobByComId(Integer companyId) {
         Integer jobCount = jobMapper.countJobByComId(companyId);
         return jobCount;
+    }
+
+    public Boolean isCollected(Integer companyId, Integer userId) {
+        Integer result = companyMapper.isCollected(companyId, userId);
+        return result != null;
+    }
+
+    @Override
+    public Company getCompanyWithCollected(Integer companyId, Integer userId) throws NotFoundException {
+        Company company = this.get(companyId);
+        company.setCollected(isCollected(companyId, userId));
+        return company;
     }
 
 }

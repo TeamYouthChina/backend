@@ -32,7 +32,8 @@ public class OrganizationDTO {
         }
         Location location = company.getLocation();
         if (location != null) {
-            this.location = location.getRegionName();
+            this.location = "" + location.getRegionId();
+                    //.getRegionName();
         }
         this.website = company.getCompanyWebsite();
         Country country = company.getCountry();

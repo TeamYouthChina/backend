@@ -77,10 +77,10 @@ public class BriefReviewServiceImplement implements BriefReviewService {
 
     @Override
     @Transactional
-    public BriefReview add(BriefReview entity) {
+    public BriefReview add(BriefReview entity) throws NotFoundException {
         richTextService.addComRichText(entity.getBody());
         briefReviewMapper.add(entity);
-        return entity;
+        return get(entity.getId());
     }
 
     @Override

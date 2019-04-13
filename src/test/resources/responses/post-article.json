@@ -1,0 +1,38 @@
+{
+  "content": {
+    "id": 55,
+    "title": "string",
+    "company": null,
+    "create_at": "2019-04-12T20:53:23.587+0000",
+    "modified_at": "2019-04-12T20:53:23.587+0000",
+    "author": {
+      "id": 2,
+      "username": "DEF",
+      "email": "123456@456.com",
+      "phonenumber": "9876543210123",
+      "register_date": "2019-01-01 00:00:00.0",
+      "first_name": "DDD",
+      "last_name": "DDDEEEFFF",
+      "gender": "Female",
+      "nation": "USA",
+      "avatar_url": "---",
+      "role": null,
+      "age": 28
+    },
+    "body": {
+      "braftEditorRaw": "string",
+      "previewText": "string",
+      "compiletype": 1
+    },
+    "is_anonymous": false,
+    "upvoteCount": null,
+    "downvoteCount": null,
+    "attentionCount": null,
+    "evaluateStatus": null,
+    "attention": false
+  },
+  "status": {
+    "code": 200,
+    "reason": "success"
+  }
+}

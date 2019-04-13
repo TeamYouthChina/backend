@@ -207,6 +207,12 @@
         com.COMPANY_ID = #{id} AND com.IS_DELETE = 0
     </select>
 
+    <select id = "isCollected" resultType="Integer">
+        SELECT COLLECT_ID
+        FROM STU_COMP_COLLECT
+        WHERE COMPANY_ID = #{companyId} AND STU_ID = #{stuId} AND IS_DELETE = 0
+    </select>
+
     <select id="selectAllCompany" resultMap="company" parameterType="java.lang.Integer">
         SELECT
         <include refid="companySelect"/>
