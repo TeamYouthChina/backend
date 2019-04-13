@@ -959,6 +959,8 @@
         FROM youthchina.STU_JOB_COLLECT
         WHERE STU_ID = #{user_id}
           AND JOB_ID = #{job_id}
+          AND IS_DELETE = 0
+
     </select>
     <select id="getCompanyByCompanyId" resultType="java.lang.Integer">
         SELECT COLLECT_ID
