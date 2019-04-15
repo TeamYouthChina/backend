@@ -1,14 +1,11 @@
 package com.youthchina.service.qingyang;
 
 import com.youthchina.dao.qingyang.ResumeJsonMapper;
-import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.qingyang.ResumeJson;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author: Qingyang Zhao
@@ -25,13 +22,6 @@ public class ResumeJsonServiceImpl implements DomainCRUDService<ResumeJson, Inte
         ResumeJson resumeJson = resumeJsonMapper.selectResumeJson(id);
         if(resumeJson == null) throw new NotFoundException(4040, 404, "ResumeJson Not Found");
         return resumeJson;
-    }
-
-    @Override
-    public List<ResumeJson> get(List<Integer> idList) throws NotFoundException {
-        List<ResumeJson> resumeJsonList = resumeJsonMapper.selectResumeJsonByIdList(idList);
-        if(resumeJsonList == null || resumeJsonList.size() == 0) throw new NotFoundException(4040, 404, "ResumeJson Not Found");
-        return resumeJsonList;
     }
 
     @Override

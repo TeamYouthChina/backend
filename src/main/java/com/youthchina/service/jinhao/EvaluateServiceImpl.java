@@ -192,29 +192,4 @@ public class EvaluateServiceImpl implements EvaluateService {
     public List<Integer> getMyDownvote(Evaluatable evaluatable, Integer userId) {
         return evaluateMapper.getMyDownVote(evaluatable.getEvaluateTargetType(), userId);
     }
-
-    @Override
-    public Evaluate get(Integer id) throws NotFoundException {
-        return null;
-    }
-
-    @Override
-    public List<Evaluate> get(List<Integer> id) throws NotFoundException {
-        return null;
-    }
-
-    @Override
-    public void delete(Integer id) throws NotFoundException {
-
-    }
-
-    @Override
-    public Evaluate update(Evaluate evaluate) throws NotFoundException {
-        return null;
-    }
-
-    @Override
-    public Evaluate add(Evaluate entity) throws NotFoundException {
-        return null;
-    }
 }

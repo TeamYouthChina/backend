@@ -5,7 +5,6 @@ import com.youthchina.domain.qingyang.CompanyEmployee;
 import com.youthchina.exception.zhongyang.NotFoundException;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author: Qingyang Zhao
@@ -18,11 +17,6 @@ public class CompanyEmployeeCURDServiceImpl implements CompanyEmployeeCURDServic
     @Override
     public CompanyEmployee get(Integer id) throws NotFoundException {
         return companyEmployeeMapper.getCompanyEmployee(id);
-    }
-
-    @Override
-    public List<CompanyEmployee> get(List<Integer> idList) throws NotFoundException {
-        return companyEmployeeMapper.getCompanyEmployeeByIdList(idList);
     }
 
     @Override

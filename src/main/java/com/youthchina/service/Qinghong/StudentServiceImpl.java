@@ -74,11 +74,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> get(List<Integer> id) throws NotFoundException {
-        return null;
-    }
-
-    @Override
     public void delete(Integer id) throws NotFoundException {
 
     }

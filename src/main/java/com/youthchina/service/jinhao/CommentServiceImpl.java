@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -135,17 +134,6 @@ public class CommentServiceImpl implements CommentService {
         return comment;
     }
 
-    @Override
-    public List<Comment> get(List<Integer> id) throws NotFoundException {
-        List<Comment> comments = new ArrayList<>();
-        for (Integer i : id) {
-            try {
-                comments.add(this.get(i));
-            } catch (NotFoundException ignored) {
-            }
-        }
-        return comments;
-    }
 
     @Override
     public Comment update(Comment comment) throws NotFoundException {

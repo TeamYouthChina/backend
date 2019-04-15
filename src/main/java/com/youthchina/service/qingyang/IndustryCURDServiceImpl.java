@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * 行业CURD
@@ -30,18 +29,6 @@ public class IndustryCURDServiceImpl implements IndustryCURDService {
         return companyMapper.selectIndustry(id);
     }
 
-    /**
-     * 返回行业List
-     *
-     * @param id 行业ID List
-     * @return
-     * @throws NotFoundException
-     */
-    @Override
-    @Transactional
-    public List<Industry> get(List<Integer> id) throws NotFoundException {
-        return companyMapper.selectIndustryByIdList(id);
-    }
 
     /**
      * 按行业Id删除行业

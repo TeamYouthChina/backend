@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.LinkedList;
-import java.util.List;
 
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -44,20 +42,6 @@ public class VideoServiceImpl implements VideoService {
         video.setUser(userService.get(video.getUser().getId()));
         commentService.getComments(video);
         return video;
-    }
-
-    @Override
-    @Transactional
-    public List<Video> get(List<Integer> id) {
-        List<Video> videos = new LinkedList<>();
-        for(Video video : videos){
-            try {
-                video.setUser(userService.get(video.getUser().getId()));
-            } catch (NotFoundException e) {
-
-            }
-        }
-        return videos;
     }
 
     @Override

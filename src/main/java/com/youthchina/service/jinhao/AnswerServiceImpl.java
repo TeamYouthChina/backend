@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -131,17 +130,5 @@ public class AnswerServiceImpl implements AnswerService{
         answerMapper.delete(id);
     }
 
-    @Override
-    public List<Answer> get(List<Integer> id){
-        List<Answer> answers = new LinkedList<>();
-        for(Integer one : id){
-            try {
-                answers.add(get(one));
-            } catch (NotFoundException e) {
-
-            }
-        }
-        return answers;
-    }
 
 }

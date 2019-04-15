@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -41,18 +40,6 @@ public class BriefReviewServiceImplement implements BriefReviewService {
         return briefReview;
     }
 
-    @Override
-    public List<BriefReview> get(List<Integer> id){
-       List<BriefReview> briefReviews = new LinkedList<>();
-       for(Integer one : id){
-           try {
-               briefReviews.add(get(one));
-           } catch (NotFoundException e) {
-
-           }
-       }
-       return briefReviews;
-    }
 
     @Override
     @Transactional

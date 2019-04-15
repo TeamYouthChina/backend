@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class AttentionServiceImpl implements AttentionService{
+public class AttentionServiceImpl implements AttentionService {
     @Resource
     AttentionMapper attentionMapper;
 
@@ -42,23 +42,37 @@ public class AttentionServiceImpl implements AttentionService{
     public void attention(Attentionable entity, Integer userId) throws NotFoundException {
         Integer type = entity.getAttentionTargetType();
         Integer id = entity.getId();
-        switch (type){
-            case 1: questionService.isQuestionExist(id); break;
-            case 2: essayService.get(id); break;
-            case 3: briefReviewService.isBriefReviewExist(id); break;
-            case 4: videoService.isVideoExist(id); break;
-            case 5: commentService.isCommentExist(id); break;
-            case 6: discussService.isDiscussExist(id); break;
-            case 7: answerService.isAnswerExist(id); break;
+        switch (type) {
+            case 1:
+                questionService.isQuestionExist(id);
+                break;
+            case 2:
+                essayService.get(id);
+                break;
+            case 3:
+                briefReviewService.isBriefReviewExist(id);
+                break;
+            case 4:
+                videoService.isVideoExist(id);
+                break;
+            case 5:
+                commentService.isCommentExist(id);
+                break;
+            case 6:
+                discussService.isDiscussExist(id);
+                break;
+            case 7:
+                answerService.isAnswerExist(id);
+                break;
             default:
-                throw new NotFoundException(4040,404,"No such type");//todo
+                throw new NotFoundException(4040, 404, "No such type");//todo
         }
-        Attention attention = attentionMapper.isEverAttention(type,id,userId);
-        if(attention == null){
-            attentionMapper.follow(type,id,userId);
-        }else{
-            if(attention.getIsCancel() == 0){
-                throw new NotFoundException(4040,404,"You have already followed!");//todo
+        Attention attention = attentionMapper.isEverAttention(type, id, userId);
+        if (attention == null) {
+            attentionMapper.follow(type, id, userId);
+        } else {
+            if (attention.getIsCancel() == 0) {
+                throw new NotFoundException(4040, 404, "You have already followed!");//todo
             }
             attentionMapper.reFollow(attention.getId());
         }
@@ -70,21 +84,35 @@ public class AttentionServiceImpl implements AttentionService{
     public void cancel(Attentionable entity, Integer userId) throws NotFoundException {
         Integer type = entity.getAttentionTargetType();
         Integer id = entity.getId();
-        switch (type){
-            case 1: questionService.isQuestionExist(id); break;
-            case 2: essayService.get(id); break;
-            case 3: briefReviewService.isBriefReviewExist(id); break;
-            case 4: videoService.isVideoExist(id); break;
-            case 5: commentService.isCommentExist(id); break;
-            case 6: discussService.isDiscussExist(id); break;
-            case 7: answerService.isAnswerExist(id); break;
+        switch (type) {
+            case 1:
+                questionService.isQuestionExist(id);
+                break;
+            case 2:
+                essayService.get(id);
+                break;
+            case 3:
+                briefReviewService.isBriefReviewExist(id);
+                break;
+            case 4:
+                videoService.isVideoExist(id);
+                break;
+            case 5:
+                commentService.isCommentExist(id);
+                break;
+            case 6:
+                discussService.isDiscussExist(id);
+                break;
+            case 7:
+                answerService.isAnswerExist(id);
+                break;
             default:
-                throw new NotFoundException(4040,404,"No such type");//todo
+                throw new NotFoundException(4040, 404, "No such type");//todo
         }
-        Attention attention = attentionMapper.isEverAttention(type,id,userId);
-        if(attention == null || attention.getIsCancel() == 1){
-            throw new NotFoundException(4040,404,"You have not followed yet, you cannot cancel!");//todo
-        }else{
+        Attention attention = attentionMapper.isEverAttention(type, id, userId);
+        if (attention == null || attention.getIsCancel() == 1) {
+            throw new NotFoundException(4040, 404, "You have not followed yet, you cannot cancel!");//todo
+        } else {
             attentionMapper.cancel(attention.getId());
         }
     }
@@ -93,39 +121,15 @@ public class AttentionServiceImpl implements AttentionService{
     @Transactional
     public List<Integer> getAllIdsOfAttention(Attentionable entity, Integer userId) throws NotFoundException {
         Integer type = entity.getAttentionTargetType();
-        return attentionMapper.getAllfollows(type,userId);
+        return attentionMapper.getAllfollows(type, userId);
     }
 
-    @Override
-    public Attention get(Integer id) throws NotFoundException {
-        return null;
-    }
-
-    @Override
-    public List<Attention> get(List<Integer> id) throws NotFoundException {
-        return null;
-    }
-
-    @Override
-    public void delete(Integer id) throws NotFoundException {
-
-    }
-
-    @Override
-    public Attention update(Attention attention) throws NotFoundException {
-        return null;
-    }
-
-    @Override
-    public Attention add(Attention entity) throws NotFoundException {
-        return null;
-    }
     @Override
     public Integer isEverAttention(Attentionable entity, Integer userId) {
-        Attention attention = attentionMapper.isEverAttention(entity.getAttentionTargetType(), entity.getId(),userId);
-        if(attention == null){
+        Attention attention = attentionMapper.isEverAttention(entity.getAttentionTargetType(), entity.getId(), userId);
+        if (attention == null) {
             return 0;
-        }else{
+        } else {
             return attention.getIsCancel();
         }
     }

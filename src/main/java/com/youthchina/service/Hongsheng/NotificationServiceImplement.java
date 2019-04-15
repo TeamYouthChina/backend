@@ -7,8 +7,6 @@ import com.youthchina.service.zhongyang.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.LinkedList;
-import java.util.List;
 @Service("NotificationService")
 public class NotificationServiceImplement implements NotificationService{
     @Resource
@@ -32,19 +30,6 @@ public class NotificationServiceImplement implements NotificationService{
         }
         notification.setUser(userService.get(notification.getUser().getId()));
         return notification;
-    }
-
-    @Override
-    public List<Notification> get(List<Integer> id) throws NotFoundException {
-        List<Notification> notifications = new LinkedList<>();
-        for(Integer one : id){
-            try {
-                notifications.add(get(one));
-            } catch (NotFoundException e) {
-
-            }
-        }
-        return notifications;
     }
 
     @Override
