@@ -1,4 +1,4 @@
-package com.youthchina.util.zhongyang;
+package com.youthchina.util;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;

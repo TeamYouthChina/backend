@@ -8,7 +8,7 @@ import com.youthchina.service.jinhao.QuestionServiceImpl;
 import com.youthchina.service.tianjian.EssayServiceImpl;
 import com.youthchina.service.zhongyang.JwtService;
 import com.youthchina.util.AuthGenerator;
-import com.youthchina.util.zhongyang.JwtAuthenticationProvider;
+import com.youthchina.util.JwtAuthenticationProvider;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

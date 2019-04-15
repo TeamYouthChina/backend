@@ -17,7 +17,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class QuesitonTest {
+public class QuestionTest {
     @Resource
     QuestionMapper questionMapper;
 

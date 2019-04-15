@@ -1,4 +1,4 @@
-package com.youthchina.util.zhongyang;
+package com.youthchina.util;
 
 import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.User;

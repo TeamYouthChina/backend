@@ -3,7 +3,7 @@ package com.youthchina.domain.qingyang;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.dto.applicant.OrganizationDTO;
 import com.youthchina.dto.company.CompanyRequestDTO;
-import com.youthchina.util.zhongyang.HasId;
+import com.youthchina.util.HasId;
 
 import java.sql.Date;
 import java.sql.Timestamp;

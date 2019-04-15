@@ -1,4 +1,4 @@
-package com.youthchina.util.zhongyang;
+package com.youthchina.util;
 
 import com.youthchina.dto.ResponseDTO;
 import org.springframework.core.convert.converter.Converter;
