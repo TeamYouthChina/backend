@@ -1,8 +1,6 @@
 package com.youthchina.service.tianjian;
 
 import com.youthchina.dao.tianjian.PDFUploadMapper;
-import com.youthchina.domain.jinhao.Comment;
-import com.youthchina.domain.jinhao.Video;
 import com.youthchina.domain.tianjian.StuResume;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -27,14 +25,11 @@ public class PDFUploadServiceImpl implements PDFUploadService {
     }
 
     @Override
-    public List<StuResume> get(List<Integer> id) throws NotFoundException {
+    public List<StuResume> get(List<Integer> id){
         List<StuResume> stuResumes = new LinkedList<>();
         for(Integer one : id){
             StuResume stuResume = pdfUploadMapper.get(one);
             stuResumes.add(stuResume);
-        }
-        if(stuResumes.size() == 0){
-            throw new NotFoundException(404,404,"没有找到这些PDF");
         }
         return stuResumes;
     }

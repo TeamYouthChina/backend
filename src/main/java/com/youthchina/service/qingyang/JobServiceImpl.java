@@ -111,37 +111,6 @@ public class JobServiceImpl implements JobService {
     }
 
     /**
-     * 多职位详情
-     *
-     * @param idList list of id
-     * @return
-     * @throws NotFoundException
-     */
-    @Override
-    @Transactional
-    public List<Job> get(List<Integer> idList) throws NotFoundException {
-        List<Job> jobList = new ArrayList<Job>();
-        for (Integer i: idList) {
-            try {
-                jobList.add(this.get(i));
-            } catch (NotFoundException ignored) {
-
-            }
-        }
-        return jobList;
-    }
-
-    @Transactional
-    public List<Job> getAll() throws NotFoundException {
-        List<Job> jobList = jobMapper.selectAllJob();
-        for (Job job : jobList) {
-            setJobLocation(job);
-            job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
-        }
-        return jobList;
-    }
-
-    /**
      * 按 JobId 删除职位
      *
      * @param id id

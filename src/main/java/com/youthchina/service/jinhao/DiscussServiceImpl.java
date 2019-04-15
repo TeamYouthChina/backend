@@ -85,11 +85,6 @@ public class DiscussServiceImpl implements DiscussService {
     }
 
     @Override
-    public List<Discuss> get(List<Integer> id) throws NotFoundException {
-        return null;
-    }
-
-    @Override
     public void delete(Integer id) throws NotFoundException {
         isDiscussExist(id);
         discussMapper.delete(id);

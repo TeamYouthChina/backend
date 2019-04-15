@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * 公司认证 CURD
@@ -30,18 +29,6 @@ public class CompanyVerificationCURDServiceImpl implements CompanyVerificationCU
         return companyMapper.selectCompanyVerification(id);
     }
 
-    /**
-     * 按认证Id List 获取公司认证List
-     *
-     * @param id 认证Id List
-     * @return
-     * @throws NotFoundException
-     */
-    @Override
-    @Transactional
-    public List<CompanyVerification> get(List<Integer> id) throws NotFoundException {
-        return companyMapper.selectCompanyVerificationByIdList(id);
-    }
 
     /**
      * 按认证Id 删除认证

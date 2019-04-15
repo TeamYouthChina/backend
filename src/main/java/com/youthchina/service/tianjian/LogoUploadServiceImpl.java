@@ -23,14 +23,11 @@ public class LogoUploadServiceImpl implements LogoUploadService {
     }
 
     @Override
-    public List<Logo> get(List<Integer> id) throws NotFoundException {
+    public List<Logo> get(List<Integer> id) {
         List<Logo> logos = new LinkedList<>();
         for(Integer one : id){
             Logo logo = logoUploadMapper.get(one);
             logos.add(logo);
-        }
-        if(logos.size() == 0){
-            throw new NotFoundException(404,404,"没有找到这些logo");
         }
         return logos;
     }

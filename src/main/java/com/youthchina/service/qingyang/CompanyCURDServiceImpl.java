@@ -93,11 +93,10 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
      *
      * @param id 公司Id List
      * @return 公司类 List
-     * @throws NotFoundException
      */
     @Override
     @Transactional
-    public List<Company> get(List<Integer> id) throws NotFoundException {
+    public List<Company> get(List<Integer> id){
         List<Company> companyList = new ArrayList<>();
         for (Integer i : id) {
             try {
@@ -106,7 +105,6 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
 
             }
         }
-        if (companyList.size() == 0) throw new NotFoundException(4040, 404, "No such company");
         for (Company company : companyList) {
             setCompanyLocation(company);
         }

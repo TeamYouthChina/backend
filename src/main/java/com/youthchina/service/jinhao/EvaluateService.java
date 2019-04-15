@@ -1,13 +1,11 @@
 package com.youthchina.service.jinhao;
 
-import com.youthchina.domain.jinhao.Evaluate;
 import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.DomainCRUDService;
 
 import java.util.List;
 
-public interface EvaluateService extends DomainCRUDService<Evaluate, Integer> {
+public interface EvaluateService {
     void upvote(Evaluatable entity, Integer userId) throws NotFoundException;
     void downvote(Evaluatable entity, Integer userId) throws NotFoundException;
     void cancel(Evaluatable entity, Integer userId) throws NotFoundException;

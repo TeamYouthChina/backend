@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -60,27 +59,13 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     public Question get(Integer id) throws NotFoundException {
         Question question = questionMapper.get(id);
-        if(question == null){
-            throw new NotFoundException(4040,404,"没有找到这个问题");//todo
+        if (question == null) {
+            throw new NotFoundException(4040, 404, "没有找到这个问题");//todo
         }
         question.setUser(userService.get(question.getUser().getId()));
         richTextService.getComRichText(question);
         question.setAnswers(answerService.getAnswers(id));
         return question;
-    }
-
-    @Override
-    @Transactional
-    public List<Question> get(List<Integer> id){
-        List<Question> questions = new LinkedList<>();
-        for(Integer one : id){
-            try {
-                questions.add(get(one));
-            } catch (NotFoundException e) {
-
-            }
-        }
-        return questions;
     }
 
     @Override

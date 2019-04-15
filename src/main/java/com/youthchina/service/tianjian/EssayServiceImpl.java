@@ -127,7 +127,7 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
-    public List<ComEssay> get(List<Integer> id) throws NotFoundException {
+    public List<ComEssay> get(List<Integer> id) {
         return this.getEssay(id);
     }
 
