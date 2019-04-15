@@ -1,4 +1,4 @@
-package com.youthchina.util.zhongyang;
+package com.youthchina.util;
 
 import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.dto.DTO;

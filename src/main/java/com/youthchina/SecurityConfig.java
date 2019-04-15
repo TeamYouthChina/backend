@@ -1,9 +1,9 @@
 package com.youthchina;
 
 import com.youthchina.service.zhongyang.JwtService;
-import com.youthchina.util.zhongyang.GetUserByJwtFilter;
-import com.youthchina.util.zhongyang.JwtAuthenticationProvider;
-import com.youthchina.util.zhongyang.LoginFilter;
+import com.youthchina.util.GetUserByJwtFilter;
+import com.youthchina.util.JwtAuthenticationProvider;
+import com.youthchina.util.LoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

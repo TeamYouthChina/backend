@@ -1,4 +1,4 @@
-package com.youthchina.util.zhongyang;
+package com.youthchina.util;
 
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.ClientException;

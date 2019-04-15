@@ -1,4 +1,4 @@
-package com.youthchina.util.zhongyang;
+package com.youthchina.util;
 
 /**
  * Created by zhongyangwu on 11/21/18.

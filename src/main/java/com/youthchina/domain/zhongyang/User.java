@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.youthchina.dto.security.RegisterUserDTO;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.util.zhongyang.HasId;
+import com.youthchina.util.HasId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
