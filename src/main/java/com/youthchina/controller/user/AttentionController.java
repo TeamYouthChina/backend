@@ -170,6 +170,8 @@ public class AttentionController {
                 return this.companyCURDService;
             case "answer":
                 return this.answerService;
+            case "article":
+                return this.essayService;
             case "question":
                 return this.questionService;
             case "editorial":
