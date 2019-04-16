@@ -3,10 +3,12 @@ package com.youthchina.domain.jinhao;
 import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.discuss.DiscussRequestDTO;
+import com.youthchina.util.dictionary.EvaluationTargetType;
+import com.youthchina.util.dictionary.IsExistTargetType;
 
 import java.sql.Timestamp;
 
-public class Discuss implements Evaluatable{
+public class Discuss implements Evaluatable {
     private Integer id;
     private Integer commentId;
     private String content;
@@ -14,8 +16,8 @@ public class Discuss implements Evaluatable{
     private Timestamp pubTime;
     private Timestamp editTime;
     private User user;
-    private static final Integer evaluateTargetType = 6;
-
+    private static final Integer evaluateTargetType = EvaluationTargetType.DISCUSS;
+    private static final Integer isExistTargetType = IsExistTargetType.DISCUSS;
     public Discuss() {
 
     }
@@ -28,6 +30,11 @@ public class Discuss implements Evaluatable{
     @Override
     public Integer getEvaluateTargetType() {
         return evaluateTargetType;
+    }
+
+    @Override
+    public Integer getExistType() {
+        return isExistTargetType;
     }
 
     public Integer getId() {

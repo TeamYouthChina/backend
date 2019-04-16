@@ -14,13 +14,14 @@ import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.application.CompanyCURDServiceImpl;
 import com.youthchina.service.community.AttentionServiceImpl;
 import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EssayServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
 import com.youthchina.service.user.UserServiceImpl;
+import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -66,7 +67,7 @@ public class EssayController {
         essayResponseDTO.setUpvoteCount(evaluateService.countUpvote(comEssay));
         essayResponseDTO.setDownvoteCount(evaluateService.countDownvote(comEssay));
         essayResponseDTO.setAttention((attentionService.isEverAttention(comEssay, user.getId())) == 0 ? false : true);
-        if (comEssay.getRelaType() == 1) {
+        if (comEssay.getRelaType() == RelaType.COMPANY) {
             try {
                 essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId())));
             } catch (NotFoundException e) {
@@ -88,7 +89,7 @@ public class EssayController {
 
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
         essayResponseDTO.setModified_at(time);
-        if (essayRequestDTO.getRela_id() == 1) {
+        if (essayRequestDTO.getRela_id() == RelaType.COMPANY) {
             try {
                 essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(essayRequestDTO.getRela_id())));
             } catch (NotFoundException e) {
@@ -133,7 +134,7 @@ public class EssayController {
         comEssay.setUser(user);
         essayServiceimpl.addEssay(comEssay);
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
-        if (comEssay.getRelaType() == 1) {
+        if (comEssay.getRelaType() == RelaType.COMPANY) {
             CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId()));
             essayResponseDTO.setCompany(companyResponseDTO);
         }

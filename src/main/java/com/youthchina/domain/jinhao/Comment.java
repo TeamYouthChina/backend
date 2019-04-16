@@ -3,6 +3,8 @@ package com.youthchina.domain.jinhao;
 import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.util.dictionary.EvaluationTargetType;
+import com.youthchina.util.dictionary.IsExistTargetType;
 
 import java.sql.Timestamp;
 
@@ -15,7 +17,8 @@ public class Comment implements Evaluatable {
     private User user;
     private Integer targetType;
     private Integer targetId;
-    private static final Integer evaluateTargetType = 5;
+    private static final Integer evaluateTargetType = EvaluationTargetType.COMMENT;
+    private static final Integer isExistTargetType = IsExistTargetType.COMMENT;
 
     public Comment(){}
     public Comment(CommentRequestDTO commentRequestDTO){
@@ -26,6 +29,11 @@ public class Comment implements Evaluatable {
     @Override
     public Integer getEvaluateTargetType() {
         return evaluateTargetType;
+    }
+
+    @Override
+    public Integer getExistType() {
+        return isExistTargetType;
     }
 
     public Integer getId() {

@@ -1,6 +1,6 @@
 package com.youthchina.domain.jinhao.property;
 
-public interface isExist {
+public interface IsExist {
     Integer getExistType();
     Integer getId();
 }

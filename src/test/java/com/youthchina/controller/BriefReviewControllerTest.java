@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import static com.youthchina.util.CustomMockMvcMatchers.partialContent;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -91,8 +92,8 @@ public class BriefReviewControllerTest {
                         .with(authGenerator.authentication())
 
         )
-                .andDo(print());
-           //     .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":\"ttererer\",\"previewText\":\"pre\",\"compiletype\":1},\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"first_name\":\"DDD\",\"last_name\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":[\"ADMIN\"],\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false,\"modified_at\":\"2018-02-03T00:00:00.000+0000\",\"upvoteCount\":null,\"downvoteCount\":null,\"evaluateStatus\":null}],\"author\":{\"id\":1,\"username\":\"Admin\",\"email\":\"123456@123.com\",\"phonenumber\":\"1234657890123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"first_name\":\"Admin\",\"last_name\":\"Admin\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":[\"ROOT\"],\"age\":25},\"upvoteCount\":null,\"downvoteCount\":null,\"attentionCount\":null,\"evaluateStatus\":null,\"modified_at\":\"2019-04-11T16:50:21.000+0000\",\"attention\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andDo(print())
+                .andExpect(partialContent("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":\"ttererer\",\"previewText\":\"pre\",\"compiletype\":1},\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"first_name\":\"DDD\",\"last_name\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":[\"ADMIN\"],\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false,\"modified_at\":\"2018-02-03T00:00:00.000+0000\",\"upvoteCount\":null,\"downvoteCount\":null,\"evaluateStatus\":null}],\"author\":{\"id\":1,\"username\":\"Admin\",\"email\":\"123456@123.com\",\"phonenumber\":\"1234657890123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"first_name\":\"Admin\",\"last_name\":\"Admin\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":[\"ROOT\"],\"age\":25},\"upvoteCount\":null,\"downvoteCount\":null,\"attentionCount\":null,\"evaluateStatus\":null,\"modified_at\":\"2019-04-13T15:55:00.000+0000\",\"attention\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}","$.content.modified_at"));
 
 
     }
@@ -117,7 +118,9 @@ public class BriefReviewControllerTest {
                         .with(authGenerator.authentication())
 
         )
-                .andDo(print());
+                .andDo(print())
+                .andExpect(partialContent("{\"content\":{\"id\":46,\"body\":{\"braftEditorRaw\":\"erer\",\"previewText\":\"pre\",\"compiletype\":1},\"comments\":[],\"author\":{\"id\":1,\"username\":\"Admin\",\"email\":\"123456@123.com\",\"phonenumber\":\"1234657890123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"first_name\":\"Admin\",\"last_name\":\"Admin\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":[\"ROOT\"],\"age\":25},\"upvoteCount\":null,\"downvoteCount\":null,\"attentionCount\":null,\"evaluateStatus\":null,\"modified_at\":\"2019-04-13T16:41:19.000+0000\",\"attention\":false},\"status\":{\"code\":201,\"reason\":\"success\"}}","$.content.modified_at","$.content.id"));
+
     }
 
     @Test

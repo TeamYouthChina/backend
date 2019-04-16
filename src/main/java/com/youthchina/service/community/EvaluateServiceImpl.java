@@ -4,7 +4,7 @@ import com.youthchina.dao.jinhao.AnswerMapper;
 import com.youthchina.dao.jinhao.EvaluateMapper;
 import com.youthchina.domain.jinhao.Evaluate;
 import com.youthchina.domain.jinhao.property.Evaluatable;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

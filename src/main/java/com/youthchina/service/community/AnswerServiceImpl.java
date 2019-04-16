@@ -3,7 +3,7 @@ package com.youthchina.service.community;
 import com.youthchina.dao.jinhao.AnswerMapper;
 import com.youthchina.dao.jinhao.QuestionMapper;
 import com.youthchina.domain.jinhao.Answer;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,7 +103,7 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     @Transactional
     public Answer add(Answer answer) throws NotFoundException {
-        questionMapper.get(answer.getTargetId());
+        get(answer.getId());
         richTextService.addComRichText(answer.getBody());
         answerMapper.add(answer);
         return get(answer.getId());
@@ -112,7 +112,7 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     @Transactional
     public Answer update(Answer answer) throws NotFoundException {
-        answerMapper.get(answer.getId());
+        get(answer.getId());
         answerMapper.update(answer);
         Answer answer1 = get(answer.getId());
         answer.getBody().setTextId(answer1.getBody().getTextId());
@@ -123,7 +123,7 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     @Transactional
     public void delete(Integer id) throws NotFoundException {
-        answerMapper.get(id);
+
         Answer answer = new Answer();
         answer.setId(id);
         commentService.delete(answer);

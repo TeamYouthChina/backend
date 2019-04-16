@@ -1,7 +1,7 @@
 package com.youthchina.service.util;
 
 import com.youthchina.domain.Qinghong.Entry;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 
 import java.util.List;
 

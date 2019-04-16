@@ -2,7 +2,7 @@ package com.youthchina.service.util;
 
 import com.youthchina.dao.tianjian.PDFUploadMapper;
 import com.youthchina.domain.tianjian.StuResume;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -2,7 +2,7 @@ package com.youthchina.service.util;
 
 import com.youthchina.dao.Hongsheng.NotificationMapper;
 import com.youthchina.domain.Hongsheng.Notification;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
 import org.springframework.stereotype.Service;
 

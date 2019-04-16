@@ -2,7 +2,7 @@ package com.youthchina.service.community;
 
 import com.youthchina.dao.jinhao.DiscussMapper;
 import com.youthchina.domain.jinhao.Discuss;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,12 +49,6 @@ public class DiscussServiceImpl implements DiscussService {
         return discusses;
     }
 
-    @Override
-    public void isDiscussExist(Integer id) throws NotFoundException {
-        if (discussMapper.checkIfDiscussExist(id) == null) {
-            throw new NotFoundException(404, 404, "");
-        }
-    }
 
     @Override
     public Integer count(Integer id) {
@@ -82,7 +76,7 @@ public class DiscussServiceImpl implements DiscussService {
 
     @Override
     public void delete(Integer id) throws NotFoundException {
-        isDiscussExist(id);
+        get(id);
         discussMapper.delete(id);
     }
 

@@ -4,7 +4,7 @@ import com.youthchina.domain.jinhao.Comment;
 
 import java.util.List;
 
-public interface Commentable {
+public interface Commentable extends IsExist{
     List<Comment> getComments();
     void setComments(List<Comment> comments);
     Integer getCommentTargetType();

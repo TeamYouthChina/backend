@@ -2,7 +2,8 @@ package com.youthchina.service.community;
 
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.property.Commentable;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
+import com.youthchina.service.DomainCRUDService;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@ import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.*;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.application.JobServiceImpl;
 import com.youthchina.service.application.LocationServiceImpl;
 import org.junit.Assert;
