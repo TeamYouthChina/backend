@@ -79,6 +79,10 @@ comment '职位基本信息表';
 
     private Company company;
 
+    public static final int fullJobType = 3;
+    public static final int partJobType = 2;
+    public static final int internJobType = 1;
+
     public Job(JobRequestDTO jobRequestDTO) {
         this.jobId = jobRequestDTO.getId();
         this.jobName = jobRequestDTO.getName();
