@@ -23,6 +23,12 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     RichTextService richTextService;
 
     @Resource
+    EvaluateService evaluateService;
+
+    @Resource
+    AttentionService attentionService;
+
+    @Resource
     UserService userService;
 
     @Override
@@ -43,22 +49,27 @@ public class BriefReviewServiceImplement implements BriefReviewService {
     @Override
     @Transactional
     public void delete(Integer id) throws NotFoundException {
-        isBriefReviewExist(id);
+        get(id);
         BriefReview briefReview = new BriefReview();
         briefReview.setId(id);
-        commentService.delete(briefReview);
+        List<Comment> comments = commentService.getComments(briefReview);
+        for(Comment comment : comments){
+            commentService.delete(comment.getId());
+        }
+        evaluateService.cancel(briefReview);
+        attentionService.cancel(briefReview);
         briefReviewMapper.delete(id);
     }
 
     @Override
     @Transactional
     public BriefReview update(BriefReview briefReview) throws NotFoundException {
-        isBriefReviewExist(briefReview.getId());
+        get(briefReview.getId());
         briefReviewMapper.update(briefReview);
         BriefReview briefReview1 = get(briefReview.getId());
         briefReview.getBody().setTextId(briefReview1.getBody().getTextId());
         richTextService.updateComRichText(briefReview.getBody());
-        return  get(briefReview.getId());
+        return get(briefReview.getId());
     }
 
     @Override
@@ -67,13 +78,6 @@ public class BriefReviewServiceImplement implements BriefReviewService {
         richTextService.addComRichText(entity.getBody());
         briefReviewMapper.add(entity);
         return get(entity.getId());
-    }
-
-    @Override
-    public void isBriefReviewExist(Integer id) throws NotFoundException {
-        if(briefReviewMapper.checkIfBriefReviewExist(id) == null){
-            throw new NotFoundException(4040,404,"没有找到这个短评");//todo
-        }
     }
 
     @Override
