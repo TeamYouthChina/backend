@@ -2,7 +2,7 @@ package com.youthchina.service.application;
 
 import com.youthchina.dao.qingyang.CompanyEmployeeMapper;
 import com.youthchina.domain.qingyang.CompanyEmployee;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 
 import javax.annotation.Resource;
 

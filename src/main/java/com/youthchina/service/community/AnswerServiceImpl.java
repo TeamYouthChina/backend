@@ -2,7 +2,7 @@ package com.youthchina.service.community;
 
 import com.youthchina.dao.jinhao.AnswerMapper;
 import com.youthchina.domain.jinhao.Answer;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

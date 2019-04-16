@@ -41,4 +41,12 @@ public class Response implements HasStatus {
     public void setStatus(StatusDTO status) {
         this.status = status;
     }
+
+    public static Response content(Object content) {
+        return new Response(content);
+    }
+
+    public static Response status(StatusDTO status) {
+        return new Response(null, status);
+    }
 }

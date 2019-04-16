@@ -3,7 +3,7 @@ package com.youthchina.service.community;
 import com.youthchina.dao.jinhao.CommentMapper;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.property.Commentable;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

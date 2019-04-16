@@ -1,7 +1,7 @@
 package com.youthchina.service.community;
 
 import com.youthchina.domain.jinhao.property.Attentionable;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ public interface AttentionService {
     void cancel(Attentionable entity, Integer userId) throws NotFoundException;
 
     List<Integer> getAllIdsOfAttention(Attentionable entity, Integer userId) throws NotFoundException;
+
+    List<Integer> getAllIdsOfAttention(Integer targetType, Integer userId);
 
     Integer isEverAttention(Attentionable entity, Integer userId);
 
@@ -22,4 +24,5 @@ public interface AttentionService {
      * @param attentionable target
      */
     void cancel(Attentionable attentionable);
+
 }

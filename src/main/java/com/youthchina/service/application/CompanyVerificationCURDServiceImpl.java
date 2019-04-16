@@ -2,7 +2,7 @@ package com.youthchina.service.application;
 
 import com.youthchina.dao.qingyang.CompanyMapper;
 import com.youthchina.domain.qingyang.CompanyVerification;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

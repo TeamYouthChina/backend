@@ -1,4 +1,4 @@
-package com.youthchina.exception.zhongyang;
+package com.youthchina.exception.zhongyang.exception;
 
 import com.youthchina.dto.StatusDTO;
 import org.springframework.http.HttpStatus;

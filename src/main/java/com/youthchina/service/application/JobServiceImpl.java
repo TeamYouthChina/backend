@@ -8,8 +8,8 @@ import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.qingyang.Logo;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.exception.zhongyang.NotBelongException;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotBelongException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -209,6 +209,7 @@ public class JobServiceImpl implements JobService {
         return results;
     }
 
+    @Override
     public List<Job> getJobByUserId(Integer userId){
         List<Job> jobList = jobMapper.getJobByUserId(userId);
         return jobList;
