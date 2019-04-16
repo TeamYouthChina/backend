@@ -4487,7 +4487,7 @@ paths:
                 properties:
                   content:
                     $ref: '#/components/schemas/Comment'
-    put:
+    post:
       summary: 发布回复
       description: 发表回复
       tags:
@@ -6907,24 +6907,24 @@ components:
     CompanyRequest:
       type: object
       properties:
+        avatarUrl:
+          type: string
+        id:
+          type: integer
+        location:
+          $ref: '#/components/schemas/Location'
         name:
           type: string
           description: company name
-        location:
-          $ref: '#/components/schemas/Location'
         nation:
           type: string
           description: company nation
-        website:
-          type: string
-          description: company website
         note:
           type: string
           description: introduction
-        photoIdList:
-          type: array
-          items:
-            type: string
+        website:
+          type: string
+          description: company website
     Application:
       type: object
       required:
@@ -7129,10 +7129,10 @@ components:
         modified_at:
           type: string
     ContentRequestWithCompany:
-      allOf:
-        - $ref: '#/components/schemas/ContentRequest'
-        - properties:
-            company_id:
+      properties:
+        body:
+          $ref: '#/components/schemas/RichText'
+        company_id:
               type: integer
     Location:
       type: object
