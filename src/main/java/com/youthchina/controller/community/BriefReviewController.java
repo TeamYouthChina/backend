@@ -12,7 +12,7 @@ import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.community.AttentionServiceImpl;
 import com.youthchina.service.community.BriefReviewServiceImplement;
 import com.youthchina.service.community.CommentServiceImpl;
@@ -164,20 +164,6 @@ public class BriefReviewController {
         return ResponseEntity.ok(listResponse);
     }
 
-    @PutMapping("/{id}/attention")
-    public ResponseEntity updateAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        BriefReview briefReview = new BriefReview();
-        briefReview.setId(id);
-        attentionService.attention(briefReview,user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
-    }
 
-    @DeleteMapping("/attentions/{id}")
-    public ResponseEntity deleteAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        BriefReview briefReview = new BriefReview();
-        briefReview.setId(id);
-        attentionService.cancel(briefReview,user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
-    }
 
 }

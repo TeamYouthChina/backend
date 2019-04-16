@@ -3,8 +3,8 @@ package com.youthchina.service.community;
 import com.youthchina.domain.tianjian.ComFriendApply;
 import com.youthchina.domain.tianjian.ComFriendGroup;
 import com.youthchina.domain.tianjian.ComFriendRelation;
-import com.youthchina.exception.zhongyang.ConflictException;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.ConflictException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.discuss.DiscussResponseDTO;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.community.DiscussService;
 import com.youthchina.service.community.EvaluateService;
 import org.springframework.http.ResponseEntity;

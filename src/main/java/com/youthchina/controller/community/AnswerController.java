@@ -12,7 +12,7 @@ import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.community.AnswerServiceImpl;
 import com.youthchina.service.community.AttentionServiceImpl;
 import com.youthchina.service.community.CommentServiceImpl;
@@ -115,22 +115,6 @@ public class AnswerController {
     public ResponseEntity<?> cancelVote(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Answer answer =answerService.get(id);
         evaluateService.cancel(answer, user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
-    }
-
-    @PutMapping("/{id}/attention")
-    public ResponseEntity updateAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        Answer answer = new Answer();
-        answer.setId(id);
-        attentionService.attention(answer,user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
-    }
-
-    @DeleteMapping("/attentions/{id}")
-    public ResponseEntity deleteAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        Answer answer = new Answer();
-        answer.setId(id);
-        attentionService.cancel(answer,user.getId());
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 

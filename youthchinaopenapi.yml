@@ -460,7 +460,7 @@ paths:
               - answer
               - article
               - video
-              - editorials
+              - editorial
           description: determine what part of attention list to return
         - in: header
           name: X-AUTHENTICATION
@@ -479,55 +479,24 @@ paths:
                   content:
                     type: object
                     properties:
-                      companies:
+                      company:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            company:
-                              $ref: '#/components/schemas/Company'
-                      jobs:
+                          $ref: '#/components/schemas/Company'
+                      job:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            job:
-                              $ref: '#/components/schemas/Job'
-                      questions:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            question:
-                              $ref: '#/components/schemas/QuestionBasic'
-                      answers:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            answer:
-                              $ref: '#/components/schemas/AnswerBasic'
-                      articles:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            article:
-                              $ref: '#/components/schemas/Article'
-                      videos:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            video:
-                              $ref: '#/components/schemas/Video'
-                      editorials:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            editorial:
-                              $ref: '#/components/schemas/Editorial'
+                          $ref: '#/components/schemas/Job'
+                      question:
+                        $ref: '#/components/schemas/QuestionBasic'
+                      answer:
+                        $ref: '#/components/schemas/AnswerBasic'
+                      article:
+                        $ref: '#/components/schemas/Article'
+                      video:
+                        $ref: '#/components/schemas/Video'
+                      editorial:
+                        $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
   '/my':
@@ -4518,7 +4487,7 @@ paths:
                 properties:
                   content:
                     $ref: '#/components/schemas/Comment'
-    put:
+    post:
       summary: 发布回复
       description: 发表回复
       tags:
@@ -6495,7 +6464,7 @@ components:
       type: object
       properties:
         body:
-          $ref: '#/components/schemas/RichText'
+          type: string
     Status:
       type: object
       properties:
@@ -6938,24 +6907,24 @@ components:
     CompanyRequest:
       type: object
       properties:
+        avatarUrl:
+          type: string
+        id:
+          type: integer
+        location:
+          $ref: '#/components/schemas/Location'
         name:
           type: string
           description: company name
-        location:
-          $ref: '#/components/schemas/Location'
         nation:
           type: string
           description: company nation
-        website:
-          type: string
-          description: company website
         note:
           type: string
           description: introduction
-        photoIdList:
-          type: array
-          items:
-            type: string
+        website:
+          type: string
+          description: company website
     Application:
       type: object
       required:
@@ -7160,10 +7129,10 @@ components:
         modified_at:
           type: string
     ContentRequestWithCompany:
-      allOf:
-        - $ref: '#/components/schemas/ContentRequest'
-        - properties:
-            company_id:
+      properties:
+        body:
+          $ref: '#/components/schemas/RichText'
+        company_id:
               type: integer
     Location:
       type: object

@@ -72,13 +72,13 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         }
         int jobType = job.getJobType();
 
-        if (jobType == 1) {
-            this.type = "实习";
-        } else if (jobType == 2) {
-            this.type = "兼职";
-        } else {
-            this.type = "全职";
+
+        switch (jobType){
+            case Job.internJobType: this.type = "实习"; break;
+            case Job.partJobType: this.type = "兼职"; break;
+            case Job.fullJobType: this.type = "全职"; break;
         }
+
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         this.startTime = df.format(job.getJobStartTime());
         this.deadLine = df.format(job.getJobEndTime());
@@ -198,13 +198,12 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         }
         int jobType = job.getJobType();
 
-        if (jobType == 1) {
-            this.type = "实习";
-        } else if (jobType == 2) {
-            this.type = "兼职";
-        } else {
-            this.type = "全职";
+        switch (jobType){
+            case Job.internJobType: this.type = "实习"; break;
+            case Job.partJobType: this.type = "兼职"; break;
+            case Job.fullJobType: this.type = "全职"; break;
         }
+
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         this.startTime = df.format(job.getJobStartTime());
         this.deadLine = df.format(job.getJobEndTime());

@@ -1,9 +1,11 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.dto.applicant.OrganizationDTO;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.util.HasId;
+import com.youthchina.util.dictionary.AttentionTargetType;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -13,7 +15,7 @@ import java.util.List;
 /**
  * Created by zhong on 2018/12/27.
  */
-public class Company implements HasId<Integer> {
+public class Company implements HasId<Integer>, Attentionable {
     private Integer companyId;
     private String companyName;
     private String companyCode;
@@ -310,6 +312,11 @@ public class Company implements HasId<Integer> {
 
     public void setCollected(Boolean collected) {
         isCollected = collected;
+    }
+
+    @Override
+    public Integer getAttentionTargetType() {
+        return AttentionTargetType.COMPANY;
     }
 
     @Override

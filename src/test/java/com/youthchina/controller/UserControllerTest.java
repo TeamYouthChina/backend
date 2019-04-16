@@ -101,4 +101,5 @@ public class UserControllerTest {
                 .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4000,\"reason\":\"cannot register because there are already user registered with same email or username\"}}"));
     }
 
+
 }

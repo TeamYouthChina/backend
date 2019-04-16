@@ -2,7 +2,7 @@ package com.youthchina.service.util;
 
 import com.youthchina.dao.tianjian.LogoUploadMapper;
 import com.youthchina.domain.qingyang.Logo;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 
 import javax.annotation.Resource;
 import java.util.LinkedList;

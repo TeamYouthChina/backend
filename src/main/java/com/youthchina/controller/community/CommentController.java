@@ -11,7 +11,7 @@ import com.youthchina.dto.community.discuss.DiscussRequestDTO;
 import com.youthchina.dto.community.discuss.DiscussResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.community.CommentService;
 import com.youthchina.service.community.DiscussService;
 import com.youthchina.service.community.EvaluateService;

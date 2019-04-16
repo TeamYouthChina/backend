@@ -1,6 +1,6 @@
 package com.youthchina.service;
 
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -48,5 +48,14 @@ public interface DomainCRUDService<T, K extends Serializable> {
      *               <p>add Entity</p>
      */
     T add(T entity) throws NotFoundException;
+
+    default boolean exist(K id) {
+        try {
+            this.get(id);
+            return true;
+        } catch (NotFoundException e) {
+            return false;
+        }
+    }
 
 }

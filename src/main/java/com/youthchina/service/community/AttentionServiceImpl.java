@@ -3,7 +3,7 @@ package com.youthchina.service.community;
 import com.youthchina.dao.jinhao.AttentionMapper;
 import com.youthchina.domain.jinhao.Attention;
 import com.youthchina.domain.jinhao.property.Attentionable;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -121,6 +121,11 @@ public class AttentionServiceImpl implements AttentionService {
     public List<Integer> getAllIdsOfAttention(Attentionable entity, Integer userId) throws NotFoundException {
         Integer type = entity.getAttentionTargetType();
         return attentionMapper.getAllfollows(type, userId);
+    }
+
+    @Override
+    public List<Integer> getAllIdsOfAttention(Integer targetType, Integer userId) {
+        return attentionMapper.getAllfollows(targetType, userId);
     }
 
     @Override

@@ -2,8 +2,8 @@ package com.youthchina.service.user;
 
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.ResumeJson;
-import com.youthchina.exception.zhongyang.ClientException;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.ClientException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 
 import java.util.List;

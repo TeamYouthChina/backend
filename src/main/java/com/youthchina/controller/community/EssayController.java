@@ -14,7 +14,7 @@ import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.application.CompanyCURDServiceImpl;
 import com.youthchina.service.community.AttentionServiceImpl;
 import com.youthchina.service.community.CommentServiceImpl;
@@ -107,22 +107,6 @@ public class EssayController {
             return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
         else
             return ResponseEntity.ok(new Response(new StatusDTO(403, "fail")));
-    }
-
-    @PutMapping("/{id}/attention")
-    public ResponseEntity updateAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = new ComEssay();
-        comEssay.setId(id);
-        attentionService.attention(comEssay, user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
-    }
-
-    @DeleteMapping("/attentions/{id}")
-    public ResponseEntity deleteAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = new ComEssay();
-        comEssay.setId(id);
-        attentionService.cancel(comEssay, user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
     @PostMapping

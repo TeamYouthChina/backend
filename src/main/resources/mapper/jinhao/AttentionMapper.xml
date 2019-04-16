@@ -34,11 +34,25 @@
     </update>
 
     <select id="getAllfollows" resultType="java.lang.Integer">
-        select TARGET_ID
-        from COM_ATTENTION
-        where TARGET_TYPE = #{type}
-          and USER_ID = #{userId}
-          and ATTEN_CANCEL = 0
+        <if test="type > 0">
+            select TARGET_ID
+            from COM_ATTENTION
+            where TARGET_TYPE = #{type}
+            and USER_ID = #{userId}
+            and ATTEN_CANCEL = 0
+        </if>
+        <if test="type == -1">
+            SELECT JOB_ID
+            FROM STU_JOB_COLLECT
+            WHERE IS_DELETE = 0
+            AND STU_ID = #{userId}
+        </if>
+        <if test="type == -2">
+            SELECT COMPANY_ID
+            FROM STU_COMP_COLLECT
+            WHERE IS_DELETE = 0
+            AND STU_ID = #{userId}
+        </if>
     </select>
 
     <select id="get" parameterType="java.lang.Integer" resultMap="attention">
