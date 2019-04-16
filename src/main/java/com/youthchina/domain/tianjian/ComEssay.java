@@ -51,11 +51,8 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
         this.abbre = essayRequestDTO.getBody().getPreviewText();
         this.body = new ComRichText(essayRequestDTO.getBody());
         this.isAnony = (essayRequestDTO.isIs_anonymous()) ? 1 : 0;
-        if(essayRequestDTO.getCompany_id()!=null){
-            this.relaId = essayRequestDTO.getCompany_id();
-            this.relaType = 1;
-        }else
-            this.relaType = 0;
+        this.relaId = essayRequestDTO.getRela_id();
+        this.relaType = essayRequestDTO.getRela_type();
 
     }
 

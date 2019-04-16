@@ -1,0 +1,16 @@
+{
+  "name": "new_job",
+  "organization_id": 2,
+  "location": [
+    {
+      "location_code": "994701",
+      "nation_code": "CHN"
+    }
+  ],
+  "type": "1",
+  "dead_line": "15070908800",
+  "start_time": "15070908800",
+  "end_time": "15070908800",
+  "job_description": "string",
+  "job_duty": "string"
+}

@@ -7,6 +7,7 @@ import com.youthchina.dao.qingyang.ResumeJsonMapper;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
+import com.youthchina.domain.qingyang.ResumeJson;
 import com.youthchina.exception.zhongyang.ClientException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.qingyang.JobServiceImpl;
@@ -14,6 +15,7 @@ import com.youthchina.service.qingyang.LocationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -346,16 +348,21 @@ public class StudentServiceImpl implements StudentService {
             throw new NotFoundException(4040, 404, "cannot find user with id " + user_id);//todo
         } else {
             List<JobCollect> jobCollects = applicantMapper.getJobCollects(user_id);
+            List<JobCollect> result = new ArrayList<>();
             for (JobCollect jobCollect : jobCollects) {
-                Job job = jobService.get(jobCollect.getJob_id());
-                jobCollect.setJob(job);
-                //设置一个job所有location
-                jobService.setJobLocation(job);
-                jobCollect.setJob(job);
+                try {
+                    Job job = jobService.get(jobCollect.getJob_id());
+                    jobCollect.setJob(job);
+                    //设置一个job所有location
+                    jobService.setJobLocation(job);
+                    jobCollect.setJob(job);
+                    result.add(jobCollect);
+                } catch (NotFoundException ignore) {
 
+                }
             }
 
-            return jobCollects;
+            return result;
         }
     }
 
@@ -806,7 +813,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public ResumeJson insertResumeJson(ResumeJson resumeJson) throws NotFoundException {
         Integer id = resumeJsonMapper.insertResumeJson(resumeJson);
-        return resumeJsonMapper.selectResumeJson(resumeJson.getResume_id());
+        return resumeJsonMapper.selectResumeJson(resumeJson.getResumeId());
     }
 
     @Override

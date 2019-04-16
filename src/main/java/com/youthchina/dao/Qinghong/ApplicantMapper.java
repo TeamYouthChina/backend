@@ -130,5 +130,5 @@ public interface ApplicantMapper {
     Integer getCollectionByJobId(@Param("job_id") Integer job_id, @Param("user_id") Integer user_id);
 
 
-    Integer getCompanyByCompanyId(Integer company_id, Integer user_id);
+    Integer getCompanyByCompanyId(@Param("company_id")Integer company_id, @Param("user_id")Integer user_id);
 }

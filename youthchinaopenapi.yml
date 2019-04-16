@@ -189,7 +189,7 @@ paths:
   
   '/jobs/{id}/apply':
     post:
-      summary: 发起申请不提交任何东西
+      summary: 发起不提交任何东西
       tags:
         - Application
       parameters:
@@ -337,7 +337,7 @@ paths:
                     $ref: '#/components/schemas/Status'
   '/applicants/{id}/applications':
     get:
-      summary: 获得所有申请的公司
+      summary: 获得所有申请的职位
       tags:
         - Application
       parameters:
@@ -482,55 +482,34 @@ paths:
                       companies:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            company:
-                              $ref: '#/components/schemas/Company'
+                          $ref: '#/components/schemas/Company'
                       jobs:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            job:
-                              $ref: '#/components/schemas/Job'
+                          $ref: '#/components/schemas/Job'
                       questions:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            question:
-                              $ref: '#/components/schemas/QuestionBasic'
+                          $ref: '#/components/schemas/QuestionBasic'
                       answers:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            answer:
-                              $ref: '#/components/schemas/AnswerBasic'
+                          $ref: '#/components/schemas/AnswerBasic'
                       articles:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            article:
-                              $ref: '#/components/schemas/Article'
+                          $ref: '#/components/schemas/Article'
                       videos:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            video:
-                              $ref: '#/components/schemas/Video'
+                          $ref: '#/components/schemas/Video'
                       editorials:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            editorial:
-                              $ref: '#/components/schemas/Editorial'
+                          $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/my':
+  '/users/{id}/my':
     get:
       summary: 获得我发布的文章，职位等
       tags:
@@ -6571,16 +6550,18 @@ components:
         type:
           type: string
           enum:
-            - full-time
-            - part-time
-            - internship
-        deadLine:
+            - 1, means full-time
+            - 2, means part-time
+            - 3, meansinternship
+        dead_line:
           type: string
         job_description:
           type: string
         job_duty:
           type: string
-        startTime:
+        start_time:
+          type: string
+        end_time:
           type: string
     Organization:
       type: object
@@ -7119,8 +7100,6 @@ components:
           type: string
         body:
           $ref: '#/components/schemas/RichText'
-        company:
-          $ref: '#/components/schemas/Company'
         create_at:
           type: string
         modified_at:
@@ -7162,10 +7141,9 @@ components:
       allOf:
         - $ref: '#/components/schemas/ContentRequest'
         - properties:
-            rela_type:
+            company_id:
               type: integer
-            rela_id:
-              type: integer
+              description: related company
     Location:
       type: object
       required:
@@ -7226,5 +7204,3 @@ components:
           $ref: '#/components/schemas/User'
         is_read:
           type: boolean
-      
-      
