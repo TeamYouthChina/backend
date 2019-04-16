@@ -4,6 +4,7 @@ import com.youthchina.dao.tianjian.CommunityMapper;
 import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
+import com.youthchina.util.LoggedInUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,9 @@ public class EssayServiceImpl implements EssayService {
     @Resource
     EvaluateServiceImpl evaluateService;
 
+    @Resource
+    AttentionServiceImpl attentionService;
+
     @Autowired
     UserMapper userMapper;
 
@@ -52,11 +56,18 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
-    public int deleteEssay(Integer essay_id, Timestamp delete_time) {
+    public int deleteEssay(Integer id, Timestamp delete_time) throws NotFoundException {
+        ComEssay comEssaytest = mapper.getEssay(id);
+        if (comEssaytest == null) {
+            throw new NotFoundException(4040, 404, "this essay is not exist");//todo
+        }
         ComEssay comEssay = new ComEssay();
-        comEssay.setId(essay_id);
+        comEssay.setId(id);
         commentService.delete(comEssay);
-        return mapper.deleteEssay(essay_id, delete_time);
+        mapper.deleteEssay(id, delete_time);
+        commentService.delete(comEssay);
+        attentionService.cancel(comEssay);
+        return mapper.deleteEssay(id, delete_time);
     }
 
     @Override
@@ -86,7 +97,7 @@ public class EssayServiceImpl implements EssayService {
     public ComEssay getEssay(Integer essay_id) throws NotFoundException {
         ComEssay comEssay = mapper.getEssay(essay_id);
         if (comEssay == null) {
-            throw new NotFoundException(4040, 404, "this essay does not exist");//todo
+            throw new NotFoundException(4040, 404, "this essay is not exist");//todo
         }
         richTextService.getComRichText(comEssay);
         comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
@@ -122,7 +133,7 @@ public class EssayServiceImpl implements EssayService {
     public ComEssay get(Integer id) throws NotFoundException {
         ComEssay comEssay = mapper.getEssay(id);
         if (comEssay == null) {
-            throw new NotFoundException(4040, 404, "this essay does not exist");//todo
+            throw new NotFoundException(4040, 404, "this essay is not exist");//todo
         }
         richTextService.getComRichText(comEssay);
         comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
@@ -136,11 +147,19 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public void delete(Integer id) throws NotFoundException {
-        ComEssay comEssay = new ComEssay();
-        comEssay.setId(id);
-        commentService.delete(comEssay);
-        Timestamp delete_time = new Timestamp(System.currentTimeMillis());
-        mapper.deleteEssay(id, delete_time);
+        ComEssay comEssaytest = mapper.getEssay(id);
+        if (comEssaytest == null) {
+            throw new NotFoundException(4040, 404, "this essay is not exist");//todo
+        }else {
+            ComEssay comEssay = new ComEssay();
+            comEssay.setId(id);
+            commentService.delete(comEssay);
+            Timestamp delete_time = new Timestamp(System.currentTimeMillis());
+            mapper.deleteEssay(id, delete_time);
+            commentService.delete(comEssay);
+            attentionService.cancel(comEssay);
+        }
+
     }
 
     @Override
