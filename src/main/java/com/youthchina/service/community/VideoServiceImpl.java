@@ -49,7 +49,6 @@ public class VideoServiceImpl implements VideoService {
         isVideoExist(id);
         Video video = new Video();
         video.setId(id);
-        commentService.delete(video);
         videoMapper.delete(id);
     }
 

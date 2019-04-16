@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by zhongyangwu on 4/16/19.
@@ -54,11 +55,12 @@ public class AnswerServiceTest {
 
     @Test
     public void delete() throws Exception {
-        this.answerService.delete(1);
+        Answer answer = new Answer();
+        answer.setId(1);
+        when(this.answerMapper.get(1)).thenReturn(answer);
 
-        verify(commentService).delete(any(Answer.class));
+        this.answerService.delete(1);
         verify(attentionService).cancel(any(Answer.class));
         verify(answerMapper).delete(anyInt());
-
     }
 }

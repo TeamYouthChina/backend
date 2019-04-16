@@ -1,11 +1,10 @@
 package com.youthchina.util.dictionary;
 
 public class RichTextRelaType {
-    public static final int QUESTION = 1;
-    public static final int ESSAY = 2;
+    public static final int QUESTION = 2;
+    public static final int ESSAY = 1;
     public static final int BRIEFREVIEW = 3;
-    public static final int DISCUSS = 6;
-    public static final int ANSWER = 7;
+    public static final int ANSWER = 4;
 
     public static int getTypeId(String type) {
         switch (type) {
@@ -15,8 +14,6 @@ public class RichTextRelaType {
                 return QUESTION;
             case "editorial":
                 return BRIEFREVIEW;
-            case "discuss":
-                return DISCUSS;
             case "answer":
                 return ANSWER;
             default:
