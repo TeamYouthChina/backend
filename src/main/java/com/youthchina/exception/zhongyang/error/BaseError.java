@@ -7,6 +7,10 @@ public class BaseError extends RuntimeException {
     String message;
     Class causedBy;
 
+    /**
+     * @param message error message
+     * @param causedBy the caused class
+     */
     public BaseError(String message, Class causedBy) {
         this.message = message;
         this.causedBy = causedBy;

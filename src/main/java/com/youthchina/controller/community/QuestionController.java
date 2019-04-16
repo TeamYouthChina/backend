@@ -205,22 +205,6 @@ public class QuestionController {
         return ResponseEntity.ok(new Response());
     }*/
 
-    @PutMapping("/{id}/attention")
-    public ResponseEntity<?> followUp(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        Question question = new Question();
-        question.setId(id);
-        attentionService.attention(question, user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
-    }
-
-    @DeleteMapping("/attentions/{id}")
-    public ResponseEntity<?> cancelFollowUp(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        Question question = new Question();
-        question.setId(id);
-        attentionService.cancel(question, user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
-    }
-
     @PostMapping("/{id}/answers")
     @ResponseBodyDTO(SimpleAnswerResponseDTO.class)
     public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody SimpleAnswerRequestDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
