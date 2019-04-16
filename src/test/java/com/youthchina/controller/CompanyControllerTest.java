@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.util.LocationDTO;
-import com.youthchina.service.tianjian.StaticFileService;
+import com.youthchina.service.util.StaticFileService;
 import com.youthchina.util.AuthGenerator;
 import org.junit.Before;
 import org.junit.Test;

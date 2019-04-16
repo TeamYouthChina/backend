@@ -23,7 +23,7 @@ import com.youthchina.dto.search.SearchResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.BaseException;
-import com.youthchina.service.Hongsheng.SearchService;
+import com.youthchina.service.util.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

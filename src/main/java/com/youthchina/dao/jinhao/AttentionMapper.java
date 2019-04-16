@@ -31,6 +31,10 @@ public interface AttentionMapper {
         return this.cancelAttention(attentionable.getAttentionTargetType(), attentionable.getId(), userId);
     }
 
+    default Integer cancelAttentionByEntity(Attentionable attentionable) {
+        return this.cancelAttentionByEntity(attentionable.getId(), attentionable.getAttentionTargetType());
+    }
+
     /**
      * cancel attention based on entity, usually happens then the entity is deleted
      *

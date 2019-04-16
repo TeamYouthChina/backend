@@ -5,6 +5,6 @@ package com.youthchina.util.dictionary;
  */
 public class AttentionTargetType {
     public static final int JOB = -1;
-    public static final int COMPANY = -1;
+    public static final int COMPANY = -2;
     public static final int ESSAY = 2;
 }

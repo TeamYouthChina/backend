@@ -1,6 +1,6 @@
 package com.youthchina;
 
-import com.youthchina.service.zhongyang.JwtService;
+import com.youthchina.service.user.JwtService;
 import com.youthchina.util.GetUserByJwtFilter;
 import com.youthchina.util.JwtAuthenticationProvider;
 import com.youthchina.util.LoginFilter;

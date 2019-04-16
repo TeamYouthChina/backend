@@ -29,6 +29,13 @@ public class AttentionMapperTest {
         Assert.assertTrue(res.contains(1));
         Assert.assertTrue(res.contains(3));
 
+        List companyRes = communityAttentionMapper.getAttentionList(10, AttentionTargetType.COMPANY);
+        List jobRes = communityAttentionMapper.getAttentionList(10, AttentionTargetType.JOB);
+        Assert.assertEquals(2, companyRes.size());
+        Assert.assertEquals(2, jobRes.size());
+        Assert.assertTrue(companyRes.contains(1));
+        Assert.assertTrue(jobRes.contains(1));
+
     }
 
     @Test
@@ -36,10 +43,11 @@ public class AttentionMapperTest {
         Assert.assertTrue(communityAttentionMapper.getAttentionList(2, AttentionTargetType.ESSAY).contains(1)); //User 2 has Essay 4
         communityAttentionMapper.cancelAttention(AttentionTargetType.ESSAY, 1, 2);
         Assert.assertFalse(communityAttentionMapper.getAttentionList(2, AttentionTargetType.ESSAY).contains(1)); //User 2 has Essay 4
+
     }
 
     @Test
-    public void cancelAttentionByEntity(){
+    public void cancelAttentionByEntity() {
         Assert.assertTrue(communityAttentionMapper.getAttentionList(2, AttentionTargetType.ESSAY).contains(1)); //User 2 has Essay 4
         communityAttentionMapper.cancelAttentionByEntity(1, AttentionTargetType.ESSAY); //delete essay 1;
         Assert.assertFalse(communityAttentionMapper.getAttentionList(2, AttentionTargetType.ESSAY).contains(1)); //User 2 has Essay 4
