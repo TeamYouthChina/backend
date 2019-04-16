@@ -1,9 +1,9 @@
 package com.youthchina.util.dictionary;
 
 public class RelaType {
-    public static final int COMPANY=100;
-    public static final int JOB=200;
-    public static final int PERSON=300;
+    public static final int COMPANY=1;
+    public static final int JOB=2;
+    public static final int PERSON=3;
 
     public static int getTypeId(String type) {
         switch (type) {

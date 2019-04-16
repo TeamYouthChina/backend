@@ -101,7 +101,7 @@ public class EssayController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteEssay(@PathVariable Integer id, @AuthenticationPrincipal User user) {
+    public ResponseEntity deleteEssay(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         int i = essayServiceimpl.deleteEssay(id, time);
         if (i != 0)

@@ -6,13 +6,13 @@ package com.youthchina.util.dictionary;
 public class AttentionTargetType {
     public static final int JOB = -1;
     public static final int COMPANY = -2;
-    public static final int QUESTION = 10;
-    public static final int ESSAY = 20;
-    public static final int BRIEFREVIEW = 30;
-    public static final int VIDEO = 40;
-    public static final int COMMENT = 50;
-    public static final int DISCUSS = 60;
-    public static final int ANSWER = 70;
+    public static final int QUESTION = 1;
+    public static final int ESSAY = 2;
+    public static final int BRIEFREVIEW = 3;
+    public static final int VIDEO = 4;
+    public static final int COMMENT = 5;
+    public static final int DISCUSS = 6;
+    public static final int ANSWER = 7;
 
 
 
