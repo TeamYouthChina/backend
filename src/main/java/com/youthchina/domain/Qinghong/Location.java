@@ -1,7 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
 import com.youthchina.dto.util.LocationDTO;
-import com.youthchina.exception.zhongyang.BaseException;
 
 /**
  * @program: V-0.1

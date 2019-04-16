@@ -1,7 +1,6 @@
 package com.youthchina.controller;
 
-import com.youthchina.domain.jinhao.Discuss;
-import com.youthchina.service.jinhao.EvaluateService;
+import com.youthchina.service.community.EvaluateService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
