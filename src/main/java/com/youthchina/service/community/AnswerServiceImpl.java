@@ -124,9 +124,7 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     @Transactional
     public void delete(Integer id) throws NotFoundException {
-        get(id);
-        Answer answer = new Answer();
-        answer.setId(id);
+        Answer answer = get(id);
         List<Comment> comments = commentService.getComments(answer);
         for(Comment comment : comments){
             commentService.delete(comment.getId());

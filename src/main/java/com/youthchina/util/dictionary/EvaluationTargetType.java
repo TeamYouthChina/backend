@@ -4,13 +4,13 @@ package com.youthchina.util.dictionary;
  * Created by zhongyangwu on 4/14/19.
  */
 public class EvaluationTargetType {
-    public static final int QUESTION = 10;
-    public static final int ESSAY = 20;
-    public static final int BRIEFREVIEW = 30;
-    public static final int VIDEO = 40;
-    public static final int COMMENT = 50;
-    public static final int DISCUSS = 60;
-    public static final int ANSWER = 70;
+    public static final int QUESTION = 1;
+    public static final int ESSAY = 2;
+    public static final int BRIEFREVIEW = 3;
+    public static final int VIDEO = 4;
+    public static final int COMMENT = 5;
+    public static final int DISCUSS = 6;
+    public static final int ANSWER = 7;
 
     public static int getTypeId(String type) {
         switch (type) {
