@@ -11,6 +11,7 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
+import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
@@ -198,6 +199,8 @@ public class AttentionController {
                 return new CompanyResponseDTO((Company) domains);
             case "answer":
                 return new SimpleAnswerResponseDTO((Answer) domains);
+            case "article":
+                return new EssayResponseDTO((ComEssay) domains);
             case "question":
                 return new QuestionResponseDTO((Question) domains);
             case "editorial":
