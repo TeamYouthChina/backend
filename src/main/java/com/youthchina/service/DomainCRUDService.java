@@ -49,4 +49,13 @@ public interface DomainCRUDService<T, K extends Serializable> {
      */
     T add(T entity) throws NotFoundException;
 
+    default boolean exist(K id) {
+        try {
+            this.get(id);
+            return true;
+        } catch (NotFoundException e) {
+            return false;
+        }
+    }
+
 }

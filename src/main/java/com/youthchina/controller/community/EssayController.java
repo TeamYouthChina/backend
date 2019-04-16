@@ -109,22 +109,6 @@ public class EssayController {
             return ResponseEntity.ok(new Response(new StatusDTO(403, "fail")));
     }
 
-    @PutMapping("/{id}/attention")
-    public ResponseEntity updateAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = new ComEssay();
-        comEssay.setId(id);
-        attentionService.attention(comEssay, user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
-    }
-
-    @DeleteMapping("/attentions/{id}")
-    public ResponseEntity deleteAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        ComEssay comEssay = new ComEssay();
-        comEssay.setId(id);
-        attentionService.cancel(comEssay, user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
-    }
-
     @PostMapping
     public ResponseEntity addEssay(@RequestBodyDTO(EssayRequestDTO.class) ComEssay comEssay, @AuthenticationPrincipal User user) throws NotFoundException {
         Timestamp time = new Timestamp(System.currentTimeMillis());

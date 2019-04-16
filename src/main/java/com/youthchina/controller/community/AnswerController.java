@@ -118,20 +118,4 @@ public class AnswerController {
         return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
     }
 
-    @PutMapping("/{id}/attention")
-    public ResponseEntity updateAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        Answer answer = new Answer();
-        answer.setId(id);
-        attentionService.attention(answer,user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
-    }
-
-    @DeleteMapping("/attentions/{id}")
-    public ResponseEntity deleteAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        Answer answer = new Answer();
-        answer.setId(id);
-        attentionService.cancel(answer,user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
-    }
-
 }
