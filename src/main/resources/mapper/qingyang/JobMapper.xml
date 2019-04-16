@@ -102,7 +102,7 @@
         </collection>
         <collection property="jobLocationList" ofType="com.youthchina.domain.Qinghong.Location">
             <!--<id property="regionId" column="JOB_LOCATION_ID"/>-->
-            <result property="regionNum" column="JOB_REGION_NUM"/>
+            <result property="regionId" column="JOB_REGION_NUM"/>
             <!--<result property="jobId" column="JOB_ID"/>-->
             <!--<result property="regionName" column="REGION_CHN"/>-->
             <!--<result property="region_eng" column="REGION_ENG"/>-->
@@ -338,7 +338,7 @@
         ( JOB_REGION_NUM, JOB_ID, IS_DELETE)
         VALUES
         <foreach item="location" collection="locationList" separator=",">
-            ( #{location.regionNum}, #{jobId}, 0)
+            ( #{location.regionId}, #{jobId}, 0)
         </foreach>
     </insert>
 

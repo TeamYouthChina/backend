@@ -92,7 +92,7 @@ public class StudentServiceImpl implements StudentService {
 //                educationInfo.setLocation(location);
 //            }
             for (Work work : student.getWorks()) {
-                Location location = locationService.getLocation(work.getLocation().getRegionNum());
+                Location location = locationService.getLocation(work.getLocation().getRegionId());
                 work.setLocation(location);
             }
             return student;
@@ -119,7 +119,7 @@ public class StudentServiceImpl implements StudentService {
         }
         for (Work work : entity.getWorks()) {
             work.setStu_id(stu_id);
-            Location location = locationService.getLocation(work.getLocation().getRegionNum());
+            Location location = locationService.getLocation(work.getLocation().getRegionId());
             work.setLocation(location);
             applicantMapper.insertStuWork(work);
         }
@@ -138,7 +138,7 @@ public class StudentServiceImpl implements StudentService {
 //            educationInfo.setLocation(location);
 //        }
         for (Work work : student.getWorks()) {
-            Location location = locationService.getLocation(work.getLocation().getRegionNum());
+            Location location = locationService.getLocation(work.getLocation().getRegionId());
             work.setLocation(location);
         }
 
@@ -722,7 +722,7 @@ public class StudentServiceImpl implements StudentService {
             }
             List<Work> works1 = applicantMapper.getStudentInfo(user_id).getWorks();
             for (Work work : works1) {
-                Location location = locationService.getLocation(work.getLocation().getRegionNum());
+                Location location = locationService.getLocation(work.getLocation().getRegionId());
                 work.setLocation(location);
 
             }

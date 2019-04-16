@@ -319,7 +319,7 @@ public class StudentProfileController {
     public void testInsertWorks() throws Exception {
         LocationDTO locationDTO = new LocationDTO();
         locationDTO.setNation_code("440000");
-        locationDTO.setLocation_code("");
+        locationDTO.setLocation_code("210000");
         WorkRequestDTO workDTO = new WorkRequestDTO();
         workDTO.setEmployer("google");
         workDTO.setPosition("backend");
@@ -357,7 +357,7 @@ public class StudentProfileController {
     public void testUpdateWork() throws Exception {
         LocationDTO locationDTO = new LocationDTO();
         locationDTO.setNation_code("CHN");
-        locationDTO.setLocation_code("");
+        locationDTO.setLocation_code("210000");
         WorkRequestDTO workRequestDTO = new WorkRequestDTO();
         workRequestDTO.setId(6);
         workRequestDTO.setEmployer("amazon");
