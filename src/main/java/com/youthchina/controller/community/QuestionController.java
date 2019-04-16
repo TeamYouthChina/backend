@@ -227,7 +227,7 @@ public class QuestionController {
         Answer answer = new Answer(simpleAnswerDTO);
         answer.setUser(user);
         answer.setTargetId(id);
-        answer.setTargetType(1);
+        answer.setTargetType(0);
         Answer createdAnswer = answerService.add(answer);
         return ResponseEntity.ok(new Response(createdAnswer, new StatusDTO(200, "success")));
     }
