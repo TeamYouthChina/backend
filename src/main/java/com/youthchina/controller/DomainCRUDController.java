@@ -3,7 +3,7 @@ package com.youthchina.controller;
 import com.youthchina.dto.Response;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
-import com.youthchina.util.zhongyang.HasId;
+import com.youthchina.util.HasId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

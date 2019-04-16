@@ -1,8 +1,8 @@
 package com.youthchina.controller;
 
-import com.youthchina.service.zhongyang.JwtService;
+import com.youthchina.service.user.JwtService;
 import com.youthchina.util.AuthGenerator;
-import com.youthchina.util.zhongyang.JwtAuthenticationProvider;
+import com.youthchina.util.JwtAuthenticationProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
