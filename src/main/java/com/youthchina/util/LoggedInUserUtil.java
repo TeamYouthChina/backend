@@ -3,7 +3,6 @@ package com.youthchina.util;
 import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.error.BaseError;
-import jdk.internal.jline.internal.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -12,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class LoggedInUserUtil {
 
-    @Nullable
     public static User currentUser() {
         Authentication principal = SecurityContextHolder.getContext().getAuthentication();
         if (principal == null || !principal.isAuthenticated()) {
