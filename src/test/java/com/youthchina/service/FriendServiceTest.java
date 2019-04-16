@@ -3,8 +3,8 @@ package com.youthchina.service;
 
 import com.youthchina.domain.tianjian.ComFriendGroup;
 import com.youthchina.domain.tianjian.ComFriendRelation;
-import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.tianjian.FriendsServiceImpl;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
+import com.youthchina.service.community.FriendsServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

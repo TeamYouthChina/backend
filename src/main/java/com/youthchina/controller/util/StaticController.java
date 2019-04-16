@@ -4,10 +4,10 @@ import com.youthchina.domain.Qinghong.Entry;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.EntryResponseDTO;
 import com.youthchina.dto.Response;
-import com.youthchina.exception.zhongyang.BaseException;
-import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.Qinghong.DictionaryService;
-import com.youthchina.service.tianjian.StaticFileService;
+import com.youthchina.exception.zhongyang.exception.BaseException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
+import com.youthchina.service.util.DictionaryService;
+import com.youthchina.service.util.StaticFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -60,6 +60,8 @@ public class StaticController {
             EntryResponseDTO entryResponseDTO=new EntryResponseDTO(entry);
             entryResponseDTOS.add(entryResponseDTO);
         }
+        EntryResponseDTO entryResponseDTO=new EntryResponseDTO(id+"");
+        entryResponseDTOS.add(entryResponseDTO);
         return ResponseEntity.ok(new Response(entryResponseDTOS));
     }
 

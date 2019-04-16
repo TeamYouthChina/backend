@@ -18,8 +18,6 @@ public interface UserMapper {
 
     List<Role> getRoles(Integer user_id);
 
-    List<User> findAll(List<Integer> ids);
-
     int insert(User user);
 
     void delete(Integer id);

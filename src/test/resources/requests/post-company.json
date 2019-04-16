@@ -1,0 +1,12 @@
+{
+  "avatarUrl": null,
+  "id": 1,
+  "location": {
+    "nation_code": "",
+    "location_code": "110107"
+  },
+  "name": "ds",
+  "nation": "test",
+  "note": "ddd",
+  "website": "http://www.sinopec.com"
+}

@@ -2,7 +2,7 @@ package com.youthchina.domain.Qinghong;
 
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.applicant.*;
-import com.youthchina.util.zhongyang.HasId;
+import com.youthchina.util.HasId;
 
 import java.util.ArrayList;
 import java.util.List;

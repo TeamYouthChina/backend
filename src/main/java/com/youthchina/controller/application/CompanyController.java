@@ -9,11 +9,11 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
-import com.youthchina.exception.zhongyang.BaseException;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.BaseException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
-import com.youthchina.service.Qinghong.StudentService;
-import com.youthchina.service.qingyang.CompanyCURDService;
+import com.youthchina.service.application.CompanyCURDService;
+import com.youthchina.service.user.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -125,7 +125,7 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
     @DeleteMapping("/attentions/{id}")
     public ResponseEntity<?> deleteCompanyCollection(@PathVariable("id") Integer company_id, @AuthenticationPrincipal User user) throws NotFoundException {
         Integer collectionId = studentService.getCollectionByCompanyId(company_id, user.getId());
-        if (collectionId != null) {
+        if (collectionId == null) {
             return ResponseEntity.status(400).body(new StatusDTO(400, "no such company collection"));
         }
         Integer integer = studentService.deleteCompCollect(collectionId);

@@ -2,9 +2,9 @@ package com.youthchina.mapper;
 
 import com.youthchina.dao.qingyang.CompanyEmployeeMapper;
 import com.youthchina.domain.qingyang.CompanyEmployee;
-import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.qingyang.CompanyEmployeeCURDService;
-import com.youthchina.service.qingyang.CompanyEmployeeCURDServiceImpl;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
+import com.youthchina.service.application.CompanyEmployeeCURDService;
+import com.youthchina.service.application.CompanyEmployeeCURDServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,8 +1,9 @@
 package com.youthchina.service;
 
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,16 @@ public interface DomainCRUDService<T, K extends Serializable> {
      * @param id list of id
      * @return target
      */
-    List<T> get(List<K> id) throws NotFoundException;
+    default List<T> get(List<K> id) {
+        List<T> res = new ArrayList<>();
+        for (K i : id) {
+            try {
+                res.add(this.get(i));
+            } catch (NotFoundException ignore) {
+            }
+        }
+        return res;
+    }
 
     /**
      * @param id id

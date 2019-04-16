@@ -1,7 +1,7 @@
 package com.youthchina.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.util.zhongyang.DTOtoDomainArgumentResolver;
+import com.youthchina.util.DTOtoDomainArgumentResolver;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

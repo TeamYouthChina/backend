@@ -11,15 +11,16 @@ import com.youthchina.dto.community.discuss.DiscussRequestDTO;
 import com.youthchina.dto.community.discuss.DiscussResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.jinhao.CommentService;
-import com.youthchina.service.jinhao.DiscussService;
-import com.youthchina.service.jinhao.EvaluateService;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
+import com.youthchina.service.community.CommentService;
+import com.youthchina.service.community.DiscussService;
+import com.youthchina.service.community.EvaluateService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,9 @@ public class CommentController {
         Discuss discuss = new Discuss(discussRequestDTO);
         discuss.setCommentId(id);
         discuss.setUser(user);
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        discuss.setEditTime(time);
+        discuss.setPubTime(time);
         Discuss retrunDiscuss = discussService.add(discuss);
         DiscussResponseDTO returndiscussResponseDTO = new DiscussResponseDTO(retrunDiscuss);
         if (returndiscussResponseDTO.getId() != null) {
