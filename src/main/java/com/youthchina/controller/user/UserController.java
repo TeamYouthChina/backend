@@ -3,24 +3,17 @@ package com.youthchina.controller.user;
 import com.youthchina.controller.DomainCRUDController;
 import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.jinhao.Answer;
-import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Question;
-import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
-import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
-import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.job.JobResponseDTO;
-import com.youthchina.dto.util.PageRequest;
-import com.youthchina.dto.util.PageResponse;
 import com.youthchina.exception.zhongyang.exception.ForbiddenException;
-import com.youthchina.exception.zhongyang.exception.InternalStatusCode;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.application.CompanyCURDService;
@@ -29,12 +22,14 @@ import com.youthchina.service.application.JobServiceImpl;
 import com.youthchina.service.community.*;
 import com.youthchina.service.user.StudentService;
 import com.youthchina.service.user.UserService;
-import com.youthchina.util.dictionary.AttentionTargetType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -85,78 +80,6 @@ public class UserController extends DomainCRUDController<User, Integer> {
             return get(id);
         } else {
             throw new ForbiddenException();
-        }
-    }
-
-    /**
-     * @Description: 需要添加分页
-     * @Param: [user_id, type]
-     * @return: org.springframework.http.ResponseEntity<?>
-     * @Author: Qinghong Wang
-     * @Date: 2019/4/4
-     */
-
-    @GetMapping("/{id}/attentions")
-    public ResponseEntity<?> getAllCollections(@PathVariable("id") Integer user_id, @RequestParam(value = "type") String type, @AuthenticationPrincipal User user, PageRequest pageRequest) throws NotFoundException, ForbiddenException {
-        if (!user.getId().equals(user_id)) {
-            throw new ForbiddenException();
-        }
-        DomainCRUDService service = this.getServiceByType(type);
-        List<Integer> ids = this.attentionService.getAllIdsOfAttention(AttentionTargetType.getTypeId(type), user_id);
-        List res = service.get(ids);
-        List<ResponseDTO> dtos = new ArrayList<>();
-        if (res != null) {
-            dtos = this.convertToDTO(res, type, pageRequest.getStart(), pageRequest.getEnd());
-        } else {
-            res = new ArrayList(); //prevent null pointer
-        }
-        HashMap<String, PageResponse> resultMap = new HashMap<>();
-        resultMap.put(type, new PageResponse(pageRequest, res.size(), dtos));
-        return ResponseEntity.ok(Response.content(resultMap));
-
-    }
-
-
-    private DomainCRUDService getServiceByType(String type) throws NotFoundException {
-        switch (type) {
-            case "job":
-                return this.jobService;
-            case "company":
-                return this.companyCURDService;
-            case "answer":
-                return this.answerService;
-            case "question":
-                return this.questionService;
-            case "editorial":
-                return this.briefReviewService;
-            default:
-                throw new NotFoundException(404, InternalStatusCode.NOT_FOUND.value(), "do not have this type");
-        }
-    }
-
-    private List<ResponseDTO> convertToDTO(List domains, String type, int start, int end) throws NotFoundException {
-        List<ResponseDTO> responseDTOs = new ArrayList<>();
-        for (int i = start; i <= Math.min(domains.size() - 1, end); i++) {
-            responseDTOs.add(this.convertToDTO(domains.get(i), type));
-        }
-        return responseDTOs;
-
-    }
-
-    private ResponseDTO convertToDTO(Object domains, String type) throws NotFoundException {
-        switch (type) {
-            case "job":
-                return new JobResponseDTO((Job) domains);
-            case "company":
-                return new CompanyResponseDTO((Company) domains);
-            case "answer":
-                return new SimpleAnswerResponseDTO((Answer) domains);
-            case "question":
-                return new QuestionResponseDTO((Question) domains);
-            case "editorial":
-                return new BriefReviewResponseDTO((BriefReview) domains);
-            default:
-                throw new NotFoundException(404, InternalStatusCode.NOT_FOUND.value(), "do not have this type");
         }
     }
 

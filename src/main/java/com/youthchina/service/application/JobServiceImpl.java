@@ -210,8 +210,15 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public List<Job> getJobByUserId(Integer userId){
+    public List<Job> getJobByUserId(Integer userId) throws NotFoundException {
         List<Job> jobList = jobMapper.getJobByUserId(userId);
+        for(Job job : jobList){
+            try {
+                job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
+            } catch (NotFoundException e){
+                throw new NotFoundException(4040, 404, "Company of job : " + job.getJobName() + " not found");
+            }
+        }
         return jobList;
     }
 
