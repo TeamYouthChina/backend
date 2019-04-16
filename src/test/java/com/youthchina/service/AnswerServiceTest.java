@@ -55,8 +55,6 @@ public class AnswerServiceTest {
     @Test
     public void delete() throws Exception {
         this.answerService.delete(1);
-
-        verify(commentService).delete(any(Answer.class));
         verify(attentionService).cancel(any(Answer.class));
         verify(answerMapper).delete(anyInt());
 

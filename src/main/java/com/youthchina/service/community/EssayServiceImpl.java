@@ -2,6 +2,7 @@ package com.youthchina.service.community;
 
 import com.youthchina.dao.tianjian.CommunityMapper;
 import com.youthchina.dao.zhongyang.UserMapper;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +32,9 @@ public class EssayServiceImpl implements EssayService {
     @Resource
     EvaluateServiceImpl evaluateService;
 
+    @Resource
+    AttentionService attentionService;
+
     @Autowired
     UserMapper userMapper;
 
@@ -52,10 +55,15 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
-    public int deleteEssay(Integer essay_id, Timestamp delete_time) {
+    public int deleteEssay(Integer essay_id, Timestamp delete_time) throws NotFoundException {
         ComEssay comEssay = new ComEssay();
         comEssay.setId(essay_id);
-        commentService.delete(comEssay);
+        List<Comment> comments = commentService.getComments(comEssay);
+        for(Comment comment : comments){
+            commentService.delete(comment.getId());
+        }
+        evaluateService.cancel(comEssay);
+        attentionService.cancel(comEssay);
         return mapper.deleteEssay(essay_id, delete_time);
     }
 
@@ -119,6 +127,7 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
+    @Transactional
     public ComEssay get(Integer id) throws NotFoundException {
         ComEssay comEssay = mapper.getEssay(id);
         if (comEssay == null) {
@@ -135,10 +144,17 @@ public class EssayServiceImpl implements EssayService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) throws NotFoundException {
+        get(id);
         ComEssay comEssay = new ComEssay();
         comEssay.setId(id);
-        commentService.delete(comEssay);
+        List<Comment> comments = commentService.getComments(comEssay);
+        for(Comment comment : comments){
+            commentService.delete(comment.getId());
+        }
+        evaluateService.cancel(comEssay);
+        attentionService.cancel(comEssay);
         Timestamp delete_time = new Timestamp(System.currentTimeMillis());
         mapper.deleteEssay(id, delete_time);
     }

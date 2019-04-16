@@ -3,7 +3,6 @@ package com.youthchina.service.community;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.property.Commentable;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
-import com.youthchina.service.DomainCRUDService;
 
 import java.util.List;
 
@@ -17,11 +16,11 @@ public interface CommentService{
 
     List<Comment> getComments(Commentable entity, Integer start, Integer end);
 
+    List<Comment> get(List<Integer> ids);
+
     void isCommentExist(Integer id) throws NotFoundException;
 
     Comment add(Comment comment, Commentable entity) throws NotFoundException;
-
-    void delete(Commentable commentable);
 
     Integer countComments(Commentable entity);
 

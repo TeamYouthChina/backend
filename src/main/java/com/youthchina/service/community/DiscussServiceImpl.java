@@ -21,6 +21,9 @@ public class DiscussServiceImpl implements DiscussService {
     @Resource
     UserService userService;
 
+    @Resource
+    EvaluateService evaluateService;
+
     @Override
     @Transactional
     public List<Discuss> getDiscussesByCommentId(Integer id) {
@@ -75,13 +78,12 @@ public class DiscussServiceImpl implements DiscussService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) throws NotFoundException {
         get(id);
+        Discuss discuss = new Discuss();
+        discuss.setId(id);
+        evaluateService.cancel(discuss);
         discussMapper.delete(id);
-    }
-
-    @Override
-    public Discuss update(Discuss discuss) throws NotFoundException {
-        return null;
     }
 }

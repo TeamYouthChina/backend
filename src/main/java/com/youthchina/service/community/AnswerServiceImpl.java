@@ -3,6 +3,7 @@ package com.youthchina.service.community;
 import com.youthchina.dao.jinhao.AnswerMapper;
 import com.youthchina.dao.jinhao.QuestionMapper;
 import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
 import org.springframework.stereotype.Service;
@@ -103,7 +104,7 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     @Transactional
     public Answer add(Answer answer) throws NotFoundException {
-        get(answer.getId());
+        questionService.get(answer.getTargetId());
         richTextService.addComRichText(answer.getBody());
         answerMapper.add(answer);
         return get(answer.getId());
@@ -123,10 +124,13 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     @Transactional
     public void delete(Integer id) throws NotFoundException {
-
+        get(id);
         Answer answer = new Answer();
         answer.setId(id);
-        commentService.delete(answer);
+        List<Comment> comments = commentService.getComments(answer);
+        for(Comment comment : comments){
+            commentService.delete(comment.getId());
+        }
         attentionService.cancel(answer);
         evaluateService.cancel(answer);
         answerMapper.delete(id);
