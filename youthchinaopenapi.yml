@@ -460,7 +460,7 @@ paths:
               - answer
               - article
               - video
-              - editorials
+              - editorial
           description: determine what part of attention list to return
         - in: header
           name: X-AUTHENTICATION
@@ -479,55 +479,24 @@ paths:
                   content:
                     type: object
                     properties:
-                      companies:
+                      company:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            company:
-                              $ref: '#/components/schemas/Company'
-                      jobs:
+                          $ref: '#/components/schemas/Company'
+                      job:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            job:
-                              $ref: '#/components/schemas/Job'
-                      questions:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            question:
-                              $ref: '#/components/schemas/QuestionBasic'
-                      answers:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            answer:
-                              $ref: '#/components/schemas/AnswerBasic'
-                      articles:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            article:
-                              $ref: '#/components/schemas/Article'
-                      videos:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            video:
-                              $ref: '#/components/schemas/Video'
-                      editorials:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            editorial:
-                              $ref: '#/components/schemas/Editorial'
+                          $ref: '#/components/schemas/Job'
+                      question:
+                        $ref: '#/components/schemas/QuestionBasic'
+                      answer:
+                        $ref: '#/components/schemas/AnswerBasic'
+                      article:
+                        $ref: '#/components/schemas/Article'
+                      video:
+                        $ref: '#/components/schemas/Video'
+                      editorial:
+                        $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
   '/my':
@@ -6495,7 +6464,7 @@ components:
       type: object
       properties:
         body:
-          $ref: '#/components/schemas/RichText'
+          type: string
     Status:
       type: object
       properties:
