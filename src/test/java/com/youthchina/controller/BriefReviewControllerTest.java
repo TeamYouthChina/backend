@@ -119,7 +119,7 @@ public class BriefReviewControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(partialContent("{\"content\":{\"id\":7,\"body\":{\"braftEditorRaw\":\"erer\",\"previewText\":\"pre\",\"compiletype\":1},\"comments\":[],\"author\":{\"id\":1,\"username\":\"Admin\",\"email\":\"123456@123.com\",\"phonenumber\":\"1234657890123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"first_name\":\"Admin\",\"last_name\":\"Admin\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":[\"ROOT\"],\"age\":25},\"upvoteCount\":null,\"downvoteCount\":null,\"attentionCount\":null,\"evaluateStatus\":null,\"modified_at\":\"2019-04-16T19:57:27.000+0000\",\"attention\":false},\"status\":{\"code\":201,\"reason\":\"success\"}}","$.content.modified_at","$.content.id"));
+                .andExpect(partialContent("{\"content\":{\"id\":9,\"body\":{\"braftEditorRaw\":\"erer\",\"previewText\":\"pre\",\"compiletype\":1},\"comments\":[],\"author\":{\"id\":1,\"username\":\"Admin\",\"email\":\"123456@123.com\",\"phonenumber\":\"1234657890123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"first_name\":\"Admin\",\"last_name\":\"Admin\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":[\"ROOT\"],\"age\":25},\"upvoteCount\":null,\"downvoteCount\":null,\"attentionCount\":null,\"evaluateStatus\":null,\"modified_at\":\"2019-04-16T20:12:57.000+0000\",\"attention\":false},\"status\":{\"code\":201,\"reason\":\"success\"}}","$.content.modified_at","$.content.id","$.content.comments"));
 
     }
 
