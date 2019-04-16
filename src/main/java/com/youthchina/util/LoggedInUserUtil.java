@@ -11,6 +11,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class LoggedInUserUtil {
 
+    /**
+     * Get current logged in user
+     * @return logged in user ,if no user has logged in, return null
+     */
     public static User currentUser() {
         Authentication principal = SecurityContextHolder.getContext().getAuthentication();
         if (principal == null || !principal.isAuthenticated()) {

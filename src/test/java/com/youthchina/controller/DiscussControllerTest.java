@@ -24,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @WebAppConfiguration
 public class DiscussControllerTest extends BaseControllerTest {
+
     @Resource
     EvaluateService evaluateService;
     @Test
