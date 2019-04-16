@@ -26,36 +26,36 @@ public class RecommendController {
 
     @GetMapping("/")
     public ResponseEntity<ListResponse> recommend(@AuthenticationPrincipal User user, PageRequest pageRequest) throws Exception {
-        return searchController.search("all", "A", "B", pageRequest);
+        return searchController.search("all", "*", "*", pageRequest);
     }
 
     @GetMapping("/companies")
     public ResponseEntity<ListResponse> recommendCompany(@AuthenticationPrincipal User user, PageRequest pageRequest) throws Exception {
-        return searchController.search("company", "t", null, pageRequest);
+        return searchController.search("company", "*", "*", pageRequest);
     }
 
     @GetMapping("/users")
     public ResponseEntity<ListResponse> recommendUser(@AuthenticationPrincipal User user, PageRequest pageRequest) throws Exception {
-        return searchController.search("user", "t", null, pageRequest);
+        return searchController.search("user", "*", null, pageRequest);
     }
 
     @GetMapping("/articles")
     public ResponseEntity<ListResponse> recommendArticles(@AuthenticationPrincipal User user, PageRequest pageRequest) throws Exception {
-        return searchController.search("article", "t", null, pageRequest);
+        return searchController.search("article", "*", null, pageRequest);
     }
 
     @GetMapping("/questions")
     public ResponseEntity<ListResponse> recommendQuestions(@AuthenticationPrincipal User user, PageRequest pageRequest) throws Exception {
-        return searchController.search("question", "t", null, pageRequest);
+        return searchController.search("question", "*", "*", pageRequest);
     }
 
     @GetMapping("/jobs")
     public ResponseEntity<ListResponse> recommendJobs(@AuthenticationPrincipal User user, PageRequest pageRequest) throws Exception {
-        return searchController.search("job", "t", null, pageRequest);
+        return searchController.search("job", "*", "*", pageRequest);
     }
 
     @GetMapping("/editorials")
     public ResponseEntity<ListResponse> recommendEditorials(@AuthenticationPrincipal User user, PageRequest pageRequest) throws Exception {
-        return searchController.search("briefReview", "t", null, pageRequest);
+        return searchController.search("briefReview", "*", "*", pageRequest);
     }
 }

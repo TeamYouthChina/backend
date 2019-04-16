@@ -189,7 +189,7 @@ paths:
   
   '/jobs/{id}/apply':
     post:
-      summary: 发起不提交任何东西
+      summary: 发起申请不提交任何东西
       tags:
         - Application
       parameters:
@@ -337,7 +337,7 @@ paths:
                     $ref: '#/components/schemas/Status'
   '/applicants/{id}/applications':
     get:
-      summary: 获得所有申请的职位
+      summary: 获得所有申请的公司
       tags:
         - Application
       parameters:
@@ -482,34 +482,55 @@ paths:
                       companies:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Company'
+                          type: object
+                          properties:
+                            company:
+                              $ref: '#/components/schemas/Company'
                       jobs:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Job'
+                          type: object
+                          properties:
+                            job:
+                              $ref: '#/components/schemas/Job'
                       questions:
                         type: array
                         items:
-                          $ref: '#/components/schemas/QuestionBasic'
+                          type: object
+                          properties:
+                            question:
+                              $ref: '#/components/schemas/QuestionBasic'
                       answers:
                         type: array
                         items:
-                          $ref: '#/components/schemas/AnswerBasic'
+                          type: object
+                          properties:
+                            answer:
+                              $ref: '#/components/schemas/AnswerBasic'
                       articles:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Article'
+                          type: object
+                          properties:
+                            article:
+                              $ref: '#/components/schemas/Article'
                       videos:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Video'
+                          type: object
+                          properties:
+                            video:
+                              $ref: '#/components/schemas/Video'
                       editorials:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Editorial'
+                          type: object
+                          properties:
+                            editorial:
+                              $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
-  '/users/{id}/my':
+  '/my':
     get:
       summary: 获得我发布的文章，职位等
       tags:
@@ -1026,18 +1047,13 @@ paths:
             schema:
               type: object
               required:
-                - id
                 - body
               properties:
-                id:
-                  type: integer
                 body:
                   $ref: '#/components/schemas/RichText'
                 is_anonymous:
                   type: boolean
                   default: false
-                create_at:
-                  type: integer
       responses:
         '201':
           description: target answer
@@ -4540,7 +4556,7 @@ paths:
       tags:
         - Comment
       parameters:
-        - name: id
+        - name: reply_id
           required: true
           in: path
           description: reply id
@@ -6382,9 +6398,9 @@ paths:
       parameters:
        - in: path
          name: id
+         required: true
          schema:
           type: integer
-          
       responses:
         '200':
           description: "null"
@@ -6525,15 +6541,15 @@ components:
             - full-time
             - part-time
             - internship
-        deadLine:
+        startTime:
           type: string
-        job_description:
+        deadLine:
           type: string
         job_duty:
           type: string
-        startTime:
+        job_description:
           type: string
-        isCollected:
+        collected:
           type: boolean
     JobRequest:
       type: object
@@ -6550,18 +6566,18 @@ components:
         type:
           type: string
           enum:
-            - 1, means full-time
-            - 2, means part-time
-            - 3, meansinternship
-        dead_line:
+            - full-time
+            - part-time
+            - internship
+        dead_Line:
+          type: string
+        start_Time:
+          type: string
+        end_Time:
           type: string
         job_description:
           type: string
         job_duty:
-          type: string
-        start_time:
-          type: string
-        end_time:
           type: string
     Organization:
       type: object
@@ -6628,7 +6644,9 @@ components:
         avatar_url:
           type: string
         role:
-          type: string
+          type: array
+          items:
+            type: string
         age:
           type: integer
     NewUser:
@@ -6972,15 +6990,15 @@ components:
       allOf:
         - $ref: '#/components/schemas/AnswerRequest'
         - properties:
-            id:
-              type: integer
-              description: answer id
             creator:
               $ref: '#/components/schemas/User'
             modified_at:
               type: string
             create_at:
               type: string
+            id:
+              type: integer
+              description: answer id
     QuestionRequest:
       type: object
       required:
@@ -7098,14 +7116,16 @@ components:
           type: integer
         title:
           type: string
-        body:
-          $ref: '#/components/schemas/RichText'
+        company:
+          $ref: '#/components/schemas/Company'
         create_at:
           type: string
         modified_at:
           type: string
         author:
           $ref: '#/components/schemas/User'
+        body:
+          $ref: '#/components/schemas/RichText'
         is_anonymous:
           type: boolean
           default: false
@@ -7137,13 +7157,14 @@ components:
             $ref: '#/components/schemas/Comment'
         author:
           $ref: '#/components/schemas/User'
+        modified_at:
+          type: string
     ContentRequestWithCompany:
       allOf:
         - $ref: '#/components/schemas/ContentRequest'
         - properties:
             company_id:
               type: integer
-              description: related company
     Location:
       type: object
       required:
@@ -7204,3 +7225,5 @@ components:
           $ref: '#/components/schemas/User'
         is_read:
           type: boolean
+      
+      

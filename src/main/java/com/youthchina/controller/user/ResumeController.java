@@ -11,7 +11,7 @@ import com.youthchina.exception.zhongyang.BaseException;
 import com.youthchina.exception.zhongyang.ForbiddenException;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
-import com.youthchina.service.qingyang.ResumeJsonServiceImpl;
+import com.youthchina.service.application.ResumeJsonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;

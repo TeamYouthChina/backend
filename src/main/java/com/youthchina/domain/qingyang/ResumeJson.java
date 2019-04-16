@@ -1,7 +1,7 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.dto.applicant.ResumeJsonRequestDTO;
-import com.youthchina.util.zhongyang.HasId;
+import com.youthchina.util.HasId;
 
 import java.sql.Timestamp;
 

@@ -3,7 +3,7 @@ package com.youthchina.others;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.util.zhongyang.DomainToDTOConverterFactory;
+import com.youthchina.util.DomainToDTOConverterFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.core.convert.converter.Converter;

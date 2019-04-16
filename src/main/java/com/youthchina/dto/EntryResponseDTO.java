@@ -21,6 +21,10 @@ public class EntryResponseDTO {
         this.name=entry.getName();
     }
 
+    public EntryResponseDTO(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

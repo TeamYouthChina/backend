@@ -1,6 +1,6 @@
 package com.youthchina;
 
-import com.youthchina.util.zhongyang.PageRequestArgumentResolver;
+import com.youthchina.util.PageRequestArgumentResolver;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
