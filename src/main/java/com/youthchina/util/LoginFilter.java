@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.service.zhongyang.JwtService;
+import com.youthchina.service.user.JwtService;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

@@ -2,7 +2,7 @@ package com.youthchina.util;
 
 import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.service.zhongyang.JwtService;
+import com.youthchina.service.user.JwtService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
