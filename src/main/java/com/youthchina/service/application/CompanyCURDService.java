@@ -10,5 +10,7 @@ public interface CompanyCURDService extends DomainCRUDService<Company, Integer> 
 
     List<Company> getByName(String comName);
 
+    Boolean isCollected(Integer companyId, Integer userId);
+
     Company getCompanyWithCollected(Integer companyId, Integer userId) throws NotFoundException;
 }

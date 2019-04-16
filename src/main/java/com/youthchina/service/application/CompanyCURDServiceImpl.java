@@ -231,6 +231,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         return jobCount;
     }
 
+    @Override
     public Boolean isCollected(Integer companyId, Integer userId) {
         Integer result = companyMapper.isCollected(companyId, userId);
         return result != null;
