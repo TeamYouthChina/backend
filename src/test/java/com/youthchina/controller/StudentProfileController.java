@@ -24,6 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * @program: youthchina
@@ -70,16 +71,17 @@ public class StudentProfileController {
 
         ;
     }
+
     /**
-    * @Description: 分页已完成测试
-    * @Param: []
-    * @return: void
-    * @Author: Qinghong Wang
-    * @Date: 2019/4/6
-    */
+     * @Description: 分页已完成测试
+     * @Param: []
+     * @return: void
+     * @Author: Qinghong Wang
+     * @Date: 2019/4/6
+     */
 
     @Test
-    public void testGetEducations() throws Exception{
+    public void testGetEducations() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/applicants/10/educations?limit=1&offset=0")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -97,14 +99,14 @@ public class StudentProfileController {
      * @Date: 2019/3/30
      */
     @Test
-    public void testInsertEducation() throws Exception{
-        EducationRequestDTO educationDTO=new EducationRequestDTO();
+    public void testInsertEducation() throws Exception {
+        EducationRequestDTO educationDTO = new EducationRequestDTO();
         educationDTO.setUniversity_id(10001);
         educationDTO.setMajor("10101");
         educationDTO.setDegree("2");
-        String begin="2018-10-09";
-        String end="2018-12-09";
-        DurationDTO durationDTO=new DurationDTO(begin,end);
+        String begin = "2018-10-09";
+        String end = "2018-12-09";
+        DurationDTO durationDTO = new DurationDTO(begin, end);
         educationDTO.setDuration(durationDTO);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -131,14 +133,14 @@ public class StudentProfileController {
      */
 
     @Test
-    public void testUpdateEducation() throws Exception{
-        EducationRequestDTO educationDTO=new EducationRequestDTO();
+    public void testUpdateEducation() throws Exception {
+        EducationRequestDTO educationDTO = new EducationRequestDTO();
         educationDTO.setUniversity_id(10001);
         educationDTO.setMajor("10101");
         educationDTO.setDegree("1");
-        String begin="2014-10-07";
-        String end="2018-10-07";
-        DurationDTO durationDTO=new DurationDTO(begin,end);
+        String begin = "2014-10-07";
+        String end = "2018-10-07";
+        DurationDTO durationDTO = new DurationDTO(begin, end);
         educationDTO.setDuration(durationDTO);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -161,7 +163,7 @@ public class StudentProfileController {
      * @Date: 2019/3/30
      */
     @Test
-    public void testDeleteEducation() throws Exception{
+    public void testDeleteEducation() throws Exception {
         this.mvc.perform(
                 delete(this.urlPrefix + "/applicants/10/educations/10")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -181,16 +183,16 @@ public class StudentProfileController {
 ////                .andExpect(content().json("{\"content\":{\"emails\":[\"test@test.com\"],\"phonenumbers\":[\"18463722634\"]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
 //        ;
 //    }
-    
-    /** 
-    * @Description: 通过测试
-    * @Param: [] 
-    * @return: void 
-    * @Author: Qinghong Wang 
-    * @Date: 2019/4/6 
-    */
+
+    /**
+     * @Description: 通过测试
+     * @Param: []
+     * @return: void
+     * @Author: Qinghong Wang
+     * @Date: 2019/4/6
+     */
     @Test
-    public void testGetProjects() throws Exception{
+    public void testGetProjects() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/applicants/10/projects?limit=1&offset=0")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -208,11 +210,11 @@ public class StudentProfileController {
      * @Date: 2019/3/30
      */
     @Test
-    public void testInsertProjects() throws Exception{
-        long begin=1111111;
-        long end=2222222;
-        DurationDTO durationDTO=new DurationDTO(begin,end);
-        ProjectRequestDTO projectDTO=new ProjectRequestDTO();
+    public void testInsertProjects() throws Exception {
+        long begin = 1111111;
+        long end = 2222222;
+        DurationDTO durationDTO = new DurationDTO(begin, end);
+        ProjectRequestDTO projectDTO = new ProjectRequestDTO();
         projectDTO.setName("create website");
         projectDTO.setRole("design web");
         projectDTO.setDuration(durationDTO);
@@ -241,11 +243,11 @@ public class StudentProfileController {
      * @Date: 2019/3/30
      */
     @Test
-    public void testUpdateProject() throws Exception{
-        long begin=1111111;
-        long end=2222222;
-        DurationDTO durationDTO=new DurationDTO(begin,end);
-        ProjectRequestDTO projectRequestDTO =new ProjectRequestDTO();
+    public void testUpdateProject() throws Exception {
+        long begin = 1111111;
+        long end = 2222222;
+        DurationDTO durationDTO = new DurationDTO(begin, end);
+        ProjectRequestDTO projectRequestDTO = new ProjectRequestDTO();
         projectRequestDTO.setId(6);
         projectRequestDTO.setName("做网站");
         projectRequestDTO.setRole("做网站");
@@ -276,7 +278,7 @@ public class StudentProfileController {
      */
 
     @Test
-    public void testDeleteProject() throws Exception{
+    public void testDeleteProject() throws Exception {
         this.mvc.perform(
                 delete(this.urlPrefix + "/applicants/10/projects/1")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -285,16 +287,17 @@ public class StudentProfileController {
         ;
 
     }
+
     /**
-    * @Description: 通过测试
-    * @Param: []
-    * @return: void
-    * @Author: Qinghong Wang
-    * @Date: 2019/4/4
-    */
+     * @Description: 通过测试
+     * @Param: []
+     * @return: void
+     * @Author: Qinghong Wang
+     * @Date: 2019/4/4
+     */
 
     @Test
-    public void testGetExperiences() throws Exception{
+    public void testGetExperiences() throws Exception {
 
         this.mvc.perform(
                 get(this.urlPrefix + "/applicants/7/experiences")
@@ -313,16 +316,16 @@ public class StudentProfileController {
      * @Date: 2019/3/30
      */
     @Test
-    public void testInsertWorks() throws Exception{
-        LocationDTO locationDTO=new LocationDTO();
+    public void testInsertWorks() throws Exception {
+        LocationDTO locationDTO = new LocationDTO();
         locationDTO.setNation_code("440000");
-        locationDTO.setLocation_code("");
-        WorkRequestDTO workDTO=new WorkRequestDTO();
+        locationDTO.setLocation_code("210000");
+        WorkRequestDTO workDTO = new WorkRequestDTO();
         workDTO.setEmployer("google");
         workDTO.setPosition("backend");
-        long begin=1111111;
-        long end=2222222;
-        DurationDTO durationDTO=new DurationDTO(begin,end);
+        long begin = 1111111;
+        long end = 2222222;
+        DurationDTO durationDTO = new DurationDTO(begin, end);
         workDTO.setDuration(durationDTO);
         workDTO.setLocation(locationDTO);
 
@@ -351,17 +354,17 @@ public class StudentProfileController {
      */
 
     @Test
-    public void testUpdateWork() throws Exception{
-        LocationDTO locationDTO=new LocationDTO();
+    public void testUpdateWork() throws Exception {
+        LocationDTO locationDTO = new LocationDTO();
         locationDTO.setNation_code("CHN");
-        locationDTO.setLocation_code("");
-        WorkRequestDTO workRequestDTO =new WorkRequestDTO();
+        locationDTO.setLocation_code("210000");
+        WorkRequestDTO workRequestDTO = new WorkRequestDTO();
         workRequestDTO.setId(6);
         workRequestDTO.setEmployer("amazon");
         workRequestDTO.setPosition("SDE");
-        long begin=1111111;
-        long end=2222222;
-        DurationDTO durationDTO=new DurationDTO(begin,end);
+        long begin = 1111111;
+        long end = 2222222;
+        DurationDTO durationDTO = new DurationDTO(begin, end);
         workRequestDTO.setDuration(durationDTO);
         workRequestDTO.setLocation(locationDTO);
         ObjectMapper mapper = new ObjectMapper();
@@ -389,7 +392,7 @@ public class StudentProfileController {
      */
 
     @Test
-    public void testDeleteWork() throws Exception{
+    public void testDeleteWork() throws Exception {
         this.mvc.perform(
                 delete(this.urlPrefix + "/applicants/10/experiences/1")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -398,16 +401,17 @@ public class StudentProfileController {
         ;
 
     }
-    /** 
-    * @Description: 通过测试，多了一个country的属性
-    * @Param: [] 
-    * @return: void 
-    * @Author: Qinghong Wang 
-    * @Date: 2019/4/6 
-    */
+
+    /**
+     * @Description: 通过测试，多了一个country的属性
+     * @Param: []
+     * @return: void
+     * @Author: Qinghong Wang
+     * @Date: 2019/4/6
+     */
 
     @Test
-    public void testGetCertificates() throws Exception{
+    public void testGetCertificates() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/applicants/10/certificates")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -425,11 +429,11 @@ public class StudentProfileController {
      * @Date: 2019/3/30
      */
     @Test
-    public void testInsertCertificates() throws Exception{
-        long begin=1111111;
-        long end=2222222;
-        DurationDTO durationDTO=new DurationDTO(begin,end);
-        CertificateRequestDTO certificateDTO=new CertificateRequestDTO();
+    public void testInsertCertificates() throws Exception {
+        long begin = 1111111;
+        long end = 2222222;
+        DurationDTO durationDTO = new DurationDTO(begin, end);
+        CertificateRequestDTO certificateDTO = new CertificateRequestDTO();
         certificateDTO.setName("计算机证书");
         certificateDTO.setAuthority("教育部");
         certificateDTO.setCountry("CHN");
@@ -459,11 +463,11 @@ public class StudentProfileController {
      * @Date: 2019/3/30
      */
     @Test
-    public void testUpdateCertificate() throws Exception{
-        long begin=1111111;
-        long end=2222222;
-        DurationDTO durationDTO=new DurationDTO(begin,end);
-        CertificateRequestDTO certificateRequestDTO =new CertificateRequestDTO();
+    public void testUpdateCertificate() throws Exception {
+        long begin = 1111111;
+        long end = 2222222;
+        DurationDTO durationDTO = new DurationDTO(begin, end);
+        CertificateRequestDTO certificateRequestDTO = new CertificateRequestDTO();
         certificateRequestDTO.setId(1);
         certificateRequestDTO.setName("计算机证书");
         certificateRequestDTO.setAuthority("教育部");
@@ -495,7 +499,7 @@ public class StudentProfileController {
      */
 
     @Test
-    public void testDeleteCertificate() throws Exception{
+    public void testDeleteCertificate() throws Exception {
         this.mvc.perform(
                 delete(this.urlPrefix + "/applicants/10/certificates/1")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -506,7 +510,7 @@ public class StudentProfileController {
     }
 
     @Test
-    public void testGetExtracurriculars() throws Exception{
+    public void testGetExtracurriculars() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/applicants/10/extracurriculars")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -524,11 +528,11 @@ public class StudentProfileController {
      * @Date: 2019/3/30
      */
     @Test
-    public void testInsertExtracurriculars() throws Exception{
-        long begin=1111111;
-        long end=2222222;
-        DurationDTO durationDTO=new DurationDTO(begin,end);
-        ExtracurricularRequestDTO extracurricularDTO=new ExtracurricularRequestDTO();
+    public void testInsertExtracurriculars() throws Exception {
+        long begin = 1111111;
+        long end = 2222222;
+        DurationDTO durationDTO = new DurationDTO(begin, end);
+        ExtracurricularRequestDTO extracurricularDTO = new ExtracurricularRequestDTO();
         extracurricularDTO.setName("volunteer");
         extracurricularDTO.setRole("help students");
         extracurricularDTO.setOrganization("儿童基金");
@@ -559,11 +563,11 @@ public class StudentProfileController {
      */
 
     @Test
-    public void testUpdateExtracurricular() throws Exception{
-        long begin=1111111;
-        long end=2222222;
-        DurationDTO durationDTO=new DurationDTO(begin,end);
-        ExtracurricularRequestDTO extracurricularRequestDTO =new ExtracurricularRequestDTO();
+    public void testUpdateExtracurricular() throws Exception {
+        long begin = 1111111;
+        long end = 2222222;
+        DurationDTO durationDTO = new DurationDTO(begin, end);
+        ExtracurricularRequestDTO extracurricularRequestDTO = new ExtracurricularRequestDTO();
         extracurricularRequestDTO.setId(2);
         extracurricularRequestDTO.setName("volunteer");
         extracurricularRequestDTO.setRole("help students");
@@ -595,7 +599,7 @@ public class StudentProfileController {
      */
 
     @Test
-    public void testDeleteActivity() throws Exception{
+    public void testDeleteActivity() throws Exception {
         this.mvc.perform(
                 delete(this.urlPrefix + "/applicants/10/extracurriculars/1")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -606,7 +610,7 @@ public class StudentProfileController {
     }
 
     @Test
-    public void testGetSkills()throws Exception{
+    public void testGetSkills() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/applicants/10/skills")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -617,7 +621,7 @@ public class StudentProfileController {
     }
 
     @Test
-    public void testGetAllSkills()throws Exception{
+    public void testGetAllSkills() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/applicants/skills")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -628,8 +632,8 @@ public class StudentProfileController {
     }
 
     @Test
-    public void testInsertAdvantageSkill() throws Exception{
-        SkillsRequestDTO skillsRequestDTO=new SkillsRequestDTO();
+    public void testInsertAdvantageSkill() throws Exception {
+        SkillsRequestDTO skillsRequestDTO = new SkillsRequestDTO();
         skillsRequestDTO.setLabel_code("I6510");
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -655,7 +659,7 @@ public class StudentProfileController {
      */
 
     @Test
-    public void testDeleteSkill() throws Exception{
+    public void testDeleteSkill() throws Exception {
         this.mvc.perform(
                 delete(this.urlPrefix + "/applicants/10/skills/1")
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
@@ -664,28 +668,31 @@ public class StudentProfileController {
         ;
 
     }
+
     /**
-    * @Description: 职位返回的地址为空！
-    * @Param: []
-    * @return: void
-    * @Author: Qinghong Wang
-    * @Date: 2019/4/4
-    */
+     * @Description: 职位返回的地址为空！
+     * @Param: []
+     * @return: void
+     * @Author: Qinghong Wang
+     * @Date: 2019/4/4
+     */
 
     @Test
-    public void testUserAttentions() throws Exception{
+    public void testUserAttentions() throws Exception {
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/2/attentions?type=answer")
+                        (this.urlPrefix + "/users/1/attentions?type=job&limit=2&offset=0")
 
-                        .with(authGenerator.authentication(Role.APPLICANT, 2))
+                        .with(authGenerator.authentication(Role.ADMIN, 1))
         )
                 .andDo(print())
+                .andExpect(status().is2xxSuccessful())
         ;
+
     }
 
     /**
-     * @Description: 通过职位id添加职位收藏,通过测试
+     * @Description: 通过职位id添加职位收藏, 通过测试
      * @Param: []
      * @return: void
      * @Author: Qinghong Wang
@@ -693,22 +700,23 @@ public class StudentProfileController {
      */
 
     @Test
-    public void testAddJobCollect() throws Exception{
+    public void testAddJobCollect() throws Exception {
         this.mvc.perform
                 (put(this.urlPrefix + "/jobs/4/attention")
                         .with(authGenerator.authentication(Role.APPLICANT, 1)))
                 .andDo(print());
     }
-    /** 
-    * @Description: 通过测试
-    * @Param: [] 
-    * @return: void 
-    * @Author: Qinghong Wang 
-    * @Date: 2019/4/4 
-    */
+
+    /**
+     * @Description: 通过测试
+     * @Param: []
+     * @return: void
+     * @Author: Qinghong Wang
+     * @Date: 2019/4/4
+     */
 
     @Test
-    public void testAddCompCollect() throws Exception{
+    public void testAddCompCollect() throws Exception {
         this.mvc.perform
                 (put(this.urlPrefix + "/companies/4/attention")
                         .with(authGenerator.authentication(Role.APPLICANT, 10)))
@@ -724,7 +732,7 @@ public class StudentProfileController {
      */
 
     @Test
-    public void testDeleteJobCollect() throws Exception{
+    public void testDeleteJobCollect() throws Exception {
         this.mvc.perform(delete(this.urlPrefix + "/jobs/attentions/2").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
@@ -737,7 +745,7 @@ public class StudentProfileController {
      * @Date: 2019/4/3
      */
     @Test
-    public void testDeleteCompCollect() throws Exception{
+    public void testDeleteCompCollect() throws Exception {
         this.mvc.perform
                 (delete(this.urlPrefix + "/companies/attentions/2")
                         .with(authGenerator.authentication(Role.APPLICANT, 10)))
@@ -753,8 +761,8 @@ public class StudentProfileController {
      */
 
     @Test
-    public void testGetJobApplies() throws Exception{
-        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/applications",10).with(authGenerator.authentication(Role.APPLICANT, 10)))
+    public void testGetJobApplies() throws Exception {
+        this.mvc.perform(get(this.urlPrefix + "/applicants/{id}/applications", 10).with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
 
@@ -767,12 +775,10 @@ public class StudentProfileController {
      */
 
     @Test
-    public void testAddJobApply() throws Exception{
+    public void testAddJobApply() throws Exception {
         this.mvc.perform(post(this.urlPrefix + "/jobs/4/apply").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
-
-
 
 
 }
