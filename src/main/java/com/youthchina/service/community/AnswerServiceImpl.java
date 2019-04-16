@@ -1,7 +1,9 @@
 package com.youthchina.service.community;
 
 import com.youthchina.dao.jinhao.AnswerMapper;
+import com.youthchina.dao.jinhao.QuestionMapper;
 import com.youthchina.domain.jinhao.Answer;
+import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
 import org.springframework.stereotype.Service;
@@ -30,13 +32,11 @@ public class AnswerServiceImpl implements AnswerService {
     @Resource
     AttentionService attentionService;
 
-    @Override
-    public void isAnswerExist(Integer id) throws NotFoundException{
-        Integer cur = answerMapper.checkIfAnswerExist(id);
-        if(cur == null){
-            throw new NotFoundException(4040,404,"该问题不存在");//todo
-        }
-    }
+    @Resource
+    EvaluateService evaluateService;
+
+    @Resource
+    QuestionMapper questionMapper;
 
     @Override
     public Integer countAnswersOfQuestion(Integer id) {
@@ -63,7 +63,7 @@ public class AnswerServiceImpl implements AnswerService {
     public Answer get(Integer id) throws NotFoundException {
         Answer answer = answerMapper.get(id);
         if(answer == null){
-            throw new NotFoundException(4040,404,"没有找到这个回答");//todo
+            throw new NotFoundException(4040,404,"This answer does not exist!");//todo
         }
         answer.setUser(userService.get(answer.getUser().getId()));
         richTextService.getComRichText(answer);
@@ -104,17 +104,16 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     @Transactional
     public Answer add(Answer answer) throws NotFoundException {
-        questionService.isQuestionExist(answer.getTargetId());
+        questionService.get(answer.getTargetId());
         richTextService.addComRichText(answer.getBody());
         answerMapper.add(answer);
-        answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
         return get(answer.getId());
     }
 
     @Override
     @Transactional
     public Answer update(Answer answer) throws NotFoundException {
-        isAnswerExist(answer.getId());
+        get(answer.getId());
         answerMapper.update(answer);
         Answer answer1 = get(answer.getId());
         answer.getBody().setTextId(answer1.getBody().getTextId());
@@ -125,11 +124,13 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     @Transactional
     public void delete(Integer id) throws NotFoundException {
-        isAnswerExist(id);
-        Answer answer = new Answer();
-        answer.setId(id);
-        commentService.delete(answer);
+        Answer answer = get(id);
+        List<Comment> comments = commentService.getComments(answer);
+        for(Comment comment : comments){
+            commentService.delete(comment.getId());
+        }
         attentionService.cancel(answer);
+        evaluateService.cancel(answer);
         answerMapper.delete(id);
     }
 

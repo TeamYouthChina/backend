@@ -17,6 +17,8 @@ import com.youthchina.service.community.AnswerServiceImpl;
 import com.youthchina.service.community.AttentionServiceImpl;
 import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
+import com.youthchina.util.dictionary.CommentTargetType;
+import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -72,6 +74,8 @@ public class AnswerController {
         comment.setUser(user);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comment.setPubTime(time);
+        comment.setTargetId(id);
+        comment.setTargetType(CommentTargetType.ANSWER);
         Answer answer = new Answer();
         answer.setId(id);
         commentService.add(comment,answer);

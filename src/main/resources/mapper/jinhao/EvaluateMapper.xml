@@ -12,10 +12,10 @@
     </select>
 
     <update id="reUpvote" parameterType="java.lang.Integer">
-        update COM_EVALUATE set EVALUATE_TYPE=1 where EVALUATE_ID=#{id}
+        update COM_EVALUATE set EVALUATE_TYPE=1 and EVALUATE_TIME = now() where EVALUATE_ID=#{id}
     </update>
     <update id="reDownVote" parameterType="java.lang.Integer">
-        update COM_EVALUATE set EVALUATE_TYPE=2 where EVALUATE_ID=#{id}
+        update COM_EVALUATE set EVALUATE_TYPE=2 and EVALUATE_TIME = now() where EVALUATE_ID=#{id}
     </update>
     <insert id="upvote" useGeneratedKeys="true" keyProperty="id">
         insert into COM_EVALUATE(target_type, target_id, user_id, evaluate_type, evaluate_time)
@@ -30,7 +30,7 @@
         where EVALUATE_ID=#{id}
     </update>
     <select id="countUpvote" resultType="java.lang.Integer">
-        select count(EVALUATE_ID) from COM_EVALUATE where TARGET_TYPE=#{type} and TARGET_ID=#{targetId}
+        select count(EVALUATE_ID) from COM_EVALUATE where TARGET_TYPE=#{type} and TARGET_ID=#{targetId} and EVALUATE_TYPE=1
     </select>
     <select id="countDownvote" resultType="java.lang.Integer">
         select count(EVALUATE_ID) from COM_EVALUATE where TARGET_TYPE=#{type} and TARGET_ID=#{targetId} and EVALUATE_TYPE=2
@@ -41,4 +41,7 @@
     <select id="getMyDownVote" resultType="java.lang.Integer">
         select TARGET_ID from COM_EVALUATE where TARGET_TYPE = #{type} and USER_ID = #{userId} and EVALUATE_TYPE = 2
     </select>
+    <update id="cancelAllEvaluate">
+        update COM_EVALUATE set EVALUATE_TYPE = 3 where TARGET_TYPE=#{type} and TARGET_ID=#{targetId}
+    </update>
 </mapper>

@@ -16,6 +16,7 @@ public interface EvaluateMapper {
     void upvote(@Param("type") Integer type, @Param("targetId") Integer targetId, @Param("userId") Integer userId);
     void downvote(@Param("type") Integer type, @Param("targetId") Integer targetId, @Param("userId") Integer userId);
     void cancel(Integer id);
+    void cancelAllEvaluate(@Param("type") Integer type, @Param("targetId") Integer targetId);
     Integer countUpvote(@Param("type") Integer type, @Param("targetId") Integer targetId);
     Integer countDownvote(@Param("type") Integer type, @Param("targetId") Integer targetId);
     List<Integer> getMyUpvote(@Param("type") Integer type, @Param("userId") Integer id);

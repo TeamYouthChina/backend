@@ -22,6 +22,7 @@ public class Video implements Commentable, Evaluatable, Attentionable {
     private static final Integer commentTargetType = 3;
     private static final Integer evaluateTargetType = 4;
     private static final Integer attentionTargetType = 4;
+    private static final Integer isExistTargetType = 5;
     private Integer upvoteCount;
     private Integer downvoteCount;
     private Integer isAttention;
@@ -76,6 +77,11 @@ public class Video implements Commentable, Evaluatable, Attentionable {
     @Override
     public Integer getAttentionTargetType() {
         return attentionTargetType;
+    }
+
+    @Override
+    public Integer getExistType() {
+        return isExistTargetType;
     }
 
     public Integer getId() {
