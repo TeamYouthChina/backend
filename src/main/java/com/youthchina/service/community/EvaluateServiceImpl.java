@@ -1,5 +1,6 @@
 package com.youthchina.service.community;
 
+import com.youthchina.dao.jinhao.AnswerMapper;
 import com.youthchina.dao.jinhao.EvaluateMapper;
 import com.youthchina.domain.jinhao.Evaluate;
 import com.youthchina.domain.jinhao.property.Evaluatable;
@@ -20,7 +21,7 @@ public class EvaluateServiceImpl implements EvaluateService {
     QuestionService questionService;
 
     @Resource
-    AnswerService answerService;
+    AnswerMapper answerMapper;
 
     @Resource
     BriefReviewService briefReviewService;
@@ -62,7 +63,7 @@ public class EvaluateServiceImpl implements EvaluateService {
                 discussService.isDiscussExist(id);
                 break;
             case 7:
-                answerService.isAnswerExist(id);
+                answerMapper.get(id);
                 break;
             default:
                 throw new NotFoundException(4040, 404, "No such type");//todo
@@ -104,7 +105,7 @@ public class EvaluateServiceImpl implements EvaluateService {
                 discussService.isDiscussExist(id);
                 break;
             case 7:
-                answerService.isAnswerExist(id);
+                answerMapper.get(id);
                 break;
             default:
                 throw new NotFoundException(4040, 404, "No such type");//todo
@@ -146,7 +147,7 @@ public class EvaluateServiceImpl implements EvaluateService {
                 discussService.isDiscussExist(id);
                 break;
             case 7:
-                answerService.isAnswerExist(id);
+                answerMapper.get(id);
                 break;
             default:
                 throw new NotFoundException(4040, 404, "No such type");//todo
@@ -157,6 +158,11 @@ public class EvaluateServiceImpl implements EvaluateService {
         } else {
             evaluateMapper.cancel(evaluate.getId());
         }
+    }
+
+    @Override
+    public void cancel(Evaluatable entity) {
+        evaluateMapper.cancelAllEvaluate(entity.getEvaluateTargetType(),entity.getId());
     }
 
     @Override

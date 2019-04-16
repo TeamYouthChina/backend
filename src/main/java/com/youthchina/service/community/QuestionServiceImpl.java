@@ -27,13 +27,11 @@ public class QuestionServiceImpl implements QuestionService {
     @Resource
     UserService userService;
 
-    @Override
-    public void isQuestionExist(Integer id) throws NotFoundException{
-        if(questionMapper.checkIfQuestionExist(id) == null){
-            throw new NotFoundException(4040,404,"The question does not exist");
-        }
+    @Resource
+    EvaluateService evaluateService;
 
-    }
+    @Resource
+    AttentionService attentionService;
 
     @Override
     @Transactional
@@ -104,7 +102,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     @Transactional
     public void delete(Integer id) throws NotFoundException {
-        isQuestionExist(id);
+        get(id);
         List<Answer> answers = answerService.getAnswers(id);
         for(Answer answer : answers){
             try {
@@ -113,13 +111,17 @@ public class QuestionServiceImpl implements QuestionService {
 
             }
         }
+        Question question = new Question();
+        question.setId(id);
+        evaluateService.cancel(question);
+        attentionService.cancel(question);
         questionMapper.delete(id);
     }
 
     @Override
     @Transactional
     public Question update(Question question) throws NotFoundException {
-        isQuestionExist(question.getId());
+        get(question.getId());
         questionMapper.edit(question);
         Question question1 = get(question.getId());
         question.getBody().setTextId(question1.getBody().getTextId());

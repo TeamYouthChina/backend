@@ -3,11 +3,10 @@ package com.youthchina.service.community;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.property.Commentable;
 import com.youthchina.exception.zhongyang.NotFoundException;
-import com.youthchina.service.DomainCRUDService;
 
 import java.util.List;
 
-public interface CommentService extends DomainCRUDService<Comment, Integer> {
+public interface CommentService{
     /**
      * get all the comments of a commentable entity
      * @param entity can be Answer, Video, BriefReview, Article
@@ -24,5 +23,9 @@ public interface CommentService extends DomainCRUDService<Comment, Integer> {
     void delete(Commentable commentable);
 
     Integer countComments(Commentable entity);
+
+    Comment get(Integer id) throws NotFoundException;
+
+    void delete(Integer id) throws NotFoundException;
 
 }

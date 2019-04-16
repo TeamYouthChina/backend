@@ -1,5 +1,6 @@
 package com.youthchina.service.community;
 
+import com.youthchina.dao.jinhao.AnswerMapper;
 import com.youthchina.dao.jinhao.AttentionMapper;
 import com.youthchina.domain.jinhao.Attention;
 import com.youthchina.domain.jinhao.property.Attentionable;
@@ -16,10 +17,10 @@ public class AttentionServiceImpl implements AttentionService {
     AttentionMapper attentionMapper;
 
     @Resource
-    QuestionService questionService;
+    Questi
 
     @Resource
-    AnswerService answerService;
+    AnswerMapper answerMapper;
 
     @Resource
     BriefReviewService briefReviewService;
@@ -61,7 +62,7 @@ public class AttentionServiceImpl implements AttentionService {
                 discussService.isDiscussExist(id);
                 break;
             case 7:
-                answerService.isAnswerExist(id);
+                answerMapper.get(id);
                 break;
             default:
                 throw new NotFoundException(4040, 404, "No such type");//todo
@@ -103,7 +104,7 @@ public class AttentionServiceImpl implements AttentionService {
                 discussService.isDiscussExist(id);
                 break;
             case 7:
-                answerService.isAnswerExist(id);
+                answerMapper.get(id);
                 break;
             default:
                 throw new NotFoundException(4040, 404, "No such type");//todo

@@ -2,6 +2,7 @@ package com.youthchina.service.community;
 
 import com.youthchina.dao.jinhao.CommentMapper;
 import com.youthchina.domain.jinhao.Comment;
+import com.youthchina.domain.jinhao.Discuss;
 import com.youthchina.domain.jinhao.property.Commentable;
 import com.youthchina.exception.zhongyang.NotFoundException;
 import com.youthchina.service.user.UserService;
@@ -108,34 +109,24 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.count(entity.getCommentTargetType(), entity.getId());
     }
 
-
-    @Override
-    public Comment add(Comment comment) {
-        return null;
-    }
-
     @Override
     @Transactional
     public void delete(Integer id) throws NotFoundException {
         isCommentExist(id);
-        discussService.deleteAllDiscussOfComment(id);
+        List<Discuss> discusses = discussService.getDiscussesByCommentId(id);
         commentMapper.delete(id);
     }
 
 
     @Override
+    @Transactional
     public Comment get(Integer id) throws NotFoundException {
         Comment comment = commentMapper.get(id);
         if (comment == null) {
-            throw new NotFoundException(404, 404, "没有找到这个评论");
+            throw new NotFoundException(404, 404, "This comment dose not exist!");
         }
         comment.setUser(userService.get(comment.getUser().getId()));
         return comment;
     }
 
-
-    @Override
-    public Comment update(Comment comment) throws NotFoundException {
-        return null;
-    }
 }

@@ -1,9 +1,6 @@
 package com.youthchina.domain.jinhao;
 
-import com.youthchina.domain.jinhao.property.Attentionable;
-import com.youthchina.domain.jinhao.property.Commentable;
-import com.youthchina.domain.jinhao.property.Evaluatable;
-import com.youthchina.domain.jinhao.property.RichTextable;
+import com.youthchina.domain.jinhao.property.*;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
@@ -11,7 +8,7 @@ import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Answer implements Commentable, RichTextable, Evaluatable, Attentionable {
+public class Answer implements Commentable, RichTextable, Evaluatable, Attentionable,isExist {
     private Integer id;
     private ComRichText body;
     private Integer targetType;
