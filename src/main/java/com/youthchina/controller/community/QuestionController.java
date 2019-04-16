@@ -15,7 +15,7 @@ import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.question.QuestionRequestDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.application.CompanyCURDServiceImpl;
 import com.youthchina.service.application.JobServiceImpl;
 import com.youthchina.service.community.AnswerService;

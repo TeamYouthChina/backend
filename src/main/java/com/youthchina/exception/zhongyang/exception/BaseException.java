@@ -1,4 +1,4 @@
-package com.youthchina.exception.zhongyang;
+package com.youthchina.exception.zhongyang.exception;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.youthchina.dto.HasStatus;

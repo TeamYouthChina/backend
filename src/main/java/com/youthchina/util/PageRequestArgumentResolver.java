@@ -1,7 +1,7 @@
 package com.youthchina.util;
 
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.ClientException;
+import com.youthchina.exception.zhongyang.exception.ClientException;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;

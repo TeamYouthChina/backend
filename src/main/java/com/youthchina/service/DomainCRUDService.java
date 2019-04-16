@@ -1,6 +1,6 @@
 package com.youthchina.service;
 
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 
 import java.io.Serializable;
 import java.util.ArrayList;

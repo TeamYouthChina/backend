@@ -1,16 +1,18 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.util.HasId;
+import com.youthchina.util.dictionary.AttentionTargetType;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Job implements HasId<Integer> {
+public class Job implements HasId<Integer>, Attentionable {
     /*主键, 职位ID (JOB_INFO)*/
     private Integer jobId;
 
@@ -92,9 +94,9 @@ comment '职位基本信息表';
 //            }
 //        }
         List<LocationDTO> locationDTOList = jobRequestDTO.getLocation();
-        if(locationDTOList != null && locationDTOList.size() > 0){
+        if (locationDTOList != null && locationDTOList.size() > 0) {
             this.jobLocationList = new ArrayList<>();
-            for(LocationDTO locationDTO : locationDTOList){
+            for (LocationDTO locationDTO : locationDTOList) {
                 Integer locationId = Integer.valueOf(locationDTO.getLocation_code());
                 this.jobLocationList.add(new Location(locationId));
             }
@@ -103,7 +105,7 @@ comment '职位基本信息表';
         this.jobDescription = jobRequestDTO.getJob_description();
         this.jobDuty = jobRequestDTO.getJob_duty();
         //if(jobRequestDTO.getStartTime() != null){
-            this.jobStartTime = new Date(Long.parseLong(jobRequestDTO.getStartTime()));
+        this.jobStartTime = new Date(Long.parseLong(jobRequestDTO.getStartTime()));
         //}
         this.jobEndTime = new Date(Long.parseLong(jobRequestDTO.getDeadLine()));
 
@@ -134,6 +136,11 @@ comment '职位基本信息表';
 
     public void setAddTime(Timestamp addTime) {
         this.addTime = addTime;
+    }
+
+    @Override
+    public Integer getAttentionTargetType() {
+        return AttentionTargetType.JOB;
     }
 
     public Integer getId() {

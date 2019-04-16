@@ -3,7 +3,7 @@ package com.youthchina.service.community;
 import com.youthchina.dao.tianjian.CommunityMapper;
 import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.tianjian.ComEssay;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

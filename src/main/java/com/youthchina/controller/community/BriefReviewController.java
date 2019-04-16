@@ -12,7 +12,7 @@ import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
 import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.community.AttentionServiceImpl;
 import com.youthchina.service.community.BriefReviewServiceImplement;
 import com.youthchina.service.community.CommentServiceImpl;

@@ -10,7 +10,7 @@ import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.SearchResult;
 import com.youthchina.domain.zhongyang.SearchResultItem;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.exception.zhongyang.BaseException;
+import com.youthchina.exception.zhongyang.exception.BaseException;
 import com.youthchina.service.application.CompanyCURDService;
 import com.youthchina.service.application.JobService;
 import com.youthchina.service.community.*;

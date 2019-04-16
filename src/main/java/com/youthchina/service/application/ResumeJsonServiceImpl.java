@@ -2,7 +2,7 @@ package com.youthchina.service.application;
 
 import com.youthchina.dao.qingyang.ResumeJsonMapper;
 import com.youthchina.domain.qingyang.ResumeJson;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
