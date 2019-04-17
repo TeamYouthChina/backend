@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -45,7 +46,7 @@ public class UserMapperTest {
         user.setFirstName("Test");
         user.setLastName("test");
         user.setNation("China");
-        user.setRegisterDate("2018-10-11 11:11:11");
+        user.setRegisterDate(Timestamp.valueOf("2018-10-11 11:11:11"));
         user.setGender("male");
         user.setHired(false);
         user.setRole(Role.APPLICANT);
@@ -88,7 +89,7 @@ public class UserMapperTest {
         user.setPhonenumber("00000011112222");
         user.setFirstName("Test");
         user.setNation("China");
-        user.setRegisterDate("2018-10-11 11:11:11");
+        user.setRegisterDate(Timestamp.valueOf("2018-10-11 11:11:11"));
         user.setGender("male");
         user.setRole(Role.APPLICANT);
         Assert.assertTrue(userMapper.canRegister(user));

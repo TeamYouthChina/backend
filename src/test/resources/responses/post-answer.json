@@ -10,8 +10,8 @@
       "id": 1,
       "username": "Admin",
       "email": "123456@123.com",
-      "phonenumber": "1234657890123",
-      "register_date": "2019-01-01 00:00:00.0",
+      "phone_number": "1234657890123",
+      "register_date": 1546300800000,
       "first_name": "Admin",
       "last_name": "Admin",
       "gender": "Male",
@@ -22,15 +22,15 @@
       ],
       "age": 25
     },
-    "modified_at": "2019-04-13 07:51:59.0",
-    "create_at": "2019-04-13 07:51:59.0",
+    "modified_at": "2019-04-17 05:52:32.0",
+    "create_at": "2019-04-17 05:52:32.0",
     "question": {
       "id": 2,
       "creator": null,
       "title": "腾讯的问题是什么？",
       "is_anonymous": true,
-      "create_at": "2019-01-01T00:00:00.000+0000",
-      "modified_at": "2019-01-01T00:00:00.000+0000",
+      "create_at": 1546300800000,
+      "modified_at": 1546300800000,
       "rela_type": 1,
       "rela_id": 37,
       "body": {
@@ -39,7 +39,7 @@
         "compiletype": 1
       }
     },
-    "id": 61,
+    "id": 52,
     "upvoteCount": null,
     "downvoteCount": null,
     "attentionCount": null,
