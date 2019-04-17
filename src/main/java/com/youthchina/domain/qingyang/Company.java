@@ -320,6 +320,11 @@ public class Company implements HasId<Integer>, Attentionable {
     }
 
     @Override
+    public Integer getExistType() {
+        return null;
+    }
+
+    @Override
     public Integer getId() {
         return companyId;
     }

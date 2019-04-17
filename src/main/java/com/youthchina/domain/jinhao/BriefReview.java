@@ -1,12 +1,10 @@
 package com.youthchina.domain.jinhao;
 
-import com.youthchina.domain.jinhao.property.Attentionable;
-import com.youthchina.domain.jinhao.property.Commentable;
-import com.youthchina.domain.jinhao.property.Evaluatable;
-import com.youthchina.domain.jinhao.property.RichTextable;
+import com.youthchina.domain.jinhao.property.*;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
+import com.youthchina.util.dictionary.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -19,10 +17,11 @@ public class BriefReview implements Commentable, RichTextable, Evaluatable, Atte
     private ComRichText body;
     private List<Comment> comments;
     private User user;
-    private static final Integer richTextRelaType = 3;
-    private static final Integer commentTargetType = 2;
-    private static final Integer evaluateTargetType = 3;
-    private static final Integer attentionTargetType = 3;
+    private static final Integer richTextRelaType = RichTextRelaType.BRIEFREVIEW;
+    private static final Integer commentTargetType = CommentTargetType.BRIEFREVIEW;
+    private static final Integer evaluateTargetType = EvaluationTargetType.BRIEFREVIEW;
+    private static final Integer attentionTargetType = AttentionTargetType.BRIEFREVIEW;
+    private static final Integer isExistTargetType = IsExistTargetType.BRIEFREVIEW;
 
     public BriefReview(){}
     public BriefReview(BriefReviewRequestDTO briefReviewRequestDTO) {
@@ -52,6 +51,11 @@ public class BriefReview implements Commentable, RichTextable, Evaluatable, Atte
     @Override
     public Integer getAttentionTargetType() {
         return attentionTargetType;
+    }
+
+    @Override
+    public Integer getExistType() {
+        return isExistTargetType;
     }
 
     @Override

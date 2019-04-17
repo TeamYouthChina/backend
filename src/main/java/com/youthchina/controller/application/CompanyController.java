@@ -4,14 +4,13 @@ import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.controller.DomainCRUDController;
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.applicant.CertificateResponseDTO;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
-import com.youthchina.dto.util.PageRequest;
+import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.exception.zhongyang.exception.BaseException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -88,6 +88,13 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
         throw new BaseException();
     }
 
+    @GetMapping("/{id}/jobs")
+    public ResponseEntity<?> getCompanyDetail(@PathVariable(name = "id") Integer companyId, @AuthenticationPrincipal User user) throws BaseException {
+        List<Job> jobList = new ArrayList<>();
+        List<JobResponseDTO> jobResponseDTOList = new JobResponseDTO().convertToDTO(jobList);
+        return ResponseEntity.ok(new Response(jobResponseDTOList));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCompany(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, @AuthenticationPrincipal User user) throws BaseException {
 //        this.companyService.delete(companyId);
@@ -117,14 +124,6 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
         }
 
     }
-    /**
-    * @Description: 获得一个公司的所有职位
-    * @Param: [company_id, user, pageRequest]
-    * @return: org.springframework.http.ResponseEntity<?>
-    * @Author: Qinghong Wang
-    * @Date: 2019/4/17
-    */
-
 
     /**
      * @Description: 通过collect_id删除公司收藏
