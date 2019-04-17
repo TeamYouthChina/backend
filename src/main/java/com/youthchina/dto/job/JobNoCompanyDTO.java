@@ -1,5 +1,6 @@
 package com.youthchina.dto.job;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
@@ -60,6 +61,7 @@ public class JobNoCompanyDTO implements ResponseDTO<Job>{
         this.type = type;
     }
 
+    @JsonProperty("start_time")
     @JsonTimeStamp
     public Timestamp getStartTime() {
         return startTime;
@@ -69,6 +71,7 @@ public class JobNoCompanyDTO implements ResponseDTO<Job>{
         this.startTime = startTime;
     }
 
+    @JsonProperty("dead_line")
     @JsonTimeStamp
     public Timestamp getDeadLine() {
         return deadLine;
