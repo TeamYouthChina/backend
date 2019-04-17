@@ -21,6 +21,7 @@ import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EssayServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
 import com.youthchina.service.user.UserServiceImpl;
+import com.youthchina.util.dictionary.AttentionTargetType;
 import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -66,7 +67,7 @@ public class EssayController {
         essayResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(comEssay, user.getId()));
         essayResponseDTO.setUpvoteCount(evaluateService.countUpvote(comEssay));
         essayResponseDTO.setDownvoteCount(evaluateService.countDownvote(comEssay));
-        essayResponseDTO.setAttention((attentionService.isEverAttention(comEssay, user.getId())) == 0 ? false : true);
+        essayResponseDTO.setAttention(attentionService.isAttention(AttentionTargetType.ESSAY,comEssay.getId(), user.getId()));
         if (comEssay.getRelaType() == RelaType.COMPANY) {
             try {
                 essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId())));

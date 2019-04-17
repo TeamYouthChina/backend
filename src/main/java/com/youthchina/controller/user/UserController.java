@@ -144,8 +144,6 @@ public class UserController extends DomainCRUDController<User, Integer> {
 
             /**我的Essay*/
             List<ComEssay> comEssayList = essayService.getAllEssayByUserId(id);
-            //TestTest
-            System.out.println("comEssayList.size() : " + comEssayList.size());
             List<EssayResponseDTO> essayResponseDTOList = new ArrayList<>();
             if (comEssayList != null && comEssayList.size() > 0) {
                 for (ComEssay comEssay : comEssayList) {

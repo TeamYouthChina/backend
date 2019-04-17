@@ -119,4 +119,13 @@
             AND IS_DELETE = 0
         </if>
     </select>
+
+    <select id="isAttention" parameterType="java.lang.Integer" resultMap="attention">
+        select *
+        from COM_ATTENTION
+        where TARGET_TYPE = #{targetType}
+          and TARGET_ID = #{targetId}
+          and USER_ID = #{user_id}
+    </select>
+
 </mapper>

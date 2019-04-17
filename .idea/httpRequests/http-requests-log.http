@@ -1,222 +1,333 @@
-GET http://47.252.87.218:8080/api/v1/companies/3/jobs
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2MzcyMzU5fQ.3Z49O2Dp0i6hIkMmWj8-kigczwikPWIIRIw-xHfDhVKzSE2RPPsj7zw7XFxvbj4frupAUFzM8GQN075qSptzOw
-
-<> 2019-04-17T120648.400.json
-
-###
-
-GET http://47.252.87.218:8080/api/v1/companies/1/jobs
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2MzcyMzU5fQ.3Z49O2Dp0i6hIkMmWj8-kigczwikPWIIRIw-xHfDhVKzSE2RPPsj7zw7XFxvbj4frupAUFzM8GQN075qSptzOw
-
-<> 2019-04-17T120635.400.json
+GET http://47.252.87.218:8080/api/v1/question/1?offest=1&limit=10&page=1
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+Cache-Control: no-cache
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=all&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T120216.200.json
+GET http://47.252.87.218:8080/api/v1/question/1?offest=1&limit=10&page=1
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=all&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T120119.400.json
+GET http://47.252.87.218:8080/api/v1/question/1?offest=1&limit=10&page=1
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=all&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T120100.400.json
+GET http://47.252.87.218:8080/api/v1/question/1?offest=1&limit=10&page=1
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthCh1ina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=all&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T115940.400.json
+GET http://47.252.87.218:8080/api/v1/discovery/users?offest=1&limit=10&page=1
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthCh1ina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=all&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T115718.400.json
+GET http://47.252.87.218:8080/api/v1/discovery/users?offest=1&limit=10&page=1
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=all&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T114439.400.json
+GET http://47.252.87.218:8080/api/v1/discovery/ues?offest=1&limit=10&page=1
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=all&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T114149.400.json
+GET http://47.252.87.218:8080/api/v1/discovery/uesr?offest=1&limit=10&page=1
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=job&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T114040.200.json
+GET http://47.252.87.218:8080/api/v1/discovery/uesrs?offest=1&limit=10&page=1
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=job&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T113902.200.json
+GET http://47.252.87.218:8080/api/v1/discovery/uesrs?=
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=job&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T113815.400.json
+GET http://47.252.87.218:8080/api/v1/search?type=QUESTION&body=*
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=job&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T112738.200.json
+GET http://47.252.87.218:8080/api/v1/search?type=QUESTION&body=阿里
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=job&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:*&fq=type:USER
+Content-Type: application/json;charset=utf8
 
-<> 2019-04-17T112025.200.json
-
-###
-
-GET http://127.0.0.1:8080/api/v1/search?type=job&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T111907.200.json
+<> 2019-04-16T104619.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/discovery/articles?limit=3
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2MzcyMzU5fQ.3Z49O2Dp0i6hIkMmWj8-kigczwikPWIIRIw-xHfDhVKzSE2RPPsj7zw7XFxvbj4frupAUFzM8GQN075qSptzOw
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:D*&fq=type:USER
+Content-Type: application/json;charset=utf8
 
-<> 2019-04-17T094104.200.json
-
-###
-
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json
-
-{
-  "id": 1,
-  "password": "123456"
-}
-
-<> 2019-04-17T094100.200.json
+<> 2019-04-16T104059.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/discovery/articles?limit=1
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2MzcyMzU5fQ.3Z49O2Dp0i6hIkMmWj8-kigczwikPWIIRIw-xHfDhVKzSE2RPPsj7zw7XFxvbj4frupAUFzM8GQN075qSptzOw
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:D&fq=type:USER
+Content-Type: application/json;charset=utf8
 
-<> 2019-04-17T094014.200.json
-
-###
-
-GET http://47.252.87.218:8080/api/v1/discovery/articles?limit=1
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2MzcyMzU5fQ.3Z49O2Dp0i6hIkMmWj8-kigczwikPWIIRIw-xHfDhVKzSE2RPPsj7zw7XFxvbj4frupAUFzM8GQN075qSptzOw
-
-<> 2019-04-17T093934.200.json
+<> 2019-04-16T104052.200.json
 
 ###
 
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:DEF&fq=type:USER
+Content-Type: application/json;charset=utf8
 
-{
-  "id": 1,
-  "password": "123456"
-}
-
-<> 2019-04-17T093919.200.json
+<> 2019-04-16T104047.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/discovery/articles?limit=1
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:ABC&fq=type:USER
+Content-Type: application/json;charset=utf8
 
-<> 2019-04-17T093905.200.json
-
-###
-
-GET http://47.252.87.218:8080/api/v1/search?type=job&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
-
-<> 2019-04-17T025854.200.json
+<> 2019-04-16T104033.200.json
 
 ###
 
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:ABC&fq=type:USER
+Content-Type: application/json;charset=utf8
 
-{
-  "id": 1,
-  "password": "123456"
-}
+<> 2019-04-16T104023.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/companies/3/jobs
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2MzcyMzU5fQ.3Z49O2Dp0i6hIkMmWj8-kigczwikPWIIRIw-xHfDhVKzSE2RPPsj7zw7XFxvbj4frupAUFzM8GQN075qSptzOw
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:*&fq=type:USER
+Content-Type: application/json;charset=utf8
 
-<> 2019-04-17T025310.200.json
-
-###
-
-POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json
-
-{
-  "id": 10,
-  "password": "123456"
-}
-
-<> 2019-04-17T025225.200.json
+<> 2019-04-16T104010.200.json
 
 ###
 
-GET http://127.0.0.1:8080/api/v1/search?type=all&text=实习
-Content-Type: application/json
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM0Nzk0NX0._O99XoWxnQbmwJyux1XVf6pcR8NCPaB7uH1EIsWloWDVMuDz9cckNJqow52eYT5TX7fOaTbZpMRMfwiMo_IOfw
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:*&fq=type:COMMENT
+Content-Type: application/json;charset=utf8
 
+<> 2019-04-16T103937.200.json
 
 ###
 
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:腾讯&fq=type:COMMENT
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T103929.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:腾讯&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T103451.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:阿里&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T103400.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:阿里&fq=type:ANSWER
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T103346.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ANSWER
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T103322.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ANSWER
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T102800.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T102600.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T102549.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101913.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101857.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101855.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101842.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101840.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101819.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101746.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101721.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101712.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101708.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101557.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
+Content-Type: application/json;charset=utf8
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:ESSAY
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101216.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:ESSAY
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101039.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:1&fq=type:ESSAY
+Content-Type: application/json;charset=utf8
+
+<> 2019-04-16T101021.200.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:1&fq=type:ESSAY
+Content-Type: application/json;charset=utf8
+
+{   "body":"keyikeyi",   "is_anonymous": false }
+
+<> 2019-04-16T101001.400.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:1&fq=type:ESSAY
+
+{   "body":"keyikeyi",   "is_anonymous": false }
+
+<> 2019-04-16T100733.400.json
+
+###
+
+GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:1&fq=type:ESSAY
+
+{   "body":"keyikeyi",   "is_anonymous": false }
+
+<> 2019-04-16T100639.400.json
+
+###
 
