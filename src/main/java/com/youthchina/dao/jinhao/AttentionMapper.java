@@ -55,4 +55,6 @@ public interface AttentionMapper {
      * @see com.youthchina.util.dictionary.AttentionTargetType
      */
     Integer cancelAttention(@Param("type") Integer attentionType, @Param("attention_id") Integer attentionableId, @Param("user_id") Integer userId);
+
+    Attention isAttention(@Param("targetType") Integer targetType, @Param("targetId") Integer targetId, @Param("user_id") Integer userId);
 }

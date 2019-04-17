@@ -23,4 +23,5 @@ public interface AttentionService {
      */
     void cancel(Attentionable attentionable);
 
+    public boolean isAttention(Integer targetType,  Integer targetId,Integer userId);
 }

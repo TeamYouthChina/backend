@@ -18,6 +18,7 @@ import com.youthchina.service.community.BriefReviewServiceImplement;
 import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
 import com.youthchina.service.user.UserServiceImpl;
+import com.youthchina.util.dictionary.AttentionTargetType;
 import com.youthchina.util.dictionary.CommentTargetType;
 import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,21 @@ public class BriefReviewController {
         briefReviewResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
         briefReviewResponseDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
         briefReviewResponseDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
-        briefReviewResponseDTO.setAttention((attentionService.isEverAttention(briefReview,user.getId()))==0? false:true);
+
+        List<Comment> comments =  briefReview.getComments();
+        List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
+        if (comments!= null) {
+            Iterator it = comments.iterator();
+            while (it.hasNext()) {
+                CommentResponseDTO commentResponseDTO = new CommentResponseDTO((Comment) it.next());
+                commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
+                commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
+                commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
+                commentResponseDTOS.add(commentResponseDTO);
+            }
+        }
+        briefReviewResponseDTO.setComments(commentResponseDTOS);
+        briefReviewResponseDTO.setAttention(attentionService.isAttention(AttentionTargetType.BRIEFREVIEW,briefReview.getId(),user.getId()));
         if (briefReviewResponseDTO != null)
             return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(200, "success")));
         else
