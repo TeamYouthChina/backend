@@ -170,4 +170,5 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
     public static Integer getIsExistTargetType() {
         return isExistTargetType;
     }
+
 }

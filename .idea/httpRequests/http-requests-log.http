@@ -1,3 +1,135 @@
+GET http://47.252.87.218:8080/api/v1/questions/2
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM3MjU2N30.b8gEF9LSuOyhaFbQ5Hzh_5TB3heRZEMiNPzyFmoo4NpA2kuv6SPcw5Zr0wEbeDw7Vg4by9ZEpX6Pjso1ec86oA
+Content-Type: application/json
+
+{   "id": 1,   "password": "123456" }
+
+<> 2019-04-17T111923.200.json
+
+###
+
+DELETE http://47.252.87.218:8080/api/v1/questions/attentions/2
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM3MjU2N30.b8gEF9LSuOyhaFbQ5Hzh_5TB3heRZEMiNPzyFmoo4NpA2kuv6SPcw5Zr0wEbeDw7Vg4by9ZEpX6Pjso1ec86oA
+Content-Type: application/json
+
+{   "id": 1,   "password": "123456" }
+
+<> 2019-04-17T111912.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/2
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM3MjU2N30.b8gEF9LSuOyhaFbQ5Hzh_5TB3heRZEMiNPzyFmoo4NpA2kuv6SPcw5Zr0wEbeDw7Vg4by9ZEpX6Pjso1ec86oA
+Content-Type: application/json
+
+{   "id": 1,   "password": "123456" }
+
+<> 2019-04-17T111823.200.json
+
+###
+
+PUT http://47.252.87.218:8080/api/v1/questions/2/attention
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM3MjU2N30.b8gEF9LSuOyhaFbQ5Hzh_5TB3heRZEMiNPzyFmoo4NpA2kuv6SPcw5Zr0wEbeDw7Vg4by9ZEpX6Pjso1ec86oA
+Content-Type: application/json
+
+{   "id": 1,   "password": "123456" }
+
+<> 2019-04-17T111812.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM3MjU2N30.b8gEF9LSuOyhaFbQ5Hzh_5TB3heRZEMiNPzyFmoo4NpA2kuv6SPcw5Zr0wEbeDw7Vg4by9ZEpX6Pjso1ec86oA
+Content-Type: application/json
+
+{   "id": 1,   "password": "123456" }
+
+<> 2019-04-17T111728.200.json
+
+###
+
+PUT http://47.252.87.218:8080/api/v1/questions/1/attention
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM3MjU2N30.b8gEF9LSuOyhaFbQ5Hzh_5TB3heRZEMiNPzyFmoo4NpA2kuv6SPcw5Zr0wEbeDw7Vg4by9ZEpX6Pjso1ec86oA
+Content-Type: application/json
+
+{   "id": 1,   "password": "123456" }
+
+<> 2019-04-17T111715.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/questions/1
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM3MjU2N30.b8gEF9LSuOyhaFbQ5Hzh_5TB3heRZEMiNPzyFmoo4NpA2kuv6SPcw5Zr0wEbeDw7Vg4by9ZEpX6Pjso1ec86oA
+Content-Type: application/json
+
+{   "id": 1,   "password": "123456" }
+
+<> 2019-04-17T111621.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/Questions/1
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM3MjU2N30.b8gEF9LSuOyhaFbQ5Hzh_5TB3heRZEMiNPzyFmoo4NpA2kuv6SPcw5Zr0wEbeDw7Vg4by9ZEpX6Pjso1ec86oA
+Content-Type: application/json
+
+{   "id": 1,   "password": "123456" }
+
+<> 2019-04-17T111600.404.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/editorials/1
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM3MjU2N30.b8gEF9LSuOyhaFbQ5Hzh_5TB3heRZEMiNPzyFmoo4NpA2kuv6SPcw5Zr0wEbeDw7Vg4by9ZEpX6Pjso1ec86oA
+Content-Type: application/json
+
+{   "id": 1,   "password": "123456" }
+
+<> 2019-04-17T105936.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/editorials/1
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM3MjU2N30.b8gEF9LSuOyhaFbQ5Hzh_5TB3heRZEMiNPzyFmoo4NpA2kuv6SPcw5Zr0wEbeDw7Vg4by9ZEpX6Pjso1ec86oA
+Content-Type: application/json
+
+{   "id": 1,   "password": "123456" }
+
+<> 2019-04-17T105905.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/editorials/1/comments
+Accept: */*
+Cache-Control: no-cache
+X-AUTHENTICATION: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImV4cCI6MTU1NjM3MjU2N30.b8gEF9LSuOyhaFbQ5Hzh_5TB3heRZEMiNPzyFmoo4NpA2kuv6SPcw5Zr0wEbeDw7Vg4by9ZEpX6Pjso1ec86oA
+Content-Type: application/json
+
+{   "id": 1,   "password": "123456" }
+
+<> 2019-04-17T105856.200.json
+
+###
+
 GET http://47.252.87.218:8080/api/v1/editorials/1/comments
 Accept: */*
 Cache-Control: no-cache
@@ -342,83 +474,6 @@ GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:腾讯&fq=type:Q
 Content-Type: application/json;charset=utf8
 
 <> 2019-04-16T103451.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:阿里&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T103400.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:阿里&fq=type:ANSWER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T103346.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ANSWER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T103322.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ANSWER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T102800.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T102600.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T102549.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101913.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101857.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101855.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101842.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101840.200.json
 
 ###
 

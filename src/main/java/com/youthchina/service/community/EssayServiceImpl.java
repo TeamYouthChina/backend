@@ -5,6 +5,7 @@ import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
+import com.youthchina.util.LoggedInUserUtil;
 import com.youthchina.util.dictionary.AttentionTargetType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,13 +99,12 @@ public class EssayServiceImpl implements EssayService {
             throw new NotFoundException(4040, 404, "this essay does not exist");//todo
         }
         richTextService.getComRichText(comEssay);
-
         comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
         comEssay.setAttentionCount(attentionService.countAttention(comEssay));
-        comEssay.setEvaluateStatus(evaluateService.evaluateStatus(comEssay,  .getId()));
+        comEssay.setEvaluateStatus(evaluateService.evaluateStatus(comEssay, LoggedInUserUtil.currentUser().getId()));
         comEssay.setUpvoteCount(evaluateService.countUpvote(comEssay));
         comEssay.setDownvoteCount(evaluateService.countDownvote(comEssay));
-        comEssay.setAttention(attentionService.isAttention(AttentionTargetType.ESSAY,comEssay.getId(), user.getId()));
+        comEssay.setAttention(attentionService.isAttention(AttentionTargetType.ESSAY,comEssay.getId(),  LoggedInUserUtil.currentUser().getId()));
 
         return comEssay;
     }
