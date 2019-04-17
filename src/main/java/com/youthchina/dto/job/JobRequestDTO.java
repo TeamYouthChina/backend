@@ -98,6 +98,7 @@ public class JobRequestDTO implements RequestDTO<Job> {
     }
 
     @JsonProperty("dead_line")
+    @JsonTimeStamp
     public String getDeadLine() {
         return deadLine;
     }
@@ -130,16 +131,6 @@ public class JobRequestDTO implements RequestDTO<Job> {
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
-    }
-
-    @JsonProperty("end_time")
-    @JsonTimeStamp
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
     }
 
     @Override

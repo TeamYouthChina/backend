@@ -1,11 +1,13 @@
 package com.youthchina.dto.job;
 
+import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.applicant.OrganizationDTO;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,8 +22,8 @@ public class JobNoCompanyDTO implements ResponseDTO<Job>{
     private String name;
     private List<String> location;
     private String type;
-    private String startTime;
-    private String deadLine;
+    private Timestamp startTime;
+    private Timestamp deadLine;
     private String job_duty;
     private String job_description;
     private Boolean isCollected = false;
@@ -58,19 +60,21 @@ public class JobNoCompanyDTO implements ResponseDTO<Job>{
         this.type = type;
     }
 
-    public String getStartTime() {
+    @JsonTimeStamp
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
-    public String getDeadLine() {
+    @JsonTimeStamp
+    public Timestamp getDeadLine() {
         return deadLine;
     }
 
-    public void setDeadLine(String deadLine) {
+    public void setDeadLine(Timestamp deadLine) {
         this.deadLine = deadLine;
     }
 
@@ -118,9 +122,8 @@ public class JobNoCompanyDTO implements ResponseDTO<Job>{
             case Job.fullJobType: this.type = "全职"; break;
         }
 
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        this.startTime = df.format(job.getJobStartTime());
-        this.deadLine = df.format(job.getJobEndTime());
+        this.startTime = new Timestamp(job.getJobStartTime().getTime());
+        this.deadLine = new Timestamp(job.getJobEndTime().getTime());
         this.job_duty = job.getJobDuty();
         this.job_description = job.getJobDescription();
         if(job.getCollected() != null){

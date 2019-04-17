@@ -15,8 +15,8 @@
       "994701"
     ],
     "type": "实习",
-    "startTime": "06/24/1970",
-    "deadLine": "06/24/1970",
+    "startTime": 15033600000,
+    "deadLine": 15033600000,
     "job_duty": "string",
     "job_description": "string",
     "collected": false
