@@ -1,4 +1,4 @@
-package com.youthchina;
+package com.youthchina.config;
 
 import com.youthchina.service.user.JwtService;
 import com.youthchina.util.GetUserByJwtFilter;
