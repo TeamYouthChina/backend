@@ -5,10 +5,13 @@ import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.controller.DomainCRUDController;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.applicant.CertificateResponseDTO;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
+import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.BaseException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 
 /**
@@ -111,6 +115,22 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
             return ResponseEntity.ok(new Response(integer, new StatusDTO(400, "cannot collect this company,maybe the company has already delete")));
 
         }
+
+    }
+    /**
+    * @Description: 获得一个公司的所有职位
+    * @Param: [company_id, user, pageRequest]
+    * @return: org.springframework.http.ResponseEntity<?>
+    * @Author: Qinghong Wang
+    * @Date: 2019/4/17
+    */
+
+    @GetMapping("/{id}/jobs")
+    public ResponseEntity<?> getAllJobsOfOneCompany(@PathVariable("id") Integer company_id, @AuthenticationPrincipal User user, PageRequest pageRequest) throws NotFoundException{
+
+        List<CertificateResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
+        ListResponse listResponse = new ListResponse(pageRequest, certificates.size(), result);
+        return ResponseEntity.ok(listResponse);
 
     }
 

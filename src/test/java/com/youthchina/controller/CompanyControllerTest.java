@@ -167,6 +167,17 @@ public class CompanyControllerTest {
 
         ;
     }
+    @Test
+    public void getAllJobsOfOneCompany() throws Exception{
+        this.mvc.perform(
+                get(this.urlPrefix + "/companies/1/jobs")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+
+        ;
+    }
+
 
     @Test
     public void testUpdateCompany() throws Exception {
