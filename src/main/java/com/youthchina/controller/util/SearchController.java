@@ -77,7 +77,7 @@ public class SearchController {
             case "company": {
                 return new CompanyResponseDTO((Company) item.getDomain());
             }
-            case "briefReview": {
+            case "editorial": {
                 return new BriefReviewResponseDTO((BriefReview) item.getDomain());
             }
             case "comment": {
