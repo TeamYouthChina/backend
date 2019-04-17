@@ -6616,6 +6616,35 @@ components:
           type: string
         collected:
           type: boolean
+    JobWithoutCompany:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          description: name of job
+        location:
+          type: array
+          items:
+            type: string
+        type:
+          description: 1实习 2兼职 3全职
+          type: string
+          enum:
+            - full-time
+            - part-time
+            - internship
+        startTime:
+          type: string
+        deadLine:
+          type: string
+        job_duty:
+          type: string
+        job_description:
+          type: string
+        collected:
+          type: boolean
     JobRequest:
       type: object
       properties:
