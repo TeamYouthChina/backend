@@ -125,14 +125,6 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
     * @Date: 2019/4/17
     */
 
-    @GetMapping("/{id}/jobs")
-    public ResponseEntity<?> getAllJobsOfOneCompany(@PathVariable("id") Integer company_id, @AuthenticationPrincipal User user, PageRequest pageRequest) throws NotFoundException{
-
-        List<CertificateResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
-        ListResponse listResponse = new ListResponse(pageRequest, certificates.size(), result);
-        return ResponseEntity.ok(listResponse);
-
-    }
 
     /**
      * @Description: 通过collect_id删除公司收藏
