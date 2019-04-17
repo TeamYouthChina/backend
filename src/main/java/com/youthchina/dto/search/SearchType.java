@@ -12,7 +12,7 @@ public enum SearchType {
     USER("user"),
     VIDEO("video"),
     COMMENT("comment"),
-    BRIEFREVIEW("briefReview");
+    EDITORIAL("editorial");
 
 
 
