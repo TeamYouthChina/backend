@@ -171,7 +171,7 @@ public class CompanyControllerTest {
     @Test
     public void getAllJobsOfOneCompany() throws Exception{
         this.mvc.perform(
-                get(this.urlPrefix + "/companies/1/jobs")
+                get(this.urlPrefix + "/companies/37/jobs")
                         .with(authGenerator.authentication())
         )
                 .andDo(print())

@@ -6,11 +6,14 @@ import com.youthchina.controller.DomainCRUDController;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.applicant.CertificateResponseDTO;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.job.JobResponseDTO;
+import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.BaseException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -89,10 +92,17 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
     }
 
     @GetMapping("/{id}/jobs")
-    public ResponseEntity<?> getCompanyDetail(@PathVariable(name = "id") Integer companyId, @AuthenticationPrincipal User user) throws BaseException {
-        List<Job> jobList = new ArrayList<>();
+    public ResponseEntity<?> getAllJobsOfOneCompany(@PathVariable(name = "id") Integer companyId, @AuthenticationPrincipal User user, PageRequest pageRequest) throws BaseException {
+        List<Job> jobList = companyService.getJobsByCompanyId(companyId,user.getId());
         List<JobResponseDTO> jobResponseDTOList = new JobResponseDTO().convertToDTO(jobList);
-        return ResponseEntity.ok(new Response(jobResponseDTOList));
+        List<JobResponseDTO> result=new ArrayList<>();
+        if(jobResponseDTOList!=null&&jobResponseDTOList.size()!=0){
+            result=jobResponseDTOList.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,jobResponseDTOList.size()));
+
+        }
+        ListResponse listResponse = new ListResponse(pageRequest, jobList.size(), result);
+        return ResponseEntity.ok(listResponse);
+
     }
 
     @DeleteMapping("/{id}")
