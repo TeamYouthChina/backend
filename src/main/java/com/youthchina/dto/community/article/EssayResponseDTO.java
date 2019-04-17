@@ -34,6 +34,11 @@ public class EssayResponseDTO implements ResponseDTO<ComEssay> {
         else
             this.author = null;
         this.body = new RichTextResponseDTO(comEssay.getBody());
+        this.upvoteCount = comEssay.getUpvoteCount();
+        this.downvoteCount = comEssay.getDownvoteCount();
+        this.attentionCount = comEssay.getAttentionCount();
+        this.isAttention = comEssay.isAttention();
+        this.evaluateStatus = comEssay.getEvaluateStatus();
     }
 
     public EssayResponseDTO() {
@@ -152,5 +157,10 @@ public class EssayResponseDTO implements ResponseDTO<ComEssay> {
         this.is_anonymous = (comEssay.getIsAnony() == 0) ? false : true;
         this.author = new UserDTO(comEssay.getUser());
         this.body = new RichTextResponseDTO(comEssay.getBody());
+        this.upvoteCount = comEssay.getUpvoteCount();
+        this.downvoteCount = comEssay.getDownvoteCount();
+        this.attentionCount = comEssay.getAttentionCount();
+        this.isAttention = comEssay.isAttention();
+        this.evaluateStatus = comEssay.getEvaluateStatus();
     }
 }
