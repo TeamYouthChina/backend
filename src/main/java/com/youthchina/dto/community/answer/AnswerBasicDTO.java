@@ -1,8 +1,11 @@
 package com.youthchina.dto.community.answer;
 
+import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextResponseDTO;
+
+import java.sql.Timestamp;
 
 /**
  * Created by xiaoyiwang on 2/24/19.
@@ -13,8 +16,8 @@ public class AnswerBasicDTO {
     private RichTextResponseDTO body;
     private boolean is_anonymous;
     private UserDTO creator;
-    private String modified_at;
-    private String create_at;
+    private Timestamp modified_at;
+    private Timestamp create_at;
     private Integer upvoteCount;
     private Integer downvoteCount;
     private Integer attentionCount;
@@ -28,8 +31,8 @@ public class AnswerBasicDTO {
         this.body = richt;
         this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
         this.creator = new UserDTO(answer.getUser());
-        this.modified_at = answer.getEditTime().toString();
-        this.create_at = answer.getPubTime().toString();
+        this.modified_at = answer.getEditTime();
+        this.create_at = answer.getPubTime();
         this.id = answer.getId();
     }
 
@@ -61,19 +64,21 @@ public class AnswerBasicDTO {
         this.creator = creator;
     }
 
-    public String getModified_at() {
+    @JsonTimeStamp
+    public Timestamp getModified_at() {
         return modified_at;
     }
 
-    public void setModified_at(String modified_at) {
+    public void setModified_at(Timestamp modified_at) {
         this.modified_at = modified_at;
     }
 
-    public String getCreate_at() {
+    @JsonTimeStamp
+    public Timestamp getCreate_at() {
         return create_at;
     }
 
-    public void setCreate_at(String create_at) {
+    public void setCreate_at(Timestamp create_at) {
         this.create_at = create_at;
     }
 

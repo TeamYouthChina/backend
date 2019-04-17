@@ -2,7 +2,7 @@ package com.youthchina.dto.community.video;
 
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.jinhao.Video;
-import com.youthchina.dto.community.comment.CommentDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.List;
 public class VideoResponseDTO {
     private Integer id;
     private String url;
-    private List<CommentDTO> comments = new ArrayList<CommentDTO>();
+    private List<CommentResponseDTO> comments = new ArrayList<CommentResponseDTO>();
     private UserDTO uploader;
     private Integer upvoteCount;
     private Integer downvoteCount;
@@ -27,8 +27,8 @@ public class VideoResponseDTO {
         if(video.getComments() != null){
             Iterator it = video.getComments().iterator();
             while(it.hasNext()){
-                CommentDTO commentDTO = new CommentDTO((Comment)it.next());
-                this.comments.add(commentDTO);
+                CommentResponseDTO commentResponseDTO = new CommentResponseDTO((Comment)it.next());
+                this.comments.add(commentResponseDTO);
             }
         }
         this.uploader = new UserDTO(video.getUser());
@@ -51,11 +51,11 @@ public class VideoResponseDTO {
         this.url = url;
     }
 
-    public List<CommentDTO> getComments() {
+    public List<CommentResponseDTO> getComments() {
         return comments;
     }
 
-    public void setComments(List<CommentDTO> comments) {
+    public void setComments(List<CommentResponseDTO> comments) {
         this.comments = comments;
     }
 
