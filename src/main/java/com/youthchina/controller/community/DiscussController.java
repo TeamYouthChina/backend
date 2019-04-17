@@ -25,8 +25,11 @@ public class DiscussController {
     EvaluateService evaluateService;
 
     @GetMapping("/{id}")
-    public ResponseEntity getDiscuss(@PathVariable Integer id) throws NotFoundException {
+    public ResponseEntity getDiscuss(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         DiscussResponseDTO discussResponseDTO = new DiscussResponseDTO(this.discussService.get(id));
+        discussResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(this.discussService.get(id), user.getId()));
+        discussResponseDTO.setUpvoteCount(evaluateService.countUpvote(this.discussService.get(id)));
+        discussResponseDTO.setDownvoteCount(evaluateService.countDownvote(this.discussService.get(id)));
         return ResponseEntity.ok(new Response(discussResponseDTO));
     }
 
