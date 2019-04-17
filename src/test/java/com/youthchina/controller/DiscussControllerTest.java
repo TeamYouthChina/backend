@@ -30,6 +30,12 @@ public class DiscussControllerTest extends BaseControllerTest {
     @Test
     public void testGetDiscuses() throws Exception {
         this.mvc.perform(
+                put(this.urlPrefix + "/replies/1/upvote")
+                        .with(this.authGenerator.authentication())
+        )
+                .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andDo(print());
+        this.mvc.perform(
                 get(this.urlPrefix + "/replies/1")
                         .with(this.authGenerator.authentication())
         )

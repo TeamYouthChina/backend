@@ -1,0 +1,33 @@
+{
+  "content": {
+    "id": 1,
+    "commentId": 1,
+    "creator": {
+      "id": 3,
+      "username": "GHI",
+      "email": "123456@789.com",
+      "register_date": 1546300800000,
+      "first_name": "GGG",
+      "last_name": "GGGHHHIII",
+      "gender": "Male",
+      "nation": "CHN",
+      "avatar_url": "---",
+      "role": [
+        "ADMIN"
+      ],
+      "age": 26,
+      "phone_number": "1112223334445"
+    },
+    "body": "讨论内容1",
+    "create_at": 1546300800000,
+    "is_anonymous": false,
+    "modified_at": null,
+    "upvoteCount": null,
+    "downvoteCount": null,
+    "evaluateStatus": null
+  },
+  "status": {
+    "code": 2000,
+    "reason": ""
+  }
+}
