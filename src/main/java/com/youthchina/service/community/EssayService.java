@@ -1,7 +1,7 @@
 package com.youthchina.service.community;
 
 import com.youthchina.domain.tianjian.ComEssay;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 
 import java.sql.Timestamp;
@@ -24,7 +24,7 @@ public interface EssayService extends DomainCRUDService<ComEssay, Integer> {
      * param Integer essay_id
      * return 0 or 1
      */
-    public int deleteEssay(Integer essay_id, Timestamp delete_time);
+    public int deleteEssay(Integer essay_id, Timestamp delete_time) throws NotFoundException;
 
     /**
      * 更新文章

@@ -15,7 +15,7 @@ import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.question.QuestionRequestDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.application.CompanyCURDServiceImpl;
 import com.youthchina.service.application.JobServiceImpl;
 import com.youthchina.service.community.AnswerService;
@@ -205,29 +205,13 @@ public class QuestionController {
         return ResponseEntity.ok(new Response());
     }*/
 
-    @PutMapping("/{id}/attention")
-    public ResponseEntity<?> followUp(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        Question question = new Question();
-        question.setId(id);
-        attentionService.attention(question, user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
-    }
-
-    @DeleteMapping("/attentions/{id}")
-    public ResponseEntity<?> cancelFollowUp(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        Question question = new Question();
-        question.setId(id);
-        attentionService.cancel(question, user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
-    }
-
     @PostMapping("/{id}/answers")
     @ResponseBodyDTO(SimpleAnswerResponseDTO.class)
     public ResponseEntity<?> addAnswers(@PathVariable Integer id, @RequestBody SimpleAnswerRequestDTO simpleAnswerDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         Answer answer = new Answer(simpleAnswerDTO);
         answer.setUser(user);
         answer.setTargetId(id);
-        answer.setTargetType(1);
+        answer.setTargetType(0);
         Answer createdAnswer = answerService.add(answer);
         return ResponseEntity.ok(new Response(createdAnswer, new StatusDTO(200, "success")));
     }

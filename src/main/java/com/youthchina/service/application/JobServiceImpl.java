@@ -3,13 +3,10 @@ package com.youthchina.service.application;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.domain.qingyang.Degree;
-import com.youthchina.domain.qingyang.Industry;
-import com.youthchina.domain.qingyang.Job;
-import com.youthchina.domain.qingyang.Logo;
+import com.youthchina.domain.qingyang.*;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.exception.zhongyang.NotBelongException;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotBelongException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -209,8 +206,16 @@ public class JobServiceImpl implements JobService {
         return results;
     }
 
-    public List<Job> getJobByUserId(Integer userId){
+    @Override
+    public List<Job> getJobByUserId(Integer userId) throws NotFoundException {
         List<Job> jobList = jobMapper.getJobByUserId(userId);
+        for(Job job : jobList){
+            try {
+                job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
+            } catch (NotFoundException e){
+                throw new NotFoundException(4040, 404, "Company of job : " + job.getJobName() + " not found");
+            }
+        }
         return jobList;
     }
 
@@ -223,7 +228,9 @@ public class JobServiceImpl implements JobService {
     public Job getJobWithCollected(Integer jobId, Integer userId) throws NotFoundException {
        Job job = this.get(jobId);
        job.setCollected(isCollected(jobId, userId));
-       return job;
+        Company company = job.getCompany();
+        company.setCollected(companyCURDServiceImpl.isCollected(company.getId(), userId));
+        return job;
     }
 
     public List<Job> getJobListWithCollected(List<Integer> idList, Integer userId) throws NotFoundException {

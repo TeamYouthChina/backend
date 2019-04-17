@@ -7,7 +7,7 @@ import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.CompanyPhoto;
 import com.youthchina.domain.qingyang.Industry;
 import com.youthchina.domain.qingyang.Logo;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.util.StaticFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -231,6 +231,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         return jobCount;
     }
 
+    @Override
     public Boolean isCollected(Integer companyId, Integer userId) {
         Integer result = companyMapper.isCollected(companyId, userId);
         return result != null;

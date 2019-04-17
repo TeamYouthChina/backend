@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @Transactional
 @WebAppConfiguration
-public class UserControllerTest {
+public class UserControllerTest extends BaseControllerTest {
     @Autowired
     WebApplicationContext context;
 
@@ -58,7 +58,7 @@ public class UserControllerTest {
                 "  \"password\": \"123456\"\n" +
                 "}"))
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"first_name\":\"DDD\",\"last_name\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":[\"ADMIN\"],\"age\":28},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+                .andExpect(content().json(readJson("responses/post-login.json"), false))
                 .andExpect(header().exists("X-AUTHENTICATION"));
     }
 
@@ -100,5 +100,6 @@ public class UserControllerTest {
                 .andExpect(status().is(400))
                 .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4000,\"reason\":\"cannot register because there are already user registered with same email or username\"}}"));
     }
+
 
 }

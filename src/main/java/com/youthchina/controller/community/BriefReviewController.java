@@ -9,15 +9,17 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
-import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.community.AttentionServiceImpl;
 import com.youthchina.service.community.BriefReviewServiceImplement;
 import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
 import com.youthchina.service.user.UserServiceImpl;
+import com.youthchina.util.dictionary.CommentTargetType;
+import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -90,7 +92,7 @@ public class BriefReviewController {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         briefReview.setTime(time);
         briefReview.setUser(user);
-        briefReview.setRelaType(0);
+        briefReview.setRelaType(RelaType.getTypeId(""));
         BriefReview briefReviewReturn = briefReviewServiceImplement.add(briefReview);
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReviewReturn);
         return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(201, "success")));
@@ -104,7 +106,7 @@ public class BriefReviewController {
         comment.setPubTime(time);
         comment.setUser(user);
         comment.setTargetId(id);
-        comment.setTargetType(2);
+        comment.setTargetType(CommentTargetType.BRIEFREVIEW);
 
         BriefReview briefReview = new BriefReview();
         briefReview.setId(id);
@@ -149,35 +151,21 @@ public class BriefReviewController {
        briefReview.setId(id);
        briefReview.setUser(user);
        List<Comment> comments =  commentService.getComments(briefReview);
-        List<CommentDTO> commentDTOS = new ArrayList<>();
+        List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
         if (comments!= null) {
             Iterator it = comments.iterator();
             while (it.hasNext()) {
-                CommentDTO commentDTO = new CommentDTO((Comment) it.next());
-                commentDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
-                commentDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
-                commentDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
-                commentDTOS.add(commentDTO);
+                CommentResponseDTO commentResponseDTO = new CommentResponseDTO((Comment) it.next());
+                commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
+                commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
+                commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
+                commentResponseDTOS.add(commentResponseDTO);
             }
         }
-        ListResponse listResponse = new ListResponse(pageRequest, commentDTOS.size(), commentDTOS);
+        ListResponse listResponse = new ListResponse(pageRequest, commentResponseDTOS.size(), commentResponseDTOS);
         return ResponseEntity.ok(listResponse);
     }
 
-    @PutMapping("/{id}/attention")
-    public ResponseEntity updateAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        BriefReview briefReview = new BriefReview();
-        briefReview.setId(id);
-        attentionService.attention(briefReview,user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
-    }
 
-    @DeleteMapping("/attentions/{id}")
-    public ResponseEntity deleteAttention(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
-        BriefReview briefReview = new BriefReview();
-        briefReview.setId(id);
-        attentionService.cancel(briefReview,user.getId());
-        return ResponseEntity.ok(new Response(new StatusDTO(204, "success")));
-    }
 
 }

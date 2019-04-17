@@ -3,7 +3,7 @@ package com.youthchina.controller.user;
 import com.youthchina.domain.Qinghong.Student;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.applicant.ApplicantRequestDTO;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.StudentService;
 import com.youthchina.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

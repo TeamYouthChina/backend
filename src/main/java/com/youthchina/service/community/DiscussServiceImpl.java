@@ -2,7 +2,7 @@ package com.youthchina.service.community;
 
 import com.youthchina.dao.jinhao.DiscussMapper;
 import com.youthchina.domain.jinhao.Discuss;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +21,9 @@ public class DiscussServiceImpl implements DiscussService {
     @Resource
     UserService userService;
 
+    @Resource
+    EvaluateService evaluateService;
+
     @Override
     @Transactional
     public List<Discuss> getDiscussesByCommentId(Integer id) {
@@ -36,6 +39,7 @@ public class DiscussServiceImpl implements DiscussService {
     }
 
     @Override
+    @Transactional
     public List<Discuss> getDiscussesByCommentId(Integer id, Integer start, Integer end) {
         List<Discuss> discusses = discussMapper.getLimitedDiscusses(id, start, end - start + 1);
         for (Discuss discuss : discusses) {
@@ -48,17 +52,6 @@ public class DiscussServiceImpl implements DiscussService {
         return discusses;
     }
 
-    @Override
-    public void isDiscussExist(Integer id) throws NotFoundException {
-        if (discussMapper.checkIfDiscussExist(id) == null) {
-            throw new NotFoundException(404, 404, "没有找到这个讨论");
-        }
-    }
-
-    @Override
-    public void deleteAllDiscussOfComment(Integer id) {
-        discussMapper.deleteAllDiscussOfComment(id);
-    }
 
     @Override
     public Integer count(Integer id) {
@@ -85,13 +78,12 @@ public class DiscussServiceImpl implements DiscussService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) throws NotFoundException {
-        isDiscussExist(id);
+        get(id);
+        Discuss discuss = new Discuss();
+        discuss.setId(id);
+        evaluateService.cancel(discuss);
         discussMapper.delete(id);
-    }
-
-    @Override
-    public Discuss update(Discuss discuss) throws NotFoundException {
-        return null;
     }
 }

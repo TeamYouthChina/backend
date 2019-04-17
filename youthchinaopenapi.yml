@@ -460,7 +460,7 @@ paths:
               - answer
               - article
               - video
-              - editorials
+              - editorial
           description: determine what part of attention list to return
         - in: header
           name: X-AUTHENTICATION
@@ -479,55 +479,24 @@ paths:
                   content:
                     type: object
                     properties:
-                      companies:
+                      company:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            company:
-                              $ref: '#/components/schemas/Company'
-                      jobs:
+                          $ref: '#/components/schemas/Company'
+                      job:
                         type: array
                         items:
-                          type: object
-                          properties:
-                            job:
-                              $ref: '#/components/schemas/Job'
-                      questions:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            question:
-                              $ref: '#/components/schemas/QuestionBasic'
-                      answers:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            answer:
-                              $ref: '#/components/schemas/AnswerBasic'
-                      articles:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            article:
-                              $ref: '#/components/schemas/Article'
-                      videos:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            video:
-                              $ref: '#/components/schemas/Video'
-                      editorials:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            editorial:
-                              $ref: '#/components/schemas/Editorial'
+                          $ref: '#/components/schemas/Job'
+                      question:
+                        $ref: '#/components/schemas/QuestionBasic'
+                      answer:
+                        $ref: '#/components/schemas/AnswerBasic'
+                      article:
+                        $ref: '#/components/schemas/Article'
+                      video:
+                        $ref: '#/components/schemas/Video'
+                      editorial:
+                        $ref: '#/components/schemas/Editorial'
                   status:
                     $ref: '#/components/schemas/Status'
   '/my':
@@ -4518,7 +4487,7 @@ paths:
                 properties:
                   content:
                     $ref: '#/components/schemas/Comment'
-    put:
+    post:
       summary: 发布回复
       description: 发表回复
       tags:
@@ -6425,6 +6394,10 @@ paths:
             type: integer
       requestBody:
         description: "File to upload"
+        content:
+          appliction/json:
+            schema:
+              type: object
       responses:
         '200':
           description: "null"
@@ -6495,7 +6468,7 @@ components:
       type: object
       properties:
         body:
-          $ref: '#/components/schemas/RichText'
+          type: string
     Status:
       type: object
       properties:
@@ -6612,7 +6585,7 @@ components:
         - id
         - username
         - email
-        - phonenumber
+        - phone_number
         - register_date
         - real_name
         - gender
@@ -6626,10 +6599,11 @@ components:
         email:
           type: string
           format: email
-        phonenumber:
+        phone_number:
           type: string
         register_date:
-          type: string
+          type: integer
+          format: timestamp
         first_name:
           type: string
         last_name:
@@ -6938,24 +6912,24 @@ components:
     CompanyRequest:
       type: object
       properties:
+        avatarUrl:
+          type: string
+        id:
+          type: integer
+        location:
+          $ref: '#/components/schemas/Location'
         name:
           type: string
           description: company name
-        location:
-          $ref: '#/components/schemas/Location'
         nation:
           type: string
           description: company nation
-        website:
-          type: string
-          description: company website
         note:
           type: string
           description: introduction
-        photoIdList:
-          type: array
-          items:
-            type: string
+        website:
+          type: string
+          description: company website
     Application:
       type: object
       required:
@@ -6993,9 +6967,11 @@ components:
             creator:
               $ref: '#/components/schemas/User'
             modified_at:
-              type: string
+              type: integer
+              format: timestamp
             create_at:
-              type: string
+              type: integer
+              format: timestamp
             id:
               type: integer
               description: answer id
@@ -7027,9 +7003,11 @@ components:
               type: integer
               description: question id
             create_at:
-              type: string
+              type: integer
+              format: timestamp
             modified_at:
-              type: string
+              type: integer
+              format: timestamp
             creator:
               $ref: '#/components/schemas/User'
     Question:
@@ -7072,11 +7050,13 @@ components:
           type: string
         create_at:
           type: integer
+          format: timestamp
         is_anonymous:
           type: boolean
           default: false
         modified_at:
-          type: string
+          type: integer
+          format: timestamp
         upvoteCount:
           type: integer
         downvoteCount:
@@ -7119,9 +7099,11 @@ components:
         company:
           $ref: '#/components/schemas/Company'
         create_at:
-          type: string
+          type: integer
+          format: timestamp
         modified_at:
-          type: string
+          type: integer
+          format: timestamp
         author:
           $ref: '#/components/schemas/User'
         body:
@@ -7158,12 +7140,13 @@ components:
         author:
           $ref: '#/components/schemas/User'
         modified_at:
-          type: string
+          type: integer
+          format: timestamp
     ContentRequestWithCompany:
-      allOf:
-        - $ref: '#/components/schemas/ContentRequest'
-        - properties:
-            company_id:
+      properties:
+        body:
+          $ref: '#/components/schemas/RichText'
+        company_id:
               type: integer
     Location:
       type: object
@@ -7198,11 +7181,13 @@ components:
         body:
           type: string
         create_at:
-          type: string
+          type: integer
+          format: timestamp
         is_anonymous:
           type: boolean
         modified_at:
-          type: string
+          type: integer
+          format: timestamp
         upvoteCount:
           type: integer
         downvoteCount:
@@ -7220,10 +7205,9 @@ components:
         reference_id:
           type: integer
         create_at:
-          type: string
+          type: integer
+          format: timestamp
         applicant:
           $ref: '#/components/schemas/User'
         is_read:
           type: boolean
-      
-      

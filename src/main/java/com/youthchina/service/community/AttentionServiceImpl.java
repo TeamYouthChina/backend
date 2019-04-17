@@ -3,7 +3,7 @@ package com.youthchina.service.community;
 import com.youthchina.dao.jinhao.AttentionMapper;
 import com.youthchina.domain.jinhao.Attention;
 import com.youthchina.domain.jinhao.property.Attentionable;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,56 +16,14 @@ public class AttentionServiceImpl implements AttentionService {
     AttentionMapper attentionMapper;
 
     @Resource
-    QuestionService questionService;
-
-    @Resource
-    AnswerService answerService;
-
-    @Resource
-    BriefReviewService briefReviewService;
-
-    @Resource
-    CommentService commentService;
-
-    @Resource
-    VideoService videoService;
-
-    @Resource
-    DiscussService discussService;
-
-    @Resource
-    EssayService essayService;
+    IsExistService isExistService;
 
     @Override
     @Transactional
     public void attention(Attentionable entity, Integer userId) throws NotFoundException {
         Integer type = entity.getAttentionTargetType();
         Integer id = entity.getId();
-        switch (type) {
-            case 1:
-                questionService.isQuestionExist(id);
-                break;
-            case 2:
-                essayService.get(id);
-                break;
-            case 3:
-                briefReviewService.isBriefReviewExist(id);
-                break;
-            case 4:
-                videoService.isVideoExist(id);
-                break;
-            case 5:
-                commentService.isCommentExist(id);
-                break;
-            case 6:
-                discussService.isDiscussExist(id);
-                break;
-            case 7:
-                answerService.isAnswerExist(id);
-                break;
-            default:
-                throw new NotFoundException(4040, 404, "No such type");//todo
-        }
+        isExistService.isExist(entity);
         Attention attention = attentionMapper.isEverAttention(type, id, userId);
         if (attention == null) {
             attentionMapper.follow(type, id, userId);
@@ -83,31 +41,7 @@ public class AttentionServiceImpl implements AttentionService {
     public void cancel(Attentionable entity, Integer userId) throws NotFoundException {
         Integer type = entity.getAttentionTargetType();
         Integer id = entity.getId();
-        switch (type) {
-            case 1:
-                questionService.isQuestionExist(id);
-                break;
-            case 2:
-                essayService.get(id);
-                break;
-            case 3:
-                briefReviewService.isBriefReviewExist(id);
-                break;
-            case 4:
-                videoService.isVideoExist(id);
-                break;
-            case 5:
-                commentService.isCommentExist(id);
-                break;
-            case 6:
-                discussService.isDiscussExist(id);
-                break;
-            case 7:
-                answerService.isAnswerExist(id);
-                break;
-            default:
-                throw new NotFoundException(4040, 404, "No such type");//todo
-        }
+        isExistService.isExist(entity);
         Attention attention = attentionMapper.isEverAttention(type, id, userId);
         if (attention == null || attention.getIsCancel() == 1) {
             throw new NotFoundException(4040, 404, "You have not followed yet, you cannot cancel!");//todo
@@ -117,10 +51,8 @@ public class AttentionServiceImpl implements AttentionService {
     }
 
     @Override
-    @Transactional
-    public List<Integer> getAllIdsOfAttention(Attentionable entity, Integer userId) throws NotFoundException {
-        Integer type = entity.getAttentionTargetType();
-        return attentionMapper.getAllfollows(type, userId);
+    public List<Integer> getAllIdsOfAttention(Integer targetType, Integer userId) {
+        return attentionMapper.getAllfollows(targetType, userId);
     }
 
     @Override

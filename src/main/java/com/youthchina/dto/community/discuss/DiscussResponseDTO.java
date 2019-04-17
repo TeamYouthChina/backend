@@ -1,5 +1,6 @@
 package com.youthchina.dto.community.discuss;
 
+import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.jinhao.Discuss;
 import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.security.UserDTO;
@@ -64,6 +65,7 @@ public class DiscussResponseDTO implements ResponseDTO<Discuss> {
         this.body = body;
     }
 
+    @JsonTimeStamp
     public Timestamp getCreate_at() {
         return create_at;
     }
@@ -104,6 +106,7 @@ public class DiscussResponseDTO implements ResponseDTO<Discuss> {
         this.evaluateStatus = evaluateStatus;
     }
 
+    @JsonTimeStamp
     public Timestamp getModified_at() {
         return modified_at;
     }

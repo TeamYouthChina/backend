@@ -2,7 +2,7 @@ package com.youthchina.service.user;
 
 import com.youthchina.dao.tianjian.PersonInfluenceMapper;
 import com.youthchina.domain.tianjian.PersonInfluence;
-import com.youthchina.exception.zhongyang.NotFoundException;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
