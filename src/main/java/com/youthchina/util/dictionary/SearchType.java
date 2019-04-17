@@ -1,6 +1,5 @@
 package com.youthchina.util.dictionary;
 
-import jdk.internal.joptsimple.internal.Strings;
 
 /**
  * Created by zhongyangwu on 4/17/19.
@@ -19,10 +18,9 @@ public class SearchType {
 
 
     /**
-     *
      * @return a string contains all possible type
      */
     public static String getNameString() {
-        return Strings.join(new String[]{ARTICLE, EDITORIAL, ANSWER, QUESTION, USER, JOB, ALL, COMMENT, COMPANY}, ", ");
+        return String.join(", ", ARTICLE, EDITORIAL, ANSWER, QUESTION, USER, JOB, ALL, COMMENT, COMPANY);
     }
 }
