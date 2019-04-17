@@ -131,7 +131,7 @@ public class SearchServiceImplememt implements SearchService {
                 List<SearchResultItem> searchList = new ArrayList<>();
                 List<BriefReview> briefReviews = briefReviewSearch(title, body, startIndex, endIndex);
                 for (BriefReview i : briefReviews) {
-                    SearchResultItem item = new SearchResultItem(i, "briefReview");
+                    SearchResultItem item = new SearchResultItem(i, "editorial");
                     searchList.add(item);
                     count++;
                 }
@@ -200,7 +200,7 @@ public class SearchServiceImplememt implements SearchService {
 
                 List<BriefReview> briefReviews = briefReviewSearch(title, body, startIndex, endIndex);
                 for (BriefReview i : briefReviews) {
-                    SearchResultItem item = new SearchResultItem(i, "briefReview");
+                    SearchResultItem item = new SearchResultItem(i, "editorial");
                     searchList.add(item);
                     count++;
                 }

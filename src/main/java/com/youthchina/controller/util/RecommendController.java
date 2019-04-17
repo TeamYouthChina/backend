@@ -56,6 +56,6 @@ public class RecommendController {
 
     @GetMapping("/editorials")
     public ResponseEntity<ListResponse> recommendEditorials(@AuthenticationPrincipal User user, PageRequest pageRequest) throws Exception {
-        return searchController.search("briefReview", "*", "*", pageRequest);
+        return searchController.search("editorial", "*", "*", pageRequest);
     }
 }
