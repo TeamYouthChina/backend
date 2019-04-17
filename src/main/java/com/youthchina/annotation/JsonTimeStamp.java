@@ -16,6 +16,6 @@ import java.lang.annotation.Target;
         ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @JacksonAnnotationsInside
-@JsonFormat(shape=JsonFormat.Shape.NUMBER, pattern="s")
+@JsonFormat(shape=JsonFormat.Shape.NUMBER_INT, pattern="s")
 public @interface JsonTimeStamp {
 }
