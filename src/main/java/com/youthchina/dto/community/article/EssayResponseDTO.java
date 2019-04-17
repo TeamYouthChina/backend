@@ -1,5 +1,6 @@
 package com.youthchina.dto.community.article;
 
+import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
@@ -71,6 +72,7 @@ public class EssayResponseDTO implements ResponseDTO<ComEssay> {
         this.company = company;
     }
 
+    @JsonTimeStamp
     public Timestamp getCreate_at() {
         return create_at;
     }
@@ -79,6 +81,7 @@ public class EssayResponseDTO implements ResponseDTO<ComEssay> {
         this.create_at = create_at;
     }
 
+    @JsonTimeStamp
     public Timestamp getModified_at() {
         return modified_at;
     }
