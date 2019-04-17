@@ -4,11 +4,13 @@ import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.controller.DomainCRUDController;
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
+import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.exception.zhongyang.exception.BaseException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -82,6 +86,13 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
             return ResponseEntity.ok(new Response(new CompanyResponseDTO(company)));
         }
         throw new BaseException();
+    }
+
+    @GetMapping("/{id}/jobs")
+    public ResponseEntity<?> getCompanyDetail(@PathVariable(name = "id") Integer companyId, @AuthenticationPrincipal User user) throws BaseException {
+        List<Job> jobList = new ArrayList<>();
+        List<JobResponseDTO> jobResponseDTOList = new JobResponseDTO().convertToDTO(jobList);
+        return ResponseEntity.ok(new Response(jobResponseDTOList));
     }
 
     @DeleteMapping("/{id}")

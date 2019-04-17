@@ -273,6 +273,14 @@
         WHERE j.IS_DELETE = 0 AND j.COMPANY_ID = #{id}
     </select>
 
+    <select id="selectJobByComId" resultMap="job" parameterType="Integer">
+        SELECT
+        <include refid="jobSelect"/>
+        FROM JOB_INFO j
+        <include refid="jobJoin"/>
+        WHERE j.IS_DELETE = 0 AND j.COMPANY_ID = #{id}
+    </select>
+
     <select id = "isCollect" resultType="Integer">
         SELECT COLLECT_ID
         FROM STU_JOB_COLLECT
