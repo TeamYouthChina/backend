@@ -12,6 +12,7 @@ import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.applicant.CertificateResponseDTO;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
+import com.youthchina.dto.job.JobNoCompanyDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.BaseException;
@@ -94,11 +95,10 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
     @GetMapping("/{id}/jobs")
     public ResponseEntity<?> getAllJobsOfOneCompany(@PathVariable(name = "id") Integer companyId, @AuthenticationPrincipal User user, PageRequest pageRequest) throws BaseException {
         List<Job> jobList = companyService.getJobsByCompanyId(companyId,user.getId());
-        List<JobResponseDTO> jobResponseDTOList = new JobResponseDTO().convertToDTO(jobList);
-        List<JobResponseDTO> result=new ArrayList<>();
+        List<JobNoCompanyDTO> jobResponseDTOList = new JobNoCompanyDTO().convertToDTO(jobList);
+        List<JobNoCompanyDTO> result=new ArrayList<>();
         if(jobResponseDTOList!=null&&jobResponseDTOList.size()!=0){
             result=jobResponseDTOList.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,jobResponseDTOList.size()));
-
         }
         ListResponse listResponse = new ListResponse(pageRequest, jobList.size(), result);
         return ResponseEntity.ok(listResponse);
