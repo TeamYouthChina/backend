@@ -51,6 +51,8 @@ public interface JobMapper {
                            @Param("active") Integer active, @Param("location") String location, @Param("jobReqList") List<Degree> jobReqList,
                            @Param("industryList") List<Industry> industryList);
 
+    List<Job> selectJobByComId(Integer companyId);
+
     /*create table JOB_INFO
 (
 	JOB_ID int auto_increment comment '职位ID'
