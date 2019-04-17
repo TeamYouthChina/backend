@@ -117,7 +117,7 @@ public class CommentControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":2,\"creator\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0,\"phone_number\":\"2022922222\"},\"body\":\"短评评论2\",\"create_at\":1399507200000,\"is_anonymous\":true,\"modified_at\":1399507200000,\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":2,\"creator\":null,\"body\":\"短评评论2\",\"create_at\":1399507200000,\"is_anonymous\":true,\"modified_at\":1399507200000,\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
     }
 
     @Test
