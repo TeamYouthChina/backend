@@ -51,6 +51,7 @@ public class QuestionResponseDTO implements ResponseDTO<Question>, QuestionDTO {
                 this.answers.add(new AnswerBasicDTO(answer));
             }
         }
+        this.isAttention = question.isAttention();
 
     }
 
