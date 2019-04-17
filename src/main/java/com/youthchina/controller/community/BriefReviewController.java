@@ -18,6 +18,8 @@ import com.youthchina.service.community.BriefReviewServiceImplement;
 import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
 import com.youthchina.service.user.UserServiceImpl;
+import com.youthchina.util.dictionary.CommentTargetType;
+import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -90,7 +92,7 @@ public class BriefReviewController {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         briefReview.setTime(time);
         briefReview.setUser(user);
-        briefReview.setRelaType(0);
+        briefReview.setRelaType(RelaType.getTypeId(""));
         BriefReview briefReviewReturn = briefReviewServiceImplement.add(briefReview);
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReviewReturn);
         return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(201, "success")));
@@ -104,7 +106,7 @@ public class BriefReviewController {
         comment.setPubTime(time);
         comment.setUser(user);
         comment.setTargetId(id);
-        comment.setTargetType(2);
+        comment.setTargetType(CommentTargetType.BRIEFREVIEW);
 
         BriefReview briefReview = new BriefReview();
         briefReview.setId(id);

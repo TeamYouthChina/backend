@@ -64,11 +64,6 @@ public class AnswerTest {
         Assert.assertNull(answerMapper.get(1));
     }
 
-    @Test
-    public void checkIfAnswerExist(){
-        int i = answerMapper.checkIfAnswerExist(1);
-        Assert.assertEquals(1,i);
-    }
 
     @Test
     public void getMyAnswer(){

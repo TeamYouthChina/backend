@@ -33,7 +33,7 @@
     <insert id="add" parameterType="com.youthchina.domain.jinhao.Answer" useGeneratedKeys="true"
     keyProperty="id">
         insert into COM_ANSWER(ANSWER_BODY,target_type, target_id, user_id, user_anony, answer_pub_time, answer_edit_time)
-        values (#{body.textId},#{targetType},#{targetId},#{user.id},#{isAnony},now(),now())
+        values (#{body.textId},1,#{targetId},#{user.id},#{isAnony},now(),now())
     </insert>
 
     <update id="update" parameterType="com.youthchina.domain.jinhao.Answer">
@@ -46,9 +46,6 @@
         where ANSWER_ID=#{id}
     </update>
 
-    <select id="checkIfAnswerExist" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        select ANSWER_ID from COM_ANSWER where ANSWER_ID = #{id} and IS_DELETE=0
-    </select>
     <select id="countAnswers" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select count(ANSWER_ID) from COM_ANSWER where TARGET_ID=#{id} and IS_DELETE=0
     </select>

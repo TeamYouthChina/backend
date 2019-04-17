@@ -24,7 +24,7 @@ public interface EssayService extends DomainCRUDService<ComEssay, Integer> {
      * param Integer essay_id
      * return 0 or 1
      */
-    public int deleteEssay(Integer essay_id, Timestamp delete_time);
+    public int deleteEssay(Integer essay_id, Timestamp delete_time) throws NotFoundException;
 
     /**
      * 更新文章

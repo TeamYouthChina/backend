@@ -4,6 +4,7 @@ import com.youthchina.domain.jinhao.Discuss;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.community.discuss.DiscussResponseDTO;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.community.DiscussService;
 import com.youthchina.service.community.EvaluateService;
@@ -25,7 +26,8 @@ public class DiscussController {
 
     @GetMapping("/{id}")
     public ResponseEntity getDiscuss(@PathVariable Integer id) throws NotFoundException {
-        return ResponseEntity.ok(new Response(this.discussService.get(id)));
+        DiscussResponseDTO discussResponseDTO = new DiscussResponseDTO(this.discussService.get(id));
+        return ResponseEntity.ok(new Response(discussResponseDTO));
     }
 
     @DeleteMapping("/{id}")

@@ -147,6 +147,11 @@ comment '职位基本信息表';
         return AttentionTargetType.JOB;
     }
 
+    @Override
+    public Integer getExistType() {
+        return null;
+    }
+
     public Integer getId() {
         return jobId;
     }

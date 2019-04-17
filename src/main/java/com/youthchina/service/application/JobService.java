@@ -29,7 +29,7 @@ public interface JobService extends DomainCRUDService<Job, Integer> {
                                   List<Industry> industryList) throws NotFoundException;
 
 
-    List<Job> getJobByUserId(Integer userId);
+    List<Job> getJobByUserId(Integer userId) throws NotFoundException;
 
     Job getJobWithCollected(Integer jobId, Integer userId) throws NotFoundException;
 }

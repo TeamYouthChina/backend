@@ -302,7 +302,7 @@ public class JobTest {
     }
 
     @Test
-    public void testGetJobByUserId(){
+    public void testGetJobByUserId() throws NotFoundException {
         List<Job> jobList = jobService.getJobByUserId(1);
         Assert.assertEquals(18, jobList.size());
 

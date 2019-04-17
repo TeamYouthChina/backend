@@ -1,13 +1,14 @@
 package com.youthchina.domain.jinhao;
 
-import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.util.dictionary.EvaluationTargetType;
+import com.youthchina.util.dictionary.IsExistTargetType;
 
 import java.sql.Timestamp;
 
-public class Comment implements Evaluatable, Attentionable {
+public class Comment implements Evaluatable {
     private Integer id;
     private String content;
     private Integer isAnony;
@@ -16,8 +17,8 @@ public class Comment implements Evaluatable, Attentionable {
     private User user;
     private Integer targetType;
     private Integer targetId;
-    private static final Integer evaluateTargetType = 5;
-    private static final Integer attentionTargetType = 5;
+    private static final Integer evaluateTargetType = EvaluationTargetType.COMMENT;
+    private static final Integer isExistTargetType = IsExistTargetType.COMMENT;
 
     public Comment(){}
     public Comment(CommentRequestDTO commentRequestDTO){
@@ -31,8 +32,8 @@ public class Comment implements Evaluatable, Attentionable {
     }
 
     @Override
-    public Integer getAttentionTargetType() {
-        return attentionTargetType;
+    public Integer getExistType() {
+        return isExistTargetType;
     }
 
     public Integer getId() {

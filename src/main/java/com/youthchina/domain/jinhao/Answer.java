@@ -7,6 +7,7 @@ import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
+import com.youthchina.util.dictionary.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -22,10 +23,11 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     private User user;
     private Question question;
     private List<Comment> comments;
-    private static final Integer richTextRelaType = 4;
-    private static final Integer commentTargetType = 4;
-    private static final Integer evaluateTargetType = 7;
-    private static final Integer attentionTargetType = 7;
+    private static final Integer richTextRelaType = RichTextRelaType.ANSWER;
+    private static final Integer commentTargetType = CommentTargetType.ANSWER;
+    private static final Integer evaluateTargetType = EvaluationTargetType.ANSWER;
+    private static final Integer attentionTargetType = AttentionTargetType.ANSWER;
+    private static final Integer isExistTargetType = IsExistTargetType.ANSWER;
 
     public Answer(SimpleAnswerRequestDTO simpleAnswerDTO){
         this.body = new ComRichText(simpleAnswerDTO.getBody());
@@ -122,6 +124,11 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    @Override
+    public Integer getExistType() {
+        return isExistTargetType;
     }
 
     @Override
