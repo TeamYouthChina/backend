@@ -21,6 +21,7 @@ public class QuestionBasicDTO implements QuestionDTO{
     private Integer rela_type;
     private Integer rela_id;
     private RichTextResponseDTO body;
+    private boolean isAttention;
 
     public QuestionBasicDTO(Question question) {
         this.id = question.getId();
@@ -37,6 +38,7 @@ public class QuestionBasicDTO implements QuestionDTO{
         this.modified_at = question.getEditTime();
         this.rela_type = question.getRelaType();
         this.rela_id = question.getRelaId();
+        this.isAttention = question.isAttention();
     }
 
     public QuestionBasicDTO(){}

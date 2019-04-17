@@ -5,6 +5,8 @@ import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
+import com.youthchina.util.LoggedInUserUtil;
+import com.youthchina.util.dictionary.AttentionTargetType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,6 +64,7 @@ public class QuestionServiceImpl implements QuestionService {
         question.setUser(userService.get(question.getUser().getId()));
         richTextService.getComRichText(question);
         question.setAnswers(answerService.getAnswers(id));
+        question.setAttention(attentionService.isAttention(AttentionTargetType.QUESTION,question.getId(), LoggedInUserUtil.currentUser().getId()));
         return question;
     }
 
@@ -77,6 +80,7 @@ public class QuestionServiceImpl implements QuestionService {
             question.setAnswers(answerService.getAnswers(question.getId()));
             try {
                 question.setUser(userService.get(question.getUser().getId()));
+                question.setAttention(attentionService.isAttention(AttentionTargetType.QUESTION,question.getId(), LoggedInUserUtil.currentUser().getId()));
             } catch (NotFoundException e) {
 
             }
@@ -91,6 +95,8 @@ public class QuestionServiceImpl implements QuestionService {
         for(Question question : questions){
             try {
                 question.setUser(userService.get(question.getUser().getId()));
+                boolean b = attentionService.isAttention(AttentionTargetType.QUESTION,question.getId(), LoggedInUserUtil.currentUser().getId());
+                question.setAttention(b);
             } catch (NotFoundException e) {
 
             }

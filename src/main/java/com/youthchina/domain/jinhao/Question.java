@@ -27,6 +27,7 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
     private List<Answer> answers;
     private Integer relaType;
     private Integer relaId;
+    private boolean isAttention;
     private static final Integer richTextRelaType = RichTextRelaType.QUESTION;
     private static final Integer evaluateTargetType = EvaluationTargetType.QUESTION;
     private static final Integer attentionTargetType = AttentionTargetType.QUESTION;
@@ -157,4 +158,17 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
     public void setRelaId(Integer relaId) {
         this.relaId = relaId;
     }
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
+
+    public static Integer getIsExistTargetType() {
+        return isExistTargetType;
+    }
+
 }

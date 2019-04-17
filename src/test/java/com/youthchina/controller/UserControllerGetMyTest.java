@@ -81,24 +81,24 @@ public class UserControllerGetMyTest {
         ;
     }
 
-    @Test
-    public void getMyQuestionServiceTest() throws Exception {
-        Integer id = 1;
-        List<Question> questionList = questionService.getMyQuestion(id);
-        Assert.assertEquals(49, questionList.size());
-    }
+//    @Test
+//    public void getMyQuestionServiceTest() throws Exception {
+//        Integer id = 1;
+//        List<Question> questionList = questionService.getMyQuestion(id);
+//        Assert.assertEquals(49, questionList.size());
+//    }
 
-    @Test
-    public void getMyAnswerServiceTest() throws Exception {
-        Integer id = 1;
-        List<Answer> answerList = answerService.getMyAnswers(id);
-        Assert.assertEquals(0, answerList.size());
-
-        id = 5;
-        answerList = answerService.getMyAnswers(id);
-        Assert.assertEquals(13, answerList.size());
-
-    }
+//    @Test
+//    public void getMyAnswerServiceTest() throws Exception {
+//        Integer id = 1;
+//        List<Answer> answerList = answerService.getMyAnswers(id);
+//        Assert.assertEquals(0, answerList.size());
+//
+//        id = 5;
+//        answerList = answerService.getMyAnswers(id);
+//        Assert.assertEquals(13, answerList.size());
+//
+//    }
 
     @Test
     public void getMyEssayServiceTest() throws Exception {
