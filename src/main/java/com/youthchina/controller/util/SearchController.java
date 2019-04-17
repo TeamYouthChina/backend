@@ -15,7 +15,7 @@ import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
-import com.youthchina.dto.community.comment.CommentDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.job.JobResponseDTO;
@@ -81,7 +81,7 @@ public class SearchController {
                 return new BriefReviewResponseDTO((BriefReview) item.getDomain());
             }
             case "comment": {
-                return new CommentDTO((Comment) item.getDomain());
+                return new CommentResponseDTO((Comment) item.getDomain());
             }
             case "user": {
                 return new UserDTO((User) item.getDomain());

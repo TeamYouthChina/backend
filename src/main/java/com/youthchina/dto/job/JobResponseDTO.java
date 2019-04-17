@@ -27,29 +27,6 @@ public class JobResponseDTO implements ResponseDTO<Job> {
     private String job_description;
     private Boolean isCollected = false;
 
-    /*{
-  "content": {
-    "id": 0,
-    "name": "string",
-    "organization": {
-      "id": 0,
-      "name": "string",
-      "avatarUrl": "string",
-      "location": "string",
-      "website": "string",
-      "note": "string",
-      "nation": "string"
-    },
-    "location": "string",
-    "type": "full-time",
-    "deadLine": "string"
-  },
-  "status": {
-    "code": 0,
-    "reason": "string"
-  }
-}*/
-
     public JobResponseDTO() {
 
     }
@@ -61,10 +38,6 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.organization = company == null ? null : new OrganizationDTO(company);
         List<Location> locationList = job.getJobLocationList();
         if (locationList != null && locationList.size() > 0) {
-//            Location location = locationList.get(0);
-//            if (location != null) {
-//                this.location = location.getRegionName(); // 默认中文名
-//            }
             this.location = new ArrayList<>();
             for(Location location : locationList){
                 this.location.add("" + location.getRegionId());

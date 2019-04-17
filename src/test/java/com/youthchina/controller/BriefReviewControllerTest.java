@@ -56,7 +56,7 @@ public class BriefReviewControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":\"{\\\"braftEditorRaw\\\":{\\\"blocks\\\":[{\\\"key\\\":\\\"dtj4a\\\",\\\"text\\\":\\\"<有感于腾讯公司的发家史，总觉得腾讯背后有某种强大的力量，能靠微创新（也可称山寨）能发展到现如今的体量也算是世界奇观。靠模仿icq完成了资本的原始积累并实现了滚雪球，可以这么说腾讯的今天是一切都建立在oicq（qq）之上的，从qq堂，qq飞车，qq劲舞，腾讯的发家史就是一个复制粘贴史。。。并且发展到如今规模，企业文化还是坚强的延续下来，复制粘贴的企业文化从高层到底层，已深入骨髓，从领子烂到里子。。对创新型企业来说，腾讯如一颗毒瘤存在，注定不会得到大家尊重。>\\\",\\\"type\\\":\\\"unstyled\\\",\\\"depth\\\":0,\\\"inlineStyleRanges\\\":[],\\\"entityRanges\\\":[],\\\"data\\\":{}}],\\\"entityMap\\\":{}},\\\"previewText\\\":\\\"<在此填入你的文字>\\\",\\\"resourceIdList\\\":[]}\",\"previewText\":\"有感于腾讯公司的发家史，总觉得腾讯背后有某种强大的力量，能靠微创新（也可称山寨）能发展到现如今的体量也算是世界奇观。靠模仿icq完成了资本的原始积累并实现了滚雪球，可以这么说腾讯的今天是一切都建立在oicq（qq）之上的，从qq堂，qq飞车，qq劲舞，腾讯的发家史就是一个复制粘贴史。。。并且发展到如今规模，企业文化还是坚强的延续下来，复制粘贴的企业文化从高层到底层，已深入骨髓，从领子烂到里子。。对创新型企业来说，腾讯如一颗毒瘤存在，注定不会得到大家尊重。\",\"compiletype\":1},\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phonenumber\":\"9876543210123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"first_name\":\"DDD\",\"last_name\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":[\"ADMIN\"],\"age\":28},\"body\":\"短评评论1\",\"create_at\":\"2018-02-03T00:00:00.000+0000\",\"is_anonymous\":false,\"modified_at\":\"2018-02-03T00:00:00.000+0000\",\"upvoteCount\":null,\"downvoteCount\":null,\"evaluateStatus\":null}],\"author\":{\"id\":1,\"username\":\"Admin\",\"email\":\"123456@123.com\",\"phonenumber\":\"1234657890123\",\"register_date\":\"2019-01-01 00:00:00.0\",\"first_name\":\"Admin\",\"last_name\":\"Admin\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":[\"ROOT\"],\"age\":25},\"upvoteCount\":2,\"downvoteCount\":2,\"attentionCount\":4,\"evaluateStatus\":3,\"modified_at\":\"2019-01-01T00:00:00.000+0000\",\"attention\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":1,\"body\":{\"braftEditorRaw\":\"{\\\"braftEditorRaw\\\":{\\\"blocks\\\":[{\\\"key\\\":\\\"dtj4a\\\",\\\"text\\\":\\\"<有感于腾讯公司的发家史，总觉得腾讯背后有某种强大的力量，能靠微创新（也可称山寨）能发展到现如今的体量也算是世界奇观。靠模仿icq完成了资本的原始积累并实现了滚雪球，可以这么说腾讯的今天是一切都建立在oicq（qq）之上的，从qq堂，qq飞车，qq劲舞，腾讯的发家史就是一个复制粘贴史。。。并且发展到如今规模，企业文化还是坚强的延续下来，复制粘贴的企业文化从高层到底层，已深入骨髓，从领子烂到里子。。对创新型企业来说，腾讯如一颗毒瘤存在，注定不会得到大家尊重。>\\\",\\\"type\\\":\\\"unstyled\\\",\\\"depth\\\":0,\\\"inlineStyleRanges\\\":[],\\\"entityRanges\\\":[],\\\"data\\\":{}}],\\\"entityMap\\\":{}},\\\"previewText\\\":\\\"<在此填入你的文字>\\\",\\\"resourceIdList\\\":[]}\",\"previewText\":\"有感于腾讯公司的发家史，总觉得腾讯背后有某种强大的力量，能靠微创新（也可称山寨）能发展到现如今的体量也算是世界奇观。靠模仿icq完成了资本的原始积累并实现了滚雪球，可以这么说腾讯的今天是一切都建立在oicq（qq）之上的，从qq堂，qq飞车，qq劲舞，腾讯的发家史就是一个复制粘贴史。。。并且发展到如今规模，企业文化还是坚强的延续下来，复制粘贴的企业文化从高层到底层，已深入骨髓，从领子烂到里子。。对创新型企业来说，腾讯如一颗毒瘤存在，注定不会得到大家尊重。\",\"compiletype\":1},\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phone_number\":\"9876543210123\",\"register_date\":1546300800000,\"first_name\":\"DDD\",\"last_name\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":[\"ADMIN\"],\"age\":28},\"body\":\"短评评论1\",\"create_at\":1517616000000,\"is_anonymous\":false,\"modified_at\":1517616000000,\"upvoteCount\":null,\"downvoteCount\":null,\"evaluateStatus\":null}],\"author\":{\"id\":1,\"username\":\"Admin\",\"email\":\"123456@123.com\",\"phone_number\":\"1234657890123\",\"register_date\":1546300800000,\"first_name\":\"Admin\",\"last_name\":\"Admin\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":[\"ROOT\"],\"age\":25},\"upvoteCount\":2,\"downvoteCount\":2,\"attentionCount\":4,\"evaluateStatus\":3,\"modified_at\":1546300800000,\"attention\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
         // change register_date, real_name
     }
 
@@ -170,49 +170,7 @@ public class BriefReviewControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\n" +
-                        "  \"content\": {\n" +
-                        "    \"offset\": 0,\n" +
-                        "    \"limit\": 2147483646,\n" +
-                        "    \"data\": [\n" +
-                        "      {\n" +
-                        "        \"id\": 1,\n" +
-                        "        \"creator\": {\n" +
-                        "          \"id\": 2,\n" +
-                        "          \"username\": \"DEF\",\n" +
-                        "          \"email\": \"123456@456.com\",\n" +
-                        "          \"phonenumber\": \"9876543210123\",\n" +
-                        "          \"register_date\": \"2019-01-01 00:00:00.0\",\n" +
-                        "          \"first_name\": \"DDD\",\n" +
-                        "          \"last_name\": \"DDDEEEFFF\",\n" +
-                        "          \"gender\": \"Female\",\n" +
-                        "          \"nation\": \"USA\",\n" +
-                        "          \"avatar_url\": \"---\",\n" +
-                        "          \"role\": [\n" +
-                        "            \"ADMIN\"\n" +
-                        "          ],\n" +
-                        "          \"age\": 28\n" +
-                        "        },\n" +
-                        "        \"body\": \"短评评论1\",\n" +
-                        "        \"create_at\": \"2018-02-03T00:00:00.000+0000\",\n" +
-                        "        \"is_anonymous\": false,\n" +
-                        "        \"modified_at\": \"2018-02-03T00:00:00.000+0000\",\n" +
-                        "        \"upvoteCount\": 2,\n" +
-                        "        \"downvoteCount\": 2,\n" +
-                        "        \"evaluateStatus\": 3\n" +
-                        "      }\n" +
-                        "    ],\n" +
-                        "    \"page_count\": 0,\n" +
-                        "    \"item_count\": 1,\n" +
-                        "    \"page_index\": 0,\n" +
-                        "    \"is_first\": true,\n" +
-                        "    \"is_last\": false\n" +
-                        "  },\n" +
-                        "  \"status\": {\n" +
-                        "    \"code\": 2000,\n" +
-                        "    \"reason\": \"\"\n" +
-                        "  }\n" +
-                        "}", false));
+                .andExpect(content().json("{\"content\":{\"offset\":0,\"limit\":2147483646,\"data\":[{\"id\":1,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"phone_number\":\"9876543210123\",\"register_date\":1546300800000,\"first_name\":\"DDD\",\"last_name\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":[\"ADMIN\"],\"age\":28},\"body\":\"短评评论1\",\"create_at\":1517616000000,\"is_anonymous\":false,\"modified_at\":1517616000000,\"upvoteCount\":2,\"downvoteCount\":2,\"evaluateStatus\":3}],\"page_count\":0,\"item_count\":1,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
 
     }
 }
