@@ -1,5 +1,6 @@
 package com.youthchina.dto.community.question;
 
+import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextResponseDTO;
@@ -100,6 +101,7 @@ public class QuestionBasicDTO implements QuestionDTO{
         this.rela_id = rela_id;
     }
 
+    @JsonTimeStamp
     public Timestamp getCreate_at() {
         return create_at;
     }
@@ -108,6 +110,7 @@ public class QuestionBasicDTO implements QuestionDTO{
         this.create_at = create_at;
     }
 
+    @JsonTimeStamp
     public Timestamp getModified_at() {
         return modified_at;
     }

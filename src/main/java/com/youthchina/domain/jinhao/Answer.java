@@ -1,6 +1,9 @@
 package com.youthchina.domain.jinhao;
 
-import com.youthchina.domain.jinhao.property.*;
+import com.youthchina.domain.jinhao.property.Attentionable;
+import com.youthchina.domain.jinhao.property.Commentable;
+import com.youthchina.domain.jinhao.property.Evaluatable;
+import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;

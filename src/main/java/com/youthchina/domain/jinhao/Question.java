@@ -1,10 +1,16 @@
 package com.youthchina.domain.jinhao;
 
-import com.youthchina.domain.jinhao.property.*;
+import com.youthchina.domain.jinhao.property.Attentionable;
+import com.youthchina.domain.jinhao.property.Evaluatable;
+import com.youthchina.domain.jinhao.property.Invitable;
+import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.question.QuestionRequestDTO;
-import com.youthchina.util.dictionary.*;
+import com.youthchina.util.dictionary.AttentionTargetType;
+import com.youthchina.util.dictionary.EvaluationTargetType;
+import com.youthchina.util.dictionary.IsExistTargetType;
+import com.youthchina.util.dictionary.RichTextRelaType;
 
 import java.sql.Timestamp;
 import java.util.List;

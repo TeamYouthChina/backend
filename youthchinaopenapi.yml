@@ -6394,6 +6394,10 @@ paths:
             type: integer
       requestBody:
         description: "File to upload"
+        content:
+          appliction/json:
+            schema:
+              type: object
       responses:
         '200':
           description: "null"
@@ -6581,7 +6585,7 @@ components:
         - id
         - username
         - email
-        - phonenumber
+        - phone_number
         - register_date
         - real_name
         - gender
@@ -6595,10 +6599,11 @@ components:
         email:
           type: string
           format: email
-        phonenumber:
+        phone_number:
           type: string
         register_date:
-          type: string
+          type: integer
+          format: timestamp
         first_name:
           type: string
         last_name:
@@ -6962,9 +6967,11 @@ components:
             creator:
               $ref: '#/components/schemas/User'
             modified_at:
-              type: string
+              type: integer
+              format: timestamp
             create_at:
-              type: string
+              type: integer
+              format: timestamp
             id:
               type: integer
               description: answer id
@@ -6996,9 +7003,11 @@ components:
               type: integer
               description: question id
             create_at:
-              type: string
+              type: integer
+              format: timestamp
             modified_at:
-              type: string
+              type: integer
+              format: timestamp
             creator:
               $ref: '#/components/schemas/User'
     Question:
@@ -7041,11 +7050,13 @@ components:
           type: string
         create_at:
           type: integer
+          format: timestamp
         is_anonymous:
           type: boolean
           default: false
         modified_at:
-          type: string
+          type: integer
+          format: timestamp
         upvoteCount:
           type: integer
         downvoteCount:
@@ -7088,9 +7099,11 @@ components:
         company:
           $ref: '#/components/schemas/Company'
         create_at:
-          type: string
+          type: integer
+          format: timestamp
         modified_at:
-          type: string
+          type: integer
+          format: timestamp
         author:
           $ref: '#/components/schemas/User'
         body:
@@ -7127,7 +7140,8 @@ components:
         author:
           $ref: '#/components/schemas/User'
         modified_at:
-          type: string
+          type: integer
+          format: timestamp
     ContentRequestWithCompany:
       properties:
         body:
@@ -7167,11 +7181,13 @@ components:
         body:
           type: string
         create_at:
-          type: string
+          type: integer
+          format: timestamp
         is_anonymous:
           type: boolean
         modified_at:
-          type: string
+          type: integer
+          format: timestamp
         upvoteCount:
           type: integer
         downvoteCount:
@@ -7189,10 +7205,9 @@ components:
         reference_id:
           type: integer
         create_at:
-          type: string
+          type: integer
+          format: timestamp
         applicant:
           $ref: '#/components/schemas/User'
         is_read:
           type: boolean
-      
-      

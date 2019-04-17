@@ -55,38 +55,7 @@ public class JobResponseDTO implements ResponseDTO<Job> {
     }
 
     public JobResponseDTO(Job job) {
-        this.id = job.getJobId();
-        this.name = job.getJobName();
-        Company company = job.getCompany();
-        this.organization = company == null ? null : new OrganizationDTO(company);
-        List<Location> locationList = job.getJobLocationList();
-        if (locationList != null && locationList.size() > 0) {
-//            Location location = locationList.get(0);
-//            if (location != null) {
-//                this.location = location.getRegionName(); // 默认中文名
-//            }
-            this.location = new ArrayList<>();
-            for(Location location : locationList){
-                this.location.add("" + location.getRegionId());
-            }
-        }
-        int jobType = job.getJobType();
-
-
-        switch (jobType){
-            case Job.internJobType: this.type = "实习"; break;
-            case Job.partJobType: this.type = "兼职"; break;
-            case Job.fullJobType: this.type = "全职"; break;
-        }
-
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        this.startTime = df.format(job.getJobStartTime());
-        this.deadLine = df.format(job.getJobEndTime());
-        this.job_duty = job.getJobDuty();
-        this.job_description = job.getJobDescription();
-        if(job.getCollected() != null){
-            this.isCollected = job.getCollected();
-        }
+        this.convertToDTO(job);
     }
 
 
