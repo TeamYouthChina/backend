@@ -17,6 +17,7 @@ import com.youthchina.service.community.AnswerServiceImpl;
 import com.youthchina.service.community.AttentionServiceImpl;
 import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
+import com.youthchina.util.dictionary.AttentionTargetType;
 import com.youthchina.util.dictionary.CommentTargetType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +49,7 @@ public class AnswerController {
         simpleAnswerResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
         simpleAnswerResponseDTO.setUpvoteCount(evaluateService.countUpvote(answer));
         simpleAnswerResponseDTO.setDownvoteCount(evaluateService.countDownvote(answer));
-        simpleAnswerResponseDTO.setAttention((attentionService.isEverAttention(answer, user.getId())) != 0);
+        simpleAnswerResponseDTO.setAttention((attentionService.isAttention(AttentionTargetType.ANSWER,answer.getId(),user.getId())));
         return ResponseEntity.ok(new Response(simpleAnswerResponseDTO, new StatusDTO(200,"success")));
 
     }

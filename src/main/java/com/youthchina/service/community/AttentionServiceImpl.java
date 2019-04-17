@@ -56,6 +56,14 @@ public class AttentionServiceImpl implements AttentionService {
     }
 
     @Override
+    public boolean isAttention(Integer targetType, Integer targetId, Integer userId) {
+        Attention attention = attentionMapper.isAttention(targetType, targetId, userId);
+        if(attention==null)
+            return false;
+        return attention.getIsCancel()==0? true:false;
+    }
+
+    @Override
     public Integer isEverAttention(Attentionable entity, Integer userId) {
         Attention attention = attentionMapper.isEverAttention(entity.getAttentionTargetType(), entity.getId(), userId);
         if (attention == null) {
