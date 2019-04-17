@@ -92,11 +92,11 @@ public class JobServiceImpl implements JobService {
         if (locationList != null) {
             for (int i = 0; i < locationList.size(); i++) {
 
-                Integer regionNum = locationList.get(i).getRegionNum();
-                if(regionNum < 100000){
-                    regionNum += 900000;
+                Integer regionId = locationList.get(i).getRegionId();
+                if(regionId < 100000){
+                    regionId += 900000;
                 }
-                locationList.set(i, locationServiceImpl.getLocation(regionNum));
+                locationList.set(i, locationServiceImpl.getLocation(regionId));
             }
         }
 

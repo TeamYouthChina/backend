@@ -300,7 +300,7 @@ public class StudentProfileController {
     public void testGetExperiences() throws Exception {
 
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/7/experiences")
+                get(this.urlPrefix + "/applicants/10/experiences")
                         .with(authGenerator.authentication(Role.APPLICANT, 7))
         )
                 .andDo(print())
@@ -342,6 +342,13 @@ public class StudentProfileController {
         )
                 .andDo(print())
         ;
+        this.mvc.perform(
+                get(this.urlPrefix + "/applicants/10/experiences")
+                        .with(authGenerator.authentication(Role.APPLICANT, 7))
+        )
+                .andDo(print())
+//                .andExpect(content().json("{\"content\":[{\"employer\":\"Facebook\",\"position\":\"SDE\",\"duration\":{\"begin\":\"2017-09-11T00:00:00.000+0000\",\"end\":\"2018-10-11T00:00:00.000+0000\"},\"location\":\"中国江苏\",\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+        ;
 
     }
 
@@ -357,7 +364,7 @@ public class StudentProfileController {
     public void testUpdateWork() throws Exception {
         LocationDTO locationDTO = new LocationDTO();
         locationDTO.setNation_code("CHN");
-        locationDTO.setLocation_code("");
+        locationDTO.setLocation_code("210000");
         WorkRequestDTO workRequestDTO = new WorkRequestDTO();
         workRequestDTO.setId(6);
         workRequestDTO.setEmployer("amazon");
