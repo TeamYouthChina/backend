@@ -37,36 +37,7 @@ public class JobServiceImpl implements JobService {
     }
 
     /**
-     * 删除职位 TODO: 通过HrId 确认其有删除权限
-     *
-     * @param user  Hr
-     * @param jobId 职位Id
-     * @throws NotFoundException
-     */
-    @Override
-    @Transactional
-    public void delete(User user, Integer jobId) throws NotFoundException {
-        jobMapper.deleteJob(jobId);
-    }
-
-    /**
-     * 职位详情 TODO: 通过HrId 确认其有权限
-     *
-     * @param user  Hr
-     * @param jobId 职位Id
-     * @return
-     * @throws NotBelongException
-     */
-    @Override
-    @Transactional
-    public Job getByHr(User user, Integer jobId) throws NotBelongException {
-        Job result = jobMapper.selectJobByJobId(jobId);
-        setJobLocation(result);
-        return result;
-    }
-
-    /**
-     * 职位详情
+     * 通过职位Id 获取职位详情
      *
      * @param id JobId
      * @return Job Detail
@@ -77,7 +48,9 @@ public class JobServiceImpl implements JobService {
     public Job get(Integer id) throws NotFoundException {
         Job job = jobMapper.selectJobByJobId(id);
         if(job == null) throw new NotFoundException(4040,404,"No such Job");
+        //获取职位的时候返回所属公司信息
         job.setCompany(companyCURDServiceImpl.get(job.getCompany().getCompanyId()));
+        //设置该职位Location
         setJobLocation(job);
         return job;
     }
@@ -134,7 +107,8 @@ public class JobServiceImpl implements JobService {
         jobMapper.deleteJobIndustry(job.getJobId());
         jobMapper.deleteJobDegree(job.getJobId());
         jobMapper.deleteJobLogo(job.getJobId());
-        return this.addRelatedInfo(job);
+        this.addRelatedInfo(job);
+        return this.get(job.getJobId());
     }
 
     /**
@@ -147,11 +121,16 @@ public class JobServiceImpl implements JobService {
     @Transactional
     public Job add(Job entity) throws NotFoundException {
         Integer result = jobMapper.insertJob(entity);
-        return addRelatedInfo(entity);
+        this.addRelatedInfo(entity);
+        return this.get(entity.getJobId());
     }
 
-
-    private Job addRelatedInfo(Job job) throws NotFoundException{
+    /**
+     * 在添加&删除的时候, 添加关联表相关信息
+     * @param job
+     * @throws NotFoundException
+     */
+    private void addRelatedInfo(Job job) throws NotFoundException{
         List<Industry> industryList = job.getIndustries();
         if(industryList != null && industryList.size() > 0){
             jobMapper.insertJobIndustry(industryList);
@@ -168,10 +147,9 @@ public class JobServiceImpl implements JobService {
         if( logoList != null && logoList.size() > 0 ){
             jobMapper.insertJobLogo(job.getId(), logoList);
         }
-        return this.get(job.getJobId());
     }
 
-    /**
+    /**暂时不用
      * Job Advanced Search 高级搜索, 返回职位详情List
      *
      * @param jobId        职位ID
@@ -206,6 +184,12 @@ public class JobServiceImpl implements JobService {
         return results;
     }
 
+    /**
+     * 获取该User发布的职位
+     * @param userId
+     * @return
+     * @throws NotFoundException
+     */
     @Override
     public List<Job> getJobByUserId(Integer userId) throws NotFoundException {
         List<Job> jobList = jobMapper.getJobByUserId(userId);
@@ -219,11 +203,24 @@ public class JobServiceImpl implements JobService {
         return jobList;
     }
 
+    /**
+     * 该stuId 是否收藏了这个职位
+     * @param jobId
+     * @param stuId
+     * @return
+     */
     public Boolean isCollected(Integer jobId, Integer stuId){
         Integer result = jobMapper.isCollect(jobId,stuId);
         return  result != null;
     }
 
+    /**
+     * 通过职位Id, 获取职位, 并判读是否被该User收藏
+     * @param jobId
+     * @param userId
+     * @return
+     * @throws NotFoundException
+     */
     @Override
     public Job getJobWithCollected(Integer jobId, Integer userId) throws NotFoundException {
        Job job = this.get(jobId);
@@ -233,6 +230,13 @@ public class JobServiceImpl implements JobService {
         return job;
     }
 
+    /**
+     * 通过职位Id的List, 获取职位, 并判断是否被该User收藏
+     * @param idList
+     * @param userId
+     * @return
+     * @throws NotFoundException
+     */
     public List<Job> getJobListWithCollected(List<Integer> idList, Integer userId) throws NotFoundException {
         List<Job> jobList = new ArrayList<Job>();
         for (Integer jobId: idList) {

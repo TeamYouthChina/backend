@@ -61,6 +61,13 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
         return new URI(this.url + id.toString());
     }
 
+    /**
+     * 添加公司
+     * @param user
+     * @param company
+     * @return
+     * @throws NotFoundException
+     */
     @PostMapping("/")
     @ResponseBodyDTO(CompanyResponseDTO.class)
     public ResponseEntity<?> createCompanyInfo(@AuthenticationPrincipal User user, @RequestBodyDTO(CompanyRequestDTO.class) Company company) throws NotFoundException {
@@ -68,6 +75,14 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
         return add(company);
     }
 
+    /**
+     * 更新公司
+     * @param id
+     * @param user
+     * @param company
+     * @return
+     * @throws NotFoundException
+     */
     @PutMapping("/{id}")
     @ResponseBodyDTO(CompanyResponseDTO.class)
     public ResponseEntity<?> updateCompanyInfo(@PathVariable Integer id, @AuthenticationPrincipal User user, @RequestBodyDTO(CompanyRequestDTO.class) Company company) throws NotFoundException {
@@ -76,6 +91,14 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
         return update(company);
     }
 
+    /**
+     * 获取公司
+     * @param companyId
+     * @param detailLevel
+     * @param user
+     * @return
+     * @throws BaseException
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getCompanyDetail(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, @AuthenticationPrincipal User user) throws BaseException {
         Company company = null ;
@@ -90,6 +113,14 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
         throw new BaseException();
     }
 
+    /**
+     * 获取公司下属职位 (未对DeadLine 进行判断)
+     * @param companyId
+     * @param user
+     * @param pageRequest
+     * @return
+     * @throws BaseException
+     */
     @GetMapping("/{id}/jobs")
     public ResponseEntity<?> getAllJobsOfOneCompany(@PathVariable(name = "id") Integer companyId, @AuthenticationPrincipal User user, PageRequest pageRequest) throws BaseException {
         List<Job> jobList = companyService.getJobsByCompanyId(companyId,user.getId());
@@ -103,15 +134,24 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
 
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCompany(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, @AuthenticationPrincipal User user) throws BaseException {
-//        this.companyService.delete(companyId);
-//        if (detailLevel == 1) {
-//            return ResponseEntity.ok(new Response());
-//        }
-//        throw new BaseException();
-        return delete(companyId);
-    }
+    /**
+     * 删除公司 (暂时关闭)
+     * @param companyId
+     * @param detailLevel
+     * @param user
+     * @return
+     * @throws BaseException
+     */
+//    @DeleteMapping("/{id}/none/none/none")
+//    public ResponseEntity<?> deleteCompany(@PathVariable(name = "id") Integer companyId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, @AuthenticationPrincipal User user) throws BaseException {
+////        this.companyService.delete(companyId);
+////        if (detailLevel == 1) {
+////            return ResponseEntity.ok(new Response());
+////        }
+////        throw new BaseException();
+//
+//        return delete(companyId);
+//    }
 
     /**
      * @Description: 通过company_id以及user_id添加公司收藏
