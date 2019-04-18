@@ -195,7 +195,7 @@ public class CompanyControllerTest {
         Integer userId = 1;
         List<Job> jobList = companyCURDService.getJobsByCompanyId(comId, userId);
         Job job = jobService.get(1);
-        job.setJobEndTime(Date.valueOf("1999-01-01"));
+        job.setJobEndTime(Date.valueOf("2019-04-17"));
         job.setJobName("TestDDL");
         jobService.add(job);
         job = jobService.get(job.getId());

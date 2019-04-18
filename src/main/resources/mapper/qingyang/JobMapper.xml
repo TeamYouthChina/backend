@@ -278,7 +278,7 @@
         <include refid="jobSelect"/>
         FROM JOB_INFO j
         <include refid="jobJoin"/>
-        WHERE j.IS_DELETE = 0 AND j.COMPANY_ID = #{id} AND j.JOB_END_TIME > NOW()
+        WHERE j.IS_DELETE = 0 AND j.COMPANY_ID = #{id} AND j.JOB_END_TIME > CURRENT_DATE()
     </select>
 
     <select id = "isCollect" resultType="Integer">
