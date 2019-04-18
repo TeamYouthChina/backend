@@ -6,6 +6,7 @@ import com.youthchina.domain.jinhao.Discuss;
 import com.youthchina.domain.jinhao.property.Commentable;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
+import com.youthchina.util.LoggedInUserUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +42,9 @@ public class CommentServiceImpl implements CommentService {
         for (Comment comment : comments) {
             try {
                 comment.setUser(userService.get(comment.getUser().getId()));
+                comment.setEvaluateStatus(evaluateService.evaluateStatus(comment, LoggedInUserUtil.currentUser().getId()));
+                comment.setUpvoteCount(evaluateService.countUpvote(comment));
+                comment.setDownvoteCount(evaluateService.countDownvote(comment));
             } catch (NotFoundException e) {
             }
         }
@@ -53,6 +57,9 @@ public class CommentServiceImpl implements CommentService {
         for (Comment comment : comments) {
             try {
                 comment.setUser(userService.get(comment.getUser().getId()));
+                comment.setEvaluateStatus(evaluateService.evaluateStatus(comment,LoggedInUserUtil.currentUser().getId()));
+                comment.setUpvoteCount(evaluateService.countUpvote(comment));
+                comment.setDownvoteCount(evaluateService.countDownvote(comment));
             } catch (NotFoundException e) {
             }
         }
@@ -65,7 +72,11 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> comments = new ArrayList<>();
         for(Integer id : ids){
             try {
-                comments.add(get(id));
+                Comment comment = get(id);
+                comment.setEvaluateStatus(evaluateService.evaluateStatus(comment,LoggedInUserUtil.currentUser().getId()));
+                comment.setUpvoteCount(evaluateService.countUpvote(comment));
+                comment.setDownvoteCount(evaluateService.countDownvote(comment));
+                comments.add(comment);
             } catch (NotFoundException e) {
 
             }
@@ -120,6 +131,9 @@ public class CommentServiceImpl implements CommentService {
             throw new NotFoundException(404, 404, "This comment dose not exist!");
         }
         comment.setUser(userService.get(comment.getUser().getId()));
+        comment.setEvaluateStatus(evaluateService.evaluateStatus(comment,LoggedInUserUtil.currentUser().getId()));
+        comment.setUpvoteCount(evaluateService.countUpvote(comment));
+        comment.setDownvoteCount(evaluateService.countDownvote(comment));
         return comment;
     }
 

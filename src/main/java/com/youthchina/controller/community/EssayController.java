@@ -63,11 +63,6 @@ public class EssayController {
             throw new NotFoundException(4040, 404, "没有找到这个文章");
         }
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
-        essayResponseDTO.setAttentionCount(attentionService.countAttention(comEssay));
-        essayResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(comEssay, user.getId()));
-        essayResponseDTO.setUpvoteCount(evaluateService.countUpvote(comEssay));
-        essayResponseDTO.setDownvoteCount(evaluateService.countDownvote(comEssay));
-        essayResponseDTO.setAttention(attentionService.isAttention(AttentionTargetType.ESSAY,comEssay.getId(), user.getId()));
         if (comEssay.getRelaType() == RelaType.COMPANY) {
             try {
                 essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId())));
@@ -151,9 +146,6 @@ public class EssayController {
             Iterator it = comments.iterator();
             while (it.hasNext()) {
                 CommentResponseDTO commentResponseDTO = new CommentResponseDTO((Comment) it.next());
-                commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(comEssay));
-                commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(comEssay));
-                commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(comEssay, user.getId()));
                 commentResponseDTOS.add(commentResponseDTO);
             }
         }
