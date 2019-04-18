@@ -1,6 +1,7 @@
 package com.youthchina.controller.community;
 
 import com.youthchina.annotation.RequestBodyDTO;
+import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.zhongyang.User;
@@ -9,16 +10,16 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
-import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.community.AnswerServiceImpl;
 import com.youthchina.service.community.AttentionServiceImpl;
 import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
+import com.youthchina.util.dictionary.AttentionTargetType;
 import com.youthchina.util.dictionary.CommentTargetType;
-import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -45,11 +46,6 @@ public class AnswerController {
     public ResponseEntity getAnswer(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException{
         Answer answer = answerService.get(id);
         SimpleAnswerResponseDTO simpleAnswerResponseDTO = new SimpleAnswerResponseDTO(answer);
-        simpleAnswerResponseDTO.setAttentionCount(attentionService.countAttention(answer));
-        simpleAnswerResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
-        simpleAnswerResponseDTO.setUpvoteCount(evaluateService.countUpvote(answer));
-        simpleAnswerResponseDTO.setDownvoteCount(evaluateService.countDownvote(answer));
-        simpleAnswerResponseDTO.setAttention((attentionService.isEverAttention(answer, user.getId())) != 0);
         return ResponseEntity.ok(new Response(simpleAnswerResponseDTO, new StatusDTO(200,"success")));
 
     }
@@ -72,8 +68,6 @@ public class AnswerController {
     @PostMapping("/{id}/comments")
     public ResponseEntity addAnswerComment(@PathVariable Integer id, @RequestBodyDTO(CommentRequestDTO.class) Comment comment, @AuthenticationPrincipal User user) throws NotFoundException {
         comment.setUser(user);
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-        comment.setPubTime(time);
         comment.setTargetId(id);
         comment.setTargetType(CommentTargetType.ANSWER);
         Answer answer = new Answer();
@@ -83,21 +77,11 @@ public class AnswerController {
     }
 
     @GetMapping("/{id}/comments")
+    @ResponseBodyDTO(CommentResponseDTO.class)
     public ResponseEntity getAnswerComments(@PathVariable Integer id, PageRequest pageRequest,@AuthenticationPrincipal User user) throws NotFoundException {
         Answer answer = answerService.get(id);
         List<Comment> comments = commentService.getComments(answer);
-        List<CommentDTO> commentDTOS = new ArrayList<>();
-        if(comments!=null) {
-            Iterator it = comments.iterator();
-            while (it.hasNext()) {
-                CommentDTO commentDTO = new CommentDTO((Comment) it.next());
-                commentDTO.setUpvoteCount(evaluateService.countUpvote(answer));
-                commentDTO.setDownvoteCount(evaluateService.countDownvote(answer));
-                commentDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
-                commentDTOS.add(commentDTO);
-            }
-        }
-        ListResponse listResponse = new ListResponse(pageRequest, commentDTOS.size(), commentDTOS);
+        ListResponse listResponse = new ListResponse(pageRequest, comments);
         return ResponseEntity.ok(listResponse);
     }
 

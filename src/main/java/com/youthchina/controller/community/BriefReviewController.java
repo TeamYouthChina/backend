@@ -1,16 +1,18 @@
 package com.youthchina.controller.community;
 
 import com.youthchina.annotation.RequestBodyDTO;
+import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.applicant.ResumeJsonResponseDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
-import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.community.AttentionServiceImpl;
@@ -18,6 +20,7 @@ import com.youthchina.service.community.BriefReviewServiceImplement;
 import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
 import com.youthchina.service.user.UserServiceImpl;
+import com.youthchina.util.dictionary.AttentionTargetType;
 import com.youthchina.util.dictionary.CommentTargetType;
 import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,11 +58,22 @@ public class BriefReviewController {
         BriefReview briefReview = briefReviewServiceImplement.get(id);
 
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReview);
-        briefReviewResponseDTO.setAttentionCount(attentionService.countAttention(briefReview));
-        briefReviewResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
-        briefReviewResponseDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
-        briefReviewResponseDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
-        briefReviewResponseDTO.setAttention((attentionService.isEverAttention(briefReview,user.getId()))==0? false:true);
+
+        List<Comment> comments =  briefReview.getComments();
+        List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
+        if (comments!= null) {
+            Iterator it = comments.iterator();
+            while (it.hasNext()) {
+                Comment comment = (Comment) it.next();
+                CommentResponseDTO commentResponseDTO = new CommentResponseDTO(comment);
+                commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(comment));
+                commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(comment));
+                commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(comment,user.getId()));
+                commentResponseDTOS.add(commentResponseDTO);
+            }
+        }
+        briefReviewResponseDTO.setComments(commentResponseDTOS);
+        briefReviewResponseDTO.setAttention(attentionService.isAttention(AttentionTargetType.BRIEFREVIEW,briefReview.getId(),user.getId()));
         if (briefReviewResponseDTO != null)
             return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(200, "success")));
         else
@@ -146,23 +160,13 @@ public class BriefReviewController {
     }
 
     @GetMapping("/{id}/comments")
+    @ResponseBodyDTO(CommentResponseDTO.class)
     public ResponseEntity getBriefReviewComments(@PathVariable Integer id, @AuthenticationPrincipal User user, PageRequest pageRequest) throws NotFoundException {
        BriefReview briefReview = new BriefReview();
        briefReview.setId(id);
        briefReview.setUser(user);
        List<Comment> comments =  commentService.getComments(briefReview);
-        List<CommentDTO> commentDTOS = new ArrayList<>();
-        if (comments!= null) {
-            Iterator it = comments.iterator();
-            while (it.hasNext()) {
-                CommentDTO commentDTO = new CommentDTO((Comment) it.next());
-                commentDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
-                commentDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
-                commentDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
-                commentDTOS.add(commentDTO);
-            }
-        }
-        ListResponse listResponse = new ListResponse(pageRequest, commentDTOS.size(), commentDTOS);
+        ListResponse listResponse = new ListResponse(pageRequest, comments);
         return ResponseEntity.ok(listResponse);
     }
 

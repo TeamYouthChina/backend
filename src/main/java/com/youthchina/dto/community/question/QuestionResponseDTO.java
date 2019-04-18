@@ -1,5 +1,6 @@
 package com.youthchina.dto.community.question;
 
+import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.dto.ResponseDTO;
@@ -50,6 +51,7 @@ public class QuestionResponseDTO implements ResponseDTO<Question>, QuestionDTO {
                 this.answers.add(new AnswerBasicDTO(answer));
             }
         }
+        this.isAttention = question.isAttention();
 
     }
 
@@ -123,6 +125,7 @@ public class QuestionResponseDTO implements ResponseDTO<Question>, QuestionDTO {
         this.rela_id = rela_id;
     }
 
+    @JsonTimeStamp
     public Timestamp getCreate_at() {
         return create_at;
     }
@@ -131,6 +134,7 @@ public class QuestionResponseDTO implements ResponseDTO<Question>, QuestionDTO {
         this.create_at = create_at;
     }
 
+    @JsonTimeStamp
     public Timestamp getModified_at() {
         return modified_at;
     }

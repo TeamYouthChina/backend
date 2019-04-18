@@ -6,7 +6,6 @@ import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.ResponseDTO;
-import com.youthchina.dto.applicant.OrganizationDTO;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -14,12 +13,11 @@ import java.util.List;
 
 /**
  * @author: Qingyang Zhao
- * @create: 2019-02-24
+ * @create: 2019-04-17
  **/
-public class JobResponseDTO implements ResponseDTO<Job> {
+public class JobNoCompanyDTO implements ResponseDTO<Job>{
     private int id;
     private String name;
-    private OrganizationDTO organization;
     private List<String> location;
     private String type;
     private Timestamp startTime;
@@ -27,38 +25,6 @@ public class JobResponseDTO implements ResponseDTO<Job> {
     private String job_duty;
     private String job_description;
     private Boolean isCollected = false;
-
-    /*{
-  "content": {
-    "id": 0,
-    "name": "string",
-    "organization": {
-      "id": 0,
-      "name": "string",
-      "avatarUrl": "string",
-      "location": "string",
-      "website": "string",
-      "note": "string",
-      "nation": "string"
-    },
-    "location": "string",
-    "type": "full-time",
-    "deadLine": "string"
-  },
-  "status": {
-    "code": 0,
-    "reason": "string"
-  }
-}*/
-
-    public JobResponseDTO() {
-
-    }
-
-    public JobResponseDTO(Job job) {
-        this.convertToDTO(job);
-    }
-
 
     public int getId() {
         return id;
@@ -76,23 +42,6 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.name = name;
     }
 
-    public OrganizationDTO getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(OrganizationDTO organization) {
-        this.organization = organization;
-    }
-
-//    public String getLocation() {
-//        return location;
-//    }
-//
-//    public void setLocation(String location) {
-//        this.location = location;
-//    }
-
-
     public List<String> getLocation() {
         return location;
     }
@@ -107,6 +56,16 @@ public class JobResponseDTO implements ResponseDTO<Job> {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @JsonProperty("start_time")
+    @JsonTimeStamp
+    public Timestamp getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
     }
 
     @JsonProperty("dead_line")
@@ -135,16 +94,6 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.job_description = job_description;
     }
 
-    @JsonProperty("start_time")
-    @JsonTimeStamp
-    public Timestamp getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
-    }
-
     public Boolean getCollected() {
         return isCollected;
     }
@@ -158,13 +107,8 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         this.id = job.getJobId();
         this.name = job.getJobName();
         Company company = job.getCompany();
-        this.organization = company == null ? null : new OrganizationDTO(company);
         List<Location> locationList = job.getJobLocationList();
         if (locationList != null && locationList.size() > 0) {
-//            Location location = locationList.get(0);
-//            if (location != null) {
-//                this.location = location.getRegionName(); // 默认中文名
-//            }
             this.location = new ArrayList<>();
             for(Location location : locationList){
                 this.location.add("" + location.getRegionId());
@@ -178,7 +122,6 @@ public class JobResponseDTO implements ResponseDTO<Job> {
             case Job.fullJobType: this.type = "全职"; break;
         }
 
-
         this.startTime = new Timestamp(job.getJobStartTime().getTime());
         this.deadLine = new Timestamp(job.getJobEndTime().getTime());
         this.job_duty = job.getJobDuty();
@@ -188,17 +131,13 @@ public class JobResponseDTO implements ResponseDTO<Job> {
         }
     }
 
-    public List<JobResponseDTO> convertToDTO(List<Job> jobList){
-        if(jobList != null && jobList.size() > 0){
-            List<JobResponseDTO> jobResponseDTOList = new ArrayList<>();
-            for(Job job : jobList){
-                JobResponseDTO jobResponseDTO = new JobResponseDTO();
-                jobResponseDTO.convertToDTO(job);
-                jobResponseDTOList.add(jobResponseDTO);
-            }
-            return jobResponseDTOList;
-        } else {
-            return null;
+    public List<JobNoCompanyDTO> convertToDTO(List<Job> jobList) {
+        List<JobNoCompanyDTO> jobNoCompanyDTOList = new ArrayList<>();
+        for (Job job : jobList){
+            JobNoCompanyDTO jobNoCompanyDTO = new JobNoCompanyDTO();
+            jobNoCompanyDTO.convertToDTO(job);
+            jobNoCompanyDTOList.add(jobNoCompanyDTO);
         }
+        return jobNoCompanyDTOList;
     }
 }

@@ -6,10 +6,9 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.comment.CommentDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.community.discuss.DiscussRequestDTO;
 import com.youthchina.dto.community.discuss.DiscussResponseDTO;
-import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.community.CommentService;
@@ -90,16 +89,12 @@ public class CommentController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getComment(@PathVariable Integer id, @AuthenticationPrincipal User user) throws Exception{
         Comment comment = commentService.get(id);
-        CommentDTO commentDTO = new CommentDTO(comment);
-        commentDTO.setCreator(new UserDTO(user));
-        commentDTO.setEvaluateStatus(evaluateService.evaluateStatus(comment,user.getId()));
-        commentDTO.setUpvoteCount(evaluateService.countUpvote(comment));
-        commentDTO.setDownvoteCount(evaluateService.countDownvote(comment));
+        CommentResponseDTO commentResponseDTO = new CommentResponseDTO(comment);
 
-        if (commentDTO != null)
-            return ResponseEntity.ok(new Response(commentDTO, new StatusDTO(200, "success")));
+        if (commentResponseDTO != null)
+            return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200, "success")));
         else
-            return ResponseEntity.ok(new Response(commentDTO, new StatusDTO(400, "fail")));
+            return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(400, "fail")));
     }
 
     @DeleteMapping({"/{id}/vote"})

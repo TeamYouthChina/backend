@@ -1,9 +1,10 @@
 package com.youthchina.dto.community.briefreview;
 
+import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.dto.ResponseDTO;
-import com.youthchina.dto.community.comment.CommentDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.RichTextResponseDTO;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
     private Integer id;
     private RichTextResponseDTO body;
-    private List<CommentDTO> comments = new ArrayList<>();
+    private List<CommentResponseDTO> comments = new ArrayList<>();
     private UserDTO author;
     private Integer upvoteCount;
     private Integer downvoteCount;
@@ -34,12 +35,17 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
             Iterator it = briefReview.getComments().iterator();
             while (it.hasNext()) {
                 Comment comment = (Comment) it.next();
-                CommentDTO commentDTO = new CommentDTO(comment);
-                comments.add(commentDTO);
+                CommentResponseDTO commentResponseDTO = new CommentResponseDTO(comment);
+                comments.add(commentResponseDTO);
             }
         }
         this.author = new UserDTO(briefReview.getUser());
         this.modified_at = briefReview.getTime();
+        this.upvoteCount = briefReview.getUpvoteCount();
+        this.downvoteCount = briefReview.getDownvoteCount();
+        this.attentionCount = briefReview.getAttentionCount();
+        this.isAttention = briefReview.isAttention();
+        this.evaluateStatus = briefReview.getEvaluateStatus();
     }
 
     public BriefReviewResponseDTO() {
@@ -61,14 +67,15 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
         this.body = body;
     }
 
-    public List<CommentDTO> getComments() {
+    public List<CommentResponseDTO> getComments() {
         return comments;
     }
 
-    public void setComments(List<CommentDTO> comments) {
+    public void setComments(List<CommentResponseDTO> comments) {
         this.comments = comments;
     }
 
+    @JsonTimeStamp
     public Timestamp getModified_at() {
         return modified_at;
     }
@@ -134,11 +141,16 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
             Iterator it = briefReview.getComments().iterator();
             while (it.hasNext()) {
                 Comment comment = (Comment) it.next();
-                CommentDTO commentDTO = new CommentDTO(comment);
-                comments.add(commentDTO);
+                CommentResponseDTO commentResponseDTO = new CommentResponseDTO(comment);
+                comments.add(commentResponseDTO);
             }
         }
 
         this.author = new UserDTO(briefReview.getUser());
+        this.upvoteCount = briefReview.getUpvoteCount();
+        this.downvoteCount = briefReview.getDownvoteCount();
+        this.attentionCount = briefReview.getAttentionCount();
+        this.isAttention = briefReview.isAttention();
+        this.evaluateStatus = briefReview.getEvaluateStatus();
     }
 }

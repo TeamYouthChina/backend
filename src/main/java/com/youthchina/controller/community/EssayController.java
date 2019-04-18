@@ -10,8 +10,8 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.article.EssayRequestDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
-import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
@@ -21,6 +21,7 @@ import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EssayServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
 import com.youthchina.service.user.UserServiceImpl;
+import com.youthchina.util.dictionary.AttentionTargetType;
 import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -62,11 +63,6 @@ public class EssayController {
             throw new NotFoundException(4040, 404, "没有找到这个文章");
         }
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
-        essayResponseDTO.setAttentionCount(attentionService.countAttention(comEssay));
-        essayResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(comEssay, user.getId()));
-        essayResponseDTO.setUpvoteCount(evaluateService.countUpvote(comEssay));
-        essayResponseDTO.setDownvoteCount(evaluateService.countDownvote(comEssay));
-        essayResponseDTO.setAttention((attentionService.isEverAttention(comEssay, user.getId())) == 0 ? false : true);
         if (comEssay.getRelaType() == RelaType.COMPANY) {
             try {
                 essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId())));
@@ -127,7 +123,7 @@ public class EssayController {
     }
 
     @PostMapping("/{id}/comments")
-    @ResponseBodyDTO(CommentDTO.class)
+    @ResponseBodyDTO(CommentResponseDTO.class)
     public ResponseEntity addEssayComments(@PathVariable Integer id, @RequestBodyDTO(CommentRequestDTO.class) Comment comment, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay essay = this.essayServiceimpl.getEssay(id);
         Timestamp time = new Timestamp(System.currentTimeMillis());
@@ -140,23 +136,12 @@ public class EssayController {
     }
 
     @GetMapping("/{id}/comments")
+    @ResponseBodyDTO(CommentResponseDTO.class)
     public ResponseEntity getEssayComments(@PathVariable Integer id, PageRequest pageRequest, @AuthenticationPrincipal User user) {
         ComEssay comEssay = new ComEssay();
         comEssay.setId(id);
         List<Comment> comments = commentService.getComments(comEssay);
-
-        List<CommentDTO> commentDTOS = new ArrayList<>();
-        if (comments != null) {
-            Iterator it = comments.iterator();
-            while (it.hasNext()) {
-                CommentDTO commentDTO = new CommentDTO((Comment) it.next());
-                commentDTO.setUpvoteCount(evaluateService.countUpvote(comEssay));
-                commentDTO.setDownvoteCount(evaluateService.countDownvote(comEssay));
-                commentDTO.setEvaluateStatus(evaluateService.evaluateStatus(comEssay, user.getId()));
-                commentDTOS.add(commentDTO);
-            }
-        }
-        ListResponse listResponse = new ListResponse(pageRequest, commentDTOS.size(), commentDTOS);
+        ListResponse listResponse = new ListResponse(pageRequest, comments);
         return ResponseEntity.ok(listResponse);
     }
 

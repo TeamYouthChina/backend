@@ -5,6 +5,8 @@ import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
+import com.youthchina.util.LoggedInUserUtil;
+import com.youthchina.util.dictionary.AttentionTargetType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,9 +37,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     @Transactional
-    public Question getBasicQuestion(Integer id){
+    public Question getBasicQuestion(Integer id) {
         Question question = questionMapper.get(id);
-        if(question == null) return null;
+        if (question == null) return null;
         try {
             question.setUser(userService.get(question.getUser().getId()));
         } catch (NotFoundException e) {
@@ -62,21 +64,23 @@ public class QuestionServiceImpl implements QuestionService {
         question.setUser(userService.get(question.getUser().getId()));
         richTextService.getComRichText(question);
         question.setAnswers(answerService.getAnswers(id));
+        question.setAttention(attentionService.isAttention(AttentionTargetType.QUESTION, question.getId(), LoggedInUserUtil.currentUser().getId()));
         return question;
     }
 
     @Override
     @Transactional
-    public List<Question> get(Integer relaType, Integer relaId){
+    public List<Question> get(Integer relaType, Integer relaId) {
         List<Question> questions = questionMapper.getListQuestions(relaType, relaId);
         List<Question> questionsReturn = new ArrayList<>();
         Iterator it = questions.iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             Question question = (Question) it.next();
             richTextService.getComRichText(question);
             question.setAnswers(answerService.getAnswers(question.getId()));
             try {
                 question.setUser(userService.get(question.getUser().getId()));
+                question.setAttention(attentionService.isAttention(AttentionTargetType.QUESTION, question.getId(), LoggedInUserUtil.currentUser().getId()));
             } catch (NotFoundException e) {
 
             }
@@ -88,9 +92,11 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<Question> getMyQuestion(Integer id) {
         List<Question> questions = questionMapper.getMyQuestion(id);
-        for(Question question : questions){
+        for (Question question : questions) {
             try {
                 question.setUser(userService.get(question.getUser().getId()));
+                boolean b = attentionService.isAttention(AttentionTargetType.QUESTION, question.getId(), id);
+                question.setAttention(b);
             } catch (NotFoundException e) {
 
             }
@@ -104,7 +110,7 @@ public class QuestionServiceImpl implements QuestionService {
     public void delete(Integer id) throws NotFoundException {
         get(id);
         List<Answer> answers = answerService.getAnswers(id);
-        for(Answer answer : answers){
+        for (Answer answer : answers) {
             try {
                 answerService.delete(answer.getId());
             } catch (NotFoundException e) {
