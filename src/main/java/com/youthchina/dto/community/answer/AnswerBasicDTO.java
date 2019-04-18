@@ -30,7 +30,10 @@ public class AnswerBasicDTO {
         RichTextResponseDTO richt = new RichTextResponseDTO(answer.getBody());
         this.body = richt;
         this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
-        this.creator = new UserDTO(answer.getUser());
+        if(answer.getIsAnony()==0)
+            this.creator = new UserDTO(answer.getUser());
+        else
+            this.creator = null;
         this.modified_at = answer.getEditTime();
         this.create_at = answer.getPubTime();
         this.id = answer.getId();
