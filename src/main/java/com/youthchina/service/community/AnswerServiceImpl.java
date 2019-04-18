@@ -48,15 +48,15 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public List<Answer> getMyAnswers(Integer id) {
         List<Answer> answers = answerMapper.getMyAnswers(id);
-        for(Answer answer : answers){
+        for (Answer answer : answers) {
             try {
                 answer.setUser(userService.get(answer.getUser().getId()));
                 answer.setQuestion(questionService.getBasicQuestion(answer.getTargetId()));
                 answer.setAttentionCount(attentionService.countAttention(answer));
-                answer.setEvaluateStatus(evaluateService.evaluateStatus(answer, LoggedInUserUtil.currentUser().getId()));
+                answer.setEvaluateStatus(evaluateService.evaluateStatus(answer, id));
                 answer.setUpvoteCount(evaluateService.countUpvote(answer));
                 answer.setDownvoteCount(evaluateService.countDownvote(answer));
-                answer.setAttention((attentionService.isAttention(AttentionTargetType.ANSWER,answer.getId(),LoggedInUserUtil.currentUser().getId())));
+                answer.setAttention((attentionService.isAttention(AttentionTargetType.ANSWER, answer.getId(), id)));
 
             } catch (NotFoundException e) {
 
@@ -71,8 +71,8 @@ public class AnswerServiceImpl implements AnswerService {
     @Transactional
     public Answer get(Integer id) throws NotFoundException {
         Answer answer = answerMapper.get(id);
-        if(answer == null){
-            throw new NotFoundException(4040,404,"This answer does not exist!");//todo
+        if (answer == null) {
+            throw new NotFoundException(4040, 404, "This answer does not exist!");//todo
         }
         answer.setUser(userService.get(answer.getUser().getId()));
         richTextService.getComRichText(answer);
@@ -81,22 +81,22 @@ public class AnswerServiceImpl implements AnswerService {
         answer.setEvaluateStatus(evaluateService.evaluateStatus(answer, LoggedInUserUtil.currentUser().getId()));
         answer.setUpvoteCount(evaluateService.countUpvote(answer));
         answer.setDownvoteCount(evaluateService.countDownvote(answer));
-        answer.setAttention((attentionService.isAttention(AttentionTargetType.ANSWER,answer.getId(),LoggedInUserUtil.currentUser().getId())));
+        answer.setAttention((attentionService.isAttention(AttentionTargetType.ANSWER, answer.getId(), LoggedInUserUtil.currentUser().getId())));
         return answer;
     }
 
     @Override
     @Transactional
-    public List<Answer> getAnswers(Integer id, int start, int end){
-        List<Answer> answers = answerMapper.getLimitedAnswers(id, start, start-end+1);
-        for(Answer answer : answers){
+    public List<Answer> getAnswers(Integer id, int start, int end) {
+        List<Answer> answers = answerMapper.getLimitedAnswers(id, start, start - end + 1);
+        for (Answer answer : answers) {
             try {
                 answer.setUser(userService.get(answer.getUser().getId()));
                 answer.setAttentionCount(attentionService.countAttention(answer));
                 answer.setEvaluateStatus(evaluateService.evaluateStatus(answer, LoggedInUserUtil.currentUser().getId()));
                 answer.setUpvoteCount(evaluateService.countUpvote(answer));
                 answer.setDownvoteCount(evaluateService.countDownvote(answer));
-                answer.setAttention((attentionService.isAttention(AttentionTargetType.ANSWER,answer.getId(),LoggedInUserUtil.currentUser().getId())));
+                answer.setAttention((attentionService.isAttention(AttentionTargetType.ANSWER, answer.getId(), LoggedInUserUtil.currentUser().getId())));
             } catch (NotFoundException e) {
 
             }
@@ -108,16 +108,16 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     @Transactional
-    public List<Answer> getAnswers(Integer id) {
-        List<Answer> answers = answerMapper.getAnswers(id);
-        for(Answer answer : answers){
+    public List<Answer> getAnswers(Integer questionId) {
+        List<Answer> answers = answerMapper.getAnswers(questionId);
+        for (Answer answer : answers) {
             try {
                 answer.setUser(userService.get(answer.getUser().getId()));
                 answer.setAttentionCount(attentionService.countAttention(answer));
                 answer.setEvaluateStatus(evaluateService.evaluateStatus(answer, LoggedInUserUtil.currentUser().getId()));
                 answer.setUpvoteCount(evaluateService.countUpvote(answer));
                 answer.setDownvoteCount(evaluateService.countDownvote(answer));
-                answer.setAttention((attentionService.isAttention(AttentionTargetType.ANSWER,answer.getId(),LoggedInUserUtil.currentUser().getId())));
+                answer.setAttention((attentionService.isAttention(AttentionTargetType.ANSWER, answer.getId(), LoggedInUserUtil.currentUser().getId())));
             } catch (NotFoundException e) {
 
             }
@@ -151,7 +151,7 @@ public class AnswerServiceImpl implements AnswerService {
     public void delete(Integer id) throws NotFoundException {
         Answer answer = get(id);
         List<Comment> comments = commentService.getComments(answer);
-        for(Comment comment : comments){
+        for (Comment comment : comments) {
             commentService.delete(comment.getId());
         }
         attentionService.cancel(answer);
