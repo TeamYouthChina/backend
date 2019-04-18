@@ -45,9 +45,10 @@ public class RecommendControllerTest {
     @Test
     public void TestRecommend() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/search")
-                        .param("type", "all")
-                        .param("title", "腾")
+                get(this.urlPrefix + "/discovery")
+                        .param("offset", "0")
+                        .param("limit","12")
+                        .param("page","1")
                         .with(authGenerator.authentication())
         ).andDo(print())
                .andExpect(status().is2xxSuccessful());
