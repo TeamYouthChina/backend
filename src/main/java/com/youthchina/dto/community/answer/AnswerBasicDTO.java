@@ -18,22 +18,15 @@ public class AnswerBasicDTO {
     private UserDTO creator;
     private Timestamp modified_at;
     private Timestamp create_at;
-    private Integer upvoteCount;
-    private Integer downvoteCount;
-    private Integer attentionCount;
-    private boolean isAttention;
-    private Integer evaluateStatus;
 
-    public AnswerBasicDTO(){}
+    public AnswerBasicDTO() {
+    }
 
-    public AnswerBasicDTO(Answer answer){
+    public AnswerBasicDTO(Answer answer) {
         RichTextResponseDTO richt = new RichTextResponseDTO(answer.getBody());
         this.body = richt;
-        this.is_anonymous = (answer.getIsAnony() == 0) ? false : true;
-        if(answer.getIsAnony()==0)
-            this.creator = new UserDTO(answer.getUser());
-        else
-            this.creator = null;
+        this.is_anonymous = answer.getIsAnony() != 0;
+        this.creator = this.is_anonymous ? null : new UserDTO(answer.getUser());
         this.modified_at = answer.getEditTime();
         this.create_at = answer.getPubTime();
         this.id = answer.getId();
@@ -43,9 +36,13 @@ public class AnswerBasicDTO {
         return body;
     }
 
-    public void setId(Integer id){this.id = id;}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public Integer getId(){return id;}
+    public Integer getId() {
+        return id;
+    }
 
     public void setBody(RichTextResponseDTO body) {
         this.body = body;
@@ -85,43 +82,4 @@ public class AnswerBasicDTO {
         this.create_at = create_at;
     }
 
-    public Integer getUpvoteCount() {
-        return upvoteCount;
-    }
-
-    public void setUpvoteCount(Integer upvoteCount) {
-        this.upvoteCount = upvoteCount;
-    }
-
-    public Integer getDownvoteCount() {
-        return downvoteCount;
-    }
-
-    public void setDownvoteCount(Integer downvoteCount) {
-        this.downvoteCount = downvoteCount;
-    }
-
-    public Integer getAttentionCount() {
-        return attentionCount;
-    }
-
-    public void setAttentionCount(Integer attentionCount) {
-        this.attentionCount = attentionCount;
-    }
-
-    public boolean isAttention() {
-        return isAttention;
-    }
-
-    public void setAttention(boolean attention) {
-        isAttention = attention;
-    }
-
-    public Integer getEvaluateStatus() {
-        return evaluateStatus;
-    }
-
-    public void setEvaluateStatus(Integer evaluateStatus) {
-        this.evaluateStatus = evaluateStatus;
-    }
 }

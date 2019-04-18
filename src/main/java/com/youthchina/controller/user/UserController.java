@@ -4,6 +4,7 @@ import com.youthchina.controller.DomainCRUDController;
 import com.youthchina.domain.Qinghong.CompCollect;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Question;
+import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
@@ -105,7 +106,9 @@ public class UserController extends DomainCRUDController<User, Integer> {
             if (compCollects != null && compCollects.size() > 0) {
                 for (CompCollect compCollect : compCollects) {
                     CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO();
-                    companyResponseDTO.convertToDTO(compCollect.getCompany());
+                    Company company = compCollect.getCompany();
+                    company.setCollected(companyCURDService.isCollected(company.getId(), user.getId()));
+                    companyResponseDTO.convertToDTO(company);
                     companyResponseDTOList.add(companyResponseDTO);
                 }
             }
