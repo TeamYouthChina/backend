@@ -90,9 +90,6 @@ public class CommentController {
     public ResponseEntity<?> getComment(@PathVariable Integer id, @AuthenticationPrincipal User user) throws Exception{
         Comment comment = commentService.get(id);
         CommentResponseDTO commentResponseDTO = new CommentResponseDTO(comment);
-        commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(comment,user.getId()));
-        commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(comment));
-        commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(comment));
 
         if (commentResponseDTO != null)
             return ResponseEntity.ok(new Response(commentResponseDTO, new StatusDTO(200, "success")));

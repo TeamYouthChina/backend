@@ -136,20 +136,12 @@ public class EssayController {
     }
 
     @GetMapping("/{id}/comments")
+    @ResponseBodyDTO(CommentResponseDTO.class)
     public ResponseEntity getEssayComments(@PathVariable Integer id, PageRequest pageRequest, @AuthenticationPrincipal User user) {
         ComEssay comEssay = new ComEssay();
         comEssay.setId(id);
         List<Comment> comments = commentService.getComments(comEssay);
-
-        List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
-        if (comments != null) {
-            Iterator it = comments.iterator();
-            while (it.hasNext()) {
-                CommentResponseDTO commentResponseDTO = new CommentResponseDTO((Comment) it.next());
-                commentResponseDTOS.add(commentResponseDTO);
-            }
-        }
-        ListResponse listResponse = new ListResponse(pageRequest, commentResponseDTOS.size(), commentResponseDTOS);
+        ListResponse listResponse = new ListResponse(pageRequest, comments);
         return ResponseEntity.ok(listResponse);
     }
 

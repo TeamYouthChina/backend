@@ -100,6 +100,9 @@ public class CommentServiceImpl implements CommentService {
         comment.setTargetType(type);
         comment.setTargetId(targetId);
         commentMapper.add(comment);
+        comment.setEvaluateStatus(evaluateService.evaluateStatus(comment,LoggedInUserUtil.currentUser().getId()));
+        comment.setUpvoteCount(evaluateService.countUpvote(comment));
+        comment.setDownvoteCount(evaluateService.countDownvote(comment));
         return comment;
     }
 
