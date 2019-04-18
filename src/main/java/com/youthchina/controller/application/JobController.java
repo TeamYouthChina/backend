@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.controller.DomainCRUDController;
+import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
@@ -84,7 +85,8 @@ public class JobController extends DomainCRUDController<Job, Integer> {
     @PutMapping("/{id}/**")
     @ResponseBodyDTO(JobResponseDTO.class)
     public ResponseEntity<?> updateJobInfo(@PathVariable Integer id, @RequestBodyDTO(JobRequestDTO.class) Job job) throws BaseException {
-        //Job job = jobService.update(new Job(jobRequestDTO));
+        List<Location> locationList = job.getJobLocationList();
+        if(locationList == null || locationList.size() == 0) throw new BaseException(5000, 500, "At least one location needed");
         job.setJobId(id);
         return update(job);
 
