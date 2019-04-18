@@ -32,8 +32,8 @@ public class QuestionControllerTest extends BaseControllerTest {
     @Test
     public void getAnswersTest() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/questions/2/answers")
-                        .with(authGenerator.authentication())
+                get(this.urlPrefix + "/questions/3/answers")
+                        .with(authGenerator.authentication(2))
         )
                 .andDo(print())
                 .andExpect(content().json(readJson("responses/get-questions-answers.json"), false));

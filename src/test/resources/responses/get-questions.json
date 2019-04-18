@@ -51,12 +51,7 @@
               "phone_number": "1234657890123"
             },
             "modified_at": 1550016000000,
-            "create_at": 1550016000000,
-            "upvoteCount": 0,
-            "downvoteCount": 0,
-            "attentionCount": 0,
-            "evaluateStatus": 3,
-            "attention": false
+            "create_at": 1550016000000
           }
         ],
         "rela_type": 1,
@@ -101,12 +96,7 @@
               "phone_number": "1112223334445"
             },
             "modified_at": 1517616000000,
-            "create_at": 1517616000000,
-            "upvoteCount": 0,
-            "downvoteCount": 0,
-            "attentionCount": 0,
-            "evaluateStatus": 3,
-            "attention": false
+            "create_at": 1517616000000
           }
         ],
         "rela_type": 1,
@@ -151,12 +141,7 @@
               "phone_number": "1112223334445"
             },
             "modified_at": 1550016000000,
-            "create_at": 1550016000000,
-            "upvoteCount": 0,
-            "downvoteCount": 0,
-            "attentionCount": 0,
-            "evaluateStatus": 3,
-            "attention": false
+            "create_at": 1550016000000
           }
         ],
         "rela_type": 1,
