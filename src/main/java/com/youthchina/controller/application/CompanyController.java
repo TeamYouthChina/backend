@@ -114,7 +114,7 @@ public class CompanyController extends DomainCRUDController<Company, Integer> {
     }
 
     /**
-     * 获取公司下属职位 (未对DeadLine 进行判断)
+     * 获取公司下属职位 (已对DeadLine 进行判断)
      * @param companyId
      * @param user
      * @param pageRequest
