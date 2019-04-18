@@ -47,7 +47,7 @@ public class JobTest {
 //        Assert.assertEquals("国企", company.getCompanyNature().getNatureChn());
         Assert.assertEquals(1, job.getIndustries().size());
         Assert.assertEquals("I6510", job.getIndustries().get(0).getIndCode());
-        Assert.assertEquals(Integer.valueOf(440100), job.getJobLocationList().get(0).getRegionNum());
+        Assert.assertEquals(Integer.valueOf(440100), job.getJobLocationList().get(0).getRegionId());
 //        Assert.assertEquals("前端", job.getProfession().getProfChn());
         Assert.assertEquals(0, job.getJobReqList().size());
     }
@@ -141,7 +141,7 @@ public class JobTest {
     @Test
     public void testUpdateJobMapper() {
         Job job = jobMapper.selectJobByJobId(1);
-        Assert.assertEquals(Integer.valueOf(440100), job.getJobLocationList().get(0).getRegionNum());
+        Assert.assertEquals(Integer.valueOf(440100), job.getJobLocationList().get(0).getRegionId());
         job.getCompany().setCompanyId(2);
         jobMapper.updateJob(job);
         jobMapper.deleteJobLocation(job.getJobId());

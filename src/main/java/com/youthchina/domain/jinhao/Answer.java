@@ -1,6 +1,9 @@
 package com.youthchina.domain.jinhao;
 
-import com.youthchina.domain.jinhao.property.*;
+import com.youthchina.domain.jinhao.property.Attentionable;
+import com.youthchina.domain.jinhao.property.Commentable;
+import com.youthchina.domain.jinhao.property.Evaluatable;
+import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
@@ -20,6 +23,11 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     private User user;
     private Question question;
     private List<Comment> comments;
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer attentionCount;
+    private boolean isAttention;
+    private Integer evaluateStatus;
     private static final Integer richTextRelaType = RichTextRelaType.ANSWER;
     private static final Integer commentTargetType = CommentTargetType.ANSWER;
     private static final Integer evaluateTargetType = EvaluationTargetType.ANSWER;
@@ -140,5 +148,49 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     @Override
     public Integer getCommentTargetType() {
         return commentTargetType;
+    }
+
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
+
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
+
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getAttentionCount() {
+        return attentionCount;
+    }
+
+    public void setAttentionCount(Integer attentionCount) {
+        this.attentionCount = attentionCount;
+    }
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
+    }
+
+    public static Integer getIsExistTargetType() {
+        return isExistTargetType;
     }
 }

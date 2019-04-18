@@ -1,83 +1,95 @@
-GET http://47.252.87.218:8080/api/v1/answers/2
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU1ODc0NjA5fQ.BqA_j_qFEB_AW4yubRoiv25U5ufeGWlYObDh1f--etNEfnw-ObrrgPFeUl-64jzGNStjyTY7S5goQGnj5UjEuQ
+GET http://localhost:8080/api/v1/discovery/companies?limit=10
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
 
-{     "id" : 2,     "password": 123456 }
-
-<> 2019-04-18T095257.200.json
-
-###
-
-PUT http://47.252.87.218:8080/api/v1/answers/2/upvote
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU1ODc0NjA5fQ.BqA_j_qFEB_AW4yubRoiv25U5ufeGWlYObDh1f--etNEfnw-ObrrgPFeUl-64jzGNStjyTY7S5goQGnj5UjEuQ
-
-{     "id" : 2,     "password": 123456 }
-
-<> 2019-04-18T095247.200.json
-
-###
-
-GET http://47.252.87.218:8080/api/v1/answers/2
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU1ODc0NjA5fQ.BqA_j_qFEB_AW4yubRoiv25U5ufeGWlYObDh1f--etNEfnw-ObrrgPFeUl-64jzGNStjyTY7S5goQGnj5UjEuQ
-
-{     "id" : 2,     "password": 123456 }
-
-<> 2019-04-18T095225.200.json
-
-###
-
-PUT http://47.252.87.218:8080/api/v1/answers/2/upvote
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU1ODc0NjA5fQ.BqA_j_qFEB_AW4yubRoiv25U5ufeGWlYObDh1f--etNEfnw-ObrrgPFeUl-64jzGNStjyTY7S5goQGnj5UjEuQ
-
-{     "id" : 2,     "password": 123456 }
-
-<> 2019-04-17T084907.404.json
-
-###
-
-PUT http://47.252.87.218:8080/api/v1/answers/2/upvote
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU1ODc0NjA5fQ.BqA_j_qFEB_AW4yubRoiv25U5ufeGWlYObDh1f--etNEfnw-ObrrgPFeUl-64jzGNStjyTY7S5goQGnj5UjEuQ
-
-{     "id" : 2,     "password": 123456 }
-
-<> 2019-04-17T084904.200.json
-
-###
-
-POST http://47.252.87.218:8080/api/v1/answers/2/upvote
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU1ODc0NjA5fQ.BqA_j_qFEB_AW4yubRoiv25U5ufeGWlYObDh1f--etNEfnw-ObrrgPFeUl-64jzGNStjyTY7S5goQGnj5UjEuQ
-
-{     "id" : 2,     "password": 123456 }
-
-<> 2019-04-17T084856.405.json
+<> 2019-04-17T054403.200.json
 
 ###
 
 POST http://47.252.87.218:8080/api/v1/login
-Content-Type: application/json;utf-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU1ODc0NjA5fQ.BqA_j_qFEB_AW4yubRoiv25U5ufeGWlYObDh1f--etNEfnw-ObrrgPFeUl-64jzGNStjyTY7S5goQGnj5UjEuQ
+Content-Type: application/json;charset=utf8
 
-{     "id" : 2,     "password": 123456 }
+{
+  "id":1,
+  "password": "123456"
+}
 
-<> 2019-04-17T084727.200.json
+<> 2019-04-17T054355.200.json
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/question/1?offest=1&limit=10&page=1
+GET http://localhost:8080/api/v1/discovery/companies
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-17T054338.200.json
+
+###
+
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json;charset=utf8
+
+{
+  "id":1,
+  "password": "123456"
+}
+
+<> 2019-04-17T054319.200.json
+
+###
+
+GET http://localhost:8080/api/v1/discovery/companies?limit=10
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/api/v1/discovery/jobs
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzU0fQ.vhYEWYycrvwxqbU6zhpOJL4H3y7unPPk0XS--rzyvhMiXpTlJ-3vgS-peHyXi0pxnjXOZT-HHyronltplBwFHQ
+Cache-Control: no-cache
+
+<> 2019-04-17T054243.200.json
+
+###
+
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json;charset=utf8
+
+{
+  "id":1,
+  "password": "123456"
+}
+
+<> 2019-04-17T054234.200.json
+
+###
+
+GET http://localhost:8080/api/v1/discovery/jobs
 Content-Type: application/json;charset=utf8
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
 Cache-Control: no-cache
 
 ###
 
-GET http://47.252.87.218:8080/api/v1/question/1?offest=1&limit=10&page=1
+GET http://localhost:8080/api/v1/discovery/companies
 Content-Type: application/json;charset=utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzU0fQ.vhYEWYycrvwxqbU6zhpOJL4H3y7unPPk0XS--rzyvhMiXpTlJ-3vgS-peHyXi0pxnjXOZT-HHyronltplBwFHQ
+Cache-Control: no-cache
+
+###
+
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json;charset=utf8
+
+{
+  "id":1,
+  "password": "123456"
+}
+
 
 ###
 
@@ -337,11 +349,6 @@ GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
 Content-Type: application/json;charset=utf8
 
 <> 2019-04-16T101557.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
 
 ###
 

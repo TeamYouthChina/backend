@@ -1,11 +1,14 @@
 package com.youthchina.dto.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.ResponseDTO;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -17,7 +20,7 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     private String password;
     private String email;
     private String phonenumber;
-    private String register_date;
+    private Timestamp register_date;
     private String first_name;
     private String last_name;
     private String gender;
@@ -79,6 +82,7 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.email = email;
     }
 
+    @JsonProperty("phone_number")
     public String getPhonenumber() {
         return phonenumber;
     }
@@ -87,11 +91,12 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.phonenumber = phonenumber;
     }
 
-    public String getRegister_date() {
+    @JsonTimeStamp
+    public Timestamp getRegister_date() {
         return register_date;
     }
 
-    public void setRegister_date(String register_date) {
+    public void setRegister_date(Timestamp register_date) {
         this.register_date = register_date;
     }
 

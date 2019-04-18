@@ -15,7 +15,7 @@ import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
-import com.youthchina.dto.community.comment.CommentDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.job.JobResponseDTO;
@@ -23,7 +23,9 @@ import com.youthchina.dto.search.SearchResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.BaseException;
+import com.youthchina.exception.zhongyang.exception.ClientException;
 import com.youthchina.service.util.SearchService;
+import com.youthchina.util.dictionary.SearchType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,32 +64,32 @@ public class SearchController {
 
     private ResponseDTO convertToDTO(SearchResultItem item) throws BaseException {
         switch (item.getType()) {
-            case "article": {
+            case SearchType.ARTICLE: {
                 return new EssayResponseDTO((ComEssay) item.getDomain());
             }
-            case "question": {
+            case SearchType.QUESTION: {
                 return new QuestionResponseDTO((Question) item.getDomain());
             }
-            case "answer": {
+            case SearchType.ANSWER: {
                 return new SimpleAnswerResponseDTO((Answer) item.getDomain());
             }
-            case "job": {
+            case SearchType.JOB: {
                 return new JobResponseDTO((Job) item.getDomain());
             }
-            case "company": {
+            case SearchType.COMPANY: {
                 return new CompanyResponseDTO((Company) item.getDomain());
             }
-            case "briefReview": {
+            case SearchType.EDITORIAL: {
                 return new BriefReviewResponseDTO((BriefReview) item.getDomain());
             }
-            case "comment": {
-                return new CommentDTO((Comment) item.getDomain());
+            case SearchType.COMMENT: {
+                return new CommentResponseDTO((Comment) item.getDomain());
             }
-            case "user": {
+            case SearchType.USER: {
                 return new UserDTO((User) item.getDomain());
             }
             default:
-                throw new BaseException(5000, 500, "no suitable converter found for search result");
+                throw new ClientException("cannot search target type, please try one of the following " + SearchType.getNameString());
         }
     }
 }

@@ -3,10 +3,7 @@ package com.youthchina.service.application;
 import com.youthchina.dao.qingyang.JobMapper;
 import com.youthchina.dao.qingyang.LocationMapper;
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.domain.qingyang.Degree;
-import com.youthchina.domain.qingyang.Industry;
-import com.youthchina.domain.qingyang.Job;
-import com.youthchina.domain.qingyang.Logo;
+import com.youthchina.domain.qingyang.*;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.exception.zhongyang.exception.NotBelongException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
@@ -95,11 +92,11 @@ public class JobServiceImpl implements JobService {
         if (locationList != null) {
             for (int i = 0; i < locationList.size(); i++) {
 
-                Integer regionNum = locationList.get(i).getRegionNum();
-                if(regionNum < 100000){
-                    regionNum += 900000;
+                Integer regionId = locationList.get(i).getRegionId();
+                if(regionId < 100000){
+                    regionId += 900000;
                 }
-                locationList.set(i, locationServiceImpl.getLocation(regionNum));
+                locationList.set(i, locationServiceImpl.getLocation(regionId));
             }
         }
 
@@ -231,7 +228,9 @@ public class JobServiceImpl implements JobService {
     public Job getJobWithCollected(Integer jobId, Integer userId) throws NotFoundException {
        Job job = this.get(jobId);
        job.setCollected(isCollected(jobId, userId));
-       return job;
+        Company company = job.getCompany();
+        company.setCollected(companyCURDServiceImpl.isCollected(company.getId(), userId));
+        return job;
     }
 
     public List<Job> getJobListWithCollected(List<Integer> idList, Integer userId) throws NotFoundException {

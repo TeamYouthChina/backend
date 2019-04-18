@@ -9,8 +9,8 @@ import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
-import com.youthchina.dto.community.comment.CommentDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
+import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.community.AttentionServiceImpl;
@@ -18,6 +18,7 @@ import com.youthchina.service.community.BriefReviewServiceImplement;
 import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
 import com.youthchina.service.user.UserServiceImpl;
+import com.youthchina.util.dictionary.AttentionTargetType;
 import com.youthchina.util.dictionary.CommentTargetType;
 import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,21 @@ public class BriefReviewController {
         briefReviewResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
         briefReviewResponseDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
         briefReviewResponseDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
-        briefReviewResponseDTO.setAttention((attentionService.isEverAttention(briefReview,user.getId()))==0? false:true);
+
+        List<Comment> comments =  briefReview.getComments();
+        List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
+        if (comments!= null) {
+            Iterator it = comments.iterator();
+            while (it.hasNext()) {
+                CommentResponseDTO commentResponseDTO = new CommentResponseDTO((Comment) it.next());
+                commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
+                commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
+                commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
+                commentResponseDTOS.add(commentResponseDTO);
+            }
+        }
+        briefReviewResponseDTO.setComments(commentResponseDTOS);
+        briefReviewResponseDTO.setAttention(attentionService.isAttention(AttentionTargetType.BRIEFREVIEW,briefReview.getId(),user.getId()));
         if (briefReviewResponseDTO != null)
             return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(200, "success")));
         else
@@ -123,8 +138,7 @@ public class BriefReviewController {
      BriefReview briefReview = new BriefReview();
      briefReview.setId(id);
      evaluateService.upvote(briefReview,user.getId());
-
-            return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
+     return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
     }
 
     @PutMapping("/{id}/downvote")
@@ -151,18 +165,18 @@ public class BriefReviewController {
        briefReview.setId(id);
        briefReview.setUser(user);
        List<Comment> comments =  commentService.getComments(briefReview);
-        List<CommentDTO> commentDTOS = new ArrayList<>();
+        List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
         if (comments!= null) {
             Iterator it = comments.iterator();
             while (it.hasNext()) {
-                CommentDTO commentDTO = new CommentDTO((Comment) it.next());
-                commentDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
-                commentDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
-                commentDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
-                commentDTOS.add(commentDTO);
+                CommentResponseDTO commentResponseDTO = new CommentResponseDTO((Comment) it.next());
+                commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
+                commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
+                commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
+                commentResponseDTOS.add(commentResponseDTO);
             }
         }
-        ListResponse listResponse = new ListResponse(pageRequest, commentDTOS.size(), commentDTOS);
+        ListResponse listResponse = new ListResponse(pageRequest, commentResponseDTOS.size(), commentResponseDTOS);
         return ResponseEntity.ok(listResponse);
     }
 

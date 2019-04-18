@@ -32,6 +32,10 @@ public class LocationTest {
         Assert.assertEquals("北京市", location.getRegionName());
         Assert.assertEquals("CHN", location.getCountry());
         Assert.assertEquals("中国", location.getCountryName());
+
+        location = locationMapper.getLocationViewById(994710);
+        Assert.assertEquals("Berkeley", location.getRegionName());
+
     }
 
     @Test

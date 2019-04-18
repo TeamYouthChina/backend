@@ -2058,6 +2058,73 @@ paths:
           description: collect successful
         '400':
           description: 'cannot collect this job, maybe the job has already deleted'
+  '/companies/{id}/jobs':
+    get:
+      summary: Get all jobs belong to certain company
+      tags:
+        - Company
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+      responses:
+        '201':
+          description: sucessful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/JobWithoutCompany'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count:
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
+                  status:
+                    $ref: '#/components/schemas/Status'
+        '404':
+          description: The company not found.
   # '/videos/{id}':
   #   get:
   #     tags:
@@ -3892,7 +3959,7 @@ paths:
         - Util
       parameters:
         - name: type
-          description: search entity type, default to be null, means search everything
+          description: type only available for article, editorial, answer, question, user, job, company, comment and all.
           in: query
           schema:
             type: string
@@ -6510,6 +6577,64 @@ components:
             - full-time
             - part-time
             - internship
+        star_time:
+          type: string
+        dead_line:
+          type: string
+        job_duty:
+          type: string
+        job_description:
+          type: string
+        collected:
+          type: boolean
+    JobWithoutCompany:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          description: name of job
+        location:
+          type: array
+          items:
+            type: string
+        type:
+          description: 1实习 2兼职 3全职
+          type: string
+          enum:
+            - full-time
+            - part-time
+            - internship
+        start_time:
+          type: string
+        dead_line:
+          type: string
+        job_duty:
+          type: string
+        job_description:
+          type: string
+        collected:
+          type: boolean
+    JobWithoutCompany:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          description: name of job
+        location:
+          type: array
+          items:
+            type: string
+        type:
+          description: 1实习 2兼职 3全职
+          type: string
+          enum:
+            - full-time
+            - part-time
+            - internship
         startTime:
           type: string
         deadLine:
@@ -6538,11 +6663,9 @@ components:
             - full-time
             - part-time
             - internship
-        dead_Line:
+        dead_line:
           type: string
-        start_Time:
-          type: string
-        end_Time:
+        start_time:
           type: string
         job_description:
           type: string
