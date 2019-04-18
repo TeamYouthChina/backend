@@ -17,6 +17,9 @@ public class Comment implements Evaluatable {
     private User user;
     private Integer targetType;
     private Integer targetId;
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer evaluateStatus;
     private static final Integer evaluateTargetType = EvaluationTargetType.COMMENT;
     private static final Integer isExistTargetType = IsExistTargetType.COMMENT;
 
@@ -98,5 +101,33 @@ public class Comment implements Evaluatable {
 
     public void setTargetId(Integer targetId) {
         this.targetId = targetId;
+    }
+
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
+
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
+
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
+    }
+
+    public static Integer getIsExistTargetType() {
+        return isExistTargetType;
     }
 }

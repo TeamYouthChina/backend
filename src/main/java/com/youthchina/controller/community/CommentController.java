@@ -9,7 +9,6 @@ import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.comment.CommentResponseDTO;
 import com.youthchina.dto.community.discuss.DiscussRequestDTO;
 import com.youthchina.dto.community.discuss.DiscussResponseDTO;
-import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.community.CommentService;
@@ -91,7 +90,6 @@ public class CommentController {
     public ResponseEntity<?> getComment(@PathVariable Integer id, @AuthenticationPrincipal User user) throws Exception{
         Comment comment = commentService.get(id);
         CommentResponseDTO commentResponseDTO = new CommentResponseDTO(comment);
-        commentResponseDTO.setCreator(new UserDTO(user));
         commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(comment,user.getId()));
         commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(comment));
         commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(comment));

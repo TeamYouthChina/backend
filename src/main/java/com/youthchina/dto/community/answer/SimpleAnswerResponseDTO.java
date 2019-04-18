@@ -34,6 +34,11 @@ public class SimpleAnswerResponseDTO implements ResponseDTO<Answer> {
         this.modified_at = answer.getEditTime().toString();
         this.create_at = answer.getPubTime().toString();
         this.question = new QuestionBasicDTO(answer.getQuestion());
+        this.upvoteCount = answer.getUpvoteCount();
+        this.downvoteCount = answer.getDownvoteCount();
+        this.attentionCount = answer.getAttentionCount();
+        this.isAttention = answer.isAttention();
+        this.evaluateStatus = answer.getEvaluateStatus();
     }
 
     public RichTextResponseDTO getBody() {
@@ -146,5 +151,10 @@ public class SimpleAnswerResponseDTO implements ResponseDTO<Answer> {
         this.modified_at = answer.getEditTime().toString();
         this.create_at = answer.getPubTime().toString();
         this.question = new QuestionBasicDTO(answer.getQuestion());
+        this.upvoteCount = answer.getUpvoteCount();
+        this.downvoteCount = answer.getDownvoteCount();
+        this.attentionCount = answer.getAttentionCount();
+        this.isAttention = answer.isAttention();
+        this.evaluateStatus = answer.getEvaluateStatus();
     }
 }

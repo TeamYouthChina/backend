@@ -1,35 +1,31 @@
 package com.youthchina.service.util;
 
-import com.youthchina.domain.jinhao.Answer;
-import com.youthchina.domain.jinhao.BriefReview;
-import com.youthchina.domain.jinhao.Comment;
-import com.youthchina.domain.jinhao.Question;
-import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.Job;
-import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.SearchResult;
 import com.youthchina.domain.zhongyang.SearchResultItem;
-import com.youthchina.domain.zhongyang.User;
+import com.youthchina.exception.zhongyang.exception.BaseException;
 import com.youthchina.exception.zhongyang.exception.ClientException;
+import com.youthchina.exception.zhongyang.exception.InternalStatusCode;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.application.CompanyCURDService;
 import com.youthchina.service.application.JobService;
 import com.youthchina.service.community.*;
 import com.youthchina.service.user.UserService;
 import com.youthchina.util.dictionary.SearchType;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 @Service("SearchService")
 public class SearchServiceImplememt implements SearchService {
@@ -69,434 +65,209 @@ public class SearchServiceImplememt implements SearchService {
 
     @Override
     public SearchResult search(String type, String title, String body, Integer startIndex, Integer endIndex) throws Exception {
-        SearchResult searchResult;
-        int count = 0;
-        switch (type) {
-            case SearchType.ARTICLE: {
-                List<SearchResultItem> searchList = new ArrayList<>();
-                List<ComEssay> essays = essaySearch(title, body, startIndex, endIndex);
-                for (ComEssay i : essays) {
-                    SearchResultItem item = new SearchResultItem(i, "article");
-                    searchList.add(item);
-                    count++;
-                }
-                searchResult = new SearchResult(searchList, count);
-                return searchResult;
-            }
-            case SearchType.QUESTION: {
-                List<SearchResultItem> searchList = new ArrayList<>();
-                List<Question> questions = questionSearch(title, body, startIndex, endIndex);
-                for (Question i : questions) {
-                    SearchResultItem item = new SearchResultItem(i, "question");
-                    searchList.add(item);
-                    count++;
-                }
-                searchResult = new SearchResult(searchList, count);
-                return searchResult;
-            }
-            case SearchType.ANSWER: {
-                List<SearchResultItem> searchList = new ArrayList<>();
-                List<Answer> answers = answerSearch(title, body, startIndex, endIndex);
-                for (Answer i : answers) {
-                    SearchResultItem item = new SearchResultItem(i, "answer");
-                    searchList.add(item);
-                    count++;
-                }
-                searchResult = new SearchResult(searchList, count);
-                return searchResult;
-            }
-            case SearchType.JOB: {
-                List<SearchResultItem> searchList = new ArrayList<>();
-                List<Job> jobs = jobSearch(title, body, startIndex, endIndex);
-                for (Job i : jobs) {
-                    SearchResultItem item = new SearchResultItem(i, "job");
-                    searchList.add(item);
-                    count++;
-                }
-                searchResult = new SearchResult(searchList, count);
-                return searchResult;
-            }
-            case SearchType.COMPANY: {
-                List<SearchResultItem> searchList = new ArrayList<>();
-                List<Company> companies = companySearch(title, body, startIndex, endIndex);
-                for (Company i : companies) {
-                    SearchResultItem item = new SearchResultItem(i, "company");
-                    searchList.add(item);
-                    count++;
-                }
-                searchResult = new SearchResult(searchList, count);
-                return searchResult;
-            }
-            case SearchType.EDITORIAL: {
-                List<SearchResultItem> searchList = new ArrayList<>();
-                List<BriefReview> briefReviews = briefReviewSearch(title, body, startIndex, endIndex);
-                for (BriefReview i : briefReviews) {
-                    SearchResultItem item = new SearchResultItem(i, "briefReview");
-                    searchList.add(item);
-                    count++;
-                }
-                searchResult = new SearchResult(searchList, count);
-                return searchResult;
-            }
-            case SearchType.COMMENT: {
-                List<SearchResultItem> searchList = new ArrayList<>();
-                List<Comment> comments = commentSearch(title, body, startIndex, endIndex);
-                for (Comment i : comments) {
-                    SearchResultItem item = new SearchResultItem(i, "comment");
-                    searchList.add(item);
-                    count++;
-                }
-                searchResult = new SearchResult(searchList, count);
-                return searchResult;
-            }
-            case SearchType.USER: {
-                List<SearchResultItem> searchList = new ArrayList<>();
-                List<User> users = userSearch(title, body, startIndex, endIndex);
-                for (User i : users) {
-                    SearchResultItem item = new SearchResultItem(i, "user");
-                    searchList.add(item);
-                    count++;
-                }
-                searchResult = new SearchResult(searchList, count);
-                return searchResult;
-            }
-            case SearchType.ALL: {
-                List<SearchResultItem> searchList = new ArrayList<>();
+        return doSearch(getClient(), getQuery(type, title, body, startIndex, endIndex));
+    }
 
-                List<ComEssay> essays = essaySearch(title, body, startIndex, endIndex);
-                for (ComEssay i : essays) {
-                    SearchResultItem item = new SearchResultItem(i, "article");
-                    searchList.add(item);
-                    count++;
-                }
+    private HttpSolrClient getClient() {
+        return new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
+    }
 
-                List<Question> questions = questionSearch(title, body, startIndex, endIndex);
-                for (Question i : questions) {
-                    SearchResultItem item = new SearchResultItem(i, "question");
-                    searchList.add(item);
-                    count++;
-                }
-
-                List<Answer> answers = answerSearch(title, body, startIndex, endIndex);
-                for (Answer i : answers) {
-                    SearchResultItem item = new SearchResultItem(i, "answer");
-                    searchList.add(item);
-                    count++;
-                }
-
-                List<Job> jobs = jobSearch(title, body, startIndex, endIndex);
-                for (Job i : jobs) {
-                    SearchResultItem item = new SearchResultItem(i, "job");
-                    searchList.add(item);
-                    count++;
-                }
-
-                List<Company> companies = companySearch(title, body, startIndex, endIndex);
-                for (Company i : companies) {
-                    SearchResultItem item = new SearchResultItem(i, "company");
-                    searchList.add(item);
-                    count++;
-                }
-
-                List<BriefReview> briefReviews = briefReviewSearch(title, body, startIndex, endIndex);
-                for (BriefReview i : briefReviews) {
-                    SearchResultItem item = new SearchResultItem(i, "briefReview");
-                    searchList.add(item);
-                    count++;
-                }
-
-                List<Comment> comments = commentSearch(title, body, startIndex, endIndex);
-                for (Comment i : comments) {
-                    SearchResultItem item = new SearchResultItem(i, "comment");
-                    searchList.add(item);
-                    count++;
-                }
-
-                List<User> users = userSearch(title, body, startIndex, endIndex);
-                for (User i : users) {
-                    SearchResultItem item = new SearchResultItem(i, "user");
-                    searchList.add(item);
-                    count++;
-                }
-
-
-                int size = searchList.size();//随机打乱
-                Random random = new Random();
-                for (int i = 0; i < size; i++) {
-                    // 获取随机位置
-                    int randomPos = random.nextInt(size);
-
-                    // 当前元素与随机元素交换
-                    Collections.swap(searchList, i, randomPos);
-                }
-
-                searchResult = new SearchResult(searchList, count);
-                return searchResult;
-            }
+    private SolrQuery getQuery(String type, String title, String body, Integer startIndex, Integer endIndex) throws ClientException {
+        if(title == null && body == null){
+            throw new ClientException("Must specific a search param");
+        }
+        SolrQuery query = new SolrQuery();
+        String queryType = getSolrTypeBySearchType(type);
+        query.set("fq", "type:" + queryType);
+//        if(queryType.equals("JOB") || queryType.equals("COMMENT") || queryType.equals("ANSWER") || queryType.equals())
+        String queryString = "";
+        switch (queryType) {
+            case "REVIEW":
+                queryString = "body:" + (body == null ? "*" : body);
+                break;
+            case "JOB":
+                queryString = "body:" + (body == null ? "*" : body) + " OR title:" + (title == null ? "*" : title);
+                break;
+            case "USER":
+                queryString = "title:" + (title == null ? "*" : title);
+                break;
+            case "COMMENT":
+                queryString = "body:" + (body == null ? "*" : body);
+                break;
+            case "COMPANY":
+                queryString = "body:" + (body == null ? "*" : body) + " OR title:" + (title == null ? "*" : title);
+                break;
+            case "ANSWER":
+                queryString = "body:" + (body == null ? "*" : body);
+                break;
+            case "QUESTION":
+                queryString = "body:" + (body == null ? "*" : body);
+                break;
+            case "ESSAY":
+                queryString = "body:" + (body == null ? "*" : body) + " OR title:" + (title == null ? "*" : title);
+                break;
+            case "*":
+                queryString = "body:" + (body == null ? "*" : body) + " OR title:" + (title == null ? "*" : title);
+                break;
             default:
                 throw new ClientException("cannot search target type, please try one of the following " + SearchType.getNameString());
         }
 
+        query.setQuery(queryString);
+        query.setStart(startIndex);
+        query.setRows(endIndex - startIndex + 1);
+        return query;
+
     }
 
-
-    public List<ComEssay> essaySearch(String title, String body, Integer startIndex, Integer endIndex) throws Exception {
-        List<Integer> essayIdList = new ArrayList<>();
-        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
-        SolrQuery query = new SolrQuery();
-        if (title != null) {
-            query.set("q", "title:" + title);
-            query.set("fq", "type:ESSAY");
-            // 参数q  查询所有
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-            for (SolrDocument doc : solrDocumentList) {
-                String id = doc.get("id").toString();
-                //System.out.println(id);
-                String[] sp = id.split("_");
-                essayIdList.add(Integer.parseInt(sp[1]));
-            }
+    private SearchResult doSearch(HttpSolrClient httpSolrClient, SolrQuery query) throws BaseException {
+        QueryResponse response;
+        try {
+            response = httpSolrClient.query(query);
+        } catch (SolrServerException | IOException e) {
+            throw new BaseException(InternalStatusCode.SERVICE_UNAVAILABLE.value(), HttpStatus.SERVICE_UNAVAILABLE.value(), InternalStatusCode.SERVICE_UNAVAILABLE.getMessage());
+        }
+        SearchResult searchResult = new SearchResult();
+        SolrDocumentList solrDocumentList = response.getResults();
+        searchResult.setCount(Math.toIntExact(solrDocumentList.getNumFound()));
+        List<Integer> idList = new ArrayList<>();
+        List<String> typeList = new ArrayList<>();
+        for (SolrDocument doc : solrDocumentList) {
+            String id = doc.get("id").toString();
+            //System.out.println(id);
+            String[] sp = id.split("_");
+            typeList.add(sp[0]);
+            idList.add(Integer.parseInt(sp[1]));
         }
 
-
-        if (body != null) {
-            query.set("q", "body:" + body);
-            query.set("fq", "type:ESSAY");
-            // 参数q  查询所有
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-            for (SolrDocument doc : solrDocumentList) {
-                String id = doc.get("id").toString();
-                //System.out.println(id);
-                String[] sp = id.split("_");
-                essayIdList.add(Integer.parseInt(sp[1]));
-            }
+        List<SearchResultItem> resultItemList = new ArrayList<>();
+        for (int i = 0; i < idList.size(); i++) {
+            resultItemList.add(getSingleResponse(idList.get(i), getSearchTypeBySolrType(typeList.get(i))));
         }
-
-        List<ComEssay> essayList = essayService.get(essayIdList);
-        return essayList;
+        searchResult.setResult(resultItemList);
+        return searchResult;
     }
 
-
-    public List<Question> questionSearch(String title, String body, Integer startIndex, Integer endIndex) throws Exception {
-        List<Integer> quesIdList = new ArrayList<>();
-        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
-        SolrQuery query = new SolrQuery();
-        if (title != null) {
-            query.set("q", "title:" + title);
-            query.set("fq", "type:QUESTION");
-            // 参数q  查询所有
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-            for (SolrDocument doc : solrDocumentList) {
-
-                String id = doc.get("id").toString();
-                //System.out.println(id);
-                String[] sp = id.split("_");
-                quesIdList.add(Integer.parseInt(sp[1]));
-
+    private SearchResultItem getSingleResponse(Integer id, String type) throws ClientException, NotFoundException {
+        switch (type) {
+            case SearchType.ARTICLE: {
+                return new SearchResultItem(essayService.get(id), SearchType.ARTICLE);
             }
-        }
-
-        if (body != null) {
-            query.set("q", "body:" + body);
-            query.set("fq", "type:QUESTION");
-            // 参数q  查询所有
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-            for (SolrDocument doc : solrDocumentList) {
-                String id = doc.get("id").toString();
-                //System.out.println(id);
-                String[] sp = id.split("_");
-                quesIdList.add(Integer.parseInt(sp[1]));
+            case SearchType.QUESTION: {
+                return new SearchResultItem(questionService.get(id), SearchType.QUESTION);
             }
+            case SearchType.ANSWER: {
+                return new SearchResultItem(answerService.get(id), SearchType.ANSWER);
+            }
+            case SearchType.JOB: {
+                return new SearchResultItem(jobService.get(id), SearchType.JOB);
+            }
+            case SearchType.COMPANY: {
+                return new SearchResultItem(companyCURDService.get(id), SearchType.COMPANY);
+            }
+            case SearchType.EDITORIAL: {
+                return new SearchResultItem(briefReviewService.get(id), SearchType.EDITORIAL);
+            }
+            case SearchType.COMMENT: {
+                return new SearchResultItem(commentService.get(id), SearchType.COMMENT);
+            }
+            case SearchType.USER: {
+                return new SearchResultItem(userService.get(id), SearchType.USER);
+            }
+            default:
+                throw new ClientException("cannot search target type, please try one of the following " + SearchType.getNameString());
         }
-
-        List<Question> quesList = questionService.get(quesIdList);
-        return quesList;
     }
 
-    public List<Answer> answerSearch(String title, String body, Integer startIndex, Integer endIndex) throws Exception {
-        List<Integer> answerIdList = new ArrayList<>();
-        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
-        SolrQuery query = new SolrQuery();
-        if (body != null) {
-            query.set("q", "body:" + body);
-            query.set("fq", "type:ANSWER");
-            // 参数q  查询所有
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-            for (SolrDocument doc : solrDocumentList) {
-                String id = doc.get("id").toString();
-                //System.out.println(id);
-                String[] sp = id.split("_");
-                answerIdList.add(Integer.parseInt(sp[1]));
+    private String getSolrTypeBySearchType(String type) throws ClientException {
+        String queryType = null;
+        switch (type) {
+            case SearchType.ARTICLE: {
+                queryType = "ESSAY";
+                break;
             }
+            case SearchType.QUESTION: {
+                queryType = "QUESTION";
+                break;
+            }
+            case SearchType.ANSWER: {
+                queryType = "ANSWER";
+                break;
+            }
+            case SearchType.JOB: {
+                queryType = "JOB";
+                break;
+            }
+            case SearchType.COMPANY: {
+                queryType = "COMPANY";
+                break;
+            }
+            case SearchType.EDITORIAL: {
+                queryType = "REVIEW";
+                break;
+            }
+            case SearchType.COMMENT: {
+                queryType = "COMMENT";
+                break;
+            }
+            case SearchType.USER: {
+                queryType = "USER";
+                break;
+            }
+            case SearchType.ALL: {
+                queryType = "*";
+                break;
+            }
+            default:
+                throw new ClientException("cannot search target type, please try one of the following " + SearchType.getNameString());
         }
-
-
-        List<Answer> answerList = answerService.get(answerIdList);
-        return answerList;
+        return queryType;
     }
 
-    public List<Job> jobSearch(String name, String body, Integer startIndex, Integer endIndex) throws Exception {
-        List<Integer> jobIdList = new ArrayList<>();
-        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
-        SolrQuery query = new SolrQuery();
-        if (name != null) {
-            query.set("q", "name:" + name);
-            query.set("fq", "type:JOB");
-            // 参数q  查询所有
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-            for (SolrDocument doc : solrDocumentList) {
-                String id = doc.get("id").toString();
-                //System.out.println(id);
-                String[] sp = id.split("_");
-                jobIdList.add(Integer.parseInt(sp[1]));
+    private String getSearchTypeBySolrType(String type) throws ClientException {
+
+        String queryType = null;
+        switch (type) {
+            case "ESSAY": {
+                queryType = SearchType.ARTICLE;
+                break;
             }
-        }
-
-
-        if (body != null) {
-            query.set("q", "body:" + body);
-            query.set("fq", "type:JOB");
-            // 参数q  查询所有
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-            for (SolrDocument doc : solrDocumentList) {
-                String id = doc.get("id").toString();
-                //System.out.println(id);
-                String[] sp = id.split("_");
-                jobIdList.add(Integer.parseInt(sp[1]));
+            case "QUESTION": {
+                queryType = SearchType.QUESTION;
+                break;
             }
-        }
-
-        List<Job> jobList = jobService.get(jobIdList);
-        return jobList;
-    }
-
-    public List<Company> companySearch(String name, String body, Integer startIndex, Integer endIndex) throws Exception {
-        List<Integer> companyIdList = new ArrayList<>();
-        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
-        SolrQuery query = new SolrQuery();
-        if (name != null) {
-            query.set("q", "name:" + name);
-            query.set("fq", "type:COMPANY");
-            // 参数q  查询所有
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-            for (SolrDocument doc : solrDocumentList) {
-                String id = doc.get("id").toString();
-                //System.out.println(id);
-                String[] sp = id.split("_");
-                companyIdList.add(Integer.parseInt(sp[1]));
+            case "ANSWER": {
+                queryType = SearchType.ANSWER;
+                break;
             }
-        }
-
-
-        if (body != null) {
-            query.set("q", "body:" + body);
-            query.set("fq", "type:COMPANY");
-            // 参数q  查询所有
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-            for (SolrDocument doc : solrDocumentList) {
-                String id = doc.get("id").toString();
-                //System.out.println(id);
-                String[] sp = id.split("_");
-                companyIdList.add(Integer.parseInt(sp[1]));
+            case "JOB": {
+                queryType = SearchType.JOB;
+                break;
             }
-        }
-        List<Company> companyList = companyCURDService.get(companyIdList);
-        return companyList;
-    }
-
-    public List<User> userSearch(String title, String body, Integer startIndex, Integer endIndex) throws Exception {
-        List<Integer> userIdList = new ArrayList<>();
-        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
-        SolrQuery query = new SolrQuery();
-        if (title != null) {
-            query.set("q", "title:" + title);
-            query.set("fq", "type:USER");
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-
-            for (SolrDocument doc : solrDocumentList) {
-                String id = doc.get("id").toString();
-                //System.out.println(id);
-                String[] sp = id.split("_");
-                userIdList.add(Integer.parseInt(sp[1]));
+            case "COMPANY": {
+                queryType = SearchType.COMPANY;
+                break;
             }
-        }
-        List<User> userList = userService.get(userIdList);
-        return userList;
-    }
-
-    public List<BriefReview> briefReviewSearch(String title, String body, Integer startIndex, Integer endIndex) throws Exception {
-        List<Integer> briefReviewIdList = new ArrayList<>();
-        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
-        SolrQuery query = new SolrQuery();
-        if (body != null) {
-            query.set("q", "body:" + body);
-            query.set("fq", "type:REVIEW");
-            // 参数q  查询所有
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-            for (SolrDocument doc : solrDocumentList) {
-                String id = doc.get("id").toString();
-                //System.out.println(id);
-                String[] sp = id.split("_");
-                briefReviewIdList.add(Integer.parseInt(sp[1]));
+            case "REVIEW": {
+                queryType = SearchType.EDITORIAL;
+                break;
             }
-        }
-
-        List<BriefReview> briefReviewList = briefReviewService.get(briefReviewIdList);
-        return briefReviewList;
-    }
-
-    public List<Comment> commentSearch(String title, String body, Integer startIndex, Integer endIndex) throws Exception {
-        List<Integer> comIdList = new ArrayList<>();
-        HttpSolrClient solrServer = new HttpSolrClient.Builder(SOLR_URL + "youthchinacore/").withConnectionTimeout(10000).withSocketTimeout(60000).build();
-        SolrQuery query = new SolrQuery();
-        if (body != null) {
-            query.set("q", "body:" + body);
-            query.set("fq", "type:COMMENT");
-            // 参数q  查询所有
-            query.setStart(startIndex);
-            query.setRows(endIndex - startIndex + 1);//每一页多少值
-            QueryResponse response = solrServer.query(query);
-            SolrDocumentList solrDocumentList = response.getResults();
-            for (SolrDocument doc : solrDocumentList) {
-                String id = doc.get("id").toString();
-                //System.out.println(id);
-                String[] sp = id.split("_");
-                comIdList.add(Integer.parseInt(sp[1]));
+            case "COMMENT": {
+                queryType = SearchType.COMMENT;
+                break;
             }
+            case "USER": {
+                queryType = SearchType.USER;
+                break;
+            }
+            case "*":{
+                queryType = SearchType.ALL;
+                break;
+
+            }
+            default:
+                throw new ClientException("cannot search target type, please try one of the following " + SearchType.getNameString());
         }
-        List<Comment> comList = commentService.get(comIdList);
-        return comList;
+        return queryType;
     }
 }

@@ -5,6 +5,8 @@ import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
+import com.youthchina.util.LoggedInUserUtil;
+import com.youthchina.util.dictionary.AttentionTargetType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,6 +100,12 @@ public class EssayServiceImpl implements EssayService {
         }
         richTextService.getComRichText(comEssay);
         comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
+        comEssay.setAttentionCount(attentionService.countAttention(comEssay));
+        comEssay.setEvaluateStatus(evaluateService.evaluateStatus(comEssay, LoggedInUserUtil.currentUser().getId()));
+        comEssay.setUpvoteCount(evaluateService.countUpvote(comEssay));
+        comEssay.setDownvoteCount(evaluateService.countDownvote(comEssay));
+        comEssay.setAttention(attentionService.isAttention(AttentionTargetType.ESSAY,comEssay.getId(),  LoggedInUserUtil.currentUser().getId()));
+
         return comEssay;
     }
 

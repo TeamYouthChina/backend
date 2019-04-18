@@ -41,6 +41,11 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
         }
         this.author = new UserDTO(briefReview.getUser());
         this.modified_at = briefReview.getTime();
+        this.upvoteCount = briefReview.getUpvoteCount();
+        this.downvoteCount = briefReview.getDownvoteCount();
+        this.attentionCount = briefReview.getAttentionCount();
+        this.isAttention = briefReview.isAttention();
+        this.evaluateStatus = briefReview.getEvaluateStatus();
     }
 
     public BriefReviewResponseDTO() {
@@ -142,5 +147,10 @@ public class BriefReviewResponseDTO implements ResponseDTO<BriefReview> {
         }
 
         this.author = new UserDTO(briefReview.getUser());
+        this.upvoteCount = briefReview.getUpvoteCount();
+        this.downvoteCount = briefReview.getDownvoteCount();
+        this.attentionCount = briefReview.getAttentionCount();
+        this.isAttention = briefReview.isAttention();
+        this.evaluateStatus = briefReview.getEvaluateStatus();
     }
 }

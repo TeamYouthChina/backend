@@ -9,8 +9,6 @@ import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.applicant.OrganizationDTO;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 

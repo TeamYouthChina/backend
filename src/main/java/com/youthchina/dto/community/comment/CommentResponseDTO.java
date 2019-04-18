@@ -33,6 +33,9 @@ public class CommentResponseDTO implements ResponseDTO<Comment> {
         this.create_at = comment.getPubTime();
         this.is_anonymous = (comment.getIsAnony() == 1) ? true : false;
         this.modified_at = comment.getEditTime();
+        this.upvoteCount = comment.getUpvoteCount();
+        this.downvoteCount = comment.getDownvoteCount();
+        this.evaluateStatus = comment.getEvaluateStatus();
     }
 
     public Integer getId() {
@@ -117,5 +120,8 @@ public class CommentResponseDTO implements ResponseDTO<Comment> {
         this.create_at = comment.getPubTime();
         this.is_anonymous = (comment.getIsAnony() == 1) ? true : false;
         this.modified_at = comment.getEditTime();
+        this.upvoteCount = comment.getUpvoteCount();
+        this.downvoteCount = comment.getDownvoteCount();
+        this.evaluateStatus = comment.getEvaluateStatus();
     }
 }

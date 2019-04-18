@@ -16,6 +16,9 @@ public class Discuss implements Evaluatable {
     private Timestamp pubTime;
     private Timestamp editTime;
     private User user;
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer evaluateStatus;
     private static final Integer evaluateTargetType = EvaluationTargetType.DISCUSS;
     private static final Integer isExistTargetType = IsExistTargetType.DISCUSS;
     public Discuss() {
@@ -91,5 +94,33 @@ public class Discuss implements Evaluatable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
+
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
+
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
+    }
+
+    public static Integer getIsExistTargetType() {
+        return isExistTargetType;
     }
 }
