@@ -202,7 +202,11 @@ public class CompanyControllerTest {
         Assert.assertEquals("TestDDL", job.getJobName());
         List<Job> jobList2 = companyCURDService.getJobsByCompanyId(comId,userId);
         Assert.assertEquals(jobList.size(), jobList2.size());
-
+        job = jobService.get(1);
+        job.setJobEndTime(Date.valueOf("2029-04-17"));
+        jobService.add(job);
+        List<Job> jobList3 = companyCURDService.getJobsByCompanyId(comId,userId);
+        Assert.assertEquals(jobList.size() + 1, jobList3.size());
     }
 
 
