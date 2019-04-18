@@ -27,10 +27,10 @@ public class EvaluateTest {
         Integer id = evaluate.getId();
         evaluateMapper.reDownVote(id);
         evaluate = evaluateMapper.isEverEvaluate(1,1,2);
-        Assert.assertEquals(Integer.valueOf(0),evaluate.getType());
+        Assert.assertEquals(Integer.valueOf(2),evaluate.getType());
         evaluateMapper.reUpvote(id);
         evaluate = evaluateMapper.isEverEvaluate(1,1,2);
-        Assert.assertEquals(Integer.valueOf(0),evaluate.getType());
+        Assert.assertEquals(Integer.valueOf(1),evaluate.getType());
         evaluateMapper.cancel(id);
         evaluate = evaluateMapper.isEverEvaluate(1,1,2);
         Assert.assertEquals(Integer.valueOf(3),evaluate.getType());
