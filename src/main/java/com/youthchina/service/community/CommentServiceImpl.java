@@ -25,7 +25,6 @@ public class CommentServiceImpl implements CommentService {
     @Resource
     DiscussService discussService;
 
-
     @Resource
     UserService userService;
 
