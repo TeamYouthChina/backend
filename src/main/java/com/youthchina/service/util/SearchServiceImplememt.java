@@ -263,7 +263,6 @@ public class SearchServiceImplememt implements SearchService {
             case "*":{
                 queryType = SearchType.ALL;
                 break;
-
             }
             default:
                 throw new ClientException("cannot search target type, please try one of the following " + SearchType.getNameString());
