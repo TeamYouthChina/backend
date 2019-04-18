@@ -12,10 +12,10 @@
     </select>
 
     <update id="reUpvote" parameterType="java.lang.Integer">
-        update COM_EVALUATE set EVALUATE_TYPE=1 and EVALUATE_TIME = now() where EVALUATE_ID=#{id}
+        update COM_EVALUATE set EVALUATE_TYPE=1, EVALUATE_TIME = now() where EVALUATE_ID=#{id}
     </update>
     <update id="reDownVote" parameterType="java.lang.Integer">
-        update COM_EVALUATE set EVALUATE_TYPE=2 and EVALUATE_TIME = now() where EVALUATE_ID=#{id}
+        update COM_EVALUATE set EVALUATE_TYPE=2, EVALUATE_TIME = now() where EVALUATE_ID=#{id}
     </update>
     <insert id="upvote" useGeneratedKeys="true" keyProperty="id">
         insert into COM_EVALUATE(target_type, target_id, user_id, evaluate_type, evaluate_time)
