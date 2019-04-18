@@ -89,7 +89,6 @@ public class QuestionController {
             while (it.hasNext()) {
                 Question question = (Question) it.next();
                 QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
-                questionResponseDTO.setAttention(attentionService.isAttention(AttentionTargetType.QUESTION, question.getId(), user.getId()));
                 Iterator iterator = questionResponseDTO.getAnswers().iterator();
                 while (iterator.hasNext()) {
                     AnswerBasicDTO answerBasicDTO = (AnswerBasicDTO) iterator.next();
@@ -99,7 +98,7 @@ public class QuestionController {
                 questionResponseDTOArrayList.add(questionResponseDTO);
             }
             if (questionResponseDTOArrayList.size() != 0) {
-                ListResponse listResponse = new ListResponse(pageRequest, questionResponseDTOArrayList.size(), questionResponseDTOArrayList);
+                ListResponse listResponse = new ListResponse(pageRequest, questionResponseDTOArrayList);
                 return ResponseEntity.ok(listResponse);
             }
         } else if (!company.equals("")) {
@@ -108,8 +107,7 @@ public class QuestionController {
             Iterator it = questionList.iterator();
             while (it.hasNext()) {
                 Question question = (Question) it.next();
-                QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO((Question) it.next());
-                questionResponseDTO.setAttention(attentionService.isAttention(AttentionTargetType.QUESTION, question.getId(), user.getId()));
+                QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
                 Iterator iterator = questionResponseDTO.getAnswers().iterator();
                 while (iterator.hasNext()) {
                     AnswerBasicDTO answerBasicDTO = (AnswerBasicDTO) iterator.next();
@@ -120,7 +118,7 @@ public class QuestionController {
                 questionResponseDTOArrayList.add(questionResponseDTO);
             }
             if (questionResponseDTOArrayList.size() != 0) {
-                ListResponse listResponse = new ListResponse(pageRequest, questionResponseDTOArrayList.size(), questionResponseDTOArrayList);
+                ListResponse listResponse = new ListResponse(pageRequest, questionResponseDTOArrayList);
                 return ResponseEntity.ok(listResponse);
             }
         }

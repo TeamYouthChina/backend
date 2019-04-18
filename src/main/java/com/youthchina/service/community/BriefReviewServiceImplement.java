@@ -46,9 +46,6 @@ public class BriefReviewServiceImplement implements BriefReviewService {
         Iterator iterator = comments.iterator();
         while (iterator.hasNext()){
             Comment comment = (Comment) iterator.next();
-            comment.setEvaluateStatus(evaluateService.evaluateStatus(comment,LoggedInUserUtil.currentUser().getId()));
-            comment.setUpvoteCount(evaluateService.countUpvote(comment));
-            comment.setDownvoteCount(evaluateService.countDownvote(comment));
         }
         briefReview.setComments(comments);
         briefReview.setAttentionCount(attentionService.countAttention(briefReview));

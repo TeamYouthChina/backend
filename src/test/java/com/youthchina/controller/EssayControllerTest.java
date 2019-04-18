@@ -161,7 +161,7 @@ public class EssayControllerTest extends BaseControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-              .andExpect(partialContent("{\"content\":{\"id\":31,\"creator\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0,\"phone_number\":\"2022922222\"},\"body\":\"何老师你要是被绑架了就扎扎眼！\",\"create_at\":1555482540750,\"is_anonymous\":false,\"modified_at\":1555482540750,\"upvoteCount\":null,\"downvoteCount\":null,\"evaluateStatus\":null},\"status\":{\"code\":201,\"reason\":\"success\"}}","$.content.id","$.content.modified_at","$.content.create_at"));
+              .andExpect(partialContent("{\"content\":{\"id\":28,\"creator\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0,\"phone_number\":\"2022922222\"},\"body\":\"何老师你要是被绑架了就扎扎眼！\",\"create_at\":1555603528543,\"is_anonymous\":false,\"modified_at\":1555603528543,\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3},\"status\":{\"code\":201,\"reason\":\"success\"}}","$.content.id","$.content.modified_at","$.content.create_at"));
    }
 
     @Test
@@ -196,7 +196,7 @@ public class EssayControllerTest extends BaseControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"offset\":0,\"limit\":2147483646,\"data\":[{\"id\":16,\"creator\":null,\"body\":\"好好好\",\"create_at\":1549929600000,\"is_anonymous\":true,\"modified_at\":1549929600000,\"upvoteCount\":1,\"downvoteCount\":1,\"evaluateStatus\":3}],\"page_count\":0,\"item_count\":1,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":{\"offset\":0,\"limit\":2147483646,\"data\":[{\"id\":16,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"register_date\":1546300800000,\"first_name\":\"DDD\",\"last_name\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":[\"ADMIN\"],\"age\":28,\"phone_number\":\"9876543210123\"},\"body\":\"好好好\",\"create_at\":1549929600000,\"is_anonymous\":true,\"modified_at\":1549929600000,\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3}],\"page_count\":0,\"item_count\":1,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
