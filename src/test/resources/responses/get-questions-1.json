@@ -32,12 +32,7 @@
           "phone_number": "9876543210123"
         },
         "modified_at": 1517616000000,
-        "create_at": 1517616000000,
-        "upvoteCount": 0,
-        "downvoteCount": 0,
-        "attentionCount": 0,
-        "evaluateStatus": 3,
-        "attention": false
+        "create_at": 1517616000000
       }
     ],
     "rela_type": 1,

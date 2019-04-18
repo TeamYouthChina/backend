@@ -89,17 +89,12 @@ public class QuestionController {
             while (it.hasNext()) {
                 Question question = (Question) it.next();
                 QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO(question);
-                questionResponseDTO.setAttention(attentionService.isAttention(AttentionTargetType.QUESTION,question.getId(), user.getId()));
+                questionResponseDTO.setAttention(attentionService.isAttention(AttentionTargetType.QUESTION, question.getId(), user.getId()));
                 Iterator iterator = questionResponseDTO.getAnswers().iterator();
                 while (iterator.hasNext()) {
                     AnswerBasicDTO answerBasicDTO = (AnswerBasicDTO) iterator.next();
                     Answer answer = new Answer();
                     answer.setId(answerBasicDTO.getId());
-                    answerBasicDTO.setUpvoteCount(evaluateService.countUpvote(answer));
-                    answerBasicDTO.setDownvoteCount(evaluateService.countDownvote(answer));
-                    answerBasicDTO.setAttention(attentionService.isAttention(AttentionTargetType.ANSWER,answer.getId(), user.getId()));
-                    answerBasicDTO.setAttentionCount(attentionService.countAttention(answer));
-                    answerBasicDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer, user.getId()));
                 }
                 questionResponseDTOArrayList.add(questionResponseDTO);
             }
@@ -114,17 +109,13 @@ public class QuestionController {
             while (it.hasNext()) {
                 Question question = (Question) it.next();
                 QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO((Question) it.next());
-                questionResponseDTO.setAttention(attentionService.isAttention(AttentionTargetType.QUESTION, question.getId(),user.getId()));
+                questionResponseDTO.setAttention(attentionService.isAttention(AttentionTargetType.QUESTION, question.getId(), user.getId()));
                 Iterator iterator = questionResponseDTO.getAnswers().iterator();
                 while (iterator.hasNext()) {
                     AnswerBasicDTO answerBasicDTO = (AnswerBasicDTO) iterator.next();
                     Answer answer = new Answer();
                     answer.setId(answerBasicDTO.getId());
-                    answerBasicDTO.setUpvoteCount(evaluateService.countUpvote(answer));
-                    answerBasicDTO.setDownvoteCount(evaluateService.countDownvote(answer));
-                    answerBasicDTO.setAttention(attentionService.isAttention(AttentionTargetType.ANSWER,answer.getId() ,user.getId()));
-                    answerBasicDTO.setAttentionCount(attentionService.countAttention(answer));
-                    answerBasicDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer, user.getId()));
+
                 }
                 questionResponseDTOArrayList.add(questionResponseDTO);
             }
@@ -140,17 +131,12 @@ public class QuestionController {
     public ResponseEntity<?> getQuestion(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Question question = questionService.get(id);
         QuestionResponseDTO responseDTO = DomainToDto(question);
-        responseDTO.setAttention(attentionService.isAttention(AttentionTargetType.QUESTION,question.getId(), user.getId()));
+        responseDTO.setAttention(attentionService.isAttention(AttentionTargetType.QUESTION, question.getId(), user.getId()));
         Iterator iterator = responseDTO.getAnswers().iterator();
         while (iterator.hasNext()) {
             AnswerBasicDTO answerBasicDTO = (AnswerBasicDTO) iterator.next();
             Answer answer = new Answer();
             answer.setId(answerBasicDTO.getId());
-            answerBasicDTO.setUpvoteCount(evaluateService.countUpvote(answer));
-            answerBasicDTO.setDownvoteCount(evaluateService.countDownvote(answer));
-            answerBasicDTO.setAttention(attentionService.isAttention(AttentionTargetType.ANSWER, answer.getId(),user.getId()));
-            answerBasicDTO.setAttentionCount(attentionService.countAttention(answer));
-            answerBasicDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer, user.getId()));
         }
         return ResponseEntity.ok(new Response(responseDTO));
     }
@@ -185,26 +171,17 @@ public class QuestionController {
     }
 
     @GetMapping("/{id}/answers")
+    @ResponseBodyDTO(SimpleAnswerResponseDTO.class)
     public ResponseEntity<?> getAnswers(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
-        QuestionResponseDTO questionResponseDTO = DomainToDto(questionService.get(id));
-        ListResponse listResponse = new ListResponse(pageRequest, questionResponseDTO.getAnswers().size(), questionResponseDTO.getAnswers());
+        List<Answer> answers = this.answerService.getAnswers(id);
+        Question question = this.questionService.getBasicQuestion(id);
+        for (Answer answer : answers) {
+            answer.setQuestion(question);
+        }
+        List<Answer> pagedAnswers = answers.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, answers.size()));
+        ListResponse listResponse = new ListResponse(pageRequest, answers.size(), pagedAnswers);
         return ResponseEntity.ok(listResponse);
     }
-
-    /*@PutMapping("/{id}/invite/**")
-    public ResponseEntity<?> sendInvites(@PathVariable Integer id, @RequestBody List<Integer> userIds, @AuthenticationPrincipal User user) throws NotFoundException {
-        System.out.println("invite users to answer");
-        questionService.invitUsersToAnswer(user.getId(), id, userIds);
-        return ResponseEntity.ok(new Response());
-    }
-    @PutMapping("/{questionId}/invite/{userId}")
-    public ResponseEntity<?> sendInvite(@PathVariable Integer questionId, @PathVariable Integer userId, @AuthenticationPrincipal User user) throws NotFoundException {
-        System.out.println("invite user 1 to answer");
-        List<Integer> list = new ArrayList<>();
-        list.add(userId);
-        questionService.invitUsersToAnswer(user.getId(), questionId, list);
-        return ResponseEntity.ok(new Response());
-    }*/
 
     @PostMapping("/{id}/answers")
     @ResponseBodyDTO(SimpleAnswerResponseDTO.class)
