@@ -51,6 +51,10 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         return company;
     }
 
+    /**
+     * 设置该公司的的Logo (DocId)
+     * @param company
+     */
     private void setCompanyLogo(Company company) {
         List<Logo> logoList = company.getLogoList();
         if (logoList != null && logoList.size() > 0) {
@@ -62,6 +66,10 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         }
     }
 
+    /**
+     * 插入该公司的 PhotoList (DocId)
+     * @param company
+     */
     private void setCompanyPhoto(Company company) {
         List<CompanyPhoto> photoList = company.getPhotoList();
 
@@ -86,7 +94,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     }
 
     /**
-     * 公司搜索
+     * 通过Id List, 返回公司 List
      *
      * @param id 公司Id List
      * @return 公司类 List
@@ -143,10 +151,16 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         companyMapper.deleteCompanyInd(company.getCompanyId());
         companyMapper.deleteCompanyLogo(company.getCompanyId());
         companyMapper.deleteCompanyPhoto(company.getCompanyId());
-        return addRelatedInfo(company);
+        addRelatedInfo(company);
+        return this.get(company.getCompanyId());
     }
 
-    private Company addRelatedInfo(Company company) throws NotFoundException {
+    /**
+     * 在添加&更新公司的基本信息后, 插入关联表相关信息
+     * @param company
+     * @throws NotFoundException
+     */
+    private void addRelatedInfo(Company company) throws NotFoundException {
         List<Industry> industryList = company.getIndList();
         if (industryList != null && industryList.size() > 0) {
             companyMapper.insertCompanyInd(company.getId(), industryList);
@@ -159,7 +173,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         if (photoList != null && photoList.size() > 0) {
             companyMapper.insertCompanyPhoto(company.getId(), photoList);
         }
-        return this.get(company.getCompanyId());
+
     }
 
     /**
@@ -172,7 +186,8 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     @Transactional
     public Company add(Company entity) throws NotFoundException {
         Integer result = companyMapper.insertCompany(entity);
-        return addRelatedInfo(entity);
+        addRelatedInfo(entity);
+        return this.get(entity.getCompanyId());
     }
 
 
@@ -198,7 +213,7 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
     }
 
     /**
-     * 公司搜索 : 模糊搜索
+     * 公司搜索 : 通过公司名称 模糊搜索
      *
      * @param comName 公司名称
      * @return 公司List
@@ -213,6 +228,10 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         return companyList;
     }
 
+    /**
+     * 获取数据库所有公司, (本来暂时为推荐提供数据)
+     * @return
+     */
     @Transactional
     public List<Company> getAll() {
         List<Company> companyList = companyMapper.selectAllCompany();
@@ -222,18 +241,36 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         return companyList;
     }
 
+    /**
+     * 统计该公司下有多少职位 (未对DeadLine 进行判断)
+     * @param companyId
+     * @return
+     */
     @Transactional
     public Integer countJobByComId(Integer companyId) {
         Integer jobCount = jobMapper.countJobByComId(companyId);
         return jobCount;
     }
 
+    /**
+     * 判断该User 是否收藏了该公司
+     * @param companyId
+     * @param userId
+     * @return
+     */
     @Override
     public Boolean isCollected(Integer companyId, Integer userId) {
         Integer result = companyMapper.isCollected(companyId, userId);
         return result != null;
     }
 
+    /**
+     * 通过公司Id获取 公司, 并判断是否被该User收藏
+     * @param companyId
+     * @param userId
+     * @return
+     * @throws NotFoundException
+     */
     @Override
     public Company getCompanyWithCollected(Integer companyId, Integer userId) throws NotFoundException {
         Company company = this.get(companyId);
@@ -241,6 +278,13 @@ public class CompanyCURDServiceImpl implements CompanyCURDService {
         return company;
     }
 
+    /**
+     * 通过公司Id获取下属职位
+     * @param companyId
+     * @param userId
+     * @return
+     * @throws NotFoundException
+     */
     @Override
     public List<Job> getJobsByCompanyId(Integer companyId, Integer userId) throws NotFoundException{
         List<Job> jobList = jobMapper.selectJobByComId(companyId);

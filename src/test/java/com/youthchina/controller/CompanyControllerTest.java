@@ -3,10 +3,14 @@ package com.youthchina.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.domain.qingyang.Job;
 import com.youthchina.dto.company.CompanyRequestDTO;
 import com.youthchina.dto.util.LocationDTO;
+import com.youthchina.service.application.CompanyCURDServiceImpl;
+import com.youthchina.service.application.JobServiceImpl;
 import com.youthchina.service.util.StaticFileService;
 import com.youthchina.util.AuthGenerator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +27,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +54,11 @@ public class CompanyControllerTest {
 
     @Autowired
     private ApplicationContext applicationContext;
+
+    @Autowired
+    private CompanyCURDServiceImpl companyCURDService;
+    @Autowired
+    private JobServiceImpl jobService;
 
     @Value("${web.url.prefix}")
     private String urlPrefix;
@@ -177,6 +187,26 @@ public class CompanyControllerTest {
                 .andDo(print())
 
         ;
+    }
+
+    @Test
+    public void getJobOfCompanyBeforeDDL() throws Exception{
+        Integer comId = 37;
+        Integer userId = 1;
+        List<Job> jobList = companyCURDService.getJobsByCompanyId(comId, userId);
+        Job job = jobService.get(1);
+        job.setJobEndTime(Date.valueOf("2019-04-17"));
+        job.setJobName("TestDDL");
+        jobService.add(job);
+        job = jobService.get(job.getId());
+        Assert.assertEquals("TestDDL", job.getJobName());
+        List<Job> jobList2 = companyCURDService.getJobsByCompanyId(comId,userId);
+        Assert.assertEquals(jobList.size(), jobList2.size());
+        job = jobService.get(1);
+        job.setJobEndTime(Date.valueOf("2029-04-17"));
+        jobService.add(job);
+        List<Job> jobList3 = companyCURDService.getJobsByCompanyId(comId,userId);
+        Assert.assertEquals(jobList.size() + 1, jobList3.size());
     }
 
 
