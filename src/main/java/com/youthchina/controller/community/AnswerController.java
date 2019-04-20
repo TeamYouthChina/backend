@@ -1,6 +1,7 @@
 package com.youthchina.controller.community;
 
 import com.youthchina.annotation.RequestBodyDTO;
+import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.zhongyang.User;
@@ -45,11 +46,6 @@ public class AnswerController {
     public ResponseEntity getAnswer(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException{
         Answer answer = answerService.get(id);
         SimpleAnswerResponseDTO simpleAnswerResponseDTO = new SimpleAnswerResponseDTO(answer);
-        simpleAnswerResponseDTO.setAttentionCount(attentionService.countAttention(answer));
-        simpleAnswerResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
-        simpleAnswerResponseDTO.setUpvoteCount(evaluateService.countUpvote(answer));
-        simpleAnswerResponseDTO.setDownvoteCount(evaluateService.countDownvote(answer));
-        simpleAnswerResponseDTO.setAttention((attentionService.isAttention(AttentionTargetType.ANSWER,answer.getId(),user.getId())));
         return ResponseEntity.ok(new Response(simpleAnswerResponseDTO, new StatusDTO(200,"success")));
 
     }
@@ -72,8 +68,6 @@ public class AnswerController {
     @PostMapping("/{id}/comments")
     public ResponseEntity addAnswerComment(@PathVariable Integer id, @RequestBodyDTO(CommentRequestDTO.class) Comment comment, @AuthenticationPrincipal User user) throws NotFoundException {
         comment.setUser(user);
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-        comment.setPubTime(time);
         comment.setTargetId(id);
         comment.setTargetType(CommentTargetType.ANSWER);
         Answer answer = new Answer();
@@ -83,21 +77,11 @@ public class AnswerController {
     }
 
     @GetMapping("/{id}/comments")
+    @ResponseBodyDTO(CommentResponseDTO.class)
     public ResponseEntity getAnswerComments(@PathVariable Integer id, PageRequest pageRequest,@AuthenticationPrincipal User user) throws NotFoundException {
         Answer answer = answerService.get(id);
-        List<Comment> comments = commentService.getComments(answer, pageRequest.getStart(), pageRequest.getEnd());
-        List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
-        if(comments!=null) {
-            Iterator it = comments.iterator();
-            while (it.hasNext()) {
-                CommentResponseDTO commentResponseDTO = new CommentResponseDTO((Comment) it.next());
-                commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(answer));
-                commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(answer));
-                commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(answer,user.getId()));
-                commentResponseDTOS.add(commentResponseDTO);
-            }
-        }
-        ListResponse listResponse = new ListResponse(pageRequest, commentResponseDTOS.size(), commentResponseDTOS);
+        List<Comment> comments = commentService.getComments(answer);
+        ListResponse listResponse = new ListResponse(pageRequest, comments);
         return ResponseEntity.ok(listResponse);
     }
 

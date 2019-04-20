@@ -1,12 +1,14 @@
 package com.youthchina.controller.community;
 
 import com.youthchina.annotation.RequestBodyDTO;
+import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.applicant.ResumeJsonResponseDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
@@ -56,20 +58,17 @@ public class BriefReviewController {
         BriefReview briefReview = briefReviewServiceImplement.get(id);
 
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReview);
-        briefReviewResponseDTO.setAttentionCount(attentionService.countAttention(briefReview));
-        briefReviewResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
-        briefReviewResponseDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
-        briefReviewResponseDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
 
         List<Comment> comments =  briefReview.getComments();
         List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
         if (comments!= null) {
             Iterator it = comments.iterator();
             while (it.hasNext()) {
-                CommentResponseDTO commentResponseDTO = new CommentResponseDTO((Comment) it.next());
-                commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
-                commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
-                commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
+                Comment comment = (Comment) it.next();
+                CommentResponseDTO commentResponseDTO = new CommentResponseDTO(comment);
+                commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(comment));
+                commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(comment));
+                commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(comment,user.getId()));
                 commentResponseDTOS.add(commentResponseDTO);
             }
         }
@@ -138,7 +137,8 @@ public class BriefReviewController {
      BriefReview briefReview = new BriefReview();
      briefReview.setId(id);
      evaluateService.upvote(briefReview,user.getId());
-     return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
+
+            return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
     }
 
     @PutMapping("/{id}/downvote")
@@ -160,23 +160,13 @@ public class BriefReviewController {
     }
 
     @GetMapping("/{id}/comments")
+    @ResponseBodyDTO(CommentResponseDTO.class)
     public ResponseEntity getBriefReviewComments(@PathVariable Integer id, @AuthenticationPrincipal User user, PageRequest pageRequest) throws NotFoundException {
        BriefReview briefReview = new BriefReview();
        briefReview.setId(id);
        briefReview.setUser(user);
-       List<Comment> comments =  commentService.getComments(briefReview,pageRequest.getStart(),pageRequest.getEnd());
-        List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
-        if (comments!= null) {
-            Iterator it = comments.iterator();
-            while (it.hasNext()) {
-                CommentResponseDTO commentResponseDTO = new CommentResponseDTO((Comment) it.next());
-                commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(briefReview));
-                commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(briefReview));
-                commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(briefReview,user.getId()));
-                commentResponseDTOS.add(commentResponseDTO);
-            }
-        }
-        ListResponse listResponse = new ListResponse(pageRequest, commentResponseDTOS.size(), commentResponseDTOS);
+       List<Comment> comments =  commentService.getComments(briefReview);
+        ListResponse listResponse = new ListResponse(pageRequest, comments);
         return ResponseEntity.ok(listResponse);
     }
 
