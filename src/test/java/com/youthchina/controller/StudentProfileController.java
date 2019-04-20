@@ -138,8 +138,8 @@ public class StudentProfileController {
         educationDTO.setUniversity_id(10001);
         educationDTO.setMajor("10101");
         educationDTO.setDegree("1");
-        String begin = "2014-10-07";
-        String end = "2018-10-07";
+        String begin = "1554868800";
+        String end = "1555559999999";
         DurationDTO durationDTO = new DurationDTO(begin, end);
         educationDTO.setDuration(durationDTO);
         ObjectMapper mapper = new ObjectMapper();
@@ -688,12 +688,11 @@ public class StudentProfileController {
     public void testUserAttentions() throws Exception {
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/1/attentions?type=job&limit=2&offset=0")
+                        (this.urlPrefix + "/users/2/attentions?type=article&limit=2&offset=0")
 
-                        .with(authGenerator.authentication(Role.ADMIN, 1))
+                        .with(authGenerator.authentication(Role.ADMIN, 2))
         )
                 .andDo(print())
-                .andExpect(status().is2xxSuccessful())
         ;
 
     }
@@ -784,6 +783,12 @@ public class StudentProfileController {
     @Test
     public void testAddJobApply() throws Exception {
         this.mvc.perform(post(this.urlPrefix + "/jobs/4/apply").with(authGenerator.authentication(Role.APPLICANT, 10)))
+                .andDo(print());
+    }
+
+    @Test
+    public void getProfileCards() throws Exception {
+        this.mvc.perform(get(this.urlPrefix + "/applicants/10/cards").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
 
