@@ -144,7 +144,7 @@ public class EssayController {
     public ResponseEntity getEssayComments(@PathVariable Integer id, PageRequest pageRequest, @AuthenticationPrincipal User user) {
         ComEssay comEssay = new ComEssay();
         comEssay.setId(id);
-        List<Comment> comments = commentService.getComments(comEssay);
+        List<Comment> comments = commentService.getComments(comEssay, pageRequest.getStart(), pageRequest.getEnd());
 
         List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
         if (comments != null) {

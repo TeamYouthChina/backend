@@ -173,7 +173,7 @@ public class QuestionController {
     @GetMapping("/{id}/answers")
     @ResponseBodyDTO(SimpleAnswerResponseDTO.class)
     public ResponseEntity<?> getAnswers(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
-        List<Answer> answers = this.answerService.getAnswers(id);
+        List<Answer> answers = this.answerService.getAnswers(id, pageRequest.getStart(), pageRequest.getEnd());
         Question question = this.questionService.getBasicQuestion(id);
         for (Answer answer : answers) {
             answer.setQuestion(question);

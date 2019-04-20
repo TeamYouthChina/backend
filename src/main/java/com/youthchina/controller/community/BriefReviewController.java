@@ -164,7 +164,7 @@ public class BriefReviewController {
        BriefReview briefReview = new BriefReview();
        briefReview.setId(id);
        briefReview.setUser(user);
-       List<Comment> comments =  commentService.getComments(briefReview);
+       List<Comment> comments =  commentService.getComments(briefReview,pageRequest.getStart(),pageRequest.getEnd());
         List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
         if (comments!= null) {
             Iterator it = comments.iterator();

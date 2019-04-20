@@ -85,7 +85,7 @@ public class AnswerController {
     @GetMapping("/{id}/comments")
     public ResponseEntity getAnswerComments(@PathVariable Integer id, PageRequest pageRequest,@AuthenticationPrincipal User user) throws NotFoundException {
         Answer answer = answerService.get(id);
-        List<Comment> comments = commentService.getComments(answer);
+        List<Comment> comments = commentService.getComments(answer, pageRequest.getStart(), pageRequest.getEnd());
         List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
         if(comments!=null) {
             Iterator it = comments.iterator();
