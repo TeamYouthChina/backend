@@ -56,24 +56,7 @@ public class BriefReviewController {
     @GetMapping("/{id}")
     public ResponseEntity getBriefReview(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         BriefReview briefReview = briefReviewServiceImplement.get(id);
-
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReview);
-
-        List<Comment> comments =  briefReview.getComments();
-        List<CommentResponseDTO> commentResponseDTOS = new ArrayList<>();
-        if (comments!= null) {
-            Iterator it = comments.iterator();
-            while (it.hasNext()) {
-                Comment comment = (Comment) it.next();
-                CommentResponseDTO commentResponseDTO = new CommentResponseDTO(comment);
-                commentResponseDTO.setUpvoteCount(evaluateService.countUpvote(comment));
-                commentResponseDTO.setDownvoteCount(evaluateService.countDownvote(comment));
-                commentResponseDTO.setEvaluateStatus(evaluateService.evaluateStatus(comment,user.getId()));
-                commentResponseDTOS.add(commentResponseDTO);
-            }
-        }
-        briefReviewResponseDTO.setComments(commentResponseDTOS);
-        briefReviewResponseDTO.setAttention(attentionService.isAttention(AttentionTargetType.BRIEFREVIEW,briefReview.getId(),user.getId()));
         if (briefReviewResponseDTO != null)
             return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(200, "success")));
         else
@@ -96,7 +79,6 @@ public class BriefReviewController {
         BriefReview briefReviewReturn = briefReviewServiceImplement.update(briefReview);
         BriefReviewResponseDTO briefReviewResponseDTO = new BriefReviewResponseDTO(briefReviewReturn);
 
-        briefReviewResponseDTO.setId(briefReviewReturn.getId());
         return ResponseEntity.ok(new Response(briefReviewResponseDTO, new StatusDTO(200, "success")));
 
     }
