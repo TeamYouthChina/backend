@@ -1241,6 +1241,8 @@ create table IF NOT EXISTS `STU_JOB_APPLY`
     COMMENT '职位申请时间',
   `JOB_APPLY_STATUS` VARCHAR(200) NOT NULL
     COMMENT '职位申请状态',
+  `DOCU_LOCAL_ID` VARCHAR(200)  NULL
+    COMMENT '职位申请简历文件ID',
   PRIMARY KEY (`APPLY_ID`)
 )
   COMMENT = '职位申请记录表';
