@@ -57,7 +57,7 @@ public interface EssayService extends DomainCRUDService<ComEssay, Integer> {
     public List<ComEssay> getEssayLatest();
 
     /**
-     * 根据用户id 获取他关注的所有文章
+     * 根据用户id 获取他的所有文章
      * param Integer user_id
      * return List<ComEssay>
      */

@@ -8,7 +8,6 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.applicant.ResumeJsonResponseDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewRequestDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
 import com.youthchina.dto.community.comment.CommentRequestDTO;
@@ -20,7 +19,6 @@ import com.youthchina.service.community.BriefReviewServiceImplement;
 import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
 import com.youthchina.service.user.UserServiceImpl;
-import com.youthchina.util.dictionary.AttentionTargetType;
 import com.youthchina.util.dictionary.CommentTargetType;
 import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +27,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 

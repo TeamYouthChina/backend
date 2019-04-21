@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -100,9 +99,9 @@ public class BriefReviewServiceImplement implements BriefReviewService {
             try {
                 briefReview.setUser(userService.get(briefReview.getUser().getId()));
                 briefReview.setAttentionCount(attentionService.countAttention(briefReview));
-                briefReview.setEvaluateStatus(evaluateService.evaluateStatus(briefReview, LoggedInUserUtil.currentUser().getId()));
                 briefReview.setUpvoteCount(evaluateService.countUpvote(briefReview));
                 briefReview.setDownvoteCount(evaluateService.countDownvote(briefReview));
+                briefReview.setEvaluateStatus(evaluateService.evaluateStatus(briefReview, LoggedInUserUtil.currentUser().getId()));
             } catch (NotFoundException e) {
 
             }
