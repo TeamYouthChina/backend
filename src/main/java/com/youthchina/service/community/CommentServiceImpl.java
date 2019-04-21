@@ -48,8 +48,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getComments(Commentable entity, Integer start, Integer end) {
-        List<Comment> comments = commentMapper.getLimitedComments(entity.getCommentTargetType(), entity.getId(), start, end - start + 1);
+    public List<Comment> getComments(Commentable entity, Integer start, Integer limit) {
+        List<Comment> comments = commentMapper.getLimitedComments(entity.getCommentTargetType(), entity.getId(), start, limit);
         for (Comment comment : comments) {
             try {
                 comment.setUser(userService.get(comment.getUser().getId()));
