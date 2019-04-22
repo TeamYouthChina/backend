@@ -138,8 +138,8 @@ public class StudentProfileController {
         educationDTO.setUniversity_id(10001);
         educationDTO.setMajor("10101");
         educationDTO.setDegree("1");
-        String begin = "1554868800";
-        String end = "1555559999999";
+        String begin = "2018-10-10";
+        String end = "2018-10-11";
         DurationDTO durationDTO = new DurationDTO(begin, end);
         educationDTO.setDuration(durationDTO);
         ObjectMapper mapper = new ObjectMapper();
@@ -789,6 +789,12 @@ public class StudentProfileController {
     @Test
     public void getProfileCards() throws Exception {
         this.mvc.perform(get(this.urlPrefix + "/applicants/10/cards").with(authGenerator.authentication(Role.APPLICANT, 10)))
+                .andDo(print());
+    }
+
+    @Test
+    public void getAllNotification() throws Exception{
+        this.mvc.perform(get(this.urlPrefix + "/notifications/1").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
 

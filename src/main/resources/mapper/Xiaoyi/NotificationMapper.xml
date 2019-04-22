@@ -33,4 +33,9 @@
         select NOTIFY_ID from SYS_NOTIFICATION where NOTIFY_ID = #{id}
     </select>
 
+    <select id="getAllNotifications" resultMap="notification">
+        select a.* from SYS_NOTIFICATION a
+        where a.USER_ID = #{user_id}
+    </select>
+
 </mapper>

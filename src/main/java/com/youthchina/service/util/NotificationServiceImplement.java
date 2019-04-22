@@ -7,6 +7,8 @@ import com.youthchina.service.user.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+
 @Service("NotificationService")
 public class NotificationServiceImplement implements NotificationService{
     @Resource
@@ -49,5 +51,11 @@ public class NotificationServiceImplement implements NotificationService{
     @Override
     public void delete(Integer id) throws NotFoundException {
 
+    }
+
+    @Override
+    public List<Notification> getAllNotifications(Integer user_id) throws NotFoundException {
+        List<Notification> notifications=notificationMapper.getAllNotifications(user_id);
+        return notifications;
     }
 }

@@ -7,46 +7,48 @@ import com.youthchina.dto.security.UserDTO;
 import java.sql.Timestamp;
 
 public class NotificationDTO {
-    private Integer id;
-    private String content;
-    private Timestamp notify_time;
+    private Integer notification_id;
+    private String text;
+    private Timestamp create_at;
     private boolean is_read;
-    private UserDTO user;
+
 
     public NotificationDTO() {
 
     }
 
     public NotificationDTO(Notification notification) {
-        this.id = notification.getId();
-        this.content = notification.getContent();
-        this.notify_time = notification.getNotifyTime();
-        this.is_read = (notification.getIsRead()==1)?true:false;
-        this.user = new UserDTO(notification.getUser());
+        if(notification!=null){
+            this.notification_id = notification.getId();
+            this.text = notification.getContent();
+            this.create_at = notification.getNotifyTime();
+            this.is_read = (notification.getIsRead()==1)?true:false;
+        }
+
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getNotification_id() {
+        return notification_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setNotification_id(Integer notification_id) {
+        this.notification_id = notification_id;
     }
 
-    public String getContent() {
-        return content;
+    public String getText() {
+        return text;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public Timestamp getNotify_time() {
-        return notify_time;
+    public Timestamp getCreate_at() {
+        return create_at;
     }
 
-    public void setNotify_time(Timestamp notify_time) {
-        this.notify_time = notify_time;
+    public void setCreate_at(Timestamp create_at) {
+        this.create_at = create_at;
     }
 
     public boolean isIs_read() {
@@ -55,13 +57,5 @@ public class NotificationDTO {
 
     public void setIs_read(boolean is_read) {
         this.is_read = is_read;
-    }
-
-    public UserDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTO user) {
-        this.user = user;
     }
 }
