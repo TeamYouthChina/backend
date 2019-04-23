@@ -6,11 +6,11 @@ import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
 import com.youthchina.util.LoggedInUserUtil;
+import com.youthchina.util.dictionary.AttentionTargetType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -43,16 +43,12 @@ public class BriefReviewServiceImplement implements BriefReviewService {
         briefReview.setUser(userService.get(briefReview.getUser().getId()));
         richTextService.getComRichText(briefReview);
         List<Comment> comments = commentService.getComments(briefReview);
-        Iterator iterator = comments.iterator();
-        while (iterator.hasNext()){
-            Comment comment = (Comment) iterator.next();
-        }
         briefReview.setComments(comments);
         briefReview.setAttentionCount(attentionService.countAttention(briefReview));
         briefReview.setEvaluateStatus(evaluateService.evaluateStatus(briefReview, LoggedInUserUtil.currentUser().getId()));
         briefReview.setUpvoteCount(evaluateService.countUpvote(briefReview));
         briefReview.setDownvoteCount(evaluateService.countDownvote(briefReview));
-
+        briefReview.setAttention(attentionService.isAttention(AttentionTargetType.BRIEFREVIEW,briefReview.getId(),LoggedInUserUtil.currentUser().getId()));
         return briefReview;
     }
 
@@ -103,9 +99,9 @@ public class BriefReviewServiceImplement implements BriefReviewService {
             try {
                 briefReview.setUser(userService.get(briefReview.getUser().getId()));
                 briefReview.setAttentionCount(attentionService.countAttention(briefReview));
-                briefReview.setEvaluateStatus(evaluateService.evaluateStatus(briefReview, LoggedInUserUtil.currentUser().getId()));
                 briefReview.setUpvoteCount(evaluateService.countUpvote(briefReview));
                 briefReview.setDownvoteCount(evaluateService.countDownvote(briefReview));
+                briefReview.setEvaluateStatus(evaluateService.evaluateStatus(briefReview, LoggedInUserUtil.currentUser().getId()));
             } catch (NotFoundException e) {
 
             }

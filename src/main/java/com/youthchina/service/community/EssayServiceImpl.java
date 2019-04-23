@@ -101,9 +101,11 @@ public class EssayServiceImpl implements EssayService {
         richTextService.getComRichText(comEssay);
         comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
         comEssay.setAttentionCount(attentionService.countAttention(comEssay));
+        if(LoggedInUserUtil.currentUser().getId()!=null)
         comEssay.setEvaluateStatus(evaluateService.evaluateStatus(comEssay, LoggedInUserUtil.currentUser().getId()));
         comEssay.setUpvoteCount(evaluateService.countUpvote(comEssay));
         comEssay.setDownvoteCount(evaluateService.countDownvote(comEssay));
+        if(LoggedInUserUtil.currentUser().getId()!=null)
         comEssay.setAttention(attentionService.isAttention(AttentionTargetType.ESSAY,comEssay.getId(),  LoggedInUserUtil.currentUser().getId()));
 
         return comEssay;
