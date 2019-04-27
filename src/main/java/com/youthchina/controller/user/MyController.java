@@ -75,15 +75,14 @@ public class MyController {
     /**
      * 返回我的 收藏公司 发布职位
      *
-     * @param id
      * @param user
      * @return
      * @throws ForbiddenException
      * @throws NotFoundException
      */
-    @GetMapping("/:{id}/my")
-    public ResponseEntity<?> getMy(@RequestParam(value = "type", defaultValue = "all") String type, @PathVariable Integer id, @AuthenticationPrincipal User user, PageRequest pageRequest) throws ForbiddenException, NotFoundException, ClientException {
-        if (user.getId().equals(id)) {
+    @GetMapping("/**")
+    public ResponseEntity<?> getMy(@RequestParam(value = "type", defaultValue = "all") String type, @AuthenticationPrincipal User user, PageRequest pageRequest) throws ForbiddenException, NotFoundException, ClientException {
+            Integer id = user.getId();
             Map<String, Object> result = new HashMap<>();
             switch (type) {
                 case SearchType.ARTICLE: {
@@ -158,9 +157,6 @@ public class MyController {
             }
             //return ResponseEntity.ok(new Response(result));
 
-        } else {
-            throw new ForbiddenException();
-        }
     }
 
 }
