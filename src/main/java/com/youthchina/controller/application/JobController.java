@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.controller.DomainCRUDController;
+import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
@@ -70,10 +71,18 @@ public class JobController extends DomainCRUDController<Job, Integer> {
         return new URI(this.url + id.toString());
     }
 
-
+    /**
+     * 添加职位
+     * @param user
+     * @param job
+     * @return
+     * @throws NotFoundException
+     */
     @PostMapping("/**")
     @ResponseBodyDTO(JobResponseDTO.class)
-    public ResponseEntity<?> createJobInfo(@AuthenticationPrincipal User user, @RequestBodyDTO(JobRequestDTO.class) Job job) throws NotFoundException {
+    public ResponseEntity<?> createJobInfo(@AuthenticationPrincipal User user, @RequestBodyDTO(JobRequestDTO.class) Job job) throws BaseException {
+        List<Location> locationList = job.getJobLocationList();
+        if(locationList == null || locationList.size() == 0) throw new BaseException(5000, 500, "At least one location needed");
         job.setUserId(user.getId());
         return add(job);
 //        Job job = jobService.add(new Job(jobRequestDTO));
@@ -81,21 +90,42 @@ public class JobController extends DomainCRUDController<Job, Integer> {
 
     }
 
+    /**
+     * 更新职位
+     * @param id
+     * @param job
+     * @return
+     * @throws BaseException
+     */
     @PutMapping("/{id}/**")
     @ResponseBodyDTO(JobResponseDTO.class)
     public ResponseEntity<?> updateJobInfo(@PathVariable Integer id, @RequestBodyDTO(JobRequestDTO.class) Job job) throws BaseException {
-        //Job job = jobService.update(new Job(jobRequestDTO));
+        List<Location> locationList = job.getJobLocationList();
+        if(locationList == null || locationList.size() == 0) throw new BaseException(5000, 500, "At least one location needed");
         job.setJobId(id);
         return update(job);
 
     }
 
+    /**
+     * 通过Job ID 删除职位
+     * @param id
+     * @return
+     * @throws NotFoundException
+     */
     @DeleteMapping("/{id}/**")
     public ResponseEntity<?> deleteJobInfo(@PathVariable Integer id) throws NotFoundException {
         return delete(id);
     }
 
-
+    /**
+     * 通过Job ID 获取职位
+     * @param jobId
+     * @param detailLevel
+     * @param user
+     * @return
+     * @throws BaseException
+     */
     @GetMapping("/{id}/**")
     public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, @AuthenticationPrincipal User user) throws BaseException {
         Job job = null;

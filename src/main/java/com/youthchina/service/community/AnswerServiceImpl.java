@@ -1,7 +1,6 @@
 package com.youthchina.service.community;
 
 import com.youthchina.dao.jinhao.AnswerMapper;
-import com.youthchina.dao.jinhao.QuestionMapper;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.Comment;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
@@ -36,9 +35,6 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Resource
     EvaluateService evaluateService;
-
-    @Resource
-    QuestionMapper questionMapper;
 
     @Override
     public Integer countAnswersOfQuestion(Integer id) {
@@ -87,8 +83,8 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     @Transactional
-    public List<Answer> getAnswers(Integer id, int start, int end) {
-        List<Answer> answers = answerMapper.getLimitedAnswers(id, start, start - end + 1);
+    public List<Answer> getAnswers(Integer id, int start, int limit) {
+        List<Answer> answers = answerMapper.getLimitedAnswers(id, start, limit);
         for (Answer answer : answers) {
             try {
                 answer.setUser(userService.get(answer.getUser().getId()));

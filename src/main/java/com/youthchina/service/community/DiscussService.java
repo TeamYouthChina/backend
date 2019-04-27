@@ -14,7 +14,7 @@ public interface DiscussService{
 
     List<Discuss> getDiscussesByCommentId(Integer id);
 
-    List<Discuss> getDiscussesByCommentId(Integer id, Integer start, Integer end);
+    List<Discuss> getDiscussesByCommentId(Integer id, Integer start, Integer limit);
 
     Integer count(Integer id);
 }
