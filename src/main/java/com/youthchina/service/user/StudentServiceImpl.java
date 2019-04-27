@@ -280,6 +280,9 @@ public class StudentServiceImpl implements StudentService {
      */
     public JobApply jobApply(Integer job_id, Integer user_id) throws NotFoundException, ClientException {
         Job job = jobMapper.selectJobByJobId(job_id);
+        if(job.getCvReceiMail()==null){
+            throw new NotFoundException(4000,404,"email does not exist");
+        }
         if (job == null) {
             throw new NotFoundException(4042, 404, "cannot find job with id " + job_id);
         } else {

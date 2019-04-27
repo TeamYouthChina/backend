@@ -15,6 +15,7 @@ import com.youthchina.exception.zhongyang.exception.ForbiddenException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.user.StudentService;
+import com.youthchina.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,8 @@ import java.util.List;
 public class StudentController extends DomainCRUDController<Student, Integer> {
     private String url;
     private StudentService studentService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     public StudentController(StudentService studentService, @Value("${web.url.prefix}") String prefix) {
@@ -446,12 +449,13 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     @GetMapping("/{id}/cards")
     public ResponseEntity<?> getProfileCards(@PathVariable("id") Integer id,@AuthenticationPrincipal User user) throws NotFoundException{
         Student student = studentService.get(id);
-        student.setId(user.getId());
-        student.setIsInJob(user.isHired());
-        student.setUsername(user.getUsername());
-        student.setAvatarUrl(user.getAvatarUrl());
-        student.setFirstName(user.getFirstName());
-        student.setLastName(user.getLastName());
+        User user1=userService.get(id);
+        student.setId(user1.getId());
+        student.setIsInJob(user1.isHired());
+        student.setUsername(user1.getUsername());
+        student.setAvatarUrl(user1.getAvatarUrl());
+        student.setFirstName(user1.getFirstName());
+        student.setLastName(user1.getLastName());
         return ResponseEntity.ok(new Response(new ProfileResponseDTO(student)));
     }
 
