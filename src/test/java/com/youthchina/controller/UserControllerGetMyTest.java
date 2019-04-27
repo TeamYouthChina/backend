@@ -75,7 +75,7 @@ public class UserControllerGetMyTest {
     public void getMy() throws Exception {
         Integer id = 1;
         this.mvc.perform(
-                get(this.urlPrefix + "/users/" + id + "/my")
+                get(this.urlPrefix + "/users/:" + id + "/my")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
         )
@@ -117,7 +117,7 @@ public class UserControllerGetMyTest {
     public void getMyNone() throws Exception {
         Integer id = 2;
         this.mvc.perform(
-                get(this.urlPrefix + "/users/" + id + "/my")
+                get(this.urlPrefix + "/users/:" + id + "/my")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
         )

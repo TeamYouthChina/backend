@@ -98,7 +98,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
      * @throws ForbiddenException
      * @throws NotFoundException
      */
-    @GetMapping("/{id}/my")
+    @GetMapping("/:{id}/my")
     public ResponseEntity<?> getMy(@PathVariable Integer id, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
 
