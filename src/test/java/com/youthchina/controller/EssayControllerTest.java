@@ -99,7 +99,7 @@ public class EssayControllerTest extends BaseControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(partialContent("{\"content\":{\"id\":60,\"title\":\"This is a new article Title\",\"company\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"avatarUrl\":null,\"location\":\"110000\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":\"中国\",\"photoUrlList\":[null,null,null,null],\"jobCount\":0,\"collected\":false},\"create_at\":1555519226361,\"modified_at\":1555519226361,\"author\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0,\"phone_number\":\"2022922222\"},\"body\":{\"braftEditorRaw\":\"wqewqewqe\",\"previewText\":\"pre\",\"compiletype\":1},\"is_anonymous\":false,\"upvoteCount\":null,\"downvoteCount\":null,\"attentionCount\":null,\"evaluateStatus\":null,\"attention\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}","$.content.create_at","$.content.id","$.content.company.avatarUrl","$.content.company.photoUrlList","$.content.modified_at"));
+                .andExpect(partialContent("{\"content\":{\"id\":60,\"title\":\"This is a new article Title\",\"company\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"avatarUrl\":null,\"location\":\"110000\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":\"中国\",\"photoUrlList\":[null,null,null,null],\"jobCount\":0,\"collected\":false},\"create_at\":1555519226361,\"modified_at\":1555519226361,\"author\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0,\"phone_number\":\"2022922222\"},\"body\":{\"braftEditorRaw\":\"wqewqewqe\",\"previewText\":\"pre\",\"compiletype\":1},\"is_anonymous\":false,\"upvoteCount\":null,\"downvoteCount\":null,\"attentionCount\":null,\"evaluateStatus\":null,\"attention\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", "$.content.create_at", "$.content.id", "$.content.company.avatarUrl", "$.content.company.photoUrlList", "$.content.modified_at"));
     }
 
     @Test
@@ -129,7 +129,7 @@ public class EssayControllerTest extends BaseControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(partialContent("{\"content\":{\"id\":1,\"title\":\"This is a new Title 1\",\"company\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"avatarUrl\":null,\"location\":\"110000\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":\"中国\",\"photoUrlList\":[null,null,null,null],\"jobCount\":0,\"collected\":false},\"create_at\":null,\"modified_at\":\"2019-04-17T06:29:01.107+0000\",\"author\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0,\"phone_number\":\"2022922222\"},\"body\":{\"braftEditorRaw\":\"werr\",\"previewText\":\"pre\",\"compiletype\":1},\"is_anonymous\":false,\"upvoteCount\":null,\"downvoteCount\":null,\"attentionCount\":null,\"evaluateStatus\":null,\"attention\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}","$.content.id","$.content.company.avatarUrl","$.content.company.photoUrlList","$.content.modified_at"));
+                .andExpect(partialContent("{\"content\":{\"id\":1,\"title\":\"This is a new Title 1\",\"company\":{\"id\":1,\"name\":\"中国石油化工股份有限公司\",\"avatarUrl\":null,\"location\":\"110000\",\"website\":\"http://www.sinopec.com\",\"note\":\"中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法... \",\"nation\":\"中国\",\"photoUrlList\":[null,null,null,null],\"jobCount\":0,\"collected\":false},\"create_at\":null,\"modified_at\":\"2019-04-17T06:29:01.107+0000\",\"author\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0,\"phone_number\":\"2022922222\"},\"body\":{\"braftEditorRaw\":\"werr\",\"previewText\":\"pre\",\"compiletype\":1},\"is_anonymous\":false,\"upvoteCount\":null,\"downvoteCount\":null,\"attentionCount\":null,\"evaluateStatus\":null,\"attention\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", "$.content.id", "$.content.company.avatarUrl", "$.content.company.photoUrlList", "$.content.modified_at"));
 
     }
 
@@ -161,8 +161,8 @@ public class EssayControllerTest extends BaseControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-              .andExpect(partialContent("{\"content\":{\"id\":28,\"creator\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0,\"phone_number\":\"2022922222\"},\"body\":\"何老师你要是被绑架了就扎扎眼！\",\"create_at\":1555603528543,\"is_anonymous\":false,\"modified_at\":1555603528543,\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3},\"status\":{\"code\":201,\"reason\":\"success\"}}","$.content.id","$.content.modified_at","$.content.create_at"));
-   }
+                .andExpect(partialContent("{\"content\":{\"id\":28,\"creator\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0,\"phone_number\":\"2022922222\"},\"body\":\"何老师你要是被绑架了就扎扎眼！\",\"create_at\":1555603528543,\"is_anonymous\":false,\"modified_at\":1555603528543,\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3},\"status\":{\"code\":201,\"reason\":\"success\"}}", "$.content.id", "$.content.modified_at", "$.content.create_at"));
+    }
 
     @Test
     public void updateAttention() throws Exception {
@@ -199,8 +199,4 @@ public class EssayControllerTest extends BaseControllerTest {
                 .andExpect(content().json("{\"content\":{\"offset\":0,\"limit\":2147483646,\"data\":[{\"id\":16,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"register_date\":1546300800000,\"first_name\":\"DDD\",\"last_name\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":[\"ADMIN\"],\"age\":28,\"phone_number\":\"9876543210123\"},\"body\":\"好好好\",\"create_at\":1549929600000,\"is_anonymous\":true,\"modified_at\":1549929600000,\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3}],\"page_count\":0,\"item_count\":1,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
-    @Test
-    public void countEssay() {
-
-    }
 }
