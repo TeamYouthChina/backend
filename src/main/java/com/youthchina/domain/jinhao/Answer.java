@@ -7,6 +7,7 @@ import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.answer.SimpleAnswerRequestDTO;
+import com.youthchina.util.dictionary.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -22,10 +23,16 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     private User user;
     private Question question;
     private List<Comment> comments;
-    private static final Integer richTextRelaType = 4;
-    private static final Integer commentTargetType = 4;
-    private static final Integer evaluateTargetType = 7;
-    private static final Integer attentionTargetType = 7;
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer attentionCount;
+    private boolean isAttention;
+    private Integer evaluateStatus;
+    private static final Integer richTextRelaType = RichTextRelaType.ANSWER;
+    private static final Integer commentTargetType = CommentTargetType.ANSWER;
+    private static final Integer evaluateTargetType = EvaluationTargetType.ANSWER;
+    private static final Integer attentionTargetType = AttentionTargetType.ANSWER;
+    private static final Integer isExistTargetType = IsExistTargetType.ANSWER;
 
     public Answer(SimpleAnswerRequestDTO simpleAnswerDTO){
         this.body = new ComRichText(simpleAnswerDTO.getBody());
@@ -125,6 +132,11 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     }
 
     @Override
+    public Integer getExistType() {
+        return isExistTargetType;
+    }
+
+    @Override
     public Integer getId() {
         return id;
     }
@@ -136,5 +148,49 @@ public class Answer implements Commentable, RichTextable, Evaluatable, Attention
     @Override
     public Integer getCommentTargetType() {
         return commentTargetType;
+    }
+
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
+
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
+
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getAttentionCount() {
+        return attentionCount;
+    }
+
+    public void setAttentionCount(Integer attentionCount) {
+        this.attentionCount = attentionCount;
+    }
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
+    }
+
+    public static Integer getIsExistTargetType() {
+        return isExistTargetType;
     }
 }

@@ -3,7 +3,7 @@ package com.youthchina.aspect;
 import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
-import com.youthchina.util.zhongyang.DomainToDTOConverterFactory;
+import com.youthchina.util.DomainToDTOConverterFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

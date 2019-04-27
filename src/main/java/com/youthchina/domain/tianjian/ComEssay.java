@@ -8,6 +8,7 @@ import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.article.EssayRequestDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
+import com.youthchina.util.dictionary.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -24,14 +25,17 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
     private Integer relaType;
     private List<Comment> comments;
     private User user;
-    private Integer upvotecount;
-    private Integer downvotecount;
-    private Integer isAttention;
-    private Integer evaluatestatus;
-    private static final Integer richTextRelaType = 1;
-    private static final Integer commentTargetType = 1;
-    private static final Integer evaluateTargetType = 2;
-    private static final Integer attentionTargetType = 2;
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer attentionCount;
+    private boolean isAttention;
+    private Integer evaluateStatus;
+    private static final Integer richTextRelaType = RichTextRelaType.ESSAY;
+    private static final Integer commentTargetType = CommentTargetType.ESSAY;
+    private static final Integer evaluateTargetType = EvaluationTargetType.ESSAY;
+    private static final Integer attentionTargetType = AttentionTargetType.ESSAY;
+    private static final Integer isExistTargetType = IsExistTargetType.ESSAY;
+
 
 
     public ComEssay(EssayResponseDTO essayResponseDTO) {
@@ -51,18 +55,21 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
         this.abbre = essayRequestDTO.getBody().getPreviewText();
         this.body = new ComRichText(essayRequestDTO.getBody());
         this.isAnony = (essayRequestDTO.isIs_anonymous()) ? 1 : 0;
-        if(essayRequestDTO.getCompany_id()!=null){
-            this.relaId = essayRequestDTO.getCompany_id();
-            this.relaType = 1;
-        }else
-            this.relaType = 0;
+        this.relaId = essayRequestDTO.getRela_id();
+        this.relaType = essayRequestDTO.getRela_type();
 
     }
 
     public ComEssay() {
-
+        this.isAttention = false;
+        this.evaluateStatus = 3;
     }
 
+
+    @Override
+    public Integer getExistType() {
+        return isExistTargetType;
+    }
 
     @Override
     public Integer getId() {
@@ -157,38 +164,6 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
         this.user = user;
     }
 
-    public Integer getUpvotecount() {
-        return upvotecount;
-    }
-
-    public void setUpvotecount(Integer upvotecount) {
-        this.upvotecount = upvotecount;
-    }
-
-    public Integer getDownvotecount() {
-        return downvotecount;
-    }
-
-    public void setDownvotecount(Integer downvotecount) {
-        this.downvotecount = downvotecount;
-    }
-
-    public Integer getIsAttention() {
-        return isAttention;
-    }
-
-    public void setIsAttention(Integer isAttention) {
-        this.isAttention = isAttention;
-    }
-
-    public Integer getEvaluatestatus() {
-        return evaluatestatus;
-    }
-
-    public void setEvaluatestatus(Integer evaluatestatus) {
-        this.evaluatestatus = evaluatestatus;
-    }
-
     @Override
     public Integer getCommentTargetType() {
         return commentTargetType;
@@ -212,7 +187,47 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
     }
 
 
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
 
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
 
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
 
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getAttentionCount() {
+        return attentionCount;
+    }
+
+    public void setAttentionCount(Integer attentionCount) {
+        this.attentionCount = attentionCount;
+    }
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
+    }
+
+    public static Integer getIsExistTargetType() {
+        return isExistTargetType;
+    }
 }

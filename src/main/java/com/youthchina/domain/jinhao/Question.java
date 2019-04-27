@@ -7,11 +7,15 @@ import com.youthchina.domain.jinhao.property.RichTextable;
 import com.youthchina.domain.tianjian.ComRichText;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.question.QuestionRequestDTO;
+import com.youthchina.util.dictionary.AttentionTargetType;
+import com.youthchina.util.dictionary.EvaluationTargetType;
+import com.youthchina.util.dictionary.IsExistTargetType;
+import com.youthchina.util.dictionary.RichTextRelaType;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Question implements RichTextable, Evaluatable, Attentionable, Invitable {
+public class Question implements RichTextable, Evaluatable, Attentionable, Invitable{
     private Integer id;
     private String title;
     private String abbre;
@@ -23,9 +27,11 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
     private List<Answer> answers;
     private Integer relaType;
     private Integer relaId;
-    private static final Integer richTextRelaType = 2;
-    private static final Integer evaluateTargetType = 1;
-    private static final Integer attentionTargetType = 1;
+    private boolean isAttention;
+    private static final Integer richTextRelaType = RichTextRelaType.QUESTION;
+    private static final Integer evaluateTargetType = EvaluationTargetType.QUESTION;
+    private static final Integer attentionTargetType = AttentionTargetType.QUESTION;
+    private static final Integer isExistTargetType = IsExistTargetType.QUESTION;
     private static final Integer inviteTargetType = 1;
 
 
@@ -65,6 +71,11 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
 
     public void setBody(ComRichText body) {
         this.body = body;
+    }
+
+    @Override
+    public Integer getExistType() {
+        return isExistTargetType;
     }
 
     @Override
@@ -147,4 +158,17 @@ public class Question implements RichTextable, Evaluatable, Attentionable, Invit
     public void setRelaId(Integer relaId) {
         this.relaId = relaId;
     }
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
+
+    public static Integer getIsExistTargetType() {
+        return isExistTargetType;
+    }
+
 }

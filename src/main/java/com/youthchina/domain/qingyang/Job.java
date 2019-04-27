@@ -1,15 +1,18 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.dto.job.JobRequestDTO;
-import com.youthchina.util.zhongyang.HasId;
+import com.youthchina.dto.util.LocationDTO;
+import com.youthchina.util.HasId;
+import com.youthchina.util.dictionary.AttentionTargetType;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Job implements HasId<Integer> {
+public class Job implements HasId<Integer>, Attentionable {
     /*主键, 职位ID (JOB_INFO)*/
     private Integer jobId;
 
@@ -21,6 +24,7 @@ public class Job implements HasId<Integer> {
     private String jobDescription;
     private String jobDuty;
     private String jobHighlight;
+    private Boolean isCollected;
 
 /*
 create table JOB_INFO
@@ -50,7 +54,6 @@ create table JOB_INFO
 )
 comment '职位基本信息表';
 
-
 */
 
 
@@ -76,6 +79,10 @@ comment '职位基本信息表';
 
     private Company company;
 
+    public static final int fullJobType = 3;
+    public static final int partJobType = 2;
+    public static final int internJobType = 1;
+
     public Job(JobRequestDTO jobRequestDTO) {
         this.jobId = jobRequestDTO.getId();
         this.jobName = jobRequestDTO.getName();
@@ -83,19 +90,26 @@ comment '职位基本信息表';
 
         this.company = new Company();
         this.company.setCompanyId(jobRequestDTO.getOrganization_id());
-        List<Integer> locationIdList = jobRequestDTO.getLocation();
-
-        if(locationIdList != null && locationIdList.size() > 0){
+//        List<Integer> locationIdList = jobRequestDTO.getLocation();
+//        if(locationIdList != null && locationIdList.size() > 0){
+//            this.jobLocationList = new ArrayList<>();
+//            for (Integer locationIndex : locationIdList) {
+//                this.jobLocationList.add(new Location(locationIndex));
+//            }
+//        }
+        List<LocationDTO> locationDTOList = jobRequestDTO.getLocation();
+        if (locationDTOList != null && locationDTOList.size() > 0) {
             this.jobLocationList = new ArrayList<>();
-            for (Integer locationIndex : locationIdList) {
-                this.jobLocationList.add(new Location(locationIndex));
+            for (LocationDTO locationDTO : locationDTOList) {
+                Integer locationId = Integer.valueOf(locationDTO.getLocation_code());
+                this.jobLocationList.add(new Location(locationId));
             }
         }
         this.userId = jobRequestDTO.getUserId();
         this.jobDescription = jobRequestDTO.getJob_description();
         this.jobDuty = jobRequestDTO.getJob_duty();
         //if(jobRequestDTO.getStartTime() != null){
-            this.jobStartTime = new Date(Long.parseLong(jobRequestDTO.getStartTime()));
+        this.jobStartTime = new Date(Long.parseLong(jobRequestDTO.getStartTime()));
         //}
         this.jobEndTime = new Date(Long.parseLong(jobRequestDTO.getDeadLine()));
 
@@ -126,6 +140,16 @@ comment '职位基本信息表';
 
     public void setAddTime(Timestamp addTime) {
         this.addTime = addTime;
+    }
+
+    @Override
+    public Integer getAttentionTargetType() {
+        return AttentionTargetType.JOB;
+    }
+
+    @Override
+    public Integer getExistType() {
+        return null;
     }
 
     public Integer getId() {
@@ -322,5 +346,13 @@ comment '职位基本信息表';
 
     public void setLogoList(List<Logo> logoList) {
         this.logoList = logoList;
+    }
+
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
     }
 }

@@ -3,6 +3,8 @@ package com.youthchina.dto;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.dto.util.PageResponse;
 
+import java.util.List;
+
 /**
  * Created by zhongyangwu on 1/31/19.
  */
@@ -19,6 +21,11 @@ public class ListResponse implements HasStatus {
     public ListResponse(PageResponse content) {
         this();
         this.content = content;
+    }
+
+    public ListResponse(PageRequest pageRequest, List data){
+        this();
+        this.content = new PageResponse(pageRequest, data.size(), data.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, data.size())));
     }
 
     public ListResponse(PageRequest pageRequest, int count, Object data) {

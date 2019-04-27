@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import com.youthchina.dto.security.RegisterUserDTO;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.util.zhongyang.HasId;
+import com.youthchina.util.HasId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -24,7 +24,7 @@ public class User implements UserDetails, HasId<Integer> {
     private String password;
     private String email;
     private String phonenumber;
-    private String registerDate;
+    private Timestamp registerDate;
     private String firstName;
     private String lastName;
     private String gender;
@@ -67,8 +67,7 @@ public class User implements UserDetails, HasId<Integer> {
         this.email = registerUserDTO.getEmail();
         this.password = registerUserDTO.getPassword();
         this.phonenumber = registerUserDTO.getPhonenumber();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        this.registerDate = simpleDateFormat.format(Calendar.getInstance().getTime());
+        this.registerDate = Timestamp.from(Calendar.getInstance().toInstant());
         this.role = Lists.newArrayList(Role.APPLICANT);
     }
 
@@ -149,11 +148,11 @@ public class User implements UserDetails, HasId<Integer> {
         this.phonenumber = phonenumber;
     }
 
-    public String getRegisterDate() {
+    public Timestamp getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(String registerDate) {
+    public void setRegisterDate(Timestamp registerDate) {
         this.registerDate = registerDate;
     }
 

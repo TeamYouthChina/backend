@@ -17,7 +17,6 @@ public interface AnswerMapper {
     void add(Answer answer);
     void update(Answer answer);
     void delete(Integer id);
-    Integer checkIfAnswerExist(Integer id);
     Integer countAnswers(Integer id);
     List<Answer> getMyAnswers(Integer id);
 }

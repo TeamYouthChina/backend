@@ -1,7 +1,6 @@
 package com.youthchina.domain.Qinghong;
 
 import com.youthchina.dto.util.LocationDTO;
-import com.youthchina.exception.zhongyang.BaseException;
 
 /**
  * @program: V-0.1
@@ -51,8 +50,8 @@ public class Location {
     }
 
     
-    public Location(Integer regionNum) {
-        this.regionNum = regionNum;
+    public Location(Integer regionId) {
+        this.regionId = regionId;
     }
 
     public Location() {

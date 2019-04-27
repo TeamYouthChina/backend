@@ -2,9 +2,11 @@ package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.CompanyPhoto;
 import com.youthchina.domain.qingyang.Country;
 import com.youthchina.domain.qingyang.Logo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +22,34 @@ public class OrganizationDTO {
     private String note;
     private String nation;
 
+    private List<String> photoUrlList;
+    private Integer jobCount;
+    private Boolean isCollected = false;
+
+
+    public List<String> getPhotoUrlList() {
+        return photoUrlList;
+    }
+
+    public void setPhotoUrlList(List<String> photoUrlList) {
+        this.photoUrlList = photoUrlList;
+    }
+
+    public Integer getJobCount() {
+        return jobCount;
+    }
+
+    public void setJobCount(Integer jobCount) {
+        this.jobCount = jobCount;
+    }
+
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
+    }
 
     public OrganizationDTO(Company company) {
         if (company == null) return;
@@ -32,12 +62,25 @@ public class OrganizationDTO {
         }
         Location location = company.getLocation();
         if (location != null) {
-            this.location = location.getRegionName();
+            this.location = "" + location.getRegionId();
+                    //.getRegionName();
         }
         this.website = company.getCompanyWebsite();
         Country country = company.getCountry();
         this.nation = country == null ? null : country.getCountryChn();// 中文名
         this.note = company.getCompanyIntroduc();
+        List<CompanyPhoto> photoList = company.getPhotoList();
+
+        if(photoList != null && photoList.size() > 0){
+            this.photoUrlList = new ArrayList<>();
+            for(CompanyPhoto photo : photoList){
+                photoUrlList.add(photo.getUrl());
+            }
+        }
+        this.jobCount = company.getJobCount();
+        if(company.getCollected() != null){
+            this.isCollected = company.getCollected();
+        }
     }
 
     public OrganizationDTO() {

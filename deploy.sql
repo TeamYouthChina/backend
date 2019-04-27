@@ -942,17 +942,7 @@ PRIMARY KEY (`RESUME_ID`)
 ##应聘者简历JSON表
 create table IF NOT EXISTS `STU_RESUME_JSON`(
 `RESUME_ID` INT AUTO_INCREMENT COMMENT '简历ID',
-`JSON_COUNT` INTEGER NOT NULL COMMENT 'json数量',
-`JSON_1` VARCHAR(10000) COMMENT 'json1',
-`JSON_2` VARCHAR(500) COMMENT 'json2',
-`JSON_3` VARCHAR(500) COMMENT 'json3',
-`JSON_4` VARCHAR(500) COMMENT 'json4',
-`JSON_5` VARCHAR(500) COMMENT 'json5',
-`JSON_6` VARCHAR(500) COMMENT 'json6',
-`JSON_7` VARCHAR(500) COMMENT 'json7',
-`JSON_8` VARCHAR(500) COMMENT 'json8',
-`JSON_9` VARCHAR(500) COMMENT 'json9',
-`JSON_10` VARCHAR(500)  COMMENT 'json10',
+`JSON_CONTENT` VARCHAR(12000) COMMENT 'JSON_CONTENT',
 `USER_ID` INTEGER   NOT NULL  COMMENT '用户ID',
 `CREATE_TIME` TIMESTAMP NOT NULL COMMENT '生成时间',
 `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
@@ -8678,8 +8668,7 @@ INSERT INTO `youthchina`.`SYS_CHN_REGION` (`REGION_ID`, `REGION_NUM`, `REGION_CH
 ('659004', '659004', '五家渠市', '新疆维吾尔自治区自治区直辖县级行政区划五家渠市', '---', '3', '659000', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('710000', '710000', '台湾省', '台湾省', '---', '1', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('810000', '810000', '香港特别行政区', '香港特别行政区', '---', '1', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('820000', '820000', '澳门特别行政区', '澳门特别行政区', '---', '1', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('999999', '999999', '境外', '境外(虚拟行政区划)', '---', '3', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+('820000', '820000', '澳门特别行政区', '澳门特别行政区', '---', '1', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 
@@ -8747,7 +8736,8 @@ INSERT INTO `youthchina`.`SYS_USA_STATE` (`STATE_ID`, `STATE_CHN`, `STATE_ENG`, 
 
 
 TRUNCATE TABLE `youthchina`.`SYS_USA_ZIPCODE` ;
-INSERT INTO `youthchina`.`SYS_USA_ZIPCODE` (`REGION_ID`, `ZIP_CODE`, `REGION_CHN`, `REGION_ENG`, `REGION_CITY`, `STATE_ID`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
+INSERT INTO `youthchina`.`SYS_USA_ZIPCODE` (`REGION_ID`, `ZIP_CODE`, `REGION_CHN`, `REGION_ENG`, `REGION_CITY`, `STATE_ID`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+('900000', '00000', '美国', 'U.S.', 'U.S.', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'), 
 ('902101', '02101', '波士顿', 'Boston', 'Suffolk', '26', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('902102', '02102', '波士顿', 'Boston', 'Suffolk', '26', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('902103', '02103', '波士顿', 'Boston', 'Suffolk', '26', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -10688,8 +10678,8 @@ INSERT INTO `youthchina`.`SYS_USA_ZIPCODE` (`REGION_ID`, `ZIP_CODE`, `REGION_CHN
 ('998194', '98194', '西雅图', 'Seattle', 'King', '56', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('998195', '98195', '西雅图', 'Seattle', 'King', '56', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('998198', '98198', '西雅图', 'Seattle', 'King', '56', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('998199', '98199', '西雅图', 'Seattle', 'King', '56', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
-
+('998199', '98199', '西雅图', 'Seattle', 'King', '56', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('999999', '99999', '其他', 'Other', 'Other', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_UNIVERSITY_CHN`;
@@ -13323,8 +13313,8 @@ INSERT INTO `youthchina`.`SYS_UNIVERSITY_CHN` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNI
 ('12628', '新疆科技职业技术学院', '---', '4165014525', '650100', '新疆自治区教育厅', '专科', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('12629', '吐鲁番职业技术学院', '---', '4165014585', '650400', '新疆维吾尔自治区', '专科', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('12630', '博尔塔拉职业技术学院', '---', '4165014622', '652700', '新疆维吾尔自治区', '专科', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('12631', '新疆工业职业技术学院', '---', '4265051060', '650100', '新疆维吾尔自治区', '专科', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
-
+('12631', '新疆工业职业技术学院', '---', '4265051060', '650100', '新疆维吾尔自治区', '专科', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('19999', '其他中国大学', '#N/A', '0', '110000', '其他', '本科', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_UNIVERSITY_GBR` ;
@@ -13456,7 +13446,8 @@ INSERT INTO `youthchina`.`SYS_UNIVERSITY_GBR` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNI
 ('30125', '格林多大学', 'Wrexham Glyndwr University', 'Wrexham', 'LL11 2AW', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('30126', '萨福克大学', 'University of Suffolk', 'Ipswich', 'IP3 8AH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('30127', '伦敦都市大学', 'London Metropolitan University', 'London', 'N7 8DB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30128', '高地和群岛大学', 'University of the Highlands and Islands', 'Inverness', 'IV2 3JH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+('30128', '高地和群岛大学', 'University of the Highlands and Islands', 'Inverness', 'IV2 3JH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('39999', '其他英国大学', 'Other', 'Other', 'Other', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_UNIVERSITY_USA` ;
@@ -15181,8 +15172,8 @@ INSERT INTO `youthchina`.`SYS_UNIVERSITY_USA` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNI
 ('21718', '---', 'Bellin College', 'WI', '58', 'Green Bay', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('21719', '---', 'Columbia College of Nursing', 'WI', '58', 'Milwaukee', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('21720', '---', 'Milwaukee Institute of Art and Design', 'WI', '58', 'Milwaukee', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('21721', '怀俄明大学', 'University of Wyoming', 'WY', '59', 'Laramie', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
-
+('21721', '怀俄明大学', 'University of Wyoming', 'WY', '59', 'Laramie', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('29999', '其他美国大学', 'Other', 'XX', '60', 'Other', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 
@@ -15226,5 +15217,5 @@ INSERT INTO  `youthchina`.`SYS_UNIVERSITY_CAN` (`UNIVERS_ID`, `UNIVERS_CHN`, `UN
 ('40036', '---', 'Ecole de Technologie Superieure - Canada', 'Québec', 'Montréal', 'H3C 1K3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('40037', '---', 'Royal Military College - Canada', 'Ontario', 'Kingston', 'K7K 7B4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('40038', '---', 'University of Prince Edward Island', 'Prince Edward Island', 'Charlottetown', 'C1A 4P3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('40039', '---', 'University of Northern British Columbia', 'British Columbia', 'Prince George', 'V2N 4Z9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00')
-;
+('40039', '---', 'University of Northern British Columbia', 'British Columbia', 'Prince George', 'V2N 4Z9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('49999', '其他加拿大大学', 'Other', 'Other', 'Other', 'Other', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');

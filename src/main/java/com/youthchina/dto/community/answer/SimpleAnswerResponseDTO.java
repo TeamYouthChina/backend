@@ -1,5 +1,6 @@
 package com.youthchina.dto.community.answer;
 
+import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.community.question.QuestionBasicDTO;
@@ -34,6 +35,11 @@ public class SimpleAnswerResponseDTO implements ResponseDTO<Answer> {
         this.modified_at = answer.getEditTime().toString();
         this.create_at = answer.getPubTime().toString();
         this.question = new QuestionBasicDTO(answer.getQuestion());
+        this.upvoteCount = answer.getUpvoteCount();
+        this.downvoteCount = answer.getDownvoteCount();
+        this.attentionCount = answer.getAttentionCount();
+        this.isAttention = answer.isAttention();
+        this.evaluateStatus = answer.getEvaluateStatus();
     }
 
     public RichTextResponseDTO getBody() {
@@ -60,6 +66,7 @@ public class SimpleAnswerResponseDTO implements ResponseDTO<Answer> {
         this.creator = creator;
     }
 
+    @JsonTimeStamp
     public String getModified_at() {
         return modified_at;
     }
@@ -68,6 +75,7 @@ public class SimpleAnswerResponseDTO implements ResponseDTO<Answer> {
         this.modified_at = modified_at;
     }
 
+    @JsonTimeStamp
     public String getCreate_at() {
         return create_at;
     }
@@ -146,5 +154,10 @@ public class SimpleAnswerResponseDTO implements ResponseDTO<Answer> {
         this.modified_at = answer.getEditTime().toString();
         this.create_at = answer.getPubTime().toString();
         this.question = new QuestionBasicDTO(answer.getQuestion());
+        this.upvoteCount = answer.getUpvoteCount();
+        this.downvoteCount = answer.getDownvoteCount();
+        this.attentionCount = answer.getAttentionCount();
+        this.isAttention = answer.isAttention();
+        this.evaluateStatus = answer.getEvaluateStatus();
     }
 }

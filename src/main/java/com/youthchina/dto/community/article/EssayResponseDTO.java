@@ -1,5 +1,6 @@
 package com.youthchina.dto.community.article;
 
+import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.company.CompanyResponseDTO;
@@ -34,6 +35,11 @@ public class EssayResponseDTO implements ResponseDTO<ComEssay> {
         else
             this.author = null;
         this.body = new RichTextResponseDTO(comEssay.getBody());
+        this.upvoteCount = comEssay.getUpvoteCount();
+        this.downvoteCount = comEssay.getDownvoteCount();
+        this.attentionCount = comEssay.getAttentionCount();
+        this.isAttention = comEssay.isAttention();
+        this.evaluateStatus = comEssay.getEvaluateStatus();
     }
 
     public EssayResponseDTO() {
@@ -71,6 +77,7 @@ public class EssayResponseDTO implements ResponseDTO<ComEssay> {
         this.company = company;
     }
 
+    @JsonTimeStamp
     public Timestamp getCreate_at() {
         return create_at;
     }
@@ -79,6 +86,7 @@ public class EssayResponseDTO implements ResponseDTO<ComEssay> {
         this.create_at = create_at;
     }
 
+    @JsonTimeStamp
     public Timestamp getModified_at() {
         return modified_at;
     }
@@ -152,5 +160,10 @@ public class EssayResponseDTO implements ResponseDTO<ComEssay> {
         this.is_anonymous = (comEssay.getIsAnony() == 0) ? false : true;
         this.author = new UserDTO(comEssay.getUser());
         this.body = new RichTextResponseDTO(comEssay.getBody());
+        this.upvoteCount = comEssay.getUpvoteCount();
+        this.downvoteCount = comEssay.getDownvoteCount();
+        this.attentionCount = comEssay.getAttentionCount();
+        this.isAttention = comEssay.isAttention();
+        this.evaluateStatus = comEssay.getEvaluateStatus();
     }
 }

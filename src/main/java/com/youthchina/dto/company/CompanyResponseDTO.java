@@ -1,7 +1,10 @@
 package com.youthchina.dto.company;
 
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.domain.qingyang.*;
+import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.CompanyPhoto;
+import com.youthchina.domain.qingyang.Country;
+import com.youthchina.domain.qingyang.Logo;
 import com.youthchina.dto.ResponseDTO;
 
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
     private String nation;
     private List<String> photoUrlList;
     private Integer jobCount;
-    private List<String> industryList;
+    private Boolean isCollected = false;
 
     public CompanyResponseDTO() {
 
@@ -40,13 +43,13 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.jobCount = jobCount;
     }
 
-    public List<String> getIndustryList() {
-        return industryList;
-    }
-
-    public void setIndustryList(List<String> industryList) {
-        this.industryList = industryList;
-    }
+//    public List<String> getIndustryList() {
+//        return industryList;
+//    }
+//
+//    public void setIndustryList(List<String> industryList) {
+//        this.industryList = industryList;
+//    }
 
     public Integer getId() {
         return id;
@@ -112,6 +115,14 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.photoUrlList = photoUrlList;
     }
 
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
+    }
+
     @Override
     public void convertToDTO(Company company) {
         this.id = company.getCompanyId();
@@ -122,7 +133,8 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         }
         Location location = company.getLocation();
         if (location != null) {
-            this.location = location.getRegionName();
+            this.location = "" + location.getRegionId();
+                    //.getRegionName();
         }
         Country country = company.getCountry();
         if (country != null) {
@@ -138,12 +150,15 @@ public class CompanyResponseDTO implements ResponseDTO<Company> {
         this.website = company.getCompanyWebsite();
         this.note = company.getCompanyIntroduc();
         this.jobCount = company.getJobCount();
-        List<Industry> industryObjList = company.getIndList();
-        if(industryObjList != null && industryObjList.size() > 0){
-            this.industryList = new ArrayList<>();
-            for(Industry ind : industryObjList){
-                this.industryList.add(ind.getIndChn());
-            }
+        if(company.getCollected() != null){
+            this.isCollected = company.getCollected();
         }
+//        List<Industry> industryObjList = company.getIndList();
+//        if(industryObjList != null && industryObjList.size() > 0){
+//            this.industryList = new ArrayList<>();
+//            for(Industry ind : industryObjList){
+//                this.industryList.add(ind.getIndChn());
+//            }
+//        }
     }
 }

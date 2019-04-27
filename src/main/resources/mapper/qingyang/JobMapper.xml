@@ -102,7 +102,7 @@
         </collection>
         <collection property="jobLocationList" ofType="com.youthchina.domain.Qinghong.Location">
             <!--<id property="regionId" column="JOB_LOCATION_ID"/>-->
-            <result property="regionNum" column="JOB_REGION_NUM"/>
+            <result property="regionId" column="JOB_REGION_NUM"/>
             <!--<result property="jobId" column="JOB_ID"/>-->
             <!--<result property="regionName" column="REGION_CHN"/>-->
             <!--<result property="region_eng" column="REGION_ENG"/>-->
@@ -273,6 +273,19 @@
         WHERE j.IS_DELETE = 0 AND j.COMPANY_ID = #{id}
     </select>
 
+    <select id="selectJobByComId" resultMap="job" parameterType="Integer">
+        SELECT
+        <include refid="jobSelect"/>
+        FROM JOB_INFO j
+        <include refid="jobJoin"/>
+        WHERE j.IS_DELETE = 0 AND j.COMPANY_ID = #{id} AND j.JOB_END_TIME > CURRENT_DATE()
+    </select>
+
+    <select id = "isCollect" resultType="Integer">
+        SELECT COLLECT_ID
+        FROM STU_JOB_COLLECT
+        WHERE JOB_ID = #{jobId} AND STU_ID = #{stuId} AND IS_DELETE = 0
+    </select>
 
     <select id="getJobByMore" resultMap="job">
         SELECT
@@ -333,7 +346,7 @@
         ( JOB_REGION_NUM, JOB_ID, IS_DELETE)
         VALUES
         <foreach item="location" collection="locationList" separator=",">
-            ( #{location.regionNum}, #{jobId}, 0)
+            ( #{location.regionId}, #{jobId}, 0)
         </foreach>
     </insert>
 

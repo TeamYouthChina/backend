@@ -1,14 +1,14 @@
 package com.youthchina.domain.jinhao;
 
-import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.domain.jinhao.property.Evaluatable;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.discuss.DiscussRequestDTO;
-import com.youthchina.dto.community.discuss.DiscussResponseDTO;
+import com.youthchina.util.dictionary.EvaluationTargetType;
+import com.youthchina.util.dictionary.IsExistTargetType;
 
 import java.sql.Timestamp;
 
-public class Discuss implements Evaluatable, Attentionable {
+public class Discuss implements Evaluatable {
     private Integer id;
     private Integer commentId;
     private String content;
@@ -16,9 +16,11 @@ public class Discuss implements Evaluatable, Attentionable {
     private Timestamp pubTime;
     private Timestamp editTime;
     private User user;
-    private static final Integer evaluateTargetType = 6;
-    private static final Integer attentionTargetType = 6;
-
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer evaluateStatus;
+    private static final Integer evaluateTargetType = EvaluationTargetType.DISCUSS;
+    private static final Integer isExistTargetType = IsExistTargetType.DISCUSS;
     public Discuss() {
 
     }
@@ -34,8 +36,8 @@ public class Discuss implements Evaluatable, Attentionable {
     }
 
     @Override
-    public Integer getAttentionTargetType() {
-        return attentionTargetType;
+    public Integer getExistType() {
+        return isExistTargetType;
     }
 
     public Integer getId() {
@@ -92,5 +94,33 @@ public class Discuss implements Evaluatable, Attentionable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
+
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
+
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
+    }
+
+    public static Integer getIsExistTargetType() {
+        return isExistTargetType;
     }
 }
