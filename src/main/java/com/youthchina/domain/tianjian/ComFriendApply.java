@@ -2,6 +2,7 @@ package com.youthchina.domain.tianjian;
 
 
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.community.friend.FriendApplicationRequestDTO;
 
 import java.sql.Timestamp;
 
@@ -13,6 +14,11 @@ public class ComFriendApply {
     private Integer friApplyAccept;
     private Integer friIsRead;
     private User user;
+    private String applyMessage;
+
+    public ComFriendApply(FriendApplicationRequestDTO friendApplicationRequestDTO) {
+       this.applyMessage = friendApplicationRequestDTO.getMessage();
+    }
 
     public Integer getApplyId() {
         return applyId;
@@ -68,5 +74,13 @@ public class ComFriendApply {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getApplyMessage() {
+        return applyMessage;
+    }
+
+    public void setApplyMessage(String applyMessage) {
+        this.applyMessage = applyMessage;
     }
 }

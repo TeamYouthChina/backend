@@ -1,12 +1,14 @@
 package com.youthchina.controller.user;
 
 
+import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.domain.tianjian.ComFriendApply;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.community.friend.FriendApplicationRequestDTO;
 import com.youthchina.dto.community.friend.FriendApplicationResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.PageRequest;
@@ -34,8 +36,7 @@ public class FriendController {
     UserServiceImpl userService;
 
     @PostMapping("/{id}/apply")
-    public ResponseEntity addFriendApplication(@PathVariable Integer id, @AuthenticationPrincipal User user) throws ConflictException {
-        ComFriendApply comFriendApply = new ComFriendApply();
+    public ResponseEntity addFriendApplication(@PathVariable Integer id, @AuthenticationPrincipal User user, @RequestBodyDTO(FriendApplicationRequestDTO.class) ComFriendApply comFriendApply) throws ConflictException {
         comFriendApply.setUserId(user.getId());
         comFriendApply.setFriendId(id);
         ComFriendApply comFriendApply1 = friendsService.addFriendApply(comFriendApply);
