@@ -9,6 +9,7 @@ import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
+import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
@@ -58,9 +59,11 @@ public class UserController extends DomainCRUDController<User, Integer> {
     private final JobService jobService;
     private final BriefReviewService briefReviewService;
     private final CompanyCURDService companyCURDService;
+    private final InfluenceService influenceService;
 
     @Autowired
-    public UserController(UserService userService, @Value("${web.url.prefix}") String prefix, StudentService studentService, AttentionServiceImpl attentionService, EssayServiceImpl essayService, QuestionServiceImpl questionService, VideoServiceImpl videoService, AnswerServiceImpl answerService, JobServiceImpl jobService, BriefReviewService briefReviewService, CompanyCURDService companyCURDService) {
+    public UserController(UserService userService, @Value("${web.url.prefix}") String prefix, StudentService studentService, AttentionServiceImpl attentionService, EssayServiceImpl essayService, QuestionServiceImpl questionService, VideoServiceImpl videoService, AnswerServiceImpl answerService, JobServiceImpl jobService, BriefReviewService briefReviewService, CompanyCURDService companyCURDService
+    , InfluenceService influenceService) {
         this.userService = userService;
         this.url = prefix + "/users/";
         this.studentService = studentService;
@@ -72,6 +75,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
         this.jobService = jobService;
         this.briefReviewService = briefReviewService;
         this.companyCURDService = companyCURDService;
+        this.influenceService = influenceService;
     }
 
 
@@ -164,6 +168,15 @@ public class UserController extends DomainCRUDController<User, Integer> {
         }
     }
 
+    @GetMapping("/{id}/influence")
+    public ResponseEntity<?> getMyInfluence(@PathVariable Integer id, @AuthenticationPrincipal User user) throws ForbiddenException {
+        if (user.getId().equals(id)) {
+            Integer influence = influenceService.getUserInfluence(id);
+            return ResponseEntity.ok(new Response(influence, new StatusDTO(200, "success")));
+        }else {
+            throw new ForbiddenException();
+        }
+    }
 
     @Override
     protected DomainCRUDService<User, Integer> getService() {

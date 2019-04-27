@@ -14,7 +14,7 @@ public interface CommentService{
      */
     List<Comment> getComments(Commentable entity);
 
-    List<Comment> getComments(Commentable entity, Integer start, Integer end);
+    List<Comment> getComments(Commentable entity, Integer start, Integer limit);
 
     List<Comment> get(List<Integer> ids);
 

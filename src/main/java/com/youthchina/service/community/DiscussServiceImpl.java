@@ -40,8 +40,8 @@ public class DiscussServiceImpl implements DiscussService {
 
     @Override
     @Transactional
-    public List<Discuss> getDiscussesByCommentId(Integer id, Integer start, Integer end) {
-        List<Discuss> discusses = discussMapper.getLimitedDiscusses(id, start, end - start + 1);
+    public List<Discuss> getDiscussesByCommentId(Integer id, Integer start, Integer limit) {
+        List<Discuss> discusses = discussMapper.getLimitedDiscusses(id, start, limit);
         for (Discuss discuss : discusses) {
             try {
                 discuss.setUser(userService.get(discuss.getUser().getId()));

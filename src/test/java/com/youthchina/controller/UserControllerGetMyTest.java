@@ -5,6 +5,7 @@ import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.service.community.AnswerServiceImpl;
 import com.youthchina.service.community.EssayServiceImpl;
+import com.youthchina.service.community.InfluenceService;
 import com.youthchina.service.community.QuestionServiceImpl;
 import com.youthchina.service.user.JwtService;
 import com.youthchina.util.AuthGenerator;
@@ -60,6 +61,8 @@ public class UserControllerGetMyTest {
     AnswerServiceImpl answerService;
     @Autowired
     EssayServiceImpl essayService;
+    @Autowired
+    InfluenceService influenceService;
 
     private AuthGenerator authGenerator = new AuthGenerator();
 
@@ -121,5 +124,15 @@ public class UserControllerGetMyTest {
                 .andDo(print())
                 .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4030,\"reason\":\"Cannot access\"}}", false))
         ;
+    }
+
+    @Test
+    public void getMyInfluence() throws Exception {
+        this.mvc.perform(
+                get(this.urlPrefix + "/users/1/influence")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andDo(print());
     }
 }
