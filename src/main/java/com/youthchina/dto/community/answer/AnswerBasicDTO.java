@@ -18,6 +18,11 @@ public class AnswerBasicDTO {
     private UserDTO creator;
     private Timestamp modified_at;
     private Timestamp create_at;
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer attentionCount;
+    private boolean isAttention;
+    private Integer evaluateStatus;
 
     public AnswerBasicDTO() {
     }
@@ -30,6 +35,51 @@ public class AnswerBasicDTO {
         this.modified_at = answer.getEditTime();
         this.create_at = answer.getPubTime();
         this.id = answer.getId();
+        this.upvoteCount = answer.getUpvoteCount();
+        this.downvoteCount = answer.getDownvoteCount();
+        this.attentionCount = answer.getAttentionCount();
+        this.isAttention = answer.isAttention();
+        this.evaluateStatus = answer.getEvaluateStatus();
+    }
+
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
+
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
+
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getAttentionCount() {
+        return attentionCount;
+    }
+
+    public void setAttentionCount(Integer attentionCount) {
+        this.attentionCount = attentionCount;
+    }
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
     }
 
     public RichTextResponseDTO getBody() {
