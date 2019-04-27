@@ -1,4 +1,199 @@
-GET http://localhost:8080/api/v1/discovery/companies?limit=10
+GET http://test.zzc-tongji.com/api/v1/discovery/companies?limit=2&page=0
+Content-Type: application/json;charset=utf8
+Cache-Control: no-cache
+
+<> 2019-04-18T045500.200.json
+
+###
+
+GET http://test.zzc-tongji.com/api/v1/discovery/editorials?limit=2&page=0
+Content-Type: application/json;charset=utf8
+Cache-Control: no-cache
+
+<> 2019-04-18T045450.500.json
+
+###
+
+GET http://test.zzc-tongji.com/api/v1/discovery/articles?limit=2&page=0
+Content-Type: application/json;charset=utf8
+Cache-Control: no-cache
+
+<> 2019-04-18T045441.200.json
+
+###
+
+GET http://test.zzc-tongji.com/api/v1/discovery/questions?limit=2&page=0
+Content-Type: application/json;charset=utf8
+Cache-Control: no-cache
+
+<> 2019-04-18T045416.500.json
+
+###
+
+GET http://test.zzc-tongji.com/api/v1/discovery/questions?limit=2&page=0
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T045408.200.json
+
+###
+
+GET http://test.zzc-tongji.com/api/v1/discovery/questions?limit=2&page=0
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T043550.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/search?type=company&text=*&title=*
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T043522.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/search?type=company&text=*&title=*
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T043518.200.json
+
+###
+
+GET http://test.zzc-tongji.com/api/v1/discovery/questions?limit=10
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+###
+
+GET http://47.252.87.218:8080/api/v1/discovery/questions?limit=10
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T043251.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/discovery/questions?limit=10
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T043232.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/discovery/companies?limit=10
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T022745.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/discovery/companies?limit=10
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T022741.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/search?type=company&text=*&title=*
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T022733.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/search?type=job&text=Java
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T022611.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/search?type=job&text=腾讯
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T022549.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/discovery/companies?limit=10
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/api/v1/discovery/companies
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+###
+
+PUT http://47.252.87.218:8080/api/v1/jobs/1/attention
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T022319.404.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/jobs/1/attentions
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T022304.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/search?type=company&text=*&title=*
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T022136.200.json
+
+###
+
+GET http://test.zzc-tongji.com/api/v1/discovery/companies?limit=2&page=0
+Content-Type: application/json;charset=utf8
+#X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+<> 2019-04-18T022102.200.json
+
+###
+
+GET http://localhost:8080/api/v1/discovery/companies
+Content-Type: application/json;charset=utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
+Cache-Control: no-cache
+
+###
+
+PUT http://47.252.87.218:8080/api/v1/users
 Content-Type: application/json;charset=utf8
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
 Cache-Control: no-cache
@@ -199,161 +394,6 @@ GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:*&fq=type:USER
 Content-Type: application/json;charset=utf8
 
 <> 2019-04-16T104010.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:*&fq=type:COMMENT
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T103937.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:腾讯&fq=type:COMMENT
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T103929.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:腾讯&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T103451.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:阿里&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T103400.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=body:阿里&fq=type:ANSWER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T103346.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ANSWER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T103322.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ANSWER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T102800.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T102600.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T102549.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101913.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101857.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101855.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101842.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:ESSAY
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101840.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101819.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101746.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=*:*&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101721.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101712.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101708.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T101557.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=id:*&fq=type:QUESTION
-Content-Type: application/json;charset=utf8
 
 ###
 
