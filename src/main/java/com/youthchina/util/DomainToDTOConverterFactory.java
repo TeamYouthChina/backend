@@ -11,14 +11,20 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class DomainToDTOConverterFactory implements ConverterFactory<Object, ResponseDTO> {
     private static class DomainToDTOConverter<T extends ResponseDTO> implements Converter<Object, T> {
-        T dto;
+        Class<T> targetType;
 
         private DomainToDTOConverter(Class<T> targetType) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-            dto = targetType.getConstructor().newInstance();
+            this.targetType = targetType;
         }
 
         @Override
         public T convert(Object source) {
+            T dto = null;
+            try {
+                dto = this.targetType.getConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                e.printStackTrace();
+            }
             dto.convertToDTO(source);
             return dto;
         }
