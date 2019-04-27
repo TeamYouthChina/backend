@@ -161,7 +161,7 @@ public class EssayControllerTest extends BaseControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(partialContent("{\"content\":{\"id\":28,\"creator\":{\"id\":1,\"username\":\"YihaoGuo\",\"email\":\"test@test.com\",\"register_date\":null,\"first_name\":\"John\",\"last_name\":\"Doe\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"age\":0,\"phone_number\":\"2022922222\"},\"body\":\"何老师你要是被绑架了就扎扎眼！\",\"create_at\":1555603528543,\"is_anonymous\":false,\"modified_at\":1555603528543,\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3},\"status\":{\"code\":201,\"reason\":\"success\"}}", "$.content.id", "$.content.modified_at", "$.content.create_at"));
+                .andExpect(partialContent("{\"content\":{\"id\":66,\"creator\":{\"id\":1,\"username\":\"Admin\",\"email\":\"123456@123.com\",\"register_date\":1546300800000,\"first_name\":\"Admin\",\"last_name\":\"Admin\",\"gender\":\"Male\",\"nation\":\"CHN\",\"avatar_url\":\"---\",\"role\":[\"ROOT\"],\"age\":25,\"phone_number\":\"1234657890123\"},\"body\":\"何老师你要是被绑架了就扎扎眼！\",\"create_at\":1556395425000,\"is_anonymous\":false,\"modified_at\":1556395425000,\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3},\"status\":{\"code\":201,\"reason\":\"success\"}}", "$.content.id", "$.content.modified_at", "$.content.create_at"));
     }
 
     @Test
