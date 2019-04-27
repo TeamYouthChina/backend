@@ -24,7 +24,6 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * @program: youthchina
@@ -138,8 +137,8 @@ public class StudentProfileController {
         educationDTO.setUniversity_id(10001);
         educationDTO.setMajor("10101");
         educationDTO.setDegree("1");
-        String begin = "1554868800";
-        String end = "1555559999999";
+        Long begin = 1554868800L;
+        Long end = 1554868800L;
         DurationDTO durationDTO = new DurationDTO(begin, end);
         educationDTO.setDuration(durationDTO);
         ObjectMapper mapper = new ObjectMapper();
