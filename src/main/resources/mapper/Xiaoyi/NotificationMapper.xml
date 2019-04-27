@@ -21,7 +21,7 @@
     <insert id="add" parameterType="com.youthchina.domain.Hongsheng.Notification" useGeneratedKeys="true"
             keyProperty="id">
         insert into SYS_NOTIFICATION(notify_content, notify_time, user_id, notify_read)
-        values (#{content},#{notifyTime},#{user.id},#{isRead})
+        values (#{content},NOW(),#{user.id},#{isRead})
     </insert>
 
     <update id="update" parameterType="com.youthchina.domain.Hongsheng.Notification">
@@ -37,5 +37,10 @@
         select a.* from SYS_NOTIFICATION a
         where a.USER_ID = #{user_id}
     </select>
+
+    <update id="patchNotificationRead" parameterType="com.youthchina.domain.Hongsheng.Notification">
+        update SYS_NOTIFICATION set NOTIFY_READ=1
+        where NOTIFY_ID=#{id}
+    </update>
 
 </mapper>

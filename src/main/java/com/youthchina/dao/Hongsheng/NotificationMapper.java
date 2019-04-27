@@ -10,8 +10,9 @@ import java.util.List;
 @Component
 public interface NotificationMapper {
     Notification get(Integer id);
-    Notification add(Notification notification);
-    Notification update(Notification notification);
+    Integer add(Notification notification);
+    Integer update(Notification notification);
     Integer checkIfNotificationExist(Integer id);
     List<Notification> getAllNotifications(Integer user_id);
+    Integer patchNotificationRead(Integer id);
 }

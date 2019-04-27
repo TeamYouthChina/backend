@@ -8,6 +8,7 @@ import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.applicant.WorkResponseDTO;
 import com.youthchina.dto.notification.NotificationDTO;
 import com.youthchina.dto.util.PageRequest;
+import com.youthchina.exception.zhongyang.exception.ForbiddenException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.util.NotificationService;
 import org.springframework.http.ResponseEntity;
@@ -51,16 +52,21 @@ public class NotificationController {
 //        return ResponseEntity.ok(new Response(notificationDTO1));
 //    }
 //
-//    @PostMapping("/")
-//    public ResponseEntity addNotification(@RequestBody NotificationDTO notificationDTO, @AuthenticationPrincipal User user) throws NotFoundException {
-//        Notification notification = new Notification(notificationDTO);
-//        notification.setUser(user);
-//        Notification returnNotification = notificationService.add(notification);
-//        NotificationDTO retrunNotificationDTO = new NotificationDTO(returnNotification);
-//        if(retrunNotificationDTO.getId() != null){
-//            return ResponseEntity.ok(new Response(retrunNotificationDTO));
-//        }else{
-//            return ResponseEntity.ok(new Response(new StatusDTO(403, "add failed")));
-//        }
-//    }
+    @PostMapping("/{user_id}")
+    public ResponseEntity addNotification(@RequestBody NotificationDTO notificationDTO, @AuthenticationPrincipal User user,@PathVariable Integer user_id) throws NotFoundException, ForbiddenException {
+        if(user.getId().equals(user_id)){
+            Notification notification=new Notification(notificationDTO,user_id);
+            Notification notification1=notificationService.add(notification);
+            NotificationDTO notificationDTO1=new NotificationDTO(notification1);
+            return ResponseEntity.ok(new Response(notificationDTO1));
+        }else {
+            throw new ForbiddenException();
+        }
+
+    }
+    @PatchMapping("/{notification_id}/read")
+    public ResponseEntity patchNotification(@PathVariable Integer notification_id,@AuthenticationPrincipal User user) throws NotFoundException{
+        notificationService.patchNotificationRead(notification_id);
+        return ResponseEntity.ok((new Response()));
+    }
 }

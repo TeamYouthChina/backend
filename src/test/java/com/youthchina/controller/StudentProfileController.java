@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.dto.applicant.*;
+import com.youthchina.dto.notification.NotificationDTO;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.util.AuthGenerator;
@@ -20,6 +21,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.sql.Timestamp;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -794,9 +797,34 @@ public class StudentProfileController {
 
     @Test
     public void getAllNotification() throws Exception{
+        NotificationDTO notificationDTO=new NotificationDTO();
+        notificationDTO.setIs_read(true);
+        notificationDTO.setText("好友添加");
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(notificationDTO);
+        System.out.print(requestJson);
+        this.mvc.perform(
+                post
+                        (this.urlPrefix + "/notifications/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+
+                        .with(authGenerator.authentication(Role.APPLICANT, 1))
+        )
+                .andDo(print())
+        ;
+
         this.mvc.perform(get(this.urlPrefix + "/notifications/1").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
+
+    @Test
+    public void patchNotificationRead() throws Exception{
+        this.mvc.perform(patch(this.urlPrefix + "/notifications/1/read").with(authGenerator.authentication(Role.APPLICANT, 10)))
+                .andDo(print());
+    }
+    
 
 
 }

@@ -15,12 +15,16 @@ public class Notification {
 
     }
 
-    public Notification(NotificationDTO notificationDTO) {
+    public Notification(NotificationDTO notificationDTO,Integer user_id) {
         this.id = notificationDTO.getNotification_id();
         this.content = notificationDTO.getText();
         this.notifyTime = notificationDTO.getCreate_at();
         this.isRead = (notificationDTO.isIs_read())?1:0;
+        User user=new User();
+        user.setId(user_id);
+        this.user=user;
     }
+
 
     public Integer getId() {
         return id;

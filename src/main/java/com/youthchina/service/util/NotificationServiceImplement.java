@@ -44,8 +44,9 @@ public class NotificationServiceImplement implements NotificationService{
     @Override
     public Notification add(Notification notification) throws NotFoundException {
         notificationMapper.add(notification);
-        notification.setUser(userService.get(notification.getUser().getId()));
-        return notification;
+        Notification notification1=notificationMapper.get(notification.getId());
+        notification1.setUser(userService.get(notification.getUser().getId()));
+        return notification1;
     }
 
     @Override
@@ -57,5 +58,13 @@ public class NotificationServiceImplement implements NotificationService{
     public List<Notification> getAllNotifications(Integer user_id) throws NotFoundException {
         List<Notification> notifications=notificationMapper.getAllNotifications(user_id);
         return notifications;
+    }
+
+    @Override
+    public void patchNotificationRead(Integer notification_id) throws NotFoundException {
+        Integer id=notificationMapper.patchNotificationRead(notification_id);
+        if(id==0){
+            throw new NotFoundException(404,404,"do not find this notification");
+        }
     }
 }

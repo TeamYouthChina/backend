@@ -9,4 +9,5 @@ import java.util.List;
 public interface NotificationService extends DomainCRUDService<Notification,Integer> {
     void ifNotificationExist(Integer id) throws NotFoundException;
     List<Notification> getAllNotifications(Integer user_id) throws NotFoundException;
+    void patchNotificationRead(Integer notification_id) throws NotFoundException;
 }
