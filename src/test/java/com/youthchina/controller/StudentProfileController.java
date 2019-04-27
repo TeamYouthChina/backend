@@ -24,7 +24,6 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * @program: youthchina
@@ -63,8 +62,8 @@ public class StudentProfileController {
     @Test
     public void testGet() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/10")
-                        .with(authGenerator.authentication(Role.APPLICANT, 10))
+                get(this.urlPrefix + "/applicants/1")
+                        .with(authGenerator.authentication(Role.APPLICANT, 1))
         )
                 .andDo(print())
         //  .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"yihao guo\",\"avatarUrl\":null,\"educations\":[{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000-0400\",\"end\":\"2020-05-14T00:00:00.000-0400\"},\"location\":{\"region_num\":null},\"note\":null},{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000-0400\",\"end\":\"2020-05-14T00:00:00.000-0400\"},\"location\":{\"region_num\":null},\"note\":null}],\"experiences\":[{\"employer\":\"Facebook\",\"position\":\"SDE\",\"duration\":{\"begin\":\"2017-09-11T00:00:00.000-0400\",\"end\":\"2018-10-11T00:00:00.000-0400\"},\"location\":\"中国江苏\",\"note\":null}],\"projects\":[{\"name\":\"web develop\",\"role\":\"backend\",\"duration\":{\"begin\":\"2018-09-11T00:00:00.000-0400\",\"end\":\"2018-10-11T00:00:00.000-0400\"},\"note\":null}],\"extracurriculars\":[{\"name\":\"volunteer\",\"role\":\"worker\",\"organization\":\"gwu\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000-0400\",\"end\":\"2018-10-12T00:00:00.000-0400\"},\"location\":null,\"note\":null}],\"certificates\":[{\"name\":\"Java skill\",\"authority\":\"CSSA\",\"duration\":{\"begin\":\"2016-10-01T00:00:00.000-0400\",\"end\":\"2018-10-11T00:00:00.000-0400\"},\"note\":null}],\"contacts\":{\"emails\":[null],\"phonenumbers\":[\"18463722634\"]}},\"status\":{\"code\":2000,\"reason\":\"\"}}\n", false))
@@ -83,8 +82,8 @@ public class StudentProfileController {
     @Test
     public void testGetEducations() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/10/educations?limit=1&offset=0")
-                        .with(authGenerator.authentication(Role.APPLICANT, 10))
+                get(this.urlPrefix + "/applicants/1/educations?limit=1&offset=0")
+                        .with(authGenerator.authentication(Role.APPLICANT, 1))
         )
                 .andDo(print())
 //                .andExpect(content().json("{\"content\":[{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000+0000\",\"end\":\"2020-05-14T00:00:00.000+0000\"},\"location\":{\"region_num\":null},\"note\":null},{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000+0000\",\"end\":\"2020-05-14T00:00:00.000+0000\"},\"location\":{\"region_num\":null},\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
@@ -138,8 +137,8 @@ public class StudentProfileController {
         educationDTO.setUniversity_id(10001);
         educationDTO.setMajor("10101");
         educationDTO.setDegree("1");
-        String begin = "2014-10-07";
-        String end = "2018-10-07";
+        Long begin = 1554868800L;
+        Long end = 1554868800L;
         DurationDTO durationDTO = new DurationDTO(begin, end);
         educationDTO.setDuration(durationDTO);
         ObjectMapper mapper = new ObjectMapper();
@@ -688,12 +687,11 @@ public class StudentProfileController {
     public void testUserAttentions() throws Exception {
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/1/attentions?type=job&limit=2&offset=0")
+                        (this.urlPrefix + "/users/2/attentions?type=article&limit=2&offset=0")
 
-                        .with(authGenerator.authentication(Role.ADMIN, 1))
+                        .with(authGenerator.authentication(Role.ADMIN, 2))
         )
                 .andDo(print())
-                .andExpect(status().is2xxSuccessful())
         ;
 
     }
@@ -784,6 +782,12 @@ public class StudentProfileController {
     @Test
     public void testAddJobApply() throws Exception {
         this.mvc.perform(post(this.urlPrefix + "/jobs/4/apply").with(authGenerator.authentication(Role.APPLICANT, 10)))
+                .andDo(print());
+    }
+
+    @Test
+    public void getProfileCards() throws Exception {
+        this.mvc.perform(get(this.urlPrefix + "/applicants/10/cards").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
 

@@ -1,6 +1,7 @@
 package com.youthchina.util;
 
 import com.youthchina.dto.ResponseDTO;
+import com.youthchina.exception.zhongyang.error.ConvertError;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 
@@ -22,8 +23,8 @@ public class DomainToDTOConverterFactory implements ConverterFactory<Object, Res
             T dto = null;
             try {
                 dto = this.targetType.getConstructor().newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                e.printStackTrace();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | NullPointerException e) {
+                throw new ConvertError("Cannot convert to suitable object", DomainToDTOConverterFactory.class);
             }
             dto.convertToDTO(source);
             return dto;

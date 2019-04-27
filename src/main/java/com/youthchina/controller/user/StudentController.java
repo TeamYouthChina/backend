@@ -443,5 +443,17 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         }
     }
 
+    @GetMapping("/{id}/cards")
+    public ResponseEntity<?> getProfileCards(@PathVariable("id") Integer id,@AuthenticationPrincipal User user) throws NotFoundException{
+        Student student = studentService.get(id);
+        student.setId(user.getId());
+        student.setIsInJob(user.isHired());
+        student.setUsername(user.getUsername());
+        student.setAvatarUrl(user.getAvatarUrl());
+        student.setFirstName(user.getFirstName());
+        student.setLastName(user.getLastName());
+        return ResponseEntity.ok(new Response(new ProfileResponseDTO(student)));
+    }
+
 
 }
