@@ -614,6 +614,34 @@ paths:
                               $ref: '#/components/schemas/Video'
                   status:
                     $ref: '#/components/schemas/Status'
+  '/users/{user_id}/influence':
+    get:
+      summary: 查看影响力
+      tags:
+        - My
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: X-AUTHENTICATION
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: the influence score
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: integer
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/jobs/attentions/{job_id}':
     delete:
       summary: 删除收藏的工作
@@ -3386,10 +3414,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                resume:
-                  type: string
+              $ref: '#/components/schemas/ResumeRequest'
       responses:
         '201':
           description: created
@@ -3399,70 +3424,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      jsons:
-                        type: array
-                        items:
-                          type: object
+                    $ref: '#/components/schemas/ResumeResponse'
                   status:
                     $ref: '#/components/schemas/Status'
-    get:
-      summary: 获得所有电子简历
-      tags:
-        - Resume
-      parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: resume id
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      jsons:
-                        type: array
-                        items:
-                          type: object
-                  status:
-                    $ref: '#/components/schemas/Status'
-    delete:
-      summary: 删除电子简历
-      tags:
-        - Resume
-      parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: deleted
   '/resumes/online/{id}':
     get:
       summary: 获得所有电子简历
@@ -3489,14 +3453,66 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      jsons:
-                        type: array
-                        items:
-                          type: object
+                    $ref: '#/components/schemas/ResumeResponse'
+                  status:
+                    $ref: '#/components/schemas/Status'
+    put:
+      summary: 获得所有电子简历
+      tags:
+        - Resume
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResumeRequest'
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/ResumeResponse'
+                  status:
+                    $ref: '#/components/schemas/Status'
+    delete:
+      summary: 删除电子简历
+      tags:
+        - Resume
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
                   status:
                     $ref: '#/components/schemas/Status'
   '/resumes/pdf':
@@ -3522,8 +3538,10 @@ paths:
             schema:
               type: object
               properties:
-                resume:
-                  type: string
+                content:
+                  $ref: '#/components/schemas/ResumePDFResponse'
+                status:
+                  $ref: '#/components/schemas/Status'
       responses:
         '201':
           description: created
@@ -3533,70 +3551,9 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      jsons:
-                        type: array
-                        items:
-                          type: object
+                    $ref: '#/components/schemas/ResumePDFResponse'
                   status:
                     $ref: '#/components/schemas/Status'
-    get:
-      summary: 获得所有pdf简历
-      tags:
-        - Resume
-      parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: resume id
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      jsons:
-                        type: array
-                        items:
-                          type: object
-                  status:
-                    $ref: '#/components/schemas/Status'
-    delete:
-      summary: 删除pdf简历
-      tags:
-        - Resume
-      parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      responses:
-        '200':
-          description: deleted
   '/resumes/pdf/{id}':
     get:
       summary: 获得pdf简历
@@ -3623,14 +3580,69 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      jsons:
-                        type: array
-                        items:
-                          type: object
+                    $ref: '#/components/schemas/ResumePDFResponse'
+                  status:
+                    $ref: '#/components/schemas/Status'
+    patch:
+      summary: 获得所有pdf简历
+      tags:
+        - Resume
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/ResumePDFResponse'
+                  status:
+                    $ref: '#/components/schemas/Status'
+    delete:
+      summary: 删除pdf简历
+      tags:
+        - Resume
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
                   status:
                     $ref: '#/components/schemas/Status'
   # '/applicant/{id}/resumes':
@@ -3704,12 +3716,12 @@ paths:
   #                       type: boolean
   #                 status:
   #                   $ref: '#/components/schemas/Status'
-  '/friends/{id}/apply':
+  '/friends/{userId}/apply':
     post:
       tags:
         - Friends
       parameters:
-        - name: id
+        - name: userId
           description: other guy's id
           in: path
           schema:
@@ -3721,6 +3733,14 @@ paths:
           description: authentication header
           schema:
             type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
       responses:
         '201':
           description: created
@@ -3729,17 +3749,14 @@ paths:
               schema:
                 type: object
                 properties:
-                  content:
-                    $ref: '#/components/schemas/FriendApplication'
                   status:
                     $ref: '#/components/schemas/Status'
-                        
-  '/friends/{id}':
+  '/friends/{userId}':
     delete:
       tags:
         - Friends
       parameters:
-        - name: id
+        - name: userId
           description: other guy's id
           in: path
           schema:
@@ -3759,8 +3776,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  content:
-                    type: string
                   status:
                     $ref: '#/components/schemas/Status'
   '/friends/applications/{reference_id}/approval':
@@ -3780,9 +3795,24 @@ paths:
           description: authentication header
           schema:
             type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
       responses:
         '200':
           description: "approval"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/friends/applications/{reference_id}/deny':
     put:
       tags:
@@ -3800,10 +3830,24 @@ paths:
           description: authentication header
           schema:
             type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
       responses:
         '200':
           description: "deny"
-                    
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
   '/friends/applications/{id}':
     get:
       tags:
@@ -3936,7 +3980,7 @@ paths:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/FriendApplication'
+                          $ref: '#/components/schemas/User'
                       offset:
                         type: integer
                       limit:
@@ -6665,15 +6709,6 @@ components:
           type: boolean
     User:
       type: object
-      required:
-        - id
-        - username
-        - email
-        - phonenumber
-        - register_date
-        - real_name
-        - gender
-        - nation
       properties:
         id:
           type: integer
@@ -6701,9 +6736,7 @@ components:
         avatar_url:
           type: string
         role:
-          type: array
-          items:
-            type: string
+          type: string
         age:
           type: integer
     NewUser:
@@ -7282,5 +7315,32 @@ components:
           $ref: '#/components/schemas/User'
         is_read:
           type: boolean
+    ResumeResponse:
+      type: object
+      properties:
+        body:
+          $ref: '#/components/schemas/RichText'
+        name:
+          type: string
+        id:
+          type: integer
+    ResumeRequest:
+      type: object
+      properties:
+        body:
+          $ref: '#/components/schemas/RichText'
+        name:
+          type: string
+    ResumePDFResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        fileId:
+          type: integer
+        name:
+          type: string
       
-      
+
+
+
