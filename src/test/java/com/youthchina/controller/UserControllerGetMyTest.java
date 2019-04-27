@@ -10,6 +10,7 @@ import com.youthchina.service.community.QuestionServiceImpl;
 import com.youthchina.service.user.JwtService;
 import com.youthchina.util.AuthGenerator;
 import com.youthchina.util.JwtAuthenticationProvider;
+import com.youthchina.util.dictionary.SearchType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,15 +45,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerGetMyTest {
     @Autowired
     WebApplicationContext context;
-
-    @Value("${web.url.prefix}")
-    private String urlPrefix;
-
     MockMvc mvc;
-
     @Autowired
     JwtAuthenticationProvider jwtAuthenticationProvider;
-
     @Autowired
     JwtService jwtService;
     @Autowired
@@ -63,7 +58,8 @@ public class UserControllerGetMyTest {
     EssayServiceImpl essayService;
     @Autowired
     InfluenceService influenceService;
-
+    @Value("${web.url.prefix}")
+    private String urlPrefix;
     private AuthGenerator authGenerator = new AuthGenerator();
 
     @Before
@@ -80,7 +76,20 @@ public class UserControllerGetMyTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-        //.andExpect(content().json("", false))
+        //No target type
+        ;
+    }
+
+    @Test
+    public void getPageTest() throws Exception {
+        Integer id = 1;
+        this.mvc.perform(
+                get(this.urlPrefix + "/users/:" + id + "/my")
+                        .param("type", SearchType.ARTICLE)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
         ;
     }
 
