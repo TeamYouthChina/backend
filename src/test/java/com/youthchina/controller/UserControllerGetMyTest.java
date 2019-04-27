@@ -69,9 +69,8 @@ public class UserControllerGetMyTest {
 
     @Test
     public void getMy() throws Exception {
-        Integer id = 1;
         this.mvc.perform(
-                get(this.urlPrefix + "/users/:" + id + "/my")
+                get(this.urlPrefix +  "/my")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
         )
@@ -82,9 +81,8 @@ public class UserControllerGetMyTest {
 
     @Test
     public void getPageTest() throws Exception {
-        Integer id = 1;
         this.mvc.perform(
-                get(this.urlPrefix + "/users/:" + id + "/my")
+                get(this.urlPrefix + "/my")
                         .param("type", SearchType.ARTICLE)
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
@@ -122,18 +120,18 @@ public class UserControllerGetMyTest {
 //        essayResponseDTO.convertToDTO(comEssay1);
     }
 
-    @Test
-    public void getMyNone() throws Exception {
-        Integer id = 2;
-        this.mvc.perform(
-                get(this.urlPrefix + "/users/:" + id + "/my")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4030,\"reason\":\"Cannot access\"}}", false))
-        ;
-    }
+//    @Test
+//    public void getMyNone() throws Exception {
+//        Integer id = 2;
+//        this.mvc.perform(
+//                get(this.urlPrefix + "/users/:" + id + "/my")
+//                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4030,\"reason\":\"Cannot access\"}}", false))
+//        ;
+//    }
 
     @Test
     public void getMyInfluence() throws Exception {
