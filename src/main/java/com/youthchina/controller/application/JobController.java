@@ -15,6 +15,7 @@ import com.youthchina.dto.application.JobApplyDTO;
 import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.job.JobSearchDTO;
+import com.youthchina.dto.job.JobWithMail;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.BaseException;
@@ -134,7 +135,10 @@ public class JobController extends DomainCRUDController<Job, Integer> {
         } else {
             job = jobService.get(jobId);
         }
-        if (detailLevel == 1 && job != null) {
+
+        if(user.getId() == job.getUserId()){
+            return ResponseEntity.ok(new Response(new JobWithMail(job)));
+        } else if (detailLevel == 1 && job != null) {
             return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
         }
         throw new BaseException();
