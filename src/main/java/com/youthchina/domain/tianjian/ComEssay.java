@@ -61,7 +61,8 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
     }
 
     public ComEssay() {
-
+        this.isAttention = false;
+        this.evaluateStatus = 3;
     }
 
 

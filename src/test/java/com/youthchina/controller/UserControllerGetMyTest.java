@@ -5,10 +5,12 @@ import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.service.community.AnswerServiceImpl;
 import com.youthchina.service.community.EssayServiceImpl;
+import com.youthchina.service.community.InfluenceService;
 import com.youthchina.service.community.QuestionServiceImpl;
 import com.youthchina.service.user.JwtService;
 import com.youthchina.util.AuthGenerator;
 import com.youthchina.util.JwtAuthenticationProvider;
+import com.youthchina.util.dictionary.SearchType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,15 +45,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerGetMyTest {
     @Autowired
     WebApplicationContext context;
-
-    @Value("${web.url.prefix}")
-    private String urlPrefix;
-
     MockMvc mvc;
-
     @Autowired
     JwtAuthenticationProvider jwtAuthenticationProvider;
-
     @Autowired
     JwtService jwtService;
     @Autowired
@@ -60,7 +56,10 @@ public class UserControllerGetMyTest {
     AnswerServiceImpl answerService;
     @Autowired
     EssayServiceImpl essayService;
-
+    @Autowired
+    InfluenceService influenceService;
+    @Value("${web.url.prefix}")
+    private String urlPrefix;
     private AuthGenerator authGenerator = new AuthGenerator();
 
     @Before
@@ -70,14 +69,25 @@ public class UserControllerGetMyTest {
 
     @Test
     public void getMy() throws Exception {
-        Integer id = 1;
         this.mvc.perform(
-                get(this.urlPrefix + "/users/" + id + "/my")
+                get(this.urlPrefix +  "/my")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-        //.andExpect(content().json("", false))
+        //No target type
+        ;
+    }
+
+    @Test
+    public void getPageTest() throws Exception {
+        this.mvc.perform(
+                get(this.urlPrefix + "/my")
+                        .param("type", SearchType.ARTICLE)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
         ;
     }
 
@@ -110,16 +120,26 @@ public class UserControllerGetMyTest {
 //        essayResponseDTO.convertToDTO(comEssay1);
     }
 
+//    @Test
+//    public void getMyNone() throws Exception {
+//        Integer id = 2;
+//        this.mvc.perform(
+//                get(this.urlPrefix + "/users/:" + id + "/my")
+//                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4030,\"reason\":\"Cannot access\"}}", false))
+//        ;
+//    }
+
     @Test
-    public void getMyNone() throws Exception {
-        Integer id = 2;
+    public void getMyInfluence() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/users/" + id + "/my")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                get(this.urlPrefix + "/users/1/influence")
                         .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
-                .andDo(print())
-                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4030,\"reason\":\"Cannot access\"}}", false))
-        ;
+                .andDo(print());
     }
 }

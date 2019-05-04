@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AnswerService extends DomainCRUDService<Answer, Integer> {
 
-    List<Answer> getAnswers(Integer id, int start, int end);
+    List<Answer> getAnswers(Integer id, int start, int limit);
 
     List<Answer> getAnswers(Integer id);
 

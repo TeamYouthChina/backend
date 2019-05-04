@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.dto.applicant.*;
+import com.youthchina.dto.notification.NotificationDTO;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.util.AuthGenerator;
@@ -20,6 +21,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.sql.Timestamp;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -63,8 +66,8 @@ public class StudentProfileController {
     @Test
     public void testGet() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/10")
-                        .with(authGenerator.authentication(Role.APPLICANT, 10))
+                get(this.urlPrefix + "/applicants/1")
+                        .with(authGenerator.authentication(Role.APPLICANT, 1))
         )
                 .andDo(print())
         //  .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"yihao guo\",\"avatarUrl\":null,\"educations\":[{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000-0400\",\"end\":\"2020-05-14T00:00:00.000-0400\"},\"location\":{\"region_num\":null},\"note\":null},{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000-0400\",\"end\":\"2020-05-14T00:00:00.000-0400\"},\"location\":{\"region_num\":null},\"note\":null}],\"experiences\":[{\"employer\":\"Facebook\",\"position\":\"SDE\",\"duration\":{\"begin\":\"2017-09-11T00:00:00.000-0400\",\"end\":\"2018-10-11T00:00:00.000-0400\"},\"location\":\"中国江苏\",\"note\":null}],\"projects\":[{\"name\":\"web develop\",\"role\":\"backend\",\"duration\":{\"begin\":\"2018-09-11T00:00:00.000-0400\",\"end\":\"2018-10-11T00:00:00.000-0400\"},\"note\":null}],\"extracurriculars\":[{\"name\":\"volunteer\",\"role\":\"worker\",\"organization\":\"gwu\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000-0400\",\"end\":\"2018-10-12T00:00:00.000-0400\"},\"location\":null,\"note\":null}],\"certificates\":[{\"name\":\"Java skill\",\"authority\":\"CSSA\",\"duration\":{\"begin\":\"2016-10-01T00:00:00.000-0400\",\"end\":\"2018-10-11T00:00:00.000-0400\"},\"note\":null}],\"contacts\":{\"emails\":[null],\"phonenumbers\":[\"18463722634\"]}},\"status\":{\"code\":2000,\"reason\":\"\"}}\n", false))
@@ -83,8 +86,8 @@ public class StudentProfileController {
     @Test
     public void testGetEducations() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/applicants/10/educations?limit=1&offset=0")
-                        .with(authGenerator.authentication(Role.APPLICANT, 10))
+                get(this.urlPrefix + "/applicants/1/educations?limit=1&offset=0")
+                        .with(authGenerator.authentication(Role.APPLICANT, 1))
         )
                 .andDo(print())
 //                .andExpect(content().json("{\"content\":[{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000+0000\",\"end\":\"2020-05-14T00:00:00.000+0000\"},\"location\":{\"region_num\":null},\"note\":null},{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000+0000\",\"end\":\"2020-05-14T00:00:00.000+0000\"},\"location\":{\"region_num\":null},\"note\":null}],\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
@@ -138,8 +141,8 @@ public class StudentProfileController {
         educationDTO.setUniversity_id(10001);
         educationDTO.setMajor("10101");
         educationDTO.setDegree("1");
-        String begin = "2014-10-07";
-        String end = "2018-10-07";
+        String begin = "2018-10-10";
+        String end = "2018-10-11";
         DurationDTO durationDTO = new DurationDTO(begin, end);
         educationDTO.setDuration(durationDTO);
         ObjectMapper mapper = new ObjectMapper();
@@ -688,12 +691,11 @@ public class StudentProfileController {
     public void testUserAttentions() throws Exception {
         this.mvc.perform(
                 get
-                        (this.urlPrefix + "/users/1/attentions?type=job&limit=2&offset=0")
+                        (this.urlPrefix + "/users/2/attentions?type=article&limit=2&offset=0")
 
-                        .with(authGenerator.authentication(Role.ADMIN, 1))
+                        .with(authGenerator.authentication(Role.ADMIN, 2))
         )
                 .andDo(print())
-                .andExpect(status().is2xxSuccessful())
         ;
 
     }
@@ -786,6 +788,43 @@ public class StudentProfileController {
         this.mvc.perform(post(this.urlPrefix + "/jobs/4/apply").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
+
+    @Test
+    public void getProfileCards() throws Exception {
+        this.mvc.perform(get(this.urlPrefix + "/applicants/10/cards").with(authGenerator.authentication(Role.APPLICANT, 10)))
+                .andDo(print());
+    }
+
+    @Test
+    public void getAllNotification() throws Exception{
+        NotificationDTO notificationDTO=new NotificationDTO();
+        notificationDTO.setIs_read(true);
+        notificationDTO.setText("好友添加");
+
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(notificationDTO);
+        System.out.print(requestJson);
+        this.mvc.perform(
+                post
+                        (this.urlPrefix + "/notifications/1").contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(requestJson)
+
+                        .with(authGenerator.authentication(Role.APPLICANT, 1))
+        )
+                .andDo(print())
+        ;
+
+        this.mvc.perform(get(this.urlPrefix + "/notifications/1").with(authGenerator.authentication(Role.APPLICANT, 10)))
+                .andDo(print());
+    }
+
+    @Test
+    public void patchNotificationRead() throws Exception{
+        this.mvc.perform(patch(this.urlPrefix + "/notifications/1/read").with(authGenerator.authentication(Role.APPLICANT, 10)))
+                .andDo(print());
+    }
+    
 
 
 }

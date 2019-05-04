@@ -1,6 +1,5 @@
 package com.youthchina.service.community;
 
-import com.youthchina.dao.jinhao.AnswerMapper;
 import com.youthchina.dao.jinhao.EvaluateMapper;
 import com.youthchina.domain.jinhao.Evaluate;
 import com.youthchina.domain.jinhao.property.Evaluatable;
@@ -16,27 +15,6 @@ public class EvaluateServiceImpl implements EvaluateService {
 
     @Resource
     EvaluateMapper evaluateMapper;
-
-    @Resource
-    QuestionService questionService;
-
-    @Resource
-    AnswerMapper answerMapper;
-
-    @Resource
-    BriefReviewService briefReviewService;
-
-    @Resource
-    CommentService commentService;
-
-    @Resource
-    VideoService videoService;
-
-    @Resource
-    DiscussService discussService;
-
-    @Resource
-    EssayService essayService;
 
     @Resource
     IsExistService isExistService;
