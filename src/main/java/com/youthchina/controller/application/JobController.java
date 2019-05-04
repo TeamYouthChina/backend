@@ -192,6 +192,7 @@ public class JobController extends DomainCRUDController<Job, Integer> {
 
     }
 
+
     @PostMapping("/{id}/apply/sendingemail")
     public ResponseEntity<?> sendingResume(@PathVariable("id") Integer job_id, @RequestParam("file") MultipartFile file, @AuthenticationPrincipal User user) throws NotFoundException, IOException {
         Job job = jobService.get(job_id);

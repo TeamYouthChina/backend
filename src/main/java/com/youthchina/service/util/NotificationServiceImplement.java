@@ -7,6 +7,8 @@ import com.youthchina.service.user.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+
 @Service("NotificationService")
 public class NotificationServiceImplement implements NotificationService{
     @Resource
@@ -42,12 +44,27 @@ public class NotificationServiceImplement implements NotificationService{
     @Override
     public Notification add(Notification notification) throws NotFoundException {
         notificationMapper.add(notification);
-        notification.setUser(userService.get(notification.getUser().getId()));
-        return notification;
+        Notification notification1=notificationMapper.get(notification.getId());
+        notification1.setUser(userService.get(notification.getUser().getId()));
+        return notification1;
     }
 
     @Override
     public void delete(Integer id) throws NotFoundException {
 
+    }
+
+    @Override
+    public List<Notification> getAllNotifications(Integer user_id) throws NotFoundException {
+        List<Notification> notifications=notificationMapper.getAllNotifications(user_id);
+        return notifications;
+    }
+
+    @Override
+    public void patchNotificationRead(Integer notification_id) throws NotFoundException {
+        Integer id=notificationMapper.patchNotificationRead(notification_id);
+        if(id==0){
+            throw new NotFoundException(404,404,"do not find this notification");
+        }
     }
 }
