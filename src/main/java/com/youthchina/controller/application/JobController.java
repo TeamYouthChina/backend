@@ -80,14 +80,14 @@ public class JobController extends DomainCRUDController<Job, Integer> {
      * @throws NotFoundException
      */
     @PostMapping("/**")
-    @ResponseBodyDTO(JobResponseDTO.class)
+    //@ResponseBodyDTO(JobWithMail.class)
     public ResponseEntity<?> createJobInfo(@AuthenticationPrincipal User user, @RequestBodyDTO(JobRequestDTO.class) Job job) throws BaseException {
         List<Location> locationList = job.getJobLocationList();
         if(locationList == null || locationList.size() == 0) throw new BaseException(5000, 500, "At least one location needed");
         job.setUserId(user.getId());
-        return add(job);
-//        Job job = jobService.add(new Job(jobRequestDTO));
-//        return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
+//        return add(job);
+        job = jobService.add(job);
+        return ResponseEntity.ok(new Response(new JobWithMail(job)));
 
     }
 
@@ -99,13 +99,14 @@ public class JobController extends DomainCRUDController<Job, Integer> {
      * @throws BaseException
      */
     @PutMapping("/{id}/**")
-    @ResponseBodyDTO(JobResponseDTO.class)
+    //@ResponseBodyDTO(JobWithMail.class)
     public ResponseEntity<?> updateJobInfo(@PathVariable Integer id, @RequestBodyDTO(JobRequestDTO.class) Job job) throws BaseException {
         List<Location> locationList = job.getJobLocationList();
         if(locationList == null || locationList.size() == 0) throw new BaseException(5000, 500, "At least one location needed");
         job.setJobId(id);
-        return update(job);
-
+        //return update(job);
+        job = jobService.update(job);
+        return ResponseEntity.ok(new Response(new JobWithMail(job)));
     }
 
     /**

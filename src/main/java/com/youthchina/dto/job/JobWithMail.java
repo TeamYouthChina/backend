@@ -10,8 +10,7 @@ public class JobWithMail extends JobResponseDTO {
 
     private String mail;
     public JobWithMail(Job job) {
-        super(job);
-        this.mail = job.getCvReceiMail();
+        this.convertToDTO(job);
     }
 
     public String getMail() {
@@ -20,5 +19,11 @@ public class JobWithMail extends JobResponseDTO {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    @Override
+    public void convertToDTO(Job job){
+        super.convertToDTO(job);
+        this.mail = job.getCvReceiMail();
     }
 }
