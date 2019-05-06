@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,6 +25,7 @@ public class User implements UserDetails, HasId<Integer> {
     private String email;
     private String phonenumber;
     private Timestamp registerDate;
+    private Date dateOfBirth;
     private String firstName;
     private String lastName;
     private String gender;
@@ -41,6 +43,7 @@ public class User implements UserDetails, HasId<Integer> {
         this.lastName = "Doe";
         this.nation = "CHN";
         this.phonenumber = "000000000";
+        this.dateOfBirth = Date.valueOf("1970-01-01");
     }
 
     public User(UserDTO userDTO) {
@@ -62,7 +65,6 @@ public class User implements UserDetails, HasId<Integer> {
         this();
         this.email = registerUserDTO.getEmail();
         this.password = registerUserDTO.getPassword();
-        this.phonenumber = registerUserDTO.getPhonenumber();
         this.registerDate = Timestamp.from(Calendar.getInstance().toInstant());
         this.role = Lists.newArrayList(Role.APPLICANT);
     }

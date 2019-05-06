@@ -17,6 +17,7 @@
         <result column="USER_ON_JOB" property="isHired" jdbcType="INTEGER"/>
         <result column="MAIL_VERIFY" property="isMailVerified" jdbcType="INTEGER"/>
         <result column="PHONE_VERIFY" property="isPhoneVerified" jdbcType="INTEGER"/>
+        <result column="USER_DATE_OF_BIRTH" property="dateOfBirth" jdbcType="DATE"/>
     </resultMap>
     <sql id="userColumn">
         USER_PASS,
@@ -30,7 +31,8 @@
         USER_PHOTO,
         USER_LOCATION,
         USER_NICKNAME,
-        USER_ON_JOB
+        USER_ON_JOB,
+        USER_DATE_OF_BIRTH
     </sql>
     <sql id="active">
         SYS_USER.IS_DELETE = 0
@@ -61,7 +63,8 @@
         #{avatarUrl},
         110000,
         '',
-        #{hired,jdbcType=BOOLEAN}
+        #{hired,jdbcType=BOOLEAN},
+        #{dateOfBirth,jdbcType=DATE}
         )
     </insert>
     <select id="canRegister" parameterType="com.youthchina.domain.zhongyang.User" resultType="java.lang.Boolean">

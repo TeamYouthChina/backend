@@ -16,11 +16,11 @@ import java.util.List;
  */
 public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     private Integer id;
-    private String username;
     private String password;
     private String email;
     private String phonenumber;
     private Timestamp register_date;
+    private Timestamp date_of_birth;
     private String first_name;
     private String last_name;
     private String gender;
@@ -158,7 +158,6 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     @Override
     public void convertToDTO(User user) {
         this.id = user.getId();
-        this.username = user.getUsername();
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
@@ -174,5 +173,13 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     @Override
     public User convertToDomain() {
         return new User(this);
+    }
+
+    public Timestamp getDate_of_birth() {
+        return date_of_birth;
+    }
+
+    public void setDate_of_birth(Timestamp date_of_birth) {
+        this.date_of_birth = date_of_birth;
     }
 }
