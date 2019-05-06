@@ -1,5 +1,7 @@
 package com.youthchina.dto.security;
 
+import com.youthchina.domain.zhongyang.Gender;
+
 import javax.validation.constraints.NotNull;
 
 /**
@@ -52,6 +54,10 @@ public class RegisterUserDTO {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setGender(Gender gender){
+        this.gender = gender.name();
     }
 
     public Long getDateOfBirth() {

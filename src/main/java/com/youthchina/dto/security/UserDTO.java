@@ -3,6 +3,7 @@ package com.youthchina.dto.security;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.youthchina.annotation.JsonTimeStamp;
+import com.youthchina.domain.zhongyang.Gender;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RequestDTO;
@@ -23,7 +24,7 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     private Timestamp date_of_birth;
     private String first_name;
     private String last_name;
-    private String gender;
+    private Gender gender;
     private String nation;
     private String avatar_url;
     private List<Role> role;
@@ -106,11 +107,11 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.avatar_url = avatar_url;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

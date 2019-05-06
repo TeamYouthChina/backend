@@ -2,6 +2,7 @@ package com.youthchina.others;
 
 import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.annotation.ResponseBodyDTO;
+import com.youthchina.domain.zhongyang.Gender;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
@@ -103,7 +104,7 @@ class AspectTestClass {
         User user = new User();
         user.setId(122);
         user.setPassword("ldskjfl");
-        user.setGender("male");
+        user.setGender(Gender.MALE);
 
         return ResponseEntity.ok(new Response(user));
     }

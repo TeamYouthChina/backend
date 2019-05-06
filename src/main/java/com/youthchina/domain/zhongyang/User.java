@@ -28,7 +28,7 @@ public class User implements UserDetails, HasId<Integer> {
     private Date dateOfBirth;
     private String firstName;
     private String lastName;
-    private String gender;
+    private Gender gender;
     private String nation;
     private String avatarUrl;
     private Boolean isHired;
@@ -37,7 +37,7 @@ public class User implements UserDetails, HasId<Integer> {
     private Boolean isPhoneVerified;
 
     public User() {
-        this.gender = "male";
+        this.gender = Gender.MALE;
         this.isHired = false;
         this.firstName = "John";
         this.lastName = "Doe";
@@ -64,7 +64,7 @@ public class User implements UserDetails, HasId<Integer> {
     public User(RegisterUserDTO registerUserDTO) {
         this();
         this.email = registerUserDTO.getEmail();
-        this.gender = registerUserDTO.getGender();
+        this.gender = Gender.valueOf(registerUserDTO.getGender());
         this.password = registerUserDTO.getPassword();
         this.firstName = registerUserDTO.getFirstName();
         this.lastName = registerUserDTO.getLastName();
@@ -194,11 +194,11 @@ public class User implements UserDetails, HasId<Integer> {
     }
 
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

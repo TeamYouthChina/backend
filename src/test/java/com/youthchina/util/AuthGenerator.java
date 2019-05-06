@@ -1,5 +1,6 @@
 package com.youthchina.util;
 
+import com.youthchina.domain.zhongyang.Gender;
 import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
@@ -26,7 +27,7 @@ public class AuthGenerator {
         user.setId(1);
         user.setEmail("test@test.com");
         user.setNation("China");
-        user.setGender("male");
+        user.setGender(Gender.MALE);
         user.setPhonenumber("2022922222");
         return new JwtAuthentication(user, true);
     }
@@ -53,7 +54,7 @@ public class AuthGenerator {
         user.setId(userId);
         user.setEmail("test@test.com");
         user.setNation("China");
-        user.setGender("male");
+        user.setGender(Gender.MALE);
         user.setPhonenumber("2022922222");
         return new JwtAuthentication(user, true);
     }

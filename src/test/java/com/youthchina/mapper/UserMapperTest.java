@@ -2,6 +2,7 @@ package com.youthchina.mapper;
 
 import com.google.common.collect.Lists;
 import com.youthchina.dao.zhongyang.UserMapper;
+import com.youthchina.domain.zhongyang.Gender;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
@@ -47,7 +48,7 @@ public class UserMapperTest {
         user.setLastName("test");
         user.setNation("China");
         user.setRegisterDate(Timestamp.valueOf("2018-10-11 11:11:11"));
-        user.setGender("male");
+        user.setGender(Gender.MALE);
         user.setHired(false);
         user.setRole(Role.APPLICANT);
         userMapper.insert(user);
@@ -88,7 +89,7 @@ public class UserMapperTest {
         user.setFirstName("Test");
         user.setNation("China");
         user.setRegisterDate(Timestamp.valueOf("2018-10-11 11:11:11"));
-        user.setGender("male");
+        user.setGender(Gender.MALE);
         user.setRole(Role.APPLICANT);
         Assert.assertTrue(userMapper.canRegister(user));
     }

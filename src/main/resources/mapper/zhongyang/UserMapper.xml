@@ -8,7 +8,7 @@
         <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
         <result column="USER_REGIST_TIME" property="registerDate" jdbcType="TIMESTAMP"/>
-        <result property="gender" column="USER_GENDER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="gender" column="USER_GENDER" jdbcType="VARCHAR"/>
         <result column="USER_FIRST_NAME" property="firstName" jdbcType="VARCHAR"/>
         <result column="USER_LAST_NAME" property="lastName" jdbcType="VARCHAR"/>
         <result column="USER_MAIL" property="email" jdbcType="VARCHAR"/>
