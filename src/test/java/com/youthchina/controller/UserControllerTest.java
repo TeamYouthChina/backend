@@ -55,7 +55,7 @@ public class UserControllerTest extends BaseControllerTest {
     @Test
     public void testLogin() throws Exception {
         this.mvc.perform(post(this.urlPrefix + "/login").contentType(MediaType.APPLICATION_JSON_UTF8).content("{\n" +
-                "  \"id\": 2,\n" +
+                "  \"identifier\": \"123456@456.com\",\n" +
                 "  \"password\": \"123456\"\n" +
                 "}"))
                 .andDo(print())

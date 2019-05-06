@@ -32,6 +32,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User get(Integer id) {
         User user = mapper.findOne(id);
+        return this.setRole(user);
+    }
+
+    /**
+     * @param email email for user
+     * @return user object, or null if such user does not exist.
+     */
+    @Override
+    public User getUserByEmail(String email) {
+        User user = mapper.findByEmail(email);
+        return this.setRole(user);
+    }
+
+    private User setRole(User user) {
         if (user != null) {
             user.setRole(mapper.getRoles(user.getId()));
         }

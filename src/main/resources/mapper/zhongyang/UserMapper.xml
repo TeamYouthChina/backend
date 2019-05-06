@@ -110,5 +110,15 @@
             (#{user_id}, #{item.value}, NOW())
         </foreach>
     </insert>
+    <select id="findByEmail" resultMap="User" parameterType="java.lang.String">
+        SELECT USER_ID,
+        <include refid="userColumn"/>,
+        MAIL_VERIFY,
+        PHONE_VERIFY
+        FROM youthchina.SYS_USER
+        WHERE SYS_USER.USER_MAIL = #{email, jdbcType=VARCHAR} AND
+        <include refid="active"/>
+        LIMIT 1;
+    </select>
 
 </mapper>

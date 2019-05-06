@@ -105,7 +105,7 @@ public class CommentControllerTest {
                         .content(addJson)
         )
                 .andDo(print())
-                .andExpect(partialContent("{\"content\":{\"id\":29,\"commentId\":2,\"creator\":{\"id\":1,\"email\":\"test@test.com\",\"register_date\":null,\"date_of_birth\":0,\"first_name\":\"Yihao\",\"last_name\":\"Guo\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"phone_number\":\"2022922222\"},\"body\":\"This is a discuss test.\",\"create_at\":1557118441343,\"is_anonymous\":true,\"modified_at\":1557118441343,\"upvoteCount\":null,\"downvoteCount\":null,\"evaluateStatus\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", ignores));
+                .andExpect(partialContent(" {\"content\":{\"id\":34,\"commentId\":2,\"creator\":{\"id\":1,\"email\":\"test@test.com\",\"register_date\":1546304461000,\"date_of_birth\":0,\"first_name\":\"Yihao\",\"last_name\":\"Guo\",\"gender\":\"MALE\",\"nation\":\"China\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"phone_number\":\"2022922222\"},\"body\":\"This is a discuss test.\",\"create_at\":1557177184355,\"is_anonymous\":true,\"modified_at\":1557177184355,\"upvoteCount\":null,\"downvoteCount\":null,\"evaluateStatus\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", ignores));
 
 
     }

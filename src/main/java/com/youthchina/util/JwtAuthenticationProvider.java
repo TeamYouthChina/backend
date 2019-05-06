@@ -2,14 +2,12 @@ package com.youthchina.util;
 
 import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -33,14 +31,9 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
             return authentication;
         }
         User intentUser = (User) authentication.getPrincipal();
-        User actualUser = null;
-        try {
-            actualUser = userService.get(intentUser.getId());
-        } catch (NotFoundException e) {
-            throw new UsernameNotFoundException("Cannot find user");
-        }
+        User actualUser = userService.getUserByEmail(intentUser.getEmail());
         if (actualUser == null) {
-            //if no user with target id is in DB
+            //if no user with target email is in DB
             throw new BadCredentialsException("No such user");
         }
         if (passwordEncoder.matches(intentUser.getPassword(), actualUser.getPassword())) {

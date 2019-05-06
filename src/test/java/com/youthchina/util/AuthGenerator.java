@@ -12,6 +12,8 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+
 /**
  * Created by zhongyangwu on 2/6/19.
  */
@@ -23,6 +25,7 @@ public class AuthGenerator {
         user.setRole(role);
         user.setLastName("Guo");
         user.setFirstName("Yihao");
+        user.setRegisterDate(Timestamp.valueOf("2019-01-01 01:01:01.0"));
         user.setPassword(encoder.encode("123456"));
         user.setId(1);
         user.setEmail("test@test.com");
