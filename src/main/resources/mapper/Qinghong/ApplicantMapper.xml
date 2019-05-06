@@ -3,17 +3,14 @@
 <mapper namespace="com.youthchina.dao.Qinghong.ApplicantMapper">
     <resultMap id="studentResultMap" type="com.youthchina.domain.Qinghong.Student">
         <result property="id" column="USER_ID" javaType="java.lang.Integer"/>
-        <result property="username" column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="age" column="USER_AGE" javaType="java.lang.Integer"/>
         <result property="email" column="USER_MAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
         <result column="USER_REGIST_DATE" property="registerDate" jdbcType="VARCHAR"/>
-        <result column="USER_REAL_NAME" property="realName" jdbcType="VARCHAR"/>
         <result column="USER_NATION" property="nation" jdbcType="VARCHAR"/>
         <result column="USER_PHOTO" property="avatarUrl" jdbcType="VARCHAR"/>
         <!--<result column="USER_ON_JOB" property="hire"/>-->
-        <result property="gender" column="USER_GENDER" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="gender" column="USER_GENDER" jdbcType="VARCHAR"/>
         <result property="role" javaType="java.lang.Integer" column="ROLE_TYPE"/>
         <association property="subInfo" javaType="com.youthchina.domain.Qinghong.SubInfo">
             <id property="sub_id" column="SUB_ID"/>

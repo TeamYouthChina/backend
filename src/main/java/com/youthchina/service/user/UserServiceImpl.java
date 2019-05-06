@@ -32,7 +32,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public User get(Integer id) {
         User user = mapper.findOne(id);
-        if(user != null) {
+        return this.setRole(user);
+    }
+
+    /**
+     * @param email email for user
+     * @return user object, or null if such user does not exist.
+     */
+    @Override
+    public User getUserByEmail(String email) {
+        User user = mapper.findByEmail(email);
+        return this.setRole(user);
+    }
+
+    private User setRole(User user) {
+        if (user != null) {
             user.setRole(mapper.getRoles(user.getId()));
         }
         return user;
@@ -66,7 +80,7 @@ public class UserServiceImpl implements UserService {
         encryptPassword(user); //encryptPassword
         mapper.insert(user);
         mapper.setRole(user.getId(), user.getRole());
-        return mapper.findOne(user.getId());
+        return this.get(user.getId());
     }
 
     @Override

@@ -16,6 +16,8 @@ import java.util.List;
 public interface UserMapper {
     User findOne(Integer id);
 
+    User findByEmail(String email);
+
     List<Role> getRoles(Integer user_id);
 
     int insert(User user);

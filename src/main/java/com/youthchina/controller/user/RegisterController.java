@@ -1,9 +1,11 @@
 package com.youthchina.controller.user;
 
+import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.security.RegisterUserDTO;
+import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.exception.ClientException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.user.UserService;
@@ -12,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * Created by zhongyangwu on 2/10/19.
@@ -27,7 +31,8 @@ public class RegisterController {
     }
 
     @PostMapping("${web.url.prefix}/applicants/register")
-    public ResponseEntity register(@RequestBody RegisterUserDTO registerUser) throws ClientException, NotFoundException {
+    @ResponseBodyDTO(UserDTO.class)
+    public ResponseEntity register(@RequestBody @Valid RegisterUserDTO registerUser) throws ClientException, NotFoundException {
         User user = new User(registerUser);
         user.setRole(Role.APPLICANT);
         if (userService.canRegister(user)) {

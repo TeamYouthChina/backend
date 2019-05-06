@@ -1,23 +1,20 @@
 package com.youthchina.dto.security;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.youthchina.domain.zhongyang.Gender;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by zhongyangwu on 2/10/19.
  */
 public class RegisterUserDTO {
-    private String username;
     private String password;
     private String email;
-    private String phonenumber;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    private String firstName;
+    private String lastName;
+    private String gender;
+    @NotNull
+    private Long dateOfBirth;
 
     public String getPassword() {
         return password;
@@ -35,12 +32,39 @@ public class RegisterUserDTO {
         this.email = email;
     }
 
-    @JsonProperty("phone_number")
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setGender(Gender gender){
+        this.gender = gender.name();
+    }
+
+    public Long getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Long dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
