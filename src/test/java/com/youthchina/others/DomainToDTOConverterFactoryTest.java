@@ -21,7 +21,6 @@ public class DomainToDTOConverterFactoryTest {
         Converter<Object, UserDTO> converter = domainToDTOConverterFactory.getConverter(UserDTO.class);
         User user = new User();
         user.setRole(Role.APPLICANT);
-        user.setUsername("YihaoGuo");
         user.setPassword("123456");
         user.setId(1);
         user.setEmail("test@test.com");
@@ -30,6 +29,6 @@ public class DomainToDTOConverterFactoryTest {
         user.setPhonenumber("2022922222");
         UserDTO dto = converter.convert(user);
         Assert.assertNotNull(dto);
-        Assert.assertEquals(dto.getAge(), user.getAge());
+        Assert.assertEquals(dto.getEmail(), user.getEmail());
     }
 }

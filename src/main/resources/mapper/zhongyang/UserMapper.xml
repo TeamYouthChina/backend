@@ -5,31 +5,30 @@
         <constructor>
             <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         </constructor>
-        <result property="username" column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="age" column="USER_AGE" javaType="java.lang.Integer"/>
         <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
-        <result column="USER_REGIST_TIME" property="registerDate" jdbcType="VARCHAR"/>
+        <result column="USER_REGIST_TIME" property="registerDate" jdbcType="TIMESTAMP"/>
         <result property="gender" column="USER_GENDER" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="USER_FIRST_NAME" property="firstName" jdbcType="VARCHAR"/>
         <result column="USER_LAST_NAME" property="lastName" jdbcType="VARCHAR"/>
         <result column="USER_MAIL" property="email" jdbcType="VARCHAR"/>
         <result column="USER_NATION" property="nation" jdbcType="VARCHAR"/>
         <result column="USER_PHOTO" property="avatarUrl" jdbcType="VARCHAR"/>
-        <result column="USER_ON_JOB" property="hired" jdbcType="INTEGER"/>
+        <result column="USER_ON_JOB" property="isHired" jdbcType="INTEGER"/>
+        <result column="MAIL_VERIFY" property="isMailVerified" jdbcType="INTEGER"/>
+        <result column="PHONE_VERIFY" property="isPhoneVerified" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="userColumn">
-        USER_NAME,
         USER_PASS,
         USER_REGIST_TIME,
         USER_FIRST_NAME,
         USER_LAST_NAME,
         USER_GENDER,
-        USER_AGE,
         USER_NATION,
         USER_MAIL,
         USER_PHONE,
         USER_PHOTO,
+        USER_LOCATION,
         USER_NICKNAME,
         USER_ON_JOB
     </sql>
@@ -38,7 +37,9 @@
     </sql>
     <select id="findOne" resultMap="User" parameterType="java.lang.Integer">
         SELECT USER_ID,
-        <include refid="userColumn"/>
+        <include refid="userColumn"/>,
+        MAIL_VERIFY,
+        PHONE_VERIFY
         FROM youthchina.SYS_USER
         WHERE SYS_USER.USER_ID = #{id, jdbcType=INTEGER} AND
         <include refid="active"/>
@@ -49,17 +50,16 @@
         INSERT INTO SYS_USER (
         <include refid="userColumn"/>
         )
-        VALUES (#{username},
-        #{password},
+        VALUES (#{password},
         #{registerDate},
         #{firstName},
         #{lastName},
         #{gender},
-        #{age},
         #{nation},
         #{email},
         #{phonenumber},
         #{avatarUrl},
+        110000,
         '',
         #{hired,jdbcType=BOOLEAN}
         )
@@ -79,19 +79,19 @@
     </update>
     <update id="update" parameterType="com.youthchina.domain.zhongyang.User">
         UPDATE SYS_USER
-        SET USER_NAME        = #{username},
-            USER_PASS        = #{password},
+        SET USER_PASS        = #{password},
             USER_REGIST_TIME = #{registerDate},
             USER_FIRST_NAME  = #{firstName},
             USER_LAST_NAME   = #{lastName},
             USER_GENDER      = #{gender},
-            USER_AGE         = #{age},
             USER_NATION      = #{nation},
             USER_MAIL        = #{email},
             USER_PHONE       = #{phonenumber},
             USER_PHOTO       = #{avatarUrl},
             USER_NICKNAME    = '',
-            USER_ON_JOB      = #{hired,jdbcType=INTEGER}
+            USER_ON_JOB      = #{hired,jdbcType=INTEGER},
+            MAIL_VERIFY      = #{isMailVerified,jdbcType=INTEGER},
+            PHONE_VERIFY     = #{isPhoneVerified,jdbcType=INTEGER}
     </update>
     <select id="getRoles" resultType="com.youthchina.domain.zhongyang.Role" parameterType="java.lang.Integer">
         SELECT SYS_ROLE.ROLE_DESCRPTIPON

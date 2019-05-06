@@ -20,7 +20,6 @@ import java.util.List;
  */
 public class User implements UserDetails, HasId<Integer> {
     private Integer id;
-    private String username;
     private String password;
     private String email;
     private String phonenumber;
@@ -30,14 +29,14 @@ public class User implements UserDetails, HasId<Integer> {
     private String gender;
     private String nation;
     private String avatarUrl;
-    private Boolean hired;
+    private Boolean isHired;
     private List<Role> role;
-    private Integer age;
+    private Boolean isMailVerified;
+    private Boolean isPhoneVerified;
 
     public User() {
         this.gender = "male";
-        this.age = 0;
-        this.hired = false;
+        this.isHired = false;
         this.firstName = "John";
         this.lastName = "Doe";
         this.nation = "CHN";
@@ -47,7 +46,6 @@ public class User implements UserDetails, HasId<Integer> {
     public User(UserDTO userDTO) {
         this();
         this.id = userDTO.getId();
-        this.username = userDTO.getUsername();
         this.password = userDTO.getPassword();
         this.email = userDTO.getEmail();
         this.phonenumber = userDTO.getPhonenumber();
@@ -58,12 +56,10 @@ public class User implements UserDetails, HasId<Integer> {
         this.nation = userDTO.getNation();
         this.avatarUrl = userDTO.getAvatar_url();
         this.role = userDTO.getRole();
-        this.age = userDTO.getAge();
     }
 
     public User(RegisterUserDTO registerUserDTO) {
         this();
-        this.username = registerUserDTO.getUsername();
         this.email = registerUserDTO.getEmail();
         this.password = registerUserDTO.getPassword();
         this.phonenumber = registerUserDTO.getPhonenumber();
@@ -81,14 +77,6 @@ public class User implements UserDetails, HasId<Integer> {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @Override
@@ -126,6 +114,11 @@ public class User implements UserDetails, HasId<Integer> {
     @JsonIgnore
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.getId() == null ? "" : this.getId().toString();
     }
 
     public void setPassword(String password) {
@@ -192,13 +185,6 @@ public class User implements UserDetails, HasId<Integer> {
         this.role = Lists.newArrayList(role);
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
 
     public String getGender() {
         return gender;
@@ -216,11 +202,27 @@ public class User implements UserDetails, HasId<Integer> {
         this.lastName = lastName;
     }
 
-    public Boolean isHired() {
-        return hired;
+    public Boolean getHired() {
+        return isHired;
     }
 
     public void setHired(Boolean hired) {
-        this.hired = hired;
+        this.isHired = hired;
+    }
+
+    public Boolean getPhoneVerified() {
+        return isPhoneVerified;
+    }
+
+    public void setPhoneVerified(Boolean phoneVerified) {
+        isPhoneVerified = phoneVerified;
+    }
+
+    public Boolean getMailVerified() {
+        return isMailVerified;
+    }
+
+    public void setMailVerified(Boolean mailVerified) {
+        isMailVerified = mailVerified;
     }
 }

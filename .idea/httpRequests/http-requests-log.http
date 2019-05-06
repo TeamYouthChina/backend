@@ -1,3 +1,75 @@
+GET http://localhost:8080/actuator
+Accept: application/vnd.spring-boot.actuator.v2+json;charset=UTF-8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3MDA0MDUyfQ.mWc2SLuur2pbZS98lP5Z7k3lQ5t-_izv4sJ4Sr0bVr4eCJI4Nx6xzFth086nPwE5Wl-v-YVW6MmmcJM14k9pQQ
+
+{     "id":1,     "password":"123456" }
+
+<> 2019-05-04T024513.200.json
+
+###
+
+GET http://localhost:8080/actuator/mappings
+Accept: application/vnd.spring-boot.actuator.v2+json;charset=UTF-8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3MDA0MDUyfQ.mWc2SLuur2pbZS98lP5Z7k3lQ5t-_izv4sJ4Sr0bVr4eCJI4Nx6xzFth086nPwE5Wl-v-YVW6MmmcJM14k9pQQ
+
+{     "id":1,     "password":"123456" }
+
+<> 2019-05-04T024506.404.json
+
+###
+
+GET http://localhost:8080/actuator
+Accept: application/vnd.spring-boot.actuator.v2+json
+
+<> 2019-05-04T024451.403.json
+
+###
+
+GET http://localhost:8080/actuator/mappings
+Accept: application/json;utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3MDA0MDUyfQ.mWc2SLuur2pbZS98lP5Z7k3lQ5t-_izv4sJ4Sr0bVr4eCJI4Nx6xzFth086nPwE5Wl-v-YVW6MmmcJM14k9pQQ
+
+{     "id":1,     "password":"123456" }
+
+<> 2019-05-04T024427.404.json
+
+###
+
+GET http://localhost:8080/actuator/mapping
+Accept: application/json;utf8
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3MDA0MDUyfQ.mWc2SLuur2pbZS98lP5Z7k3lQ5t-_izv4sJ4Sr0bVr4eCJI4Nx6xzFth086nPwE5Wl-v-YVW6MmmcJM14k9pQQ
+
+{     "id":1,     "password":"123456" }
+
+<> 2019-05-04T024411.404.json
+
+###
+
+POST http://localhost:8080/api/v1/login
+Accept: application/json;utf8
+
+{     "id":1,     "password":"123456" }
+
+<> 2019-05-04T024332.200.json
+
+###
+
+POST http://localhost:8080/login
+Accept: application/json;utf8
+
+{     "id":1,     "password":"123456" }
+
+<> 2019-05-04T024324.403.json
+
+###
+
+GET http://localhost:8080/actuator
+Accept: application/vnd.spring-boot.actuator.v2+json
+
+<> 2019-05-04T024047.403.json
+
+###
+
 GET http://test.zzc-tongji.com/api/v1/discovery/companies?limit=2&page=0
 Content-Type: application/json;charset=utf8
 Cache-Control: no-cache
@@ -339,61 +411,6 @@ X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMD
 GET http://47.252.87.218:8080/api/v1/search?type=QUESTION&body=*
 Content-Type: application/json;charset=utf8
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-
-###
-
-GET http://47.252.87.218:8080/api/v1/search?type=QUESTION&body=阿里
-Content-Type: application/json;charset=utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTUyMDcxMTk5fQ.Gh2Ta0B9em1GA10jzyZzRpM7N_86s_F2ScJr5wjnHs4WV5s1XdPMCiv83_501im0q2Jx3OdBzKSOiXUT32BMxg
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:*&fq=type:USER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T104619.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:D*&fq=type:USER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T104059.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:D&fq=type:USER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T104052.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:DEF&fq=type:USER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T104047.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:ABC&fq=type:USER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T104033.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:ABC&fq=type:USER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T104023.200.json
-
-###
-
-GET http://47.252.87.218:8983/solr/youthchinacore/select?q=title:*&fq=type:USER
-Content-Type: application/json;charset=utf8
-
-<> 2019-04-16T104010.200.json
 
 ###
 

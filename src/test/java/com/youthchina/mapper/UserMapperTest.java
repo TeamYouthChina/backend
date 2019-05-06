@@ -30,16 +30,15 @@ public class UserMapperTest {
     @Test
     public void testGetUser() {
         User user = userMapper.findOne(2);
-        Assert.assertEquals("DEF", user.getUsername());
         Assert.assertEquals("DDD", user.getFirstName());
+        Assert.assertEquals(true, user.getHired());
+        Assert.assertEquals(true, user.getMailVerified());
     }
 
     @Test
     public void testInsert() {
         User user = new User();
-        user.setUsername("test");
         user.setPassword("sldjflskjlksf");
-        user.setAge(12);
         user.setAvatarUrl("");
         user.setEmail("test@test.com");
         user.setPhonenumber("12321312334");
@@ -81,9 +80,7 @@ public class UserMapperTest {
     @Test
     public void testCanRegister() {
         User user = new User();
-        user.setUsername("Newtest");
         user.setPassword("sldjflskjlksf");
-        user.setAge(12);
         user.setAvatarUrl("");
         user.setEmail("testNew!@test.com");
         user.setPhonenumber("00000011112222");

@@ -20,7 +20,8 @@ public class AuthGenerator {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = new User();
         user.setRole(role);
-        user.setUsername("YihaoGuo");
+        user.setLastName("Guo");
+        user.setFirstName("Yihao");
         user.setPassword(encoder.encode("123456"));
         user.setId(1);
         user.setEmail("test@test.com");
@@ -46,7 +47,8 @@ public class AuthGenerator {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = new User();
         user.setRole(role);
-        user.setUsername("YihaoGuo");
+        user.setLastName("Guo");
+        user.setFirstName("Yihao");
         user.setPassword(encoder.encode("123456"));
         user.setId(userId);
         user.setEmail("test@test.com");

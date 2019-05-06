@@ -8,9 +8,7 @@
     "is_anonymous": false,
     "creator": {
       "id": 5,
-      "username": "DEF",
       "email": "123456@456.com",
-      "phone_number": "9876543210123",
       "register_date": 1546300800000,
       "first_name": "DDD",
       "last_name": "DDDEEEFFF",
@@ -20,7 +18,8 @@
       "role": [
         "ADMIN"
       ],
-      "age": 28
+      "age": 28,
+      "phone_number": "9876543210123"
     },
     "modified_at": "2018-02-03 00:00:00.0",
     "create_at": "2018-02-03 00:00:00.0",

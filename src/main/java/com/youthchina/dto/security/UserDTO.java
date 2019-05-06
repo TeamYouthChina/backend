@@ -35,7 +35,6 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
 
     public UserDTO(User user) {
         this.id = user.getId();
-        this.username = user.getUsername();
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
@@ -46,7 +45,6 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.nation = user.getNation();
         this.avatar_url = user.getAvatarUrl();
         this.role = user.getRole();
-        this.age = user.getAge();
     }
 
     public Integer getId() {
@@ -57,13 +55,13 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
 
     @JsonIgnore
     public String getPassword() {
@@ -171,7 +169,6 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.nation = user.getNation();
         this.avatar_url = user.getAvatarUrl();
         this.role = user.getRole();
-        this.age = user.getAge();
     }
 
     @Override
