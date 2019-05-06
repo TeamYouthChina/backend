@@ -77,7 +77,7 @@ public class UserControllerTest extends BaseControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
                 .andDo(print())
-                .andExpect(partialContent("{\"content\":{\"id\":19,\"email\":\"string@string.com\",\"register_date\":1557120136000,\"date_of_birth\":0,\"first_name\":\"string\",\"last_name\":\"string\",\"gender\":\"male\",\"nation\":\"CHN\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"phone_number\":\"000000000\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", "$.content.id", "$.content.register_date"))
+                .andExpect(partialContent("{\"content\":{\"id\":19,\"email\":\"string@string.com\",\"register_date\":1557120136000,\"date_of_birth\":0,\"first_name\":\"string\",\"last_name\":\"string\",\"gender\":\"MALE\",\"nation\":\"CHN\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"phone_number\":\"000000000\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", "$.content.id", "$.content.register_date"))
         ;
 
         this.mvc.perform(post(this.urlPrefix + "/applicants/register")

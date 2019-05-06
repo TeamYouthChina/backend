@@ -64,6 +64,7 @@ public class User implements UserDetails, HasId<Integer> {
     public User(RegisterUserDTO registerUserDTO) {
         this();
         this.email = registerUserDTO.getEmail();
+        this.gender = registerUserDTO.getGender();
         this.password = registerUserDTO.getPassword();
         this.firstName = registerUserDTO.getFirstName();
         this.lastName = registerUserDTO.getLastName();
