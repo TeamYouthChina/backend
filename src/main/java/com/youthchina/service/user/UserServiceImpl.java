@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User get(Integer id) {
         User user = mapper.findOne(id);
-        if(user != null) {
+        if (user != null) {
             user.setRole(mapper.getRoles(user.getId()));
         }
         return user;
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
         encryptPassword(user); //encryptPassword
         mapper.insert(user);
         mapper.setRole(user.getId(), user.getRole());
-        return mapper.findOne(user.getId());
+        return this.get(user.getId());
     }
 
     @Override

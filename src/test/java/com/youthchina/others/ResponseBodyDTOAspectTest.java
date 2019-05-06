@@ -84,7 +84,6 @@ public class ResponseBodyDTOAspectTest {
                 post(this.urlPrefix + "/test/")
                         .content("{\n" +
                                 "  \"id\":1,\n" +
-                                "  \"username\": \"asfdfsf\",\n" +
                                 "  \"password\": \"sldfjlsdkfj\",\n" +
                                 "  \"email\": \"email@gdk.com\"\n" +
                                 "}")

@@ -65,7 +65,12 @@ public class User implements UserDetails, HasId<Integer> {
         this();
         this.email = registerUserDTO.getEmail();
         this.password = registerUserDTO.getPassword();
+        this.firstName = registerUserDTO.getFirstName();
+        this.lastName = registerUserDTO.getLastName();
         this.registerDate = Timestamp.from(Calendar.getInstance().toInstant());
+        this.dateOfBirth = new Date(registerUserDTO.getDateOfBirth());
+        this.isMailVerified = false;
+        this.isPhoneVerified = false;
         this.role = Lists.newArrayList(Role.APPLICANT);
     }
 
@@ -226,5 +231,13 @@ public class User implements UserDetails, HasId<Integer> {
 
     public void setMailVerified(Boolean mailVerified) {
         isMailVerified = mailVerified;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

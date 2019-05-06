@@ -33,6 +33,7 @@ public class UserMapperTest {
         Assert.assertEquals("DDD", user.getFirstName());
         Assert.assertEquals(true, user.getHired());
         Assert.assertEquals(true, user.getMailVerified());
+        Assert.assertEquals("1970-01-01", user.getDateOfBirth().toString());
     }
 
     @Test

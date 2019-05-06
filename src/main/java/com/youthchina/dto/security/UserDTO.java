@@ -27,7 +27,6 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     private String nation;
     private String avatar_url;
     private List<Role> role;
-    private Integer age;
 
     public UserDTO() {
 
@@ -41,6 +40,7 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.register_date = user.getRegisterDate();
         this.first_name = user.getFirstName();
         this.last_name = user.getLastName();
+        this.date_of_birth = new Timestamp(user.getDateOfBirth() == null ? 0 : user.getDateOfBirth().getTime());
         this.gender = user.getGender();
         this.nation = user.getNation();
         this.avatar_url = user.getAvatarUrl();
@@ -131,14 +131,6 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.role = role;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public String getFirst_name() {
         return first_name;
     }
@@ -166,6 +158,7 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.last_name = user.getLastName();
         this.gender = user.getGender();
         this.nation = user.getNation();
+        this.date_of_birth = new Timestamp(user.getDateOfBirth().getTime());
         this.avatar_url = user.getAvatarUrl();
         this.role = user.getRole();
     }
@@ -175,6 +168,7 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         return new User(this);
     }
 
+    @JsonTimeStamp
     public Timestamp getDate_of_birth() {
         return date_of_birth;
     }

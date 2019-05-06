@@ -12,18 +12,17 @@
         "is_anonymous": false,
         "creator": {
           "id": 5,
-          "username": "DEF",
           "email": "123456@456.com",
           "register_date": 1546300800000,
+          "date_of_birth": 0,
           "first_name": "DDD",
           "last_name": "DDDEEEFFF",
-          "gender": "Female",
+          "gender": "FEMALE",
           "nation": "USA",
           "avatar_url": "---",
           "role": [
             "ADMIN"
           ],
-          "age": 28,
           "phone_number": "9876543210123"
         },
         "modified_at": "2019-02-02 00:00:00.0",

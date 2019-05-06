@@ -1,24 +1,18 @@
 package com.youthchina.dto.security;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by zhongyangwu on 2/10/19.
  */
 public class RegisterUserDTO {
-    private String username;
     private String password;
     private String email;
     private String firstName;
     private String lastName;
     private String gender;
+    @NotNull
     private Long dateOfBirth;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;

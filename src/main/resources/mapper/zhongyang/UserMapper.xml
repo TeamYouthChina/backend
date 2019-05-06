@@ -71,7 +71,6 @@
         SELECT COUNT(*) = 0
         FROM youthchina.SYS_USER
         WHERE SYS_USER.USER_MAIL = #{email}
-           OR SYS_USER.USER_PHONE = #{phonenumber}
     </select>
     <update id="delete" parameterType="java.lang.Integer">
         UPDATE SYS_USER
