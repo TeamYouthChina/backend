@@ -95,6 +95,19 @@ public class JobControllerTest extends BaseControllerTest {
     }
 
     @Test
+    public void testAddJobMail() throws Exception {
+        this.mvc.perform(
+                post(this.urlPrefix + "/jobs")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(readJson("requests/post-job-mail.json"))
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(partialContent(readJson("responses/post-job.json"),"$.content.id"))
+        ;
+    }
+
+    @Test
     public void testUpdateJob() throws Exception {
         int id = 1;
         JobRequestDTO jobRequestDTO = new JobRequestDTO();
