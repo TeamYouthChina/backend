@@ -1,5 +1,6 @@
 package com.youthchina.service.util;
 
+import com.youthchina.dto.security.VerifyEmailDTO;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
  **/
 
 @Service
-public class MessageSendServiceImpt implements MessageSendService {
+public class MessageSendServiceImpl implements MessageSendService {
 
     @Autowired
     private AmqpTemplate amqpTemplate;
@@ -20,5 +21,10 @@ public class MessageSendServiceImpt implements MessageSendService {
     @Override
     public void sendMessage(String message) {
         this.amqpTemplate.convertAndSend("email", message);
+    }
+
+    @Override
+    public void sendMessage(VerifyEmailDTO verifyEmailDTO) {
+        this.amqpTemplate.convertAndSend("email", verifyEmailDTO);
     }
 }

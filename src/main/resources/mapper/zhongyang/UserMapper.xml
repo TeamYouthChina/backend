@@ -70,14 +70,17 @@
     <select id="canRegister" parameterType="com.youthchina.domain.zhongyang.User" resultType="java.lang.Boolean">
         SELECT COUNT(*) = 0
         FROM youthchina.SYS_USER
-        WHERE SYS_USER.USER_MAIL = #{email}
+        WHERE SYS_USER.USER_MAIL = #{email} AND
+        <include refid="active"/>
+        AND SYS_USER.MAIL_VERIFY = 1
     </select>
     <update id="delete" parameterType="java.lang.Integer">
         UPDATE SYS_USER
-        SET IS_DELETE      = 1,
-            IS_DELETE_TIME = NOW()
+        SET IS_DELETE = 1,
+        IS_DELETE_TIME = NOW()
         WHERE SYS_USER.USER_ID = #{id}
-          AND SYS_USER.IS_DELETE = 0
+        AND
+        <include refid="active"/>
     </update>
     <update id="update" parameterType="com.youthchina.domain.zhongyang.User">
         UPDATE SYS_USER

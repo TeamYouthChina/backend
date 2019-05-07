@@ -51,8 +51,8 @@ public interface DomainCRUDService<T, K extends Serializable> {
 
     default boolean exist(K id) {
         try {
-            this.get(id);
-            return true;
+            T domain = this.get(id);
+            return domain != null;
         } catch (NotFoundException e) {
             return false;
         }
