@@ -1,6 +1,7 @@
 package com.youthchina.controller;
 
 import com.youthchina.service.user.JwtService;
+import com.youthchina.service.user.UserService;
 import com.youthchina.util.AuthGenerator;
 import com.youthchina.util.JwtAuthenticationProvider;
 import org.junit.Before;
@@ -43,6 +44,9 @@ public class UserControllerTest extends BaseControllerTest {
 
     @Autowired
     JwtAuthenticationProvider jwtAuthenticationProvider;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     JwtService jwtService;
@@ -96,7 +100,6 @@ public class UserControllerTest extends BaseControllerTest {
 //                .andExpect(status().is(400))
 //                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4000,\"reason\":\"cannot register because there are already user registered with same email or username\"}}", false));
     }
-
 
 
 }

@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtService = jwtService;
         this.URL_PREFIX = url_prefix;
         this.LOGIN_URL = URL_PREFIX + "/login";
-        this.REGISTER_URL = URL_PREFIX + "/*/register";
+        this.REGISTER_URL = URL_PREFIX + "/*/register/**";
         this.jwtAuthenticationProvider = jwtAuthenticationProvider;
         this.JWTTOKEN = JWTTOKEN;
     }
@@ -59,7 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                 .antMatchers(LOGIN_URL).permitAll()
-                .antMatchers(REGISTER_URL).permitAll()
+                .antMatchers(this.URL_PREFIX + "/*/register").permitAll()
+                .antMatchers(this.URL_PREFIX + "/*/register/verify/*").permitAll()
                 .antMatchers(this.URL_PREFIX + "/home/**").permitAll()
                 .antMatchers(this.URL_PREFIX + "/job-for-you/**").permitAll()
                 .antMatchers(this.URL_PREFIX + "/discovery/**").permitAll()

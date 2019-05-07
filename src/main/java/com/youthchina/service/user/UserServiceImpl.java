@@ -113,7 +113,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(User user) {
         mapper.update(user);
-        return mapper.findOne(user.getId());
+        mapper.setRole(user.getId(), user.getRole());
+        return this.get(user.getId());
     }
 
     @Override
