@@ -6,6 +6,8 @@ import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.security.UserDTO;
+import com.youthchina.exception.zhongyang.exception.ForbiddenException;
+import com.youthchina.exception.zhongyang.exception.InternalStatusCode;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -35,6 +38,12 @@ public class JwtServiceImpl implements JwtService {
 
     @Value("${security.token.header}")
     private String HEADER;
+
+    @Value("${security.register.token.key}")
+    private String REGISTER_SECRET;
+
+    @Value("${security.register.token.expirationtime}")
+    private String REGISTER_EXPRIATIONTIME;
 
     private UserMapper userMapper;
 
@@ -98,5 +107,32 @@ public class JwtServiceImpl implements JwtService {
         }
         return null;
 
+    }
+
+    @Override
+    public String encodeRegisterToken(@NotNull User user) {
+        return Jwts.builder().
+                setSubject(user.getId().toString()).
+                setExpiration(new Date(System.currentTimeMillis() + Long.valueOf(REGISTER_EXPRIATIONTIME)))
+                .signWith(SignatureAlgorithm.HS512, REGISTER_SECRET)
+                .compact();
+    }
+
+    @Override
+    public Integer decodeRegisterToken(String token) throws ForbiddenException {
+        try {
+            Jws<Claims> jwtClaim = Jwts.parser().setSigningKey(REGISTER_SECRET).parseClaimsJws(token);
+            Date expireTime = jwtClaim.getBody().getExpiration();
+            Integer id = Integer.valueOf(jwtClaim.getBody().getSubject());
+            if (expireTime.before(new Timestamp(Calendar.getInstance().getTimeInMillis()))) {
+                //if expire
+                throw new ForbiddenException(InternalStatusCode.EXPIRED);
+            }
+            return id;
+        } catch (ForbiddenException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new ForbiddenException(InternalStatusCode.ACCESS_DENY);
+        }
     }
 }

@@ -26,6 +26,12 @@ public class BaseException extends Exception implements HasStatus {
         this.statusCode = statusCode;
     }
 
+    public BaseException(InternalStatusCode internalStatusCode, int statusCode) {
+        super();
+        this.status = new StatusDTO(internalStatusCode.value(), internalStatusCode.getMessage());
+        this.statusCode = statusCode;
+    }
+
     @Override
     public String toString() {
         return "BaseException{" +

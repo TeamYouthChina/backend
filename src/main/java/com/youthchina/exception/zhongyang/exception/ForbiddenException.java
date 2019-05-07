@@ -13,4 +13,9 @@ public class ForbiddenException extends BaseException {
         this.status = new StatusDTO(4030, "Cannot access");
         this.statusCode = 403;
     }
+
+    public ForbiddenException(InternalStatusCode internalStatusCode) {
+        this();
+        this.status = new StatusDTO(internalStatusCode.value(), internalStatusCode.getMessage());
+    }
 }
