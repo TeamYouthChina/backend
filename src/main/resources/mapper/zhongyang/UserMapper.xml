@@ -84,19 +84,21 @@
     </update>
     <update id="update" parameterType="com.youthchina.domain.zhongyang.User">
         UPDATE SYS_USER
-        SET USER_PASS        = #{password},
-            USER_REGIST_TIME = #{registerDate},
-            USER_FIRST_NAME  = #{firstName},
-            USER_LAST_NAME   = #{lastName},
-            USER_GENDER      = #{gender},
-            USER_NATION      = #{nation},
-            USER_MAIL        = #{email},
-            USER_PHONE       = #{phonenumber},
-            USER_PHOTO       = #{avatarUrl},
-            USER_NICKNAME    = '',
-            USER_ON_JOB      = #{hired,jdbcType=INTEGER},
-            MAIL_VERIFY      = #{isMailVerified,jdbcType=INTEGER},
-            PHONE_VERIFY     = #{isPhoneVerified,jdbcType=INTEGER}
+        SET USER_PASS = #{password},
+        USER_REGIST_TIME = #{registerDate},
+        USER_FIRST_NAME = #{firstName},
+        USER_LAST_NAME = #{lastName},
+        USER_GENDER = #{gender},
+        USER_NATION = #{nation},
+        USER_MAIL = #{email},
+        USER_PHONE = #{phonenumber},
+        USER_PHOTO = #{avatarUrl},
+        USER_NICKNAME = '',
+        USER_ON_JOB = #{hired,jdbcType=INTEGER},
+        MAIL_VERIFY = #{isMailVerified,jdbcType=INTEGER},
+        PHONE_VERIFY = #{isPhoneVerified,jdbcType=INTEGER}
+        WHERE SYS_USER.USER_ID = #{id,jdbcType=INTEGER} AND
+        <include refid="active"/>
     </update>
     <select id="getRoles" resultType="com.youthchina.domain.zhongyang.Role" parameterType="java.lang.Integer">
         SELECT SYS_ROLE.ROLE_DESCRPTIPON
