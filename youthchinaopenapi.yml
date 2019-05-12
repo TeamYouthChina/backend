@@ -1611,11 +1611,11 @@ paths:
             schema:
               type: object
               required:
-                - id
+                - identifier
                 - password
               properties:
-                id:
-                  type: integer
+                identifier:
+                  type: string
                 password:
                   type: string
       responses:
