@@ -639,7 +639,10 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: integer
+                    type: object
+                    properties:
+                      influence_score:
+                        type: integer
                   status:
                     $ref: '#/components/schemas/Status'
   '/notifications/{user_id}':

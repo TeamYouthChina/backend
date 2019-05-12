@@ -1,23 +1,10 @@
 package com.youthchina.controller.user;
 
 import com.youthchina.controller.DomainCRUDController;
-import com.youthchina.domain.Qinghong.CompCollect;
-import com.youthchina.domain.jinhao.Answer;
-import com.youthchina.domain.jinhao.Question;
-import com.youthchina.domain.qingyang.Company;
-import com.youthchina.domain.qingyang.Job;
-import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
-import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
-import com.youthchina.dto.community.article.EssayResponseDTO;
-import com.youthchina.dto.community.question.QuestionResponseDTO;
-import com.youthchina.dto.company.CompanyResponseDTO;
-import com.youthchina.dto.job.JobResponseDTO;
-import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.exception.ClientException;
+import com.youthchina.dto.util.InfluenceDTO;
 import com.youthchina.exception.zhongyang.exception.ForbiddenException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -27,19 +14,17 @@ import com.youthchina.service.application.JobServiceImpl;
 import com.youthchina.service.community.*;
 import com.youthchina.service.user.StudentService;
 import com.youthchina.service.user.UserService;
-import com.youthchina.util.dictionary.SearchType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zhongyangwu on 11/8/18.
@@ -92,7 +77,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
     public ResponseEntity<?> getMyInfluence(@PathVariable Integer id, @AuthenticationPrincipal User user) throws ForbiddenException {
         if (user.getId().equals(id)) {
             Integer influence = influenceService.getUserInfluence(id);
-            return ResponseEntity.ok(new Response(influence, new StatusDTO(200, "success")));
+            return ResponseEntity.ok(new Response(new InfluenceDTO(influence), new StatusDTO(200, "success")));
         } else {
             throw new ForbiddenException();
         }
