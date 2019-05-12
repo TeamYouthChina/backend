@@ -639,9 +639,97 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: integer
+                    type: object
+                    properties:
+                      influence_score:
+                        type: integer
                   status:
                     $ref: '#/components/schemas/Status'
+  '/notifications/{user_id}':
+    get:
+      tags:
+        - My
+      parameters:
+        - name: user_id
+          in: path
+          description: user id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+        - name: offset
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+        - name: page
+          in: query
+          required: false
+          description: start index of element
+          schema:
+            type: string
+      responses:
+        '200':
+          description: return the notifications of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Notification'
+                      offset:
+                        type: integer
+                      limit:
+                        type: integer
+                      page_count:
+                        type: integer
+                      item_count:
+                        type: integer
+                      page_index:
+                        type: integer
+                      is_first:
+                        type: boolean
+                      is_last:
+                        type: boolean
+                  status:
+                    $ref: '#/components/schemas/Status'
+  '/notifications/{notification_id}/read':
+    patch:
+      tags:
+        - My
+      parameters:
+        - name: notification_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: the notification is read
   '/jobs/attentions/{job_id}':
     delete:
       summary: 删除收藏的工作
@@ -7340,7 +7428,17 @@ components:
           type: integer
         name:
           type: string
-      
+    Notification:
+      type: object
+      properties:
+        notification_id:
+          type: integer
+        text:
+          type: string
+        is_read:
+          type: boolean
+        create_at:
+          type: integer
 
 
 

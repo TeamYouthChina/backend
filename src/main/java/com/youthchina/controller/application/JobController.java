@@ -15,6 +15,7 @@ import com.youthchina.dto.application.JobApplyDTO;
 import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.job.JobSearchDTO;
+import com.youthchina.dto.job.JobWithMail;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.BaseException;
@@ -79,14 +80,14 @@ public class JobController extends DomainCRUDController<Job, Integer> {
      * @throws NotFoundException
      */
     @PostMapping("/**")
-    @ResponseBodyDTO(JobResponseDTO.class)
+    //@ResponseBodyDTO(JobWithMail.class)
     public ResponseEntity<?> createJobInfo(@AuthenticationPrincipal User user, @RequestBodyDTO(JobRequestDTO.class) Job job) throws BaseException {
         List<Location> locationList = job.getJobLocationList();
         if(locationList == null || locationList.size() == 0) throw new BaseException(5000, 500, "At least one location needed");
         job.setUserId(user.getId());
-        return add(job);
-//        Job job = jobService.add(new Job(jobRequestDTO));
-//        return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
+//        return add(job);
+        job = jobService.add(job);
+        return ResponseEntity.ok(new Response(new JobWithMail(job)));
 
     }
 
@@ -98,13 +99,14 @@ public class JobController extends DomainCRUDController<Job, Integer> {
      * @throws BaseException
      */
     @PutMapping("/{id}/**")
-    @ResponseBodyDTO(JobResponseDTO.class)
+    //@ResponseBodyDTO(JobWithMail.class)
     public ResponseEntity<?> updateJobInfo(@PathVariable Integer id, @RequestBodyDTO(JobRequestDTO.class) Job job) throws BaseException {
         List<Location> locationList = job.getJobLocationList();
         if(locationList == null || locationList.size() == 0) throw new BaseException(5000, 500, "At least one location needed");
         job.setJobId(id);
-        return update(job);
-
+        //return update(job);
+        job = jobService.update(job);
+        return ResponseEntity.ok(new Response(new JobWithMail(job)));
     }
 
     /**
@@ -134,7 +136,10 @@ public class JobController extends DomainCRUDController<Job, Integer> {
         } else {
             job = jobService.get(jobId);
         }
-        if (detailLevel == 1 && job != null) {
+
+        if(user.getId() == job.getUserId()){
+            return ResponseEntity.ok(new Response(new JobWithMail(job)));
+        } else if (detailLevel == 1 && job != null) {
             return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
         }
         throw new BaseException();
@@ -191,6 +196,7 @@ public class JobController extends DomainCRUDController<Job, Integer> {
         return ResponseEntity.ok(new Response(jobApplyDTO, new StatusDTO(0, "")));
 
     }
+
 
     @PostMapping("/{id}/apply/sendingemail")
     public ResponseEntity<?> sendingResume(@PathVariable("id") Integer job_id, @RequestParam("file") MultipartFile file, @AuthenticationPrincipal User user) throws NotFoundException, IOException {

@@ -1,19 +1,18 @@
 {
   "content": {
     "id": 2,
-    "username": "DEF",
     "email": "123456@456.com",
-    "phone_number": "9876543210123",
     "register_date": 1546300800000,
+    "date_of_birth": 0,
     "first_name": "DDD",
     "last_name": "DDDEEEFFF",
-    "gender": "Female",
+    "gender": "FEMALE",
     "nation": "USA",
     "avatar_url": "---",
     "role": [
       "ADMIN"
     ],
-    "age": 28
+    "phone_number": "9876543210123"
   },
   "status": {
     "code": 2000,

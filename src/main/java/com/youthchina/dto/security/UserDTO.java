@@ -3,6 +3,7 @@ package com.youthchina.dto.security;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.youthchina.annotation.JsonTimeStamp;
+import com.youthchina.domain.zhongyang.Gender;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RequestDTO;
@@ -16,18 +17,17 @@ import java.util.List;
  */
 public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     private Integer id;
-    private String username;
     private String password;
     private String email;
     private String phonenumber;
     private Timestamp register_date;
+    private Timestamp date_of_birth;
     private String first_name;
     private String last_name;
-    private String gender;
+    private Gender gender;
     private String nation;
     private String avatar_url;
     private List<Role> role;
-    private Integer age;
 
     public UserDTO() {
 
@@ -35,18 +35,17 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
 
     public UserDTO(User user) {
         this.id = user.getId();
-        this.username = user.getUsername();
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
         this.register_date = user.getRegisterDate();
         this.first_name = user.getFirstName();
         this.last_name = user.getLastName();
+        this.date_of_birth = new Timestamp(user.getDateOfBirth() == null ? 0 : user.getDateOfBirth().getTime());
         this.gender = user.getGender();
         this.nation = user.getNation();
         this.avatar_url = user.getAvatarUrl();
         this.role = user.getRole();
-        this.age = user.getAge();
     }
 
     public Integer getId() {
@@ -57,13 +56,13 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
 
     @JsonIgnore
     public String getPassword() {
@@ -108,11 +107,11 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.avatar_url = avatar_url;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -131,14 +130,6 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
 
     public void setRole(List<Role> role) {
         this.role = role;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public String getFirst_name() {
@@ -160,7 +151,6 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     @Override
     public void convertToDTO(User user) {
         this.id = user.getId();
-        this.username = user.getUsername();
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
@@ -169,13 +159,22 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.last_name = user.getLastName();
         this.gender = user.getGender();
         this.nation = user.getNation();
+        this.date_of_birth = new Timestamp(user.getDateOfBirth().getTime());
         this.avatar_url = user.getAvatarUrl();
         this.role = user.getRole();
-        this.age = user.getAge();
     }
 
     @Override
     public User convertToDomain() {
         return new User(this);
+    }
+
+    @JsonTimeStamp
+    public Timestamp getDate_of_birth() {
+        return date_of_birth;
+    }
+
+    public void setDate_of_birth(Timestamp date_of_birth) {
+        this.date_of_birth = date_of_birth;
     }
 }

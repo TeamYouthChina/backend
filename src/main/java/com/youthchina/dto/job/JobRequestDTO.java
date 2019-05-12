@@ -31,13 +31,22 @@ public class JobRequestDTO implements RequestDTO<Job> {
     private Integer userId;
     private List<LocationDTO> location;
     private String startTime;
-    private String endTime;
+//    private String endTime;
     private String deadLine;
     private String job_description;
     private String job_duty;
+    private String mail;
 
 
     public JobRequestDTO() {
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public int getId() {

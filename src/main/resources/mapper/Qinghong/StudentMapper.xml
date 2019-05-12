@@ -455,4 +455,14 @@
         </foreach>
 
     </insert>
+
+    <insert id="addJobPDFApply" useGeneratedKeys="true" keyProperty="apply_id">
+        insert into STU_JOB_APPLY
+        (JOB_CV_SEND,JOB_APPLY_TIME,JOB_APPLY_STATUS,STU_ID,JOB_ID)
+        values
+        <foreach collection="jobApplies" item="item" separator=",">
+            (#{item.job_cv_send},#{item.job_apply_time},#{item.job_apply_status},#{item.stu_id},#{item.job_id})
+        </foreach>
+
+    </insert>
 </mapper>

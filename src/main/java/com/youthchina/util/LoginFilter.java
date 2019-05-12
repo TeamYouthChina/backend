@@ -58,7 +58,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             HashMap<String, String> bodyMap = objectMapper.readValue(body, TypeFactory.defaultInstance().constructMapType(HashMap.class, String.class, String.class));
-            user.setId(Integer.valueOf(bodyMap.get("id")));
+            user.setEmail(bodyMap.get("identifier"));
             user.setPassword(bodyMap.get("password"));
         } catch (NumberFormatException e) {
             throw new BadCredentialsException("Bad Credential");

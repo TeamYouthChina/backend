@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.qingyang.ResumePDFMapper">
+
+    <resultMap id="resumePDF" type="com.youthchina.domain.qingyang.ResumePDF">
+        <id property="resumeId" column="RESUME_ID"/>
+        <result property="resumeName" column="RESUME_NAME"/>
+        <result property="docuLocalId" column="DOCU_LOCAL_ID"/>
+        <result property="generateMethod" column="GENERATE_METHOD"/>
+        <result property="stuId" column="STU_ID"/>
+    </resultMap>
+
+    <select id="selectResumePDF" parameterType="java.lang.Integer"
+            resultMap="resumePDF">
+        SELECT *
+        FROM STU_RESUME
+        WHERE RESUME_ID = #{resumeId}
+          AND IS_DELETE = 0
+    </select>
+
+    <select id="selectResumePDFByIdList" resultMap="resumePDF" parameterType="java.util.List">
+        SELECT *
+        FROM STU_RESUME
+        WHERE IS_DELETE = 0 AND RESUME_ID in
+        <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectResumePDFByStuId" parameterType="java.lang.Integer"
+            resultMap="resumePDF">
+        SELECT *
+        FROM STU_RESUME
+        WHERE STU_ID = #{id}
+          AND IS_DELETE = 0
+    </select>
+
+    <insert id="insertResumePDF" parameterType="com.youthchina.domain.qingyang.ResumePDF" useGeneratedKeys="true"
+            keyProperty="resumeId">
+        INSERT INTO STU_RESUME
+            (RESUME_NAME, DOCU_LOCAL_ID, GENERATE_METHOD, GENERATE_TIME, STU_ID,
+             IS_DELETE, IS_DELETE_TIME)
+        VALUES (#{resumeName}, #{docuLocalId},#{generateMethod}, NOW(), #{stuId},
+                0, NULL)
+    </insert>
+    <update id="updateResumePDFName" parameterType="com.youthchina.domain.qingyang.ResumePDF">
+        UPDATE STU_RESUME
+        SET RESUME_NAME = #{resumeName}
+        WHERE RESUME_ID = #{resumeId}
+          AND IS_DELETE = 0
+    </update>
+    <update id="deleteResumePDF" parameterType="java.lang.Integer">
+        UPDATE STU_RESUME
+        SET IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE RESUME_ID = #{resumeId}
+    </update>
+
+
+</mapper>

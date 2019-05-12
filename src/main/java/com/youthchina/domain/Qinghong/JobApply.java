@@ -19,7 +19,17 @@ public class JobApply {
     private Integer stu_id;
     private Job job;
 
-//    public JobApply(JobApplyDTO jobApplyDTO) {
+    private String docu_local_id;
+
+    public String getDocu_local_id() {
+        return docu_local_id;
+    }
+
+    public void setDocu_local_id(String docu_local_id) {
+        this.docu_local_id = docu_local_id;
+    }
+
+    //    public JobApply(JobApplyDTO jobApplyDTO) {
 //        this.apply_id=jobApplyDTO.getId();
 //        this.job=new Job(jobApplyDTO.getPosition());
 //
