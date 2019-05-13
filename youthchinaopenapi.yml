@@ -1614,10 +1614,10 @@ paths:
             schema:
               type: object
               required:
-                - id
+                - identifier
                 - password
               properties:
-                id:
+                identifier:
                   type: integer
                 password:
                   type: string
