@@ -6768,6 +6768,8 @@ components:
           type: string
         job_duty:
           type: string
+        mail:
+          type: string
     Organization:
       type: object
       properties:
