@@ -7,7 +7,6 @@ import com.youthchina.domain.qingyang.ResumeJson;
 import com.youthchina.domain.qingyang.ResumePDF;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
-import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.applicant.ResumeJsonRequestDTO;
 import com.youthchina.dto.applicant.ResumeJsonResponseDTO;
 import com.youthchina.dto.applicant.ResumePDFDTO;
@@ -94,8 +93,7 @@ public class ResumeController extends DomainCRUDController<ResumeJson, Integer> 
     }
 
 
-
-    @GetMapping("/pdf/:{id}")
+    @GetMapping("/pdf/{id}")
     public ResponseEntity<?> getResumePDF(@PathVariable Integer id, @AuthenticationPrincipal User user) throws BaseException {
         ResumePDF result = resumePDFService.get(id);
         if (user.getId() == result.getStuId()) {
@@ -114,10 +112,10 @@ public class ResumeController extends DomainCRUDController<ResumeJson, Integer> 
         return ResponseEntity.ok(new Response(new ResumePDFDTO(resumePDF)));
     }
 
-    @PatchMapping("/pdf/:{id}")
+    @PatchMapping("/pdf/{id}")
     public ResponseEntity<?> updateResumePDFName(@PathVariable Integer id, @AuthenticationPrincipal User user, @RequestBodyDTO(ResumePDFDTO.class) ResumePDF resumePDF) throws BaseException {
         ResumePDF origin = resumePDFService.get(id);
-        if (user.getId() == origin.getStuId()) {
+        if (user.getId().equals(origin.getStuId())) {
             origin.setResumeName(resumePDF.getResumeName());
             resumePDF = resumePDFService.update(origin);
             return ResponseEntity.ok(new Response(new ResumePDFDTO(resumePDF)));
@@ -126,9 +124,10 @@ public class ResumeController extends DomainCRUDController<ResumeJson, Integer> 
         }
     }
 
-    @DeleteMapping("/pdf/:{id}")public ResponseEntity<?> deleteResumePDF(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException, ForbiddenException {
+    @DeleteMapping("/pdf/{id}")
+    public ResponseEntity<?> deleteResumePDF(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException, ForbiddenException {
         ResumePDF result = resumePDFService.get(id);
-        if (user.getId() == result.getStuId()) {
+        if (user.getId().equals(result.getStuId())) {
             resumePDFService.delete(id);
             return ResponseEntity.ok(new Response());
         } else {
