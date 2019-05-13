@@ -1,6 +1,195 @@
 POST http://47.252.87.218:8080/api/v1/applicants/register
 Content-Type: application/json
 
+{   "email": "hmgswqh@gmail.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
+
+<> 2019-05-13T050238.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/notifications/1
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3Nzg2Mzc5fQ.5qH9aWTFF1WILpTiJZWlqVXxBvhPar8nmJhtvBAdBGa7WrasEkc0NNfVK07txaan_sacLRPFHW0JzhooHyFIYw
+
+<> 2019-05-13T042406.200.json
+
+###
+
+GET http://127.0.0.1:8080/api/v1/notifications/1
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3Nzg2Mzc5fQ.5qH9aWTFF1WILpTiJZWlqVXxBvhPar8nmJhtvBAdBGa7WrasEkc0NNfVK07txaan_sacLRPFHW0JzhooHyFIYw
+
+<> 2019-05-13T042347.200.json
+
+###
+
+POST http://127.0.0.1:8080/api/v1/jobs/1/apply
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3Nzg2Mzc5fQ.5qH9aWTFF1WILpTiJZWlqVXxBvhPar8nmJhtvBAdBGa7WrasEkc0NNfVK07txaan_sacLRPFHW0JzhooHyFIYw
+
+{
+  "resume_id": 11
+}
+
+<> 2019-05-13T041805.200.json
+
+###
+
+POST http://127.0.0.1:8080/api/v1/resumes/pdf
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3Nzg2Mzc5fQ.5qH9aWTFF1WILpTiJZWlqVXxBvhPar8nmJhtvBAdBGa7WrasEkc0NNfVK07txaan_sacLRPFHW0JzhooHyFIYw
+
+{
+  "fileId": "2883551613694251008",
+  "name": "hw7.pdf"
+}
+
+<> 2019-05-13T040951.200.json
+
+###
+
+GET http://127.0.0.1:8080/api/v1/static/2883551613694251008
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3Nzg2Mzc5fQ.5qH9aWTFF1WILpTiJZWlqVXxBvhPar8nmJhtvBAdBGa7WrasEkc0NNfVK07txaan_sacLRPFHW0JzhooHyFIYw
+Content-Type: application/json
+
+< /home/zhongyangwu/code/hw4.pdf
+
+<> 2019-05-13T040812.200.json
+
+###
+
+POST http://127.0.0.1:8080/api/v1/static
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3Nzg2Mzc5fQ.5qH9aWTFF1WILpTiJZWlqVXxBvhPar8nmJhtvBAdBGa7WrasEkc0NNfVK07txaan_sacLRPFHW0JzhooHyFIYw
+
+< /home/zhongyangwu/code/hw4.pdf
+
+<> 2019-05-13T040601.500.json
+
+###
+
+POST http://127.0.0.1:8080/api/v1/static
+Content-Type: multipart/form-data
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3Nzg2Mzc5fQ.5qH9aWTFF1WILpTiJZWlqVXxBvhPar8nmJhtvBAdBGa7WrasEkc0NNfVK07txaan_sacLRPFHW0JzhooHyFIYw
+
+--null
+
+
+< /home/zhongyangwu/code/hw4.pdf
+--null--
+
+<> 2019-05-13T040514.500.json
+
+###
+
+POST http://127.0.0.1:8080/api/v1/static
+Content-Type: multipart/form-data
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3Nzg2Mzc5fQ.5qH9aWTFF1WILpTiJZWlqVXxBvhPar8nmJhtvBAdBGa7WrasEkc0NNfVK07txaan_sacLRPFHW0JzhooHyFIYw
+
+--null
+
+
+< /home/zhongyangwu/code/hw4.pdf
+--null--
+
+<> 2019-05-13T040439.500.json
+
+###
+
+POST http://127.0.0.1:8080/api/v1/static
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3Nzg2Mzc5fQ.5qH9aWTFF1WILpTiJZWlqVXxBvhPar8nmJhtvBAdBGa7WrasEkc0NNfVK07txaan_sacLRPFHW0JzhooHyFIYw
+
+--null
+
+
+< /home/zhongyangwu/code/hw4.pdf
+--null--
+
+<> 2019-05-13T040419.500.json
+
+###
+
+POST http://127.0.0.1:8080/api/v1/login
+Content-Type: application/json
+
+{
+  "identifier": "123456@123.com",
+  "password": "123456"
+}
+
+<> 2019-05-13T040219.200.json
+
+###
+
+POST http://47.252.87.218:8080/api/v1/applicants/register
+Content-Type: application/json
+
+{   "email": "hmgswqh@gmail.com",   "password": "string",   "firstName": "What's",   "lastName": "Up",   "gender": "MALE",   "dateOfBirth": 0 }
+
+<> 2019-05-13T035428.200.json
+
+###
+
+POST http://127.0.0.1:8080/api/v1/resumes/pdf
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3Nzg2Mzc5fQ.5qH9aWTFF1WILpTiJZWlqVXxBvhPar8nmJhtvBAdBGa7WrasEkc0NNfVK07txaan_sacLRPFHW0JzhooHyFIYw
+
+{
+  "fileId": "2883551613694251008",
+  "name": "hw7.pdf"
+}
+
+<> 2019-05-13T035024.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/notifications/1
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3Nzg2Mzc5fQ.5qH9aWTFF1WILpTiJZWlqVXxBvhPar8nmJhtvBAdBGa7WrasEkc0NNfVK07txaan_sacLRPFHW0JzhooHyFIYw
+
+<> 2019-05-13T034954.400.json
+
+###
+
+POST http://127.0.0.1:8080/api/v1/applicants/register
+Content-Type: application/json
+
+{   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
+
+<> 2019-05-13T034927.400.json
+
+###
+
+POST http://127.0.0.1:8080/api/v1/applicants/register
+Content-Type: application/json
+
+{   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
+
+<> 2019-05-13T034840.200.json
+
+###
+
+POST http://127.0.0.1:8080/api/v1/applicants/register
+Content-Type: application/json
+
+{   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
+
+<> 2019-05-13T034829.400.json
+
+###
+
+POST http://47.252.87.218:8080/api/v1/applicants/register
+Content-Type: application/json
+
+{   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
+
+<> 2019-05-13T034749.200.json
+
+###
+
+POST http://127.0.0.1:8080/api/v1/applicants/register
+Content-Type: application/json
+
 {   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
 
 <> 2019-05-12T031727.200.json
@@ -267,162 +456,6 @@ GET http://localhost:8080/actuator
 Accept: application/vnd.spring-boot.actuator.v2+json
 
 <> 2019-05-04T024451.403.json
-
-###
-
-GET http://localhost:8080/actuator/mappings
-Accept: application/json;utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3MDA0MDUyfQ.mWc2SLuur2pbZS98lP5Z7k3lQ5t-_izv4sJ4Sr0bVr4eCJI4Nx6xzFth086nPwE5Wl-v-YVW6MmmcJM14k9pQQ
-
-{     "id":1,     "password":"123456" }
-
-<> 2019-05-04T024427.404.json
-
-###
-
-GET http://localhost:8080/actuator/mapping
-Accept: application/json;utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3MDA0MDUyfQ.mWc2SLuur2pbZS98lP5Z7k3lQ5t-_izv4sJ4Sr0bVr4eCJI4Nx6xzFth086nPwE5Wl-v-YVW6MmmcJM14k9pQQ
-
-{     "id":1,     "password":"123456" }
-
-<> 2019-05-04T024411.404.json
-
-###
-
-POST http://localhost:8080/api/v1/login
-Accept: application/json;utf8
-
-{     "id":1,     "password":"123456" }
-
-<> 2019-05-04T024332.200.json
-
-###
-
-POST http://localhost:8080/login
-Accept: application/json;utf8
-
-{     "id":1,     "password":"123456" }
-
-<> 2019-05-04T024324.403.json
-
-###
-
-GET http://localhost:8080/actuator
-Accept: application/vnd.spring-boot.actuator.v2+json
-
-<> 2019-05-04T024047.403.json
-
-###
-
-GET http://test.zzc-tongji.com/api/v1/discovery/companies?limit=2&page=0
-Content-Type: application/json;charset=utf8
-Cache-Control: no-cache
-
-<> 2019-04-18T045500.200.json
-
-###
-
-GET http://test.zzc-tongji.com/api/v1/discovery/editorials?limit=2&page=0
-Content-Type: application/json;charset=utf8
-Cache-Control: no-cache
-
-<> 2019-04-18T045450.500.json
-
-###
-
-GET http://test.zzc-tongji.com/api/v1/discovery/articles?limit=2&page=0
-Content-Type: application/json;charset=utf8
-Cache-Control: no-cache
-
-<> 2019-04-18T045441.200.json
-
-###
-
-GET http://test.zzc-tongji.com/api/v1/discovery/questions?limit=2&page=0
-Content-Type: application/json;charset=utf8
-Cache-Control: no-cache
-
-<> 2019-04-18T045416.500.json
-
-###
-
-GET http://test.zzc-tongji.com/api/v1/discovery/questions?limit=2&page=0
-Content-Type: application/json;charset=utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
-Cache-Control: no-cache
-
-<> 2019-04-18T045408.200.json
-
-###
-
-GET http://test.zzc-tongji.com/api/v1/discovery/questions?limit=2&page=0
-Content-Type: application/json;charset=utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
-Cache-Control: no-cache
-
-<> 2019-04-18T043550.200.json
-
-###
-
-GET http://47.252.87.218:8080/api/v1/search?type=company&text=*&title=*
-Content-Type: application/json;charset=utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
-Cache-Control: no-cache
-
-<> 2019-04-18T043522.200.json
-
-###
-
-GET http://47.252.87.218:8080/api/v1/search?type=company&text=*&title=*
-Content-Type: application/json;charset=utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
-Cache-Control: no-cache
-
-<> 2019-04-18T043518.200.json
-
-###
-
-GET http://test.zzc-tongji.com/api/v1/discovery/questions?limit=10
-Content-Type: application/json;charset=utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
-Cache-Control: no-cache
-
-###
-
-GET http://47.252.87.218:8080/api/v1/discovery/questions?limit=10
-Content-Type: application/json;charset=utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
-Cache-Control: no-cache
-
-<> 2019-04-18T043251.200.json
-
-###
-
-GET http://47.252.87.218:8080/api/v1/discovery/questions?limit=10
-Content-Type: application/json;charset=utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
-Cache-Control: no-cache
-
-<> 2019-04-18T043232.200.json
-
-###
-
-GET http://47.252.87.218:8080/api/v1/discovery/companies?limit=10
-Content-Type: application/json;charset=utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
-Cache-Control: no-cache
-
-<> 2019-04-18T022745.200.json
-
-###
-
-GET http://47.252.87.218:8080/api/v1/discovery/companies?limit=10
-Content-Type: application/json;charset=utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU2NDAxMzk5fQ.-RZjQV0ROLrBhw6yMbyBtNhoMTZ71qCDBLSifjos5CDsVRyy3ppsDT3w6P6VsamjnRUg-NJDcTNjBW4ZaciePA
-Cache-Control: no-cache
-
-<> 2019-04-18T022741.200.json
 
 ###
 
