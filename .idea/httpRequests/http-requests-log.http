@@ -1,3 +1,12 @@
+POST http://47.252.87.218:8080/api/v1/applicants/register
+Content-Type: application/json
+
+{   "email": "hmgswqh@gmail.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
+
+<> 2019-05-13T050238.200.json
+
+###
+
 GET http://47.252.87.218:8080/api/v1/notifications/1
 Content-Type: application/json
 X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3Nzg2Mzc5fQ.5qH9aWTFF1WILpTiJZWlqVXxBvhPar8nmJhtvBAdBGa7WrasEkc0NNfVK07txaan_sacLRPFHW0JzhooHyFIYw
@@ -112,10 +121,10 @@ Content-Type: application/json
 
 ###
 
-POST http://127.0.0.1:8080/api/v1/applicants/register
+POST http://47.252.87.218:8080/api/v1/applicants/register
 Content-Type: application/json
 
-{   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
+{   "email": "hmgswqh@gmail.com",   "password": "string",   "firstName": "What's",   "lastName": "Up",   "gender": "MALE",   "dateOfBirth": 0 }
 
 <> 2019-05-13T035428.200.json
 
@@ -447,16 +456,6 @@ GET http://localhost:8080/actuator
 Accept: application/vnd.spring-boot.actuator.v2+json
 
 <> 2019-05-04T024451.403.json
-
-###
-
-GET http://localhost:8080/actuator/mappings
-Accept: application/json;utf8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3MDA0MDUyfQ.mWc2SLuur2pbZS98lP5Z7k3lQ5t-_izv4sJ4Sr0bVr4eCJI4Nx6xzFth086nPwE5Wl-v-YVW6MmmcJM14k9pQQ
-
-{     "id":1,     "password":"123456" }
-
-<> 2019-05-04T024427.404.json
 
 ###
 
