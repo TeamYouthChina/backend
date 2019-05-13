@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.controller.DomainCRUDController;
+import com.youthchina.domain.Qinghong.JobApply;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
@@ -11,7 +12,9 @@ import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
 import com.youthchina.dto.applicant.SendingEmailDTO;
+import com.youthchina.dto.application.EmailSendingDTO;
 import com.youthchina.dto.application.JobApplyDTO;
+import com.youthchina.dto.application.ResumeApplyDTO;
 import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.job.JobSearchDTO;
@@ -191,33 +194,42 @@ public class JobController extends DomainCRUDController<Job, Integer> {
      */
 
     @PostMapping("/{id}/apply")
-    public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user) throws NotFoundException, ClientException {
-        JobApplyDTO jobApplyDTO = new JobApplyDTO(studentService.jobApply(job_id, user.getId()));
+    public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user, @RequestBody ResumeApplyDTO resumeApplyDTO) throws NotFoundException, ClientException {
+        JobApply jobApply=studentService.jobApply(job_id,user.getId());
+        EmailSendingDTO emailSendingDTO=new EmailSendingDTO();
+        emailSendingDTO.setFirstName(user.getFirstName());
+        emailSendingDTO.setLastName(user.getLastName());
+        emailSendingDTO.setJobName(jobApply.getJob().getJobName());
+        emailSendingDTO.setOwnEmail(user.getEmail());
+        emailSendingDTO.setHrEmail(jobApply.getJob().getCvReceiMail());
+        studentService.sendingEmail(emailSendingDTO,resumeApplyDTO.getResume_id());
+        JobApplyDTO jobApplyDTO = new JobApplyDTO(jobApply);
+
         return ResponseEntity.ok(new Response(jobApplyDTO, new StatusDTO(0, "")));
 
     }
 
 
-    @PostMapping("/{id}/apply/sendingemail")
-    public ResponseEntity<?> sendingResume(@PathVariable("id") Integer job_id, @RequestParam("file") MultipartFile file, @AuthenticationPrincipal User user) throws NotFoundException, IOException {
-        Job job = jobService.get(job_id);
-        String company_email = job.getCompany().getCompanyMail();
-        SendingEmailDTO sendingEmailDTO = new SendingEmailDTO();
-        sendingEmailDTO.setCompany_email(company_email);
-        sendingEmailDTO.setUser_id(user.getId());
-        InputStream input = file.getInputStream();
-        byte[] bytesArray = new byte[(int) file.getSize()];
-
-        input.read(bytesArray); //read file into bytes[]
-        input.close();
-        sendingEmailDTO.setBytes(bytesArray);
-        ObjectMapper mapper = new ObjectMapper();
-        String message = mapper.writeValueAsString(sendingEmailDTO);
-        System.out.print(message);
-        messageSendService.sendMessage(message);
-        return ResponseEntity.ok(new Response());
-
-    }
+//    @PostMapping("/{id}/apply/sendingemail")
+//    public ResponseEntity<?> sendingResume(@PathVariable("id") Integer job_id, @RequestParam("file") MultipartFile file, @AuthenticationPrincipal User user) throws NotFoundException, IOException {
+//        Job job = jobService.get(job_id);
+//        String company_email = job.getCompany().getCompanyMail();
+//        SendingEmailDTO sendingEmailDTO = new SendingEmailDTO();
+//        sendingEmailDTO.setCompany_email(company_email);
+//        sendingEmailDTO.setUser_id(user.getId());
+//        InputStream input = file.getInputStream();
+//        byte[] bytesArray = new byte[(int) file.getSize()];
+//
+//        input.read(bytesArray); //read file into bytes[]
+//        input.close();
+//        sendingEmailDTO.setBytes(bytesArray);
+//        ObjectMapper mapper = new ObjectMapper();
+//        String message = mapper.writeValueAsString(sendingEmailDTO);
+//        System.out.print(message);
+//        messageSendService.sendMessage(message);
+//        return ResponseEntity.ok(new Response());
+//
+//    }
 
 
     /**
