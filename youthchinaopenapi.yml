@@ -639,7 +639,10 @@ paths:
                 type: object
                 properties:
                   content:
-                    type: integer
+                    type: object
+                    properties:
+                      influence_score:
+                        type: integer
                   status:
                     $ref: '#/components/schemas/Status'
   '/notifications/{user_id}':
@@ -1611,10 +1614,10 @@ paths:
             schema:
               type: object
               required:
-                - id
+                - identifier
                 - password
               properties:
-                id:
+                identifier:
                   type: integer
                 password:
                   type: string
@@ -6764,6 +6767,8 @@ components:
         job_description:
           type: string
         job_duty:
+          type: string
+        mail:
           type: string
     Organization:
       type: object
