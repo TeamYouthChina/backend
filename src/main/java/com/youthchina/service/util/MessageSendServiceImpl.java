@@ -1,5 +1,7 @@
 package com.youthchina.service.util;
 
+import com.youthchina.dto.application.EmailSendingDTO;
+import com.youthchina.dto.application.JobApplyDTO;
 import com.youthchina.dto.security.VerifyEmailDTO;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,8 @@ public class MessageSendServiceImpl implements MessageSendService {
     private AmqpTemplate amqpTemplate;
 
     @Override
-    public void sendMessage(String message) {
-        this.amqpTemplate.convertAndSend("email", message);
+    public void sendMessage(EmailSendingDTO emailSendingDTO) {
+        this.amqpTemplate.convertAndSend("email", emailSendingDTO);
     }
 
     @Override
