@@ -92,6 +92,12 @@ public class EssayServiceImpl implements EssayService {
         }
     }
 
+    /**
+     * 查询文章
+     * param Integer user_id
+     * return ComEssay
+     * Value id, title, abbre, body, pubTime, editTime, isAnony, relaId, relaType, user,
+     */
     @Override
     public ComEssay getEssay(Integer essay_id) throws NotFoundException {
         ComEssay comEssay = mapper.getEssay(essay_id);
