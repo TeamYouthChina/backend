@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -139,7 +140,20 @@ public class EssayServiceImpl implements EssayService {
 
     @Override
     public List<ComEssay> getAllEssayByUserId(Integer userId) {
-        return mapper.getAllEssayByUserId(userId);
+        List<ComEssay> comEssays = mapper.getAllEssayByUserId(userId);
+        List<ComEssay> comEssayListReturn = new ArrayList<ComEssay>();
+        Iterator iterator = comEssays.iterator();
+        while (iterator.hasNext()){
+            ComEssay comEssay = (ComEssay) iterator.next();
+            richTextService.getComRichText(comEssay);
+            comEssay.setEvaluateStatus(evaluateService.evaluateStatus(comEssay, userId));
+            comEssay.setUpvoteCount(evaluateService.countUpvote(comEssay));
+            comEssay.setDownvoteCount(evaluateService.countDownvote(comEssay));
+            comEssay.setAttention(attentionService.isAttention(AttentionTargetType.ESSAY,comEssay.getId(),  userId));
+            comEssay.setAttentionCount(attentionService.countAttention(comEssay));
+            comEssayListReturn.add(comEssay);
+        }
+        return comEssayListReturn;
     }
 
     @Override
