@@ -8,7 +8,11 @@ assignees: ''
 ---
 
 **Which API**
-/api/v1/
+1. **Method**: GET/POST
+2. **URL**: /api/v1/
+3. **Param-query**: 
+4. **Param-Header**: 
+5. **Param-body**:
 
 **Error report**
 Http response code, response content, etc.
