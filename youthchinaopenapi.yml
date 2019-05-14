@@ -35,9 +35,10 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/Job'
+                    $ref: '#/components/schemas/JobWithMail'
                   status:
                     $ref: '#/components/schemas/Status'
+
     put:
       summary: 更改工作信息
       tags:
@@ -115,7 +116,7 @@ paths:
                 type: object
                 properties:
                   content:
-                    $ref: '#/components/schemas/Job'
+                    $ref: '#/components/schemas/JobWithMail'
                   status:
                     $ref: '#/components/schemas/Status'
   # '/jobs/search':
@@ -186,7 +187,7 @@ paths:
   #                       type: boolean
   #                 status:
   #                   $ref: '#/components/schemas/Status'
-  
+
   '/jobs/{id}/apply':
     post:
       summary: 发起申请不提交任何东西
@@ -4171,7 +4172,7 @@ paths:
       parameters:
         - name: id
           description: id of articles
-          
+
           in: path
           required: true
           schema:
@@ -4697,7 +4698,7 @@ paths:
           required: true
           schema:
             type: integer
-        
+
         - name: X-AUTHENTICATION
           in: header
           required: true
@@ -4754,7 +4755,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorStatus'
-        
+
   '/replies/{reply_id}/upvote':
     put:
       summary: 点赞回复
@@ -5160,7 +5161,7 @@ paths:
   #                 code: 4041
   #                 reason: Cannot find user with id 14
   '/applicants/{id}/educations':
-    
+
     get:
       summary: 获得教育经历
       tags:
@@ -6519,18 +6520,18 @@ paths:
   '/static/location':
     get:
       tags:
-       - Static
+        - Static
       parameters:
-       - in: query
-         name: target
-         description: the region
-         schema:
-          type: integer
-       - in: query
-         name: id
-         schema:
-          type: integer
-          
+        - in: query
+          name: target
+          description: the region
+          schema:
+            type: integer
+        - in: query
+          name: id
+          schema:
+            type: integer
+
       responses:
         '200':
           description: "null"
@@ -6556,13 +6557,13 @@ paths:
   '/static/{id}':
     get:
       tags:
-       - Static
+        - Static
       parameters:
-       - in: path
-         name: id
-         required: true
-         schema:
-          type: integer
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
           description: "null"
@@ -6578,7 +6579,7 @@ paths:
   '/static':
     post:
       tags:
-       - Static
+        - Static
       parameters:
         - in: path
           required: true
@@ -7112,6 +7113,13 @@ components:
         - properties:
             status:
               $ref: '#/components/schemas/Status'
+    JobWithMail:
+      allOf:
+        - $ref: '#/components/schemas/Job'
+        - properties:
+            mail:
+              type: string
+              description: 只有创建者访问时才会返回mail
     Company:
       allOf:
         - $ref: '#/components/schemas/Organization'
@@ -7344,7 +7352,7 @@ components:
         body:
           $ref: '#/components/schemas/RichText'
         company_id:
-              type: integer
+          type: integer
     Location:
       type: object
       required:
@@ -7427,7 +7435,7 @@ components:
         id:
           type: integer
         fileId:
-          type: integer
+          type: string
         name:
           type: string
     Notification:
