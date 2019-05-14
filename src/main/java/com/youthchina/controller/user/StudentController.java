@@ -60,8 +60,8 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     public ResponseEntity<?> getStudent(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         Student student = studentService.get(id);
         student.setId(user.getId());
-        student.setIsInJob(user.isHired());
-        student.setUsername(user.getUsername());
+        student.setIsInJob(user.getHired());
+//        student.setUsername(user.getUsername());
         student.setAvatarUrl(user.getAvatarUrl());
         return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student)));
     }
@@ -451,8 +451,7 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
         Student student = studentService.get(id);
         User user1=userService.get(id);
         student.setId(user1.getId());
-        student.setIsInJob(user1.isHired());
-        student.setUsername(user1.getUsername());
+        student.setIsInJob(user1.getHired());
         student.setAvatarUrl(user1.getAvatarUrl());
         student.setFirstName(user1.getFirstName());
         student.setLastName(user1.getLastName());

@@ -37,7 +37,7 @@ public class Student extends User implements HasId<Integer> {
 
     public Student(ApplicantRequestDTO applicantRequestDTO) {
         this.isInJob= applicantRequestDTO.getIsInJob();
-        this.setUsername(applicantRequestDTO.getName());
+//        this.setUsername(applicantRequestDTO.getName());
         this.setAvatarUrl(applicantRequestDTO.getAvatarUrl());
         this.currentCompanyName= applicantRequestDTO.getCurrentCompanyId().toString();
         //对于教育信息的转化

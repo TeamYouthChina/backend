@@ -2,6 +2,7 @@ package com.youthchina.mapper;
 
 import com.google.common.collect.Lists;
 import com.youthchina.dao.zhongyang.UserMapper;
+import com.youthchina.domain.zhongyang.Gender;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
 import org.junit.Assert;
@@ -30,16 +31,16 @@ public class UserMapperTest {
     @Test
     public void testGetUser() {
         User user = userMapper.findOne(2);
-        Assert.assertEquals("DEF", user.getUsername());
         Assert.assertEquals("DDD", user.getFirstName());
+        Assert.assertEquals(true, user.getHired());
+        Assert.assertEquals(true, user.getMailVerified());
+        Assert.assertEquals("1970-01-01", user.getDateOfBirth().toString());
     }
 
     @Test
     public void testInsert() {
         User user = new User();
-        user.setUsername("test");
         user.setPassword("sldjflskjlksf");
-        user.setAge(12);
         user.setAvatarUrl("");
         user.setEmail("test@test.com");
         user.setPhonenumber("12321312334");
@@ -47,7 +48,7 @@ public class UserMapperTest {
         user.setLastName("test");
         user.setNation("China");
         user.setRegisterDate(Timestamp.valueOf("2018-10-11 11:11:11"));
-        user.setGender("male");
+        user.setGender(Gender.MALE);
         user.setHired(false);
         user.setRole(Role.APPLICANT);
         userMapper.insert(user);
@@ -81,16 +82,14 @@ public class UserMapperTest {
     @Test
     public void testCanRegister() {
         User user = new User();
-        user.setUsername("Newtest");
         user.setPassword("sldjflskjlksf");
-        user.setAge(12);
         user.setAvatarUrl("");
         user.setEmail("testNew!@test.com");
         user.setPhonenumber("00000011112222");
         user.setFirstName("Test");
         user.setNation("China");
         user.setRegisterDate(Timestamp.valueOf("2018-10-11 11:11:11"));
-        user.setGender("male");
+        user.setGender(Gender.MALE);
         user.setRole(Role.APPLICANT);
         Assert.assertTrue(userMapper.canRegister(user));
     }

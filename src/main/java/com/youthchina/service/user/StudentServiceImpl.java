@@ -8,13 +8,21 @@ import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.qingyang.ResumeJson;
+import com.youthchina.domain.qingyang.ResumePDF;
+import com.youthchina.dto.application.EmailSendingDTO;
+import com.youthchina.dto.application.JobApplyDTO;
 import com.youthchina.exception.zhongyang.exception.ClientException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.application.JobServiceImpl;
 import com.youthchina.service.application.LocationServiceImpl;
+import com.youthchina.service.application.ResumePDFServiceImpl;
+import com.youthchina.service.util.MessageSendService;
+import com.youthchina.service.util.StaticFileService;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +55,15 @@ public class StudentServiceImpl implements StudentService {
     private ResumeJsonMapper resumeJsonMapper;
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private MessageSendService messageSendService;
+
+    @Autowired
+    private ResumePDFServiceImpl resumePDFService;
+
+    @Autowired
+    private StaticFileService staticFileService;
 
 
     /**
@@ -297,7 +314,6 @@ public class StudentServiceImpl implements StudentService {
                     JobApply jobApply = new JobApply();
                     jobApply.setStu_id(user_id);
                     jobApply.setJob_id(job_id);
-                    //这里应该设计简历是否发送的判断
                     jobApply.setJob_cv_send(1);
                     jobApply.setJob_apply_status("已申请");
                     Integer integer = applicantMapper.addApply(jobApply);
@@ -305,10 +321,23 @@ public class StudentServiceImpl implements StudentService {
                     Job job1 = jobService.get(jobApply1.getJob_id());
                     jobService.setJobLocation(job1);
                     jobApply1.setJob(job1);
+
+
+
+
                     return jobApply1;
                 }
             }
         }
+    }
+
+    @Override
+    public void sendingEmail(EmailSendingDTO emailSendingDTO,Integer resume_id) throws NotFoundException {
+        ResumePDF resumePDF=resumePDFService.get(resume_id);
+        URL url=staticFileService.getFileUrl(resumePDF.getDocuLocalId());
+        emailSendingDTO.setUrl(url);
+        emailSendingDTO.setFileName(resumePDF.getResumeName());
+        messageSendService.sendMessage(emailSendingDTO);
     }
 
     /**

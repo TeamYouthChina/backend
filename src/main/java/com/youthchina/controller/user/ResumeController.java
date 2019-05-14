@@ -4,14 +4,18 @@ import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.controller.DomainCRUDController;
 import com.youthchina.domain.qingyang.ResumeJson;
+import com.youthchina.domain.qingyang.ResumePDF;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.Response;
 import com.youthchina.dto.applicant.ResumeJsonRequestDTO;
 import com.youthchina.dto.applicant.ResumeJsonResponseDTO;
+import com.youthchina.dto.applicant.ResumePDFDTO;
 import com.youthchina.exception.zhongyang.exception.BaseException;
 import com.youthchina.exception.zhongyang.exception.ForbiddenException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.application.ResumeJsonServiceImpl;
+import com.youthchina.service.application.ResumePDFServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +36,16 @@ public class ResumeController extends DomainCRUDController<ResumeJson, Integer> 
 
     private String url;
     private ResumeJsonServiceImpl resumeJsonService;
+    private ResumePDFServiceImpl resumePDFService;
 
     @Autowired
-    public ResumeController(@Value("${web.url.prefix}") String prefix, ResumeJsonServiceImpl resumeJsonService
+    public ResumeController(@Value("${web.url.prefix}") String prefix,
+                            ResumeJsonServiceImpl resumeJsonService,
+                            ResumePDFServiceImpl resumePDFService
     ) {
         this.url = prefix + "/resumes/";
         this.resumeJsonService = resumeJsonService;
+        this.resumePDFService = resumePDFService;
     }
 
     @PostMapping("/online/**")
@@ -83,6 +91,50 @@ public class ResumeController extends DomainCRUDController<ResumeJson, Integer> 
     protected DomainCRUDService<ResumeJson, Integer> getService() {
         return this.resumeJsonService;
     }
+
+
+    @GetMapping("/pdf/{id}")
+    public ResponseEntity<?> getResumePDF(@PathVariable Integer id, @AuthenticationPrincipal User user) throws BaseException {
+        ResumePDF result = resumePDFService.get(id);
+        if (user.getId() == result.getStuId()) {
+            return ResponseEntity.ok(new Response(new ResumePDFDTO(result)));
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @PostMapping("/pdf/**")
+    public ResponseEntity<?> postResumePDF(@AuthenticationPrincipal User user, @RequestBodyDTO(ResumePDFDTO.class) ResumePDF resumePDF) throws NotFoundException {
+        resumePDF.setStuId(user.getId());
+        resumePDF.setGenerateMethod(ResumePDF.GENERATED);
+        resumePDF.setStuId(user.getId());
+        resumePDF = resumePDFService.add(resumePDF);
+        return ResponseEntity.ok(new Response(new ResumePDFDTO(resumePDF)));
+    }
+
+    @PatchMapping("/pdf/{id}")
+    public ResponseEntity<?> updateResumePDFName(@PathVariable Integer id, @AuthenticationPrincipal User user, @RequestBodyDTO(ResumePDFDTO.class) ResumePDF resumePDF) throws BaseException {
+        ResumePDF origin = resumePDFService.get(id);
+        if (user.getId().equals(origin.getStuId())) {
+            origin.setResumeName(resumePDF.getResumeName());
+            resumePDF = resumePDFService.update(origin);
+            return ResponseEntity.ok(new Response(new ResumePDFDTO(resumePDF)));
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    @DeleteMapping("/pdf/{id}")
+    public ResponseEntity<?> deleteResumePDF(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException, ForbiddenException {
+        ResumePDF result = resumePDFService.get(id);
+        if (user.getId().equals(result.getStuId())) {
+            resumePDFService.delete(id);
+            return ResponseEntity.ok(new Response());
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
 
     @Override
     protected URI getUriForNewInstance(Integer id) throws URISyntaxException {

@@ -1,0 +1,21 @@
+{
+  "content": {
+    "id": 13,
+    "email": "hmgswqh@gmail.com",
+    "register_date": 1557781358000,
+    "date_of_birth": 0,
+    "first_name": "string",
+    "last_name": "string",
+    "gender": "MALE",
+    "nation": "CHN",
+    "avatar_url": null,
+    "role": [
+      "APPLICANT"
+    ],
+    "phone_number": "000000000"
+  },
+  "status": {
+    "code": 2000,
+    "reason": ""
+  }
+}

@@ -113,11 +113,16 @@ comment '职位基本信息表';
         //}
         this.jobEndTime = new Date(Long.parseLong(jobRequestDTO.getDeadLine()));
 
+        if(jobRequestDTO.getMail() != null){
+            this.setCvReceiMail(jobRequestDTO.getMail());
+        } else {
+            this.setCvReceiMail("Empty Mail Address");
+        }
         //TODO : new API??
         this.setJobProfCode("1");
         this.setJobHighlight("Highlight:TODO");
         this.setJobLink("JOB_LINK:TODO");
-        this.setCvReceiMail("MAIL:TODO");
+
         this.setCvNameRule("RULE:TODO");
         this.setJobActive(1);
 
