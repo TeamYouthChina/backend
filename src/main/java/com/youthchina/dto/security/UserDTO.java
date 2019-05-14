@@ -1,6 +1,5 @@
 package com.youthchina.dto.security;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.zhongyang.Gender;
@@ -9,6 +8,7 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.ResponseDTO;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
 //        this.username = username;
 //    }
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String getPassword() {
         return password;
     }
@@ -73,6 +73,7 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.password = password;
     }
 
+    @NotNull
     public String getEmail() {
         return email;
     }

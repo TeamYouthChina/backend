@@ -1,3 +1,85 @@
+GET http://47.252.87.218:8080/api/v1/my?type=article
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU4NzIzMzkzfQ.4gd1yetBGKA3zmtkDbYK_A3xjoOj-hN84p-KJX9gKYuiW6Tgmk8cZ0YtK_AMWyoSYb2rjS52_OzL6vlJ8KVyzQ
+
+<> 2019-05-14T032238.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/companies/38
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU4NzI0MzQ5fQ.fV9l2v4RuPqmvL_0Po3Bv5FEhb5R-SFxxrxRfRThDZbVQCF13Rpw8RzCDwf8HhAsUc8iNX5Euyd2G8OMPXFn8g
+
+<> 2019-05-14T030230.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/companies/37
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU4NzI0MzQ5fQ.fV9l2v4RuPqmvL_0Po3Bv5FEhb5R-SFxxrxRfRThDZbVQCF13Rpw8RzCDwf8HhAsUc8iNX5Euyd2G8OMPXFn8g
+
+<> 2019-05-14T030221.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/jobs/5
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU4NzI0MzQ5fQ.fV9l2v4RuPqmvL_0Po3Bv5FEhb5R-SFxxrxRfRThDZbVQCF13Rpw8RzCDwf8HhAsUc8iNX5Euyd2G8OMPXFn8g
+
+<> 2019-05-14T025920.200.json
+
+###
+
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json
+
+{      "identifier": "123456@456.com",   "password": "123456" }
+
+<> 2019-05-14T025909.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/jobs/5
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU4NzIzMzkzfQ.4gd1yetBGKA3zmtkDbYK_A3xjoOj-hN84p-KJX9gKYuiW6Tgmk8cZ0YtK_AMWyoSYb2rjS52_OzL6vlJ8KVyzQ
+
+<> 2019-05-14T025833.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/companies/38
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNTU4NzI0MzQ5fQ.fV9l2v4RuPqmvL_0Po3Bv5FEhb5R-SFxxrxRfRThDZbVQCF13Rpw8RzCDwf8HhAsUc8iNX5Euyd2G8OMPXFn8g
+
+<> 2019-05-14T024639.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/my?type=article
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU4NzIzMzkzfQ.4gd1yetBGKA3zmtkDbYK_A3xjoOj-hN84p-KJX9gKYuiW6Tgmk8cZ0YtK_AMWyoSYb2rjS52_OzL6vlJ8KVyzQ
+
+<> 2019-05-14T024426.200.json
+
+###
+
+GET http://47.252.87.218:8080/api/v1/my
+Content-Type: application/json
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU4NzIzMzkzfQ.4gd1yetBGKA3zmtkDbYK_A3xjoOj-hN84p-KJX9gKYuiW6Tgmk8cZ0YtK_AMWyoSYb2rjS52_OzL6vlJ8KVyzQ
+
+<> 2019-05-14T024329.400.json
+
+###
+
+POST http://47.252.87.218:8080/api/v1/login
+Content-Type: application/json
+
+{      "identifier": "123456@456.com",   "password": "123456" }
+
+<> 2019-05-14T024313.200.json
+
+###
+
 POST http://47.252.87.218:8080/api/v1/applicants/register
 Content-Type: application/json
 
@@ -223,10 +305,9 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/api/v1/login
+GET http://47.252.87.218:8080/api/v1/dictonary/location
 Content-Type: application/json
-
-{      "identifier": "123456@123.com",   "password": "123456" }
+X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU4NzIzMzkzfQ.4gd1yetBGKA3zmtkDbYK_A3xjoOj-hN84p-KJX9gKYuiW6Tgmk8cZ0YtK_AMWyoSYb2rjS52_OzL6vlJ8KVyzQ
 
 <> 2019-05-12T023401.200.json
 
@@ -366,96 +447,6 @@ Content-Type: application/json
 {   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
 
 <> 2019-05-07T121137.200.json
-
-###
-
-POST http://localhost:8080/api/v1/applicants/register
-Content-Type: application/json
-
-{   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
-
-<> 2019-05-07T121121.200.json
-
-###
-
-GET http://localhost:8080/api/v1/applicants/register/verify/email
-Content-Type: application/json
-
-{   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
-
-<> 2019-05-07T121043.400.json
-
-###
-
-POST http://localhost:8080/api/v1/applicants/register
-Content-Type: application/json
-
-{   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
-
-<> 2019-05-07T120948.200.json
-
-###
-
-POST http://localhost:8080/api/v1/applicants/register
-Content-Type: application/json
-
-{   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
-
-<> 2019-05-07T120753.200.json
-
-###
-
-POST http://localhost:8080/api/v1/applicants/register
-Accept: application/json
-
-{   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
-
-<> 2019-05-07T120620.415.json
-
-###
-
-POST http://localhost:8080/api/v1/applicants/register
-Accept: application/json
-
-{   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
-
-<> 2019-05-07T120530.403.json
-
-###
-
-POST http://localhost:8080/api/v1/applicants/register
-Accept: application/json
-
-{   "email": "zhongyang.wu@outlook.com",   "password": "string",   "firstName": "string",   "lastName": "string",   "gender": "MALE",   "dateOfBirth": 0 }
-
-<> 2019-05-07T120438.403.json
-
-###
-
-GET http://localhost:8080/actuator
-Accept: application/vnd.spring-boot.actuator.v2+json;charset=UTF-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3MDA0MDUyfQ.mWc2SLuur2pbZS98lP5Z7k3lQ5t-_izv4sJ4Sr0bVr4eCJI4Nx6xzFth086nPwE5Wl-v-YVW6MmmcJM14k9pQQ
-
-{     "id":1,     "password":"123456" }
-
-<> 2019-05-04T024513.200.json
-
-###
-
-GET http://localhost:8080/actuator/mappings
-Accept: application/vnd.spring-boot.actuator.v2+json;charset=UTF-8
-X-AUTHENTICATION: YouthChina eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTU3MDA0MDUyfQ.mWc2SLuur2pbZS98lP5Z7k3lQ5t-_izv4sJ4Sr0bVr4eCJI4Nx6xzFth086nPwE5Wl-v-YVW6MmmcJM14k9pQQ
-
-{     "id":1,     "password":"123456" }
-
-<> 2019-05-04T024506.404.json
-
-###
-
-GET http://localhost:8080/actuator
-Accept: application/vnd.spring-boot.actuator.v2+json
-
-<> 2019-05-04T024451.403.json
 
 ###
 
