@@ -1,34 +1,34 @@
 package com.youthchina.util;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.dto.RequestDTO;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpInputMessage;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by zhongyangwu on 3/24/19.
  */
-public class DTOtoDomainArgumentResolver implements HandlerMethodArgumentResolver {
-    private final ObjectMapper objectMapper;
+public class DTOtoDomainArgumentResolver extends RequestResponseBodyMethodProcessor {
 
-    public DTOtoDomainArgumentResolver(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    public DTOtoDomainArgumentResolver(List<HttpMessageConverter<?>> converters) {
+        super(converters);
     }
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterAnnotation(RequestBodyDTO.class) != null;
+        return parameter.hasParameterAnnotation(RequestBodyDTO.class);
     }
 
     @Override
@@ -36,35 +36,34 @@ public class DTOtoDomainArgumentResolver implements HandlerMethodArgumentResolve
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         RequestBodyDTO requestBodyDTO = parameter.getParameterAnnotation(RequestBodyDTO.class);
         Class dtoClass = requestBodyDTO.value();
-        HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
-        Assert.state(servletRequest != null, "No HttpServletRequest");
-        ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(servletRequest);
-        JavaType targetClass = null;
+        HttpInputMessage inputMessage = createInputMessage(webRequest);
+        Assert.state(RequestDTO.class.isAssignableFrom(dtoClass), "Class in RequestBodyDTO must be instance of RequestDTO interface");
 
 
         Class parameterType = parameter.getParameter().getType();
         if (parameterType.isInstance(Collection.class)) {
             Class memberClass = parameter.getMember().getDeclaringClass();
             //if we have multiple input DTO class, like List, Array, etc.
-            targetClass = this.objectMapper.getTypeFactory().constructCollectionType(parameterType, memberClass);
+//            Object dto = this.readWithMessageConverters(inputMessage, parameter, dtoClass);
+            throw new HttpMessageNotReadableException("Please do not use @ResponseBodyDTO on collections", inputMessage);
         } else {
-            targetClass = this.objectMapper.getTypeFactory().constructType(dtoClass);
+            RequestDTO dto = (RequestDTO) this.readWithMessageConverters(inputMessage, parameter, dtoClass);
+            if (dto == null && checkRequired(parameter)) {
+                throw new HttpMessageNotReadableException("Required request body is missing: " +
+                        parameter.getExecutable().toGenericString(), inputMessage);
+            } else {
+                WebDataBinder binder = binderFactory.createBinder(webRequest, dto, dto.getClass().getSimpleName());
+                validateIfApplicable(binder, parameter);
+                if (binder.getBindingResult().hasErrors() && isBindExceptionRequired(binder, parameter)) {
+                    throw new MethodArgumentNotValidException(parameter, binder.getBindingResult());
+                }
+            }
+            return dto.convertToDomain();
         }
-
-
-//        if (requestBodyDTO.value().equals(parameter.getParameterType())) {
-        //if match
-        RequestDTO dto = (RequestDTO) this.objectMapper.readValue(servletRequest.getReader(), targetClass);
-        if (dto == null && checkRequired(parameter)) {
-            throw new HttpMessageNotReadableException("Required request body is missing: " +
-                    parameter.getExecutable().toGenericString(), inputMessage);
-
-        }
-        return dto.convertToDomain();
-//        }
     }
 
-    private boolean checkRequired(MethodParameter parameter) {
+    @Override
+    public boolean checkRequired(MethodParameter parameter) {
         RequestBodyDTO requestBodyDTO = parameter.getParameterAnnotation(RequestBodyDTO.class);
         return (requestBodyDTO != null && requestBodyDTO.required() && !parameter.isOptional());
     }
