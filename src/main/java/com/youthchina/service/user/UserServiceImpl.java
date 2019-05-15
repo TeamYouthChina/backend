@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
             //update information and send verify email again
             existUser.setFirstName(user.getFirstName());
             existUser.setLastName(user.getLastName());
-            existUser.setRegisterDate(Timestamp.from(Calendar.getInstance().toInstant()));
+            existUser.setRegisterTime(Timestamp.from(Calendar.getInstance().toInstant()));
             existUser.setGender(user.getGender());
             user = this.update(existUser);
         }
