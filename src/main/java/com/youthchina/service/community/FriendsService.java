@@ -69,7 +69,7 @@ public interface FriendsService {
      * 获取好友申请
      * parameter Integer applicationId
      * */
-    public ComFriendApply  getFriendApplication(Integer applicationId);
+    public ComFriendApply  getFriendApplication(Integer applicationId) throws NotFoundException;
     /*
      * 更改申请状态
      * parameter Integer applicationId

@@ -54,14 +54,14 @@ public class FriendController {
     }
 
     @GetMapping("/applications/{id}")
-    public ResponseEntity getApplication(@PathVariable Integer id){
+    public ResponseEntity getApplication(@PathVariable Integer id) throws NotFoundException {
         ComFriendApply comFriendApply = friendsService.getFriendApplication(id);
         FriendApplicationResponseDTO friendApplicationResponseDTO = new FriendApplicationResponseDTO(comFriendApply);
         return ResponseEntity.ok(new Response(friendApplicationResponseDTO,new StatusDTO(200,"success")));
     }
 
     @PutMapping("applications/{reference_id}/approval")
-    public ResponseEntity addApprovalApplication(@PathVariable Integer reference_id){
+    public ResponseEntity addApprovalApplication(@PathVariable Integer reference_id) throws NotFoundException {
         ComFriendApply comFriendApply = friendsService.getFriendApplication(reference_id);
         comFriendApply.setFriApplyAccept(1);
         friendsService.changeApplicationStatus(comFriendApply);
@@ -69,7 +69,7 @@ public class FriendController {
     }
 
     @PutMapping("applications/{reference_id}/deny")
-    public ResponseEntity addDenyApplication(@PathVariable Integer reference_id){
+    public ResponseEntity addDenyApplication(@PathVariable Integer reference_id) throws NotFoundException {
         ComFriendApply comFriendApply = friendsService.getFriendApplication(reference_id);
         comFriendApply.setFriApplyAccept(0);
         friendsService.changeApplicationStatus(comFriendApply);

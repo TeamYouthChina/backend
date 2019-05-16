@@ -20,6 +20,8 @@ public class ComFriendApply {
        this.applyMessage = friendApplicationRequestDTO.getMessage();
     }
 
+    public ComFriendApply(){}
+
     public Integer getApplyId() {
         return applyId;
     }
