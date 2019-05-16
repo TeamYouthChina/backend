@@ -46,7 +46,6 @@ public class AuthGenerator {
         user.setPassword(encoder.encode("123456"));
         user.setId(userId);
         user.setEmail("test@test.com");
-        user.setNation("China");
         user.setGender(Gender.MALE);
         user.setPhonenumber("2022922222");
         return new JwtAuthentication(user, true);
@@ -58,11 +57,10 @@ public class AuthGenerator {
         user.setRole(role);
         user.setLastName("Guo");
         user.setFirstName("Yihao");
-        user.setRegisterDate(Timestamp.valueOf("2019-01-01 01:01:01.0"));
+        user.setRegisterTime(Timestamp.valueOf("2019-01-01 01:01:01.0"));
         user.setPassword(encoder.encode("123456"));
         user.setId(1);
         user.setEmail("test@test.com");
-        user.setNation("China");
         user.setGender(Gender.MALE);
         user.setPhonenumber("2022922222");
         return user;

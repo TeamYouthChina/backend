@@ -31,10 +31,10 @@ public class UserMapperTest {
     @Test
     public void testGetUser() {
         User user = userMapper.findOne(2);
-        Assert.assertEquals("DDD", user.getFirstName());
+        Assert.assertEquals("Admin2", user.getFirstName());
         Assert.assertEquals(true, user.getHired());
         Assert.assertEquals(true, user.getMailVerified());
-        Assert.assertEquals("1970-01-01", user.getDateOfBirth().toString());
+        Assert.assertEquals("1970-01-01 00:00:00.0", user.getDateOfBirth().toString());
     }
 
     @Test
@@ -46,8 +46,7 @@ public class UserMapperTest {
         user.setPhonenumber("12321312334");
         user.setFirstName("Test");
         user.setLastName("test");
-        user.setNation("China");
-        user.setRegisterDate(Timestamp.valueOf("2018-10-11 11:11:11"));
+        user.setRegisterTime(Timestamp.valueOf("2018-10-11 11:11:11"));
         user.setGender(Gender.MALE);
         user.setHired(false);
         user.setRole(Role.APPLICANT);
@@ -71,12 +70,9 @@ public class UserMapperTest {
     public void testUpdateUser() {
         User user = userMapper.findOne(3);
         Assert.assertNotNull(user);
-        Assert.assertEquals("CHN", user.getNation());
         Assert.assertNotNull(user.getEmail());
-        user.setNation("USA");
         userMapper.update(user);
         user = userMapper.findOne(3);
-        Assert.assertEquals("USA", user.getNation());
     }
 
     @Test
@@ -87,8 +83,7 @@ public class UserMapperTest {
         user.setEmail("testNew!@test.com");
         user.setPhonenumber("00000011112222");
         user.setFirstName("Test");
-        user.setNation("China");
-        user.setRegisterDate(Timestamp.valueOf("2018-10-11 11:11:11"));
+        user.setRegisterTime(Timestamp.valueOf("2018-10-11 11:11:11"));
         user.setGender(Gender.MALE);
         user.setRole(Role.APPLICANT);
         Assert.assertTrue(userMapper.canRegister(user));

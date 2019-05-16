@@ -6,8 +6,7 @@
         <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="email" column="USER_MAIL" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
-        <result column="USER_REGIST_DATE" property="registerDate" jdbcType="VARCHAR"/>
-        <result column="USER_NATION" property="nation" jdbcType="VARCHAR"/>
+        <result column="USER_REGIST_DATE" property="registerTime" jdbcType="VARCHAR"/>
         <result column="USER_PHOTO" property="avatarUrl" jdbcType="VARCHAR"/>
         <!--<result column="USER_ON_JOB" property="hire"/>-->
         <result property="gender" column="USER_GENDER" jdbcType="VARCHAR"/>

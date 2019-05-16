@@ -82,7 +82,26 @@ public class UserControllerTest extends BaseControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
                 .andDo(print())
-                .andExpect(partialContent("{\"content\":{\"id\":19,\"email\":\"string@string.com\",\"register_date\":1557120136000,\"date_of_birth\":0,\"first_name\":\"string\",\"last_name\":\"string\",\"gender\":\"MALE\",\"nation\":\"CHN\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"phone_number\":\"000000000\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", "$.content.id", "$.content.register_date"))
+                .andExpect(partialContent("{\n" +
+                        "  \"content\": {\n" +
+                        "    \"id\": 17,\n" +
+                        "    \"email\": \"string@string.com\",\n" +
+                        "    \"register_date\": 1557950013000,\n" +
+                        "    \"date_of_birth\": 0,\n" +
+                        "    \"first_name\": \"string\",\n" +
+                        "    \"last_name\": \"string\",\n" +
+                        "    \"gender\": \"MALE\",\n" +
+                        "    \"avatar_url\": null,\n" +
+                        "    \"role\": [\n" +
+                        "      \"APPLICANT\"\n" +
+                        "    ],\n" +
+                        "    \"phone_number\": \"000000000\"\n" +
+                        "  },\n" +
+                        "  \"status\": {\n" +
+                        "    \"code\": 2000,\n" +
+                        "    \"reason\": \"\"\n" +
+                        "  }\n" +
+                        "}", "$.content.id", "$.content.register_date"))
         ;
 
 //        this.mvc.perform(post(this.urlPrefix + "/applicants/register")
