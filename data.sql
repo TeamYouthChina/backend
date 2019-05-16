@@ -1662,7 +1662,7 @@ INSERT INTO `youthchina`.`SYS_ROLE` (`ROLE_ID`, `ROLE_DESCRPTIPON`, `IS_DELETE`,
 ('2', 'ADMIN', '0', '2019-01-01 00:00:00'),
 ('3', 'APPLICANT', '0', '2019-01-01 00:00:00'),
 ('4', 'HR', '0', '2019-01-01 00:00:00'),
-('5', 'COMPANY', '0', '2019-01-01 00:00:00');
+('5', 'EMPLOYER', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_USER_ROLE`  ;
