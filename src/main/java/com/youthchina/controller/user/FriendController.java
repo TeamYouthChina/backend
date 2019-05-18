@@ -1,12 +1,14 @@
 package com.youthchina.controller.user;
 
 
+import com.youthchina.annotation.RequestBodyDTO;
 import com.youthchina.domain.tianjian.ComFriendApply;
 import com.youthchina.domain.tianjian.ComFriendRelation;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.community.friend.FriendApplicationRequestDTO;
 import com.youthchina.dto.community.friend.FriendApplicationResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.PageRequest;
@@ -34,8 +36,7 @@ public class FriendController {
     UserServiceImpl userService;
 
     @PostMapping("/{id}/apply")
-    public ResponseEntity addFriendApplication(@PathVariable Integer id, @AuthenticationPrincipal User user) throws ConflictException {
-        ComFriendApply comFriendApply = new ComFriendApply();
+    public ResponseEntity addFriendApplication(@PathVariable Integer id, @AuthenticationPrincipal User user, @RequestBodyDTO(FriendApplicationRequestDTO.class) ComFriendApply comFriendApply) throws ConflictException {
         comFriendApply.setUserId(user.getId());
         comFriendApply.setFriendId(id);
         ComFriendApply comFriendApply1 = friendsService.addFriendApply(comFriendApply);
@@ -53,14 +54,14 @@ public class FriendController {
     }
 
     @GetMapping("/applications/{id}")
-    public ResponseEntity getApplication(@PathVariable Integer id){
+    public ResponseEntity getApplication(@PathVariable Integer id) throws NotFoundException {
         ComFriendApply comFriendApply = friendsService.getFriendApplication(id);
         FriendApplicationResponseDTO friendApplicationResponseDTO = new FriendApplicationResponseDTO(comFriendApply);
         return ResponseEntity.ok(new Response(friendApplicationResponseDTO,new StatusDTO(200,"success")));
     }
 
     @PutMapping("applications/{reference_id}/approval")
-    public ResponseEntity addApprovalApplication(@PathVariable Integer reference_id){
+    public ResponseEntity addApprovalApplication(@PathVariable Integer reference_id) throws NotFoundException {
         ComFriendApply comFriendApply = friendsService.getFriendApplication(reference_id);
         comFriendApply.setFriApplyAccept(1);
         friendsService.changeApplicationStatus(comFriendApply);
@@ -68,7 +69,7 @@ public class FriendController {
     }
 
     @PutMapping("applications/{reference_id}/deny")
-    public ResponseEntity addDenyApplication(@PathVariable Integer reference_id){
+    public ResponseEntity addDenyApplication(@PathVariable Integer reference_id) throws NotFoundException {
         ComFriendApply comFriendApply = friendsService.getFriendApplication(reference_id);
         comFriendApply.setFriApplyAccept(0);
         friendsService.changeApplicationStatus(comFriendApply);
