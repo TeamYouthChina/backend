@@ -137,6 +137,30 @@ public class ResumePDFTest {
     }
 
     @Test
+    public void controllerGetAllTest() throws Exception {
+        ResumePDF resumePDF = new ResumePDF();
+        resumePDF.setResumeName("TestName01");
+        resumePDF.setDocuLocalId("TestFileId01");
+        resumePDF.setGenerateMethod(ResumePDF.GENERATED);
+        resumePDF.setStuId(1);
+        ResumePDF resumePDF01 = resumePDFService.add(resumePDF);
+        resumePDF.setResumeName("TestName02");
+        resumePDF.setDocuLocalId("TestFileId02");
+        resumePDF.setStuId(1);
+        ResumePDF resumePDF02 = resumePDFService.add(resumePDF);
+
+
+        this.mvc.perform(
+                get(this.urlPrefix + "/resumes/")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"offset\":0,\"limit\":2147483646,\"data\":[{\"fileId\":\"TestFileId01\",\"name\":\"TestName01\"},{\"fileId\":\"TestFileId02\",\"name\":\"TestName02\"}],\"page_count\":0,\"item_count\":2,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+        ;
+    }
+
+    @Test
     public void controllerPatchTest() throws Exception {
         ResumePDF resumePDF = new ResumePDF();
         resumePDF.setResumeName("Initial");
