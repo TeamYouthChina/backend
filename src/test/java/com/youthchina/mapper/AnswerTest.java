@@ -68,6 +68,6 @@ public class AnswerTest {
     @Test
     public void getMyAnswer(){
         List<Answer> answers = answerMapper.getMyAnswers(5);
-        Assert.assertEquals(13,answers.size());
+        Assert.assertEquals(4,answers.size());
     }
 }

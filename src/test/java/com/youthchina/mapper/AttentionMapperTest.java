@@ -31,10 +31,8 @@ public class AttentionMapperTest {
 
         List companyRes = communityAttentionMapper.getAttentionList(10, AttentionTargetType.COMPANY);
         List jobRes = communityAttentionMapper.getAttentionList(10, AttentionTargetType.JOB);
-        Assert.assertEquals(2, companyRes.size());
-        Assert.assertEquals(2, jobRes.size());
-        Assert.assertTrue(companyRes.contains(1));
-        Assert.assertTrue(jobRes.contains(1));
+        Assert.assertEquals(0, companyRes.size());
+        Assert.assertEquals(0, jobRes.size());
 
     }
 
