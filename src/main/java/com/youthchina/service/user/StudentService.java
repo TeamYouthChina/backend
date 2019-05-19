@@ -3,6 +3,7 @@ package com.youthchina.service.user;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.ResumeJson;
 import com.youthchina.dto.application.EmailSendingDTO;
+import com.youthchina.dto.application.ResumeApplyDTO;
 import com.youthchina.exception.zhongyang.exception.ClientException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
@@ -22,7 +23,7 @@ public interface StudentService extends DomainCRUDService<Student, Integer> {
 
     List<AdvantageLabel> getAdvantageLabel(Integer id) throws NotFoundException;
 
-    JobApply jobApply(Integer job_id, Integer user_id) throws NotFoundException, ClientException;
+    JobApply jobApply(Integer job_id, Integer user_id, Integer resume_id) throws NotFoundException, ClientException;
 
     List<JobApply> getJobApplies(Integer user_id) throws NotFoundException;
 

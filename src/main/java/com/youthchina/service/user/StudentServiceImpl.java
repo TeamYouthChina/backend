@@ -85,7 +85,6 @@ public class StudentServiceImpl implements StudentService {
             student.setWorks(studentService.getWorks(id));
             student.setCertificates(studentService.getCertificates(id));
             student.setProjects(studentService.getProjects(id));
-            student.setAdvantageLabels(studentService.getAdvantageLabel(id));
             return student;
         }
     }
@@ -295,7 +294,7 @@ public class StudentServiceImpl implements StudentService {
      * @Author: Qinghong Wang
      * @Date: 2018/12/19
      */
-    public JobApply jobApply(Integer job_id, Integer user_id) throws NotFoundException, ClientException {
+    public JobApply jobApply(Integer job_id, Integer user_id,Integer resume_id) throws NotFoundException, ClientException {
         Job job = jobMapper.selectJobByJobId(job_id);
         if(job.getCvReceiMail()==null){
             throw new NotFoundException(4000,404,"email does not exist");
@@ -311,21 +310,28 @@ public class StudentServiceImpl implements StudentService {
                 if (jobApply2 != null) {
                     throw new ClientException("this job has already been applied");
                 } else {
+                    ResumePDF resumePDF=resumePDFService.get(resume_id);
                     JobApply jobApply = new JobApply();
-                    jobApply.setStu_id(user_id);
-                    jobApply.setJob_id(job_id);
-                    jobApply.setJob_cv_send(1);
-                    jobApply.setJob_apply_status("已申请");
-                    Integer integer = applicantMapper.addApply(jobApply);
-                    JobApply jobApply1 = applicantMapper.getOneJobApply(job_id, user_id);
-                    Job job1 = jobService.get(jobApply1.getJob_id());
-                    jobService.setJobLocation(job1);
-                    jobApply1.setJob(job1);
+                    if(resumePDF==null){
+                        throw new NotFoundException(4032,403,"this resume do not exist");
+                    }else{
+                        jobApply.setStu_id(user_id);
+                        jobApply.setJob_id(job_id);
+                        jobApply.setJob_cv_send(1);
+                        jobApply.setJob_apply_status("已申请");
+                        jobApply.setDocu_local_id(resumePDF.getDocuLocalId());
+                        Integer integer = applicantMapper.addApply(jobApply);
+                        JobApply jobApply1 = applicantMapper.getOneJobApply(job_id, user_id);
+                        Job job1 = jobService.get(jobApply1.getJob_id());
+                        jobService.setJobLocation(job1);
+                        jobApply1.setJob(job1);
 
 
 
 
-                    return jobApply1;
+                        return jobApply1;
+                    }
+
                 }
             }
         }

@@ -58,11 +58,11 @@ public class DictionaryTest {
         System.out.print(entries);
     }
 
-    @Test
-    public void getSkill(){
-        List<Entry> entries=dictionaryMapper.getAdvantageSkill();
-        System.out.print(entries);
-    }
+//    @Test
+//    public void getSkill(){
+//        List<Entry> entries=dictionaryMapper.getAdvantageSkill();
+//        System.out.print(entries);
+//    }
 
     @Test
     public void getIndustry(){
