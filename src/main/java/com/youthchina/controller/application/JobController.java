@@ -195,17 +195,21 @@ public class JobController extends DomainCRUDController<Job, Integer> {
 
     @PostMapping("/{id}/apply")
     public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user, @RequestBody ResumeApplyDTO resumeApplyDTO) throws NotFoundException, ClientException {
-        JobApply jobApply = studentService.jobApply(job_id, user.getId());
-        EmailSendingDTO emailSendingDTO = new EmailSendingDTO();
-        emailSendingDTO.setFirstName(user.getFirstName());
-        emailSendingDTO.setLastName(user.getLastName());
-        emailSendingDTO.setJobName(jobApply.getJob().getJobName());
-        emailSendingDTO.setOwnEmail(user.getEmail());
-        emailSendingDTO.setHrEmail(jobApply.getJob().getCvReceiMail());
-        studentService.sendingEmail(emailSendingDTO, resumeApplyDTO.getResume_id());
-        JobApplyDTO jobApplyDTO = new JobApplyDTO(jobApply);
+        if(resumeApplyDTO.getResume_id()!=null){
+            JobApply jobApply = studentService.jobApply(job_id, user.getId(),resumeApplyDTO.getResume_id());
+            EmailSendingDTO emailSendingDTO = new EmailSendingDTO();
+            emailSendingDTO.setFirstName(user.getFirstName());
+            emailSendingDTO.setLastName(user.getLastName());
+            emailSendingDTO.setJobName(jobApply.getJob().getJobName());
+            emailSendingDTO.setOwnEmail(user.getEmail());
+            emailSendingDTO.setHrEmail(jobApply.getJob().getCvReceiMail());
+            studentService.sendingEmail(emailSendingDTO, resumeApplyDTO.getResume_id());
+            JobApplyDTO jobApplyDTO = new JobApplyDTO(jobApply);
 
-        return ResponseEntity.ok(new Response(jobApplyDTO));
+            return ResponseEntity.ok(new Response(jobApplyDTO));
+        }
+        return ResponseEntity.ok(new Response());
+
 
     }
 
