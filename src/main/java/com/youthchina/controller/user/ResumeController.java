@@ -6,16 +6,20 @@ import com.youthchina.controller.DomainCRUDController;
 import com.youthchina.domain.qingyang.ResumeJson;
 import com.youthchina.domain.qingyang.ResumePDF;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.applicant.ResumeJsonRequestDTO;
 import com.youthchina.dto.applicant.ResumeJsonResponseDTO;
 import com.youthchina.dto.applicant.ResumePDFDTO;
+import com.youthchina.dto.util.PageRequest;
 import com.youthchina.exception.zhongyang.exception.BaseException;
+import com.youthchina.exception.zhongyang.exception.ClientException;
 import com.youthchina.exception.zhongyang.exception.ForbiddenException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.application.ResumeJsonServiceImpl;
 import com.youthchina.service.application.ResumePDFServiceImpl;
+import com.youthchina.util.dictionary.ResumeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +28,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: Qingyang Zhao
@@ -46,6 +52,36 @@ public class ResumeController extends DomainCRUDController<ResumeJson, Integer> 
         this.url = prefix + "/resumes/";
         this.resumeJsonService = resumeJsonService;
         this.resumePDFService = resumePDFService;
+    }
+
+    /**
+     * Get ALL Resume
+     * @param type PDF / RichText
+     * @param user
+     * @param pageRequest
+     * @return
+     * @throws BaseException
+     */
+    @GetMapping("/**")
+    public ResponseEntity<?> getResumeAll(@RequestParam(value = "type", defaultValue = "pdf") String type, @AuthenticationPrincipal User user, PageRequest pageRequest) throws BaseException {
+        Integer resumeType = ResumeType.getTypeId(type);
+        switch (resumeType) {
+            case ResumeType.PDF : {
+                List<ResumePDF> resumePDFList = resumePDFService.getByStuId(user.getId());
+                if(resumePDFList == null || resumePDFList.size() == 0)
+                    throw new NotFoundException(4040, 404, "No PDF_Resume Available");
+                List<ResumePDFDTO> resumePDFDTOList = new ArrayList<>();
+                for(ResumePDF resumePDF : resumePDFList){
+                    resumePDFDTOList.add(new ResumePDFDTO(resumePDF));
+                }
+                return ResponseEntity.ok(new ListResponse(pageRequest, resumePDFDTOList));
+            }
+            case ResumeType.RICHTEXT : {
+                //TODO
+            }
+            default:
+                throw new ClientException("cannot get target resume type");
+        }
     }
 
     @PostMapping("/online/**")
@@ -134,6 +170,8 @@ public class ResumeController extends DomainCRUDController<ResumeJson, Integer> 
             throw new ForbiddenException();
         }
     }
+
+
 
 
     @Override

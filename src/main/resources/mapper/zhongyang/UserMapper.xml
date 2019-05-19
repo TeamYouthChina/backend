@@ -5,14 +5,14 @@
         <constructor>
             <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         </constructor>
-        <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="USER_PASS" property="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
-        <result column="USER_REGIST_TIME" property="registerDate" jdbcType="TIMESTAMP"/>
-        <result property="gender" column="USER_GENDER" jdbcType="VARCHAR"/>
+        <result column="USER_REGIST_TIME" property="registerTime" jdbcType="TIMESTAMP"/>
+        <result column="CONTENT_CHANGE_TIME" property="modifiedTime" jdbcType="TIMESTAMP"/>
+        <result column="USER_GENDER" property="gender" jdbcType="VARCHAR"/>
         <result column="USER_FIRST_NAME" property="firstName" jdbcType="VARCHAR"/>
         <result column="USER_LAST_NAME" property="lastName" jdbcType="VARCHAR"/>
         <result column="USER_MAIL" property="email" jdbcType="VARCHAR"/>
-        <result column="USER_NATION" property="nation" jdbcType="VARCHAR"/>
         <result column="USER_PHOTO" property="avatarUrl" jdbcType="VARCHAR"/>
         <result column="USER_ON_JOB" property="isHired" jdbcType="INTEGER"/>
         <result column="MAIL_VERIFY" property="isMailVerified" jdbcType="INTEGER"/>
@@ -25,14 +25,14 @@
         USER_FIRST_NAME,
         USER_LAST_NAME,
         USER_GENDER,
-        USER_NATION,
         USER_MAIL,
         USER_PHONE,
         USER_PHOTO,
         USER_LOCATION,
         USER_NICKNAME,
         USER_ON_JOB,
-        USER_DATE_OF_BIRTH
+        USER_DATE_OF_BIRTH,
+        CONTENT_CHANGE_TIME
     </sql>
     <sql id="active">
         SYS_USER.IS_DELETE = 0
@@ -53,18 +53,18 @@
         <include refid="userColumn"/>
         )
         VALUES (#{password},
-        #{registerDate},
+        #{registerTime},
         #{firstName},
         #{lastName},
         #{gender},
-        #{nation},
         #{email},
         #{phonenumber},
         #{avatarUrl},
         110000,
         '',
         #{hired,jdbcType=BOOLEAN},
-        #{dateOfBirth,jdbcType=DATE}
+        #{dateOfBirth,jdbcType=DATE},
+        #{modifiedTime,jdbcType=TIMESTAMP}
         )
     </insert>
     <select id="canRegister" parameterType="com.youthchina.domain.zhongyang.User" resultType="java.lang.Boolean">
@@ -85,11 +85,10 @@
     <update id="update" parameterType="com.youthchina.domain.zhongyang.User">
         UPDATE SYS_USER
         SET USER_PASS = #{password},
-        USER_REGIST_TIME = #{registerDate},
+        USER_REGIST_TIME = #{registerTime},
         USER_FIRST_NAME = #{firstName},
         USER_LAST_NAME = #{lastName},
         USER_GENDER = #{gender},
-        USER_NATION = #{nation},
         USER_MAIL = #{email},
         USER_PHONE = #{phonenumber},
         USER_PHOTO = #{avatarUrl},

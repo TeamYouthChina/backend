@@ -9,6 +9,8 @@ import com.youthchina.service.DomainCRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author: Qingyang Zhao
  * @create: 2019-04-11
@@ -42,5 +44,13 @@ public class ResumePDFServiceImpl implements DomainCRUDService<ResumePDF, Intege
     public ResumePDF add(ResumePDF entity) throws NotFoundException {
         Integer result = resumePDFMapper.insertResumePDF(entity);
         return this.get(entity.getResumeId());
+    }
+
+
+    public List<ResumePDF> getByStuId(Integer userId) throws NotFoundException{
+        List<ResumePDF> resumePDFList = resumePDFMapper.selectResumePDFByStuId(userId);
+        if(resumePDFList == null || resumePDFList.size() == 0)
+            throw new NotFoundException(4040, 404, "No Resume Available");
+        return resumePDFList;
     }
 }
