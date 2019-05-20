@@ -21,7 +21,6 @@ import com.youthchina.service.community.CommentServiceImpl;
 import com.youthchina.service.community.EssayServiceImpl;
 import com.youthchina.service.community.EvaluateServiceImpl;
 import com.youthchina.service.user.UserServiceImpl;
-import com.youthchina.util.dictionary.AttentionTargetType;
 import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +28,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -78,7 +75,7 @@ public class EssayController {
     public ResponseEntity updateEssay(@PathVariable Integer id, @RequestBody EssayRequestDTO essayRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException {
         ComEssay comEssay = new ComEssay(essayRequestDTO);
         comEssay.setId(id);
-        comEssay.setUser(user);
+        comEssay.setAuthor(user);
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setEditTime(time);
         essayServiceimpl.updateEssay(comEssay);
@@ -111,7 +108,7 @@ public class EssayController {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         comEssay.setPubTime(time);
         comEssay.setEditTime(time);
-        comEssay.setUser(user);
+        comEssay.setAuthor(user);
         essayServiceimpl.addEssay(comEssay);
         EssayResponseDTO essayResponseDTO = new EssayResponseDTO(comEssay);
         if (comEssay.getRelaType() == RelaType.COMPANY) {

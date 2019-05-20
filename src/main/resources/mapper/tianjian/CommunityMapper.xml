@@ -10,7 +10,7 @@
         <result property="editTime" column="ESSAY_EDIT_TIME"/>
         <result property="relaType" column="RELA_TYPE"/>
         <result property="relaId" column="RELA_ID"/>
-        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
+        <association property="author" javaType="com.youthchina.domain.zhongyang.User"
                      resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
     </resultMap>
     <resultMap id="friendrelationresult" type="com.youthchina.domain.tianjian.ComFriendRelation">
@@ -40,7 +40,7 @@
             keyProperty="id">
         INSERT INTO COM_ESSAY (ESSAY_TITLE, ESSAY_ABBRE, USER_ID, ESSAY_PUB_TIME, ESSAY_EDIT_TIME, IS_DELETE,
                                USER_ANONY, IS_DELETE_TIME, RELA_TYPE, RELA_ID, ESSAY_BODY)
-        values (#{title}, #{abbre}, #{user.id}, #{pubTime}, #{editTime}, 0, #{isAnony}, null, #{relaType}, #{relaId},
+        values (#{title}, #{abbre}, #{author.id}, #{pubTime}, #{editTime}, 0, #{isAnony}, null, #{relaType}, #{relaId},
                 #{body.textId})
 
     </insert>
@@ -65,7 +65,7 @@
             attenction.ATTEN_CANCEL      = 1,
             essay.IS_DELETE              = 1,
             essay.IS_DELETE_TIME         = NOW()
-        WHERE essay.ESSAY_ID  = #{essayId}
+        WHERE essay.ESSAY_ID = #{essayId}
     </update>
 
     <!--    根据文章id查询文章 -->
@@ -159,8 +159,8 @@
 
     <insert id="addFriendApply" parameterType="com.youthchina.domain.tianjian.ComFriendApply" useGeneratedKeys="true"
             keyProperty="applyId">
-        insert into COM_FRIEND_APPLY (USER_ID, FRIEND_ID, FRI_APPLY_TIME, FRI_IS_READ, FRI_APPLY_ACCEPT,APPLY_MESSAGE)
-            value (#{userId}, #{friendId}, NOW(), 0, 0,#{applyMessage})
+        insert into COM_FRIEND_APPLY (USER_ID, FRIEND_ID, FRI_APPLY_TIME, FRI_IS_READ, FRI_APPLY_ACCEPT, APPLY_MESSAGE)
+            value (#{userId}, #{friendId}, NOW(), 0, 0, #{applyMessage})
     </insert>
 
     <select id="getAllFriendApply" resultMap="friendapplyresult">
