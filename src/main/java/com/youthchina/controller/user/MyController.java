@@ -23,6 +23,7 @@ import com.youthchina.service.application.JobServiceImpl;
 import com.youthchina.service.community.*;
 import com.youthchina.service.user.StudentService;
 import com.youthchina.service.user.UserService;
+import com.youthchina.util.dictionary.RelaType;
 import com.youthchina.util.dictionary.SearchType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -93,6 +94,13 @@ public class MyController {
                         for (ComEssay comEssay : comEssayList) {
                             EssayResponseDTO essayResponseDTO = new EssayResponseDTO();
                             essayResponseDTO.convertToDTO(comEssay);
+                            if (comEssay.getRelaType() == RelaType.COMPANY) {
+                                try {
+                                    essayResponseDTO.setCompany(new CompanyResponseDTO(companyCURDService.get(comEssay.getRelaId())));
+                                } catch (NotFoundException e) {
+
+                                }
+                            }
                             essayResponseDTOList.add(essayResponseDTO);
                         }
                     }

@@ -106,7 +106,7 @@ public class UserControllerGetMyTest {
 
         id = 5;
         answerList = answerService.getMyAnswers(id);
-        Assert.assertEquals(13, answerList.size());
+        Assert.assertEquals(4, answerList.size());
 
     }
 

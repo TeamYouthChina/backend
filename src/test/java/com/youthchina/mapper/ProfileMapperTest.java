@@ -26,12 +26,12 @@ public class ProfileMapperTest {
     @Autowired
     ApplicantMapper applicantMapper;
 
-    @Test
-    public void testGetStudentInfo() {
-        Student student = applicantMapper.getStudentInfo(10);
-        System.out.print(student.getLabelInfos().get(0).getLabel_chn());
-
-    }
+//    @Test
+//    public void testGetStudentInfo() {
+//        Student student = applicantMapper.getStudentInfo(10);
+//        System.out.print(student.getLabelInfos().get(0).getLabel_chn());
+//
+//    }
 
     @Test
     public void testGetEduById(){
