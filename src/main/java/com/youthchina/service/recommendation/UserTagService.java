@@ -1,5 +1,7 @@
 package com.youthchina.service.recommendation;
 
+import com.youthchina.domain.jinhao.Salary;
+
 import java.sql.Date;
 import java.util.List;
 
@@ -12,15 +14,15 @@ public interface UserTagService {
     void deletePreferIndustry(int industryCode, int stuId);
     List<Integer> getPreferIndustries(int stuId);
 
-    void addPreferJobType(int jobType, int stuId, int preProfId);
-    void deletePreferJobType(int jobType, int stuId, int preProfId);
-    List<Integer> getPreferJobTypes(int stuId);
-
     void addPreferProf(int profCode, Date preAvailTime, int stuId);
     void deletePreferProf(int proCode, int stuId);
     List<Integer> getPreferProf(int stuId);
 
-    void addPreferSalary(int salaFloor, int salaCap, int preProfId, int stuId);
+    void addPreferJobType(int jobType, int stuId, int profCode);
+    void deletePreferJobType(int jobType, int stuId, int profCode);
+    List<Integer> getPreferJobTypes(int stuId, int profCode);
 
-
+    void addPreferSalary(int salaFloor, int salaCap, int profCode, int stuId);
+    void deletePreferSalary(int stuId, int profCode);
+    List<Salary> getPreferSalary(int stuId, int profCode);
 }
