@@ -124,28 +124,28 @@ public class UserControllerTest extends BaseControllerTest {
     public void testModifyUser_ShouldSuccess() throws Exception {
         this.mvc.perform(patch(this.urlPrefix + "/users/3")
                 .contentType(MediaType.APPLICATION_JSON)
+                .header(this.HEADER, this.jwtService.getAuthenticationToken(3))
                 .content("{\n" +
                         "  \"avatar_url\": \"12398123\",\n" +
                         "  \"gender\": \"OTHER\",\n" +
                         "  \"first_name\": \"changedName\"\n" +
                         "}")
-                .with(authGenerator.authentication(3))
         )
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().json("{\"content\":{\"id\":3,\"email\":\"test@test.com\",\"register_date\":1546304461000,\"date_of_birth\":0,\"first_name\":\"changedName\",\"last_name\":\"Guo\",\"gender\":\"OTHER\",\"avatar_url\":\"12398123\",\"role\":[\"APPLICANT\"],\"phone_number\":\"2022922222\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json("{\"content\":{\"id\":3,\"email\":\"123456@789.com\",\"register_date\":1546300800000,\"date_of_birth\":0,\"first_name\":\"changedName\",\"last_name\":\"GGGHHHIII\",\"gender\":\"OTHER\",\"avatar_url\":\"12398123\",\"role\":[\"APPLICANT\"],\"phone_number\":\"1112223334445\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
     @Test
     public void testModifyUser_ShouldThrow400() throws Exception {
         this.mvc.perform(patch(this.urlPrefix + "/users/3")
                 .contentType(MediaType.APPLICATION_JSON)
+                .header(this.HEADER, this.jwtService.getAuthenticationToken(3))
                 .content("{\n" +
                         "  \"avatar_url\": \"12398123\",\n" +
                         "  \"gender\": \"Whatever\",\n" +
                         "  \"first_name\": \"changedName\"\n" +
                         "}")
-                .with(authGenerator.authentication(3))
         )
                 .andDo(print())
                 .andExpect(status().is(400));
@@ -155,12 +155,12 @@ public class UserControllerTest extends BaseControllerTest {
     public void testModifyUser_ShouldThrow403() throws Exception {
         this.mvc.perform(patch(this.urlPrefix + "/users/3")
                 .contentType(MediaType.APPLICATION_JSON)
+                .header(this.HEADER, this.jwtService.getAuthenticationToken(2))
                 .content("{\n" +
                         "  \"avatar_url\": \"12398123\",\n" +
                         "  \"gender\": \"Whatever\",\n" +
                         "  \"first_name\": \"changedName\"\n" +
                         "}")
-                .with(authGenerator.authentication(2)) //use user 2 to change user 3's info
         )
                 .andDo(print())
                 .andExpect(status().is(403));
