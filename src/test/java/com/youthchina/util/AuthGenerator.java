@@ -38,16 +38,8 @@ public class AuthGenerator {
     }
 
     private JwtAuthentication createAuthentication(Role role, Integer userId) {
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        User user = new User();
-        user.setRole(role);
-        user.setLastName("Guo");
-        user.setFirstName("Yihao");
-        user.setPassword(encoder.encode("123456"));
+        User user = this.getUser(role);
         user.setId(userId);
-        user.setEmail("test@test.com");
-        user.setGender(Gender.MALE);
-        user.setPhonenumber("2022922222");
         return new JwtAuthentication(user, true);
     }
 
@@ -63,6 +55,8 @@ public class AuthGenerator {
         user.setEmail("test@test.com");
         user.setGender(Gender.MALE);
         user.setPhonenumber("2022922222");
+        user.setMailVerified(true);
+        user.setPhoneVerified(true);
         return user;
     }
 
