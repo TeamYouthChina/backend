@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Timestamp;
 
 /**
  * Created by zhongyangwu on 11/8/18.
@@ -103,6 +104,7 @@ public class UserController extends DomainCRUDController<User, Integer> {
             user.setFirstName(body.getFirstName() == null ? user.getFirstName() : body.getFirstName());
             user.setLastName(body.getLastName() == null ? user.getLastName() : body.getLastName());
             user.setAvatarUrl(body.getAvatarUrl() == null ? user.getAvatarUrl() : body.getAvatarUrl());
+            user.setDateOfBirth(body.getDateOfBirth() == null ? user.getDateOfBirth() : new Timestamp(body.getDateOfBirth()));
             User resultUser = userService.update(user);
             return ResponseEntity.ok(new Response(resultUser));
         } else {

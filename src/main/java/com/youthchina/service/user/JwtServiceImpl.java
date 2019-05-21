@@ -1,13 +1,13 @@
 package com.youthchina.service.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.dao.zhongyang.UserMapper;
 import com.youthchina.domain.zhongyang.JwtAuthentication;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.exception.zhongyang.exception.ForbiddenException;
 import com.youthchina.exception.zhongyang.exception.InternalStatusCode;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,13 +45,13 @@ public class JwtServiceImpl implements JwtService {
     @Value("${security.register.token.expirationtime}")
     private String REGISTER_EXPRIATIONTIME;
 
-    private UserMapper userMapper;
+    @Autowired
+    private UserService userService;
 
     private ObjectMapper objectMapper;
 
     @Autowired
-    public JwtServiceImpl(UserMapper userMapper, ObjectMapper objectMapper) {
-        this.userMapper = userMapper;
+    public JwtServiceImpl(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 
@@ -65,16 +65,27 @@ public class JwtServiceImpl implements JwtService {
     public void addAuthentication(HttpServletResponse response, User user) throws IOException {
         response.setHeader("Content-Type", "application/json;charset=utf8");
         Integer id = user.getId();
-        String token = Jwts.builder().
-                setSubject(id.toString()).
-                setExpiration(new Date(System.currentTimeMillis() + Long.valueOf(EXPRIATIONTIME)))
-                .signWith(SignatureAlgorithm.HS512, SECRET)
-                .compact();
+        String token = this.getAuthenticationToken(id);
         response.addHeader(HEADER, TOKEN_PREFIX + " " + token);
         String responseBody = objectMapper.writeValueAsString(new Response(new UserDTO(user)));
         response.getWriter().write(responseBody);
 
 
+    }
+
+    /**
+     * Get token by user id
+     *
+     * @param userId id of authenticated user
+     * @return token
+     */
+    @Override
+    public String getAuthenticationToken(Integer userId) {
+        return Jwts.builder().
+                setSubject(userId.toString()).
+                setExpiration(new Date(System.currentTimeMillis() + Long.valueOf(EXPRIATIONTIME)))
+                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .compact();
     }
 
     /**
@@ -102,7 +113,12 @@ public class JwtServiceImpl implements JwtService {
                 }
             } catch (IllegalArgumentException ignored) {
             }
-            User user = userMapper.findOne(id);
+            User user = null;
+            try {
+                user = userService.get(id);
+            } catch (NotFoundException e) {
+                return null; //cannot auth
+            }
             return new JwtAuthentication(user, true, needRenew);
         }
         return null;
