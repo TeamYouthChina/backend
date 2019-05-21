@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -112,6 +113,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
+        user.setModifiedTime(Timestamp.from(Instant.now())); //set modified time
         mapper.update(user);
         mapper.setRole(user.getId(), user.getRole());
         return this.get(user.getId());

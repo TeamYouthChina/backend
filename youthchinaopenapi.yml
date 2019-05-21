@@ -1573,6 +1573,50 @@ paths:
                     $ref: '#/components/schemas/User'
                   status:
                     $ref: '#/components/schemas/Status'
+
+  '/users/{id}':
+    patch:
+      parameters:
+        - in: header
+          name: X-AUTHENTICATION
+          required: true
+          description: authentication header
+          schema:
+            type: string
+      tags:
+        - Security
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                avatar_url:
+                  type: string
+                  description: avatar's doc id
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                data_of_birth:
+                  type: number
+                  description: birth date timestamp in millionseconds
+      responses:
+        200:
+          description: update success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    $ref: '#/components/schemas/User'
+                  status:
+                    $ref: '#/components/schemas/Status'
+        403:
+          description: cannot modify, most likely because the user is not the logged in one.
+        400:
+          description: cannot modify, most likely because wrong type in request body.
   '/me':
     get:
       parameters:
