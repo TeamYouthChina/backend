@@ -5,7 +5,7 @@
         insert into SYS_LABEL_MAP (lab_code, target_id, target_type, rela_time)
         values (#{labelCode}, #{targetId}, #{targetType}, now())
     </insert>
-    <select id="isTagExist">
+    <select id="isTagExist" resultType="java.lang.Integer">
         select LAB_CODE from SYS_LABEL_MAP where LAB_CODE = #{labelCode} and TARGET_ID = #{targetId} and TARGET_TYPE = #{targetType}
     </select>
     <delete id="deleteTag">
@@ -17,42 +17,42 @@
     <select id="getRecommendQuestion" resultType="java.lang.Integer">
         select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
         <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
-            #{userLabels}
+            #{labelCode}
         </foreach>
         and TARGET_TYPE = 1
     </select>
     <select id="getRecommendEassy" resultType="java.lang.Integer">
         select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
         <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
-            #{userLabels}
+            #{labelCode}
         </foreach>
         and TARGET_TYPE = 2
     </select>
     <select id="getRecommendBriefReview" resultType="java.lang.Integer">
         select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
         <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
-            #{userLabels}
+            #{labelCode}
         </foreach>
         and TARGET_TYPE = 3
     </select>
     <select id="getRecommendJob" resultType="java.lang.Integer">
         select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
         <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
-            #{userLabels}
+            #{labelCode}
         </foreach>
         and TARGET_TYPE = 300
     </select>
     <select id="getRecommendCompany" resultType="java.lang.Integer">
         select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
         <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
-            #{userLabels}
+            #{labelCode}
         </foreach>
         and TARGET_TYPE = 200
     </select>
     <select id="getRecommendUser" resultType="java.lang.Integer">
         select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
         <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
-            #{userLabels}
+            #{labelCode}
         </foreach>
         and TARGET_TYPE = 100
     </select>
