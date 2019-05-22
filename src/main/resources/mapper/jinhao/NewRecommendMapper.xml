@@ -1,24 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.jinhao.NewRecommendMapper">
-    <resultMap id="recommendation" type="com.youthchina.domain.jinhao.Recommendation">
-        <result property="targetId" column="TARGET_ID"/>
-        <result property="targetType" column="TARGET_TYPE"/>
-    </resultMap>
     <insert id="addTag">
         insert into SYS_LABEL_MAP (lab_code, target_id, target_type, rela_time)
         values (#{labelCode}, #{targetId}, #{targetType}, now())
     </insert>
+    <select id="isTagExist">
+        select LAB_CODE from SYS_LABEL_MAP where LAB_CODE = #{labelCode} and TARGET_ID = #{targetId} and TARGET_TYPE = #{targetType}
+    </select>
     <delete id="deleteTag">
         delete from SYS_LABEL_MAP where LAB_CODE = #{labelCode} and TARGET_ID = #{targetId} and TARGET_TYPE = #{targetType}
     </delete>
     <select id="getUserLabel" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select LAB_CODE from SYS_LABEL_MAP where TARGET_TYPE = 100 and TARGET_ID = #{userId}
     </select>
-    <select id="getRecommendation" resultMap="recommendation">
-        select TARGET_ID, TARGET_TYPE from SYS_LABEL_MAP where LAB_CODE in 
+    <select id="getRecommendQuestion" resultType="java.lang.Integer">
+        select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
         <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
             #{userLabels}
         </foreach>
+        and TARGET_TYPE = 1
+    </select>
+    <select id="getRecommendEassy" resultType="java.lang.Integer">
+        select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
+        <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
+            #{userLabels}
+        </foreach>
+        and TARGET_TYPE = 2
+    </select>
+    <select id="getRecommendBriefReview" resultType="java.lang.Integer">
+        select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
+        <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
+            #{userLabels}
+        </foreach>
+        and TARGET_TYPE = 3
+    </select>
+    <select id="getRecommendJob" resultType="java.lang.Integer">
+        select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
+        <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
+            #{userLabels}
+        </foreach>
+        and TARGET_TYPE = 300
+    </select>
+    <select id="getRecommendCompany" resultType="java.lang.Integer">
+        select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
+        <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
+            #{userLabels}
+        </foreach>
+        and TARGET_TYPE = 200
+    </select>
+    <select id="getRecommendUser" resultType="java.lang.Integer">
+        select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
+        <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
+            #{userLabels}
+        </foreach>
+        and TARGET_TYPE = 100
     </select>
 </mapper>

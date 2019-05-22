@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface RecommendService {
     void addTag(int labelCode, int targetType, int targetId) throws NotFoundException;
-    void deleteTag(int labelCode, int targetType, int targetId);
+    void deleteTag(int labelCode, int targetType, int targetId) throws NotFoundException;
     List<User> getRecommendUser(int userId);
     List<Company> getRecommendCompany(int userId);
     List<ComEssay> getRecommendEssay(int userId);

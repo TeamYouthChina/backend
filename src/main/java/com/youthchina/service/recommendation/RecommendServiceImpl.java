@@ -13,9 +13,12 @@ import com.youthchina.service.application.JobService;
 import com.youthchina.service.community.BriefReviewService;
 import com.youthchina.service.community.EssayService;
 import com.youthchina.service.community.QuestionService;
+import com.youthchina.service.user.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -38,44 +41,80 @@ public class RecommendServiceImpl implements RecommendService {
     @Resource
     CompanyCURDService companyCURDService;
 
+    @Resource
+    UserService userService;
+
+
+
     @Override
+    @Transactional
     public void addTag(int labelCode, int targetType, int targetId) throws NotFoundException {
-
+        switch (targetType){
+            case 1: questionService.get(targetId); break;
+            case 2: essayService.get(targetId); break;
+            case 3: briefReviewService.get(targetId); break;
+            case 100: userService.get(targetId); break;
+            case 200: companyCURDService.get(targetId); break;
+            case 300: jobService.get(targetId); break;
+            default: throw new NotFoundException(404,404,"The target type does not exist!");
+        }
+        newRecommendMapper.addTag(labelCode,targetType,targetId);
     }
 
     @Override
-    public void deleteTag(int labelCode, int targetType, int targetId) {
-
+    @Transactional
+    public void deleteTag(int labelCode, int targetType, int targetId) throws NotFoundException {
+        Integer id = newRecommendMapper.isTagExist(labelCode,targetType,targetId);
+        if(id == null) throw new NotFoundException(404,404,"This label does not exist and cannot be deleted");
+        newRecommendMapper.deleteTag(labelCode,targetType,targetId);
     }
 
     @Override
+    @Transactional
     public List<User> getRecommendUser(int userId) {
-        return null;
+        List<Integer> userIds = newRecommendMapper.getRecommendUser(newRecommendMapper.getUserLabel(userId));
+        List<User> users = new LinkedList<>();
+        for(Integer id : userIds){
+            if(id == userId) continue;
+            try {
+                users.add(userService.get(id));
+            } catch (NotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return users;
     }
 
     @Override
+    @Transactional
     public List<Company> getRecommendCompany(int userId) {
-        return null;
+        List<Integer> ids = newRecommendMapper.getRecommendCompany(newRecommendMapper.getUserLabel(userId));
+        return companyCURDService.get(ids);
     }
 
     @Override
+    @Transactional
     public List<ComEssay> getRecommendEssay(int userId) {
-        return null;
+        List<Integer> ids = newRecommendMapper.getRecommendEassy(newRecommendMapper.getUserLabel(userId));
+        return essayService.get(ids);
     }
 
     @Override
     public List<Question> getRecommendQuestion(int userId) {
-        return null;
+        List<Integer> ids = newRecommendMapper.getRecommendQuestion(newRecommendMapper.getUserLabel(userId));
+        return questionService.get(ids);
     }
 
     @Override
     public List<Job> getRecommendJob(int userId) {
-        return null;
+        List<Integer> ids = newRecommendMapper.getRecommendJob(newRecommendMapper.getUserLabel(userId));
+        return jobService.get(ids);
     }
 
     @Override
     public List<BriefReview> getRecommendBriefReview(int userId) {
-        return null;
+        List<Integer> ids = newRecommendMapper.getRecommendBriefReview(newRecommendMapper.getUserLabel(userId));
+        return briefReviewService.get(ids);
     }
 
 }

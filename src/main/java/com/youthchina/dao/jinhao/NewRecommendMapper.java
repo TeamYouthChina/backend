@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper
 public interface NewRecommendMapper {
     void addTag(@Param("labelCode") Integer labelCode, @Param("targetType") Integer targetType, @Param("targetId") Integer targetId);
+    Integer isTagExist(@Param("labelCode") Integer labelCode, @Param("targetType") Integer targetType, @Param("targetId") Integer targetId);
     void deleteTag(@Param("labelCode") Integer labelCode, @Param("targetType") Integer targetType, @Param("targetId") Integer targetId);
     List<Integer> getUserLabel(Integer userId);
     List<Integer> getRecommendQuestion(List<Integer> userLabels);
@@ -18,4 +19,5 @@ public interface NewRecommendMapper {
     List<Integer> getRecommendBriefReview(List<Integer> userLabels);
     List<Integer> getRecommendJob(List<Integer> userLabels);
     List<Integer> getRecommendCompany(List<Integer> userLabels);
+    List<Integer> getRecommendUser(List<Integer> userLabels);
 }
