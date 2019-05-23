@@ -1,6 +1,5 @@
 package com.youthchina.controller.user;
 
-import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.qingyang.Company;
@@ -8,9 +7,6 @@ import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.tianjian.ComEssay;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
-import com.youthchina.dto.Response;
-import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.community.answer.SimpleAnswerResponseDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
 import com.youthchina.dto.community.briefreview.BriefReviewResponseDTO;
 import com.youthchina.dto.community.question.QuestionResponseDTO;
@@ -18,14 +14,12 @@ import com.youthchina.dto.company.CompanyResponseDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.PageRequest;
-import com.youthchina.exception.zhongyang.exception.NotFoundException;
-import com.youthchina.service.community.AnswerServiceImpl;
 import com.youthchina.service.recommendation.RecommendServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

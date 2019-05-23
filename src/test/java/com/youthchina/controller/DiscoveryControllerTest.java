@@ -18,7 +18,7 @@ public class DiscoveryControllerTest extends BaseControllerTest {
     @Test
     public void testGetRecommendUsers() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/discovery/editorials")
+                get(this.urlPrefix + "/discovery/users")
                         .with(authGenerator.authentication())
 
         )
