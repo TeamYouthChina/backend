@@ -12,9 +12,9 @@ import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import java.util.List;
 
 public interface RecommendService {
+    List<Label> getUserLabels(int userId);
     void addTag(String labelCode, int targetType, int targetId) throws NotFoundException;
     void deleteTag(String labelCode, int targetType, int targetId) throws NotFoundException;
-    List<Label> getUserLabels(int userId);
     List<User> getRecommendUser(int userId) throws NotFoundException;
     List<Company> getRecommendCompany(int userId) throws NotFoundException;
     List<ComEssay> getRecommendEssay(int userId) throws NotFoundException;
