@@ -1,6 +1,9 @@
 package com.youthchina.mapper;
 
 import com.youthchina.dao.jinhao.NewRecommendMapper;
+import com.youthchina.domain.zhongyang.User;
+import com.youthchina.exception.zhongyang.exception.NotFoundException;
+import com.youthchina.service.recommendation.RecommendService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +22,8 @@ public class RecommendMapperTest {
     @Resource
     NewRecommendMapper newRecommendMapper;
 
+    @Resource
+    RecommendService recommendService;
     @Test
     public void tag(){
         newRecommendMapper.addTag(92,23,43);
@@ -144,4 +149,19 @@ public class RecommendMapperTest {
             }
         }
 
-    }}
+    }
+    @Test
+    public void getTag() throws NotFoundException {
+        recommendService.addTag(1,100,1);
+        recommendService.addTag(2,100,1);
+        recommendService.addTag(3,100,1);
+        recommendService.addTag(3,100,2);
+        recommendService.addTag(3,100,3);
+        recommendService.addTag(3,100,4);
+        List<User> labels = recommendService.getRecommendUser(1);
+        Assert.assertEquals(3,labels.size());
+        for(User user : labels){
+            System.out.println(user.getId());
+        }
+    }
+}
