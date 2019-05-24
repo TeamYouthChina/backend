@@ -20,10 +20,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static com.youthchina.util.CustomMockMvcMatchers.partialContent;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created by zhongyangwu on 1/2/19.
@@ -118,6 +118,52 @@ public class UserControllerTest extends BaseControllerTest {
 //                .andDo(print())
 //                .andExpect(status().is(400))
 //                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4000,\"reason\":\"cannot register because there are already user registered with same email or username\"}}", false));
+    }
+
+    @Test
+    public void testModifyUser_ShouldSuccess() throws Exception {
+        this.mvc.perform(patch(this.urlPrefix + "/users/3")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(this.HEADER, this.jwtService.getAuthenticationToken(3))
+                .content("{\n" +
+                        "  \"avatar_url\": \"12398123\",\n" +
+                        "  \"gender\": \"OTHER\",\n" +
+                        "  \"first_name\": \"changedName\"\n" +
+                        "}")
+        )
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().json("{\"content\":{\"id\":3,\"email\":\"123456@789.com\",\"register_date\":1546300800000,\"date_of_birth\":0,\"first_name\":\"changedName\",\"last_name\":\"GGGHHHIII\",\"gender\":\"OTHER\",\"avatar_url\":\"12398123\",\"role\":[\"APPLICANT\"],\"phone_number\":\"1112223334445\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
+    @Test
+    public void testModifyUser_ShouldThrow400() throws Exception {
+        this.mvc.perform(patch(this.urlPrefix + "/users/3")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(this.HEADER, this.jwtService.getAuthenticationToken(3))
+                .content("{\n" +
+                        "  \"avatar_url\": \"12398123\",\n" +
+                        "  \"gender\": \"Whatever\",\n" +
+                        "  \"first_name\": \"changedName\"\n" +
+                        "}")
+        )
+                .andDo(print())
+                .andExpect(status().is(400));
+    }
+
+    @Test
+    public void testModifyUser_ShouldThrow403() throws Exception {
+        this.mvc.perform(patch(this.urlPrefix + "/users/3")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(this.HEADER, this.jwtService.getAuthenticationToken(2))
+                .content("{\n" +
+                        "  \"avatar_url\": \"12398123\",\n" +
+                        "  \"gender\": \"Whatever\",\n" +
+                        "  \"first_name\": \"changedName\"\n" +
+                        "}")
+        )
+                .andDo(print())
+                .andExpect(status().is(403));
     }
 
 

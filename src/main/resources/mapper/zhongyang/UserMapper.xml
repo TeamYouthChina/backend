@@ -95,7 +95,8 @@
         USER_NICKNAME = '',
         USER_ON_JOB = #{hired,jdbcType=INTEGER},
         MAIL_VERIFY = #{isMailVerified,jdbcType=INTEGER},
-        PHONE_VERIFY = #{isPhoneVerified,jdbcType=INTEGER}
+        PHONE_VERIFY = #{isPhoneVerified,jdbcType=INTEGER},
+        CONTENT_CHANGE_TIME = #{modifiedTime,jdbcType=TIMESTAMP}
         WHERE SYS_USER.USER_ID = #{id,jdbcType=INTEGER} AND
         <include refid="active"/>
     </update>

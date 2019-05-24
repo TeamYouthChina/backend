@@ -107,7 +107,7 @@ public class User implements UserDetails, HasId<Integer> {
     @Override
     @JsonIgnore
     public boolean isEnabled() {
-        return false;
+        return this.getMailVerified();
     }
 
     @Override

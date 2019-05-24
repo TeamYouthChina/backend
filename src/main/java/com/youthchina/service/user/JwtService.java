@@ -20,6 +20,8 @@ import java.io.IOException;
 public interface JwtService {
     void addAuthentication(HttpServletResponse response, User user) throws IOException;
 
+    String getAuthenticationToken(Integer userId);
+
     Authentication getAuthentication(HttpServletRequest servletRequest) throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException;
 
     /**

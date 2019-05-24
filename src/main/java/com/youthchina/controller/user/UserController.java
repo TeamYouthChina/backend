@@ -1,11 +1,17 @@
 package com.youthchina.controller.user;
 
+import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.controller.DomainCRUDController;
+import com.youthchina.domain.zhongyang.Gender;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
+import com.youthchina.dto.security.ModifiedUserDTO;
+import com.youthchina.dto.security.UserDTO;
 import com.youthchina.dto.util.InfluenceDTO;
+import com.youthchina.exception.zhongyang.exception.ClientException;
 import com.youthchina.exception.zhongyang.exception.ForbiddenException;
+import com.youthchina.exception.zhongyang.exception.InternalStatusCode;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.DomainCRUDService;
 import com.youthchina.service.application.CompanyCURDService;
@@ -18,13 +24,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Timestamp;
 
 /**
  * Created by zhongyangwu on 11/8/18.
@@ -80,6 +85,30 @@ public class UserController extends DomainCRUDController<User, Integer> {
             return ResponseEntity.ok(new Response(new InfluenceDTO(influence), new StatusDTO(200, "success")));
         } else {
             throw new ForbiddenException();
+        }
+    }
+
+    @PatchMapping("/{id}")
+    @ResponseBodyDTO(UserDTO.class)
+    public ResponseEntity<?> modifyUser(@PathVariable Integer id, @AuthenticationPrincipal User user, @RequestBody @Valid ModifiedUserDTO body) throws ClientException, ForbiddenException, NotFoundException {
+        // Role control
+        if (id.equals(user.getId())) {
+            if (body.getGender() != null) {
+                try {
+                    Gender gender = Gender.valueOf(body.getGender());
+                    user.setGender(gender);
+                } catch (IllegalArgumentException ex) {
+                    throw new ClientException("gender must be MALE, FEMALE or OTHER");
+                }
+            }
+            user.setFirstName(body.getFirstName() == null ? user.getFirstName() : body.getFirstName());
+            user.setLastName(body.getLastName() == null ? user.getLastName() : body.getLastName());
+            user.setAvatarUrl(body.getAvatarUrl() == null ? user.getAvatarUrl() : body.getAvatarUrl());
+            user.setDateOfBirth(body.getDateOfBirth() == null ? user.getDateOfBirth() : new Timestamp(body.getDateOfBirth()));
+            User resultUser = userService.update(user);
+            return ResponseEntity.ok(new Response(resultUser));
+        } else {
+            throw new ForbiddenException(InternalStatusCode.ACCESS_DENY);
         }
     }
 
