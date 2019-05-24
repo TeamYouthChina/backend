@@ -304,6 +304,15 @@ public class StaticController {
                 break;
             }
 
+            case "label":{
+                List<Entry> entries = dictionaryService.getAllLabels();
+                for(Entry entry : entries){
+                    EntryResponseDTO entryResponseDTO = new EntryResponseDTO(entry);
+                    entryResponseDTOS.add(entryResponseDTO);
+                }
+                break;
+            }
+
             default:
                 throw new NotFoundException(404, 404, "do not have this type");
 

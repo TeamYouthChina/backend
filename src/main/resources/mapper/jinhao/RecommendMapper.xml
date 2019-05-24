@@ -67,5 +67,6 @@
         <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
             #{labelCode}
         </foreach>
+        and IS_DELETE = 0
     </select>
 </mapper>
