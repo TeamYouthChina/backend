@@ -59,10 +59,11 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     @GetMapping("/{id}/**")
     public ResponseEntity<?> getStudent(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
         Student student = studentService.get(id);
-        student.setId(user.getId());
-        student.setIsInJob(user.getHired());
+        User user1=userService.get(id);
+        student.setId(user1.getId());
+        student.setIsInJob(user1.getHired());
 //        student.setUsername(user.getUsername());
-        student.setAvatarUrl(user.getAvatarUrl());
+        student.setAvatarUrl(user1.getAvatarUrl());
         return ResponseEntity.ok(new Response(new ApplicantResponseDTO(student)));
     }
 
