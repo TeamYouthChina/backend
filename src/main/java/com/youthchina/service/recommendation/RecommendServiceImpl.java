@@ -1,6 +1,6 @@
 package com.youthchina.service.recommendation;
 
-import com.youthchina.dao.jinhao.NewRecommendMapper;
+import com.youthchina.dao.jinhao.RecommendMapper;
 import com.youthchina.domain.jinhao.BriefReview;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.qingyang.Company;
@@ -24,7 +24,7 @@ import java.util.List;
 @Service
 public class RecommendServiceImpl implements RecommendService {
     @Resource
-    NewRecommendMapper newRecommendMapper;
+    RecommendMapper recommendMapper;
 
     @Resource
     BriefReviewService briefReviewService;
@@ -58,21 +58,21 @@ public class RecommendServiceImpl implements RecommendService {
             case 300: jobService.get(targetId); break;
             default: throw new NotFoundException(404,404,"The target type does not exist!");
         }
-        newRecommendMapper.addTag(labelCode,targetType,targetId);
+        recommendMapper.addTag(labelCode,targetType,targetId);
     }
 
     @Override
     @Transactional
     public void deleteTag(int labelCode, int targetType, int targetId) throws NotFoundException {
-        Integer id = newRecommendMapper.isTagExist(labelCode,targetType,targetId);
+        Integer id = recommendMapper.isTagExist(labelCode,targetType,targetId);
         if(id == null) throw new NotFoundException(404,404,"This label does not exist and cannot be deleted");
-        newRecommendMapper.deleteTag(labelCode,targetType,targetId);
+        recommendMapper.deleteTag(labelCode,targetType,targetId);
     }
 
     @Override
     @Transactional
     public List<User> getRecommendUser(int userId) {
-        List<Integer> userIds = newRecommendMapper.getRecommendUser(newRecommendMapper.getUserLabel(userId));
+        List<Integer> userIds = recommendMapper.getRecommendUser(recommendMapper.getUserLabel(userId));
         List<User> users = new LinkedList<>();
         for(Integer id : userIds){
             if(id == userId) continue;
@@ -88,32 +88,32 @@ public class RecommendServiceImpl implements RecommendService {
     @Override
     @Transactional
     public List<Company> getRecommendCompany(int userId) {
-        List<Integer> ids = newRecommendMapper.getRecommendCompany(newRecommendMapper.getUserLabel(userId));
+        List<Integer> ids = recommendMapper.getRecommendCompany(recommendMapper.getUserLabel(userId));
         return companyCURDService.get(ids);
     }
 
     @Override
     @Transactional
     public List<ComEssay> getRecommendEssay(int userId) {
-        List<Integer> ids = newRecommendMapper.getRecommendEassy(newRecommendMapper.getUserLabel(userId));
+        List<Integer> ids = recommendMapper.getRecommendEassy(recommendMapper.getUserLabel(userId));
         return essayService.get(ids);
     }
 
     @Override
     public List<Question> getRecommendQuestion(int userId) {
-        List<Integer> ids = newRecommendMapper.getRecommendQuestion(newRecommendMapper.getUserLabel(userId));
+        List<Integer> ids = recommendMapper.getRecommendQuestion(recommendMapper.getUserLabel(userId));
         return questionService.get(ids);
     }
 
     @Override
     public List<Job> getRecommendJob(int userId) {
-        List<Integer> ids = newRecommendMapper.getRecommendJob(newRecommendMapper.getUserLabel(userId));
+        List<Integer> ids = recommendMapper.getRecommendJob(recommendMapper.getUserLabel(userId));
         return jobService.get(ids);
     }
 
     @Override
     public List<BriefReview> getRecommendBriefReview(int userId) {
-        List<Integer> ids = newRecommendMapper.getRecommendBriefReview(newRecommendMapper.getUserLabel(userId));
+        List<Integer> ids = recommendMapper.getRecommendBriefReview(recommendMapper.getUserLabel(userId));
         return briefReviewService.get(ids);
     }
 
