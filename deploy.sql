@@ -1,55 +1,63 @@
-﻿SET CHAR SET 'utf8';
+/*update log
+1. disable advan_label
+2. add sys_label
+3. update sys_user
+4. update data
+5. add data in SYS_LABEL_MAP
+*/
 
+SET CHAR SET 'utf8';
+#######################################字典表###############################################
 create table IF NOT EXISTS `SYS_MAJOR` (
-                                         `MAJOR_NUM`      INT               AUTO_INCREMENT
-                                           COMMENT '专业编号',
-                                         `MAJOR_LEVEL`    VARCHAR(100) NOT NULL
-                                           COMMENT '专业分级',
-                                         `MAJOR_CODE`    VARCHAR(10) NOT NULL
-                                           COMMENT '专业代码',
-                                         `MAJOR_ABBRE`    VARCHAR(100)
-                                           COMMENT '专业简称',
-                                         `MAJOR_CHN`      VARCHAR(100) NOT NULL
-                                           COMMENT '专业中文全称',
-                                         `MAJOR_ENG`      VARCHAR(100) NOT NULL
-                                           COMMENT '专业英文全称',
-                                         `START_DATE`     TIMESTAMP    NOT NULL
-                                           COMMENT '启用时间',
-                                         `IS_DELETE`      INTEGER      DEFAULT '0'
-                                           COMMENT '是否删除',
-                                         `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
-                                           COMMENT '删除时间',
-                                         PRIMARY KEY (`MAJOR_NUM`)
+  `MAJOR_NUM`      INT               AUTO_INCREMENT
+  COMMENT '专业编号',
+  `MAJOR_LEVEL`    VARCHAR(100) NOT NULL
+  COMMENT '专业分级',
+  `MAJOR_CODE`    VARCHAR(10) NOT NULL
+  COMMENT '专业代码',
+  `MAJOR_ABBRE`    VARCHAR(100) 
+  COMMENT '专业简称',
+  `MAJOR_CHN`      VARCHAR(100) NOT NULL
+  COMMENT '专业中文全称',
+  `MAJOR_ENG`      VARCHAR(100) NOT NULL
+  COMMENT '专业英文全称',
+  `START_DATE`     TIMESTAMP    NOT NULL
+  COMMENT '启用时间',
+  `IS_DELETE`      INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`MAJOR_NUM`)
 )
   COMMENT = '专业分类表';
 
 
 create table IF NOT EXISTS `SYS_DEGREE` (
-                                          `DEGREE_NUM` INT AUTO_INCREMENT
-                                            COMMENT '学位编号',
-                                          `DEGREE_CHN` VARCHAR(100) NOT NULL
-                                            COMMENT '中文描述',
-                                          `DEGREE_ENG` VARCHAR(100) NOT NULL
-                                            COMMENT '英文描述',
-                                          `START_DATE` TIMESTAMP    NOT NULL
-                                            COMMENT '启用时间',
-                                          PRIMARY KEY (`DEGREE_NUM`)
+  `DEGREE_NUM` INT AUTO_INCREMENT
+  COMMENT '学位编号',
+  `DEGREE_CHN` VARCHAR(100) NOT NULL
+  COMMENT '中文描述',
+  `DEGREE_ENG` VARCHAR(100) NOT NULL
+  COMMENT '英文描述',
+  `START_DATE` TIMESTAMP    NOT NULL
+  COMMENT '启用时间',
+  PRIMARY KEY (`DEGREE_NUM`)
 )
   COMMENT = '学历表';
 
 
 create table IF NOT EXISTS `SYS_DIPLOMA` (
-                                           `DIPLOMA_NUM` INT AUTO_INCREMENT
-                                             COMMENT '学位编号',
-                                           `DIPLOMA_CHN` VARCHAR(100) NOT NULL
-                                             COMMENT '中文描述',
-                                           `DIPLOMA_ENG` VARCHAR(100) NOT NULL
-                                             COMMENT '英文描述',
-                                           `DIPLOMA_ENG_ABBRE` VARCHAR(100) NOT NULL
-                                             COMMENT '英文简称',
-                                           `START_DATE` TIMESTAMP    NOT NULL
-                                             COMMENT '启用时间',
-                                           PRIMARY KEY (`DIPLOMA_NUM`)
+  `DIPLOMA_NUM` INT AUTO_INCREMENT
+  COMMENT '学位编号',
+  `DIPLOMA_CHN` VARCHAR(100) NOT NULL
+  COMMENT '中文描述',
+  `DIPLOMA_ENG` VARCHAR(100) NOT NULL
+  COMMENT '英文描述',
+  `DIPLOMA_ENG_ABBRE` VARCHAR(100) NOT NULL
+  COMMENT '英文简称',
+  `START_DATE` TIMESTAMP    NOT NULL
+  COMMENT '启用时间',
+  PRIMARY KEY (`DIPLOMA_NUM`)
 )
   COMMENT = '学位表';
 
@@ -80,238 +88,238 @@ create table IF NOT EXISTS `SYS_DIPLOMA` (
 
 
 create table IF NOT EXISTS `SYS_LABEL` (
-                                         `LABEL_ID`      INT               AUTO_INCREMENT
-                                           COMMENT '标签编号',
-                                         `LABEL_LEVEL`    INTEGER      NOT NULL
-                                           COMMENT '标签分级',
-                                         `LABEL_CODE`     VARCHAR(20)  NOT NULL
-                                           COMMENT '标签代码',
-                                         `LABEL_PARENT_CODE`      VARCHAR(20)  NOT NULL
-                                           COMMENT '上级标签代码',
-                                         `LABEL_CHN`      VARCHAR(100) NOT NULL
-                                           COMMENT '中文描述',
-                                         `LABEL_ENG`      VARCHAR(100) NOT NULL
-                                           COMMENT '英文描述',
-                                         `START_TIME`     TIMESTAMP    NOT NULL
-                                           COMMENT '启用时间',
-                                         `IS_DELETE`      VARCHAR(100) NOT NULL
-                                           COMMENT '是否删除',
-                                         `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
-                                           COMMENT '删除时间',
-                                         PRIMARY KEY (`LABEL_ID`)
+  `LABEL_ID`      INT               AUTO_INCREMENT
+  COMMENT '标签编号',
+  `LABEL_LEVEL`    INTEGER      NOT NULL
+  COMMENT '标签分级',
+  `LABEL_CODE`     VARCHAR(20)  NOT NULL
+  COMMENT '标签代码',
+  `LABEL_PARENT_CODE`      VARCHAR(20)  NOT NULL
+  COMMENT '上级标签代码',
+  `LABEL_CHN`      VARCHAR(100) NOT NULL
+  COMMENT '中文描述',
+  `LABEL_ENG`      VARCHAR(100) NOT NULL
+  COMMENT '英文描述',
+  `START_TIME`     TIMESTAMP    NOT NULL
+  COMMENT '启用时间',
+  `IS_DELETE`      VARCHAR(100) NOT NULL
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`LABEL_ID`)
 )
   COMMENT = '系统标签表';
 
 
 
 create table IF NOT EXISTS `SYS_PROF_CLASS` (
-                                              `PROF_NUM`       INT               AUTO_INCREMENT
-                                                COMMENT '职业编号',
-                                              `PROF_LEVEL`      INTEGER      NOT NULL
-                                                COMMENT '职业分级',
-                                              `PROF_CODE`       VARCHAR(20) NOT NULL
-                                                COMMENT '职业代码',
-                                              `PROF_PARENT_CODE`       VARCHAR(20) NOT NULL
-                                                COMMENT '上级职业代码',
-                                              `PROF_CHN`       VARCHAR(100) NOT NULL
-                                                COMMENT '中文描述',
-                                              `PROF_ENG`       VARCHAR(100)
-                                                COMMENT '英文描述',
-                                              `START_TIME`     TIMESTAMP    NOT NULL
-                                                COMMENT '启用时间',
-                                              `IS_DELETE`      INTEGER      DEFAULT '0'
-                                                COMMENT '是否删除',
-                                              `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
-                                                COMMENT '删除时间',
-                                              PRIMARY KEY (`PROF_NUM`)
+  `PROF_NUM`       INT               AUTO_INCREMENT
+  COMMENT '职业编号',
+  `PROF_LEVEL`      INTEGER      NOT NULL
+  COMMENT '职业分级',
+  `PROF_CODE`       VARCHAR(20) NOT NULL
+  COMMENT '职业代码',
+  `PROF_PARENT_CODE`       VARCHAR(20) NOT NULL
+  COMMENT '上级职业代码',
+  `PROF_CHN`       VARCHAR(100) NOT NULL
+  COMMENT '中文描述',
+  `PROF_ENG`       VARCHAR(100)
+  COMMENT '英文描述',
+  `START_TIME`     TIMESTAMP    NOT NULL
+  COMMENT '启用时间',
+  `IS_DELETE`      INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`PROF_NUM`)
 )
   COMMENT = '职业信息分类表';
 
 
 create table IF NOT EXISTS `SYS_IND_CLASS` (
-                                             `IND_NUM`        INT               AUTO_INCREMENT
-                                               COMMENT '行业编号',
-                                             `IND_CODE`        VARCHAR(10) NOT NULL
-                                               COMMENT '行业代码',
-                                             `IND_CHN`        VARCHAR(100) NOT NULL
-                                               COMMENT '行业中文名称',
-                                             `IND_ENG`        VARCHAR(100) NOT NULL
-                                               COMMENT '行业英文名称',
-                                             `IND_LEVEL`      INTEGER      NOT NULL
-                                               COMMENT '行业分类级别',
-                                             `IND_PARENT_CODE` VARCHAR(10) NOT NULL
-                                               COMMENT '上级行业代码',
-                                             `START_TIME`     TIMESTAMP    NOT NULL
-                                               COMMENT '启用时间',
-                                             `IS_DELETE`      INTEGER      DEFAULT '0'
-                                               COMMENT '是否删除',
-                                             `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
-                                               COMMENT '删除时间',
-                                             PRIMARY KEY (`IND_NUM`)
+  `IND_NUM`        INT               AUTO_INCREMENT
+  COMMENT '行业编号',
+  `IND_CODE`        VARCHAR(10) NOT NULL
+  COMMENT '行业代码',
+  `IND_CHN`        VARCHAR(100) NOT NULL
+  COMMENT '行业中文名称',
+  `IND_ENG`        VARCHAR(100) NOT NULL
+  COMMENT '行业英文名称',
+  `IND_LEVEL`      INTEGER      NOT NULL
+  COMMENT '行业分类级别',
+  `IND_PARENT_CODE` VARCHAR(10) NOT NULL
+  COMMENT '上级行业代码',
+  `START_TIME`     TIMESTAMP    NOT NULL
+  COMMENT '启用时间',
+  `IS_DELETE`      INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`IND_NUM`)
 )
   COMMENT = '行业信息分类表';
 
 
 create table IF NOT EXISTS `SYS_COMPANY_SCALE` (
-                                                 `SCALE_NUM`  INT AUTO_INCREMENT
-                                                   COMMENT '规模编号',
-                                                 `SCALE_CHN`  VARCHAR(100) NOT NULL
-                                                   COMMENT '中文描述',
-                                                 `SCALE_ENG`  VARCHAR(100) NOT NULL
-                                                   COMMENT '英文描述',
-                                                 `START_TIME` TIMESTAMP    NOT NULL
-                                                   COMMENT '启用时间',
-                                                 PRIMARY KEY (`SCALE_NUM`)
+  `SCALE_NUM`  INT AUTO_INCREMENT
+  COMMENT '规模编号',
+  `SCALE_CHN`  VARCHAR(100) NOT NULL
+  COMMENT '中文描述',
+  `SCALE_ENG`  VARCHAR(100) NOT NULL
+  COMMENT '英文描述',
+  `START_TIME` TIMESTAMP    NOT NULL
+  COMMENT '启用时间',
+  PRIMARY KEY (`SCALE_NUM`)
 )
   COMMENT = '企业规模表';
 
 
 create table IF NOT EXISTS `SYS_COMPANY_NATURE` (
-                                                  `NATURE_NUM` INT AUTO_INCREMENT
-                                                    COMMENT '性质编号',
-                                                  `NATURE_CHN` VARCHAR(100) NOT NULL
-                                                    COMMENT '中文描述',
-                                                  `NATURE_ENG` VARCHAR(100) NOT NULL
-                                                    COMMENT '英文描述',
-                                                  `NATURE_DETAIL` VARCHAR(100) DEFAULT NULL
-                                                    COMMENT '性质细化',
-                                                  `START_TIME` TIMESTAMP    NOT NULL
-                                                    COMMENT '启用时间',
-                                                  PRIMARY KEY (`NATURE_NUM`)
+  `NATURE_NUM` INT AUTO_INCREMENT
+  COMMENT '性质编号',
+  `NATURE_CHN` VARCHAR(100) NOT NULL
+  COMMENT '中文描述',
+  `NATURE_ENG` VARCHAR(100) NOT NULL
+  COMMENT '英文描述',
+  `NATURE_DETAIL` VARCHAR(100) DEFAULT NULL
+  COMMENT '性质细化',
+  `START_TIME` TIMESTAMP    NOT NULL
+  COMMENT '启用时间',
+  PRIMARY KEY (`NATURE_NUM`)
 )
   COMMENT = '企业性质表';
 
 
 create table IF NOT EXISTS `SYS_COUNTRY` (
-                                           `COUNTRY_ABBRE`  VARCHAR(10) NOT NULL
-                                             COMMENT '国家简称',
-                                           `COUNTRY_CHN`    VARCHAR(100) NOT NULL
-                                             COMMENT '中文描述',
-                                           `COUNTRY_ENG`    VARCHAR(100) NOT NULL
-                                             COMMENT '英文描述',
-                                           `START_TIME`     TIMESTAMP    NOT NULL
-                                             COMMENT '启用时间',
-                                           `IS_DELETE`      INTEGER      DEFAULT '0'
-                                             COMMENT '是否删除',
-                                           `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
-                                             COMMENT '删除时间',
-                                           PRIMARY KEY (`COUNTRY_ABBRE`)
+  `COUNTRY_ABBRE`  VARCHAR(10) NOT NULL
+  COMMENT '国家简称',
+  `COUNTRY_CHN`    VARCHAR(100) NOT NULL
+  COMMENT '中文描述',
+  `COUNTRY_ENG`    VARCHAR(100) NOT NULL
+  COMMENT '英文描述',
+  `START_TIME`     TIMESTAMP    NOT NULL
+  COMMENT '启用时间',
+  `IS_DELETE`      INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`COUNTRY_ABBRE`)
 )
   COMMENT = '国别表';
 
 
 create table IF NOT EXISTS `SYS_CHN_REGION` (
-                                              `REGION_ID`        INT               AUTO_INCREMENT
-                                                COMMENT '区划ID',
-                                              `REGION_NUM`       VARCHAR(10)   NOT NULL
-                                                COMMENT '区划编号',
-                                              `REGION_CHN`        VARCHAR(50) NOT NULL
-                                                COMMENT '中文描述',
-                                              `REGION_FULLCHN`    VARCHAR(100) NOT NULL
-                                                COMMENT '中文全称',
-                                              `REGION_ENG`        VARCHAR(100) NOT NULL
-                                                COMMENT '英文描述',
-                                              `REGION_LEVEL`      INTEGER      NOT NULL
-                                                COMMENT '行政区划级别',
-                                              `REGION_PARENT_NUM` INTEGER      NOT NULL
-                                                COMMENT '上级区划代码',
-                                              `START_TIME`        TIMESTAMP    NOT NULL
-                                                COMMENT '启用时间',
-                                              `IS_DELETE`         INTEGER      DEFAULT '0'
-                                                COMMENT '是否删除',
-                                              `IS_DELETE_TIME`    TIMESTAMP    NULL DEFAULT NULL
-                                                COMMENT '删除时间',
-                                              PRIMARY KEY (`REGION_ID`)
+  `REGION_ID`        INT               AUTO_INCREMENT
+  COMMENT '区划ID',
+  `REGION_NUM`       VARCHAR(10)   NOT NULL
+  COMMENT '区划编号',
+  `REGION_CHN`        VARCHAR(50) NOT NULL
+  COMMENT '中文描述',
+  `REGION_FULLCHN`    VARCHAR(100) NOT NULL
+  COMMENT '中文全称',
+  `REGION_ENG`        VARCHAR(100) NOT NULL
+  COMMENT '英文描述',
+  `REGION_LEVEL`      INTEGER      NOT NULL
+  COMMENT '行政区划级别',
+  `REGION_PARENT_NUM` INTEGER      NOT NULL
+  COMMENT '上级区划代码',
+  `START_TIME`        TIMESTAMP    NOT NULL
+  COMMENT '启用时间',
+  `IS_DELETE`         INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`    TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`REGION_ID`)
 )
   COMMENT = '中国行政区划表';
 
 
 create table IF NOT EXISTS `SYS_USA_STATE` (
-                                             `STATE_ID`   INT   AUTO_INCREMENT
-                                               COMMENT '州ID',
-                                             `STATE_CHN`  VARCHAR(100) NOT NULL
-                                               COMMENT '中文描述',
-                                             `STATE_ENG`   VARCHAR(100) NOT NULL
-                                               COMMENT '英文描述',
-                                             `STATE_ABBRE`  VARCHAR(10)
-                                               COMMENT '州简写',
-                                             `START_TIME`   TIMESTAMP    NOT NULL
-                                               COMMENT '启用时间',
-                                             `IS_DELETE`    INTEGER      DEFAULT '0'
-                                               COMMENT '是否删除',
-                                             `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
-                                               COMMENT '删除时间',
-                                             PRIMARY KEY (`STATE_ID`)
+`STATE_ID`   INT   AUTO_INCREMENT
+   COMMENT '州ID',
+`STATE_CHN`  VARCHAR(100) NOT NULL
+  COMMENT '中文描述',
+`STATE_ENG`   VARCHAR(100) NOT NULL
+  COMMENT '英文描述',
+`STATE_ABBRE`  VARCHAR(10)
+COMMENT '州简写',
+`START_TIME`   TIMESTAMP    NOT NULL
+  COMMENT '启用时间',
+`IS_DELETE`    INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+PRIMARY KEY (`STATE_ID`)
 )
-  COMMENT = '美国州表';
+COMMENT = '美国州表';
 
 
 ##美国邮编表
 create table IF NOT EXISTS `SYS_USA_ZIPCODE`(
-                                              `REGION_ID`  INT AUTO_INCREMENT COMMENT '区划ID',
-                                              `ZIP_CODE` VARCHAR(10)  NOT NULL COMMENT 'ZIPCODE',
-                                              `REGION_CHN` VARCHAR(100) COMMENT '中文描述',
-                                              `REGION_ENG` VARCHAR(100) NOT NULL COMMENT '英文描述',
-                                              `REGION_CITY` VARCHAR(100) COMMENT '所属城市',
-                                              `STATE_ID` INTEGER COMMENT '所属州ID',
-                                              `START_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
-                                              `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                              `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                              PRIMARY KEY (`REGION_ID`)
+`REGION_ID`  INT AUTO_INCREMENT COMMENT '区划ID',
+`ZIP_CODE` VARCHAR(10)  NOT NULL COMMENT 'ZIPCODE',
+`REGION_CHN` VARCHAR(100) COMMENT '中文描述',
+`REGION_ENG` VARCHAR(100) NOT NULL COMMENT '英文描述',
+`REGION_CITY` VARCHAR(100) COMMENT '所属城市',
+`STATE_ID` INTEGER COMMENT '所属州ID',
+`START_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`REGION_ID`)
 )COMMENT = '美国邮编表';
 
 
 create table IF NOT EXISTS `SYS_PERMISSION` (
-                                              `PERMI_ID`          INT AUTO_INCREMENT
-                                                COMMENT '权限ID',
-                                              `PERMI_FUNCTION`    VARCHAR(100) NOT NULL
-                                                COMMENT '权限功能',
-                                              `PERMI_DESCRPTIPON` VARCHAR(100) NOT NULL
-                                                COMMENT '权限描述',
-                                              `PERMI_TYPE`        INTEGER      NOT NULL
-                                                COMMENT '权限类型',
-                                              `IS_DELETE`         INTEGER      DEFAULT '0'
-                                                COMMENT '是否删除',
-                                              `IS_DELETE_TIME`    TIMESTAMP    NULL DEFAULT NULL
-                                                COMMENT '删除时间',
-                                              PRIMARY KEY (`PERMI_ID`)
+  `PERMI_ID`          INT AUTO_INCREMENT
+  COMMENT '权限ID',
+  `PERMI_FUNCTION`    VARCHAR(100) NOT NULL
+  COMMENT '权限功能',
+  `PERMI_DESCRPTIPON` VARCHAR(100) NOT NULL
+  COMMENT '权限描述',
+  `PERMI_TYPE`        INTEGER      NOT NULL
+  COMMENT '权限类型',
+  `IS_DELETE`         INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`    TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`PERMI_ID`)
 )
   COMMENT = '系统权限表';
 
 
 ##角色权限表
 create table IF NOT EXISTS `SYS_ROLE_PERMISSION`(
-                                                  `ROLE_ID` INTEGER NOT NULL COMMENT '角色ID',
-                                                  `PERMI_ID` INTEGER NOT NULL COMMENT '权限ID',
-                                                  `STRAT_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
-                                                  `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                                  `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                                  PRIMARY KEY (`ROLE_ID`,`PERMI_ID`)
+`ROLE_ID` INTEGER NOT NULL COMMENT '角色ID',
+`PERMI_ID` INTEGER NOT NULL COMMENT '权限ID',
+`STRAT_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`ROLE_ID`,`PERMI_ID`)
 )COMMENT = '角色权限表';
 
 
 create table IF NOT EXISTS `SYS_ROLE` (
-                                        `ROLE_ID`          INT AUTO_INCREMENT
-                                          COMMENT '角色ID',
-                                        `ROLE_DESCRPTIPON` VARCHAR(100) NOT NULL
-                                          COMMENT '角色描述',
-                                        `IS_DELETE`        INTEGER      DEFAULT '0'
-                                          COMMENT '是否删除',
-                                        `IS_DELETE_TIME`   TIMESTAMP    NULL DEFAULT NULL
-                                          COMMENT '删除时间',
-                                        PRIMARY KEY (`ROLE_ID`)
+  `ROLE_ID`          INT AUTO_INCREMENT
+  COMMENT '角色ID',
+  `ROLE_DESCRPTIPON` VARCHAR(100) NOT NULL
+  COMMENT '角色描述',
+  `IS_DELETE`        INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`   TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`ROLE_ID`)
 )
   COMMENT = '系统角色表';
 
 
 ##用户角色表
 create table IF NOT EXISTS `SYS_USER_ROLE`(
-                                            `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
-                                            `ROLE_ID` INTEGER NOT NULL COMMENT '角色ID',
-                                            `STRAT_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
-                                            `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                            `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                            PRIMARY KEY (`USER_ID`,`ROLE_ID`)
+`USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+`ROLE_ID` INTEGER NOT NULL COMMENT '角色ID',
+`STRAT_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`USER_ID`,`ROLE_ID`)
 )COMMENT = '用户角色表';
 
 
@@ -345,7 +353,7 @@ create table IF NOT EXISTS `SYS_USER_ROLE`(
   `USER_ON_JOB`          INTEGER      NOT NULL
   COMMENT '是否在职',
   `AUTH_CHANGE_TIME` TIMESTAMP    NOT NULL
-  COMMENT '信息修改时间',
+  COMMENT '信息修改时间',  
   `IS_DELETE`        INTEGER      DEFAULT '0'
   COMMENT '是否删除',
   `IS_DELETE_TIME`   TIMESTAMP    NULL DEFAULT NULL
@@ -353,28 +361,28 @@ create table IF NOT EXISTS `SYS_USER_ROLE`(
   PRIMARY KEY (`USER_ID`)
 )
   COMMENT = '用户注册信息表';*/
-
+  
 ##用户注册信息表
 create table IF NOT EXISTS `SYS_USER`
 (
-  USER_ID int auto_increment comment '用户ID',
-  USER_MAIL varchar(200) not null comment '邮箱',
-  MAIL_VERIFY int default 0 not null comment '邮箱是否验证',
-  USER_PHONE varchar(200) not null comment '手机',
-  PHONE_VERIFY int default 0 not null comment '手机是否验证',
-  USER_PASS varchar(200) not null comment '密码',
-  USER_NICKNAME varchar(200) null comment '昵称',
-  USER_FIRST_NAME varchar(200) not null comment '姓',
-  USER_LAST_NAME varchar(200) not null comment '名',
-  USER_GENDER varchar(10) not null comment '性别',
-  USER_DATE_OF_BIRTH date not null default '1970-01-01' comment '出生日期',
-  USER_PHOTO varchar(200) null comment '照片',
-  USER_LOCATION int null comment '所在地',
-  USER_ON_JOB int not null comment '是否在职',
-  USER_REGIST_TIME timestamp not null comment '注册时间',
-  CONTENT_CHANGE_TIME timestamp not null comment '信息修改时间',
-  IS_DELETE int default 0 null comment '是否删除',
-  IS_DELETE_TIME timestamp null comment '删除时间',
+  USER_ID INT AUTO_INCREMENT COMMENT '用户ID',
+  USER_MAIL VARCHAR(200) NOT NULL COMMENT '邮箱',
+  MAIL_VERIFY INT DEFAULT 0 NOT NULL COMMENT '邮箱是否验证',
+  USER_PHONE VARCHAR(200) NOT NULL COMMENT '手机',
+  PHONE_VERIFY INT DEFAULT 0 NOT NULL COMMENT '手机是否验证',
+  USER_PASS VARCHAR(200) NOT NULL COMMENT '密码',
+  USER_NICKNAME VARCHAR(200) NULL COMMENT '昵称',
+  USER_FIRST_NAME VARCHAR(200) NOT NULL COMMENT '姓',
+  USER_LAST_NAME VARCHAR(200) NOT NULL COMMENT '名',
+  USER_GENDER VARCHAR(10) NOT NULL COMMENT '性别',
+  USER_DATE_OF_BIRTH DATE NOT NULL DEFAULT '1970-01-01' COMMENT '出生日期',
+  USER_PHOTO VARCHAR(200) NULL COMMENT '照片',
+  USER_LOCATION INT NULL COMMENT '所在地',
+  USER_ON_JOB INT NOT NULL COMMENT '是否在职',
+  USER_REGIST_TIME TIMESTAMP NOT NULL COMMENT '注册时间',
+  CONTENT_CHANGE_TIME TIMESTAMP NOT NULL COMMENT '信息修改时间',
+  IS_DELETE INT DEFAULT 0 NULL COMMENT '是否删除',
+  IS_DELETE_TIME TIMESTAMP NULL COMMENT '删除时间',
   PRIMARY KEY (`USER_ID`)
 )
   comment '用户注册信息表';
@@ -383,251 +391,252 @@ create table IF NOT EXISTS `SYS_USER`
 
 ##用户在职信息表
 create table IF NOT EXISTS `SYS_USER_ON_JOB`(
-                                              `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
-                                              `COMPANY_ID` INTEGER NOT NULL COMMENT '企业ID',
-                                              `ON_JOB_START_TIME` DATE COMMENT '工作起始时间',
-                                              `ON_JOB_VERIFY` INTEGER NOT NULL COMMENT '在职验证',
-                                              `VERIFY_TIME` TIMESTAMP NOT NULL COMMENT '验证时间',
-                                              `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                              `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                              PRIMARY KEY (`USER_ID`)
+`USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+`COMPANY_ID` INTEGER NOT NULL COMMENT '企业ID',
+`ON_JOB_START_TIME` DATE COMMENT '工作起始时间',
+`ON_JOB_VERIFY` INTEGER NOT NULL COMMENT '在职验证',
+`VERIFY_TIME` TIMESTAMP NOT NULL COMMENT '验证时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`USER_ID`)
 )COMMENT = '用户在职信息表';
 
 
 
 create table IF NOT EXISTS `SYS_HR_CONFIGURATION` (
-                                                    `USER_ID` INTEGER
-                                                      COMMENT '用户ID',
-                                                    `CONFIG_RECEIVE_APPLICANT` INTEGER NOT NULL DEFAULT '1'
-                                                      COMMENT '是否接受推荐应聘者',
-                                                    PRIMARY KEY (`USER_ID`)
+  `USER_ID` INTEGER
+  COMMENT '用户ID',
+  `CONFIG_RECEIVE_APPLICANT` INTEGER NOT NULL DEFAULT '1'
+  COMMENT '是否接受推荐应聘者',
+  PRIMARY KEY (`USER_ID`)
 )
   COMMENT = '招聘者个人设置表';
 
 
 ##应聘者个人设置表
 create table IF NOT EXISTS `SYS_STU_CONFIGURATION`(
-                                                    `USER_ID` INTEGER COMMENT '用户ID',
-                                                    `CONFIG_CV_VISIBLE` INTEGER NOT NULL COMMENT '简历屏蔽',
-                                                    `CONFIG_RESUME_UPDATE_NOTIF` INTEGER NOT NULL COMMENT '简历修改提示',
-                                                    `CONFIG_RECEIVE_JOB` INTEGER NOT NULL COMMENT '是否接受推荐职位',
-                                                    `CONFIG_RECEIVE_EMAIL` INTEGER NOT NULL COMMENT '是否接受招聘邮件',
-                                                    `CONFIG_BE_SEARCHED` INTEGER NOT NULL COMMENT '通过搜索找到我',
-                                                    `CONFIG_BE_EMAILED` INTEGER NOT NULL COMMENT '通过邮件找到我',
-                                                    `CONFIG_MOMENT` INTEGER NOT NULL COMMENT '动态展示',
-                                                    `CONFIG_REFER` INTEGER NOT NULL COMMENT '能否被提及',
-                                                    `CONFIG_PERSON_PRIVACY` INTEGER NOT NULL COMMENT '状态隐私',
-                                                    `CONFIG_RECEIVE_FRIEND` INTEGER NOT NULL COMMENT '是否接受好友推荐',
-                                                    `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                                    `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                                    PRIMARY KEY (`USER_ID`)
+`USER_ID` INTEGER COMMENT '用户ID',
+`CONFIG_CV_VISIBLE` INTEGER NOT NULL COMMENT '简历屏蔽',
+`CONFIG_RESUME_UPDATE_NOTIF` INTEGER NOT NULL COMMENT '简历修改提示',
+`CONFIG_RECEIVE_JOB` INTEGER NOT NULL COMMENT '是否接受推荐职位',
+`CONFIG_RECEIVE_EMAIL` INTEGER NOT NULL COMMENT '是否接受招聘邮件',
+`CONFIG_BE_SEARCHED` INTEGER NOT NULL COMMENT '通过搜索找到我',
+`CONFIG_BE_EMAILED` INTEGER NOT NULL COMMENT '通过邮件找到我',
+`CONFIG_MOMENT` INTEGER NOT NULL COMMENT '动态展示',
+`CONFIG_REFER` INTEGER NOT NULL COMMENT '能否被提及',
+`CONFIG_PERSON_PRIVACY` INTEGER NOT NULL COMMENT '状态隐私',
+`CONFIG_RECEIVE_FRIEND` INTEGER NOT NULL COMMENT '是否接受好友推荐',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`USER_ID`)
 )
-  COMMENT = '应聘者个人设置表';
+COMMENT = '应聘者个人设置表';
 
 
 create table IF NOT EXISTS `SYS_NOTIFICATION` (
-                                                `NOTIFY_ID`      INT  AUTO_INCREMENT
-                                                  COMMENT '通知ID',
-                                                `NOTIFY_CONTENT` VARCHAR(800) NOT NULL
-                                                  COMMENT '通知信息',
-                                                `NOTIFY_TIME`    TIMESTAMP    NOT NULL
-                                                  COMMENT '通知时间',
-                                                `NOTIFY_READ`    INTEGER      NOT NULL
-                                                  COMMENT '是否阅读',
-                                                `USER_ID`         INTEGER      NOT NULL
-                                                  COMMENT '用户ID',
-                                                PRIMARY KEY (`NOTIFY_ID`)
+  `NOTIFY_ID`      INT  AUTO_INCREMENT
+  COMMENT '通知ID',
+  `NOTIFY_CONTENT` VARCHAR(800) NOT NULL
+  COMMENT '通知信息',
+  `NOTIFY_TIME`    TIMESTAMP    NOT NULL
+  COMMENT '通知时间',
+  `NOTIFY_READ`    INTEGER      NOT NULL
+  COMMENT '是否阅读',
+  `USER_ID`         INTEGER      NOT NULL
+  COMMENT '用户ID',
+  PRIMARY KEY (`NOTIFY_ID`)
 )
   COMMENT = '用户通知表';
 
 
 ##中国学校表
 create table IF NOT EXISTS `SYS_UNIVERSITY_CHN`(
-                                                 `UNIVERS_ID` INTEGER COMMENT '学校ID',
-                                                 `UNIVERS_CHN` VARCHAR(100) NOT NULL COMMENT '中文名称',
-                                                 `UNIVERS_ENG` VARCHAR(100) COMMENT '英文名称',
-                                                 `UNIVERS_CODE` BIGINT COMMENT '学校标识码',
-                                                 `UNIVERS_LOCATION` INTEGER COMMENT '学校所在地',
-                                                 `UNIVERS_DEPT` VARCHAR(40)  COMMENT '主管部门',
-                                                 `UNIVERS_LEVEL` VARCHAR(20)  COMMENT '办学层次',
-                                                 `START_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
-                                                 `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                                 `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                                 PRIMARY KEY (`UNIVERS_ID`)
+`UNIVERS_ID` INTEGER COMMENT '学校ID',
+`UNIVERS_CHN` VARCHAR(100) NOT NULL COMMENT '中文名称',
+`UNIVERS_ENG` VARCHAR(100) COMMENT '英文名称',
+`UNIVERS_CODE` BIGINT COMMENT '学校标识码',
+`UNIVERS_LOCATION` INTEGER COMMENT '学校所在地',
+`UNIVERS_DEPT` VARCHAR(40)  COMMENT '主管部门',
+`UNIVERS_LEVEL` VARCHAR(20)  COMMENT '办学层次',
+`START_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`UNIVERS_ID`)
 )COMMENT = '中国学校表';
 
 
 ##美国学校表
 create table IF NOT EXISTS `SYS_UNIVERSITY_USA`(
-                                                 `UNIVERS_ID` INTEGER COMMENT '学校ID',
-                                                 `UNIVERS_CHN` VARCHAR(100) COMMENT '中文名称',
-                                                 `UNIVERS_ENG` VARCHAR(100) NOT NULL COMMENT '英文名称',
-                                                 `UNIVERS_STATE` VARCHAR(10) COMMENT '学校所在州',
-                                                 `UNIVERS_STATE_ID` INTEGER COMMENT '学校所在州ID',
-                                                 `UNIVERS_CITY` VARCHAR(20) COMMENT '学校所在城市',
-                                                 `UNIVERS_ZIPCODE` INTEGER COMMENT '学校ZIPCODE',
-                                                 `START_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
-                                                 `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                                 `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                                 PRIMARY KEY (`UNIVERS_ID`)
+`UNIVERS_ID` INTEGER COMMENT '学校ID',
+`UNIVERS_CHN` VARCHAR(100) COMMENT '中文名称',
+`UNIVERS_ENG` VARCHAR(100) NOT NULL COMMENT '英文名称',
+`UNIVERS_STATE` VARCHAR(10) COMMENT '学校所在州',
+`UNIVERS_STATE_ID` INTEGER COMMENT '学校所在州ID',
+`UNIVERS_CITY` VARCHAR(20) COMMENT '学校所在城市',
+`UNIVERS_ZIPCODE` INTEGER COMMENT '学校ZIPCODE',
+`START_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`UNIVERS_ID`)
 )COMMENT = '美国学校表';
 
 
 ##英国学校表
 create table IF NOT EXISTS `SYS_UNIVERSITY_GBR`(
-                                                 `UNIVERS_ID` INTEGER COMMENT '学校ID',
-                                                 `UNIVERS_CHN` VARCHAR(100) COMMENT '中文名称',
-                                                 `UNIVERS_ENG` VARCHAR(100) NOT NULL COMMENT '英文名称',
-                                                 `UNIVERS_CITY` VARCHAR(20) COMMENT '学校所在城市',
-                                                 `UNIVERS_ZIPCODE` VARCHAR(10) COMMENT '学校ZIPCODE',
-                                                 `START_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
-                                                 `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                                 `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                                 PRIMARY KEY (`UNIVERS_ID`)
+`UNIVERS_ID` INTEGER COMMENT '学校ID',
+`UNIVERS_CHN` VARCHAR(100) COMMENT '中文名称',
+`UNIVERS_ENG` VARCHAR(100) NOT NULL COMMENT '英文名称',
+`UNIVERS_CITY` VARCHAR(20) COMMENT '学校所在城市',
+`UNIVERS_ZIPCODE` VARCHAR(10) COMMENT '学校ZIPCODE',
+`START_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`UNIVERS_ID`)
 )COMMENT = '英国学校表';
 
 
 ##加拿大学校表
 create table IF NOT EXISTS `SYS_UNIVERSITY_CAN`(
-                                                 `UNIVERS_ID` INTEGER COMMENT '学校ID',
-                                                 `UNIVERS_CHN` VARCHAR(100) COMMENT '中文名称',
-                                                 `UNIVERS_ENG` VARCHAR(100) NOT NULL COMMENT '英文名称',
-                                                 `UNIVERS_STATE` VARCHAR(40) COMMENT '学校所在省',
-                                                 `UNIVERS_CITY` VARCHAR(20) COMMENT '学校所在城市',
-                                                 `UNIVERS_ZIPCODE` VARCHAR(20) COMMENT '学校ZIPCODE',
-                                                 `START_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
-                                                 `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                                 `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                                 PRIMARY KEY (`UNIVERS_ID`)
+`UNIVERS_ID` INTEGER COMMENT '学校ID',
+`UNIVERS_CHN` VARCHAR(100) COMMENT '中文名称',
+`UNIVERS_ENG` VARCHAR(100) NOT NULL COMMENT '英文名称',
+`UNIVERS_STATE` VARCHAR(40) COMMENT '学校所在省',
+`UNIVERS_CITY` VARCHAR(20) COMMENT '学校所在城市',
+`UNIVERS_ZIPCODE` VARCHAR(20) COMMENT '学校ZIPCODE',
+`START_TIME` TIMESTAMP NOT NULL COMMENT '启用时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`UNIVERS_ID`)
 )COMMENT = '加拿大学校表';
 
 
 ##USNEWS学校排名表
 create table IF NOT EXISTS `SYS_UNIVERSITY_RANK_USNEWS`(
-                                                         `UNIVERS_ID` INTEGER COMMENT '学校ID',
-                                                         `UNIVERS_CHN` VARCHAR(200)  COMMENT '中文名称',
-                                                         `UNIVERS_ENG` VARCHAR(200) NOT NULL COMMENT '英文名称',
-                                                         `UNIVERS_COUNTRY` VARCHAR(10) NOT NULL COMMENT '学校国别',
-                                                         `UNIVERS_RANK` INTEGER COMMENT '学校排名',
-                                                         `RANK_POINT` FLOAT COMMENT '排名评分',
-                                                         `RANK_YEAR` INTEGER COMMENT '排名年份',
-                                                         `RANK_LAST_YEAR` INTEGER COMMENT '上年排名',
-                                                         PRIMARY KEY (`UNIVERS_ID`)
+`UNIVERS_ID` INTEGER COMMENT '学校ID',
+`UNIVERS_CHN` VARCHAR(200)  COMMENT '中文名称',
+`UNIVERS_ENG` VARCHAR(200) NOT NULL COMMENT '英文名称',
+`UNIVERS_COUNTRY` VARCHAR(10) NOT NULL COMMENT '学校国别',
+`UNIVERS_RANK` INTEGER COMMENT '学校排名',
+`RANK_POINT` FLOAT COMMENT '排名评分',
+`RANK_YEAR` INTEGER COMMENT '排名年份',
+`RANK_LAST_YEAR` INTEGER COMMENT '上年排名',
+PRIMARY KEY (`UNIVERS_ID`)
 )COMMENT = 'USNEWS学校排名表';
 
 
 ##TIMES学校排名表
 create table IF NOT EXISTS `SYS_UNIVERSITY_RANK_TIMES`(
-                                                        `UNIVERS_ID` INTEGER COMMENT '学校ID',
-                                                        `UNIVERS_CHN` VARCHAR(200)  COMMENT '中文名称',
-                                                        `UNIVERS_ENG` VARCHAR(200) NOT NULL COMMENT '英文名称',
-                                                        `UNIVERS_COUNTRY` VARCHAR(10) NOT NULL COMMENT '学校国别',
-                                                        `UNIVERS_RANK` INTEGER COMMENT '学校排名',
-                                                        `RANK_POINT` FLOAT COMMENT '排名评分',
-                                                        `RANK_YEAR` INTEGER COMMENT '排名年份',
-                                                        `RANK_LAST_YEAR` INTEGER COMMENT '上年排名',
-                                                        PRIMARY KEY (`UNIVERS_ID`)
+`UNIVERS_ID` INTEGER COMMENT '学校ID',
+`UNIVERS_CHN` VARCHAR(200)  COMMENT '中文名称',
+`UNIVERS_ENG` VARCHAR(200) NOT NULL COMMENT '英文名称',
+`UNIVERS_COUNTRY` VARCHAR(10) NOT NULL COMMENT '学校国别',
+`UNIVERS_RANK` INTEGER COMMENT '学校排名',
+`RANK_POINT` FLOAT COMMENT '排名评分',
+`RANK_YEAR` INTEGER COMMENT '排名年份',
+`RANK_LAST_YEAR` INTEGER COMMENT '上年排名',
+PRIMARY KEY (`UNIVERS_ID`)
 )COMMENT = 'TIMES学校排名表';
 
 
 ##QS学校排名表
 create table IF NOT EXISTS `SYS_UNIVERSITY_RANK_QS`(
-                                                     `UNIVERS_ID` INTEGER COMMENT '学校ID',
-                                                     `UNIVERS_CHN` VARCHAR(200)  COMMENT '中文名称',
-                                                     `UNIVERS_ENG` VARCHAR(200) NOT NULL COMMENT '英文名称',
-                                                     `UNIVERS_COUNTRY` VARCHAR(10) NOT NULL COMMENT '学校国别',
-                                                     `UNIVERS_RANK` INTEGER COMMENT '学校排名',
-                                                     `RANK_POINT` FLOAT COMMENT '排名评分',
-                                                     `RANK_YEAR` INTEGER COMMENT '排名年份',
-                                                     `RANK_LAST_YEAR` INTEGER COMMENT '上年排名',
-                                                     PRIMARY KEY (`UNIVERS_ID`)
+`UNIVERS_ID` INTEGER COMMENT '学校ID',
+`UNIVERS_CHN` VARCHAR(200)  COMMENT '中文名称',
+`UNIVERS_ENG` VARCHAR(200) NOT NULL COMMENT '英文名称',
+`UNIVERS_COUNTRY` VARCHAR(10) NOT NULL COMMENT '学校国别',
+`UNIVERS_RANK` INTEGER COMMENT '学校排名',
+`RANK_POINT` FLOAT COMMENT '排名评分',
+`RANK_YEAR` INTEGER COMMENT '排名年份',
+`RANK_LAST_YEAR` INTEGER COMMENT '上年排名',
+PRIMARY KEY (`UNIVERS_ID`)
 )COMMENT = 'QS学校排名表';
 
 
 ##世界五百强
 create table IF NOT EXISTS `SYS_TOP_COMPANY_WORLD`(
-                                                    `COMPANY_ID` INTEGER COMMENT '公司ID',
-                                                    `COMPANY_CHN` VARCHAR(200) COMMENT '中文名称',
-                                                    `COMPANY_ENG` VARCHAR(200) COMMENT '英文名称',
-                                                    `COMPANY_COUNTRY` VARCHAR(10) COMMENT '企业国别',
-                                                    `COMPANY_RANK`INTEGER COMMENT '企业排名',
-                                                    `RANK_YEAR`INTEGER COMMENT '排名年份',
-                                                    `RANK_LAST_YEAR`INTEGER COMMENT '上年排名',
-                                                    PRIMARY KEY (`COMPANY_ID`)
+`COMPANY_ID` INTEGER COMMENT '公司ID',
+`COMPANY_CHN` VARCHAR(200) COMMENT '中文名称',
+`COMPANY_ENG` VARCHAR(200) COMMENT '英文名称',
+`COMPANY_COUNTRY` VARCHAR(10) COMMENT '企业国别',
+`COMPANY_RANK`INTEGER COMMENT '企业排名',
+`RANK_YEAR`INTEGER COMMENT '排名年份',
+`RANK_LAST_YEAR`INTEGER COMMENT '上年排名',
+PRIMARY KEY (`COMPANY_ID`)
 )COMMENT = '世界五百强';
 
 
 ##标签映射表
 create table IF NOT EXISTS `SYS_LABEL_MAP`(
-                                            `LAB_CODE` varchar(20) NOT NULL COMMENT '标签编号',
-                                            `TARGET_ID` int(11) NOT NULL COMMENT '目标ID',
-                                            `TARGET_TYPE` int(11) NOT NULL COMMENT '目标类型',
-                                            `RELA_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '关联时间',
-                                            PRIMARY KEY (`LAB_CODE`,`TARGET_ID`)
+  `LABEL_ID` INT AUTO_INCREMENT COMMENT '主键ID',
+  `LAB_CODE` varchar(20) NOT NULL COMMENT '标签编号',
+  `TARGET_ID` int(11) NOT NULL COMMENT '目标ID',
+  `TARGET_TYPE` int(11) NOT NULL COMMENT '目标类型',
+  `RELA_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '关联时间',
+  PRIMARY KEY (`LABEL_ID`)
 )COMMENT = '标签映射表';
 
 
 ##媒体文件名称表
 create table IF NOT EXISTS `SYS_MEDIA_DOCUMENT`(
-                                                 `DOCU_ID` INT AUTO_INCREMENT COMMENT '文件编号',
-                                                 `DOCU_LOCAL_ID` VARCHAR(100) NOT NULL COMMENT '本地文件编号',
-                                                 `DOCU_LOCAL_NAME` VARCHAR(100) NOT NULL COMMENT '文件名称',
-                                                 `DOCU_LOCAL_FORMAT` VARCHAR(10) NOT NULL COMMENT '文件格式',
-                                                 `DOCU_LOCAL_SIZE` VARCHAR(100) NOT NULL COMMENT '文件大小(MB)',
-                                                 `DOCU_SERVER_ALI_ID` VARCHAR(100)  COMMENT '服务器1文件编号',
-                                                 `DOCU_SERVER_AWS_ID` VARCHAR(100)  COMMENT '服务器2文件编号',
-                                                 `CREATE_TIME` TIMESTAMP NOT NULL COMMENT '生成时间',
-                                                 `UPLOAD_USER_ID` INTEGER NOT NULL COMMENT '上传人ID',
-                                                 `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                                 `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                                 PRIMARY KEY (`DOCU_ID`)
+`DOCU_ID` INT AUTO_INCREMENT COMMENT '主键ID',
+`DOCU_LOCAL_ID` VARCHAR(100) NOT NULL COMMENT '本地文件编号',
+`DOCU_LOCAL_NAME` VARCHAR(100) NOT NULL COMMENT '文件名称',
+`DOCU_LOCAL_FORMAT` VARCHAR(10) NOT NULL COMMENT '文件格式',
+`DOCU_LOCAL_SIZE` VARCHAR(100) NOT NULL COMMENT '文件大小(MB)',
+`DOCU_SERVER_ALI_ID` VARCHAR(100)  COMMENT '服务器1文件编号',
+`DOCU_SERVER_AWS_ID` VARCHAR(100)  COMMENT '服务器2文件编号',
+`CREATE_TIME` TIMESTAMP NOT NULL COMMENT '生成时间',
+`UPLOAD_USER_ID` INTEGER NOT NULL COMMENT '上传人ID',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`DOCU_ID`)
 )COMMENT = '媒体文件名称表';
 
 
 #######################################视图###############################################
-CREATE OR REPLACE VIEW `COUNTRY_LOCATION` AS
-  SELECT
-    A.`REGION_ID`   AS `REGION_ID`,
-    A.`REGION_NUM`  AS `REGION_NUM`,
-    A.`REGION_FULLCHN`  AS `REGION_NAME`,
-    'CHN'  AS `COUNTRY` ,
-    '中国'  AS `COUNTRY_CHN`
-  FROM youthchina.`SYS_CHN_REGION` A
-  UNION
-  SELECT
-    B.`REGION_ID`   AS `REGION_ID`,
-    B.`ZIP_CODE`    AS `REGION_NUM`,
-    B.`REGION_ENG`  AS `REGION_NAME`,
-    'USA'  AS `COUNTRY`,
-    '美国'  AS `COUNTRY_CHN`
-  FROM youthchina.`SYS_USA_ZIPCODE` B;
+CREATE OR REPLACE VIEW `COUNTRY_LOCATION` AS 
+SELECT 
+ A.`REGION_ID`   AS `REGION_ID`,
+ A.`REGION_NUM`  AS `REGION_NUM`,
+ A.`REGION_FULLCHN`  AS `REGION_NAME`,
+ 'CHN'  AS `COUNTRY` ,
+ '中国'  AS `COUNTRY_CHN`
+FROM youthchina.`SYS_CHN_REGION` A
+UNION
+SELECT 
+ B.`REGION_ID`   AS `REGION_ID`,
+ B.`ZIP_CODE`    AS `REGION_NUM`,
+ B.`REGION_ENG`  AS `REGION_NAME`,
+ 'USA'  AS `COUNTRY`,
+ '美国'  AS `COUNTRY_CHN`   
+FROM youthchina.`SYS_USA_ZIPCODE` B;
 
 
 
-CREATE OR REPLACE VIEW `COUNTRY_UNIVERSITY` AS
-  SELECT
-    A.`UNIVERS_ID`   AS `UNIVERS_ID`,
-    A.`UNIVERS_CHN`  AS `UNIVERS_NAME`,
-    'CHN'  AS `COUNTRY`
-  FROM youthchina.`SYS_UNIVERSITY_CHN` A
-  UNION
-  SELECT
-    A.`UNIVERS_ID`   AS `UNIVERS_ID`,
-    A.`UNIVERS_ENG`  AS `UNIVERS_NAME`,
-    'USA'  AS `COUNTRY`
-  FROM youthchina.`SYS_UNIVERSITY_USA` A
-  UNION
-  SELECT
-    A.`UNIVERS_ID`   AS `UNIVERS_ID`,
-    A.`UNIVERS_ENG`  AS `UNIVERS_NAME`,
-    'GBR'  AS `COUNTRY`
-  FROM youthchina.`SYS_UNIVERSITY_GBR` A
-  UNION
-  SELECT
-    A.`UNIVERS_ID`   AS `UNIVERS_ID`,
-    A.`UNIVERS_ENG`  AS `UNIVERS_NAME`,
-    'CAN'  AS `COUNTRY`
-  FROM youthchina.`SYS_UNIVERSITY_CAN` A;
+CREATE OR REPLACE VIEW `COUNTRY_UNIVERSITY` AS 
+SELECT 
+ A.`UNIVERS_ID`   AS `UNIVERS_ID`,
+ A.`UNIVERS_CHN`  AS `UNIVERS_NAME`,
+ 'CHN'  AS `COUNTRY`  
+FROM youthchina.`SYS_UNIVERSITY_CHN` A
+UNION
+SELECT 
+ A.`UNIVERS_ID`   AS `UNIVERS_ID`,
+ A.`UNIVERS_ENG`  AS `UNIVERS_NAME`,
+ 'USA'  AS `COUNTRY`  
+FROM youthchina.`SYS_UNIVERSITY_USA` A
+UNION
+SELECT 
+ A.`UNIVERS_ID`   AS `UNIVERS_ID`,
+ A.`UNIVERS_ENG`  AS `UNIVERS_NAME`,
+ 'GBR'  AS `COUNTRY`  
+FROM youthchina.`SYS_UNIVERSITY_GBR` A
+UNION
+SELECT 
+ A.`UNIVERS_ID`   AS `UNIVERS_ID`,
+ A.`UNIVERS_ENG`  AS `UNIVERS_NAME`,
+ 'CAN'  AS `COUNTRY`  
+FROM youthchina.`SYS_UNIVERSITY_CAN` A;
 
 
 
@@ -641,362 +650,362 @@ WHERE A.MAJOR_LEVEL = 3;
 
 ##应聘者教育信息表
 create table IF NOT EXISTS `STU_EDU_INFO` (
-                                            `EDU_ID`              INT               AUTO_INCREMENT
-                                              COMMENT '教育ID',
-                                            `EDU_DEGREE`          INTEGER      NOT NULL
-                                              COMMENT '学历编号',
-                                            `EDU_SCHOOL_ID` INTEGER NOT NULL
-                                              COMMENT '学校ID',
-                                            `EDU_MAJOR`           VARCHAR(10)      NOT NULL
-                                              COMMENT '专业',
-                                            `EDU_COLLEGE`         VARCHAR(200) COMMENT '学院（选填）',
-                                            `EDU_GPA`             FLOAT COMMENT 'GPA（选填）',
-                                            `EDU_DIPLOMA_TYPE`    INTEGER COMMENT '学位类型（选填）',
-                                            `EDU_START`           DATE         NOT NULL
-                                              COMMENT '入学时间',
-                                            `EDU_END`             DATE         NOT NULL
-                                              COMMENT '毕业时间',
-                                            `STU_ID`              INTEGER      NOT NULL
-                                              COMMENT '应聘者ID',
-                                            `IS_DELETE`           INTEGER      DEFAULT '0'
-                                              COMMENT '是否删除',
-                                            `IS_DELETE_TIME`      TIMESTAMP    NULL DEFAULT NULL
-                                              COMMENT '删除时间',
-                                            PRIMARY KEY (`EDU_ID`)
+  `EDU_ID`              INT               AUTO_INCREMENT
+  COMMENT '教育ID',
+  `EDU_DEGREE`          INTEGER      NOT NULL
+  COMMENT '学历编号',
+  `EDU_SCHOOL_ID` INTEGER NOT NULL
+  COMMENT '学校ID',
+  `EDU_MAJOR`           VARCHAR(10)      NOT NULL
+  COMMENT '专业',
+  `EDU_COLLEGE`         VARCHAR(200) COMMENT '学院（选填）',
+  `EDU_GPA`             FLOAT COMMENT 'GPA（选填）',
+  `EDU_DIPLOMA_TYPE`    INTEGER COMMENT '学位类型（选填）',
+  `EDU_START`           DATE         NOT NULL
+  COMMENT '入学时间',
+  `EDU_END`             DATE         NOT NULL
+  COMMENT '毕业时间',
+  `STU_ID`              INTEGER      NOT NULL
+  COMMENT '应聘者ID',
+  `IS_DELETE`           INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`      TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`EDU_ID`)
 )
   COMMENT = '应聘者教育信息表';
-
+  
 
 create table IF NOT EXISTS `STU_SUB_INFO` (
-                                            `SUB_ID`          INT            AUTO_INCREMENT
-                                              COMMENT '附加信息ID',
-                                            `SUB_COURSE`      VARCHAR(500) COMMENT '相关课程信息',
-                                            `SUB_HONOR`       VARCHAR(200) COMMENT '相关荣誉',
-                                            `SUB_AWARD`       VARCHAR(200) COMMENT '相关奖项',
-                                            `SUB_SKILL`       VARCHAR(200) COMMENT '相关技能',
-                                            `SUB_FOREIGN`     VARCHAR(200) COMMENT '外语语言',
-                                            `SUB_INTEREST`    VARCHAR(200) COMMENT '兴趣特长',
-                                            `SUB_INTRODUCTION`    VARCHAR(500) COMMENT '自我介绍',
-                                            `STU_ID`          INTEGER   NOT NULL
-                                              COMMENT '用户ID',
-                                            `IS_DELETE`       INTEGER   DEFAULT '0'
-                                              COMMENT '是否删除',
-                                            `IS_DELETE_TIME`  TIMESTAMP NULL DEFAULT NULL
-                                              COMMENT '删除时间',
-                                            PRIMARY KEY (`SUB_ID`)
+  `SUB_ID`          INT            AUTO_INCREMENT
+  COMMENT '附加信息ID',
+  `SUB_COURSE`      VARCHAR(500) COMMENT '相关课程信息',
+  `SUB_HONOR`       VARCHAR(200) COMMENT '相关荣誉',
+  `SUB_AWARD`       VARCHAR(200) COMMENT '相关奖项',
+  `SUB_SKILL`       VARCHAR(200) COMMENT '相关技能',
+  `SUB_FOREIGN`     VARCHAR(200) COMMENT '外语语言',
+  `SUB_INTEREST`    VARCHAR(200) COMMENT '兴趣特长',
+  `SUB_INTRODUCTION`    VARCHAR(500) COMMENT '自我介绍',
+  `STU_ID`          INTEGER   NOT NULL
+  COMMENT '用户ID',
+  `IS_DELETE`       INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`  TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`SUB_ID`)
 )
   COMMENT = '应聘者附加信息表';
 
 
 ##应聘者技能证书表
 create table IF NOT EXISTS `STU_CERTIFICATE`(
-                                              `CERTIFICATE_ID` INT AUTO_INCREMENT
-                                                COMMENT '证书ID',
-                                              `CERTIFICATE_NAME` VARCHAR(200) NOT NULL
-                                                COMMENT '证书名称',
-                                              `CERTIFICATE_INSTI` VARCHAR(200) NOT NULL
-                                                COMMENT '证书颁发机构',
-                                              `INSTI_COUNTRY` VARCHAR(10) NOT NULL
-                                                COMMENT '机构国别',
-                                              `CERTIFICATE_GRANT_DATE` DATE NOT NULL
-                                                COMMENT '获得时间',
-                                              `CERTIFICATE_EXPIR_DATE` DATE
-                                                COMMENT '到期时间',
-                                              `DOCU_LOCAL_ID` VARCHAR(100) DEFAULT NULL
-                                                COMMENT '本地文件编号',
-                                              `STU_ID` INTEGER NOT NULL
-                                                COMMENT '用户ID',
-                                              `IS_DELETE`       INTEGER   DEFAULT '0'
-                                                COMMENT '是否删除',
-                                              `IS_DELETE_TIME`  TIMESTAMP NULL DEFAULT NULL
-                                                COMMENT '删除时间',
-                                              PRIMARY KEY (`CERTIFICATE_ID`)
+  `CERTIFICATE_ID` INT AUTO_INCREMENT 
+  COMMENT '证书ID',
+  `CERTIFICATE_NAME` VARCHAR(200) NOT NULL 
+  COMMENT '证书名称',
+  `CERTIFICATE_INSTI` VARCHAR(200) NOT NULL 
+  COMMENT '证书颁发机构',
+  `INSTI_COUNTRY` VARCHAR(10) NOT NULL 
+  COMMENT '机构国别',
+  `CERTIFICATE_GRANT_DATE` DATE NOT NULL 
+  COMMENT '获得时间',
+  `CERTIFICATE_EXPIR_DATE` DATE 
+  COMMENT '到期时间',
+  `DOCU_LOCAL_ID` VARCHAR(100) DEFAULT NULL 
+  COMMENT '本地文件编号',
+  `STU_ID` INTEGER NOT NULL 
+  COMMENT '用户ID',
+  `IS_DELETE`       INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`  TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+PRIMARY KEY (`CERTIFICATE_ID`)
 )
-  COMMENT = '技能证书表';
+COMMENT = '技能证书表';
 
 
 ##应聘者相关项目表
 create table IF NOT EXISTS `STU_PROJECT` (
-                                           `PROJ_ID`           INT               AUTO_INCREMENT
-                                             COMMENT '项目ID',
-                                           `PROJ_INSTITUTE`         VARCHAR(200)
-                                             COMMENT '项目所属机构',
-                                           `INSTI_COUNTRY`         VARCHAR(10)
-                                             COMMENT '机构国别',
-                                           `PROJ_NAME`         VARCHAR(200) NOT NULL
-                                             COMMENT '项目名称',
-                                           `PROJ_ROLE`         VARCHAR(200) NOT NULL
-                                             COMMENT '担任角色',
-                                           `PROJ_START_TIME`   DATE         NOT NULL
-                                             COMMENT '项目开始时间',
-                                           `PROJ_END_TIME`     DATE         NOT NULL
-                                             COMMENT '项目结束时间',
-                                           `PROJ_DELIVER`      VARCHAR(200)
-                                             COMMENT '项目成果',
-                                           `DELIVER_PUBLISH`   INTEGER
-                                             COMMENT '成果是否发表',
-                                           `DELIVER_PUB_INSTI` VARCHAR(200)
-                                             COMMENT '发表机构',
-                                           `STU_ID`            INTEGER      NOT NULL
-                                             COMMENT '应聘者ID',
-                                           `IS_DELETE`         INTEGER      DEFAULT '0'
-                                             COMMENT '是否删除',
-                                           `IS_DELETE_TIME`    TIMESTAMP    NULL DEFAULT NULL
-                                             COMMENT '删除时间',
-                                           PRIMARY KEY (`PROJ_ID`)
+  `PROJ_ID`           INT               AUTO_INCREMENT
+  COMMENT '项目ID',
+  `PROJ_INSTITUTE`         VARCHAR(200) 
+  COMMENT '项目所属机构',
+  `INSTI_COUNTRY`         VARCHAR(10)
+  COMMENT '机构国别',
+  `PROJ_NAME`         VARCHAR(200) NOT NULL
+  COMMENT '项目名称',
+  `PROJ_ROLE`         VARCHAR(200) NOT NULL
+  COMMENT '担任角色',
+  `PROJ_START_TIME`   DATE         NOT NULL
+  COMMENT '项目开始时间',
+  `PROJ_END_TIME`     DATE         NOT NULL
+  COMMENT '项目结束时间',
+  `PROJ_DELIVER`      VARCHAR(200) 
+  COMMENT '项目成果',
+  `DELIVER_PUBLISH`   INTEGER
+  COMMENT '成果是否发表',
+  `DELIVER_PUB_INSTI` VARCHAR(200) 
+  COMMENT '发表机构',
+  `STU_ID`            INTEGER      NOT NULL
+  COMMENT '应聘者ID',
+  `IS_DELETE`         INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`    TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`PROJ_ID`)
 )
   COMMENT = '相关项目表';
 
 
 ##应聘者工作经验表
 create table IF NOT EXISTS `STU_WORK` (
-                                        `WORK_ID`         INT               AUTO_INCREMENT
-                                          COMMENT '工作ID',
-                                        `WORK_COMPANY`    VARCHAR(200) NOT NULL
-                                          COMMENT '工作公司名称',
-                                        `WORK_LOCATION`   INTEGER
-                                          COMMENT '工作所在城市',
-                                        `WORK_POSITION`   VARCHAR(200) NOT NULL
-                                          COMMENT '工作职位',
-                                        `WORK_SECTOR`     VARCHAR(200)
-                                          COMMENT '所在部门（选填）',
-                                        `WORK_START_TIME` DATE         NOT NULL
-                                          COMMENT '开始时间',
-                                        `WORK_END_TIME`   DATE         NOT NULL
-                                          COMMENT '结束时间',
-                                        `WORK_DUTY`       VARCHAR(200) NOT NULL
-                                          COMMENT '工作内容',
-                                        `WORK_NATURE`     INTEGER      NOT NULL
-                                          COMMENT '工作性质',
-                                        `STU_ID`          INTEGER      NOT NULL
-                                          COMMENT '应聘者ID',
-                                        `IS_DELETE`       INTEGER      DEFAULT '0'
-                                          COMMENT '是否删除',
-                                        `IS_DELETE_TIME`  TIMESTAMP    NULL DEFAULT NULL
-                                          COMMENT '删除时间',
-                                        PRIMARY KEY (`WORK_ID`)
+  `WORK_ID`         INT               AUTO_INCREMENT
+  COMMENT '工作ID',
+  `WORK_COMPANY`    VARCHAR(200) NOT NULL
+  COMMENT '工作公司名称',
+  `WORK_LOCATION`   INTEGER
+  COMMENT '工作所在城市',
+  `WORK_POSITION`   VARCHAR(200) NOT NULL
+  COMMENT '工作职位',
+  `WORK_SECTOR`     VARCHAR(200) 
+  COMMENT '所在部门（选填）',
+  `WORK_START_TIME` DATE         NOT NULL
+  COMMENT '开始时间',
+  `WORK_END_TIME`   DATE         NOT NULL
+  COMMENT '结束时间',
+  `WORK_DUTY`       VARCHAR(200) NOT NULL
+  COMMENT '工作内容',
+  `WORK_NATURE`     INTEGER      NOT NULL
+  COMMENT '工作性质',
+  `STU_ID`          INTEGER      NOT NULL
+  COMMENT '应聘者ID',
+  `IS_DELETE`       INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`  TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`WORK_ID`)
 )
   COMMENT = '工作经验表';
 
 
 ##应聘者组织活动表
 create table IF NOT EXISTS `STU_ACTIVITY` (
-                                            `ACT_ID`           INT               AUTO_INCREMENT
-                                              COMMENT '活动ID',
-                                            `ACT_NAME`         VARCHAR(200) NOT NULL
-                                              COMMENT '活动名称',
-                                            `ACT_ORGANIZATION` VARCHAR(200)
-                                              COMMENT '组织活动单位',
-                                            `ORG_COUNTRY`    VARCHAR(10)
-                                              COMMENT '单位国别',
-                                            `ACT_ROLE`         VARCHAR(200) NOT NULL
-                                              COMMENT '担任角色',
-                                            `ACT_START_TIME`   DATE         NOT NULL
-                                              COMMENT '开始时间',
-                                            `ACT_END_TIME`     DATE         NOT NULL
-                                              COMMENT '结束时间',
-                                            `ACT_DETAIL`       VARCHAR(200) NOT NULL
-                                              COMMENT '活动内容',
-                                            `STU_ID`           INTEGER      NOT NULL
-                                              COMMENT '应聘者ID',
-                                            `IS_DELETE`        INTEGER      DEFAULT '0'
-                                              COMMENT '是否删除',
-                                            `IS_DELETE_TIME`   TIMESTAMP    NULL DEFAULT NULL
-                                              COMMENT '删除时间',
-                                            PRIMARY KEY (`ACT_ID`)
+  `ACT_ID`           INT               AUTO_INCREMENT
+  COMMENT '活动ID',
+  `ACT_NAME`         VARCHAR(200) NOT NULL
+  COMMENT '活动名称',
+  `ACT_ORGANIZATION` VARCHAR(200) 
+  COMMENT '组织活动单位',
+  `ORG_COUNTRY`    VARCHAR(10) 
+  COMMENT '单位国别',
+  `ACT_ROLE`         VARCHAR(200) NOT NULL
+  COMMENT '担任角色',
+  `ACT_START_TIME`   DATE         NOT NULL
+  COMMENT '开始时间',
+  `ACT_END_TIME`     DATE         NOT NULL
+  COMMENT '结束时间',
+  `ACT_DETAIL`       VARCHAR(200) NOT NULL
+  COMMENT '活动内容',
+  `STU_ID`           INTEGER      NOT NULL
+  COMMENT '应聘者ID',
+  `IS_DELETE`        INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`   TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`ACT_ID`)
 )
   COMMENT = '组织活动表';
 
 
 create table IF NOT EXISTS `STU_JOB_COLLECT` (
-                                               `COLLECT_ID`     INT            AUTO_INCREMENT
-                                                 COMMENT '收藏ID',
-                                               `JOB_ID`         INTEGER   NOT NULL
-                                                 COMMENT '职位ID',
-                                               `JOB_COLL_TIME`  TIMESTAMP     NOT NULL
-                                                 COMMENT '职位收藏时间',
-                                               `STU_ID`         INTEGER   NOT NULL
-                                                 COMMENT '用户ID',
-                                               `IS_DELETE`      INTEGER   DEFAULT '0'
-                                                 COMMENT '是否删除',
-                                               `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
-                                                 COMMENT '删除时间',
-                                               PRIMARY KEY (`COLLECT_ID`)
+  `COLLECT_ID`     INT            AUTO_INCREMENT
+  COMMENT '收藏ID',
+  `JOB_ID`         INTEGER   NOT NULL
+  COMMENT '职位ID',
+  `JOB_COLL_TIME`  TIMESTAMP     NOT NULL
+  COMMENT '职位收藏时间',
+  `STU_ID`         INTEGER   NOT NULL
+  COMMENT '用户ID',
+  `IS_DELETE`      INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`COLLECT_ID`)
 )
   COMMENT = '职位信息收藏表';
 
 
 create table IF NOT EXISTS `STU_COMP_COLLECT` (
-                                                `COLLECT_ID`        INT   AUTO_INCREMENT
-                                                  COMMENT '收藏ID',
-                                                `COMPANY_ID`        INTEGER   NOT NULL
-                                                  COMMENT '企业ID',
-                                                `COMPANY_COLL_TIME` TIMESTAMP      NOT NULL
-                                                  COMMENT '企业收藏时间',
-                                                `STU_ID`            INTEGER   NOT NULL
-                                                  COMMENT '用户ID',
-                                                `IS_DELETE`         INTEGER   DEFAULT '0'
-                                                  COMMENT '是否删除',
-                                                `IS_DELETE_TIME`    TIMESTAMP NULL DEFAULT NULL
-                                                  COMMENT '删除时间',
-                                                PRIMARY KEY (`COLLECT_ID`)
+  `COLLECT_ID`        INT   AUTO_INCREMENT
+  COMMENT '收藏ID',
+  `COMPANY_ID`        INTEGER   NOT NULL
+  COMMENT '企业ID',
+  `COMPANY_COLL_TIME` TIMESTAMP      NOT NULL
+  COMMENT '企业收藏时间',
+  `STU_ID`            INTEGER   NOT NULL
+  COMMENT '用户ID',
+  `IS_DELETE`         INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`    TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`COLLECT_ID`)
 )
   COMMENT = '企业信息收藏表';
 
 
 create table IF NOT EXISTS `STU_ADVAN_LABEL` (
-                                               `LABEL_ID`       INT    AUTO_INCREMENT
-                                                 COMMENT '标签ID',
-                                               `LABEL_CODE`      VARCHAR(20)   NOT NULL
-                                                 COMMENT '优势标签',
-                                               `STU_ID`         INTEGER   NOT NULL
-                                                 COMMENT '用户ID',
-                                               `IS_DELETE`      INTEGER   DEFAULT '0'
-                                                 COMMENT '是否删除',
-                                               `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
-                                                 COMMENT '删除时间',
-                                               PRIMARY KEY (`LABEL_ID`)
+  `LABEL_ID`       INT    AUTO_INCREMENT
+  COMMENT '标签ID',
+  `LABEL_CODE`      VARCHAR(20)   NOT NULL
+  COMMENT '优势标签',
+  `STU_ID`         INTEGER   NOT NULL
+  COMMENT '用户ID',
+  `IS_DELETE`      INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`LABEL_ID`)
 )
   COMMENT = '应聘者优势标签表';
 
 
 ##应聘者意向城市表
 create table IF NOT EXISTS `STU_PREFER_CITY` (
-                                               `PRE_CITY_ID`    INT    AUTO_INCREMENT
-                                                 COMMENT '意向ID',
-                                               `PRE_REGION_NUM` INTEGER   NOT NULL
-                                                 COMMENT '意向城市',
-                                               `STU_ID`         INTEGER   NOT NULL
-                                                 COMMENT '用户ID',
-                                               `IS_DELETE`      INTEGER   DEFAULT '0'
-                                                 COMMENT '是否删除',
-                                               `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
-                                                 COMMENT '删除时间',
-                                               PRIMARY KEY (`PRE_CITY_ID`)
+  `PRE_CITY_ID`    INT    AUTO_INCREMENT
+  COMMENT '意向ID',
+  `PRE_REGION_NUM` INTEGER   NOT NULL
+  COMMENT '意向城市',
+  `STU_ID`         INTEGER   NOT NULL
+  COMMENT '用户ID',
+  `IS_DELETE`      INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`PRE_CITY_ID`)
 )
   COMMENT = '应聘者意向城市表';
 
 
 create table IF NOT EXISTS `STU_PREFER_INDUSTRY` (
-                                                   `PRE_IND_ID`     INT    AUTO_INCREMENT
-                                                     COMMENT '意向ID',
-                                                   `PRE_IND_CODE`    VARCHAR(10)   NOT NULL
-                                                     COMMENT '意向行业',
-                                                   `STU_ID`         INTEGER   NOT NULL
-                                                     COMMENT '用户ID',
-                                                   `IS_DELETE`      INTEGER   DEFAULT '0'
-                                                     COMMENT '是否删除',
-                                                   `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
-                                                     COMMENT '删除时间',
-                                                   PRIMARY KEY (`PRE_IND_ID`)
+  `PRE_IND_ID`     INT    AUTO_INCREMENT
+  COMMENT '意向ID',
+  `PRE_IND_CODE`    VARCHAR(10)   NOT NULL
+  COMMENT '意向行业',
+  `STU_ID`         INTEGER   NOT NULL
+  COMMENT '用户ID',
+  `IS_DELETE`      INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`PRE_IND_ID`)
 )
   COMMENT = '应聘者意向行业表';
 
 
 ##应聘者意向职位表
 create table IF NOT EXISTS `STU_PREFER_PROF` (
-                                               `PRE_PROF_ID`    INT    AUTO_INCREMENT
-                                                 COMMENT '意向ID',
-                                               `PRE_PROF_CODE`   VARCHAR(20)   NOT NULL
-                                                 COMMENT '意向职位代码',
-                                               `PRE_AVAIL_TIME` DATE      NOT NULL
-                                                 COMMENT '预计到岗时间',
-                                               `STU_ID`         INTEGER   NOT NULL
-                                                 COMMENT '用户ID',
-                                               `IS_DELETE`      INTEGER   DEFAULT '0'
-                                                 COMMENT '是否删除',
-                                               `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
-                                                 COMMENT '删除时间',
-                                               PRIMARY KEY (`PRE_PROF_ID`)
+  `PRE_PROF_ID`    INT    AUTO_INCREMENT
+  COMMENT '意向ID',
+  `PRE_PROF_CODE`   VARCHAR(20)   NOT NULL
+  COMMENT '意向职位代码',
+  `PRE_AVAIL_TIME` DATE      NOT NULL
+  COMMENT '预计到岗时间',
+  `STU_ID`         INTEGER   NOT NULL
+  COMMENT '用户ID',
+  `IS_DELETE`      INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`PRE_PROF_ID`)
 )
   COMMENT = '应聘者意向职位表';
 
 
 ##应聘者意向工作类型表
 create table IF NOT EXISTS `STU_PREFER_JOB_TYPE` (
-                                                   `PRE_TYPE_ID`    INT    AUTO_INCREMENT
-                                                     COMMENT '意向ID',
-                                                   `JOB_TYPE`  INTEGER   NOT NULL
-                                                     COMMENT '职位性质',
-                                                   `PRE_PROF_ID` INTEGER    NOT NULL
-                                                     COMMENT '意向职位ID',
-                                                   `STU_ID`         INTEGER   NOT NULL
-                                                     COMMENT '用户ID',
-                                                   `IS_DELETE`      INTEGER   DEFAULT '0'
-                                                     COMMENT '是否删除',
-                                                   `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
-                                                     COMMENT '删除时间',
-                                                   PRIMARY KEY (`PRE_TYPE_ID`)
+  `PRE_TYPE_ID`    INT    AUTO_INCREMENT
+  COMMENT '意向ID',
+  `JOB_TYPE`  INTEGER   NOT NULL
+  COMMENT '职位性质',
+  `PRE_PROF_ID` INTEGER    NOT NULL
+  COMMENT '意向职位ID',
+  `STU_ID`         INTEGER   NOT NULL
+  COMMENT '用户ID',
+  `IS_DELETE`      INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`PRE_TYPE_ID`)
 )
   COMMENT = '应聘者意向工作类型表';
 
 
 ##应聘者意向薪资表
 create table IF NOT EXISTS `STU_PREFER_SALARY` (
-                                                 `PRE_SALA_ID`    INT    AUTO_INCREMENT
-                                                   COMMENT '薪资ID',
-                                                 `PRE_SALA_FLOOR` INTEGER
-                                                   COMMENT '意向薪资下限',
-                                                 `PRE_SALA_CAP`   INTEGER
-                                                   COMMENT '意向薪资上限',
-                                                 `PRE_PROF_ID` INTEGER NOT NULL
-                                                   COMMENT '意向职位ID',
-                                                 `STU_ID`         INTEGER   NOT NULL
-                                                   COMMENT '用户ID',
-                                                 `IS_DELETE`      INTEGER   DEFAULT '0'
-                                                   COMMENT '是否删除',
-                                                 `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
-                                                   COMMENT '删除时间',
-                                                 PRIMARY KEY (`PRE_SALA_ID`)
+  `PRE_SALA_ID`    INT    AUTO_INCREMENT
+  COMMENT '薪资ID',
+  `PRE_SALA_FLOOR` INTEGER 
+  COMMENT '意向薪资下限',
+  `PRE_SALA_CAP`   INTEGER 
+  COMMENT '意向薪资上限',
+  `PRE_PROF_ID` INTEGER NOT NULL 
+  COMMENT '意向职位ID',
+  `STU_ID`         INTEGER   NOT NULL
+  COMMENT '用户ID',
+  `IS_DELETE`      INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`PRE_SALA_ID`)
 )
   COMMENT = '应聘者意向薪资表';
 
 
 create table IF NOT EXISTS `STU_INTRODUCTION_VIDEO` (
-                                                      `INTRO_VIDEO_ID`   INT    AUTO_INCREMENT
-                                                        COMMENT '视频ID',
-                                                      `INTRO_VIDEO_PATH` VARCHAR(400)   NOT NULL
-                                                        COMMENT '视频存储路径',
-                                                      `STU_ID`           INTEGER   NOT NULL
-                                                        COMMENT '用户ID',
-                                                      `IS_DELETE`        INTEGER   DEFAULT '0'
-                                                        COMMENT '是否删除',
-                                                      `IS_DELETE_TIME`   TIMESTAMP NULL DEFAULT NULL
-                                                        COMMENT '删除时间',
-                                                      PRIMARY KEY (`INTRO_VIDEO_ID`)
+  `INTRO_VIDEO_ID`   INT    AUTO_INCREMENT
+  COMMENT '视频ID',
+  `INTRO_VIDEO_PATH` VARCHAR(400)   NOT NULL
+  COMMENT '视频存储路径',
+  `STU_ID`           INTEGER   NOT NULL
+  COMMENT '用户ID',
+  `IS_DELETE`        INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`   TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`INTRO_VIDEO_ID`)
 )
   COMMENT = '应聘者介绍视频表';
 
 
 create table IF NOT EXISTS `STU_RESUME_TEMPLATE` (
-                                                   `TEMPLATE_ID`    INT     AUTO_INCREMENT
-                                                     COMMENT '模板ID',
-                                                   `TEMPLATE_PATH`  VARCHAR(400) NOT NULL
-                                                     COMMENT '模板存储路径',
-                                                   `STU_ID`         INTEGER      NOT NULL
-                                                     COMMENT '用户ID',
-                                                   `TEMPLATE_TIME`  TIMESTAMP    NOT NULL
-                                                     COMMENT '模板生成时间',
-                                                   `IS_DELETE`      INTEGER      DEFAULT '0'
-                                                     COMMENT '是否删除',
-                                                   `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
-                                                     COMMENT '删除时间',
-                                                   PRIMARY KEY (`TEMPLATE_ID`)
+  `TEMPLATE_ID`    INT     AUTO_INCREMENT
+  COMMENT '模板ID',
+  `TEMPLATE_PATH`  VARCHAR(400) NOT NULL
+  COMMENT '模板存储路径',
+  `STU_ID`         INTEGER      NOT NULL
+  COMMENT '用户ID',
+  `TEMPLATE_TIME`  TIMESTAMP    NOT NULL
+  COMMENT '模板生成时间',
+  `IS_DELETE`      INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`TEMPLATE_ID`)
 )
   COMMENT = '应聘者简历模板表';
 
 
 ##简历表
 create table IF NOT EXISTS `STU_RESUME`(
-                                         `RESUME_ID` INT AUTO_INCREMENT COMMENT '主键ID',
-                                         `RESUME_NAME` VARCHAR(200) NOT NULL COMMENT '简历文件名',
-                                         `DOCU_LOCAL_ID` VARCHAR(100) NOT NULL COMMENT '本地文件编号',
-                                         `GENERATE_METHOD` INTEGER NOT NULL COMMENT '简历生成方式',
-                                         `GENERATE_TIME` TIMESTAMP NOT NULL COMMENT '简历生成时间',
-                                         `STU_ID` INTEGER NOT NULL COMMENT '用户ID',
-                                         `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                         `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                         PRIMARY KEY (`RESUME_ID`)
+`RESUME_ID` INT AUTO_INCREMENT COMMENT '主键ID',
+`RESUME_NAME` VARCHAR(200) NOT NULL COMMENT '简历文件名',
+`DOCU_LOCAL_ID` VARCHAR(100) NOT NULL COMMENT '本地文件编号',
+`GENERATE_METHOD` INTEGER NOT NULL COMMENT '简历生成方式', 
+`GENERATE_TIME` TIMESTAMP NOT NULL COMMENT '简历生成时间',
+`STU_ID` INTEGER NOT NULL COMMENT '用户ID',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`RESUME_ID`)
 )COMMENT = '简历表';
 
 
@@ -1046,105 +1055,105 @@ PRIMARY KEY (`RESUME_ID`)
 
 ##应聘者简历JSON表
 create table IF NOT EXISTS `STU_RESUME_JSON`(
-                                              `RESUME_ID` INT AUTO_INCREMENT COMMENT '简历ID',
-                                              `JSON_CONTENT`INTEGER COMMENT '富文本ID',
-                                              `USER_ID` INTEGER   NOT NULL  COMMENT '用户ID',
-                                              `CREATE_TIME` TIMESTAMP NOT NULL COMMENT '生成时间',
-                                              `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                              `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                              PRIMARY KEY (`RESUME_ID`)
+`RESUME_ID` INT AUTO_INCREMENT COMMENT '简历ID',
+`JSON_CONTENT`INTEGER COMMENT '富文本ID',
+`USER_ID` INTEGER   NOT NULL  COMMENT '用户ID',
+`CREATE_TIME` TIMESTAMP NOT NULL COMMENT '生成时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`RESUME_ID`)
 )COMMENT = '应聘者简历JSON表';
 
 
 ##LOGO表
 create table IF NOT EXISTS `COMPANY_JOB_LOGO`(
-                                               `LOGO_ID` INT AUTO_INCREMENT
-                                                 COMMENT 'LOGO-ID',
-                                               `DOCU_LOCAL_ID` VARCHAR(200) NOT NULL
-                                                 COMMENT '本地文件编号',
-                                               `RELA_TYPE` INTEGER NOT NULL
-                                                 COMMENT '关联类型',
-                                               `RELA_ID` INTEGER NOT NULL
-                                                 COMMENT '关联ID',
-                                               `IS_DELETE`          INTEGER      DEFAULT '0'
-                                                 COMMENT '是否删除',
-                                               `IS_DELETE_TIME`     TIMESTAMP    NULL DEFAULT NULL
-                                                 COMMENT '删除时间',
-                                               PRIMARY KEY ( `LOGO_ID` )
+  `LOGO_ID` INT AUTO_INCREMENT 
+  COMMENT 'LOGO-ID',
+  `DOCU_LOCAL_ID` VARCHAR(200) NOT NULL 
+  COMMENT '本地文件编号',
+  `RELA_TYPE` INTEGER NOT NULL
+  COMMENT '关联类型',
+  `RELA_ID` INTEGER NOT NULL  
+  COMMENT '关联ID',
+  `IS_DELETE`          INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`     TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY ( `LOGO_ID` )
 )COMMENT = 'LOGO表';
 
 
 ##企业基本信息表
 create table IF NOT EXISTS `COMPANY_INFO` (
-                                            `COMPANY_ID`         INT               AUTO_INCREMENT
-                                              COMMENT '企业ID',
-                                            `COMPANY_NAME`       VARCHAR(200) NOT NULL
-                                              COMMENT '企业名称',
-                                            `COMPANY_CODE`       VARCHAR(200)
-                                              COMMENT '企业三证号码',
-                                            `COMPANY_COUNTRY`    VARCHAR(10)  NOT NULL
-                                              COMMENT '企业国别',
-                                            `COMPANY_INTRODUC`   VARCHAR(1000)
-                                              COMMENT '企业简介',
-                                            `COMPANY_SCALE_NUM`  INTEGER      NOT NULL
-                                              COMMENT '企业规模',
-                                            `COMPANY_NATURE`     INTEGER NOT NULL
-                                              COMMENT '企业性质',
-                                            `COMPANY_LOCATION`   VARCHAR(10) NOT NULL
-                                              COMMENT '企业所在地',
-                                            `COMPANY_MAIL`       VARCHAR(200)
-                                              COMMENT '企业邮箱',
-                                            `COMPANY_WEBSITE`    VARCHAR(200)
-                                              COMMENT '企业官网',
-                                            `COMPANY_START_DATE` DATE
-                                              COMMENT '成立日期',
-                                            `COMPANY_VERIFY`     INTEGER      NOT NULL
-                                              COMMENT '企业认证',
-                                            `USER_ID`            INTEGER      NOT NULL
-                                              COMMENT '录入人ID',
-                                            `ADD_TIME`           TIMESTAMP      NOT NULL
-                                              COMMENT '录入时间',
-                                            `IS_DELETE`          INTEGER      DEFAULT '0'
-                                              COMMENT '是否删除',
-                                            `IS_DELETE_TIME`     TIMESTAMP    NULL DEFAULT NULL
-                                              COMMENT '删除时间',
-                                            PRIMARY KEY (`COMPANY_ID`)
+  `COMPANY_ID`         INT               AUTO_INCREMENT
+  COMMENT '企业ID',
+  `COMPANY_NAME`       VARCHAR(200) NOT NULL
+  COMMENT '企业名称',
+  `COMPANY_CODE`       VARCHAR(200) 
+  COMMENT '企业三证号码',
+  `COMPANY_COUNTRY`    VARCHAR(10)  NOT NULL
+  COMMENT '企业国别',
+  `COMPANY_INTRODUC`   VARCHAR(1000) 
+  COMMENT '企业简介',
+  `COMPANY_SCALE_NUM`  INTEGER      NOT NULL
+  COMMENT '企业规模',
+  `COMPANY_NATURE`     INTEGER NOT NULL
+  COMMENT '企业性质',
+  `COMPANY_LOCATION`   VARCHAR(10) NOT NULL
+  COMMENT '企业所在地',
+  `COMPANY_MAIL`       VARCHAR(200) 
+  COMMENT '企业邮箱',
+  `COMPANY_WEBSITE`    VARCHAR(200) 
+  COMMENT '企业官网',
+  `COMPANY_START_DATE` DATE 
+  COMMENT '成立日期',
+  `COMPANY_VERIFY`     INTEGER      NOT NULL
+  COMMENT '企业认证',
+  `USER_ID`            INTEGER      NOT NULL
+  COMMENT '录入人ID',
+  `ADD_TIME`           TIMESTAMP      NOT NULL
+  COMMENT '录入时间',
+  `IS_DELETE`          INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`     TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`COMPANY_ID`)
 )
   COMMENT = '企业基本信息表';
 
 
 create table IF NOT EXISTS `COMPANY_INDUSTRY` (
-                                                `COMPANY_INDUS_ID` INT            AUTO_INCREMENT
-                                                  COMMENT '企业所属行业ID',
-                                                `COMPANY_IND_CODE`          VARCHAR(10)   NOT NULL
-                                                  COMMENT '行业ID',
-                                                `COMPANY_ID`       INTEGER   NOT NULL
-                                                  COMMENT '企业ID',
-                                                `IS_DELETE`        INTEGER   DEFAULT '0'
-                                                  COMMENT '是否删除',
-                                                `IS_DELETE_TIME`   TIMESTAMP NULL DEFAULT NULL
-                                                  COMMENT '删除时间',
-                                                PRIMARY KEY (`COMPANY_INDUS_ID`)
+  `COMPANY_INDUS_ID` INT            AUTO_INCREMENT
+  COMMENT '企业所属行业ID',
+  `COMPANY_IND_CODE`          VARCHAR(10)   NOT NULL
+  COMMENT '行业ID',
+  `COMPANY_ID`       INTEGER   NOT NULL
+  COMMENT '企业ID',
+  `IS_DELETE`        INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`   TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`COMPANY_INDUS_ID`)
 )
   COMMENT = '企业所属行业表';
 
 
 create table IF NOT EXISTS `COMPANY_VERIFICATION` (
-                                                    `VERIFY_ID`       INT            AUTO_INCREMENT
-                                                      COMMENT '认证ID',
-                                                    `VERIFY_TIME`     DATE      NOT NULL
-                                                      COMMENT '认证时间',
-                                                    `VERIFY_END_TIME` DATE      NOT NULL
-                                                      COMMENT '到期时间',
-                                                    `OPER_USER_ID`    INTEGER   NOT NULL
-                                                      COMMENT '操作人',
-                                                    `COMPANY_ID`      INTEGER   NOT NULL
-                                                      COMMENT '企业ID',
-                                                    `IS_DELETE`       INTEGER   DEFAULT '0'
-                                                      COMMENT '是否删除',
-                                                    `IS_DELETE_TIME`  TIMESTAMP NULL DEFAULT NULL
-                                                      COMMENT '删除时间',
-                                                    PRIMARY KEY (`VERIFY_ID`)
+  `VERIFY_ID`       INT            AUTO_INCREMENT
+  COMMENT '认证ID',
+  `VERIFY_TIME`     DATE      NOT NULL
+  COMMENT '认证时间',
+  `VERIFY_END_TIME` DATE      NOT NULL
+  COMMENT '到期时间',
+  `OPER_USER_ID`    INTEGER   NOT NULL
+  COMMENT '操作人',
+  `COMPANY_ID`      INTEGER   NOT NULL
+  COMMENT '企业ID',
+  `IS_DELETE`       INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`  TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`VERIFY_ID`)
 )
   COMMENT = '企业认证表';
 
@@ -1166,137 +1175,137 @@ COMMENT = '企业评价表';*/
 
 ##企业相册表
 create table IF NOT EXISTS `COMPANY_PHOTO`(
-                                            `PHOTO_ID` INT AUTO_INCREMENT  COMMENT '主键ID',
-                                            `DOCU_LOCAL_ID` VARCHAR(200) NOT NULL COMMENT '图片文件ID',
-                                            `PHOTO_UPLOAD_TIME` TIMESTAMP NOT NULL COMMENT '上传时间',
-                                            `COMPANY_ID` INTEGER NOT NULL COMMENT '企业ID',
-                                            `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                            `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                            PRIMARY KEY (`PHOTO_ID`)
+`PHOTO_ID` INT AUTO_INCREMENT  COMMENT '主键ID',
+`DOCU_LOCAL_ID` VARCHAR(200) NOT NULL COMMENT '图片文件ID',
+`PHOTO_UPLOAD_TIME` TIMESTAMP NOT NULL COMMENT '上传时间',
+`COMPANY_ID` INTEGER NOT NULL COMMENT '企业ID',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`PHOTO_ID`)
 )
-  COMMENT = '企业相册表';
+COMMENT = '企业相册表';
 
 
 ##企业在职人员表
 create table IF NOT EXISTS `COMPANY_EMPLOYEE`(
-                                               `EMPLOYEE_ID` INT AUTO_INCREMENT COMMENT '雇员ID',
-                                               `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
-                                               `COMPANY_ID` INTEGER NOT NULL COMMENT '企业ID',
-                                               `WORK_START_TIME` DATE NOT NULL COMMENT '开始时间',
-                                               `WORK_END_TIME` DATE NOT NULL COMMENT '结束时间',
-                                               `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                               `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                               PRIMARY KEY (`EMPLOYEE_ID`)
+`EMPLOYEE_ID` INT AUTO_INCREMENT COMMENT '雇员ID',
+`USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+`COMPANY_ID` INTEGER NOT NULL COMMENT '企业ID',
+`WORK_START_TIME` DATE NOT NULL COMMENT '开始时间',
+`WORK_END_TIME` DATE NOT NULL COMMENT '结束时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`EMPLOYEE_ID`)
 )
-  COMMENT = '企业在职人员表';
+COMMENT = '企业在职人员表';
 
 
 create table IF NOT EXISTS `JOB_INFO` (
-                                        `JOB_ID`          INT               AUTO_INCREMENT
-                                          COMMENT '职位ID',
-                                        `JOB_NAME`        VARCHAR(200) NOT NULL
-                                          COMMENT '职位名称',
-                                        `JOB_PROF_CODE`    VARCHAR(20)      NOT NULL
-                                          COMMENT '职位类别编号',
-                                        `JOB_START_TIME`  DATE         NOT NULL
-                                          COMMENT '职位起始时间',
-                                        `JOB_END_TIME`    DATE         NOT NULL
-                                          COMMENT '职位截止时间',
-                                        `JOB_TYPE`        INTEGER      NOT NULL
-                                          COMMENT '职位性质',
-                                        `JOB_DESCRIPTION` VARCHAR(400) NOT NULL
-                                          COMMENT '职位描述',
-                                        `JOB_DUTY`        VARCHAR(2000) COMMENT '职责描述',
-                                        `JOB_HIGHLIGHT`   VARCHAR(200) COMMENT '职位亮点',
-                                        `JOB_SALARY_FLOOR`    INTEGER COMMENT '职位薪资下限',
-                                        `JOB_SALARY_CAP`      INTEGER COMMENT '职位薪资上限',
-                                        `JOB_LINK`      VARCHAR(500) COMMENT '职位链接',
-                                        `CV_RECEI_MAIL`   VARCHAR(200) NOT NULL
-                                          COMMENT '简历接收邮箱',
-                                        `CV_NAME_RULE`    VARCHAR(200) COMMENT '简历命名规则',
-                                        `JOB_ACTIVE`      INTEGER      NOT NULL
-                                          COMMENT '职位状态',
-                                        `USER_ID`           INTEGER      NOT NULL
-                                          COMMENT '用户ID',
-                                        `COMPANY_ID`      INTEGER      NOT NULL
-                                          COMMENT '企业ID',
-                                        `ADD_TIME`           TIMESTAMP      NOT NULL
-                                          COMMENT '录入时间',
-                                        `IS_DELETE`       INTEGER      DEFAULT '0'
-                                          COMMENT '是否删除',
-                                        `IS_DELETE_TIME`  TIMESTAMP    NULL DEFAULT NULL
-                                          COMMENT '删除时间',
-                                        PRIMARY KEY (`JOB_ID`)
+  `JOB_ID`          INT               AUTO_INCREMENT
+  COMMENT '职位ID',
+  `JOB_NAME`        VARCHAR(200) NOT NULL
+  COMMENT '职位名称',
+  `JOB_PROF_CODE`    VARCHAR(20)      NOT NULL
+  COMMENT '职位类别编号',
+  `JOB_START_TIME`  DATE         NOT NULL
+  COMMENT '职位起始时间',
+  `JOB_END_TIME`    DATE         NOT NULL
+  COMMENT '职位截止时间',
+  `JOB_TYPE`        INTEGER      NOT NULL
+  COMMENT '职位性质',
+  `JOB_DESCRIPTION` VARCHAR(400) NOT NULL
+  COMMENT '职位描述',
+  `JOB_DUTY`        VARCHAR(2000) COMMENT '职责描述',
+  `JOB_HIGHLIGHT`   VARCHAR(200) COMMENT '职位亮点',
+  `JOB_SALARY_FLOOR`    INTEGER COMMENT '职位薪资下限',
+  `JOB_SALARY_CAP`      INTEGER COMMENT '职位薪资上限',
+  `JOB_LINK`      VARCHAR(500) COMMENT '职位链接',
+  `CV_RECEI_MAIL`   VARCHAR(200) NOT NULL
+  COMMENT '简历接收邮箱',
+  `CV_NAME_RULE`    VARCHAR(200) COMMENT '简历命名规则',
+  `JOB_ACTIVE`      INTEGER      NOT NULL
+  COMMENT '职位状态',
+  `USER_ID`           INTEGER      NOT NULL
+  COMMENT '用户ID',
+  `COMPANY_ID`      INTEGER      NOT NULL
+  COMMENT '企业ID',
+  `ADD_TIME`           TIMESTAMP      NOT NULL
+  COMMENT '录入时间',
+  `IS_DELETE`       INTEGER      DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME`  TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`JOB_ID`)
 )
   COMMENT = '职位基本信息表';
 
 
 ##职位学历要求表
 create table IF NOT EXISTS `JOB_DEGREE_REQUIRE`(
-                                                 `JOB_REQUIRE_ID` INT AUTO_INCREMENT COMMENT '主键ID',
-                                                 `JOB_DEGREE_NUM` INTEGER NOT NULL COMMENT '学历编号',
-                                                 `JOB_ID` INTEGER NOT NULL COMMENT '职位ID',
-                                                 `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                                 `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                                 PRIMARY KEY (`JOB_REQUIRE_ID`)
+`JOB_REQUIRE_ID` INT AUTO_INCREMENT COMMENT '主键ID',
+`JOB_DEGREE_NUM` INTEGER NOT NULL COMMENT '学历编号',
+`JOB_ID` INTEGER NOT NULL COMMENT '职位ID',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`JOB_REQUIRE_ID`)
 )COMMENT = '职位学历要求表';
 
 
 create table IF NOT EXISTS `JOB_LOCATION`(
-                                           `JOB_LOCATION_ID` INT AUTO_INCREMENT COMMENT '地点ID',
-                                           `JOB_REGION_NUM` VARCHAR(10) NOT NULL COMMENT '工作城市',
-                                           `JOB_ID` INTEGER NOT NULL COMMENT '职位ID',
-                                           `IS_DELETE` INTEGER NOT NULL COMMENT '是否删除',
-                                           `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                           PRIMARY KEY (`JOB_LOCATION_ID`)
+`JOB_LOCATION_ID` INT AUTO_INCREMENT COMMENT '地点ID',
+`JOB_REGION_NUM` VARCHAR(10) NOT NULL COMMENT '工作城市',
+`JOB_ID` INTEGER NOT NULL COMMENT '职位ID',
+`IS_DELETE` INTEGER NOT NULL COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`JOB_LOCATION_ID`)
 )COMMENT = '职位工作地点表';
 
 
 create table IF NOT EXISTS `JOB_INDUSTRY` (
-                                            `JOB_IND_ID`     INT            AUTO_INCREMENT
-                                              COMMENT '行业ID',
-                                            `JOB_IND_CODE`    VARCHAR(10)   NOT NULL
-                                              COMMENT '行业编号',
-                                            `JOB_ID`         INTEGER   NOT NULL
-                                              COMMENT '职位ID',
-                                            `IS_DELETE`      INTEGER   DEFAULT '0'
-                                              COMMENT '是否删除',
-                                            `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
-                                              COMMENT '删除时间',
-                                            PRIMARY KEY (`JOB_IND_ID`)
+  `JOB_IND_ID`     INT            AUTO_INCREMENT
+  COMMENT '行业ID',
+  `JOB_IND_CODE`    VARCHAR(10)   NOT NULL
+  COMMENT '行业编号',
+  `JOB_ID`         INTEGER   NOT NULL
+  COMMENT '职位ID',
+  `IS_DELETE`      INTEGER   DEFAULT '0'
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`JOB_IND_ID`)
 )COMMENT = '职位行业表';
 
 
 create table IF NOT EXISTS `HR_VIDEO_INVITATION` (
-                                                   `INVITE_ID`     INT AUTO_INCREMENT
-                                                     COMMENT '邀请ID',
-                                                   `INVITE_TIME`   TIMESTAMP NOT NULL
-                                                     COMMENT '邀请时间',
-                                                   `INVITED_USER_ID` INTEGER   NOT NULL
-                                                     COMMENT '受邀人ID',
-                                                   `INVITE_USER_ID`  INTEGER   NOT NULL
-                                                     COMMENT '邀请人ID',
-                                                   PRIMARY KEY (`INVITE_ID`)
+  `INVITE_ID`     INT AUTO_INCREMENT
+  COMMENT '邀请ID',
+  `INVITE_TIME`   TIMESTAMP NOT NULL
+  COMMENT '邀请时间',
+  `INVITED_USER_ID` INTEGER   NOT NULL
+  COMMENT '受邀人ID',
+  `INVITE_USER_ID`  INTEGER   NOT NULL
+  COMMENT '邀请人ID',
+  PRIMARY KEY (`INVITE_ID`)
 )
   COMMENT = '视频邀请表';
 
 
 create table IF NOT EXISTS `STU_JOB_APPLY` (
-                                             `APPLY_ID`         INT AUTO_INCREMENT
-                                               COMMENT '申请ID',
-                                             `STU_ID`           INTEGER      NOT NULL
-                                               COMMENT '用户ID',
-                                             `JOB_ID`           INTEGER      NOT NULL
-                                               COMMENT '职位ID',
-                                             `JOB_CV_SEND`      INTEGER    NOT NULL
-                                               COMMENT '简历是否发送',
-                                             `JOB_APPLY_TIME`   TIMESTAMP      NOT NULL
-                                               COMMENT '职位申请时间',
-                                             `JOB_APPLY_STATUS` VARCHAR(200) NOT NULL
-                                               COMMENT '职位申请状态',
-                                             `DOCU_LOCAL_ID` VARCHAR(100) NOT NULL
-                                               COMMENT '简历文件ID',
-                                             PRIMARY KEY (`APPLY_ID`)
+  `APPLY_ID`         INT AUTO_INCREMENT
+  COMMENT '申请ID',
+  `STU_ID`           INTEGER      NOT NULL
+  COMMENT '用户ID',
+  `JOB_ID`           INTEGER      NOT NULL
+  COMMENT '职位ID',
+  `JOB_CV_SEND`      INTEGER    NOT NULL
+  COMMENT '简历是否发送',
+  `JOB_APPLY_TIME`   TIMESTAMP      NOT NULL
+  COMMENT '职位申请时间',
+  `JOB_APPLY_STATUS` VARCHAR(200) NOT NULL
+  COMMENT '职位申请状态',
+  `DOCU_LOCAL_ID` VARCHAR(100) NOT NULL
+  COMMENT '简历文件ID',
+  PRIMARY KEY (`APPLY_ID`)
 )
   COMMENT = '职位申请记录表';
 
@@ -1327,346 +1336,346 @@ PRIMARY KEY ( `LAB_NUM` )
 
 ##问题表
 create table IF NOT EXISTS `COM_QUESTION`(
-                                           `QUES_ID` INT AUTO_INCREMENT COMMENT '问题ID',
-                                           `QUES_TITLE` VARCHAR(200) NOT NULL COMMENT '问题题目',
-                                           `QUES_ABBRE` VARCHAR(200) NOT NULL COMMENT '问题简述',
-                                           `QUES_BODY` INTEGER NOT NULL COMMENT '问题正文',
-                                           `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
-                                           `USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
-                                           `QUES_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
-                                           `QUES_EDIT_TIME` TIMESTAMP NOT NULL COMMENT '编辑时间',
-                                           `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                           `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                           `RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
-                                           `RELA_ID` INTEGER DEFAULT '0' COMMENT '关联ID',
-                                           PRIMARY KEY ( `QUES_ID` )
+`QUES_ID` INT AUTO_INCREMENT COMMENT '问题ID',
+`QUES_TITLE` VARCHAR(200) NOT NULL COMMENT '问题题目',
+`QUES_ABBRE` VARCHAR(200) NOT NULL COMMENT '问题简述',
+`QUES_BODY` INTEGER NOT NULL COMMENT '问题正文',
+`USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+`USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
+`QUES_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
+`QUES_EDIT_TIME` TIMESTAMP NOT NULL COMMENT '编辑时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+`RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
+`RELA_ID` INTEGER DEFAULT '0' COMMENT '关联ID',
+PRIMARY KEY ( `QUES_ID` )
 )COMMENT = '问题表';
 
 
 ##文章表
 create table IF NOT EXISTS `COM_ESSAY`(
-                                        `ESSAY_ID` INT AUTO_INCREMENT COMMENT '文章ID',
-                                        `ESSAY_TITLE` VARCHAR(200) NOT NULL COMMENT '文章题目',
-                                        `ESSAY_ABBRE` VARCHAR(200) NOT NULL COMMENT '文章简述',
-                                        `ESSAY_BODY` INTEGER NOT NULL COMMENT '文章正文',
-                                        `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
-                                        `USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
-                                        `ESSAY_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
-                                        `ESSAY_EDIT_TIME` TIMESTAMP NOT NULL COMMENT '编辑时间',
-                                        `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                        `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                        `RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
-                                        `RELA_ID` INTEGER DEFAULT '0' COMMENT '关联ID',
-                                        PRIMARY KEY ( `ESSAY_ID` )
+`ESSAY_ID` INT AUTO_INCREMENT COMMENT '文章ID',
+`ESSAY_TITLE` VARCHAR(200) NOT NULL COMMENT '文章题目',
+`ESSAY_ABBRE` VARCHAR(200) NOT NULL COMMENT '文章简述',
+`ESSAY_BODY` INTEGER NOT NULL COMMENT '文章正文',
+`USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+`USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
+`ESSAY_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
+`ESSAY_EDIT_TIME` TIMESTAMP NOT NULL COMMENT '编辑时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+`RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
+`RELA_ID` INTEGER DEFAULT '0' COMMENT '关联ID',
+PRIMARY KEY ( `ESSAY_ID` )
 )COMMENT = '文章表';
 
 
 ##短评表
 create table IF NOT EXISTS `COM_BRIEF_REVIEW`(
-                                               `REVIEW_ID` INT AUTO_INCREMENT COMMENT '短评ID',
-                                               `REVIEW_TIME` TIMESTAMP NOT NULL COMMENT '短评时间',
-                                               `REVIEW_BODY` INTEGER NOT NULL COMMENT '短评内容',
-                                               `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                               `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                               `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
-                                               `RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
-                                               `RELA_ID` INTEGER DEFAULT '0' COMMENT '关联ID',
-                                               PRIMARY KEY (`REVIEW_ID`)
+`REVIEW_ID` INT AUTO_INCREMENT COMMENT '短评ID',
+`REVIEW_TIME` TIMESTAMP NOT NULL COMMENT '短评时间',
+`REVIEW_BODY` INTEGER NOT NULL COMMENT '短评内容',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+`USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+`RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
+`RELA_ID` INTEGER DEFAULT '0' COMMENT '关联ID',
+PRIMARY KEY (`REVIEW_ID`)
 )COMMENT = '短评表';
 
 
 ##视频表
 create table IF NOT EXISTS `COM_VIDEO`(
-                                        `VIDEO_ID` INT AUTO_INCREMENT COMMENT '视频ID',
-                                        `VIDEO_TITLE` VARCHAR(200) NOT NULL COMMENT '视频标题',
-                                        `VIDEO_NAME` VARCHAR(200) NOT NULL COMMENT '视频文件名',
-                                        `VIDEO_DESCRIPTION` VARCHAR(2000) NOT NULL COMMENT '视频描述',
-                                        `VIDEO_VIEW_COUNT` INTEGER NOT NULL COMMENT '观看次数',
-                                        `VIDEO_UPLOAD_TIME` TIMESTAMP NOT NULL COMMENT '上传时间',
-                                        `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                        `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                        `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
-                                        `RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
-                                        `RELA_ID` INTEGER DEFAULT '0' COMMENT '关联ID',
-                                        PRIMARY KEY (`VIDEO_ID`)
+`VIDEO_ID` INT AUTO_INCREMENT COMMENT '视频ID',
+`VIDEO_TITLE` VARCHAR(200) NOT NULL COMMENT '视频标题',
+`VIDEO_NAME` VARCHAR(200) NOT NULL COMMENT '视频文件名',
+`VIDEO_DESCRIPTION` VARCHAR(2000) NOT NULL COMMENT '视频描述',
+`VIDEO_VIEW_COUNT` INTEGER NOT NULL COMMENT '观看次数',
+`VIDEO_UPLOAD_TIME` TIMESTAMP NOT NULL COMMENT '上传时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+`USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+`RELA_TYPE` INTEGER NOT NULL COMMENT '关联类型',
+`RELA_ID` INTEGER DEFAULT '0' COMMENT '关联ID',
+PRIMARY KEY (`VIDEO_ID`)
 )COMMENT = '视频表';
 
 
 ##关注表
 create table IF NOT EXISTS `COM_ATTENTION`(
-                                            `ATTEN_ID` INT AUTO_INCREMENT COMMENT '关注ID',
-                                            `TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
-                                            `TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
-                                            `USER_ID` INTEGER NOT NULL COMMENT '关注用户',
-                                            `ATTEN_TIME` TIMESTAMP NOT NULL COMMENT '关注时间',
-                                            `ATTEN_CANCEL` INTEGER NOT NULL COMMENT '取消关注',
-                                            `ATTEN_CANCEL_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '取消关注时间',
-                                            PRIMARY KEY ( `ATTEN_ID` )
+`ATTEN_ID` INT AUTO_INCREMENT COMMENT '关注ID',
+`TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
+`TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
+`USER_ID` INTEGER NOT NULL COMMENT '关注用户',
+`ATTEN_TIME` TIMESTAMP NOT NULL COMMENT '关注时间',
+`ATTEN_CANCEL` INTEGER NOT NULL COMMENT '取消关注',
+`ATTEN_CANCEL_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '取消关注时间',
+PRIMARY KEY ( `ATTEN_ID` )
 )COMMENT = '关注表';
 
 
 ##回复邀请表
 create table IF NOT EXISTS `COM_REPLY_INVITATION`(
-                                                   `INVIT_ID` INT AUTO_INCREMENT COMMENT '邀请ID',
-                                                   `TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
-                                                   `TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
-                                                   `INVIT_USER_ID` INTEGER NOT NULL COMMENT '邀请人ID',
-                                                   `INVIT_TIME` TIMESTAMP NOT NULL COMMENT '邀请时间',
-                                                   `INVITED_USER_ID` INTEGER NOT NULL COMMENT '被邀请人ID',
-                                                   `INVIT_ACCEPT` INTEGER DEFAULT '0' COMMENT '是否接受',
-                                                   PRIMARY KEY ( `INVIT_ID` )
+`INVIT_ID` INT AUTO_INCREMENT COMMENT '邀请ID',
+`TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
+`TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
+`INVIT_USER_ID` INTEGER NOT NULL COMMENT '邀请人ID',
+`INVIT_TIME` TIMESTAMP NOT NULL COMMENT '邀请时间',
+`INVITED_USER_ID` INTEGER NOT NULL COMMENT '被邀请人ID',
+`INVIT_ACCEPT` INTEGER DEFAULT '0' COMMENT '是否接受',
+PRIMARY KEY ( `INVIT_ID` )
 )COMMENT = '回复邀请表';
 
 
 ##回答表
 create table IF NOT EXISTS `COM_ANSWER`(
-                                         `ANSWER_ID` INT AUTO_INCREMENT COMMENT '回答ID',
-                                         `ANSWER_BODY` INTEGER NOT NULL COMMENT '回答内容',
-                                         `TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
-                                         `TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
-                                         `USER_ID` INTEGER NOT NULL COMMENT '回答作者',
-                                         `USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
-                                         `ANSWER_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
-                                         `ANSWER_EDIT_TIME` TIMESTAMP NOT NULL COMMENT '编辑时间',
-                                         `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                         `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                         PRIMARY KEY ( `ANSWER_ID` )
+`ANSWER_ID` INT AUTO_INCREMENT COMMENT '回答ID',
+`ANSWER_BODY` INTEGER NOT NULL COMMENT '回答内容',
+`TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
+`TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
+`USER_ID` INTEGER NOT NULL COMMENT '回答作者',
+`USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
+`ANSWER_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
+`ANSWER_EDIT_TIME` TIMESTAMP NOT NULL COMMENT '编辑时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY ( `ANSWER_ID` )
 )COMMENT = '回答表';
 
 
 ##评价表
 create table IF NOT EXISTS `COM_EVALUATE`(
-                                           `EVALUATE_ID` INT AUTO_INCREMENT COMMENT '评价ID',
-                                           `TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
-                                           `TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
-                                           `USER_ID` INTEGER NOT NULL COMMENT '评价用户',
-                                           `EVALUATE_TYPE` INTEGER NOT NULL COMMENT '评价类别',
-                                           `EVALUATE_TIME` TIMESTAMP NOT NULL COMMENT '评价时间',
-                                           PRIMARY KEY ( `EVALUATE_ID` )
+`EVALUATE_ID` INT AUTO_INCREMENT COMMENT '评价ID',
+`TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
+`TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
+`USER_ID` INTEGER NOT NULL COMMENT '评价用户',
+`EVALUATE_TYPE` INTEGER NOT NULL COMMENT '评价类别',
+`EVALUATE_TIME` TIMESTAMP NOT NULL COMMENT '评价时间',
+PRIMARY KEY ( `EVALUATE_ID` )
 )COMMENT = '评价表';
 
 
 ##评论表
 create table IF NOT EXISTS `COM_COMMENT`(
-                                          `COMMENT_ID` INT AUTO_INCREMENT COMMENT '评论ID',
-                                          `TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
-                                          `TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
-                                          `COMMENT_CONTENT` VARCHAR(5000) NOT NULL COMMENT '评论内容',
-                                          `USER_ID` INTEGER NOT NULL COMMENT '评论作者',
-                                          `USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
-                                          `COMMENT_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
-                                          `COMMENT_EDIT_TIME` TIMESTAMP NOT NULL COMMENT '编辑时间',
-                                          `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                          `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                          PRIMARY KEY ( `COMMENT_ID` )
+`COMMENT_ID` INT AUTO_INCREMENT COMMENT '评论ID',
+`TARGET_TYPE` INTEGER NOT NULL COMMENT '目标类型',
+`TARGET_ID` INTEGER NOT NULL COMMENT '目标ID',
+`COMMENT_CONTENT` VARCHAR(5000) NOT NULL COMMENT '评论内容',
+`USER_ID` INTEGER NOT NULL COMMENT '评论作者',
+`USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
+`COMMENT_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
+`COMMENT_EDIT_TIME` TIMESTAMP NOT NULL COMMENT '编辑时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY ( `COMMENT_ID` )
 )COMMENT = '评论表';
 
 
 ##讨论表
 create table IF NOT EXISTS `COM_DISCUSS`(
-                                          `DISCUSS_ID` INT AUTO_INCREMENT COMMENT '讨论ID',
-                                          `COMMENT_ID` INTEGER NOT NULL COMMENT '回复ID',
-                                          `DISCUSS_CONTENT` VARCHAR(500) NOT NULL COMMENT '讨论内容',
-                                          `USER_ID` INTEGER NOT NULL COMMENT '讨论作者',
-                                          `USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
-                                          `DISCUSS_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
-                                          `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                          `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                          PRIMARY KEY ( `DISCUSS_ID` )
+`DISCUSS_ID` INT AUTO_INCREMENT COMMENT '讨论ID',
+`COMMENT_ID` INTEGER NOT NULL COMMENT '回复ID',
+`DISCUSS_CONTENT` VARCHAR(500) NOT NULL COMMENT '讨论内容',
+`USER_ID` INTEGER NOT NULL COMMENT '讨论作者',
+`USER_ANONY` INTEGER NOT NULL DEFAULT '0' COMMENT '是否匿名',
+`DISCUSS_PUB_TIME` TIMESTAMP NOT NULL COMMENT '发布时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY ( `DISCUSS_ID` )
 )COMMENT = '讨论表';
 
 
 ##富文本表
 create table IF NOT EXISTS `COM_RICH_TEXT`(
-                                            `TEXT_ID` INT AUTO_INCREMENT COMMENT '富文本ID',
-                                            `COMPILE_TYPE` INTEGER NOT NULL COMMENT '解析类型',
-                                            `JSON_CONTENT` TEXT(15000) NOT NULL COMMENT 'JSON字符串',
-                                            `TEXT_CONTENT` TEXT(15000) NOT NULL COMMENT '文本字符串',
-                                            PRIMARY KEY (`TEXT_ID`)
+`TEXT_ID` INT AUTO_INCREMENT COMMENT '富文本ID',
+`COMPILE_TYPE` INTEGER NOT NULL COMMENT '解析类型',
+`JSON_CONTENT` TEXT(15000) NOT NULL COMMENT 'JSON字符串',
+`TEXT_CONTENT` TEXT(15000) NOT NULL COMMENT '文本字符串',
+PRIMARY KEY (`TEXT_ID`)
 )COMMENT = '富文本表';
 
 
 ##好友申请记录表
 create table IF NOT EXISTS `COM_FRIEND_APPLY`(
-                                               `APPLY_ID` INT AUTO_INCREMENT COMMENT '申请ID',
-                                               `USER_ID` INTEGER NOT NULL COMMENT '申请用户ID',
-                                               `FRIEND_ID` INTEGER NOT NULL COMMENT '目标好友ID',
-                                               `APPLY_MESSAGE` VARCHAR(200) NOT NULL COMMENT '申请信息',
-                                               `FRI_APPLY_TIME` TIMESTAMP NOT NULL COMMENT '好友申请时间',
-                                               `FRI_IS_READ` INTEGER DEFAULT '0' COMMENT '申请是否阅读',
-                                               `FRI_APPLY_ACCEPT` INTEGER DEFAULT '0' COMMENT '申请是否通过',
-                                               PRIMARY KEY (`APPLY_ID`)
+`APPLY_ID` INT AUTO_INCREMENT COMMENT '申请ID',
+`USER_ID` INTEGER NOT NULL COMMENT '申请用户ID',
+`FRIEND_ID` INTEGER NOT NULL COMMENT '目标好友ID',
+`APPLY_MESSAGE` VARCHAR(200) NOT NULL COMMENT '申请信息',
+`FRI_APPLY_TIME` TIMESTAMP NOT NULL COMMENT '好友申请时间',
+`FRI_IS_READ` INTEGER DEFAULT '0' COMMENT '申请是否阅读',
+`FRI_APPLY_ACCEPT` INTEGER DEFAULT '0' COMMENT '申请是否通过',
+PRIMARY KEY (`APPLY_ID`)
 )COMMENT = '好友申请记录表';
 
 
 ##好友关系表
 create table IF NOT EXISTS `COM_FRIEND_RELATION`(
-                                                  `RELA_ID` INT AUTO_INCREMENT COMMENT '关系ID',
-                                                  `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
-                                                  `FRIEND_ID` INTEGER NOT NULL COMMENT '好友ID',
-                                                  `ADD_TIME` TIMESTAMP NOT NULL COMMENT '添加时间',
-                                                  `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                                  `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                                  PRIMARY KEY (`RELA_ID`)
+`RELA_ID` INT AUTO_INCREMENT COMMENT '关系ID',
+`USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+`FRIEND_ID` INTEGER NOT NULL COMMENT '好友ID',
+`ADD_TIME` TIMESTAMP NOT NULL COMMENT '添加时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`RELA_ID`)
 )COMMENT = '好友关系表';
 
 
 ##好友分组映射表
 create table IF NOT EXISTS `COM_FRIEND_GROUP_MAP`(
-                                                   `GROUP_ID` INT AUTO_INCREMENT COMMENT '分组ID',
-                                                   `RELA_ID` INTEGER NOT NULL COMMENT '关系ID',
-                                                   PRIMARY KEY ( `GROUP_ID` )
+`GROUP_ID` INT AUTO_INCREMENT COMMENT '分组ID',
+`RELA_ID` INTEGER NOT NULL COMMENT '关系ID',
+PRIMARY KEY ( `GROUP_ID` )
 )COMMENT = '好友分组映射表';
 
 
 ##好友分组表
 create table IF NOT EXISTS `COM_FRIEND_GROUP`(
-                                               `GROUP_ID` INT AUTO_INCREMENT COMMENT '分组ID',
-                                               `GROUP_NUM` INTEGER NOT NULL COMMENT '分组编号',
-                                               `GROUP_NAME` VARCHAR(20) NOT NULL COMMENT '分组名称',
-                                               `ADD_TIME` TIMESTAMP NOT NULL COMMENT '添加时间',
-                                               `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                               `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                               PRIMARY KEY (`GROUP_ID`)
+`GROUP_ID` INT AUTO_INCREMENT COMMENT '分组ID',
+`GROUP_NUM` INTEGER NOT NULL COMMENT '分组编号',
+`GROUP_NAME` VARCHAR(20) NOT NULL COMMENT '分组名称',
+`ADD_TIME` TIMESTAMP NOT NULL COMMENT '添加时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`GROUP_ID`)
 )COMMENT = '好友分组表';
 
 
 #############################02-26##################################
 ##群聊映射表
 create table IF NOT EXISTS `COM_GROUP_CHAT_MAP`(
-                                                 `CHAT_ID` INT AUTO_INCREMENT COMMENT '群聊ID',
-                                                 `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
-                                                 PRIMARY KEY ( `CHAT_ID`,`USER_ID` )
+`CHAT_ID` INT AUTO_INCREMENT COMMENT '群聊ID',
+`USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+PRIMARY KEY ( `CHAT_ID`,`USER_ID` )
 )COMMENT = '群聊映射表';
 
 
 ##群聊表
 create table IF NOT EXISTS `COM_GROUP_CHAT`(
-                                             `CHAT_ID` INT AUTO_INCREMENT COMMENT '群聊ID',
-                                             `CHAT_NAME` VARCHAR(20) NOT NULL COMMENT '群聊名称',
-                                             `CREATE_TIME` TIMESTAMP NOT NULL COMMENT '创建时间',
-                                             `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
-                                             `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-                                             PRIMARY KEY (`CHAT_ID`)
+`CHAT_ID` INT AUTO_INCREMENT COMMENT '群聊ID',
+`CHAT_NAME` VARCHAR(20) NOT NULL COMMENT '群聊名称',
+`CREATE_TIME` TIMESTAMP NOT NULL COMMENT '创建时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`CHAT_ID`)
 )COMMENT = '群聊表';
 
 
 ############################探索页推荐表###################################
 ##企业类推荐表
 create table IF NOT EXISTS `RECOM_COMPANY`(
-                                            `COMPANY_ID` INTEGER COMMENT '企业ID',
-                                            `COMPANY_NAME` VARCHAR(200) COMMENT '企业名称',
-                                            `COMPANY_INTRODUC` VARCHAR(1000) COMMENT '企业简介',
-                                            `COMPANY_WEBSITE` VARCHAR(200) COMMENT '企业官网',
-                                            `RECOM_TYPE` INTEGER COMMENT '推荐类型',
-                                            `DATA_TIME` DATE COMMENT '数据日期'
+`COMPANY_ID` INTEGER COMMENT '企业ID',
+`COMPANY_NAME` VARCHAR(200) COMMENT '企业名称',
+`COMPANY_INTRODUC` VARCHAR(1000) COMMENT '企业简介',
+`COMPANY_WEBSITE` VARCHAR(200) COMMENT '企业官网',
+`RECOM_TYPE` INTEGER COMMENT '推荐类型',
+`DATA_TIME` DATE COMMENT '数据日期'
 )COMMENT = '企业类推荐表';
 
 
 ##职位类推荐表
 create table IF NOT EXISTS `RECOM_JOB`(
-                                        `JOB_ID` INTEGER COMMENT '企业ID',
-                                        `JOB_NAME` VARCHAR(200) COMMENT '职位名称',
-                                        `JOB_DESCRIPTION` VARCHAR(1000) COMMENT '职位描述',
-                                        `JOB_COUNTRY` VARCHAR(10) COMMENT '工作国家',
-                                        `JOB_LOCATION` VARCHAR(10) COMMENT '工作地点',
-                                        `JOB_HIGHLIGHT` VARCHAR(200) COMMENT '职位亮点',
-                                        `RECOM_TYPE` INTEGER COMMENT '推荐类型',
-                                        `DATA_TIME` DATE COMMENT '数据日期'
+`JOB_ID` INTEGER COMMENT '企业ID',
+`JOB_NAME` VARCHAR(200) COMMENT '职位名称',
+`JOB_DESCRIPTION` VARCHAR(1000) COMMENT '职位描述',
+`JOB_COUNTRY` VARCHAR(10) COMMENT '工作国家',
+`JOB_LOCATION` VARCHAR(10) COMMENT '工作地点',
+`JOB_HIGHLIGHT` VARCHAR(200) COMMENT '职位亮点',
+`RECOM_TYPE` INTEGER COMMENT '推荐类型',
+`DATA_TIME` DATE COMMENT '数据日期'
 )COMMENT = '职位类推荐表';
 
 
 ##文本类推荐表
 create table IF NOT EXISTS `RECOM_TEXT`(
-                                         `TEXT_ID` INTEGER COMMENT '企业ID',
-                                         `TEXT_TITLE` VARCHAR(2000) COMMENT '职位名称',
-                                         `RECOM_TYPE` INTEGER COMMENT '推荐类型',
-                                         `DATA_TIME` DATE COMMENT '数据日期'
+`TEXT_ID` INTEGER COMMENT '企业ID',
+`TEXT_TITLE` VARCHAR(2000) COMMENT '职位名称',
+`RECOM_TYPE` INTEGER COMMENT '推荐类型',
+`DATA_TIME` DATE COMMENT '数据日期'
 )COMMENT = '文本类推荐表';
 
 
 ##视频推荐表
 create table IF NOT EXISTS `RECOM_VIDEO`(
-                                          `VIDEO_ID` INTEGER COMMENT '视频ID',
-                                          `VIDEO_TITLE` VARCHAR(200) COMMENT '视频标题',
-                                          `RECOM_REASON` INTEGER COMMENT '推荐理由',
-                                          `DATA_TIME` DATE COMMENT '数据日期'
+`VIDEO_ID` INTEGER COMMENT '视频ID',
+`VIDEO_TITLE` VARCHAR(200) COMMENT '视频标题',
+`RECOM_REASON` INTEGER COMMENT '推荐理由',
+`DATA_TIME` DATE COMMENT '数据日期'
 )COMMENT = '视频推荐表';
 
 
 ##人脉推荐表
 create table IF NOT EXISTS `RECOM_USER`(
-                                         `USER_ID` INTEGER COMMENT '用户ID',
-                                         `USER_FIRST_NAME` VARCHAR(200) COMMENT '用户姓',
-                                         `USER_LAST_NAME` VARCHAR(200) COMMENT '用户名',
-                                         `RECOM_REASON` INTEGER COMMENT '推荐理由',
-                                         `DATA_TIME` DATE COMMENT '数据日期'
+`USER_ID` INTEGER COMMENT '用户ID',
+`USER_FIRST_NAME` VARCHAR(200) COMMENT '用户姓',
+`USER_LAST_NAME` VARCHAR(200) COMMENT '用户名',
+`RECOM_REASON` INTEGER COMMENT '推荐理由',
+`DATA_TIME` DATE COMMENT '数据日期'
 )COMMENT = '人脉推荐表';
 
 
 
 ##影响力分析表
 create table IF NOT EXISTS `PERSON_INFLUENCE`(
-                                               `USER_ID` INT AUTO_INCREMENT COMMENT '用户ID',
-                                               `PERS_PROFILE` FLOAT COMMENT '个人资料完善度',
-                                               `PERS_IDENT_VERIFY` FLOAT COMMENT '身份认证',
-                                               `PERS_UNIVERSITY` FLOAT COMMENT '学校排名',
-                                               `PERS_WORK` FLOAT COMMENT '工作实习质量',
-                                               `PERS_FRIEND_COUNT` FLOAT COMMENT '好友数量',
-                                               `PERS_FRIEND_QUALITY` FLOAT COMMENT '好友质量',
-                                               `PERS_INTERACTION` FLOAT COMMENT '互动关系',
-                                               `PERS_LIKE_COUNT` FLOAT COMMENT '点赞数',
-                                               `PERS_POSI_EVALUATE` FLOAT COMMENT '职位评价',
-                                               `PERS_TOTAL` FLOAT COMMENT '总分',
-                                               PRIMARY KEY (`USER_ID`)
+`USER_ID` INT AUTO_INCREMENT COMMENT '用户ID',
+`PERS_PROFILE` FLOAT COMMENT '个人资料完善度',
+`PERS_IDENT_VERIFY` FLOAT COMMENT '身份认证',
+`PERS_UNIVERSITY` FLOAT COMMENT '学校排名',
+`PERS_WORK` FLOAT COMMENT '工作实习质量',
+`PERS_FRIEND_COUNT` FLOAT COMMENT '好友数量',
+`PERS_FRIEND_QUALITY` FLOAT COMMENT '好友质量',
+`PERS_INTERACTION` FLOAT COMMENT '互动关系',
+`PERS_LIKE_COUNT` FLOAT COMMENT '点赞数',
+`PERS_POSI_EVALUATE` FLOAT COMMENT '职位评价',
+`PERS_TOTAL` FLOAT COMMENT '总分',
+PRIMARY KEY (`USER_ID`)
 )COMMENT = '影响力分析表';
 
 
 ##校园招聘表
 create table IF NOT EXISTS `RECOM_CAMPUS_RECRUIT`(
-                                                   `COMPANY_ID` INT COMMENT '企业ID',
-                                                   `COMPANY_NAME` VARCHAR(200) COMMENT '企业名称',
-                                                   `COMPANY_INTRODUC` VARCHAR(1000) COMMENT '企业简介',
-                                                   `COMPANY_NATURE` VARCHAR(200) COMMENT '企业性质',
-                                                   `COMPANY_LOCATION` VARCHAR(200) COMMENT '企业所在地',
-                                                   `COMPANY_WEBSITE` VARCHAR(200) COMMENT '企业官网',
-                                                   `COMPANY_START_DATE` DATE COMMENT '成立日期',
-                                                   `COMPANY_LOGO` VARCHAR(200) COMMENT '企业LOGO',
-                                                   `JOB_ID` INTEGER COMMENT '职位ID',
-                                                   `JOB_NAME` VARCHAR(200)  COMMENT '职位名称',
-                                                   `JOB_TYPE` INTEGER  COMMENT '职位性质',
-                                                   `DATA_TIME` DATE COMMENT '数据日期'
+`COMPANY_ID` INT COMMENT '企业ID',
+`COMPANY_NAME` VARCHAR(200) COMMENT '企业名称',
+`COMPANY_INTRODUC` VARCHAR(1000) COMMENT '企业简介',
+`COMPANY_NATURE` VARCHAR(200) COMMENT '企业性质',
+`COMPANY_LOCATION` VARCHAR(200) COMMENT '企业所在地',
+`COMPANY_WEBSITE` VARCHAR(200) COMMENT '企业官网',
+`COMPANY_START_DATE` DATE COMMENT '成立日期',
+`COMPANY_LOGO` VARCHAR(200) COMMENT '企业LOGO',
+`JOB_ID` INTEGER COMMENT '职位ID',
+`JOB_NAME` VARCHAR(200)  COMMENT '职位名称',
+`JOB_TYPE` INTEGER  COMMENT '职位性质',
+`DATA_TIME` DATE COMMENT '数据日期'
 )COMMENT = '校园招聘表';
 
 
 ############################################系统层数据###########################################################
 TRUNCATE TABLE `youthchina`.`SYS_USER`  ;
-INSERT INTO `youthchina`.`SYS_USER` (`USER_ID`, `USER_MAIL`, `MAIL_VERIFY`, `USER_PHONE`, `PHONE_VERIFY`, `USER_PASS`, `USER_NICKNAME`, `USER_FIRST_NAME`, `USER_LAST_NAME`, `USER_GENDER`, `USER_DATE_OF_BIRTH`, `USER_PHOTO`, `USER_LOCATION`, `USER_ON_JOB`, `USER_REGIST_TIME`, `CONTENT_CHANGE_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
-('1', 'Admin1', '1', '12345', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Admin1', 'Admin1', 'MALE', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('2', 'Admin2', '1', '23456', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Admin2', 'Admin2', 'FEMALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('3', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'MALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('4', '123456@123.com', '1', '1234657890123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'AAA', 'AAABBBCCC', 'MALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('5', '123456@456.com', '1', '9876543210123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'DDD', 'DDDEEEFFF', 'FEMALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('6', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'MALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('7', '123456@123.com', '1', '1234657890123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'AAA', 'AAABBBCCC', 'MALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('8', '123456@456.com', '1', '9876543210123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'DDD', 'DDDEEEFFF', 'FEMALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('9', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'MALE', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('10', 'anniewu123@gwu.edu', '1', '2022944356', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Wu', 'Danni', 'FEMALE', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('11', 'carmenwu@gwu.edu', '1', '135-3261-1999', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', '吴', '嘉敏', 'FEMALE', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('12', 'ruisixia99@gwu.edu', '1', '2027060507', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', '夏', '锐思', 'FEMALE', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+INSERT INTO `youthchina`.`SYS_USER` (`USER_ID`, `USER_MAIL`, `MAIL_VERIFY`, `USER_PHONE`, `PHONE_VERIFY`, `USER_PASS`, `USER_NICKNAME`, `USER_FIRST_NAME`, `USER_LAST_NAME`, `USER_GENDER`, `USER_DATE_OF_BIRTH`, `USER_PHOTO`, `USER_LOCATION`, `USER_ON_JOB`, `USER_REGIST_TIME`, `CONTENT_CHANGE_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
+('1', 'Admin1', '1', '12345', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Admin1', 'Admin1', 'Male', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('2', 'Admin2', '1', '23456', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Admin2', 'Admin2', 'Female', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('3', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'Male', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('4', '123456@123.com', '1', '1234657890123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'AAA', 'AAABBBCCC', 'Male', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('5', '123456@456.com', '1', '9876543210123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'DDD', 'DDDEEEFFF', 'Female', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('6', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'Male', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('7', '123456@123.com', '1', '1234657890123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'AAA', 'AAABBBCCC', 'Male', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('8', '123456@456.com', '1', '9876543210123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'DDD', 'DDDEEEFFF', 'Female', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('9', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'Male', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('10', 'anniewu123@gwu.edu', '1', '2022944356', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Wu', 'Danni', 'Female', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('11', 'carmenwu@gwu.edu', '1', '135-3261-1999', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', '吴', '嘉敏', 'Female', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('12', 'ruisixia99@gwu.edu', '1', '2027060507', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', '夏', '锐思', 'Female', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_ROLE`  ;
-INSERT INTO `youthchina`.`SYS_ROLE` (`ROLE_ID`, `ROLE_DESCRPTIPON`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_ROLE` (`ROLE_ID`, `ROLE_DESCRPTIPON`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', 'ROOT', '0', '2019-01-01 00:00:00'),
 ('2', 'ADMIN', '0', '2019-01-01 00:00:00'),
 ('3', 'APPLICANT', '0', '2019-01-01 00:00:00'),
 ('4', 'HR', '0', '2019-01-01 00:00:00'),
-('5', 'EMPLOYER', '0', '2019-01-01 00:00:00');
+('5', 'COMPANY', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_USER_ROLE`  ;
-INSERT INTO `youthchina`.`SYS_USER_ROLE` (`USER_ID`, `ROLE_ID`, `STRAT_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_USER_ROLE` (`USER_ID`, `ROLE_ID`, `STRAT_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('10', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('11', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -1681,7 +1690,7 @@ INSERT INTO `youthchina`.`SYS_USER_ROLE` (`USER_ID`, `ROLE_ID`, `STRAT_TIME`, `I
 ('9', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 TRUNCATE TABLE `youthchina`.`SYS_PERMISSION`  ;
-INSERT INTO `youthchina`.`SYS_PERMISSION` (`PERMI_ID`, `PERMI_FUNCTION`, `PERMI_DESCRPTIPON`, `PERMI_TYPE`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_PERMISSION` (`PERMI_ID`, `PERMI_FUNCTION`, `PERMI_DESCRPTIPON`, `PERMI_TYPE`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '修改密码', '开启修改密码按钮', '1', '0', '2019-01-01 00:00:00'),
 ('2', '注销用户', '开启注销用户按钮', '1', '0', '2019-01-01 00:00:00'),
 ('3', '开启通知', '开启通知按钮', '1', '0', '2019-01-01 00:00:00'),
@@ -1709,7 +1718,7 @@ INSERT INTO `youthchina`.`SYS_PERMISSION` (`PERMI_ID`, `PERMI_FUNCTION`, `PERMI_
 
 
 TRUNCATE TABLE `youthchina`.`SYS_ROLE_PERMISSION`  ;
-INSERT INTO `youthchina`.`SYS_ROLE_PERMISSION` (`ROLE_ID`, `PERMI_ID`, `STRAT_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_ROLE_PERMISSION` (`ROLE_ID`, `PERMI_ID`, `STRAT_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('1', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('1', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -1724,7 +1733,7 @@ INSERT INTO `youthchina`.`SYS_ROLE_PERMISSION` (`ROLE_ID`, `PERMI_ID`, `STRAT_TI
 
 
 TRUNCATE TABLE `youthchina`.`SYS_MEDIA_DOCUMENT`  ;
-INSERT INTO `youthchina`.`SYS_MEDIA_DOCUMENT` (`DOCU_ID`, `DOCU_LOCAL_ID`, `DOCU_LOCAL_NAME`, `DOCU_LOCAL_FORMAT`, `DOCU_LOCAL_SIZE`, `DOCU_SERVER_ALI_ID`,  `CREATE_TIME`, `UPLOAD_USER_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_MEDIA_DOCUMENT` (`DOCU_ID`, `DOCU_LOCAL_ID`, `DOCU_LOCAL_NAME`, `DOCU_LOCAL_FORMAT`, `DOCU_LOCAL_SIZE`, `DOCU_SERVER_ALI_ID`,  `CREATE_TIME`, `UPLOAD_USER_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '2856306669745344512', 'video', 'mp4', '0.434434532', '2856327168068161536',  '2019-01-01 00:00:00', '1', '1', '2019-02-01 00:00:00'),
 ('9', '2858461057087705088', 'video', 'mp4', '0.233793259', '2858461058387939328',  '2019-03-05 00:00:00', '2', '0', '2019-02-01 00:00:00'),
 ('10', '2858465896022675456', 'video2', 'mp4', '0.618719101', '2858465896546963456',  '2019-03-05 00:00:00', '2', '0', '2019-02-01 00:00:00'),
@@ -1735,7 +1744,7 @@ INSERT INTO `youthchina`.`SYS_MEDIA_DOCUMENT` (`DOCU_ID`, `DOCU_LOCAL_ID`, `DOCU
 
 ############################################招聘模块###########################################################
 TRUNCATE TABLE `youthchina`.`STU_EDU_INFO`  ;
-INSERT INTO `youthchina`.`STU_EDU_INFO` (`EDU_ID`, `EDU_DEGREE`, `EDU_SCHOOL_ID`, `EDU_MAJOR`, `EDU_COLLEGE`, `EDU_GPA`, `EDU_DIPLOMA_TYPE`, `EDU_START`, `EDU_END`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`STU_EDU_INFO` (`EDU_ID`, `EDU_DEGREE`, `EDU_SCHOOL_ID`, `EDU_MAJOR`, `EDU_COLLEGE`, `EDU_GPA`, `EDU_DIPLOMA_TYPE`, `EDU_START`, `EDU_END`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '3', '10001', '10101', '---', '3.1', '1010', '2014-09-01', '2018-07-01', '10', '1', '2019-01-01 00:00:00'),
 ('2', '4', '20232', '10101', '---', '3.1', '1010', '2018-09-01', '2020-07-01', '10', '1', '2019-01-01 00:00:00'),
 ('3', '3', '10001', '10101', '---', '3.1', '1010', '2014-09-01', '2018-07-01', '11', '2', '2019-01-01 00:00:00'),
@@ -1745,21 +1754,21 @@ INSERT INTO `youthchina`.`STU_EDU_INFO` (`EDU_ID`, `EDU_DEGREE`, `EDU_SCHOOL_ID`
 
 
 TRUNCATE TABLE `youthchina`.`STU_SUB_INFO` ;
-INSERT INTO `youthchina`.`STU_SUB_INFO` (`SUB_ID`, `SUB_COURSE`, `SUB_HONOR`, `SUB_AWARD`, `SUB_SKILL`, `SUB_FOREIGN`, `SUB_INTEREST`, `SUB_INTRODUCTION`, `STU_ID`, `IS_DELETE`) VALUES
+INSERT INTO `youthchina`.`STU_SUB_INFO` (`SUB_ID`, `SUB_COURSE`, `SUB_HONOR`, `SUB_AWARD`, `SUB_SKILL`, `SUB_FOREIGN`, `SUB_INTEREST`, `SUB_INTRODUCTION`, `STU_ID`, `IS_DELETE`) VALUES 
 ('1', '西方哲学史，东方哲学史', '证书', '一等奖学金', '熟练使用office', '英语，法语', '音乐，运动', 'I am a good man', '1', '0'),
 ('2', '西方哲学史，东方哲学史', '证书', '一等奖学金', '熟练使用office', '英语，法语', '音乐，运动', 'I am a good man', '2', '0'),
 ('3', '西方哲学史，东方哲学史', '证书', '一等奖学金', '熟练使用office', '英语，法语', '音乐，运动', 'I am a good man', '3', '0');
 
 
 TRUNCATE TABLE `youthchina`.`STU_CERTIFICATE`  ;
-INSERT INTO `youthchina`.`STU_CERTIFICATE` (`CERTIFICATE_ID`, `CERTIFICATE_NAME`, `CERTIFICATE_INSTI`, `INSTI_COUNTRY`, `CERTIFICATE_GRANT_DATE`, `CERTIFICATE_EXPIR_DATE`, `DOCU_LOCAL_ID`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`STU_CERTIFICATE` (`CERTIFICATE_ID`, `CERTIFICATE_NAME`, `CERTIFICATE_INSTI`, `INSTI_COUNTRY`, `CERTIFICATE_GRANT_DATE`, `CERTIFICATE_EXPIR_DATE`, `DOCU_LOCAL_ID`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '亚马逊AWS证书', 'Amazon', 'USA', '2018-09-01', '2020-08-31', '1234567890', '10', '0', '2019-01-01 00:00:00'),
-('2', '亚马逊AWS证书', 'Amazon', 'USA', '2018-09-01', '2020-08-31', '12345678901', '11', '0', '2019-01-01 00:00:00'),
-('3', '亚马逊AWS证书', 'Amazon', 'USA', '2018-09-01', '2020-08-31', '12345678902', '12', '0', '2019-01-01 00:00:00');
+ ('2', '亚马逊AWS证书', 'Amazon', 'USA', '2018-09-01', '2020-08-31', '12345678901', '11', '0', '2019-01-01 00:00:00'),
+ ('3', '亚马逊AWS证书', 'Amazon', 'USA', '2018-09-01', '2020-08-31', '12345678902', '12', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`STU_PROJECT`  ;
-INSERT INTO `youthchina`.`STU_PROJECT` (`PROJ_ID`, `PROJ_INSTITUTE`, `INSTI_COUNTRY`, `PROJ_NAME`, `PROJ_ROLE`, `PROJ_START_TIME`, `PROJ_END_TIME`, `PROJ_DELIVER`, `DELIVER_PUBLISH`, `DELIVER_PUB_INSTI`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`STU_PROJECT` (`PROJ_ID`, `PROJ_INSTITUTE`, `INSTI_COUNTRY`, `PROJ_NAME`, `PROJ_ROLE`, `PROJ_START_TIME`, `PROJ_END_TIME`, `PROJ_DELIVER`, `DELIVER_PUBLISH`, `DELIVER_PUB_INSTI`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', 'PMI', 'USA', 'AAAAA', '助理研究员', '2015-09-01', '2015-12-31', '无', '0', '---', '10', '0', '2019-01-01 00:00:00'),
 ('2', 'PMI', 'USA', 'BBBBB', '助理研究员', '2017-09-01', '2017-12-31', '论文', '1', 'APA', '10', '0', '2019-01-01 00:00:00'),
 ('3', 'PMI', 'USA', 'AAAAA', '助理研究员', '2015-09-01', '2015-12-31', '无', '0', '---', '11', '0', '2019-01-01 00:00:00'),
@@ -1769,7 +1778,7 @@ INSERT INTO `youthchina`.`STU_PROJECT` (`PROJ_ID`, `PROJ_INSTITUTE`, `INSTI_COUN
 
 
 TRUNCATE TABLE `youthchina`.`STU_WORK`  ;
-INSERT INTO `youthchina`.`STU_WORK` (`WORK_ID`, `WORK_COMPANY`, `WORK_LOCATION`, `WORK_POSITION`, `WORK_SECTOR`, `WORK_START_TIME`, `WORK_END_TIME`, `WORK_DUTY`, `WORK_NATURE`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`STU_WORK` (`WORK_ID`, `WORK_COMPANY`, `WORK_LOCATION`, `WORK_POSITION`, `WORK_SECTOR`, `WORK_START_TIME`, `WORK_END_TIME`, `WORK_DUTY`, `WORK_NATURE`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '腾讯科技', '110000', '前端开发', 'DD', '2016-03-01', '2016-06-30', '负责网页前端开发', '3', '10', '0', '2019-01-01 00:00:00'),
 ('2', '百度科技', '110000', 'web开发', 'DD', '2017-03-01', '2016-06-30', '负责网页前端开发', '3', '10', '0', '2019-01-01 00:00:00'),
 ('3', '腾讯科技', '110000', '前端开发', 'DD', '016-03-01', '2016-06-30', '负责网页前端开发', '3', '11', '0', '2019-01-01 00:00:00'),
@@ -1779,7 +1788,7 @@ INSERT INTO `youthchina`.`STU_WORK` (`WORK_ID`, `WORK_COMPANY`, `WORK_LOCATION`,
 
 
 TRUNCATE TABLE `youthchina`.`STU_ACTIVITY`  ;
-INSERT INTO `youthchina`.`STU_ACTIVITY` (`ACT_ID`, `ACT_NAME`, `ACT_ORGANIZATION`, `ORG_COUNTRY`, `ACT_ROLE`, `ACT_START_TIME`, `ACT_END_TIME`, `ACT_DETAIL`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`STU_ACTIVITY` (`ACT_ID`, `ACT_NAME`, `ACT_ORGANIZATION`, `ORG_COUNTRY`, `ACT_ROLE`, `ACT_START_TIME`, `ACT_END_TIME`, `ACT_DETAIL`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '校庆', '北京大学', 'CHN', '校庆志愿者', '2016-01-01', '2016-02-28', '校庆志愿者服务', '1', '0', '2019-01-01 00:00:00'),
 ('2', '奥运会', '北京奥组委', 'CHN', '志愿者', '2016-01-01', '2016-02-28', '志愿者服务', '1', '0', '2019-01-01 00:00:00'),
 ('3', '校庆', '北京大学', 'CHN', '校庆志愿者', '2016-01-01', '2016-02-28', '校志愿者服务', '2', '0', '2019-01-01 00:00:00'),
@@ -1789,19 +1798,19 @@ INSERT INTO `youthchina`.`STU_ACTIVITY` (`ACT_ID`, `ACT_NAME`, `ACT_ORGANIZATION
 
 
 TRUNCATE TABLE `youthchina`.`STU_JOB_COLLECT` ;
-INSERT INTO `youthchina`.`STU_JOB_COLLECT` (`COLLECT_ID`, `JOB_ID`, `JOB_COLL_TIME`, `STU_ID`, `IS_DELETE`) VALUES
+INSERT INTO `youthchina`.`STU_JOB_COLLECT` (`COLLECT_ID`, `JOB_ID`, `JOB_COLL_TIME`, `STU_ID`, `IS_DELETE`) VALUES 
 ('1', '1', '2019-01-01', '1', '0'),
-('2', '2', '2019-01-01', '1', '0');
+ ('2', '2', '2019-01-01', '1', '0');
 
 
 TRUNCATE TABLE `youthchina`.`STU_COMP_COLLECT` ;
-INSERT INTO `youthchina`.`STU_COMP_COLLECT` (`COLLECT_ID`, `COMPANY_ID`, `COMPANY_COLL_TIME`, `STU_ID`, `IS_DELETE`) VALUES
+INSERT INTO `youthchina`.`STU_COMP_COLLECT` (`COLLECT_ID`, `COMPANY_ID`, `COMPANY_COLL_TIME`, `STU_ID`, `IS_DELETE`) VALUES 
 ('1', '1', '2019-01-01', '1', '0'),
-('2', '2', '2019-01-01', '1', '0');
+ ('2', '2', '2019-01-01', '1', '0');
 
 
 TRUNCATE TABLE `youthchina`.`STU_PREFER_CITY`  ;
-INSERT INTO `youthchina`.`STU_PREFER_CITY` (`PRE_CITY_ID`, `PRE_REGION_NUM`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`STU_PREFER_CITY` (`PRE_CITY_ID`, `PRE_REGION_NUM`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '922202', '10', '0', '2019-01-01 00:00:00'),
 ('2', '922202', '11', '0', '2019-01-01 00:00:00'),
 ('3', '922202', '12', '0', '2019-01-01 00:00:00'),
@@ -1811,7 +1820,7 @@ INSERT INTO `youthchina`.`STU_PREFER_CITY` (`PRE_CITY_ID`, `PRE_REGION_NUM`, `ST
 
 
 TRUNCATE TABLE `youthchina`.`STU_PREFER_INDUSTRY` ;
-INSERT INTO `youthchina`.`STU_PREFER_INDUSTRY` (`PRE_IND_ID`, `PRE_IND_CODE`, `STU_ID`, `IS_DELETE`) VALUES
+INSERT INTO `youthchina`.`STU_PREFER_INDUSTRY` (`PRE_IND_ID`, `PRE_IND_CODE`, `STU_ID`, `IS_DELETE`) VALUES 
 ('1', 'R85', '1', '0'),
 ('2', 'R88', '1', '0'),
 ('3', 'P82', '2', '0'),
@@ -1821,260 +1830,260 @@ INSERT INTO `youthchina`.`STU_PREFER_INDUSTRY` (`PRE_IND_ID`, `PRE_IND_CODE`, `S
 
 
 TRUNCATE TABLE `youthchina`.`STU_PREFER_PROF` ;
-INSERT INTO `youthchina`.`STU_PREFER_PROF` (`PRE_PROF_ID`, `PRE_PROF_CODE`, `PRE_AVAIL_TIME`, `STU_ID`, `IS_DELETE`) VALUES
+INSERT INTO `youthchina`.`STU_PREFER_PROF` (`PRE_PROF_ID`, `PRE_PROF_CODE`, `PRE_AVAIL_TIME`, `STU_ID`, `IS_DELETE`) VALUES 
 ('1', 'I6510201001', '2019-07-01', '1', '0'),
-('2', 'I6510201002', '2019-07-01', '1', '0'),
-('3', 'I6510201003', '2019-07-01', '1', '0'),
-('4', 'I6510101001', '2019-07-01', '2', '0'),
-('5', 'I6510101002', '2019-07-01', '2', '0'),
-('6', 'I6510101003', '2019-07-01', '2', '0'),
-('7', 'I6510102001', '2019-07-01', '3', '0'),
-('8', 'I6510102002', '2019-07-01', '3', '0');
+ ('2', 'I6510201002', '2019-07-01', '1', '0'),
+ ('3', 'I6510201003', '2019-07-01', '1', '0'),
+ ('4', 'I6510101001', '2019-07-01', '2', '0'),
+ ('5', 'I6510101002', '2019-07-01', '2', '0'),
+ ('6', 'I6510101003', '2019-07-01', '2', '0'),
+ ('7', 'I6510102001', '2019-07-01', '3', '0'),
+ ('8', 'I6510102002', '2019-07-01', '3', '0');
 
 
 TRUNCATE TABLE `youthchina`.`STU_PREFER_JOB_TYPE`  ;
-INSERT INTO `youthchina`.`STU_PREFER_JOB_TYPE` (`PRE_TYPE_ID`, `JOB_TYPE`, `PRE_PROF_ID`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`STU_PREFER_JOB_TYPE` (`PRE_TYPE_ID`, `JOB_TYPE`, `PRE_PROF_ID`, `STU_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '1', '1', '10', '0', '2019-01-01 00:00:00'),
-('2', '2', '2', '10', '0', '2019-01-01 00:00:00'),
-('3', '3', '3', '10', '0', '2019-01-01 00:00:00'),
-('4', '1', '4', '11', '0', '2019-01-01 00:00:00'),
-('5', '2', '5', '11', '0', '2019-01-01 00:00:00'),
-('6', '3', '6', '11', '0', '2019-01-01 00:00:00'),
-('7', '1', '7', '12', '0', '2019-01-01 00:00:00'),
-('8', '2', '8', '12', '0', '2019-01-01 00:00:00');
+ ('2', '2', '2', '10', '0', '2019-01-01 00:00:00'),
+ ('3', '3', '3', '10', '0', '2019-01-01 00:00:00'),
+ ('4', '1', '4', '11', '0', '2019-01-01 00:00:00'),
+ ('5', '2', '5', '11', '0', '2019-01-01 00:00:00'),
+ ('6', '3', '6', '11', '0', '2019-01-01 00:00:00'),
+ ('7', '1', '7', '12', '0', '2019-01-01 00:00:00'),
+ ('8', '2', '8', '12', '0', '2019-01-01 00:00:00');
 
 
 
 TRUNCATE TABLE `youthchina`.`STU_PREFER_SALARY` ;
-INSERT INTO `youthchina`.`STU_PREFER_SALARY` (`PRE_SALA_ID`, `PRE_SALA_CAP`, `PRE_SALA_FLOOR`, `PRE_PROF_ID`, `STU_ID`, `IS_DELETE`) VALUES
+INSERT INTO `youthchina`.`STU_PREFER_SALARY` (`PRE_SALA_ID`, `PRE_SALA_CAP`, `PRE_SALA_FLOOR`, `PRE_PROF_ID`, `STU_ID`, `IS_DELETE`) VALUES 
 ('1', '20000', '5000', '1', '1', '0'),
-('2', '20000', '5000', '2', '1', '0'),
-('3', '20000', '5000', '4', '2', '0'),
-('4', '20000', '5000', '5', '2', '0'),
-('5', '20000', '5000', '7', '3', '0'),
-('6', '20000', '5000', '8', '3', '0');
+ ('2', '20000', '5000', '2', '1', '0'),
+ ('3', '20000', '5000', '4', '2', '0'),
+ ('4', '20000', '5000', '5', '2', '0'),
+ ('5', '20000', '5000', '7', '3', '0'),
+ ('6', '20000', '5000', '8', '3', '0');
 
 
 
 TRUNCATE TABLE `youthchina`.`COMPANY_INFO` ;
-INSERT INTO `youthchina`.`COMPANY_INFO` (`COMPANY_ID`, `COMPANY_NAME`, `COMPANY_CODE`, `COMPANY_COUNTRY`, `COMPANY_INTRODUC`, `COMPANY_SCALE_NUM`, `COMPANY_NATURE`, `COMPANY_LOCATION`, `COMPANY_MAIL`, `COMPANY_WEBSITE`, `COMPANY_START_DATE`, `COMPANY_VERIFY`, `USER_ID`, `ADD_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`COMPANY_INFO` (`COMPANY_ID`, `COMPANY_NAME`, `COMPANY_CODE`, `COMPANY_COUNTRY`, `COMPANY_INTRODUC`, `COMPANY_SCALE_NUM`, `COMPANY_NATURE`, `COMPANY_LOCATION`, `COMPANY_MAIL`, `COMPANY_WEBSITE`, `COMPANY_START_DATE`, `COMPANY_VERIFY`, `USER_ID`, `ADD_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '中国石油化工股份有限公司', '---', 'CHN', '中国石油化工股份有限公司是一家上中下游一体化、石油石化主业突出、拥有比较完备销售网络、境内外上市的股份制企业。中国石化是由中国石油化工集团公司依据《中华人民共和国公司法》，以独家发起方式于2000年2月25日设立的股份制企业。', '4', '1', '110000', '---', 'http://www.sinopec.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('2', '中国石油天然气股份有限公司', '---', 'CHN', '中国石油天然气股份有限公司是中国油气行业占主导地位的最大的油气生产和销售商，是国有企业，是中国销售收入最大的公司之一，也是世界最大的石油公司之一。', '4', '1', '110000', '---', 'http://www.petrochina.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('3', '中国建筑股份有限公司', '---', 'CHN', '“中国建筑”是中国最大建筑房地产综合企业和中国最大国际承包商；2011年8月29日，中国建筑股份有限公司入选中国建筑施工企业联合会评选的中国建筑500强，排名第5位。是2007年度《财富》杂志评出的“中国地区最受赞赏公司”五家内地企业之一；连续三年被国务院国资委评为中央企业年度经营业绩考核A级企业；被评为2006年“中国最佳诚信企业”、“中国优秀企业形象十佳单位”、被中宣部和国资委评为国有企业九大典型之一。', '4', '1', '110000', '---', 'http://www.cscec.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('4', '上海汽车集团股份有限公司', '---', 'CHN', '上汽集团主要业务涵盖整车(包括乘用车、商用车)、零部件(包括发动机、变速箱、动力传动、底盘、内外饰、电子电器等)的研发、生产、销售，物流、车载信息、二手车等汽车服务贸易业务，以及汽车金融业务。', '4', '1', '310000', '---', 'http://www.saicmotor.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('5', '中国平安保险(集团)股份有限公司', '---', 'CHN', '中国平安保险（集团）股份有限公司于1988年诞生于深圳蛇口，是中国第一家股份制保险企业，至今已经发展成为金融保险、银行、投资等金融业务为一体的整合、紧密、多元的综合金融服务集团。', '4', '1', '440300', '---', 'http://www.pingan.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('6', '中国移动有限公司', '---', 'CHN', '中国移动通信集团有限公司是按照国家电信体制改革的总体部署，于2000年4月20日成立的中央企业。2017年12月，中国移动通信集团公司进行公司制改制，企业类型由全民所有制企业变更为国有独资公司，并更名为中国移动通信集团有限公司。', '4', '1', '110000', '---', 'http://www.chinamobileltd.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('7', '中国工商银行股份有限公司', '---', 'CHN', '中国工商银行拥有中国最大的客户群，是中国最大的商业银行之一，中国工商银行营业网点也是世界五百强企业之一，工商银行为公司客户与个人客户提供了多元、专业的各项金融服务。其范围广，业务量大，业务品种丰富。', '4', '1', '110000', '---', 'http://www.icbc.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('8', '中国中铁股份有限公司', '---', 'CHN', '中国铁路工程集团有限公司成立于1950年3月，总部位于北京，是一家集基建建设、勘察设计与咨询服务、工程设备和零部件制造、房地产开发、铁路和公路投资及运营、矿产资源开发、物资贸易等业务于一体的多功能、特大型企业集团，也是中国和亚洲最大的多功能综合型建设集团，现属国务院国有资产监督管理委员会管理的中央企业。', '4', '1', '110000', '---', 'http://www.crecg.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('9', '中国铁建股份有限公司', '---', 'CHN', '中国铁建业务涵盖工程承包、勘察设计咨询、工业制造、房地产开发、物流与物资贸易及资本运营，已经从以施工承包为主发展成为具有科研、规划、勘察、设计、施工、监理、维护、运营和投融资的完善的行业产业链，具备了为业主提供一站式综合服务的能力。并在高原铁路、高速铁路、高速公路、桥梁、隧道和城市轨道交通工程设计及建设领域确立了行业领导地位。公司经营范围遍及除台湾以外的全国31个省（市）、自治区和香港、澳门特别行政区以及世界59个国家。公司专业团队强大，拥有1名工程院院士、6名国家勘察设计大师和220名享受国务院特殊津贴的专家。', '4', '1', '110000', '---', 'http://www.crcc.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('10', '中国建设银行股份有限公司', '---', 'CHN', '中国建设银行成立于1954年10月1日。总行位于北京金融大街25号，是中央管理的大型国有银行，国家副部级单位。中国建设银行主要经营领域包括公司银行业务、个人银行业务和资金业务，在29个国家和地区设有分支机构及子公司，拥有基金、租赁、信托、人寿、财险、投行、期货、养老金等多个行业的子公司。中国建设银行拥有广泛的客户基础，与多个大型企业集团及中国经济战略性行业的主导企业保持银行业务联系，营销网络覆盖全国的主要地区。2016年6月30日，英国《银行家》杂志发布《全球1000家大银行排行榜》，中国建设银行排名第2位。2017年2月，BrandFinance发布2017年度全球500强品牌榜单，中国建设银行排名第14位。2018年《财富》世界500强排名31位。', '4', '1', '110000', '---', 'http://www.ccb.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('11', '中国人寿保险（集团）公司', '---', 'CHN', '中国人寿保险（集团）公司，是国有特大型金融保险企业，总部设在北京，世界500强企业、中国品牌500强，属中央金融企业。公司前身是成立于1949年的原中国人民保险公司，1996年分设为中保人寿保险有限公司，1999年更名为中国人寿保险公司。2003年，经国务院同意、保监会批准，原中国人寿保险公司重组改制为中国人寿保险（集团）公司，业务范围全面涵盖寿险、财产险、养老保险（企业年金）、资产管理、另类投资、海外业务、电子商务等多个领域，并通过资本运作参股了多家银行、证券公司等其他金融和非金融机构。', '4', '1', '110000', '---', 'http://www.e-chinalife.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('12', '中国农业银行股份有限公司', '---', 'CHN', '中国农业银行成立于1951年。总行位于北京建国门内大街69号，是中央管理的大型国有银行，国家副部级单位。中国农业银行是中国金融体系的重要组成部分，提供各种公司银行和零售银行产品和服务，同时开展金融市场业务及资产管理业务，业务范围还涵盖投资银行、基金管理、金融租赁、人寿保险等领域。2017年2月，BrandFinance发布2017年度全球500强品牌榜单，中国农业银行排名第34位。2018年7月，英国《银行家》杂志发布2018年全球银行1000强排名榜单，中国农业银行排名第4位。2018年《财富》世界500强排名第40位。2018年12月，世界品牌实验室发布《2018世界品牌500强》榜单，中国农业银行排名第340。', '4', '1', '110000', '---', 'http://www.abchina.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('13', '中国银行股份有限公司', '---', 'CHN', '中国银行股份有限公司，是中华人民共和国国内第四大银行，为财政部管理的中央金融企业之一。中国银行也是全球29家“系统重要性金融机构”之一，在《财富》杂志的2016年世界500强排名中位列第35位；在《银行家》杂志的2018年全球1000家大银行排名中位列第3位，一级资本为2240亿美元。截至2016年末，中国银行在中国大陆地区拥有37家一级分行、326家二级分行及10287家分支机构，在境外29个国家和地区设有分支机构578家。', '4', '1', '110000', '---', 'http://www.boc.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('14', '中国人民保险集团股份有限公司', '---', 'CHN', '中国人民保险集团股份有限公司是一家综合性保险（金融）公司，世界五百强之一，是世界上最大的保险公司之一，属中央金融企业，注册资本为306亿元人民币，在全球保险业中属于实力非常雄厚的公司。公司标志为英文PICC。旗下拥有人保财险、人保资产、人保健康、人保寿险、人保投资、华闻控股、人保资本、人保香港、中盛国际、中人经纪、中元经纪和人保物业等十余家专业子公司，中国人保还持有中诚信托32.35%的股权。股改后第一任董事长兼总裁吴焰。《财富》世界500强2013年排名第256位。', '4', '1', '110000', '---', 'http://www.picc.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('15', '中国交通建设股份有限公司', '---', 'CHN', '中国交通建设股份有限公司成立于2006年10月8日，经国务院批准，由中国交通建设集团有限公司整体重组改制并独家发起设立的股份有限公司，并于2006年12月15日在香港联合交易所主板挂牌上市交易，成为中国第一家实现境外整体上市的特大型国有基建企业。中交股份作为世界500强企业，主要从事港口、码头、航道、公路、桥梁、铁路、隧道、市政等基础设施建设和房地产开发业务，业务足迹遍及世界100多个国家和地区。公司是中国最大的港口设计及建设企业，设计承建了建国以来绝大多数沿海大中型港口码头；世界领先的公路、桥梁设计及建设企业，参与了国内众多高等级主干线公路建设；世界第一疏浚企业，拥有中国最大的疏浚船队，耙吸船总仓容量和绞吸船总装机功率均排名世界第一。', '4', '1', '110000', '---', 'http://www.ccccltd.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('16', '中国电信股份有限公司', '---', 'CHN', '中国电信是按照中华人民共和国电信体制改革方案所组建的特大型国有通信企业和中央企业，是中国第一大固网和数据通信运营商以及第三大移动通信运营商，其在中国的固定电话和固网宽带的市场占有率均超过了50%，并拥有全球规模最大的固网和数据通信网络，覆盖全国城乡，通达世界各地。截至2011年上半年，拥有固定电话用户1.94亿户，移动电话用户（CDMA）6236万户，宽带用户6174万户；集团公司总资产6322亿元，人员67万人。', '4', '1', '110000', '---', 'http://www.chinatelecom.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('17', '中国中信股份有限公司', '---', 'CHN', '中国中信股份有限公司是在香港交易所上市的综合企业公司。中信泰富主要业务是销售及分销，汽车及有关服务、贸易、发电及基础设施、物业、工业制造、以及信息业。中信股份是一家金融与实业并举的大型综合性跨国企业集团，业务涉及银行、证券、信托、保险、基金、资产管理等金融领域和房地产、工程承包、资源能源、基础设施、机械制造、信息产业等实业领域，具有较强的综合优势和良好发展势头。', '4', '1', '810000', '---', 'http://www.citic.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('18', '联想控股股份有限公司', '---', 'CHN', '联想集团有限公司是中国一家总部设在北京市和美国北卡罗莱纳州罗利市的跨国科技公司，成立于1984年，由中国科学院计算技术研究所投资20万元人民币、11名科技人员创办。联想公司主要研发、生产和销售笔记型电脑、一体机、台式电脑、服务器、手机、平板电脑，以及其他移动互联、数码、电脑周边等类产品。1996年开始，联想电脑销量位居中国大陆市场首位。2005年联想收购了IBM的个人电脑业务，2011年起成为全球第二大个人电脑生产商，2013年起成为全球第一大个人电脑生产商。', '4', '1', '110000', '---', 'http://www.lenovo.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('19', '中国联合网络通信股份有限公司', '---', 'CHN', '中国联通是指中国联合网络通信集团有限公司等子公司的简称，在中国境内31个省（自治区、直辖市）和境外多个国家和地区设有分支机构，是中国唯一一家同时在上海、纽约、香港三地上市的电信运营企业。截至2012年底，资产规模达到5760.72亿元人民币，全系统从业人员29.48万人。截至2013年3月底，用户4.03亿户。该公司于2009年1月6日成立，由原中国联通和原中国网通合并而成。中国联合网络通信集团有限公司（简称“中国联通”）于2009年1月6日在原中国联合通信有限公司与原中国网络通信集团公司的基础上合并组建而成，主要经营固定通信业务，移动通信业务，国内、国际通信设施服务业务，卫星国际专线业务、数据通信业务、网络接入业务和各类电信增值业务，与通信信息业务相关的系统集成业务等。中国联通于2009年4月28日推出全新的全业务品牌“沃”，拥有“沃4G+”、“沃派”、“智能沃家”，“沃·商务”著名客户品牌。', '4', '1', '110000', '---', 'http://www.chinaunicom-a.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('20', '中国太平洋保险(集团)股份有限公司', '---', 'CHN', '中国太平洋保险的前身中国太平洋保险公司，成立于1991年5月13日，是经中国人民银行批准设立的全国性股份制商业保险公司。2001年，根据中国国务院和中国保监会分业经营机构体制改革的批复，原中国太平洋保险公司更名为“中国太平洋保险（集团）股份有限公司”。太保是中国大陆第二大财产保险公司，仅次于中国财险，也是三大人寿保险公司之一。它本身经营多元化保险服务，包括人寿保险、财产保险、等。', '4', '1', '310000', '---', 'http://www.cpic.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('21', '京东商城电子商务有限公司', '---', 'CHN', '京东商城是中国一家自营式零售购物网站。2014年，京东集团在美国纳斯达克证券交易所上市，成为中国第一个赴美上市的大型综合型电商平台，2015年第一季度在中国自营式B2C电商市场的占有率为56.3%。当前出售家电、数字通讯、计算机、家居百货、服装服饰、母婴、图书、食品等商品。根据数据显示，截至2016年3月底止，京东商城拥有7个补充中心、209个货仓、5,987个送货据点及2,493个提货站。2017年9月30日，京东在全国共运营405个大型仓库，总面积约900万平方米。', '4', '1', '110000', '---', 'http://www.jd.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('22', '国药控股股份有限公司', '---', 'CHN', '国药控股股份有限公司成立于2003年1月。2009年9月23日在香港上市。作为中国最大的药品及医疗保健产品分销商及领先的供应链服务商，公司拥有并经营中国最大的药品分销网络。2005年以来，在中国医药商业年度销售、利税排名中连续四年位居榜首。国药控股股份有限公司由中国医药集团总公司与上海复星高科技（集团）有限公司于2003年共同出资组建；并于2009年在香港上市。国药控股现拥有并经营中国最大的药品分销及配送网络，覆盖全国29个省级行政区，向客户及供应商提供全面的分销、物流及增值服务。', '4', '1', '310000', '---', 'http://www.sinopharmgroup.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('23', '绿地控股集团股份有限公司', '---', 'CHN', '绿地控股集团有限公司是一家总部设立在中华人民共和国上海的国有控股跨国企业集团，业务为房地产、能源、金融及酒店等投资。2013年，绿地集团在中国企业500强中位列第55位，并在财富世界500强中以营业额317.39亿美元排名第359位。绿地集团目前经营多种业务，其中以房地产、能源、金融、酒店、建设以及汽车服务为主。绿地房地产开发项目遍及中国的上海、北京、天津、重庆等25个省市自治区的70座城市以及韩国、澳大利亚、德国和俄罗斯。项目按超高层、城市综合体和住宅三种功能性产品分类，其中截止至2013年12月，建成和在建超高层城市地标建筑已达17幢，例如高606米的武汉绿地中心和高518米的大连绿地中心。', '4', '1', '310000', '---', 'http://www.greenlandsc.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('24', '万科企业股份有限公司', '---', 'CHN', '万科企业股份有限公司，简称万科或万科集团，总部位于中国深圳市盐田区大梅沙环梅路33号，现任董事会名誉主席为王石，董事会主席为郁亮，总裁、首席执行官为祝九胜。', '4', '1', '440300', '---', 'https://www.vanke.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('25', '中国电力建设股份有限公司', '---', 'CHN', '中国电力建设集团有限公司是由国务院批准由中国水利水电建设集团公司、中国水电工程顾问集团公司和其他14个省（区域）电网企业所属的勘测设计企业、电力施工企业、装备修造企业于2011年9月29日改革重组而设。现时业务于全球和国内经营水利水电、火电、新能源、电网以及基础设施，还包括规划、勘测、设计、施工、运营等行业，而旗下公司中国水利水电建设股份有限公司为主体。2016年，中国电建在财富世界500强中排名第190位。', '4', '1', '110000', '---', 'http://www.powerchina.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('26', '中国中车股份有限公司', '---', 'CHN', '中国中车股份有限公司，简称中国中车或CRRC，是中国一家从事铁路机车、铁路车辆、动车组、地铁及其零部件的研发、制造、厂修及IGBT、公交车等周边产业的大型中央企业，不但是中国最大的轨道交通设备制造商和解决方案供应商，在全球同样具有领导地位。2015年6月1日，中国南车股份有限公司（CSR）吸收合并中国北车股份有限公司（CNR）成立中国中车，成为全球最大铁路车辆及设备制造商。', '4', '1', '110000', '---', 'http://www.crrcgc.cc/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('27', '中国能源建设股份有限公司', '---', 'CHN', '中国能源建设集团有限公司，简称中国能源建设集团、中国能源建设，以及中国能源，在2011年9月29日，由中国葛洲坝集团公司、中国电力工程顾问集团公司和原有国家电网公司、中国南方电网有限责任公司所属15个省（市、区）的电力勘测设计、施工和修造企业，于北京组成控股公司。2016年位居世界五百强第309位。', '4', '1', '110000', '---', 'http://www.ceec.net.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('28', '中国冶金科工股份有限公司', '---', 'CHN', '中国冶金科工集团有限公司隶属中国五矿集团公司，是中国冶金工业的开拓者和建设者，先后承担了宝钢、鞍钢、武钢、攀钢等国家主要钢铁工业基地的建设任务，为中国冶金工业的发展立下了卓越功勋。作为国际知名承包商，中冶集团在海外各地开辟了广阔市场，足迹遍及五大洲，承建了一批具有重要影响和良好经济效益的项目，受到了项目所在国的好评和欢迎。《财富》世界500强，2013年排名第302位。2016年8月，中国冶金科工集团有限公司在2016中国企业500强\"中排名第60位。\"', '4', '1', '110000', '---', 'http://www.mcc.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('29', '中国恒大集团', '---', 'CHN', '中国恒大集团，简称恒大，是中国大陆的大型住宅物业开发商，是中国十大房地产企业之一。它也是广东省五大地产发展商之一。2018年5月25日，中国房地产业协会、中国房地产测评中心联合发布“2018中国房地产上市公司100强”，恒大综合实力居第一名。2018年7月19日，2018《财富》世界500强发布，恒大以460.19亿美元的营业收入位列230名，较2017年大幅上升108位。', '4', '1', '440300', '---', 'http://www.evergrande.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30', '招商银行股份有限公司', '---', 'CHN', '招商银行在1987年成立于深圳蛇口，为招商局集团下属公司，是中国境内第一家完全由企业法人持股的股份制商业，也是中国内地市值第五大的银行。自2012年首次入围《财富》世界500强以来，已连续7年入围，2018年《财富》世界500强居213位。', '4', '1', '440300', '---', 'http://www.cmbchina.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('31', '物产中大集团股份有限公司', '---', 'CHN', '浙江中大集团股份有限公司位于浙江省杭州市中大广场A座，创建于1992年，前身是浙江省服装进出口公司，是以纺织服装国际贸易起家的国有控股公司，也是外经贸部推荐的第一家外贸上市公司。集团坚持“一体两翼”战略，主营商贸流通、金融投资和高端实业，拥有各级成员公司350余家，员工近2万人。自2004年起稳居浙江省百强企业前两位，是全国首家获评双AAA主体信用评级的地方流通企业，2011年以来,连续跻身世界500强。', '4', '1', '330000', '---', 'http://www.zjmi.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('32', '江西铜业集团公司', '---', 'CHN', '江西铜业股份有限公司，简称江铜，是一家在香港交易所和上海证券交易所上市的工业公司。它是中国最大的铜业公司，主要业务是采矿、选矿、熔炼与精炼，生产阴铜及副产品，包括硫精矿、硫酸及电解金和银。拥有的主要矿山有德兴铜矿、武山铜矿、永平铜矿等。公司在中华人民共和国注册，现任董事长为龙子平，总部在江西省南昌市。2004年资产净值为RMB5,956,080,000，纯利为RMB1,108,139,000。2017年9月，江西铜业集团公司在2017中国企业500强\"中排名第76位。公司位居2017年《财富》世界500强第339位。公司位居2018年《财富》世界500强第370位。\"', '4', '1', '360000', '---', 'http://www.jxcc.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('33', '交通银行股份有限公司', '---', 'CHN', '交通银行始于1908年，是中国历史最悠久的银行之一，也是近代中国的发钞行之一。1987年4月1日，重新组建后的交通银行正式对外营业，成为中国第一家全国性的国有股份制商业银行，总行设在上海。2005年6月交通银行在香港联合交易所挂牌上市，2007年5月在上海证券交易所挂牌上市。', '4', '1', '310000', '---', 'http://www.bankcomm.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('34', '中国邮政储蓄银行股份有限公司', '---', 'CHN', '中国邮政储蓄银行于2007年3月20日正式挂牌成立，是中国第五大银行，是在改革邮政储蓄管理体制的基础上组建的国有商业银行。中国邮政储蓄银行承继原国家邮政局、中国邮政集团公司经营的邮政金融业务及因此而形成的资产和负债，并将继续从事原经营范围和业务许可文件批准、核准的业务。', '4', '1', '110000', '---', 'http://www.psbc.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('35', '宝山钢铁股份有限公司', '---', 'CHN', '中国宝武钢铁集团有限公司由原宝钢集团有限公司和武汉钢铁（集团）公司联合重组而成，为国有独资公司，是中国最具竞争力的钢铁联合企业，总部位于上海。宝武已涉足包括钢铁主业和资源开发及物流、钢材延伸加工、工程技术服务、煤化工、金融投资、生产服务等七大相关产业，其钢铁主业已形成普碳钢、不锈钢、特钢三大产品系列，广泛应用于汽车、家电、石油化工、机械制造、能源交通、建筑装潢、金属制品、航天航空、核电、电子仪表等行业。宝钢产品通过遍布全球的销售网络，畅销国内外市场，不仅保持国内板材市场的主导地位，而且将钢铁精品出口至日本、韩国、欧美等四十多个国家和地区。', '4', '1', '310000', '---', 'http://www.baosteel.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('36', '阿里巴巴网络技术有限公司', '---', 'CHN', '阿里巴巴集团（NYSE：BABA）创立于1999年。2014年9月19日，阿里巴巴集团在纽约证券交易所正式挂牌上市，创始人和董事局主席为马云。2018年7月19日，全球同步《财富》世界500强排行榜发布，阿里巴巴集团排名300位。阿里巴巴是一家供电子商务线上交易平台的公司，业务包括B2B贸易、网上零售、购物搜索引擎、第三方支付和云计算服务。集团经营多项业务，另外也从关联公司的业务和服务中取得经营商业生态系统上的支援。业务和关联公司的业务包括：阿里巴巴B2B、淘宝网、天猫、一淘网、阿里云计算、支付宝、蚂蚁金服、聚划算、全球速卖通、阿里巴巴国际交易市场、1688、阿里妈妈、蚂蚁金服、菜鸟网络等。旗下的淘宝网和天猫在2012年销售额达到1.1万亿人民币。其2015年度商品交易总额已经超过3万亿元人民币，是全球最大零售商。', '4', '1', '330100', '---', 'http://www.alibaba.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('37', '深圳市腾讯计算机系统有限公司', '---', 'CHN', '腾讯科技股份有限公司（港交所：700）是中国规模最大的互联网公司，1998年11月由马化腾、张志东、陈一丹、许晨晔、曾李青5位创始人共同创立，总部位于深圳南山区腾讯大厦。腾讯业务拓展至社交、娱乐、金融、资讯、工具和平台等不同领域。目前，腾讯拥有中国国内使用人数最多的社交软件腾讯QQ和微信，以及中国国内最大的网络游戏社区腾讯游戏。在电子书领域，旗下有阅文集团，运营有QQ读书和微信读书。腾讯于2004年6月16日在香港交易所挂牌上市，于2016年9月5日首次成为亚洲市值最高的上市公司，并于2017年11月21日成为亚洲首家市值突破5000亿美元的公司。2017年，腾讯首次跻身《财富》杂志世界500强排行榜，以228.7亿美元的营收位居478位。', '4', '1', '440300', '---', 'https://www.tencent.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('38', '百度公司', '---', 'CHN', '百度（纳斯达克：BIDU），全球最大的中文搜索引擎、最大的中文网站。百度愿景是：成为最懂用户，并能帮助人们成长的全球顶级高科技公司。“百度”二字，来自于八百年前南宋词人辛弃疾的一句词：众里寻他千百度。这句话描述了词人对理想的执着追求。1999年底，身在美国硅谷的李彦宏看到了中国互联网及中文搜索引擎服务的巨大发展潜力，抱着技术改变世界的梦想，他毅然辞掉硅谷的高薪工作，携搜索引擎专利技术，于2000年1月1日在中关村创建了百度公司。百度拥有数万名研发工程师，这是中国乃至全球最为优秀的技术团队。这支队伍掌握着世界上最为先进的搜索引擎技术，使百度成为中国掌握世界尖端科学核心技术的中国高科技企业，也使中国成为美国、俄罗斯、和韩国之外，全球仅有的4个拥有搜索引擎核心技术的国家之一。', '4', '1', '110000', '---', 'https://www.baidu.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('39', '北京京东世纪贸易有限公司', '---', 'CHN', '京东（股票代码：JD），中国自营式电商企业，创始人刘强东担任京东集团董事局主席兼首席执行官。旗下设有京东商城、京东金融、拍拍网、京东智能、O2O及海外事业部等。2013年正式获得虚拟运营商牌照。2014年5月在美国纳斯达克证券交易所正式挂牌上市。2016年6月与沃尔玛达成深度战略合作，1号店并入京东。2014年5月，京东集团在美国纳斯达克证券交易所正式挂牌上市。', '4', '1', '110000', '---', 'https://www.jd.com', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('40', '网易公司', '---', 'CHN', '网易（NASDAQ：NTES）是一家互联网技术公司，利用互联网技术，加强人与人之间信息的交流和共享，实现“网聚人的力量”，创始人兼CEO是丁磊。目前提供网络游戏、门户网站、移动新闻客户端、移动财经客户端、电子邮件、电子商务、搜索引擎、博客、相册、社交平台、互联网教育等服务。网易公司在2016年12月30日的市值为287亿美元，收入中大约70%来自于网络游戏（2015年第四季度）。在开发互联网应用、服务及其它技术方面，网易在推出了包括中文全文检索、全中文大容量免费邮件系统、无限容量免费网络相册、免费电子贺卡站、网上虚拟社区、网上拍卖平台、24小时客户服务中心在内的业内领先产品或服务，还通过自主研发推出了国产网络游戏。', '4', '1', '440100', '---', 'http://www.163.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('41', '新浪公司', '---', 'CHN', '新浪（NASDAQ：SINA）新浪公司是一家服务于中国及全球华人社群的网络媒体公司，成立于1998年12月，由王志东创立，现任董事长曹国伟，服务大中华地区与海外华人，新浪拥有多家地区性网站。新浪通过门户网站新浪网、新浪移动和社交媒体微博，帮助广大用户通过电脑和移动设备获得专业媒体和用户自生成的多媒体内容（UGC）并与友人进行兴趣分享。2012年11月新浪注册用户已突破4亿。截至2016年12月31日的第四季度，营收为3.13亿美元，同比增长22%；净利润为1990万美元，同比增长37%；合摊薄后每股利润为0.27美元，同比增长29%；截至2016年12月31日的2016年全年，营收为10.309亿美元，同比增长17%；净利润为2.251亿美元合每股摊薄净收益3.01美元。2000年4月13日，新浪成功在纳斯达克上市。2017年8月3日，2017年“中国互联网企业100强”榜单发布，新浪排名第六位。', '4', '1', '110000', '---', 'http://www.sina.com.cn', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('42', '搜狐公司', '---', 'CHN', '搜狐（NASDAQ：SOHU），是一家互联网中文门户网站。1995年，搜狐创始人张朝阳从美国麻省理工学院毕业回到中国，利用风险投资创建了爱特信信息技术有限公司，1998年正式推出搜狐网。2000年，搜狐在美国纳斯达克证券市场上市。搜狐开发的产品有搜狗拼音输入法、搜狗五笔输入法、搜狗音乐盒、搜狗浏览器、搜狐彩电、独立的搜索引擎搜狗和网游门户畅游。搜狐是2008年北京奥林匹克运动会唯一的互联网赞助商，也是奥林匹克运动会历史上第一个互联网内容的赞助商。在2018年其在Alexa的中国排名于第5位，在门户网站中仅次于腾讯。现时为中国五大视频网（优酷、爱奇艺、腾讯视频、芒果TV）之一。', '4', '1', '110000', '---', 'http://www.sohu.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('43', '北京三快在线科技有限公司', '---', 'CHN', '美团的使命是“帮大家吃得更好，生活更好”。作为中国领先的生活服务电子商务平台，公司拥有美团、大众点评、美团外卖、美团打车、摩拜单车等消费者熟知的App，服务涵盖餐饮、外卖、打车、共享单车、酒店旅游、电影、休闲娱乐等200多个品类，业务覆盖全国2800个县区市。2018年9月20日，美团点评（股票代码：3690.HK）正式在港交所挂牌上市。当前，美团战略聚焦Food+Platform，正以“吃”为核心，建设生活服务业从需求侧到供给侧的多层次科技服务平台。与此同时，美团正着力将自己建设成为一家社会企业，希望通过和党政部门、高校及研究院所、主流媒体、公益组织、生态伙伴等的深入合作，构建智慧城市，共创美好生活。', '4', '1', '110000', '---', 'http://www.meituan.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('44', '北京奇虎科技有限公司', '---', 'CHN', '奇虎360是（北京奇虎科技有限公司）的简称，由周鸿祎于2005年9月创立，主营360杀毒为代表的免费网络安全平台和拥有问答等独立业务的公司。该公司主要依靠在线广告、游戏、互联网和增值业务创收。2014年1月15日，奇虎360宣布进军中国台湾，授权希悦资讯为台湾地区总代理。2015年2月4日，内部人士确认，奇虎360公司斥巨资收购国际顶级域名360.com，收购价格为1700万美元，约合人民币1.1亿元。目前360.com的whois信息已经更改为北京奇虎科技有限公司。', '4', '1', '110000', '---', 'http://www.360.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('45', '北京小米科技有限责任公司', '---', 'CHN', '北京小米科技有限责任公司成立于2010年3月3日，是一家专注于智能硬件和电子产品研发的移动互联网公司，同时也是一家专注于高端智能手机、互联网电视以及智能家居生态链建设的创新型科技企业。为发烧而生”是小米的产品概念。小米公司创造了用互联网模式开发手机操作系统、发烧友参与开发改进的模式。小米还是继苹果、三星、华为之后第四家拥有手机芯片自研能力的科技公司。“让每个人都能享受科技的乐趣”是小米公司的愿景。', '4', '1', '110000', '---', 'http://www.mi.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('46', '北京字节跳动科技有限公司', '---', 'CHN', '北京字节跳动科技有限公司成立于2012年3月，是最早将人工智能应用于移动互联网场景的科技企业之一。公司以建设“全球创作与交流平台”为愿景。字节跳动的全球化布局始于2015年，“技术出海”是字节跳动全球化发展的核心战略。字节跳动人工智能实验室成立于2016年，旨在针对人工智能相关领域的长期性和开放性问题进行探索，帮助公司实现对未来发展的构想。其独立研发的“今日头条”客户端，通过海量信息采集、深度数据挖掘和用户行为分析，为用户智能推荐个性化信息，从而开创了一种全新的新闻阅读模式。“今日头条”是北京字节跳动科技有限公司推出的一款移动资讯客户端产品，可根据用户的阅读习惯、结合用户所处的环境和阅读的文章内容等，向用户推荐个性化信息。', '4', '1', '110000', '---', 'http://www.bytedance.com', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('47', '网宿科技股份有限公司', '---', 'CHN', '网宿科技股份有限公司（股票代码：300017），最早成立于2000年1月，是国内领先的互联网业务平台提供商，主要向客户提供内容分发与加速、服务器托管及租用、以及网络优化解决方案等服务，是国内最早开展IDC及CDN业务的厂商之一。2009年10月，网宿科技在深交所上市。网宿科技注册地位于上海，其在北京、上海、广州、深圳设立了4家分公司，在美国、香港、天津、南京、济南等地设立了8家子公司，此外，网宿科技还在厦门建立了研发中心。截止到目前，网宿科技员工总数超过1500人。客户群覆盖各类互联网门户网站、音视频网站、网络游戏公司、电子商务网站、政府网站、企业网站以及运营商等，目前公司服务的客户近3000家，是市场同类公司中拥有客户数量最多、行业覆盖面最广的公司。网宿科技在CDN行业有18年的服务经验，是中国首批获得CDN业务经营许可的公司，在中国CDN服务市场份额为43.46%，网宿科技的服务涉及互联网公司、政企等各个领域，网宿科技曾为春晚、奥运会等重大项目提供服务。', '4', '1', '310000', '---', 'http://www.wangsu.com', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('48', '58集团', '---', 'CHN', '58集团一直专注于中国互联网生活服务领域，遵循“用户第一、主动协作、简单可信、创业精神、学习成长”企业核心价值观，以“通过互联网让人们生活更简单”企业使命，以“人人信赖的生活服务平台”为愿景。旗下拥有7个重点子品牌58同城、赶集网、安居客、转转、中华英才网、58到家及58同城影业，业务领域覆盖房产、汽车、招聘、金融、二手、本地服务及影视等。', '4', '1', '110000', '---', 'http://www.58.com', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('49', '金山软件有限公司', '---', 'CHN', '金山软件股份有限公司创建于1988年，是中国领先的应用软件产品和服务供应商。总部在北京，公司机构分别设立在广东珠海、北京、成都、大连，并在日本设有分公司。现金山软件股份有限公司旗下有猎豹移动、金山办公、西山居、金山云四家子公司。[1]其产品线覆盖了桌面办公、信息安全、实用工具、游戏娱乐和行业应用等诸多领域，自主研发了适用于个人用户和企业级用户的WPSOffice、金山词霸、剑侠情缘、金山快译、金山毒霸等系列知名产品。金山软件是国内最大的个人桌面软件开发商之一。', '4', '1', '110000', '---', 'https://www.kingsoft.com', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('50', '携程计算机技术（上海）有限公司', '---', 'CHN', '携程旅行网创立于1999年，总部设在中国上海，员工超过30000人，目前公司已在北京、广州、深圳、成都、杭州、南京、厦门、重庆、青岛、武汉、三亚、南通等95个境内城市，新加坡、首尔、香港等22个境外城市设立分支机构，在中国南通、苏格兰爱丁堡设立服务联络中心。2010年，携程旅行网战略投资台湾易游网和香港永安旅游，实现两岸三地的互通。2014年，投资途风旅行网，将触角延伸及北美洲。2015年，携程战略投资艺龙旅行网，并与百度达成股权置换交易完成对去哪儿网的控股，同年，携程首次被评为中国最大旅游集团，并跻身中国互联网企业十强。2016年1月，携程战略投资印度最大旅游企业MakeMyTrip，并在新加坡成立了东南亚区域总部。', '4', '1', '310000', '---', 'http://www.ctrip.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('51', '上海二三四五网络控股集团股份有限公司', '---', 'CHN', '上海二三四五网络科技有限公司于2005年9月建立，是一家以互联网运营和软件开发为一体，拥有高水平的产品、运营团队及雄厚资本实力的国内领先互联网企业。上海二三四五网络科技有限公司致力于打造网民首选的上网入口平台，旗下拥有2345网址导航、2345软件大全（原多特软件站）、2345好压、2345浏览器、2345看图王、2345影视大全等知名网站和软件产品，覆盖互联网用户超过2.3亿，是国内为数不多的拥有亿万级用户平台的公司。', '4', '1', '310000', '---', 'http://www.2345.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('52', '美图公司', '---', 'CHN', '美图公司成立于2008年10月，是中国领先的移动互联网公司，围绕着“美”创造了美图秀秀、美颜相机、BeautyPlus（美颜相机海外版）、潮自拍、美妆相机、美拍、美图手机等一系列软硬件产品，不仅让用户轻松实现影像变美，也使自拍文化深入人心。截至2016年10月，美图的影像及社区应用矩阵已在全球11亿个独立设备上激活。2016年10月，美图应用月活跃用户总数约为4.56亿。2016年10月，美图的核心影像应用产生约60亿张照片，根据艾瑞咨询报告，在中国主流社交网络上传的照片中，有约53.5%的照片经过了美图应用的处理[美图核心影像应用包括：美图秀秀、美颜相机、BeautyPlus（美颜相机海外版）、潮自拍及美妆相机。', '4', '1', '350200', '---', 'https://corp.meitu.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('53', '新华网股份有限公司', '---', 'CHN', '新华网股份有限公司是由新华通讯社管理的中央企业。新华网是由党中央、国务院直接部署，新华社主办的中央重点新闻网站主力军，是党和国家重要的网上舆论阵地。2016年10月28日，新华网股份有限公司A股股票在上交所上市交易。该公司A股股本为20761.1744万股，本次上市数量为5190.2936万股，发行价格为27.69元/股，发行市盈率为22.99倍。证券简称为“新华网”，证券代码为“603888”。新华网是国家通讯社新华社主办的综合新闻信息服务门户网站，是中国最具影响力的网络媒体和具有全球影响力的中文网站。作为新华社全媒体新闻信息产品的主要传播平台,拥有31个地方频道以及英、法、西、俄、阿、日、韩、德、藏、维、蒙等多种语言频道，日均多语种、多终端发稿达1.5万条，重大新闻首发率和转载率遥遥领先国内其他网络媒体。', '4', '1', '110000', '---', 'http://www.xinhuanet.com', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('54', '苏宁控股集团有限公司', '---', 'CHN', '苏宁创立于1990年，员工18万人，在中国和日本拥有两家上市公司，分别是苏宁云商(002024.SZ)和乐购仕(ラオックス【8202】<东证2部>)。秉承“引领产业生态、共创品质生活”的企业使命，苏宁产业经营不断拓展，形成苏宁易购、苏宁物流、苏宁金融、苏宁科技、苏宁置业、苏宁文创、苏宁体育、苏宁投资八大产业板块协同发展的格局。2016年6月，世界品牌实验室在北京发布2016年《中国500最具价值品牌》榜单，苏宁以1582.68亿元的品牌价值位列品牌榜第13名，稳居零售业第一位。相较去年1167.81亿元的品牌价值，2016年苏宁品牌价值同比提升高达36%，增长迅猛。2017年8月，全国工商联发布2017中国民营企业500强榜单，苏宁控股集团以4129.51亿元年营业收入位居第二，蝉联民营企业服务业100强第一位。2018年中国民营企业500强排列第二名。[5]2018年9月10日，荣获第十届“中华慈善奖”。', '4', '1', '320100', '---', 'http://www.suning.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('55', '北京车之家信息技术有限公司', '---', 'CHN', '汽车之家成立于2005年6月，是全球访问量最大的汽车网站。汽车之家为汽车消费者提供选车、买车、用车、换车等所有环节的全面、准确、快捷的一站式服务。汽车之家致力于通过产品服务、数据技术、生态规则和资源为用户和客户赋能，建设“车媒体、车电商、车金融、车生活”4个圈、从“基于内容的垂直领域公司”转型升级为“基于数据技术的‘汽车’公司”。2012年8月底，“汽车之家”与盛拓传媒正式拆分，原盛拓传媒将汽车和IT两条业务线进行拆分，变身两家独立公司。“汽车之家”、“二手车之家”组建为一个公司，用“汽车之家”命名。', '4', '1', '110000', '---', 'http://www.autohome.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('56', '用友网络科技股份有限公司', '---', 'CHN', '用友公司成立于1988年，是亚太本土领先的企业管理软件和企业移动应用、企业云服务提供商，是中国最大的ERP、CRM、人力资源管理、商业分析、内审、小微企业管理软件和财政、汽车、烟草等行业应用解决方案提供商，并在金融、医疗卫生等行业应用以及企业支付、企业通信、管理咨询、培训教育等领域快速发展。基于移动互联网、云计算、大数据、社交等先进技术，用友UAP私有云平台是中国大型企业和公共组织应用最广泛的企业计算平台，畅捷通公有云平台在小微企业和各类企业公共应用服务中得到运用。中国及亚太地区超过200万家企业与公共组织通过使用用友软件和云服务，实现精细管理、敏捷经营、业务创新。其中，中国500强企业超过60%是用友的客户。', '4', '1', '110000', '---', 'http://www.yonyou.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('57', '咪咕文化科技有限公司', '---', 'CHN', '咪咕文化科技有限公司是中国移动面向移动互联网领域设立的，负责数字内容领域产品提供、运营、服务一体化的专业子公司，是中国移动旗下音乐、视频、阅读、游戏、动漫数字内容业务板块的唯一运营实体，下设咪咕音乐、咪咕视讯、咪咕数媒、咪咕互娱、咪咕动漫5个子公司。（咪咕文化科技有限公司简称咪咕文化，咪咕文化及5个子公司合称咪咕公司）', '4', '1', '110000', '---', 'http://www.migu.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('58', '三七互娱（上海）科技有限公司', '---', 'CHN', '三七互娱（上海）科技有限公司（简称“三七互娱”）成立于2011年，是中国互联网二十强企业，于2015年完成整体上市（股票代码：002555），被纳入中证沪深300指数、明晟MSCI指数、高盛“新漂亮50”名单，是国内A股优秀的社会公众公司。三七互娱的发行与研发总部设在广州，并在北京、上海、安徽、江苏、湖北、香港、台湾、东南亚、日韩及欧美等多个地区设有子公司或办事处等分支机构。作为全球领先的游戏运营商、研发商，三七互娱以“传承中华文化精髓”为理念，积极推动国产游戏的全球化发展；同时投入大量资金布局影视、音乐、动漫、VR及直播等领域的文化创意业务，致力于成为全球领先的文化创意综合型企业。', '4', '1', '310000', '---', 'http://www.37wan.net/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('59', '北京天盈九州网络技术有限公司', '---', 'CHN', '凤凰网（凤凰新媒体，纽交所代码：FENG)是全球领先的跨平台网络新媒体公司，整合旗下综合门户凤凰网、手机凤凰网和凤凰视频三大平台，秉承中华情怀，全球视野，兼容开放，进步力量\"的媒体理念，为主流华人提供互联网、无线通信、电视网的三网融合无缝衔接的新媒体优质内容与服务。\"', '4', '1', '110000', '---', 'https://www.ifeng.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('60', '恺英网络股份有限公司', '---', 'CHN', '上海恺英网络科技有限公司，简称“恺英网络”，成立于2008年，总部位于上海，是一家拥有移动互联网流量入口、集平台运营和产品研发为一体的互联网企业。公司拥有近千人的开发运营团队，旗下有业内领先的多款互联网平台型产品。恺英网络于2015年11月正式登陆A股。(股票代码:002517)', '4', '1', '310000', '---', 'https://www.kingnet.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('61', 'Amazon', '---', 'USA', 'Amazon.com is an American multinational technology company based in Seattle, Washington that focuses in e-commerce, cloud computing, and artificial intelligence.', '4', '6', '998101', '---', 'https://www.amazon.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+ ('2', '中国石油天然气股份有限公司', '---', 'CHN', '中国石油天然气股份有限公司是中国油气行业占主导地位的最大的油气生产和销售商，是国有企业，是中国销售收入最大的公司之一，也是世界最大的石油公司之一。', '4', '1', '110000', '---', 'http://www.petrochina.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('3', '中国建筑股份有限公司', '---', 'CHN', '“中国建筑”是中国最大建筑房地产综合企业和中国最大国际承包商；2011年8月29日，中国建筑股份有限公司入选中国建筑施工企业联合会评选的中国建筑500强，排名第5位。是2007年度《财富》杂志评出的“中国地区最受赞赏公司”五家内地企业之一；连续三年被国务院国资委评为中央企业年度经营业绩考核A级企业；被评为2006年“中国最佳诚信企业”、“中国优秀企业形象十佳单位”、被中宣部和国资委评为国有企业九大典型之一。', '4', '1', '110000', '---', 'http://www.cscec.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('4', '上海汽车集团股份有限公司', '---', 'CHN', '上汽集团主要业务涵盖整车(包括乘用车、商用车)、零部件(包括发动机、变速箱、动力传动、底盘、内外饰、电子电器等)的研发、生产、销售，物流、车载信息、二手车等汽车服务贸易业务，以及汽车金融业务。', '4', '1', '310000', '---', 'http://www.saicmotor.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('5', '中国平安保险(集团)股份有限公司', '---', 'CHN', '中国平安保险（集团）股份有限公司于1988年诞生于深圳蛇口，是中国第一家股份制保险企业，至今已经发展成为金融保险、银行、投资等金融业务为一体的整合、紧密、多元的综合金融服务集团。', '4', '1', '440300', '---', 'http://www.pingan.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('6', '中国移动有限公司', '---', 'CHN', '中国移动通信集团有限公司是按照国家电信体制改革的总体部署，于2000年4月20日成立的中央企业。2017年12月，中国移动通信集团公司进行公司制改制，企业类型由全民所有制企业变更为国有独资公司，并更名为中国移动通信集团有限公司。', '4', '1', '110000', '---', 'http://www.chinamobileltd.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('7', '中国工商银行股份有限公司', '---', 'CHN', '中国工商银行拥有中国最大的客户群，是中国最大的商业银行之一，中国工商银行营业网点也是世界五百强企业之一，工商银行为公司客户与个人客户提供了多元、专业的各项金融服务。其范围广，业务量大，业务品种丰富。', '4', '1', '110000', '---', 'http://www.icbc.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('8', '中国中铁股份有限公司', '---', 'CHN', '中国铁路工程集团有限公司成立于1950年3月，总部位于北京，是一家集基建建设、勘察设计与咨询服务、工程设备和零部件制造、房地产开发、铁路和公路投资及运营、矿产资源开发、物资贸易等业务于一体的多功能、特大型企业集团，也是中国和亚洲最大的多功能综合型建设集团，现属国务院国有资产监督管理委员会管理的中央企业。', '4', '1', '110000', '---', 'http://www.crecg.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('9', '中国铁建股份有限公司', '---', 'CHN', '中国铁建业务涵盖工程承包、勘察设计咨询、工业制造、房地产开发、物流与物资贸易及资本运营，已经从以施工承包为主发展成为具有科研、规划、勘察、设计、施工、监理、维护、运营和投融资的完善的行业产业链，具备了为业主提供一站式综合服务的能力。并在高原铁路、高速铁路、高速公路、桥梁、隧道和城市轨道交通工程设计及建设领域确立了行业领导地位。公司经营范围遍及除台湾以外的全国31个省（市）、自治区和香港、澳门特别行政区以及世界59个国家。公司专业团队强大，拥有1名工程院院士、6名国家勘察设计大师和220名享受国务院特殊津贴的专家。', '4', '1', '110000', '---', 'http://www.crcc.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('10', '中国建设银行股份有限公司', '---', 'CHN', '中国建设银行成立于1954年10月1日。总行位于北京金融大街25号，是中央管理的大型国有银行，国家副部级单位。中国建设银行主要经营领域包括公司银行业务、个人银行业务和资金业务，在29个国家和地区设有分支机构及子公司，拥有基金、租赁、信托、人寿、财险、投行、期货、养老金等多个行业的子公司。中国建设银行拥有广泛的客户基础，与多个大型企业集团及中国经济战略性行业的主导企业保持银行业务联系，营销网络覆盖全国的主要地区。2016年6月30日，英国《银行家》杂志发布《全球1000家大银行排行榜》，中国建设银行排名第2位。2017年2月，BrandFinance发布2017年度全球500强品牌榜单，中国建设银行排名第14位。2018年《财富》世界500强排名31位。', '4', '1', '110000', '---', 'http://www.ccb.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('11', '中国人寿保险（集团）公司', '---', 'CHN', '中国人寿保险（集团）公司，是国有特大型金融保险企业，总部设在北京，世界500强企业、中国品牌500强，属中央金融企业。公司前身是成立于1949年的原中国人民保险公司，1996年分设为中保人寿保险有限公司，1999年更名为中国人寿保险公司。2003年，经国务院同意、保监会批准，原中国人寿保险公司重组改制为中国人寿保险（集团）公司，业务范围全面涵盖寿险、财产险、养老保险（企业年金）、资产管理、另类投资、海外业务、电子商务等多个领域，并通过资本运作参股了多家银行、证券公司等其他金融和非金融机构。', '4', '1', '110000', '---', 'http://www.e-chinalife.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('12', '中国农业银行股份有限公司', '---', 'CHN', '中国农业银行成立于1951年。总行位于北京建国门内大街69号，是中央管理的大型国有银行，国家副部级单位。中国农业银行是中国金融体系的重要组成部分，提供各种公司银行和零售银行产品和服务，同时开展金融市场业务及资产管理业务，业务范围还涵盖投资银行、基金管理、金融租赁、人寿保险等领域。2017年2月，BrandFinance发布2017年度全球500强品牌榜单，中国农业银行排名第34位。2018年7月，英国《银行家》杂志发布2018年全球银行1000强排名榜单，中国农业银行排名第4位。2018年《财富》世界500强排名第40位。2018年12月，世界品牌实验室发布《2018世界品牌500强》榜单，中国农业银行排名第340。', '4', '1', '110000', '---', 'http://www.abchina.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('13', '中国银行股份有限公司', '---', 'CHN', '中国银行股份有限公司，是中华人民共和国国内第四大银行，为财政部管理的中央金融企业之一。中国银行也是全球29家“系统重要性金融机构”之一，在《财富》杂志的2016年世界500强排名中位列第35位；在《银行家》杂志的2018年全球1000家大银行排名中位列第3位，一级资本为2240亿美元。截至2016年末，中国银行在中国大陆地区拥有37家一级分行、326家二级分行及10287家分支机构，在境外29个国家和地区设有分支机构578家。', '4', '1', '110000', '---', 'http://www.boc.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('14', '中国人民保险集团股份有限公司', '---', 'CHN', '中国人民保险集团股份有限公司是一家综合性保险（金融）公司，世界五百强之一，是世界上最大的保险公司之一，属中央金融企业，注册资本为306亿元人民币，在全球保险业中属于实力非常雄厚的公司。公司标志为英文PICC。旗下拥有人保财险、人保资产、人保健康、人保寿险、人保投资、华闻控股、人保资本、人保香港、中盛国际、中人经纪、中元经纪和人保物业等十余家专业子公司，中国人保还持有中诚信托32.35%的股权。股改后第一任董事长兼总裁吴焰。《财富》世界500强2013年排名第256位。', '4', '1', '110000', '---', 'http://www.picc.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('15', '中国交通建设股份有限公司', '---', 'CHN', '中国交通建设股份有限公司成立于2006年10月8日，经国务院批准，由中国交通建设集团有限公司整体重组改制并独家发起设立的股份有限公司，并于2006年12月15日在香港联合交易所主板挂牌上市交易，成为中国第一家实现境外整体上市的特大型国有基建企业。中交股份作为世界500强企业，主要从事港口、码头、航道、公路、桥梁、铁路、隧道、市政等基础设施建设和房地产开发业务，业务足迹遍及世界100多个国家和地区。公司是中国最大的港口设计及建设企业，设计承建了建国以来绝大多数沿海大中型港口码头；世界领先的公路、桥梁设计及建设企业，参与了国内众多高等级主干线公路建设；世界第一疏浚企业，拥有中国最大的疏浚船队，耙吸船总仓容量和绞吸船总装机功率均排名世界第一。', '4', '1', '110000', '---', 'http://www.ccccltd.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('16', '中国电信股份有限公司', '---', 'CHN', '中国电信是按照中华人民共和国电信体制改革方案所组建的特大型国有通信企业和中央企业，是中国第一大固网和数据通信运营商以及第三大移动通信运营商，其在中国的固定电话和固网宽带的市场占有率均超过了50%，并拥有全球规模最大的固网和数据通信网络，覆盖全国城乡，通达世界各地。截至2011年上半年，拥有固定电话用户1.94亿户，移动电话用户（CDMA）6236万户，宽带用户6174万户；集团公司总资产6322亿元，人员67万人。', '4', '1', '110000', '---', 'http://www.chinatelecom.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('17', '中国中信股份有限公司', '---', 'CHN', '中国中信股份有限公司是在香港交易所上市的综合企业公司。中信泰富主要业务是销售及分销，汽车及有关服务、贸易、发电及基础设施、物业、工业制造、以及信息业。中信股份是一家金融与实业并举的大型综合性跨国企业集团，业务涉及银行、证券、信托、保险、基金、资产管理等金融领域和房地产、工程承包、资源能源、基础设施、机械制造、信息产业等实业领域，具有较强的综合优势和良好发展势头。', '4', '1', '810000', '---', 'http://www.citic.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('18', '联想控股股份有限公司', '---', 'CHN', '联想集团有限公司是中国一家总部设在北京市和美国北卡罗莱纳州罗利市的跨国科技公司，成立于1984年，由中国科学院计算技术研究所投资20万元人民币、11名科技人员创办。联想公司主要研发、生产和销售笔记型电脑、一体机、台式电脑、服务器、手机、平板电脑，以及其他移动互联、数码、电脑周边等类产品。1996年开始，联想电脑销量位居中国大陆市场首位。2005年联想收购了IBM的个人电脑业务，2011年起成为全球第二大个人电脑生产商，2013年起成为全球第一大个人电脑生产商。', '4', '1', '110000', '---', 'http://www.lenovo.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('19', '中国联合网络通信股份有限公司', '---', 'CHN', '中国联通是指中国联合网络通信集团有限公司等子公司的简称，在中国境内31个省（自治区、直辖市）和境外多个国家和地区设有分支机构，是中国唯一一家同时在上海、纽约、香港三地上市的电信运营企业。截至2012年底，资产规模达到5760.72亿元人民币，全系统从业人员29.48万人。截至2013年3月底，用户4.03亿户。该公司于2009年1月6日成立，由原中国联通和原中国网通合并而成。中国联合网络通信集团有限公司（简称“中国联通”）于2009年1月6日在原中国联合通信有限公司与原中国网络通信集团公司的基础上合并组建而成，主要经营固定通信业务，移动通信业务，国内、国际通信设施服务业务，卫星国际专线业务、数据通信业务、网络接入业务和各类电信增值业务，与通信信息业务相关的系统集成业务等。中国联通于2009年4月28日推出全新的全业务品牌“沃”，拥有“沃4G+”、“沃派”、“智能沃家”，“沃·商务”著名客户品牌。', '4', '1', '110000', '---', 'http://www.chinaunicom-a.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('20', '中国太平洋保险(集团)股份有限公司', '---', 'CHN', '中国太平洋保险的前身中国太平洋保险公司，成立于1991年5月13日，是经中国人民银行批准设立的全国性股份制商业保险公司。2001年，根据中国国务院和中国保监会分业经营机构体制改革的批复，原中国太平洋保险公司更名为“中国太平洋保险（集团）股份有限公司”。太保是中国大陆第二大财产保险公司，仅次于中国财险，也是三大人寿保险公司之一。它本身经营多元化保险服务，包括人寿保险、财产保险、等。', '4', '1', '310000', '---', 'http://www.cpic.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('21', '京东商城电子商务有限公司', '---', 'CHN', '京东商城是中国一家自营式零售购物网站。2014年，京东集团在美国纳斯达克证券交易所上市，成为中国第一个赴美上市的大型综合型电商平台，2015年第一季度在中国自营式B2C电商市场的占有率为56.3%。当前出售家电、数字通讯、计算机、家居百货、服装服饰、母婴、图书、食品等商品。根据数据显示，截至2016年3月底止，京东商城拥有7个补充中心、209个货仓、5,987个送货据点及2,493个提货站。2017年9月30日，京东在全国共运营405个大型仓库，总面积约900万平方米。', '4', '1', '110000', '---', 'http://www.jd.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('22', '国药控股股份有限公司', '---', 'CHN', '国药控股股份有限公司成立于2003年1月。2009年9月23日在香港上市。作为中国最大的药品及医疗保健产品分销商及领先的供应链服务商，公司拥有并经营中国最大的药品分销网络。2005年以来，在中国医药商业年度销售、利税排名中连续四年位居榜首。国药控股股份有限公司由中国医药集团总公司与上海复星高科技（集团）有限公司于2003年共同出资组建；并于2009年在香港上市。国药控股现拥有并经营中国最大的药品分销及配送网络，覆盖全国29个省级行政区，向客户及供应商提供全面的分销、物流及增值服务。', '4', '1', '310000', '---', 'http://www.sinopharmgroup.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('23', '绿地控股集团股份有限公司', '---', 'CHN', '绿地控股集团有限公司是一家总部设立在中华人民共和国上海的国有控股跨国企业集团，业务为房地产、能源、金融及酒店等投资。2013年，绿地集团在中国企业500强中位列第55位，并在财富世界500强中以营业额317.39亿美元排名第359位。绿地集团目前经营多种业务，其中以房地产、能源、金融、酒店、建设以及汽车服务为主。绿地房地产开发项目遍及中国的上海、北京、天津、重庆等25个省市自治区的70座城市以及韩国、澳大利亚、德国和俄罗斯。项目按超高层、城市综合体和住宅三种功能性产品分类，其中截止至2013年12月，建成和在建超高层城市地标建筑已达17幢，例如高606米的武汉绿地中心和高518米的大连绿地中心。', '4', '1', '310000', '---', 'http://www.greenlandsc.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('24', '万科企业股份有限公司', '---', 'CHN', '万科企业股份有限公司，简称万科或万科集团，总部位于中国深圳市盐田区大梅沙环梅路33号，现任董事会名誉主席为王石，董事会主席为郁亮，总裁、首席执行官为祝九胜。', '4', '1', '440300', '---', 'https://www.vanke.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('25', '中国电力建设股份有限公司', '---', 'CHN', '中国电力建设集团有限公司是由国务院批准由中国水利水电建设集团公司、中国水电工程顾问集团公司和其他14个省（区域）电网企业所属的勘测设计企业、电力施工企业、装备修造企业于2011年9月29日改革重组而设。现时业务于全球和国内经营水利水电、火电、新能源、电网以及基础设施，还包括规划、勘测、设计、施工、运营等行业，而旗下公司中国水利水电建设股份有限公司为主体。2016年，中国电建在财富世界500强中排名第190位。', '4', '1', '110000', '---', 'http://www.powerchina.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('26', '中国中车股份有限公司', '---', 'CHN', '中国中车股份有限公司，简称中国中车或CRRC，是中国一家从事铁路机车、铁路车辆、动车组、地铁及其零部件的研发、制造、厂修及IGBT、公交车等周边产业的大型中央企业，不但是中国最大的轨道交通设备制造商和解决方案供应商，在全球同样具有领导地位。2015年6月1日，中国南车股份有限公司（CSR）吸收合并中国北车股份有限公司（CNR）成立中国中车，成为全球最大铁路车辆及设备制造商。', '4', '1', '110000', '---', 'http://www.crrcgc.cc/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('27', '中国能源建设股份有限公司', '---', 'CHN', '中国能源建设集团有限公司，简称中国能源建设集团、中国能源建设，以及中国能源，在2011年9月29日，由中国葛洲坝集团公司、中国电力工程顾问集团公司和原有国家电网公司、中国南方电网有限责任公司所属15个省（市、区）的电力勘测设计、施工和修造企业，于北京组成控股公司。2016年位居世界五百强第309位。', '4', '1', '110000', '---', 'http://www.ceec.net.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('28', '中国冶金科工股份有限公司', '---', 'CHN', '中国冶金科工集团有限公司隶属中国五矿集团公司，是中国冶金工业的开拓者和建设者，先后承担了宝钢、鞍钢、武钢、攀钢等国家主要钢铁工业基地的建设任务，为中国冶金工业的发展立下了卓越功勋。作为国际知名承包商，中冶集团在海外各地开辟了广阔市场，足迹遍及五大洲，承建了一批具有重要影响和良好经济效益的项目，受到了项目所在国的好评和欢迎。《财富》世界500强，2013年排名第302位。2016年8月，中国冶金科工集团有限公司在2016中国企业500强\"中排名第60位。\"', '4', '1', '110000', '---', 'http://www.mcc.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('29', '中国恒大集团', '---', 'CHN', '中国恒大集团，简称恒大，是中国大陆的大型住宅物业开发商，是中国十大房地产企业之一。它也是广东省五大地产发展商之一。2018年5月25日，中国房地产业协会、中国房地产测评中心联合发布“2018中国房地产上市公司100强”，恒大综合实力居第一名。2018年7月19日，2018《财富》世界500强发布，恒大以460.19亿美元的营业收入位列230名，较2017年大幅上升108位。', '4', '1', '440300', '---', 'http://www.evergrande.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('30', '招商银行股份有限公司', '---', 'CHN', '招商银行在1987年成立于深圳蛇口，为招商局集团下属公司，是中国境内第一家完全由企业法人持股的股份制商业，也是中国内地市值第五大的银行。自2012年首次入围《财富》世界500强以来，已连续7年入围，2018年《财富》世界500强居213位。', '4', '1', '440300', '---', 'http://www.cmbchina.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('31', '物产中大集团股份有限公司', '---', 'CHN', '浙江中大集团股份有限公司位于浙江省杭州市中大广场A座，创建于1992年，前身是浙江省服装进出口公司，是以纺织服装国际贸易起家的国有控股公司，也是外经贸部推荐的第一家外贸上市公司。集团坚持“一体两翼”战略，主营商贸流通、金融投资和高端实业，拥有各级成员公司350余家，员工近2万人。自2004年起稳居浙江省百强企业前两位，是全国首家获评双AAA主体信用评级的地方流通企业，2011年以来,连续跻身世界500强。', '4', '1', '330000', '---', 'http://www.zjmi.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('32', '江西铜业集团公司', '---', 'CHN', '江西铜业股份有限公司，简称江铜，是一家在香港交易所和上海证券交易所上市的工业公司。它是中国最大的铜业公司，主要业务是采矿、选矿、熔炼与精炼，生产阴铜及副产品，包括硫精矿、硫酸及电解金和银。拥有的主要矿山有德兴铜矿、武山铜矿、永平铜矿等。公司在中华人民共和国注册，现任董事长为龙子平，总部在江西省南昌市。2004年资产净值为RMB5,956,080,000，纯利为RMB1,108,139,000。2017年9月，江西铜业集团公司在2017中国企业500强\"中排名第76位。公司位居2017年《财富》世界500强第339位。公司位居2018年《财富》世界500强第370位。\"', '4', '1', '360000', '---', 'http://www.jxcc.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('33', '交通银行股份有限公司', '---', 'CHN', '交通银行始于1908年，是中国历史最悠久的银行之一，也是近代中国的发钞行之一。1987年4月1日，重新组建后的交通银行正式对外营业，成为中国第一家全国性的国有股份制商业银行，总行设在上海。2005年6月交通银行在香港联合交易所挂牌上市，2007年5月在上海证券交易所挂牌上市。', '4', '1', '310000', '---', 'http://www.bankcomm.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('34', '中国邮政储蓄银行股份有限公司', '---', 'CHN', '中国邮政储蓄银行于2007年3月20日正式挂牌成立，是中国第五大银行，是在改革邮政储蓄管理体制的基础上组建的国有商业银行。中国邮政储蓄银行承继原国家邮政局、中国邮政集团公司经营的邮政金融业务及因此而形成的资产和负债，并将继续从事原经营范围和业务许可文件批准、核准的业务。', '4', '1', '110000', '---', 'http://www.psbc.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('35', '宝山钢铁股份有限公司', '---', 'CHN', '中国宝武钢铁集团有限公司由原宝钢集团有限公司和武汉钢铁（集团）公司联合重组而成，为国有独资公司，是中国最具竞争力的钢铁联合企业，总部位于上海。宝武已涉足包括钢铁主业和资源开发及物流、钢材延伸加工、工程技术服务、煤化工、金融投资、生产服务等七大相关产业，其钢铁主业已形成普碳钢、不锈钢、特钢三大产品系列，广泛应用于汽车、家电、石油化工、机械制造、能源交通、建筑装潢、金属制品、航天航空、核电、电子仪表等行业。宝钢产品通过遍布全球的销售网络，畅销国内外市场，不仅保持国内板材市场的主导地位，而且将钢铁精品出口至日本、韩国、欧美等四十多个国家和地区。', '4', '1', '310000', '---', 'http://www.baosteel.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('36', '阿里巴巴网络技术有限公司', '---', 'CHN', '阿里巴巴集团（NYSE：BABA）创立于1999年。2014年9月19日，阿里巴巴集团在纽约证券交易所正式挂牌上市，创始人和董事局主席为马云。2018年7月19日，全球同步《财富》世界500强排行榜发布，阿里巴巴集团排名300位。阿里巴巴是一家供电子商务线上交易平台的公司，业务包括B2B贸易、网上零售、购物搜索引擎、第三方支付和云计算服务。集团经营多项业务，另外也从关联公司的业务和服务中取得经营商业生态系统上的支援。业务和关联公司的业务包括：阿里巴巴B2B、淘宝网、天猫、一淘网、阿里云计算、支付宝、蚂蚁金服、聚划算、全球速卖通、阿里巴巴国际交易市场、1688、阿里妈妈、蚂蚁金服、菜鸟网络等。旗下的淘宝网和天猫在2012年销售额达到1.1万亿人民币。其2015年度商品交易总额已经超过3万亿元人民币，是全球最大零售商。', '4', '1', '330100', '---', 'http://www.alibaba.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('37', '深圳市腾讯计算机系统有限公司', '---', 'CHN', '腾讯科技股份有限公司（港交所：700）是中国规模最大的互联网公司，1998年11月由马化腾、张志东、陈一丹、许晨晔、曾李青5位创始人共同创立，总部位于深圳南山区腾讯大厦。腾讯业务拓展至社交、娱乐、金融、资讯、工具和平台等不同领域。目前，腾讯拥有中国国内使用人数最多的社交软件腾讯QQ和微信，以及中国国内最大的网络游戏社区腾讯游戏。在电子书领域，旗下有阅文集团，运营有QQ读书和微信读书。腾讯于2004年6月16日在香港交易所挂牌上市，于2016年9月5日首次成为亚洲市值最高的上市公司，并于2017年11月21日成为亚洲首家市值突破5000亿美元的公司。2017年，腾讯首次跻身《财富》杂志世界500强排行榜，以228.7亿美元的营收位居478位。', '4', '1', '440300', '---', 'https://www.tencent.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('38', '百度公司', '---', 'CHN', '百度（纳斯达克：BIDU），全球最大的中文搜索引擎、最大的中文网站。百度愿景是：成为最懂用户，并能帮助人们成长的全球顶级高科技公司。“百度”二字，来自于八百年前南宋词人辛弃疾的一句词：众里寻他千百度。这句话描述了词人对理想的执着追求。1999年底，身在美国硅谷的李彦宏看到了中国互联网及中文搜索引擎服务的巨大发展潜力，抱着技术改变世界的梦想，他毅然辞掉硅谷的高薪工作，携搜索引擎专利技术，于2000年1月1日在中关村创建了百度公司。百度拥有数万名研发工程师，这是中国乃至全球最为优秀的技术团队。这支队伍掌握着世界上最为先进的搜索引擎技术，使百度成为中国掌握世界尖端科学核心技术的中国高科技企业，也使中国成为美国、俄罗斯、和韩国之外，全球仅有的4个拥有搜索引擎核心技术的国家之一。', '4', '1', '110000', '---', 'https://www.baidu.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('39', '北京京东世纪贸易有限公司', '---', 'CHN', '京东（股票代码：JD），中国自营式电商企业，创始人刘强东担任京东集团董事局主席兼首席执行官。旗下设有京东商城、京东金融、拍拍网、京东智能、O2O及海外事业部等。2013年正式获得虚拟运营商牌照。2014年5月在美国纳斯达克证券交易所正式挂牌上市。2016年6月与沃尔玛达成深度战略合作，1号店并入京东。2014年5月，京东集团在美国纳斯达克证券交易所正式挂牌上市。', '4', '1', '110000', '---', 'https://www.jd.com', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('40', '网易公司', '---', 'CHN', '网易（NASDAQ：NTES）是一家互联网技术公司，利用互联网技术，加强人与人之间信息的交流和共享，实现“网聚人的力量”，创始人兼CEO是丁磊。目前提供网络游戏、门户网站、移动新闻客户端、移动财经客户端、电子邮件、电子商务、搜索引擎、博客、相册、社交平台、互联网教育等服务。网易公司在2016年12月30日的市值为287亿美元，收入中大约70%来自于网络游戏（2015年第四季度）。在开发互联网应用、服务及其它技术方面，网易在推出了包括中文全文检索、全中文大容量免费邮件系统、无限容量免费网络相册、免费电子贺卡站、网上虚拟社区、网上拍卖平台、24小时客户服务中心在内的业内领先产品或服务，还通过自主研发推出了国产网络游戏。', '4', '1', '440100', '---', 'http://www.163.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('41', '新浪公司', '---', 'CHN', '新浪（NASDAQ：SINA）新浪公司是一家服务于中国及全球华人社群的网络媒体公司，成立于1998年12月，由王志东创立，现任董事长曹国伟，服务大中华地区与海外华人，新浪拥有多家地区性网站。新浪通过门户网站新浪网、新浪移动和社交媒体微博，帮助广大用户通过电脑和移动设备获得专业媒体和用户自生成的多媒体内容（UGC）并与友人进行兴趣分享。2012年11月新浪注册用户已突破4亿。截至2016年12月31日的第四季度，营收为3.13亿美元，同比增长22%；净利润为1990万美元，同比增长37%；合摊薄后每股利润为0.27美元，同比增长29%；截至2016年12月31日的2016年全年，营收为10.309亿美元，同比增长17%；净利润为2.251亿美元合每股摊薄净收益3.01美元。2000年4月13日，新浪成功在纳斯达克上市。2017年8月3日，2017年“中国互联网企业100强”榜单发布，新浪排名第六位。', '4', '1', '110000', '---', 'http://www.sina.com.cn', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('42', '搜狐公司', '---', 'CHN', '搜狐（NASDAQ：SOHU），是一家互联网中文门户网站。1995年，搜狐创始人张朝阳从美国麻省理工学院毕业回到中国，利用风险投资创建了爱特信信息技术有限公司，1998年正式推出搜狐网。2000年，搜狐在美国纳斯达克证券市场上市。搜狐开发的产品有搜狗拼音输入法、搜狗五笔输入法、搜狗音乐盒、搜狗浏览器、搜狐彩电、独立的搜索引擎搜狗和网游门户畅游。搜狐是2008年北京奥林匹克运动会唯一的互联网赞助商，也是奥林匹克运动会历史上第一个互联网内容的赞助商。在2018年其在Alexa的中国排名于第5位，在门户网站中仅次于腾讯。现时为中国五大视频网（优酷、爱奇艺、腾讯视频、芒果TV）之一。', '4', '1', '110000', '---', 'http://www.sohu.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('43', '北京三快在线科技有限公司', '---', 'CHN', '美团的使命是“帮大家吃得更好，生活更好”。作为中国领先的生活服务电子商务平台，公司拥有美团、大众点评、美团外卖、美团打车、摩拜单车等消费者熟知的App，服务涵盖餐饮、外卖、打车、共享单车、酒店旅游、电影、休闲娱乐等200多个品类，业务覆盖全国2800个县区市。2018年9月20日，美团点评（股票代码：3690.HK）正式在港交所挂牌上市。当前，美团战略聚焦Food+Platform，正以“吃”为核心，建设生活服务业从需求侧到供给侧的多层次科技服务平台。与此同时，美团正着力将自己建设成为一家社会企业，希望通过和党政部门、高校及研究院所、主流媒体、公益组织、生态伙伴等的深入合作，构建智慧城市，共创美好生活。', '4', '1', '110000', '---', 'http://www.meituan.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('44', '北京奇虎科技有限公司', '---', 'CHN', '奇虎360是（北京奇虎科技有限公司）的简称，由周鸿祎于2005年9月创立，主营360杀毒为代表的免费网络安全平台和拥有问答等独立业务的公司。该公司主要依靠在线广告、游戏、互联网和增值业务创收。2014年1月15日，奇虎360宣布进军中国台湾，授权希悦资讯为台湾地区总代理。2015年2月4日，内部人士确认，奇虎360公司斥巨资收购国际顶级域名360.com，收购价格为1700万美元，约合人民币1.1亿元。目前360.com的whois信息已经更改为北京奇虎科技有限公司。', '4', '1', '110000', '---', 'http://www.360.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('45', '北京小米科技有限责任公司', '---', 'CHN', '北京小米科技有限责任公司成立于2010年3月3日，是一家专注于智能硬件和电子产品研发的移动互联网公司，同时也是一家专注于高端智能手机、互联网电视以及智能家居生态链建设的创新型科技企业。为发烧而生”是小米的产品概念。小米公司创造了用互联网模式开发手机操作系统、发烧友参与开发改进的模式。小米还是继苹果、三星、华为之后第四家拥有手机芯片自研能力的科技公司。“让每个人都能享受科技的乐趣”是小米公司的愿景。', '4', '1', '110000', '---', 'http://www.mi.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('46', '北京字节跳动科技有限公司', '---', 'CHN', '北京字节跳动科技有限公司成立于2012年3月，是最早将人工智能应用于移动互联网场景的科技企业之一。公司以建设“全球创作与交流平台”为愿景。字节跳动的全球化布局始于2015年，“技术出海”是字节跳动全球化发展的核心战略。字节跳动人工智能实验室成立于2016年，旨在针对人工智能相关领域的长期性和开放性问题进行探索，帮助公司实现对未来发展的构想。其独立研发的“今日头条”客户端，通过海量信息采集、深度数据挖掘和用户行为分析，为用户智能推荐个性化信息，从而开创了一种全新的新闻阅读模式。“今日头条”是北京字节跳动科技有限公司推出的一款移动资讯客户端产品，可根据用户的阅读习惯、结合用户所处的环境和阅读的文章内容等，向用户推荐个性化信息。', '4', '1', '110000', '---', 'http://www.bytedance.com', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('47', '网宿科技股份有限公司', '---', 'CHN', '网宿科技股份有限公司（股票代码：300017），最早成立于2000年1月，是国内领先的互联网业务平台提供商，主要向客户提供内容分发与加速、服务器托管及租用、以及网络优化解决方案等服务，是国内最早开展IDC及CDN业务的厂商之一。2009年10月，网宿科技在深交所上市。网宿科技注册地位于上海，其在北京、上海、广州、深圳设立了4家分公司，在美国、香港、天津、南京、济南等地设立了8家子公司，此外，网宿科技还在厦门建立了研发中心。截止到目前，网宿科技员工总数超过1500人。客户群覆盖各类互联网门户网站、音视频网站、网络游戏公司、电子商务网站、政府网站、企业网站以及运营商等，目前公司服务的客户近3000家，是市场同类公司中拥有客户数量最多、行业覆盖面最广的公司。网宿科技在CDN行业有18年的服务经验，是中国首批获得CDN业务经营许可的公司，在中国CDN服务市场份额为43.46%，网宿科技的服务涉及互联网公司、政企等各个领域，网宿科技曾为春晚、奥运会等重大项目提供服务。', '4', '1', '310000', '---', 'http://www.wangsu.com', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('48', '58集团', '---', 'CHN', '58集团一直专注于中国互联网生活服务领域，遵循“用户第一、主动协作、简单可信、创业精神、学习成长”企业核心价值观，以“通过互联网让人们生活更简单”企业使命，以“人人信赖的生活服务平台”为愿景。旗下拥有7个重点子品牌58同城、赶集网、安居客、转转、中华英才网、58到家及58同城影业，业务领域覆盖房产、汽车、招聘、金融、二手、本地服务及影视等。', '4', '1', '110000', '---', 'http://www.58.com', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('49', '金山软件有限公司', '---', 'CHN', '金山软件股份有限公司创建于1988年，是中国领先的应用软件产品和服务供应商。总部在北京，公司机构分别设立在广东珠海、北京、成都、大连，并在日本设有分公司。现金山软件股份有限公司旗下有猎豹移动、金山办公、西山居、金山云四家子公司。[1]其产品线覆盖了桌面办公、信息安全、实用工具、游戏娱乐和行业应用等诸多领域，自主研发了适用于个人用户和企业级用户的WPSOffice、金山词霸、剑侠情缘、金山快译、金山毒霸等系列知名产品。金山软件是国内最大的个人桌面软件开发商之一。', '4', '1', '110000', '---', 'https://www.kingsoft.com', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('50', '携程计算机技术（上海）有限公司', '---', 'CHN', '携程旅行网创立于1999年，总部设在中国上海，员工超过30000人，目前公司已在北京、广州、深圳、成都、杭州、南京、厦门、重庆、青岛、武汉、三亚、南通等95个境内城市，新加坡、首尔、香港等22个境外城市设立分支机构，在中国南通、苏格兰爱丁堡设立服务联络中心。2010年，携程旅行网战略投资台湾易游网和香港永安旅游，实现两岸三地的互通。2014年，投资途风旅行网，将触角延伸及北美洲。2015年，携程战略投资艺龙旅行网，并与百度达成股权置换交易完成对去哪儿网的控股，同年，携程首次被评为中国最大旅游集团，并跻身中国互联网企业十强。2016年1月，携程战略投资印度最大旅游企业MakeMyTrip，并在新加坡成立了东南亚区域总部。', '4', '1', '310000', '---', 'http://www.ctrip.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('51', '上海二三四五网络控股集团股份有限公司', '---', 'CHN', '上海二三四五网络科技有限公司于2005年9月建立，是一家以互联网运营和软件开发为一体，拥有高水平的产品、运营团队及雄厚资本实力的国内领先互联网企业。上海二三四五网络科技有限公司致力于打造网民首选的上网入口平台，旗下拥有2345网址导航、2345软件大全（原多特软件站）、2345好压、2345浏览器、2345看图王、2345影视大全等知名网站和软件产品，覆盖互联网用户超过2.3亿，是国内为数不多的拥有亿万级用户平台的公司。', '4', '1', '310000', '---', 'http://www.2345.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('52', '美图公司', '---', 'CHN', '美图公司成立于2008年10月，是中国领先的移动互联网公司，围绕着“美”创造了美图秀秀、美颜相机、BeautyPlus（美颜相机海外版）、潮自拍、美妆相机、美拍、美图手机等一系列软硬件产品，不仅让用户轻松实现影像变美，也使自拍文化深入人心。截至2016年10月，美图的影像及社区应用矩阵已在全球11亿个独立设备上激活。2016年10月，美图应用月活跃用户总数约为4.56亿。2016年10月，美图的核心影像应用产生约60亿张照片，根据艾瑞咨询报告，在中国主流社交网络上传的照片中，有约53.5%的照片经过了美图应用的处理[美图核心影像应用包括：美图秀秀、美颜相机、BeautyPlus（美颜相机海外版）、潮自拍及美妆相机。', '4', '1', '350200', '---', 'https://corp.meitu.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('53', '新华网股份有限公司', '---', 'CHN', '新华网股份有限公司是由新华通讯社管理的中央企业。新华网是由党中央、国务院直接部署，新华社主办的中央重点新闻网站主力军，是党和国家重要的网上舆论阵地。2016年10月28日，新华网股份有限公司A股股票在上交所上市交易。该公司A股股本为20761.1744万股，本次上市数量为5190.2936万股，发行价格为27.69元/股，发行市盈率为22.99倍。证券简称为“新华网”，证券代码为“603888”。新华网是国家通讯社新华社主办的综合新闻信息服务门户网站，是中国最具影响力的网络媒体和具有全球影响力的中文网站。作为新华社全媒体新闻信息产品的主要传播平台,拥有31个地方频道以及英、法、西、俄、阿、日、韩、德、藏、维、蒙等多种语言频道，日均多语种、多终端发稿达1.5万条，重大新闻首发率和转载率遥遥领先国内其他网络媒体。', '4', '1', '110000', '---', 'http://www.xinhuanet.com', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('54', '苏宁控股集团有限公司', '---', 'CHN', '苏宁创立于1990年，员工18万人，在中国和日本拥有两家上市公司，分别是苏宁云商(002024.SZ)和乐购仕(ラオックス【8202】<东证2部>)。秉承“引领产业生态、共创品质生活”的企业使命，苏宁产业经营不断拓展，形成苏宁易购、苏宁物流、苏宁金融、苏宁科技、苏宁置业、苏宁文创、苏宁体育、苏宁投资八大产业板块协同发展的格局。2016年6月，世界品牌实验室在北京发布2016年《中国500最具价值品牌》榜单，苏宁以1582.68亿元的品牌价值位列品牌榜第13名，稳居零售业第一位。相较去年1167.81亿元的品牌价值，2016年苏宁品牌价值同比提升高达36%，增长迅猛。2017年8月，全国工商联发布2017中国民营企业500强榜单，苏宁控股集团以4129.51亿元年营业收入位居第二，蝉联民营企业服务业100强第一位。2018年中国民营企业500强排列第二名。[5]2018年9月10日，荣获第十届“中华慈善奖”。', '4', '1', '320100', '---', 'http://www.suning.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('55', '北京车之家信息技术有限公司', '---', 'CHN', '汽车之家成立于2005年6月，是全球访问量最大的汽车网站。汽车之家为汽车消费者提供选车、买车、用车、换车等所有环节的全面、准确、快捷的一站式服务。汽车之家致力于通过产品服务、数据技术、生态规则和资源为用户和客户赋能，建设“车媒体、车电商、车金融、车生活”4个圈、从“基于内容的垂直领域公司”转型升级为“基于数据技术的‘汽车’公司”。2012年8月底，“汽车之家”与盛拓传媒正式拆分，原盛拓传媒将汽车和IT两条业务线进行拆分，变身两家独立公司。“汽车之家”、“二手车之家”组建为一个公司，用“汽车之家”命名。', '4', '1', '110000', '---', 'http://www.autohome.com.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('56', '用友网络科技股份有限公司', '---', 'CHN', '用友公司成立于1988年，是亚太本土领先的企业管理软件和企业移动应用、企业云服务提供商，是中国最大的ERP、CRM、人力资源管理、商业分析、内审、小微企业管理软件和财政、汽车、烟草等行业应用解决方案提供商，并在金融、医疗卫生等行业应用以及企业支付、企业通信、管理咨询、培训教育等领域快速发展。基于移动互联网、云计算、大数据、社交等先进技术，用友UAP私有云平台是中国大型企业和公共组织应用最广泛的企业计算平台，畅捷通公有云平台在小微企业和各类企业公共应用服务中得到运用。中国及亚太地区超过200万家企业与公共组织通过使用用友软件和云服务，实现精细管理、敏捷经营、业务创新。其中，中国500强企业超过60%是用友的客户。', '4', '1', '110000', '---', 'http://www.yonyou.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('57', '咪咕文化科技有限公司', '---', 'CHN', '咪咕文化科技有限公司是中国移动面向移动互联网领域设立的，负责数字内容领域产品提供、运营、服务一体化的专业子公司，是中国移动旗下音乐、视频、阅读、游戏、动漫数字内容业务板块的唯一运营实体，下设咪咕音乐、咪咕视讯、咪咕数媒、咪咕互娱、咪咕动漫5个子公司。（咪咕文化科技有限公司简称咪咕文化，咪咕文化及5个子公司合称咪咕公司）', '4', '1', '110000', '---', 'http://www.migu.cn/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('58', '三七互娱（上海）科技有限公司', '---', 'CHN', '三七互娱（上海）科技有限公司（简称“三七互娱”）成立于2011年，是中国互联网二十强企业，于2015年完成整体上市（股票代码：002555），被纳入中证沪深300指数、明晟MSCI指数、高盛“新漂亮50”名单，是国内A股优秀的社会公众公司。三七互娱的发行与研发总部设在广州，并在北京、上海、安徽、江苏、湖北、香港、台湾、东南亚、日韩及欧美等多个地区设有子公司或办事处等分支机构。作为全球领先的游戏运营商、研发商，三七互娱以“传承中华文化精髓”为理念，积极推动国产游戏的全球化发展；同时投入大量资金布局影视、音乐、动漫、VR及直播等领域的文化创意业务，致力于成为全球领先的文化创意综合型企业。', '4', '1', '310000', '---', 'http://www.37wan.net/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('59', '北京天盈九州网络技术有限公司', '---', 'CHN', '凤凰网（凤凰新媒体，纽交所代码：FENG)是全球领先的跨平台网络新媒体公司，整合旗下综合门户凤凰网、手机凤凰网和凤凰视频三大平台，秉承中华情怀，全球视野，兼容开放，进步力量\"的媒体理念，为主流华人提供互联网、无线通信、电视网的三网融合无缝衔接的新媒体优质内容与服务。\"', '4', '1', '110000', '---', 'https://www.ifeng.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('60', '恺英网络股份有限公司', '---', 'CHN', '上海恺英网络科技有限公司，简称“恺英网络”，成立于2008年，总部位于上海，是一家拥有移动互联网流量入口、集平台运营和产品研发为一体的互联网企业。公司拥有近千人的开发运营团队，旗下有业内领先的多款互联网平台型产品。恺英网络于2015年11月正式登陆A股。(股票代码:002517)', '4', '1', '310000', '---', 'https://www.kingnet.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('61', 'Amazon', '---', 'USA', 'Amazon.com is an American multinational technology company based in Seattle, Washington that focuses in e-commerce, cloud computing, and artificial intelligence.', '4', '6', '998101', '---', 'https://www.amazon.com/', '1900-01-01', '1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`COMPANY_INDUSTRY` ;
-INSERT INTO `youthchina`.`COMPANY_INDUSTRY` (`COMPANY_INDUS_ID`, `COMPANY_IND_CODE`, `COMPANY_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`COMPANY_INDUSTRY` (`COMPANY_INDUS_ID`, `COMPANY_IND_CODE`, `COMPANY_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', 'B07', '1', '0', '2019-01-01 00:00:00'),
-('2', 'B07', '2', '0', '2019-01-01 00:00:00'),
-('3', 'E47', '3', '0', '2019-01-01 00:00:00'),
-('4', 'C36', '4', '0', '2019-01-01 00:00:00'),
-('5', 'J68', '5', '0', '2019-01-01 00:00:00'),
-('6', 'I63', '6', '0', '2019-01-01 00:00:00'),
-('7', 'J66', '7', '0', '2019-01-01 00:00:00'),
-('8', 'E481', '8', '0', '2019-01-01 00:00:00'),
-('9', 'E481', '9', '0', '2019-01-01 00:00:00'),
-('10', 'J66', '10', '0', '2019-01-01 00:00:00'),
-('11', 'J68', '11', '0', '2019-01-01 00:00:00'),
-('12', 'J66', '12', '0', '2019-01-01 00:00:00'),
-('13', 'J66', '13', '0', '2019-01-01 00:00:00'),
-('14', 'J68', '14', '0', '2019-01-01 00:00:00'),
-('15', 'E481', '15', '0', '2019-01-01 00:00:00'),
-('16', 'E48', '16', '0', '2019-01-01 00:00:00'),
-('17', 'J69', '17', '0', '2019-01-01 00:00:00'),
-('18', 'I65', '18', '0', '2019-01-01 00:00:00'),
-('19', 'I63', '19', '0', '2019-01-01 00:00:00'),
-('20', 'J68', '20', '0', '2019-01-01 00:00:00'),
-('21', 'F5294', '21', '0', '2019-01-01 00:00:00'),
-('22', 'C27', '22', '0', '2019-01-01 00:00:00'),
-('23', 'K70', '23', '0', '2019-01-01 00:00:00'),
-('24', 'K70', '24', '0', '2019-01-01 00:00:00'),
-('25', 'D44', '25', '0', '2019-01-01 00:00:00'),
-('26', 'C37', '26', '0', '2019-01-01 00:00:00'),
-('27', 'D44', '27', '0', '2019-01-01 00:00:00'),
-('28', 'B', '28', '0', '2019-01-01 00:00:00'),
-('29', 'K70', '29', '0', '2019-01-01 00:00:00'),
-('30', 'J66', '30', '0', '2019-01-01 00:00:00'),
-('31', 'J674', '31', '0', '2019-01-01 00:00:00'),
-('32', 'B09', '32', '0', '2019-01-01 00:00:00'),
-('33', 'J66', '33', '0', '2019-01-01 00:00:00'),
-('34', 'J66', '34', '0', '2019-01-01 00:00:00'),
-('35', 'C3120', '35', '0', '2019-01-01 00:00:00'),
-('36', 'I65', '36', '0', '2019-01-01 00:00:00'),
-('37', 'I65', '37', '0', '2019-01-01 00:00:00'),
-('38', 'I65', '38', '0', '2019-01-01 00:00:00'),
-('39', 'F5294', '39', '0', '2019-01-01 00:00:00'),
-('40', 'I65', '40', '0', '2019-01-01 00:00:00'),
-('41', 'I65', '41', '0', '2019-01-01 00:00:00'),
-('42', 'I65', '42', '0', '2019-01-01 00:00:00'),
-('43', 'I65', '43', '0', '2019-01-01 00:00:00'),
-('44', 'I65', '44', '0', '2019-01-01 00:00:00'),
-('45', 'I65', '45', '0', '2019-01-01 00:00:00'),
-('46', 'I65', '46', '0', '2019-01-01 00:00:00'),
-('47', 'I65', '47', '0', '2019-01-01 00:00:00'),
-('48', 'I65', '48', '0', '2019-01-01 00:00:00'),
-('49', 'I65', '49', '0', '2019-01-01 00:00:00'),
-('50', 'I65', '50', '0', '2019-01-01 00:00:00'),
-('51', 'I65', '51', '0', '2019-01-01 00:00:00'),
-('52', 'I65', '52', '0', '2019-01-01 00:00:00'),
-('53', 'R85', '53', '0', '2019-01-01 00:00:00'),
-('54', 'F5294', '54', '0', '2019-01-01 00:00:00'),
-('55', 'I65', '55', '0', '2019-01-01 00:00:00'),
-('56', 'I65', '56', '0', '2019-01-01 00:00:00'),
-('57', 'I65', '57', '0', '2019-01-01 00:00:00'),
-('58', 'I65', '58', '0', '2019-01-01 00:00:00'),
-('59', 'I65', '59', '0', '2019-01-01 00:00:00'),
-('60', 'I65', '60', '0', '2019-01-01 00:00:00'),
-('61', 'I65', '61', '0', '2019-01-01 00:00:00');
+ ('2', 'B07', '2', '0', '2019-01-01 00:00:00'),
+ ('3', 'E47', '3', '0', '2019-01-01 00:00:00'),
+ ('4', 'C36', '4', '0', '2019-01-01 00:00:00'),
+ ('5', 'J68', '5', '0', '2019-01-01 00:00:00'),
+ ('6', 'I63', '6', '0', '2019-01-01 00:00:00'),
+ ('7', 'J66', '7', '0', '2019-01-01 00:00:00'),
+ ('8', 'E481', '8', '0', '2019-01-01 00:00:00'),
+ ('9', 'E481', '9', '0', '2019-01-01 00:00:00'),
+ ('10', 'J66', '10', '0', '2019-01-01 00:00:00'),
+ ('11', 'J68', '11', '0', '2019-01-01 00:00:00'),
+ ('12', 'J66', '12', '0', '2019-01-01 00:00:00'),
+ ('13', 'J66', '13', '0', '2019-01-01 00:00:00'),
+ ('14', 'J68', '14', '0', '2019-01-01 00:00:00'),
+ ('15', 'E481', '15', '0', '2019-01-01 00:00:00'),
+ ('16', 'E48', '16', '0', '2019-01-01 00:00:00'),
+ ('17', 'J69', '17', '0', '2019-01-01 00:00:00'),
+ ('18', 'I65', '18', '0', '2019-01-01 00:00:00'),
+ ('19', 'I63', '19', '0', '2019-01-01 00:00:00'),
+ ('20', 'J68', '20', '0', '2019-01-01 00:00:00'),
+ ('21', 'F5294', '21', '0', '2019-01-01 00:00:00'),
+ ('22', 'C27', '22', '0', '2019-01-01 00:00:00'),
+ ('23', 'K70', '23', '0', '2019-01-01 00:00:00'),
+ ('24', 'K70', '24', '0', '2019-01-01 00:00:00'),
+ ('25', 'D44', '25', '0', '2019-01-01 00:00:00'),
+ ('26', 'C37', '26', '0', '2019-01-01 00:00:00'),
+ ('27', 'D44', '27', '0', '2019-01-01 00:00:00'),
+ ('28', 'B', '28', '0', '2019-01-01 00:00:00'),
+ ('29', 'K70', '29', '0', '2019-01-01 00:00:00'),
+ ('30', 'J66', '30', '0', '2019-01-01 00:00:00'),
+ ('31', 'J674', '31', '0', '2019-01-01 00:00:00'),
+ ('32', 'B09', '32', '0', '2019-01-01 00:00:00'),
+ ('33', 'J66', '33', '0', '2019-01-01 00:00:00'),
+ ('34', 'J66', '34', '0', '2019-01-01 00:00:00'),
+ ('35', 'C3120', '35', '0', '2019-01-01 00:00:00'),
+ ('36', 'I65', '36', '0', '2019-01-01 00:00:00'),
+ ('37', 'I65', '37', '0', '2019-01-01 00:00:00'),
+ ('38', 'I65', '38', '0', '2019-01-01 00:00:00'),
+ ('39', 'F5294', '39', '0', '2019-01-01 00:00:00'),
+ ('40', 'I65', '40', '0', '2019-01-01 00:00:00'),
+ ('41', 'I65', '41', '0', '2019-01-01 00:00:00'),
+ ('42', 'I65', '42', '0', '2019-01-01 00:00:00'),
+ ('43', 'I65', '43', '0', '2019-01-01 00:00:00'),
+ ('44', 'I65', '44', '0', '2019-01-01 00:00:00'),
+ ('45', 'I65', '45', '0', '2019-01-01 00:00:00'),
+ ('46', 'I65', '46', '0', '2019-01-01 00:00:00'),
+ ('47', 'I65', '47', '0', '2019-01-01 00:00:00'),
+ ('48', 'I65', '48', '0', '2019-01-01 00:00:00'),
+ ('49', 'I65', '49', '0', '2019-01-01 00:00:00'),
+ ('50', 'I65', '50', '0', '2019-01-01 00:00:00'),
+ ('51', 'I65', '51', '0', '2019-01-01 00:00:00'),
+ ('52', 'I65', '52', '0', '2019-01-01 00:00:00'),
+ ('53', 'R85', '53', '0', '2019-01-01 00:00:00'),
+ ('54', 'F5294', '54', '0', '2019-01-01 00:00:00'),
+ ('55', 'I65', '55', '0', '2019-01-01 00:00:00'),
+ ('56', 'I65', '56', '0', '2019-01-01 00:00:00'),
+ ('57', 'I65', '57', '0', '2019-01-01 00:00:00'),
+ ('58', 'I65', '58', '0', '2019-01-01 00:00:00'),
+ ('59', 'I65', '59', '0', '2019-01-01 00:00:00'),
+ ('60', 'I65', '60', '0', '2019-01-01 00:00:00'),
+ ('61', 'I65', '61', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`COMPANY_VERIFICATION` ;
-INSERT INTO `youthchina`.`COMPANY_VERIFICATION` (`VERIFY_ID`, `VERIFY_TIME`, `VERIFY_END_TIME`, `OPER_USER_ID`, `COMPANY_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
-('1', '2019-01-01', '2019-12-31', '1', '1', '0', '2019-01-01 00:00:00'),
-('2', '2019-01-01', '2019-12-31', '1', '2', '0', '2019-01-01 00:00:00'),
-('3', '2019-01-01', '2019-12-31', '1', '3', '0', '2019-01-01 00:00:00'),
-('4', '2019-01-01', '2019-12-31', '1', '4', '0', '2019-01-01 00:00:00'),
-('5', '2019-01-01', '2019-12-31', '1', '5', '0', '2019-01-01 00:00:00'),
-('6', '2019-01-01', '2019-12-31', '1', '6', '0', '2019-01-01 00:00:00'),
-('7', '2019-01-01', '2019-12-31', '1', '7', '0', '2019-01-01 00:00:00'),
-('8', '2019-01-01', '2019-12-31', '1', '8', '0', '2019-01-01 00:00:00'),
-('9', '2019-01-01', '2019-12-31', '1', '9', '0', '2019-01-01 00:00:00'),
-('10', '2019-01-01', '2019-12-31', '1', '10', '0', '2019-01-01 00:00:00'),
-('11', '2019-01-01', '2019-12-31', '1', '11', '0', '2019-01-01 00:00:00'),
-('12', '2019-01-01', '2019-12-31', '1', '12', '0', '2019-01-01 00:00:00'),
-('13', '2019-01-01', '2019-12-31', '1', '13', '0', '2019-01-01 00:00:00'),
-('14', '2019-01-01', '2019-12-31', '1', '14', '0', '2019-01-01 00:00:00'),
-('15', '2019-01-01', '2019-12-31', '1', '15', '0', '2019-01-01 00:00:00'),
-('16', '2019-01-01', '2019-12-31', '1', '16', '0', '2019-01-01 00:00:00'),
-('17', '2019-01-01', '2019-12-31', '1', '17', '0', '2019-01-01 00:00:00'),
-('18', '2019-01-01', '2019-12-31', '1', '18', '0', '2019-01-01 00:00:00'),
-('19', '2019-01-01', '2019-12-31', '1', '19', '0', '2019-01-01 00:00:00'),
-('20', '2019-01-01', '2019-12-31', '1', '20', '0', '2019-01-01 00:00:00'),
-('21', '2019-01-01', '2019-12-31', '1', '21', '0', '2019-01-01 00:00:00'),
-('22', '2019-01-01', '2019-12-31', '1', '22', '0', '2019-01-01 00:00:00'),
-('23', '2019-01-01', '2019-12-31', '1', '23', '0', '2019-01-01 00:00:00'),
-('24', '2019-01-01', '2019-12-31', '1', '24', '0', '2019-01-01 00:00:00'),
-('25', '2019-01-01', '2019-12-31', '1', '25', '0', '2019-01-01 00:00:00'),
-('26', '2019-01-01', '2019-12-31', '1', '26', '0', '2019-01-01 00:00:00'),
-('27', '2019-01-01', '2019-12-31', '1', '27', '0', '2019-01-01 00:00:00'),
-('28', '2019-01-01', '2019-12-31', '1', '28', '0', '2019-01-01 00:00:00'),
-('29', '2019-01-01', '2019-12-31', '1', '29', '0', '2019-01-01 00:00:00'),
-('30', '2019-01-01', '2019-12-31', '1', '30', '0', '2019-01-01 00:00:00'),
-('31', '2019-01-01', '2019-12-31', '1', '31', '0', '2019-01-01 00:00:00'),
-('32', '2019-01-01', '2019-12-31', '1', '32', '0', '2019-01-01 00:00:00'),
-('33', '2019-01-01', '2019-12-31', '1', '33', '0', '2019-01-01 00:00:00'),
-('34', '2019-01-01', '2019-12-31', '1', '34', '0', '2019-01-01 00:00:00'),
-('35', '2019-01-01', '2019-12-31', '1', '35', '0', '2019-01-01 00:00:00'),
-('36', '2019-01-01', '2019-12-31', '1', '36', '0', '2019-01-01 00:00:00'),
-('37', '2019-01-01', '2019-12-31', '1', '37', '0', '2019-01-01 00:00:00'),
-('38', '2019-01-01', '2019-12-31', '1', '38', '0', '2019-01-01 00:00:00'),
-('39', '2019-01-01', '2019-12-31', '1', '39', '0', '2019-01-01 00:00:00'),
-('40', '2019-01-01', '2019-12-31', '1', '40', '0', '2019-01-01 00:00:00'),
-('41', '2019-01-01', '2019-12-31', '1', '41', '0', '2019-01-01 00:00:00'),
-('42', '2019-01-01', '2019-12-31', '1', '42', '0', '2019-01-01 00:00:00'),
-('43', '2019-01-01', '2019-12-31', '1', '43', '0', '2019-01-01 00:00:00'),
-('44', '2019-01-01', '2019-12-31', '1', '44', '0', '2019-01-01 00:00:00'),
-('45', '2019-01-01', '2019-12-31', '1', '45', '0', '2019-01-01 00:00:00'),
-('46', '2019-01-01', '2019-12-31', '1', '46', '0', '2019-01-01 00:00:00'),
-('47', '2019-01-01', '2019-12-31', '1', '47', '0', '2019-01-01 00:00:00'),
-('48', '2019-01-01', '2019-12-31', '1', '48', '0', '2019-01-01 00:00:00'),
-('49', '2019-01-01', '2019-12-31', '1', '49', '0', '2019-01-01 00:00:00'),
-('50', '2019-01-01', '2019-12-31', '1', '50', '0', '2019-01-01 00:00:00'),
-('51', '2019-01-01', '2019-12-31', '1', '51', '0', '2019-01-01 00:00:00'),
-('52', '2019-01-01', '2019-12-31', '1', '52', '0', '2019-01-01 00:00:00'),
-('53', '2019-01-01', '2019-12-31', '1', '53', '0', '2019-01-01 00:00:00'),
-('54', '2019-01-01', '2019-12-31', '1', '54', '0', '2019-01-01 00:00:00'),
-('55', '2019-01-01', '2019-12-31', '1', '55', '0', '2019-01-01 00:00:00'),
-('56', '2019-01-01', '2019-12-31', '1', '56', '0', '2019-01-01 00:00:00'),
-('57', '2019-01-01', '2019-12-31', '1', '57', '0', '2019-01-01 00:00:00'),
-('58', '2019-01-01', '2019-12-31', '1', '58', '0', '2019-01-01 00:00:00'),
-('59', '2019-01-01', '2019-12-31', '1', '59', '0', '2019-01-01 00:00:00'),
-('60', '2019-01-01', '2019-12-31', '1', '60', '0', '2019-01-01 00:00:00'),
-('61', '2019-01-01', '2019-12-31', '1', '61', '0', '2019-01-01 00:00:00');
+INSERT INTO `youthchina`.`COMPANY_VERIFICATION` (`VERIFY_ID`, `VERIFY_TIME`, `VERIFY_END_TIME`, `OPER_USER_ID`, `COMPANY_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
+ ('1', '2019-01-01', '2019-12-31', '1', '1', '0', '2019-01-01 00:00:00'),
+ ('2', '2019-01-01', '2019-12-31', '1', '2', '0', '2019-01-01 00:00:00'),
+ ('3', '2019-01-01', '2019-12-31', '1', '3', '0', '2019-01-01 00:00:00'),
+ ('4', '2019-01-01', '2019-12-31', '1', '4', '0', '2019-01-01 00:00:00'),
+ ('5', '2019-01-01', '2019-12-31', '1', '5', '0', '2019-01-01 00:00:00'),
+ ('6', '2019-01-01', '2019-12-31', '1', '6', '0', '2019-01-01 00:00:00'),
+ ('7', '2019-01-01', '2019-12-31', '1', '7', '0', '2019-01-01 00:00:00'),
+ ('8', '2019-01-01', '2019-12-31', '1', '8', '0', '2019-01-01 00:00:00'),
+ ('9', '2019-01-01', '2019-12-31', '1', '9', '0', '2019-01-01 00:00:00'),
+ ('10', '2019-01-01', '2019-12-31', '1', '10', '0', '2019-01-01 00:00:00'),
+ ('11', '2019-01-01', '2019-12-31', '1', '11', '0', '2019-01-01 00:00:00'),
+ ('12', '2019-01-01', '2019-12-31', '1', '12', '0', '2019-01-01 00:00:00'),
+ ('13', '2019-01-01', '2019-12-31', '1', '13', '0', '2019-01-01 00:00:00'),
+ ('14', '2019-01-01', '2019-12-31', '1', '14', '0', '2019-01-01 00:00:00'),
+ ('15', '2019-01-01', '2019-12-31', '1', '15', '0', '2019-01-01 00:00:00'),
+ ('16', '2019-01-01', '2019-12-31', '1', '16', '0', '2019-01-01 00:00:00'),
+ ('17', '2019-01-01', '2019-12-31', '1', '17', '0', '2019-01-01 00:00:00'),
+ ('18', '2019-01-01', '2019-12-31', '1', '18', '0', '2019-01-01 00:00:00'),
+ ('19', '2019-01-01', '2019-12-31', '1', '19', '0', '2019-01-01 00:00:00'),
+ ('20', '2019-01-01', '2019-12-31', '1', '20', '0', '2019-01-01 00:00:00'),
+ ('21', '2019-01-01', '2019-12-31', '1', '21', '0', '2019-01-01 00:00:00'),
+ ('22', '2019-01-01', '2019-12-31', '1', '22', '0', '2019-01-01 00:00:00'),
+ ('23', '2019-01-01', '2019-12-31', '1', '23', '0', '2019-01-01 00:00:00'),
+ ('24', '2019-01-01', '2019-12-31', '1', '24', '0', '2019-01-01 00:00:00'),
+ ('25', '2019-01-01', '2019-12-31', '1', '25', '0', '2019-01-01 00:00:00'),
+ ('26', '2019-01-01', '2019-12-31', '1', '26', '0', '2019-01-01 00:00:00'),
+ ('27', '2019-01-01', '2019-12-31', '1', '27', '0', '2019-01-01 00:00:00'),
+ ('28', '2019-01-01', '2019-12-31', '1', '28', '0', '2019-01-01 00:00:00'),
+ ('29', '2019-01-01', '2019-12-31', '1', '29', '0', '2019-01-01 00:00:00'),
+ ('30', '2019-01-01', '2019-12-31', '1', '30', '0', '2019-01-01 00:00:00'),
+ ('31', '2019-01-01', '2019-12-31', '1', '31', '0', '2019-01-01 00:00:00'),
+ ('32', '2019-01-01', '2019-12-31', '1', '32', '0', '2019-01-01 00:00:00'),
+ ('33', '2019-01-01', '2019-12-31', '1', '33', '0', '2019-01-01 00:00:00'),
+ ('34', '2019-01-01', '2019-12-31', '1', '34', '0', '2019-01-01 00:00:00'),
+ ('35', '2019-01-01', '2019-12-31', '1', '35', '0', '2019-01-01 00:00:00'),
+ ('36', '2019-01-01', '2019-12-31', '1', '36', '0', '2019-01-01 00:00:00'),
+ ('37', '2019-01-01', '2019-12-31', '1', '37', '0', '2019-01-01 00:00:00'),
+ ('38', '2019-01-01', '2019-12-31', '1', '38', '0', '2019-01-01 00:00:00'),
+ ('39', '2019-01-01', '2019-12-31', '1', '39', '0', '2019-01-01 00:00:00'),
+ ('40', '2019-01-01', '2019-12-31', '1', '40', '0', '2019-01-01 00:00:00'),
+ ('41', '2019-01-01', '2019-12-31', '1', '41', '0', '2019-01-01 00:00:00'),
+ ('42', '2019-01-01', '2019-12-31', '1', '42', '0', '2019-01-01 00:00:00'),
+ ('43', '2019-01-01', '2019-12-31', '1', '43', '0', '2019-01-01 00:00:00'),
+ ('44', '2019-01-01', '2019-12-31', '1', '44', '0', '2019-01-01 00:00:00'),
+ ('45', '2019-01-01', '2019-12-31', '1', '45', '0', '2019-01-01 00:00:00'),
+ ('46', '2019-01-01', '2019-12-31', '1', '46', '0', '2019-01-01 00:00:00'),
+ ('47', '2019-01-01', '2019-12-31', '1', '47', '0', '2019-01-01 00:00:00'),
+ ('48', '2019-01-01', '2019-12-31', '1', '48', '0', '2019-01-01 00:00:00'),
+ ('49', '2019-01-01', '2019-12-31', '1', '49', '0', '2019-01-01 00:00:00'),
+ ('50', '2019-01-01', '2019-12-31', '1', '50', '0', '2019-01-01 00:00:00'),
+ ('51', '2019-01-01', '2019-12-31', '1', '51', '0', '2019-01-01 00:00:00'),
+ ('52', '2019-01-01', '2019-12-31', '1', '52', '0', '2019-01-01 00:00:00'),
+ ('53', '2019-01-01', '2019-12-31', '1', '53', '0', '2019-01-01 00:00:00'),
+ ('54', '2019-01-01', '2019-12-31', '1', '54', '0', '2019-01-01 00:00:00'),
+ ('55', '2019-01-01', '2019-12-31', '1', '55', '0', '2019-01-01 00:00:00'),
+ ('56', '2019-01-01', '2019-12-31', '1', '56', '0', '2019-01-01 00:00:00'),
+ ('57', '2019-01-01', '2019-12-31', '1', '57', '0', '2019-01-01 00:00:00'),
+ ('58', '2019-01-01', '2019-12-31', '1', '58', '0', '2019-01-01 00:00:00'),
+ ('59', '2019-01-01', '2019-12-31', '1', '59', '0', '2019-01-01 00:00:00'),
+ ('60', '2019-01-01', '2019-12-31', '1', '60', '0', '2019-01-01 00:00:00'),
+ ('61', '2019-01-01', '2019-12-31', '1', '61', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`JOB_INFO` ;
-INSERT INTO `youthchina`.`JOB_INFO` (`JOB_ID`, `JOB_NAME`, `JOB_PROF_CODE`, `JOB_START_TIME`, `JOB_END_TIME`, `JOB_TYPE`, `JOB_DESCRIPTION`, `JOB_DUTY`, `JOB_HIGHLIGHT`, `JOB_SALARY_FLOOR`, `JOB_SALARY_CAP`, `JOB_LINK`, `CV_RECEI_MAIL`, `CV_NAME_RULE`, `JOB_ACTIVE`, `USER_ID`, `COMPANY_ID`, `ADD_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
-('1', '产品信息管理实习生', 'I6510201004', '2019-01-01', '2019-12-31', '1', '产品信息管理实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉产品信息管理', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('2', 'Java/Javascript实习生', 'I6510101002', '2019-01-01', '2019-12-31', '1', 'Java/Javascript实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉Java编程，有J2EE开发经验；熟悉SQL, 了解常用关系型数据库以及非关系型数据库；熟悉JavaScript以及相应框架，如AngularJS, Vue, Node.js等；了解REST，熟悉常用REST开发技术', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('3', '后端开发实习生', 'I6510102', '2019-01-01', '2019-12-31', '1', '后端开发实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉后端语言开发', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('4', '数据研发实习生', 'I6510102004', '2019-01-01', '2019-12-31', '1', '数据研发实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉数据研发', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('5', 'python开发实习生', 'I6510102022', '2019-01-01', '2019-12-31', '1', 'python开发实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉Python编程', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('6', '开发测试实习生', 'I6510106004', '2019-01-01', '2019-12-31', '1', '开发测试实习生', '工作职责：1. 根据需求设计测试用例，编写测试程序以及测试脚本；2. 负责测试执行以及测试结果分析，定位软件bug；3. 优化测试方法，测试流程；4. 负责测试过程相关文档的编写与维护；任职要求：1. 计算机技术或者软件工程相关专业硕士；2. 至少掌握一门常用编程语言(如C/C /Python等)，能熟练运用C语言进行编程，具备良好的代码阅读能力；3. 掌握Linux 系统基本操作和应用开发编程；4. 有嵌入式开发调试经验者优先，会使用交叉编译，串口调试助手等；5. 了解Linux内核结构，有驱动开发经验者优先考虑；6. 有软件测试经验者优先考虑；7. 有良好的沟通协调能力及团队协作能力，工作认真负责，规范性强，能按时保质完成工作任务；能给保证每周至少工作3天。地址：海淀区邓庄南路9号，中科院北京新技术基地', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('7', '核心算法工程师（自然语言处理/机器学习）', 'I6510105007', '2019-01-01', '2019-12-31', '3', '核心算法工程师（自然语言处理/机器学习）', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉主流算法', '转正机会', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('8', '产品运营实习生', 'I6510201005', '2019-01-01', '2019-12-31', '1', '产品运营实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉产品运营', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('9', '数据挖掘实习生', 'I6510105005', '2019-01-01', '2019-12-31', '1', '数据挖掘实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉数据挖掘', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('10', '后端开发工程师', 'I6510102', '2019-01-01', '2019-12-31', '3', '后端开发工程师', '熟悉Java编程，有J2EE开发经验；熟悉SQL, 了解常用关系型数据库以及非关系型数据库；有2年以上后端开发经验', '五险一金，班车', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('11', '运维开发工程师', 'I6510104002', '2019-01-01', '2019-12-31', '3', '运维开发工程师', '有两年以上运维经验;有2年以上开发经验', '五险一金，班车', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('12', '网络工程师', 'I6510104003', '2019-01-01', '2019-12-31', '3', '网络工程师', '熟悉网络基础，有2年以上相关经验', '五险一金，班车', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('13', '系统工程师', 'I6510104004', '2019-01-01', '2019-12-31', '3', '系统工程师', '熟悉计算机系统，有2年以上相关经验', '五险一金，班车', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('14', '搜索算法实习生', 'I6510102014', '2019-01-01', '2019-12-31', '1', '负责海量数据的挖掘及特征工程，优化搜索排序算法，提升内容分发效率。', '职位要求：1. 工作细心，学习能力强，有良好的团队合作精神；2. 熟悉Python、C 至少一门语言，熟悉SQL与Shell脚本加分；3. 熟悉Hadoop、Hive、Spark、Impala等大数据工具优先；4. 熟悉常见机器学习算法，熟悉TensorFlow分布式框架优先；5. 有搜索、广告、推荐实习经历优先； 6. 实习期至少3个月，每周至少4天。', '提供有竞争力的薪酬与实习转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '学校_专业_实习时间_毕业时间；如：北大_信科_3个月_2020年7月', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('15', '自然语言处理工程师', 'I6510102016', '2019-01-01', '2019-12-31', '3', '自然语言处理工程师', '熟悉自然语言，有2年以上相关经验', '五险一金，班车', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('16', '数据采集工程师', 'I6510102021', '2019-01-01', '2019-12-31', '3', '数据采集工程师', '熟悉数据采集，有2年以上相关经验', '五险一金，班车', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('17', '医药行研实习生', 'I6510102014', '2019-01-01', '2019-12-31', '1', '1、为研究员提供行业研究支持，如搜集资料、初步分析等。2、参与医药行业深度研究报告和公司报告撰写，至少完成一篇深度报告。3、其他日常工作支持，如参与制作日报、周报，整理会议纪要等。', '招聘条件：1、必须项：1）2020年或以后毕业。2）工作踏实细心，逻辑分析、总结归纳能力强。3）实习期至少3个月以上。2、加分项：1）名校医药生物专业出身。2）金融经济复合背景，如CPA、CFA、证券从业、经济学双学位等。3）有过其他券商、基金、咨询的实习经历。4）在上海或深圳，可以来公司坐班实习。', '工作收获：1、系统的行业和公司分析、研究报告撰写能力，毕业找工作和以后的正式工作中大有用处。2、表现特别优秀者将有机会留用，或其他工作机会推荐。', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('18', '财务/销售实习生', 'I6510102015', '2019-01-01', '2019-12-31', '1', '财务/销售实习生', '广东地区在校大三、大四学生，专业不限。负责协助上级处理业务文书事宜，跟进订单，并制定合同，发送邮件等工作。性格开朗热情，有良好的沟通能力。工作认真细致，效率高，逻辑思维能力强。实习时间：2018年3月。待遇：日薪80元，月结。', '包午餐，下午茶水果等福利', '1600', '1600', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+INSERT INTO `youthchina`.`JOB_INFO` (`JOB_ID`, `JOB_NAME`, `JOB_PROF_CODE`, `JOB_START_TIME`, `JOB_END_TIME`, `JOB_TYPE`, `JOB_DESCRIPTION`, `JOB_DUTY`, `JOB_HIGHLIGHT`, `JOB_SALARY_FLOOR`, `JOB_SALARY_CAP`, `JOB_LINK`, `CV_RECEI_MAIL`, `CV_NAME_RULE`, `JOB_ACTIVE`, `USER_ID`, `COMPANY_ID`, `ADD_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
+ ('1', '产品信息管理实习生', 'I6510201004', '2019-01-01', '2019-12-31', '1', '产品信息管理实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉产品信息管理', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('2', 'Java/Javascript实习生', 'I6510101002', '2019-01-01', '2019-12-31', '1', 'Java/Javascript实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉Java编程，有J2EE开发经验；熟悉SQL, 了解常用关系型数据库以及非关系型数据库；熟悉JavaScript以及相应框架，如AngularJS, Vue, Node.js等；了解REST，熟悉常用REST开发技术', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('3', '后端开发实习生', 'I6510102', '2019-01-01', '2019-12-31', '1', '后端开发实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉后端语言开发', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('4', '数据研发实习生', 'I6510102004', '2019-01-01', '2019-12-31', '1', '数据研发实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉数据研发', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('5', 'python开发实习生', 'I6510102022', '2019-01-01', '2019-12-31', '1', 'python开发实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉Python编程', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('6', '开发测试实习生', 'I6510106004', '2019-01-01', '2019-12-31', '1', '开发测试实习生', '工作职责：1. 根据需求设计测试用例，编写测试程序以及测试脚本；2. 负责测试执行以及测试结果分析，定位软件bug；3. 优化测试方法，测试流程；4. 负责测试过程相关文档的编写与维护；任职要求：1. 计算机技术或者软件工程相关专业硕士；2. 至少掌握一门常用编程语言(如C/C /Python等)，能熟练运用C语言进行编程，具备良好的代码阅读能力；3. 掌握Linux 系统基本操作和应用开发编程；4. 有嵌入式开发调试经验者优先，会使用交叉编译，串口调试助手等；5. 了解Linux内核结构，有驱动开发经验者优先考虑；6. 有软件测试经验者优先考虑；7. 有良好的沟通协调能力及团队协作能力，工作认真负责，规范性强，能按时保质完成工作任务；能给保证每周至少工作3天。地址：海淀区邓庄南路9号，中科院北京新技术基地', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('7', '核心算法工程师（自然语言处理/机器学习）', 'I6510105007', '2019-01-01', '2019-12-31', '3', '核心算法工程师（自然语言处理/机器学习）', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉主流算法', '转正机会', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('8', '产品运营实习生', 'I6510201005', '2019-01-01', '2019-12-31', '1', '产品运营实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉产品运营', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('9', '数据挖掘实习生', 'I6510105005', '2019-01-01', '2019-12-31', '1', '数据挖掘实习生', '在读硕士研究生, 如果是2019年毕业生, 有转正机会；熟悉数据挖掘', '转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('10', '后端开发工程师', 'I6510102', '2019-01-01', '2019-12-31', '3', '后端开发工程师', '熟悉Java编程，有J2EE开发经验；熟悉SQL, 了解常用关系型数据库以及非关系型数据库；有2年以上后端开发经验', '五险一金，班车', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('11', '运维开发工程师', 'I6510104002', '2019-01-01', '2019-12-31', '3', '运维开发工程师', '有两年以上运维经验;有2年以上开发经验', '五险一金，班车', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('12', '网络工程师', 'I6510104003', '2019-01-01', '2019-12-31', '3', '网络工程师', '熟悉网络基础，有2年以上相关经验', '五险一金，班车', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('13', '系统工程师', 'I6510104004', '2019-01-01', '2019-12-31', '3', '系统工程师', '熟悉计算机系统，有2年以上相关经验', '五险一金，班车', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('14', '搜索算法实习生', 'I6510102014', '2019-01-01', '2019-12-31', '1', '负责海量数据的挖掘及特征工程，优化搜索排序算法，提升内容分发效率。', '职位要求：1. 工作细心，学习能力强，有良好的团队合作精神；2. 熟悉Python、C 至少一门语言，熟悉SQL与Shell脚本加分；3. 熟悉Hadoop、Hive、Spark、Impala等大数据工具优先；4. 熟悉常见机器学习算法，熟悉TensorFlow分布式框架优先；5. 有搜索、广告、推荐实习经历优先； 6. 实习期至少3个月，每周至少4天。', '提供有竞争力的薪酬与实习转正机会', '2000', '3000', '---', 'haoqi@weyouth.co', '学校_专业_实习时间_毕业时间；如：北大_信科_3个月_2020年7月', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('15', '自然语言处理工程师', 'I6510102016', '2019-01-01', '2019-12-31', '3', '自然语言处理工程师', '熟悉自然语言，有2年以上相关经验', '五险一金，班车', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('16', '数据采集工程师', 'I6510102021', '2019-01-01', '2019-12-31', '3', '数据采集工程师', '熟悉数据采集，有2年以上相关经验', '五险一金，班车', '15000', '20000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('17', '医药行研实习生', 'I6510102014', '2019-01-01', '2019-12-31', '1', '1、为研究员提供行业研究支持，如搜集资料、初步分析等。2、参与医药行业深度研究报告和公司报告撰写，至少完成一篇深度报告。3、其他日常工作支持，如参与制作日报、周报，整理会议纪要等。', '招聘条件：1、必须项：1）2020年或以后毕业。2）工作踏实细心，逻辑分析、总结归纳能力强。3）实习期至少3个月以上。2、加分项：1）名校医药生物专业出身。2）金融经济复合背景，如CPA、CFA、证券从业、经济学双学位等。3）有过其他券商、基金、咨询的实习经历。4）在上海或深圳，可以来公司坐班实习。', '工作收获：1、系统的行业和公司分析、研究报告撰写能力，毕业找工作和以后的正式工作中大有用处。2、表现特别优秀者将有机会留用，或其他工作机会推荐。', '2000', '3000', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('18', '财务/销售实习生', 'I6510102015', '2019-01-01', '2019-12-31', '1', '财务/销售实习生', '广东地区在校大三、大四学生，专业不限。负责协助上级处理业务文书事宜，跟进订单，并制定合同，发送邮件等工作。性格开朗热情，有良好的沟通能力。工作认真细致，效率高，逻辑思维能力强。实习时间：2018年3月。待遇：日薪80元，月结。', '包午餐，下午茶水果等福利', '1600', '1600', '---', 'haoqi@weyouth.co', '---', '1', '1', '37', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`JOB_DEGREE_REQUIRE` ;
-INSERT INTO `youthchina`.`JOB_DEGREE_REQUIRE` (`JOB_REQUIRE_ID`, `JOB_DEGREE_NUM`, `JOB_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`JOB_DEGREE_REQUIRE` (`JOB_REQUIRE_ID`, `JOB_DEGREE_NUM`, `JOB_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '4', '6', '0', '2019-01-01 00:00:00'),
 ('2', '5', '6', '0', '2019-01-01 00:00:00'),
 ('3', '6', '6', '0', '2019-01-01 00:00:00'),
@@ -2091,7 +2100,7 @@ INSERT INTO `youthchina`.`JOB_DEGREE_REQUIRE` (`JOB_REQUIRE_ID`, `JOB_DEGREE_NUM
 
 
 TRUNCATE TABLE `youthchina`.`JOB_LOCATION` ;
-INSERT INTO `youthchina`.`JOB_LOCATION` (`JOB_LOCATION_ID`, `JOB_REGION_NUM`, `JOB_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`JOB_LOCATION` (`JOB_LOCATION_ID`, `JOB_REGION_NUM`, `JOB_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '440100', '1', '0', '2019-01-01 00:00:00'),
 ('2', '440100', '2', '0', '2019-01-01 00:00:00'),
 ('3', '440100', '3', '0', '2019-01-01 00:00:00'),
@@ -2113,7 +2122,7 @@ INSERT INTO `youthchina`.`JOB_LOCATION` (`JOB_LOCATION_ID`, `JOB_REGION_NUM`, `J
 
 
 TRUNCATE TABLE `youthchina`.`JOB_INDUSTRY` ;
-INSERT INTO `youthchina`.`JOB_INDUSTRY` (`JOB_IND_ID`, `JOB_IND_CODE`, `JOB_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`JOB_INDUSTRY` (`JOB_IND_ID`, `JOB_IND_CODE`, `JOB_ID`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', 'I6510', '1', '0', '2019-01-01 00:00:00'),
 ('2', 'I6510', '2', '0', '2019-01-01 00:00:00'),
 ('3', 'I6510', '3', '0', '2019-01-01 00:00:00'),
@@ -2135,7 +2144,7 @@ INSERT INTO `youthchina`.`JOB_INDUSTRY` (`JOB_IND_ID`, `JOB_IND_CODE`, `JOB_ID`,
 
 
 TRUNCATE TABLE `youthchina`.`HR_VIDEO_INVITATION` ;
-INSERT INTO `youthchina`.`HR_VIDEO_INVITATION` (`INVITE_ID`, `INVITE_TIME`, `INVITED_USER_ID`, `INVITE_USER_ID`) VALUES
+INSERT INTO `youthchina`.`HR_VIDEO_INVITATION` (`INVITE_ID`, `INVITE_TIME`, `INVITED_USER_ID`, `INVITE_USER_ID`) VALUES 
 ('1', '2019-01-01', '1', '1'),
 ('2', '2019-01-05', '1', '1');
 
@@ -2143,116 +2152,116 @@ INSERT INTO `youthchina`.`HR_VIDEO_INVITATION` (`INVITE_ID`, `INVITE_TIME`, `INV
 
 ############################################社群数据###########################################################
 TRUNCATE TABLE `youthchina`.`COM_QUESTION`  ;
-INSERT INTO `youthchina`.`COM_QUESTION` (`QUES_ID`, `QUES_TITLE`, `QUES_ABBRE`, `QUES_BODY`, `USER_ID`, `USER_ANONY`, `QUES_PUB_TIME`, `QUES_EDIT_TIME`, `IS_DELETE`, `IS_DELETE_TIME`, `RELA_TYPE`, `RELA_ID`) VALUES
-('1', '腾讯好么？', 'asdasd', '1', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '37'),
-('2', '腾讯的问题是什么？', '腾讯未来的发展趋势会向哪里', '2', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '37'),
-('3', '百度这家企业还有什么存在的意义?', '数据归属权将会是未来十年最重要的政治议题。曾经完全不懂互联网、不懂保护自己的数据。不知道原来现在的互联网公司本质都是大数据公司。', '3', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
-('4', '腾讯，百度，网易，华为，小米，阿里，这六家互联网巨头公司，你最讨厌哪家公司？', '腾讯，百度，网易，华为，小米，阿里，这六家互联网巨头公司，你最讨厌哪家公司？最讨厌的公司的哪些行为对你造成了“真实伤害”可否举例说明？', '4', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('5', '如何看待 百度春晚营销', '如何看待 2019 年央视春晚的百度红包，不到一块钱还需要下载 App 才能领取？', '5', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
-('6', '百度收购或投资过哪些公司？', '百度收购或投资过哪些公司？', '6', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
-('7', '如何看待从阿里离职的漂亮女高管，从来不过情人节', '从阿里离职的女员工开淘宝店，表明从来不过情人节', '7', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '36'),
-('8', '阿里系软件体验好吗？', '为什么阿里系软件体验都不好？', '8', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '36'),
-('9', '阿里未来会如何发展？', '如何看待马云宣布明年（2019 年）不再担任阿里巴巴董事局主席职务，逍遥子接班，阿里未来会如何发展？', '9', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '36'),
-('10', '本科生如何才能进入腾讯，阿里等一流的互联网公司？', '有什么招聘经验适用于本科生。', '10', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('11', '如何看待阿里 2018 年的组织架构调整？天猫升级又体现在哪些方面？', '如何看待阿里 2018 年的组织架构调整？天猫升级又体现在哪些方面？', '11', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '36'),
-('12', '如何看待此次阿里架构调整？胡晓明离任阿里云总裁？', '如何看待此次阿里架构调整？胡晓明离任阿里云总裁？', '12', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '36'),
-('13', '车联网布局，阿里领先了百度腾讯多少？', '车联网布局，阿里领先了百度腾讯多少？', '13', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('14', '京东和天猫到底哪个比较好？', '京东和天猫到底哪个比较好？', '14', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('15', '「京东金融 app 疑似自行获取用户私人图片」是真的吗？可能有哪些风险？', '「京东金融 app 疑似自行获取用户私人图片」是真的吗？可能有哪些风险？', '15', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '21'),
-('16', '如何看待京东27亿收购北京翠宫饭店？', '如何看待京东27亿收购北京翠宫饭店？', '16', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '21'),
-('17', '如何看待京东 2019 年将末位淘汰 10% 高管？', '如何看待京东 2019 年将末位淘汰 10% 高管？', '17', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '21'),
-('18', '如何看京东市值腰斩？', '如何看京东市值腰斩？', '18', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '21'),
-('19', '如何评价京东金融app被曝光会获取用户的敏感图片并上传？', '如何评价京东金融app被曝光会获取用户的敏感图片并上传？', '19', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '21'),
-('20', '怎么运营好京东店铺?', '怎么运营好京东店铺?', '20', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '21'),
-('21', '如何看待《搜索引擎百度已死》', '如何看待《搜索引擎百度已死》一文？百度沦为百家号的引流工具这一描述是否准确？百度的「护城河」是什么？', '21', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
-('22', '为什么新闻搜索结果中有更多百家号内容？', '为什么新闻搜索结果中有更多百家号内容？', '22', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
-('23', '搜索引擎是否可以做自己的内容平台？', '搜索引擎是否可以做自己的内容平台？', '23', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('24', '搜索引擎内容是否有价值', '搜索引擎内容是否有价值', '24', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('25', '百度对百度网盘用户限速会不会毁掉自己?', '百度对百度网盘用户限速会不会毁掉自己?', '25', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
-('26', '苏宁易购维权是一种怎样的体验？', '苏宁易购维权是一种怎样的体验？', '26', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '54'),
-('27', '苏宁易购会是京东的最大竞争对手吗？', '苏宁易购会是京东的最大竞争对手吗？', '27', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '54'),
-('28', '华为是一家怎样的公司？', '华为是一家怎样的公司？', '28', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('29', '华为的遭遇是因为什么？', '华为的遭遇是因为什么？华为，你终于活成了他们害怕的样子', '29', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('30', '在华为工作是怎样一番体验？', '在华为工作是怎样一番体验？', '30', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('31', '华为真的很了不起吗？有它没它有什么区别？', '华为真的很了不起吗？有它没它有什么区别？', '31', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('32', '当下近乎全民对华为的追捧理智吗？', '当下近乎全民对华为的追捧理智吗？', '32', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('33', '小米手机7的成败对于小米有多重要？', '小米手机7的成败对于小米有多重要？', '33', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('34', '如何看待小米的战略选择？', '如何看待小米的战略选择？', '34', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('35', '如何看待小米的价值观？', '如何看待小米的价值观？', '35', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('36', '小米公司在未来会发展成像苹果，三星之类的世界顶级公司吗，并且拥有自己的核心技术。？', '小米公司在未来会发展成像苹果，三星之类的世界顶级公司吗，并且拥有自己的核心技术。？', '36', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('37', '为什么小米公司的发展感觉不如以前了？', '为什么小米公司的发展感觉不如以前了？', '37', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('38', '魅族，华为，小米那家公司更具有发展前景（手机业务）？', '魅族，华为，小米那家公司更具有发展前景（手机业务）？', '38', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('39', '对于高端旗舰手机，小米是做不出还是不想做？', '对于高端旗舰手机，小米是做不出还是不想做？', '39', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('40', '麦肯锡是一家什么样的公司？', '麦肯锡是一家什么样的公司？', '40', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('41', '麦肯锡到底有多强？', '麦肯锡到底有多强？', '41', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('42', '如何成为麦肯锡的员工？', '如何成为麦肯锡的员工？', '42', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('43', '麦肯锡、BCG、大摩等等国际顶级咨询公司&投行非清北复交等名校毕业的就一点希望都没有了？', '麦肯锡、BCG、大摩等等国际顶级咨询公司&投行，是不是非清北复交等名校毕业的就一点希望都没有了？', '43', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('44', '如果锤子科技由别人接手，从此跟罗永浩没有关系，你会买锤子的手机吗？', '如果锤子科技由别人接手，从此跟罗永浩没有关系，你会买锤子的手机吗？', '44', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('45', '罗永浩还能支撑锤子科技多久？', '罗永浩还能支撑锤子科技多久？', '45', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('46', '目前来看，锤子科技未来的命运会如何？', '目前来看，锤子科技未来的命运会如何？', '46', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('47', '如何看待苹果手机越来越高的起售价？', '如何看待苹果手机越来越高的起售价？', '47', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('48', '苹果为什么要自研 5G 基带芯片？对下一代 iPhone 意味着什么？', '苹果为什么要自研 5G 基带芯片？对下一代 iPhone 意味着什么？', '48', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('49', '如何评价苹果重启iPhone X救场？', '如何评价苹果重启iPhone X救场？', '49', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0');
+INSERT INTO `youthchina`.`COM_QUESTION` (`QUES_ID`, `QUES_TITLE`, `QUES_ABBRE`, `QUES_BODY`, `USER_ID`, `USER_ANONY`, `QUES_PUB_TIME`, `QUES_EDIT_TIME`, `IS_DELETE`, `IS_DELETE_TIME`, `RELA_TYPE`, `RELA_ID`) VALUES 
+ ('1', '腾讯好么？', 'asdasd', '1', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '37'),
+ ('2', '腾讯的问题是什么？', '腾讯未来的发展趋势会向哪里', '2', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '37'),
+ ('3', '百度这家企业还有什么存在的意义?', '数据归属权将会是未来十年最重要的政治议题。曾经完全不懂互联网、不懂保护自己的数据。不知道原来现在的互联网公司本质都是大数据公司。', '3', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
+ ('4', '腾讯，百度，网易，华为，小米，阿里，这六家互联网巨头公司，你最讨厌哪家公司？', '腾讯，百度，网易，华为，小米，阿里，这六家互联网巨头公司，你最讨厌哪家公司？最讨厌的公司的哪些行为对你造成了“真实伤害”可否举例说明？', '4', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('5', '如何看待 百度春晚营销', '如何看待 2019 年央视春晚的百度红包，不到一块钱还需要下载 App 才能领取？', '5', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
+ ('6', '百度收购或投资过哪些公司？', '百度收购或投资过哪些公司？', '6', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
+ ('7', '如何看待从阿里离职的漂亮女高管，从来不过情人节', '从阿里离职的女员工开淘宝店，表明从来不过情人节', '7', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '36'),
+ ('8', '阿里系软件体验好吗？', '为什么阿里系软件体验都不好？', '8', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '36'),
+ ('9', '阿里未来会如何发展？', '如何看待马云宣布明年（2019 年）不再担任阿里巴巴董事局主席职务，逍遥子接班，阿里未来会如何发展？', '9', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '36'),
+ ('10', '本科生如何才能进入腾讯，阿里等一流的互联网公司？', '有什么招聘经验适用于本科生。', '10', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('11', '如何看待阿里 2018 年的组织架构调整？天猫升级又体现在哪些方面？', '如何看待阿里 2018 年的组织架构调整？天猫升级又体现在哪些方面？', '11', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '36'),
+ ('12', '如何看待此次阿里架构调整？胡晓明离任阿里云总裁？', '如何看待此次阿里架构调整？胡晓明离任阿里云总裁？', '12', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '36'),
+ ('13', '车联网布局，阿里领先了百度腾讯多少？', '车联网布局，阿里领先了百度腾讯多少？', '13', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('14', '京东和天猫到底哪个比较好？', '京东和天猫到底哪个比较好？', '14', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('15', '「京东金融 app 疑似自行获取用户私人图片」是真的吗？可能有哪些风险？', '「京东金融 app 疑似自行获取用户私人图片」是真的吗？可能有哪些风险？', '15', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '21'),
+ ('16', '如何看待京东27亿收购北京翠宫饭店？', '如何看待京东27亿收购北京翠宫饭店？', '16', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '21'),
+ ('17', '如何看待京东 2019 年将末位淘汰 10% 高管？', '如何看待京东 2019 年将末位淘汰 10% 高管？', '17', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '21'),
+ ('18', '如何看京东市值腰斩？', '如何看京东市值腰斩？', '18', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '21'),
+ ('19', '如何评价京东金融app被曝光会获取用户的敏感图片并上传？', '如何评价京东金融app被曝光会获取用户的敏感图片并上传？', '19', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '21'),
+ ('20', '怎么运营好京东店铺?', '怎么运营好京东店铺?', '20', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '21'),
+ ('21', '如何看待《搜索引擎百度已死》', '如何看待《搜索引擎百度已死》一文？百度沦为百家号的引流工具这一描述是否准确？百度的「护城河」是什么？', '21', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
+ ('22', '为什么新闻搜索结果中有更多百家号内容？', '为什么新闻搜索结果中有更多百家号内容？', '22', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
+ ('23', '搜索引擎是否可以做自己的内容平台？', '搜索引擎是否可以做自己的内容平台？', '23', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('24', '搜索引擎内容是否有价值', '搜索引擎内容是否有价值', '24', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('25', '百度对百度网盘用户限速会不会毁掉自己?', '百度对百度网盘用户限速会不会毁掉自己?', '25', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
+ ('26', '苏宁易购维权是一种怎样的体验？', '苏宁易购维权是一种怎样的体验？', '26', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '54'),
+ ('27', '苏宁易购会是京东的最大竞争对手吗？', '苏宁易购会是京东的最大竞争对手吗？', '27', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '54'),
+ ('28', '华为是一家怎样的公司？', '华为是一家怎样的公司？', '28', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('29', '华为的遭遇是因为什么？', '华为的遭遇是因为什么？华为，你终于活成了他们害怕的样子', '29', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('30', '在华为工作是怎样一番体验？', '在华为工作是怎样一番体验？', '30', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('31', '华为真的很了不起吗？有它没它有什么区别？', '华为真的很了不起吗？有它没它有什么区别？', '31', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('32', '当下近乎全民对华为的追捧理智吗？', '当下近乎全民对华为的追捧理智吗？', '32', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('33', '小米手机7的成败对于小米有多重要？', '小米手机7的成败对于小米有多重要？', '33', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('34', '如何看待小米的战略选择？', '如何看待小米的战略选择？', '34', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('35', '如何看待小米的价值观？', '如何看待小米的价值观？', '35', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('36', '小米公司在未来会发展成像苹果，三星之类的世界顶级公司吗，并且拥有自己的核心技术。？', '小米公司在未来会发展成像苹果，三星之类的世界顶级公司吗，并且拥有自己的核心技术。？', '36', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('37', '为什么小米公司的发展感觉不如以前了？', '为什么小米公司的发展感觉不如以前了？', '37', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('38', '魅族，华为，小米那家公司更具有发展前景（手机业务）？', '魅族，华为，小米那家公司更具有发展前景（手机业务）？', '38', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('39', '对于高端旗舰手机，小米是做不出还是不想做？', '对于高端旗舰手机，小米是做不出还是不想做？', '39', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('40', '麦肯锡是一家什么样的公司？', '麦肯锡是一家什么样的公司？', '40', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('41', '麦肯锡到底有多强？', '麦肯锡到底有多强？', '41', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('42', '如何成为麦肯锡的员工？', '如何成为麦肯锡的员工？', '42', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('43', '麦肯锡、BCG、大摩等等国际顶级咨询公司&投行非清北复交等名校毕业的就一点希望都没有了？', '麦肯锡、BCG、大摩等等国际顶级咨询公司&投行，是不是非清北复交等名校毕业的就一点希望都没有了？', '43', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('44', '如果锤子科技由别人接手，从此跟罗永浩没有关系，你会买锤子的手机吗？', '如果锤子科技由别人接手，从此跟罗永浩没有关系，你会买锤子的手机吗？', '44', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('45', '罗永浩还能支撑锤子科技多久？', '罗永浩还能支撑锤子科技多久？', '45', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('46', '目前来看，锤子科技未来的命运会如何？', '目前来看，锤子科技未来的命运会如何？', '46', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('47', '如何看待苹果手机越来越高的起售价？', '如何看待苹果手机越来越高的起售价？', '47', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('48', '苹果为什么要自研 5G 基带芯片？对下一代 iPhone 意味着什么？', '苹果为什么要自研 5G 基带芯片？对下一代 iPhone 意味着什么？', '48', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('49', '如何评价苹果重启iPhone X救场？', '如何评价苹果重启iPhone X救场？', '49', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0');
 
 
 TRUNCATE TABLE `youthchina`.`COM_ESSAY` ;
 INSERT INTO `youthchina`.`COM_ESSAY` (`ESSAY_ID`, `ESSAY_TITLE`, `ESSAY_ABBRE`, `ESSAY_BODY`, `USER_ID`, `USER_ANONY`, `ESSAY_PUB_TIME`, `ESSAY_EDIT_TIME`, `IS_DELETE`, `IS_DELETE_TIME`, `RELA_TYPE`, `RELA_ID`) VALUES
-('1', '翟天临们，放过博士学位吧', '翟天临道歉了，北京电影学院撤销了其博士学位，导师陈浥也被取消博导资格。', '50', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('2', '为什么富人会越富，穷人还是穷人？', '依据我身边的经验，在二三线城市的年轻人，月薪基本会稳定在四千左右。', '51', '2', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('3', '你听过最美的网名是什么？', '各位看官 大家好? 我的这个回答是我在好多地方搜集到的 欢迎转载（ps不太接受商用呦 ） 不过尽量知会我一声呦', '52', '3', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('4', '腾讯咋样', '腾讯好不好？', '53', '4', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '37'),
-('5', '腾讯的软肋是什么？', '---', '54', '5', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '37'),
-('6', '腾讯究竟强大在哪？是否被高估？', '---', '55', '6', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '37'),
-('7', '你习惯用支付宝还是微信支付？', '---', '56', '7', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('8', '如何看待温州乐清 20 岁女生乘坐滴滴顺风车遇害 ？是否反映出客服系统存在问题？', '在郑州空姐搭乘顺风车遇害百天之后，浙江乐清一名20岁女孩在8月24日搭乘滴滴顺风车的途中再次遇害。', '57', '8', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('9', '你在乘坐出租车或网约车时发生过哪些让你难忘的故事？', '---', '58', '9', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('10', '记滴滴惊魂1分钟：司机说，你陪我到床上玩玩吧', '---', '59', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('11', '如何看待 ofo 被曝账户现金仅能支撑一个月？', '---', '60', '2', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('12', '你为什么从滴滴出行离职？', '---', '61', '3', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('13', '做滴滴快车司机是一种怎样的体验？', '---', '62', '4', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('14', '如何评价拉勾招聘会结束简历被扔垃圾箱这一事件？', '---', '63', '5', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('15', '如何评价脉脉?', '---', '64', '6', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('16', '如何评价脉脉?', '---', '65', '7', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('17', '我是怎么被脉脉app给恶心到的', '---', '66', '8', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('18', '京东为什么年年亏损，但还是没有倒闭？', '---', '67', '9', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '39'),
-('19', '章泽天喜欢/欣赏刘强东的什么？', '---', '68', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('20', '京东一直在亏，为什么没有倒闭?刘强东为什么还那么有钱？', '---', '69', '2', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '39'),
-('21', '如何看待被扣发工资的快递小哥哭诉刘强东的回应是对他的侮辱？', '这几天京东快递小哥刘仁军哭诉工资被扣发一事引起了社会广泛关注。就在新闻播出后，京东集团创始人刘强东也对此事进行了回应', '70', '3', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('22', '如何评价苏宁被曝禁止员工在京东购物 一经发现立即开除？', '---', '71', '4', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '54'),
-('23', '如何评价刘强东在京东聚餐上，对怀孕的副总的一番话呢？', '---', '72', '5', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '39'),
-('24', '刘强东性侵事件真假，你是怎样看的？', '---', '73', '6', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('25', '如何评价朋友圈所流传的刘强东的薪酬计划？', '---', '74', '7', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('26', '如何看待百度将「血友病吧」吧主撤掉并售卖贴吧的行为？', '---', '75', '8', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
-('27', '为什么有人说「百度全面降低了中国的互联网体验」？', '---', '76', '9', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
-('28', '如今百度是否已经从中国互联网三大公司（BAT）中出局？', '---', '77', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
-('29', '百度和 Google 的搜索技术是一个量级吗？', '---', '78', '2', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
-('30', '你为什么从百度离职？', '请前百度员工分享。最好也可以说说从百度离职后，去了新公司后得到了你想要的吗？', '79', '3', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
-('31', '麦肯锡是一家什么样的公司？', '---', '80', '4', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('32', '麦肯锡是一家什么样的公司？', '---', '81', '5', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('33', '在麦肯锡工作是怎样的的体验？', '---', '82', '6', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('34', '麦肯锡、贝恩等著名咨询公司的失败案例？', '---', '83', '7', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('35', '在麦肯锡、贝恩、BCG 这类顶尖外资咨询公司的中国区工作是一种什么样的体验？', '---', '84', '8', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('36', '想从事咨询行业，有哪些书可以增加对咨询行业的认识理解？', '---', '85', '9', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('37', '如何看待「拼多多」这个 app？', '---', '86', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('38', '如何看待「拼多多」这个 app？', '---', '87', '2', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('39', '拼多多的员工感觉这家公司怎么样？', '---', '88', '3', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('40', '美团外卖是否已经战胜饿了么？', '---', '89', '4', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('41', '如何看待美团外卖送餐员送餐过程中偷吃外卖并吐回里面的行为？', '据用户 10 月 21 日查看监控得知，在订了一份外卖后，从电梯监控中看到外卖送餐员拿出筷子偷吃了两口，又吐在里面', '90', '5', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('42', '互联网行业有哪些闷声发大财的公司？', '---', '91', '6', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('43', '微信的短暂崩溃撕开了互联网可怖的一角', '今天下午3点左右微信部分功能出现故障，影响公众号、微信支付、搜索、小程序等功能的正常使用，瞬间就上了微博热搜，引发热议：', '92', '7', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('44', '中国有哪些衰落的互联网公司？他们衰落的原因是什么？', '---', '93', '8', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('45', '互联网行业有哪些鲜为人知的秘密？', '---', '94', '9', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('46', '为什么很多人向往投行这个行业？', '---', '95', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('47', '女生该不该拼力进投行、券商这类高工作量的地方？', '---', '96', '2', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('48', '听说投行的工作强度非常大，是真的吗？如果是，投行员工是如何坚持下来的？', '---', '97', '3', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('49', '都说金融从业者压力大，大部分工作也很枯燥，那么金融从业者的乐趣在哪？', '---', '98', '4', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('50', '为华为工作几年之后华为会卸磨杀驴是真的吗？', '末流985研二小硕一枚，专业为机械设计及理论，有意向去华为做结构工程师。', '99', '5', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('51', '华为是一家怎样的公司？', '---', '100', '6', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
-('52', '如何评价《离开华为三年，我才真正认同狼性文化》？', '---', '101', '7', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0');
+ ('1', '翟天临们，放过博士学位吧', '翟天临道歉了，北京电影学院撤销了其博士学位，导师陈浥也被取消博导资格。', '50', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('2', '为什么富人会越富，穷人还是穷人？', '依据我身边的经验，在二三线城市的年轻人，月薪基本会稳定在四千左右。', '51', '2', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('3', '你听过最美的网名是什么？', '各位看官 大家好? 我的这个回答是我在好多地方搜集到的 欢迎转载（ps不太接受商用呦 ） 不过尽量知会我一声呦', '52', '3', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('4', '腾讯咋样', '腾讯好不好？', '53', '4', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '37'),
+ ('5', '腾讯的软肋是什么？', '---', '54', '5', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '37'),
+ ('6', '腾讯究竟强大在哪？是否被高估？', '---', '55', '6', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '37'),
+ ('7', '你习惯用支付宝还是微信支付？', '---', '56', '7', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('8', '如何看待温州乐清 20 岁女生乘坐滴滴顺风车遇害 ？是否反映出客服系统存在问题？', '在郑州空姐搭乘顺风车遇害百天之后，浙江乐清一名20岁女孩在8月24日搭乘滴滴顺风车的途中再次遇害。', '57', '8', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('9', '你在乘坐出租车或网约车时发生过哪些让你难忘的故事？', '---', '58', '9', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('10', '记滴滴惊魂1分钟：司机说，你陪我到床上玩玩吧', '---', '59', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('11', '如何看待 ofo 被曝账户现金仅能支撑一个月？', '---', '60', '2', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('12', '你为什么从滴滴出行离职？', '---', '61', '3', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('13', '做滴滴快车司机是一种怎样的体验？', '---', '62', '4', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('14', '如何评价拉勾招聘会结束简历被扔垃圾箱这一事件？', '---', '63', '5', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('15', '如何评价脉脉?', '---', '64', '6', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('16', '如何评价脉脉?', '---', '65', '7', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('17', '我是怎么被脉脉app给恶心到的', '---', '66', '8', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('18', '京东为什么年年亏损，但还是没有倒闭？', '---', '67', '9', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '39'),
+ ('19', '章泽天喜欢/欣赏刘强东的什么？', '---', '68', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('20', '京东一直在亏，为什么没有倒闭?刘强东为什么还那么有钱？', '---', '69', '2', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '39'),
+ ('21', '如何看待被扣发工资的快递小哥哭诉刘强东的回应是对他的侮辱？', '这几天京东快递小哥刘仁军哭诉工资被扣发一事引起了社会广泛关注。就在新闻播出后，京东集团创始人刘强东也对此事进行了回应', '70', '3', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('22', '如何评价苏宁被曝禁止员工在京东购物 一经发现立即开除？', '---', '71', '4', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '54'),
+ ('23', '如何评价刘强东在京东聚餐上，对怀孕的副总的一番话呢？', '---', '72', '5', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '39'),
+ ('24', '刘强东性侵事件真假，你是怎样看的？', '---', '73', '6', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('25', '如何评价朋友圈所流传的刘强东的薪酬计划？', '---', '74', '7', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('26', '如何看待百度将「血友病吧」吧主撤掉并售卖贴吧的行为？', '---', '75', '8', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
+ ('27', '为什么有人说「百度全面降低了中国的互联网体验」？', '---', '76', '9', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
+ ('28', '如今百度是否已经从中国互联网三大公司（BAT）中出局？', '---', '77', '1', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
+ ('29', '百度和 Google 的搜索技术是一个量级吗？', '---', '78', '2', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
+ ('30', '你为什么从百度离职？', '请前百度员工分享。最好也可以说说从百度离职后，去了新公司后得到了你想要的吗？', '79', '3', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '1', '38'),
+ ('31', '麦肯锡是一家什么样的公司？', '---', '80', '4', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('32', '麦肯锡是一家什么样的公司？', '---', '81', '5', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('33', '在麦肯锡工作是怎样的的体验？', '---', '82', '6', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('34', '麦肯锡、贝恩等著名咨询公司的失败案例？', '---', '83', '7', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('35', '在麦肯锡、贝恩、BCG 这类顶尖外资咨询公司的中国区工作是一种什么样的体验？', '---', '84', '8', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('36', '想从事咨询行业，有哪些书可以增加对咨询行业的认识理解？', '---', '85', '9', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('37', '如何看待「拼多多」这个 app？', '---', '86', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('38', '如何看待「拼多多」这个 app？', '---', '87', '2', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('39', '拼多多的员工感觉这家公司怎么样？', '---', '88', '3', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('40', '美团外卖是否已经战胜饿了么？', '---', '89', '4', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('41', '如何看待美团外卖送餐员送餐过程中偷吃外卖并吐回里面的行为？', '据用户 10 月 21 日查看监控得知，在订了一份外卖后，从电梯监控中看到外卖送餐员拿出筷子偷吃了两口，又吐在里面', '90', '5', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('42', '互联网行业有哪些闷声发大财的公司？', '---', '91', '6', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('43', '微信的短暂崩溃撕开了互联网可怖的一角', '今天下午3点左右微信部分功能出现故障，影响公众号、微信支付、搜索、小程序等功能的正常使用，瞬间就上了微博热搜，引发热议：', '92', '7', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('44', '中国有哪些衰落的互联网公司？他们衰落的原因是什么？', '---', '93', '8', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('45', '互联网行业有哪些鲜为人知的秘密？', '---', '94', '9', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('46', '为什么很多人向往投行这个行业？', '---', '95', '1', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('47', '女生该不该拼力进投行、券商这类高工作量的地方？', '---', '96', '2', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('48', '听说投行的工作强度非常大，是真的吗？如果是，投行员工是如何坚持下来的？', '---', '97', '3', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('49', '都说金融从业者压力大，大部分工作也很枯燥，那么金融从业者的乐趣在哪？', '---', '98', '4', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('50', '为华为工作几年之后华为会卸磨杀驴是真的吗？', '末流985研二小硕一枚，专业为机械设计及理论，有意向去华为做结构工程师。', '99', '5', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('51', '华为是一家怎样的公司？', '---', '100', '6', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0'),
+ ('52', '如何评价《离开华为三年，我才真正认同狼性文化》？', '---', '101', '7', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00', '0', '0');
 
 
 TRUNCATE TABLE `youthchina`.`COM_BRIEF_REVIEW` ;
-INSERT INTO `youthchina`.`COM_BRIEF_REVIEW` (`REVIEW_ID`, `REVIEW_TIME`, `REVIEW_BODY`, `IS_DELETE`, `IS_DELETE_TIME`, `USER_ID`, `RELA_TYPE`, `RELA_ID`) VALUES
+INSERT INTO `youthchina`.`COM_BRIEF_REVIEW` (`REVIEW_ID`, `REVIEW_TIME`, `REVIEW_BODY`, `IS_DELETE`, `IS_DELETE_TIME`, `USER_ID`, `RELA_TYPE`, `RELA_ID`) VALUES 
 ('1', '2019-01-01 00:00:00', '102', '0', '2019-01-01 00:00:00', '1', '1', '37'),
 ('2', '2019-01-01 00:00:00', '103', '0', '2019-01-01 00:00:00', '1', '1', '37'),
 ('3', '2019-01-01 00:00:00', '104', '0', '2019-01-01 00:00:00', '1', '1', '37'),
@@ -2260,7 +2269,7 @@ INSERT INTO `youthchina`.`COM_BRIEF_REVIEW` (`REVIEW_ID`, `REVIEW_TIME`, `REVIEW
 
 
 TRUNCATE TABLE `youthchina`.`COM_VIDEO` ;
-INSERT INTO `youthchina`.`COM_VIDEO` (`VIDEO_ID`, `VIDEO_TITLE`, `VIDEO_NAME`, `VIDEO_DESCRIPTION`, `VIDEO_VIEW_COUNT`, `VIDEO_UPLOAD_TIME`, `IS_DELETE`, `IS_DELETE_TIME`, `USER_ID`, `RELA_TYPE`, `RELA_ID`) VALUES
+INSERT INTO `youthchina`.`COM_VIDEO` (`VIDEO_ID`, `VIDEO_TITLE`, `VIDEO_NAME`, `VIDEO_DESCRIPTION`, `VIDEO_VIEW_COUNT`, `VIDEO_UPLOAD_TIME`, `IS_DELETE`, `IS_DELETE_TIME`, `USER_ID`, `RELA_TYPE`, `RELA_ID`) VALUES 
 ('1', '视频1', '2856306669745344512', '视频描述1', '0', '2019-02-27 22:07:00', '0', '2019-01-01 00:00:00', '1', '0', '0'),
 ('2', '视频2', '2858461057087705088', '视频描述2', '0', '2019-03-05-19:26:26', '0', '2019-01-01 00:00:00', '1', '0', '0'),
 ('3', '视频3', '2858465896022675456', '视频描述3', '0', '2019-03-05-19:26:26', '0', '2019-01-01 00:00:00', '1', '0', '0'),
@@ -2269,64 +2278,64 @@ INSERT INTO `youthchina`.`COM_VIDEO` (`VIDEO_ID`, `VIDEO_TITLE`, `VIDEO_NAME`, `
 
 
 TRUNCATE TABLE `youthchina`.`COM_ATTENTION` ;
-INSERT INTO `youthchina`.`COM_ATTENTION` (`ATTEN_ID`, `TARGET_TYPE`, `TARGET_ID`, `USER_ID`, `ATTEN_TIME`, `ATTEN_CANCEL`, `ATTEN_CANCEL_TIME`) VALUES
-('1', '2', '1', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('2', '2', '1', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('3', '2', '1', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('4', '2', '1', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('5', '2', '2', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('6', '2', '2', '7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('7', '2', '2', '8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('8', '2', '2', '9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('9', '2', '3', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('10', '2', '3', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('11', '2', '3', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('12', '2', '3', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('13', '2', '4', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('14', '2', '4', '7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('15', '2', '4', '8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('16', '2', '4', '9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('17', '1', '1', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('18', '1', '1', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('19', '1', '1', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('20', '1', '1', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('21', '1', '2', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('22', '1', '2', '7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('23', '1', '2', '8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('24', '1', '2', '9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('25', '1', '3', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('26', '1', '3', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('27', '1', '3', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('28', '1', '3', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('29', '1', '4', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30', '1', '4', '7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('31', '1', '4', '8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('32', '1', '4', '9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('33', '3', '1', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('34', '3', '1', '7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('35', '3', '1', '8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('36', '3', '1', '9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('37', '3', '2', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('38', '3', '2', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('39', '3', '2', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('40', '3', '2', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('41', '3', '3', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('42', '3', '3', '7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('43', '3', '3', '8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('44', '3', '3', '9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('45', '3', '4', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('46', '3', '4', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('47', '3', '4', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('48', '3', '4', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('49', '4', '1', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('50', '4', '2', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('51', '4', '3', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('52', '4', '4', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('53', '4', '5', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+INSERT INTO `youthchina`.`COM_ATTENTION` (`ATTEN_ID`, `TARGET_TYPE`, `TARGET_ID`, `USER_ID`, `ATTEN_TIME`, `ATTEN_CANCEL`, `ATTEN_CANCEL_TIME`) VALUES 
+ ('1', '2', '1', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('2', '2', '1', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('3', '2', '1', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('4', '2', '1', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('5', '2', '2', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('6', '2', '2', '7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('7', '2', '2', '8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('8', '2', '2', '9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('9', '2', '3', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('10', '2', '3', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('11', '2', '3', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('12', '2', '3', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('13', '2', '4', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('14', '2', '4', '7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('15', '2', '4', '8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('16', '2', '4', '9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('17', '1', '1', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('18', '1', '1', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('19', '1', '1', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('20', '1', '1', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('21', '1', '2', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('22', '1', '2', '7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('23', '1', '2', '8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('24', '1', '2', '9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('25', '1', '3', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('26', '1', '3', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('27', '1', '3', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('28', '1', '3', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('29', '1', '4', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('30', '1', '4', '7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('31', '1', '4', '8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('32', '1', '4', '9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('33', '3', '1', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('34', '3', '1', '7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('35', '3', '1', '8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('36', '3', '1', '9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('37', '3', '2', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('38', '3', '2', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('39', '3', '2', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('40', '3', '2', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('41', '3', '3', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('42', '3', '3', '7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('43', '3', '3', '8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('44', '3', '3', '9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('45', '3', '4', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('46', '3', '4', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('47', '3', '4', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('48', '3', '4', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('49', '4', '1', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('50', '4', '2', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('51', '4', '3', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('52', '4', '4', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('53', '4', '5', '6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`COM_ANSWER` ;
-INSERT INTO `youthchina`.`COM_ANSWER` (`ANSWER_ID`, `ANSWER_BODY`, `TARGET_TYPE`, `TARGET_ID`, `USER_ID`, `USER_ANONY`, `ANSWER_PUB_TIME`, `ANSWER_EDIT_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`COM_ANSWER` (`ANSWER_ID`, `ANSWER_BODY`, `TARGET_TYPE`, `TARGET_ID`, `USER_ID`, `USER_ANONY`, `ANSWER_PUB_TIME`, `ANSWER_EDIT_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '106', '1', '1', '5', '0', '2018-02-03 0:00:00', '2018-02-03 0:00:00', '0', '2018-02-03 0:00:00'),
 ('2', '107', '1', '2', '5', '0', '2014-05-08 0:00:00', '2014-05-08 0:00:00', '0', '2014-05-08 0:00:00'),
 ('3', '108', '1', '3', '5', '0', '2019-02-02 0:00:00', '2019-02-02 0:00:00', '0', '2019-02-02 0:00:00'),
@@ -2379,7 +2388,7 @@ INSERT INTO `youthchina`.`COM_ANSWER` (`ANSWER_ID`, `ANSWER_BODY`, `TARGET_TYPE`
 
 
 TRUNCATE TABLE `youthchina`.`COM_COMMENT` ;
-INSERT INTO `youthchina`.`COM_COMMENT` (`COMMENT_ID`, `TARGET_TYPE`, `TARGET_ID`, `COMMENT_CONTENT`, `USER_ID`, `USER_ANONY`, `COMMENT_PUB_TIME`, `COMMENT_EDIT_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`COM_COMMENT` (`COMMENT_ID`, `TARGET_TYPE`, `TARGET_ID`, `COMMENT_CONTENT`, `USER_ID`, `USER_ANONY`, `COMMENT_PUB_TIME`, `COMMENT_EDIT_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '2', '1', '短评评论1', '2', '0', '2018-02-03 0:00:00', '2018-02-03 0:00:00', '0', '2018-02-03 0:00:00'),
 ('2', '2', '2', '短评评论2', '3', '1', '2014-05-08 0:00:00', '2014-05-08 0:00:00', '0', '2014-05-08 0:00:00'),
 ('3', '2', '3', '短评评论3', '4', '0', '2019-02-02 0:00:00', '2019-02-02 0:00:00', '0', '2019-02-02 0:00:00'),
@@ -2407,7 +2416,7 @@ INSERT INTO `youthchina`.`COM_COMMENT` (`COMMENT_ID`, `TARGET_TYPE`, `TARGET_ID`
 
 
 TRUNCATE TABLE `youthchina`.`COM_DISCUSS` ;
-INSERT INTO `youthchina`.`COM_DISCUSS` (`DISCUSS_ID`, `COMMENT_ID`, `DISCUSS_CONTENT`, `USER_ID`, `USER_ANONY`, `DISCUSS_PUB_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`COM_DISCUSS` (`DISCUSS_ID`, `COMMENT_ID`, `DISCUSS_CONTENT`, `USER_ID`, `USER_ANONY`, `DISCUSS_PUB_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '1', '讨论内容1', '3', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('2', '1', '讨论内容2', '4', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('3', '1', '讨论内容3', '5', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -2435,7 +2444,7 @@ INSERT INTO `youthchina`.`COM_DISCUSS` (`DISCUSS_ID`, `COMMENT_ID`, `DISCUSS_CON
 
 
 TRUNCATE TABLE `youthchina`.`COM_EVALUATE` ;
-INSERT INTO `youthchina`.`COM_EVALUATE` (`EVALUATE_ID`, `TARGET_TYPE`, `TARGET_ID`, `USER_ID`, `EVALUATE_TYPE`, `EVALUATE_TIME`) VALUES
+INSERT INTO `youthchina`.`COM_EVALUATE` (`EVALUATE_ID`, `TARGET_TYPE`, `TARGET_ID`, `USER_ID`, `EVALUATE_TYPE`, `EVALUATE_TIME`) VALUES 
 ('1', '1', '1', '2', '1', '2018-02-03 0:00:00'),
 ('2', '1', '1', '3', '1', '2014-05-08 0:00:00'),
 ('3', '1', '2', '4', '1', '2019-02-02 0:00:00'),
@@ -2510,7 +2519,7 @@ INSERT INTO `youthchina`.`COM_EVALUATE` (`EVALUATE_ID`, `TARGET_TYPE`, `TARGET_I
 
 
 TRUNCATE TABLE  `youthchina`.`COM_RICH_TEXT` ;
-INSERT INTO `youthchina`.`COM_RICH_TEXT` (`TEXT_ID`, `COMPILE_TYPE`, `JSON_CONTENT`, `TEXT_CONTENT`) VALUES
+INSERT INTO `youthchina`.`COM_RICH_TEXT` (`TEXT_ID`, `COMPILE_TYPE`, `JSON_CONTENT`, `TEXT_CONTENT`) VALUES 
 ('1', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<asdasd>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', 'asdasd'),
 ('2', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要做的，就是保持住这个地位。但技术不是静止不动的，不断有新的技术生长出来，在成千上万种技术中，有一种会长成参天大树，利润无比丰厚，取代原来的技术平台，成为新的主流趋势。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要做的，就是保持住这个地位。但技术不是静止不动的，不断有新的技术生长出来，在成千上万种技术中，有一种会长成参天大树，利润无比丰厚，取代原来的技术平台，成为新的主流趋势。'),
 ('3', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<百度在经营过程中是否犯过严重的错误，探讨百度是否还有存在意义。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '百度在经营过程中是否犯过严重的错误，探讨百度是否还有存在意义。'),
@@ -2566,7 +2575,7 @@ INSERT INTO `youthchina`.`COM_RICH_TEXT` (`TEXT_ID`, `COMPILE_TYPE`, `JSON_CONTE
 ('53', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '未知'),
 ('54', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<在今天的中国互联网行业，腾讯拥有近乎垄断的平台，庞大的人气，源源不断的现金流，一般的小问题对腾讯是构成不了威胁的。那么，腾讯的问题在哪里？我们可以回顾一下微软的历史。在1990年代的科技界，微软同样是这么一家神一般存在的巨头。他有钱，有人才，有技术，有垄断的平台，貌似战无不胜。但微软也不是通吃的，在一些小的细分行业，比如PS绘图软件，财务软件，人家就不做。不是不想做，而是精力不允许太分散。对于一家科技巨头来说，永远要记住一件事——“我之所以拥有今天的江湖地位，是因为我有战略眼光，或者说，我踩到了狗屎运，抓住了技术发展的主流趋势。”吐槽一句，尼玛，要不是那次伟大的空手套白狼，在一无所有的情况下拿下了IBM的操作系统外包合同，哪会有微软今日的地位啊。要知道，在一个时代，主流技术应用可以带来80%的商业利润，其他的边角料技术就只能获得剩余的20%而已。这就是技术领域的二八法则。在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要做的，就是保持住这个地位。但技术不是静止不动的，不断有新的技术生长出来，在成千上万种技术中，有一种会长成参天大树，利润无比丰厚，取代原来的技术平台，成为新的主流趋势。1995年之后，科技行业进入互联网时代。林林总总的技术像小草一样生长出来。bbs，电子邮件，即时通信，新闻门户……哪一个才是互联网时代的主流趋势呢？嗯，比尔盖茨一定很头痛。不过，在这么多的技术中，有一个技术貌似是大BOSS。浏览器。所有人上网都要经过这个大杀器。而那时候的网景，因为第一个做出了可以看图片的浏览器，将互联网从文字时代带入多媒体时代，迅速的一炮而红。更要命的是，网景的老板安德森野心勃发，将一个浏览器增加成五个软件的套装来卖，里面包含了电子邮件、网页编辑、新闻订阅等等，他甚至对媒体喊话“我要将网景打造成网络操作系统，成为互联网时代的微软。”真是有够嚣张的。比尔盖茨将烟头丢到地上，用脚狠狠踩灭，然后迅速的调集资金和人才，从一家叫望远镜的小浏览器公司那里买来了源代码，改头换面的推出了自己的IE浏览器，而且这个浏览器是随操作系统赠送的，免费，不要钱。不过两年时间，网景就撑不住了，败下阵来。微软松了一口气，有了上网通道，互联网时代就是我的了吧？！可惜，历史的走向总是变幻莫测。浏览器并没有为微软贡献一毛钱利润，而在和网景旷日持久的战争中，一家叫雅虎的新闻门户越来越火了。在他1996年上市的那一天，股价一天就涨了3倍！貌似这才是新时代的主流呢。尼玛呀，要不要这么耍我啊？？？没办法，为了互联网时代的江湖地位，微软再次重操故伎，大洒金钱，买下了hotmail电子邮箱，做了MSN即时通讯，推出了MSN新闻网站，我也要做门户！雅虎上面有的我都要有，谁也别拦着我！微软花了很多很多钱去买流量，花了很多很多精力去改进技术，但是…………臣妾做不到啊…………雅虎那丫就是免费的，咱免费也没用，那丫很酷耶，咱微软的都是技术宅，气场不对路。微软花了整整五年在和雅虎的战争上，使用人盯人的战术，耗费了他所有的精力。然后…………然后，谷歌上市了。比尔盖茨一看谷歌的财报，傻眼了。营收以火箭般的数字蹿升，发展的速度和势头马上就要超过雅虎了，原来这个搜索引擎才是互联网时代的主流技术啊。可是谷歌已经打下了一片地盘，再想摁已经摁不住了，即使微软在后来推出了bing搜索，也只能徒呼奈何…………到了今天，微软在互联网时代江河日下，谷歌和facebook大肆收购，花上百亿美元去买下新兴的技术，为的是什么？就是在押宝呀。技术在不断向前升级，哪一个方向才是未来的主流趋势呢？没有人知道。在历史上，一个公司，能够押中一次宝就可以做成大公司，押中两次宝，就可以做成伟大的公司，押中三次宝的，有且只有一个，那就是IBM。从制表机，到大型机，到个人计算机，IBM简直可以称之为“神算子”。不过，在下一次主流技术趋势明朗之前，这些科技巨头只怕每夜都要提心吊胆。太多的教训历历在目了，好一点的像微软、英特尔、IBM还有一口饭吃，命运悲催的，像诺基亚、摩托罗拉、朗讯、3com、柯达、黑莓、AOL，就这么凄凄惨惨的要被人凭吊了。对于腾讯来说，也是一样的。小马哥每天都在为这件事情而焦虑。截至目前，在国内，押中两次宝的就只有腾讯和阿里。阿里押中了淘宝和支付宝，腾讯押中了QQ和微信。在移动互联网时代，腾讯可以稍稍松一口气了，但是在下一个主流技术趋势到来的时候，还有这个好运气么？是谷歌押宝的智能互联技术吗？是facebook押宝的oculus体感技术吗？是百度发力的大数据技术吗？是腾讯现在发力的移动支付技术吗？没有人知道。如果小马哥能押中宝，那他就是神了。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '在今天的中国互联网行业，腾讯拥有近乎垄断的平台，庞大的人气，源源不断的现金流，一般的小问题对腾讯是构成不了威胁的。那么，腾讯的问题在哪里？我们可以回顾一下微软的历史。在1990年代的科技界，微软同样是这么一家神一般存在的巨头。他有钱，有人才，有技术，有垄断的平台，貌似战无不胜。但微软也不是通吃的，在一些小的细分行业，比如PS绘图软件，财务软件，人家就不做。不是不想做，而是精力不允许太分散。对于一家科技巨头来说，永远要记住一件事——“我之所以拥有今天的江湖地位，是因为我有战略眼光，或者说，我踩到了狗屎运，抓住了技术发展的主流趋势。”吐槽一句，尼玛，要不是那次伟大的空手套白狼，在一无所有的情况下拿下了IBM的操作系统外包合同，哪会有微软今日的地位啊。要知道，在一个时代，主流技术应用可以带来80%的商业利润，其他的边角料技术就只能获得剩余的20%而已。这就是技术领域的二八法则。在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要做的，就是保持住这个地位。但技术不是静止不动的，不断有新的技术生长出来，在成千上万种技术中，有一种会长成参天大树，利润无比丰厚，取代原来的技术平台，成为新的主流趋势。1995年之后，科技行业进入互联网时代。林林总总的技术像小草一样生长出来。bbs，电子邮件，即时通信，新闻门户……哪一个才是互联网时代的主流趋势呢？嗯，比尔盖茨一定很头痛。不过，在这么多的技术中，有一个技术貌似是大BOSS。浏览器。所有人上网都要经过这个大杀器。而那时候的网景，因为第一个做出了可以看图片的浏览器，将互联网从文字时代带入多媒体时代，迅速的一炮而红。更要命的是，网景的老板安德森野心勃发，将一个浏览器增加成五个软件的套装来卖，里面包含了电子邮件、网页编辑、新闻订阅等等，他甚至对媒体喊话“我要将网景打造成网络操作系统，成为互联网时代的微软。”真是有够嚣张的。比尔盖茨将烟头丢到地上，用脚狠狠踩灭，然后迅速的调集资金和人才，从一家叫望远镜的小浏览器公司那里买来了源代码，改头换面的推出了自己的IE浏览器，而且这个浏览器是随操作系统赠送的，免费，不要钱。不过两年时间，网景就撑不住了，败下阵来。微软松了一口气，有了上网通道，互联网时代就是我的了吧？！可惜，历史的走向总是变幻莫测。浏览器并没有为微软贡献一毛钱利润，而在和网景旷日持久的战争中，一家叫雅虎的新闻门户越来越火了。在他1996年上市的那一天，股价一天就涨了3倍！貌似这才是新时代的主流呢。尼玛呀，要不要这么耍我啊？？？没办法，为了互联网时代的江湖地位，微软再次重操故伎，大洒金钱，买下了hotmail电子邮箱，做了MSN即时通讯，推出了MSN新闻网站，我也要做门户！雅虎上面有的我都要有，谁也别拦着我！微软花了很多很多钱去买流量，花了很多很多精力去改进技术，但是…………臣妾做不到啊…………雅虎那丫就是免费的，咱免费也没用，那丫很酷耶，咱微软的都是技术宅，气场不对路。微软花了整整五年在和雅虎的战争上，使用人盯人的战术，耗费了他所有的精力。然后…………然后，谷歌上市了。比尔盖茨一看谷歌的财报，傻眼了。营收以火箭般的数字蹿升，发展的速度和势头马上就要超过雅虎了，原来这个搜索引擎才是互联网时代的主流技术啊。可是谷歌已经打下了一片地盘，再想摁已经摁不住了，即使微软在后来推出了bing搜索，也只能徒呼奈何…………到了今天，微软在互联网时代江河日下，谷歌和facebook大肆收购，花上百亿美元去买下新兴的技术，为的是什么？就是在押宝呀。技术在不断向前升级，哪一个方向才是未来的主流趋势呢？没有人知道。在历史上，一个公司，能够押中一次宝就可以做成大公司，押中两次宝，就可以做成伟大的公司，押中三次宝的，有且只有一个，那就是IBM。从制表机，到大型机，到个人计算机，IBM简直可以称之为“神算子”。不过，在下一次主流技术趋势明朗之前，这些科技巨头只怕每夜都要提心吊胆。太多的教训历历在目了，好一点的像微软、英特尔、IBM还有一口饭吃，命运悲催的，像诺基亚、摩托罗拉、朗讯、3com、柯达、黑莓、AOL，就这么凄凄惨惨的要被人凭吊了。对于腾讯来说，也是一样的。小马哥每天都在为这件事情而焦虑。截至目前，在国内，押中两次宝的就只有腾讯和阿里。阿里押中了淘宝和支付宝，腾讯押中了QQ和微信。在移动互联网时代，腾讯可以稍稍松一口气了，但是在下一个主流技术趋势到来的时候，还有这个好运气么？是谷歌押宝的智能互联技术吗？是facebook押宝的oculus体感技术吗？是百度发力的大数据技术吗？是腾讯现在发力的移动支付技术吗？没有人知道。如果小马哥能押中宝，那他就是神了。'),
 ('55', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<转一篇职业投资者的分析文章吧。为啥知乎现在的问题都透着一股中二病气息。我早说了，腾讯厉害在于人伦。你可以卸载任何游戏软件，应用软件，你无法抛弃你的社会关系总和。腾讯的本质是什么https://xueqiu.com/4097105650/95792175上一篇文章里，我泛泛的谈了谈腾讯的战略，这篇文章来详细解读下。腾讯，从封闭抄袭转向开放合作，利用微信qq平台作为基础，一方面发展自营业务（游戏、视频、广告、云服务等），另一方面用自营业务的利润买买买，投资其余互联网公司，利用自身平台帮它们导流，成为了最大的互联网VC，本质上是互联网行业的伯克希尔。传统的产业发展有几个要素：土地、人力、资金、能源。高大上的企业需要核心区域的土地做办公楼，加工制造业需要便宜的土地办工厂；高端产业需要高水平人才，加工制造业需要廉价劳动力；企业都需要资金支持，不管是直接融资还是间接融资；社会发展需要能源，能源结构的变化会影响区域格局兴衰。互联网企业则需要一个新的要素，流量入口。流量入口的重要性仅排在人力之后，位于资金、土地和能源之前。对于互联网企业来说，几大要素里，最重要的人才这一端是开放的，没有人可以垄断；资金也到处都是，不缺；土地和能源的重要性又非常低。第二重要的流量入口，则被腾讯阿里给把持住了，而互联网又处于大发展期。历史上有类似的时刻吗？大航海时代初期，英国打败了西班牙无敌舰队，掌握了海上霸权，随即带来了300年的辉煌；二战后，石油成为了经济命脉，美国掌控了石油交易，获得了世界霸权。我认为不能仅仅从企业经营层面去看待腾讯，更应该从世界经济变迁这个更高的角度去看待。当下仅仅是这个趋势的开端。目前腾讯在做什么？拿着流量入口，去低价换取互联网创业企业的股权。14年2亿美元入股京东，如今变成了100亿美元；14年50亿收购盛大文学，组建阅文集团，如今变成了400多亿港币；13年4.48亿美元注资搜狗，如今变成了20亿美元；还有易鑫、众安等，后边还有数不完的腾讯系企业等着IPO，每年都会有几个大案子。世界上还有更暴利的赚钱方式吗？腾讯的投资模式更接近于PE，而不是VC，只找那些有较大概率成功的企业，再用流量入口和产业协同给予支持，能使投资对象在几年内就迅速做大，且成功率超高。把1块钱的东西卖给腾讯，借着微信平台，能变成3块钱。各业务板块之间会有协同反应，3块钱又变成了5块钱。现在腾讯的报表利润，是基本没有反应这些的，都是腾讯自身的经营利润。相信未来，投资收益的占比会越来越大，经营收益的占比会越来越小。但投资收益，腾讯肯定会尽量不给做到报表里边，原因后边再写。腾讯到现在为止，大概是投出去了将近2400亿的投资。如果按照5倍的收益来计算，这些资产现在值1.2万亿，腾讯自身的3.2万亿市值，减去这部分就是2万亿市值，按照今年的700亿利润，动态pe不到30倍，不算贵。在研究腾讯的时候，我想到了乐视和复星。乐视的生态化反和复星的富足健康快乐，在腾讯这里已经实现了。乐视和复星天天喊口号，为什么不见腾讯喊口号？因为没赚钱的总要吆喝两句，真赚钱是要低调的。腾讯的本质是什么？看待腾讯有四个层次：1. 社交和游戏企业2. 互联网平台型企业3. 以流量换股权的金融控股企业4. 收创业税的企业从1到4越来越不好听，但利润却是越来越厚。腾讯行的是收税之实，名义上却是个社交和游戏企业，所谓社交和游戏，是用来掩盖其收税的本质。未来但凡有互联网初创企业，想要成功，都躲不开腾讯和阿里，没有腾讯和阿里的扶持便很难成功。给腾讯或阿里股份，换取一个更高的创业成功率，何乐不为？不仅仅是互联网，腾讯和阿里的触角已经伸到了各个行业，但凡政府不限制的行业，都会慢慢成为他们的天下。收税有多赚钱？中世纪欧洲有十一税，教会赚的盆满钵满。相信有一天，腾讯的实质利润会超过80%的国家的财政收入，那可真是富可敌国了。做企业做到这个份上，已经不仅仅是企业了，肯定会牵涉到政治。所以腾讯最大的风险是什么？政治风险。腾讯和阿里的势力太大了，如果不是有强大的党和政府，我怀疑他们完全可以操控政治。所以腾讯越强大就会越低调，一定不会去宣传腾讯战略，一定会尽量避免把投资利润计入到报表里边，腾讯的报表pe也会越来越高。现在大多数人还在盯着腾讯游戏，盯着王者荣耀和吃鸡。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '转一篇职业投资者的分析文章吧。为啥知乎现在的问题都透着一股中二病气息。我早说了，腾讯厉害在于人伦。你可以卸载任何游戏软件，应用软件，你无法抛弃你的社会关系总和。腾讯的本质是什么https://xueqiu.com/4097105650/95792175上一篇文章里，我泛泛的谈了谈腾讯的战略，这篇文章来详细解读下。腾讯，从封闭抄袭转向开放合作，利用微信qq平台作为基础，一方面发展自营业务（游戏、视频、广告、云服务等），另一方面用自营业务的利润买买买，投资其余互联网公司，利用自身平台帮它们导流，成为了最大的互联网VC，本质上是互联网行业的伯克希尔。传统的产业发展有几个要素：土地、人力、资金、能源。高大上的企业需要核心区域的土地做办公楼，加工制造业需要便宜的土地办工厂；高端产业需要高水平人才，加工制造业需要廉价劳动力；企业都需要资金支持，不管是直接融资还是间接融资；社会发展需要能源，能源结构的变化会影响区域格局兴衰。互联网企业则需要一个新的要素，流量入口。流量入口的重要性仅排在人力之后，位于资金、土地和能源之前。对于互联网企业来说，几大要素里，最重要的人才这一端是开放的，没有人可以垄断；资金也到处都是，不缺；土地和能源的重要性又非常低。第二重要的流量入口，则被腾讯阿里给把持住了，而互联网又处于大发展期。历史上有类似的时刻吗？大航海时代初期，英国打败了西班牙无敌舰队，掌握了海上霸权，随即带来了300年的辉煌；二战后，石油成为了经济命脉，美国掌控了石油交易，获得了世界霸权。我认为不能仅仅从企业经营层面去看待腾讯，更应该从世界经济变迁这个更高的角度去看待。当下仅仅是这个趋势的开端。目前腾讯在做什么？拿着流量入口，去低价换取互联网创业企业的股权。14年2亿美元入股京东，如今变成了100亿美元；14年50亿收购盛大文学，组建阅文集团，如今变成了400多亿港币；13年4.48亿美元注资搜狗，如今变成了20亿美元；还有易鑫、众安等，后边还有数不完的腾讯系企业等着IPO，每年都会有几个大案子。世界上还有更暴利的赚钱方式吗？腾讯的投资模式更接近于PE，而不是VC，只找那些有较大概率成功的企业，再用流量入口和产业协同给予支持，能使投资对象在几年内就迅速做大，且成功率超高。把1块钱的东西卖给腾讯，借着微信平台，能变成3块钱。各业务板块之间会有协同反应，3块钱又变成了5块钱。现在腾讯的报表利润，是基本没有反应这些的，都是腾讯自身的经营利润。相信未来，投资收益的占比会越来越大，经营收益的占比会越来越小。但投资收益，腾讯肯定会尽量不给做到报表里边，原因后边再写。腾讯到现在为止，大概是投出去了将近2400亿的投资。如果按照5倍的收益来计算，这些资产现在值1.2万亿，腾讯自身的3.2万亿市值，减去这部分就是2万亿市值，按照今年的700亿利润，动态pe不到30倍，不算贵。在研究腾讯的时候，我想到了乐视和复星。乐视的生态化反和复星的富足健康快乐，在腾讯这里已经实现了。乐视和复星天天喊口号，为什么不见腾讯喊口号？因为没赚钱的总要吆喝两句，真赚钱是要低调的。腾讯的本质是什么？看待腾讯有四个层次：1. 社交和游戏企业2. 互联网平台型企业3. 以流量换股权的金融控股企业4. 收创业税的企业从1到4越来越不好听，但利润却是越来越厚。腾讯行的是收税之实，名义上却是个社交和游戏企业，所谓社交和游戏，是用来掩盖其收税的本质。未来但凡有互联网初创企业，想要成功，都躲不开腾讯和阿里，没有腾讯和阿里的扶持便很难成功。给腾讯或阿里股份，换取一个更高的创业成功率，何乐不为？不仅仅是互联网，腾讯和阿里的触角已经伸到了各个行业，但凡政府不限制的行业，都会慢慢成为他们的天下。收税有多赚钱？中世纪欧洲有十一税，教会赚的盆满钵满。相信有一天，腾讯的实质利润会超过80%的国家的财政收入，那可真是富可敌国了。做企业做到这个份上，已经不仅仅是企业了，肯定会牵涉到政治。所以腾讯最大的风险是什么？政治风险。腾讯和阿里的势力太大了，如果不是有强大的党和政府，我怀疑他们完全可以操控政治。所以腾讯越强大就会越低调，一定不会去宣传腾讯战略，一定会尽量避免把投资利润计入到报表里边，腾讯的报表pe也会越来越高。现在大多数人还在盯着腾讯游戏，盯着王者荣耀和吃鸡。'),
-('56', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<先说结论——我习惯并且主张使用支付宝为什么？我来详细说说微信极其不可思议的因为账号申诉逻辑漏洞被盗让我的400元钱跑了而且拒不承认的事情吧我以前使用的微信号是用手机注册的，绑定了QQ，绑定了声音锁，很安全对吧？ 那是我以为。2017年3月4日，我春节过完我刚刚回到学校宿舍，被子什么的都没打开所以想着就在椅子上坐着玩电脑，困了再睡，星期六嘛，也没有课，就一直玩不知不觉到了凌晨两点，突然，手机亮了，提醒我微信被人登录，我当时就是很困惑，我微信密码自己都差点忘记，也从来没有给过别人，怎么可能被登录？这不就是被盗了嘛，然后我试图登陆回来，让我用我的密保手机发送申述，很正常很安全对吧，我发了，没有任何反应，然后我慌了，开始打腾讯客服，半夜三更的哪有那么容易呢？打了好半天才找到一个，告诉我不归他管，归微信安全管，然后又不告诉我应该打哪个电话让我自己找，然后我想再试试发密保短信。WTF!!!我tm真是惊了，没见过这样的！手机绑定被取消了？没有给绑定手机发短信问是不是真的取消就直接越过我取消了？法院判决我失去所有权还要通知我一声呢？!然后我去申诉了，身份证银行卡密码姓名电话，所有的资料我都填了，这些东西能让人在校园贷贷款几十万了我都眉头不眨的填了，因为我当时还相信腾讯嘛，就像一个人拿着自己所有的身份证明不能证明自己的身份，我气笑了我乖乖的等到9点钟，一夜没睡头都要炸了还耐心的给客服讲我的事情，花了10分钟讲完了，她告诉我转给客服经理，我说好，然后这个经理要我再讲一遍，好，我又花了10分钟讲了一遍，她说了一堆废话然后让我再次登陆，然后申诉，还问我是不是电话号码记错了？我要是能把自己电话号码记错那也是我自己活该。我按她说的做了，还是失败，此时有两个消息传来，我的微信找我同学要钱，我同学给了200。后来我自己掏了200还他了，还有我自己微信钱包里的100多也没了。再后来的日子里我无数次打电话申诉，终于腾讯回了我一条信息。时隔11天给我发的短信，还是废话这条短信我到现在都没删，我提醒我自己不要再犯错误，我也劝屏幕前的你，不要再把一分钱放在微信钱包里，收到钱了马不停蹄转支付宝，一秒钟都不能耽误。我后来想明白可能是怎么被盗号的了，盗号的人先拿两个微信分别加我好友，因为我那时在学生会工作嘛，加的人非常多，根本不会注意有两个不认识的微信好友，然后在一个月深人静的夜晚，估计是想趁我睡着了，然后用找回密码的好友辅助申述，直接获取我的微信，然后进去之后就没有绑定的任何东西了，什么电话QQ邮箱声音锁，腾讯通通“贴心”的帮你解开，然后还告诉你要重新绑定哦，然后盗号者绑定自己的电话，然后我再也没有机会申诉成功。这应该算产品经理的锅了吧？这应该是bug了吧？我也不知道时隔一年半修复了没有，我也不知道那个盗号者用这种手段抢了多少钱，我也报警了，但学校里的警察说根本没什么希望，除非抓到人了他自己承认。故事讲完了，现在你知道我站哪边了吧？我打了近30分钟的电话反复交涉，腾讯不仅不承认是“盗号”行为，而且客服说的都是“您遗失了您的账号”。还有质疑我支付密码怎么没有起作用的，再说一遍申诉成功后所有密码都被新的密保手机重置了!包括登陆密码绑定手机号QQ号声音锁绑定邮箱以及支付密码!还有质疑我为什么截图的，我截图就是想证明这个不可思议的操作，给腾讯客服当证据，谁知道人根本不看啊。还有质疑我编故事的，我要是能编这么真我还只有这点粉?我总共回答了36个问题写了8篇文章，除了这个答案，最高的赞也才37个，总共才不到两百个赞，我要是能有这编故事的水平我至于这么惨?我结尾说故事讲完了，就是为了告诉你们这事是多么多么不可思议好吗？>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '先说结论——我习惯并且主张使用支付宝为什么？我来详细说说微信极其不可思议的因为账号申诉逻辑漏洞被盗让我的400元钱跑了而且拒不承认的事情吧我以前使用的微信号是用手机注册的，绑定了QQ，绑定了声音锁，很安全对吧？ 那是我以为。2017年3月4日，我春节过完我刚刚回到学校宿舍，被子什么的都没打开所以想着就在椅子上坐着玩电脑，困了再睡，星期六嘛，也没有课，就一直玩不知不觉到了凌晨两点，突然，手机亮了，提醒我微信被人登录，我当时就是很困惑，我微信密码自己都差点忘记，也从来没有给过别人，怎么可能被登录？这不就是被盗了嘛，然后我试图登陆回来，让我用我的密保手机发送申述，很正常很安全对吧，我发了，没有任何反应，然后我慌了，开始打腾讯客服，半夜三更的哪有那么容易呢？打了好半天才找到一个，告诉我不归他管，归微信安全管，然后又不告诉我应该打哪个电话让我自己找，然后我想再试试发密保短信。WTF!!!我tm真是惊了，没见过这样的！手机绑定被取消了？没有给绑定手机发短信问是不是真的取消就直接越过我取消了？法院判决我失去所有权还要通知我一声呢？!然后我去申诉了，身份证银行卡密码姓名电话，所有的资料我都填了，这些东西能让人在校园贷贷款几十万了我都眉头不眨的填了，因为我当时还相信腾讯嘛，就像一个人拿着自己所有的身份证明不能证明自己的身份，我气笑了我乖乖的等到9点钟，一夜没睡头都要炸了还耐心的给客服讲我的事情，花了10分钟讲完了，她告诉我转给客服经理，我说好，然后这个经理要我再讲一遍，好，我又花了10分钟讲了一遍，她说了一堆废话然后让我再次登陆，然后申诉，还问我是不是电话号码记错了？我要是能把自己电话号码记错那也是我自己活该。我按她说的做了，还是失败，此时有两个消息传来，我的微信找我同学要钱，我同学给了200。后来我自己掏了200还他了，还有我自己微信钱包里的100多也没了。再后来的日子里我无数次打电话申诉，终于腾讯回了我一条信息。时隔11天给我发的短信，还是废话这条短信我到现在都没删，我提醒我自己不要再犯错误，我也劝屏幕前的你，不要再把一分钱放在微信钱包里，收到钱了马不停蹄转支付宝，一秒钟都不能耽误。我后来想明白可能是怎么被盗号的了，盗号的人先拿两个微信分别加我好友，因为我那时在学生会工作嘛，加的人非常多，根本不会注意有两个不认识的微信好友，然后在一个月深人静的夜晚，估计是想趁我睡着了，然后用找回密码的好友辅助申述，直接获取我的微信，然后进去之后就没有绑定的任何东西了，什么电话QQ邮箱声音锁，腾讯通通“贴心”的帮你解开，然后还告诉你要重新绑定哦，然后盗号者绑定自己的电话，然后我再也没有机会申诉成功。这应该算产品经理的锅了吧？这应该是bug了吧？我也不知道时隔一年半修复了没有，我也不知道那个盗号者用这种手段抢了多少钱，我也报警了，但学校里的警察说根本没什么希望，除非抓到人了他自己承认。故事讲完了，现在你知道我站哪边了吧？我打了近30分钟的电话反复交涉，腾讯不仅不承认是“盗号”行为，而且客服说的都是“您遗失了您的账号”。还有质疑我支付密码怎么没有起作用的，再说一遍申诉成功后所有密码都被新的密保手机重置了!包括登陆密码绑定手机号QQ号声音锁绑定邮箱以及支付密码!还有质疑我为什么截图的，我截图就是想证明这个不可思议的操作，给腾讯客服当证据，谁知道人根本不看啊。还有质疑我编故事的，我要是能编这么真我还只有这点粉?我总共回答了36个问题写了8篇文章，除了这个答案，最高的赞也才37个，总共才不到两百个赞，我要是能有这编故事的水平我至于这么惨?我结尾说故事讲完了，就是为了告诉你们这事是多么多么不可思议好吗？'),
+ ('56', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<先说结论——我习惯并且主张使用支付宝为什么？我来详细说说微信极其不可思议的因为账号申诉逻辑漏洞被盗让我的400元钱跑了而且拒不承认的事情吧我以前使用的微信号是用手机注册的，绑定了QQ，绑定了声音锁，很安全对吧？ 那是我以为。2017年3月4日，我春节过完我刚刚回到学校宿舍，被子什么的都没打开所以想着就在椅子上坐着玩电脑，困了再睡，星期六嘛，也没有课，就一直玩不知不觉到了凌晨两点，突然，手机亮了，提醒我微信被人登录，我当时就是很困惑，我微信密码自己都差点忘记，也从来没有给过别人，怎么可能被登录？这不就是被盗了嘛，然后我试图登陆回来，让我用我的密保手机发送申述，很正常很安全对吧，我发了，没有任何反应，然后我慌了，开始打腾讯客服，半夜三更的哪有那么容易呢？打了好半天才找到一个，告诉我不归他管，归微信安全管，然后又不告诉我应该打哪个电话让我自己找，然后我想再试试发密保短信。WTF!!!我tm真是惊了，没见过这样的！手机绑定被取消了？没有给绑定手机发短信问是不是真的取消就直接越过我取消了？法院判决我失去所有权还要通知我一声呢？!然后我去申诉了，身份证银行卡密码姓名电话，所有的资料我都填了，这些东西能让人在校园贷贷款几十万了我都眉头不眨的填了，因为我当时还相信腾讯嘛，就像一个人拿着自己所有的身份证明不能证明自己的身份，我气笑了我乖乖的等到9点钟，一夜没睡头都要炸了还耐心的给客服讲我的事情，花了10分钟讲完了，她告诉我转给客服经理，我说好，然后这个经理要我再讲一遍，好，我又花了10分钟讲了一遍，她说了一堆废话然后让我再次登陆，然后申诉，还问我是不是电话号码记错了？我要是能把自己电话号码记错那也是我自己活该。我按她说的做了，还是失败，此时有两个消息传来，我的微信找我同学要钱，我同学给了200。后来我自己掏了200还他了，还有我自己微信钱包里的100多也没了。再后来的日子里我无数次打电话申诉，终于腾讯回了我一条信息。时隔11天给我发的短信，还是废话这条短信我到现在都没删，我提醒我自己不要再犯错误，我也劝屏幕前的你，不要再把一分钱放在微信钱包里，收到钱了马不停蹄转支付宝，一秒钟都不能耽误。我后来想明白可能是怎么被盗号的了，盗号的人先拿两个微信分别加我好友，因为我那时在学生会工作嘛，加的人非常多，根本不会注意有两个不认识的微信好友，然后在一个月深人静的夜晚，估计是想趁我睡着了，然后用找回密码的好友辅助申述，直接获取我的微信，然后进去之后就没有绑定的任何东西了，什么电话QQ邮箱声音锁，腾讯通通“贴心”的帮你解开，然后还告诉你要重新绑定哦，然后盗号者绑定自己的电话，然后我再也没有机会申诉成功。这应该算产品经理的锅了吧？这应该是bug了吧？我也不知道时隔一年半修复了没有，我也不知道那个盗号者用这种手段抢了多少钱，我也报警了，但学校里的警察说根本没什么希望，除非抓到人了他自己承认。故事讲完了，现在你知道我站哪边了吧？我打了近30分钟的电话反复交涉，腾讯不仅不承认是“盗号”行为，而且客服说的都是“您遗失了您的账号”。还有质疑我支付密码怎么没有起作用的，再说一遍申诉成功后所有密码都被新的密保手机重置了!包括登陆密码绑定手机号QQ号声音锁绑定邮箱以及支付密码!还有质疑我为什么截图的，我截图就是想证明这个不可思议的操作，给腾讯客服当证据，谁知道人根本不看啊。还有质疑我编故事的，我要是能编这么真我还只有这点粉?我总共回答了36个问题写了8篇文章，除了这个答案，最高的赞也才37个，总共才不到两百个赞，我要是能有这编故事的水平我至于这么惨?我结尾说故事讲完了，就是为了告诉你们这事是多么多么不可思议好吗？>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '先说结论——我习惯并且主张使用支付宝为什么？我来详细说说微信极其不可思议的因为账号申诉逻辑漏洞被盗让我的400元钱跑了而且拒不承认的事情吧我以前使用的微信号是用手机注册的，绑定了QQ，绑定了声音锁，很安全对吧？ 那是我以为。2017年3月4日，我春节过完我刚刚回到学校宿舍，被子什么的都没打开所以想着就在椅子上坐着玩电脑，困了再睡，星期六嘛，也没有课，就一直玩不知不觉到了凌晨两点，突然，手机亮了，提醒我微信被人登录，我当时就是很困惑，我微信密码自己都差点忘记，也从来没有给过别人，怎么可能被登录？这不就是被盗了嘛，然后我试图登陆回来，让我用我的密保手机发送申述，很正常很安全对吧，我发了，没有任何反应，然后我慌了，开始打腾讯客服，半夜三更的哪有那么容易呢？打了好半天才找到一个，告诉我不归他管，归微信安全管，然后又不告诉我应该打哪个电话让我自己找，然后我想再试试发密保短信。WTF!!!我tm真是惊了，没见过这样的！手机绑定被取消了？没有给绑定手机发短信问是不是真的取消就直接越过我取消了？法院判决我失去所有权还要通知我一声呢？!然后我去申诉了，身份证银行卡密码姓名电话，所有的资料我都填了，这些东西能让人在校园贷贷款几十万了我都眉头不眨的填了，因为我当时还相信腾讯嘛，就像一个人拿着自己所有的身份证明不能证明自己的身份，我气笑了我乖乖的等到9点钟，一夜没睡头都要炸了还耐心的给客服讲我的事情，花了10分钟讲完了，她告诉我转给客服经理，我说好，然后这个经理要我再讲一遍，好，我又花了10分钟讲了一遍，她说了一堆废话然后让我再次登陆，然后申诉，还问我是不是电话号码记错了？我要是能把自己电话号码记错那也是我自己活该。我按她说的做了，还是失败，此时有两个消息传来，我的微信找我同学要钱，我同学给了200。后来我自己掏了200还他了，还有我自己微信钱包里的100多也没了。再后来的日子里我无数次打电话申诉，终于腾讯回了我一条信息。时隔11天给我发的短信，还是废话这条短信我到现在都没删，我提醒我自己不要再犯错误，我也劝屏幕前的你，不要再把一分钱放在微信钱包里，收到钱了马不停蹄转支付宝，一秒钟都不能耽误。我后来想明白可能是怎么被盗号的了，盗号的人先拿两个微信分别加我好友，因为我那时在学生会工作嘛，加的人非常多，根本不会注意有两个不认识的微信好友，然后在一个月深人静的夜晚，估计是想趁我睡着了，然后用找回密码的好友辅助申述，直接获取我的微信，然后进去之后就没有绑定的任何东西了，什么电话QQ邮箱声音锁，腾讯通通“贴心”的帮你解开，然后还告诉你要重新绑定哦，然后盗号者绑定自己的电话，然后我再也没有机会申诉成功。这应该算产品经理的锅了吧？这应该是bug了吧？我也不知道时隔一年半修复了没有，我也不知道那个盗号者用这种手段抢了多少钱，我也报警了，但学校里的警察说根本没什么希望，除非抓到人了他自己承认。故事讲完了，现在你知道我站哪边了吧？我打了近30分钟的电话反复交涉，腾讯不仅不承认是“盗号”行为，而且客服说的都是“您遗失了您的账号”。还有质疑我支付密码怎么没有起作用的，再说一遍申诉成功后所有密码都被新的密保手机重置了!包括登陆密码绑定手机号QQ号声音锁绑定邮箱以及支付密码!还有质疑我为什么截图的，我截图就是想证明这个不可思议的操作，给腾讯客服当证据，谁知道人根本不看啊。还有质疑我编故事的，我要是能编这么真我还只有这点粉?我总共回答了36个问题写了8篇文章，除了这个答案，最高的赞也才37个，总共才不到两百个赞，我要是能有这编故事的水平我至于这么惨?我结尾说故事讲完了，就是为了告诉你们这事是多么多么不可思议好吗？'),
 ('57', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<客服经理工作经验三年的人来告诉你，这客服系统不但有问题，还有大问题，主管部门可以直接炒鱿鱼，永远别干这个岗位了。经理部门可以去死一死了。1，为什么会出现报警人已经把事情说得很严重了，客服还说等一个小时？该公司经过几次三番的事件后，还是没有吸取教训，没有紧急预案。上级部门不授权，下级部门不敢提供负责人电话，不敢泄露司机车牌。2，为什么不能直接提供主管部门电话，而让报警人一直等？主管部门吃屎的。还是那句话，出了事情之后，滴滴还是没能拎出来一个直接负责人。别跟我说什么安全专家，专家你妈逼啊，你给老子直接任职一个安全主管，出了事，主管电话甩出去，直接联系用户。警方要车牌，要司机信息，要乘车人信息？给给给！！！你他妈的，谁平日里没事报假警玩儿呢？再说呢，万无一失，人命关天。真搞错了，谁背锅？滴滴啊！！！公司你他妈开的，兜这点小事都兜不住？我告诉你，我待过两个公司，只要有必要，用户还能直接联系上总裁和老板。滴滴垃圾公司，摆什么高姿态。3，为什么司机两天前已经被投诉还能接单！这跟客服部有关系吗？还是有关系啊，上报通道是被封了吗？如果没有，为什么报上去还是没有处理，任司机作恶。事情分轻重缓急，安全分一二三等。到了这么严重的事情，审核时间缩短，72小时的给缩短到24小时，像这种有犯罪嫌疑的，直接一个小时审核完毕！该封号就封号，该给公安机关备案就备案。总的来说，滴滴太垃圾了。别说安全事故！我还在客服主管岗位的时候，五一国庆春节，都会提前把部门相关负责人联系方式发送给全公司的人，授权下级部门，紧急事件直接联系我，可以直接提供我的电话给用户。我干的可不是什么会人命关天的工作！只是电商客服部。一个公司，摆出大姿态最恶心！人命关天都拿不出一个主管的电话？去你妈的吧。针对评论区说，泄露司机车牌或者电话怕遭到报复的问题。滴滴真泄露给报警人很蠢！但是别瞎洗地了行吗？主管部门可以把信息直接给警方，给警方，给警方！不是给报警人！滴滴道歉了，我来补充一下。这世上，最无用之事。莫过于事前猪一样，事后诸葛亮。#女子搭乘滴滴顺风车遇害#登上各大网站热门不到一小时，滴滴就发出了道歉声明。针对大众质疑的点，每一条都有逻辑清晰的回复。多讽刺啊，报警人报警时，他们要求等待一个小时又一个小时。出了事，他们根本不用一个小时就开完了会，作出了七百多个字的道歉声明。你以为他们处理事情很慢，他们只是懒政罢了。而他们不懂，无论是任何行业的用户，需要的从来都是解决问题，而不是虚情假意的道歉。滴滴一宗罪：外包的客服团队滴滴的道歉声明最让我生气的一点，他们说，事情发生后，他们第一时间配合警方，14个小时就破了案。特意强调花了多短的时间。怎么？要我们夸你么？什么时候才懂，我们要的是不出人命，不是你破案有多快。据我所知，滴滴的客服部门是外包的。外包是很多公司喜欢用的，出固定的钱，比如说一个客服给出3500的工资，其他的，我不管，培训你自己负责，吃住待遇五险一金你自己负责。更方便的一点，如果有客服休产假之类的，总公司不会负责只需要外包公司能够找人顶上就行了请外包可以避免产生很多劳动纠纷，简单来说就是少操不少心。但这种方式，最大的问题就是。外包团队会形似\"外人\"，假如不在一个地方办公，那就更大程度的跟总公司产生企业文化的分割，信息交流的障碍。像滴滴这种公司，肯定是有自己的pr团队，所以面对热搜，能够第一时间做出响应。这批人，跟客服团队不是同一批人，所以明白了吗？可是，面对一对一的用户事件。偏偏又是这种没有权力的一线客服。所以，永远只会说，亲，不要着急哦，我们再解决了哦，亲您别生气哦。亲尼玛币，废物。解决不了问题，干嘛不直接用机器人，用人来扯淡吗。会选择客服团队的公司，1省钱，2省事，3省力。我不是完全否认这种外包方式。假如说，某个公司是网游公司，只需要负责给用户解答一些基本问题，那就很适合外包。再比如，同样是电商自营公司。经营女装的就适合客服外包，电器的就不适合。为什么？衣服最多褪色，码数不对，线头。但是，电器可能涉及到安全问题，例如爆炸自燃等。跟安全相关，而且高客单价，客服部门也需要掌握产品销售出去之后的售后问题。像滴滴这种公司，安全事故不是一起两起了，别说人命。打车也有司机和乘客不对付的事，轻了拌嘴，重了斗殴。滴滴，既然挣了这份钱，这些事，都是他们应该解决的。滴滴二宗罪：为什么会出现司机被投诉了还能接单的情况？据我的回忆，这不是第一次。之前也有出现过类似情况。关于这件事，滴滴部门承认，自己承诺2小时回复，但是他们忘了。忘了？多好笑。其实对于客服经常会忘记一些问题，还在客服这个岗位来说还真是挺常见的。以前我工作的时候，还出现过忘记半个月的事。但是，为了解决这个问题。当时我待的公司，总裁，老板都非常重视。最后咋解决的呢？公司工程师(就是写代码的部门)，协助客服部做了一个售后系统。客服在系统里录入售后问题，客户信息。需要日清才能下班。滴滴三宗罪：推卸责任滴滴对于自己解释需要一个小时的处理时间和忘了处理司机的事情理由是，每天接到很多类似的反馈，无法分辨真假。简单解读一下，1，我们太忙了。2，我怎么知道他说的是真是假？现在我来反驳一下！1，类似问题太多。他妈的能多到哪里去？一个客服工资最多不会超过5000，二三线不超过4000。你滴滴专门正一个部门，就安排十个人在哪里接紧急电话，统计安全问题。难么？2，分辨不出来。如果，一个小小客服，拿着月薪3500，他说分辨不出来。好，我觉得可以理解。但是，一个负责人说，他分不出来。分不出来？那你待在这个位置，是来混日子的？基本的分辨能力都没有，潜规则上位的？操不了这个心，配做什么主管。就算你分辨不出来，还有一个笨办法。管他真的假的，统统核实统统处理。别和我说增加多大成本了，客服工资能低到你怀疑人生。还有一个情况，就是可能一线客服没有上报。但是，这个问题，问题还是在管理层。可能，主管部门觉得，每天这么杂七杂八的事情太多，每一个都处理太花时间。所以，告诉客服，假如不是特别紧急就正常上报。正常，大概就是72小时处理那种程度咯？那怎么是紧急呢？客服就无法分辨了啊，报错了说不好还被批评，那还是按着不说吧，除非出人命。滴滴四宗罪：主管部门的不作为假如，滴滴客服收到报警人的诉求后第一时间配合了警方，受害者也许不会遇害。滴滴所有的聪明和迅速，都是在事态严重后。你知道，一个公司的一线客服接到一个紧急电话，该部门需要多久能知道吗？答案是30秒。1，客服可以把头一偏，直接告诉旁边的主管。很多大公司总裁都没有独立办公室，别说主管。部门主管通常跟下属坐在一起。2，就算主管有独立办公室，那么更快。微信3秒，QQ3秒，电话30秒。接到紧急事件，需要多久处理呢？答案是不超过10分钟。从自己的工位走到总裁办公室商量对策，不会需要多久的。总裁会拒绝处理吗？会拒绝的人没办法当上总裁。3，用户要求负责人联系方式，需要多久？答案是一分钟。11个数字，不管是打字还是语音输出，会超过一分钟吗？更别说，负责人可以立刻马上联系用户。所以，搞清楚了吗？一个企业文化有问题的公司，把一线客服的岗位外包了。所以，当你第一时间反馈得不到结果很正常。因为，外包客服还得一级一级报上去。毕竟权限不够，也没办法感知公司只是想敷衍这些投诉呢，还是说想认真从用户的发声逐步改进。一个三番五次出问题还得不到教训的公司。企业文化里是没有事事以用户为先的。更分辨不出什么是人命关天。他们只需要养过几个pr，能第一时间发稿件，登门拜访，息事宁人即可。他们怎么懂，用户不想看你的道歉不稀罕你登门拜访，只是想安全出行。滴滴，麻烦你去死一死。说警方不作为的，看 @吴开拓 答案。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '客服经理工作经验三年的人来告诉你，这客服系统不但有问题，还有大问题，主管部门可以直接炒鱿鱼，永远别干这个岗位了。经理部门可以去死一死了。1，为什么会出现报警人已经把事情说得很严重了，客服还说等一个小时？该公司经过几次三番的事件后，还是没有吸取教训，没有紧急预案。上级部门不授权，下级部门不敢提供负责人电话，不敢泄露司机车牌。2，为什么不能直接提供主管部门电话，而让报警人一直等？主管部门吃屎的。还是那句话，出了事情之后，滴滴还是没能拎出来一个直接负责人。别跟我说什么安全专家，专家你妈逼啊，你给老子直接任职一个安全主管，出了事，主管电话甩出去，直接联系用户。警方要车牌，要司机信息，要乘车人信息？给给给！！！你他妈的，谁平日里没事报假警玩儿呢？再说呢，万无一失，人命关天。真搞错了，谁背锅？滴滴啊！！！公司你他妈开的，兜这点小事都兜不住？我告诉你，我待过两个公司，只要有必要，用户还能直接联系上总裁和老板。滴滴垃圾公司，摆什么高姿态。3，为什么司机两天前已经被投诉还能接单！这跟客服部有关系吗？还是有关系啊，上报通道是被封了吗？如果没有，为什么报上去还是没有处理，任司机作恶。事情分轻重缓急，安全分一二三等。到了这么严重的事情，审核时间缩短，72小时的给缩短到24小时，像这种有犯罪嫌疑的，直接一个小时审核完毕！该封号就封号，该给公安机关备案就备案。总的来说，滴滴太垃圾了。别说安全事故！我还在客服主管岗位的时候，五一国庆春节，都会提前把部门相关负责人联系方式发送给全公司的人，授权下级部门，紧急事件直接联系我，可以直接提供我的电话给用户。我干的可不是什么会人命关天的工作！只是电商客服部。一个公司，摆出大姿态最恶心！人命关天都拿不出一个主管的电话？去你妈的吧。针对评论区说，泄露司机车牌或者电话怕遭到报复的问题。滴滴真泄露给报警人很蠢！但是别瞎洗地了行吗？主管部门可以把信息直接给警方，给警方，给警方！不是给报警人！滴滴道歉了，我来补充一下。这世上，最无用之事。莫过于事前猪一样，事后诸葛亮。#女子搭乘滴滴顺风车遇害#登上各大网站热门不到一小时，滴滴就发出了道歉声明。针对大众质疑的点，每一条都有逻辑清晰的回复。多讽刺啊，报警人报警时，他们要求等待一个小时又一个小时。出了事，他们根本不用一个小时就开完了会，作出了七百多个字的道歉声明。你以为他们处理事情很慢，他们只是懒政罢了。而他们不懂，无论是任何行业的用户，需要的从来都是解决问题，而不是虚情假意的道歉。滴滴一宗罪：外包的客服团队滴滴的道歉声明最让我生气的一点，他们说，事情发生后，他们第一时间配合警方，14个小时就破了案。特意强调花了多短的时间。怎么？要我们夸你么？什么时候才懂，我们要的是不出人命，不是你破案有多快。据我所知，滴滴的客服部门是外包的。外包是很多公司喜欢用的，出固定的钱，比如说一个客服给出3500的工资，其他的，我不管，培训你自己负责，吃住待遇五险一金你自己负责。更方便的一点，如果有客服休产假之类的，总公司不会负责只需要外包公司能够找人顶上就行了请外包可以避免产生很多劳动纠纷，简单来说就是少操不少心。但这种方式，最大的问题就是。外包团队会形似\"外人\"，假如不在一个地方办公，那就更大程度的跟总公司产生企业文化的分割，信息交流的障碍。像滴滴这种公司，肯定是有自己的pr团队，所以面对热搜，能够第一时间做出响应。这批人，跟客服团队不是同一批人，所以明白了吗？可是，面对一对一的用户事件。偏偏又是这种没有权力的一线客服。所以，永远只会说，亲，不要着急哦，我们再解决了哦，亲您别生气哦。亲尼玛币，废物。解决不了问题，干嘛不直接用机器人，用人来扯淡吗。会选择客服团队的公司，1省钱，2省事，3省力。我不是完全否认这种外包方式。假如说，某个公司是网游公司，只需要负责给用户解答一些基本问题，那就很适合外包。再比如，同样是电商自营公司。经营女装的就适合客服外包，电器的就不适合。为什么？衣服最多褪色，码数不对，线头。但是，电器可能涉及到安全问题，例如爆炸自燃等。跟安全相关，而且高客单价，客服部门也需要掌握产品销售出去之后的售后问题。像滴滴这种公司，安全事故不是一起两起了，别说人命。打车也有司机和乘客不对付的事，轻了拌嘴，重了斗殴。滴滴，既然挣了这份钱，这些事，都是他们应该解决的。滴滴二宗罪：为什么会出现司机被投诉了还能接单的情况？据我的回忆，这不是第一次。之前也有出现过类似情况。关于这件事，滴滴部门承认，自己承诺2小时回复，但是他们忘了。忘了？多好笑。其实对于客服经常会忘记一些问题，还在客服这个岗位来说还真是挺常见的。以前我工作的时候，还出现过忘记半个月的事。但是，为了解决这个问题。当时我待的公司，总裁，老板都非常重视。最后咋解决的呢？公司工程师(就是写代码的部门)，协助客服部做了一个售后系统。客服在系统里录入售后问题，客户信息。需要日清才能下班。滴滴三宗罪：推卸责任滴滴对于自己解释需要一个小时的处理时间和忘了处理司机的事情理由是，每天接到很多类似的反馈，无法分辨真假。简单解读一下，1，我们太忙了。2，我怎么知道他说的是真是假？现在我来反驳一下！1，类似问题太多。他妈的能多到哪里去？一个客服工资最多不会超过5000，二三线不超过4000。你滴滴专门正一个部门，就安排十个人在哪里接紧急电话，统计安全问题。难么？2，分辨不出来。如果，一个小小客服，拿着月薪3500，他说分辨不出来。好，我觉得可以理解。但是，一个负责人说，他分不出来。分不出来？那你待在这个位置，是来混日子的？基本的分辨能力都没有，潜规则上位的？操不了这个心，配做什么主管。就算你分辨不出来，还有一个笨办法。管他真的假的，统统核实统统处理。别和我说增加多大成本了，客服工资能低到你怀疑人生。还有一个情况，就是可能一线客服没有上报。但是，这个问题，问题还是在管理层。可能，主管部门觉得，每天这么杂七杂八的事情太多，每一个都处理太花时间。所以，告诉客服，假如不是特别紧急就正常上报。正常，大概就是72小时处理那种程度咯？那怎么是紧急呢？客服就无法分辨了啊，报错了说不好还被批评，那还是按着不说吧，除非出人命。滴滴四宗罪：主管部门的不作为假如，滴滴客服收到报警人的诉求后第一时间配合了警方，受害者也许不会遇害。滴滴所有的聪明和迅速，都是在事态严重后。你知道，一个公司的一线客服接到一个紧急电话，该部门需要多久能知道吗？答案是30秒。1，客服可以把头一偏，直接告诉旁边的主管。很多大公司总裁都没有独立办公室，别说主管。部门主管通常跟下属坐在一起。2，就算主管有独立办公室，那么更快。微信3秒，QQ3秒，电话30秒。接到紧急事件，需要多久处理呢？答案是不超过10分钟。从自己的工位走到总裁办公室商量对策，不会需要多久的。总裁会拒绝处理吗？会拒绝的人没办法当上总裁。3，用户要求负责人联系方式，需要多久？答案是一分钟。11个数字，不管是打字还是语音输出，会超过一分钟吗？更别说，负责人可以立刻马上联系用户。所以，搞清楚了吗？一个企业文化有问题的公司，把一线客服的岗位外包了。所以，当你第一时间反馈得不到结果很正常。因为，外包客服还得一级一级报上去。毕竟权限不够，也没办法感知公司只是想敷衍这些投诉呢，还是说想认真从用户的发声逐步改进。一个三番五次出问题还得不到教训的公司。企业文化里是没有事事以用户为先的。更分辨不出什么是人命关天。他们只需要养过几个pr，能第一时间发稿件，登门拜访，息事宁人即可。他们怎么懂，用户不想看你的道歉不稀罕你登门拜访，只是想安全出行。滴滴，麻烦你去死一死。说警方不作为的，看 @吴开拓 答案。'),
 ('58', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<去年寒假从乌鲁木齐去兰州 到兰州火车站的时候是晚上十一点半 我找不到订的酒店 打了个黑车司机把我搁半路了 真是急的我都快哭了 然后碰到一个已经休班的出租车司机大叔 他说先上车 我上车以后给他看酒店地址 他说你一小姑娘怎么订这么偏的地儿啊 我说我之前也不清楚啊 我第一次来 然后再没有交谈 直到他把我送到酒店楼下 他说 我觉得这酒店开这么偏僻有点不对劲 你先上去 我在楼下等你 如果你觉得不对劲你就赶紧跑出来喊我 如果没问题你就是在楼上给我招招手 等我开好房间 往下看的时候 大叔倚着车门安静的等着 我赶紧冲他招招手 才看到他放心的离去 那时快凌晨一点 外面零下七度>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '去年寒假从乌鲁木齐去兰州 到兰州火车站的时候是晚上十一点半 我找不到订的酒店 打了个黑车司机把我搁半路了 真是急的我都快哭了 然后碰到一个已经休班的出租车司机大叔 他说先上车 我上车以后给他看酒店地址 他说你一小姑娘怎么订这么偏的地儿啊 我说我之前也不清楚啊 我第一次来 然后再没有交谈 直到他把我送到酒店楼下 他说 我觉得这酒店开这么偏僻有点不对劲 你先上去 我在楼下等你 如果你觉得不对劲你就赶紧跑出来喊我 如果没问题你就是在楼上给我招招手 等我开好房间 往下看的时候 大叔倚着车门安静的等着 我赶紧冲他招招手 才看到他放心的离去 那时快凌晨一点 外面零下七度'),
 ('59', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<虽然事情已经过去一周，但是一想起那个快车司机，我还是会不由自主地抖。上周到杭州玩，晚上10点钟从朋友家回酒店，只有1公里，但因为下大雨所以朋友帮我叫了快车。上车后我坐后排，司机说订车的是个男的啊，我说是我朋友订的，他问我老家是哪里，我说北京，也没注意他有什么变化。接着就到酒店楼下了，我要下车却发现门打不开。司机问我，是不是1个人来杭州，我发现事情不对劲了，一瞬间心慌的要死，想到了很多种可能被凶杀的惨状。我说2个人，朋友在酒店等我，我要赶紧回去。司机说，不行，你把你的电话号码给我，以后来杭州的话，可以找我玩。我让他报电话号码，因为一直和朋友聊天，所以我把电话号码发给朋友后才给司机打了个电话，并且让朋友来救我。司机的手机响了，我说我下车啦以后常联系，但他还是不开门，我心里吓得要命却丝毫不敢表现在脸上。司机说，要不我们现在就吃个饭吧。我特真诚地对他说，明天吃吧今天太饱了。然后推车门还是推不开，此刻，我心里已经在滴血了。司机继续舔着那张胡子拉碴的脸，说，你陪到床上我玩玩吧。还好我的眼睛小，不然眼珠子可能当场就蹦出来了，而这个时候，朋友居然在微信问我怎么了，是不是走丢了。我好害怕他会钻到后排来，吓得快要绝望了，但还是强忍着情绪和他说，好啊，我们去楼上吧，我朋友喜欢3个人一起玩。他面露欣喜之色把门打开，我简直跑得比色戒里的易先生还快，躲在麦当劳里哭，不敢出来。虽然已经过去1周了，但是想起这次不到2分钟的打车经历，还是会后怕的不行。如果我跟他实话实说我是一个人住酒店我会不会出问题，如果我表现出怕他我会不会出问题，如果我当时骂他我会不会出问题……幸运的是，我没有遭受到实际伤害，后来朋友投诉了那位司机，报警后警察迅速出警，滴滴也对司机做出封号处理。但是滴滴在快车司机监管方面真的是存在问题的，希望滴滴能在快车司机审核上多用点心。我坐过2次滴滴快车，第一次坐的时候司机在车上放黄片，还没到终点我就假装下车拉肚子了，然后第二次遇到这种流氓。虽然滴滴后来把这个车主封号了，但是司机和滴滴司机车主明显不是一个人。这次正主被投诉封号，不知道正主和这位流氓司机会不会心里记仇再次进入快车行业后报复其他女乘客。希望滴滴在快车司机方面监管能够严格一点，比如做到一车牌号、一驾驶证、一身份证绑定，如果被封号以后就不能再做快车司机，这样，就算流氓司机有再多车，也能被身份证卡住。同时，也打击下一车多人用的情况。假如有3个人共用1辆车跑快车，就算这辆车因为骚扰乘客被封了，3个人也能用下一个人的车继续开快车赚钱。对滴滴来说司机又多了一位，但是对女乘客来说，隐形的风险增加了好多好多。而且，这还是春天，大家都穿着大衣呢，到夏天的话女生坐车会面临更多问题。想想都害怕。最后，女生外出一定要注意安全，保护个人隐私，坐车不要和司机聊太多关于个人的事情。打车尽量打出租车，比快车稍微靠谱点。我现在仍然对陌生男性充满了恐惧，不知道这心里阴影什么时候才能消除，哎。补充下：我有证据，不然滴滴也不会轻易地给司机封号。写这篇文章主要是想在知乎记录下我的经历，如果能提醒到女生注意打车安全就更好了。当然也希望滴滴快车能在保护女乘客方面多投入点心思>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '虽然事情已经过去一周，但是一想起那个快车司机，我还是会不由自主地抖。上周到杭州玩，晚上10点钟从朋友家回酒店，只有1公里，但因为下大雨所以朋友帮我叫了快车。上车后我坐后排，司机说订车的是个男的啊，我说是我朋友订的，他问我老家是哪里，我说北京，也没注意他有什么变化。接着就到酒店楼下了，我要下车却发现门打不开。司机问我，是不是1个人来杭州，我发现事情不对劲了，一瞬间心慌的要死，想到了很多种可能被凶杀的惨状。我说2个人，朋友在酒店等我，我要赶紧回去。司机说，不行，你把你的电话号码给我，以后来杭州的话，可以找我玩。我让他报电话号码，因为一直和朋友聊天，所以我把电话号码发给朋友后才给司机打了个电话，并且让朋友来救我。司机的手机响了，我说我下车啦以后常联系，但他还是不开门，我心里吓得要命却丝毫不敢表现在脸上。司机说，要不我们现在就吃个饭吧。我特真诚地对他说，明天吃吧今天太饱了。然后推车门还是推不开，此刻，我心里已经在滴血了。司机继续舔着那张胡子拉碴的脸，说，你陪到床上我玩玩吧。还好我的眼睛小，不然眼珠子可能当场就蹦出来了，而这个时候，朋友居然在微信问我怎么了，是不是走丢了。我好害怕他会钻到后排来，吓得快要绝望了，但还是强忍着情绪和他说，好啊，我们去楼上吧，我朋友喜欢3个人一起玩。他面露欣喜之色把门打开，我简直跑得比色戒里的易先生还快，躲在麦当劳里哭，不敢出来。虽然已经过去1周了，但是想起这次不到2分钟的打车经历，还是会后怕的不行。如果我跟他实话实说我是一个人住酒店我会不会出问题，如果我表现出怕他我会不会出问题，如果我当时骂他我会不会出问题……幸运的是，我没有遭受到实际伤害，后来朋友投诉了那位司机，报警后警察迅速出警，滴滴也对司机做出封号处理。但是滴滴在快车司机监管方面真的是存在问题的，希望滴滴能在快车司机审核上多用点心。我坐过2次滴滴快车，第一次坐的时候司机在车上放黄片，还没到终点我就假装下车拉肚子了，然后第二次遇到这种流氓。虽然滴滴后来把这个车主封号了，但是司机和滴滴司机车主明显不是一个人。这次正主被投诉封号，不知道正主和这位流氓司机会不会心里记仇再次进入快车行业后报复其他女乘客。希望滴滴在快车司机方面监管能够严格一点，比如做到一车牌号、一驾驶证、一身份证绑定，如果被封号以后就不能再做快车司机，这样，就算流氓司机有再多车，也能被身份证卡住。同时，也打击下一车多人用的情况。假如有3个人共用1辆车跑快车，就算这辆车因为骚扰乘客被封了，3个人也能用下一个人的车继续开快车赚钱。对滴滴来说司机又多了一位，但是对女乘客来说，隐形的风险增加了好多好多。而且，这还是春天，大家都穿着大衣呢，到夏天的话女生坐车会面临更多问题。想想都害怕。最后，女生外出一定要注意安全，保护个人隐私，坐车不要和司机聊太多关于个人的事情。打车尽量打出租车，比快车稍微靠谱点。我现在仍然对陌生男性充满了恐惧，不知道这心里阴影什么时候才能消除，哎。补充下：我有证据，不然滴滴也不会轻易地给司机封号。写这篇文章主要是想在知乎记录下我的经历，如果能提醒到女生注意打车安全就更好了。当然也希望滴滴快车能在保护女乘客方面多投入点心思'),
@@ -2592,7 +2601,7 @@ INSERT INTO `youthchina`.`COM_RICH_TEXT` (`TEXT_ID`, `COMPILE_TYPE`, `JSON_CONTE
 ('79', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<我来腆着脸讲讲我的故事，反正这不是一个皆大欢喜的故事，假如能给有类似想法的同学一些不一样的信息，那这段失败的经历也算能有些正面价值。百度是我毕业后的第一份工作，到我离开在百度一共做了3年多的时间，在中国互联网这个环境里面，连续在一个公司3年应该还不算特别短。先说好的地方：1）升职空间：我是很标准的每年升职一次，一直走技术路线。算是中规中矩，不算是那种连续跳级的明星人物，但到离职的时候还没有遇到职业瓶颈。即使是员工数量不断增加，但感觉T3,T4升职的门槛也在不断降低。所以对于新人而言，发展空间似乎并没有太大变化，当然一个个体能影响的范伟是相对变小了。2）技术成长：没离开的时候感觉不太明显，离开后回头看，还是学了非常多的东西。既有垂直搜索核心技术方面的硬实力，也有团队协作和管理上的软实力提升。这些东西在离开后的新环境里，我自己才体会到。说句不要脸的话，感觉的确是高于平均水准的。3）虚名：这段工作经历基本上让我找新工作容易了很多，基本上感兴趣的地方，不需要考虑要不要自己的问题，而是自己愿不愿意去的问题。再说为什么想要离开：1）恐惧：随着级别升高，感觉自己投入在技术上的时间越来越少，成为一个中介与技术和管理之间搭桥的一个角色。研究领域上自己底子不够好，只能靠着背景知识不断加强来弥补；工程领域上，代码越写越少，说的越来越多。这是让我感觉非常非常恐惧的事情，作为一个热爱技术的人，似乎离技术越来越远。2）驱动：国内互联网领域发展的太快了，这应该不是百度一家的情况，大家都需要“收益”去证明自己的价值，所以人人都想上前线。但短期内看不清楚收益，或者存在风险的领域，大家都有意识的避开。我把收益拿到就行了，剩下的交给后面的人去擦屁股。像基础架构和效率工具方面，如果没有有影响力的大佬牵头，是很难做起来的。我一直很好奇，国外的公司是如何能激励内部的tools团队不断作出提升整体效率的基础工具。所以，百度的开发效率算不上高，日志统计，代码管理发布等等这些方面，一直是各个部门各自为战，算不上高效，甚至是效率瓶颈。3）跨部门合作：这个是噩梦，也是公司大了以后必须面对的问题。如何平衡各个部门之间的利益？在“收益”驱动的情况下，各个部门之间的谁会愿意做别人的嫁衣？内部竞争比外部竞争还要更激烈，外部竞争还可以共存，大不了一大一小，内部竞争就只有一个能活，公司怎么会愿意资源重复投入。看似和谐的部门协作，我个人觉得还不如索性拆分成独立的事业部，大家各自拥有自主权，比这种“合作”不顺畅，有不能真刀真枪的“竞争”，可能要好一点。（管理，尤其是大公司的管理是门大学问，百度的高阶管理层都是很聪明的人，这里也就是发发牢骚，管理一个两万人的公司很难）4）诱惑：搜索似乎是个相对成熟的产业，虽然依然有非常多的新技术可以展望，但我们得承认在技术出现重大突破之前，我们已经处在80%向90%迈进的过程中，这个速度要远远慢于0%到80%的过程。看着周边的不断出现的新产品，自己也想亲手参与从零做起，把一个产品做大。5）文化冲突：随着公司扩张，遇到了一些从其他公司招聘进来的人，存在不小的文化冲突。我个人感觉百度自身培养起来的工程师虽然多种多样，但是基本上都正直上进，或者说都很善良。可能是个例，我们组从其他公司招聘的一位工程师，让我个人感觉非常难于合作。比如，向上谄媚，向下压榨，把新员工的工作说成是自己做的，在自己的工作里面数据作假，在向上汇报的时候就主动承担工作，在和工程师合作的时候就把活都推给别人。这都让我个人非常难受，我无法忍受和这样的人一起工作。老实说，百度土生土长起来的不论是搞技术的还是搞管理的，跟外面一比，都和纯情高中生一样，只能被活活玩死。从数字公司空降来的总监，把部门搞的乌烟瘴气，大清洗，拉亲信，树山头，搞斗争。得承认，这人折腾起来还挺有本事，但真心不想和他共事啊，做事底线不一样啊。综合以上种种，我决定离开百度，加入一个自己感兴趣的初创公司。人少，面对的管理问题就少，我可以安安心心的投入在技术上，这是我的初衷。加入新公司以后，蜜月期的确非常幸福。遇见了很多不一样人，见识了很多不一样的技术。而且每个人都不是螺丝钉而是工具箱，能干好多不同的事情。让我大开眼界。有着在百度的技术积累，初创公司遇到的种种挑战最后都解决的不错，也给自己增强了不少信心。但蜜月期过后，我又继续遇到了不同的文化冲突，这点我是没想到的。可以说百度把我惯坏了，很多时候以为是理所应当的事情，结果并不是那么容易获得的。这时候我才开始意识到百度的好。这和谈恋爱一样，第一段感情总是在挑对方的毛病，分开后才想到对方的好。1）”领导的意思“：在百度，我还是相信大家都是讲道理的，遇到分歧，大家可以摆数据做分析，百度的氛围还是相信一线的分析的。在新公司我遇到几次“领导说”。“XXX大佬说了YYY功能很重要我们要马上做”，我做了一些基础的数据分析，认为这个问题不是当时最紧迫的问题，还有很多更重要的问题急待解决。因为YYY功能需要我做，但我几次都表达了反对的意见。没想到的是，这个为以后埋下了祸根。之后，还出现过“领导”自己定了一个策略规则，要求尽快上线，我则反馈说这要评估看看数据才行（在百度做过类似工作的同学也许能理解这种情况，脑袋空想一个策略，都是有合理性存在的，但实际情况怎样还得要进行线下线上的评估验证）这种情况出现了不只一次，我依旧是用的百度式的处理方式，这是我个人悲剧的开始。2）“经理”：因为到新公司以后，做了很多大功能的升级，继续不要脸的说，效果真的不错。CXO们希望我做技术团队的“经理”，我拒绝了。我觉得团队这么小，要那么多管理角色干嘛，技术挑战还有那么大，有各种O做管理角色就够了。同样没想到，这被理解成为了不愿承担团队职责，逃避责任的行为。这是我的又一宗罪。因为BAT这些公司都是技术，管理双线制，但对于没有这方面经验的创始人而言，这的确不太好理解。理解成了我没有上进心，没有创业精神，逃避职责。3）团队管理：依然是我没有摆脱旧的思维，习惯了结果导向，平时很多细节不讲究。早上很晚才到（快到中午了都），有时候困了就直接躺沙发上睡了，有几次下午三四点自己就开始阅读论文。这些东西虽然没有影响我个人的业绩，当有了前面的各种文化冲突的情况下，也逐渐演变成了懒散不敬业的印象。我觉得时间安排是我的个人自由，我也足够努力和投入（甚至没投入什么精力在家庭上，导致了又一重的悲剧），但没有意识到这是问题，是我的问题。4）向上管理：在百度我觉得我向上管理还做的不错，有一些诉求会主动的反馈表达，但在新公司却又成了悲剧。我是向上管理做的比较积极的人，新团队里面，很多时候大家工作到很晚，半夜两点也经常出现。但时间都花在了和系统环境和重复出现的工程管理问题上。比如测试环境不对，比如代码merge错了各种低级问题。大家常说大公司效率低，被各种流程困扰。而小公司没有流程，大家像没头苍蝇一样稀里糊涂的。一种是原地踏步，一种是没有方向的四处乱跑。这一点把我刺痛了，加入小团队，就是想能摆脱大公司的弊病，轻装快跑。我向各种O都反馈了这些问题，并且希望他们能重视这些问题，不要光想着自己是个产品经理，不要老把乔布斯挂嘴边（你看我多不会说话）。但这进一步加剧了冲突。5）其他还有很多，其实都是我没有意识到的文化冲突。我理解大家都有一个很积极的未来目标。但对于管理团队和做事风格上又有很多的不同之处。和“领导”意见不一样，甚至争论问题，甚至向“领导”指出问题和希望能改进，在百度我从来都不觉得是高压线，但环境不一样，我没能及时调整和改进，不断的触及高压线。最后，我还在琢磨怎么能让大家不要再犯重复错误提高效率的时候，被要求尽快离开团队，也就是说我被开了。呵呵，你看我有多后知后觉。同时，家庭方面也因为我长期把精力都投入到工作上，很少顾及，也出现了重大的危机。几乎是同一时间一前一后，我受到双重打击，整个人几乎崩溃。我一直在反省自己在哪里出了问题（把责任都推到别人身上是个简单易行的方法，但对自己的成长帮助不大）。当然这无法挽回我在这段经历上的失败。1）团队管理是个大问题，不要以为到哪里都和百度的管理风格一样，不要把开放简单的环境当作理所应当。团队管理是个需要真刀真枪的实践经验的，对于初创企业的管理团队有没有这方面的经验要放亮眼睛。不是小团队就没有管理问题，管理好一个团队真的很难，开始体量百度各种经理，特别是一线经理的难处。他们肯定也给过我很多的包容，只是我自己没感觉到罢了。2）风格作风没有对错，只有合不合适，尽量要找到和自己风格契合的团队。短时间接触很难了解个透彻，熟人比生人要风险小得多。不要光想着自己一根筋做技术做产品，不会看人不会和各种风格的人合作，这是短板，迟早得治，要不就老实待在百度这个环境里不要出来。3）不要把任何情况当作理所应当，有些东西你没有了才会知道珍惜。没有完美的地方，或者有完美的地方，但要有很好的运气才能遇到。百度有各种各样的问题，不代表他没有任何优点。同样外面有各种各样的机会诱惑，不代表就如你所愿。机会成本和风险自己要想想清楚。期望和现实的落差，会让你活的很痛苦。4）不要为了显示自己的要“做大事”，非要把事情搞的对立起来，好像不做点牺牲不能表现出自己的投入。因为要做“事业”所以不顾及“家庭”，还是自己没能处理还两者的平衡，是时间管理的问题，不要回避这个问题，想当然的认为“做大事”就得有牺牲。这种自我陶醉式的悲壮，也就能骗骗自己而已，一点也不感人。5）“期权（OPTION）”不值钱，由于中国各种的法律和外汇管理条例，拿中国护照的个人是很难进行返程投资的，也就是说除了上市以外，你基本上无法合法行权…… 这一点在我离开的时候才第一次听说，在中国和VIE架构下，除非上市等少数途径，期权和烂纸是一样的。如果你中途离开或者被迫中途离开，没有任何法律会保障你的权益，通常来说你不行权的话期权会在你离职半年后失效。所以不要把“期权”的数字当成一个非常影响你决定的因素。返程投资和如何行权这些东西是没有人会跟你讲的，自己研究研究法律，合同里面看看清楚，好的公司会考虑到行权的问题给一些变相行权激励的手段；不好的公司，就只有不能行权半年过期的期权了。这些事情要么自己考虑清楚，要么交给成熟的公司去帮你考虑（至少不会坑你）。最后，百度不是一个完美的公司，但绝对不是个差公司，我非常怀念在百度工作的日子。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '我来腆着脸讲讲我的故事，反正这不是一个皆大欢喜的故事，假如能给有类似想法的同学一些不一样的信息，那这段失败的经历也算能有些正面价值。百度是我毕业后的第一份工作，到我离开在百度一共做了3年多的时间，在中国互联网这个环境里面，连续在一个公司3年应该还不算特别短。先说好的地方：1）升职空间：我是很标准的每年升职一次，一直走技术路线。算是中规中矩，不算是那种连续跳级的明星人物，但到离职的时候还没有遇到职业瓶颈。即使是员工数量不断增加，但感觉T3,T4升职的门槛也在不断降低。所以对于新人而言，发展空间似乎并没有太大变化，当然一个个体能影响的范伟是相对变小了。2）技术成长：没离开的时候感觉不太明显，离开后回头看，还是学了非常多的东西。既有垂直搜索核心技术方面的硬实力，也有团队协作和管理上的软实力提升。这些东西在离开后的新环境里，我自己才体会到。说句不要脸的话，感觉的确是高于平均水准的。3）虚名：这段工作经历基本上让我找新工作容易了很多，基本上感兴趣的地方，不需要考虑要不要自己的问题，而是自己愿不愿意去的问题。再说为什么想要离开：1）恐惧：随着级别升高，感觉自己投入在技术上的时间越来越少，成为一个中介与技术和管理之间搭桥的一个角色。研究领域上自己底子不够好，只能靠着背景知识不断加强来弥补；工程领域上，代码越写越少，说的越来越多。这是让我感觉非常非常恐惧的事情，作为一个热爱技术的人，似乎离技术越来越远。2）驱动：国内互联网领域发展的太快了，这应该不是百度一家的情况，大家都需要“收益”去证明自己的价值，所以人人都想上前线。但短期内看不清楚收益，或者存在风险的领域，大家都有意识的避开。我把收益拿到就行了，剩下的交给后面的人去擦屁股。像基础架构和效率工具方面，如果没有有影响力的大佬牵头，是很难做起来的。我一直很好奇，国外的公司是如何能激励内部的tools团队不断作出提升整体效率的基础工具。所以，百度的开发效率算不上高，日志统计，代码管理发布等等这些方面，一直是各个部门各自为战，算不上高效，甚至是效率瓶颈。3）跨部门合作：这个是噩梦，也是公司大了以后必须面对的问题。如何平衡各个部门之间的利益？在“收益”驱动的情况下，各个部门之间的谁会愿意做别人的嫁衣？内部竞争比外部竞争还要更激烈，外部竞争还可以共存，大不了一大一小，内部竞争就只有一个能活，公司怎么会愿意资源重复投入。看似和谐的部门协作，我个人觉得还不如索性拆分成独立的事业部，大家各自拥有自主权，比这种“合作”不顺畅，有不能真刀真枪的“竞争”，可能要好一点。（管理，尤其是大公司的管理是门大学问，百度的高阶管理层都是很聪明的人，这里也就是发发牢骚，管理一个两万人的公司很难）4）诱惑：搜索似乎是个相对成熟的产业，虽然依然有非常多的新技术可以展望，但我们得承认在技术出现重大突破之前，我们已经处在80%向90%迈进的过程中，这个速度要远远慢于0%到80%的过程。看着周边的不断出现的新产品，自己也想亲手参与从零做起，把一个产品做大。5）文化冲突：随着公司扩张，遇到了一些从其他公司招聘进来的人，存在不小的文化冲突。我个人感觉百度自身培养起来的工程师虽然多种多样，但是基本上都正直上进，或者说都很善良。可能是个例，我们组从其他公司招聘的一位工程师，让我个人感觉非常难于合作。比如，向上谄媚，向下压榨，把新员工的工作说成是自己做的，在自己的工作里面数据作假，在向上汇报的时候就主动承担工作，在和工程师合作的时候就把活都推给别人。这都让我个人非常难受，我无法忍受和这样的人一起工作。老实说，百度土生土长起来的不论是搞技术的还是搞管理的，跟外面一比，都和纯情高中生一样，只能被活活玩死。从数字公司空降来的总监，把部门搞的乌烟瘴气，大清洗，拉亲信，树山头，搞斗争。得承认，这人折腾起来还挺有本事，但真心不想和他共事啊，做事底线不一样啊。综合以上种种，我决定离开百度，加入一个自己感兴趣的初创公司。人少，面对的管理问题就少，我可以安安心心的投入在技术上，这是我的初衷。加入新公司以后，蜜月期的确非常幸福。遇见了很多不一样人，见识了很多不一样的技术。而且每个人都不是螺丝钉而是工具箱，能干好多不同的事情。让我大开眼界。有着在百度的技术积累，初创公司遇到的种种挑战最后都解决的不错，也给自己增强了不少信心。但蜜月期过后，我又继续遇到了不同的文化冲突，这点我是没想到的。可以说百度把我惯坏了，很多时候以为是理所应当的事情，结果并不是那么容易获得的。这时候我才开始意识到百度的好。这和谈恋爱一样，第一段感情总是在挑对方的毛病，分开后才想到对方的好。1）”领导的意思“：在百度，我还是相信大家都是讲道理的，遇到分歧，大家可以摆数据做分析，百度的氛围还是相信一线的分析的。在新公司我遇到几次“领导说”。“XXX大佬说了YYY功能很重要我们要马上做”，我做了一些基础的数据分析，认为这个问题不是当时最紧迫的问题，还有很多更重要的问题急待解决。因为YYY功能需要我做，但我几次都表达了反对的意见。没想到的是，这个为以后埋下了祸根。之后，还出现过“领导”自己定了一个策略规则，要求尽快上线，我则反馈说这要评估看看数据才行（在百度做过类似工作的同学也许能理解这种情况，脑袋空想一个策略，都是有合理性存在的，但实际情况怎样还得要进行线下线上的评估验证）这种情况出现了不只一次，我依旧是用的百度式的处理方式，这是我个人悲剧的开始。2）“经理”：因为到新公司以后，做了很多大功能的升级，继续不要脸的说，效果真的不错。CXO们希望我做技术团队的“经理”，我拒绝了。我觉得团队这么小，要那么多管理角色干嘛，技术挑战还有那么大，有各种O做管理角色就够了。同样没想到，这被理解成为了不愿承担团队职责，逃避责任的行为。这是我的又一宗罪。因为BAT这些公司都是技术，管理双线制，但对于没有这方面经验的创始人而言，这的确不太好理解。理解成了我没有上进心，没有创业精神，逃避职责。3）团队管理：依然是我没有摆脱旧的思维，习惯了结果导向，平时很多细节不讲究。早上很晚才到（快到中午了都），有时候困了就直接躺沙发上睡了，有几次下午三四点自己就开始阅读论文。这些东西虽然没有影响我个人的业绩，当有了前面的各种文化冲突的情况下，也逐渐演变成了懒散不敬业的印象。我觉得时间安排是我的个人自由，我也足够努力和投入（甚至没投入什么精力在家庭上，导致了又一重的悲剧），但没有意识到这是问题，是我的问题。4）向上管理：在百度我觉得我向上管理还做的不错，有一些诉求会主动的反馈表达，但在新公司却又成了悲剧。我是向上管理做的比较积极的人，新团队里面，很多时候大家工作到很晚，半夜两点也经常出现。但时间都花在了和系统环境和重复出现的工程管理问题上。比如测试环境不对，比如代码merge错了各种低级问题。大家常说大公司效率低，被各种流程困扰。而小公司没有流程，大家像没头苍蝇一样稀里糊涂的。一种是原地踏步，一种是没有方向的四处乱跑。这一点把我刺痛了，加入小团队，就是想能摆脱大公司的弊病，轻装快跑。我向各种O都反馈了这些问题，并且希望他们能重视这些问题，不要光想着自己是个产品经理，不要老把乔布斯挂嘴边（你看我多不会说话）。但这进一步加剧了冲突。5）其他还有很多，其实都是我没有意识到的文化冲突。我理解大家都有一个很积极的未来目标。但对于管理团队和做事风格上又有很多的不同之处。和“领导”意见不一样，甚至争论问题，甚至向“领导”指出问题和希望能改进，在百度我从来都不觉得是高压线，但环境不一样，我没能及时调整和改进，不断的触及高压线。最后，我还在琢磨怎么能让大家不要再犯重复错误提高效率的时候，被要求尽快离开团队，也就是说我被开了。呵呵，你看我有多后知后觉。同时，家庭方面也因为我长期把精力都投入到工作上，很少顾及，也出现了重大的危机。几乎是同一时间一前一后，我受到双重打击，整个人几乎崩溃。我一直在反省自己在哪里出了问题（把责任都推到别人身上是个简单易行的方法，但对自己的成长帮助不大）。当然这无法挽回我在这段经历上的失败。1）团队管理是个大问题，不要以为到哪里都和百度的管理风格一样，不要把开放简单的环境当作理所应当。团队管理是个需要真刀真枪的实践经验的，对于初创企业的管理团队有没有这方面的经验要放亮眼睛。不是小团队就没有管理问题，管理好一个团队真的很难，开始体量百度各种经理，特别是一线经理的难处。他们肯定也给过我很多的包容，只是我自己没感觉到罢了。2）风格作风没有对错，只有合不合适，尽量要找到和自己风格契合的团队。短时间接触很难了解个透彻，熟人比生人要风险小得多。不要光想着自己一根筋做技术做产品，不会看人不会和各种风格的人合作，这是短板，迟早得治，要不就老实待在百度这个环境里不要出来。3）不要把任何情况当作理所应当，有些东西你没有了才会知道珍惜。没有完美的地方，或者有完美的地方，但要有很好的运气才能遇到。百度有各种各样的问题，不代表他没有任何优点。同样外面有各种各样的机会诱惑，不代表就如你所愿。机会成本和风险自己要想想清楚。期望和现实的落差，会让你活的很痛苦。4）不要为了显示自己的要“做大事”，非要把事情搞的对立起来，好像不做点牺牲不能表现出自己的投入。因为要做“事业”所以不顾及“家庭”，还是自己没能处理还两者的平衡，是时间管理的问题，不要回避这个问题，想当然的认为“做大事”就得有牺牲。这种自我陶醉式的悲壮，也就能骗骗自己而已，一点也不感人。5）“期权（OPTION）”不值钱，由于中国各种的法律和外汇管理条例，拿中国护照的个人是很难进行返程投资的，也就是说除了上市以外，你基本上无法合法行权…… 这一点在我离开的时候才第一次听说，在中国和VIE架构下，除非上市等少数途径，期权和烂纸是一样的。如果你中途离开或者被迫中途离开，没有任何法律会保障你的权益，通常来说你不行权的话期权会在你离职半年后失效。所以不要把“期权”的数字当成一个非常影响你决定的因素。返程投资和如何行权这些东西是没有人会跟你讲的，自己研究研究法律，合同里面看看清楚，好的公司会考虑到行权的问题给一些变相行权激励的手段；不好的公司，就只有不能行权半年过期的期权了。这些事情要么自己考虑清楚，要么交给成熟的公司去帮你考虑（至少不会坑你）。最后，百度不是一个完美的公司，但绝对不是个差公司，我非常怀念在百度工作的日子。'),
 ('80', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<关于麦肯锡有两个故事，先说国内的。我的父上是联通的高级工程师，对麦肯锡颇有微词。长话短说，公司花了几个亿请来的美资咨询，到头来是几个稍稍有些干货的人和手下的一群清北复交出身的小屁孩。推出来的strategy极度不接地气，而其中对他们影响最大的就是麦肯锡带来的网上考评报表系统(原话)。这个系统极其的难用，培训形同虚设。想象一下，整个部门里都是大学搞通信和电气出身，都是既能做模拟电路，又能搞网络编程的理工人员，但最后没几个人能整明白这套系统，折腾得满头大汗。结果上级还是让大家接着用: 毕竟已经花了那么多钱了，最后做出来的东西不用岂不是打水漂。殊不知这已经严重影响了公司的业务效率。第二个故事。我目前就读的学校属于本地麦肯锡的target school，每年career fair后都要带走一群各个专业的尖子。说实话，这些被带走的人优秀吗？优秀。出色的GPA，丰富的经历，leadership skills不用说 (基本上都在大规模的学生组织担任领导层)，不少人还有在投行券商实习过的经历。但是他们真的能bring out什么solution嘛？我看未必。除了书本之外，他们对不少行业的了解少之又少。对，我知道Management Consulting是很战略层面的东西，可是你要做这一块的咨询，起码你得对这一块涉及到的行业和技术细节有一定了解吧？对，你可以说MBB的人都很聪明，学起来很快...wait a second，对于一个行业的理解跟你聪明与否没有任何关系。很多时候，这是只有时间才能解决的问题。靠开夜车看书读报告获得的所谓insight，跟朋友圈上读文章其实说到底也差不多。你对整个行业理解不足，你又怎么去搞定客户真正的需求？怎么去解决客户真正的痛点？相比之下，我很同意上面有一些人提到的观点：咨询一定要接地气。就比如在我比较熟悉的IT领域，IBM，Accenture，Thoughtworks等等都是拥有相当的行业积累与经验的。今天你的公司要构建一套系统，他们明天就能够给出一套完整的解决方案，并且人都自己带。相比之下，麦肯锡的那种“我告诉你接下来你要干嘛，然后我再帮你找人来implement”，实在是无法说服我。以上是鄙人的观点。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '关于麦肯锡有两个故事，先说国内的。我的父上是联通的高级工程师，对麦肯锡颇有微词。长话短说，公司花了几个亿请来的美资咨询，到头来是几个稍稍有些干货的人和手下的一群清北复交出身的小屁孩。推出来的strategy极度不接地气，而其中对他们影响最大的就是麦肯锡带来的网上考评报表系统(原话)。这个系统极其的难用，培训形同虚设。想象一下，整个部门里都是大学搞通信和电气出身，都是既能做模拟电路，又能搞网络编程的理工人员，但最后没几个人能整明白这套系统，折腾得满头大汗。结果上级还是让大家接着用: 毕竟已经花了那么多钱了，最后做出来的东西不用岂不是打水漂。殊不知这已经严重影响了公司的业务效率。第二个故事。我目前就读的学校属于本地麦肯锡的target school，每年career fair后都要带走一群各个专业的尖子。说实话，这些被带走的人优秀吗？优秀。出色的GPA，丰富的经历，leadership skills不用说 (基本上都在大规模的学生组织担任领导层)，不少人还有在投行券商实习过的经历。但是他们真的能bring out什么solution嘛？我看未必。除了书本之外，他们对不少行业的了解少之又少。对，我知道Management Consulting是很战略层面的东西，可是你要做这一块的咨询，起码你得对这一块涉及到的行业和技术细节有一定了解吧？对，你可以说MBB的人都很聪明，学起来很快...wait a second，对于一个行业的理解跟你聪明与否没有任何关系。很多时候，这是只有时间才能解决的问题。靠开夜车看书读报告获得的所谓insight，跟朋友圈上读文章其实说到底也差不多。你对整个行业理解不足，你又怎么去搞定客户真正的需求？怎么去解决客户真正的痛点？相比之下，我很同意上面有一些人提到的观点：咨询一定要接地气。就比如在我比较熟悉的IT领域，IBM，Accenture，Thoughtworks等等都是拥有相当的行业积累与经验的。今天你的公司要构建一套系统，他们明天就能够给出一套完整的解决方案，并且人都自己带。相比之下，麦肯锡的那种“我告诉你接下来你要干嘛，然后我再帮你找人来implement”，实在是无法说服我。以上是鄙人的观点。'),
 ('81', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<路过前面的答案，错误实在是太多，就写了这些，希望给大家一些了解。（前方长文警告）就说三点吧（好像透露了什么呢）1. 管理咨询到底是干什么的？这是我逢年过节被问到的最多的一个问题。（又要过年了，重温一下）其实回答这个问题之前，我们可以想一下，组织内部，谁会请顶级的咨询公司，谁有这个权利和魄力花上千万，乃至几千万，请外部咨询顾问？谁有权拍板？答案其实很容易，大型企业或者组织的C级别高管。中层是不会有这个权限的。想通了这点，后面就好说了。这些高管们的问题都有哪些？基本上就是做什么，要不要做，怎么做，你来帮我做。做什么，就是大家通常意义上的战略，企业的方向是什么，怎么发展，在哪个国家地区发展，哪个行业，等等等等。这个东西听上去挺虚，有时候很有用，有时候完全没用。这是McKinsey起家的本领，也是最为外部所知道的业务。要不要做，在某些时候，大老板有想法，但是企业内部没有形成共识，需要外部的知识、经验和看法，来确认一下，帮助大部分人统一思想。怎么做，有些时候，企业已经知道要去做什么，但是内部暂时没有能力和资源，先让咨询公司来做做看，慢慢的自己再接过来。你来帮我做，有的时候，公司内部完全没有能力，或者说，老板觉得下面的人联合起来瞒着自己，或者内部阻力很大，索性就让外部的人来做，做的好，证明自己是对的，同时也把下面的人看清楚了。还有些其他的种类，比方说，纯粹赶时髦，或者地区总部忽悠全球总部，但是大致上就这些。以前麦麸专注于战略，但是现在已经拓展的很广泛了，比方说运营业务，全球范围内已经赶上战略了。最后加一句，基本上效果好的项目，都是老板们想的很清楚，外部咨询是来干嘛的，来解决什么问题的。如果没想清楚就做，出状况的可能性会高一些，双方合作的难度也会大很多。2. 管理咨询的价值是什么？管理咨询不便宜，顶级的如MBB就更贵，麦麸那就是贵得不可思议（客户原话），那价值在哪里呢？如果项目的目标是明确可量化的，如效益提升，成本节约，还比较简单，只要回报超过投入就可以了。通常在5-10倍之间，或者更高，但很少低于。这里指的是实现的效益，墙上那张饼不算。（画外音：靠，你就吹吧，怎么可能？）其实很简单，1）项目开始前，会先看看潜力，有没有机会，我们有没有能力做，2）我们提的建议，一定是客户现在能做的，或者我们能帮客户实现的，而不是理论上最优的。方案再好，做不出来都是假的。所以说，管理咨询不是都很高大上的，有时候需要穿着工作服下车间，甚至于下矿井，上钻井平台。3）找大公司做呗，同样的改善举措，100亿的企业和1000亿的企业，体量差10倍，即使考虑到实施难度，效益怎么着也有7-8倍吧。如果项目的目标是无法量化的，或者说要在今后才能看到效果，怎么办？话说回来，没办法，出钱的老板喜欢就好。（画外音：靠，拍马屁也能赚这么多钱，鄙视）这里的喜欢，是指长期的喜欢，不是指一个项目上的喜欢。假设我们现在为了投老板的胃口，做出来不是我们认为最好的建议，总有一天客户会意识到的，那个时候信任和专业性就被破坏了，而客户的信任，是所有专业人士，包括咨询，律师，医生，会计师等等，最最重要的依赖，没有之一。因此，我们经常会做出和客户希望不一致的建议，甚至于推掉一些找上门来的项目。其实高官们是很寂寞孤单同时压力又超级大的一批人，他们在很多时候，是没法和组织内部的人来讨论的，外部咨询顾问可以在这方面给他们很好沟通渠道，提供外部的知识和看法，或者以第三方的角度来印证他们的想法。最后加一句，价值如何，只有客户知道，因为所有项目，都是严格保密的，没有双方同意，不可以和第三方透露 ，包括和咨询公司合作本身，都是需要被保密的。因此，绝大部分的项目成果，是永远不为大众所知道的。就像一位老大曾经在酒桌上说得，几乎每个月我都会在媒体上看到我做的项目的消息，但是没人知道是我们在后面支持的。你们以后也要习惯。3. 管理咨询在中国和普遍看法恰恰想法，麦麸目前在中国正在扩张，完全不是像某些人说的，日子过不下去了。方案都是根据客户的需求和实际情况订制的，完全不是什么国外的经验或者方案直接拿过来用。同时，现在顾问本土化的比例越来越高，基本上顾问和经理级别都是中国人，合伙人级别的，中国人也已经有很大一部分了。客户范围越来越广，从10多年前的外企为主，到目前的外企、民企、央企三分天下。是的，现在央企还是在用顾问。2014年的那个新闻，完全就是假消息。那时候我就在一个超级大央企里做项目，客户也很困惑，然后直接和国资委和发改委都确认了，没有这回事，继续做。以麦麸为例，在中国是很接地气的。有中国研究院，中国领导力学院，有和清华大学合作的领导力课程和模范工厂等等。中国的企业，已经意识到了，野蛮生长，躺着赚钱的日子永远的过去了。现在是练好内功活下去的阶段，所以更加需要外脑的作用。总体来说，经过了20年的市场耕耘，客户培养，团队和知识本土化，再加上市场需求和口碑，不成长才是没天理了。希望大家喜欢，如果有用，以后咱接着聊>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '路过前面的答案，错误实在是太多，就写了这些，希望给大家一些了解。（前方长文警告）就说三点吧（好像透露了什么呢）1. 管理咨询到底是干什么的？这是我逢年过节被问到的最多的一个问题。（又要过年了，重温一下）其实回答这个问题之前，我们可以想一下，组织内部，谁会请顶级的咨询公司，谁有这个权利和魄力花上千万，乃至几千万，请外部咨询顾问？谁有权拍板？答案其实很容易，大型企业或者组织的C级别高管。中层是不会有这个权限的。想通了这点，后面就好说了。这些高管们的问题都有哪些？基本上就是做什么，要不要做，怎么做，你来帮我做。做什么，就是大家通常意义上的战略，企业的方向是什么，怎么发展，在哪个国家地区发展，哪个行业，等等等等。这个东西听上去挺虚，有时候很有用，有时候完全没用。这是McKinsey起家的本领，也是最为外部所知道的业务。要不要做，在某些时候，大老板有想法，但是企业内部没有形成共识，需要外部的知识、经验和看法，来确认一下，帮助大部分人统一思想。怎么做，有些时候，企业已经知道要去做什么，但是内部暂时没有能力和资源，先让咨询公司来做做看，慢慢的自己再接过来。你来帮我做，有的时候，公司内部完全没有能力，或者说，老板觉得下面的人联合起来瞒着自己，或者内部阻力很大，索性就让外部的人来做，做的好，证明自己是对的，同时也把下面的人看清楚了。还有些其他的种类，比方说，纯粹赶时髦，或者地区总部忽悠全球总部，但是大致上就这些。以前麦麸专注于战略，但是现在已经拓展的很广泛了，比方说运营业务，全球范围内已经赶上战略了。最后加一句，基本上效果好的项目，都是老板们想的很清楚，外部咨询是来干嘛的，来解决什么问题的。如果没想清楚就做，出状况的可能性会高一些，双方合作的难度也会大很多。2. 管理咨询的价值是什么？管理咨询不便宜，顶级的如MBB就更贵，麦麸那就是贵得不可思议（客户原话），那价值在哪里呢？如果项目的目标是明确可量化的，如效益提升，成本节约，还比较简单，只要回报超过投入就可以了。通常在5-10倍之间，或者更高，但很少低于。这里指的是实现的效益，墙上那张饼不算。（画外音：靠，你就吹吧，怎么可能？）其实很简单，1）项目开始前，会先看看潜力，有没有机会，我们有没有能力做，2）我们提的建议，一定是客户现在能做的，或者我们能帮客户实现的，而不是理论上最优的。方案再好，做不出来都是假的。所以说，管理咨询不是都很高大上的，有时候需要穿着工作服下车间，甚至于下矿井，上钻井平台。3）找大公司做呗，同样的改善举措，100亿的企业和1000亿的企业，体量差10倍，即使考虑到实施难度，效益怎么着也有7-8倍吧。如果项目的目标是无法量化的，或者说要在今后才能看到效果，怎么办？话说回来，没办法，出钱的老板喜欢就好。（画外音：靠，拍马屁也能赚这么多钱，鄙视）这里的喜欢，是指长期的喜欢，不是指一个项目上的喜欢。假设我们现在为了投老板的胃口，做出来不是我们认为最好的建议，总有一天客户会意识到的，那个时候信任和专业性就被破坏了，而客户的信任，是所有专业人士，包括咨询，律师，医生，会计师等等，最最重要的依赖，没有之一。因此，我们经常会做出和客户希望不一致的建议，甚至于推掉一些找上门来的项目。其实高官们是很寂寞孤单同时压力又超级大的一批人，他们在很多时候，是没法和组织内部的人来讨论的，外部咨询顾问可以在这方面给他们很好沟通渠道，提供外部的知识和看法，或者以第三方的角度来印证他们的想法。最后加一句，价值如何，只有客户知道，因为所有项目，都是严格保密的，没有双方同意，不可以和第三方透露 ，包括和咨询公司合作本身，都是需要被保密的。因此，绝大部分的项目成果，是永远不为大众所知道的。就像一位老大曾经在酒桌上说得，几乎每个月我都会在媒体上看到我做的项目的消息，但是没人知道是我们在后面支持的。你们以后也要习惯。3. 管理咨询在中国和普遍看法恰恰想法，麦麸目前在中国正在扩张，完全不是像某些人说的，日子过不下去了。方案都是根据客户的需求和实际情况订制的，完全不是什么国外的经验或者方案直接拿过来用。同时，现在顾问本土化的比例越来越高，基本上顾问和经理级别都是中国人，合伙人级别的，中国人也已经有很大一部分了。客户范围越来越广，从10多年前的外企为主，到目前的外企、民企、央企三分天下。是的，现在央企还是在用顾问。2014年的那个新闻，完全就是假消息。那时候我就在一个超级大央企里做项目，客户也很困惑，然后直接和国资委和发改委都确认了，没有这回事，继续做。以麦麸为例，在中国是很接地气的。有中国研究院，中国领导力学院，有和清华大学合作的领导力课程和模范工厂等等。中国的企业，已经意识到了，野蛮生长，躺着赚钱的日子永远的过去了。现在是练好内功活下去的阶段，所以更加需要外脑的作用。总体来说，经过了20年的市场耕耘，客户培养，团队和知识本土化，再加上市场需求和口碑，不成长才是没天理了。希望大家喜欢，如果有用，以后咱接着聊'),
-('82', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<在麦肯锡工作的日子里，B算起来是我合作过时间最长的人。从实习到离开，看着他用光速从咨询顾问升到了副董事，除了佩服还是佩服。回想共事的日子，虽然每个项目上要解决的问题迥异，但是工作模式却差不太多。每天早上八九点到team room或者客户办公室开始工作，跟老板align一下今天的工作重点，然后就开始无比紧张的一天，通常忙到半夜12点以后，然后team一起打车回酒店，睡觉。周一到周四，日复一日，周五晚上一般能正常时间下班搭飞机回深圳，飞机不晚点的情况下，到家也是半夜。如此高强度高压力的工作环境，很容易把人性最脆弱最真实的一面反映地很纯粹：见过老板或客户走廊发飙的，不开心扔PPT的，还有直接挂电话的。合作几久大大小小的项目不少，B都能冷静分析，淡然处之，稳稳地当着team的主心骨，顶住大领导和客户的压力，这样的role model是我一直aspire想达到的境界（捂脸，我真的还差很远）。今天，我想具体谈谈以B老板为典型的麦府好领导们是如何帮助小朋友成长的，这几点也是我现在对自己带团队的要求。第一：系统化的反馈有助有逻辑地复盘反思 如果说话做事不structured（系统化），在firm会被教训得很惨。系统化的思考是面试中要求最最严格的一点。系统化，甚至都体现在给反馈feedback这件事情上面。B教给我一个反馈的架构：1. Thought leadership 2. Client leadership 3. Team leadership。首先你会发现，每一个点都落在了leadership这个点上，因为firm招人的要求和逻辑是，我招进来的每一个人都必须要有升partner的潜力，否则不招。当然升par之前，你一定也是你自己这个模块的owner，你必须是个独当一面的leader。其次，这3点很全面地总结了咨询工作的核心：1. 缜密思考后的问题解决能力；2. 高情商的客户管理和影响能力；3. 有效带领团队鼓励团队的能力。自从习得了这个模板，每日三省吾身，每次上新项目之前，也会对着这三点给自己定要求，push自己进步。当我给其他team member反馈的时候我也开始用这个structure，firm所谓的apprenticeship学徒制，就是如此手把手地传承下来。第二：及时诚实中肯的反馈有助小步迭代大步向前我发现高强度工作带来的一个结果就是，大家的注意力一般都120%地集中在处理事情上面，而不会过多地考虑人的感受。这点在我离开firm以后很不适应，周围冒出来很多玻璃心，不说批评，就连反映一下“事情没做好”的fact都很难。前辈告诉我他们有类似的感受，所以结论是：Firm才是不真实的象牙塔，玻璃心恰恰是真实的世界。及时诚实中肯甚至是严厉反馈的前提是：给反馈的人要有能力客观冷静地看待问题，同时主观上有强烈意愿帮你成长；而听反馈的人要有强烈的个人成长意愿，同时胜不骄败不馁。符合这两个条件的工作环境凤毛麟角。除了每周formal的1v1以外，每天从酒店到client site来回的路上，B和我都会互相给很多反馈，我获益很多。还记得有一次，我们跟客户亚太区的CEO开会，会上客户就一个分析结果发表了很奇怪的意见。分析是我做的，我很清楚里面的来龙去脉，所以我就举手当着二十几个CXO的面讲解我的不同观点。现场气氛都凝固了，所有人都怕我讲错，包括我自己。可是我不讲，没有人知道真相是什么，影响最后的结论。就算我是个小顾问，我也有这个责任表达我的不同意见。会一结束，B给了我一个大大的鼓励，肯定了我既没有让客户难堪又践行了firm value，处理得很好：Obligation to dissent，dissent不是一个option，是一个requirement。客户老大也夸奖B说，你们team真棒，干得太累的时候欢迎加入我们。听到这些话，觉得客户给了那么多钱还是能看到我们的价值。而因为B的这句鼓励，后面的项目里面team都会很appreciate我能offer自己的观点而不是事不关己高高挂起的态度。第三：无私的coaching和替你着想如果说顾问每天工作16小时，压力为120的话，说partner每天工作18小时，压力为200一点不为过。所以我特别特别感激那些会愿意拿出时间帮我分析问题，调节情绪，甚至是设想未来之路的领导们。这点在我创业以后感触很深，每天我要应对，分我时间的人特别多，上上下下，里里外外，一个利益不相关的人除非是很好的朋友，我才会愿意花时间去聊天，否则我要么牺牲吃饭睡觉的时间，要么选择忽略，这个很现实。虽然B也很清楚以后我不会跟着他长干，在项目上他让我做最擅长的并且不停磨炼，当我做我不擅长的事情时候他会反复帮我检查，这点我特别感动。- “你给客户打电话的时候，气息控制好，不要一口气把话说完，慢慢来”- “开了speaker的时候不要把杯子在玻璃桌上挪动，对方听到很刺耳”- “你的client hands，team management都是一流的，但是分析数据的quant skills是我在firm见过的不是最差也是中下的，不过在别的公司应该够用了”- “你应该想好：自己来这里想到得到什么，同时定义好自己的底线，如果这份工作超过你的底线就离开，否则忙忙碌碌把自己的生活完全搭进去，你会遗憾的” 。。。。。。 诸如此类，我常常想，如果不是加入firm，即便是我以前最喜欢的老板都不可能给我如此多的反馈和帮助。我把B连同后来其他老板给我的反馈，好的坏的都一一记录到了笔记里面，成为我职业道路上重要的指路灯，恰恰是这些反馈让我确定了自己擅长做什么，喜欢做什么。一个初出茅庐的小顾问就在这些mentor不停不停真诚的反馈和coaching下，不断地调整自己的方向，把优势发挥到最大，把缺点缩小，这是一份多么幸福和美妙的blessing。每每回想起这些，心里都是温暖的，过去吃过的苦也都在现在结出了好吃的果子。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '在麦肯锡工作的日子里，B算起来是我合作过时间最长的人。从实习到离开，看着他用光速从咨询顾问升到了副董事，除了佩服还是佩服。回想共事的日子，虽然每个项目上要解决的问题迥异，但是工作模式却差不太多。每天早上八九点到team room或者客户办公室开始工作，跟老板align一下今天的工作重点，然后就开始无比紧张的一天，通常忙到半夜12点以后，然后team一起打车回酒店，睡觉。周一到周四，日复一日，周五晚上一般能正常时间下班搭飞机回深圳，飞机不晚点的情况下，到家也是半夜。如此高强度高压力的工作环境，很容易把人性最脆弱最真实的一面反映地很纯粹：见过老板或客户走廊发飙的，不开心扔PPT的，还有直接挂电话的。合作几久大大小小的项目不少，B都能冷静分析，淡然处之，稳稳地当着team的主心骨，顶住大领导和客户的压力，这样的role model是我一直aspire想达到的境界（捂脸，我真的还差很远）。今天，我想具体谈谈以B老板为典型的麦府好领导们是如何帮助小朋友成长的，这几点也是我现在对自己带团队的要求。第一：系统化的反馈有助有逻辑地复盘反思 如果说话做事不structured（系统化），在firm会被教训得很惨。系统化的思考是面试中要求最最严格的一点。系统化，甚至都体现在给反馈feedback这件事情上面。B教给我一个反馈的架构：1. Thought leadership 2. Client leadership 3. Team leadership。首先你会发现，每一个点都落在了leadership这个点上，因为firm招人的要求和逻辑是，我招进来的每一个人都必须要有升partner的潜力，否则不招。当然升par之前，你一定也是你自己这个模块的owner，你必须是个独当一面的leader。其次，这3点很全面地总结了咨询工作的核心：1. 缜密思考后的问题解决能力；2. 高情商的客户管理和影响能力；3. 有效带领团队鼓励团队的能力。自从习得了这个模板，每日三省吾身，每次上新项目之前，也会对着这三点给自己定要求，push自己进步。当我给其他team member反馈的时候我也开始用这个structure，firm所谓的apprenticeship学徒制，就是如此手把手地传承下来。第二：及时诚实中肯的反馈有助小步迭代大步向前我发现高强度工作带来的一个结果就是，大家的注意力一般都120%地集中在处理事情上面，而不会过多地考虑人的感受。这点在我离开firm以后很不适应，周围冒出来很多玻璃心，不说批评，就连反映一下“事情没做好”的fact都很难。前辈告诉我他们有类似的感受，所以结论是：Firm才是不真实的象牙塔，玻璃心恰恰是真实的世界。及时诚实中肯甚至是严厉反馈的前提是：给反馈的人要有能力客观冷静地看待问题，同时主观上有强烈意愿帮你成长；而听反馈的人要有强烈的个人成长意愿，同时胜不骄败不馁。符合这两个条件的工作环境凤毛麟角。除了每周formal的1v1以外，每天从酒店到client site来回的路上，B和我都会互相给很多反馈，我获益很多。还记得有一次，我们跟客户亚太区的CEO开会，会上客户就一个分析结果发表了很奇怪的意见。分析是我做的，我很清楚里面的来龙去脉，所以我就举手当着二十几个CXO的面讲解我的不同观点。现场气氛都凝固了，所有人都怕我讲错，包括我自己。可是我不讲，没有人知道真相是什么，影响最后的结论。就算我是个小顾问，我也有这个责任表达我的不同意见。会一结束，B给了我一个大大的鼓励，肯定了我既没有让客户难堪又践行了firm value，处理得很好：Obligation to dissent，dissent不是一个option，是一个requirement。客户老大也夸奖B说，你们team真棒，干得太累的时候欢迎加入我们。听到这些话，觉得客户给了那么多钱还是能看到我们的价值。而因为B的这句鼓励，后面的项目里面team都会很appreciate我能offer自己的观点而不是事不关己高高挂起的态度。第三：无私的coaching和替你着想如果说顾问每天工作16小时，压力为120的话，说partner每天工作18小时，压力为200一点不为过。所以我特别特别感激那些会愿意拿出时间帮我分析问题，调节情绪，甚至是设想未来之路的领导们。这点在我创业以后感触很深，每天我要应对，分我时间的人特别多，上上下下，里里外外，一个利益不相关的人除非是很好的朋友，我才会愿意花时间去聊天，否则我要么牺牲吃饭睡觉的时间，要么选择忽略，这个很现实。虽然B也很清楚以后我不会跟着他长干，在项目上他让我做最擅长的并且不停磨炼，当我做我不擅长的事情时候他会反复帮我检查，这点我特别感动。- “你给客户打电话的时候，气息控制好，不要一口气把话说完，慢慢来”- “开了speaker的时候不要把杯子在玻璃桌上挪动，对方听到很刺耳”- “你的client hands，team management都是一流的，但是分析数据的quant skills是我在firm见过的不是最差也是中下的，不过在别的公司应该够用了”- “你应该想好：自己来这里想到得到什么，同时定义好自己的底线，如果这份工作超过你的底线就离开，否则忙忙碌碌把自己的生活完全搭进去，你会遗憾的” 。。。。。。 诸如此类，我常常想，如果不是加入firm，即便是我以前最喜欢的老板都不可能给我如此多的反馈和帮助。我把B连同后来其他老板给我的反馈，好的坏的都一一记录到了笔记里面，成为我职业道路上重要的指路灯，恰恰是这些反馈让我确定了自己擅长做什么，喜欢做什么。一个初出茅庐的小顾问就在这些mentor不停不停真诚的反馈和coaching下，不断地调整自己的方向，把优势发挥到最大，把缺点缩小，这是一份多么幸福和美妙的blessing。每每回想起这些，心里都是温暖的，过去吃过的苦也都在现在结出了好吃的果子。'),
+ ('82', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<在麦肯锡工作的日子里，B算起来是我合作过时间最长的人。从实习到离开，看着他用光速从咨询顾问升到了副董事，除了佩服还是佩服。回想共事的日子，虽然每个项目上要解决的问题迥异，但是工作模式却差不太多。每天早上八九点到team room或者客户办公室开始工作，跟老板align一下今天的工作重点，然后就开始无比紧张的一天，通常忙到半夜12点以后，然后team一起打车回酒店，睡觉。周一到周四，日复一日，周五晚上一般能正常时间下班搭飞机回深圳，飞机不晚点的情况下，到家也是半夜。如此高强度高压力的工作环境，很容易把人性最脆弱最真实的一面反映地很纯粹：见过老板或客户走廊发飙的，不开心扔PPT的，还有直接挂电话的。合作几久大大小小的项目不少，B都能冷静分析，淡然处之，稳稳地当着team的主心骨，顶住大领导和客户的压力，这样的role model是我一直aspire想达到的境界（捂脸，我真的还差很远）。今天，我想具体谈谈以B老板为典型的麦府好领导们是如何帮助小朋友成长的，这几点也是我现在对自己带团队的要求。第一：系统化的反馈有助有逻辑地复盘反思 如果说话做事不structured（系统化），在firm会被教训得很惨。系统化的思考是面试中要求最最严格的一点。系统化，甚至都体现在给反馈feedback这件事情上面。B教给我一个反馈的架构：1. Thought leadership 2. Client leadership 3. Team leadership。首先你会发现，每一个点都落在了leadership这个点上，因为firm招人的要求和逻辑是，我招进来的每一个人都必须要有升partner的潜力，否则不招。当然升par之前，你一定也是你自己这个模块的owner，你必须是个独当一面的leader。其次，这3点很全面地总结了咨询工作的核心：1. 缜密思考后的问题解决能力；2. 高情商的客户管理和影响能力；3. 有效带领团队鼓励团队的能力。自从习得了这个模板，每日三省吾身，每次上新项目之前，也会对着这三点给自己定要求，push自己进步。当我给其他team member反馈的时候我也开始用这个structure，firm所谓的apprenticeship学徒制，就是如此手把手地传承下来。第二：及时诚实中肯的反馈有助小步迭代大步向前我发现高强度工作带来的一个结果就是，大家的注意力一般都120%地集中在处理事情上面，而不会过多地考虑人的感受。这点在我离开firm以后很不适应，周围冒出来很多玻璃心，不说批评，就连反映一下“事情没做好”的fact都很难。前辈告诉我他们有类似的感受，所以结论是：Firm才是不真实的象牙塔，玻璃心恰恰是真实的世界。及时诚实中肯甚至是严厉反馈的前提是：给反馈的人要有能力客观冷静地看待问题，同时主观上有强烈意愿帮你成长；而听反馈的人要有强烈的个人成长意愿，同时胜不骄败不馁。符合这两个条件的工作环境凤毛麟角。除了每周formal的1v1以外，每天从酒店到client site来回的路上，B和我都会互相给很多反馈，我获益很多。还记得有一次，我们跟客户亚太区的CEO开会，会上客户就一个分析结果发表了很奇怪的意见。分析是我做的，我很清楚里面的来龙去脉，所以我就举手当着二十几个CXO的面讲解我的不同观点。现场气氛都凝固了，所有人都怕我讲错，包括我自己。可是我不讲，没有人知道真相是什么，影响最后的结论。就算我是个小顾问，我也有这个责任表达我的不同意见。会一结束，B给了我一个大大的鼓励，肯定了我既没有让客户难堪又践行了firm value，处理得很好：Obligation to dissent，dissent不是一个option，是一个requirement。客户老大也夸奖B说，你们team真棒，干得太累的时候欢迎加入我们。听到这些话，觉得客户给了那么多钱还是能看到我们的价值。而因为B的这句鼓励，后面的项目里面team都会很appreciate我能offer自己的观点而不是事不关己高高挂起的态度。第三：无私的coaching和替你着想如果说顾问每天工作16小时，压力为120的话，说partner每天工作18小时，压力为200一点不为过。所以我特别特别感激那些会愿意拿出时间帮我分析问题，调节情绪，甚至是设想未来之路的领导们。这点在我创业以后感触很深，每天我要应对，分我时间的人特别多，上上下下，里里外外，一个利益不相关的人除非是很好的朋友，我才会愿意花时间去聊天，否则我要么牺牲吃饭睡觉的时间，要么选择忽略，这个很现实。虽然B也很清楚以后我不会跟着他长干，在项目上他让我做最擅长的并且不停磨炼，当我做我不擅长的事情时候他会反复帮我检查，这点我特别感动。- “你给客户打电话的时候，气息控制好，不要一口气把话说完，慢慢来”- “开了speaker的时候不要把杯子在玻璃桌上挪动，对方听到很刺耳”- “你的client hands，team management都是一流的，但是分析数据的quant skills是我在firm见过的不是最差也是中下的，不过在别的公司应该够用了”- “你应该想好：自己来这里想到得到什么，同时定义好自己的底线，如果这份工作超过你的底线就离开，否则忙忙碌碌把自己的生活完全搭进去，你会遗憾的” 。。。。。。 诸如此类，我常常想，如果不是加入firm，即便是我以前最喜欢的老板都不可能给我如此多的反馈和帮助。我把B连同后来其他老板给我的反馈，好的坏的都一一记录到了笔记里面，成为我职业道路上重要的指路灯，恰恰是这些反馈让我确定了自己擅长做什么，喜欢做什么。一个初出茅庐的小顾问就在这些mentor不停不停真诚的反馈和coaching下，不断地调整自己的方向，把优势发挥到最大，把缺点缩小，这是一份多么幸福和美妙的blessing。每每回想起这些，心里都是温暖的，过去吃过的苦也都在现在结出了好吃的果子。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '在麦肯锡工作的日子里，B算起来是我合作过时间最长的人。从实习到离开，看着他用光速从咨询顾问升到了副董事，除了佩服还是佩服。回想共事的日子，虽然每个项目上要解决的问题迥异，但是工作模式却差不太多。每天早上八九点到team room或者客户办公室开始工作，跟老板align一下今天的工作重点，然后就开始无比紧张的一天，通常忙到半夜12点以后，然后team一起打车回酒店，睡觉。周一到周四，日复一日，周五晚上一般能正常时间下班搭飞机回深圳，飞机不晚点的情况下，到家也是半夜。如此高强度高压力的工作环境，很容易把人性最脆弱最真实的一面反映地很纯粹：见过老板或客户走廊发飙的，不开心扔PPT的，还有直接挂电话的。合作几久大大小小的项目不少，B都能冷静分析，淡然处之，稳稳地当着team的主心骨，顶住大领导和客户的压力，这样的role model是我一直aspire想达到的境界（捂脸，我真的还差很远）。今天，我想具体谈谈以B老板为典型的麦府好领导们是如何帮助小朋友成长的，这几点也是我现在对自己带团队的要求。第一：系统化的反馈有助有逻辑地复盘反思 如果说话做事不structured（系统化），在firm会被教训得很惨。系统化的思考是面试中要求最最严格的一点。系统化，甚至都体现在给反馈feedback这件事情上面。B教给我一个反馈的架构：1. Thought leadership 2. Client leadership 3. Team leadership。首先你会发现，每一个点都落在了leadership这个点上，因为firm招人的要求和逻辑是，我招进来的每一个人都必须要有升partner的潜力，否则不招。当然升par之前，你一定也是你自己这个模块的owner，你必须是个独当一面的leader。其次，这3点很全面地总结了咨询工作的核心：1. 缜密思考后的问题解决能力；2. 高情商的客户管理和影响能力；3. 有效带领团队鼓励团队的能力。自从习得了这个模板，每日三省吾身，每次上新项目之前，也会对着这三点给自己定要求，push自己进步。当我给其他team member反馈的时候我也开始用这个structure，firm所谓的apprenticeship学徒制，就是如此手把手地传承下来。第二：及时诚实中肯的反馈有助小步迭代大步向前我发现高强度工作带来的一个结果就是，大家的注意力一般都120%地集中在处理事情上面，而不会过多地考虑人的感受。这点在我离开firm以后很不适应，周围冒出来很多玻璃心，不说批评，就连反映一下“事情没做好”的fact都很难。前辈告诉我他们有类似的感受，所以结论是：Firm才是不真实的象牙塔，玻璃心恰恰是真实的世界。及时诚实中肯甚至是严厉反馈的前提是：给反馈的人要有能力客观冷静地看待问题，同时主观上有强烈意愿帮你成长；而听反馈的人要有强烈的个人成长意愿，同时胜不骄败不馁。符合这两个条件的工作环境凤毛麟角。除了每周formal的1v1以外，每天从酒店到client site来回的路上，B和我都会互相给很多反馈，我获益很多。还记得有一次，我们跟客户亚太区的CEO开会，会上客户就一个分析结果发表了很奇怪的意见。分析是我做的，我很清楚里面的来龙去脉，所以我就举手当着二十几个CXO的面讲解我的不同观点。现场气氛都凝固了，所有人都怕我讲错，包括我自己。可是我不讲，没有人知道真相是什么，影响最后的结论。就算我是个小顾问，我也有这个责任表达我的不同意见。会一结束，B给了我一个大大的鼓励，肯定了我既没有让客户难堪又践行了firm value，处理得很好：Obligation to dissent，dissent不是一个option，是一个requirement。客户老大也夸奖B说，你们team真棒，干得太累的时候欢迎加入我们。听到这些话，觉得客户给了那么多钱还是能看到我们的价值。而因为B的这句鼓励，后面的项目里面team都会很appreciate我能offer自己的观点而不是事不关己高高挂起的态度。第三：无私的coaching和替你着想如果说顾问每天工作16小时，压力为120的话，说partner每天工作18小时，压力为200一点不为过。所以我特别特别感激那些会愿意拿出时间帮我分析问题，调节情绪，甚至是设想未来之路的领导们。这点在我创业以后感触很深，每天我要应对，分我时间的人特别多，上上下下，里里外外，一个利益不相关的人除非是很好的朋友，我才会愿意花时间去聊天，否则我要么牺牲吃饭睡觉的时间，要么选择忽略，这个很现实。虽然B也很清楚以后我不会跟着他长干，在项目上他让我做最擅长的并且不停磨炼，当我做我不擅长的事情时候他会反复帮我检查，这点我特别感动。- “你给客户打电话的时候，气息控制好，不要一口气把话说完，慢慢来”- “开了speaker的时候不要把杯子在玻璃桌上挪动，对方听到很刺耳”- “你的client hands，team management都是一流的，但是分析数据的quant skills是我在firm见过的不是最差也是中下的，不过在别的公司应该够用了”- “你应该想好：自己来这里想到得到什么，同时定义好自己的底线，如果这份工作超过你的底线就离开，否则忙忙碌碌把自己的生活完全搭进去，你会遗憾的” 。。。。。。 诸如此类，我常常想，如果不是加入firm，即便是我以前最喜欢的老板都不可能给我如此多的反馈和帮助。我把B连同后来其他老板给我的反馈，好的坏的都一一记录到了笔记里面，成为我职业道路上重要的指路灯，恰恰是这些反馈让我确定了自己擅长做什么，喜欢做什么。一个初出茅庐的小顾问就在这些mentor不停不停真诚的反馈和coaching下，不断地调整自己的方向，把优势发挥到最大，把缺点缩小，这是一份多么幸福和美妙的blessing。每每回想起这些，心里都是温暖的，过去吃过的苦也都在现在结出了好吃的果子。'),
 ('83', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<有人从本土化角度分析。我也给出以下:麦肯锡这种公司实际上是黑手套的一种。实际上他们的手段就是裁员，更改组织结构。这是董事会或高层最喜欢听到的。这下有理由搞掉不喜欢的人了。现实中，裁员改组往往赶走的是干活的人，因为这些人干的累死累活的难有时间演宫斗剧。实干者们总觉得，自己是为公司创造利润的人，公司怎么会干掉自己的利润奶牛呢？而高层认为利润来源于管理，只要组织架构在，利润就有保证。你越卖力干，越证明你的Manager的管理水平高。正是这种误判实干者的命运往往很惨。被麦肯锡建议改组的公司也很惨。真正获利的高管成功达到自己的说不出口的目的，又把黑锅甩给了麦肯锡。实际上很多底层能力很强，不擅表现的员工很清楚公司的问题在哪里。但他们的声音是无力的。那些在公司多年中高层职业经理人拿着很高的工资，这些人实际上是希望公司被收购裁员的。这样可以得到一份天价的赔偿金。他们更本不在乎公司的业绩，对现状不关心到或装作看不到，因为他们清楚他们的地位来源于上级对你的看法，而不是做了多少事情，他们才是最聪明的一群。反倒是那些在底层兢兢业业的老员工不希望公司被收购。他们知道问题，甚至有解决方法，但他们更本不能发声不敢发声。所以我们经常在麦肯锡的成功案例里看到麦肯锡找到的解决方法，实际上是底层员工早就知道的，私下里告诉麦肯锡工作人员的。一家企业最重要的是人。所谓的流程制度组织管理，从根本上都是由人实施的。这也是为什么很多公司的管理ｉｔ化很难实行。管理一旦ＩＴ化，很多Manａｇｅｒ即使拿着权力也不好下药，所有审批闸门的时间节点和人都在数据库里，大家都看着呢。IT化管理是与中国人喜欢浆糊化处理问题的思维方式不兼容的。美国大公司的组织制度和中国明清朝的制度体系十分相近。效果也是一样的，这套体制越成熟就越能稳定内部，同时对外部越没有抵抗之力。历史上一旦蛮族因为两三年的风调雨顺而人口突然增加，很快就会南下摧毁一个高度文明的帝国。今天小公司偶然间掌握了一项技术占到了风口。会瞬间摧毁巨无霸公司。麦肯锡的高价咨询费 = “高管抽成”+“黑锅费” = 黑手套空降兵一年的工资 。看看高管们的工资奖金分红，你还会觉得麦肯锡收的多吗？更何况空降兵还有失控咬自己的危险。 实际上是麦肯锡公司的服务太贴心太实惠。知乎们都是从公司的结果来考虑麦肯锡的价值，而没有从有购买咨询决策权的高管角度来考虑。麦肯锡正是满足了这些公司高管心照不宣需求 ，才能做到毁公司不倦而生意源源不断。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '有人从本土化角度分析。我也给出以下:麦肯锡这种公司实际上是黑手套的一种。实际上他们的手段就是裁员，更改组织结构。这是董事会或高层最喜欢听到的。这下有理由搞掉不喜欢的人了。现实中，裁员改组往往赶走的是干活的人，因为这些人干的累死累活的难有时间演宫斗剧。实干者们总觉得，自己是为公司创造利润的人，公司怎么会干掉自己的利润奶牛呢？而高层认为利润来源于管理，只要组织架构在，利润就有保证。你越卖力干，越证明你的Manager的管理水平高。正是这种误判实干者的命运往往很惨。被麦肯锡建议改组的公司也很惨。真正获利的高管成功达到自己的说不出口的目的，又把黑锅甩给了麦肯锡。实际上很多底层能力很强，不擅表现的员工很清楚公司的问题在哪里。但他们的声音是无力的。那些在公司多年中高层职业经理人拿着很高的工资，这些人实际上是希望公司被收购裁员的。这样可以得到一份天价的赔偿金。他们更本不在乎公司的业绩，对现状不关心到或装作看不到，因为他们清楚他们的地位来源于上级对你的看法，而不是做了多少事情，他们才是最聪明的一群。反倒是那些在底层兢兢业业的老员工不希望公司被收购。他们知道问题，甚至有解决方法，但他们更本不能发声不敢发声。所以我们经常在麦肯锡的成功案例里看到麦肯锡找到的解决方法，实际上是底层员工早就知道的，私下里告诉麦肯锡工作人员的。一家企业最重要的是人。所谓的流程制度组织管理，从根本上都是由人实施的。这也是为什么很多公司的管理ｉｔ化很难实行。管理一旦ＩＴ化，很多Manａｇｅｒ即使拿着权力也不好下药，所有审批闸门的时间节点和人都在数据库里，大家都看着呢。IT化管理是与中国人喜欢浆糊化处理问题的思维方式不兼容的。美国大公司的组织制度和中国明清朝的制度体系十分相近。效果也是一样的，这套体制越成熟就越能稳定内部，同时对外部越没有抵抗之力。历史上一旦蛮族因为两三年的风调雨顺而人口突然增加，很快就会南下摧毁一个高度文明的帝国。今天小公司偶然间掌握了一项技术占到了风口。会瞬间摧毁巨无霸公司。麦肯锡的高价咨询费 = “高管抽成”+“黑锅费” = 黑手套空降兵一年的工资 。看看高管们的工资奖金分红，你还会觉得麦肯锡收的多吗？更何况空降兵还有失控咬自己的危险。 实际上是麦肯锡公司的服务太贴心太实惠。知乎们都是从公司的结果来考虑麦肯锡的价值，而没有从有购买咨询决策权的高管角度来考虑。麦肯锡正是满足了这些公司高管心照不宣需求 ，才能做到毁公司不倦而生意源源不断。'),
 ('84', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<管理咨询顾问的工作，一句话来概括：要么在项目上，要么在奔去项目的路上。工作体验在项目上，就是贴身为客户服务，满足客户的各种在商业范围内但在项目范围内外的各种需求。因为咨询一直要面临的挑战是：100多页ppt为啥价值几百万甚至过千万。卖项目的合伙人以及负责项目的经理管理客户的项目范围（俗称scope）的能力非常重要，直接决定整个项目组的生活及工作质量。在项目上时，各种工作亮点如下：终日换床换房。某些积分狂热者，每日换酒店，在两三个酒店体系之间倒腾，利用stay比night攒积分更快的小bug，迅速将各种顶级酒店的会员刷到顶级，然而攒着以后度假的时候不花钱住好酒店。终日单飞双飞多飞，各类航空公司刷等级。吃饭可以报销，预算还算慷慨，行话：charge code（简单说，这段时间你是属于客户的，所以费用也会由客户来承担）。忙的时候匆匆狗刨几口解决，不忙的时候可以攒一堆有charge code的人聚在一起而团出一个大预算，选一些不错的餐厅发泄一下。工作上就是写ppt、做model、找资料、做访谈、打cold call、陪客户聊天给客户开会等等。如果会一点奇巧淫技，会让工作效率大幅提高，直接达到一个顶n个的神奇功效，比如：找资料详见做投行、行研、咨询等金融岗位，有没有什么好用的找数据技巧呢？ - 何明科的回答，做model详见Excel 有哪些可能需要熟练掌握而很多人不会的技能？ - 何明科的回答。级别越低，这些奇巧淫技的杠杆作用越明显。级别越高，更多的时间要花在和客户沟通销售或者完成项目。在奔去项目上，就是给正在销售的项目做提议书（proposal）或者做行业研究以便发布行业报告，其实还是为公司做品牌和为卖项目做铺垫，等同于现在大家都在知乎上做高质量的回答以及发布专栏文章，以此来塑造品牌和获取流量。这时候因为没有客户，而雇佣劳力的仅仅为咨询公司自己，所以费用一般比较抠门，各种吃饭和出差等等都只有省着花。于是吃饭的时候，经常找有charge code的同事带着飞。这种时刻，只要老板不是特别过分，一般都会比较轻松，但处于一种等待被人翻牌上项目的阶段，所以叫做“奔去项目”的阶段。日后去处咨询公司招人的标准是非常苛刻的，按重要程度排序从高到低：聪明、沟通能力好、领导力强（其实这点存疑，即使做到合伙人也管不了多少人或者经历多少事儿，这条主要还是指积极主动性，所谓take initiatives）。考虑到是高价的客户服务，所以招聘的人员几乎都是来自于国内外的顶尖名校，至少拿简历或者GPA攒点重量，特别是在前几年咨询一枝独秀的年代，基本是招聘牛校当界最优秀的少数几个本科生、海龟顶尖MBA、PhD及JD等等。考虑到咨询公司万精油的性质以及大部分人很容易对这份工作产生价值的怀疑和内容的厌倦，大部分人在从业2-5年后都会选择离开，而咨询从业人员凭借绚丽的背景及学习能力，离开咨询后的去处还是非常广泛和分散的。现列举如下：MBA。大部分本科毕业加入咨询的人，都会在三年左右选择去读MBA，基本都能申请到顶级MBA Program。而且MBB三家都有资助计划，对于MBA之后回到原公司的同事给与学费及部分生活费报销，所以选择此条路径的人不少。投资。工作内容和咨询高度相关而且希望招到最优秀的人才，所以咨询转行各类天使、VC、PE及基金的人非常多。而且现在有越来越多的前咨询从业者自立门户开创自己的基金。创业。虽然有人经常讽刺咨询顾问创业是“秀才造反十年不成”，但是就博士屯一个小小公司在中国而言，已经涌现出小红书、碳元、碰碰及多点等估值超过1亿美元的数家公司，一点不比号称互联网创业黄埔军校的BAT差。如果再考虑到博士屯只有小几百人的员工规模，对比BAT任何一家都是上万人的规模，其创业靠谱程度更是秒杀BAT等互联网公司。创业公司及互联网公司。随着它们越来越有钱或者越来越提供更令人兴奋的工作，许多咨询顾问离开后加入这样的公司，所从事的岗位从经营分析到运营到产品技术，不一而足。特别是腾讯这样的大款，更是号称整队整队从博士屯挖人，安排到战略部或者各种业务部门。公司。一般是去跨国企业或者各类大国企大私企，从事的职位从中国区CEO到某一个部门的总监。学术。有些人离开后去顶尖名校做研究带博士，还获得加入中组部的青年千人计划的殊荣。自由职业者。从自媒体或艺术类，到自己做一些兼职的咨询项目，到慈善事业专业户，各种各样丰富多彩。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '管理咨询顾问的工作，一句话来概括：要么在项目上，要么在奔去项目的路上。工作体验在项目上，就是贴身为客户服务，满足客户的各种在商业范围内但在项目范围内外的各种需求。因为咨询一直要面临的挑战是：100多页ppt为啥价值几百万甚至过千万。卖项目的合伙人以及负责项目的经理管理客户的项目范围（俗称scope）的能力非常重要，直接决定整个项目组的生活及工作质量。在项目上时，各种工作亮点如下：终日换床换房。某些积分狂热者，每日换酒店，在两三个酒店体系之间倒腾，利用stay比night攒积分更快的小bug，迅速将各种顶级酒店的会员刷到顶级，然而攒着以后度假的时候不花钱住好酒店。终日单飞双飞多飞，各类航空公司刷等级。吃饭可以报销，预算还算慷慨，行话：charge code（简单说，这段时间你是属于客户的，所以费用也会由客户来承担）。忙的时候匆匆狗刨几口解决，不忙的时候可以攒一堆有charge code的人聚在一起而团出一个大预算，选一些不错的餐厅发泄一下。工作上就是写ppt、做model、找资料、做访谈、打cold call、陪客户聊天给客户开会等等。如果会一点奇巧淫技，会让工作效率大幅提高，直接达到一个顶n个的神奇功效，比如：找资料详见做投行、行研、咨询等金融岗位，有没有什么好用的找数据技巧呢？ - 何明科的回答，做model详见Excel 有哪些可能需要熟练掌握而很多人不会的技能？ - 何明科的回答。级别越低，这些奇巧淫技的杠杆作用越明显。级别越高，更多的时间要花在和客户沟通销售或者完成项目。在奔去项目上，就是给正在销售的项目做提议书（proposal）或者做行业研究以便发布行业报告，其实还是为公司做品牌和为卖项目做铺垫，等同于现在大家都在知乎上做高质量的回答以及发布专栏文章，以此来塑造品牌和获取流量。这时候因为没有客户，而雇佣劳力的仅仅为咨询公司自己，所以费用一般比较抠门，各种吃饭和出差等等都只有省着花。于是吃饭的时候，经常找有charge code的同事带着飞。这种时刻，只要老板不是特别过分，一般都会比较轻松，但处于一种等待被人翻牌上项目的阶段，所以叫做“奔去项目”的阶段。日后去处咨询公司招人的标准是非常苛刻的，按重要程度排序从高到低：聪明、沟通能力好、领导力强（其实这点存疑，即使做到合伙人也管不了多少人或者经历多少事儿，这条主要还是指积极主动性，所谓take initiatives）。考虑到是高价的客户服务，所以招聘的人员几乎都是来自于国内外的顶尖名校，至少拿简历或者GPA攒点重量，特别是在前几年咨询一枝独秀的年代，基本是招聘牛校当界最优秀的少数几个本科生、海龟顶尖MBA、PhD及JD等等。考虑到咨询公司万精油的性质以及大部分人很容易对这份工作产生价值的怀疑和内容的厌倦，大部分人在从业2-5年后都会选择离开，而咨询从业人员凭借绚丽的背景及学习能力，离开咨询后的去处还是非常广泛和分散的。现列举如下：MBA。大部分本科毕业加入咨询的人，都会在三年左右选择去读MBA，基本都能申请到顶级MBA Program。而且MBB三家都有资助计划，对于MBA之后回到原公司的同事给与学费及部分生活费报销，所以选择此条路径的人不少。投资。工作内容和咨询高度相关而且希望招到最优秀的人才，所以咨询转行各类天使、VC、PE及基金的人非常多。而且现在有越来越多的前咨询从业者自立门户开创自己的基金。创业。虽然有人经常讽刺咨询顾问创业是“秀才造反十年不成”，但是就博士屯一个小小公司在中国而言，已经涌现出小红书、碳元、碰碰及多点等估值超过1亿美元的数家公司，一点不比号称互联网创业黄埔军校的BAT差。如果再考虑到博士屯只有小几百人的员工规模，对比BAT任何一家都是上万人的规模，其创业靠谱程度更是秒杀BAT等互联网公司。创业公司及互联网公司。随着它们越来越有钱或者越来越提供更令人兴奋的工作，许多咨询顾问离开后加入这样的公司，所从事的岗位从经营分析到运营到产品技术，不一而足。特别是腾讯这样的大款，更是号称整队整队从博士屯挖人，安排到战略部或者各种业务部门。公司。一般是去跨国企业或者各类大国企大私企，从事的职位从中国区CEO到某一个部门的总监。学术。有些人离开后去顶尖名校做研究带博士，还获得加入中组部的青年千人计划的殊荣。自由职业者。从自媒体或艺术类，到自己做一些兼职的咨询项目，到慈善事业专业户，各种各样丰富多彩。'),
 ('85', '1', '{\"braftEditorRaw\":{\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"<其他几位推荐的很好。我来讲我读过，也觉得帮助巨大的两本原版书吧。The lords of Strategy: The Secret Intellectual History of the New Corporate Worldhttp://www.amazon.com/The-Lords-Strategy-Intellectual-Corporate/dp/1591397820作者 Walter Kiechel，Forbes 的前主编和 Harvard Business Review 的 Producer （不知道对应中文的什么职位）。此书作为八卦一读非常值得，我读到很多有意思的小故事，也对行业有了点了解。书里讲了包括几大咨询公司的来历，公司里的著名人物，这些公司早年是如何运作的，为什么他们会变成今天这样，几大巨头 McKinsey，BCG，Bain 是什么关系，各有什么特点，各对商业世界有什么理论贡献，等等。推荐不了解行业者翻翻。Perspectives on Strategy from The Boston Consulting Group http://www.amazon.com/Perspectives-Strategy-Boston-Consulting-Group/dp/0471248339此书堪称管理咨询界的巨著了。我读的非常头疼，但不得不承认我还没有见到过比这本更 NB 的管理咨询界的专著。读完这本你可以对商业世界从 1950 到 2000 左右的思想变化有大致的了解，同时也知道哪些人对商业思想有过深刻的影响。当然，早年的一些理论已经不适用于今天的世界，比如experienced curve，后人已经有很多新的模型发展，不再用这个原型了。但从书里你可以读出当时人们是怎么进行商业思维的创新的，而这些创新又是如何影响了全世界。这本书是一本活脱脱的二十世纪后半夜的商业思想史，比较难读，但是我觉得值得好好看看。另外鼎鼎大名的 Competitive Strategy by Michael Porter 当然是应该一读，我本人没有读完，惭愧，就不评了。最后，比书更有用的三个网站/出版物：Harvard Business Review, BCG Perspectives, McKinsey Quarterly。没空看书的话，翻翻这三个基本就够了。>\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}},\"previewText\":\"<在此填入你的文字>\",\"resourceIdList\":[]}', '其他几位推荐的很好。我来讲我读过，也觉得帮助巨大的两本原版书吧。The lords of Strategy: The Secret Intellectual History of the New Corporate Worldhttp://www.amazon.com/The-Lords-Strategy-Intellectual-Corporate/dp/1591397820作者 Walter Kiechel，Forbes 的前主编和 Harvard Business Review 的 Producer （不知道对应中文的什么职位）。此书作为八卦一读非常值得，我读到很多有意思的小故事，也对行业有了点了解。书里讲了包括几大咨询公司的来历，公司里的著名人物，这些公司早年是如何运作的，为什么他们会变成今天这样，几大巨头 McKinsey，BCG，Bain 是什么关系，各有什么特点，各对商业世界有什么理论贡献，等等。推荐不了解行业者翻翻。Perspectives on Strategy from The Boston Consulting Group http://www.amazon.com/Perspectives-Strategy-Boston-Consulting-Group/dp/0471248339此书堪称管理咨询界的巨著了。我读的非常头疼，但不得不承认我还没有见到过比这本更 NB 的管理咨询界的专著。读完这本你可以对商业世界从 1950 到 2000 左右的思想变化有大致的了解，同时也知道哪些人对商业思想有过深刻的影响。当然，早年的一些理论已经不适用于今天的世界，比如experienced curve，后人已经有很多新的模型发展，不再用这个原型了。但从书里你可以读出当时人们是怎么进行商业思维的创新的，而这些创新又是如何影响了全世界。这本书是一本活脱脱的二十世纪后半夜的商业思想史，比较难读，但是我觉得值得好好看看。另外鼎鼎大名的 Competitive Strategy by Michael Porter 当然是应该一读，我本人没有读完，惭愧，就不评了。最后，比书更有用的三个网站/出版物：Harvard Business Review, BCG Perspectives, McKinsey Quarterly。没空看书的话，翻翻这三个基本就够了。'),
@@ -2670,633 +2679,633 @@ INSERT INTO `youthchina`.`COM_RICH_TEXT` (`TEXT_ID`, `COMPILE_TYPE`, `JSON_CONTE
 ############################################字典表###########################################################
 TRUNCATE TABLE `youthchina`.`SYS_MAJOR`;
 INSERT INTO `youthchina`.`SYS_MAJOR` (`MAJOR_NUM`, `MAJOR_LEVEL`, `MAJOR_CODE`, `MAJOR_ABBRE`, `MAJOR_CHN`, `MAJOR_ENG`, `START_DATE`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
-('1', '1', '1', '哲学', '哲学', 'philosophy', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('2', '2', '101', '哲学类', '哲学类', 'philosophy', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('3', '3', '10101', '哲学', '哲学', 'philosophy', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('4', '3', '10102', '逻辑学', '逻辑学', 'logic', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('5', '3', '10103K', '宗教学', '宗教学', 'religion', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('6', '3', '10104T', '伦理学', '伦理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('7', '1', '2', '经济学', '经济学', 'economics', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('8', '2', '201', '经济学类', '经济学类', 'economics', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('9', '3', '20101', '经济学', '经济学', 'economics', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('10', '3', '20102', '经济统计学', '经济统计学', 'economics statistics', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('11', '3', '20103T', '国民经济管理', '国民经济管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('12', '3', '20104T', '资源与环境经济学', '资源与环境经济学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('13', '3', '20105T', '商务经济学', '商务经济学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('14', '3', '20106T', '能源经济', '能源经济', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('15', '2', '202', '财政学类', '财政学类', 'finance', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('16', '3', '20201K', '财政学', '财政学', 'finance', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('17', '3', '20202', '税收学', '税收学', 'taxation', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('18', '2', '203', '金融学类', '金融学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('19', '3', '20301K', '金融学', '金融学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('20', '3', '20302', '金融工程', '金融工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('21', '3', '20303', '保险学', '保险学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('22', '3', '20304', '投资学', '投资学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('23', '3', '20305T', '金融数学', '金融数学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('24', '3', '20306T', '信用管理', '信用管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('25', '3', '20307T', '经济与金融', '经济与金融', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('26', '2', '204', '经济与贸易类', '经济与贸易类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('27', '3', '20401', '国际经济与贸易', '国际经济与贸易', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('28', '3', '20402', '贸易经济', '贸易经济', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('29', '1', '3', '法学', '法学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30', '2', '301', '法学类', '法学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('31', '3', '30101K', '法学', '法学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('32', '3', '30102T', '知识产权', '知识产权', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('33', '3', '30103T', '监狱学', '监狱学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('34', '2', '302', '政治学类', '政治学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('35', '3', '30201', '政治学与行政学', '政治学与行政学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('36', '3', '30202', '国际政治', '国际政治', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('37', '3', '30203', '外交学', '外交学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('38', '3', '30204T', '国际事务与国际关系', '国际事务与国际关系', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('39', '3', '30205T', '政治学、经济学与哲学', '政治学、经济学与哲学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('40', '2', '303', '社会学类', '社会学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('41', '3', '30301', '社会学', '社会学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('42', '3', '30302', '社会工作', '社会工作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('43', '3', '30303T', '人类学', '人类学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('44', '3', '30304T', '女性学', '女性学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('45', '3', '30305T', '家政学', '家政学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('46', '2', '304', '民族学类', '民族学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('47', '3', '30401', '民族学', '民族学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('48', '2', '305', '马克思主义理论类', '马克思主义理论类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('49', '3', '30501', '科学社会主义', '科学社会主义', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('50', '3', '30502', '中国共产党历史', '中国共产党历史', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('51', '3', '30503', '思想政治教育', '思想政治教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('52', '2', '306', '公安学类', '公安学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('53', '3', '30601K', '治安学', '治安学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('54', '3', '30602K', '侦查学', '侦查学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('55', '3', '30603K', '边防管理', '边防管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('56', '3', '30604TK', '禁毒学', '禁毒学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('57', '3', '30605TK', '警犬技术', '警犬技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('58', '3', '30606TK', '经济犯罪侦查', '经济犯罪侦查', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('59', '3', '30607TK', '边防指挥', '边防指挥', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('60', '3', '30608TK', '消防指挥', '消防指挥', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('61', '3', '30609TK', '警卫学', '警卫学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('62', '3', '30610TK', '公安情报学', '公安情报学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('63', '3', '30611TK', '犯罪学', '犯罪学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('64', '3', '30612TK', '公安管理学', '公安管理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('65', '3', '30613TK', '涉外警务', '涉外警务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('66', '3', '30614TK', '国内安全保卫', '国内安全保卫', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('67', '3', '30615TK', '警务指挥与战术', '警务指挥与战术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('68', '1', '4', '教育学', '教育学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('69', '2', '401', '教育学类', '教育学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('70', '3', '40101', '教育学', '教育学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('71', '3', '40102', '科学教育', '科学教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('72', '3', '40103', '人文教育', '人文教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('73', '3', '40104', '教育技术学', '教育技术学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('74', '3', '40105', '艺术教育', '艺术教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('75', '3', '40106', '学前教育', '学前教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('76', '3', '40107', '小学教育', '小学教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('77', '3', '40108', '特殊教育', '特殊教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('78', '3', '40109T', '华文教育', '华文教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('79', '2', '402', '体育学类', '体育学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('80', '3', '40201', '体育教育', '体育教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('81', '3', '40202K', '运动训练', '运动训练', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('82', '3', '40203', '社会体育指导与管理', '社会体育指导与管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('83', '3', '40204K', '武术与民族传统体育', '武术与民族传统体育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('84', '3', '40205', '运动人体科学', '运动人体科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('85', '3', '40206T', '运动康复', '运动康复', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('86', '3', '40207T', '休闲体育', '休闲体育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('87', '1', '5', '文学', '文学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('88', '2', '501', '中国语言文学类', '中国语言文学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('89', '3', '50101', '汉语言文学', '汉语言文学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('90', '3', '50102', '汉语言', '汉语言', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('91', '3', '50103', '汉语国际教育', '汉语国际教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('92', '3', '50104', '中国少数民族语言文学', '中国少数民族语言文学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('93', '3', '50105', '古典文献学', '古典文献学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('94', '3', '50106T', '应用语言学', '应用语言学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('95', '3', '50107T', '秘书学', '秘书学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('96', '2', '502', '外国语言文学类', '外国语言文学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('97', '3', '50201', '英语', '英语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('98', '3', '50202', '俄语', '俄语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('99', '3', '50203', '德语', '德语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('100', '3', '50204', '法语', '法语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('101', '3', '50205', '西班牙语', '西班牙语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('102', '3', '50206', '阿拉伯语', '阿拉伯语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('103', '3', '50207', '日语', '日语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('104', '3', '50208', '波斯语', '波斯语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('105', '3', '50209', '朝鲜语', '朝鲜语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('106', '3', '50210', '菲律宾语', '菲律宾语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('107', '3', '50211', '梵语巴利语', '梵语巴利语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('108', '3', '50212', '印度尼西亚语', '印度尼西亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('109', '3', '50213', '印地语', '印地语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('110', '3', '50214', '柬埔寨语', '柬埔寨语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('111', '3', '50215', '老挝语', '老挝语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('112', '3', '50216', '缅甸语', '缅甸语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('113', '3', '50217', '马来语', '马来语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('114', '3', '50218', '蒙古语', '蒙古语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('115', '3', '50219', '僧伽罗语', '僧伽罗语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('116', '3', '50220', '泰语', '泰语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('117', '3', '50221', '乌尔都语', '乌尔都语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('118', '3', '50222', '希伯来语', '希伯来语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('119', '3', '50223', '越南语', '越南语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('120', '3', '50224', '豪萨语', '豪萨语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('121', '3', '50225', '斯瓦希里语', '斯瓦希里语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('122', '3', '50226', '阿尔巴尼亚语', '阿尔巴尼亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('123', '3', '50227', '保加利亚语', '保加利亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('124', '3', '50228', '波兰语', '波兰语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('125', '3', '50229', '捷克语', '捷克语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('126', '3', '50230', '斯洛伐克语', '斯洛伐克语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('127', '3', '50231', '罗马尼亚语', '罗马尼亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('128', '3', '50232', '葡萄牙语', '葡萄牙语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('129', '3', '50233', '瑞典语', '瑞典语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('130', '3', '50234', '塞尔维亚语', '塞尔维亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('131', '3', '50235', '土耳其语', '土耳其语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('132', '3', '50236', '希腊语', '希腊语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('133', '3', '50237', '匈牙利语', '匈牙利语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('134', '3', '50238', '意大利语', '意大利语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('135', '3', '50239', '泰米尔语', '泰米尔语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('136', '3', '50240', '普什图语', '普什图语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('137', '3', '50241', '世界语', '世界语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('138', '3', '50242', '孟加拉语', '孟加拉语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('139', '3', '50243', '尼泊尔语', '尼泊尔语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('140', '3', '50244', '克罗地亚语', '克罗地亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('141', '3', '50245', '荷兰语', '荷兰语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('142', '3', '50246', '芬兰语', '芬兰语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('143', '3', '50247', '乌克兰语', '乌克兰语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('144', '3', '50248', '挪威语', '挪威语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('145', '3', '50249', '丹麦语', '丹麦语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('146', '3', '50250', '冰岛语', '冰岛语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('147', '3', '50251', '爱尔兰语', '爱尔兰语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('148', '3', '50252', '拉脱维亚语', '拉脱维亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('149', '3', '50253', '立陶宛语', '立陶宛语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('150', '3', '50254', '斯洛文尼亚语', '斯洛文尼亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('151', '3', '50255', '爱沙尼亚语', '爱沙尼亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('152', '3', '50256', '马耳他语', '马耳他语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('153', '3', '50257', '哈萨克语', '哈萨克语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('154', '3', '50258', '乌兹别克语', '乌兹别克语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('155', '3', '50259', '祖鲁语', '祖鲁语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('156', '3', '50260', '拉丁语', '拉丁语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('157', '3', '50261', '翻译', '翻译', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('158', '3', '50262', '商务英语', '商务英语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('159', '2', '503', '新闻传播学类', '新闻传播学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('160', '3', '50301', '新闻学', '新闻学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('161', '3', '50302', '广播电视学', '广播电视学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('162', '3', '50303', '广告学', '广告学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('163', '3', '50304', '传播学', '传播学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('164', '3', '50305', '编辑出版学', '编辑出版学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('165', '3', '50306T', '网络与新媒体', '网络与新媒体', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('166', '3', '50307T', '数字出版', '数字出版', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('167', '1', '6', '历史学', '历史学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('168', '2', '601', '历史学类', '历史学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('169', '3', '60101', '历史学', '历史学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('170', '3', '60102', '世界史', '世界史', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('171', '3', '60103', '考古学', '考古学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('172', '3', '60104', '文物与博物馆学', '文物与博物馆学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('173', '3', '60105T', '文物保护技术', '文物保护技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('174', '3', '60106T', '外国语言与外国历史', '外国语言与外国历史', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('175', '1', '7', '理学', '理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('176', '2', '701', '数学类', '数学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('177', '3', '70101', '数学与应用数学', '数学与应用数学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('178', '3', '70102', '信息与计算科学', '信息与计算科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('179', '3', '70103T', '数理基础科学', '数理基础科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('180', '2', '702', '物理学类', '物理学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('181', '3', '70201', '物理学', '物理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('182', '3', '70202', '应用物理学', '应用物理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('183', '3', '70203', '核物理', '核物理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('184', '3', '70204T', '声学', '声学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('185', '2', '703', '化学类', '化学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('186', '3', '70301', '化学', '化学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('187', '3', '70302', '应用化学', '应用化学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('188', '3', '70303T', '化学生物学', '化学生物学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('189', '3', '70304T', '分子科学与工程', '分子科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('190', '2', '704', '天文学类', '天文学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('191', '3', '70401', '天文学', '天文学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('192', '2', '705', '地理科学类', '地理科学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('193', '3', '70501', '地理科学', '地理科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('194', '3', '70502', '自然地理与资源环境', '自然地理与资源环境', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('195', '3', '70503', '人文地理与城乡规划', '人文地理与城乡规划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('196', '3', '70504', '地理信息科学', '地理信息科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('197', '2', '706', '大气科学类', '大气科学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('198', '3', '70601', '大气科学', '大气科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('199', '3', '70602', '应用气象学', '应用气象学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('200', '2', '707', '海洋科学类', '海洋科学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('201', '3', '70701', '海洋科学', '海洋科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('202', '3', '70702', '海洋技术', '海洋技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('203', '3', '70703T', '海洋资源与环境', '海洋资源与环境', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('204', '3', '70704T', '军事海洋学', '军事海洋学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('205', '2', '708', '地球物理学类', '地球物理学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('206', '3', '70801', '地球物理学', '地球物理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('207', '3', '70802', '空间科学与技术', '空间科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('208', '2', '709', '地质学类', '地质学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('209', '3', '70901', '地质学', '地质学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('210', '3', '70902', '地球化学', '地球化学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('211', '3', '70903T', '地球信息科学与技术', '地球信息科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('212', '3', '70904T', '古生物学', '古生物学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('213', '2', '710', '生物科学类', '生物科学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('214', '3', '71001', '生物科学', '生物科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('215', '3', '71002', '生物技术', '生物技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('216', '3', '71003', '生物信息学', '生物信息学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('217', '3', '71004', '生态学', '生态学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('218', '2', '711', '心理学类', '心理学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('219', '3', '71101', '心理学', '心理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('220', '3', '71102', '应用心理学', '应用心理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('221', '2', '712', '统计学类', '统计学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('222', '3', '71201', '统计学', '统计学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('223', '3', '71202', '应用统计学', '应用统计学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('224', '1', '8', '工学', '工学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('225', '2', '801', '力学类', '力学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('226', '3', '80101', '理论与应用力学', '理论与应用力学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('227', '3', '80102', '工程力学', '工程力学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('228', '2', '802', '机械类', '机械类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('229', '3', '80201', '机械工程', '机械工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('230', '3', '80202', '机械设计制造及其自动化', '机械设计制造及其自动化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('231', '3', '80203', '材料成型及控制工程', '材料成型及控制工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('232', '3', '80204', '机械电子工程', '机械电子工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('233', '3', '80205', '工业设计', '工业设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('234', '3', '80206', '过程装备与控制工程', '过程装备与控制工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('235', '3', '80207', '车辆工程', '车辆工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('236', '3', '80208', '汽车服务工程', '汽车服务工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('237', '3', '80209T', '机械工艺技术', '机械工艺技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('238', '3', '80210T', '微机电系统工程', '微机电系统工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('239', '3', '80211T', '机电技术教育', '机电技术教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('240', '3', '80212T', '汽车维修工程教育', '汽车维修工程教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('241', '2', '803', '仪器类', '仪器类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('242', '3', '80301', '测控技术与仪器', '测控技术与仪器', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('243', '2', '804', '材料类', '材料类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('244', '3', '80401', '材料科学与工程', '材料科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('245', '3', '80402', '材料物理', '材料物理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('246', '3', '80403', '材料化学', '材料化学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('247', '3', '80404', '冶金工程', '冶金工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('248', '3', '80405', '金属材料工程', '金属材料工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('249', '3', '80406', '无机非金属材料工程', '无机非金属材料工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('250', '3', '80407', '高分子材料与工程', '高分子材料与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('251', '3', '80408', '复合材料与工程', '复合材料与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('252', '3', '80409T', '粉体材料科学与工程', '粉体材料科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('253', '3', '80410T', '宝石及材料工艺学', '宝石及材料工艺学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('254', '3', '80411T', '焊接技术与工程', '焊接技术与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('255', '3', '80412T', '功能材料', '功能材料', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('256', '3', '80413T', '纳米材料与技术', '纳米材料与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('257', '3', '80414T', '新能源材料与器件', '新能源材料与器件', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('258', '2', '805', '能源动力类', '能源动力类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('259', '3', '80501', '能源与动力工程', '能源与动力工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('260', '3', '80502T', '能源与环境系统工程', '能源与环境系统工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('261', '3', '80503T', '新能源科学与工程', '新能源科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('262', '2', '806', '电气类', '电气类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('263', '3', '80601', '电气工程及其自动化', '电气工程及其自动化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('264', '3', '80602T', '智能电网信息工程', '智能电网信息工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('265', '3', '80603T', '光源与照明', '光源与照明', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('266', '3', '80604T', '电气工程与智能控制', '电气工程与智能控制', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('267', '2', '807', '电子信息类', '电子信息类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('268', '3', '80701', '电子信息工程', '电子信息工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('269', '3', '80702', '电子科学与技术', '电子科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('270', '3', '80703', '通信工程', '通信工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('271', '3', '80704', '微电子科学与工程', '微电子科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('272', '3', '80705', '光电信息科学与工程', '光电信息科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('273', '3', '80706', '信息工程', '信息工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('274', '3', '80707T', '广播电视工程', '广播电视工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('275', '3', '80708T', '水声工程', '水声工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('276', '3', '80709T', '电子封装技术', '电子封装技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('277', '3', '80710T', '集成电路设计与集成系统', '集成电路设计与集成系统', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('278', '3', '80711T', '医学信息工程', '医学信息工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('279', '3', '80712T', '电磁场与无线技术', '电磁场与无线技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('280', '3', '80713T', '电波传播与天线', '电波传播与天线', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('281', '3', '80714T', '电子信息科学与技术', '电子信息科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('282', '3', '80715T', '电信工程及管理', '电信工程及管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('283', '3', '80716T', '应用电子技术教育', '应用电子技术教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('284', '2', '808', '自动化类', '自动化类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('285', '3', '80801', '自动化', '自动化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('286', '3', '80802T', '轨道交通信号与控制', '轨道交通信号与控制', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('287', '2', '809', '计算机类', '计算机类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('288', '3', '80901', '计算机科学与技术', '计算机科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('289', '3', '80902', '软件工程', '软件工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('290', '3', '80903', '网络工程', '网络工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('291', '3', '80904K', '信息安全', '信息安全', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('292', '3', '80905', '物联网工程', '物联网工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('293', '3', '80906', '数字媒体技术', '数字媒体技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('294', '3', '80907T', '智能科学与技术', '智能科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('295', '3', '80908T', '空间信息与数字技术', '空间信息与数字技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('296', '3', '80909T', '电子与计算机工程', '电子与计算机工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('297', '2', '810', '土木类', '土木类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('298', '3', '81001', '土木工程', '土木工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('299', '3', '81002', '建筑环境与能源应用工程', '建筑环境与能源应用工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('300', '3', '81003', '给排水科学与工程', '给排水科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('301', '3', '81004', '建筑电气与智能化', '建筑电气与智能化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('302', '3', '81005T', '城市地下空间工程', '城市地下空间工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('303', '3', '81006T', '道路桥梁与渡河工程', '道路桥梁与渡河工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('304', '2', '811', '水利类', '水利类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('305', '3', '81101', '水利水电工程', '水利水电工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('306', '3', '81102', '水文与水资源工程', '水文与水资源工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('307', '3', '81103', '港口航道与海岸工程', '港口航道与海岸工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('308', '3', '81104T', '水务工程', '水务工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('309', '2', '812', '测绘类', '测绘类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('310', '3', '81201', '测绘工程', '测绘工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('311', '3', '81202', '遥感科学与技术', '遥感科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('312', '3', '81203T', '导航工程', '导航工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('313', '3', '81204T', '地理国情监测', '地理国情监测', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('314', '2', '813', '化工与制药类', '化工与制药类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('315', '3', '81301', '化学工程与工艺', '化学工程与工艺', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('316', '3', '81302', '制药工程', '制药工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('317', '3', '81303T', '资源循环科学与工程', '资源循环科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('318', '3', '81304T', '能源化学工程', '能源化学工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('319', '3', '81305T', '化学工程与工业生物工程', '化学工程与工业生物工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('320', '2', '814', '地质类', '地质类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('321', '3', '81401', '地质工程', '地质工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('322', '3', '81402', '勘查技术与工程', '勘查技术与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('323', '3', '81403', '资源勘查工程', '资源勘查工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('324', '3', '81404T', '地下水科学与工程', '地下水科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('325', '2', '815', '矿业类', '矿业类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('326', '3', '81501', '采矿工程', '采矿工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('327', '3', '81502', '石油工程', '石油工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('328', '3', '81503', '矿物加工工程', '矿物加工工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('329', '3', '81504', '油气储运工程', '油气储运工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('330', '3', '81505T', '矿物资源工程', '矿物资源工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('331', '3', '81506T', '海洋油气工程', '海洋油气工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('332', '2', '816', '纺织类', '纺织类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('333', '3', '81601', '纺织工程', '纺织工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('334', '3', '81602', '服装设计与工程', '服装设计与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('335', '3', '81603T', '非织造材料与工程', '非织造材料与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('336', '3', '81604T', '服装设计与工艺教育', '服装设计与工艺教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('337', '2', '817', '轻工类', '轻工类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('338', '3', '81701', '轻化工程', '轻化工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('339', '3', '81702', '包装工程', '包装工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('340', '3', '81703', '印刷工程', '印刷工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('341', '2', '818', '交通运输类', '交通运输类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('342', '3', '81801', '交通运输', '交通运输', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('343', '3', '81802', '交通工程', '交通工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('344', '3', '81803K', '航海技术', '航海技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('345', '3', '81804K', '轮机工程', '轮机工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('346', '3', '81805K', '飞行技术', '飞行技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('347', '3', '81806T', '交通设备与控制工程', '交通设备与控制工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('348', '3', '81807T', '救助与打捞工程', '救助与打捞工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('349', '3', '81808TK', '船舶电子电气工程', '船舶电子电气工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('350', '2', '819', '海洋工程类', '海洋工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('351', '3', '81901', '船舶与海洋工程', '船舶与海洋工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('352', '3', '81902T', '海洋工程与技术', '海洋工程与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('353', '3', '81903T', '海洋资源开发技术', '海洋资源开发技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('354', '2', '820', '航空航天类', '航空航天类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('355', '3', '82001', '航空航天工程', '航空航天工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('356', '3', '82002', '飞行器设计与工程', '飞行器设计与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('357', '3', '82003', '飞行器制造工程', '飞行器制造工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('358', '3', '82004', '飞行器动力工程', '飞行器动力工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('359', '3', '82005', '飞行器环境与生命保障工程', '飞行器环境与生命保障工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('360', '3', '82006T', '飞行器质量与可靠性', '飞行器质量与可靠性', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('361', '3', '82007T', '飞行器适航技术', '飞行器适航技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('362', '2', '821', '兵器类', '兵器类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('363', '3', '82101', '武器系统与工程', '武器系统与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('364', '3', '82102', '武器发射工程', '武器发射工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('365', '3', '82103', '探测制导与控制技术', '探测制导与控制技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('366', '3', '82104', '弹药工程与爆炸技术', '弹药工程与爆炸技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('367', '3', '82105', '特种能源技术与工程', '特种能源技术与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('368', '3', '82106', '装甲车辆工程', '装甲车辆工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('369', '3', '82107', '信息对抗技术', '信息对抗技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('370', '2', '822', '核工程类', '核工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('371', '3', '82201', '核工程与核技术', '核工程与核技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('372', '3', '82202', '辐射防护与核安全', '辐射防护与核安全', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('373', '3', '82203', '工程物理', '工程物理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('374', '3', '82204', '核化工与核燃料工程', '核化工与核燃料工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('375', '2', '823', '农业工程类', '农业工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('376', '3', '82301', '农业工程', '农业工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('377', '3', '82302', '农业机械化及其自动化', '农业机械化及其自动化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('378', '3', '82303', '农业电气化', '农业电气化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('379', '3', '82304', '农业建筑环境与能源工程', '农业建筑环境与能源工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('380', '3', '82305', '农业水利工程', '农业水利工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('381', '2', '824', '林业工程类', '林业工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('382', '3', '82401', '森林工程', '森林工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('383', '3', '82402', '木材科学与工程', '木材科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('384', '3', '82403', '林产化工', '林产化工', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('385', '2', '825', '环境科学与工程类', '环境科学与工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('386', '3', '82501', '环境科学与工程', '环境科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('387', '3', '82502', '环境工程', '环境工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('388', '3', '82503', '环境科学', '环境科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('389', '3', '82504', '环境生态工程', '环境生态工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('390', '3', '82505T', '环保设备工程', '环保设备工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('391', '3', '82506T', '资源环境科学', '资源环境科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('392', '3', '82507T', '水质科学与技术', '水质科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('393', '2', '826', '生物医学工程类', '生物医学工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('394', '3', '82601', '生物医学工程', '生物医学工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('395', '3', '82602T', '假肢矫形工程', '假肢矫形工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('396', '2', '827', '食品科学与工程类', '食品科学与工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('397', '3', '82701', '食品科学与工程', '食品科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('398', '3', '82702', '食品质量与安全', '食品质量与安全', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('399', '3', '82703', '粮食工程', '粮食工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('400', '3', '82704', '乳品工程', '乳品工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('401', '3', '82705', '酿酒工程', '酿酒工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('402', '3', '82706T', '葡萄与葡萄酒工程', '葡萄与葡萄酒工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('403', '3', '82707T', '食品营养与检验教育', '食品营养与检验教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('404', '3', '82708T', '烹饪与营养教育', '烹饪与营养教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('405', '2', '828', '建筑类', '建筑类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('406', '3', '82801', '建筑学', '建筑学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('407', '3', '82802', '城乡规划', '城乡规划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('408', '3', '82803', '风景园林', '风景园林', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('409', '3', '82804T', '历史建筑保护工程', '历史建筑保护工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('410', '2', '829', '安全科学与工程类', '安全科学与工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('411', '3', '82901', '安全工程', '安全工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('412', '2', '830', '生物工程类', '生物工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('413', '3', '83001', '生物工程', '生物工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('414', '3', '83002T', '生物制药', '生物制药', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('415', '2', '831', '公安技术类', '公安技术类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('416', '3', '83101K', '刑事科学技术', '刑事科学技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('417', '3', '83102K', '消防工程', '消防工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('418', '3', '83103TK', '交通管理工程', '交通管理工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('419', '3', '83104TK', '安全防范工程', '安全防范工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('420', '3', '83105TK', '公安视听技术', '公安视听技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('421', '3', '83106TK', '抢险救援指挥与技术', '抢险救援指挥与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('422', '3', '83107TK', '火灾勘查', '火灾勘查', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('423', '3', '83108TK', '网络安全与执法', '网络安全与执法', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('424', '3', '83109TK', '核生化消防', '核生化消防', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('425', '1', '9', '农学', '农学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('426', '2', '901', '植物生产类', '植物生产类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('427', '3', '90101', '农学', '农学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('428', '3', '90102', '园艺', '园艺', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('429', '3', '90103', '植物保护', '植物保护', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('430', '3', '90104', '植物科学与技术', '植物科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('431', '3', '90105', '种子科学与工程', '种子科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('432', '3', '90106', '设施农业科学与工程', '设施农业科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('433', '3', '90107T', '茶学', '茶学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('434', '3', '90108T', '烟草', '烟草', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('435', '3', '90109T', '应用生物科学', '应用生物科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('436', '3', '90110T', '农艺教育', '农艺教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('437', '3', '90111T', '园艺教育', '园艺教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('438', '2', '902', '自然保护与环境生态类', '自然保护与环境生态类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('439', '3', '90201', '农业资源与环境', '农业资源与环境', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('440', '3', '90202', '野生动物与自然保护区管理', '野生动物与自然保护区管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('441', '3', '90203', '水土保持与荒漠化防治', '水土保持与荒漠化防治', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('442', '2', '903', '动物生产类', '动物生产类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('443', '3', '90301', '动物科学', '动物科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('444', '3', '90302T', '蚕学', '蚕学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('445', '3', '90303T', '蜂学', '蜂学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('446', '2', '904', '动物医学类', '动物医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('447', '3', '90401', '动物医学', '动物医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('448', '3', '90402', '动物药学', '动物药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('449', '3', '90403T', '动植物检疫', '动植物检疫', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('450', '2', '905', '林学类', '林学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('451', '3', '90501', '林学', '林学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('452', '3', '90502', '园林', '园林', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('453', '3', '90503', '森林保护', '森林保护', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('454', '2', '906', '水产类', '水产类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('455', '3', '90601', '水产养殖学', '水产养殖学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('456', '3', '90602', '海洋渔业科学与技术', '海洋渔业科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('457', '3', '90603T', '水族科学与技术', '水族科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('458', '2', '907', '草学类', '草学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('459', '3', '90701', '草业科学', '草业科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('460', '1', '10', '医学', '医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('461', '2', '1001', '基础医学类', '基础医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('462', '3', '100101K', '基础医学', '基础医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('463', '2', '1002', '临床医学类', '临床医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('464', '3', '100201K', '临床医学', '临床医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('465', '3', '100202TK', '麻醉学', '麻醉学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('466', '3', '100203TK', '医学影像学', '医学影像学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('467', '3', '100204TK', '眼视光医学', '眼视光医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('468', '3', '100205TK', '精神医学', '精神医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('469', '3', '100206TK', '放射医学', '放射医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('470', '2', '1003', '口腔医学类', '口腔医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('471', '3', '100301K', '口腔医学', '口腔医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('472', '2', '1004', '公共卫生与预防医学类', '公共卫生与预防医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('473', '3', '100401K', '预防医学', '预防医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('474', '3', '100402', '食品卫生与营养学', '食品卫生与营养学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('475', '3', '100403TK', '妇幼保健医学', '妇幼保健医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('476', '3', '100404TK', '卫生监督', '卫生监督', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('477', '3', '100405TK', '全球健康学', '全球健康学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('478', '2', '1005', '中医学类', '中医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('479', '3', '100501K', '中医学', '中医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('480', '3', '100502K', '针灸推拿学', '针灸推拿学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('481', '3', '100503K', '藏医学', '藏医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('482', '3', '100504K', '蒙医学', '蒙医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('483', '3', '100505K', '维医学', '维医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('484', '3', '100506K', '壮医学', '壮医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('485', '3', '100507K', '哈医学', '哈医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('486', '2', '1006', '中西医结合类', '中西医结合类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('487', '3', '100601K', '中西医临床医学', '中西医临床医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('488', '2', '1007', '药学类', '药学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('489', '3', '100701', '药学', '药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('490', '3', '100702', '药物制剂', '药物制剂', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('491', '3', '100703TK', '临床药学', '临床药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('492', '3', '100704T', '药事管理', '药事管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('493', '3', '100705T', '药物分析', '药物分析', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('494', '3', '100706T', '药物化学', '药物化学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('495', '3', '100707T', '海洋药学', '海洋药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('496', '2', '1008', '中药学类', '中药学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('497', '3', '100801', '中药学', '中药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('498', '3', '100802', '中药资源与开发', '中药资源与开发', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('499', '3', '100803T', '藏药学', '藏药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('500', '3', '100804T', '蒙药学', '蒙药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('501', '3', '100805T', '中药制药', '中药制药', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('502', '3', '100806T', '中草药栽培与鉴定', '中草药栽培与鉴定', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('503', '2', '1009', '法医学类', '法医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('504', '3', '100901K', '法医学', '法医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('505', '2', '1010', '医学技术类', '医学技术类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('506', '3', '101001', '医学检验技术', '医学检验技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('507', '3', '101002', '医学实验技术', '医学实验技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('508', '3', '101003', '医学影像技术', '医学影像技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('509', '3', '101004', '眼视光学', '眼视光学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('510', '3', '101005', '康复治疗学', '康复治疗学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('511', '3', '101006', '口腔医学技术', '口腔医学技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('512', '3', '101007', '卫生检验与检疫', '卫生检验与检疫', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('513', '3', '101008T', '听力与言语康复学', '听力与言语康复学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('514', '2', '1011', '护理学类', '护理学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('515', '3', '101101', '护理学', '护理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('516', '1', '12', '管理学', '管理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('517', '2', '1201', '管理科学与工程类', '管理科学与工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('518', '3', '120101', '管理科学', '管理科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('519', '3', '120102', '信息管理与信息系统', '信息管理与信息系统', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('520', '3', '120103', '工程管理', '工程管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('521', '3', '120104', '房地产开发与管理', '房地产开发与管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('522', '3', '120105', '工程造价', '工程造价', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('523', '3', '120106TK', '保密管理', '保密管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('524', '2', '1202', '工商管理类', '工商管理类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('525', '3', '120201K', '工商管理', '工商管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('526', '3', '120202', '市场营销', '市场营销', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('527', '3', '120203K', '会计学', '会计学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('528', '3', '120204', '财务管理', '财务管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('529', '3', '120205', '国际商务', '国际商务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('530', '3', '120206', '人力资源管理', '人力资源管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('531', '3', '120207', '审计学', '审计学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('532', '3', '120208', '资产评估', '资产评估', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('533', '3', '120209', '物业管理', '物业管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('534', '3', '120210', '文化产业管理', '文化产业管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('535', '3', '120211T', '劳动关系', '劳动关系', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('536', '3', '120212T', '体育经济与管理', '体育经济与管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('537', '3', '120213T', '财务会计教育', '财务会计教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('538', '3', '120214T', '市场营销教育', '市场营销教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('539', '2', '1203', '农业经济管理类', '农业经济管理类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('540', '3', '120301', '农林经济管理', '农林经济管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('541', '3', '120302', '农村区域发展', '农村区域发展', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('542', '2', '1204', '公共管理类', '公共管理类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('543', '3', '120401', '公共事业管理', '公共事业管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('544', '3', '120402', '行政管理', '行政管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('545', '3', '120403', '劳动与社会保障', '劳动与社会保障', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('546', '3', '120404', '土地资源管理', '土地资源管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('547', '3', '120405', '城市管理', '城市管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('548', '3', '120406TK', '海关管理', '海关管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('549', '3', '120407T', '交通管理', '交通管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('550', '3', '120408T', '海事管理', '海事管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('551', '3', '120409T', '公共关系学', '公共关系学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('552', '2', '1205', '图书情报与档案管理类', '图书情报与档案管理类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('553', '3', '120501', '图书馆学', '图书馆学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('554', '3', '120502', '档案学', '档案学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('555', '3', '120503', '信息资源管理', '信息资源管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('556', '2', '1206', '物流管理与工程类', '物流管理与工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('557', '3', '120601', '物流管理', '物流管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('558', '3', '120602', '物流工程', '物流工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('559', '3', '120603T', '采购管理', '采购管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('560', '2', '1207', '工业工程类', '工业工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('561', '3', '120701', '工业工程', '工业工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('562', '3', '120702T', '标准化工程', '标准化工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('563', '3', '120703T', '质量管理工程', '质量管理工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('564', '2', '1208', '电子商务类', '电子商务类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('565', '3', '120801', '电子商务', '电子商务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('566', '3', '120802T', '电子商务及法律', '电子商务及法律', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('567', '2', '1209', '旅游管理类', '旅游管理类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('568', '3', '120901K', '旅游管理', '旅游管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('569', '3', '120902', '酒店管理', '酒店管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('570', '3', '120903', '会展经济与管理', '会展经济与管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('571', '3', '120904T', '旅游管理与服务教育', '旅游管理与服务教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('572', '1', '13', '艺术类', '艺术类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('573', '2', '1301', '艺术学理论类', '艺术学理论类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('574', '3', '130101', '艺术史论', '艺术史论', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('575', '2', '1302', '音乐与舞蹈学类', '音乐与舞蹈学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('576', '3', '130201', '音乐表演', '音乐表演', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('577', '3', '130202', '音乐学', '音乐学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('578', '3', '130203', '作曲与作曲技术理论', '作曲与作曲技术理论', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('579', '3', '130204', '舞蹈表演', '舞蹈表演', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('580', '3', '130205', '舞蹈学', '舞蹈学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('581', '3', '130206', '舞蹈编导', '舞蹈编导', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('582', '2', '1303', '戏剧与影视学类', '戏剧与影视学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('583', '3', '130301', '表演', '表演', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('584', '3', '130302', '戏剧学', '戏剧学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('585', '3', '130303', '电影学', '电影学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('586', '3', '130304', '戏剧影视文学', '戏剧影视文学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('587', '3', '130305', '广播电视编导', '广播电视编导', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('588', '3', '130306', '戏剧影视导演', '戏剧影视导演', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('589', '3', '130307', '戏剧影视美术设计', '戏剧影视美术设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('590', '3', '130308', '录音艺术', '录音艺术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('591', '3', '130309', '播音与主持艺术', '播音与主持艺术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('592', '3', '130310', '动画', '动画', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('593', '3', '130311T', '影视摄影与制作', '影视摄影与制作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('594', '2', '1304', '美术学类', '美术学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('595', '3', '130401', '美术学', '美术学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('596', '3', '130402', '绘画', '绘画', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('597', '3', '130403', '雕塑', '雕塑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('598', '3', '130404', '摄影', '摄影', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('599', '3', '130405T', '书法学', '书法学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('600', '3', '130406T', '中国画', '中国画', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('601', '2', '1305', '设计学类', '设计学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('602', '3', '130501', '艺术设计学', '艺术设计学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('603', '3', '130502', '视觉传达设计', '视觉传达设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('604', '3', '130503', '环境设计', '环境设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('605', '3', '130504', '产品设计', '产品设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('606', '3', '130505', '服装与服饰设计', '服装与服饰设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('607', '3', '130506', '公共艺术', '公共艺术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('608', '3', '130507', '工艺美术', '工艺美术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('609', '3', '130508', '数字媒体艺术', '数字媒体艺术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('610', '3', '130509T', '艺术与科技', '艺术与科技', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('99997', '1', '999', '其他专业', '其他专业', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('99998', '2', '9999', '其他专业', '其他专业', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('99999', '3', '99999', '其他专业', '其他专业', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+ ('1', '1', '1', '哲学', '哲学', 'philosophy', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('2', '2', '101', '哲学类', '哲学类', 'philosophy', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('3', '3', '10101', '哲学', '哲学', 'philosophy', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('4', '3', '10102', '逻辑学', '逻辑学', 'logic', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('5', '3', '10103K', '宗教学', '宗教学', 'religion', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('6', '3', '10104T', '伦理学', '伦理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('7', '1', '2', '经济学', '经济学', 'economics', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('8', '2', '201', '经济学类', '经济学类', 'economics', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('9', '3', '20101', '经济学', '经济学', 'economics', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('10', '3', '20102', '经济统计学', '经济统计学', 'economics statistics', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('11', '3', '20103T', '国民经济管理', '国民经济管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('12', '3', '20104T', '资源与环境经济学', '资源与环境经济学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('13', '3', '20105T', '商务经济学', '商务经济学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('14', '3', '20106T', '能源经济', '能源经济', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('15', '2', '202', '财政学类', '财政学类', 'finance', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('16', '3', '20201K', '财政学', '财政学', 'finance', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('17', '3', '20202', '税收学', '税收学', 'taxation', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('18', '2', '203', '金融学类', '金融学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('19', '3', '20301K', '金融学', '金融学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('20', '3', '20302', '金融工程', '金融工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('21', '3', '20303', '保险学', '保险学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('22', '3', '20304', '投资学', '投资学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('23', '3', '20305T', '金融数学', '金融数学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('24', '3', '20306T', '信用管理', '信用管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('25', '3', '20307T', '经济与金融', '经济与金融', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('26', '2', '204', '经济与贸易类', '经济与贸易类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('27', '3', '20401', '国际经济与贸易', '国际经济与贸易', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('28', '3', '20402', '贸易经济', '贸易经济', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('29', '1', '3', '法学', '法学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('30', '2', '301', '法学类', '法学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('31', '3', '30101K', '法学', '法学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('32', '3', '30102T', '知识产权', '知识产权', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('33', '3', '30103T', '监狱学', '监狱学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('34', '2', '302', '政治学类', '政治学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('35', '3', '30201', '政治学与行政学', '政治学与行政学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('36', '3', '30202', '国际政治', '国际政治', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('37', '3', '30203', '外交学', '外交学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('38', '3', '30204T', '国际事务与国际关系', '国际事务与国际关系', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('39', '3', '30205T', '政治学、经济学与哲学', '政治学、经济学与哲学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('40', '2', '303', '社会学类', '社会学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('41', '3', '30301', '社会学', '社会学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('42', '3', '30302', '社会工作', '社会工作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('43', '3', '30303T', '人类学', '人类学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('44', '3', '30304T', '女性学', '女性学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('45', '3', '30305T', '家政学', '家政学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('46', '2', '304', '民族学类', '民族学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('47', '3', '30401', '民族学', '民族学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('48', '2', '305', '马克思主义理论类', '马克思主义理论类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('49', '3', '30501', '科学社会主义', '科学社会主义', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('50', '3', '30502', '中国共产党历史', '中国共产党历史', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('51', '3', '30503', '思想政治教育', '思想政治教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('52', '2', '306', '公安学类', '公安学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('53', '3', '30601K', '治安学', '治安学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('54', '3', '30602K', '侦查学', '侦查学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('55', '3', '30603K', '边防管理', '边防管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('56', '3', '30604TK', '禁毒学', '禁毒学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('57', '3', '30605TK', '警犬技术', '警犬技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('58', '3', '30606TK', '经济犯罪侦查', '经济犯罪侦查', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('59', '3', '30607TK', '边防指挥', '边防指挥', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('60', '3', '30608TK', '消防指挥', '消防指挥', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('61', '3', '30609TK', '警卫学', '警卫学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('62', '3', '30610TK', '公安情报学', '公安情报学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('63', '3', '30611TK', '犯罪学', '犯罪学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('64', '3', '30612TK', '公安管理学', '公安管理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('65', '3', '30613TK', '涉外警务', '涉外警务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('66', '3', '30614TK', '国内安全保卫', '国内安全保卫', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('67', '3', '30615TK', '警务指挥与战术', '警务指挥与战术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('68', '1', '4', '教育学', '教育学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('69', '2', '401', '教育学类', '教育学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('70', '3', '40101', '教育学', '教育学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('71', '3', '40102', '科学教育', '科学教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('72', '3', '40103', '人文教育', '人文教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('73', '3', '40104', '教育技术学', '教育技术学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('74', '3', '40105', '艺术教育', '艺术教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('75', '3', '40106', '学前教育', '学前教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('76', '3', '40107', '小学教育', '小学教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('77', '3', '40108', '特殊教育', '特殊教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('78', '3', '40109T', '华文教育', '华文教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('79', '2', '402', '体育学类', '体育学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('80', '3', '40201', '体育教育', '体育教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('81', '3', '40202K', '运动训练', '运动训练', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('82', '3', '40203', '社会体育指导与管理', '社会体育指导与管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('83', '3', '40204K', '武术与民族传统体育', '武术与民族传统体育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('84', '3', '40205', '运动人体科学', '运动人体科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('85', '3', '40206T', '运动康复', '运动康复', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('86', '3', '40207T', '休闲体育', '休闲体育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('87', '1', '5', '文学', '文学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('88', '2', '501', '中国语言文学类', '中国语言文学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('89', '3', '50101', '汉语言文学', '汉语言文学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('90', '3', '50102', '汉语言', '汉语言', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('91', '3', '50103', '汉语国际教育', '汉语国际教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('92', '3', '50104', '中国少数民族语言文学', '中国少数民族语言文学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('93', '3', '50105', '古典文献学', '古典文献学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('94', '3', '50106T', '应用语言学', '应用语言学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('95', '3', '50107T', '秘书学', '秘书学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('96', '2', '502', '外国语言文学类', '外国语言文学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('97', '3', '50201', '英语', '英语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('98', '3', '50202', '俄语', '俄语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('99', '3', '50203', '德语', '德语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('100', '3', '50204', '法语', '法语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('101', '3', '50205', '西班牙语', '西班牙语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('102', '3', '50206', '阿拉伯语', '阿拉伯语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('103', '3', '50207', '日语', '日语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('104', '3', '50208', '波斯语', '波斯语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('105', '3', '50209', '朝鲜语', '朝鲜语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('106', '3', '50210', '菲律宾语', '菲律宾语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('107', '3', '50211', '梵语巴利语', '梵语巴利语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('108', '3', '50212', '印度尼西亚语', '印度尼西亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('109', '3', '50213', '印地语', '印地语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('110', '3', '50214', '柬埔寨语', '柬埔寨语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('111', '3', '50215', '老挝语', '老挝语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('112', '3', '50216', '缅甸语', '缅甸语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('113', '3', '50217', '马来语', '马来语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('114', '3', '50218', '蒙古语', '蒙古语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('115', '3', '50219', '僧伽罗语', '僧伽罗语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('116', '3', '50220', '泰语', '泰语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('117', '3', '50221', '乌尔都语', '乌尔都语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('118', '3', '50222', '希伯来语', '希伯来语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('119', '3', '50223', '越南语', '越南语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('120', '3', '50224', '豪萨语', '豪萨语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('121', '3', '50225', '斯瓦希里语', '斯瓦希里语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('122', '3', '50226', '阿尔巴尼亚语', '阿尔巴尼亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('123', '3', '50227', '保加利亚语', '保加利亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('124', '3', '50228', '波兰语', '波兰语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('125', '3', '50229', '捷克语', '捷克语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('126', '3', '50230', '斯洛伐克语', '斯洛伐克语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('127', '3', '50231', '罗马尼亚语', '罗马尼亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('128', '3', '50232', '葡萄牙语', '葡萄牙语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('129', '3', '50233', '瑞典语', '瑞典语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('130', '3', '50234', '塞尔维亚语', '塞尔维亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('131', '3', '50235', '土耳其语', '土耳其语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('132', '3', '50236', '希腊语', '希腊语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('133', '3', '50237', '匈牙利语', '匈牙利语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('134', '3', '50238', '意大利语', '意大利语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('135', '3', '50239', '泰米尔语', '泰米尔语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('136', '3', '50240', '普什图语', '普什图语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('137', '3', '50241', '世界语', '世界语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('138', '3', '50242', '孟加拉语', '孟加拉语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('139', '3', '50243', '尼泊尔语', '尼泊尔语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('140', '3', '50244', '克罗地亚语', '克罗地亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('141', '3', '50245', '荷兰语', '荷兰语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('142', '3', '50246', '芬兰语', '芬兰语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('143', '3', '50247', '乌克兰语', '乌克兰语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('144', '3', '50248', '挪威语', '挪威语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('145', '3', '50249', '丹麦语', '丹麦语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('146', '3', '50250', '冰岛语', '冰岛语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('147', '3', '50251', '爱尔兰语', '爱尔兰语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('148', '3', '50252', '拉脱维亚语', '拉脱维亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('149', '3', '50253', '立陶宛语', '立陶宛语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('150', '3', '50254', '斯洛文尼亚语', '斯洛文尼亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('151', '3', '50255', '爱沙尼亚语', '爱沙尼亚语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('152', '3', '50256', '马耳他语', '马耳他语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('153', '3', '50257', '哈萨克语', '哈萨克语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('154', '3', '50258', '乌兹别克语', '乌兹别克语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('155', '3', '50259', '祖鲁语', '祖鲁语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('156', '3', '50260', '拉丁语', '拉丁语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('157', '3', '50261', '翻译', '翻译', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('158', '3', '50262', '商务英语', '商务英语', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('159', '2', '503', '新闻传播学类', '新闻传播学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('160', '3', '50301', '新闻学', '新闻学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('161', '3', '50302', '广播电视学', '广播电视学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('162', '3', '50303', '广告学', '广告学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('163', '3', '50304', '传播学', '传播学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('164', '3', '50305', '编辑出版学', '编辑出版学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('165', '3', '50306T', '网络与新媒体', '网络与新媒体', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('166', '3', '50307T', '数字出版', '数字出版', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('167', '1', '6', '历史学', '历史学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('168', '2', '601', '历史学类', '历史学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('169', '3', '60101', '历史学', '历史学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('170', '3', '60102', '世界史', '世界史', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('171', '3', '60103', '考古学', '考古学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('172', '3', '60104', '文物与博物馆学', '文物与博物馆学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('173', '3', '60105T', '文物保护技术', '文物保护技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('174', '3', '60106T', '外国语言与外国历史', '外国语言与外国历史', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('175', '1', '7', '理学', '理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('176', '2', '701', '数学类', '数学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('177', '3', '70101', '数学与应用数学', '数学与应用数学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('178', '3', '70102', '信息与计算科学', '信息与计算科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('179', '3', '70103T', '数理基础科学', '数理基础科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('180', '2', '702', '物理学类', '物理学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('181', '3', '70201', '物理学', '物理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('182', '3', '70202', '应用物理学', '应用物理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('183', '3', '70203', '核物理', '核物理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('184', '3', '70204T', '声学', '声学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('185', '2', '703', '化学类', '化学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('186', '3', '70301', '化学', '化学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('187', '3', '70302', '应用化学', '应用化学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('188', '3', '70303T', '化学生物学', '化学生物学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('189', '3', '70304T', '分子科学与工程', '分子科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('190', '2', '704', '天文学类', '天文学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('191', '3', '70401', '天文学', '天文学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('192', '2', '705', '地理科学类', '地理科学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('193', '3', '70501', '地理科学', '地理科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('194', '3', '70502', '自然地理与资源环境', '自然地理与资源环境', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('195', '3', '70503', '人文地理与城乡规划', '人文地理与城乡规划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('196', '3', '70504', '地理信息科学', '地理信息科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('197', '2', '706', '大气科学类', '大气科学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('198', '3', '70601', '大气科学', '大气科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('199', '3', '70602', '应用气象学', '应用气象学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('200', '2', '707', '海洋科学类', '海洋科学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('201', '3', '70701', '海洋科学', '海洋科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('202', '3', '70702', '海洋技术', '海洋技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('203', '3', '70703T', '海洋资源与环境', '海洋资源与环境', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('204', '3', '70704T', '军事海洋学', '军事海洋学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('205', '2', '708', '地球物理学类', '地球物理学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('206', '3', '70801', '地球物理学', '地球物理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('207', '3', '70802', '空间科学与技术', '空间科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('208', '2', '709', '地质学类', '地质学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('209', '3', '70901', '地质学', '地质学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('210', '3', '70902', '地球化学', '地球化学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('211', '3', '70903T', '地球信息科学与技术', '地球信息科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('212', '3', '70904T', '古生物学', '古生物学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('213', '2', '710', '生物科学类', '生物科学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('214', '3', '71001', '生物科学', '生物科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('215', '3', '71002', '生物技术', '生物技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('216', '3', '71003', '生物信息学', '生物信息学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('217', '3', '71004', '生态学', '生态学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('218', '2', '711', '心理学类', '心理学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('219', '3', '71101', '心理学', '心理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('220', '3', '71102', '应用心理学', '应用心理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('221', '2', '712', '统计学类', '统计学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('222', '3', '71201', '统计学', '统计学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('223', '3', '71202', '应用统计学', '应用统计学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('224', '1', '8', '工学', '工学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('225', '2', '801', '力学类', '力学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('226', '3', '80101', '理论与应用力学', '理论与应用力学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('227', '3', '80102', '工程力学', '工程力学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('228', '2', '802', '机械类', '机械类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('229', '3', '80201', '机械工程', '机械工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('230', '3', '80202', '机械设计制造及其自动化', '机械设计制造及其自动化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('231', '3', '80203', '材料成型及控制工程', '材料成型及控制工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('232', '3', '80204', '机械电子工程', '机械电子工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('233', '3', '80205', '工业设计', '工业设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('234', '3', '80206', '过程装备与控制工程', '过程装备与控制工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('235', '3', '80207', '车辆工程', '车辆工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('236', '3', '80208', '汽车服务工程', '汽车服务工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('237', '3', '80209T', '机械工艺技术', '机械工艺技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('238', '3', '80210T', '微机电系统工程', '微机电系统工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('239', '3', '80211T', '机电技术教育', '机电技术教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('240', '3', '80212T', '汽车维修工程教育', '汽车维修工程教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('241', '2', '803', '仪器类', '仪器类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('242', '3', '80301', '测控技术与仪器', '测控技术与仪器', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('243', '2', '804', '材料类', '材料类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('244', '3', '80401', '材料科学与工程', '材料科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('245', '3', '80402', '材料物理', '材料物理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('246', '3', '80403', '材料化学', '材料化学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('247', '3', '80404', '冶金工程', '冶金工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('248', '3', '80405', '金属材料工程', '金属材料工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('249', '3', '80406', '无机非金属材料工程', '无机非金属材料工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('250', '3', '80407', '高分子材料与工程', '高分子材料与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('251', '3', '80408', '复合材料与工程', '复合材料与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('252', '3', '80409T', '粉体材料科学与工程', '粉体材料科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('253', '3', '80410T', '宝石及材料工艺学', '宝石及材料工艺学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('254', '3', '80411T', '焊接技术与工程', '焊接技术与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('255', '3', '80412T', '功能材料', '功能材料', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('256', '3', '80413T', '纳米材料与技术', '纳米材料与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('257', '3', '80414T', '新能源材料与器件', '新能源材料与器件', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('258', '2', '805', '能源动力类', '能源动力类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('259', '3', '80501', '能源与动力工程', '能源与动力工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('260', '3', '80502T', '能源与环境系统工程', '能源与环境系统工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('261', '3', '80503T', '新能源科学与工程', '新能源科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('262', '2', '806', '电气类', '电气类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('263', '3', '80601', '电气工程及其自动化', '电气工程及其自动化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('264', '3', '80602T', '智能电网信息工程', '智能电网信息工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('265', '3', '80603T', '光源与照明', '光源与照明', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('266', '3', '80604T', '电气工程与智能控制', '电气工程与智能控制', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('267', '2', '807', '电子信息类', '电子信息类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('268', '3', '80701', '电子信息工程', '电子信息工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('269', '3', '80702', '电子科学与技术', '电子科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('270', '3', '80703', '通信工程', '通信工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('271', '3', '80704', '微电子科学与工程', '微电子科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('272', '3', '80705', '光电信息科学与工程', '光电信息科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('273', '3', '80706', '信息工程', '信息工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('274', '3', '80707T', '广播电视工程', '广播电视工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('275', '3', '80708T', '水声工程', '水声工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('276', '3', '80709T', '电子封装技术', '电子封装技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('277', '3', '80710T', '集成电路设计与集成系统', '集成电路设计与集成系统', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('278', '3', '80711T', '医学信息工程', '医学信息工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('279', '3', '80712T', '电磁场与无线技术', '电磁场与无线技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('280', '3', '80713T', '电波传播与天线', '电波传播与天线', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('281', '3', '80714T', '电子信息科学与技术', '电子信息科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('282', '3', '80715T', '电信工程及管理', '电信工程及管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('283', '3', '80716T', '应用电子技术教育', '应用电子技术教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('284', '2', '808', '自动化类', '自动化类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('285', '3', '80801', '自动化', '自动化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('286', '3', '80802T', '轨道交通信号与控制', '轨道交通信号与控制', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('287', '2', '809', '计算机类', '计算机类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('288', '3', '80901', '计算机科学与技术', '计算机科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('289', '3', '80902', '软件工程', '软件工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('290', '3', '80903', '网络工程', '网络工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('291', '3', '80904K', '信息安全', '信息安全', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('292', '3', '80905', '物联网工程', '物联网工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('293', '3', '80906', '数字媒体技术', '数字媒体技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('294', '3', '80907T', '智能科学与技术', '智能科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('295', '3', '80908T', '空间信息与数字技术', '空间信息与数字技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('296', '3', '80909T', '电子与计算机工程', '电子与计算机工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('297', '2', '810', '土木类', '土木类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('298', '3', '81001', '土木工程', '土木工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('299', '3', '81002', '建筑环境与能源应用工程', '建筑环境与能源应用工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('300', '3', '81003', '给排水科学与工程', '给排水科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('301', '3', '81004', '建筑电气与智能化', '建筑电气与智能化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('302', '3', '81005T', '城市地下空间工程', '城市地下空间工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('303', '3', '81006T', '道路桥梁与渡河工程', '道路桥梁与渡河工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('304', '2', '811', '水利类', '水利类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('305', '3', '81101', '水利水电工程', '水利水电工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('306', '3', '81102', '水文与水资源工程', '水文与水资源工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('307', '3', '81103', '港口航道与海岸工程', '港口航道与海岸工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('308', '3', '81104T', '水务工程', '水务工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('309', '2', '812', '测绘类', '测绘类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('310', '3', '81201', '测绘工程', '测绘工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('311', '3', '81202', '遥感科学与技术', '遥感科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('312', '3', '81203T', '导航工程', '导航工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('313', '3', '81204T', '地理国情监测', '地理国情监测', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('314', '2', '813', '化工与制药类', '化工与制药类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('315', '3', '81301', '化学工程与工艺', '化学工程与工艺', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('316', '3', '81302', '制药工程', '制药工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('317', '3', '81303T', '资源循环科学与工程', '资源循环科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('318', '3', '81304T', '能源化学工程', '能源化学工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('319', '3', '81305T', '化学工程与工业生物工程', '化学工程与工业生物工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('320', '2', '814', '地质类', '地质类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('321', '3', '81401', '地质工程', '地质工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('322', '3', '81402', '勘查技术与工程', '勘查技术与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('323', '3', '81403', '资源勘查工程', '资源勘查工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('324', '3', '81404T', '地下水科学与工程', '地下水科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('325', '2', '815', '矿业类', '矿业类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('326', '3', '81501', '采矿工程', '采矿工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('327', '3', '81502', '石油工程', '石油工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('328', '3', '81503', '矿物加工工程', '矿物加工工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('329', '3', '81504', '油气储运工程', '油气储运工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('330', '3', '81505T', '矿物资源工程', '矿物资源工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('331', '3', '81506T', '海洋油气工程', '海洋油气工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('332', '2', '816', '纺织类', '纺织类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('333', '3', '81601', '纺织工程', '纺织工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('334', '3', '81602', '服装设计与工程', '服装设计与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('335', '3', '81603T', '非织造材料与工程', '非织造材料与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('336', '3', '81604T', '服装设计与工艺教育', '服装设计与工艺教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('337', '2', '817', '轻工类', '轻工类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('338', '3', '81701', '轻化工程', '轻化工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('339', '3', '81702', '包装工程', '包装工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('340', '3', '81703', '印刷工程', '印刷工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('341', '2', '818', '交通运输类', '交通运输类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('342', '3', '81801', '交通运输', '交通运输', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('343', '3', '81802', '交通工程', '交通工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('344', '3', '81803K', '航海技术', '航海技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('345', '3', '81804K', '轮机工程', '轮机工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('346', '3', '81805K', '飞行技术', '飞行技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('347', '3', '81806T', '交通设备与控制工程', '交通设备与控制工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('348', '3', '81807T', '救助与打捞工程', '救助与打捞工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('349', '3', '81808TK', '船舶电子电气工程', '船舶电子电气工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('350', '2', '819', '海洋工程类', '海洋工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('351', '3', '81901', '船舶与海洋工程', '船舶与海洋工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('352', '3', '81902T', '海洋工程与技术', '海洋工程与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('353', '3', '81903T', '海洋资源开发技术', '海洋资源开发技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('354', '2', '820', '航空航天类', '航空航天类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('355', '3', '82001', '航空航天工程', '航空航天工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('356', '3', '82002', '飞行器设计与工程', '飞行器设计与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('357', '3', '82003', '飞行器制造工程', '飞行器制造工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('358', '3', '82004', '飞行器动力工程', '飞行器动力工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('359', '3', '82005', '飞行器环境与生命保障工程', '飞行器环境与生命保障工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('360', '3', '82006T', '飞行器质量与可靠性', '飞行器质量与可靠性', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('361', '3', '82007T', '飞行器适航技术', '飞行器适航技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('362', '2', '821', '兵器类', '兵器类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('363', '3', '82101', '武器系统与工程', '武器系统与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('364', '3', '82102', '武器发射工程', '武器发射工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('365', '3', '82103', '探测制导与控制技术', '探测制导与控制技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('366', '3', '82104', '弹药工程与爆炸技术', '弹药工程与爆炸技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('367', '3', '82105', '特种能源技术与工程', '特种能源技术与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('368', '3', '82106', '装甲车辆工程', '装甲车辆工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('369', '3', '82107', '信息对抗技术', '信息对抗技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('370', '2', '822', '核工程类', '核工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('371', '3', '82201', '核工程与核技术', '核工程与核技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('372', '3', '82202', '辐射防护与核安全', '辐射防护与核安全', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('373', '3', '82203', '工程物理', '工程物理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('374', '3', '82204', '核化工与核燃料工程', '核化工与核燃料工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('375', '2', '823', '农业工程类', '农业工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('376', '3', '82301', '农业工程', '农业工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('377', '3', '82302', '农业机械化及其自动化', '农业机械化及其自动化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('378', '3', '82303', '农业电气化', '农业电气化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('379', '3', '82304', '农业建筑环境与能源工程', '农业建筑环境与能源工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('380', '3', '82305', '农业水利工程', '农业水利工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('381', '2', '824', '林业工程类', '林业工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('382', '3', '82401', '森林工程', '森林工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('383', '3', '82402', '木材科学与工程', '木材科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('384', '3', '82403', '林产化工', '林产化工', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('385', '2', '825', '环境科学与工程类', '环境科学与工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('386', '3', '82501', '环境科学与工程', '环境科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('387', '3', '82502', '环境工程', '环境工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('388', '3', '82503', '环境科学', '环境科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('389', '3', '82504', '环境生态工程', '环境生态工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('390', '3', '82505T', '环保设备工程', '环保设备工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('391', '3', '82506T', '资源环境科学', '资源环境科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('392', '3', '82507T', '水质科学与技术', '水质科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('393', '2', '826', '生物医学工程类', '生物医学工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('394', '3', '82601', '生物医学工程', '生物医学工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('395', '3', '82602T', '假肢矫形工程', '假肢矫形工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('396', '2', '827', '食品科学与工程类', '食品科学与工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('397', '3', '82701', '食品科学与工程', '食品科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('398', '3', '82702', '食品质量与安全', '食品质量与安全', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('399', '3', '82703', '粮食工程', '粮食工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('400', '3', '82704', '乳品工程', '乳品工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('401', '3', '82705', '酿酒工程', '酿酒工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('402', '3', '82706T', '葡萄与葡萄酒工程', '葡萄与葡萄酒工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('403', '3', '82707T', '食品营养与检验教育', '食品营养与检验教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('404', '3', '82708T', '烹饪与营养教育', '烹饪与营养教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('405', '2', '828', '建筑类', '建筑类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('406', '3', '82801', '建筑学', '建筑学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('407', '3', '82802', '城乡规划', '城乡规划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('408', '3', '82803', '风景园林', '风景园林', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('409', '3', '82804T', '历史建筑保护工程', '历史建筑保护工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('410', '2', '829', '安全科学与工程类', '安全科学与工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('411', '3', '82901', '安全工程', '安全工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('412', '2', '830', '生物工程类', '生物工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('413', '3', '83001', '生物工程', '生物工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('414', '3', '83002T', '生物制药', '生物制药', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('415', '2', '831', '公安技术类', '公安技术类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('416', '3', '83101K', '刑事科学技术', '刑事科学技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('417', '3', '83102K', '消防工程', '消防工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('418', '3', '83103TK', '交通管理工程', '交通管理工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('419', '3', '83104TK', '安全防范工程', '安全防范工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('420', '3', '83105TK', '公安视听技术', '公安视听技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('421', '3', '83106TK', '抢险救援指挥与技术', '抢险救援指挥与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('422', '3', '83107TK', '火灾勘查', '火灾勘查', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('423', '3', '83108TK', '网络安全与执法', '网络安全与执法', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('424', '3', '83109TK', '核生化消防', '核生化消防', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('425', '1', '9', '农学', '农学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('426', '2', '901', '植物生产类', '植物生产类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('427', '3', '90101', '农学', '农学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('428', '3', '90102', '园艺', '园艺', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('429', '3', '90103', '植物保护', '植物保护', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('430', '3', '90104', '植物科学与技术', '植物科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('431', '3', '90105', '种子科学与工程', '种子科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('432', '3', '90106', '设施农业科学与工程', '设施农业科学与工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('433', '3', '90107T', '茶学', '茶学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('434', '3', '90108T', '烟草', '烟草', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('435', '3', '90109T', '应用生物科学', '应用生物科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('436', '3', '90110T', '农艺教育', '农艺教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('437', '3', '90111T', '园艺教育', '园艺教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('438', '2', '902', '自然保护与环境生态类', '自然保护与环境生态类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('439', '3', '90201', '农业资源与环境', '农业资源与环境', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('440', '3', '90202', '野生动物与自然保护区管理', '野生动物与自然保护区管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('441', '3', '90203', '水土保持与荒漠化防治', '水土保持与荒漠化防治', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('442', '2', '903', '动物生产类', '动物生产类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('443', '3', '90301', '动物科学', '动物科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('444', '3', '90302T', '蚕学', '蚕学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('445', '3', '90303T', '蜂学', '蜂学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('446', '2', '904', '动物医学类', '动物医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('447', '3', '90401', '动物医学', '动物医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('448', '3', '90402', '动物药学', '动物药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('449', '3', '90403T', '动植物检疫', '动植物检疫', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('450', '2', '905', '林学类', '林学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('451', '3', '90501', '林学', '林学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('452', '3', '90502', '园林', '园林', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('453', '3', '90503', '森林保护', '森林保护', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('454', '2', '906', '水产类', '水产类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('455', '3', '90601', '水产养殖学', '水产养殖学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('456', '3', '90602', '海洋渔业科学与技术', '海洋渔业科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('457', '3', '90603T', '水族科学与技术', '水族科学与技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('458', '2', '907', '草学类', '草学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('459', '3', '90701', '草业科学', '草业科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('460', '1', '10', '医学', '医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('461', '2', '1001', '基础医学类', '基础医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('462', '3', '100101K', '基础医学', '基础医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('463', '2', '1002', '临床医学类', '临床医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('464', '3', '100201K', '临床医学', '临床医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('465', '3', '100202TK', '麻醉学', '麻醉学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('466', '3', '100203TK', '医学影像学', '医学影像学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('467', '3', '100204TK', '眼视光医学', '眼视光医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('468', '3', '100205TK', '精神医学', '精神医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('469', '3', '100206TK', '放射医学', '放射医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('470', '2', '1003', '口腔医学类', '口腔医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('471', '3', '100301K', '口腔医学', '口腔医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('472', '2', '1004', '公共卫生与预防医学类', '公共卫生与预防医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('473', '3', '100401K', '预防医学', '预防医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('474', '3', '100402', '食品卫生与营养学', '食品卫生与营养学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('475', '3', '100403TK', '妇幼保健医学', '妇幼保健医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('476', '3', '100404TK', '卫生监督', '卫生监督', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('477', '3', '100405TK', '全球健康学', '全球健康学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('478', '2', '1005', '中医学类', '中医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('479', '3', '100501K', '中医学', '中医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('480', '3', '100502K', '针灸推拿学', '针灸推拿学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('481', '3', '100503K', '藏医学', '藏医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('482', '3', '100504K', '蒙医学', '蒙医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('483', '3', '100505K', '维医学', '维医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('484', '3', '100506K', '壮医学', '壮医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('485', '3', '100507K', '哈医学', '哈医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('486', '2', '1006', '中西医结合类', '中西医结合类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('487', '3', '100601K', '中西医临床医学', '中西医临床医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('488', '2', '1007', '药学类', '药学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('489', '3', '100701', '药学', '药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('490', '3', '100702', '药物制剂', '药物制剂', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('491', '3', '100703TK', '临床药学', '临床药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('492', '3', '100704T', '药事管理', '药事管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('493', '3', '100705T', '药物分析', '药物分析', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('494', '3', '100706T', '药物化学', '药物化学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('495', '3', '100707T', '海洋药学', '海洋药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('496', '2', '1008', '中药学类', '中药学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('497', '3', '100801', '中药学', '中药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('498', '3', '100802', '中药资源与开发', '中药资源与开发', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('499', '3', '100803T', '藏药学', '藏药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('500', '3', '100804T', '蒙药学', '蒙药学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('501', '3', '100805T', '中药制药', '中药制药', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('502', '3', '100806T', '中草药栽培与鉴定', '中草药栽培与鉴定', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('503', '2', '1009', '法医学类', '法医学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('504', '3', '100901K', '法医学', '法医学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('505', '2', '1010', '医学技术类', '医学技术类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('506', '3', '101001', '医学检验技术', '医学检验技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('507', '3', '101002', '医学实验技术', '医学实验技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('508', '3', '101003', '医学影像技术', '医学影像技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('509', '3', '101004', '眼视光学', '眼视光学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('510', '3', '101005', '康复治疗学', '康复治疗学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('511', '3', '101006', '口腔医学技术', '口腔医学技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('512', '3', '101007', '卫生检验与检疫', '卫生检验与检疫', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('513', '3', '101008T', '听力与言语康复学', '听力与言语康复学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('514', '2', '1011', '护理学类', '护理学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('515', '3', '101101', '护理学', '护理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('516', '1', '12', '管理学', '管理学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('517', '2', '1201', '管理科学与工程类', '管理科学与工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('518', '3', '120101', '管理科学', '管理科学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('519', '3', '120102', '信息管理与信息系统', '信息管理与信息系统', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('520', '3', '120103', '工程管理', '工程管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('521', '3', '120104', '房地产开发与管理', '房地产开发与管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('522', '3', '120105', '工程造价', '工程造价', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('523', '3', '120106TK', '保密管理', '保密管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('524', '2', '1202', '工商管理类', '工商管理类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('525', '3', '120201K', '工商管理', '工商管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('526', '3', '120202', '市场营销', '市场营销', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('527', '3', '120203K', '会计学', '会计学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('528', '3', '120204', '财务管理', '财务管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('529', '3', '120205', '国际商务', '国际商务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('530', '3', '120206', '人力资源管理', '人力资源管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('531', '3', '120207', '审计学', '审计学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('532', '3', '120208', '资产评估', '资产评估', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('533', '3', '120209', '物业管理', '物业管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('534', '3', '120210', '文化产业管理', '文化产业管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('535', '3', '120211T', '劳动关系', '劳动关系', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('536', '3', '120212T', '体育经济与管理', '体育经济与管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('537', '3', '120213T', '财务会计教育', '财务会计教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('538', '3', '120214T', '市场营销教育', '市场营销教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('539', '2', '1203', '农业经济管理类', '农业经济管理类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('540', '3', '120301', '农林经济管理', '农林经济管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('541', '3', '120302', '农村区域发展', '农村区域发展', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('542', '2', '1204', '公共管理类', '公共管理类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('543', '3', '120401', '公共事业管理', '公共事业管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('544', '3', '120402', '行政管理', '行政管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('545', '3', '120403', '劳动与社会保障', '劳动与社会保障', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('546', '3', '120404', '土地资源管理', '土地资源管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('547', '3', '120405', '城市管理', '城市管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('548', '3', '120406TK', '海关管理', '海关管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('549', '3', '120407T', '交通管理', '交通管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('550', '3', '120408T', '海事管理', '海事管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('551', '3', '120409T', '公共关系学', '公共关系学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('552', '2', '1205', '图书情报与档案管理类', '图书情报与档案管理类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('553', '3', '120501', '图书馆学', '图书馆学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('554', '3', '120502', '档案学', '档案学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('555', '3', '120503', '信息资源管理', '信息资源管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('556', '2', '1206', '物流管理与工程类', '物流管理与工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('557', '3', '120601', '物流管理', '物流管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('558', '3', '120602', '物流工程', '物流工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('559', '3', '120603T', '采购管理', '采购管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('560', '2', '1207', '工业工程类', '工业工程类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('561', '3', '120701', '工业工程', '工业工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('562', '3', '120702T', '标准化工程', '标准化工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('563', '3', '120703T', '质量管理工程', '质量管理工程', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('564', '2', '1208', '电子商务类', '电子商务类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('565', '3', '120801', '电子商务', '电子商务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('566', '3', '120802T', '电子商务及法律', '电子商务及法律', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('567', '2', '1209', '旅游管理类', '旅游管理类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('568', '3', '120901K', '旅游管理', '旅游管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('569', '3', '120902', '酒店管理', '酒店管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('570', '3', '120903', '会展经济与管理', '会展经济与管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('571', '3', '120904T', '旅游管理与服务教育', '旅游管理与服务教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('572', '1', '13', '艺术类', '艺术类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('573', '2', '1301', '艺术学理论类', '艺术学理论类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('574', '3', '130101', '艺术史论', '艺术史论', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('575', '2', '1302', '音乐与舞蹈学类', '音乐与舞蹈学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('576', '3', '130201', '音乐表演', '音乐表演', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('577', '3', '130202', '音乐学', '音乐学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('578', '3', '130203', '作曲与作曲技术理论', '作曲与作曲技术理论', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('579', '3', '130204', '舞蹈表演', '舞蹈表演', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('580', '3', '130205', '舞蹈学', '舞蹈学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('581', '3', '130206', '舞蹈编导', '舞蹈编导', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('582', '2', '1303', '戏剧与影视学类', '戏剧与影视学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('583', '3', '130301', '表演', '表演', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('584', '3', '130302', '戏剧学', '戏剧学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('585', '3', '130303', '电影学', '电影学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('586', '3', '130304', '戏剧影视文学', '戏剧影视文学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('587', '3', '130305', '广播电视编导', '广播电视编导', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('588', '3', '130306', '戏剧影视导演', '戏剧影视导演', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('589', '3', '130307', '戏剧影视美术设计', '戏剧影视美术设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('590', '3', '130308', '录音艺术', '录音艺术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('591', '3', '130309', '播音与主持艺术', '播音与主持艺术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('592', '3', '130310', '动画', '动画', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('593', '3', '130311T', '影视摄影与制作', '影视摄影与制作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('594', '2', '1304', '美术学类', '美术学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('595', '3', '130401', '美术学', '美术学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('596', '3', '130402', '绘画', '绘画', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('597', '3', '130403', '雕塑', '雕塑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('598', '3', '130404', '摄影', '摄影', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('599', '3', '130405T', '书法学', '书法学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('600', '3', '130406T', '中国画', '中国画', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('601', '2', '1305', '设计学类', '设计学类', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('602', '3', '130501', '艺术设计学', '艺术设计学', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('603', '3', '130502', '视觉传达设计', '视觉传达设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('604', '3', '130503', '环境设计', '环境设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('605', '3', '130504', '产品设计', '产品设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('606', '3', '130505', '服装与服饰设计', '服装与服饰设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('607', '3', '130506', '公共艺术', '公共艺术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('608', '3', '130507', '工艺美术', '工艺美术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('609', '3', '130508', '数字媒体艺术', '数字媒体艺术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('610', '3', '130509T', '艺术与科技', '艺术与科技', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('99997', '1', '999', '其他专业', '其他专业', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('99998', '2', '9999', '其他专业', '其他专业', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('99999', '3', '99999', '其他专业', '其他专业', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_DEGREE`;
 INSERT INTO `youthchina`.`SYS_DEGREE` (`DEGREE_NUM`, `DEGREE_CHN`, `DEGREE_ENG`, `START_DATE`) VALUES
-('1', '初中', 'Junior', '2019-01-01 00:00:00'),
-('2', '高中', 'Senior', '2019-01-01 00:00:00'),
-('3', '本科', 'Undergraduate', '2019-01-01 00:00:00'),
-('4', '硕士', 'Master', '2019-01-01 00:00:00'),
-('5', '博士', 'Doctor', '2019-01-01 00:00:00'),
-('6', '博士后', 'Postdoctor', '2019-01-01 00:00:00');
+ ('1', '初中', 'Junior', '2019-01-01 00:00:00'),
+ ('2', '高中', 'Senior', '2019-01-01 00:00:00'),
+ ('3', '本科', 'Undergraduate', '2019-01-01 00:00:00'),
+ ('4', '硕士', 'Master', '2019-01-01 00:00:00'),
+ ('5', '博士', 'Doctor', '2019-01-01 00:00:00'),
+ ('6', '博士后', 'Postdoctor', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_DIPLOMA`;
-INSERT INTO `youthchina`.`SYS_DIPLOMA` (`DIPLOMA_NUM`, `DIPLOMA_CHN`, `DIPLOMA_ENG`, `DIPLOMA_ENG_ABBRE`, `START_DATE`) VALUES
+INSERT INTO `youthchina`.`SYS_DIPLOMA` (`DIPLOMA_NUM`, `DIPLOMA_CHN`, `DIPLOMA_ENG`, `DIPLOMA_ENG_ABBRE`, `START_DATE`) VALUES 
 ('1001', '文学士', 'Bachelor of Arts', 'B.A.', '2019-01-01 00:00:00'),
 ('1002', '建筑学士', 'Bachelor of Architecture', 'B.Arch.', '2019-01-01 00:00:00'),
 ('1003', '教育学文学士', 'Bachelor of Arts in Education', 'B.A.Ed.', '2019-01-01 00:00:00'),
@@ -3374,7 +3383,7 @@ INSERT INTO `youthchina`.`SYS_DIPLOMA` (`DIPLOMA_NUM`, `DIPLOMA_CHN`, `DIPLOMA_E
 
 
 /*TRUNCATE TABLE `youthchina`.`SYS_ADVAN_LABEL_CLASS`;
-INSERT INTO `youthchina`.`SYS_ADVAN_LABEL_CLASS` (`LABEL_ID`, `LABEL_LEVEL`, `LABEL_CODE`, `LABEL_PARENT_CODE`, `LABEL_CHN`, `LABEL_ENG`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_ADVAN_LABEL_CLASS` (`LABEL_ID`, `LABEL_LEVEL`, `LABEL_CODE`, `LABEL_PARENT_CODE`, `LABEL_CHN`, `LABEL_ENG`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
  ('1', '1', 'I6510', 'root', '软件开发', 'Software Developer', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
  ('2', '2', 'I65101', 'I6510', '技术类', 'Technology', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
  ('3', '3', 'I6510101', 'I65101', '前端开发', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -3395,422 +3404,463 @@ INSERT INTO `youthchina`.`SYS_ADVAN_LABEL_CLASS` (`LABEL_ID`, `LABEL_LEVEL`, `LA
 
 
 TRUNCATE TABLE `youthchina`.`SYS_LABEL`;
-INSERT INTO `youthchina`.`SYS_LABEL` (`LABEL_ID`, `LABEL_LEVEL`, `LABEL_CODE`, `LABEL_PARENT_CODE`, `LABEL_CHN`, `LABEL_ENG`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
-('1', '1', '---', '---', '财务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('2', '1', '---', '---', '审计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('3', '1', '---', '---', '税务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('4', '1', '---', '---', '咨询', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('5', '1', '---', '---', '金融', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('6', '1', '---', '---', '产品', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('7', '1', '---', '---', '运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('8', '1', '---', '---', '翻译', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('9', '1', '---', '---', '编辑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('10', '1', '---', '---', '客服', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('11', '1', '---', '---', '技术支持', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('12', '1', '---', '---', 'IT技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('13', '1', '---', '---', '市场', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('14', '1', '---', '---', '公关', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('15', '1', '---', '---', '设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('16', '1', '---', '---', '传媒', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('17', '1', '---', '---', '法务法律', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('18', '1', '---', '---', '人事', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('19', '1', '---', '---', '行政', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('20', '1', '---', '---', '助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('21', '1', '---', '---', '健康', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('22', '1', '---', '---', '医疗', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('23', '1', '---', '---', '公务员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('24', '1', '---', '---', '事业单位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('25', '1', '---', '---', '科研', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('26', '1', '---', '---', '旅游', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('27', '1', '---', '---', '酒店', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('28', '1', '---', '---', '度假', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('29', '1', '---', '---', '供应链', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30', '1', '---', '---', '贸易', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('31', '1', '---', '---', '交通', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('32', '1', '---', '---', '物流', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('33', '1', '---', '---', '机械制造', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('34', '1', '---', '---', '自动化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('35', '1', '---', '---', '质量管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('36', '1', '---', '---', '项目管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('37', '1', '---', '---', '教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('38', '1', '---', '---', '培训', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('39', '1', '---', '---', '管理培训生', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('40', '1', '---', '---', '其他', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+INSERT INTO `youthchina`.`SYS_LABEL` (`LABEL_ID`, `LABEL_LEVEL`, `LABEL_CODE`, `LABEL_PARENT_CODE`, `LABEL_CHN`, `LABEL_ENG`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
+('1', '1', '1', '---', '财务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('2', '1', '2', '---', '审计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('3', '1', '3', '---', '税务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('4', '1', '4', '---', '咨询', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('5', '1', '5', '---', '金融', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('6', '1', '6', '---', '产品', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('7', '1', '7', '---', '运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('8', '1', '8', '---', '翻译', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('9', '1', '9', '---', '编辑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('10', '1', '10', '---', '客服', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('11', '1', '11', '---', '技术支持', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('12', '1', '12', '---', 'IT技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('13', '1', '13', '---', '市场', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('14', '1', '14', '---', '公关', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('15', '1', '15', '---', '设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('16', '1', '16', '---', '传媒', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('17', '1', '17', '---', '法务法律', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('18', '1', '18', '---', '人事', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('19', '1', '19', '---', '行政', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('20', '1', '20', '---', '助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('21', '1', '21', '---', '健康', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('22', '1', '22', '---', '医疗', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('23', '1', '23', '---', '公务员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('24', '1', '24', '---', '事业单位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('25', '1', '25', '---', '科研', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('26', '1', '26', '---', '旅游', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('27', '1', '27', '---', '酒店', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('28', '1', '28', '---', '度假', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('29', '1', '29', '---', '供应链', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30', '1', '30', '---', '贸易', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('31', '1', '31', '---', '交通', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('32', '1', '32', '---', '物流', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('33', '1', '33', '---', '机械制造', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('34', '1', '34', '---', '自动化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('35', '1', '35', '---', '质量管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('36', '1', '36', '---', '项目管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('37', '1', '37', '---', '教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('38', '1', '38', '---', '培训', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('39', '1', '39', '---', '管理培训生', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40', '1', '40', '---', '其他', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+
+
+
+TRUNCATE TABLE `youthchina`.`SYS_LABEL_MAP`;
+INSERT INTO `youthchina`.`SYS_LABEL_MAP` (`LABEL_ID`, `LAB_CODE`, `TARGET_ID`, `TARGET_TYPE`, `RELA_TIME`) VALUES 
+('1', '12', '1', '1', '2019-01-01 00:00:00'),
+('2', '12', '2', '1', '2019-01-01 00:00:00'),
+('3', '12', '3', '1', '2019-01-01 00:00:00'),
+('4', '12', '4', '1', '2019-01-01 00:00:00'),
+('5', '12', '5', '1', '2019-01-01 00:00:00'),
+('6', '12', '6', '1', '2019-01-01 00:00:00'),
+('7', '13', '1', '1', '2019-01-01 00:00:00'),
+('8', '13', '2', '1', '2019-01-01 00:00:00'),
+('9', '13', '3', '1', '2019-01-01 00:00:00'),
+('10', '13', '4', '1', '2019-01-01 00:00:00'),
+('11', '13', '5', '1', '2019-01-01 00:00:00'),
+('12', '13', '6', '1', '2019-01-01 00:00:00'),
+('13', '7', '38', '200', '2019-01-01 00:00:00'),
+('14', '7', '39', '200', '2019-01-01 00:00:00'),
+('15', '7', '40', '200', '2019-01-01 00:00:00'),
+('16', '7', '41', '200', '2019-01-01 00:00:00'),
+('17', '7', '42', '200', '2019-01-01 00:00:00'),
+('18', '7', '43', '200', '2019-01-01 00:00:00'),
+('19', '7', '1', '300', '2019-01-01 00:00:00'),
+('20', '7', '2', '300', '2019-01-01 00:00:00'),
+('21', '7', '3', '300', '2019-01-01 00:00:00'),
+('22', '7', '4', '300', '2019-01-01 00:00:00'),
+('23', '7', '5', '300', '2019-01-01 00:00:00'),
+('24', '7', '6', '300', '2019-01-01 00:00:00'),
+('25', '7', '7', '300', '2019-01-01 00:00:00'),
+('26', '7', '1', '100', '2019-01-01 00:00:00'),
+('27', '8', '1', '100', '2019-01-01 00:00:00'),
+('28', '9', '1', '100', '2019-01-01 00:00:00'),
+('29', '10', '1', '100', '2019-01-01 00:00:00'),
+('30', '11', '1', '100', '2019-01-01 00:00:00'),
+('31', '12', '1', '100', '2019-01-01 00:00:00'),
+('32', '8', '2', '100', '2019-01-01 00:00:00'),
+('33', '9', '2', '100', '2019-01-01 00:00:00'),
+('34', '10', '2', '100', '2019-01-01 00:00:00'),
+('35', '11', '2', '100', '2019-01-01 00:00:00'),
+('36', '13', '2', '100', '2019-01-01 00:00:00');
 
 
 
 TRUNCATE TABLE `youthchina`.`SYS_PROF_CLASS`;
 INSERT INTO `youthchina`.`SYS_PROF_CLASS` (`PROF_NUM`, `PROF_LEVEL`, `PROF_CODE`, `PROF_PARENT_CODE`, `PROF_CHN`, `PROF_ENG`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES ('1', '1', 'I10001', '0', '软件工程师', 'Software Developer', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('2', '2', 'I10001001', 'I10001', '前端开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('3', '2', 'I10001002', 'I10001', '后端开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('4', '2', 'I10001003', 'I10001', '移动端开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('5', '2', 'I10001004', 'I10001', '全栈开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('6', '2', 'I10001005', 'I10001', '数据库开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('7', '2', 'I10001006', 'I10001', 'ETL工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('8', '2', 'I10001007', 'I10001', '测试工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('9', '2', 'I10001008', 'I10001', '技术支持工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('10', '2', 'I10001009', 'I10001', '运维工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('11', '2', 'I10001010', 'I10001', '算法工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('12', '2', 'I10001011', 'I10001', '软件架构师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('13', '2', 'I10001012', 'I10001', '测试经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('14', '2', 'I10001999', 'I10001', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('15', '1', 'I10002', '0', '人工智能', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('16', '2', 'I10002001', 'I10002', '机器学习', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('17', '2', 'I10002002', 'I10002', '深度学习', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('18', '2', 'I10002003', 'I10002', '图像算法', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('19', '2', 'I10002004', 'I10002', '图像识别处理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('20', '2', 'I10002005', 'I10002', '语音识别', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('21', '2', 'I10002999', 'I10002', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('22', '1', 'I10003', '0', '硬件工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('23', '2', 'I10003001', 'I10003', '嵌入式工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('24', '2', 'I10003002', 'I10003', '自动化工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('25', '2', 'I10003003', 'I10003', '电子工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('26', '2', 'I10003004', 'I10003', '电气设计工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('27', '2', 'I10003005', 'I10003', '电路设计工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('28', '2', 'I10003006', 'I10003', '驱动开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('29', '2', 'I10003007', 'I10003', '系统集成工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('30', '2', 'I10003008', 'I10003', '模具设计工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('31', '2', 'I10003009', 'I10003', '硬件测试工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('32', '2', 'I10003010', 'I10003', '失效分析工程师FAE', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('33', '2', 'I10003999', 'I10003', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('34', '1', 'I10004', '0', '通信工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('35', '2', 'I10004001', 'I10004', '移动通信工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('36', '2', 'I10004002', 'I10004', '电信网络工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('37', '2', 'I10004003', 'I10004', '电信交换工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('38', '2', 'I10004004', 'I10004', '有线传输工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('39', '2', 'I10004005', 'I10004', '无线射频工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('40', '2', 'I10004006', 'I10004', '通信电源工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('41', '2', 'I10004007', 'I10004', '通信项目专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('42', '2', 'I10004008', 'I10004', '通信项目经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('43', '2', 'I10004009', 'I10004', '核心网工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('44', '2', 'I10004010', 'I10004', '通信测试工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('45', '2', 'I10004011', 'I10004', '通信设备工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('46', '2', 'I10004012', 'I10004', '光通信工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('47', '2', 'I10004013', 'I10004', '光传输工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('48', '2', 'I10004014', 'I10004', '光网络工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('49', '2', 'I10004999', 'I10004', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('50', '2', 'I19999997', 'I10004', '技术经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('51', '2', 'I19999998', 'I10004', '技术总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('52', '2', 'I19999999', 'I10004', '首席技术官', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('53', '1', 'I20001', '0', '产品经理', 'Product Manager', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('54', '2', 'I20001001', 'I20001', '网页产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('55', '2', 'I20001002', 'I20001', '移动产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('56', '2', 'I20001003', 'I20001', '产品助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('57', '2', 'I20001004', 'I20001', '数据产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('58', '2', 'I20001005', 'I20001', '电商产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('59', '2', 'I20001006', 'I20001', '游戏策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('60', '2', 'I20001007', 'I20001', '产品专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('61', '2', 'I20001008', 'I20001', '游戏制作人', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('62', '2', 'I20001009', 'I20001', '产品VP', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('63', '2', 'I20001998', 'I20001', '产品总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('64', '2', 'I20001999', 'I20001', '其他产品职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('65', '1', 'I30001', '0', '多媒体设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('66', '2', 'I30001001', 'I30001', '视觉设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('67', '2', 'I30001002', 'I30001', '网页设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('68', '2', 'I30001003', 'I30001', 'Flash设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('69', '2', 'I30001004', 'I30001', 'APP设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('70', '2', 'I30001005', 'I30001', 'UI设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('71', '2', 'I30001006', 'I30001', '平面设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('72', '2', 'I30001007', 'I30001', '美术设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('73', '2', 'I30001008', 'I30001', '广告设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('74', '2', 'I30001009', 'I30001', '三维/CAD/制图', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('75', '2', 'I30001010', 'I30001', '视觉设计经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('76', '2', 'I30001011', 'I30001', '视觉设计总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('77', '2', 'I30001999', 'I30001', '其他设计职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('78', '1', 'I30002', '0', '游戏设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('79', '2', 'I30002001', 'I30002', '游戏界面设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('80', '2', 'I30002002', 'I30002', '游戏特效', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('81', '2', 'I30002003', 'I30002', '游戏场景', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('82', '2', 'I30002004', 'I30002', '游戏角色', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('83', '2', 'I30002005', 'I30002', '游戏动作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('84', '2', 'I30002999', 'I30002', '其他游戏职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('85', '1', 'I30003', '0', '美工', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('86', '2', 'I30003001', 'I30003', '原画师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('87', '2', 'I30003002', 'I30003', '插画师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('88', '2', 'I30003003', 'I30003', '动画设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('89', '2', 'I30003004', 'I30003', '设计师助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('90', '2', 'I30003999', 'I30003', '其他美工职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('91', '1', 'I30004', '0', '交互设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('92', '2', 'I30004001', 'I30004', '无线交互设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('93', '2', 'I30004002', 'I30004', '网页交互设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('94', '2', 'I30004003', 'I30004', '硬件交互设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('95', '2', 'I30004004', 'I30004', '交互设计经理/主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('96', '2', 'I30004005', 'I30004', '交互设计总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('97', '2', 'I30004999', 'I30004', '其他交互设计职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('98', '2', 'I39999997', 'I30004', '设计经理/主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('99', '2', 'I39999998', 'I30004', '设计总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('100', '2', 'I39999999', 'I30004', '首席设计官', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('101', '1', 'I40001', '0', '用户研究', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('102', '2', 'I40004001', 'I40001', '数据分析师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('103', '2', 'I40004002', 'I40001', '用户研究员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('104', '2', 'I40004003', 'I40001', '游戏数值策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('105', '2', 'I40004004', 'I40001', '用户体验设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('106', '2', 'I40004997', 'I40001', '用户研究经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('107', '2', 'I40004998', 'I40001', '用户研究总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('108', '2', 'I40004999', 'I40001', '其他用户研究职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('109', '1', 'R10001', '0', '编辑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('110', '2', 'R10002001', 'R10001', '内容编辑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('111', '2', 'R10002002', 'R10001', '文案策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('112', '2', 'R10002003', 'R10001', '网站编辑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('113', '2', 'R10002004', 'R10001', '记者', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('114', '2', 'R10002005', 'R10001', '采编', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('115', '2', 'R10002997', 'R10001', '副主编', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('116', '2', 'R10002998', 'R10001', '主编', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('117', '2', 'R10002999', 'R10001', '其他编辑职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('118', '1', 'R20001', '0', '市场/营销', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('119', '2', 'R20001001', 'R20001', '选址开发', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('120', '2', 'R20001002', 'R20001', '市场营销', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('121', '2', 'R20001003', 'R20001', '市场策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('122', '2', 'R20001004', 'R20001', '市场顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('123', '2', 'R20001005', 'R20001', '市场推广', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('124', '2', 'R20001006', 'R20001', 'SEO', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('125', '2', 'R20001007', 'R20001', 'SEM', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('126', '2', 'R20001008', 'R20001', '商务渠道', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('127', '2', 'R20001009', 'R20001', '商业数据分析', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('128', '2', 'R20001010', 'R20001', '活动策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('129', '2', 'R20001011', 'R20001', '海外市场', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('130', '2', 'R20001012', 'R20001', '政府关系', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('131', '2', 'R20001013', 'R20001', 'APP推广', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('132', '2', 'R20001998', 'R20001', '市场总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('133', '2', 'R20001999', 'R20001', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('134', '1', 'R20002', '0', '销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('135', '2', 'R20002001', 'R20002', '销售专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('136', '2', 'R20002002', 'R20002', '销售经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('137', '2', 'R20002003', 'R20002', '客户代表', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('138', '2', 'R20002004', 'R20002', '大客户代表', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('139', '2', 'R20002005', 'R20002', 'BD经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('140', '2', 'R20002006', 'R20002', '商务渠道', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('141', '2', 'R20002007', 'R20002', '渠道销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('142', '2', 'R20002008', 'R20002', '代理商销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('143', '2', 'R20002009', 'R20002', '销售助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('144', '2', 'R20002010', 'R20002', '电话销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('145', '2', 'R20002011', 'R20002', '销售顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('146', '2', 'R20002012', 'R20002', '商品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('147', '2', 'R20002013', 'R20002', '广告销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('148', '2', 'R20002014', 'R20002', '网络营销', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('149', '2', 'R20002015', 'R20002', '营销主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('150', '2', 'R20002016', 'R20002', '销售工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('151', '2', 'R20002017', 'R20002', '客户经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('152', '2', 'R20002018', 'R20002', '团队经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('153', '2', 'R20002019', 'R20002', '城市经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('154', '2', 'R20002995', 'R20002', '销售总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('155', '2', 'R20002996', 'R20002', '区域总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('156', '2', 'R20002997', 'R20002', '销售VP', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('157', '2', 'R20002998', 'R20002', '商务总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('158', '2', 'R20002999', 'R20002', '其他销售职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('159', '2', 'R20002001', 'R20002', '公关媒介', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('160', '2', 'R20002002', 'R20002', '媒介经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('161', '2', 'R20002003', 'R20002', '广告协调', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('162', '2', 'R20002004', 'R20002', '品牌公关', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('163', '2', 'R20002005', 'R20002', '媒介专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('164', '2', 'R20002006', 'R20002', '活动策划执行', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('165', '2', 'R20002007', 'R20002', '媒介策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('166', '2', 'R20002997', 'R20002', '媒介总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('167', '2', 'R20002998', 'R20002', '公关总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('168', '2', 'R20002999', 'R20002', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('169', '2', 'R29999999', 'R20002', 'CMO', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('170', '1', 'R30001', '0', '广告', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('171', '2', 'R30001001', 'R30001', '广告创意', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('172', '2', 'R30001002', 'R30001', '美术指导', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('173', '2', 'R30001003', 'R30001', '广告设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('174', '2', 'R30001004', 'R30001', '策划经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('175', '2', 'R30001005', 'R30001', '文案', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('176', '2', 'R30001006', 'R30001', '广告制作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('177', '2', 'R30001007', 'R30001', '媒介投放', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('178', '2', 'R30001008', 'R30001', '媒介合作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('179', '2', 'R30001009', 'R30001', '媒介顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('180', '2', 'R30001010', 'R30001', '广告审核', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('181', '2', 'R30001998', 'R30001', '创意总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('182', '2', 'R30001999', 'R30001', '其他广告职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('183', '1', 'R40001', '0', '会务会展', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('184', '2', 'R40001002', 'R40001', '会议活动销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('185', '2', 'R40001003', 'R40001', '会议活动策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('186', '2', 'R40001004', 'R40001', '会议活动执行', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('187', '2', 'R40001005', 'R40001', '会展活动销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('188', '2', 'R40001006', 'R40001', '会展活动策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('189', '2', 'R40001007', 'R40001', '会展活动执行', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('190', '2', 'R40001999', 'R40001', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('191', '1', 'J10001', '0', '投融资', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('192', '2', 'J10001001', 'J10001', '投资经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('193', '2', 'J10001002', 'J10001', '行业研究', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('194', '2', 'J10001003', 'J10001', '资产管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('195', '2', 'J10001004', 'J10001', '融资', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('196', '2', 'J10001005', 'J10001', '并购', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('197', '2', 'J10001006', 'J10001', '资信评估', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('198', '2', 'J10001007', 'J10001', '合规稽查', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('199', '2', 'J10001008', 'J10001', '投后管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('200', '2', 'J10001009', 'J10001', '投资助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('201', '2', 'J10001010', 'J10001', '投资顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('202', '2', 'J10001011', 'J10001', '投资VP', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('203', '2', 'J10001012', 'J10001', '投资总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('204', '2', 'J10001013', 'J10001', '投资合伙人', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('205', '2', 'J10001999', 'J10001', '其他投融资职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('206', '1', 'J20001', '0', '银行职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('207', '2', 'J20001001', 'J20001', '信用卡销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('208', '2', 'J20001002', 'J20001', '分析师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('209', '2', 'J20001003', 'J20001', '柜员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('210', '2', 'J20001004', 'J20001', '商务渠道', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('211', '2', 'J20001005', 'J20001', '大堂经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('212', '2', 'J20001006', 'J20001', '理财顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('213', '2', 'J20001007', 'J20001', '客户经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('214', '2', 'J20001008', 'J20001', '信贷管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('215', '2', 'J20001999', 'J20001', '其他银行职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('216', '1', 'J30001', '0', '互联网金融', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('217', '2', 'J30001001', 'J30001', '金融产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('218', '2', 'J30001002', 'J30001', '风控专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('219', '2', 'J30001003', 'J30001', '催收员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('220', '2', 'J30001004', 'J30001', '分析师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('221', '2', 'J30001005', 'J30001', '投资经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('222', '2', 'J30001006', 'J30001', '交易员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('223', '2', 'J30001007', 'J30001', '理财顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('224', '2', 'J30001008', 'J30001', '合规稽查', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('225', '2', 'J30001009', 'J30001', '审计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('226', '2', 'J30001010', 'J30001', '清算', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('227', '2', 'J30001999', 'J30001', '其他互联网金融职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('228', '1', 'J40001', '0', '保险', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('229', '2', 'J40001001', 'J40001', '保险业务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('230', '2', 'J40001002', 'J40001', '精算师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('231', '2', 'J40001003', 'J40001', '保险理赔', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('232', '2', 'J40001999', 'J40001', '其他保险职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('233', '1', 'J50001', '0', '证券', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('234', '2', 'J50001001', 'J50001', '证券经纪人', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('235', '2', 'J50001002', 'J50001', '证券分析师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('236', '2', 'J50001999', 'J50001', '其他证券职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('237', '1', 'K10001', '0', '房地产', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('238', '2', 'K10001001', 'K10001', '房地产规划开发', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('239', '2', 'K10001002', 'K10001', '房产策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('240', '2', 'K10001003', 'K10001', '地产项目管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('241', '2', 'K10001004', 'K10001', '地产招投标', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('242', '2', 'K10001005', 'K10001', '设计装修与市政建设', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('243', '2', 'K10001006', 'K10001', '房地产销售总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('244', '2', 'K10001999', 'K10001', '其他房地产职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('245', '1', 'K10002', '0', '工程监理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('246', '2', 'K10002001', 'K10002', '工程造价', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('247', '2', 'K10002002', 'K10002', '预结算', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('248', '2', 'K10002003', 'K10002', '工程资料管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('249', '2', 'K10002004', 'K10002', '建筑施工现场管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('250', '2', 'K10002999', 'K10002', '其他监理职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('251', '1', 'K10003', '0', '地产经纪', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('252', '2', 'K10003001', 'K10003', '房地产经纪', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('253', '2', 'K10003002', 'K10003', '地产置业顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('254', '2', 'K10003003', 'K10003', '地产评估', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('255', '2', 'K10003004', 'K10003', '地产中介', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('256', '2', 'K10003999', 'K10003', '其他经纪职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('257', '1', 'K10004', '0', '物业', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('258', '2', 'K10004001', 'K10004', '物业管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('259', '2', 'K10004002', 'K10004', '物业租赁销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('260', '2', 'K10004003', 'K10004', '物业招商管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('261', '2', 'K10004004', 'K10004', '高端房地产职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('262', '2', 'K10004005', 'K10004', '地产项目总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('263', '2', 'K10004006', 'K10004', '地产策划总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('264', '2', 'K10004007', 'K10004', '地产招投标总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('265', '2', 'K10004008', 'K10004', '物业总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('266', '2', 'K10004999', 'K10004', '其他物业管理职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('267', '1', 'K20001', '0', '设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('268', '2', 'K20001001', 'K20001', '珠宝设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('269', '2', 'K20001002', 'K20001', '包装设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('270', '2', 'K20001003', 'K20001', '服装设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('271', '2', 'K20001004', 'K20001', '工业设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('272', '2', 'K20001005', 'K20001', '橱柜设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('273', '2', 'K20001006', 'K20001', '家具设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('274', '2', 'K20001007', 'K20001', '室内设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('275', '2', 'K20001008', 'K20001', '园林设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('276', '2', 'K20001009', 'K20001', '陈列设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('277', '2', 'K20001010', 'K20001', '景观设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('278', '2', 'K20001011', 'K20001', '城市规划设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('279', '2', 'K20001999', 'K20001', '其他设计职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('280', '1', 'K30001', '0', '建筑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('281', '2', 'K30001001', 'K30001', '建筑工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('282', '2', 'K30001002', 'K30001', '建筑设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('283', '2', 'K30001003', 'K30001', '土建工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('284', '2', 'K30001004', 'K30001', '结构工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('285', '2', 'K30001005', 'K30001', '高级建筑工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('286', '2', 'K30001999', 'K30001', '其他建筑职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('342', '1', 'L10001', '0', '人力资源', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('343', '2', 'L10001001', 'L10001', '招聘专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('344', '2', 'L10001002', 'L10001', 'HRBP人力资源业务合作伙伴', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('345', '2', 'L10001003', 'L10001', '人力资源专员/助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('346', '2', 'L10001004', 'L10001', '培训专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('347', '2', 'L10001005', 'L10001', '薪资福利专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('348', '2', 'L10001006', 'L10001', '绩效考核专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('349', '2', 'L10001007', 'L10001', '员工关系专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('350', '2', 'L10001008', 'L10001', '组织发展专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('351', '2', 'L10001996', 'L10001', '人力资源主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('352', '2', 'L10001997', 'L10001', '人力资源经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('353', '2', 'L10001998', 'L10001', '人力资源总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('354', '2', 'L10001999', 'L10001', '其他HR职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('355', '1', 'L10002', '0', '行政', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('356', '2', 'L10002001', 'L10002', '行政专员/助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('357', '2', 'L10002002', 'L10002', '前台', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('358', '2', 'L10002003', 'L10002', '后勤', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('359', '2', 'L10002004', 'L10002', '商务司机', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('360', '2', 'L10002005', 'L10002', '经理助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('361', '2', 'L10002997', 'L10002', '行政主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('362', '2', 'L10002998', 'L10002', '行政经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('363', '2', 'L10002999', 'L10002', '行政总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('364', '2', 'L19999999', 'L10002', 'CHO', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('365', '1', 'L20001', '0', '财务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('366', '2', 'L20001001', 'L20001', '会计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('367', '2', 'L20001002', 'L20001', '出纳', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('368', '2', 'L20001003', 'L20001', '财务顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('369', '2', 'L20001004', 'L20001', '结算', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('370', '2', 'L20001005', 'L20001', '税务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('371', '2', 'L20001006', 'L20001', '审计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('372', '2', 'L20001007', 'L20001', '风控', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('373', '2', 'L20001996', 'L20001', '财务主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('374', '2', 'L20001997', 'L20001', '财务经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('375', '2', 'L20001998', 'L20001', '财务总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('376', '2', 'L20001999', 'L20001', '其他财务职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('377', '2', 'L29999999', 'L20001', 'CFO', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('378', '1', 'L30001', '0', '法务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('379', '2', 'L30001001', 'L30001', '法务专员/助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('380', '2', 'L30001002', 'L30001', '律师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('381', '2', 'L30001003', 'L30001', '专利', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('382', '2', 'L30001004', 'L30001', '法律顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('383', '2', 'L30001996', 'L30001', '法务主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('384', '2', 'L30001997', 'L30001', '法务经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('385', '2', 'L30001998', 'L30001', '法务总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('386', '2', 'L30001999', 'L30001', '其他职能职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('387', '1', 'L40001', '0', '运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('388', '2', 'L40001001', 'L40001', '用户运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('389', '2', 'L40001002', 'L40001', '产品运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('390', '2', 'L40001003', 'L40001', '数据运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('391', '2', 'L40001004', 'L40001', '内容运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('392', '2', 'L40001005', 'L40001', '活动运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('393', '2', 'L40001006', 'L40001', '商家运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('394', '2', 'L40001007', 'L40001', '品类运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('395', '2', 'L40001008', 'L40001', '游戏运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('396', '2', 'L40001009', 'L40001', '网络推广', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('397', '2', 'L40001010', 'L40001', '网站运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('398', '2', 'L40001011', 'L40001', '新媒体运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('399', '2', 'L40001012', 'L40001', '社区运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('400', '2', 'L40001013', 'L40001', '微信运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('401', '2', 'L40001014', 'L40001', '微博运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('402', '2', 'L40001015', 'L40001', '策略运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('403', '2', 'L40001016', 'L40001', '线下拓展运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('404', '2', 'L40001017', 'L40001', '电商运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('405', '2', 'L40001018', 'L40001', '运营助理/专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('406', '2', 'L40001019', 'L40001', '内容审核', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('407', '2', 'L40001020', 'L40001', '销售运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('408', '2', 'L40001997', 'L40001', '运营经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('409', '2', 'L40001998', 'L40001', '运营总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('410', '2', 'L40001999', 'L40001', '其他运营职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('411', '2', 'L49999999', 'L40001', '首席运营官', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('412', '1', 'L80001', '0', '客服', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('413', '2', 'L80001001', 'L80001', '售前咨询', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('414', '2', 'L80001002', 'L80001', '售后咨询', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('415', '2', 'L80001003', 'L80001', '客服经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('416', '2', 'L80001001', 'L80001', '客服专员/助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('417', '2', 'L80001005', 'L80001', '网络客服', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('418', '2', 'L80001006', 'L80001', '电话客服', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('419', '2', 'L80001997', 'L80001', '客服主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('420', '2', 'L80001998', 'L80001', '客服总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                  ('421', '2', 'L80001999', 'L80001', '其他客服职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+('2', '2', 'I10001001', 'I10001', '前端开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('3', '2', 'I10001002', 'I10001', '后端开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('4', '2', 'I10001003', 'I10001', '移动端开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('5', '2', 'I10001004', 'I10001', '全栈开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('6', '2', 'I10001005', 'I10001', '数据库开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('7', '2', 'I10001006', 'I10001', 'ETL工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('8', '2', 'I10001007', 'I10001', '测试工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('9', '2', 'I10001008', 'I10001', '技术支持工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('10', '2', 'I10001009', 'I10001', '运维工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('11', '2', 'I10001010', 'I10001', '算法工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('12', '2', 'I10001011', 'I10001', '软件架构师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('13', '2', 'I10001012', 'I10001', '测试经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('14', '2', 'I10001999', 'I10001', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('15', '1', 'I10002', '0', '人工智能', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('16', '2', 'I10002001', 'I10002', '机器学习', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('17', '2', 'I10002002', 'I10002', '深度学习', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('18', '2', 'I10002003', 'I10002', '图像算法', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('19', '2', 'I10002004', 'I10002', '图像识别处理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('20', '2', 'I10002005', 'I10002', '语音识别', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('21', '2', 'I10002999', 'I10002', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('22', '1', 'I10003', '0', '硬件工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('23', '2', 'I10003001', 'I10003', '嵌入式工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('24', '2', 'I10003002', 'I10003', '自动化工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('25', '2', 'I10003003', 'I10003', '电子工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('26', '2', 'I10003004', 'I10003', '电气设计工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('27', '2', 'I10003005', 'I10003', '电路设计工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('28', '2', 'I10003006', 'I10003', '驱动开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('29', '2', 'I10003007', 'I10003', '系统集成工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30', '2', 'I10003008', 'I10003', '模具设计工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('31', '2', 'I10003009', 'I10003', '硬件测试工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('32', '2', 'I10003010', 'I10003', '失效分析工程师FAE', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('33', '2', 'I10003999', 'I10003', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('34', '1', 'I10004', '0', '通信工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('35', '2', 'I10004001', 'I10004', '移动通信工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('36', '2', 'I10004002', 'I10004', '电信网络工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('37', '2', 'I10004003', 'I10004', '电信交换工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('38', '2', 'I10004004', 'I10004', '有线传输工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('39', '2', 'I10004005', 'I10004', '无线射频工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40', '2', 'I10004006', 'I10004', '通信电源工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('41', '2', 'I10004007', 'I10004', '通信项目专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('42', '2', 'I10004008', 'I10004', '通信项目经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('43', '2', 'I10004009', 'I10004', '核心网工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('44', '2', 'I10004010', 'I10004', '通信测试工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('45', '2', 'I10004011', 'I10004', '通信设备工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('46', '2', 'I10004012', 'I10004', '光通信工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('47', '2', 'I10004013', 'I10004', '光传输工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('48', '2', 'I10004014', 'I10004', '光网络工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('49', '2', 'I10004999', 'I10004', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('50', '2', 'I19999997', 'I10004', '技术经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('51', '2', 'I19999998', 'I10004', '技术总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('52', '2', 'I19999999', 'I10004', '首席技术官', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('53', '1', 'I20001', '0', '产品经理', 'Product Manager', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('54', '2', 'I20001001', 'I20001', '网页产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('55', '2', 'I20001002', 'I20001', '移动产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('56', '2', 'I20001003', 'I20001', '产品助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('57', '2', 'I20001004', 'I20001', '数据产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('58', '2', 'I20001005', 'I20001', '电商产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('59', '2', 'I20001006', 'I20001', '游戏策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('60', '2', 'I20001007', 'I20001', '产品专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('61', '2', 'I20001008', 'I20001', '游戏制作人', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('62', '2', 'I20001009', 'I20001', '产品VP', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('63', '2', 'I20001998', 'I20001', '产品总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('64', '2', 'I20001999', 'I20001', '其他产品职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('65', '1', 'I30001', '0', '多媒体设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('66', '2', 'I30001001', 'I30001', '视觉设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('67', '2', 'I30001002', 'I30001', '网页设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('68', '2', 'I30001003', 'I30001', 'Flash设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('69', '2', 'I30001004', 'I30001', 'APP设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('70', '2', 'I30001005', 'I30001', 'UI设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('71', '2', 'I30001006', 'I30001', '平面设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('72', '2', 'I30001007', 'I30001', '美术设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('73', '2', 'I30001008', 'I30001', '广告设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('74', '2', 'I30001009', 'I30001', '三维/CAD/制图', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('75', '2', 'I30001010', 'I30001', '视觉设计经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('76', '2', 'I30001011', 'I30001', '视觉设计总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('77', '2', 'I30001999', 'I30001', '其他设计职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('78', '1', 'I30002', '0', '游戏设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('79', '2', 'I30002001', 'I30002', '游戏界面设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('80', '2', 'I30002002', 'I30002', '游戏特效', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('81', '2', 'I30002003', 'I30002', '游戏场景', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('82', '2', 'I30002004', 'I30002', '游戏角色', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('83', '2', 'I30002005', 'I30002', '游戏动作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('84', '2', 'I30002999', 'I30002', '其他游戏职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('85', '1', 'I30003', '0', '美工', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('86', '2', 'I30003001', 'I30003', '原画师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('87', '2', 'I30003002', 'I30003', '插画师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('88', '2', 'I30003003', 'I30003', '动画设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('89', '2', 'I30003004', 'I30003', '设计师助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('90', '2', 'I30003999', 'I30003', '其他美工职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('91', '1', 'I30004', '0', '交互设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('92', '2', 'I30004001', 'I30004', '无线交互设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('93', '2', 'I30004002', 'I30004', '网页交互设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('94', '2', 'I30004003', 'I30004', '硬件交互设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('95', '2', 'I30004004', 'I30004', '交互设计经理/主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('96', '2', 'I30004005', 'I30004', '交互设计总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('97', '2', 'I30004999', 'I30004', '其他交互设计职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('98', '2', 'I39999997', 'I30004', '设计经理/主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('99', '2', 'I39999998', 'I30004', '设计总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('100', '2', 'I39999999', 'I30004', '首席设计官', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('101', '1', 'I40001', '0', '用户研究', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('102', '2', 'I40004001', 'I40001', '数据分析师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('103', '2', 'I40004002', 'I40001', '用户研究员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('104', '2', 'I40004003', 'I40001', '游戏数值策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('105', '2', 'I40004004', 'I40001', '用户体验设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('106', '2', 'I40004997', 'I40001', '用户研究经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('107', '2', 'I40004998', 'I40001', '用户研究总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('108', '2', 'I40004999', 'I40001', '其他用户研究职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('109', '1', 'R10001', '0', '编辑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('110', '2', 'R10002001', 'R10001', '内容编辑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('111', '2', 'R10002002', 'R10001', '文案策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('112', '2', 'R10002003', 'R10001', '网站编辑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('113', '2', 'R10002004', 'R10001', '记者', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('114', '2', 'R10002005', 'R10001', '采编', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('115', '2', 'R10002997', 'R10001', '副主编', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('116', '2', 'R10002998', 'R10001', '主编', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('117', '2', 'R10002999', 'R10001', '其他编辑职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('118', '1', 'R20001', '0', '市场/营销', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('119', '2', 'R20001001', 'R20001', '选址开发', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('120', '2', 'R20001002', 'R20001', '市场营销', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('121', '2', 'R20001003', 'R20001', '市场策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('122', '2', 'R20001004', 'R20001', '市场顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('123', '2', 'R20001005', 'R20001', '市场推广', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('124', '2', 'R20001006', 'R20001', 'SEO', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('125', '2', 'R20001007', 'R20001', 'SEM', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('126', '2', 'R20001008', 'R20001', '商务渠道', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('127', '2', 'R20001009', 'R20001', '商业数据分析', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('128', '2', 'R20001010', 'R20001', '活动策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('129', '2', 'R20001011', 'R20001', '海外市场', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('130', '2', 'R20001012', 'R20001', '政府关系', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('131', '2', 'R20001013', 'R20001', 'APP推广', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('132', '2', 'R20001998', 'R20001', '市场总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('133', '2', 'R20001999', 'R20001', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('134', '1', 'R20002', '0', '销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('135', '2', 'R20002001', 'R20002', '销售专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('136', '2', 'R20002002', 'R20002', '销售经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('137', '2', 'R20002003', 'R20002', '客户代表', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('138', '2', 'R20002004', 'R20002', '大客户代表', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('139', '2', 'R20002005', 'R20002', 'BD经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('140', '2', 'R20002006', 'R20002', '商务渠道', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('141', '2', 'R20002007', 'R20002', '渠道销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('142', '2', 'R20002008', 'R20002', '代理商销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('143', '2', 'R20002009', 'R20002', '销售助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('144', '2', 'R20002010', 'R20002', '电话销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('145', '2', 'R20002011', 'R20002', '销售顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('146', '2', 'R20002012', 'R20002', '商品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('147', '2', 'R20002013', 'R20002', '广告销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('148', '2', 'R20002014', 'R20002', '网络营销', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('149', '2', 'R20002015', 'R20002', '营销主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('150', '2', 'R20002016', 'R20002', '销售工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('151', '2', 'R20002017', 'R20002', '客户经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('152', '2', 'R20002018', 'R20002', '团队经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('153', '2', 'R20002019', 'R20002', '城市经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('154', '2', 'R20002995', 'R20002', '销售总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('155', '2', 'R20002996', 'R20002', '区域总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('156', '2', 'R20002997', 'R20002', '销售VP', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('157', '2', 'R20002998', 'R20002', '商务总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('158', '2', 'R20002999', 'R20002', '其他销售职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('159', '2', 'R20002001', 'R20002', '公关媒介', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('160', '2', 'R20002002', 'R20002', '媒介经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('161', '2', 'R20002003', 'R20002', '广告协调', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('162', '2', 'R20002004', 'R20002', '品牌公关', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('163', '2', 'R20002005', 'R20002', '媒介专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('164', '2', 'R20002006', 'R20002', '活动策划执行', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('165', '2', 'R20002007', 'R20002', '媒介策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('166', '2', 'R20002997', 'R20002', '媒介总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('167', '2', 'R20002998', 'R20002', '公关总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('168', '2', 'R20002999', 'R20002', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('169', '2', 'R29999999', 'R20002', 'CMO', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('170', '1', 'R30001', '0', '广告', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('171', '2', 'R30001001', 'R30001', '广告创意', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('172', '2', 'R30001002', 'R30001', '美术指导', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('173', '2', 'R30001003', 'R30001', '广告设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('174', '2', 'R30001004', 'R30001', '策划经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('175', '2', 'R30001005', 'R30001', '文案', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('176', '2', 'R30001006', 'R30001', '广告制作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('177', '2', 'R30001007', 'R30001', '媒介投放', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('178', '2', 'R30001008', 'R30001', '媒介合作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('179', '2', 'R30001009', 'R30001', '媒介顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('180', '2', 'R30001010', 'R30001', '广告审核', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('181', '2', 'R30001998', 'R30001', '创意总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('182', '2', 'R30001999', 'R30001', '其他广告职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('183', '1', 'R40001', '0', '会务会展', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('184', '2', 'R40001002', 'R40001', '会议活动销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('185', '2', 'R40001003', 'R40001', '会议活动策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('186', '2', 'R40001004', 'R40001', '会议活动执行', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('187', '2', 'R40001005', 'R40001', '会展活动销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('188', '2', 'R40001006', 'R40001', '会展活动策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('189', '2', 'R40001007', 'R40001', '会展活动执行', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('190', '2', 'R40001999', 'R40001', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('191', '1', 'J10001', '0', '投融资', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('192', '2', 'J10001001', 'J10001', '投资经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('193', '2', 'J10001002', 'J10001', '行业研究', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('194', '2', 'J10001003', 'J10001', '资产管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('195', '2', 'J10001004', 'J10001', '融资', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('196', '2', 'J10001005', 'J10001', '并购', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('197', '2', 'J10001006', 'J10001', '资信评估', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('198', '2', 'J10001007', 'J10001', '合规稽查', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('199', '2', 'J10001008', 'J10001', '投后管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('200', '2', 'J10001009', 'J10001', '投资助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('201', '2', 'J10001010', 'J10001', '投资顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('202', '2', 'J10001011', 'J10001', '投资VP', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('203', '2', 'J10001012', 'J10001', '投资总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('204', '2', 'J10001013', 'J10001', '投资合伙人', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('205', '2', 'J10001999', 'J10001', '其他投融资职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('206', '1', 'J20001', '0', '银行职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('207', '2', 'J20001001', 'J20001', '信用卡销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('208', '2', 'J20001002', 'J20001', '分析师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('209', '2', 'J20001003', 'J20001', '柜员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('210', '2', 'J20001004', 'J20001', '商务渠道', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('211', '2', 'J20001005', 'J20001', '大堂经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('212', '2', 'J20001006', 'J20001', '理财顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('213', '2', 'J20001007', 'J20001', '客户经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('214', '2', 'J20001008', 'J20001', '信贷管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('215', '2', 'J20001999', 'J20001', '其他银行职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('216', '1', 'J30001', '0', '互联网金融', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('217', '2', 'J30001001', 'J30001', '金融产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('218', '2', 'J30001002', 'J30001', '风控专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('219', '2', 'J30001003', 'J30001', '催收员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('220', '2', 'J30001004', 'J30001', '分析师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('221', '2', 'J30001005', 'J30001', '投资经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('222', '2', 'J30001006', 'J30001', '交易员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('223', '2', 'J30001007', 'J30001', '理财顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('224', '2', 'J30001008', 'J30001', '合规稽查', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('225', '2', 'J30001009', 'J30001', '审计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('226', '2', 'J30001010', 'J30001', '清算', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('227', '2', 'J30001999', 'J30001', '其他互联网金融职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('228', '1', 'J40001', '0', '保险', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('229', '2', 'J40001001', 'J40001', '保险业务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('230', '2', 'J40001002', 'J40001', '精算师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('231', '2', 'J40001003', 'J40001', '保险理赔', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('232', '2', 'J40001999', 'J40001', '其他保险职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('233', '1', 'J50001', '0', '证券', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('234', '2', 'J50001001', 'J50001', '证券经纪人', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('235', '2', 'J50001002', 'J50001', '证券分析师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('236', '2', 'J50001999', 'J50001', '其他证券职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('237', '1', 'K10001', '0', '房地产', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('238', '2', 'K10001001', 'K10001', '房地产规划开发', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('239', '2', 'K10001002', 'K10001', '房产策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('240', '2', 'K10001003', 'K10001', '地产项目管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('241', '2', 'K10001004', 'K10001', '地产招投标', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('242', '2', 'K10001005', 'K10001', '设计装修与市政建设', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('243', '2', 'K10001006', 'K10001', '房地产销售总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('244', '2', 'K10001999', 'K10001', '其他房地产职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('245', '1', 'K10002', '0', '工程监理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('246', '2', 'K10002001', 'K10002', '工程造价', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('247', '2', 'K10002002', 'K10002', '预结算', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('248', '2', 'K10002003', 'K10002', '工程资料管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('249', '2', 'K10002004', 'K10002', '建筑施工现场管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('250', '2', 'K10002999', 'K10002', '其他监理职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('251', '1', 'K10003', '0', '地产经纪', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('252', '2', 'K10003001', 'K10003', '房地产经纪', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('253', '2', 'K10003002', 'K10003', '地产置业顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('254', '2', 'K10003003', 'K10003', '地产评估', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('255', '2', 'K10003004', 'K10003', '地产中介', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('256', '2', 'K10003999', 'K10003', '其他经纪职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('257', '1', 'K10004', '0', '物业', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('258', '2', 'K10004001', 'K10004', '物业管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('259', '2', 'K10004002', 'K10004', '物业租赁销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('260', '2', 'K10004003', 'K10004', '物业招商管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('261', '2', 'K10004004', 'K10004', '高端房地产职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('262', '2', 'K10004005', 'K10004', '地产项目总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('263', '2', 'K10004006', 'K10004', '地产策划总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('264', '2', 'K10004007', 'K10004', '地产招投标总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('265', '2', 'K10004008', 'K10004', '物业总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('266', '2', 'K10004999', 'K10004', '其他物业管理职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('267', '1', 'K20001', '0', '设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('268', '2', 'K20001001', 'K20001', '珠宝设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('269', '2', 'K20001002', 'K20001', '包装设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('270', '2', 'K20001003', 'K20001', '服装设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('271', '2', 'K20001004', 'K20001', '工业设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('272', '2', 'K20001005', 'K20001', '橱柜设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('273', '2', 'K20001006', 'K20001', '家具设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('274', '2', 'K20001007', 'K20001', '室内设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('275', '2', 'K20001008', 'K20001', '园林设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('276', '2', 'K20001009', 'K20001', '陈列设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('277', '2', 'K20001010', 'K20001', '景观设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('278', '2', 'K20001011', 'K20001', '城市规划设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('279', '2', 'K20001999', 'K20001', '其他设计职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('280', '1', 'K30001', '0', '建筑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('281', '2', 'K30001001', 'K30001', '建筑工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('282', '2', 'K30001002', 'K30001', '建筑设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('283', '2', 'K30001003', 'K30001', '土建工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('284', '2', 'K30001004', 'K30001', '结构工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('285', '2', 'K30001005', 'K30001', '高级建筑工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('286', '2', 'K30001999', 'K30001', '其他建筑职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('342', '1', 'L10001', '0', '人力资源', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('343', '2', 'L10001001', 'L10001', '招聘专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('344', '2', 'L10001002', 'L10001', 'HRBP人力资源业务合作伙伴', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('345', '2', 'L10001003', 'L10001', '人力资源专员/助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('346', '2', 'L10001004', 'L10001', '培训专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('347', '2', 'L10001005', 'L10001', '薪资福利专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('348', '2', 'L10001006', 'L10001', '绩效考核专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('349', '2', 'L10001007', 'L10001', '员工关系专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('350', '2', 'L10001008', 'L10001', '组织发展专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('351', '2', 'L10001996', 'L10001', '人力资源主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('352', '2', 'L10001997', 'L10001', '人力资源经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('353', '2', 'L10001998', 'L10001', '人力资源总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('354', '2', 'L10001999', 'L10001', '其他HR职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('355', '1', 'L10002', '0', '行政', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('356', '2', 'L10002001', 'L10002', '行政专员/助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('357', '2', 'L10002002', 'L10002', '前台', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('358', '2', 'L10002003', 'L10002', '后勤', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('359', '2', 'L10002004', 'L10002', '商务司机', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('360', '2', 'L10002005', 'L10002', '经理助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('361', '2', 'L10002997', 'L10002', '行政主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('362', '2', 'L10002998', 'L10002', '行政经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('363', '2', 'L10002999', 'L10002', '行政总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('364', '2', 'L19999999', 'L10002', 'CHO', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('365', '1', 'L20001', '0', '财务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('366', '2', 'L20001001', 'L20001', '会计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('367', '2', 'L20001002', 'L20001', '出纳', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('368', '2', 'L20001003', 'L20001', '财务顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('369', '2', 'L20001004', 'L20001', '结算', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('370', '2', 'L20001005', 'L20001', '税务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('371', '2', 'L20001006', 'L20001', '审计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('372', '2', 'L20001007', 'L20001', '风控', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('373', '2', 'L20001996', 'L20001', '财务主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('374', '2', 'L20001997', 'L20001', '财务经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('375', '2', 'L20001998', 'L20001', '财务总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('376', '2', 'L20001999', 'L20001', '其他财务职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('377', '2', 'L29999999', 'L20001', 'CFO', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('378', '1', 'L30001', '0', '法务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('379', '2', 'L30001001', 'L30001', '法务专员/助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('380', '2', 'L30001002', 'L30001', '律师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('381', '2', 'L30001003', 'L30001', '专利', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('382', '2', 'L30001004', 'L30001', '法律顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('383', '2', 'L30001996', 'L30001', '法务主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('384', '2', 'L30001997', 'L30001', '法务经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('385', '2', 'L30001998', 'L30001', '法务总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('386', '2', 'L30001999', 'L30001', '其他职能职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('387', '1', 'L40001', '0', '运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('388', '2', 'L40001001', 'L40001', '用户运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('389', '2', 'L40001002', 'L40001', '产品运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('390', '2', 'L40001003', 'L40001', '数据运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('391', '2', 'L40001004', 'L40001', '内容运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('392', '2', 'L40001005', 'L40001', '活动运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('393', '2', 'L40001006', 'L40001', '商家运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('394', '2', 'L40001007', 'L40001', '品类运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('395', '2', 'L40001008', 'L40001', '游戏运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('396', '2', 'L40001009', 'L40001', '网络推广', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('397', '2', 'L40001010', 'L40001', '网站运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('398', '2', 'L40001011', 'L40001', '新媒体运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('399', '2', 'L40001012', 'L40001', '社区运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('400', '2', 'L40001013', 'L40001', '微信运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('401', '2', 'L40001014', 'L40001', '微博运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('402', '2', 'L40001015', 'L40001', '策略运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('403', '2', 'L40001016', 'L40001', '线下拓展运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('404', '2', 'L40001017', 'L40001', '电商运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('405', '2', 'L40001018', 'L40001', '运营助理/专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('406', '2', 'L40001019', 'L40001', '内容审核', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('407', '2', 'L40001020', 'L40001', '销售运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('408', '2', 'L40001997', 'L40001', '运营经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('409', '2', 'L40001998', 'L40001', '运营总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('410', '2', 'L40001999', 'L40001', '其他运营职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('411', '2', 'L49999999', 'L40001', '首席运营官', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('412', '1', 'L80001', '0', '客服', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('413', '2', 'L80001001', 'L80001', '售前咨询', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('414', '2', 'L80001002', 'L80001', '售后咨询', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('415', '2', 'L80001003', 'L80001', '客服经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('416', '2', 'L80001001', 'L80001', '客服专员/助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('417', '2', 'L80001005', 'L80001', '网络客服', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('418', '2', 'L80001006', 'L80001', '电话客服', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('419', '2', 'L80001997', 'L80001', '客服主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('420', '2', 'L80001998', 'L80001', '客服总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('421', '2', 'L80001999', 'L80001', '其他客服职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 
 TRUNCATE TABLE `youthchina`.`SYS_IND_CLASS`;
-INSERT INTO `youthchina`.`SYS_IND_CLASS` (`IND_NUM`, `IND_CODE`, `IND_CHN`, `IND_ENG`, `IND_LEVEL`, `IND_PARENT_CODE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_IND_CLASS` (`IND_NUM`, `IND_CODE`, `IND_CHN`, `IND_ENG`, `IND_LEVEL`, `IND_PARENT_CODE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', 'A', '农、林、牧、渔业', 'Agriculture, forestry, animal husbandry and fishery', '1', 'root', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('2', 'A01', '农业', 'Agriculture', '2', 'A', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('3', 'A011', '谷物种植', 'Cereal cultivation', '3', 'A01', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -5456,7 +5506,7 @@ INSERT INTO `youthchina`.`SYS_IND_CLASS` (`IND_NUM`, `IND_CODE`, `IND_CHN`, `IND
 
 
 TRUNCATE TABLE `youthchina`.`SYS_COMPANY_SCALE`;
-INSERT INTO `youthchina`.`SYS_COMPANY_SCALE` (`SCALE_NUM`, `SCALE_CHN`, `SCALE_ENG`, `START_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_COMPANY_SCALE` (`SCALE_NUM`, `SCALE_CHN`, `SCALE_ENG`, `START_TIME`) VALUES 
 ('1', '微型企业', 'Micro enterprise', '2019-01-01 00:00:00'),
 ('2', '小型企业', 'Small enterprise', '2019-01-01 00:00:00'),
 ('3', '中型企业', 'Medium enterprise', '2019-01-01 00:00:00'),
@@ -5464,55 +5514,55 @@ INSERT INTO `youthchina`.`SYS_COMPANY_SCALE` (`SCALE_NUM`, `SCALE_CHN`, `SCALE_E
 
 
 TRUNCATE TABLE `youthchina`.`SYS_COMPANY_NATURE`;
-INSERT INTO `youthchina`.`SYS_COMPANY_NATURE` (`NATURE_NUM`, `NATURE_CHN`, `NATURE_ENG`, `NATURE_DETAIL`, `START_TIME`) VALUES
-('1001', '企业', 'Enterprise', '国有企业', '2019-01-01 00:00:00'),
-('1002', '企业', 'Enterprise', '集体所有制企业', '2019-01-01 00:00:00'),
-('1003', '企业', 'Enterprise', '股份合作企业', '2019-01-01 00:00:00'),
-('1004', '企业', 'Enterprise', '联营企业', '2019-01-01 00:00:00'),
-('1005', '企业', 'Enterprise', '有限责任公司', '2019-01-01 00:00:00'),
-('1006', '企业', 'Enterprise', '股份有限公司', '2019-01-01 00:00:00'),
-('1007', '企业', 'Enterprise', '私营企业', '2019-01-01 00:00:00'),
-('1999', '企业', 'Enterprise', '其他企业', '2019-01-01 00:00:00'),
-('2001', '机关单位', 'Organs and units', '立法机关', '2019-01-01 00:00:00'),
-('2002', '机关单位', 'Organs and units', '警察机关', '2019-01-01 00:00:00'),
-('2003', '机关单位', 'Organs and units', '检察机关', '2019-01-01 00:00:00'),
-('2004', '机关单位', 'Organs and units', '权力机关', '2019-01-01 00:00:00'),
-('2005', '机关单位', 'Organs and units', '司法机关', '2019-01-01 00:00:00'),
-('2006', '机关单位', 'Organs and units', '行政机关', '2019-01-01 00:00:00'),
-('2999', '机关单位', 'Organs and units', '其他机关', '2019-01-01 00:00:00'),
-('3001', '事业单位', 'Institution', '教育单位', '2019-01-01 00:00:00'),
-('3002', '事业单位', 'Institution', '科研单位', '2019-01-01 00:00:00'),
-('3003', '事业单位', 'Institution', '勘察设计单位', '2019-01-01 00:00:00'),
-('3004', '事业单位', 'Institution', '勘探单位', '2019-01-01 00:00:00'),
-('3005', '事业单位', 'Institution', '文化单位', '2019-01-01 00:00:00'),
-('3006', '事业单位', 'Institution', '卫生单位', '2019-01-01 00:00:00'),
-('3007', '事业单位', 'Institution', '体育单位', '2019-01-01 00:00:00'),
-('3008', '事业单位', 'Institution', '新闻出版单位', '2019-01-01 00:00:00'),
-('3009', '事业单位', 'Institution', '农林牧水单位', '2019-01-01 00:00:00'),
-('3010', '事业单位', 'Institution', '交通单位', '2019-01-01 00:00:00'),
-('3011', '事业单位', 'Institution', '气象单位', '2019-01-01 00:00:00'),
-('3012', '事业单位', 'Institution', '地震单位', '2019-01-01 00:00:00'),
-('3013', '事业单位', 'Institution', '海洋单位', '2019-01-01 00:00:00'),
-('3014', '事业单位', 'Institution', '环保单位', '2019-01-01 00:00:00'),
-('3015', '事业单位', 'Institution', '测绘单位', '2019-01-01 00:00:00'),
-('3016', '事业单位', 'Institution', '信息咨询单位', '2019-01-01 00:00:00'),
-('3017', '事业单位', 'Institution', '标准计量单位', '2019-01-01 00:00:00'),
-('3018', '事业单位', 'Institution', '知识产权单位', '2019-01-01 00:00:00'),
-('3019', '事业单位', 'Institution', '进出口商检单位', '2019-01-01 00:00:00'),
-('3020', '事业单位', 'Institution', '城市公用单位', '2019-01-01 00:00:00'),
-('3021', '事业单位', 'Institution', '物资仓储单位', '2019-01-01 00:00:00'),
-('3022', '事业单位', 'Institution', '社会福利单位', '2019-01-01 00:00:00'),
-('3023', '事业单位', 'Institution', '经济监督单位', '2019-01-01 00:00:00'),
-('3024', '事业单位', 'Institution', '机关后勤单位', '2019-01-01 00:00:00'),
-('4001', '社会团体', 'Social Group', '学术性社会团体', '2019-01-01 00:00:00'),
-('4002', '社会团体', 'Social Group', '行业性社会团体', '2019-01-01 00:00:00'),
-('4003', '社会团体', 'Social Group', '专业性社会团体', '2019-01-01 00:00:00'),
-('4004', '社会团体', 'Social Group', '联合性社会团体', '2019-01-01 00:00:00'),
-('9999', '其他组织机构', 'Other', '其他', '2019-01-01 00:00:00');
+INSERT INTO `youthchina`.`SYS_COMPANY_NATURE` (`NATURE_NUM`, `NATURE_CHN`, `NATURE_ENG`, `NATURE_DETAIL`, `START_TIME`) VALUES 
+ ('1001', '企业', 'Enterprise', '国有企业', '2019-01-01 00:00:00'),
+ ('1002', '企业', 'Enterprise', '集体所有制企业', '2019-01-01 00:00:00'),
+ ('1003', '企业', 'Enterprise', '股份合作企业', '2019-01-01 00:00:00'),
+ ('1004', '企业', 'Enterprise', '联营企业', '2019-01-01 00:00:00'),
+ ('1005', '企业', 'Enterprise', '有限责任公司', '2019-01-01 00:00:00'),
+ ('1006', '企业', 'Enterprise', '股份有限公司', '2019-01-01 00:00:00'),
+ ('1007', '企业', 'Enterprise', '私营企业', '2019-01-01 00:00:00'),
+ ('1999', '企业', 'Enterprise', '其他企业', '2019-01-01 00:00:00'),
+ ('2001', '机关单位', 'Organs and units', '立法机关', '2019-01-01 00:00:00'),
+ ('2002', '机关单位', 'Organs and units', '警察机关', '2019-01-01 00:00:00'),
+ ('2003', '机关单位', 'Organs and units', '检察机关', '2019-01-01 00:00:00'),
+ ('2004', '机关单位', 'Organs and units', '权力机关', '2019-01-01 00:00:00'),
+ ('2005', '机关单位', 'Organs and units', '司法机关', '2019-01-01 00:00:00'),
+ ('2006', '机关单位', 'Organs and units', '行政机关', '2019-01-01 00:00:00'),
+ ('2999', '机关单位', 'Organs and units', '其他机关', '2019-01-01 00:00:00'),
+ ('3001', '事业单位', 'Institution', '教育单位', '2019-01-01 00:00:00'),
+ ('3002', '事业单位', 'Institution', '科研单位', '2019-01-01 00:00:00'),
+ ('3003', '事业单位', 'Institution', '勘察设计单位', '2019-01-01 00:00:00'),
+ ('3004', '事业单位', 'Institution', '勘探单位', '2019-01-01 00:00:00'),
+ ('3005', '事业单位', 'Institution', '文化单位', '2019-01-01 00:00:00'),
+ ('3006', '事业单位', 'Institution', '卫生单位', '2019-01-01 00:00:00'),
+ ('3007', '事业单位', 'Institution', '体育单位', '2019-01-01 00:00:00'),
+ ('3008', '事业单位', 'Institution', '新闻出版单位', '2019-01-01 00:00:00'),
+ ('3009', '事业单位', 'Institution', '农林牧水单位', '2019-01-01 00:00:00'),
+ ('3010', '事业单位', 'Institution', '交通单位', '2019-01-01 00:00:00'),
+ ('3011', '事业单位', 'Institution', '气象单位', '2019-01-01 00:00:00'),
+ ('3012', '事业单位', 'Institution', '地震单位', '2019-01-01 00:00:00'),
+ ('3013', '事业单位', 'Institution', '海洋单位', '2019-01-01 00:00:00'),
+ ('3014', '事业单位', 'Institution', '环保单位', '2019-01-01 00:00:00'),
+ ('3015', '事业单位', 'Institution', '测绘单位', '2019-01-01 00:00:00'),
+ ('3016', '事业单位', 'Institution', '信息咨询单位', '2019-01-01 00:00:00'),
+ ('3017', '事业单位', 'Institution', '标准计量单位', '2019-01-01 00:00:00'),
+ ('3018', '事业单位', 'Institution', '知识产权单位', '2019-01-01 00:00:00'),
+ ('3019', '事业单位', 'Institution', '进出口商检单位', '2019-01-01 00:00:00'),
+ ('3020', '事业单位', 'Institution', '城市公用单位', '2019-01-01 00:00:00'),
+ ('3021', '事业单位', 'Institution', '物资仓储单位', '2019-01-01 00:00:00'),
+ ('3022', '事业单位', 'Institution', '社会福利单位', '2019-01-01 00:00:00'),
+ ('3023', '事业单位', 'Institution', '经济监督单位', '2019-01-01 00:00:00'),
+ ('3024', '事业单位', 'Institution', '机关后勤单位', '2019-01-01 00:00:00'),
+ ('4001', '社会团体', 'Social Group', '学术性社会团体', '2019-01-01 00:00:00'),
+ ('4002', '社会团体', 'Social Group', '行业性社会团体', '2019-01-01 00:00:00'),
+ ('4003', '社会团体', 'Social Group', '专业性社会团体', '2019-01-01 00:00:00'),
+ ('4004', '社会团体', 'Social Group', '联合性社会团体', '2019-01-01 00:00:00'),
+ ('9999', '其他组织机构', 'Other', '其他', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_COUNTRY`;
-INSERT INTO `youthchina`.`SYS_COUNTRY` (`COUNTRY_ABBRE`, `COUNTRY_CHN`, `COUNTRY_ENG`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_COUNTRY` (`COUNTRY_ABBRE`, `COUNTRY_CHN`, `COUNTRY_ENG`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('ABW', '阿鲁巴', 'ARUBA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('AFG', '阿富汗', 'AFGHANISTAN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('AGO', '安哥拉', 'ANGOLA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -5770,7 +5820,7 @@ INSERT INTO `youthchina`.`SYS_COUNTRY` (`COUNTRY_ABBRE`, `COUNTRY_CHN`, `COUNTRY
 
 
 TRUNCATE TABLE  `youthchina`.`SYS_CHN_REGION` ;
-INSERT INTO `youthchina`.`SYS_CHN_REGION` (`REGION_ID`, `REGION_NUM`, `REGION_CHN`, `REGION_FULLCHN`, `REGION_ENG`, `REGION_LEVEL`, `REGION_PARENT_NUM`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_CHN_REGION` (`REGION_ID`, `REGION_NUM`, `REGION_CHN`, `REGION_FULLCHN`, `REGION_ENG`, `REGION_LEVEL`, `REGION_PARENT_NUM`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('110000', '110000', '北京市', '北京市', '---', '1', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('110100', '110100', '市辖区', '北京市市辖区', '---', '2', '110000', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('110101', '110101', '东城区', '北京市市辖区东城区', '---', '3', '110100', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -9290,7 +9340,7 @@ INSERT INTO `youthchina`.`SYS_CHN_REGION` (`REGION_ID`, `REGION_NUM`, `REGION_CH
 
 
 TRUNCATE TABLE `youthchina`.`SYS_USA_STATE`;
-INSERT INTO `youthchina`.`SYS_USA_STATE` (`STATE_ID`, `STATE_CHN`, `STATE_ENG`, `STATE_ABBRE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_USA_STATE` (`STATE_ID`, `STATE_CHN`, `STATE_ENG`, `STATE_ABBRE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '亚拉巴马州', 'Alabama', 'AL', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('2', '阿拉斯加州', 'Alaska', 'AK', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('3', '美属萨摩亚', 'American Samoa', 'AS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -9354,7 +9404,7 @@ INSERT INTO `youthchina`.`SYS_USA_STATE` (`STATE_ID`, `STATE_CHN`, `STATE_ENG`, 
 
 TRUNCATE TABLE `youthchina`.`SYS_USA_ZIPCODE` ;
 INSERT INTO `youthchina`.`SYS_USA_ZIPCODE` (`REGION_ID`, `ZIP_CODE`, `REGION_CHN`, `REGION_ENG`, `REGION_CITY`, `STATE_ID`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
-('900000', '00000', '美国', 'U.S.', 'U.S.', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('900000', '00000', '美国', 'U.S.', 'U.S.', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'), 
 ('902101', '02101', '波士顿', 'Boston', 'Suffolk', '26', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('902102', '02102', '波士顿', 'Boston', 'Suffolk', '26', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('902103', '02103', '波士顿', 'Boston', 'Suffolk', '26', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -11300,7 +11350,7 @@ INSERT INTO `youthchina`.`SYS_USA_ZIPCODE` (`REGION_ID`, `ZIP_CODE`, `REGION_CHN
 
 
 TRUNCATE TABLE `youthchina`.`SYS_UNIVERSITY_CHN`;
-INSERT INTO `youthchina`.`SYS_UNIVERSITY_CHN` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNIVERS_ENG`, `UNIVERS_CODE`, `UNIVERS_LOCATION`, `UNIVERS_DEPT`, `UNIVERS_LEVEL`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_UNIVERSITY_CHN` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNIVERS_ENG`, `UNIVERS_CODE`, `UNIVERS_LOCATION`, `UNIVERS_DEPT`, `UNIVERS_LEVEL`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('10001', '北京大学', 'Peking University', '4111010001', '110000', '教育部', '本科', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('10002', '中国人民大学', 'Renmin University of China', '4111010002', '110000', '教育部', '本科', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('10003', '清华大学', 'Tsinghua University', '4111010003', '110000', '教育部', '本科', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -13935,7 +13985,7 @@ INSERT INTO `youthchina`.`SYS_UNIVERSITY_CHN` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNI
 
 
 TRUNCATE TABLE `youthchina`.`SYS_UNIVERSITY_USA` ;
-INSERT INTO `youthchina`.`SYS_UNIVERSITY_USA` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNIVERS_ENG`, `UNIVERS_STATE`, `UNIVERS_STATE_ID`, `UNIVERS_CITY`, `UNIVERS_ZIPCODE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_UNIVERSITY_USA` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNIVERS_ENG`, `UNIVERS_STATE`, `UNIVERS_STATE_ID`, `UNIVERS_CITY`, `UNIVERS_ZIPCODE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('20001', '---', 'Samford University', 'AL', '1', 'Birmingham', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('20002', '---', 'University of Mobile', 'AL', '1', 'Mobile', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('20003', '---', 'Huntingdon College', 'AL', '1', 'Montgomery', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -15662,7 +15712,7 @@ INSERT INTO `youthchina`.`SYS_UNIVERSITY_USA` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNI
 
 
 TRUNCATE TABLE `youthchina`.`SYS_UNIVERSITY_GBR` ;
-INSERT INTO `youthchina`.`SYS_UNIVERSITY_GBR` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNIVERS_ENG`, `UNIVERS_CITY`, `UNIVERS_ZIPCODE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
+INSERT INTO `youthchina`.`SYS_UNIVERSITY_GBR` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNIVERS_ENG`, `UNIVERS_CITY`, `UNIVERS_ZIPCODE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('30001', '剑桥大学', 'University of Cambridge', 'Cambridge', 'CB2 1TN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('30002', '牛津大学', 'University of Oxford', 'Oxford', 'OX1 2JD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('30003', '圣安德鲁斯大学', 'University of St Andrews', 'St Andrews', 'KY16 9AJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -15825,95 +15875,95 @@ INSERT INTO `youthchina`.`SYS_UNIVERSITY_GBR` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNI
 
 TRUNCATE TABLE  `youthchina`.`SYS_UNIVERSITY_CAN`  ;
 INSERT INTO `youthchina`.`SYS_UNIVERSITY_CAN` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNIVERS_ENG`, `UNIVERS_STATE`, `UNIVERS_CITY`, `UNIVERS_ZIPCODE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES ('40001', '多伦多大学', 'University of Toronto', 'Ontario', 'Toronto', 'M5S 2J7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40002', '不列颠哥伦比亚大学', 'University of British Columbia', 'British Columbia', 'Vancouver', 'V6T 1Z4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40003', '麦吉尔大学', 'McGill University', 'Quebec', 'Montréal', 'H3A 0G4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40004', '麦克马斯特大学', 'McMaster University', 'Ontario', 'Hamilton', 'L8S 4L8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40005', '蒙特利尔大学', 'University of Montreal', 'Québec', 'Montréal', 'H3T 1J4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40006', '阿尔伯塔大学', 'University of Alberta', 'Alberta', 'Edmonton', 'T6G 2R3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40007', '卡尔加里大学', 'University of Calgary', 'Alberta', 'Calgary', 'T2N 1N4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40008', '渥太华大学', 'University of Ottawa', 'Ontario', 'Ottawa', 'K1N 6N5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40009', '滑铁卢大学', 'University of Waterloo', 'Ontario', 'Waterloo', 'N2L 3G1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40010', '维多利亚大学', 'University of Victoria', 'British Columbia', 'Victoria', 'V8P 5C2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40011', '西安大略大学', 'Western University', 'Ontario', 'London', 'N6A 3K7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40012', '西蒙菲沙大学', 'Simon Fraser University', 'British Columbia', 'Burnaby', 'V5A 1S6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40013', '拉瓦尔大学', 'Laval University', 'Québec', 'Québec City', 'G1V 0A6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40014', '达尔豪斯大学', 'Dalhousie University', 'Nova Scotia', 'Halifax', 'B3H 4R2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40015', '皇后大学', 'Queen\'s University', 'Ontario', 'Kingston', 'K7L 3N6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40016', '曼尼托巴大学', 'University of Manitoba', 'Manitoba', 'Winnipeg', 'R3T 2N2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40017', '约克大学', 'York University', 'Ontario', 'Toronto', 'M3J 1P3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40018', '圭尔夫大学', 'University of Guelph', 'Ontario', 'Guelph', 'N1G 2W1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40019', '卡尔顿大学', 'Carleton University', 'Ontario', 'Ottowa', 'K1S 5B6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40020', '魁北克大学蒙特利尔分校', 'Université du Québec à Montréal', 'Québec', 'Montréal', 'H2X 2C4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40021', '萨斯喀彻温大学', 'University of Saskatchewan', 'Saskatchewan', 'Saskatoon', 'S7N 5A2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40022', '康考迪亚大学', 'Concordia University', 'Québec', 'Montréal', 'H3G 1M8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40023', '纽芬兰纪念大学', 'Memorial University of Newfoundland', 'Newfoundland', 'St. John\'s', 'A1C 5S7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40024', '舍布鲁克大学', 'University of Sherbrooke', 'Québec', 'Sherbrooke', 'J1K 2R1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40025', '瑞尔森大学', 'Ryerson University', 'Ontario', 'Toronto', 'M5B 2K3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40026', '新不伦瑞克大学', 'University of New Brunswick', 'New Brunswick', 'Fredericton', 'E3B 5A3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40027', '安大略理工大学', 'University of Ontario Institute Technology', 'Ontario', 'Oshawa', 'L1H 7K4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40028', '魁北克大学', 'Université du Québec', 'Québec', 'Québec City', 'G1K 9H7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40029', '里贾纳大学', 'University of Regina', 'Saskatchewan', 'Regina', 'S4S 0A2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40030', '温莎大学', 'University of Windsor', 'Ontario', 'Windsor', 'N9B 3P4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40031', '布鲁克大学', 'Brock University', 'Ontario', 'St. Catharines', 'L2S 3A1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40032', '湖首大学', 'Lakehead University', 'Ontario', 'Thunder Bay', 'P7B 5E1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40033', '特伦特大学', 'Trent University', 'Ontario', 'Peterborough', 'K9L 0G2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40034', '劳里埃大学', 'Wilfrid Laurier University', 'Ontario', 'Waterloo', 'N2L 3C5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40035', '莱斯布里奇大学', 'University of Lethbridge', 'Alberta', 'Lethbridge', 'T1K 3M4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40036', '---', 'Ecole de Technologie Superieure - Canada', 'Québec', 'Montréal', 'H3C 1K3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40037', '---', 'Royal Military College - Canada', 'Ontario', 'Kingston', 'K7K 7B4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40038', '爱德华王子岛大学', 'University of Prince Edward Island', 'Prince Edward Island', 'Charlottetown', 'C1A 4P3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40039', '---', 'University of Northern British Columbia', 'British Columbia', 'Prince George', 'V2N 4Z9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40040', '安布罗斯大学', 'Ambrose University', 'Alberta', 'Calgary', 'T3H 0L5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40041', '博曼大学', 'Burman University', 'Alberta', 'Lacombe', 'T4L 2E5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40042', '埃德蒙顿康考迪亚大学', 'Concordia University of Edmonton', 'Alberta', 'Edmonton', 'T5B 4E4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40043', '麦科文大学', 'Grant MacEwan University', 'Alberta', 'Edmonton', 'T5J 4S2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40044', '皇家山大学', 'Mount Royal University', 'Alberta', 'Calgary', 'T3E 6K6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40045', '圣玛丽大学', 'St. Mary’s University', 'Nova Scotia', 'Halifax', 'B3H 3C3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40046', '国王大学', 'The King’s University', 'Alberta', 'Edmonton', 'T6B 2H3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40047', '卡普兰诺大学', 'Capilano University', 'British Columbia', 'North Vancouver', 'V7J 3H5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40048', '爱米利·卡尔艺术与设计大学', 'Emily Carr University of Art and Design', 'British Columbia', 'Vancouver', 'V5T 0H2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40049', '昆特兰理工大学', 'Kwantlen Polytechnic University', 'British Columbia', 'Surrey', 'V3W 2M8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40050', '皇家大学', 'Royal Roads University', 'British Columbia', 'Victoria', 'V9B 5Y2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40051', '汤姆逊大学', 'Thompson Rivers University', 'British Columbia', 'Kamloops', 'V2C 0C8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40052', '西三一大学', 'Trinity Western University', 'British Columbia', 'Langley City', 'V2Y 1Y1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40053', '北不列颠哥伦比亚大学', 'University of Northern British Columbia', 'British Columbia', 'Prince George', 'V2N 4Z9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40054', '菲莎河谷大学', 'University of the Fraser Valley', 'British Columbia', 'Abbotsford', 'V2S 7M8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40055', '温哥华岛大学', 'Vancouver Island University', 'British Columbia', 'Nanaimo', 'V9R 5S5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40056', '布兰登大学', 'Brandon University', 'Manitoba', 'Brandon', 'R7A 6A9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40057', '---', 'The University of Winnipeg', 'Manitoba', 'Winnipeg', 'R3B 2E9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40058', '艾利森山大学', 'Mount Alison University', 'New Brunswick', 'Sackville', 'E4L 1E2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40059', '圣托马斯大学', 'St. Thomas University', 'New Brunswick', 'Fredericton', 'E3B 5G3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40060', '---', 'Université de Moncton', 'New Brunswick', 'Moncton', 'E1A 3E9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40061', '阿卡迪亚大学', 'Acadia University', 'Nova Scotia', 'Wolfville', 'B4P 2R6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40062', '布雷顿角大学', 'Cape Breton University', 'Nova Scotia', 'Sydney', 'B1P 6L2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40063', '戴尔豪斯大学', 'Dalhousie University', 'Nova Scotia', 'Halifax', 'B3H 4R2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40064', '圣文森特山大学', 'Mount Saint Vincent University', 'Nova Scotia', 'Halifax', 'B3M 2J6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40065', '新斯科舍省艺术与设计学院', 'NSCAD University', 'Nova Scotia', 'Halifax', 'B3J 3J6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40066', '圣玛丽大学', 'Saint Mary\'s University', 'Nova Scotia', 'Halifax', 'B3H 3C3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40067', '圣弗朗西斯泽维尔大学', 'St. Francis Xavier University', 'Nova Scotia', 'Antigonish', 'B2G 2W5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40068', '---', 'Université Sainte-Anne', 'Nova Scotia', 'Church Point', 'B0W 1M0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40069', '加拿大第一民族大学', 'First Nations University of Canada', 'Saskatchewan', 'Regina', 'S4S 7K2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40070', '里贾纳大学', 'University of Regina', 'Saskatchewan', 'Regina', 'S4S 0A2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40071', '阿尔戈马大学', 'Algoma University', 'Ontario', 'Marie', 'P6A 2G4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40072', '劳伦森大学', 'Laurentian University', 'Ontario', 'Sudbury', 'P3E 2C6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40073', '尼皮辛大学', 'Nipissing University', 'Ontario', 'North Bay', 'P1B 8L7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40074', '安大略艺术设计大学', 'OCAD University', 'Ontario', 'Toronto', 'M5T 1W1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40075', '怀雅逊大学', 'Ryerson University', 'Ontario', 'Toronto', 'M5B 2K3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40076', '圣保罗大学', 'Saint Paul University', 'Ontario', 'Ottawa', 'K1S 1C4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40077', '圣杰罗姆大学', 'St. Jerome\'s University', 'Ontario', 'Waterloo', 'N2L 3G3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40078', '安大略大学理工学院', 'University of Ontario Institute of Technology', 'Ontario', 'Oshawa', 'L1G 0C5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40079', '萨德伯里大学', 'University of Sudbury', 'Ontario', 'Sudbury', 'P3E 2C6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40080', '主教大学', 'Bishop\'s University', 'Québec', 'Sherbrooke', 'J1M 1Z7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40081', '康考迪亚大学', 'Concordia University', 'Québec', 'Montréal', 'H3G 1M8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40082', '蒙特利尔工程学院', 'école Polytechnique de Montréal', 'Québec', 'Montréal', 'H3T 1J4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40083', '蒙特利尔高等商学院', 'HEC Montréal', 'Québec', 'Montréal', 'H3T 2A7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40084', '蒙特利尔大学', 'Université de Montréal', 'Québec', 'Montréal', 'H3T 1J4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40085', '---', 'Université de Sherbrooke', 'Québec', 'Sherbrooke', 'J1K?2R1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40086', '魁北克大学希库蒂米分校', 'Université du Québec à Chicoutimi', 'Québec', 'Chicoutimi', 'G7H 2B1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40087', '魁北克大学里穆斯基分校', 'Université du Québec à Rimouski', 'Québec', 'Rimouski', 'G5L 3A1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40088', '魁北克大学三河分校', 'Université du Québec à Trois-Rivières', 'Québec', 'Trois-Rivières', 'G8Z 4M3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40089', '魁北克大学阿比提比-蒂米斯卡曼格分校', 'Université du Québec en Abitibi-Témiscamingue', 'Québec', 'Rouyn-Noranda', 'J9X 5E4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40090', '魁北克大学渥太华河区大学', 'Université du Québec en Outaouais', 'Québec', 'Gatineau', 'J8X 3X7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40091', '高等工程技术学院', 'Université du Québec: école de technologie supérieure', 'Québec', 'Montréal', 'H3C 1K3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('40092', '拉瓦尔大学', 'Université Laval', 'Québec', 'Québec', 'G1V 0A6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-                                                                                                                                                                                                   ('49999', '其他加拿大大学', 'Other', 'Other', 'Other', 'Other', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+('40002', '不列颠哥伦比亚大学', 'University of British Columbia', 'British Columbia', 'Vancouver', 'V6T 1Z4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40003', '麦吉尔大学', 'McGill University', 'Quebec', 'Montréal', 'H3A 0G4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40004', '麦克马斯特大学', 'McMaster University', 'Ontario', 'Hamilton', 'L8S 4L8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40005', '蒙特利尔大学', 'University of Montreal', 'Québec', 'Montréal', 'H3T 1J4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40006', '阿尔伯塔大学', 'University of Alberta', 'Alberta', 'Edmonton', 'T6G 2R3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40007', '卡尔加里大学', 'University of Calgary', 'Alberta', 'Calgary', 'T2N 1N4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40008', '渥太华大学', 'University of Ottawa', 'Ontario', 'Ottawa', 'K1N 6N5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40009', '滑铁卢大学', 'University of Waterloo', 'Ontario', 'Waterloo', 'N2L 3G1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40010', '维多利亚大学', 'University of Victoria', 'British Columbia', 'Victoria', 'V8P 5C2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40011', '西安大略大学', 'Western University', 'Ontario', 'London', 'N6A 3K7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40012', '西蒙菲沙大学', 'Simon Fraser University', 'British Columbia', 'Burnaby', 'V5A 1S6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40013', '拉瓦尔大学', 'Laval University', 'Québec', 'Québec City', 'G1V 0A6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40014', '达尔豪斯大学', 'Dalhousie University', 'Nova Scotia', 'Halifax', 'B3H 4R2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40015', '皇后大学', 'Queen\'s University', 'Ontario', 'Kingston', 'K7L 3N6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40016', '曼尼托巴大学', 'University of Manitoba', 'Manitoba', 'Winnipeg', 'R3T 2N2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40017', '约克大学', 'York University', 'Ontario', 'Toronto', 'M3J 1P3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40018', '圭尔夫大学', 'University of Guelph', 'Ontario', 'Guelph', 'N1G 2W1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40019', '卡尔顿大学', 'Carleton University', 'Ontario', 'Ottowa', 'K1S 5B6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40020', '魁北克大学蒙特利尔分校', 'Université du Québec à Montréal', 'Québec', 'Montréal', 'H2X 2C4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40021', '萨斯喀彻温大学', 'University of Saskatchewan', 'Saskatchewan', 'Saskatoon', 'S7N 5A2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40022', '康考迪亚大学', 'Concordia University', 'Québec', 'Montréal', 'H3G 1M8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40023', '纽芬兰纪念大学', 'Memorial University of Newfoundland', 'Newfoundland', 'St. John\'s', 'A1C 5S7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40024', '舍布鲁克大学', 'University of Sherbrooke', 'Québec', 'Sherbrooke', 'J1K 2R1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40025', '瑞尔森大学', 'Ryerson University', 'Ontario', 'Toronto', 'M5B 2K3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40026', '新不伦瑞克大学', 'University of New Brunswick', 'New Brunswick', 'Fredericton', 'E3B 5A3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40027', '安大略理工大学', 'University of Ontario Institute Technology', 'Ontario', 'Oshawa', 'L1H 7K4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40028', '魁北克大学', 'Université du Québec', 'Québec', 'Québec City', 'G1K 9H7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40029', '里贾纳大学', 'University of Regina', 'Saskatchewan', 'Regina', 'S4S 0A2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40030', '温莎大学', 'University of Windsor', 'Ontario', 'Windsor', 'N9B 3P4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40031', '布鲁克大学', 'Brock University', 'Ontario', 'St. Catharines', 'L2S 3A1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40032', '湖首大学', 'Lakehead University', 'Ontario', 'Thunder Bay', 'P7B 5E1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40033', '特伦特大学', 'Trent University', 'Ontario', 'Peterborough', 'K9L 0G2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40034', '劳里埃大学', 'Wilfrid Laurier University', 'Ontario', 'Waterloo', 'N2L 3C5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40035', '莱斯布里奇大学', 'University of Lethbridge', 'Alberta', 'Lethbridge', 'T1K 3M4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40036', '---', 'Ecole de Technologie Superieure - Canada', 'Québec', 'Montréal', 'H3C 1K3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40037', '---', 'Royal Military College - Canada', 'Ontario', 'Kingston', 'K7K 7B4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40038', '爱德华王子岛大学', 'University of Prince Edward Island', 'Prince Edward Island', 'Charlottetown', 'C1A 4P3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40039', '---', 'University of Northern British Columbia', 'British Columbia', 'Prince George', 'V2N 4Z9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40040', '安布罗斯大学', 'Ambrose University', 'Alberta', 'Calgary', 'T3H 0L5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40041', '博曼大学', 'Burman University', 'Alberta', 'Lacombe', 'T4L 2E5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40042', '埃德蒙顿康考迪亚大学', 'Concordia University of Edmonton', 'Alberta', 'Edmonton', 'T5B 4E4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40043', '麦科文大学', 'Grant MacEwan University', 'Alberta', 'Edmonton', 'T5J 4S2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40044', '皇家山大学', 'Mount Royal University', 'Alberta', 'Calgary', 'T3E 6K6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40045', '圣玛丽大学', 'St. Mary’s University', 'Nova Scotia', 'Halifax', 'B3H 3C3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40046', '国王大学', 'The King’s University', 'Alberta', 'Edmonton', 'T6B 2H3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40047', '卡普兰诺大学', 'Capilano University', 'British Columbia', 'North Vancouver', 'V7J 3H5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40048', '爱米利·卡尔艺术与设计大学', 'Emily Carr University of Art and Design', 'British Columbia', 'Vancouver', 'V5T 0H2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40049', '昆特兰理工大学', 'Kwantlen Polytechnic University', 'British Columbia', 'Surrey', 'V3W 2M8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40050', '皇家大学', 'Royal Roads University', 'British Columbia', 'Victoria', 'V9B 5Y2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40051', '汤姆逊大学', 'Thompson Rivers University', 'British Columbia', 'Kamloops', 'V2C 0C8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40052', '西三一大学', 'Trinity Western University', 'British Columbia', 'Langley City', 'V2Y 1Y1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40053', '北不列颠哥伦比亚大学', 'University of Northern British Columbia', 'British Columbia', 'Prince George', 'V2N 4Z9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40054', '菲莎河谷大学', 'University of the Fraser Valley', 'British Columbia', 'Abbotsford', 'V2S 7M8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40055', '温哥华岛大学', 'Vancouver Island University', 'British Columbia', 'Nanaimo', 'V9R 5S5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40056', '布兰登大学', 'Brandon University', 'Manitoba', 'Brandon', 'R7A 6A9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40057', '---', 'The University of Winnipeg', 'Manitoba', 'Winnipeg', 'R3B 2E9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40058', '艾利森山大学', 'Mount Alison University', 'New Brunswick', 'Sackville', 'E4L 1E2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40059', '圣托马斯大学', 'St. Thomas University', 'New Brunswick', 'Fredericton', 'E3B 5G3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40060', '---', 'Université de Moncton', 'New Brunswick', 'Moncton', 'E1A 3E9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40061', '阿卡迪亚大学', 'Acadia University', 'Nova Scotia', 'Wolfville', 'B4P 2R6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40062', '布雷顿角大学', 'Cape Breton University', 'Nova Scotia', 'Sydney', 'B1P 6L2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40063', '戴尔豪斯大学', 'Dalhousie University', 'Nova Scotia', 'Halifax', 'B3H 4R2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40064', '圣文森特山大学', 'Mount Saint Vincent University', 'Nova Scotia', 'Halifax', 'B3M 2J6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40065', '新斯科舍省艺术与设计学院', 'NSCAD University', 'Nova Scotia', 'Halifax', 'B3J 3J6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40066', '圣玛丽大学', 'Saint Mary\'s University', 'Nova Scotia', 'Halifax', 'B3H 3C3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40067', '圣弗朗西斯泽维尔大学', 'St. Francis Xavier University', 'Nova Scotia', 'Antigonish', 'B2G 2W5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40068', '---', 'Université Sainte-Anne', 'Nova Scotia', 'Church Point', 'B0W 1M0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40069', '加拿大第一民族大学', 'First Nations University of Canada', 'Saskatchewan', 'Regina', 'S4S 7K2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40070', '里贾纳大学', 'University of Regina', 'Saskatchewan', 'Regina', 'S4S 0A2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40071', '阿尔戈马大学', 'Algoma University', 'Ontario', 'Marie', 'P6A 2G4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40072', '劳伦森大学', 'Laurentian University', 'Ontario', 'Sudbury', 'P3E 2C6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40073', '尼皮辛大学', 'Nipissing University', 'Ontario', 'North Bay', 'P1B 8L7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40074', '安大略艺术设计大学', 'OCAD University', 'Ontario', 'Toronto', 'M5T 1W1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40075', '怀雅逊大学', 'Ryerson University', 'Ontario', 'Toronto', 'M5B 2K3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40076', '圣保罗大学', 'Saint Paul University', 'Ontario', 'Ottawa', 'K1S 1C4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40077', '圣杰罗姆大学', 'St. Jerome\'s University', 'Ontario', 'Waterloo', 'N2L 3G3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40078', '安大略大学理工学院', 'University of Ontario Institute of Technology', 'Ontario', 'Oshawa', 'L1G 0C5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40079', '萨德伯里大学', 'University of Sudbury', 'Ontario', 'Sudbury', 'P3E 2C6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40080', '主教大学', 'Bishop\'s University', 'Québec', 'Sherbrooke', 'J1M 1Z7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40081', '康考迪亚大学', 'Concordia University', 'Québec', 'Montréal', 'H3G 1M8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40082', '蒙特利尔工程学院', 'école Polytechnique de Montréal', 'Québec', 'Montréal', 'H3T 1J4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40083', '蒙特利尔高等商学院', 'HEC Montréal', 'Québec', 'Montréal', 'H3T 2A7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40084', '蒙特利尔大学', 'Université de Montréal', 'Québec', 'Montréal', 'H3T 1J4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40085', '---', 'Université de Sherbrooke', 'Québec', 'Sherbrooke', 'J1K?2R1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40086', '魁北克大学希库蒂米分校', 'Université du Québec à Chicoutimi', 'Québec', 'Chicoutimi', 'G7H 2B1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40087', '魁北克大学里穆斯基分校', 'Université du Québec à Rimouski', 'Québec', 'Rimouski', 'G5L 3A1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40088', '魁北克大学三河分校', 'Université du Québec à Trois-Rivières', 'Québec', 'Trois-Rivières', 'G8Z 4M3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40089', '魁北克大学阿比提比-蒂米斯卡曼格分校', 'Université du Québec en Abitibi-Témiscamingue', 'Québec', 'Rouyn-Noranda', 'J9X 5E4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40090', '魁北克大学渥太华河区大学', 'Université du Québec en Outaouais', 'Québec', 'Gatineau', 'J8X 3X7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40091', '高等工程技术学院', 'Université du Québec: école de technologie supérieure', 'Québec', 'Montréal', 'H3C 1K3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40092', '拉瓦尔大学', 'Université Laval', 'Québec', 'Québec', 'G1V 0A6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('49999', '其他加拿大大学', 'Other', 'Other', 'Other', 'Other', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
