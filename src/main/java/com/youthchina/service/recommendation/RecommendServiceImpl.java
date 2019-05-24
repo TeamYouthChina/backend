@@ -71,8 +71,12 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     @Transactional
-    public List<User> getRecommendUser(int userId) {
-        List<Integer> userIds = recommendMapper.getRecommendUser(recommendMapper.getUserLabel(userId));
+    public List<User> getRecommendUser(int userId) throws NotFoundException{
+        List<Integer> userLabels = recommendMapper.getUserLabel(userId);
+        if(userLabels.size() == 0){
+            throw new NotFoundException(404,404,"User do not have any labels");
+        }
+        List<Integer> userIds = recommendMapper.getRecommendUser(userLabels);
         List<User> users = new LinkedList<>();
         for(Integer id : userIds){
             if(id == userId) continue;
@@ -87,33 +91,53 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     @Transactional
-    public List<Company> getRecommendCompany(int userId) {
-        List<Integer> ids = recommendMapper.getRecommendCompany(recommendMapper.getUserLabel(userId));
+    public List<Company> getRecommendCompany(int userId) throws NotFoundException{
+        List<Integer> userLabels = recommendMapper.getUserLabel(userId);
+        if(userLabels.size() == 0){
+            throw new NotFoundException(404,404,"User do not have any labels");
+        }
+        List<Integer> ids = recommendMapper.getRecommendCompany(userLabels);
         return companyCURDService.get(ids);
     }
 
     @Override
     @Transactional
-    public List<ComEssay> getRecommendEssay(int userId) {
-        List<Integer> ids = recommendMapper.getRecommendEassy(recommendMapper.getUserLabel(userId));
+    public List<ComEssay> getRecommendEssay(int userId) throws NotFoundException{
+        List<Integer> userLabels = recommendMapper.getUserLabel(userId);
+        if(userLabels.size() == 0){
+            throw new NotFoundException(404,404,"User do not have any labels");
+        }
+        List<Integer> ids = recommendMapper.getRecommendEassy(userLabels);
         return essayService.get(ids);
     }
 
     @Override
-    public List<Question> getRecommendQuestion(int userId) {
-        List<Integer> ids = recommendMapper.getRecommendQuestion(recommendMapper.getUserLabel(userId));
+    public List<Question> getRecommendQuestion(int userId) throws NotFoundException{
+        List<Integer> userLabels = recommendMapper.getUserLabel(userId);
+        if(userLabels.size() == 0){
+            throw new NotFoundException(404,404,"User do not have any labels");
+        }
+        List<Integer> ids = recommendMapper.getRecommendQuestion(userLabels);
         return questionService.get(ids);
     }
 
     @Override
-    public List<Job> getRecommendJob(int userId) {
-        List<Integer> ids = recommendMapper.getRecommendJob(recommendMapper.getUserLabel(userId));
+    public List<Job> getRecommendJob(int userId) throws NotFoundException{
+        List<Integer> userLabels = recommendMapper.getUserLabel(userId);
+        if(userLabels.size() == 0){
+            throw new NotFoundException(404,404,"User do not have any labels");
+        }
+        List<Integer> ids = recommendMapper.getRecommendJob(userLabels);
         return jobService.get(ids);
     }
 
     @Override
-    public List<BriefReview> getRecommendBriefReview(int userId) {
-        List<Integer> ids = recommendMapper.getRecommendBriefReview(recommendMapper.getUserLabel(userId));
+    public List<BriefReview> getRecommendBriefReview(int userId) throws NotFoundException{
+        List<Integer> userLabels = recommendMapper.getUserLabel(userId);
+        if(userLabels.size() == 0){
+            throw new NotFoundException(404,404,"User do not have any labels");
+        }
+        List<Integer> ids = recommendMapper.getRecommendBriefReview(userLabels);
         return briefReviewService.get(ids);
     }
 
