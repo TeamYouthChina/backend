@@ -57,8 +57,9 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     }
 
     @GetMapping("/{id}/**")
-    public ResponseEntity<?> getStudent(@PathVariable Integer id,@AuthenticationPrincipal User user) throws NotFoundException {
+    public ResponseEntity<?> getStudent(@PathVariable Integer id) throws NotFoundException {
         Student student = studentService.get(id);
+        User user = userService.get(id);
         student.setId(user.getId());
         student.setIsInJob(user.getHired());
 //        student.setUsername(user.getUsername());
@@ -93,91 +94,91 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
 
     @GetMapping("/{id}/educations")
     public ResponseEntity<?> getApplicantsEducations(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
-        List<EducationInfo> educationInfos=studentService.getEducations(id);
-        List<EducationResponseDTO> dtos=new ArrayList<>();
-        if(educationInfos!=null&&educationInfos.size()!=0){
-            for(EducationInfo educationInfo:educationInfos){
-                EducationResponseDTO educationResponseDTO=new EducationResponseDTO(educationInfo);
+        List<EducationInfo> educationInfos = studentService.getEducations(id);
+        List<EducationResponseDTO> dtos = new ArrayList<>();
+        if (educationInfos != null && educationInfos.size() != 0) {
+            for (EducationInfo educationInfo : educationInfos) {
+                EducationResponseDTO educationResponseDTO = new EducationResponseDTO(educationInfo);
                 dtos.add(educationResponseDTO);
             }
         }
-        List<EducationResponseDTO> result =dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
-        ListResponse listResponse = new ListResponse(pageRequest, educationInfos.size(),result);
+        List<EducationResponseDTO> result = dtos.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, dtos.size()));
+        ListResponse listResponse = new ListResponse(pageRequest, educationInfos.size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/projects")
-    public ResponseEntity<?> getApplicantsProjects(@PathVariable Integer id,PageRequest pageRequest) throws NotFoundException {
-        List<Project> projects=studentService.getProjects(id);
-        List<ProjectResponseDTO> dtos=new ArrayList<>();
-        if(projects!=null&&projects.size()!=0){
-            for(Project project:projects){
-                ProjectResponseDTO projectResponseDTO=new ProjectResponseDTO(project);
+    public ResponseEntity<?> getApplicantsProjects(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
+        List<Project> projects = studentService.getProjects(id);
+        List<ProjectResponseDTO> dtos = new ArrayList<>();
+        if (projects != null && projects.size() != 0) {
+            for (Project project : projects) {
+                ProjectResponseDTO projectResponseDTO = new ProjectResponseDTO(project);
                 dtos.add(projectResponseDTO);
             }
         }
-        List<ProjectResponseDTO> result =dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
-        ListResponse listResponse = new ListResponse(pageRequest, projects.size(),result);
+        List<ProjectResponseDTO> result = dtos.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, dtos.size()));
+        ListResponse listResponse = new ListResponse(pageRequest, projects.size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/experiences")
     public ResponseEntity<?> getApplicantsExperiences(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
-        List<Work> works=studentService.getWorks(id);
-        List<WorkResponseDTO> dtos=new ArrayList<>();
-        if(works!=null&&works.size()!=0){
-            for(Work work:works){
-                WorkResponseDTO workResponseDTO=new WorkResponseDTO(work);
+        List<Work> works = studentService.getWorks(id);
+        List<WorkResponseDTO> dtos = new ArrayList<>();
+        if (works != null && works.size() != 0) {
+            for (Work work : works) {
+                WorkResponseDTO workResponseDTO = new WorkResponseDTO(work);
                 dtos.add(workResponseDTO);
             }
         }
-        List<WorkResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
+        List<WorkResponseDTO> result = dtos.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, dtos.size()));
         ListResponse listResponse = new ListResponse(pageRequest, works.size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/certificates")
     public ResponseEntity<?> getApplicantsCertificates(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
-        List<Certificate> certificates=studentService.getCertificates(id);
-        List<CertificateResponseDTO> dtos=new ArrayList<>();
-        if(certificates!=null&&certificates.size()!=0){
-            for(Certificate certificate:certificates){
-                CertificateResponseDTO certificateResponseDTO=new CertificateResponseDTO(certificate);
+        List<Certificate> certificates = studentService.getCertificates(id);
+        List<CertificateResponseDTO> dtos = new ArrayList<>();
+        if (certificates != null && certificates.size() != 0) {
+            for (Certificate certificate : certificates) {
+                CertificateResponseDTO certificateResponseDTO = new CertificateResponseDTO(certificate);
                 dtos.add(certificateResponseDTO);
             }
         }
-        List<CertificateResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
+        List<CertificateResponseDTO> result = dtos.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, dtos.size()));
         ListResponse listResponse = new ListResponse(pageRequest, certificates.size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/extracurriculars")
     public ResponseEntity<?> getApplicantsExtracurriculars(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
-        List<Activity> activities=studentService.getActivities(id);
-        List<ExtracurricularResponseDTO> dtos=new ArrayList<>();
-        if(activities!=null&&activities.size()!=0){
-            for(Activity activity:activities){
-                ExtracurricularResponseDTO extracurricularResponseDTO=new ExtracurricularResponseDTO(activity);
+        List<Activity> activities = studentService.getActivities(id);
+        List<ExtracurricularResponseDTO> dtos = new ArrayList<>();
+        if (activities != null && activities.size() != 0) {
+            for (Activity activity : activities) {
+                ExtracurricularResponseDTO extracurricularResponseDTO = new ExtracurricularResponseDTO(activity);
                 dtos.add(extracurricularResponseDTO);
             }
         }
-        List<ExtracurricularResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
+        List<ExtracurricularResponseDTO> result = dtos.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, dtos.size()));
         ListResponse listResponse = new ListResponse(pageRequest, activities.size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/{id}/skills")
-    public ResponseEntity<?> getApplicantsSkills(@PathVariable Integer id,PageRequest pageRequest) throws NotFoundException {
-        List<AdvantageLabel> advantageLabels=studentService.getAdvantageLabel(id);
-        List<AdvantageLabelResponseDTO> dtos=new ArrayList<>();
-        if(advantageLabels!=null&&advantageLabels.size()!=0){
-            for (AdvantageLabel advantageLabel:advantageLabels){
-                AdvantageLabelResponseDTO advantageLabelResponseDTO=new AdvantageLabelResponseDTO(advantageLabel);
+    public ResponseEntity<?> getApplicantsSkills(@PathVariable Integer id, PageRequest pageRequest) throws NotFoundException {
+        List<AdvantageLabel> advantageLabels = studentService.getAdvantageLabel(id);
+        List<AdvantageLabelResponseDTO> dtos = new ArrayList<>();
+        if (advantageLabels != null && advantageLabels.size() != 0) {
+            for (AdvantageLabel advantageLabel : advantageLabels) {
+                AdvantageLabelResponseDTO advantageLabelResponseDTO = new AdvantageLabelResponseDTO(advantageLabel);
                 dtos.add(advantageLabelResponseDTO);
             }
         }
-        List<AdvantageLabelResponseDTO> result=dtos.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,dtos.size()));
-        ListResponse listResponse=new ListResponse(pageRequest,advantageLabels.size(),result);
+        List<AdvantageLabelResponseDTO> result = dtos.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, dtos.size()));
+        ListResponse listResponse = new ListResponse(pageRequest, advantageLabels.size(), result);
         return ResponseEntity.ok(listResponse);
     }
 
@@ -213,10 +214,11 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
             JobApplyDTO jobApplyDTO = new JobApplyDTO(jobApply);
             jobApplyDTOS.add(jobApplyDTO);
         }
-        List<JobApplyDTO> result=jobApplyDTOS.subList(pageRequest.getStart(),Math.min(pageRequest.getEnd()+1,jobApplyDTOS.size()));
+        List<JobApplyDTO> result = jobApplyDTOS.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, jobApplyDTOS.size()));
         ListResponse listResponse = new ListResponse(pageRequest, jobApplyDTOS.size(), result);
         return ResponseEntity.ok(listResponse);
     }
+
     @PostMapping("/{id}/educations")
     public ResponseEntity<?> insertEducation(@PathVariable Integer id, @RequestBody EducationRequestDTO educationRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException {
         if (user.getId().equals(id)) {
@@ -354,10 +356,10 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     @PutMapping("/{id}/educations/{educationID}")
     public ResponseEntity<?> updateEducation(@PathVariable("id") Integer id, @PathVariable("educationID") Integer edu_id, @RequestBody EducationRequestDTO educationRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException, ClientException {
         if (user.getId().equals(id)) {
-            if(educationRequestDTO.getId()==null){
+            if (educationRequestDTO.getId() == null) {
                 educationRequestDTO.setId(edu_id);
             }
-            if(educationRequestDTO.getId()!=edu_id){
+            if (educationRequestDTO.getId() != edu_id) {
                 throw new ClientException("can not update because the id difference");
             }
             EducationInfo educationInfo = new EducationInfo(educationRequestDTO);
@@ -371,12 +373,12 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     }
 
     @PutMapping("/{id}/projects/{projectID}")
-    public ResponseEntity<?> updateProject(@PathVariable("id") Integer id, @PathVariable("projectID") Integer proj_id, @RequestBody ProjectRequestDTO projectRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException,ClientException {
+    public ResponseEntity<?> updateProject(@PathVariable("id") Integer id, @PathVariable("projectID") Integer proj_id, @RequestBody ProjectRequestDTO projectRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException, ClientException {
         if (user.getId().equals(id)) {
-            if(projectRequestDTO.getId()==null){
+            if (projectRequestDTO.getId() == null) {
                 projectRequestDTO.setId(proj_id);
             }
-            if(proj_id!=projectRequestDTO.getId()){
+            if (proj_id != projectRequestDTO.getId()) {
                 throw new ClientException("can not update because the id difference");
             }
             Project project = new Project(projectRequestDTO);
@@ -390,12 +392,12 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     }
 
     @PutMapping("/{id}/experiences/{experienceID}")
-    public ResponseEntity<?> updateWork(@PathVariable("id") Integer id, @PathVariable("experienceID") Integer work_id, @RequestBody WorkRequestDTO workRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException,ClientException {
+    public ResponseEntity<?> updateWork(@PathVariable("id") Integer id, @PathVariable("experienceID") Integer work_id, @RequestBody WorkRequestDTO workRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException, ClientException {
         if (user.getId().equals(id)) {
-            if(workRequestDTO.getId()==null){
+            if (workRequestDTO.getId() == null) {
                 workRequestDTO.setId(work_id);
             }
-            if(work_id!=workRequestDTO.getId()){
+            if (work_id != workRequestDTO.getId()) {
                 throw new ClientException("can not update because the id difference");
             }
             Work work = new Work(workRequestDTO);
@@ -408,13 +410,13 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     }
 
     @PutMapping("/{id}/certificates/{certificateID}")
-    public ResponseEntity<?> updateCertificate(@PathVariable("id") Integer id, @PathVariable("certificateID") Integer certificate_id, @RequestBody CertificateRequestDTO certificateRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException,ClientException {
+    public ResponseEntity<?> updateCertificate(@PathVariable("id") Integer id, @PathVariable("certificateID") Integer certificate_id, @RequestBody CertificateRequestDTO certificateRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException, ClientException {
         if (user.getId().equals(id)) {
-            if (certificateRequestDTO.getId()==null){
+            if (certificateRequestDTO.getId() == null) {
                 certificateRequestDTO.setId(certificate_id);
             }
 
-            if(certificateRequestDTO.getId()!=certificate_id){
+            if (certificateRequestDTO.getId() != certificate_id) {
                 throw new ClientException("can not update because the id difference");
             }
             Certificate certificate = new Certificate(certificateRequestDTO);
@@ -428,12 +430,12 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     }
 
     @PutMapping("/{id}/extracurriculars/{extracurricularID}")
-    public ResponseEntity<?> updateExtracurriculars(@PathVariable("id") Integer id, @PathVariable("extracurricularID") Integer act_id, @RequestBody ExtracurricularRequestDTO extracurricularRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException,ClientException {
+    public ResponseEntity<?> updateExtracurriculars(@PathVariable("id") Integer id, @PathVariable("extracurricularID") Integer act_id, @RequestBody ExtracurricularRequestDTO extracurricularRequestDTO, @AuthenticationPrincipal User user) throws ForbiddenException, NotFoundException, ClientException {
         if (user.getId().equals(id)) {
-            if(extracurricularRequestDTO.getId()==0){
+            if (extracurricularRequestDTO.getId() == 0) {
                 extracurricularRequestDTO.setId(act_id);
             }
-            if(act_id!=extracurricularRequestDTO.getId()){
+            if (act_id != extracurricularRequestDTO.getId()) {
                 throw new ClientException("can not update because the id difference");
             }
             Activity activity = new Activity(extracurricularRequestDTO);
@@ -447,9 +449,9 @@ public class StudentController extends DomainCRUDController<Student, Integer> {
     }
 
     @GetMapping("/{id}/cards")
-    public ResponseEntity<?> getProfileCards(@PathVariable("id") Integer id,@AuthenticationPrincipal User user) throws NotFoundException{
+    public ResponseEntity<?> getProfileCards(@PathVariable("id") Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Student student = studentService.get(id);
-        User user1=userService.get(id);
+        User user1 = userService.get(id);
         student.setId(user1.getId());
         student.setIsInJob(user1.getHired());
         student.setAvatarUrl(user1.getAvatarUrl());
