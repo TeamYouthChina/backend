@@ -266,7 +266,7 @@ public class JobTest {
 //                null, null, null);
 //        Assert.assertEquals(4, jobList.size());
 //
-//        //Job Salary
+//        //Job Recommendation
 //        jobList = jobMapper.getJobByMore(null, null, null, null,
 //                null, null, null, null, 6500, null,
 //                null, null, null);
