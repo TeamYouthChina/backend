@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -126,7 +126,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public String encodeRegisterToken(@NotNull User user) {
+    public String encodeRegisterToken(@Nonnull User user) {
         return Jwts.builder().
                 setSubject(user.getId().toString()).
                 setExpiration(new Date(System.currentTimeMillis() + Long.valueOf(REGISTER_EXPRIATIONTIME)))

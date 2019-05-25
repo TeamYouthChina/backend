@@ -1,5 +1,6 @@
 package com.youthchina.util.permission.spel;
 
+import com.youthchina.service.util.OwnerService;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
@@ -14,12 +15,18 @@ public class CustomSecurityExpressionHandler
         extends DefaultMethodSecurityExpressionHandler {
     private AuthenticationTrustResolver trustResolver =
             new AuthenticationTrustResolverImpl();
+    private final OwnerService ownerService;
+
+    public CustomSecurityExpressionHandler(OwnerService ownerService) {
+        this.ownerService = ownerService;
+    }
+
 
     @Override
     protected MethodSecurityExpressionOperations createSecurityExpressionRoot(
             Authentication authentication, MethodInvocation invocation) {
         CustomSecurityExpressionRoot root =
-                new CustomSecurityExpressionRoot(authentication);
+                new CustomSecurityExpressionRoot(authentication, ownerService);
         root.setPermissionEvaluator(getPermissionEvaluator());
         root.setTrustResolver(this.trustResolver);
         root.setRoleHierarchy(getRoleHierarchy());

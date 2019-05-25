@@ -3,7 +3,7 @@ package com.youthchina.util.permission.policy;
 import com.youthchina.domain.jinhao.property.HasAuthor;
 import com.youthchina.domain.zhongyang.User;
 
-import javax.validation.constraints.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * Created by zhongyangwu on 5/19/19.
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class AuthorPermissionPolicy implements PermissionPolicy {
 
     @Override
-    public boolean hasPermission(@NotNull User user, @NotNull Object domain) {
+    public boolean hasPermission(@Nonnull User user, @Nonnull Object domain) {
         if (!(domain instanceof HasAuthor)) {
             return false;
         } else {

@@ -7,4 +7,6 @@ import com.youthchina.util.permission.HasOwner;
  */
 public interface IsOwnerSecurityExpression {
     boolean isOwner(HasOwner hasOwner);
+
+    boolean isOwner(Integer entityId, String entityType);
 }

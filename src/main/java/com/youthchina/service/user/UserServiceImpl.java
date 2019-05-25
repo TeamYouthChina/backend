@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
+import javax.annotation.Nonnull;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void verifyEmail(@NotNull String token) throws ForbiddenException {
+    public void verifyEmail(@Nonnull String token) throws ForbiddenException {
         Integer id = this.jwtService.decodeRegisterToken(token);
         User user = this.get(id);
         user.setMailVerified(true);

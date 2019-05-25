@@ -1,6 +1,7 @@
 package com.youthchina.util.permission.spel;
 
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.service.util.OwnerService;
 import com.youthchina.util.permission.HasOwner;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
@@ -14,9 +15,11 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
     private Object filterObject;
     private Object returnObject;
     private Object target;
+    private final OwnerService ownerService;
 
-    CustomSecurityExpressionRoot(Authentication a) {
+    CustomSecurityExpressionRoot(Authentication a, OwnerService ownerService) {
         super(a);
+        this.ownerService = ownerService;
     }
 
     public void setFilterObject(Object filterObject) {
@@ -55,5 +58,10 @@ public class CustomSecurityExpressionRoot extends SecurityExpressionRoot impleme
     public boolean isOwner(HasOwner hasOwner) {
         User user = ((User) this.getPrincipal());
         return user.equals(hasOwner.getOwner());
+    }
+
+    @Override
+    public boolean isOwner(Integer entityId, String entityType) {
+        return this.isOwner(this.ownerService.getEntityByOwnerId(entityId, entityType));
     }
 }

@@ -192,4 +192,12 @@
             FRI_IS_READ      = #{friIsRead}
         where APPLY_ID = #{applyId}
     </update>
+
+    <select id="getOwnerId" resultType="integer">
+        SELECT USER_ID
+        FROM youthchina.COM_ESSAY
+        WHERE IS_DELETE = 0
+          AND ESSAY_ID = #{articleId,jdbcType=INTEGER}
+    </select>
+
 </mapper>
