@@ -85,7 +85,7 @@ public class ResponseBodyDTOAspectTest {
     public void testGetMe() throws Exception {
         Integer id = 1;
         this.mvc.perform(
-                post(this.urlPrefix + "/test/")
+                post(this.urlPrefix + "/test/aspect")
                         .content("{\n" +
                                 "  \"id\":1,\n" +
                                 "  \"password\": \"sldfjlsdkfj\",\n" +
@@ -97,7 +97,7 @@ public class ResponseBodyDTOAspectTest {
                 .andDo(print());
 
         this.mvc.perform(
-                post(this.urlPrefix + "/test/")
+                post(this.urlPrefix + "/test/aspect")
                         .content("{\n" +
                                 "  \"id\":1,\n" +
                                 "  \"password\": \"sldfjlsdkfj\"\n" +
@@ -142,7 +142,7 @@ class AspectTestClass {
 @RestController
 class TestController {
 
-    @PostMapping("${web.url.prefix}/test/**")
+    @PostMapping("${web.url.prefix}/test/aspect")
     public ResponseEntity test(@RequestBodyDTO(UserDTO.class) @Valid User user) {
         return ResponseEntity.ok(user);
     }

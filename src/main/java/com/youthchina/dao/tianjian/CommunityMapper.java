@@ -1,6 +1,7 @@
 package com.youthchina.dao.tianjian;
 
 import com.youthchina.domain.tianjian.*;
+import com.youthchina.util.permission.HasOwnerMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 @Mapper
 @Component
-public interface CommunityMapper {
+public interface CommunityMapper extends HasOwnerMapper {
     int addEssay(ComEssay essay);
 
     int deleteEssay(@Param("essayId") Integer essay_id, @Param("isDeleteTime") Timestamp delete_time);
@@ -44,13 +45,13 @@ public interface CommunityMapper {
 
     void addFriendApply(ComFriendApply comFriendApply);
 
-    List<ComFriendApply>  getAllFriendApply(@Param("userId")Integer userId);
+    List<ComFriendApply> getAllFriendApply(@Param("userId") Integer userId);
 
-    ComFriendApply getFriendApply(@Param("userId")Integer userId,@Param("friendId")Integer friendId);
+    ComFriendApply getFriendApply(@Param("userId") Integer userId, @Param("friendId") Integer friendId);
 
     List<ComEssay> getAllEssayByUserId(@Param("userId") Integer user_id);
 
-   ComFriendApply getFriendApplication(@Param("applicationId") Integer applicationId);
+    ComFriendApply getFriendApplication(@Param("applicationId") Integer applicationId);
 
-   void changeApplicationStatus(ComFriendApply comFriendApply);
+    void changeApplicationStatus(ComFriendApply comFriendApply);
 }
