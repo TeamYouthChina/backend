@@ -12,7 +12,7 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotNull;
+import javax.annotation.Nonnull;
 import java.sql.Timestamp;
 
 /**
@@ -38,20 +38,12 @@ public class AuthGenerator {
     }
 
     private JwtAuthentication createAuthentication(Role role, Integer userId) {
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        User user = new User();
-        user.setRole(role);
-        user.setLastName("Guo");
-        user.setFirstName("Yihao");
-        user.setPassword(encoder.encode("123456"));
+        User user = this.getUser(role);
         user.setId(userId);
-        user.setEmail("test@test.com");
-        user.setGender(Gender.MALE);
-        user.setPhonenumber("2022922222");
         return new JwtAuthentication(user, true);
     }
 
-    public @NotNull User getUser(Role role) {
+    public @Nonnull User getUser(Role role) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         User user = new User();
         user.setRole(role);
@@ -63,6 +55,8 @@ public class AuthGenerator {
         user.setEmail("test@test.com");
         user.setGender(Gender.MALE);
         user.setPhonenumber("2022922222");
+        user.setMailVerified(true);
+        user.setPhoneVerified(true);
         return user;
     }
 

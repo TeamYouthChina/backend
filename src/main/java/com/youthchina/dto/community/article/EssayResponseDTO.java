@@ -31,7 +31,7 @@ public class EssayResponseDTO implements ResponseDTO<ComEssay> {
         this.modified_at = comEssay.getEditTime();
         this.is_anonymous = (comEssay.getIsAnony() == 0) ? false : true;
         if(comEssay.getIsAnony()==0)
-            this.author = new UserDTO(comEssay.getUser());
+            this.author = new UserDTO(comEssay.getAuthor());
         else
             this.author = null;
         this.body = new RichTextResponseDTO(comEssay.getBody());
@@ -158,7 +158,7 @@ public class EssayResponseDTO implements ResponseDTO<ComEssay> {
         this.create_at = comEssay.getPubTime();
         this.modified_at = comEssay.getEditTime();
         this.is_anonymous = (comEssay.getIsAnony() == 0) ? false : true;
-        this.author = new UserDTO(comEssay.getUser());
+        this.author = new UserDTO(comEssay.getAuthor());
         this.body = new RichTextResponseDTO(comEssay.getBody());
         this.upvoteCount = comEssay.getUpvoteCount();
         this.downvoteCount = comEssay.getDownvoteCount();

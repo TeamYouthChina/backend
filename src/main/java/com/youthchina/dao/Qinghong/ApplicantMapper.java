@@ -3,6 +3,7 @@ package com.youthchina.dao.Qinghong;
 import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Degree;
 import com.youthchina.domain.qingyang.Job;
+import com.youthchina.util.permission.HasOwnerMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Mapper
 @Component
-public interface ApplicantMapper {
+public interface ApplicantMapper extends HasOwnerMapper {
     List<EducationInfo> getEducations(Integer id);
 
     List<Work> getWorks(Integer id);
@@ -36,9 +37,9 @@ public interface ApplicantMapper {
 
     List<CompCollect> getCompCollects(Integer user_id);
 
-    JobCollect getOneJobCollect(Integer job_id,Integer user_id);
+    JobCollect getOneJobCollect(Integer job_id, Integer user_id);
 
-    CompCollect getOneCompCollect(Integer company_id,Integer user_id);
+    CompCollect getOneCompCollect(Integer company_id, Integer user_id);
 
     JobCollect getJobCollectById(Integer id);
 
@@ -119,16 +120,27 @@ public interface ApplicantMapper {
     Integer insertAdvantageSkills(AdvantageLabel advantageLabel);
 
     EducationInfo getEducationById(Integer edu_id);
+
     Work getWorkById(Integer work_id);
+
     Project getProjectById(Integer proj_id);
+
     Certificate getCertificateById(Integer certificate_id);
+
     Activity getActivityById(Integer act_id);
+
     AdvantageLabel getAdvantageLabelById(Integer label_id);
+
     List<AdvantageLabel> getAdvantageLabels(Integer id);
 
 
     Integer getCollectionByJobId(@Param("job_id") Integer job_id, @Param("user_id") Integer user_id);
 
 
-    Integer getCompanyByCompanyId(@Param("company_id")Integer company_id, @Param("user_id")Integer user_id);
+    Integer getCompanyByCompanyId(@Param("company_id") Integer company_id, @Param("user_id") Integer user_id);
+
+    @Override
+    default Integer getOwnerId(Integer entityId) {
+        return entityId;
+    }
 }

@@ -195,8 +195,8 @@ public class JobController extends DomainCRUDController<Job, Integer> {
 
     @PostMapping("/{id}/apply")
     public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user, @RequestBody ResumeApplyDTO resumeApplyDTO) throws NotFoundException, ClientException {
-        if(resumeApplyDTO.getResume_id()!=null){
-            JobApply jobApply = studentService.jobApply(job_id, user.getId(),resumeApplyDTO.getResume_id());
+        if (resumeApplyDTO.getResume_id() != null) {
+            JobApply jobApply = studentService.jobApply(job_id, user.getId(), resumeApplyDTO.getResume_id());
             EmailSendingDTO emailSendingDTO = new EmailSendingDTO();
             emailSendingDTO.setFirstName(user.getFirstName());
             emailSendingDTO.setLastName(user.getLastName());
@@ -208,7 +208,9 @@ public class JobController extends DomainCRUDController<Job, Integer> {
 
             return ResponseEntity.ok(new Response(jobApplyDTO));
         }
-        return ResponseEntity.ok(new Response());
+        else{
+            throw new ClientException("Resume does not exist or no resume id is provided");
+        }
 
 
     }
