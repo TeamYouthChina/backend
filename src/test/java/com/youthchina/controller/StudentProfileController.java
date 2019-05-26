@@ -23,8 +23,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.sql.Timestamp;
-
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -390,6 +388,7 @@ public class StudentProfileController {
                         .with(authGenerator.authentication(Role.APPLICANT, 10))
         )
                 .andDo(print())
+                .andExpect(status().is2xxSuccessful())
         ;
 
     }
@@ -786,14 +785,14 @@ public class StudentProfileController {
 
     @Test
     public void testAddJobApply() throws Exception {
-        ResumeApplyDTO resumeApplyDTO=new ResumeApplyDTO();
+        ResumeApplyDTO resumeApplyDTO = new ResumeApplyDTO();
         resumeApplyDTO.setResume_id(1);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(resumeApplyDTO);
         this.mvc.perform(post(this.urlPrefix + "/jobs/4/apply").with(authGenerator.authentication(Role.APPLICANT, 10)).contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(requestJson)
-)
+        )
                 .andDo(print());
     }
 
@@ -804,8 +803,8 @@ public class StudentProfileController {
     }
 
     @Test
-    public void getAllNotification() throws Exception{
-        NotificationDTO notificationDTO=new NotificationDTO();
+    public void getAllNotification() throws Exception {
+        NotificationDTO notificationDTO = new NotificationDTO();
         notificationDTO.setIs_read(true);
         notificationDTO.setText("好友添加");
 
@@ -828,11 +827,10 @@ public class StudentProfileController {
     }
 
     @Test
-    public void patchNotificationRead() throws Exception{
+    public void patchNotificationRead() throws Exception {
         this.mvc.perform(patch(this.urlPrefix + "/notifications/1/read").with(authGenerator.authentication(Role.APPLICANT, 10)))
                 .andDo(print());
     }
-    
 
 
 }

@@ -24,9 +24,15 @@ import com.youthchina.service.user.UserServiceImpl;
 import com.youthchina.util.dictionary.RelaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -94,7 +100,8 @@ public class EssayController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteEssay(@PathVariable Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
+    @IsOwner
+    public ResponseEntity deleteEssay(@PathVariable @P("id") Integer id, @AuthenticationPrincipal User user) throws NotFoundException {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         int i = essayServiceimpl.deleteEssay(id, time);
         if (i != 0)
@@ -162,4 +169,12 @@ public class EssayController {
         evaluateService.cancel(comEssay, user.getId());
         return ResponseEntity.ok(new Response(null, new StatusDTO(204, "success")));
     }
+}
+
+
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@PreAuthorize("isOwner(#id, T(com.youthchina.util.dictionary.HasOwnerEntityType).ARTICLE)")
+@interface IsOwner {
+
 }

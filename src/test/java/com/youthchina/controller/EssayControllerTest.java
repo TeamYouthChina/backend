@@ -26,6 +26,7 @@ import static com.youthchina.util.CustomMockMvcMatchers.partialContent;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by hongshengzhang on 2/17/19.
@@ -137,18 +138,20 @@ public class EssayControllerTest extends BaseControllerTest {
     @Test
     public void deleteEssayTest() throws Exception {
         this.mvc.perform(
-                delete(this.urlPrefix + "/articles/1")
-                        .with(authGenerator.authentication())
+                delete(this.urlPrefix + "/articles/10")
+                        .with(authGenerator.authentication(30))
 
         )
-                .andDo(print());
+                .andDo(print())
+                .andExpect(status().is(403));
 
         this.mvc.perform(
-                get(this.urlPrefix + "/articles/1")
-                        .with(authGenerator.authentication())
+                delete(this.urlPrefix + "/articles/10")
+                        .with(authGenerator.authentication(1))
 
         )
-                .andDo(print());
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful());
 
 
     }
@@ -201,7 +204,7 @@ public class EssayControllerTest extends BaseControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print());
-                //.andExpect(content().json("{\"content\":{\"offset\":0,\"limit\":2147483646,\"data\":[{\"id\":16,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"register_date\":1546300800000,\"first_name\":\"DDD\",\"last_name\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":[\"ADMIN\"],\"age\":28,\"phone_number\":\"9876543210123\"},\"body\":\"好好好\",\"create_at\":1549929600000,\"is_anonymous\":true,\"modified_at\":1549929600000,\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3}],\"page_count\":0,\"item_count\":1,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+        //.andExpect(content().json("{\"content\":{\"offset\":0,\"limit\":2147483646,\"data\":[{\"id\":16,\"creator\":{\"id\":2,\"username\":\"DEF\",\"email\":\"123456@456.com\",\"register_date\":1546300800000,\"first_name\":\"DDD\",\"last_name\":\"DDDEEEFFF\",\"gender\":\"Female\",\"nation\":\"USA\",\"avatar_url\":\"---\",\"role\":[\"ADMIN\"],\"age\":28,\"phone_number\":\"9876543210123\"},\"body\":\"好好好\",\"create_at\":1549929600000,\"is_anonymous\":true,\"modified_at\":1549929600000,\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3}],\"page_count\":0,\"item_count\":1,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 
 }
