@@ -21,11 +21,7 @@ import com.youthchina.service.recommendation.RecommendServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -173,4 +169,21 @@ public class DiscoverController {
         return (ResponseEntity) ResponseEntity.notFound();
     }
 
+    @PostMapping("/tag")
+    public ResponseEntity addTags( @PathVariable Integer id, @PathVariable Integer labelCode,@PathVariable Integer targetType)throws NotFoundException{
+        recommendService.addTag(labelCode,targetType,id);
+        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
+    }
+
+    @PutMapping("/tag")
+    public ResponseEntity updateTags( @PathVariable Integer id, @PathVariable Integer labelCode,@PathVariable Integer targetType)throws NotFoundException{
+        recommendService.addTag(labelCode,targetType,id);
+        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
+    }
+
+    @DeleteMapping("/tag")
+    public ResponseEntity deleteTags( @PathVariable Integer id, @PathVariable Integer labelCode,@PathVariable Integer targetType)throws NotFoundException{
+        recommendService.deleteTag(labelCode,targetType,id);
+        return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
+    }
 }
