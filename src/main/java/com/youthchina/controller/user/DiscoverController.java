@@ -169,19 +169,19 @@ public class DiscoverController {
         return (ResponseEntity) ResponseEntity.notFound();
     }
 
-    @PostMapping("/tag")
+    @PostMapping("/tags")
     public ResponseEntity addTags( @PathVariable Integer id, @PathVariable Integer labelCode,@PathVariable Integer targetType)throws NotFoundException{
         recommendService.addTag(labelCode,targetType,id);
         return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
     }
 
-    @PutMapping("/tag")
+    @PutMapping("/tags")
     public ResponseEntity updateTags( @PathVariable Integer id, @PathVariable Integer labelCode,@PathVariable Integer targetType)throws NotFoundException{
         recommendService.addTag(labelCode,targetType,id);
         return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
     }
 
-    @DeleteMapping("/tag")
+    @DeleteMapping("/tags")
     public ResponseEntity deleteTags( @PathVariable Integer id, @PathVariable Integer labelCode,@PathVariable Integer targetType)throws NotFoundException{
         recommendService.deleteTag(labelCode,targetType,id);
         return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));

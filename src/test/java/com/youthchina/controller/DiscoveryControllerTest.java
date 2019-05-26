@@ -1,5 +1,8 @@
 package com.youthchina.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.youthchina.dto.tag.TagRequestDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +11,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -80,5 +84,23 @@ public class DiscoveryControllerTest extends BaseControllerTest {
         )
                 .andDo(print())
           .andExpect(content().json("{\"content\":{\"offset\":0,\"limit\":2147483646,\"data\":[{\"id\":1,\"body\":{\"braftEditorRaw\":\"{\\\"braftEditorRaw\\\":{\\\"blocks\\\":[{\\\"key\\\":\\\"dtj4a\\\",\\\"text\\\":\\\"<有感于腾讯公司的发家史，总觉得腾讯背后有某种强大的力量，能靠微创新（也可称山寨）能发展到现如今的体量也算是世界奇观。靠模仿icq完成了资本的原始积累并实现了滚雪球，可以这么说腾讯的今天是一切都建立在oicq（qq）之上的，从qq堂，qq飞车，qq劲舞，腾讯的发家史就是一个复制粘贴史。。。并且发展到如今规模，企业文化还是坚强的延续下来，复制粘贴的企业文化从高层到底层，已深入骨髓，从领子烂到里子。。对创新型企业来说，腾讯如一颗毒瘤存在，注定不会得到大家尊重。>\\\",\\\"type\\\":\\\"unstyled\\\",\\\"depth\\\":0,\\\"inlineStyleRanges\\\":[],\\\"entityRanges\\\":[],\\\"data\\\":{}}],\\\"entityMap\\\":{}},\\\"previewText\\\":\\\"<在此填入你的文字>\\\",\\\"resourceIdList\\\":[]}\",\"previewText\":\"有感于腾讯公司的发家史，总觉得腾讯背后有某种强大的力量，能靠微创新（也可称山寨）能发展到现如今的体量也算是世界奇观。靠模仿icq完成了资本的原始积累并实现了滚雪球，可以这么说腾讯的今天是一切都建立在oicq（qq）之上的，从qq堂，qq飞车，qq劲舞，腾讯的发家史就是一个复制粘贴史。。。并且发展到如今规模，企业文化还是坚强的延续下来，复制粘贴的企业文化从高层到底层，已深入骨髓，从领子烂到里子。。对创新型企业来说，腾讯如一颗毒瘤存在，注定不会得到大家尊重。\",\"compiletype\":1},\"comments\":[{\"id\":1,\"creator\":{\"id\":2,\"email\":\"Admin2\",\"register_date\":1546300800000,\"date_of_birth\":0,\"first_name\":\"Admin2\",\"last_name\":\"Admin2\",\"gender\":\"FEMALE\",\"avatar_url\":\"---\",\"role\":[\"ROOT\"],\"phone_number\":\"23456\"},\"body\":\"短评评论1\",\"create_at\":1517616000000,\"is_anonymous\":false,\"modified_at\":1517616000000,\"upvoteCount\":0,\"downvoteCount\":0,\"evaluateStatus\":3}],\"author\":{\"id\":1,\"email\":\"Admin1\",\"register_date\":1546300800000,\"date_of_birth\":0,\"first_name\":\"Admin1\",\"last_name\":\"Admin1\",\"gender\":\"MALE\",\"avatar_url\":\"---\",\"role\":[\"ROOT\"],\"phone_number\":\"12345\"},\"upvoteCount\":0,\"downvoteCount\":2,\"attentionCount\":4,\"evaluateStatus\":3,\"modified_at\":1546300800000,\"attention\":false}],\"page_count\":0,\"item_count\":1,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
+    @Test
+    public void testaddTag() throws Exception {
+        TagRequestDTO tagRequestDTO = new TagRequestDTO();
+        tagRequestDTO.setId(6);
+        tagRequestDTO.setLabelCode(6);
+        tagRequestDTO.setTargetType(6);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(tagRequestDTO);
+        this.mvc.perform(
+                post(this.urlPrefix + "/Tags")
+                        .content(requestJson)
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print());
     }
 }
