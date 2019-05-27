@@ -25,9 +25,9 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
     //    private List<String> emails;
 //    private List<String> phonenumbers;
     private List<WorkResponseDTO> experiences;
-    private List<ProjectResponseDTO> projects;
+//    private List<ProjectResponseDTO> projects;
     private List<ExtracurricularResponseDTO> extracurriculars;
-    private List<CertificateResponseDTO> certifications;//todo: fixme
+//    private List<CertificateResponseDTO> certifications;//todo: fixme
 
     public ApplicantResponseDTO() {
     }
@@ -65,13 +65,13 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
             }
         }
 
-        this.projects = new ArrayList<>(student.getProjects().size());
-        for (Project project : student.getProjects()) {
-            if(project!=null){
-                this.projects.add(new ProjectResponseDTO(project));
-            }
-
-        }
+//        this.projects = new ArrayList<>(student.getProjects().size());
+//        for (Project project : student.getProjects()) {
+//            if(project!=null){
+//                this.projects.add(new ProjectResponseDTO(project));
+//            }
+//
+//        }
         this.extracurriculars = new ArrayList<>(student.getActivities().size());
         for (Activity activity : student.getActivities()) {
             if(activity!=null){
@@ -79,14 +79,14 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
             }
 
         }
-        List<CertificateResponseDTO> certificates = new ArrayList<>(student.getCertificates().size());
-        for (Certificate certificate : student.getCertificates()) {
-            if(certificate!=null){
-                certificates.add(new CertificateResponseDTO(certificate));
-            }
-
-        }
-        this.setCertifications(certificates);
+//        List<CertificateResponseDTO> certificates = new ArrayList<>(student.getCertificates().size());
+//        for (Certificate certificate : student.getCertificates()) {
+//            if(certificate!=null){
+//                certificates.add(new CertificateResponseDTO(certificate));
+//            }
+//
+//        }
+//        this.setCertifications(certificates);
     }
 
 
@@ -122,13 +122,6 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
         this.experiences = experiences;
     }
 
-    public List<ProjectResponseDTO> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<ProjectResponseDTO> projects) {
-        this.projects = projects;
-    }
 
     public List<ExtracurricularResponseDTO> getExtracurriculars() {
         return extracurriculars;
@@ -136,14 +129,6 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
 
     public void setExtracurriculars(List<ExtracurricularResponseDTO> extracurriculars) {
         this.extracurriculars = extracurriculars;
-    }
-
-    public List<CertificateResponseDTO> getCertifications() {
-        return certifications;
-    }
-
-    public void setCertifications(List<CertificateResponseDTO> certifications) {
-        this.certifications = certifications;
     }
 
 
@@ -173,19 +158,19 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
         for (Work work : student.getWorks()) {
             this.experiences.add(new WorkResponseDTO(work));
         }
-        this.projects = new ArrayList<>(student.getProjects().size());
-        for (Project project : student.getProjects()) {
-            this.projects.add(new ProjectResponseDTO(project));
-        }
+//        this.projects = new ArrayList<>(student.getProjects().size());
+//        for (Project project : student.getProjects()) {
+//            this.projects.add(new ProjectResponseDTO(project));
+//        }
         this.extracurriculars = new ArrayList<>(student.getActivities().size());
         for (Activity activity : student.getActivities()) {
             this.extracurriculars.add(new ExtracurricularResponseDTO(activity));
         }
-        List<CertificateResponseDTO> certificates = new ArrayList<>(student.getCertificates().size());
-        for (Certificate certificate : student.getCertificates()) {
-            certificates.add(new CertificateResponseDTO(certificate));
-        }
-        this.setCertifications(certificates);
+//        List<CertificateResponseDTO> certificates = new ArrayList<>(student.getCertificates().size());
+//        for (Certificate certificate : student.getCertificates()) {
+//            certificates.add(new CertificateResponseDTO(certificate));
+//        }
+//        this.setCertifications(certificates);
     }
 
     public Integer getId() {
@@ -212,12 +197,12 @@ public class ApplicantResponseDTO implements ResponseDTO<Student> {
         this.avatarUrl = avatarUrl;
     }
 
-    public Boolean getInJob() {
+    public Boolean getIsInJob() {
         return isInJob;
     }
 
-    public void setInJob(Boolean inJob) {
-        isInJob = inJob;
+    public void setIsInJob(Boolean isInJob) {
+        this.isInJob = isInJob;
     }
 
 
