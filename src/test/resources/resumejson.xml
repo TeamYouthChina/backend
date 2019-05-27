@@ -1,4 +1,0 @@
-<dataset>
-    <STU_RESUME_JSON RESUME_ID = '1' JSON_COUNT = '2' JSON_1 = '111' JSON_2 = '222' JSON_3 = '1' JSON_4 = '1' JSON_5 = '1' JSON_6 = '1' JSON_7 = '1' JSON_8 = '1' JSON_9 = '1' JSON_10 = '1' STU_ID = '1' CREATE_TIME = '2018-10-11 11:11:22' IS_DELETE = '0'  />
-    <STU_RESUME_JSON RESUME_ID = '2' JSON_COUNT = '1' JSON_1 = '222' JSON_2 = '222' JSON_3 = '1' JSON_4 = '1' JSON_5 = '1' JSON_6 = '1' JSON_7 = '1' JSON_8 = '1' JSON_9 = '1' JSON_10 = '1' STU_ID = '1' CREATE_TIME = '2018-10-11 11:11:22' IS_DELETE = '0'  />
-</dataset>

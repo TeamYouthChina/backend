@@ -1,0 +1,20 @@
+{
+  "content": {
+    "id": 5,
+    "email": "123456@456.com",
+    "register_date": 1546300800000,
+    "date_of_birth": 0,
+    "first_name": "DDD",
+    "last_name": "DDDEEEFFF",
+    "gender": "FEMALE",
+    "avatar_url": "---",
+    "role": [
+      "APPLICANT"
+    ],
+    "phone_number": "9876543210123"
+  },
+  "status": {
+    "code": 2000,
+    "reason": ""
+  }
+}

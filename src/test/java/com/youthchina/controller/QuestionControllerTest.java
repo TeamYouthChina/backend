@@ -2,76 +2,41 @@ package com.youthchina.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.youthchina.dto.community.answer.RequestSimpleAnswerDTO;
-import com.youthchina.dto.community.question.RequestQuestionDTO;
-import com.youthchina.dto.util.RichTextDTO;
-import com.youthchina.util.AuthGenerator;
-import org.junit.Assert;
-import org.junit.Before;
+import com.youthchina.dto.community.question.QuestionRequestDTO;
+import com.youthchina.dto.util.RichTextRequestDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+import static com.youthchina.util.CustomMockMvcMatchers.partialContent;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 /**
  * Created by hongshengzhang on 2/10/19.
  */
 
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class, TransactionalTestExecutionListener.class})
-@DatabaseSetup({"classpath:questions.xml"})
-@DatabaseSetup({"classpath:answers.xml"})
-@DatabaseSetup({"classpath:rank.xml"})
+@Transactional
 @WebAppConfiguration
-public class QuestionControllerTest {
-    @Autowired
-    private WebApplicationContext context;
-
-    @Autowired
-    private ApplicationContext applicationContext;
-
-    @Value("${web.url.prefix}")
-    private String urlPrefix;
-
-    private AuthGenerator authGenerator = new AuthGenerator();
-
-    MockMvc mvc;
-
-    @Before
-    public void setup() {
-        this.mvc = MockMvcBuilders.webAppContextSetup(context).apply(SecurityMockMvcConfigurers.springSecurity()).build();
-    }
+public class QuestionControllerTest extends BaseControllerTest {
 
     @Test
     public void getAnswersTest() throws Exception {
         this.mvc.perform(
-                get(this.urlPrefix + "/questions/2/answers")
-                        .with(authGenerator.authentication())
+                get(this.urlPrefix + "/questions/3/answers")
+                        .with(authGenerator.authentication(2))
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"answers\":[{\"id\":5,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"这是第五个回答\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"is_anonymous\":false,\"creator\":{\"id\":4,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\"}]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json(readJson("responses/get-questions-answers.json"), false));
     }
 
     @Test
@@ -81,7 +46,7 @@ public class QuestionControllerTest {
                         .with(authGenerator.authentication())
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"questions\":[{\"id\":4,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"title\":\"第四个问题\",\"is_anonymous\":false,\"create_at\":\"2018-12-06T14:32:40.000+0000\",\"modified_at\":\"2018-12-06T14:32:40.000+0000\",\"answers\":[],\"rela_type\":2,\"rela_id\":2,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"Body of the question 4 but42\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"Abbreviation of the question 4 but 42\",\"resourceIdList\":[]}}]},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json(readJson("responses/get-questions.json"), false));
     }
 
     @Test
@@ -92,50 +57,27 @@ public class QuestionControllerTest {
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"title\":\"第一个问题\",\"is_anonymous\":true,\"create_at\":\"2018-12-04T13:32:40.000+0000\",\"modified_at\":\"2018-12-04T13:32:40.000+0000\",\"answers\":[{\"id\":1,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"这是第一个回答\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"is_anonymous\":false,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\"},{\"id\":2,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"这是第二个回答\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"is_anonymous\":false,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\"},{\"id\":3,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"这是第三个回答\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"is_anonymous\":false,\"creator\":{\"id\":2,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\"},{\"id\":4,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"这是第四个回答\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":null,\"resourceIdList\":[]},\"is_anonymous\":false,\"creator\":{\"id\":3,\"username\":\"zhid d\",\"email\":\"test@test.com\",\"phonenumber\":\"18463722634\",\"register_date\":\"2018-10-11 11:11:22.0\",\"real_name\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatar_url\":null,\"role\":1,\"age\":21},\"modified_at\":\"2018-12-04 13:32:40.0\",\"create_at\":\"2018-12-04 13:32:40.0\"}],\"rela_type\":1,\"rela_id\":3,\"body\":{\"braftEditorRaw\":{\"entityMap\":{},\"blocks\":[{\"key\":\"dtj4a\",\"text\":\"Body of the question 1 but42\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}]},\"previewText\":\"Abbreviation of the question 1 but 42\",\"resourceIdList\":[]}},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andExpect(content().json(readJson("responses/get-questions-1.json"), false));
     }
 
     @Test
     public void addQuestionTest() throws Exception {
-        RequestQuestionDTO requestQuestionDTO = new RequestQuestionDTO();
-        requestQuestionDTO.setTitle("Question No.100");
-        RichTextDTO richTextDTO = new RichTextDTO();
-        //language=JSON
-        String json = "{\n" +
-                "  \"braftEditorRaw\":{\n" +
-                "    \"blocks\": [\n" +
-                "      {\n" +
-                "        \"key\":\"dtj4a\",\n" +
-                "        \"text\":\"Body of the question No.101\",\n" +
-                "        \"type\":\"unstyled\",\n" +
-                "        \"depth\":0,\n" +
-                "        \"inlineStyleRanges\": [],\n" +
-                "        \"entityRanges\": [],\n" +
-                "        \"data\":{\n" +
-                "        }\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"entityMap\":{\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"previewText\":\"Abbreviation of the question No.101\",\n" +
-                "  \"resourceIdList\": []\n" +
-                "}";
-        try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
-            System.out.println(richTextDTO);
-        } catch (IOException e) {
-            Assert.fail();
-        }
-        requestQuestionDTO.setBody(richTextDTO);
+        QuestionRequestDTO questionRequestDTO = new QuestionRequestDTO();
+        questionRequestDTO.setTitle("Question No.100");
+        String json = "";
+        String pre = "pre";
+        RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
+        richTextDTO.setBraftEditorRaw(json);
+        richTextDTO.setPreviewText(pre);
+        richTextDTO.setCompiletype(1);
+        questionRequestDTO.setBody(richTextDTO);
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
-        requestQuestionDTO.setRela_type(2);
-        requestQuestionDTO.setRela_id(2);
-        requestQuestionDTO.setIs_anonymous(true);
+        questionRequestDTO.setRela_type(2);
+        questionRequestDTO.setRela_id(2);
+        questionRequestDTO.setIs_anonymous(true);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(requestQuestionDTO);
-
+        java.lang.String requestJson = ow.writeValueAsString(questionRequestDTO);
         this.mvc.perform(
                 post(this.urlPrefix + "/questions").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
@@ -146,45 +88,22 @@ public class QuestionControllerTest {
 
     @Test
     public void updateQuestionTest() throws Exception {
-        RequestQuestionDTO requestQuestionDTO = new RequestQuestionDTO();
-        requestQuestionDTO.setTitle("How to learn JAVA");
-        RichTextDTO richTextDTO = new RichTextDTO();
-        //language=JSON
-        String json = "{\n" +
-                "  \"braftEditorRaw\":{\n" +
-                "    \"blocks\": [\n" +
-                "      {\n" +
-                "        \"key\":\"dtj4a\",\n" +
-                "        \"text\":\"Body of the question No.100\",\n" +
-                "        \"type\":\"unstyled\",\n" +
-                "        \"depth\":0,\n" +
-                "        \"inlineStyleRanges\": [],\n" +
-                "        \"entityRanges\": [],\n" +
-                "        \"data\":{\n" +
-                "        }\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"entityMap\":{\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"previewText\":\"Abbreviation of the question No.100\",\n" +
-                "  \"resourceIdList\": []\n" +
-                "}";
-        try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
-            System.out.println(richTextDTO);
-        } catch (IOException e) {
-            Assert.fail();
-        }
-        requestQuestionDTO.setBody(richTextDTO);
-        requestQuestionDTO.setIs_anonymous(true);
+        QuestionRequestDTO questionRequestDTO = new QuestionRequestDTO();
+        questionRequestDTO.setTitle("How to learn JAVA");
+        String json = "";
+        String pre = "pre";
+        RichTextRequestDTO richTextDTO = new RichTextRequestDTO();
+        richTextDTO.setBraftEditorRaw(json);
+        richTextDTO.setPreviewText(pre);
+        richTextDTO.setCompiletype(1);
+        questionRequestDTO.setBody(richTextDTO);
+        questionRequestDTO.setIs_anonymous(true);
         //questionDTO.setAbbreviation("Abbreviation of the question No.100");
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(requestQuestionDTO);
+        java.lang.String requestJson = ow.writeValueAsString(questionRequestDTO);
 
         this.mvc.perform(
-
                 put(this.urlPrefix + "/questions/2").contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(requestJson)
                         .with(authGenerator.authentication())
@@ -197,40 +116,49 @@ public class QuestionControllerTest {
 
         )
                 .andDo(print());
-                //.andExpect(content().json("{\"content\":{\"id\":2,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":null,\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"title\":\"How to learn JAVA\",\"body\":\"I don't know\",\"createAt\":\"2018-12-05T13:32:40.000+0000\",\"editAt\":\"2019-02-14T16:50:27.000+0000\",\"answers\":null,\"invitation\":null,\"labelIds\":null,\"rela_type\":3,\"rela_id\":null,\"abbreviation\":\"Abbreviation of the question No.100\",\"anonymous\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+        //.andExpect(content().json("{\"content\":{\"id\":2,\"creator\":{\"id\":1,\"username\":\"yihao guo\",\"email\":null,\"phonenumber\":\"18463722634\",\"registerDate\":null,\"realName\":\"None\",\"gender\":\"male\",\"nation\":\"China\",\"avatarUrl\":null,\"role\":null,\"age\":21},\"title\":\"How to learn JAVA\",\"body\":\"I don't know\",\"createAt\":\"2018-12-05T13:32:40.000+0000\",\"editAt\":\"2019-02-14T16:50:27.000+0000\",\"answers\":null,\"invitation\":null,\"labelIds\":null,\"rela_type\":3,\"rela_id\":null,\"abbreviation\":\"Abbreviation of the question No.100\",\"anonymous\":null},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
 
     }
 
-    @Test
-    public void invitesAnswerTest() throws Exception {
-        List<Integer> userlist = new ArrayList<>();
-        userlist.add(1);
-        userlist.add(2);
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String requestJson = ow.writeValueAsString(userlist);
-        System.out.println(requestJson);
-        this.mvc.perform(
-                put(this.urlPrefix + "/questions/2/invite").contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content(requestJson)
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print());
-    }
-
-    @Test
-    public void inviteAnswerTest() throws Exception {
-        this.mvc.perform(
-                put(this.urlPrefix + "/questions/2/invite/1")
-                        .with(authGenerator.authentication())
-        )
-                .andDo(print());
-    }
-
+    //    @Test
+//    public void invitesAnswerTest() throws Exception {
+//        List<Integer> userlist = new ArrayList<>();
+//        userlist.add(1);
+//        userlist.add(2);
+//        ObjectMapper mapper = new ObjectMapper();
+//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+//        java.lang.String requestJson = ow.writeValueAsString(userlist);
+//        System.out.println(requestJson);
+//        this.mvc.perform(
+//                put(this.urlPrefix + "/questions/2/invite").contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .content(requestJson)
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print());
+//    }
+//
+//    @Test
+//    public void inviteAnswerTest() throws Exception {
+//        this.mvc.perform(
+//                put(this.urlPrefix + "/questions/2/invite/1")
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print());
+//    }
+//
     @Test
     public void attentionTest() throws Exception {
         this.mvc.perform(
                 put(this.urlPrefix + "/questions/2/attention")
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print());
+    }
+
+    @Test
+    public void cancelAttention() throws Exception {
+        this.mvc.perform(
+                delete(this.urlPrefix + "/questions/attention/2")
                         .with(authGenerator.authentication())
         )
                 .andDo(print());
@@ -243,75 +171,40 @@ public class QuestionControllerTest {
                         .with(authGenerator.authentication())
 
         )
-                .andDo(print());
-//                .andExpect(content().json("{\"content\":{\"jobId\":1,\"jobName\":\"front\",\"jobProfCode\":\"A\",\"jobStartTime\":\"2019-01-01\",\"jobEndTime\":\"2020-01-01\",\"jobType\":1,\"jobDescription\":\"996\",\"jobDuty\":\"front\",\"jobHighlight\":\"50K\",\"jobSalaryFloor\":5000,\"jobSalaryCap\":6000,\"jobLink\":\"job.com\",\"cvReceiMail\":\"youth@china\",\"cvNameRule\":\"nameRule\",\"jobActive\":1,\"jobLocationList\":[{\"region_num\":1,\"region_chn\":\"北京\",\"region_eng\":\"Beijing\",\"region_level\":1,\"region_parent_num\":1,\"start_time\":\"2019-01-01T11:11:22.000+0000\",\"is_delete\":null,\"is_delete_time\":null,\"jobId\":1}],\"jobReqList\":[{\"degreeNum\":1,\"degreeChn\":\"本科\",\"degreeEng\":\"Bachelor\",\"startDate\":\"2019-01-01T11:11:22.000+0000\",\"jobId\":1},{\"degreeNum\":2,\"degreeChn\":\"硕士\",\"degreeEng\":\"Master\",\"startDate\":\"2019-01-02T11:11:22.000+0000\",\"jobId\":1}],\"industries\":[{\"indNum\":1,\"indCode\":\"A\",\"indChn\":\"工\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"A3\",\"startTime\":\"2018-10-11T11:11:22.000+0000\",\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":null,\"jobId\":1},{\"indNum\":2,\"indCode\":\"B\",\"indChn\":\"农\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"B3\",\"startTime\":\"2018-10-11T11:11:22.000+0000\",\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":null,\"jobId\":1}],\"profession\":{\"profNum\":1,\"profCode\":\"A\",\"profParentCode\":\"A\",\"profChn\":\"前端\",\"profEng\":\"frontEnd\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"isDelete\":null,\"isDeleteTime\":null,\"company\":{\"companyId\":1,\"companyName\":\"大疆\",\"companyCode\":\"2\",\"companyIntroduc\":\"无人机\",\"companyNature\":{\"natureNum\":1,\"natureChn\":\"国企\",\"natureEng\":\"public\",\"natureDetail\":\"good\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"companyScale\":{\"scaleNum\":1,\"scaleChn\":\"大\",\"scaleEng\":\"big\",\"startTime\":\"2019-01-01T11:11:22.000+0000\"},\"location\":{\"region_num\":1,\"region_chn\":\"北京\",\"region_eng\":\"Beijing\",\"region_level\":1,\"region_parent_num\":1,\"start_time\":\"2019-01-01T11:11:22.000+0000\",\"is_delete\":null,\"is_delete_time\":null,\"jobId\":null},\"country\":null,\"companyMail\":\"dji@com\",\"companyWebsite\":\"dji.com\",\"companyStartDate\":\"2005-11-20\",\"companyLogo\":\"1\",\"companyVerify\":1,\"userId\":null,\"isDelete\":null,\"isDeleteTime\":null,\"jobs\":null,\"indList\":[{\"indNum\":1,\"indCode\":\"A\",\"indChn\":\"工\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"A3\",\"startTime\":null,\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":1,\"jobId\":null},{\"indNum\":2,\"indCode\":\"B\",\"indChn\":\"农\",\"indEng\":\"eng\",\"indLevel\":2,\"indParentCode\":\"B3\",\"startTime\":null,\"isDelete\":null,\"isDeleteTime\":null,\"companyId\":1,\"jobId\":null}],\"verificationList\":[]},\"hr\":{\"hrId\":1,\"companyId\":1,\"hrOnJob\":1,\"userId\":null,\"isDelete\":null,\"isDeleteTime\":null},\"id\":1},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":204,\"reason\":\"delete success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
         this.mvc.perform(
                 get(this.urlPrefix + "/questions/4")
                         .with(authGenerator.authentication())
 
         )
                 .andDo(print())
-                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":404,\"reason\":\"没有找到这个问题\"}}", false));
+                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4040,\"reason\":\"没有找到这个问题\"}}", false));
 
     }
 
     @Test
-    public void testAddAnswer() throws Exception{
-        RequestSimpleAnswerDTO simpleAnswerDTO = new RequestSimpleAnswerDTO();
-        simpleAnswerDTO.setIs_anonymous(true);
-        RichTextDTO richTextDTO = new RichTextDTO();
-        //language=JSON
-        String json = "{\n" +
-                "  \"braftEditorRaw\":{\n" +
-                "    \"blocks\": [\n" +
-                "      {\n" +
-                "        \"key\":\"dtj4a\",\n" +
-                "        \"text\":\"qweertyuiop\",\n" +
-                "        \"type\":\"unstyled\",\n" +
-                "        \"depth\":0,\n" +
-                "        \"inlineStyleRanges\": [],\n" +
-                "        \"entityRanges\": [],\n" +
-                "        \"data\":{\n" +
-                "        }\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"entityMap\":{\n" +
-                "    }\n" +
-                "  },\n" +
-                "  \"previewText\":null,\n" +
-                "  \"resourceIdList\": []\n" +
-                "}";
-        try {
-            richTextDTO = new ObjectMapper().readValue(json, RichTextDTO.class);
-            System.out.println(richTextDTO);
-        } catch (IOException e) {
-            Assert.fail();
-        }
-        simpleAnswerDTO.setBody(richTextDTO);
-
-
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        java.lang.String searchJson = ow.writeValueAsString(simpleAnswerDTO);
+    public void testAddAnswer() throws Exception {
         this.mvc.perform(
                 post(this.urlPrefix + "/questions/2/answers")
                         .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content(searchJson)
-        )
-                .andDo(print());
-//                .andExpect(content().json("{\"content\":{\"id\":1,\"creator\":null,\"body\":{\"braftEditorRaw\":null,\"previewText\":\"qweertyuiop\",\"resourceIdList\":null},\"isAnonymous\":true,\"creatAt\":null},\"status\":{\"code\":200,\"reason\":\"success\"}}", false));
-    }
-
-    @Test
-    public void testUserAttentions() throws Exception{
-        this.mvc.perform(
-                get
-                        (this.urlPrefix + "/users/1/attentions").param("type","Question")
-
-                        .with(authGenerator.authentication())
+                        .content(readJson("requests/post-answer.json"))
         )
                 .andDo(print())
-        ;
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(partialContent("{\"content\":{\"body\":{\"braftEditorRaw\":\"adfd\",\"previewText\":\"pre\",\"compiletype\":1},\"is_anonymous\":false,\"creator\":{\"id\":1,\"email\":\"Admin1\",\"register_date\":1546300800000,\"date_of_birth\":0,\"first_name\":\"Admin1\",\"last_name\":\"Admin1\",\"gender\":\"MALE\",\"avatar_url\":\"---\",\"role\":[\"ROOT\"],\"phone_number\":\"12345\"},\"modified_at\":\"2019-05-16 09:53:18.0\",\"create_at\":\"2019-05-16 09:53:18.0\",\"question\":{\"id\":2,\"creator\":null,\"title\":\"腾讯的问题是什么？\",\"is_anonymous\":true,\"create_at\":1546300800000,\"modified_at\":1546300800000,\"rela_type\":1,\"rela_id\":37,\"body\":{\"braftEditorRaw\":\"{\\\"braftEditorRaw\\\":{\\\"blocks\\\":[{\\\"key\\\":\\\"dtj4a\\\",\\\"text\\\":\\\"<在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要做的，就是保持住这个地位。但技术不是静止不动的，不断有新的技术生长出来，在成千上万种技术中，有一种会长成参天大树，利润无比丰厚，取代原来的技术平台，成为新的主流趋势。>\\\",\\\"type\\\":\\\"unstyled\\\",\\\"depth\\\":0,\\\"inlineStyleRanges\\\":[],\\\"entityRanges\\\":[],\\\"data\\\":{}}],\\\"entityMap\\\":{}},\\\"previewText\\\":\\\"<在此填入你的文字>\\\",\\\"resourceIdList\\\":[]}\",\"previewText\":\"在软件行业，操作系统平台就是那个八，其他的应用软件就是那个二。微软已经踩到了一次狗屎运，得到了软件行业80%的利润，现在，他所需要做的，就是保持住这个地位。但技术不是静止不动的，不断有新的技术生长出来，在成千上万种技术中，有一种会长成参天大树，利润无比丰厚，取代原来的技术平台，成为新的主流趋势。\",\"compiletype\":1}},\"id\":50,\"upvoteCount\":0,\"downvoteCount\":0,\"attentionCount\":0,\"evaluateStatus\":3,\"attention\":false},\"status\":{\"code\":200,\"reason\":\"success\"}}", "$.content.modified_at", "$.content.create_at", "$.content.id"));
     }
+
+//    @Test
+//    public void testUserAttentions() throws Exception {
+//        this.mvc.perform(
+//                get
+//                        (this.urlPrefix + "/users/1/attentions").param("type", "Question")
+//
+//                        .with(authGenerator.authentication())
+//        )
+//                .andDo(print())
+//        ;
+//    }
 }

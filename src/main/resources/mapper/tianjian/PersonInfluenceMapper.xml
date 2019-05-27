@@ -27,7 +27,7 @@
     </update>
 
     <!--    获取个人各项影响力分值 -->
-    <select id="getPersonInfluence"  resultType="com.youthchina.domain.tianjian.PersonInfluence">
+    <select id="getPersonInfluence" resultType="com.youthchina.domain.tianjian.PersonInfluence">
         select t.* from PERSON_INFLUENCE t
         where t.USER_ID = #{user_id}
      </select>

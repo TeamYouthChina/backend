@@ -1,7 +1,9 @@
 package com.youthchina.dao.zhongyang;
 
+import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,7 +16,9 @@ import java.util.List;
 public interface UserMapper {
     User findOne(Integer id);
 
-    List<User> findAll(List<Integer> ids);
+    User findByEmail(String email);
+
+    List<Role> getRoles(Integer user_id);
 
     int insert(User user);
 
@@ -23,4 +27,6 @@ public interface UserMapper {
     void update(User user);
 
     boolean canRegister(User user);
+
+    void setRole(@Param("user_id") Integer user_id, @Param("roles") List<Role> role);
 }

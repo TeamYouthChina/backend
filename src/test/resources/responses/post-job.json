@@ -1,0 +1,28 @@
+{
+  "content": {
+    "id": "*",
+    "name": "new_job",
+    "organization": {
+      "id": 2,
+      "name": "中国石油天然气股份有限公司",
+      "avatarUrl": null,
+      "location": "110000",
+      "website": "http://www.petrochina.com.cn/",
+      "note": "中国石油天然气股份有限公司是中国油气行业占主导地位的最大的油气生产和销售商，是国有企业，是中国销售收入最大的公司之一，也是世界最大的石油公司之一。",
+      "nation": "中国"
+    },
+    "location": [
+      "994701"
+    ],
+    "type": "实习",
+    "start_time": 1451606400000,
+    "dead_line": 1451606400000,
+    "job_duty": "string",
+    "job_description": "string",
+    "collected": false
+  },
+  "status": {
+    "code": 2000,
+    "reason": ""
+  }
+}

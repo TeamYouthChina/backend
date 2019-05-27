@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.jinhao.CommentMapper">
+    <resultMap id="comment" type="com.youthchina.domain.jinhao.Comment">
+        <id property="id" column="COMMENT_ID"/>
+        <result property="content" column="COMMENT_CONTENT"/>
+        <result property="isAnony" column="USER_ANONY"/>
+        <result property="pubTime" column="COMMENT_PUB_TIME"/>
+        <result property="editTime" column="COMMENT_EDIT_TIME"/>
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User">
+            <constructor>
+                <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            </constructor>
+        </association>
+    </resultMap>
+
+    <select id="getComments" resultMap="comment">
+        select c.* from COM_COMMENT c
+        where c.TARGET_TYPE=#{targetType} and c.TARGET_ID=#{targetId} and c.IS_DELETE=0
+    </select>
+    <select id="getLimitedComments" resultMap="comment">
+        select c.* from COM_COMMENT c
+        where c.TARGET_TYPE=#{targetType} and c.TARGET_ID=#{targetId} and c.IS_DELETE=0 limit #{start}, #{rows}
+    </select>
+    <select id="get" resultMap="comment">
+        select c.* from COM_COMMENT c
+        where c.COMMENT_ID=#{id} and c.IS_DELETE=0
+    </select>
+
+    <insert id="add" parameterType="com.youthchina.domain.jinhao.Comment" useGeneratedKeys="true"
+    keyProperty="id">
+        insert into COM_COMMENT(target_type, target_id, comment_content, user_id, user_anony, comment_pub_time, comment_edit_time)
+        values (#{targetType},#{targetId},#{content},#{user.id},#{isAnony},now(),now())
+    </insert>
+    <update id="delete" parameterType="java.lang.Integer">
+        update COM_COMMENT set IS_DELETE = 1,IS_DELETE_TIME=now()
+        where COMMENT_ID=#{id}
+    </update>
+    <update id="deleteComments">
+        update COM_COMMENT set IS_DELETE=1,IS_DELETE_TIME=now()
+        where TARGET_TYPE=#{type} and TARGET_ID=#{id}
+    </update>
+    <select id="checkIfCommentExist" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select COMMENT_ID from COM_COMMENT where COMMENT_ID=#{id} and IS_DELETE=0
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(COMMENT_ID) from COM_COMMENT
+        where TARGET_TYPE=#{targetType} and TARGET_ID=#{targetId} and IS_DELETE=0
+    </select>
+
+    <select id="getMyComment" parameterType="java.lang.Integer" resultMap="comment">
+        select * from COM_COMMENT where USER_ID = #{id} and IS_DELETE = 0
+    </select>
+</mapper>

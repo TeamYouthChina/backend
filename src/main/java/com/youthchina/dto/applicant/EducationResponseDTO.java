@@ -1,6 +1,7 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.EducationInfo;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**
@@ -9,25 +10,35 @@ import com.youthchina.dto.util.DurationDTO;
  * @author: Qinghong Wang
  * @create: 2019-02-24 15:29
  **/
-public class EducationResponseDTO {
+public class EducationResponseDTO implements ResponseDTO<EducationInfo> {
     private Integer id;
     private String university;
     private String major;
     private String degree;
     private DurationDTO duration;
-    private String location;
     private String note;
 
     public EducationResponseDTO() {
     }
 
-    public EducationResponseDTO(EducationInfo educationInfo){
-        this.id=educationInfo.getEdu_id();
-        this.university = educationInfo.getEdu_school();
-        this.major = educationInfo.getEdu_major();
-        this.degree = educationInfo.getDegree().getDegreeChn();
-        this.duration = new DurationDTO(educationInfo.getEdu_start(), educationInfo.getEdu_end());
-        this.location=educationInfo.getLocation().getRegion_chn();
+    public EducationResponseDTO(EducationInfo educationInfo) {
+        if(educationInfo!=null){
+            if(educationInfo.getUniversity()!=null){
+                this.university=educationInfo.getUniversity().getUnivers_name();
+            }
+            this.id = educationInfo.getEdu_id();
+            if(educationInfo.getMajor()!=null){
+                this.major = educationInfo.getMajor().getMajor_chn();
+            }
+
+
+            if(educationInfo.getDegree()!=null){
+                this.degree = educationInfo.getDegree().getDegreeChn();
+            }
+
+            this.duration = new DurationDTO(educationInfo.getEdu_start(), educationInfo.getEdu_end());
+        }
+
 
     }
 
@@ -71,13 +82,6 @@ public class EducationResponseDTO {
         this.duration = duration;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public String getNote() {
         return note;
@@ -85,5 +89,15 @@ public class EducationResponseDTO {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+
+    @Override
+    public void convertToDTO(EducationInfo educationInfo) {
+        this.university=educationInfo.getUniversity().getUnivers_name();
+        this.id = educationInfo.getEdu_id();
+        this.major = educationInfo.getMajor().getMajor_chn();
+        this.degree = educationInfo.getDegree().getDegreeChn();
+        this.duration = new DurationDTO(educationInfo.getEdu_start(), educationInfo.getEdu_end());
     }
 }

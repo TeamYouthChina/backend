@@ -3,7 +3,7 @@ package com.youthchina.dto;
 /**
  * Created by zhong on 2018/12/30.
  */
-public class Response implements ResponseDTO {
+public class Response implements HasStatus {
     private Object content;
     private StatusDTO status;
 
@@ -40,5 +40,13 @@ public class Response implements ResponseDTO {
 
     public void setStatus(StatusDTO status) {
         this.status = status;
+    }
+
+    public static Response content(Object content) {
+        return new Response(content);
+    }
+
+    public static Response status(StatusDTO status) {
+        return new Response(null, status);
     }
 }

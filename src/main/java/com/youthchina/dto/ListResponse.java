@@ -1,44 +1,48 @@
 package com.youthchina.dto;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.youthchina.dto.util.PageRequest;
+import com.youthchina.dto.util.PageResponse;
+
+import java.util.List;
 
 /**
  * Created by zhongyangwu on 1/31/19.
  */
-public class ListResponse implements ResponseDTO {
-    private Map<String, Object> content;
+public class ListResponse implements HasStatus {
+    private PageResponse content;
     private StatusDTO status;
 
     public ListResponse() {
-        this.content = new HashMap<>();
+        this.content = new PageResponse();
         this.status = new StatusDTO(2000, "");
     }
 
-    public ListResponse(Object content, String key) {
+
+    public ListResponse(PageResponse content) {
         this();
-        this.content.put(key, content);
+        this.content = content;
     }
 
-    public ListResponse(Object content, String key, StatusDTO status) {
-        this.content.put(key,
-                content);
-        this.status = status;
+    public ListResponse(PageRequest pageRequest, List data){
+        this();
+        this.content = new PageResponse(pageRequest, data.size(), data.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, data.size())));
     }
 
-    public ListResponse(Object content, String key, int code, String reason) {
-        this.content.put(key, content);
-        this.status = new StatusDTO(code, reason);
+    public ListResponse(PageRequest pageRequest, int count, Object data) {
+        this();
+        this.content = new PageResponse(pageRequest, count, data);
     }
 
-    public Map<String, Object> getContent() {
+    public ListResponse(PageResponse content, StatusDTO statusDTO) {
+        this.content = content;
+        this.status = statusDTO;
+    }
+
+
+    public PageResponse getContent() {
         return content;
     }
 
-    public void setContent(Object content, String key) {
-        this.content = new HashMap<>();
-        this.content.put(key, content);
-    }
 
     public StatusDTO getStatus() {
         return status;

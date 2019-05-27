@@ -1,36 +1,20 @@
 package com.youthchina.dto.security;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.youthchina.dto.RequestDTO;
+import com.youthchina.domain.zhongyang.Gender;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by zhongyangwu on 2/10/19.
  */
-public class RegisterUserDTO implements RequestDTO {
-    private String username;
-    private String dateOfBirth;
+public class RegisterUserDTO {
     private String password;
     private String email;
-    private String phoneNumber;
-    private String nation;
+    private String firstName;
+    private String lastName;
     private String gender;
-    private Integer age;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
+    @NotNull
+    private Long dateOfBirth;
 
     public String getPassword() {
         return password;
@@ -48,21 +32,20 @@ public class RegisterUserDTO implements RequestDTO {
         this.email = email;
     }
 
-    @JsonProperty("phone_number")
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getNation() {
-        return nation;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setNation(String nation) {
-        this.nation = nation;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getGender() {
@@ -73,11 +56,15 @@ public class RegisterUserDTO implements RequestDTO {
         this.gender = gender;
     }
 
-    public Integer getAge() {
-        return age;
+    public void setGender(Gender gender){
+        this.gender = gender.name();
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public Long getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Long dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

@@ -1,5 +1,7 @@
 package com.youthchina.dto.util;
 
+import com.youthchina.annotation.JsonTimeStamp;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -15,10 +17,8 @@ public class DurationDTO {
         this.end = new Timestamp(end);
     }
 
-    public DurationDTO(java.util.Date begin, java.util.Date end){
+    public DurationDTO(java.util.Date begin, java.util.Date end) {
         this.begin = new Timestamp(begin.getTime());
-        System.out.println("Probe:! " + begin.getTime());
-        System.out.println("Probe:! " + begin.toString());
         this.end = new Timestamp(end.getTime());
     }
 
@@ -33,17 +33,17 @@ public class DurationDTO {
 
     }
 
-    public DurationDTO(){
+    public DurationDTO() {
 
     }
 
-    public DurationDTO(java.sql.Date begin, java.sql.Date end){
+    public DurationDTO(java.sql.Date begin, java.sql.Date end) {
         this.begin = new Timestamp(begin.getTime());
         this.end = new Timestamp(end.getTime());
     }
 
 
-
+    @JsonTimeStamp
     public Timestamp getBegin() {
         return begin;
     }
@@ -52,6 +52,7 @@ public class DurationDTO {
         this.begin = begin;
     }
 
+    @JsonTimeStamp
     public Timestamp getEnd() {
         return end;
     }

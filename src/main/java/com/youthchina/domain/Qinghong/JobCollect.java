@@ -3,7 +3,6 @@ package com.youthchina.domain.Qinghong;
 import com.youthchina.domain.qingyang.Job;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * @program: youthchina
@@ -52,8 +51,6 @@ public class JobCollect {
     public void setStu_id(Integer stu_id) {
         this.stu_id = stu_id;
     }
-
-
 
     public Integer getIs_delete() {
         return is_delete;

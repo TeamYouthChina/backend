@@ -1,5 +1,7 @@
 package com.youthchina.dto;
 
+import com.youthchina.exception.zhongyang.exception.InternalStatusCode;
+
 public class StatusDTO {
     private int code;
     private String reason;
@@ -12,6 +14,16 @@ public class StatusDTO {
     public StatusDTO(int code, String reason) {
         this.code = code;
         this.reason = reason;
+    }
+
+    public StatusDTO(InternalStatusCode internalStatusCode, String reason){
+        this.code = internalStatusCode.value();
+        this.reason = reason;
+    }
+
+    public StatusDTO(InternalStatusCode internalStatusCode) {
+        this.code = internalStatusCode.value();
+        this.reason = internalStatusCode.getMessage();
     }
 
     public String getReason() {

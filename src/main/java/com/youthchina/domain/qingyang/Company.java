@@ -1,18 +1,21 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.domain.jinhao.property.Attentionable;
 import com.youthchina.dto.applicant.OrganizationDTO;
-import com.youthchina.dto.company.CompanyDTO;
-import com.youthchina.util.zhongyang.HasId;
+import com.youthchina.dto.company.CompanyRequestDTO;
+import com.youthchina.util.HasId;
+import com.youthchina.util.dictionary.AttentionTargetType;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by zhong on 2018/12/27.
  */
-public class Company implements HasId<Integer> {
+public class Company implements HasId<Integer>, Attentionable {
     private Integer companyId;
     private String companyName;
     private String companyCode;
@@ -41,13 +44,19 @@ public class Company implements HasId<Integer> {
     private String companyMail;
     private String companyWebsite;
     private Date companyStartDate;
-    private String companyLogo;
+    //private String companyLogo;
+
     private Integer companyVerify;
     private Integer userId;
     private Integer isDelete;
     private Timestamp isDeleteTime;
     private Timestamp addTime;
-    private List<Job> jobs;
+    private List<Job> jobs; //TODO: Need Delete?
+    private List<Logo> logoList;
+    private List<CompanyPhoto> photoList;
+    private Integer jobCount;
+    private Boolean isCollected;
+
 
     /*行业信息*/
     private List<Industry> indList;
@@ -68,21 +77,38 @@ public class Company implements HasId<Integer> {
     public Company(OrganizationDTO organizationDTO) {
         this.companyId = organizationDTO.getId();
         this.companyName = organizationDTO.getName();
-        this.companyLogo = organizationDTO.getAvatarUrl();
     }
 
-    public  Company() {}
+    public Company() {
+    }
 
 
-    public Company(CompanyDTO companyDTO) {
-        this.companyId = companyDTO.getId();
-        this.companyName = companyDTO.getName();
-        this.location = new Location(companyDTO.getLocation());
-        this.companyWebsite = companyDTO.getWebsite();
-        this.country = new Country(companyDTO.getNation());
-        this.companyLogo = companyDTO.getAvatarUrl();
-        this.companyIntroduc = companyDTO.getNote();
-        this.userId = companyDTO.getUserId();
+    public Company(CompanyRequestDTO companyRequestDTO) {
+        this.companyId = companyRequestDTO.getId();
+        this.companyName = companyRequestDTO.getName();
+        this.location = new Location(companyRequestDTO.getLocation());
+        this.companyWebsite = companyRequestDTO.getWebsite();
+        this.country = new Country(companyRequestDTO.getNation());
+        this.companyIntroduc = companyRequestDTO.getNote();
+        this.userId = companyRequestDTO.getUserId();
+
+        String avatarUrl = companyRequestDTO.getAvatarUrl();
+        if(avatarUrl != null){
+            this.logoList = new ArrayList<>();
+            Logo logo = new Logo();
+            logo.setDocuLocalId(avatarUrl);
+            this.logoList.add(logo);
+        }
+
+        List<String> photoIdList = companyRequestDTO.getPhotoIdList();
+
+        if(photoIdList != null && photoIdList.size() > 0){
+            this.photoList = new ArrayList<>();
+            for(String photoId : photoIdList){
+                this.photoList.add(new CompanyPhoto(photoId));
+            }
+        }
+
 
         //TODO : API need add more params as shown below
         this.companyCode = "TODO"; //企业三证号码
@@ -215,14 +241,6 @@ public class Company implements HasId<Integer> {
         this.companyStartDate = companyStartDate;
     }
 
-    public String getCompanyLogo() {
-        return companyLogo;
-    }
-
-    public void setCompanyLogo(String companyLogo) {
-        this.companyLogo = companyLogo;
-    }
-
     public Integer getCompanyVerify() {
         return companyVerify;
     }
@@ -261,6 +279,49 @@ public class Company implements HasId<Integer> {
 
     public void setJobs(List<Job> jobs) {
         this.jobs = jobs;
+    }
+
+    public List<Logo> getLogoList() {
+        return logoList;
+    }
+
+    public void setLogoList(List<Logo> logoList) {
+        this.logoList = logoList;
+    }
+
+    public List<CompanyPhoto> getPhotoList() {
+        return photoList;
+    }
+
+    public void setPhotoList(List<CompanyPhoto> photoList) {
+        this.photoList = photoList;
+    }
+
+
+    public Integer getJobCount() {
+        return jobCount;
+    }
+
+    public void setJobCount(Integer jobCount) {
+        this.jobCount = jobCount;
+    }
+
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
+    }
+
+    @Override
+    public Integer getAttentionTargetType() {
+        return AttentionTargetType.COMPANY;
+    }
+
+    @Override
+    public Integer getExistType() {
+        return null;
     }
 
     @Override

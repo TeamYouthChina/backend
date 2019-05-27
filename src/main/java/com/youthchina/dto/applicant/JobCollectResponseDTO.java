@@ -1,6 +1,7 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.JobCollect;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 
 /**
@@ -9,13 +10,19 @@ import com.youthchina.dto.job.JobResponseDTO;
  * @author: Qinghong Wang
  * @create: 2019-02-26 11:28
  **/
-public class JobCollectResponseDTO {
+public class JobCollectResponseDTO implements ResponseDTO<JobCollect> {
     private Integer id;
     private JobResponseDTO job;
 
     public JobCollectResponseDTO(JobCollect jobCollect) {
-        this.id = jobCollect.getCollect_id();
-        this.job=new JobResponseDTO(jobCollect.getJob());
+        if(jobCollect!=null){
+            this.id = jobCollect.getCollect_id();
+            if(jobCollect.getJob()!=null){
+                this.job = new JobResponseDTO(jobCollect.getJob());
+            }
+
+        }
+
     }
 
     public JobCollectResponseDTO() {
@@ -35,5 +42,12 @@ public class JobCollectResponseDTO {
 
     public void setJob(JobResponseDTO job) {
         this.job = job;
+    }
+
+
+    @Override
+    public void convertToDTO(JobCollect jobCollect) {
+        this.id = jobCollect.getCollect_id();
+        this.job = new JobResponseDTO(jobCollect.getJob());
     }
 }

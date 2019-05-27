@@ -2,7 +2,12 @@ package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Company;
+import com.youthchina.domain.qingyang.CompanyPhoto;
 import com.youthchina.domain.qingyang.Country;
+import com.youthchina.domain.qingyang.Logo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhongyangwu on 12/2/18.
@@ -17,18 +22,68 @@ public class OrganizationDTO {
     private String note;
     private String nation;
 
+    private List<String> photoUrlList;
+    private Integer jobCount;
+    private Boolean isCollected = false;
+
+
+    public List<String> getPhotoUrlList() {
+        return photoUrlList;
+    }
+
+    public void setPhotoUrlList(List<String> photoUrlList) {
+        this.photoUrlList = photoUrlList;
+    }
+
+    public Integer getJobCount() {
+        return jobCount;
+    }
+
+    public void setJobCount(Integer jobCount) {
+        this.jobCount = jobCount;
+    }
+
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
+    }
 
     public OrganizationDTO(Company company) {
-        if(company == null) return;
+        if (company == null) return;
         this.id = company.getCompanyId();
         this.name = company.getCompanyName();
-        this.avatarUrl = company.getCompanyLogo();
+        //TODO
+        List<Logo> logoList = company.getLogoList();
+        if(logoList != null && logoList.size() > 0){
+            this.avatarUrl = company.getLogoList().get(0).getDocuLocalId();
+        }
         Location location = company.getLocation();
-        this.location = location == null ? null : location.getRegion_chn(); // 中文名
+        if (location != null) {
+            this.location = "" + location.getRegionId();
+                    //.getRegionName();
+        }
         this.website = company.getCompanyWebsite();
         Country country = company.getCountry();
         this.nation = country == null ? null : country.getCountryChn();// 中文名
         this.note = company.getCompanyIntroduc();
+        List<CompanyPhoto> photoList = company.getPhotoList();
+
+        if(photoList != null && photoList.size() > 0){
+            this.photoUrlList = new ArrayList<>();
+            for(CompanyPhoto photo : photoList){
+                photoUrlList.add(photo.getUrl());
+            }
+        }
+        this.jobCount = company.getJobCount();
+        if(company.getCollected() != null){
+            this.isCollected = company.getCollected();
+        }
+    }
+
+    public OrganizationDTO() {
     }
 
     public String getLocation() {

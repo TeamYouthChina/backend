@@ -1,15 +1,18 @@
 package com.youthchina.domain.qingyang;
 
 import com.youthchina.domain.Qinghong.Location;
-import com.youthchina.dto.job.SimpleJobDTO;
+import com.youthchina.domain.jinhao.property.Attentionable;
+import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.util.LocationDTO;
-import com.youthchina.util.zhongyang.HasId;
+import com.youthchina.util.HasId;
+import com.youthchina.util.dictionary.AttentionTargetType;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Job implements HasId<Integer> {
+public class Job implements HasId<Integer>, Attentionable {
     /*主键, 职位ID (JOB_INFO)*/
     private Integer jobId;
 
@@ -21,6 +24,7 @@ public class Job implements HasId<Integer> {
     private String jobDescription;
     private String jobDuty;
     private String jobHighlight;
+    private Boolean isCollected;
 
 /*
 create table JOB_INFO
@@ -41,17 +45,14 @@ create table JOB_INFO
 	CV_RECEI_MAIL varchar(200) not null comment '简历接收邮箱',
 	CV_NAME_RULE varchar(200) null comment '简历命名规则',
 	JOB_ACTIVE int not null comment '职位状态',
-	HR_ID int not null comment '招聘者ID',
 	COMPANY_ID int not null comment '企业ID',
 	IS_DELETE int default 0 null comment '是否删除',
 	IS_DELETE_TIME timestamp null comment '删除时间',
 	constraint JOB_COMPANY_ID
 		foreign key (COMPANY_ID) references COMPANY_INFO (company_id),
-	constraint JOB_HR_ID
-		foreign key (HR_ID) references HR_INFO (hr_id)
+
 )
 comment '职位基本信息表';
-
 
 */
 
@@ -65,27 +66,70 @@ comment '职位基本信息表';
     private List<Location> jobLocationList;
     private List<Degree> jobReqList;
     private List<Industry> industries;
+    private List<Logo> logoList;
     private Profession profession;
 
     private Timestamp addTime;
     private Integer isDelete;
     private Timestamp isDeleteTime;
 
+    private Integer userId;
+
     private Integer collectNum = 0; // Default 0
 
     private Company company;
-    private Hr hr;
 
-    public Job(SimpleJobDTO simpleJobDTO) {
-        this.jobId = simpleJobDTO.getId();
-        this.jobName = simpleJobDTO.getName();
-        this.company = new Company(simpleJobDTO.getOrganization());
-        for (LocationDTO locationDTO : simpleJobDTO.getJobLocationList()) {
-            this.jobLocationList.add(new Location(locationDTO));
+    public static final int fullJobType = 3;
+    public static final int partJobType = 2;
+    public static final int internJobType = 1;
+
+    public Job(JobRequestDTO jobRequestDTO) {
+        this.jobId = jobRequestDTO.getId();
+        this.jobName = jobRequestDTO.getName();
+        this.jobType = Integer.parseInt(jobRequestDTO.getType());
+
+        this.company = new Company();
+        this.company.setCompanyId(jobRequestDTO.getOrganization_id());
+//        List<Integer> locationIdList = jobRequestDTO.getLocation();
+//        if(locationIdList != null && locationIdList.size() > 0){
+//            this.jobLocationList = new ArrayList<>();
+//            for (Integer locationIndex : locationIdList) {
+//                this.jobLocationList.add(new Location(locationIndex));
+//            }
+//        }
+        List<LocationDTO> locationDTOList = jobRequestDTO.getLocation();
+        if (locationDTOList != null && locationDTOList.size() > 0) {
+            this.jobLocationList = new ArrayList<>();
+            for (LocationDTO locationDTO : locationDTOList) {
+                Integer locationId = Integer.valueOf(locationDTO.getLocation_code());
+                this.jobLocationList.add(new Location(locationId));
+            }
         }
+        this.userId = jobRequestDTO.getUserId();
+        this.jobDescription = jobRequestDTO.getJob_description();
+        this.jobDuty = jobRequestDTO.getJob_duty();
+        //if(jobRequestDTO.getStartTime() != null){
+        this.jobStartTime = new Date(Long.parseLong(jobRequestDTO.getStartTime()));
+        //}
+        this.jobEndTime = new Date(Long.parseLong(jobRequestDTO.getDeadLine()));
+
+        if(jobRequestDTO.getMail() != null){
+            this.setCvReceiMail(jobRequestDTO.getMail());
+        } else {
+            this.setCvReceiMail("Empty Mail Address");
+        }
+        //TODO : new API??
+        this.setJobProfCode("1");
+        this.setJobHighlight("Highlight:TODO");
+        this.setJobLink("JOB_LINK:TODO");
+
+        this.setCvNameRule("RULE:TODO");
+        this.setJobActive(1);
+
     }
 
-    public Job(){}
+    public Job() {
+    }
 
     public Integer getCollectNum() {
         return collectNum;
@@ -103,6 +147,16 @@ comment '职位基本信息表';
         this.addTime = addTime;
     }
 
+    @Override
+    public Integer getAttentionTargetType() {
+        return AttentionTargetType.JOB;
+    }
+
+    @Override
+    public Integer getExistType() {
+        return null;
+    }
+
     public Integer getId() {
         return jobId;
     }
@@ -113,15 +167,6 @@ comment '职位基本信息表';
 
     public void setCompany(Company company) {
         this.company = company;
-    }
-
-    public Hr getHr() {
-        return hr;
-    }
-
-
-    public void setHr(Hr hr) {
-        this.hr = hr;
     }
 
     public Integer getJobId() {
@@ -290,5 +335,29 @@ comment '职位基本信息表';
 
     public void setIsDeleteTime(Timestamp isDeleteTime) {
         this.isDeleteTime = isDeleteTime;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public List<Logo> getLogoList() {
+        return logoList;
+    }
+
+    public void setLogoList(List<Logo> logoList) {
+        this.logoList = logoList;
+    }
+
+    public Boolean getCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(Boolean collected) {
+        isCollected = collected;
     }
 }

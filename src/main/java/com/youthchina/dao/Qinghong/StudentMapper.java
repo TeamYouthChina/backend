@@ -4,6 +4,7 @@ import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Job;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 @Mapper
@@ -29,7 +30,7 @@ public interface StudentMapper {
 
     List<Integer> addPreCities(List<PreferCity> preferCities);
 
-    List<Integer> addNotifications(List<Notification> notifications);
+    List<Integer> addNotifications(List<Noti> notis);
 
     List<Integer> addJobApplies(List<JobApply> jobApplies);
 

@@ -1,27 +1,30 @@
 web.url=http://localhost:8080/api/v1
 web.url.prefix=/api/v1
-
-security.token.key=c2Rsa3NkamY=
+security.token.key=
 security.token.header=X-AUTHENTICATION
 security.token.prefix=YouthChina
+security.register.token.key=
+security.register.redirect=
 # in seconds
-security.token.expirationtime=86400
-
+security.register.token.expirationtime=900
+# in seconds
+security.token.expirationtime=8640000
 snowflake.work.id=0000000001
-snowflake.version = 1
-localfilemanage.localfilepath = ~/upload/
+snowflake.version=1
+localfilemanage.localfilepath=~/upload/
+pers_profile_rate=0.06
+pers_ident_verify_rate=0.04
+pers_university_rate=0.2
+pers_work_rate=0.2
+pers_friend_count_rate=0.1
+pers_friend_quality_rate=0.1
+pers_interaction_rate=0.1
+pers_like_count_rate=0.1
+pers_posi_evaluate_rate=0.1
+staticfile.endPoint=
+staticfile.bucketName=
+staticfile.accessKeyId =
+staticfile.accessKeySecret =
+staticfile.idColName=
 
-pers_profile_rate = 0.06
-pers_ident_verify_rate = 0.04
-pers_university_rate = 0.2
-pers_work_rate = 0.2
-pers_friend_count_rate = 0.1
-pers_friend_quality_rate = 0.1
-pers_interaction_rate = 0.1
-pers_like_count_rate = 0.1
-pers_posi_evaluate_rate = 0.1
-staticfile.endPoint=oss-cn-shanghai.aliyuncs.com
-staticfile.bucketName=youthchinatest
-staticfile.accessKeyId=${YOUTHCHINAACCESSKEYID}
-staticfile.accessKeySecret=${YOUTHCHINAACCESSKEYIDKEYSECRET}
-staticfile.idColName=DOCU_SERVER_ALI_ID
+search.url=http://127.0.0.1:8983/solr/

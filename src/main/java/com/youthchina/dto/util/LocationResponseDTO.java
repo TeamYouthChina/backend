@@ -1,6 +1,7 @@
 package com.youthchina.dto.util;
 
 import com.youthchina.domain.Qinghong.Location;
+import com.youthchina.dto.ResponseDTO;
 
 /**
  * @program: youthchina
@@ -8,11 +9,11 @@ import com.youthchina.domain.Qinghong.Location;
  * @author: Qinghong Wang
  * @create: 2019-02-23 16:29
  **/
-public class LocationResponseDTO {
+public class LocationResponseDTO implements ResponseDTO<Location> {
     private String location;
 
     public LocationResponseDTO(Location location) {
-        this.location = location.getRegion_chn();
+        this.location = location.getRegionName();
     }
 
     public String getLocation() {
@@ -21,5 +22,10 @@ public class LocationResponseDTO {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @Override
+    public void convertToDTO(Location domain) {
+        this.location = domain.getRegionName();
     }
 }

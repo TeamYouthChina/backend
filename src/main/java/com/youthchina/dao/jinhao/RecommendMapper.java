@@ -1,27 +1,25 @@
 package com.youthchina.dao.jinhao;
 
-import com.youthchina.domain.qingyang.Job;
+
+import com.youthchina.domain.jinhao.Label;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Mapper
 @Component
+@Mapper
 public interface RecommendMapper {
-    List<Integer> getRandomJob();
-    List<Integer> getRandomIntern();
-    List<Integer> getRandomPopCompany();
-    List<Integer> getRandomNewCompany();
-    List<Integer> getRandomEssay();
-    List<Integer> getRandomQuestion();
-    List<Integer> getRandomUser();
-    List<Integer> getRandomVideo();
-    List<Integer> getRandomBriefReview();
-
-    List<Job> getList(List<Integer> ids);
-    void add(Job jobRecommendation);
-    Job get(Integer id);
-    void update(Job jobRecommendation);
-    void delete(Integer id);
+    void addTag(@Param("labelCode") String labelCode, @Param("targetType") Integer targetType, @Param("targetId") Integer targetId);
+    String isTagExist(@Param("labelCode") String labelCode, @Param("targetType") Integer targetType, @Param("targetId") Integer targetId);
+    void deleteTag(@Param("labelCode") String labelCode, @Param("targetType") Integer targetType, @Param("targetId") Integer targetId);
+    List<Label> getLabel(List<String> userLabels);
+    List<String> getUserLabel(Integer userId);
+    List<Integer> getRecommendQuestion(List<String> userLabels);
+    List<Integer> getRecommendEassy(List<String> userLabels);
+    List<Integer> getRecommendBriefReview(List<String> userLabels);
+    List<Integer> getRecommendJob(List<String> userLabels);
+    List<Integer> getRecommendCompany(List<String> userLabels);
+    List<Integer> getRecommendUser(List<String> userLabels);
 }

@@ -30,6 +30,10 @@ comment '国别表';
         this.setCountryAbbre(nation.getCountryAbbre());
     }
 
+    public Country(String nation) {
+        this.countryAbbre = nation;
+    }
+
     public String getCountryAbbre() {
         return countryAbbre;
     }

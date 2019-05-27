@@ -1,24 +1,32 @@
 package com.youthchina.dto.security;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.youthchina.annotation.JsonTimeStamp;
+import com.youthchina.domain.zhongyang.Gender;
+import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.domain.zhongyang.User;
+import com.youthchina.dto.RequestDTO;
+import com.youthchina.dto.ResponseDTO;
+
+import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by zhongyangwu on 1/29/19.
  */
-public class UserDTO {
+public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     private Integer id;
-    private String username;
     private String password;
     private String email;
     private String phonenumber;
-    private String register_date;
-    private String real_name;
-    private String gender;
-    private String nation;
+    private Timestamp register_date;
+    private Timestamp date_of_birth;
+    private String first_name;
+    private String last_name;
+    private Gender gender;
     private String avatar_url;
-    private Integer role;
-    private Integer age;
+    private List<Role> role;
 
     public UserDTO() {
 
@@ -26,17 +34,16 @@ public class UserDTO {
 
     public UserDTO(User user) {
         this.id = user.getId();
-        this.username = user.getUsername();
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
-        this.register_date = user.getRegisterDate();
-        this.real_name = user.getRealName();
+        this.register_date = user.getRegisterTime();
+        this.first_name = user.getFirstName();
+        this.last_name = user.getLastName();
+        this.date_of_birth = new Timestamp(user.getDateOfBirth() == null ? 0 : user.getDateOfBirth().getTime());
         this.gender = user.getGender();
-        this.nation = user.getNation();
         this.avatar_url = user.getAvatarUrl();
         this.role = user.getRole();
-        this.age = user.getAge();
     }
 
     public Integer getId() {
@@ -47,15 +54,15 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String getPassword() {
         return password;
     }
@@ -64,6 +71,7 @@ public class UserDTO {
         this.password = password;
     }
 
+    @NotNull
     public String getEmail() {
         return email;
     }
@@ -72,6 +80,7 @@ public class UserDTO {
         this.email = email;
     }
 
+    @JsonProperty("phone_number")
     public String getPhonenumber() {
         return phonenumber;
     }
@@ -80,20 +89,13 @@ public class UserDTO {
         this.phonenumber = phonenumber;
     }
 
-    public String getRegister_date() {
+    @JsonTimeStamp
+    public Timestamp getRegister_date() {
         return register_date;
     }
 
-    public void setRegister_date(String register_date) {
+    public void setRegister_date(Timestamp register_date) {
         this.register_date = register_date;
-    }
-
-    public String getReal_name() {
-        return real_name;
-    }
-
-    public void setReal_name(String real_name) {
-        this.real_name = real_name;
     }
 
     public String getAvatar_url() {
@@ -104,36 +106,65 @@ public class UserDTO {
         this.avatar_url = avatar_url;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
-    public String getNation() {
-        return nation;
-    }
 
-    public void setNation(String nation) {
-        this.nation = nation;
-    }
-
-
-    public Integer getRole() {
+    public List<Role> getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(List<Role> role) {
         this.role = role;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    @Override
+    public void convertToDTO(User user) {
+        this.id = user.getId();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.phonenumber = user.getPhonenumber();
+        this.register_date = user.getRegisterTime();
+        this.first_name = user.getFirstName();
+        this.last_name = user.getLastName();
+        this.gender = user.getGender();
+        this.date_of_birth = new Timestamp(user.getDateOfBirth().getTime());
+        this.avatar_url = user.getAvatarUrl();
+        this.role = user.getRole();
+    }
+
+    @Override
+    public User convertToDomain() {
+        return new User(this);
+    }
+
+    @JsonTimeStamp
+    public Timestamp getDate_of_birth() {
+        return date_of_birth;
+    }
+
+    public void setDate_of_birth(Timestamp date_of_birth) {
+        this.date_of_birth = date_of_birth;
     }
 }

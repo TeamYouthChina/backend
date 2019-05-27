@@ -1,6 +1,7 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Work;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**
@@ -9,7 +10,7 @@ import com.youthchina.dto.util.DurationDTO;
  * @author: Qinghong Wang
  * @create: 2019-02-24 15:32
  **/
-public class WorkResponseDTO {
+public class WorkResponseDTO implements ResponseDTO<Work> {
     private Integer id;
     private String employer;
     private String position;
@@ -21,11 +22,17 @@ public class WorkResponseDTO {
     }
 
     public WorkResponseDTO(Work work) {
-        this.id= work.getWork_id();
-        this.employer = work.getWork_company();
-        this.position = work.getWork_position();
-        this.duration = new DurationDTO(work.getWork_start_time(), work.getWork_end_time());
-        this.location=work.getLocation().getRegion_chn();
+        if(work!=null){
+            this.id = work.getWork_id();
+            this.employer = work.getWork_company();
+            this.position = work.getWork_position();
+            this.duration = new DurationDTO(work.getWork_start_time(), work.getWork_end_time());
+            if(work.getLocation()!=null){
+                this.location = work.getLocation().getRegionId() + "";
+            }
+
+        }
+
 
     }
 
@@ -76,4 +83,15 @@ public class WorkResponseDTO {
     public void setNote(String note) {
         this.note = note;
     }
+
+
+    @Override
+    public void convertToDTO(Work work) {
+        this.id = work.getWork_id();
+        this.employer = work.getWork_company();
+        this.position = work.getWork_position();
+        this.duration = new DurationDTO(work.getWork_start_time(), work.getWork_end_time());
+        this.location = work.getLocation().getRegionName();
+    }
+
 }

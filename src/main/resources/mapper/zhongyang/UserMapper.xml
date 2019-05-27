@@ -5,76 +5,46 @@
         <constructor>
             <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         </constructor>
-        <result property="username" column="USER_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="password" column="USER_PASS" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="age" column="USER_AGE" javaType="java.lang.Integer"/>
+        <result column="USER_PASS" property="password" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="USER_PHONE" property="phonenumber" jdbcType="VARCHAR"/>
-        <result column="USER_REGIST_TIME" property="registerDate" jdbcType="VARCHAR"/>
-        <result column="USER_REAL_NAME" property="realName" jdbcType="VARCHAR"/>
-        <result column="USER_NATION" property="nation" jdbcType="VARCHAR"/>
-        <result column="USER_PHOTO" property="avatarUrl" jdbcType="VARCHAR"/>
+        <result column="USER_REGIST_TIME" property="registerTime" jdbcType="TIMESTAMP"/>
+        <result column="CONTENT_CHANGE_TIME" property="modifiedTime" jdbcType="TIMESTAMP"/>
+        <result column="USER_GENDER" property="gender" jdbcType="VARCHAR"/>
+        <result column="USER_FIRST_NAME" property="firstName" jdbcType="VARCHAR"/>
+        <result column="USER_LAST_NAME" property="lastName" jdbcType="VARCHAR"/>
         <result column="USER_MAIL" property="email" jdbcType="VARCHAR"/>
-        <result property="gender" column="USER_GENDER" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="role" javaType="java.lang.Integer" column="ROLE_TYPE"/>
+        <result column="USER_PHOTO" property="avatarUrl" jdbcType="VARCHAR"/>
+        <result column="USER_ON_JOB" property="isHired" jdbcType="INTEGER"/>
+        <result column="MAIL_VERIFY" property="isMailVerified" jdbcType="INTEGER"/>
+        <result column="PHONE_VERIFY" property="isPhoneVerified" jdbcType="INTEGER"/>
+        <result column="USER_DATE_OF_BIRTH" property="dateOfBirth" jdbcType="DATE"/>
     </resultMap>
     <sql id="userColumn">
-        USER_NAME,
         USER_PASS,
         USER_REGIST_TIME,
-        USER_REAL_NAME,
+        USER_FIRST_NAME,
+        USER_LAST_NAME,
         USER_GENDER,
-        USER_AGE,
-        USER_NATION,
         USER_MAIL,
         USER_PHONE,
         USER_PHOTO,
         USER_LOCATION,
         USER_NICKNAME,
-        ROLE_ID,
-        IS_DELETE,
-        IS_DELETE_TIME
-    </sql>
-    <sql id="userTable">
-        FROM
-        SYS_USER
-        JOIN
-        SYS_ROLE
-        r
-        on
-        SYS_USER
-        .
-        ROLE_ID
-        =
-        r
-        .
-        ROLE_ID
-        AND
-        r
-        .
-        IS_DELETE
-        =
-        0
+        USER_ON_JOB,
+        USER_DATE_OF_BIRTH,
+        CONTENT_CHANGE_TIME
     </sql>
     <sql id="active">
-        SYS_USER
-        .
-        IS_DELETE
-        =
-        0
+        SYS_USER.IS_DELETE = 0
     </sql>
     <select id="findOne" resultMap="User" parameterType="java.lang.Integer">
-        SELECT *
-        <include refid="userTable"/>
+        SELECT USER_ID,
+        <include refid="userColumn"/>,
+        MAIL_VERIFY,
+        PHONE_VERIFY
+        FROM youthchina.SYS_USER
         WHERE SYS_USER.USER_ID = #{id, jdbcType=INTEGER} AND
         <include refid="active"/>
-    </select>
-    <select id="findAll" parameterType="java.util.List" resultMap="User">
-        SELECT *
-        <include refid="userTable"/>
-        WHERE SYS_USER.USER_ID IN
-        <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
-            #{id}
-        </foreach>
     </select>
     <insert id="insert" parameterType="com.youthchina.domain.zhongyang.User" useGeneratedKeys="true"
             keyProperty="id" keyColumn="USER_ID">
@@ -82,51 +52,78 @@
         INSERT INTO SYS_USER (
         <include refid="userColumn"/>
         )
-        VALUES (#{username},
-        #{password},
-        #{registerDate},
-        #{realName},
+        VALUES (#{password},
+        #{registerTime},
+        #{firstName},
+        #{lastName},
         #{gender},
-        #{age},
-        #{nation},
         #{email},
         #{phonenumber},
         #{avatarUrl},
-        0,
+        110000,
         '',
-        #{role},
-        0,
-        NULL)
+        #{hired,jdbcType=BOOLEAN},
+        #{dateOfBirth,jdbcType=DATE},
+        #{modifiedTime,jdbcType=TIMESTAMP}
+        )
     </insert>
     <select id="canRegister" parameterType="com.youthchina.domain.zhongyang.User" resultType="java.lang.Boolean">
         SELECT COUNT(*) = 0
-        <include refid="userTable"/>
-        WHERE SYS_USER.USER_MAIL=#{email} OR SYS_USER.USER_PHONE=#{phonenumber}
+        FROM youthchina.SYS_USER
+        WHERE SYS_USER.USER_MAIL = #{email} AND
+        <include refid="active"/>
+        AND SYS_USER.MAIL_VERIFY = 1
     </select>
     <update id="delete" parameterType="java.lang.Integer">
         UPDATE SYS_USER
-        SET IS_DELETE      = 1,
-            IS_DELETE_TIME = NOW()
+        SET IS_DELETE = 1,
+        IS_DELETE_TIME = NOW()
         WHERE SYS_USER.USER_ID = #{id}
+        AND
+        <include refid="active"/>
     </update>
     <update id="update" parameterType="com.youthchina.domain.zhongyang.User">
         UPDATE SYS_USER
-        SET USER_NAME        = #{username},
-            USER_PASS        = #{password},
-            USER_REGIST_TIME = #{registerDate},
-            USER_REAL_NAME   = #{realName},
-            USER_GENDER      = #{gender},
-            USER_AGE         = #{age},
-            USER_NATION      = #{nation},
-            USER_MAIL        = #{email},
-            USER_PHONE       = #{phonenumber},
-            USER_PHOTO       = #{avatarUrl},
-            USER_LOCATION    = 0,
-            USER_NICKNAME    = '',
-            ROLE_ID          = #{role},
-            IS_DELETE        = 0,
-            IS_DELETE_TIME   = NULL
-
+        SET USER_PASS = #{password},
+        USER_REGIST_TIME = #{registerTime},
+        USER_FIRST_NAME = #{firstName},
+        USER_LAST_NAME = #{lastName},
+        USER_GENDER = #{gender},
+        USER_MAIL = #{email},
+        USER_PHONE = #{phonenumber},
+        USER_PHOTO = #{avatarUrl},
+        USER_NICKNAME = '',
+        USER_ON_JOB = #{hired,jdbcType=INTEGER},
+        MAIL_VERIFY = #{isMailVerified,jdbcType=INTEGER},
+        PHONE_VERIFY = #{isPhoneVerified,jdbcType=INTEGER},
+        CONTENT_CHANGE_TIME = #{modifiedTime,jdbcType=TIMESTAMP}
+        WHERE SYS_USER.USER_ID = #{id,jdbcType=INTEGER} AND
+        <include refid="active"/>
     </update>
+    <select id="getRoles" resultType="com.youthchina.domain.zhongyang.Role" parameterType="java.lang.Integer">
+        SELECT SYS_ROLE.ROLE_DESCRPTIPON
+        FROM SYS_USER_ROLE
+                 LEFT JOIN SYS_ROLE ON SYS_USER_ROLE.ROLE_ID = SYS_ROLE.ROLE_ID
+        WHERE SYS_USER_ROLE.IS_DELETE = 0
+          AND USER_ID = #{user_id}
+    </select>
+    <insert id="setRole">
+        DELETE FROM SYS_USER_ROLE WHERE USER_ID = #{user_id} ;
+        INSERT INTO SYS_USER_ROLE(USER_ID, ROLE_ID, STRAT_TIME)
+        VALUES
+        <foreach collection="roles" separator="," item="item">
+            (#{user_id}, #{item.value}, NOW())
+        </foreach>
+    </insert>
+    <select id="findByEmail" resultMap="User" parameterType="java.lang.String">
+        SELECT USER_ID,
+        <include refid="userColumn"/>,
+        MAIL_VERIFY,
+        PHONE_VERIFY
+        FROM youthchina.SYS_USER
+        WHERE SYS_USER.USER_MAIL = #{email, jdbcType=VARCHAR} AND
+        <include refid="active"/>
+        LIMIT 1;
+    </select>
 
 </mapper>

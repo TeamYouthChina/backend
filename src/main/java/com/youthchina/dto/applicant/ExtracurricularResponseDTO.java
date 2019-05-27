@@ -1,6 +1,7 @@
 package com.youthchina.dto.applicant;
 
 import com.youthchina.domain.Qinghong.Activity;
+import com.youthchina.dto.ResponseDTO;
 import com.youthchina.dto.util.DurationDTO;
 
 /**
@@ -9,7 +10,7 @@ import com.youthchina.dto.util.DurationDTO;
  * @author: Qinghong Wang
  * @create: 2019-02-24 15:38
  **/
-public class ExtracurricularResponseDTO {
+public class ExtracurricularResponseDTO implements ResponseDTO<Activity> {
     private Integer id;
     private String name;
     private String role;
@@ -21,11 +22,17 @@ public class ExtracurricularResponseDTO {
     }
 
     public ExtracurricularResponseDTO(Activity activity) {
-        this.id=activity.getAct_id();
-        this.name = activity.getAct_name();
-        this.role = activity.getAct_role();
-        this.organization = activity.getAct_organization();
-        this.duration = new DurationDTO(activity.getAct_start_time(), activity.getAct_end_time());
+        if(activity!=null){
+            this.id = activity.getAct_id();
+            this.name = activity.getAct_name();
+            this.role = activity.getAct_role();
+            this.organization = activity.getAct_organization();
+            if(activity.getAct_start_time()!=null||activity.getAct_end_time()!=null){
+                this.duration = new DurationDTO(activity.getAct_start_time(), activity.getAct_end_time());
+            }
+
+        }
+
     }
 
     public Integer getId() {
@@ -77,4 +84,12 @@ public class ExtracurricularResponseDTO {
         this.note = note;
     }
 
+    @Override
+    public void convertToDTO(Activity activity) {
+        this.id = activity.getAct_id();
+        this.name = activity.getAct_name();
+        this.role = activity.getAct_role();
+        this.organization = activity.getAct_organization();
+        this.duration = new DurationDTO(activity.getAct_start_time(), activity.getAct_end_time());
+    }
 }

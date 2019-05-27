@@ -14,10 +14,23 @@ public class JobApplyDTO {
     private JobResponseDTO position;
     private String status;
 
+    private String pdf_doc_url; //简历
+
     public JobApplyDTO(JobApply jobApply) {
-        this.id=jobApply.getApply_id();
-        this.position=new JobResponseDTO(jobApply.getJob());
-        this.status=jobApply.getJob_apply_status();
+        this.id = jobApply.getApply_id();
+        this.position = new JobResponseDTO(jobApply.getJob());
+        this.status = jobApply.getJob_apply_status();
+        if(jobApply.getDocu_local_id() != null){
+            this.pdf_doc_url = jobApply.getDocu_local_id();
+        }
+    }
+
+    public String getPdf_doc_url() {
+        return pdf_doc_url;
+    }
+
+    public void setPdf_doc_url(String pdf_doc_url) {
+        this.pdf_doc_url = pdf_doc_url;
     }
 
     public Integer getId() {

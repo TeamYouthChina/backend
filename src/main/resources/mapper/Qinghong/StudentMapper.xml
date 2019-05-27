@@ -143,7 +143,7 @@
 
         </collection>
 
-        <collection property="notifications" ofType="com.youthchina.domain.Qinghong.Notification">
+        <collection property="notis" ofType="com.youthchina.domain.Qinghong.Noti">
             <id property="notify_id" column="NOTIFY_ID"/>
             <result property="notify_content" column="NOTIFY_CONTENT"/>
             <result property="notify_time" column="NOTIFY_TIME"/>
@@ -205,9 +205,6 @@
             <result property="companyScaleNum" column="COMPANY_SCALE_NUM"/>
             <result property="companyLogo" column="COMPANY_LOGO"/>
         </association>
-        <association property="hr" javaType="com.youthchina.domain.qingyang.Hr">
-            <id property="hrId" column="HR_ID"/>
-        </association>
         <collection property="jobLocationList" ofType="com.youthchina.domain.qingyang.JobLocation">
             <id property="jobRegionId" column="JOB_REGION_ID"/>
             <result property="jobRegionNum" column="JOB_REGION_NUM"/>
@@ -229,7 +226,6 @@
                j.CV_RECEI_MAIL       as CV_RECEI_MAIL,
                j.CV_NAME_RULE        as CV_NAME_RULE,
                j.JOB_ACTIVE          as JOB_ACTIVE,
-               j.HR_ID               as HR_ID,
                j.COMPANY_ID          as COMPANY_ID,
                com.COMPANY_NAME      as COMPANY_NAME,
                com.COMPANY_SCALE_NUM as COMPANY_SCALE_NUM,
@@ -237,7 +233,6 @@
                loc.JOB_REGION_ID     as JOB_REGION_ID,
                loc.JOB_REGION_NUM    as JOB_REGION_NUM
         FROM JOB_INFO j
-                 LEFT OUTER JOIN HR_INFO h ON j.HR_ID = h.HR_ID
                  LEFT OUTER JOIN COMPANY_INFO com ON j.COMPANY_ID = com.COMPANY_ID
                  LEFT OUTER JOIN JOB_LOCATION loc ON loc.JOB_ID = j.JOB_ID
         WHERE j.JOB_ID = #{jobId}
@@ -446,12 +441,22 @@
         insert into STU_NOTIFICATION
         (NOTIFY_CONTENT,NOTIFY_TIME,NOTIFY_READ,STU_ID)
         values
-        <foreach collection="notifications" item="item" separator=",">
+        <foreach collection="notis" item="item" separator=",">
             (#{item.notify_content},#{item.notify_time},#{item.notify_read},#{item.stu_id})
         </foreach>
 
     </insert>
     <insert id="addJobApplies" useGeneratedKeys="true" keyProperty="apply_id">
+        insert into STU_JOB_APPLY
+        (JOB_CV_SEND,JOB_APPLY_TIME,JOB_APPLY_STATUS,STU_ID,JOB_ID)
+        values
+        <foreach collection="jobApplies" item="item" separator=",">
+            (#{item.job_cv_send},#{item.job_apply_time},#{item.job_apply_status},#{item.stu_id},#{item.job_id})
+        </foreach>
+
+    </insert>
+
+    <insert id="addJobPDFApply" useGeneratedKeys="true" keyProperty="apply_id">
         insert into STU_JOB_APPLY
         (JOB_CV_SEND,JOB_APPLY_TIME,JOB_APPLY_STATUS,STU_ID,JOB_ID)
         values

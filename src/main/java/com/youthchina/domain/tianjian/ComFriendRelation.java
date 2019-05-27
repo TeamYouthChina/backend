@@ -3,49 +3,58 @@ package com.youthchina.domain.tianjian;
 import java.sql.Timestamp;
 
 public class ComFriendRelation {
-    private Integer rela_id;
-    private Integer user_id;
-    private Timestamp add_time;
-    private Integer is_delete;
-    private Timestamp is_delete_time;
+    private Integer relaId;
+    private Integer userId;
+    private Timestamp addTime;
+    private Integer isDelete;
+    private Timestamp isDeleteTime;
+    private Integer friendId;
 
-    public Integer getRela_id() {
-        return rela_id;
+    public Integer getRelaId() {
+        return relaId;
     }
 
-    public void setRela_id(Integer rela_id) {
-        this.rela_id = rela_id;
+    public void setRelaId(Integer relaId) {
+        this.relaId = relaId;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Timestamp getAdd_time() {
-        return add_time;
+    public Timestamp getAddTime() {
+        return addTime;
     }
 
-    public void setAdd_time(Timestamp add_time) {
-        this.add_time = add_time;
+    public void setAddTime(Timestamp addTime) {
+        this.addTime = addTime;
     }
 
-    public Integer getIs_delete() {
-        return is_delete;
+    public Integer getIsDelete() {
+        return isDelete;
     }
 
-    public void setIs_delete(Integer is_delete) {
-        this.is_delete = is_delete;
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
-    public Timestamp getIs_delete_time() {
-        return is_delete_time;
+    public Timestamp getIsDeleteTime() {
+        return isDeleteTime;
     }
 
-    public void setIs_delete_time(Timestamp is_delete_time) {
-        this.is_delete_time = is_delete_time;
+    public void setIsDeleteTime(Timestamp isDeleteTime) {
+        this.isDeleteTime = isDeleteTime;
+    }
+
+    public Integer getFriendId() {
+        return friendId;
+    }
+
+    public void setFriendId(Integer friendId) {
+        this.friendId = friendId;
     }
 }

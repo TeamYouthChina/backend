@@ -1,9 +1,11 @@
 package com.youthchina.dto.community.answer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youthchina.domain.jinhao.communityQA.QuestionAnswer;
+import com.youthchina.annotation.JsonTimeStamp;
+import com.youthchina.domain.jinhao.Answer;
 import com.youthchina.dto.security.UserDTO;
-import com.youthchina.dto.util.RichTextDTO;
+import com.youthchina.dto.util.RichTextResponseDTO;
+
+import java.sql.Timestamp;
 
 /**
  * Created by xiaoyiwang on 2/24/19.
@@ -11,38 +13,88 @@ import com.youthchina.dto.util.RichTextDTO;
 
 public class AnswerBasicDTO {
     private Integer id;
-    private RichTextDTO body;
+    private RichTextResponseDTO body;
     private boolean is_anonymous;
     private UserDTO creator;
-    private String modified_at;
-    private String create_at;
+    private Timestamp modified_at;
+    private Timestamp create_at;
+    private Integer upvoteCount;
+    private Integer downvoteCount;
+    private Integer attentionCount;
+    private boolean isAttention;
+    private Integer evaluateStatus;
 
-    public AnswerBasicDTO(){}
-
-    public AnswerBasicDTO(QuestionAnswer questionAnswer){
-        try{
-            ObjectMapper mapper = new ObjectMapper();
-            RichTextDTO richt = mapper.readValue(questionAnswer.getAnswer_content(), RichTextDTO.class);
-            this.body = richt;
-        }catch (Exception e){
-            System.out.println("Exception");
-        }
-        this.is_anonymous = (questionAnswer.getUser_anony() == 0) ? false : true;
-        this.creator = new UserDTO(questionAnswer.getAnswer_user());
-        this.modified_at = questionAnswer.getAnswer_edit_time().toString();
-        this.create_at =questionAnswer.getAnswer_pub_time().toString();
-        this.id = questionAnswer.getAnswer_id();
+    public AnswerBasicDTO() {
     }
 
-    public RichTextDTO getBody() {
+    public AnswerBasicDTO(Answer answer) {
+        RichTextResponseDTO richt = new RichTextResponseDTO(answer.getBody());
+        this.body = richt;
+        this.is_anonymous = answer.getIsAnony() != 0;
+        this.creator = this.is_anonymous ? null : new UserDTO(answer.getUser());
+        this.modified_at = answer.getEditTime();
+        this.create_at = answer.getPubTime();
+        this.id = answer.getId();
+        this.upvoteCount = answer.getUpvoteCount();
+        this.downvoteCount = answer.getDownvoteCount();
+        this.attentionCount = answer.getAttentionCount();
+        this.isAttention = answer.isAttention();
+        this.evaluateStatus = answer.getEvaluateStatus();
+    }
+
+    public Integer getUpvoteCount() {
+        return upvoteCount;
+    }
+
+    public void setUpvoteCount(Integer upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
+
+    public Integer getDownvoteCount() {
+        return downvoteCount;
+    }
+
+    public void setDownvoteCount(Integer downvoteCount) {
+        this.downvoteCount = downvoteCount;
+    }
+
+    public Integer getAttentionCount() {
+        return attentionCount;
+    }
+
+    public void setAttentionCount(Integer attentionCount) {
+        this.attentionCount = attentionCount;
+    }
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
+
+    public Integer getEvaluateStatus() {
+        return evaluateStatus;
+    }
+
+    public void setEvaluateStatus(Integer evaluateStatus) {
+        this.evaluateStatus = evaluateStatus;
+    }
+
+    public RichTextResponseDTO getBody() {
         return body;
     }
 
-    public void setId(Integer id){this.id = id;}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public Integer getId(){return id;}
+    public Integer getId() {
+        return id;
+    }
 
-    public void setBody(RichTextDTO body) {
+    public void setBody(RichTextResponseDTO body) {
         this.body = body;
     }
 
@@ -62,19 +114,21 @@ public class AnswerBasicDTO {
         this.creator = creator;
     }
 
-    public String getModified_at() {
+    @JsonTimeStamp
+    public Timestamp getModified_at() {
         return modified_at;
     }
 
-    public void setModified_at(String modified_at) {
+    public void setModified_at(Timestamp modified_at) {
         this.modified_at = modified_at;
     }
 
-    public String getCreate_at() {
+    @JsonTimeStamp
+    public Timestamp getCreate_at() {
         return create_at;
     }
 
-    public void setCreate_at(String create_at) {
+    public void setCreate_at(Timestamp create_at) {
         this.create_at = create_at;
     }
 

@@ -1,258 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youthchina.dao.jinhao.BriefReviewMapper">
-    <resultMap id="briefReviewInfo" type="com.youthchina.domain.jinhao.communityQA.BriefReview">
-        <id property="review_id" column="REVIEW_ID"/>
-        <result property="review_content" column="REVIEW_CONTENT"/>
-        <result property="review_time" column="REVIEW_TIME"/>
-        <result property="rela_type" column="RELA_TYPE"/>
-        <result property="rela_id" column="RELA_ID"/>
-        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
-                     resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
-        <collection property="comments" column="review_id"
-                    select="com.youthchina.dao.jinhao.BriefReviewMapper.getCommentsByReviewId"/>
-    </resultMap>
-    <resultMap id="commentInfo" type="com.youthchina.domain.jinhao.communityQA.Comment">
-        <id property="comment_id" column="COMMENT_ID"/>
-        <result property="comment_content" column="COMMENT_CONTENT"/>
-        <result property="user_anony" column="USER_ANONY"/>
-        <result property="comment_pub_time" column="COMMENT_PUB_TIME"/>
-        <association property="user" javaType="com.youthchina.domain.zhongyang.User"
-                     resultMap="com.youthchina.dao.zhongyang.UserMapper.User"/>
+    <resultMap id="briefReview" type="com.youthchina.domain.jinhao.BriefReview">
+        <id property="id" column="REVIEW_ID"/>
+        <result property="time" column="REVIEW_TIME"/>
+        <result property="relaType" column="RELA_TYPE"/>
+        <result property="relaId" column="RELA_ID"/>
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User">
+            <constructor>
+                <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            </constructor>
+        </association>
     </resultMap>
 
-    <sql id="user">
-        u.USER_ID,u.USER_NAME,u.USER_MAIL,u.USER_PHONE,u.USER_REGIST_TIME,u.USER_REAL_NAME,
-        u.USER_GENDER,u.USER_NATION,u.ROLE_ID as ROLE_TYPE,u.USER_AGE, u.USER_PHOTO
-    </sql>
-
-    <insert id="add" parameterType="com.youthchina.domain.jinhao.communityQA.BriefReview" useGeneratedKeys="true"
-            keyProperty="review_id">
-        insert into COM_BRIEF_REVIEW (review_content, review_time, IS_DELETE)
-        values (#{review_content}, now(), 0)
-    </insert>
-
-    <insert id="createReviewMap">
-        insert into COM_BRIEF_REVIEW_MAP(review_id, user_id, rela_type, rela_id) VALUES
-            (#{review_id}, #{user_id}, #{rela_type}, #{rela_id})
-    </insert>
-    <select id="getUsersReview" resultType="com.youthchina.domain.jinhao.communityQA.BriefReview" parameterType="java.lang.Integer">
-        select r.* from COM_BRIEF_REVIEW r, COM_BRIEF_REVIEW_MAP m
-        where m.USER_ID=#{user_id} and m.REVIEW_ID=r.REVIEW_ID
+    <select id="get" parameterType="java.lang.Integer" resultMap="briefReview">
+        select r.* from COM_BRIEF_REVIEW r
+        where r.REVIEW_ID=#{id} and r.IS_DELETE=0
     </select>
+
+    <insert id="add" parameterType="com.youthchina.domain.jinhao.BriefReview" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into COM_BRIEF_REVIEW(review_time, REVIEW_BODY, user_id, rela_type, rela_id)
+        values (now(),#{body.textId},#{user.id},#{relaType},#{relaId})
+    </insert>
+
     <update id="delete" parameterType="java.lang.Integer">
-        update COM_BRIEF_REVIEW set IS_DELETE=1, IS_DELETE_TIME=now() where REVIEW_ID=#{id}
+        update COM_BRIEF_REVIEW set IS_DELETE=1, IS_DELETE_TIME=now()
+        where REVIEW_ID=#{id}
     </update>
 
-    <update id="deleteAllReviewEvaluationByReviewId" parameterType="java.lang.Integer">
-        update COM_REVIEW_EVALUATE set EVALUATE_TYPE=3, EVALUATE_TIME=now() where EVALUATE_ID in (
-            select EVALUATE_ID from COM_REVIEW_EVALUATE_MAP where REVIEW_ID=#{id}
-        )
+    <update id="update" parameterType="com.youthchina.domain.jinhao.BriefReview">
+        update COM_BRIEF_REVIEW set REVIEW_TIME=now(), RELA_TYPE=#{relaType}, RELA_ID=#{relaId}
+        where REVIEW_ID=#{id}
     </update>
 
-    <update id="deleteAllCommentsByReviewId" parameterType="java.lang.Integer">
-        update COM_REVIEW_COMMENT set IS_DELETE=1, IS_DELETE_TIME=now() where COMMENT_ID in (
-          select COMMENT_ID from COM_REVIEW_COMMENT_MAP where REVIEW_ID=#{id}
-            )
-    </update>
-    <update id="deleteAllCommentEvaluationByReviewId" parameterType="java.lang.Integer">
-        update COM_REVIEW_COMMENT_EVALUATE set EVALUATE_TYPE=3, EVALUATE_TIME=now() where EVALUATE_ID in (
-          select EVALUATE_ID from COM_REVIEW_COMMENT_EVALUATE_MAP where COMMENT_ID in (
-            select COMMENT_ID from COM_REVIEW_COMMENT_MAP where REVIEW_ID=#{id}
-              )
-            )
-    </update>
-    <update id="deleteAllDiscussesByReviewId" parameterType="java.lang.Integer">
-        update COM_REVIEW_COMMENT_DISCUSS set IS_DELETE=1, IS_DELETE_TIME=now() where DISCUSS_ID in (
-          select DISCUSS_ID from COM_REVIEW_COMMENT_DISCUSS_MAP where COMMENT_ID in (
-            select COMMENT_ID from COM_REVIEW_COMMENT_MAP where REVIEW_ID=#{id}
-              )
-            )
-    </update>
-    <update id="deleteAllDiscussEvaluateByReviewId" parameterType="java.lang.Integer">
-        update COM_REVIEW_DISCUSS_EVALUATE set EVALUATE_TYPE=3, EVALUATE_TIME=now() where EVALUATE_ID in (
-          select EVALUATE_ID from COM_REVIEW_DISCUSS_EVALUATE_MAP where DISCUSS_ID in (
-            select DISCUSS_ID from COM_REVIEW_COMMENT_DISCUSS_MAP where COMMENT_ID in (
-              select COMMENT_ID from COM_REVIEW_COMMENT_MAP where REVIEW_ID=#{id}
-                )
-              )
-            )
-    </update>
-    <update id="update" parameterType="com.youthchina.domain.jinhao.communityQA.BriefReview">
-        update COM_BRIEF_REVIEW set REVIEW_CONTENT=#{review_content}, REVIEW_TIME=now()
-        where REVIEW_ID=#{review_id}
-    </update>
-
-    <select id="simplyGetReview" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.BriefReview">
-        select * from COM_BRIEF_REVIEW where REVIEW_ID=#{review_id} and IS_DELETE=0
-    </select>
-    <select id="get" parameterType="java.lang.Integer" resultMap="briefReviewInfo">
-        select r.REVIEW_ID, r.REVIEW_CONTENT, r.REVIEW_TIME, m.RELA_ID, m.RELA_TYPE, <include refid="user"/> from COM_BRIEF_REVIEW r
-        left join (SYS_USER u, COM_BRIEF_REVIEW_MAP m) on m.REVIEW_ID = r.REVIEW_ID and u.USER_ID= m.USER_ID and u.IS_DELETE=0
-        where r.REVIEW_ID = #{id} and r.IS_DELETE=0
-    </select>
-    <select id="getList" resultType="com.youthchina.domain.jinhao.communityQA.BriefReview"
-    parameterType="java.util.List">
-        select * from COM_BRIEF_REVIEW where IS_DELETE=0 and REVIEW_ID in
-        <foreach item='id' index='index' collection="list" separator="," open="(" close=")">
-            #{id}
-        </foreach>
-
-    </select>
-    <select id="getUserUpvoteReview" resultType="com.youthchina.domain.jinhao.communityQA.BriefReview">
-        select r.* from COM_REVIEW_EVALUATE e, COM_REVIEW_EVALUATE_MAP m,COM_BRIEF_REVIEW r
-        where e.USER_ID=#{user_id} and e.EVALUATE_ID = m.EVALUATE_ID and m.REVIEW_ID = r.REVIEW_ID
-    </select>
-    <select id="getEvaluation" resultType="com.youthchina.domain.jinhao.communityQA.Evaluate">
-        select * from COM_REVIEW_EVALUATE where EVALUATE_ID=#{evaluate_id}
-    </select>
-    <insert id="addReviewEvaluation" parameterType="com.youthchina.domain.jinhao.communityQA.Evaluate"
-        useGeneratedKeys="true" keyProperty="evaluate_id">
-        insert into COM_REVIEW_EVALUATE(USER_ID, EVALUATE_TYPE, EVALUATE_TIME) VALUES
-            (#{user_id}, #{evaluate_type},now())
-    </insert>
-    <insert id="createEvaluationReviewMap">
-        insert into COM_REVIEW_EVALUATE_MAP(evaluate_id, review_id) VALUES (#{evaluate_id}, #{review_id})
-    </insert>
-    <select id="checkEvaluateStatus" resultType="com.youthchina.domain.jinhao.communityQA.Evaluate">
-        select e.* from COM_REVIEW_EVALUATE_MAP m,COM_REVIEW_EVALUATE e
-        where e.USER_ID=#{user_id} and m.EVALUATE_ID = e.EVALUATE_ID and m.REVIEW_ID=#{review_id}
-    </select>
-    <update id="updateEvaluation" parameterType="com.youthchina.domain.jinhao.communityQA.Evaluate">
-        update COM_REVIEW_EVALUATE set EVALUATE_TYPE=#{evaluate_type}, EVALUATE_TIME=now()
-        where EVALUATE_ID=#{evaluate_id}
-    </update>
-
-    <select id="countReviewAgreement" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        select count(e.EVALUATE_ID) from COM_REVIEW_EVALUATE e, COM_REVIEW_EVALUATE_MAP m
-        where m.REVIEW_ID = #{review_id} and e.EVALUATE_ID = m.EVALUATE_ID and e.EVALUATE_TYPE = 1
+    <select id="checkIfBriefReviewExist" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select REVIEW_ID from COM_BRIEF_REVIEW where REVIEW_ID=#{id} and IS_DELETE=0
     </select>
 
-    <insert id="addComment" parameterType="com.youthchina.domain.jinhao.communityQA.Comment" useGeneratedKeys="true"
-    keyProperty="comment_id">
-        insert into COM_REVIEW_COMMENT(comment_content, user_id, comment_pub_time, COMMENT_EDIT_TIME, IS_DELETE)
-        values (#{comment_content}, #{user_id}, now(), now(), 0)
-    </insert>
-    <insert id="createCommentReviewMap">
-        insert into COM_REVIEW_COMMENT_MAP(comment_id, comment_level, review_id) VALUES
-            (#{comment_id},#{comment_level},#{review_id})
-    </insert>
-    <update id="deleteComment" parameterType="java.lang.Integer">
-        update COM_REVIEW_COMMENT set IS_DELETE=1,IS_DELETE_TIME=now() where COMMENT_ID=#{id}
-    </update>
-    <update id="deleteAllCommentEvaluationByCommentId" parameterType="java.lang.Integer">
-        update COM_REVIEW_COMMENT_EVALUATE set EVALUATE_TYPE=3,EVALUATE_TIME=now()
-        where EVALUATE_ID in (select EVALUATE_ID from COM_REVIEW_COMMENT_EVALUATE_MAP where COMMENT_ID = #{id})
-    </update>
-    <update id="deleteAllDiscussByCommentId" parameterType="java.lang.Integer">
-        update COM_REVIEW_COMMENT_DISCUSS set IS_DELETE=1, IS_DELETE_TIME=now() where DISCUSS_ID in(
-          select DISCUSS_ID from COM_REVIEW_COMMENT_DISCUSS_MAP where COMMENT_ID=#{id}
-            )
-    </update>
-    <update id="deleteAllDiscussEvaluationByCommentId" parameterType="java.lang.Integer">
-        update COM_REVIEW_DISCUSS_EVALUATE set EVALUATE_TYPE=3,EVALUATE_TIME=now() where EVALUATE_ID in (
-          select EVALUATE_ID from COM_REVIEW_DISCUSS_EVALUATE_MAP where DISCUSS_ID in (
-            select DISCUSS_ID from COM_REVIEW_COMMENT_DISCUSS_MAP where COMMENT_ID = #{id}
-              )
-            )
-    </update>
-    <update id="updateComment" parameterType="com.youthchina.domain.jinhao.communityQA.Comment">
-        update COM_REVIEW_COMMENT set COMMENT_CONTENT=#{comment_content}, COMMENT_EDIT_TIME=now(),USER_ANONY=#{user_anony}
-        where COMMENT_ID = #{comment_id}
-    </update>
-    <select id="simplyGetComment" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.Comment">
-        select * from COM_REVIEW_COMMENT where COMMENT_ID=#{id} and IS_DELETE=0
-    </select>
-    <select id="getComment" parameterType="java.lang.Integer" resultMap="commentInfo">
-        select c.COMMENT_ID, c.USER_ANONY, c.COMMENT_CONTENT, c.COMMENT_PUB_TIME, u.* from COM_REVIEW_COMMENT c
-        left join SYS_USER u on u.USER_ID = c.USER_ID and u.IS_DELETE = 0
-        where c.COMMENT_ID=#{id} and c.IS_DELETE=0
-    </select>
-    <select id="getCommentsByReviewId" parameterType="java.lang.Integer" resultMap="commentInfo">
-        select c.COMMENT_ID, c.USER_ANONY, c.COMMENT_CONTENT, c.COMMENT_PUB_TIME, <include refid="user"/> from (COM_REVIEW_COMMENT c, COM_REVIEW_COMMENT_MAP m)
-        left join SYS_USER u on u.USER_ID=c.USER_ID
-        where c.COMMENT_ID = m.COMMENT_ID and m.REVIEW_ID = #{id}
-    </select>
-    <select id="getAllCommentsOfReview" parameterType="java.lang.Integer" resultType="com.youthchina.domain.jinhao.communityQA.Comment">
-        select c.* from COM_REVIEW_COMMENT c, COM_REVIEW_COMMENT_MAP m where c.COMMENT_ID = m.COMMENT_ID and m.REVIEW_ID=#{id}
-        and c.IS_DELETE=0
-    </select>
-    <insert id="addCommentEvaluation" parameterType="com.youthchina.domain.jinhao.communityQA.Evaluate"
-    useGeneratedKeys="true" keyProperty="evaluate_id">
-        insert into COM_REVIEW_COMMENT_EVALUATE(user_id, evaluate_type, evaluate_time) VALUES
-            (#{user_id}, #{evaluate_type},now())
-    </insert>
-    <insert id="createEvaluationCommentMap">
-        insert into COM_REVIEW_COMMENT_EVALUATE_MAP(evaluate_id, comment_id) VALUES (#{evaluate_id},#{comment_id})
-    </insert>
-    <select id="checkCommentEvaluationStatus" resultType="com.youthchina.domain.jinhao.communityQA.Evaluate">
-        select e.* from COM_REVIEW_COMMENT_EVALUATE e, COM_REVIEW_COMMENT_EVALUATE_MAP m
-        where e.USER_ID=#{user_id} and e.EVALUATE_ID=m.EVALUATE_ID and m.COMMENT_ID=#{comment_id}
+    <select id="count" resultType="java.lang.Integer">
+        select count(REVIEW_ID) from COM_BRIEF_REVIEW WHERE IS_DELETE = 0
     </select>
 
-    <update id="updateCommentEvaluation" parameterType="com.youthchina.domain.jinhao.communityQA.Evaluate">
-        update COM_REVIEW_COMMENT_EVALUATE set EVALUATE_TYPE=#{evaluate_type}, EVALUATE_TIME=now()
-        where EVALUATE_ID=#{evaluate_id}
-    </update>
-
-    <select id="getCommentEvaluation" resultType="com.youthchina.domain.jinhao.communityQA.Evaluate">
-        select * from COM_REVIEW_COMMENT_EVALUATE where EVALUATE_ID=#{evaluate_id}
+    <select id="getMyBriefReview" parameterType="java.lang.Integer" resultMap="briefReview">
+        select * from COM_BRIEF_REVIEW where USER_ID = #{id} and IS_DELETE = 0
     </select>
-    <select id="countCommentAgreement" resultType="java.lang.Integer" parameterType="java.lang.Integer">
-        select count(e.EVALUATE_ID) from COM_REVIEW_COMMENT_EVALUATE e, COM_REVIEW_COMMENT_EVALUATE_MAP m
-        where m.COMMENT_ID = #{id} and m.EVALUATE_ID = e.EVALUATE_ID and e.EVALUATE_TYPE=1
-    </select>
-    <insert id="addDiscuss" parameterType="com.youthchina.domain.jinhao.communityQA.Discuss"
-    useGeneratedKeys="true" keyProperty="discuss_id">
-        insert into COM_REVIEW_COMMENT_DISCUSS(discuss_content, discuss_target_id, user_id, discuss_pub_time, IS_DELETE)
-        values (#{discuss_content}, #{discuss_target_id}, #{user_id}, #{discuss_pub_time}, 0)
-    </insert>
-    <insert id="createDiscussCommentMap">
-        insert into COM_REVIEW_COMMENT_DISCUSS_MAP(discuss_id, discuss_level, comment_id) VALUES
-            (#{discuss_id}, #{discuss_level}, #{comment_id})
-    </insert>
-    <update id="deleteDiscuss" parameterType="java.lang.Integer">
-        update COM_REVIEW_COMMENT_DISCUSS set IS_DELETE=1, IS_DELETE_TIME=now() where DISCUSS_ID=#{discuss_id}
-    </update>
-    <update id="deleteAllDiscussEvaluationByDiscussId" parameterType="java.lang.Integer">
-        update COM_REVIEW_DISCUSS_EVALUATE set EVALUATE_TYPE=3, EVALUATE_TIME=now() where EVALUATE_ID in (
-          select EVALUATE_ID from COM_REVIEW_DISCUSS_EVALUATE_MAP where DISCUSS_ID=#{id}
-            )
-    </update>
-    <update id="updateDiscuss" parameterType="com.youthchina.domain.jinhao.communityQA.Discuss">
-        update COM_REVIEW_COMMENT_DISCUSS set DISCUSS_CONTENT=#{discuss_content},USER_ANONY=#{user_anony}
-        where DISCUSS_ID=#{discuss_id}
-    </update>
-    <select id="getDiscuss" resultType="com.youthchina.domain.jinhao.communityQA.Discuss">
-        select * from COM_REVIEW_COMMENT_DISCUSS where DISCUSS_ID=#{id} and IS_DELETE=0
-    </select>
-    <select id="getAllDiscussOfComment" resultType="com.youthchina.domain.jinhao.communityQA.Discuss">
-        select d.* from COM_REVIEW_COMMENT_DISCUSS d, COM_REVIEW_COMMENT_DISCUSS_MAP m where
-        d.IS_DELETE=0 and d.DISCUSS_ID = m.DISCUSS_ID and m.COMMENT_ID=#{id}
-    </select>
-    <insert id="addDiscussEvaluation" parameterType="com.youthchina.domain.jinhao.communityQA.Evaluate"
-    useGeneratedKeys="true" keyProperty="evaluate_id">
-        insert into COM_REVIEW_DISCUSS_EVALUATE(user_id, evaluate_type, evaluate_time) VALUES
-            (#{user_id}, #{evaluate_type},#{evaluate_time})
-    </insert>
-    <insert id="createEvaluationDiscussMap">
-        insert into COM_REVIEW_DISCUSS_EVALUATE_MAP(evaluate_id, discuss_id) values
-            (#{evaluate_id}, #{discuss_id})
-    </insert>
-    <select id="checkDiscussEvaluateStatus" resultType="com.youthchina.domain.jinhao.communityQA.Evaluate">
-        select e.* from COM_REVIEW_DISCUSS_EVALUATE e, COM_REVIEW_DISCUSS_EVALUATE_MAP m where
-        e.USER_ID = #{user_id} and e.EVALUATE_ID=m.EVALUATE_ID and m.DISCUSS_ID=#{discuss_id}
-    </select>
-    <update id="updateDiscussEvaluation" parameterType="com.youthchina.domain.jinhao.communityQA.Evaluate">
-        update COM_REVIEW_DISCUSS_EVALUATE set EVALUATE_TYPE=#{evaluate_type} and EVALUATE_TIME=now()
-        where EVALUATE_ID=#{evaluate_id}
-    </update>
-    <select id="getDiscussEvaluation" resultType="com.youthchina.domain.jinhao.communityQA.Evaluate">
-        select * from COM_REVIEW_DISCUSS_EVALUATE where EVALUATE_ID=#{evaluate_id}
-    </select>
-    <select id="countDiscussEvaluate" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        select count(e.EVALUATE_ID) from COM_REVIEW_DISCUSS_EVALUATE e, COM_REVIEW_DISCUSS_EVALUATE_MAP m
-        where m.DISCUSS_ID=#{id} and m.EVALUATE_ID=e.EVALUATE_ID and e.EVALUATE_TYPE=1
-    </select>
-
 </mapper>

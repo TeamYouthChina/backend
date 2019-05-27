@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.jinhao.CommunityInvitationMapper">
+    <resultMap id="invitation" type="com.youthchina.domain.jinhao.CommunityInvitation">
+        <id property="id" column="INVIT_ID"/>
+        <result property="targetType" column="TARGET_TYPE"/>
+        <result property="targetId" column="TARGET_ID"/>
+        <result property="time" column="INVIT_TIME"/>
+        <result property="invitUserId" column="INVIT_USER_ID"/>
+        <result property="invitedUserId" column="INVITED_USER_ID"/>
+        <result property="accept" column="INVIT_ACCEPT"/>
+    </resultMap>
+    <insert id="add">
+        insert into COM_REPLY_INVITATION(target_type, target_id, invit_user_id, invit_time, invited_user_id)
+        values (#{type},#{targetId},#{invitUserId},now(),#{invitedUserID})
+    </insert>
+
+    <update id="update" parameterType="java.lang.Integer">
+        update COM_REPLY_INVITATION set INVIT_ACCEPT=1
+        where INVIT_ID=#{id}
+    </update>
+
+    <select id="checkIfInvitationExist" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select INVIT_ID from COM_REPLY_INVITATION where TARGET_TYPE=#{type} and TARGET_ID=#{targetId}
+                                                    and INVIT_USER_ID=#{invitUserId} and INVITED_USER_ID=#{invitedUserID}
+    </select>
+
+    <select id="get" resultMap="invitation" parameterType="java.lang.Integer">
+        select * from COM_REPLY_INVITATION where INVIT_ID=#{id}
+    </select>
+</mapper>

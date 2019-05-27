@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youthchina.dao.jinhao.DiscussMapper">
+    <resultMap id="discuss" type="com.youthchina.domain.jinhao.Discuss">
+        <id property="id" column="DISCUSS_ID"/>
+        <result property="content" column="DISCUSS_CONTENT"/>
+        <result property="isAnony" column="USER_ANONY"/>
+        <result property="pubTime" column="DISCUSS_PUB_TIME"/>
+        <result property="commentId" column="COMMENT_ID"/>
+        <association property="user" javaType="com.youthchina.domain.zhongyang.User">
+            <constructor>
+                <idArg column="USER_ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            </constructor>
+        </association>
+    </resultMap>
+    <select id="getDiscusses" parameterType="java.lang.Integer" resultMap="discuss">
+        select d.* from COM_DISCUSS d
+        where d.COMMENT_ID=#{id} and d.IS_DELETE=0
+    </select>
+    <select id="getLimitedDiscusses" parameterType="java.lang.Integer" resultMap="discuss">
+        select d.* from COM_DISCUSS d
+        where d.COMMENT_ID=#{id} and d.IS_DELETE=0 limit #{start},#{rows}
+    </select>
+    <select id="get" parameterType="java.lang.Integer" resultMap="discuss">
+        select d.* from COM_DISCUSS d
+        where d.DISCUSS_ID=#{id} and d.IS_DELETE=0
+    </select>
+
+    <insert id="add" parameterType="com.youthchina.domain.jinhao.Discuss" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into COM_DISCUSS(comment_id, discuss_content, user_id, USER_ANONY,discuss_pub_time)
+        values (#{commentId},#{content},#{user.id},#{isAnony},now())
+    </insert>
+
+    <update id="delete" parameterType="java.lang.Integer">
+        update COM_DISCUSS set IS_DELETE=1,IS_DELETE_TIME=now()
+        where DISCUSS_ID=#{id}
+    </update>
+    <update id="deleteAllDiscussOfComment" parameterType="java.lang.Integer">
+        update COM_DISCUSS set IS_DELETE_TIME=now(), IS_DELETE=1
+        where COMMENT_ID=#{id}
+    </update>
+    <select id="checkIfDiscussExist" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select DISCUSS_ID from COM_DISCUSS where DISCUSS_ID=#{id} and IS_DELETE=0
+    </select>
+    <select id="count" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(DISCUSS_ID) from COM_DISCUSS where COMMENT_ID=#{id} and IS_DELETE=0
+    </select>
+
+    <select id="getMyDiscuss" parameterType="java.lang.Integer" resultMap="discuss">
+        select * from COM_DISCUSS where USER_ID = #{id} and IS_DELETE = 0
+    </select>
+</mapper>
