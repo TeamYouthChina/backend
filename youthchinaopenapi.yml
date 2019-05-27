@@ -6674,6 +6674,7 @@ paths:
               - TimesRank
               - USNEWSRank
               - QSRank
+              - label
         - name: length
           required: false
           in: query
@@ -6731,7 +6732,7 @@ paths:
                           $ref: '#/components/schemas/Label'
                   status:
                     $ref: '#/components/schemas/Status'
-    '/labels':
+  '/labels':
       post:
         summary: 给各种实体添加标签
         tags:
@@ -6762,7 +6763,7 @@ paths:
         responses:
           '201':
             description: add label successfullly
-    '/labels/{labelCode}/{targetType}/{targetId}':
+  '/labels/{labelCode}/{targetType}/{targetId}':
       delete:
         summary: 删除各种实体的某个标签
         tags:

@@ -4,33 +4,33 @@ package com.youthchina.dto.tag;
  * Created by tianjian on 5/25/2019.
  */
 public class TagRequestDTO {
-   private Integer target_id;
-   private String label_ode;
-   private Integer target_type;
+   private Integer targetId;
+   private String labelCode;
+   private Integer targetType;
 
    public TagRequestDTO(){}
 
-    public Integer getTarget_id() {
-        return target_id;
+    public Integer getTargetId() {
+        return targetId;
     }
 
-    public void setTarget_id(Integer target_id) {
-        this.target_id = target_id;
+    public void setTargetId(Integer targetId) {
+        this.targetId = targetId;
     }
 
-    public String getLabel_ode() {
-        return label_ode;
+    public String getLabelCode() {
+        return labelCode;
     }
 
-    public void setLabel_ode(String label_ode) {
-        this.label_ode = label_ode;
+    public void setLabelCode(String labelCode) {
+        this.labelCode = labelCode;
     }
 
-    public Integer getTarget_type() {
-        return target_type;
+    public Integer getTargetType() {
+        return targetType;
     }
 
-    public void setTarget_type(Integer target_type) {
-        this.target_type = target_type;
+    public void setTargetType(Integer targetType) {
+        this.targetType = targetType;
     }
 }

@@ -11,13 +11,13 @@
         insert into SYS_LABEL_MAP (lab_code, target_id, target_type, rela_time)
         values (#{labelCode}, #{targetId}, #{targetType}, now())
     </insert>
-    <select id="isTagExist" resultType="java.lang.Integer">
+    <select id="isTagExist" resultType="java.lang.String">
         select LAB_CODE from SYS_LABEL_MAP where LAB_CODE = #{labelCode} and TARGET_ID = #{targetId} and TARGET_TYPE = #{targetType}
     </select>
     <delete id="deleteTag">
         delete from SYS_LABEL_MAP where LAB_CODE = #{labelCode} and TARGET_ID = #{targetId} and TARGET_TYPE = #{targetType}
     </delete>
-    <select id="getUserLabel" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="getUserLabel" parameterType="java.lang.Integer" resultType="java.lang.String">
         select LAB_CODE from SYS_LABEL_MAP where TARGET_TYPE = 100 and TARGET_ID = #{userId}
     </select>
     <select id="getRecommendQuestion" resultType="java.lang.Integer">
