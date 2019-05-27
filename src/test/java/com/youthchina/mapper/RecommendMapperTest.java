@@ -40,7 +40,7 @@ public class RecommendMapperTest {
         recommendMapper.addTag("2", 100, 2);
         recommendMapper.addTag("46", 100, 2);
         List<String> labels = recommendMapper.getUserLabel(2);
-        Assert.assertEquals(3, labels.size());
+        Assert.assertEquals(8, labels.size());
     }
 
     @Test
@@ -161,7 +161,7 @@ public class RecommendMapperTest {
         recommendService.addTag("3", 100, 3);
         recommendService.addTag("3", 100, 4);
         List<User> labels = recommendService.getRecommendUser(1);
-        Assert.assertEquals(3, labels.size());
+        Assert.assertEquals(7, labels.size());
         for (User user : labels) {
             System.out.println(user.getId());
         }
