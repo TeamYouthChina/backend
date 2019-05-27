@@ -149,4 +149,9 @@ public class DictionaryServiceImpl implements DictionaryService {
     public List<Entry> getAllLocation() {
         return dictionaryMapper.getAllLocation();
     }
+
+    @Override
+    public List<Entry> getAllLabels() {
+        return dictionaryMapper.getAllLabels();
+    }
 }

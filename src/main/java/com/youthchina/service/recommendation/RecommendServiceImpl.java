@@ -2,6 +2,7 @@ package com.youthchina.service.recommendation;
 
 import com.youthchina.dao.jinhao.RecommendMapper;
 import com.youthchina.domain.jinhao.BriefReview;
+import com.youthchina.domain.jinhao.Label;
 import com.youthchina.domain.jinhao.Question;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     @Transactional
-    public void addTag(int labelCode, int targetType, int targetId) throws NotFoundException {
+    public void addTag(String labelCode, int targetType, int targetId) throws NotFoundException {
         switch (targetType){
             case 1: questionService.get(targetId); break;
             case 2: essayService.get(targetId); break;
@@ -63,16 +65,25 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     @Transactional
-    public void deleteTag(int labelCode, int targetType, int targetId) throws NotFoundException {
-        Integer id = recommendMapper.isTagExist(labelCode,targetType,targetId);
+    public void deleteTag(String labelCode, int targetType, int targetId) throws NotFoundException {
+        String id = recommendMapper.isTagExist(labelCode,targetType,targetId);
         if(id == null) throw new NotFoundException(404,404,"This label does not exist and cannot be deleted");
         recommendMapper.deleteTag(labelCode,targetType,targetId);
     }
 
     @Override
+    public List<Label> getUserLabels(int userId) {
+        List<String> userLabels = recommendMapper.getUserLabel(userId);
+        List<Label> labels = new ArrayList<>();
+        if(userLabels.size() == 0) return labels;
+        labels = recommendMapper.getLabel(userLabels);
+        return labels;
+    }
+
+    @Override
     @Transactional
     public List<User> getRecommendUser(int userId) throws NotFoundException{
-        List<Integer> userLabels = recommendMapper.getUserLabel(userId);
+        List<String> userLabels = recommendMapper.getUserLabel(userId);
         if(userLabels.size() == 0){
             throw new NotFoundException(404,404,"User do not have any labels");
         }
@@ -92,7 +103,7 @@ public class RecommendServiceImpl implements RecommendService {
     @Override
     @Transactional
     public List<Company> getRecommendCompany(int userId) throws NotFoundException{
-        List<Integer> userLabels = recommendMapper.getUserLabel(userId);
+        List<String> userLabels = recommendMapper.getUserLabel(userId);
         if(userLabels.size() == 0){
             throw new NotFoundException(404,404,"User do not have any labels");
         }
@@ -103,7 +114,7 @@ public class RecommendServiceImpl implements RecommendService {
     @Override
     @Transactional
     public List<ComEssay> getRecommendEssay(int userId) throws NotFoundException{
-        List<Integer> userLabels = recommendMapper.getUserLabel(userId);
+        List<String> userLabels = recommendMapper.getUserLabel(userId);
         if(userLabels.size() == 0){
             throw new NotFoundException(404,404,"User do not have any labels");
         }
@@ -113,7 +124,7 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     public List<Question> getRecommendQuestion(int userId) throws NotFoundException{
-        List<Integer> userLabels = recommendMapper.getUserLabel(userId);
+        List<String> userLabels = recommendMapper.getUserLabel(userId);
         if(userLabels.size() == 0){
             throw new NotFoundException(404,404,"User do not have any labels");
         }
@@ -123,7 +134,7 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     public List<Job> getRecommendJob(int userId) throws NotFoundException{
-        List<Integer> userLabels = recommendMapper.getUserLabel(userId);
+        List<String> userLabels = recommendMapper.getUserLabel(userId);
         if(userLabels.size() == 0){
             throw new NotFoundException(404,404,"User do not have any labels");
         }
@@ -133,7 +144,7 @@ public class RecommendServiceImpl implements RecommendService {
 
     @Override
     public List<BriefReview> getRecommendBriefReview(int userId) throws NotFoundException{
-        List<Integer> userLabels = recommendMapper.getUserLabel(userId);
+        List<String> userLabels = recommendMapper.getUserLabel(userId);
         if(userLabels.size() == 0){
             throw new NotFoundException(404,404,"User do not have any labels");
         }

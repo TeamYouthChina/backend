@@ -133,8 +133,14 @@
         <id property="name" column="REGION_NAME"/>
     </resultMap>
 
-
-
+    <resultMap id="getAllLabels" type="com.youthchina.domain.Qinghong.Entry">
+        <id property="id" column="LABEL_CODE"/>
+        <id property="name" column="LABEL_CHN"/>
+    </resultMap>
+    <select id="getAllLabels" resultMap="getAllLabels">
+        select a.LABEL_CODE, a.LABEL_CHN from SYS_LABEL a
+        where a.IS_DELETE = 0
+    </select>
     <select id="getMajorByAbbre" resultMap="getMajorByAbbre">
         SELECT a.MAJOR_CODE,a.MAJOR_ABBRE
         FROM SYS_MAJOR a
