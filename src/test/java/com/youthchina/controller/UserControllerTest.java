@@ -20,10 +20,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static com.youthchina.util.CustomMockMvcMatchers.partialContent;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created by zhongyangwu on 1/2/19.
@@ -82,7 +82,26 @@ public class UserControllerTest extends BaseControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
                 .andDo(print())
-                .andExpect(partialContent("{\"content\":{\"id\":19,\"email\":\"string@string.com\",\"register_date\":1557120136000,\"date_of_birth\":0,\"first_name\":\"string\",\"last_name\":\"string\",\"gender\":\"MALE\",\"nation\":\"CHN\",\"avatar_url\":null,\"role\":[\"APPLICANT\"],\"phone_number\":\"000000000\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", "$.content.id", "$.content.register_date"))
+                .andExpect(partialContent("{\n" +
+                        "  \"content\": {\n" +
+                        "    \"id\": 17,\n" +
+                        "    \"email\": \"string@string.com\",\n" +
+                        "    \"register_date\": 1557950013000,\n" +
+                        "    \"date_of_birth\": 0,\n" +
+                        "    \"first_name\": \"string\",\n" +
+                        "    \"last_name\": \"string\",\n" +
+                        "    \"gender\": \"MALE\",\n" +
+                        "    \"avatar_url\": null,\n" +
+                        "    \"role\": [\n" +
+                        "      \"APPLICANT\"\n" +
+                        "    ],\n" +
+                        "    \"phone_number\": \"000000000\"\n" +
+                        "  },\n" +
+                        "  \"status\": {\n" +
+                        "    \"code\": 2000,\n" +
+                        "    \"reason\": \"\"\n" +
+                        "  }\n" +
+                        "}", "$.content.id", "$.content.register_date"))
         ;
 
 //        this.mvc.perform(post(this.urlPrefix + "/applicants/register")
@@ -99,6 +118,52 @@ public class UserControllerTest extends BaseControllerTest {
 //                .andDo(print())
 //                .andExpect(status().is(400))
 //                .andExpect(content().json("{\"content\":null,\"status\":{\"code\":4000,\"reason\":\"cannot register because there are already user registered with same email or username\"}}", false));
+    }
+
+    @Test
+    public void testModifyUser_ShouldSuccess() throws Exception {
+        this.mvc.perform(patch(this.urlPrefix + "/users/3")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(this.HEADER, this.jwtService.getAuthenticationToken(3))
+                .content("{\n" +
+                        "  \"avatar_url\": \"12398123\",\n" +
+                        "  \"gender\": \"OTHER\",\n" +
+                        "  \"first_name\": \"changedName\"\n" +
+                        "}")
+        )
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().json("{\"content\":{\"id\":3,\"email\":\"123456@789.com\",\"register_date\":1546300800000,\"date_of_birth\":0,\"first_name\":\"changedName\",\"last_name\":\"GGGHHHIII\",\"gender\":\"OTHER\",\"avatar_url\":\"12398123\",\"role\":[\"APPLICANT\"],\"phone_number\":\"1112223334445\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
+    }
+
+    @Test
+    public void testModifyUser_ShouldThrow400() throws Exception {
+        this.mvc.perform(patch(this.urlPrefix + "/users/3")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(this.HEADER, this.jwtService.getAuthenticationToken(3))
+                .content("{\n" +
+                        "  \"avatar_url\": \"12398123\",\n" +
+                        "  \"gender\": \"Whatever\",\n" +
+                        "  \"first_name\": \"changedName\"\n" +
+                        "}")
+        )
+                .andDo(print())
+                .andExpect(status().is(400));
+    }
+
+    @Test
+    public void testModifyUser_ShouldThrow403() throws Exception {
+        this.mvc.perform(patch(this.urlPrefix + "/users/3")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(this.HEADER, this.jwtService.getAuthenticationToken(2))
+                .content("{\n" +
+                        "  \"avatar_url\": \"12398123\",\n" +
+                        "  \"gender\": \"Whatever\",\n" +
+                        "  \"first_name\": \"changedName\"\n" +
+                        "}")
+        )
+                .andDo(print())
+                .andExpect(status().is(403));
     }
 
 

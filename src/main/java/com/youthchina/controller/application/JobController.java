@@ -1,17 +1,17 @@
 package com.youthchina.controller.application;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.annotation.RequestBodyDTO;
-import com.youthchina.annotation.ResponseBodyDTO;
 import com.youthchina.controller.DomainCRUDController;
+import com.youthchina.domain.Qinghong.JobApply;
 import com.youthchina.domain.Qinghong.Location;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.ListResponse;
 import com.youthchina.dto.Response;
 import com.youthchina.dto.StatusDTO;
-import com.youthchina.dto.applicant.SendingEmailDTO;
+import com.youthchina.dto.application.EmailSendingDTO;
 import com.youthchina.dto.application.JobApplyDTO;
+import com.youthchina.dto.application.ResumeApplyDTO;
 import com.youthchina.dto.job.JobRequestDTO;
 import com.youthchina.dto.job.JobResponseDTO;
 import com.youthchina.dto.job.JobSearchDTO;
@@ -30,10 +30,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Date;
@@ -74,6 +71,7 @@ public class JobController extends DomainCRUDController<Job, Integer> {
 
     /**
      * 添加职位
+     *
      * @param user
      * @param job
      * @return
@@ -83,7 +81,8 @@ public class JobController extends DomainCRUDController<Job, Integer> {
     //@ResponseBodyDTO(JobWithMail.class)
     public ResponseEntity<?> createJobInfo(@AuthenticationPrincipal User user, @RequestBodyDTO(JobRequestDTO.class) Job job) throws BaseException {
         List<Location> locationList = job.getJobLocationList();
-        if(locationList == null || locationList.size() == 0) throw new BaseException(5000, 500, "At least one location needed");
+        if (locationList == null || locationList.size() == 0)
+            throw new BaseException(5000, 500, "At least one location needed");
         job.setUserId(user.getId());
 //        return add(job);
         job = jobService.add(job);
@@ -93,6 +92,7 @@ public class JobController extends DomainCRUDController<Job, Integer> {
 
     /**
      * 更新职位
+     *
      * @param id
      * @param job
      * @return
@@ -102,7 +102,8 @@ public class JobController extends DomainCRUDController<Job, Integer> {
     //@ResponseBodyDTO(JobWithMail.class)
     public ResponseEntity<?> updateJobInfo(@PathVariable Integer id, @RequestBodyDTO(JobRequestDTO.class) Job job) throws BaseException {
         List<Location> locationList = job.getJobLocationList();
-        if(locationList == null || locationList.size() == 0) throw new BaseException(5000, 500, "At least one location needed");
+        if (locationList == null || locationList.size() == 0)
+            throw new BaseException(5000, 500, "At least one location needed");
         job.setJobId(id);
         //return update(job);
         job = jobService.update(job);
@@ -111,6 +112,7 @@ public class JobController extends DomainCRUDController<Job, Integer> {
 
     /**
      * 通过Job ID 删除职位
+     *
      * @param id
      * @return
      * @throws NotFoundException
@@ -122,6 +124,7 @@ public class JobController extends DomainCRUDController<Job, Integer> {
 
     /**
      * 通过Job ID 获取职位
+     *
      * @param jobId
      * @param detailLevel
      * @param user
@@ -131,13 +134,13 @@ public class JobController extends DomainCRUDController<Job, Integer> {
     @GetMapping("/{id}/**")
     public ResponseEntity<?> getJobDetail(@PathVariable(name = "id") Integer jobId, @RequestParam(value = "detailLevel", defaultValue = "1") Integer detailLevel, @AuthenticationPrincipal User user) throws BaseException {
         Job job = null;
-        if(user != null){
+        if (user != null) {
             job = jobService.getJobWithCollected(jobId, user.getId());
         } else {
             job = jobService.get(jobId);
         }
 
-        if(user.getId() == job.getUserId()){
+        if (user.getId() == job.getUserId()) {
             return ResponseEntity.ok(new Response(new JobWithMail(job)));
         } else if (detailLevel == 1 && job != null) {
             return ResponseEntity.ok(new Response(new JobResponseDTO(job)));
@@ -191,33 +194,48 @@ public class JobController extends DomainCRUDController<Job, Integer> {
      */
 
     @PostMapping("/{id}/apply")
-    public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user) throws NotFoundException, ClientException {
-        JobApplyDTO jobApplyDTO = new JobApplyDTO(studentService.jobApply(job_id, user.getId()));
-        return ResponseEntity.ok(new Response(jobApplyDTO, new StatusDTO(0, "")));
+    public ResponseEntity<?> addJobApply(@PathVariable("id") Integer job_id, @AuthenticationPrincipal User user, @RequestBody ResumeApplyDTO resumeApplyDTO) throws NotFoundException, ClientException {
+        if (resumeApplyDTO.getResume_id() != null) {
+            JobApply jobApply = studentService.jobApply(job_id, user.getId(), resumeApplyDTO.getResume_id());
+            EmailSendingDTO emailSendingDTO = new EmailSendingDTO();
+            emailSendingDTO.setFirstName(user.getFirstName());
+            emailSendingDTO.setLastName(user.getLastName());
+            emailSendingDTO.setJobName(jobApply.getJob().getJobName());
+            emailSendingDTO.setOwnEmail(user.getEmail());
+            emailSendingDTO.setHrEmail(jobApply.getJob().getCvReceiMail());
+            studentService.sendingEmail(emailSendingDTO, resumeApplyDTO.getResume_id());
+            JobApplyDTO jobApplyDTO = new JobApplyDTO(jobApply);
+
+            return ResponseEntity.ok(new Response(jobApplyDTO));
+        }
+        else{
+            throw new ClientException("Resume does not exist or no resume id is provided");
+        }
+
 
     }
 
 
-    @PostMapping("/{id}/apply/sendingemail")
-    public ResponseEntity<?> sendingResume(@PathVariable("id") Integer job_id, @RequestParam("file") MultipartFile file, @AuthenticationPrincipal User user) throws NotFoundException, IOException {
-        Job job = jobService.get(job_id);
-        String company_email = job.getCompany().getCompanyMail();
-        SendingEmailDTO sendingEmailDTO = new SendingEmailDTO();
-        sendingEmailDTO.setCompany_email(company_email);
-        sendingEmailDTO.setUser_id(user.getId());
-        InputStream input = file.getInputStream();
-        byte[] bytesArray = new byte[(int) file.getSize()];
-
-        input.read(bytesArray); //read file into bytes[]
-        input.close();
-        sendingEmailDTO.setBytes(bytesArray);
-        ObjectMapper mapper = new ObjectMapper();
-        String message = mapper.writeValueAsString(sendingEmailDTO);
-        System.out.print(message);
-        messageSendService.sendMessage(message);
-        return ResponseEntity.ok(new Response());
-
-    }
+//    @PostMapping("/{id}/apply/sendingemail")
+//    public ResponseEntity<?> sendingResume(@PathVariable("id") Integer job_id, @RequestParam("file") MultipartFile file, @AuthenticationPrincipal User user) throws NotFoundException, IOException {
+//        Job job = jobService.get(job_id);
+//        String company_email = job.getCompany().getCompanyMail();
+//        SendingEmailDTO sendingEmailDTO = new SendingEmailDTO();
+//        sendingEmailDTO.setCompany_email(company_email);
+//        sendingEmailDTO.setUser_id(user.getId());
+//        InputStream input = file.getInputStream();
+//        byte[] bytesArray = new byte[(int) file.getSize()];
+//
+//        input.read(bytesArray); //read file into bytes[]
+//        input.close();
+//        sendingEmailDTO.setBytes(bytesArray);
+//        ObjectMapper mapper = new ObjectMapper();
+//        String message = mapper.writeValueAsString(sendingEmailDTO);
+//        System.out.print(message);
+//        messageSendService.sendMessage(message);
+//        return ResponseEntity.ok(new Response());
+//
+//    }
 
 
     /**

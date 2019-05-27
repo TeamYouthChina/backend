@@ -8,13 +8,19 @@ import com.youthchina.domain.Qinghong.*;
 import com.youthchina.domain.qingyang.Company;
 import com.youthchina.domain.qingyang.Job;
 import com.youthchina.domain.qingyang.ResumeJson;
+import com.youthchina.domain.qingyang.ResumePDF;
+import com.youthchina.dto.application.EmailSendingDTO;
 import com.youthchina.exception.zhongyang.exception.ClientException;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.application.JobServiceImpl;
 import com.youthchina.service.application.LocationServiceImpl;
+import com.youthchina.service.application.ResumePDFServiceImpl;
+import com.youthchina.service.util.MessageSendService;
+import com.youthchina.service.util.StaticFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,8 +51,18 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private ResumeJsonMapper resumeJsonMapper;
+
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private MessageSendService messageSendService;
+
+    @Autowired
+    private ResumePDFServiceImpl resumePDFService;
+
+    @Autowired
+    private StaticFileService staticFileService;
 
 
     /**
@@ -68,7 +84,6 @@ public class StudentServiceImpl implements StudentService {
             student.setWorks(studentService.getWorks(id));
             student.setCertificates(studentService.getCertificates(id));
             student.setProjects(studentService.getProjects(id));
-            student.setAdvantageLabels(studentService.getAdvantageLabel(id));
             return student;
         }
     }
@@ -191,7 +206,7 @@ public class StudentServiceImpl implements StudentService {
         } else {
             List<Work> works = applicantMapper.getWorks(id);
             for (Work work : works) {
-                if(work.getLocation()!=null&&work.getLocation().getRegionId()!=null){
+                if (work.getLocation() != null && work.getLocation().getRegionId() != null) {
                     Location location = locationService.getLocation(work.getLocation().getRegionId());
                     work.setLocation(location);
                 }
@@ -278,10 +293,10 @@ public class StudentServiceImpl implements StudentService {
      * @Author: Qinghong Wang
      * @Date: 2018/12/19
      */
-    public JobApply jobApply(Integer job_id, Integer user_id) throws NotFoundException, ClientException {
+    public JobApply jobApply(Integer job_id, Integer user_id, Integer resume_id) throws NotFoundException, ClientException {
         Job job = jobMapper.selectJobByJobId(job_id);
-        if(job.getCvReceiMail()==null){
-            throw new NotFoundException(4000,404,"email does not exist");
+        if (job.getCvReceiMail() == null) {
+            throw new NotFoundException(4000, 404, "email does not exist");
         }
         if (job == null) {
             throw new NotFoundException(4042, 404, "cannot find job with id " + job_id);
@@ -294,21 +309,38 @@ public class StudentServiceImpl implements StudentService {
                 if (jobApply2 != null) {
                     throw new ClientException("this job has already been applied");
                 } else {
+                    ResumePDF resumePDF = resumePDFService.get(resume_id);
                     JobApply jobApply = new JobApply();
-                    jobApply.setStu_id(user_id);
-                    jobApply.setJob_id(job_id);
-                    //这里应该设计简历是否发送的判断
-                    jobApply.setJob_cv_send(1);
-                    jobApply.setJob_apply_status("已申请");
-                    Integer integer = applicantMapper.addApply(jobApply);
-                    JobApply jobApply1 = applicantMapper.getOneJobApply(job_id, user_id);
-                    Job job1 = jobService.get(jobApply1.getJob_id());
-                    jobService.setJobLocation(job1);
-                    jobApply1.setJob(job1);
-                    return jobApply1;
+                    if (resumePDF == null) {
+                        throw new NotFoundException(4032, 403, "this resume do not exist");
+                    } else {
+                        jobApply.setStu_id(user_id);
+                        jobApply.setJob_id(job_id);
+                        jobApply.setJob_cv_send(1);
+                        jobApply.setJob_apply_status("已申请");
+                        jobApply.setDocu_local_id(resumePDF.getDocuLocalId());
+                        Integer integer = applicantMapper.addApply(jobApply);
+                        JobApply jobApply1 = applicantMapper.getOneJobApply(job_id, user_id);
+                        Job job1 = jobService.get(jobApply1.getJob_id());
+                        jobService.setJobLocation(job1);
+                        jobApply1.setJob(job1);
+
+
+                        return jobApply1;
+                    }
+
                 }
             }
         }
+    }
+
+    @Override
+    public void sendingEmail(EmailSendingDTO emailSendingDTO, Integer resume_id) throws NotFoundException {
+        ResumePDF resumePDF = resumePDFService.get(resume_id);
+        URL url = staticFileService.getFileUrl(resumePDF.getDocuLocalId());
+        emailSendingDTO.setUrl(url);
+        emailSendingDTO.setFileName(resumePDF.getResumeName());
+        messageSendService.sendMessage(emailSendingDTO);
     }
 
     /**
@@ -543,7 +575,7 @@ public class StudentServiceImpl implements StudentService {
             work.setStu_id(user_id);
             Integer integer = applicantMapper.insertStuWork(work);
             Work work1 = applicantMapper.getWorkById(work.getWork_id());
-            if(work1.getLocation()!=null&&work1.getLocation().getRegionId()!=null){
+            if (work1.getLocation() != null && work1.getLocation().getRegionId() != null) {
                 Location location = locationService.getLocation(work1.getLocation().getRegionId());
                 work1.setLocation(location);
             }

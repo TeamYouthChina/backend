@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.youthchina.domain.zhongyang.Role;
 import com.youthchina.dto.applicant.*;
+import com.youthchina.dto.application.ResumeApplyDTO;
 import com.youthchina.dto.notification.NotificationDTO;
 import com.youthchina.dto.util.DurationDTO;
 import com.youthchina.dto.util.LocationDTO;
@@ -67,7 +68,7 @@ public class StudentProfileController {
     public void testGet() throws Exception {
         this.mvc.perform(
                 get(this.urlPrefix + "/applicants/1")
-                        .with(authGenerator.authentication(Role.APPLICANT, 1))
+                        .with(authGenerator.authentication(Role.APPLICANT, 3))
         )
                 .andDo(print())
         //  .andExpect(content().json("{\"content\":{\"id\":1,\"name\":\"yihao guo\",\"avatarUrl\":null,\"educations\":[{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000-0400\",\"end\":\"2020-05-14T00:00:00.000-0400\"},\"location\":{\"region_num\":null},\"note\":null},{\"university\":\"CSSA\",\"major\":\"1\",\"degree\":\"1\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000-0400\",\"end\":\"2020-05-14T00:00:00.000-0400\"},\"location\":{\"region_num\":null},\"note\":null}],\"experiences\":[{\"employer\":\"Facebook\",\"position\":\"SDE\",\"duration\":{\"begin\":\"2017-09-11T00:00:00.000-0400\",\"end\":\"2018-10-11T00:00:00.000-0400\"},\"location\":\"中国江苏\",\"note\":null}],\"projects\":[{\"name\":\"web develop\",\"role\":\"backend\",\"duration\":{\"begin\":\"2018-09-11T00:00:00.000-0400\",\"end\":\"2018-10-11T00:00:00.000-0400\"},\"note\":null}],\"extracurriculars\":[{\"name\":\"volunteer\",\"role\":\"worker\",\"organization\":\"gwu\",\"duration\":{\"begin\":\"2018-10-11T00:00:00.000-0400\",\"end\":\"2018-10-12T00:00:00.000-0400\"},\"location\":null,\"note\":null}],\"certificates\":[{\"name\":\"Java skill\",\"authority\":\"CSSA\",\"duration\":{\"begin\":\"2016-10-01T00:00:00.000-0400\",\"end\":\"2018-10-11T00:00:00.000-0400\"},\"note\":null}],\"contacts\":{\"emails\":[null],\"phonenumbers\":[\"18463722634\"]}},\"status\":{\"code\":2000,\"reason\":\"\"}}\n", false))
@@ -785,7 +786,14 @@ public class StudentProfileController {
 
     @Test
     public void testAddJobApply() throws Exception {
-        this.mvc.perform(post(this.urlPrefix + "/jobs/4/apply").with(authGenerator.authentication(Role.APPLICANT, 10)))
+        ResumeApplyDTO resumeApplyDTO=new ResumeApplyDTO();
+        resumeApplyDTO.setResume_id(1);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        java.lang.String requestJson = ow.writeValueAsString(resumeApplyDTO);
+        this.mvc.perform(post(this.urlPrefix + "/jobs/4/apply").with(authGenerator.authentication(Role.APPLICANT, 10)).contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(requestJson)
+)
                 .andDo(print());
     }
 

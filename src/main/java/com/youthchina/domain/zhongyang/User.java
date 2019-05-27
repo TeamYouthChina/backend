@@ -2,6 +2,7 @@ package com.youthchina.domain.zhongyang;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
+import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.dto.security.RegisterUserDTO;
 import com.youthchina.dto.security.UserDTO;
 import com.youthchina.util.HasId;
@@ -9,7 +10,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,12 +24,12 @@ public class User implements UserDetails, HasId<Integer> {
     private String password;
     private String email;
     private String phonenumber;
-    private Timestamp registerDate;
-    private Date dateOfBirth;
+    private Timestamp registerTime;
+    private Timestamp dateOfBirth;
+    private Timestamp modifiedTime;
     private String firstName;
     private String lastName;
     private Gender gender;
-    private String nation;
     private String avatarUrl;
     private Boolean isHired;
     private List<Role> role;
@@ -41,9 +41,10 @@ public class User implements UserDetails, HasId<Integer> {
         this.isHired = false;
         this.firstName = "John";
         this.lastName = "Doe";
-        this.nation = "CHN";
         this.phonenumber = "000000000";
-        this.dateOfBirth = Date.valueOf("1970-01-01");
+        this.dateOfBirth = Timestamp.valueOf("1970-01-01 00:00:00.0");
+        this.modifiedTime = Timestamp.from(Calendar.getInstance().toInstant());
+        this.registerTime = Timestamp.from(Calendar.getInstance().toInstant());
     }
 
     public User(UserDTO userDTO) {
@@ -52,11 +53,10 @@ public class User implements UserDetails, HasId<Integer> {
         this.password = userDTO.getPassword();
         this.email = userDTO.getEmail();
         this.phonenumber = userDTO.getPhonenumber();
-        this.registerDate = userDTO.getRegister_date();
+        this.registerTime = userDTO.getRegister_date();
         this.firstName = userDTO.getFirst_name();
         this.lastName = userDTO.getLast_name();
         this.gender = userDTO.getGender();
-        this.nation = userDTO.getNation();
         this.avatarUrl = userDTO.getAvatar_url();
         this.role = userDTO.getRole();
     }
@@ -68,8 +68,7 @@ public class User implements UserDetails, HasId<Integer> {
         this.password = registerUserDTO.getPassword();
         this.firstName = registerUserDTO.getFirstName();
         this.lastName = registerUserDTO.getLastName();
-        this.registerDate = Timestamp.from(Calendar.getInstance().toInstant());
-        this.dateOfBirth = new Date(registerUserDTO.getDateOfBirth());
+        this.dateOfBirth = new Timestamp(registerUserDTO.getDateOfBirth());
         this.isMailVerified = false;
         this.isPhoneVerified = false;
         this.role = Lists.newArrayList(Role.APPLICANT);
@@ -108,7 +107,7 @@ public class User implements UserDetails, HasId<Integer> {
     @Override
     @JsonIgnore
     public boolean isEnabled() {
-        return false;
+        return this.getMailVerified();
     }
 
     @Override
@@ -149,12 +148,12 @@ public class User implements UserDetails, HasId<Integer> {
         this.phonenumber = phonenumber;
     }
 
-    public Timestamp getRegisterDate() {
-        return registerDate;
+    public Timestamp getRegisterTime() {
+        return registerTime;
     }
 
-    public void setRegisterDate(Timestamp registerDate) {
-        this.registerDate = registerDate;
+    public void setRegisterTime(Timestamp registerTime) {
+        this.registerTime = registerTime;
     }
 
     public String getFirstName() {
@@ -163,14 +162,6 @@ public class User implements UserDetails, HasId<Integer> {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getNation() {
-        return nation;
-    }
-
-    public void setNation(String nation) {
-        this.nation = nation;
     }
 
     public String getAvatarUrl() {
@@ -234,11 +225,21 @@ public class User implements UserDetails, HasId<Integer> {
         isMailVerified = mailVerified;
     }
 
-    public Date getDateOfBirth() {
+    @JsonTimeStamp
+    public Timestamp getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(Timestamp dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    @JsonTimeStamp
+    public Timestamp getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(Timestamp modifiedTime) {
+        this.modifiedTime = modifiedTime;
     }
 }

@@ -33,4 +33,5 @@ public interface DictionaryService {
     List<Entry> getTopCompany();
     List<Entry> getUniversity();
     List<Entry> getAllLocation();
+    List<Entry> getAllLabels();
 }

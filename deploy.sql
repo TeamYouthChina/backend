@@ -1,4 +1,12 @@
-﻿SET CHAR SET 'utf8';
+/*update log
+1. disable advan_label
+2. add sys_label
+3. update sys_user
+4. update data
+5. add data in SYS_LABEL_MAP
+*/
+
+SET CHAR SET 'utf8';
 #######################################字典表###############################################
 create table IF NOT EXISTS `SYS_MAJOR` (
   `MAJOR_NUM`      INT               AUTO_INCREMENT
@@ -54,7 +62,7 @@ create table IF NOT EXISTS `SYS_DIPLOMA` (
   COMMENT = '学位表';
 
 
-create table IF NOT EXISTS `SYS_ADVAN_LABEL_CLASS` (
+/*create table IF NOT EXISTS `SYS_ADVAN_LABEL_CLASS` (
   `LABEL_ID`      INT               AUTO_INCREMENT
   COMMENT '标签编号',
   `LABEL_LEVEL`    INTEGER      NOT NULL
@@ -75,7 +83,33 @@ create table IF NOT EXISTS `SYS_ADVAN_LABEL_CLASS` (
   COMMENT '删除时间',
   PRIMARY KEY (`LABEL_ID`)
 )
-  COMMENT = '优势标签表';
+  COMMENT = '优势标签表';*/
+
+
+
+create table IF NOT EXISTS `SYS_LABEL` (
+  `LABEL_ID`      INT               AUTO_INCREMENT
+  COMMENT '标签编号',
+  `LABEL_LEVEL`    INTEGER      NOT NULL
+  COMMENT '标签分级',
+  `LABEL_CODE`     VARCHAR(20)  NOT NULL
+  COMMENT '标签代码',
+  `LABEL_PARENT_CODE`      VARCHAR(20)  NOT NULL
+  COMMENT '上级标签代码',
+  `LABEL_CHN`      VARCHAR(100) NOT NULL
+  COMMENT '中文描述',
+  `LABEL_ENG`      VARCHAR(100) NOT NULL
+  COMMENT '英文描述',
+  `START_TIME`     TIMESTAMP    NOT NULL
+  COMMENT '启用时间',
+  `IS_DELETE`      VARCHAR(100) NOT NULL
+  COMMENT '是否删除',
+  `IS_DELETE_TIME` TIMESTAMP    NULL DEFAULT NULL
+  COMMENT '删除时间',
+  PRIMARY KEY (`LABEL_ID`)
+)
+  COMMENT = '系统标签表';
+
 
 
 create table IF NOT EXISTS `SYS_PROF_CLASS` (
@@ -290,7 +324,7 @@ PRIMARY KEY (`USER_ID`,`ROLE_ID`)
 
 
 
-create table IF NOT EXISTS `SYS_USER` (
+/*create table IF NOT EXISTS `SYS_USER` (
   `USER_ID`          INT               AUTO_INCREMENT
   COMMENT '用户ID',
   `USER_NAME`        VARCHAR(200) NOT NULL
@@ -318,13 +352,41 @@ create table IF NOT EXISTS `SYS_USER` (
   `USER_NICKNAME`    VARCHAR(200) COMMENT '昵称',
   `USER_ON_JOB`          INTEGER      NOT NULL
   COMMENT '是否在职',
+  `AUTH_CHANGE_TIME` TIMESTAMP    NOT NULL
+  COMMENT '信息修改时间',  
   `IS_DELETE`        INTEGER      DEFAULT '0'
   COMMENT '是否删除',
   `IS_DELETE_TIME`   TIMESTAMP    NULL DEFAULT NULL
   COMMENT '删除时间',
   PRIMARY KEY (`USER_ID`)
 )
-  COMMENT = '用户注册信息表';
+  COMMENT = '用户注册信息表';*/
+  
+##用户注册信息表
+create table IF NOT EXISTS `SYS_USER`
+(
+  USER_ID INT AUTO_INCREMENT COMMENT '用户ID',
+  USER_MAIL VARCHAR(200) NOT NULL COMMENT '邮箱',
+  MAIL_VERIFY INT DEFAULT 0 NOT NULL COMMENT '邮箱是否验证',
+  USER_PHONE VARCHAR(200) NOT NULL COMMENT '手机',
+  PHONE_VERIFY INT DEFAULT 0 NOT NULL COMMENT '手机是否验证',
+  USER_PASS VARCHAR(200) NOT NULL COMMENT '密码',
+  USER_NICKNAME VARCHAR(200) NULL COMMENT '昵称',
+  USER_FIRST_NAME VARCHAR(200) NOT NULL COMMENT '姓',
+  USER_LAST_NAME VARCHAR(200) NOT NULL COMMENT '名',
+  USER_GENDER VARCHAR(10) NOT NULL COMMENT '性别',
+  USER_DATE_OF_BIRTH DATE NOT NULL DEFAULT '1970-01-01' COMMENT '出生日期',
+  USER_PHOTO VARCHAR(200) NULL COMMENT '照片',
+  USER_LOCATION INT NULL COMMENT '所在地',
+  USER_ON_JOB INT NOT NULL COMMENT '是否在职',
+  USER_REGIST_TIME TIMESTAMP NOT NULL COMMENT '注册时间',
+  CONTENT_CHANGE_TIME TIMESTAMP NOT NULL COMMENT '信息修改时间',
+  IS_DELETE INT DEFAULT 0 NULL COMMENT '是否删除',
+  IS_DELETE_TIME TIMESTAMP NULL COMMENT '删除时间',
+  PRIMARY KEY (`USER_ID`)
+)
+  comment '用户注册信息表';
+
 
 
 ##用户在职信息表
@@ -503,9 +565,20 @@ PRIMARY KEY (`COMPANY_ID`)
 )COMMENT = '世界五百强';
 
 
+##标签映射表
+create table IF NOT EXISTS `SYS_LABEL_MAP`(
+  `LABEL_ID` INT AUTO_INCREMENT COMMENT '主键ID',
+  `LAB_CODE` varchar(20) NOT NULL COMMENT '标签编号',
+  `TARGET_ID` int(11) NOT NULL COMMENT '目标ID',
+  `TARGET_TYPE` int(11) NOT NULL COMMENT '目标类型',
+  `RELA_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '关联时间',
+  PRIMARY KEY (`LABEL_ID`)
+)COMMENT = '标签映射表';
+
+
 ##媒体文件名称表
 create table IF NOT EXISTS `SYS_MEDIA_DOCUMENT`(
-`DOCU_ID` INT AUTO_INCREMENT COMMENT '文件编号',
+`DOCU_ID` INT AUTO_INCREMENT COMMENT '主键ID',
 `DOCU_LOCAL_ID` VARCHAR(100) NOT NULL COMMENT '本地文件编号',
 `DOCU_LOCAL_NAME` VARCHAR(100) NOT NULL COMMENT '文件名称',
 `DOCU_LOCAL_FORMAT` VARCHAR(10) NOT NULL COMMENT '文件格式',
@@ -539,6 +612,7 @@ SELECT
 FROM youthchina.`SYS_USA_ZIPCODE` B;
 
 
+
 CREATE OR REPLACE VIEW `COUNTRY_UNIVERSITY` AS 
 SELECT 
  A.`UNIVERS_ID`   AS `UNIVERS_ID`,
@@ -550,9 +624,26 @@ SELECT
  A.`UNIVERS_ID`   AS `UNIVERS_ID`,
  A.`UNIVERS_ENG`  AS `UNIVERS_NAME`,
  'USA'  AS `COUNTRY`  
-FROM youthchina.`SYS_UNIVERSITY_USA` A;
+FROM youthchina.`SYS_UNIVERSITY_USA` A
+UNION
+SELECT 
+ A.`UNIVERS_ID`   AS `UNIVERS_ID`,
+ A.`UNIVERS_ENG`  AS `UNIVERS_NAME`,
+ 'GBR'  AS `COUNTRY`  
+FROM youthchina.`SYS_UNIVERSITY_GBR` A
+UNION
+SELECT 
+ A.`UNIVERS_ID`   AS `UNIVERS_ID`,
+ A.`UNIVERS_ENG`  AS `UNIVERS_NAME`,
+ 'CAN'  AS `COUNTRY`  
+FROM youthchina.`SYS_UNIVERSITY_CAN` A;
 
 
+
+CREATE OR REPLACE VIEW `MAJOR_INFO` AS
+SELECT A.MAJOR_CODE, A.MAJOR_CHN
+FROM youthchina.`SYS_MAJOR` A
+WHERE A.MAJOR_LEVEL = 3;
 
 
 #######################################招聘模块数据表###############################################
@@ -588,13 +679,13 @@ create table IF NOT EXISTS `STU_EDU_INFO` (
 create table IF NOT EXISTS `STU_SUB_INFO` (
   `SUB_ID`          INT            AUTO_INCREMENT
   COMMENT '附加信息ID',
-  `SUB_COURSE`      VARCHAR(200) COMMENT '相关课程信息',
+  `SUB_COURSE`      VARCHAR(500) COMMENT '相关课程信息',
   `SUB_HONOR`       VARCHAR(200) COMMENT '相关荣誉',
   `SUB_AWARD`       VARCHAR(200) COMMENT '相关奖项',
   `SUB_SKILL`       VARCHAR(200) COMMENT '相关技能',
   `SUB_FOREIGN`     VARCHAR(200) COMMENT '外语语言',
   `SUB_INTEREST`    VARCHAR(200) COMMENT '兴趣特长',
-  `SUB_INTRODUCTION`    VARCHAR(400) COMMENT '自我介绍',
+  `SUB_INTRODUCTION`    VARCHAR(500) COMMENT '自我介绍',
   `STU_ID`          INTEGER   NOT NULL
   COMMENT '用户ID',
   `IS_DELETE`       INTEGER   DEFAULT '0'
@@ -904,19 +995,21 @@ create table IF NOT EXISTS `STU_RESUME_TEMPLATE` (
   COMMENT = '应聘者简历模板表';
 
 
-/*##简历存储表
+##简历表
 create table IF NOT EXISTS `STU_RESUME`(
-`RESUME_ID` INT AUTO_INCREMENT COMMENT '简历ID',
-`RESUME_URL` VARCHAR(200) NOT NULL COMMENT '简历上传地址',
-`RESUME_UPLOAD_TIME` TIMESTAMP NOT NULL COMMENT '简历上传时间',
-`USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+`RESUME_ID` INT AUTO_INCREMENT COMMENT '主键ID',
+`RESUME_NAME` VARCHAR(200) NOT NULL COMMENT '简历文件名',
+`DOCU_LOCAL_ID` VARCHAR(100) NOT NULL COMMENT '本地文件编号',
+`GENERATE_METHOD` INTEGER NOT NULL COMMENT '简历生成方式', 
+`GENERATE_TIME` TIMESTAMP NOT NULL COMMENT '简历生成时间',
+`STU_ID` INTEGER NOT NULL COMMENT '用户ID',
 `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
 `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
 PRIMARY KEY (`RESUME_ID`)
-)COMMENT = '简历存储表';
+)COMMENT = '简历表';
 
 
-##应聘者简历上传表
+/*##应聘者简历上传表
 create table IF NOT EXISTS `STU_RESUME_UPLOAD`(
 `RESUME_ID` INT AUTO_INCREMENT COMMENT '简历ID',
 `RESUME_URL` VARCHAR(200) NOT NULL COMMENT '简历上传地址',
@@ -939,17 +1032,37 @@ PRIMARY KEY (`RESUME_ID`)
 )COMMENT = '应聘者简历生成表';*/
 
 
+/*##应聘者简历JSON表
+create table IF NOT EXISTS `STU_RESUME_JSON`(
+`RESUME_ID` INT AUTO_INCREMENT COMMENT '简历ID',
+`JSON_COUNT` INTEGER NOT NULL COMMENT 'json数量',
+`JSON_1` VARCHAR(10000) COMMENT 'json1',
+`JSON_2` VARCHAR(500) COMMENT 'json2',
+`JSON_3` VARCHAR(500) COMMENT 'json3',
+`JSON_4` VARCHAR(500) COMMENT 'json4',
+`JSON_5` VARCHAR(500) COMMENT 'json5',
+`JSON_6` VARCHAR(500) COMMENT 'json6',
+`JSON_7` VARCHAR(500) COMMENT 'json7',
+`JSON_8` VARCHAR(500) COMMENT 'json8',
+`JSON_9` VARCHAR(500) COMMENT 'json9',
+`JSON_10` VARCHAR(500)  COMMENT 'json10',
+`USER_ID` INTEGER   NOT NULL  COMMENT '用户ID',
+`CREATE_TIME` TIMESTAMP NOT NULL COMMENT '生成时间',
+`IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
+`IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
+PRIMARY KEY (`RESUME_ID`)
+)COMMENT = '应聘者简历JSON表';*/
+
 ##应聘者简历JSON表
 create table IF NOT EXISTS `STU_RESUME_JSON`(
 `RESUME_ID` INT AUTO_INCREMENT COMMENT '简历ID',
-`JSON_CONTENT` VARCHAR(12000) COMMENT 'JSON_CONTENT',
+`JSON_CONTENT`INTEGER COMMENT '富文本ID',
 `USER_ID` INTEGER   NOT NULL  COMMENT '用户ID',
 `CREATE_TIME` TIMESTAMP NOT NULL COMMENT '生成时间',
 `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
 `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
 PRIMARY KEY (`RESUME_ID`)
 )COMMENT = '应聘者简历JSON表';
-
 
 
 ##LOGO表
@@ -1190,6 +1303,8 @@ create table IF NOT EXISTS `STU_JOB_APPLY` (
   COMMENT '职位申请时间',
   `JOB_APPLY_STATUS` VARCHAR(200) NOT NULL
   COMMENT '职位申请状态',
+  `DOCU_LOCAL_ID` VARCHAR(100) NOT NULL
+  COMMENT '简历文件ID',
   PRIMARY KEY (`APPLY_ID`)
 )
   COMMENT = '职位申请记录表';
@@ -1197,7 +1312,7 @@ create table IF NOT EXISTS `STU_JOB_APPLY` (
 
 
 #######################################社区数据表###############################################
-##标签映射表
+/*##标签映射表
 create table IF NOT EXISTS `COM_LABEL_MAP`(
 `LAB_ID` INT AUTO_INCREMENT COMMENT '主键ID',
 `LAB_NUM` INT NOT NULL COMMENT '标签编号',
@@ -1216,7 +1331,7 @@ create table IF NOT EXISTS `SYS_COM_LABEL_CLASS`(
 `START_STATUS` INTEGER NOT NULL COMMENT '是否启用',
 `START_DATE` TIMESTAMP NOT NULL COMMENT '启用时间',
 PRIMARY KEY ( `LAB_NUM` )
-)COMMENT = '标签分类表';
+)COMMENT = '标签分类表';*/
 
 
 ##问题表
@@ -1383,9 +1498,11 @@ PRIMARY KEY (`TEXT_ID`)
 ##好友申请记录表
 create table IF NOT EXISTS `COM_FRIEND_APPLY`(
 `APPLY_ID` INT AUTO_INCREMENT COMMENT '申请ID',
-`USER_ID` INTEGER NOT NULL COMMENT '用户ID',
-`FRIEND_ID` INTEGER NOT NULL COMMENT '好友ID',
+`USER_ID` INTEGER NOT NULL COMMENT '申请用户ID',
+`FRIEND_ID` INTEGER NOT NULL COMMENT '目标好友ID',
+`APPLY_MESSAGE` VARCHAR(200) NOT NULL COMMENT '申请信息',
 `FRI_APPLY_TIME` TIMESTAMP NOT NULL COMMENT '好友申请时间',
+`FRI_IS_READ` INTEGER DEFAULT '0' COMMENT '申请是否阅读',
 `FRI_APPLY_ACCEPT` INTEGER DEFAULT '0' COMMENT '申请是否通过',
 PRIMARY KEY (`APPLY_ID`)
 )COMMENT = '好友申请记录表';
@@ -1395,10 +1512,10 @@ PRIMARY KEY (`APPLY_ID`)
 create table IF NOT EXISTS `COM_FRIEND_RELATION`(
 `RELA_ID` INT AUTO_INCREMENT COMMENT '关系ID',
 `USER_ID` INTEGER NOT NULL COMMENT '用户ID',
+`FRIEND_ID` INTEGER NOT NULL COMMENT '好友ID',
 `ADD_TIME` TIMESTAMP NOT NULL COMMENT '添加时间',
 `IS_DELETE` INTEGER DEFAULT '0' COMMENT '是否删除',
 `IS_DELETE_TIME` TIMESTAMP NULL DEFAULT NULL COMMENT '删除时间',
-`FRIEND_ID` INTEGER NOT NULL COMMENT '好友ID',
 PRIMARY KEY (`RELA_ID`)
 )COMMENT = '好友关系表';
 
@@ -1533,19 +1650,19 @@ create table IF NOT EXISTS `RECOM_CAMPUS_RECRUIT`(
 
 ############################################系统层数据###########################################################
 TRUNCATE TABLE `youthchina`.`SYS_USER`  ;
-INSERT INTO `youthchina`.`SYS_USER` (`USER_ID`, `USER_NAME`, `USER_PASS`, `USER_REGIST_TIME`, `USER_FIRST_NAME`, `USER_LAST_NAME`, `USER_GENDER`, `USER_AGE`, `USER_NATION`, `USER_MAIL`, `USER_PHONE`, `USER_PHOTO`, `USER_LOCATION`, `USER_NICKNAME`, `USER_ON_JOB`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
-('1', 'Admin', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '2019-01-01 00:00:00', 'Admin', 'Admin', 'Male', '25', 'CHN', '123456@123.com', '1234657890123', '---', '110000', '---', '0', '0', '2019-01-01 00:00:00'),
-('2', 'DEF', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '2019-01-01 00:00:00', 'DDD', 'DDDEEEFFF', 'Female', '28', 'USA', '123456@456.com', '9876543210123', '---', '110000', '---', '1', '0', '2019-01-01 00:00:00'),
-('3', 'GHI', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '2019-01-01 00:00:00', 'GGG', 'GGGHHHIII', 'Male', '26', 'CHN', '123456@789.com', '1112223334445', '---', '110000', '---', '1', '0', '2019-01-01 00:00:00'),
-('4', 'ABC', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '2019-01-01 00:00:00', 'AAA', 'AAABBBCCC', 'Male', '25', 'CHN', '123456@123.com', '1234657890123', '---', '110000', '---', '1', '0', '2019-01-01 00:00:00'),
-('5', 'DEF', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '2019-01-01 00:00:00', 'DDD', 'DDDEEEFFF', 'Female', '28', 'USA', '123456@456.com', '9876543210123', '---', '110000', '---', '1', '0', '2019-01-01 00:00:00'),
-('6', 'GHI', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '2019-01-01 00:00:00', 'GGG', 'GGGHHHIII', 'Male', '26', 'CHN', '123456@789.com', '1112223334445', '---', '110000', '---', '1', '0', '2019-01-01 00:00:00'),
-('7', 'ABC', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '2019-01-01 00:00:00', 'AAA', 'AAABBBCCC', 'Male', '25', 'CHN', '123456@123.com', '1234657890123', '---', '110000', '---', '1', '0', '2019-01-01 00:00:00'),
-('8', 'DEF', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '2019-01-01 00:00:00', 'DDD', 'DDDEEEFFF', 'Female', '28', 'USA', '123456@456.com', '9876543210123', '---', '110000', '---', '1', '0', '2019-01-01 00:00:00'),
-('9', 'GHI', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '2019-01-01 00:00:00', 'GGG', 'GGGHHHIII', 'Male', '26', 'CHN', '123456@789.com', '1112223334445', '---', '110000', '---', '0', '0', '2019-01-01 00:00:00'),
-('10', 'TestUser1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '2019-01-01 00:00:00', 'Wu', 'Danni', 'Female', '21', 'CHN', 'anniewu123@gwu.edu', '2022944356', '---', '110000', '---', '0', '0', '2019-01-01 00:00:00'),
-('11', 'TestUser2', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '2019-01-01 00:00:00', '吴', '嘉敏', 'Female', '21', 'CHN', 'carmenwu@gwu.edu', '135-3261-1999', '---', '110000', '---', '0', '0', '2019-01-01 00:00:00'),
-('12', 'TestUser3', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '2019-01-01 00:00:00', '夏', '锐思', 'Female', '21', 'CHN', 'ruisixia99@gwu.edu', '2027060507', '---', '110000', '---', '0', '0', '2019-01-01 00:00:00');
+INSERT INTO `youthchina`.`SYS_USER` (`USER_ID`, `USER_MAIL`, `MAIL_VERIFY`, `USER_PHONE`, `PHONE_VERIFY`, `USER_PASS`, `USER_NICKNAME`, `USER_FIRST_NAME`, `USER_LAST_NAME`, `USER_GENDER`, `USER_DATE_OF_BIRTH`, `USER_PHOTO`, `USER_LOCATION`, `USER_ON_JOB`, `USER_REGIST_TIME`, `CONTENT_CHANGE_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
+('1', 'Admin1', '1', '12345', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Admin1', 'Admin1', 'Male', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('2', 'Admin2', '1', '23456', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Admin2', 'Admin2', 'Female', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('3', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'Male', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('4', '123456@123.com', '1', '1234657890123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'AAA', 'AAABBBCCC', 'Male', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('5', '123456@456.com', '1', '9876543210123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'DDD', 'DDDEEEFFF', 'Female', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('6', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'Male', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('7', '123456@123.com', '1', '1234657890123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'AAA', 'AAABBBCCC', 'Male', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('8', '123456@456.com', '1', '9876543210123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'DDD', 'DDDEEEFFF', 'Female', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('9', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'Male', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('10', 'anniewu123@gwu.edu', '1', '2022944356', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Wu', 'Danni', 'Female', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('11', 'carmenwu@gwu.edu', '1', '135-3261-1999', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', '吴', '嘉敏', 'Female', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('12', 'ruisixia99@gwu.edu', '1', '2027060507', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', '夏', '锐思', 'Female', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_ROLE`  ;
@@ -1554,24 +1671,23 @@ INSERT INTO `youthchina`.`SYS_ROLE` (`ROLE_ID`, `ROLE_DESCRPTIPON`, `IS_DELETE`,
 ('2', 'ADMIN', '0', '2019-01-01 00:00:00'),
 ('3', 'APPLICANT', '0', '2019-01-01 00:00:00'),
 ('4', 'HR', '0', '2019-01-01 00:00:00'),
-('5', 'EMPLOYER', '0', '2019-01-01 00:00:00');
+('5', 'COMPANY', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_USER_ROLE`  ;
 INSERT INTO `youthchina`.`SYS_USER_ROLE` (`USER_ID`, `ROLE_ID`, `STRAT_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('1', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('10', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('11', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('12', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('2', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('3', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('4', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('5', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('6', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('7', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('8', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('9', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
-
+('10', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('11', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('12', '2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('2', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('3', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('4', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('5', '3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('6', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('7', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('8', '4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('9', '5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 TRUNCATE TABLE `youthchina`.`SYS_PERMISSION`  ;
 INSERT INTO `youthchina`.`SYS_PERMISSION` (`PERMI_ID`, `PERMI_FUNCTION`, `PERMI_DESCRPTIPON`, `PERMI_TYPE`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
@@ -3172,7 +3288,10 @@ INSERT INTO `youthchina`.`SYS_MAJOR` (`MAJOR_NUM`, `MAJOR_LEVEL`, `MAJOR_CODE`, 
  ('607', '3', '130506', '公共艺术', '公共艺术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
  ('608', '3', '130507', '工艺美术', '工艺美术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
  ('609', '3', '130508', '数字媒体艺术', '数字媒体艺术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('610', '3', '130509T', '艺术与科技', '艺术与科技', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+ ('610', '3', '130509T', '艺术与科技', '艺术与科技', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('99997', '1', '999', '其他专业', '其他专业', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('99998', '2', '9999', '其他专业', '其他专业', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+ ('99999', '3', '99999', '其他专业', '其他专业', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_DEGREE`;
@@ -3185,8 +3304,85 @@ INSERT INTO `youthchina`.`SYS_DEGREE` (`DEGREE_NUM`, `DEGREE_CHN`, `DEGREE_ENG`,
  ('6', '博士后', 'Postdoctor', '2019-01-01 00:00:00');
 
 
+TRUNCATE TABLE `youthchina`.`SYS_DIPLOMA`;
+INSERT INTO `youthchina`.`SYS_DIPLOMA` (`DIPLOMA_NUM`, `DIPLOMA_CHN`, `DIPLOMA_ENG`, `DIPLOMA_ENG_ABBRE`, `START_DATE`) VALUES 
+('1001', '文学士', 'Bachelor of Arts', 'B.A.', '2019-01-01 00:00:00'),
+('1002', '建筑学士', 'Bachelor of Architecture', 'B.Arch.', '2019-01-01 00:00:00'),
+('1003', '教育学文学士', 'Bachelor of Arts in Education', 'B.A.Ed.', '2019-01-01 00:00:00'),
+('1004', '工商管理学士', 'Bachelor of Business Administration', 'B.B.A.', '2019-01-01 00:00:00'),
+('1005', '社会工作学文学士', 'Bachelor of Arts in Social Work', 'B.A.S.W.', '2019-01-01 00:00:00'),
+('1006', '教育学士', 'Bachelor of Education', 'B.Ed.', '2019-01-01 00:00:00'),
+('1007', '艺术学士', 'Bachelor of Fine Arts', 'B.F.A.', '2019-01-01 00:00:00'),
+('1008', '通识学士', 'Bachelor of General Studies', 'B.G.S.', '2019-01-01 00:00:00'),
+('1009', '文理学学士', 'Bachelor of Liberal Studies', 'B.L.S.', '2019-01-01 00:00:00'),
+('1010', '工学士', 'Bachelor of Engineering', 'B.Eng.', '2019-01-01 00:00:00'),
+('1011', '音乐学士', 'Bachelor of Music', 'B.Mus.', '2019-01-01 00:00:00'),
+('1012', '音乐教育学士', 'Bachelor of Music Education', 'B.M.Ed.', '2019-01-01 00:00:00'),
+('1013', '护理学士', 'Bachelor of Nursing', 'B.N.', '2019-01-01 00:00:00'),
+('1014', '专业进修学士', 'Bachelor of Professional Studies', 'B.P.S', '2019-01-01 00:00:00'),
+('1015', '工商管理学理学士', 'Bachelor of Science in Business Administration', 'B.S.B.A', '2019-01-01 00:00:00'),
+('1016', '理学士', 'Bachelor of Science', 'B.S.', '2019-01-01 00:00:00'),
+('1017', '商学理学士', 'Bachelor of Science in Business', 'B.S.Bus.', '2019-01-01 00:00:00'),
+('1018', '教育学理学士', 'Bachelor of Science in Education', 'B.S.Ed.', '2019-01-01 00:00:00'),
+('1019', '工程学理学士', 'Bachelor of Science in Engineering', 'B.S.Eng', '2019-01-01 00:00:00'),
+('1020', '医学理学士', 'Bachelor of Science in Medicine', 'B.S.Med.', '2019-01-01 00:00:00'),
+('1021', '医技学理学士', 'Bachelor of Science in Medical Technology', 'B.S.M.T.', '2019-01-01 00:00:00'),
+('1022', '护理学理学士', 'Bachelor of Science in Nursing', 'B.S.Nurs.', '2019-01-01 00:00:00'),
+('1023', '社会工作学理学士', 'Bachelor of Science in Social Work', 'B.S.S.W.', '2019-01-01 00:00:00'),
+('1024', '科技学理学士', 'Bachelor of Science in Technology', 'B.S.T.', '2019-01-01 00:00:00'),
+('1025', '社会工作学士', 'Bachelor in Social Work', 'B.S.W.', '2019-01-01 00:00:00'),
+('1026', '科技学士', 'Bachelor of Technology', 'B.T.', '2019-01-01 00:00:00'),
+('1027', '法学士', 'Bachelor of Law', 'LL.B.', '2019-01-01 00:00:00'),
+('1999', '其他学士', 'Other Bachelor', 'O.BAC', '2019-01-01 00:00:00'),
+('2001', '文学硕士', 'Master of Arts', 'M.A', '2019-01-01 00:00:00'),
+('2002', '会计学硕士', 'Master of Accounting', 'M.Acc', '2019-01-01 00:00:00'),
+('2003', '教育学文学硕士', 'Master of Arts in Education', 'M.A.Ed', '2019-01-01 00:00:00'),
+('2004', '建筑学硕士', 'Master of Architecture', 'M.Arch', '2019-01-01 00:00:00'),
+('2005', '教育文学硕士', 'Master of Arts in Teaching', 'M.A.T', '2019-01-01 00:00:00'),
+('2006', '工商管理学硕士', 'Master of Business Administration', 'M.B.A', '2019-01-01 00:00:00'),
+('2007', '土木工程学硕士', 'Master of Civil Engineering', 'M.C.E', '2019-01-01 00:00:00'),
+('2008', '化学工程学硕士', 'Master of Chemical Engineering', 'M.Ch.E', '2019-01-01 00:00:00'),
+('2009', '刑事学硕士', 'Master of Criminal Justice', 'M.C.J', '2019-01-01 00:00:00'),
+('2010', '神学学硕士', 'Master of Divinity', 'M.Div', '2019-01-01 00:00:00'),
+('2011', '工程学硕士', 'Master of Engineering', 'M.E', '2019-01-01 00:00:00'),
+('2012', '教育学硕士', 'Master of Education', 'M.Ed', '2019-01-01 00:00:00'),
+('2013', '电机工程学硕士', 'Master of Electrical Engineering', 'M.E.E', '2019-01-01 00:00:00'),
+('2014', '经济学硕士', 'Master of Economics', 'M.Ec', '2019-01-01 00:00:00'),
+('2015', '艺术硕士', 'Master of Fine Arts', 'M.F.A', '2019-01-01 00:00:00'),
+('2016', '法学硕士', 'Master of Law', 'M.L', '2019-01-01 00:00:00'),
+('2017', '图书馆学硕士', 'Master of Library Science', 'M.L.S', '2019-01-01 00:00:00'),
+('2018', '音乐硕士', 'Master of Music', 'M.M', '2019-01-01 00:00:00'),
+('2019', '音乐教育学硕士', 'Master of Music Education', 'M.M.Ed', '2019-01-01 00:00:00'),
+('2020', '护理学硕士', 'Master of Nursing', 'M.N', '2019-01-01 00:00:00'),
+('2021', '公共行政学硕士', 'Master of Public Administration', 'M.P.A', '2019-01-01 00:00:00'),
+('2022', '心理学硕士', 'Master of Psychology', 'M.Psy', '2019-01-01 00:00:00'),
+('2023', '理学硕士', 'Master of Science', 'M.S', '2019-01-01 00:00:00'),
+('2024', '刑事理学硕士', 'Master of Science in Criminal Justice', 'M.C.J', '2019-01-01 00:00:00'),
+('2025', '教育理学硕士', 'Master of Science in Education', 'M.S.Ed', '2019-01-01 00:00:00'),
+('2026', '电机工程理学硕士', 'Master of Science in Electrical Engineering', 'M.S.E.E', '2019-01-01 00:00:00'),
+('2027', '图书馆理学硕士', 'Master of Science in Library Science', 'M.S.L.S', '2019-01-01 00:00:00'),
+('2028', '医技理学硕士', 'Master of Science in Medical Technology', 'M.S.M.T', '2019-01-01 00:00:00'),
+('2029', '护理理学硕士', 'Master of Science in Nursing', 'M.S.N', '2019-01-01 00:00:00'),
+('2030', '社会工作理学硕士', 'Master of Science in Social Work', 'M.S.S.W', '2019-01-01 00:00:00'),
+('2031', '社会工作学硕士', 'Master of Social Work', 'M.S.W', '2019-01-01 00:00:00'),
+('2999', '其他硕士', 'Other Master', 'O.MAS', '2019-01-01 00:00:00'),
+('3001', '文学博士', 'Doctor of Arts', 'D.A', '2019-01-01 00:00:00'),
+('3002', '牙科博士', 'Doctor of Dental Science', 'D.D.S', '2019-01-01 00:00:00'),
+('3003', '科学博士', 'Doctor of Science', 'D.Sc.', '2019-01-01 00:00:00'),
+('3004', '工程博士', 'Doctor of Engineering', 'D.E', '2019-01-01 00:00:00'),
+('3005', '教育学博士', 'Doctor of Education', 'D.Ed', '2019-01-01 00:00:00'),
+('3006', '音乐艺术博士', 'Doctor of Musical Arts', 'D.M.A', '2019-01-01 00:00:00'),
+('3007', '骨科博士', 'Doctor of Osteopathy', 'D.O', '2019-01-01 00:00:00'),
+('3008', '社会科学博士', 'Doctor of Social Science', 'D.S.S', '2019-01-01 00:00:00'),
+('3009', '兽医学博士', 'Doctor of Veterinary Medicine', 'D.V.M', '2019-01-01 00:00:00'),
+('3010', '法理学博士', 'Doctor of Jurisprudence', 'J.D', '2019-01-01 00:00:00'),
+('3011', '司法学博士', 'Doctor of Judical Science', 'J.S.D', '2019-01-01 00:00:00'),
+('3012', '工商管理博士', 'Doctor of Business Administration', 'D.B.A', '2019-01-01 00:00:00'),
+('3013', '会计学博士', 'Doctor of Accountancy', 'D.Acc', '2019-01-01 00:00:00'),
+('3999', '其他博士', 'Other PHD', 'O.PHD', '2019-01-01 00:00:00');
 
-TRUNCATE TABLE `youthchina`.`SYS_ADVAN_LABEL_CLASS`;
+
+/*TRUNCATE TABLE `youthchina`.`SYS_ADVAN_LABEL_CLASS`;
 INSERT INTO `youthchina`.`SYS_ADVAN_LABEL_CLASS` (`LABEL_ID`, `LABEL_LEVEL`, `LABEL_CODE`, `LABEL_PARENT_CODE`, `LABEL_CHN`, `LABEL_ENG`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
  ('1', '1', 'I6510', 'root', '软件开发', 'Software Developer', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
  ('2', '2', 'I65101', 'I6510', '技术类', 'Technology', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -3203,28 +3399,463 @@ INSERT INTO `youthchina`.`SYS_ADVAN_LABEL_CLASS` (`LABEL_ID`, `LABEL_LEVEL`, `LA
  ('13', '4', 'I6510201002', 'I6510201', '产品助理', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
  ('14', '4', 'I6510201003', 'I6510201', '产品专员', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
  ('15', '3', 'I6510202', 'I65102', '高端产品', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('16', '4', 'I6510202001', 'I6510202', '产品总监', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+ ('16', '4', 'I6510202001', 'I6510202', '产品总监', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');*/
+
+
+
+TRUNCATE TABLE `youthchina`.`SYS_LABEL`;
+INSERT INTO `youthchina`.`SYS_LABEL` (`LABEL_ID`, `LABEL_LEVEL`, `LABEL_CODE`, `LABEL_PARENT_CODE`, `LABEL_CHN`, `LABEL_ENG`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
+('1', '1', '1', '---', '财务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('2', '1', '2', '---', '审计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('3', '1', '3', '---', '税务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('4', '1', '4', '---', '咨询', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('5', '1', '5', '---', '金融', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('6', '1', '6', '---', '产品', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('7', '1', '7', '---', '运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('8', '1', '8', '---', '翻译', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('9', '1', '9', '---', '编辑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('10', '1', '10', '---', '客服', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('11', '1', '11', '---', '技术支持', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('12', '1', '12', '---', 'IT技术', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('13', '1', '13', '---', '市场', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('14', '1', '14', '---', '公关', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('15', '1', '15', '---', '设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('16', '1', '16', '---', '传媒', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('17', '1', '17', '---', '法务法律', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('18', '1', '18', '---', '人事', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('19', '1', '19', '---', '行政', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('20', '1', '20', '---', '助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('21', '1', '21', '---', '健康', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('22', '1', '22', '---', '医疗', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('23', '1', '23', '---', '公务员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('24', '1', '24', '---', '事业单位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('25', '1', '25', '---', '科研', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('26', '1', '26', '---', '旅游', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('27', '1', '27', '---', '酒店', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('28', '1', '28', '---', '度假', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('29', '1', '29', '---', '供应链', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30', '1', '30', '---', '贸易', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('31', '1', '31', '---', '交通', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('32', '1', '32', '---', '物流', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('33', '1', '33', '---', '机械制造', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('34', '1', '34', '---', '自动化', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('35', '1', '35', '---', '质量管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('36', '1', '36', '---', '项目管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('37', '1', '37', '---', '教育', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('38', '1', '38', '---', '培训', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('39', '1', '39', '---', '管理培训生', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40', '1', '40', '---', '其他', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+
+
+
+TRUNCATE TABLE `youthchina`.`SYS_LABEL_MAP`;
+INSERT INTO `youthchina`.`SYS_LABEL_MAP` (`LABEL_ID`, `LAB_CODE`, `TARGET_ID`, `TARGET_TYPE`, `RELA_TIME`) VALUES 
+('1', '12', '1', '1', '2019-01-01 00:00:00'),
+('2', '12', '2', '1', '2019-01-01 00:00:00'),
+('3', '12', '3', '1', '2019-01-01 00:00:00'),
+('4', '12', '4', '1', '2019-01-01 00:00:00'),
+('5', '12', '5', '1', '2019-01-01 00:00:00'),
+('6', '12', '6', '1', '2019-01-01 00:00:00'),
+('7', '13', '1', '1', '2019-01-01 00:00:00'),
+('8', '13', '2', '1', '2019-01-01 00:00:00'),
+('9', '13', '3', '1', '2019-01-01 00:00:00'),
+('10', '13', '4', '1', '2019-01-01 00:00:00'),
+('11', '13', '5', '1', '2019-01-01 00:00:00'),
+('12', '13', '6', '1', '2019-01-01 00:00:00'),
+('13', '7', '38', '200', '2019-01-01 00:00:00'),
+('14', '7', '39', '200', '2019-01-01 00:00:00'),
+('15', '7', '40', '200', '2019-01-01 00:00:00'),
+('16', '7', '41', '200', '2019-01-01 00:00:00'),
+('17', '7', '42', '200', '2019-01-01 00:00:00'),
+('18', '7', '43', '200', '2019-01-01 00:00:00'),
+('19', '7', '1', '300', '2019-01-01 00:00:00'),
+('20', '7', '2', '300', '2019-01-01 00:00:00'),
+('21', '7', '3', '300', '2019-01-01 00:00:00'),
+('22', '7', '4', '300', '2019-01-01 00:00:00'),
+('23', '7', '5', '300', '2019-01-01 00:00:00'),
+('24', '7', '6', '300', '2019-01-01 00:00:00'),
+('25', '7', '7', '300', '2019-01-01 00:00:00'),
+('26', '7', '1', '100', '2019-01-01 00:00:00'),
+('27', '8', '1', '100', '2019-01-01 00:00:00'),
+('28', '9', '1', '100', '2019-01-01 00:00:00'),
+('29', '10', '1', '100', '2019-01-01 00:00:00'),
+('30', '11', '1', '100', '2019-01-01 00:00:00'),
+('31', '12', '1', '100', '2019-01-01 00:00:00'),
+('32', '8', '2', '100', '2019-01-01 00:00:00'),
+('33', '9', '2', '100', '2019-01-01 00:00:00'),
+('34', '10', '2', '100', '2019-01-01 00:00:00'),
+('35', '11', '2', '100', '2019-01-01 00:00:00'),
+('36', '13', '2', '100', '2019-01-01 00:00:00');
 
 
 
 TRUNCATE TABLE `youthchina`.`SYS_PROF_CLASS`;
-INSERT INTO `youthchina`.`SYS_PROF_CLASS` (`PROF_NUM`, `PROF_LEVEL`, `PROF_CODE`, `PROF_PARENT_CODE`, `PROF_CHN`, `PROF_ENG`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES
- ('1', '1', 'I6510', 'root', '软件开发', 'Software Developer', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('2', '2', 'I65101', 'I6510', '技术类', 'Technology', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('3', '3', 'I6510101', 'I65101', '前端开发工程师类', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('4', '4', 'I6510101001', 'I6510101', 'web前端', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('5', '4', 'I6510101002', 'I6510101', 'Javascript', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('6', '4', 'I6510101003', 'I6510101', 'HTML5', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('7', '3', 'I6510102', 'I65101', '后端开发工程师类', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('8', '4', 'I6510102001', 'I6510102', 'C++', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('9', '4', 'I6510102002', 'I6510102', 'Java', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('10', '2', 'I65102', 'I6510', '产品类', 'Product', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('11', '3', 'I6510201', 'I65102', '产品经理类', 'Product Manager', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('12', '4', 'I6510201001', 'I6510201', '产品经理', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('13', '4', 'I6510201002', 'I6510201', '产品助理', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('14', '4', 'I6510201003', 'I6510201', '产品专员', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('15', '3', 'I6510202', 'I65102', '高端产品职位类', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
- ('16', '4', 'I6510202001', 'I6510202', '产品总监', '1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+INSERT INTO `youthchina`.`SYS_PROF_CLASS` (`PROF_NUM`, `PROF_LEVEL`, `PROF_CODE`, `PROF_PARENT_CODE`, `PROF_CHN`, `PROF_ENG`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES ('1', '1', 'I10001', '0', '软件工程师', 'Software Developer', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('2', '2', 'I10001001', 'I10001', '前端开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('3', '2', 'I10001002', 'I10001', '后端开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('4', '2', 'I10001003', 'I10001', '移动端开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('5', '2', 'I10001004', 'I10001', '全栈开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('6', '2', 'I10001005', 'I10001', '数据库开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('7', '2', 'I10001006', 'I10001', 'ETL工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('8', '2', 'I10001007', 'I10001', '测试工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('9', '2', 'I10001008', 'I10001', '技术支持工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('10', '2', 'I10001009', 'I10001', '运维工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('11', '2', 'I10001010', 'I10001', '算法工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('12', '2', 'I10001011', 'I10001', '软件架构师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('13', '2', 'I10001012', 'I10001', '测试经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('14', '2', 'I10001999', 'I10001', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('15', '1', 'I10002', '0', '人工智能', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('16', '2', 'I10002001', 'I10002', '机器学习', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('17', '2', 'I10002002', 'I10002', '深度学习', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('18', '2', 'I10002003', 'I10002', '图像算法', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('19', '2', 'I10002004', 'I10002', '图像识别处理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('20', '2', 'I10002005', 'I10002', '语音识别', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('21', '2', 'I10002999', 'I10002', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('22', '1', 'I10003', '0', '硬件工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('23', '2', 'I10003001', 'I10003', '嵌入式工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('24', '2', 'I10003002', 'I10003', '自动化工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('25', '2', 'I10003003', 'I10003', '电子工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('26', '2', 'I10003004', 'I10003', '电气设计工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('27', '2', 'I10003005', 'I10003', '电路设计工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('28', '2', 'I10003006', 'I10003', '驱动开发工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('29', '2', 'I10003007', 'I10003', '系统集成工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30', '2', 'I10003008', 'I10003', '模具设计工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('31', '2', 'I10003009', 'I10003', '硬件测试工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('32', '2', 'I10003010', 'I10003', '失效分析工程师FAE', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('33', '2', 'I10003999', 'I10003', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('34', '1', 'I10004', '0', '通信工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('35', '2', 'I10004001', 'I10004', '移动通信工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('36', '2', 'I10004002', 'I10004', '电信网络工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('37', '2', 'I10004003', 'I10004', '电信交换工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('38', '2', 'I10004004', 'I10004', '有线传输工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('39', '2', 'I10004005', 'I10004', '无线射频工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40', '2', 'I10004006', 'I10004', '通信电源工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('41', '2', 'I10004007', 'I10004', '通信项目专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('42', '2', 'I10004008', 'I10004', '通信项目经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('43', '2', 'I10004009', 'I10004', '核心网工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('44', '2', 'I10004010', 'I10004', '通信测试工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('45', '2', 'I10004011', 'I10004', '通信设备工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('46', '2', 'I10004012', 'I10004', '光通信工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('47', '2', 'I10004013', 'I10004', '光传输工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('48', '2', 'I10004014', 'I10004', '光网络工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('49', '2', 'I10004999', 'I10004', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('50', '2', 'I19999997', 'I10004', '技术经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('51', '2', 'I19999998', 'I10004', '技术总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('52', '2', 'I19999999', 'I10004', '首席技术官', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('53', '1', 'I20001', '0', '产品经理', 'Product Manager', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('54', '2', 'I20001001', 'I20001', '网页产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('55', '2', 'I20001002', 'I20001', '移动产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('56', '2', 'I20001003', 'I20001', '产品助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('57', '2', 'I20001004', 'I20001', '数据产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('58', '2', 'I20001005', 'I20001', '电商产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('59', '2', 'I20001006', 'I20001', '游戏策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('60', '2', 'I20001007', 'I20001', '产品专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('61', '2', 'I20001008', 'I20001', '游戏制作人', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('62', '2', 'I20001009', 'I20001', '产品VP', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('63', '2', 'I20001998', 'I20001', '产品总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('64', '2', 'I20001999', 'I20001', '其他产品职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('65', '1', 'I30001', '0', '多媒体设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('66', '2', 'I30001001', 'I30001', '视觉设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('67', '2', 'I30001002', 'I30001', '网页设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('68', '2', 'I30001003', 'I30001', 'Flash设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('69', '2', 'I30001004', 'I30001', 'APP设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('70', '2', 'I30001005', 'I30001', 'UI设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('71', '2', 'I30001006', 'I30001', '平面设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('72', '2', 'I30001007', 'I30001', '美术设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('73', '2', 'I30001008', 'I30001', '广告设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('74', '2', 'I30001009', 'I30001', '三维/CAD/制图', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('75', '2', 'I30001010', 'I30001', '视觉设计经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('76', '2', 'I30001011', 'I30001', '视觉设计总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('77', '2', 'I30001999', 'I30001', '其他设计职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('78', '1', 'I30002', '0', '游戏设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('79', '2', 'I30002001', 'I30002', '游戏界面设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('80', '2', 'I30002002', 'I30002', '游戏特效', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('81', '2', 'I30002003', 'I30002', '游戏场景', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('82', '2', 'I30002004', 'I30002', '游戏角色', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('83', '2', 'I30002005', 'I30002', '游戏动作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('84', '2', 'I30002999', 'I30002', '其他游戏职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('85', '1', 'I30003', '0', '美工', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('86', '2', 'I30003001', 'I30003', '原画师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('87', '2', 'I30003002', 'I30003', '插画师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('88', '2', 'I30003003', 'I30003', '动画设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('89', '2', 'I30003004', 'I30003', '设计师助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('90', '2', 'I30003999', 'I30003', '其他美工职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('91', '1', 'I30004', '0', '交互设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('92', '2', 'I30004001', 'I30004', '无线交互设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('93', '2', 'I30004002', 'I30004', '网页交互设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('94', '2', 'I30004003', 'I30004', '硬件交互设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('95', '2', 'I30004004', 'I30004', '交互设计经理/主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('96', '2', 'I30004005', 'I30004', '交互设计总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('97', '2', 'I30004999', 'I30004', '其他交互设计职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('98', '2', 'I39999997', 'I30004', '设计经理/主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('99', '2', 'I39999998', 'I30004', '设计总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('100', '2', 'I39999999', 'I30004', '首席设计官', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('101', '1', 'I40001', '0', '用户研究', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('102', '2', 'I40004001', 'I40001', '数据分析师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('103', '2', 'I40004002', 'I40001', '用户研究员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('104', '2', 'I40004003', 'I40001', '游戏数值策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('105', '2', 'I40004004', 'I40001', '用户体验设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('106', '2', 'I40004997', 'I40001', '用户研究经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('107', '2', 'I40004998', 'I40001', '用户研究总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('108', '2', 'I40004999', 'I40001', '其他用户研究职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('109', '1', 'R10001', '0', '编辑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('110', '2', 'R10002001', 'R10001', '内容编辑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('111', '2', 'R10002002', 'R10001', '文案策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('112', '2', 'R10002003', 'R10001', '网站编辑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('113', '2', 'R10002004', 'R10001', '记者', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('114', '2', 'R10002005', 'R10001', '采编', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('115', '2', 'R10002997', 'R10001', '副主编', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('116', '2', 'R10002998', 'R10001', '主编', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('117', '2', 'R10002999', 'R10001', '其他编辑职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('118', '1', 'R20001', '0', '市场/营销', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('119', '2', 'R20001001', 'R20001', '选址开发', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('120', '2', 'R20001002', 'R20001', '市场营销', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('121', '2', 'R20001003', 'R20001', '市场策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('122', '2', 'R20001004', 'R20001', '市场顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('123', '2', 'R20001005', 'R20001', '市场推广', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('124', '2', 'R20001006', 'R20001', 'SEO', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('125', '2', 'R20001007', 'R20001', 'SEM', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('126', '2', 'R20001008', 'R20001', '商务渠道', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('127', '2', 'R20001009', 'R20001', '商业数据分析', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('128', '2', 'R20001010', 'R20001', '活动策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('129', '2', 'R20001011', 'R20001', '海外市场', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('130', '2', 'R20001012', 'R20001', '政府关系', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('131', '2', 'R20001013', 'R20001', 'APP推广', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('132', '2', 'R20001998', 'R20001', '市场总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('133', '2', 'R20001999', 'R20001', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('134', '1', 'R20002', '0', '销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('135', '2', 'R20002001', 'R20002', '销售专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('136', '2', 'R20002002', 'R20002', '销售经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('137', '2', 'R20002003', 'R20002', '客户代表', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('138', '2', 'R20002004', 'R20002', '大客户代表', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('139', '2', 'R20002005', 'R20002', 'BD经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('140', '2', 'R20002006', 'R20002', '商务渠道', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('141', '2', 'R20002007', 'R20002', '渠道销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('142', '2', 'R20002008', 'R20002', '代理商销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('143', '2', 'R20002009', 'R20002', '销售助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('144', '2', 'R20002010', 'R20002', '电话销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('145', '2', 'R20002011', 'R20002', '销售顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('146', '2', 'R20002012', 'R20002', '商品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('147', '2', 'R20002013', 'R20002', '广告销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('148', '2', 'R20002014', 'R20002', '网络营销', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('149', '2', 'R20002015', 'R20002', '营销主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('150', '2', 'R20002016', 'R20002', '销售工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('151', '2', 'R20002017', 'R20002', '客户经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('152', '2', 'R20002018', 'R20002', '团队经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('153', '2', 'R20002019', 'R20002', '城市经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('154', '2', 'R20002995', 'R20002', '销售总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('155', '2', 'R20002996', 'R20002', '区域总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('156', '2', 'R20002997', 'R20002', '销售VP', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('157', '2', 'R20002998', 'R20002', '商务总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('158', '2', 'R20002999', 'R20002', '其他销售职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('159', '2', 'R20002001', 'R20002', '公关媒介', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('160', '2', 'R20002002', 'R20002', '媒介经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('161', '2', 'R20002003', 'R20002', '广告协调', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('162', '2', 'R20002004', 'R20002', '品牌公关', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('163', '2', 'R20002005', 'R20002', '媒介专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('164', '2', 'R20002006', 'R20002', '活动策划执行', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('165', '2', 'R20002007', 'R20002', '媒介策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('166', '2', 'R20002997', 'R20002', '媒介总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('167', '2', 'R20002998', 'R20002', '公关总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('168', '2', 'R20002999', 'R20002', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('169', '2', 'R29999999', 'R20002', 'CMO', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('170', '1', 'R30001', '0', '广告', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('171', '2', 'R30001001', 'R30001', '广告创意', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('172', '2', 'R30001002', 'R30001', '美术指导', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('173', '2', 'R30001003', 'R30001', '广告设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('174', '2', 'R30001004', 'R30001', '策划经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('175', '2', 'R30001005', 'R30001', '文案', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('176', '2', 'R30001006', 'R30001', '广告制作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('177', '2', 'R30001007', 'R30001', '媒介投放', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('178', '2', 'R30001008', 'R30001', '媒介合作', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('179', '2', 'R30001009', 'R30001', '媒介顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('180', '2', 'R30001010', 'R30001', '广告审核', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('181', '2', 'R30001998', 'R30001', '创意总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('182', '2', 'R30001999', 'R30001', '其他广告职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('183', '1', 'R40001', '0', '会务会展', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('184', '2', 'R40001002', 'R40001', '会议活动销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('185', '2', 'R40001003', 'R40001', '会议活动策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('186', '2', 'R40001004', 'R40001', '会议活动执行', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('187', '2', 'R40001005', 'R40001', '会展活动销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('188', '2', 'R40001006', 'R40001', '会展活动策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('189', '2', 'R40001007', 'R40001', '会展活动执行', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('190', '2', 'R40001999', 'R40001', '其他职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('191', '1', 'J10001', '0', '投融资', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('192', '2', 'J10001001', 'J10001', '投资经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('193', '2', 'J10001002', 'J10001', '行业研究', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('194', '2', 'J10001003', 'J10001', '资产管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('195', '2', 'J10001004', 'J10001', '融资', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('196', '2', 'J10001005', 'J10001', '并购', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('197', '2', 'J10001006', 'J10001', '资信评估', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('198', '2', 'J10001007', 'J10001', '合规稽查', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('199', '2', 'J10001008', 'J10001', '投后管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('200', '2', 'J10001009', 'J10001', '投资助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('201', '2', 'J10001010', 'J10001', '投资顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('202', '2', 'J10001011', 'J10001', '投资VP', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('203', '2', 'J10001012', 'J10001', '投资总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('204', '2', 'J10001013', 'J10001', '投资合伙人', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('205', '2', 'J10001999', 'J10001', '其他投融资职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('206', '1', 'J20001', '0', '银行职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('207', '2', 'J20001001', 'J20001', '信用卡销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('208', '2', 'J20001002', 'J20001', '分析师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('209', '2', 'J20001003', 'J20001', '柜员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('210', '2', 'J20001004', 'J20001', '商务渠道', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('211', '2', 'J20001005', 'J20001', '大堂经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('212', '2', 'J20001006', 'J20001', '理财顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('213', '2', 'J20001007', 'J20001', '客户经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('214', '2', 'J20001008', 'J20001', '信贷管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('215', '2', 'J20001999', 'J20001', '其他银行职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('216', '1', 'J30001', '0', '互联网金融', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('217', '2', 'J30001001', 'J30001', '金融产品经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('218', '2', 'J30001002', 'J30001', '风控专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('219', '2', 'J30001003', 'J30001', '催收员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('220', '2', 'J30001004', 'J30001', '分析师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('221', '2', 'J30001005', 'J30001', '投资经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('222', '2', 'J30001006', 'J30001', '交易员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('223', '2', 'J30001007', 'J30001', '理财顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('224', '2', 'J30001008', 'J30001', '合规稽查', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('225', '2', 'J30001009', 'J30001', '审计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('226', '2', 'J30001010', 'J30001', '清算', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('227', '2', 'J30001999', 'J30001', '其他互联网金融职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('228', '1', 'J40001', '0', '保险', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('229', '2', 'J40001001', 'J40001', '保险业务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('230', '2', 'J40001002', 'J40001', '精算师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('231', '2', 'J40001003', 'J40001', '保险理赔', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('232', '2', 'J40001999', 'J40001', '其他保险职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('233', '1', 'J50001', '0', '证券', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('234', '2', 'J50001001', 'J50001', '证券经纪人', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('235', '2', 'J50001002', 'J50001', '证券分析师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('236', '2', 'J50001999', 'J50001', '其他证券职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('237', '1', 'K10001', '0', '房地产', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('238', '2', 'K10001001', 'K10001', '房地产规划开发', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('239', '2', 'K10001002', 'K10001', '房产策划', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('240', '2', 'K10001003', 'K10001', '地产项目管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('241', '2', 'K10001004', 'K10001', '地产招投标', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('242', '2', 'K10001005', 'K10001', '设计装修与市政建设', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('243', '2', 'K10001006', 'K10001', '房地产销售总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('244', '2', 'K10001999', 'K10001', '其他房地产职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('245', '1', 'K10002', '0', '工程监理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('246', '2', 'K10002001', 'K10002', '工程造价', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('247', '2', 'K10002002', 'K10002', '预结算', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('248', '2', 'K10002003', 'K10002', '工程资料管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('249', '2', 'K10002004', 'K10002', '建筑施工现场管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('250', '2', 'K10002999', 'K10002', '其他监理职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('251', '1', 'K10003', '0', '地产经纪', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('252', '2', 'K10003001', 'K10003', '房地产经纪', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('253', '2', 'K10003002', 'K10003', '地产置业顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('254', '2', 'K10003003', 'K10003', '地产评估', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('255', '2', 'K10003004', 'K10003', '地产中介', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('256', '2', 'K10003999', 'K10003', '其他经纪职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('257', '1', 'K10004', '0', '物业', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('258', '2', 'K10004001', 'K10004', '物业管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('259', '2', 'K10004002', 'K10004', '物业租赁销售', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('260', '2', 'K10004003', 'K10004', '物业招商管理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('261', '2', 'K10004004', 'K10004', '高端房地产职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('262', '2', 'K10004005', 'K10004', '地产项目总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('263', '2', 'K10004006', 'K10004', '地产策划总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('264', '2', 'K10004007', 'K10004', '地产招投标总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('265', '2', 'K10004008', 'K10004', '物业总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('266', '2', 'K10004999', 'K10004', '其他物业管理职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('267', '1', 'K20001', '0', '设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('268', '2', 'K20001001', 'K20001', '珠宝设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('269', '2', 'K20001002', 'K20001', '包装设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('270', '2', 'K20001003', 'K20001', '服装设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('271', '2', 'K20001004', 'K20001', '工业设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('272', '2', 'K20001005', 'K20001', '橱柜设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('273', '2', 'K20001006', 'K20001', '家具设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('274', '2', 'K20001007', 'K20001', '室内设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('275', '2', 'K20001008', 'K20001', '园林设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('276', '2', 'K20001009', 'K20001', '陈列设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('277', '2', 'K20001010', 'K20001', '景观设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('278', '2', 'K20001011', 'K20001', '城市规划设计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('279', '2', 'K20001999', 'K20001', '其他设计职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('280', '1', 'K30001', '0', '建筑', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('281', '2', 'K30001001', 'K30001', '建筑工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('282', '2', 'K30001002', 'K30001', '建筑设计师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('283', '2', 'K30001003', 'K30001', '土建工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('284', '2', 'K30001004', 'K30001', '结构工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('285', '2', 'K30001005', 'K30001', '高级建筑工程师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('286', '2', 'K30001999', 'K30001', '其他建筑职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('342', '1', 'L10001', '0', '人力资源', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('343', '2', 'L10001001', 'L10001', '招聘专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('344', '2', 'L10001002', 'L10001', 'HRBP人力资源业务合作伙伴', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('345', '2', 'L10001003', 'L10001', '人力资源专员/助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('346', '2', 'L10001004', 'L10001', '培训专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('347', '2', 'L10001005', 'L10001', '薪资福利专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('348', '2', 'L10001006', 'L10001', '绩效考核专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('349', '2', 'L10001007', 'L10001', '员工关系专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('350', '2', 'L10001008', 'L10001', '组织发展专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('351', '2', 'L10001996', 'L10001', '人力资源主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('352', '2', 'L10001997', 'L10001', '人力资源经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('353', '2', 'L10001998', 'L10001', '人力资源总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('354', '2', 'L10001999', 'L10001', '其他HR职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('355', '1', 'L10002', '0', '行政', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('356', '2', 'L10002001', 'L10002', '行政专员/助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('357', '2', 'L10002002', 'L10002', '前台', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('358', '2', 'L10002003', 'L10002', '后勤', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('359', '2', 'L10002004', 'L10002', '商务司机', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('360', '2', 'L10002005', 'L10002', '经理助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('361', '2', 'L10002997', 'L10002', '行政主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('362', '2', 'L10002998', 'L10002', '行政经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('363', '2', 'L10002999', 'L10002', '行政总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('364', '2', 'L19999999', 'L10002', 'CHO', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('365', '1', 'L20001', '0', '财务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('366', '2', 'L20001001', 'L20001', '会计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('367', '2', 'L20001002', 'L20001', '出纳', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('368', '2', 'L20001003', 'L20001', '财务顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('369', '2', 'L20001004', 'L20001', '结算', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('370', '2', 'L20001005', 'L20001', '税务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('371', '2', 'L20001006', 'L20001', '审计', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('372', '2', 'L20001007', 'L20001', '风控', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('373', '2', 'L20001996', 'L20001', '财务主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('374', '2', 'L20001997', 'L20001', '财务经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('375', '2', 'L20001998', 'L20001', '财务总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('376', '2', 'L20001999', 'L20001', '其他财务职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('377', '2', 'L29999999', 'L20001', 'CFO', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('378', '1', 'L30001', '0', '法务', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('379', '2', 'L30001001', 'L30001', '法务专员/助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('380', '2', 'L30001002', 'L30001', '律师', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('381', '2', 'L30001003', 'L30001', '专利', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('382', '2', 'L30001004', 'L30001', '法律顾问', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('383', '2', 'L30001996', 'L30001', '法务主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('384', '2', 'L30001997', 'L30001', '法务经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('385', '2', 'L30001998', 'L30001', '法务总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('386', '2', 'L30001999', 'L30001', '其他职能职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('387', '1', 'L40001', '0', '运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('388', '2', 'L40001001', 'L40001', '用户运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('389', '2', 'L40001002', 'L40001', '产品运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('390', '2', 'L40001003', 'L40001', '数据运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('391', '2', 'L40001004', 'L40001', '内容运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('392', '2', 'L40001005', 'L40001', '活动运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('393', '2', 'L40001006', 'L40001', '商家运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('394', '2', 'L40001007', 'L40001', '品类运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('395', '2', 'L40001008', 'L40001', '游戏运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('396', '2', 'L40001009', 'L40001', '网络推广', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('397', '2', 'L40001010', 'L40001', '网站运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('398', '2', 'L40001011', 'L40001', '新媒体运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('399', '2', 'L40001012', 'L40001', '社区运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('400', '2', 'L40001013', 'L40001', '微信运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('401', '2', 'L40001014', 'L40001', '微博运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('402', '2', 'L40001015', 'L40001', '策略运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('403', '2', 'L40001016', 'L40001', '线下拓展运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('404', '2', 'L40001017', 'L40001', '电商运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('405', '2', 'L40001018', 'L40001', '运营助理/专员', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('406', '2', 'L40001019', 'L40001', '内容审核', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('407', '2', 'L40001020', 'L40001', '销售运营', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('408', '2', 'L40001997', 'L40001', '运营经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('409', '2', 'L40001998', 'L40001', '运营总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('410', '2', 'L40001999', 'L40001', '其他运营职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('411', '2', 'L49999999', 'L40001', '首席运营官', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('412', '1', 'L80001', '0', '客服', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('413', '2', 'L80001001', 'L80001', '售前咨询', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('414', '2', 'L80001002', 'L80001', '售后咨询', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('415', '2', 'L80001003', 'L80001', '客服经理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('416', '2', 'L80001001', 'L80001', '客服专员/助理', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('417', '2', 'L80001005', 'L80001', '网络客服', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('418', '2', 'L80001006', 'L80001', '电话客服', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('419', '2', 'L80001997', 'L80001', '客服主管', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('420', '2', 'L80001998', 'L80001', '客服总监', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('421', '2', 'L80001999', 'L80001', '其他客服职位', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 
@@ -4884,14 +5515,50 @@ INSERT INTO `youthchina`.`SYS_COMPANY_SCALE` (`SCALE_NUM`, `SCALE_CHN`, `SCALE_E
 
 TRUNCATE TABLE `youthchina`.`SYS_COMPANY_NATURE`;
 INSERT INTO `youthchina`.`SYS_COMPANY_NATURE` (`NATURE_NUM`, `NATURE_CHN`, `NATURE_ENG`, `NATURE_DETAIL`, `START_TIME`) VALUES 
-('1', '企业', 'Enterprise', '国有企业', '2019-01-01 00:00:00'),
-('2', '企业', 'Enterprise', '三资企业', '2019-01-01 00:00:00'),
-('3', '企业', 'Enterprise', '集体所有制企业', '2019-01-01 00:00:00'),
-('4', '企业', 'Enterprise', '联营企业', '2019-01-01 00:00:00'),
-('5', '企业', 'Enterprise', '私营企业', '2019-01-01 00:00:00'),
-('6', '企业', 'Enterprise', '其他企业', '2019-01-01 00:00:00'),
-('7', '机关单位', 'Organs and units', '立法机关', '2019-01-01 00:00:00'),
-('8', '机关单位', 'Organs and units', '警察机关', '2019-01-01 00:00:00');
+ ('1001', '企业', 'Enterprise', '国有企业', '2019-01-01 00:00:00'),
+ ('1002', '企业', 'Enterprise', '集体所有制企业', '2019-01-01 00:00:00'),
+ ('1003', '企业', 'Enterprise', '股份合作企业', '2019-01-01 00:00:00'),
+ ('1004', '企业', 'Enterprise', '联营企业', '2019-01-01 00:00:00'),
+ ('1005', '企业', 'Enterprise', '有限责任公司', '2019-01-01 00:00:00'),
+ ('1006', '企业', 'Enterprise', '股份有限公司', '2019-01-01 00:00:00'),
+ ('1007', '企业', 'Enterprise', '私营企业', '2019-01-01 00:00:00'),
+ ('1999', '企业', 'Enterprise', '其他企业', '2019-01-01 00:00:00'),
+ ('2001', '机关单位', 'Organs and units', '立法机关', '2019-01-01 00:00:00'),
+ ('2002', '机关单位', 'Organs and units', '警察机关', '2019-01-01 00:00:00'),
+ ('2003', '机关单位', 'Organs and units', '检察机关', '2019-01-01 00:00:00'),
+ ('2004', '机关单位', 'Organs and units', '权力机关', '2019-01-01 00:00:00'),
+ ('2005', '机关单位', 'Organs and units', '司法机关', '2019-01-01 00:00:00'),
+ ('2006', '机关单位', 'Organs and units', '行政机关', '2019-01-01 00:00:00'),
+ ('2999', '机关单位', 'Organs and units', '其他机关', '2019-01-01 00:00:00'),
+ ('3001', '事业单位', 'Institution', '教育单位', '2019-01-01 00:00:00'),
+ ('3002', '事业单位', 'Institution', '科研单位', '2019-01-01 00:00:00'),
+ ('3003', '事业单位', 'Institution', '勘察设计单位', '2019-01-01 00:00:00'),
+ ('3004', '事业单位', 'Institution', '勘探单位', '2019-01-01 00:00:00'),
+ ('3005', '事业单位', 'Institution', '文化单位', '2019-01-01 00:00:00'),
+ ('3006', '事业单位', 'Institution', '卫生单位', '2019-01-01 00:00:00'),
+ ('3007', '事业单位', 'Institution', '体育单位', '2019-01-01 00:00:00'),
+ ('3008', '事业单位', 'Institution', '新闻出版单位', '2019-01-01 00:00:00'),
+ ('3009', '事业单位', 'Institution', '农林牧水单位', '2019-01-01 00:00:00'),
+ ('3010', '事业单位', 'Institution', '交通单位', '2019-01-01 00:00:00'),
+ ('3011', '事业单位', 'Institution', '气象单位', '2019-01-01 00:00:00'),
+ ('3012', '事业单位', 'Institution', '地震单位', '2019-01-01 00:00:00'),
+ ('3013', '事业单位', 'Institution', '海洋单位', '2019-01-01 00:00:00'),
+ ('3014', '事业单位', 'Institution', '环保单位', '2019-01-01 00:00:00'),
+ ('3015', '事业单位', 'Institution', '测绘单位', '2019-01-01 00:00:00'),
+ ('3016', '事业单位', 'Institution', '信息咨询单位', '2019-01-01 00:00:00'),
+ ('3017', '事业单位', 'Institution', '标准计量单位', '2019-01-01 00:00:00'),
+ ('3018', '事业单位', 'Institution', '知识产权单位', '2019-01-01 00:00:00'),
+ ('3019', '事业单位', 'Institution', '进出口商检单位', '2019-01-01 00:00:00'),
+ ('3020', '事业单位', 'Institution', '城市公用单位', '2019-01-01 00:00:00'),
+ ('3021', '事业单位', 'Institution', '物资仓储单位', '2019-01-01 00:00:00'),
+ ('3022', '事业单位', 'Institution', '社会福利单位', '2019-01-01 00:00:00'),
+ ('3023', '事业单位', 'Institution', '经济监督单位', '2019-01-01 00:00:00'),
+ ('3024', '事业单位', 'Institution', '机关后勤单位', '2019-01-01 00:00:00'),
+ ('4001', '社会团体', 'Social Group', '学术性社会团体', '2019-01-01 00:00:00'),
+ ('4002', '社会团体', 'Social Group', '行业性社会团体', '2019-01-01 00:00:00'),
+ ('4003', '社会团体', 'Social Group', '专业性社会团体', '2019-01-01 00:00:00'),
+ ('4004', '社会团体', 'Social Group', '联合性社会团体', '2019-01-01 00:00:00'),
+ ('9999', '其他组织机构', 'Other', '其他', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_COUNTRY`;
@@ -4943,7 +5610,7 @@ INSERT INTO `youthchina`.`SYS_COUNTRY` (`COUNTRY_ABBRE`, `COUNTRY_CHN`, `COUNTRY
 ('CHN', '中国', 'CHINA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('CIV', '科特迪瓦', 'COTE D\'IVOIRE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('CMR', '喀麦隆', 'CAMEROON', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('COD', '刚果（金）', 'CONGO，THE DEMOCRATIC REPUBLIC OF THE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('COD', '刚果（金）', 'CONGO, THE DEMOCRATIC REPUBLIC OF THE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('COG', '刚果（布）', 'CONGO', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('COK', '库克群岛', 'COOK ISLANDS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('COL', '哥伦比亚', 'COLOMBIA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -13317,139 +13984,6 @@ INSERT INTO `youthchina`.`SYS_UNIVERSITY_CHN` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNI
 ('19999', '其他中国大学', '#N/A', '0', '110000', '其他', '本科', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
-TRUNCATE TABLE `youthchina`.`SYS_UNIVERSITY_GBR` ;
-INSERT INTO `youthchina`.`SYS_UNIVERSITY_GBR` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNIVERS_ENG`, `UNIVERS_CITY`, `UNIVERS_ZIPCODE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
-('30001', '剑桥大学', 'University of Cambridge', 'Cambridge', 'CB2 1TN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30002', '牛津大学', 'University of Oxford', 'Oxford', 'OX1 2JD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30003', '圣安德鲁斯大学', 'University of St Andrews', 'St Andrews', 'KY16 9AJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30004', '杜伦大学', 'Durham University', 'Durham', 'DH1 3LE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30005', '帝国理工学院', 'Imperial College London', 'London', 'SW7 2AZ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30006', '伦敦大学学院', 'University College London', 'London', 'WC1E 6BT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30007', '华威大学', 'University of Warwick', 'Coventry', 'CV4 7AL', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30008', '伦敦政治经济学院', 'London School of Economics and Political Science', 'London', 'WC2A 2AE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30009', '埃克塞特大学', 'University of Exeter', 'Exeter', 'EX4 4PY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30010', '兰卡斯特大学', 'Lancaster University', 'Lancaster', 'LA1 4YW', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30011', '拉夫堡大学', 'Loughborough University', 'Loughborough', 'LE11 3AD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30012', '巴斯大学', 'University of Bath', 'Bath', 'BA2 7AY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30013', '利兹大学', 'University of Leeds', 'Leeds', 'LS2 9JT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30014', '萨里大学', 'University of Surrey', 'Guildford', 'GU2 7XH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30015', '东英格利亚大学', 'University of East Anglia', 'Norwich', 'NR4 7TJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30016', '伯明翰大学', 'University of Birmingham', 'Birmingham', 'B15 2TT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30017', '约克大学', 'University of York', 'York', 'YO10 5DD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30018', '萨塞克斯大学', 'University of Sussex', 'Bridlington', 'BN1 9RH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30019', '布里斯托大学', 'University of Bristol', 'Bristol', 'BS8 1TH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30020', '诺丁汉大学', 'University of Nottingham', 'Nottingham', 'NG7 2RD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30021', '南安普顿大学', 'University of Southampton', 'Southampton', 'SO17 1BJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30022', '纽卡斯尔大学', 'Newcastle University', 'Newcastle', 'NE1 7RU', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30023', '肯特大学', 'University of Kent', 'Canterbury', 'CT2 7NZ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30024', '谢菲尔德大学', 'University of Sheffield', 'Sheffield', 'S10 2TN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30025', '莱斯特大学', 'University of Leicester', 'Leicester', 'LE1 7RH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30026', '贝尔法斯特女王大学', 'Queen\'s University, Belfast', 'Belfast', 'BT9 5BW', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30027', '伦敦大学国王学院', 'King\'s College London', 'London', 'WC2R 2LS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30028', '邓迪大学', 'University of Dundee', 'Dundee', 'DD1 4HN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30029', '格拉斯哥大学', 'University of Glasgow', 'Glasgow', 'G12 8QQ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30030', '埃塞克斯大学', 'University of Essex', 'Colchester', 'CO4 3SQ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30031', '雷丁大学', 'University of Reading', 'Reading', 'C3R5 H7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30032', '曼彻斯特大学', 'University of Manchester', 'Manchester', 'M14 6HA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30033', '阿斯顿大学', 'Aston University Birmingham', 'Birmingham', 'B4 7EJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30034', '皇家霍洛威大学', 'Royal Holloway, University of London', 'London', 'WC1B 3RF', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30035', '伦敦大学亚非学院', 'School of Oriental and African Studies', 'London', 'WC1H 0XG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30036', '哈珀亚当斯大学学院', 'Harper Adams University', 'Newport', 'TF10 8HY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30037', '爱丁堡大学', 'University of Edinburgh', 'Edinburgh', 'EH8 9YL', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30038', '赫瑞瓦特大学', 'Heriot-Watt University', 'Edinburgh', 'EH14 4AS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30039', '利物浦大学', 'University of Liverpool', 'Liverpool', 'L69 3BX', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30040', '伦敦玛丽女王大学', 'Queen Mary, University of London', 'London', 'E1 4NS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30041', '白金汉大学', 'University of Buckingham', 'Buckingham', 'MK18 1EG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30042', '基尔大学', 'Keele University', 'Keele', 'ST5 5BG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30043', '斯特林大学', 'University of Stirling', 'Stirling', 'FK9 4LA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30044', '阿伯丁大学', 'University of Aberdeen', 'Aberdeen', 'AB24 3FX', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30045', '斯旺西大学', 'Swansea University', 'Swansea', 'SA2 8PP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30046', '卡迪夫大学', 'Cardiff University', 'Cardiff', 'CF10 3AT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30047', '考文垂大学', 'Coventry University', 'Coventry', 'CV1 5FB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30048', '斯特拉思克莱德大学', 'University of Strathclyde', 'Glasgow', 'G1 1XQ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30049', '利物浦霍普大学', 'Liverpool Hope University', 'Liverpool', 'L16 9JD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30050', '伦敦城市大学', 'City, University of London', 'London', 'EC1V 0HB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30051', '林肯大学', 'University of Lincoln', 'Lincoln', 'LN6 7TS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30052', '法尔茅斯大学', 'Falmouth University', 'Penryn', 'TR10 9FE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30053', '创意艺术大学', 'University for the Creative Arts', 'Farnham', 'GU9 7DS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30054', '布鲁内尔大学', 'Brunel University London', 'Uxbridge', 'UB8 3PH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30055', '金史密斯学院', 'Goldsmiths, University of London', 'London', 'SE14 6NW', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30056', '亚伯大学', 'Aberystwyth University', 'Aberystwyth', 'SY23 3FL', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30057', '诺丁汉特伦特大学', 'Nottingham Trent University', 'Nottingham', 'NG1 4GG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30058', '边山大学', 'Edge Hill University', 'Ormskirk', 'L39 4QP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30059', '朴茨茅斯大学', 'University of Portsmouth', 'Portsmouth', 'PO1 2UP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30060', '西英格兰大学', 'University of the West of England', 'Bristol', 'BS16 1QY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30061', '班戈大学', 'Bangor University', 'Bangor', 'LL57 2DG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30062', '波恩茅斯大学', 'Bournemouth University', 'Poole', 'BH12 5EG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30063', '英国皇家农学院', 'Royal Agricultural University', 'Cirencester', 'GL7 6JS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30064', '伯恩茅斯艺术学院', 'Arts University Bournemouth', 'Poole', 'BH12 5HH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30065', '赫尔大学', 'University of Hull', 'Hull', 'HU6 7RX', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30066', '诺森比亚大学', 'Northumbria University', 'Newcastle', 'NE1 8QE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30067', '德蒙福特大学', 'De Montfort University', 'Leicester', 'LE1 9BH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30068', '阿尔斯特大学', 'Ulster University', 'Newtownabbey', 'BT37 0QB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30069', '牛津布鲁克斯大学', 'Oxford Brookes University', 'Oxford', 'OX3 0BP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30070', '伦敦大学圣乔治学院', 'St George\'s, University of London', 'London', 'SW17 0RE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30071', '格鲁斯特大学', 'University of Gloucestershire', 'Cheltenham', 'GL50 2RH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30072', '曼彻斯特城市大学', 'Manchester Metropolitan University', 'Manchester', 'M15 6BH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30073', '温切斯特大学', 'University of Winchester', 'Winchester', 'SO22 4NR', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30074', '密德萨斯大学', 'Middlesex University', 'London', 'NW4 4BT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30075', '巴斯泉大学', 'Bath Spa University', 'Bath', 'BA2 9BN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30076', '布拉德福德大学', 'University of Bradford', 'Bradford', 'BD7 1DP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30077', '哈德斯菲尔德大学', 'University of Huddersfield', 'Huddersfield', 'HD1 1JB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30078', '罗汉普顿大学', 'University of Roehampton', 'London', 'SW15 5PU', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30079', '谢菲尔德哈勒姆大学', 'Sheffield Hallam University', 'Sheffield', 'S10 2BP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30080', '普利茅斯大学', 'Plymouth University', 'Plymouth', 'PL4 8AA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30081', '切斯特大学', 'University of Chester', 'Cheshire', 'CH1 4BJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30082', '奇切斯特大学', 'University of Chichester', 'Chichester', 'PO19 6PE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30083', '德比大学', 'University of Derby', 'Derby', 'DE22 1GB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30084', '西伦敦大学', 'University of West London', 'London', 'W5 5RF', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30085', '阿伯泰大学', 'Abertay University', 'Dundee', 'DD1 1HG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30086', '利物浦约翰摩尔大学', 'Liverpool John Moores University', 'Liverpool', 'L1 2UA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30087', '罗伯特戈登大学', 'Robert Gordon University', 'Aberdeen', 'AB10 7QG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30088', '诺里奇艺术大学', 'Norwich University of the Arts', 'Norwich', 'NR3 1BB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30089', '卡迪夫都市大学', 'Cardiff Metropolitan University', 'Cardiff', 'CF5 2AF', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30090', '伍斯特大学', 'University of Worcester', 'Worcester', 'WR2 6AJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30091', '赫特福德大学', 'University of Hertfordshire', 'Hatfield', 'AL10 9EJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30092', '史塔福郡大学', 'Staffordshire University', 'Stoke-on-Trent', 'ST4 2DF', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30093', '伯明翰城市大学', 'Birmingham City University', 'Birmingham', 'B15 3TN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30094', '龙比亚大学', 'Edinburgh Napier University', 'Edinburgh', 'EH14 1DJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30095', '格罗斯泰斯特主教大学', 'Bishop Grosseteste University', 'Lincoln', 'LN1 3DY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30096', '利兹三一大学学院', 'Leeds Trinity University', 'Leeds', 'LS18 5HD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30097', '北安普顿大学', 'University of Northampton', 'Northampton', 'NN1 5PH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30098', '索尔福德大学', 'University of Salford', 'Salford', 'M5 4WT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30099', '格拉斯哥喀里多尼亚大学', 'Glasgow Caledonian University', 'Glasgow', 'G4 0BA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30100', '桑德兰大学', 'University of Sunderland', 'Sunderland', 'SR1 3SD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30101', '中央兰开夏大学', 'University of Central Lancashire', 'Preston', 'PR1 7QR', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30102', '爱丁堡玛格丽特皇后学院', 'Queen Margaret University Edinburgh', 'Sunderland', 'SR1 3SD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30103', '提赛德大学', 'Teesside University', 'Middlesbrough', 'TS1 3BX', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30104', '布莱顿大学', 'University of Brighton', 'Brighton', 'BN1 9PH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30105', '圣马可和圣约翰大学', 'University of St Mark & St John, Plymouth', 'Plymouth', 'PL6 8BH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30106', '西苏格兰大学', 'University of the West of Scotland', 'London', 'SE1 6NP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30107', '格林威治大学', 'University of Greenwich', 'London', 'SE10 9LS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30108', '安格利亚鲁斯金大学', 'Anglia Ruskin University', 'Cambridge', 'CB1 1PT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30109', '伦敦艺术大学', 'University of the Arts London', 'London', 'WC1V 7EY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30110', '南安普顿索伦特大学', 'Southampton Solent University', 'Southampton', 'SO14 0YN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30111', '约克圣约翰大学', 'York St John University', 'York', 'YO31 8FY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30112', '利兹贝克特大学', 'Leeds Beckett University', 'Leeds', 'LS1 3HE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30113', '纽曼大学', 'Newman University, Birmingham', 'Birmingham', 'B32 3NT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30114', '坎特伯里基督大学', 'Canterbury Christ Church University', 'Canterbury', 'CT1 1NX', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30115', '南威尔士大学', 'University of South Wales', 'Pontypridd', 'CF37 1DL', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30116', '圣玛丽大学学院', 'St Mary\'s University, Twickenham', 'Twickenham', 'TW1 4SX', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30117', '威斯敏斯特大学', 'University of Westminster', 'London', 'NW1 5LS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30118', '新白金汉大学', 'Buckinghamshire New University', 'High Wycombe', 'HP11 2JZ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30119', '哥比亚大学', 'University of Cumbria', 'Lancaster', 'LA1 3JD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30120', '伦敦南岸大学', 'London South Bank University', 'London', 'SE1 0AN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30121', '贝德福特大学', 'University of Bedfordshire', 'Luton', 'LU1 3JU', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30122', '金斯顿大学', 'Kingston University', 'Kingston upon Thames', 'KT1 2EE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30123', '东伦敦大学', 'University of East London', 'London', 'E16 2RD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30124', '波尔顿大学', 'University of Bolton', 'Bolton', 'BL3 5AB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30125', '格林多大学', 'Wrexham Glyndwr University', 'Wrexham', 'LL11 2AW', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30126', '萨福克大学', 'University of Suffolk', 'Ipswich', 'IP3 8AH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30127', '伦敦都市大学', 'London Metropolitan University', 'London', 'N7 8DB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('30128', '高地和群岛大学', 'University of the Highlands and Islands', 'Inverness', 'IV2 3JH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('39999', '其他英国大学', 'Other', 'Other', 'Other', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
-
-
 TRUNCATE TABLE `youthchina`.`SYS_UNIVERSITY_USA` ;
 INSERT INTO `youthchina`.`SYS_UNIVERSITY_USA` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNIVERS_ENG`, `UNIVERS_STATE`, `UNIVERS_STATE_ID`, `UNIVERS_CITY`, `UNIVERS_ZIPCODE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
 ('20001', '---', 'Samford University', 'AL', '1', 'Birmingham', '0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -15177,9 +15711,170 @@ INSERT INTO `youthchina`.`SYS_UNIVERSITY_USA` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNI
 
 
 
+TRUNCATE TABLE `youthchina`.`SYS_UNIVERSITY_GBR` ;
+INSERT INTO `youthchina`.`SYS_UNIVERSITY_GBR` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNIVERS_ENG`, `UNIVERS_CITY`, `UNIVERS_ZIPCODE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
+('30001', '剑桥大学', 'University of Cambridge', 'Cambridge', 'CB2 1TN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30002', '牛津大学', 'University of Oxford', 'Oxford', 'OX1 2JD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30003', '圣安德鲁斯大学', 'University of St Andrews', 'St Andrews', 'KY16 9AJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30004', '杜伦大学', 'Durham University', 'Durham', 'DH1 3LE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30005', '帝国理工学院', 'Imperial College London', 'London', 'SW7 2AZ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30006', '伦敦大学学院', 'University College London', 'London', 'WC1E 6BT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30007', '华威大学', 'University of Warwick', 'Coventry', 'CV4 7AL', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30008', '伦敦政治经济学院', 'London School of Economics and Political Science', 'London', 'WC2A 2AE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30009', '埃克塞特大学', 'University of Exeter', 'Exeter', 'EX4 4PY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30010', '兰卡斯特大学', 'Lancaster University', 'Lancaster', 'LA1 4YW', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30011', '拉夫堡大学', 'Loughborough University', 'Loughborough', 'LE11 3AD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30012', '巴斯大学', 'University of Bath', 'Bath', 'BA2 7AY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30013', '利兹大学', 'University of Leeds', 'Leeds', 'LS2 9JT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30014', '萨里大学', 'University of Surrey', 'Guildford', 'GU2 7XH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30015', '东英格利亚大学', 'University of East Anglia', 'Norwich', 'NR4 7TJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30016', '伯明翰大学', 'University of Birmingham', 'Birmingham', 'B15 2TT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30017', '约克大学', 'University of York', 'York', 'YO10 5DD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30018', '萨塞克斯大学', 'University of Sussex', 'Bridlington', 'BN1 9RH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30019', '布里斯托大学', 'University of Bristol', 'Bristol', 'BS8 1TH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30020', '诺丁汉大学', 'University of Nottingham', 'Nottingham', 'NG7 2RD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30021', '南安普顿大学', 'University of Southampton', 'Southampton', 'SO17 1BJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30022', '纽卡斯尔大学', 'Newcastle University', 'Newcastle', 'NE1 7RU', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30023', '肯特大学', 'University of Kent', 'Canterbury', 'CT2 7NZ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30024', '谢菲尔德大学', 'University of Sheffield', 'Sheffield', 'S10 2TN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30025', '莱斯特大学', 'University of Leicester', 'Leicester', 'LE1 7RH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30026', '贝尔法斯特女王大学', 'Queen\'s University, Belfast', 'Belfast', 'BT9 5BW', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30027', '伦敦大学国王学院', 'King\'s College London', 'London', 'WC2R 2LS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30028', '邓迪大学', 'University of Dundee', 'Dundee', 'DD1 4HN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30029', '格拉斯哥大学', 'University of Glasgow', 'Glasgow', 'G12 8QQ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30030', '埃塞克斯大学', 'University of Essex', 'Colchester', 'CO4 3SQ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30031', '雷丁大学', 'University of Reading', 'Reading', 'C3R5 H7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30032', '曼彻斯特大学', 'University of Manchester', 'Manchester', 'M14 6HA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30033', '阿斯顿大学', 'Aston University Birmingham', 'Birmingham', 'B4 7EJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30034', '皇家霍洛威大学', 'Royal Holloway, University of London', 'London', 'WC1B 3RF', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30035', '伦敦大学亚非学院', 'School of Oriental and African Studies', 'London', 'WC1H 0XG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30036', '哈珀亚当斯大学学院', 'Harper Adams University', 'Newport', 'TF10 8HY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30037', '爱丁堡大学', 'University of Edinburgh', 'Edinburgh', 'EH8 9YL', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30038', '赫瑞瓦特大学', 'Heriot-Watt University', 'Edinburgh', 'EH14 4AS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30039', '利物浦大学', 'University of Liverpool', 'Liverpool', 'L69 3BX', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30040', '伦敦玛丽女王大学', 'Queen Mary, University of London', 'London', 'E1 4NS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30041', '白金汉大学', 'University of Buckingham', 'Buckingham', 'MK18 1EG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30042', '基尔大学', 'Keele University', 'Keele', 'ST5 5BG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30043', '斯特林大学', 'University of Stirling', 'Stirling', 'FK9 4LA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30044', '阿伯丁大学', 'University of Aberdeen', 'Aberdeen', 'AB24 3FX', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30045', '斯旺西大学', 'Swansea University', 'Swansea', 'SA2 8PP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30046', '卡迪夫大学', 'Cardiff University', 'Cardiff', 'CF10 3AT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30047', '考文垂大学', 'Coventry University', 'Coventry', 'CV1 5FB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30048', '斯特拉思克莱德大学', 'University of Strathclyde', 'Glasgow', 'G1 1XQ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30049', '利物浦霍普大学', 'Liverpool Hope University', 'Liverpool', 'L16 9JD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30050', '伦敦城市大学', 'City, University of London', 'London', 'EC1V 0HB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30051', '林肯大学', 'University of Lincoln', 'Lincoln', 'LN6 7TS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30052', '法尔茅斯大学', 'Falmouth University', 'Penryn', 'TR10 9FE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30053', '创意艺术大学', 'University for the Creative Arts', 'Farnham', 'GU9 7DS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30054', '布鲁内尔大学', 'Brunel University London', 'Uxbridge', 'UB8 3PH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30055', '金史密斯学院', 'Goldsmiths, University of London', 'London', 'SE14 6NW', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30056', '亚伯大学', 'Aberystwyth University', 'Aberystwyth', 'SY23 3FL', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30057', '诺丁汉特伦特大学', 'Nottingham Trent University', 'Nottingham', 'NG1 4GG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30058', '边山大学', 'Edge Hill University', 'Ormskirk', 'L39 4QP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30059', '朴茨茅斯大学', 'University of Portsmouth', 'Portsmouth', 'PO1 2UP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30060', '西英格兰大学', 'University of the West of England', 'Bristol', 'BS16 1QY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30061', '班戈大学', 'Bangor University', 'Bangor', 'LL57 2DG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30062', '波恩茅斯大学', 'Bournemouth University', 'Poole', 'BH12 5EG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30063', '英国皇家农学院', 'Royal Agricultural University', 'Cirencester', 'GL7 6JS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30064', '伯恩茅斯艺术学院', 'Arts University Bournemouth', 'Poole', 'BH12 5HH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30065', '赫尔大学', 'University of Hull', 'Hull', 'HU6 7RX', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30066', '诺森比亚大学', 'Northumbria University', 'Newcastle', 'NE1 8QE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30067', '德蒙福特大学', 'De Montfort University', 'Leicester', 'LE1 9BH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30068', '阿尔斯特大学', 'Ulster University', 'Newtownabbey', 'BT37 0QB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30069', '牛津布鲁克斯大学', 'Oxford Brookes University', 'Oxford', 'OX3 0BP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30070', '伦敦大学圣乔治学院', 'St George\'s, University of London', 'London', 'SW17 0RE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30071', '格鲁斯特大学', 'University of Gloucestershire', 'Cheltenham', 'GL50 2RH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30072', '曼彻斯特城市大学', 'Manchester Metropolitan University', 'Manchester', 'M15 6BH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30073', '温切斯特大学', 'University of Winchester', 'Winchester', 'SO22 4NR', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30074', '密德萨斯大学', 'Middlesex University', 'London', 'NW4 4BT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30075', '巴斯泉大学', 'Bath Spa University', 'Bath', 'BA2 9BN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30076', '布拉德福德大学', 'University of Bradford', 'Bradford', 'BD7 1DP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30077', '哈德斯菲尔德大学', 'University of Huddersfield', 'Huddersfield', 'HD1 1JB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30078', '罗汉普顿大学', 'University of Roehampton', 'London', 'SW15 5PU', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30079', '谢菲尔德哈勒姆大学', 'Sheffield Hallam University', 'Sheffield', 'S10 2BP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30080', '普利茅斯大学', 'Plymouth University', 'Plymouth', 'PL4 8AA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30081', '切斯特大学', 'University of Chester', 'Cheshire', 'CH1 4BJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30082', '奇切斯特大学', 'University of Chichester', 'Chichester', 'PO19 6PE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30083', '德比大学', 'University of Derby', 'Derby', 'DE22 1GB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30084', '西伦敦大学', 'University of West London', 'London', 'W5 5RF', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30085', '阿伯泰大学', 'Abertay University', 'Dundee', 'DD1 1HG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30086', '利物浦约翰摩尔大学', 'Liverpool John Moores University', 'Liverpool', 'L1 2UA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30087', '罗伯特戈登大学', 'Robert Gordon University', 'Aberdeen', 'AB10 7QG', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30088', '诺里奇艺术大学', 'Norwich University of the Arts', 'Norwich', 'NR3 1BB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30089', '卡迪夫都市大学', 'Cardiff Metropolitan University', 'Cardiff', 'CF5 2AF', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30090', '伍斯特大学', 'University of Worcester', 'Worcester', 'WR2 6AJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30091', '赫特福德大学', 'University of Hertfordshire', 'Hatfield', 'AL10 9EJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30092', '史塔福郡大学', 'Staffordshire University', 'Stoke-on-Trent', 'ST4 2DF', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30093', '伯明翰城市大学', 'Birmingham City University', 'Birmingham', 'B15 3TN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30094', '龙比亚大学', 'Edinburgh Napier University', 'Edinburgh', 'EH14 1DJ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30095', '格罗斯泰斯特主教大学', 'Bishop Grosseteste University', 'Lincoln', 'LN1 3DY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30096', '利兹三一大学学院', 'Leeds Trinity University', 'Leeds', 'LS18 5HD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30097', '北安普顿大学', 'University of Northampton', 'Northampton', 'NN1 5PH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30098', '索尔福德大学', 'University of Salford', 'Salford', 'M5 4WT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30099', '格拉斯哥喀里多尼亚大学', 'Glasgow Caledonian University', 'Glasgow', 'G4 0BA', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30100', '桑德兰大学', 'University of Sunderland', 'Sunderland', 'SR1 3SD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30101', '中央兰开夏大学', 'University of Central Lancashire', 'Preston', 'PR1 7QR', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30102', '爱丁堡玛格丽特皇后学院', 'Queen Margaret University Edinburgh', 'Sunderland', 'SR1 3SD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30103', '提赛德大学', 'Teesside University', 'Middlesbrough', 'TS1 3BX', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30104', '布莱顿大学', 'University of Brighton', 'Brighton', 'BN1 9PH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30105', '圣马可和圣约翰大学', 'University of St Mark & St John, Plymouth', 'Plymouth', 'PL6 8BH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30106', '西苏格兰大学', 'University of the West of Scotland', 'London', 'SE1 6NP', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30107', '格林威治大学', 'University of Greenwich', 'London', 'SE10 9LS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30108', '安格利亚鲁斯金大学', 'Anglia Ruskin University', 'Cambridge', 'CB1 1PT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30109', '伦敦艺术大学', 'University of the Arts London', 'London', 'WC1V 7EY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30110', '南安普顿索伦特大学', 'Southampton Solent University', 'Southampton', 'SO14 0YN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30111', '约克圣约翰大学', 'York St John University', 'York', 'YO31 8FY', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30112', '利兹贝克特大学', 'Leeds Beckett University', 'Leeds', 'LS1 3HE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30113', '纽曼大学', 'Newman University, Birmingham', 'Birmingham', 'B32 3NT', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30114', '坎特伯里基督大学', 'Canterbury Christ Church University', 'Canterbury', 'CT1 1NX', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30115', '南威尔士大学', 'University of South Wales', 'Pontypridd', 'CF37 1DL', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30116', '圣玛丽大学学院', 'St Mary\'s University, Twickenham', 'Twickenham', 'TW1 4SX', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30117', '威斯敏斯特大学', 'University of Westminster', 'London', 'NW1 5LS', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30118', '新白金汉大学', 'Buckinghamshire New University', 'High Wycombe', 'HP11 2JZ', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30119', '哥比亚大学', 'University of Cumbria', 'Lancaster', 'LA1 3JD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30120', '伦敦南岸大学', 'London South Bank University', 'London', 'SE1 0AN', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30121', '贝德福特大学', 'University of Bedfordshire', 'Luton', 'LU1 3JU', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30122', '金斯顿大学', 'Kingston University', 'Kingston upon Thames', 'KT1 2EE', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30123', '东伦敦大学', 'University of East London', 'London', 'E16 2RD', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30124', '波尔顿大学', 'University of Bolton', 'Bolton', 'BL3 5AB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30125', '格林多大学', 'Wrexham Glyndwr University', 'Wrexham', 'LL11 2AW', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30126', '萨福克大学', 'University of Suffolk', 'Ipswich', 'IP3 8AH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30127', '伦敦都市大学', 'London Metropolitan University', 'London', 'N7 8DB', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30128', '高地和群岛大学', 'University of the Highlands and Islands', 'Inverness', 'IV2 3JH', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30129', '坎特伯雷大教主大学', 'The Archbishop of Canterbury', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30130', '阿什里奇商学院', 'Ashridge Business School', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30131', '英欧脊椎推拿疗法学院', 'Anglo-European College of Chiropractic', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30132', '雅顿大学', 'Arden University', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30133', '伦敦大学伯贝克学院', 'Birkbeck, University of London', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30134', '伯明翰大学学院', 'University College Birmingham', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30135', '克兰菲尔德大学', 'Cranfield University', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30136', '吉尔德霍尔音乐与戏剧学院', 'Guildhall School of Music and Drama', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30137', '伦敦大学海斯洛普学院', 'Heythrop College, University of London', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30138', '伦敦大学教育学院', 'Institute of Education, University of London', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30139', '英国法学大学', 'The University of Law', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30140', '伦敦商学院', 'London Business School', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30141', '皇家护理学院', 'Royal College of Nursing', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30142', '开放大学', 'The Open University', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30143', '伦敦摄政大学', 'Regent\'s University London', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30144', '英国皇家音乐学院', 'Royal Academy of Music', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30145', '中央演讲与戏剧学院', 'Royal Central School of Speech and Drama', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30146', '英国皇家艺术学院', 'Royal College of Art', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30147', '皇家音乐学院', 'Royal College of Music', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30148', '苏格兰皇家音乐戏剧学院', 'Royal Conservatoire of Scotland', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30149', '皇家北方音乐学院', 'Royal Northern College of Music', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30150', '皇家兽医学院', 'The Royal Veterinary College', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30151', '伦敦里士满美国国际大学', 'Richmond, The American International University in London', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30152', '圣三一拉邦音乐舞蹈学院', 'Trinity Laban Conservatoire of Music and Dance', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30153', '威尔士大学', 'University of Wales', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30154', '威尔士三一圣大卫大学', 'University of Wales Trinity Saint David', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30155', '胡弗汉顿大学', 'University of Wolverhampton', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('30156', '瑞特大学学院', 'Writtle University College', '---', '---', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('39999', '其他英国大学', 'Other', 'Other', 'Other', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+
+
+
 TRUNCATE TABLE  `youthchina`.`SYS_UNIVERSITY_CAN`  ;
-INSERT INTO  `youthchina`.`SYS_UNIVERSITY_CAN` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNIVERS_ENG`, `UNIVERS_STATE`, `UNIVERS_CITY`, `UNIVERS_ZIPCODE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
-('40001', '多伦多大学', 'University of Toronto', 'Ontario', 'Toronto', 'M5S 2J7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+INSERT INTO `youthchina`.`SYS_UNIVERSITY_CAN` (`UNIVERS_ID`, `UNIVERS_CHN`, `UNIVERS_ENG`, `UNIVERS_STATE`, `UNIVERS_CITY`, `UNIVERS_ZIPCODE`, `START_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES ('40001', '多伦多大学', 'University of Toronto', 'Ontario', 'Toronto', 'M5S 2J7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('40002', '不列颠哥伦比亚大学', 'University of British Columbia', 'British Columbia', 'Vancouver', 'V6T 1Z4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('40003', '麦吉尔大学', 'McGill University', 'Quebec', 'Montréal', 'H3A 0G4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('40004', '麦克马斯特大学', 'McMaster University', 'Ontario', 'Hamilton', 'L8S 4L8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
@@ -15213,9 +15908,62 @@ INSERT INTO  `youthchina`.`SYS_UNIVERSITY_CAN` (`UNIVERS_ID`, `UNIVERS_CHN`, `UN
 ('40032', '湖首大学', 'Lakehead University', 'Ontario', 'Thunder Bay', 'P7B 5E1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('40033', '特伦特大学', 'Trent University', 'Ontario', 'Peterborough', 'K9L 0G2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('40034', '劳里埃大学', 'Wilfrid Laurier University', 'Ontario', 'Waterloo', 'N2L 3C5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('40035', '---', 'University of Lethbridge', 'Alberta', 'Lethbridge', 'T1K 3M4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40035', '莱斯布里奇大学', 'University of Lethbridge', 'Alberta', 'Lethbridge', 'T1K 3M4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('40036', '---', 'Ecole de Technologie Superieure - Canada', 'Québec', 'Montréal', 'H3C 1K3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('40037', '---', 'Royal Military College - Canada', 'Ontario', 'Kingston', 'K7K 7B4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('40038', '---', 'University of Prince Edward Island', 'Prince Edward Island', 'Charlottetown', 'C1A 4P3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40038', '爱德华王子岛大学', 'University of Prince Edward Island', 'Prince Edward Island', 'Charlottetown', 'C1A 4P3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('40039', '---', 'University of Northern British Columbia', 'British Columbia', 'Prince George', 'V2N 4Z9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40040', '安布罗斯大学', 'Ambrose University', 'Alberta', 'Calgary', 'T3H 0L5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40041', '博曼大学', 'Burman University', 'Alberta', 'Lacombe', 'T4L 2E5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40042', '埃德蒙顿康考迪亚大学', 'Concordia University of Edmonton', 'Alberta', 'Edmonton', 'T5B 4E4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40043', '麦科文大学', 'Grant MacEwan University', 'Alberta', 'Edmonton', 'T5J 4S2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40044', '皇家山大学', 'Mount Royal University', 'Alberta', 'Calgary', 'T3E 6K6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40045', '圣玛丽大学', 'St. Mary’s University', 'Nova Scotia', 'Halifax', 'B3H 3C3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40046', '国王大学', 'The King’s University', 'Alberta', 'Edmonton', 'T6B 2H3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40047', '卡普兰诺大学', 'Capilano University', 'British Columbia', 'North Vancouver', 'V7J 3H5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40048', '爱米利·卡尔艺术与设计大学', 'Emily Carr University of Art and Design', 'British Columbia', 'Vancouver', 'V5T 0H2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40049', '昆特兰理工大学', 'Kwantlen Polytechnic University', 'British Columbia', 'Surrey', 'V3W 2M8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40050', '皇家大学', 'Royal Roads University', 'British Columbia', 'Victoria', 'V9B 5Y2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40051', '汤姆逊大学', 'Thompson Rivers University', 'British Columbia', 'Kamloops', 'V2C 0C8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40052', '西三一大学', 'Trinity Western University', 'British Columbia', 'Langley City', 'V2Y 1Y1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40053', '北不列颠哥伦比亚大学', 'University of Northern British Columbia', 'British Columbia', 'Prince George', 'V2N 4Z9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40054', '菲莎河谷大学', 'University of the Fraser Valley', 'British Columbia', 'Abbotsford', 'V2S 7M8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40055', '温哥华岛大学', 'Vancouver Island University', 'British Columbia', 'Nanaimo', 'V9R 5S5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40056', '布兰登大学', 'Brandon University', 'Manitoba', 'Brandon', 'R7A 6A9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40057', '---', 'The University of Winnipeg', 'Manitoba', 'Winnipeg', 'R3B 2E9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40058', '艾利森山大学', 'Mount Alison University', 'New Brunswick', 'Sackville', 'E4L 1E2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40059', '圣托马斯大学', 'St. Thomas University', 'New Brunswick', 'Fredericton', 'E3B 5G3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40060', '---', 'Université de Moncton', 'New Brunswick', 'Moncton', 'E1A 3E9', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40061', '阿卡迪亚大学', 'Acadia University', 'Nova Scotia', 'Wolfville', 'B4P 2R6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40062', '布雷顿角大学', 'Cape Breton University', 'Nova Scotia', 'Sydney', 'B1P 6L2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40063', '戴尔豪斯大学', 'Dalhousie University', 'Nova Scotia', 'Halifax', 'B3H 4R2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40064', '圣文森特山大学', 'Mount Saint Vincent University', 'Nova Scotia', 'Halifax', 'B3M 2J6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40065', '新斯科舍省艺术与设计学院', 'NSCAD University', 'Nova Scotia', 'Halifax', 'B3J 3J6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40066', '圣玛丽大学', 'Saint Mary\'s University', 'Nova Scotia', 'Halifax', 'B3H 3C3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40067', '圣弗朗西斯泽维尔大学', 'St. Francis Xavier University', 'Nova Scotia', 'Antigonish', 'B2G 2W5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40068', '---', 'Université Sainte-Anne', 'Nova Scotia', 'Church Point', 'B0W 1M0', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40069', '加拿大第一民族大学', 'First Nations University of Canada', 'Saskatchewan', 'Regina', 'S4S 7K2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40070', '里贾纳大学', 'University of Regina', 'Saskatchewan', 'Regina', 'S4S 0A2', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40071', '阿尔戈马大学', 'Algoma University', 'Ontario', 'Marie', 'P6A 2G4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40072', '劳伦森大学', 'Laurentian University', 'Ontario', 'Sudbury', 'P3E 2C6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40073', '尼皮辛大学', 'Nipissing University', 'Ontario', 'North Bay', 'P1B 8L7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40074', '安大略艺术设计大学', 'OCAD University', 'Ontario', 'Toronto', 'M5T 1W1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40075', '怀雅逊大学', 'Ryerson University', 'Ontario', 'Toronto', 'M5B 2K3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40076', '圣保罗大学', 'Saint Paul University', 'Ontario', 'Ottawa', 'K1S 1C4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40077', '圣杰罗姆大学', 'St. Jerome\'s University', 'Ontario', 'Waterloo', 'N2L 3G3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40078', '安大略大学理工学院', 'University of Ontario Institute of Technology', 'Ontario', 'Oshawa', 'L1G 0C5', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40079', '萨德伯里大学', 'University of Sudbury', 'Ontario', 'Sudbury', 'P3E 2C6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40080', '主教大学', 'Bishop\'s University', 'Québec', 'Sherbrooke', 'J1M 1Z7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40081', '康考迪亚大学', 'Concordia University', 'Québec', 'Montréal', 'H3G 1M8', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40082', '蒙特利尔工程学院', 'école Polytechnique de Montréal', 'Québec', 'Montréal', 'H3T 1J4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40083', '蒙特利尔高等商学院', 'HEC Montréal', 'Québec', 'Montréal', 'H3T 2A7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40084', '蒙特利尔大学', 'Université de Montréal', 'Québec', 'Montréal', 'H3T 1J4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40085', '---', 'Université de Sherbrooke', 'Québec', 'Sherbrooke', 'J1K?2R1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40086', '魁北克大学希库蒂米分校', 'Université du Québec à Chicoutimi', 'Québec', 'Chicoutimi', 'G7H 2B1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40087', '魁北克大学里穆斯基分校', 'Université du Québec à Rimouski', 'Québec', 'Rimouski', 'G5L 3A1', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40088', '魁北克大学三河分校', 'Université du Québec à Trois-Rivières', 'Québec', 'Trois-Rivières', 'G8Z 4M3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40089', '魁北克大学阿比提比-蒂米斯卡曼格分校', 'Université du Québec en Abitibi-Témiscamingue', 'Québec', 'Rouyn-Noranda', 'J9X 5E4', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40090', '魁北克大学渥太华河区大学', 'Université du Québec en Outaouais', 'Québec', 'Gatineau', 'J8X 3X7', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40091', '高等工程技术学院', 'Université du Québec: école de technologie supérieure', 'Québec', 'Montréal', 'H3C 1K3', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('40092', '拉瓦尔大学', 'Université Laval', 'Québec', 'Québec', 'G1V 0A6', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
 ('49999', '其他加拿大大学', 'Other', 'Other', 'Other', 'Other', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');

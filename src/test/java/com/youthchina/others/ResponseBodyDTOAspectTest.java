@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.stereotype.Component;
@@ -29,11 +30,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by zhongyangwu on 3/23/19.
@@ -88,9 +91,22 @@ public class ResponseBodyDTOAspectTest {
                                 "  \"password\": \"sldfjlsdkfj\",\n" +
                                 "  \"email\": \"email@gdk.com\"\n" +
                                 "}")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .with(authGenerator.authentication())
         )
                 .andDo(print());
+
+        this.mvc.perform(
+                post(this.urlPrefix + "/test/")
+                        .content("{\n" +
+                                "  \"id\":1,\n" +
+                                "  \"password\": \"sldfjlsdkfj\"\n" +
+                                "}")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .with(authGenerator.authentication())
+        )
+                .andDo(print())
+                .andExpect(status().is(400));
 
     }
 
@@ -127,7 +143,7 @@ class AspectTestClass {
 class TestController {
 
     @PostMapping("${web.url.prefix}/test/**")
-    public ResponseEntity test(@RequestBodyDTO(UserDTO.class) User user) {
+    public ResponseEntity test(@RequestBodyDTO(UserDTO.class) @Valid User user) {
         return ResponseEntity.ok(user);
     }
 }

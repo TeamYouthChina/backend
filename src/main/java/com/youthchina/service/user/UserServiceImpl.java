@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -69,7 +70,7 @@ public class UserServiceImpl implements UserService {
             //update information and send verify email again
             existUser.setFirstName(user.getFirstName());
             existUser.setLastName(user.getLastName());
-            existUser.setRegisterDate(Timestamp.from(Calendar.getInstance().toInstant()));
+            existUser.setRegisterTime(Timestamp.from(Calendar.getInstance().toInstant()));
             existUser.setGender(user.getGender());
             user = this.update(existUser);
         }
@@ -112,6 +113,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
+        user.setModifiedTime(Timestamp.from(Instant.now())); //set modified time
         mapper.update(user);
         mapper.setRole(user.getId(), user.getRole());
         return this.get(user.getId());

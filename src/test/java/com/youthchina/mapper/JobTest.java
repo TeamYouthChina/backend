@@ -266,7 +266,7 @@ public class JobTest {
 //                null, null, null);
 //        Assert.assertEquals(4, jobList.size());
 //
-//        //Job Salary
+//        //Job Recommendation
 //        jobList = jobMapper.getJobByMore(null, null, null, null,
 //                null, null, null, null, 6500, null,
 //                null, null, null);
@@ -313,13 +313,13 @@ public class JobTest {
 
     @Test
     public void isCollectTest(){
-        Integer res = jobMapper.isCollect(1 ,10);
+        Integer res = jobMapper.isCollect(1 ,1);
         Assert.assertEquals(Integer.valueOf(1), res);
-        res = jobMapper.isCollect(1,1);
+        res = jobMapper.isCollect(1,10);
         Assert.assertEquals(null, res);
-        boolean isCollected = jobService.isCollected(1,10);
+        boolean isCollected = jobService.isCollected(1,1);
         Assert.assertEquals(true, isCollected);
-        isCollected = jobService.isCollected(1,1);
+        isCollected = jobService.isCollected(1,10);
         Assert.assertEquals(false, isCollected);
 
     }

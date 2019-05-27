@@ -25,7 +25,6 @@ public class DomainToDTOConverterFactoryTest {
         user.setPassword("123456");
         user.setId(1);
         user.setEmail("test@test.com");
-        user.setNation("China");
         user.setGender(Gender.MALE);
         user.setPhonenumber("2022922222");
         UserDTO dto = converter.convert(user);

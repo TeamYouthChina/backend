@@ -1,35 +1,14 @@
 package com.youthchina.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.youthchina.dao.Qinghong.ResumeMapper;
 import com.youthchina.dao.qingyang.ResumePDFMapper;
 import com.youthchina.domain.qingyang.ResumePDF;
 import com.youthchina.dto.applicant.ResumePDFDTO;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.application.ResumePDFServiceImpl;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.WebApplicationContext;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.youthchina.dto.job.JobRequestDTO;
-import com.youthchina.dto.util.LocationDTO;
 import com.youthchina.util.AuthGenerator;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,14 +25,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.youthchina.util.CustomMockMvcMatchers.partialContent;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 /**
  * @author: Qingyang Zhao
@@ -153,12 +127,36 @@ public class ResumePDFTest {
         Integer id = resumePDFMapper.selectResumePDFByStuId(1).get(0).getResumeId();
         System.out.println("\nTest::::::" + id);
         this.mvc.perform(
-                get(this.urlPrefix + "/resumes/pdf/:" + id)
+                get(this.urlPrefix + "/resumes/pdf/" + id)
                         .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
         )
                 .andDo(print())
                 .andExpect(content().json("{\"content\":{\"id\":" + id + ",\"fileId\":\"TestFileId\",\"name\":\"TestName\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
+        ;
+    }
+
+    @Test
+    public void controllerGetAllTest() throws Exception {
+        ResumePDF resumePDF = new ResumePDF();
+        resumePDF.setResumeName("TestName01");
+        resumePDF.setDocuLocalId("TestFileId01");
+        resumePDF.setGenerateMethod(ResumePDF.GENERATED);
+        resumePDF.setStuId(1);
+        ResumePDF resumePDF01 = resumePDFService.add(resumePDF);
+        resumePDF.setResumeName("TestName02");
+        resumePDF.setDocuLocalId("TestFileId02");
+        resumePDF.setStuId(1);
+        ResumePDF resumePDF02 = resumePDFService.add(resumePDF);
+
+
+        this.mvc.perform(
+                get(this.urlPrefix + "/resumes/")
+                        .with(authGenerator.authentication())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"offset\":0,\"limit\":2147483646,\"data\":[{\"fileId\":\"TestFileId01\",\"name\":\"TestName01\"},{\"fileId\":\"TestFileId02\",\"name\":\"TestName02\"}],\"page_count\":0,\"item_count\":2,\"page_index\":0,\"is_first\":true,\"is_last\":false},\"status\":{\"code\":2000,\"reason\":\"\"}}", false))
         ;
     }
 
@@ -180,7 +178,7 @@ public class ResumePDFTest {
         java.lang.String insertJson = ow.writeValueAsString(resumePDFDTO);
 
         this.mvc.perform(
-                patch(this.urlPrefix + "/resumes/pdf/:" + id)
+                patch(this.urlPrefix + "/resumes/pdf/" + id)
                         .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(insertJson)
@@ -202,7 +200,7 @@ public class ResumePDFTest {
         Integer id = resumePDFMapper.selectResumePDFByStuId(1).get(0).getResumeId();
 
         this.mvc.perform(
-                delete(this.urlPrefix + "/resumes/pdf/:" + id)
+                delete(this.urlPrefix + "/resumes/pdf/" + id)
                         .with(authGenerator.authentication())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
         )

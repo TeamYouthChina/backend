@@ -107,8 +107,11 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
-    public ComFriendApply getFriendApplication(Integer applicationId) {
+    public ComFriendApply getFriendApplication(Integer applicationId) throws NotFoundException {
         ComFriendApply comFriendApply = friendsMapper.getFriendApplication(applicationId);
+        if (comFriendApply == null) {
+            throw new NotFoundException(4040, 404, "this application is not exist");//todo
+        }
         comFriendApply.setUser(userMapper.findOne(comFriendApply.getUserId()));
         return comFriendApply;
     }

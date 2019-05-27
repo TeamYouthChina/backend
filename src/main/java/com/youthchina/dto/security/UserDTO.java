@@ -1,6 +1,5 @@
 package com.youthchina.dto.security;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.youthchina.annotation.JsonTimeStamp;
 import com.youthchina.domain.zhongyang.Gender;
@@ -9,6 +8,7 @@ import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.RequestDTO;
 import com.youthchina.dto.ResponseDTO;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -25,7 +25,6 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
     private String first_name;
     private String last_name;
     private Gender gender;
-    private String nation;
     private String avatar_url;
     private List<Role> role;
 
@@ -38,12 +37,11 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
-        this.register_date = user.getRegisterDate();
+        this.register_date = user.getRegisterTime();
         this.first_name = user.getFirstName();
         this.last_name = user.getLastName();
         this.date_of_birth = new Timestamp(user.getDateOfBirth() == null ? 0 : user.getDateOfBirth().getTime());
         this.gender = user.getGender();
-        this.nation = user.getNation();
         this.avatar_url = user.getAvatarUrl();
         this.role = user.getRole();
     }
@@ -64,7 +62,7 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
 //        this.username = username;
 //    }
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String getPassword() {
         return password;
     }
@@ -73,6 +71,7 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.password = password;
     }
 
+    @NotNull
     public String getEmail() {
         return email;
     }
@@ -115,14 +114,6 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.gender = gender;
     }
 
-    public String getNation() {
-        return nation;
-    }
-
-    public void setNation(String nation) {
-        this.nation = nation;
-    }
-
 
     public List<Role> getRole() {
         return role;
@@ -154,11 +145,10 @@ public class UserDTO implements ResponseDTO<User>, RequestDTO<User> {
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.phonenumber = user.getPhonenumber();
-        this.register_date = user.getRegisterDate();
+        this.register_date = user.getRegisterTime();
         this.first_name = user.getFirstName();
         this.last_name = user.getLastName();
         this.gender = user.getGender();
-        this.nation = user.getNation();
         this.date_of_birth = new Timestamp(user.getDateOfBirth().getTime());
         this.avatar_url = user.getAvatarUrl();
         this.role = user.getRole();

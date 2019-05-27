@@ -2,6 +2,7 @@ package com.youthchina.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youthchina.dao.tianjian.CommunityMapper;
+import com.youthchina.service.user.JwtService;
 import com.youthchina.util.AuthGenerator;
 import org.junit.After;
 import org.junit.Before;
@@ -27,8 +28,14 @@ public class BaseControllerTest {
     @Autowired
     protected CommunityMapper communityMapper;
 
+    @Autowired
+    protected JwtService jwtService;
+
     @Value("${web.url.prefix}")
     protected String urlPrefix;
+
+    @Value("${security.token.header}")
+    protected String HEADER;
 
     protected AuthGenerator authGenerator = new AuthGenerator();
 
