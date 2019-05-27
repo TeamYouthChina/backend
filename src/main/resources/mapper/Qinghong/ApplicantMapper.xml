@@ -347,34 +347,34 @@
 
     <!--获取申请者的信息-->
     <!--<select id="getStudentInfo" resultMap="studentResultMap">-->
-        <!--select a.*,-->
-               <!--b.*,-->
-               <!--p.*,-->
-               <!--u.*,-->
-               <!--g.*,-->
-               <!--m.*,-->
-               <!--d.*,-->
-               <!--n.*,-->
-               <!--e.*,-->
-               <!--f.*,-->
-               <!--i.*,-->
-               <!--c.*,-->
-        <!--from SYS_USER a-->
-                 <!--LEFT JOIN STU_EDU_INFO b ON a.USER_ID =-->
-                  <!--b.STU_ID AND b.IS_DELETE = 0-->
-                 <!--LEFT JOIN SYS_DEGREE p ON b.EDU_DEGREE = p.DEGREE_NUM-->
-                 <!--LEFT JOIN COUNTRY_UNIVERSITY u ON b.EDU_SCHOOL_ID = u.UNIVERS_ID-->
-                 <!--LEFT JOIN SYS_DIPLOMA z ON z.DIPLOMA_NUM = b.EDU_DIPLOMA_TYPE-->
-                 <!--LEFT JOIN STU_CERTIFICATE g ON a.USER_ID = g.STU_ID AND g.IS_DELETE = 0-->
-                 <!--LEFT JOIN SYS_COUNTRY m ON g.INSTI_COUNTRY = m.COUNTRY_ABBRE AND m.IS_DELETE = 0-->
-                 <!--LEFT JOIN STU_PROJECT d ON a.USER_ID = d.STU_ID AND d.IS_DELETE = 0-->
-                 <!--LEFT JOIN SYS_COUNTRY n ON d.INSTI_COUNTRY = n.COUNTRY_ABBRE AND n.IS_DELETE = 0-->
-                 <!--LEFT JOIN STU_WORK e ON a.USER_ID = e.STU_ID AND e.IS_DELETE = 0-->
-                 <!--LEFT JOIN STU_ACTIVITY f ON a.USER_ID = f.STU_ID AND f.IS_DELETE = 0-->
-                 <!--LEFT JOIN SYS_COUNTRY i ON f.ORG_COUNTRY = i.COUNTRY_ABBRE AND i.IS_DELETE = 0-->
-                 <!--LEFT JOIN STU_SUB_INFO c ON a.USER_ID = c.STU_ID AND c.IS_DELETE = 0-->
-        <!--WHERE a.USER_ID = #{id}-->
-          <!--AND a.IS_DELETE = 0-->
+    <!--select a.*,-->
+    <!--b.*,-->
+    <!--p.*,-->
+    <!--u.*,-->
+    <!--g.*,-->
+    <!--m.*,-->
+    <!--d.*,-->
+    <!--n.*,-->
+    <!--e.*,-->
+    <!--f.*,-->
+    <!--i.*,-->
+    <!--c.*,-->
+    <!--from SYS_USER a-->
+    <!--LEFT JOIN STU_EDU_INFO b ON a.USER_ID =-->
+    <!--b.STU_ID AND b.IS_DELETE = 0-->
+    <!--LEFT JOIN SYS_DEGREE p ON b.EDU_DEGREE = p.DEGREE_NUM-->
+    <!--LEFT JOIN COUNTRY_UNIVERSITY u ON b.EDU_SCHOOL_ID = u.UNIVERS_ID-->
+    <!--LEFT JOIN SYS_DIPLOMA z ON z.DIPLOMA_NUM = b.EDU_DIPLOMA_TYPE-->
+    <!--LEFT JOIN STU_CERTIFICATE g ON a.USER_ID = g.STU_ID AND g.IS_DELETE = 0-->
+    <!--LEFT JOIN SYS_COUNTRY m ON g.INSTI_COUNTRY = m.COUNTRY_ABBRE AND m.IS_DELETE = 0-->
+    <!--LEFT JOIN STU_PROJECT d ON a.USER_ID = d.STU_ID AND d.IS_DELETE = 0-->
+    <!--LEFT JOIN SYS_COUNTRY n ON d.INSTI_COUNTRY = n.COUNTRY_ABBRE AND n.IS_DELETE = 0-->
+    <!--LEFT JOIN STU_WORK e ON a.USER_ID = e.STU_ID AND e.IS_DELETE = 0-->
+    <!--LEFT JOIN STU_ACTIVITY f ON a.USER_ID = f.STU_ID AND f.IS_DELETE = 0-->
+    <!--LEFT JOIN SYS_COUNTRY i ON f.ORG_COUNTRY = i.COUNTRY_ABBRE AND i.IS_DELETE = 0-->
+    <!--LEFT JOIN STU_SUB_INFO c ON a.USER_ID = c.STU_ID AND c.IS_DELETE = 0-->
+    <!--WHERE a.USER_ID = #{id}-->
+    <!--AND a.IS_DELETE = 0-->
     <!--</select>-->
 
     <!--获取申请者的项目信息-->
@@ -498,9 +498,8 @@
     <!--申请职位-->
     <insert id="addApply" useGeneratedKeys="true" keyProperty="apply_id">
         insert into STU_JOB_APPLY
-                (JOB_CV_SEND,JOB_APPLY_TIME,JOB_APPLY_STATUS,STU_ID,JOB_ID,DOCU_LOCAL_ID)
-        values
-               (#{job_cv_send},NOW(),#{job_apply_status},#{stu_id},#{job_id},#{docu_local_id})
+        (JOB_CV_SEND, JOB_APPLY_TIME, JOB_APPLY_STATUS, STU_ID, JOB_ID, DOCU_LOCAL_ID)
+        values (#{job_cv_send}, NOW(), #{job_apply_status}, #{stu_id}, #{job_id}, #{docu_local_id})
     </insert>
 
 
@@ -586,173 +585,187 @@
     <insert id="addJobCollect" parameterType="com.youthchina.domain.Qinghong.JobCollect" useGeneratedKeys="true"
             keyProperty="collect_id">
         INSERT INTO STU_JOB_COLLECT
-        (JOB_ID,JOB_COLL_TIME,STU_ID,IS_DELETE,IS_DELETE_TIME)
-        VALUES
-        (#{job_id},NOW(),#{stu_id},0,NULL)
+            (JOB_ID, JOB_COLL_TIME, STU_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES (#{job_id}, NOW(), #{stu_id}, 0, NULL)
     </insert>
 
     <insert id="addCompCollect" parameterType="com.youthchina.domain.Qinghong.CompCollect" useGeneratedKeys="true"
             keyProperty="collect_id">
         INSERT INTO STU_COMP_COLLECT
-        (COMPANY_ID,COMPANY_COLL_TIME,STU_ID,IS_DELETE,IS_DELETE_TIME)
-        VALUES
-        (#{company_id},NOW(),#{stu_id},0,NULL)
+            (COMPANY_ID, COMPANY_COLL_TIME, STU_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES (#{company_id}, NOW(), #{stu_id}, 0, NULL)
     </insert>
 
 
     <!--删除应聘者信息-->
     <update id="deleteStuInfo">
-        update STU_INFO set
-                            IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE STU_ID=#{stu_id}
+        update STU_INFO
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE STU_ID = #{stu_id}
     </update>
 
     <!--删除应聘者教育信息-->
     <update id="deleteEduInfo">
-        update STU_EDU_INFO set
-                                IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE EDU_ID=#{edu_id}
+        update STU_EDU_INFO
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE EDU_ID = #{edu_id}
     </update>
 
     <!--删除所有的教育信息-->
 
     <update id="deleteAllEduInfo">
-        update STU_EDU_INFO set
-                                IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE STU_ID=#{stu_id}
+        update STU_EDU_INFO
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE STU_ID = #{stu_id}
     </update>
 
     <!--删除应聘者附加信息-->
     <update id="deleteSubInfo">
-        update STU_INFO set
-                            IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE SUB_ID=#{sub_id}
+        update STU_INFO
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE SUB_ID = #{sub_id}
     </update>
 
     <!--删除应聘者项目信息-->
     <update id="deleteProject">
-        update STU_PROJECT set
-                               IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE PROJ_ID=#{proj_id}
+        update STU_PROJECT
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE PROJ_ID = #{proj_id}
     </update>
 
     <!--删除所有的项目信息-->
     <update id="deleteAllProject">
-        update STU_PROJECT set
-                               IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE STU_ID=#{stu_id}
+        update STU_PROJECT
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE STU_ID = #{stu_id}
     </update>
 
 
     <!--删除应聘者工作经验-->
     <update id="deleteWork">
-        update STU_WORK set
-                            IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE WORK_ID=#{work_id}
+        update STU_WORK
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE WORK_ID = #{work_id}
     </update>
 
     <!--删除所有的工作信息-->
 
     <update id="deleteAllWork">
-        update STU_WORK set
-                            IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE STU_ID=#{stu_id}
+        update STU_WORK
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE STU_ID = #{stu_id}
     </update>
 
     <!--删除应聘者活动信息-->
     <update id="deleteActivity">
-        update STU_ACTIVITY set
-                                IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE ACT_ID=#{act_id}
+        update STU_ACTIVITY
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE ACT_ID = #{act_id}
     </update>
 
     <!--删除所有的活动信息-->
     <update id="deleteAllActivity">
-        update STU_ACTIVITY set
-                                IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE STU_ID=#{stu_id}
+        update STU_ACTIVITY
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE STU_ID = #{stu_id}
     </update>
 
 
     <!--删除应聘者技术证书-->
     <update id="deleteCertificate">
-        UPDATE STU_CERTIFICATE set
-        IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE CERTIFICATE_ID=#{certificate_id}
+        UPDATE STU_CERTIFICATE
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE CERTIFICATE_ID = #{certificate_id}
     </update>
 
     <!--删除所有的证书信息-->
     <update id="deleteAllCertificate">
-        UPDATE STU_CERTIFICATE set
-        IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE STU_ID=#{stu_id}
+        UPDATE STU_CERTIFICATE
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE STU_ID = #{stu_id}
     </update>
 
     <!--删除应聘者优势标签-->
     <update id="deleteSkill">
-        UPDATE STU_ADVAN_LABEL set
-        IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE LABEL_ID=#{label_id}
+        UPDATE STU_ADVAN_LABEL
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE LABEL_ID = #{label_id}
     </update>
 
 
     <!--删除所有标签表-->
     <update id="deleteAllSkills">
-        UPDATE STU_ADVAN_LABEL set
-        IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE STU_ID=#{stu_id}
+        UPDATE STU_ADVAN_LABEL
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE STU_ID = #{stu_id}
 
     </update>
 
 
     <!--删除应聘者意向职位-->
     <update id="deleteLabel">
-        update STU_PREFER_PROF set
-                                   IS_DELETE=1
-        WHERE PRE_PROF_ID=#{pre_prof_id}
+        update STU_PREFER_PROF
+        set IS_DELETE=1
+        WHERE PRE_PROF_ID = #{pre_prof_id}
     </update>
 
     <!--删除应聘者意向行业表-->
     <update id="deleteIndustry">
-        update STU_PREFER_INDUSTRY set
-                                       IS_DELETE=1
-        WHERE PRE_IND_ID=#{pre_ind_id}
+        update STU_PREFER_INDUSTRY
+        set IS_DELETE=1
+        WHERE PRE_IND_ID = #{pre_ind_id}
     </update>
 
     <!--删除应聘者意向行业表-->
     <update id="deleteCity">
-        update STU_PREFER_CITY set
-                                   IS_DELETE=1
-        WHERE PRE_CITY_ID=#{pre_city_id}
+        update STU_PREFER_CITY
+        set IS_DELETE=1
+        WHERE PRE_CITY_ID = #{pre_city_id}
     </update>
 
     <!--删除应聘者薪资表-->
     <update id="deleteVideo">
-        update STU_INTRODUCTION_VIDEO set
-                                          IS_DELETE=1
-        WHERE PRE_VIDEO_ID=#{pre_video_id}
+        update STU_INTRODUCTION_VIDEO
+        set IS_DELETE=1
+        WHERE PRE_VIDEO_ID = #{pre_video_id}
     </update>
 
     <!--删除应聘者薪资表-->
     <update id="deleteSalary">
-        update STU_PREFER_SALARY set
-                                     IS_DELETE=1
-        WHERE PRE_SALA_ID=#{pre_sala_id}
+        update STU_PREFER_SALARY
+        set IS_DELETE=1
+        WHERE PRE_SALA_ID = #{pre_sala_id}
     </update>
 
     <!--删除职位收藏-->
     <update id="deleteJobCollect">
-        update STU_JOB_COLLECT set
-                                   IS_DELETE=1,IS_DELETE_TIME=NOW()
-        WHERE COLLECT_ID=#{collect_id}
+        update STU_JOB_COLLECT
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE COLLECT_ID = #{collect_id}
     </update>
 
 
     <!--删除公司收藏-->
     <update id="deleteCompCollect">
-        update STU_COMP_COLLECT set
-                                   IS_DELETE=1, IS_DELETE_TIME=NOW()
-        WHERE COLLECT_ID=#{collect_id}
+        update STU_COMP_COLLECT
+        set IS_DELETE=1,
+            IS_DELETE_TIME=NOW()
+        WHERE COLLECT_ID = #{collect_id}
     </update>
 
     <!--<insert id="insertStuInfo" parameterType="com.youthchina.domain.Qinghong.BaseInfo" useGeneratedKeys="true"-->
@@ -772,173 +785,139 @@
     <insert id="insertEduInfo" parameterType="com.youthchina.domain.Qinghong.EducationInfo" useGeneratedKeys="true"
             keyProperty="edu_id">
         INSERT INTO STU_EDU_INFO
-        (
-        EDU_DEGREE,EDU_SCHOOL_ID,EDU_MAJOR,EDU_COLLEGE,
-        EDU_GPA,EDU_DIPLOMA_TYPE,EDU_START,EDU_END,STU_ID,IS_DELETE,IS_DELETE_TIME
-
-        )
-        VALUES (
-       #{degree.degreeNum},#{university.univers_id},#{major.major_code},
-       #{edu_college},#{edu_gpa},1,#{edu_start},#{edu_end},#{stu_id},0,NULL
-        )
+        (EDU_DEGREE, EDU_SCHOOL_ID, EDU_MAJOR, EDU_COLLEGE,
+         EDU_GPA, EDU_DIPLOMA_TYPE, EDU_START, EDU_END, STU_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES (#{degree.degreeNum}, #{university.univers_id}, #{major.major_code},
+                #{edu_college}, #{edu_gpa}, 1, #{edu_start}, #{edu_end}, #{stu_id}, 0, NULL)
     </insert>
     <insert id="insertStuLabel" parameterType="com.youthchina.domain.Qinghong.AdvantageLabel" useGeneratedKeys="true"
             keyProperty="label_id">
         INSERT INTO STU_ADVAN_LABEL
-        (LABEL_CODE,STU_ID,IS_DELETE,IS_DELETE_TIME)
-        VALUES (
-        #{label_code},#{stu_id},0,NULL
-        )
+            (LABEL_CODE, STU_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES (#{label_code}, #{stu_id}, 0, NULL)
     </insert>
 
     <insert id="insertSubInfo" parameterType="com.youthchina.domain.Qinghong.SubInfo" useGeneratedKeys="true"
             keyProperty="sub_id">
         INSERT INTO STU_SUB_INFO
-        (
-        SUB_COURSE, SUB_HONOR,  SUB_AWARD,  SUB_SKILL,  SUB_FOREIGN,  SUB_INTEREST, SUB_INTRODUCTION,
-        STU_ID,IS_DELETE,IS_DELETE_TIME
-
-        )
-        VALUES (
-       #{sub_course},#{sub_honor},#{sub_award},#{sub_skill},#{sub_foreign},#{sub_interest},#{sub_introduction},
-       #{stu_id},0,NULL
-
-        )
+        (SUB_COURSE, SUB_HONOR, SUB_AWARD, SUB_SKILL, SUB_FOREIGN, SUB_INTEREST, SUB_INTRODUCTION,
+         STU_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES (#{sub_course}, #{sub_honor}, #{sub_award}, #{sub_skill}, #{sub_foreign}, #{sub_interest},
+                #{sub_introduction},
+                #{stu_id}, 0, NULL)
     </insert>
 
     <insert id="insertStuCertificate" parameterType="com.youthchina.domain.Qinghong.Certificate" useGeneratedKeys="true"
             keyProperty="certificate_id">
         INSERT INTO STU_CERTIFICATE
-        (
-        CERTIFICATE_NAME,CERTIFICATE_INSTI,INSTI_COUNTRY,CERTIFICATE_GRANT_DATE,CERTIFICATE_EXPIR_DATE,DOCU_LOCAL_ID,
-        STU_ID,IS_DELETE,IS_DELETE_TIME
-
-        )
-        VALUES (
-       #{certificate_name},#{certificate_insti},#{insti_country.countryAbbre},#{certificate_grant_date},#{certificate_expir_date},#{docu_local_id},
-       #{stu_id},0,NULL
-
-        )
+        (CERTIFICATE_NAME, CERTIFICATE_INSTI, INSTI_COUNTRY, CERTIFICATE_GRANT_DATE, CERTIFICATE_EXPIR_DATE,
+         DOCU_LOCAL_ID,
+         STU_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES (#{certificate_name}, #{certificate_insti}, #{insti_country.countryAbbre}, #{certificate_grant_date},
+                #{certificate_expir_date}, #{docu_local_id},
+                #{stu_id}, 0, NULL)
     </insert>
 
     <insert id="insertStuProject" parameterType="com.youthchina.domain.Qinghong.Project" useGeneratedKeys="true"
             keyProperty="proj_id">
         INSERT INTO STU_PROJECT
-        (
-        PROJ_INSTITUTE,INSTI_COUNTRY,PROJ_NAME,PROJ_ROLE,PROJ_START_TIME,PROJ_END_TIME,PROJ_DELIVER,DELIVER_PUBLISH,DELIVER_PUB_INSTI,
-        STU_ID,IS_DELETE,IS_DELETE_TIME
-
-        )
-        VALUES (
-       #{proj_institute},#{insti_country.countryAbbre},#{proj_name},#{proj_role},#{proj_start_time},#{proj_end_time},#{proj_deliver},#{deliver_publish},
-       #{deliver_pub_insti},#{stu_id},0,NULL
-
-        )
+        (PROJ_INSTITUTE, INSTI_COUNTRY, PROJ_NAME, PROJ_ROLE, PROJ_START_TIME, PROJ_END_TIME, PROJ_DELIVER,
+         DELIVER_PUBLISH, DELIVER_PUB_INSTI,
+         STU_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES (#{proj_institute}, #{insti_country.countryAbbre}, #{proj_name}, #{proj_role}, #{proj_start_time},
+                #{proj_end_time}, #{proj_deliver}, #{deliver_publish},
+                #{deliver_pub_insti}, #{stu_id}, 0, NULL)
     </insert>
     <insert id="insertStuWork" parameterType="com.youthchina.domain.Qinghong.Work" useGeneratedKeys="true"
             keyProperty="work_id">
         INSERT INTO STU_WORK
-        (
-        WORK_COMPANY,WORK_LOCATION,WORK_POSITION,WORK_SECTOR,WORK_START_TIME,WORK_END_TIME,WORK_DUTY,
-        WORK_NATURE,STU_ID,IS_DELETE,IS_DELETE_TIME
-        )
-        VALUES (
-       #{work_company},#{location.regionId},#{work_position},#{work_sector},#{work_start_time},
-       #{work_end_time},#{work_duty},#{work_nature},#{stu_id},0,NULL
-
-        )
+        (WORK_COMPANY, WORK_LOCATION, WORK_POSITION, WORK_SECTOR, WORK_START_TIME, WORK_END_TIME, WORK_DUTY,
+         WORK_NATURE, STU_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES (#{work_company}, #{location.regionId}, #{work_position}, #{work_sector}, #{work_start_time},
+                #{work_end_time}, #{work_duty}, #{work_nature}, #{stu_id}, 0, NULL)
     </insert>
 
     <insert id="insertStuActivity" parameterType="com.youthchina.domain.Qinghong.Activity" useGeneratedKeys="true"
             keyProperty="act_id">
         INSERT INTO STU_ACTIVITY
-        (
-        ACT_NAME,ACT_ORGANIZATION,ORG_COUNTRY,ACT_ROLE,ACT_START_TIME,ACT_END_TIME,ACT_DETAIL,STU_ID,
-        IS_DELETE,IS_DELETE_TIME
-        )
-        VALUES (
-       #{act_name},#{act_organization},#{org_country.countryAbbre},#{act_role},#{act_start_time},#{act_end_time},
-       #{act_detail},#{stu_id},0,NULL
-
-        )
+        (ACT_NAME, ACT_ORGANIZATION, ORG_COUNTRY, ACT_ROLE, ACT_START_TIME, ACT_END_TIME, ACT_DETAIL, STU_ID,
+         IS_DELETE, IS_DELETE_TIME)
+        VALUES (#{act_name}, #{act_organization}, #{org_country.countryAbbre}, #{act_role}, #{act_start_time},
+                #{act_end_time},
+                #{act_detail}, #{stu_id}, 0, NULL)
     </insert>
 
     <insert id="insertAdvantageSkills" parameterType="com.youthchina.domain.Qinghong.AdvantageLabel"
             useGeneratedKeys="true" keyProperty="label_id">
         INSERT INTO STU_ADVAN_LABEL
-        (
-        LABEL_CODE,STU_ID,IS_DELETE,IS_DELETE_TIME
-        )
-        VALUES (
-        #{label_code},#{stu_id},0,NULL
-
-        )
+        (LABEL_CODE, STU_ID, IS_DELETE, IS_DELETE_TIME)
+        VALUES (#{label_code}, #{stu_id}, 0, NULL)
     </insert>
     <update id="updateUserInfo" parameterType="com.youthchina.domain.Qinghong.Student">
-        UPDATE SYS_USER SET
-        USER_PHOTO=#{avatarUrl}
-        WHERE USER_ID=#{id}
+        UPDATE SYS_USER
+        SET USER_PHOTO=#{avatarUrl}
+        WHERE USER_ID = #{id}
 
 
     </update>
 
     <update id="updateEducation" parameterType="com.youthchina.domain.Qinghong.EducationInfo" useGeneratedKeys="true"
             keyProperty="edu_id">
-        update STU_EDU_INFO SET
-        EDU_DEGREE=#{degree.degreeNum},
-        EDU_SCHOOL_ID=#{university.univers_id},
-        EDU_MAJOR=#{major.major_code},
-        EDU_START=#{edu_start},
-        EDU_END=#{edu_end}
-        WHERE EDU_ID=#{edu_id}
+        update STU_EDU_INFO
+        SET EDU_DEGREE=#{degree.degreeNum},
+            EDU_SCHOOL_ID=#{university.univers_id},
+            EDU_MAJOR=#{major.major_code},
+            EDU_START=#{edu_start},
+            EDU_END=#{edu_end}
+        WHERE EDU_ID = #{edu_id}
     </update>
     <update id="updateWork" parameterType="com.youthchina.domain.Qinghong.Work" useGeneratedKeys="true"
             keyProperty="work_id">
-        update STU_WORK SET
-        WORK_COMPANY=#{work_company},
-        WORK_POSITION=#{work_position},
-        WORK_START_TIME=#{work_start_time},
-        WORK_END_TIME=#{work_end_time},
-        WORK_LOCATION=#{location.regionId}
-        WHERE WORK_ID=#{work_id}
+        update STU_WORK
+        SET WORK_COMPANY=#{work_company},
+            WORK_POSITION=#{work_position},
+            WORK_START_TIME=#{work_start_time},
+            WORK_END_TIME=#{work_end_time},
+            WORK_LOCATION=#{location.regionId}
+        WHERE WORK_ID = #{work_id}
 
 
     </update>
     <update id="updateProject" parameterType="com.youthchina.domain.Qinghong.Project" useGeneratedKeys="true"
             keyProperty="proj_id">
-        UPDATE STU_PROJECT SET
-        PROJ_NAME=#{proj_name},
-        PROJ_INSTITUTE=#{proj_institute},
-        INSTI_COUNTRY=#{insti_country.countryAbbre},
-        PROJ_ROLE=#{proj_role},
-        PROJ_START_TIME=#{proj_start_time},
-        PROJ_END_TIME=#{proj_end_time}
-        WHERE PROJ_ID=#{proj_id}
+        UPDATE STU_PROJECT
+        SET PROJ_NAME=#{proj_name},
+            PROJ_INSTITUTE=#{proj_institute},
+            INSTI_COUNTRY=#{insti_country.countryAbbre},
+            PROJ_ROLE=#{proj_role},
+            PROJ_START_TIME=#{proj_start_time},
+            PROJ_END_TIME=#{proj_end_time}
+        WHERE PROJ_ID = #{proj_id}
 
 
     </update>
     <update id="updateActivity" parameterType="com.youthchina.domain.Qinghong.Activity" useGeneratedKeys="true"
             keyProperty="act_id">
-        UPDATE STU_ACTIVITY SET
-        ACT_NAME=#{act_name},
-        ACT_ROLE=#{act_role},
-        ACT_ORGANIZATION=#{act_organization},
-        ORG_COUNTRY=#{org_country.countryAbbre},
-        ACT_START_TIME=#{act_start_time},
-        ACT_END_TIME=#{act_end_time}
-        WHERE ACT_ID=#{act_id}
+        UPDATE STU_ACTIVITY
+        SET ACT_NAME=#{act_name},
+            ACT_ROLE=#{act_role},
+            ACT_ORGANIZATION=#{act_organization},
+            ORG_COUNTRY=#{org_country.countryAbbre},
+            ACT_START_TIME=#{act_start_time},
+            ACT_END_TIME=#{act_end_time}
+        WHERE ACT_ID = #{act_id}
     </update>
 
 
     <update id="updateCertificate" parameterType="com.youthchina.domain.Qinghong.Certificate" useGeneratedKeys="true"
             keyProperty="certificate_id">
-        UPDATE STU_CERTIFICATE SET
-        CERTIFICATE_NAME=#{certificate_name},
-        CERTIFICATE_INSTI=#{certificate_insti},
-        CERTIFICATE_GRANT_DATE=#{certificate_grant_date},
-        CERTIFICATE_EXPIR_DATE=#{certificate_expir_date},
-        INSTI_COUNTRY=#{insti_country.countryAbbre}
-        WHERE CERTIFICATE_ID=#{certificate_id}
+        UPDATE STU_CERTIFICATE
+        SET CERTIFICATE_NAME=#{certificate_name},
+            CERTIFICATE_INSTI=#{certificate_insti},
+            CERTIFICATE_GRANT_DATE=#{certificate_grant_date},
+            CERTIFICATE_EXPIR_DATE=#{certificate_expir_date},
+            INSTI_COUNTRY=#{insti_country.countryAbbre}
+        WHERE CERTIFICATE_ID = #{certificate_id}
 
 
     </update>
@@ -960,7 +939,8 @@
         SELECT COLLECT_ID
         FROM youthchina.STU_COMP_COLLECT
         WHERE STU_ID = #{user_id}
-          AND COMPANY_ID = #{company_id} AND IS_DELETE = 0
+          AND COMPANY_ID = #{company_id}
+          AND IS_DELETE = 0
     </select>
 
 

@@ -1,10 +1,7 @@
 package com.youthchina.domain.tianjian;
 
 import com.youthchina.domain.jinhao.Comment;
-import com.youthchina.domain.jinhao.property.Attentionable;
-import com.youthchina.domain.jinhao.property.Commentable;
-import com.youthchina.domain.jinhao.property.Evaluatable;
-import com.youthchina.domain.jinhao.property.RichTextable;
+import com.youthchina.domain.jinhao.property.*;
 import com.youthchina.domain.zhongyang.User;
 import com.youthchina.dto.community.article.EssayRequestDTO;
 import com.youthchina.dto.community.article.EssayResponseDTO;
@@ -13,7 +10,7 @@ import com.youthchina.util.dictionary.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class ComEssay implements Commentable, RichTextable, Evaluatable, Attentionable {
+public class ComEssay implements Commentable, RichTextable, Evaluatable, Attentionable, HasAuthor {
     private Integer id;
     private String title;
     private String abbre;
@@ -24,7 +21,7 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
     private Integer relaId;
     private Integer relaType;
     private List<Comment> comments;
-    private User user;
+    private User author;
     private Integer upvoteCount;
     private Integer downvoteCount;
     private Integer attentionCount;
@@ -35,7 +32,6 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
     private static final Integer evaluateTargetType = EvaluationTargetType.ESSAY;
     private static final Integer attentionTargetType = AttentionTargetType.ESSAY;
     private static final Integer isExistTargetType = IsExistTargetType.ESSAY;
-
 
 
     public ComEssay(EssayResponseDTO essayResponseDTO) {
@@ -156,12 +152,12 @@ public class ComEssay implements Commentable, RichTextable, Evaluatable, Attenti
         this.comments = comments;
     }
 
-    public User getUser() {
-        return user;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     @Override

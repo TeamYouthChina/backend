@@ -5,27 +5,27 @@ info:
   license:
     name: MIT
 servers:
-  - url: 'http://youthchina.io/api/v1'
+- url: 'http://youthchina.io/api/v1'
 paths:
   '/jobs/{id}':
     get:
       tags:
-        - Job
+      - Job
       summary: 获得工作信息
       description: get job info by id
       operationId: getJob
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: job info
@@ -42,20 +42,20 @@ paths:
     put:
       summary: 更改工作信息
       tags:
-        - Job
+      - Job
       parameters:
-        - name: id
-          required: true
-          in: path
-          description: job id
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        description: job id
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -67,20 +67,20 @@ paths:
     delete:
       summary: 删除工作
       tags:
-        - Job
+      - Job
       parameters:
-        - name: id
-          required: true
-          in: path
-          description: job id
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        description: job id
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '204':
           description: deleted successed.
@@ -94,19 +94,19 @@ paths:
     post:
       summary: 发布工作
       tags:
-        - Job
+      - Job
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/JobRequest'
       parameters:
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: job info
@@ -192,20 +192,20 @@ paths:
     post:
       summary: 发起申请不提交任何东西
       tags:
-        - Application
+      - Application
       parameters:
-        - name: id
-          in: path
-          description: id of the job
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        description: id of the job
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: apply successful
@@ -225,7 +225,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -240,7 +240,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -252,7 +252,7 @@ paths:
     post:
       summary: 用pdf申请工作并且发送邮件
       tags:
-        - Application
+      - Application
       description: send resume to company
       requestBody:
         content:
@@ -262,24 +262,24 @@ paths:
               format: binary
               description: video to uploaded
       parameters:
-        - name: pdfid
-          in: path
-          description: id of the job
-          required: true
-          schema:
-            type: integer
-        - name: id
-          in: path
-          description: id of the job
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: pdfid
+        in: path
+        description: id of the job
+        required: true
+        schema:
+          type: integer
+      - name: id
+        in: path
+        description: id of the job
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: successfully send email
@@ -296,7 +296,7 @@ paths:
     post:
       summary: 用电子简历申请工作并且发送邮件
       tags:
-        - Application
+      - Application
       description: send resume to company
       requestBody:
         content:
@@ -306,24 +306,24 @@ paths:
               format: binary
               description: video to uploaded
       parameters:
-        - name: onlineid
-          in: path
-          description: id of the job
-          required: true
-          schema:
-            type: integer
-        - name: id
-          in: path
-          description: id of the job
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: onlineid
+        in: path
+        description: id of the job
+        required: true
+        schema:
+          type: integer
+      - name: id
+        in: path
+        description: id of the job
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: successfully send email
@@ -340,38 +340,38 @@ paths:
     get:
       summary: 获得所有申请的公司
       tags:
-        - Application
+      - Application
       parameters:
-        - name: id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: return the application of users
@@ -420,19 +420,19 @@ paths:
     put:
       summary: 收藏工作
       tags:
-        - Job
+      - Job
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: collect successful
@@ -442,33 +442,33 @@ paths:
     get:
       summary: 获得关注的文章，工作等
       tags:
-        - Collection
+      - Collection
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - name: type
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - job
-              - company
-              - question
-              - answer
-              - article
-              - video
-              - editorial
-          description: determine what part of attention list to return
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - job
+          - company
+          - question
+          - answer
+          - article
+          - video
+          - editorial
+        description: determine what part of attention list to return
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: return one of the following based on the type parameter
@@ -504,32 +504,32 @@ paths:
     get:
       summary: 获得我发布的文章，职位等
       tags:
-        - My
+      - My
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - name: type
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - job
-              - company
-              - question
-              - answer
-              - article
-              - video
-          description: determine what part of attention list to return
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - job
+          - company
+          - question
+          - answer
+          - article
+          - video
+        description: determine what part of attention list to return
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: return one of the following based on the type parameter
@@ -546,8 +546,8 @@ paths:
                         items:
                           type: object
                           required:
-                            - id
-                            - company
+                          - id
+                          - company
                           properties:
                             id:
                               type: integer
@@ -558,8 +558,8 @@ paths:
                         items:
                           type: object
                           required:
-                            - id
-                            - job
+                          - id
+                          - job
                           properties:
                             id:
                               type: integer
@@ -570,8 +570,8 @@ paths:
                         items:
                           type: object
                           required:
-                            - id
-                            - questions
+                          - id
+                          - questions
                           properties:
                             id:
                               type: integer
@@ -582,8 +582,8 @@ paths:
                         items:
                           type: object
                           required:
-                            - id
-                            - answers
+                          - id
+                          - answers
                           properties:
                             id:
                               type: integer
@@ -594,8 +594,8 @@ paths:
                         items:
                           type: object
                           required:
-                            - id
-                            - article
+                          - id
+                          - article
                           properties:
                             id:
                               type: integer
@@ -606,8 +606,8 @@ paths:
                         items:
                           type: object
                           required:
-                            - id
-                            - video
+                          - id
+                          - video
                           properties:
                             id:
                               type: integer
@@ -619,18 +619,18 @@ paths:
     get:
       summary: 查看影响力
       tags:
-        - My
+      - My
       parameters:
-        - name: user_id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: X-AUTHENTICATION
+        in: header
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: the influence score
@@ -649,38 +649,38 @@ paths:
   '/notifications/{user_id}':
     get:
       tags:
-        - My
+      - My
       parameters:
-        - name: user_id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: user_id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: return the notifications of users
@@ -715,19 +715,19 @@ paths:
   '/notifications/{notification_id}/read':
     patch:
       tags:
-        - My
+      - My
       parameters:
-        - name: notification_id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: notification_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: the notification is read
@@ -735,20 +735,20 @@ paths:
     delete:
       summary: 删除收藏的工作
       tags:
-        - Collection
+      - Collection
       parameters:
-        - name: job_id
-          required: true
-          in: path
-          schema:
-            type: integer
-          description: id of collection
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: job_id
+        required: true
+        in: path
+        schema:
+          type: integer
+        description: id of collection
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '204':
           description: delete target collection
@@ -756,20 +756,20 @@ paths:
     delete:
       summary: 删除收藏的公司
       tags:
-        - Collection
+      - Collection
       parameters:
-        - name: company_id
-          required: true
-          in: path
-          schema:
-            type: integer
-          description: id of collection
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: company_id
+        required: true
+        in: path
+        schema:
+          type: integer
+        description: id of collection
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '204':
           description: delete target collection
@@ -777,20 +777,20 @@ paths:
     delete:
       summary: 删除收藏的问题
       tags:
-        - Collection
+      - Collection
       parameters:
-        - name: question_id
-          required: true
-          in: path
-          schema:
-            type: integer
-          description: id of collection
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: question_id
+        required: true
+        in: path
+        schema:
+          type: integer
+        description: id of collection
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '204':
           description: delete target collection
@@ -798,20 +798,20 @@ paths:
     delete:
       summary: 删除收藏的答案
       tags:
-        - Collection
+      - Collection
       parameters:
-        - name: answer_id
-          required: true
-          in: path
-          schema:
-            type: integer
-          description: id of collection
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: answer_id
+        required: true
+        in: path
+        schema:
+          type: integer
+        description: id of collection
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '204':
           description: delete target collection
@@ -819,20 +819,20 @@ paths:
     delete:
       summary: 删除收藏的短则
       tags:
-        - Collection
+      - Collection
       parameters:
-        - name: editorial_id
-          required: true
-          in: path
-          schema:
-            type: integer
-          description: id of collection
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: editorial_id
+        required: true
+        in: path
+        schema:
+          type: integer
+        description: id of collection
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '204':
           description: delete target collection
@@ -840,20 +840,20 @@ paths:
     delete:
       summary: 删除收藏的文章
       tags:
-        - Collection
+      - Collection
       parameters:
-        - name: article_id
-          required: true
-          in: path
-          schema:
-            type: integer
-          description: id of collection
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: article_id
+        required: true
+        in: path
+        schema:
+          type: integer
+        description: id of collection
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '204':
           description: delete target collection
@@ -861,19 +861,19 @@ paths:
     post:
       summary: 发布问题
       tags:
-        - Question
+      - Question
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/QuestionRequest'
       parameters:
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: create question
@@ -962,20 +962,20 @@ paths:
     get:
       summary: 获得问题
       tags:
-        - Question
+      - Question
       parameters:
-        - name: id
-          required: true
-          in: path
-          description: question id
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        description: question id
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: return target question
@@ -997,20 +997,20 @@ paths:
     delete:
       summary: 删除问题
       tags:
-        - Question
+      - Question
       parameters:
-        - name: id
-          required: true
-          in: path
-          description: question id
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        description: question id
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '204':
           description: deleted successed.
@@ -1023,20 +1023,20 @@ paths:
     put:
       summary: 更新问题
       tags:
-        - Question
+      - Question
       parameters:
-        - name: id
-          required: true
-          in: path
-          description: id of the question
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        description: id of the question
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -1049,37 +1049,37 @@ paths:
     get:
       summary: 获得问题的答案
       tags:
-        - Question
+      - Question
       parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: the answer list of target question
@@ -1114,26 +1114,26 @@ paths:
     post:
       summary: 发布答案
       tags:
-        - Answer
+      - Answer
       parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
             schema:
               type: object
               required:
-                - body
+              - body
               properties:
                 body:
                   $ref: '#/components/schemas/RichText'
@@ -1209,19 +1209,19 @@ paths:
     put:
       summary: 收藏问题
       tags:
-        - Question
+      - Question
       parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: upvote successfullly
@@ -1229,19 +1229,19 @@ paths:
     get:
       summary: 获得答案
       tags:
-        - Answer
+      - Answer
       parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: target answer
@@ -1257,19 +1257,19 @@ paths:
     put:
       summary: 更改答案
       tags:
-        - Answer
+      - Answer
       parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -1290,19 +1290,19 @@ paths:
     delete:
       summary: 删除答案
       tags:
-        - Answer
+      - Answer
       parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '204':
           description: success
@@ -1312,19 +1312,19 @@ paths:
     post:
       summary: 发布回答评论
       tags:
-        - Answer
+      - Answer
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -1336,37 +1336,37 @@ paths:
     get:
       summary: 获得回答全部评论
       tags:
-        - Answer
+      - Answer
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -1402,19 +1402,19 @@ paths:
     put:
       summary: 点赞答案
       tags:
-        - Answer
+      - Answer
       parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: upvote successfullly
@@ -1441,19 +1441,19 @@ paths:
     put:
       summary: 反对答案
       tags:
-        - Answer
+      - Answer
       parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: downvote successfullly
@@ -1480,20 +1480,20 @@ paths:
     delete:
       summary: 取消点赞或反对
       tags:
-        - Answer
+      - Answer
       parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: editorials id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+        description: editorials id
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -1501,19 +1501,19 @@ paths:
     put:
       summary: 收藏回答
       tags:
-        - Answer
+      - Answer
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: collect successful
@@ -1522,21 +1522,21 @@ paths:
   '/applicants/resgister':
     post:
       tags:
-        - Security
+      - Security
       requestBody:
         content:
           application/json:
             schema:
               type: object
               required:
-                - name
-                - date_of_birth
-                - password
-                - phonenumber
-                - email
-                - current_city
-                - prefer_industry
-                - prefer_city
+              - name
+              - date_of_birth
+              - password
+              - phonenumber
+              - email
+              - current_city
+              - prefer_industry
+              - prefer_city
               properties:
                 username:
                   type: string
@@ -1555,12 +1555,12 @@ paths:
                 age:
                   type: integer
       parameters:
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: register success
@@ -1577,14 +1577,14 @@ paths:
   '/users/{id}':
     patch:
       parameters:
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       tags:
-        - Security
+      - Security
       requestBody:
         content:
           application/json:
@@ -1620,14 +1620,14 @@ paths:
   '/me':
     get:
       parameters:
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       tags:
-        - Security
+      - Security
       responses:
         '200':
           description: Return current logined user
@@ -1645,22 +1645,22 @@ paths:
   '/login':
     post:
       parameters:
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       tags:
-        - Security
+      - Security
       requestBody:
         content:
           application/json:
             schema:
               type: object
               required:
-                - identifier
-                - password
+              - identifier
+              - password
               properties:
                 identifier:
                   type: integer
@@ -1682,19 +1682,19 @@ paths:
     get:
       summary: 获取文章
       tags:
-        - Article
+      - Article
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -1710,19 +1710,19 @@ paths:
     put:
       summary: 更新文章
       tags:
-        - Article
+      - Article
       parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -1743,19 +1743,19 @@ paths:
     delete:
       summary: 删除文章
       tags:
-        - Article
+      - Article
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '204':
           description: delete successfully
@@ -1765,19 +1765,19 @@ paths:
     put:
       summary: 收藏文章
       tags:
-        - Article
+      - Article
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: collect successful
@@ -1787,14 +1787,14 @@ paths:
     post:
       summary: 发布文章
       parameters:
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       tags:
-        - Article
+      - Article
       requestBody:
         content:
           application/json:
@@ -1816,19 +1816,19 @@ paths:
     post:
       summary: 发布文章评论
       tags:
-        - Article
+      - Article
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -1849,37 +1849,37 @@ paths:
     get:
       summary: 获得文章全部评论
       tags:
-        - Article
+      - Article
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -1915,19 +1915,19 @@ paths:
     put:
       summary: 点赞文章
       tags:
-        - Article
+      - Article
       parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: upvote successfullly
@@ -1954,19 +1954,19 @@ paths:
     put:
       summary: 反对文章
       tags:
-        - Article
+      - Article
       parameters:
-        - name: id
-          required: true
-          in: path
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: downvote successfullly
@@ -1993,20 +1993,20 @@ paths:
     delete:
       summary: 取消点赞或反对
       tags:
-        - Article
+      - Article
       parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: editorials id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+        description: editorials id
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -2102,20 +2102,20 @@ paths:
     get:
       summary: 获取公司信息
       tags:
-        - Company
+      - Company
       parameters:
-        - name: id
-          in: path
-          required: true
-          description: company id
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        required: true
+        description: company id
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -2131,20 +2131,20 @@ paths:
     put:
       summary: 更改公司信息
       tags:
-        - Company
+      - Company
       parameters:
-        - name: id
-          in: path
-          required: true
-          description: company id
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        required: true
+        description: company id
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -2166,14 +2166,14 @@ paths:
     post:
       summary: 发布公司
       parameters:
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       tags:
-        - Company
+      - Company
       requestBody:
         content:
           application/json:
@@ -2201,19 +2201,19 @@ paths:
     put:
       summary: 收藏公司
       tags:
-        - Company
+      - Company
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '201':
           description: collect successful
@@ -2223,36 +2223,36 @@ paths:
     get:
       summary: Get all jobs belong to certain company
       tags:
-        - Company
+      - Company
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - name: X-AUTHENTICATION
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '201':
           description: sucessful
@@ -2496,19 +2496,19 @@ paths:
     get:
       summary: 获取短则
       tags:
-        - Editorials
+      - Editorials
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -2524,38 +2524,38 @@ paths:
     delete:
       summary: 删除短则
       tags:
-        - Editorials
+      - Editorials
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '204':
           description: successful
     put:
       summary: 更改短则
       tags:
-        - Editorials
+      - Editorials
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -2577,14 +2577,14 @@ paths:
     post:
       summary: 发布短则
       parameters:
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       tags:
-        - Editorials
+      - Editorials
       requestBody:
         content:
           application/json:
@@ -2606,20 +2606,20 @@ paths:
     post:
       summary: 发布短则评论
       tags:
-        - Editorials
+      - Editorials
       parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: editorials id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+        description: editorials id
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -2631,38 +2631,38 @@ paths:
     get:
       summary: 获得短则全部评论
       tags:
-        - Editorials
+      - Editorials
       parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: video id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+        description: video id
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -2698,20 +2698,20 @@ paths:
     put:
       summary: 点赞短则
       tags:
-        - Editorials
+      - Editorials
       parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: editorials id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+        description: editorials id
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -2739,20 +2739,20 @@ paths:
     put:
       summary: 反对短则
       tags:
-        - Editorials
+      - Editorials
       parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: editorials id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+        description: editorials id
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -2780,20 +2780,20 @@ paths:
     delete:
       summary: 取消点赞或反对
       tags:
-        - Editorials
+      - Editorials
       parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: editorials id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+        description: editorials id
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -2801,20 +2801,20 @@ paths:
     put:
       summary: 收藏短则
       tags:
-        - Editorials
+      - Editorials
       parameters:
-        - name: id
-          schema:
-            type: integer
-          in: path
-          required: true
-          description: editorials id
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        schema:
+          type: integer
+        in: path
+        required: true
+        description: editorials id
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -3092,26 +3092,26 @@ paths:
     get:
       summary: 推荐用户
       tags:
-        - Discover
+      - Discover
       parameters:
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: recommend users
@@ -3147,26 +3147,26 @@ paths:
     get:
       summary: 推荐公司
       tags:
-        - Discover
+      - Discover
       parameters:
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: recommend company
@@ -3202,26 +3202,26 @@ paths:
     get:
       summary: 推荐文章
       tags:
-        - Discover
+      - Discover
       parameters:
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: recommend users
@@ -3257,26 +3257,26 @@ paths:
     get:
       summary: 推荐问题
       tags:
-        - Discover
+      - Discover
       parameters:
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: recommend questions
@@ -3312,26 +3312,26 @@ paths:
     get:
       summary: 推荐工作
       tags:
-        - Discover
+      - Discover
       parameters:
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: recommend jobs
@@ -3421,26 +3421,26 @@ paths:
     get:
       summary: 推荐短则
       tags:
-        - Discover
+      - Discover
       parameters:
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: recommend jobs
@@ -3476,32 +3476,32 @@ paths:
     get:
       summary: 混合推荐
       tags:
-        - Discover
+      - Discover
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - name: type
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - job
-              - company
-              - question
-              - answer
-              - article
-              - video
-          description: determine what part of discovery list to return
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - job
+          - company
+          - question
+          - answer
+          - article
+          - video
+        description: determine what part of discovery list to return
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: return one of the following based on the type parameter
@@ -3530,19 +3530,19 @@ paths:
     post:
       summary: 发布电子简历
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       tags:
-        - Resume
+      - Resume
       requestBody:
         content:
           application/json:
@@ -3564,19 +3564,19 @@ paths:
     get:
       summary: 获得所有电子简历
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       tags:
-        - Resume
+      - Resume
       responses:
         '201':
           description: created
@@ -3592,19 +3592,19 @@ paths:
     put:
       summary: 获得所有电子简历
       tags:
-        - Resume
+      - Resume
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -3625,19 +3625,19 @@ paths:
     delete:
       summary: 删除电子简历
       tags:
-        - Resume
+      - Resume
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: deleted
@@ -3652,19 +3652,19 @@ paths:
     post:
       summary: 发布pdf简历
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       tags:
-        - Resume
+      - Resume
       requestBody:
         content:
           application/json:
@@ -3691,19 +3691,19 @@ paths:
     get:
       summary: 获得pdf简历
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       tags:
-        - Resume
+      - Resume
       responses:
         '201':
           description: created
@@ -3719,19 +3719,19 @@ paths:
     patch:
       summary: 获得所有pdf简历
       tags:
-        - Resume
+      - Resume
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -3755,19 +3755,19 @@ paths:
     delete:
       summary: 删除pdf简历
       tags:
-        - Resume
+      - Resume
       parameters:
-        - name: id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: deleted
@@ -3852,20 +3852,20 @@ paths:
   '/friends/{userId}/apply':
     post:
       tags:
-        - Friends
+      - Friends
       parameters:
-        - name: userId
-          description: other guy's id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: userId
+        description: other guy's id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -3887,20 +3887,20 @@ paths:
   '/friends/{userId}':
     delete:
       tags:
-        - Friends
+      - Friends
       parameters:
-        - name: userId
-          description: other guy's id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: userId
+        description: other guy's id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: created
@@ -3914,20 +3914,20 @@ paths:
   '/friends/applications/{reference_id}/approval':
     put:
       tags:
-        - Friends
+      - Friends
       parameters:
-        - name: reference_id
-          description:  reference_id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: reference_id
+        description:  reference_id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -3949,20 +3949,20 @@ paths:
   '/friends/applications/{reference_id}/deny':
     put:
       tags:
-        - Friends
+      - Friends
       parameters:
-        - name: reference_id
-          description:  reference_id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: reference_id
+        description:  reference_id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -3984,20 +3984,20 @@ paths:
   '/friends/applications/{id}':
     get:
       tags:
-        - Friends
+      - Friends
       parameters:
-        - name: id
-          description: application id
-          in: path
-          schema:
-            type: integer
-          required: true
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        description: application id
+        in: path
+        schema:
+          type: integer
+        required: true
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: created
@@ -4013,32 +4013,32 @@ paths:
   '/friends':
     get:
       tags:
-        - Friends
+      - Friends
       parameters:
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: friends representation
@@ -4073,32 +4073,32 @@ paths:
   '/friends/applications':
     get:
       tags:
-        - Friends
+      - Friends
       parameters:
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: applications representation
@@ -4133,44 +4133,44 @@ paths:
   '/search':
     get:
       tags:
-        - Util
+      - Util
       parameters:
-        - name: type
-          description: type only available for article, editorial, answer, question, user, job, company, comment and all.
-          in: query
-          schema:
-            type: string
-          required: false
-        - name: title
-          description: search element in title
-          in: query
-          schema:
-            type: string
-          required: false
-        - name: text
-          description: search element in title
-          in: query
-          schema:
-            type: string
-          required: false
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: type
+        description: type only available for article, editorial, answer, question, user, job, company, comment and all.
+        in: query
+        schema:
+          type: string
+        required: false
+      - name: title
+        description: search element in title
+        in: query
+        schema:
+          type: string
+        required: false
+      - name: text
+        description: search element in title
+        in: query
+        schema:
+          type: string
+        required: false
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: search result
@@ -4212,20 +4212,20 @@ paths:
       summary: 获得文章，问题等评论
       description: 返回文章，回答等的全部评论
       tags:
-        - Comment
+      - Comment
       parameters:
-        - name: id
-          description: id of articles
+      - name: id
+        description: id of articles
 
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: X-AUTHENTICATION
+        in: header
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description:
@@ -4272,18 +4272,18 @@ paths:
       summary: 删除评论
       description: 删除评论
       tags:
-        - Comment
+      - Comment
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: X-AUTHENTICATION
+        in: header
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: 'nike'
@@ -4315,18 +4315,18 @@ paths:
       summary: 点赞评论
       description: 评论点赞
       tags:
-        - Comment
+      - Comment
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: X-AUTHENTICATION
+        in: header
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: 'nike'
@@ -4354,18 +4354,18 @@ paths:
       summary: 反对评论
       description: 评论反对
       tags:
-        - Comment
+      - Comment
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: X-AUTHENTICATION
+        in: header
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: 'nike'
@@ -4393,18 +4393,18 @@ paths:
       summary: 取消点赞和反对
       description: 评论点赞
       tags:
-        - Comment
+      - Comment
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: X-AUTHENTICATION
+        in: header
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: 'nike'
@@ -4709,18 +4709,18 @@ paths:
       summary: 获得评论所有回复
       description: 返回评论全部回复
       tags:
-        - Comment
+      - Comment
       parameters:
-        - name: commentid
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
+      - name: commentid
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: X-AUTHENTICATION
+        in: header
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: 'nike'
@@ -4735,19 +4735,19 @@ paths:
       summary: 发布回复
       description: 发表回复
       tags:
-        - Comment
+      - Comment
       parameters:
-        - name: commentid
-          in: path
-          required: true
-          schema:
-            type: integer
+      - name: commentid
+        in: path
+        required: true
+        schema:
+          type: integer
 
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
+      - name: X-AUTHENTICATION
+        in: header
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -4767,20 +4767,20 @@ paths:
     get:
       summary: 获得回复
       tags:
-        - Comment
+      - Comment
       parameters:
-        - name: reply_id
-          required: true
-          in: path
-          description: reply id
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: reply_id
+        required: true
+        in: path
+        description: reply id
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: return target reply
@@ -4805,23 +4805,23 @@ paths:
       summary: 点赞回复
       description: 回复点赞
       tags:
-        - Comment
+      - Comment
       parameters:
-        - name: comment_id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: reply_id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
+      - name: comment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: reply_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: X-AUTHENTICATION
+        in: header
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: 'nike'
@@ -4853,23 +4853,23 @@ paths:
     put:
       summary: 反对回复
       tags:
-        - Comment
+      - Comment
       parameters:
-        - name: comment_id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: reply_id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
+      - name: comment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: reply_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: X-AUTHENTICATION
+        in: header
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: 'nike'
@@ -4901,23 +4901,23 @@ paths:
       summary: 取消点赞和反对
       description: 回复点赞
       tags:
-        - Comment
+      - Comment
       parameters:
-        - name: comment_id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: reply_id
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: X-AUTHENTICATION
-          in: header
-          required: true
-          schema:
-            type: string
+      - name: comment_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: reply_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: X-AUTHENTICATION
+        in: header
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: 'nike'
@@ -4925,20 +4925,20 @@ paths:
     get:
       summary: 获得人profile
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       responses:
         '200':
           description: return target user
@@ -4958,7 +4958,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -4966,55 +4966,55 @@ paths:
                 status:
                   code: 4041
                   reason: Cannot find user with id 14
-    put:
-      summary: 更改profile
-      tags:
-        - applicant
-      parameters:
-        - name: id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ApplicantRequest'
-      responses:
-        '200':
-          description: return target user
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  content:
-                    $ref: '#/components/schemas/Applicant'
-                  status:
-                    $ref: '#/components/schemas/Status'
-        '404':
-          description: cannot find
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - status
-                properties:
-                  status:
-                    $ref: '#/components/schemas/Status'
-              example:
-                status:
-                  code: 4041
-                  reason: Cannot find user with id 14
+        # put:
+        #   summary: 更改profile
+        #   tags:
+        #     - applicant
+        #   parameters:
+        #     - name: id
+        #       in: path
+        #       description: user id
+        #       required: true
+        #       schema:
+        #         type: integer
+        #     - in: header
+        #       name: X-AUTHENTICATION
+        #       required: true
+        #       description: authentication header
+        #       schema:
+        #         type: string
+        #   requestBody:
+        #     content:
+        #       application/json:
+        #         schema:
+        #           $ref: '#/components/schemas/ApplicantRequest'
+        #   responses:
+        #     '200':
+        #       description: return target user
+        #       content:
+        #         application/json:
+        #           schema:
+        #             type: object
+        #             properties:
+        #               content:
+        #                 $ref: '#/components/schemas/Applicant'
+        #               status:
+        #             $ref: '#/components/schemas/Status'
+        # '404':
+        #   description: cannot find
+        #   content:
+        #     application/json:
+        #       schema:
+        #         type: object
+        #         required:
+        #           - status
+        #         properties:
+        #           status:
+        #             $ref: '#/components/schemas/Status'
+        #       example:
+        #         status:
+        #           code: 4041
+        #           reason: Cannot find user with id 14
   # '/applicants':
   #   post:
   #     tags:
@@ -5209,38 +5209,38 @@ paths:
     get:
       summary: 获得教育经历
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: return target user's educations
@@ -5279,7 +5279,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -5290,20 +5290,20 @@ paths:
     post:
       summary: 添加教育经历
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: applicant id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        description: applicant id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -5328,7 +5328,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -5338,20 +5338,20 @@ paths:
                   reason: Cannot find user with id 14
     put:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: certificate id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        description: certificate id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -5383,7 +5383,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -5394,26 +5394,26 @@ paths:
   '/applicants/{id}/educations/{educationID}':
     get:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: educationID
-          in: path
-          description: education id
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: educationID
+        in: path
+        description: education id
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: return target user's educations
@@ -5433,7 +5433,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -5443,26 +5443,26 @@ paths:
                   reason: Cannot find user with id 14
     delete:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: educationID
-          in: path
-          description: education id
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: educationID
+        in: path
+        description: education id
+        required: true
+        schema:
+          type: integer
       responses:
         '204':
           description: cannot find
@@ -5471,45 +5471,45 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
   '/applicants/{id}/projects':
     get:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: return target user's projects
@@ -5548,7 +5548,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -5558,20 +5558,20 @@ paths:
                   reason: Cannot find user with id 14
     post:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: certificate id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        description: certificate id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -5596,7 +5596,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -5606,20 +5606,20 @@ paths:
                   reason: Cannot find user with id 14
     put:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: certificate id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        description: certificate id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -5648,7 +5648,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -5659,26 +5659,26 @@ paths:
   '/applicants/{id}/projects/{projectID}':
     get:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: projectID
-          in: path
-          description: projet id
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: projectID
+        in: path
+        description: projet id
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: return target user's projects
@@ -5698,7 +5698,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -5708,26 +5708,26 @@ paths:
                   reason: Cannot find user with id 14
     delete:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: projectID
-          in: path
-          description: projet id
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: projectID
+        in: path
+        description: projet id
+        required: true
+        schema:
+          type: integer
       responses:
         '204':
           description: cannot find
@@ -5736,45 +5736,45 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
   '/applicants/{id}/experiences':
     get:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: offset
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: limit
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: start index of element
-          schema:
-            type: string
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: offset
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: start index of element
+        schema:
+          type: string
       responses:
         '200':
           description: return target user's works
@@ -5813,7 +5813,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -5823,26 +5823,26 @@ paths:
                   reason: Cannot find user with id 14
     post:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: applicantId
-          in: path
-          description: applicant id
-          required: true
-          schema:
-            type: integer
-        - name: id
-          in: path
-          description: certificate id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: applicantId
+        in: path
+        description: applicant id
+        required: true
+        schema:
+          type: integer
+      - name: id
+        in: path
+        description: certificate id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -5872,7 +5872,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -5882,20 +5882,20 @@ paths:
                   reason: Cannot find user with id 14
     put:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: certificate id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
+      - name: id
+        in: path
+        description: certificate id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -5927,7 +5927,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -5938,26 +5938,26 @@ paths:
   '/applicants/{id}/experiences/{experienceID}':
     get:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: experienceID
-          in: path
-          description: experience id
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: experienceID
+        in: path
+        description: experience id
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: return target user's works
@@ -5977,7 +5977,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -5987,26 +5987,26 @@ paths:
                   reason: Cannot find user with id 14
     delete:
       tags:
-        - applicant
+      - applicant
       parameters:
-        - name: id
-          in: path
-          description: user id
-          required: true
-          schema:
-            type: integer
-        - in: header
-          name: X-AUTHENTICATION
-          required: true
-          description: authentication header
-          schema:
-            type: string
-        - name: experienceID
-          in: path
-          description: experience id
-          required: true
-          schema:
-            type: integer
+      - name: id
+        in: path
+        description: user id
+        required: true
+        schema:
+          type: integer
+      - in: header
+        name: X-AUTHENTICATION
+        required: true
+        description: authentication header
+        schema:
+          type: string
+      - name: experienceID
+        in: path
+        description: experience id
+        required: true
+        schema:
+          type: integer
       responses:
         '204':
           description: cannot find
@@ -6015,7 +6015,7 @@ paths:
               schema:
                 type: object
                 required:
-                  - status
+                - status
                 properties:
                   status:
                     $ref: '#/components/schemas/Status'
@@ -6564,17 +6564,17 @@ paths:
   '/static/location':
     get:
       tags:
-        - Static
+      - Static
       parameters:
-        - in: query
-          name: target
-          description: the region
-          schema:
-            type: integer
-        - in: query
-          name: id
-          schema:
-            type: integer
+      - in: query
+        name: target
+        description: the region
+        schema:
+          type: integer
+      - in: query
+        name: id
+        schema:
+          type: integer
 
       responses:
         '200':
@@ -6601,13 +6601,13 @@ paths:
   '/static/{id}':
     get:
       tags:
-        - Static
+      - Static
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
       responses:
         '200':
           description: "null"
@@ -6623,13 +6623,13 @@ paths:
   '/static':
     post:
       tags:
-        - Static
+      - Static
       parameters:
-        - in: path
-          required: true
-          name: id
-          schema:
-            type: integer
+      - in: path
+        required: true
+        name: id
+        schema:
+          type: integer
       requestBody:
         description: "File to upload"
       responses:
@@ -6647,7 +6647,7 @@ paths:
   '/static/dictionaries':
     get:
       tags:
-        - Static
+      - Static
       parameters:
         - name: type
           required: true
@@ -6680,6 +6680,36 @@ paths:
           in: query
           schema:
             type: string
+      - name: type
+        required: true
+        in: query
+        schema:
+          type: string
+          enum:
+          - major
+          - degree
+          - diploma
+          - advantageSkill
+          - industry
+          - job
+          - companyScale
+          - companyNature
+          - country
+          - chinaRegion
+          - USAState
+          - USARegion
+          - CHNUniversity
+          - USAUniversity
+          - GBRUniversity
+          - GANUniversity
+          - TimesRank
+          - USNEWSRank
+          - QSRank
+      - name: length
+        required: false
+        in: query
+        schema:
+          type: string
       responses:
         '200':
           description: dictionary
@@ -6845,9 +6875,9 @@ components:
           description: 1实习 2兼职 3全职
           type: string
           enum:
-            - full-time
-            - part-time
-            - internship
+          - full-time
+          - part-time
+          - internship
         star_time:
           type: string
         dead_line:
@@ -6874,9 +6904,9 @@ components:
           description: 1实习 2兼职 3全职
           type: string
           enum:
-            - full-time
-            - part-time
-            - internship
+          - full-time
+          - part-time
+          - internship
         start_time:
           type: string
         dead_line:
@@ -6902,9 +6932,9 @@ components:
         type:
           type: string
           enum:
-            - full-time
-            - part-time
-            - internship
+          - full-time
+          - part-time
+          - internship
         dead_line:
           type: string
         start_time:
@@ -6964,8 +6994,8 @@ components:
         gender:
           type: string
           enum:
-            - male
-            - female
+          - male
+          - female
         nation:
           type: string
         avatar_url:
@@ -6976,18 +7006,18 @@ components:
           type: integer
     NewUser:
       allOf:
-        - $ref: '#/components/schemas/User'
-        - type: object
-          required:
-            - password
-          properties:
-            password:
-              type: string
+      - $ref: '#/components/schemas/User'
+      - type: object
+        required:
+        - password
+        properties:
+          password:
+            type: string
     ContactInfo:
       type: object
       required:
-        - emails
-        - phonenumbers
+      - emails
+      - phonenumbers
       properties:
         emails:
           type: array
@@ -7001,10 +7031,10 @@ components:
     EducationInfo:
       type: object
       required:
-        - university
-        - major
-        - degree
-        - duration
+      - university
+      - major
+      - degree
+      - duration
       properties:
         university:
           type: string
@@ -7019,10 +7049,10 @@ components:
     EducationInfoRequest:
       type: object
       required:
-        - university_id
-        - major
-        - degree
-        - duration
+      - university_id
+      - major
+      - degree
+      - duration
       properties:
         university_id:
           type: string
@@ -7039,10 +7069,10 @@ components:
     WorkExperienceInfo:
       type: object
       required:
-        - employer
-        - position
-        - duration
-        - location
+      - employer
+      - position
+      - duration
+      - location
       properties:
         id:
           type: integer
@@ -7059,10 +7089,10 @@ components:
     WorkExperienceInfoRequest:
       type: object
       required:
-        - employer
-        - position
-        - duration
-        - location
+      - employer
+      - position
+      - duration
+      - location
       properties:
         id:
           type: integer
@@ -7079,8 +7109,8 @@ components:
     Certification:
       type: object
       required:
-        - name
-        - duration
+      - name
+      - duration
       properties:
         name:
           type: string
@@ -7093,11 +7123,11 @@ components:
     Extracurricular:
       type: object
       required:
-        - name
-        - role
-        - organization
-        - duration
-        - location
+      - name
+      - role
+      - organization
+      - duration
+      - location
       properties:
         id:
           type: integer
@@ -7114,9 +7144,9 @@ components:
     Project:
       type: object
       required:
-        - name
-        - role
-        - duration
+      - name
+      - role
+      - duration
       properties:
         id:
           type: integer
@@ -7140,8 +7170,8 @@ components:
     ApplicantRequest:
       type: object
       required:
-        - name
-        - avatarUrl
+      - name
+      - avatarUrl
       properties:
         name:
           type: string
@@ -7160,11 +7190,11 @@ components:
           items:
             type: object
             required:
-              - university
-              - major
-              - degree
-              - duration
-              - location
+            - university
+            - major
+            - degree
+            - duration
+            - location
             properties:
               university:
                 type: string
@@ -7185,10 +7215,10 @@ components:
           items:
             type: object
             required:
-              - employer
-              - position
-              - duration
-              - location
+            - employer
+            - position
+            - duration
+            - location
             properties:
               employer:
                 type: string
@@ -7223,50 +7253,50 @@ components:
           type: string
         isInJob:
           type: boolean
-        skills:
-          type: array
+          # skills:
+          #   type: array
           items:
             type: string
-        currentCompany:
-          $ref: '#/components/schemas/Company'
+        # currentCompany:
+        #   $ref: '#/components/schemas/Company'
         educations:
           type: array
           items:
             $ref: '#/components/schemas/EducationInfo'
-        contacts:
-          $ref: '#/components/schemas/ContactInfo'
+        # contacts:
+        #   $ref: '#/components/schemas/ContactInfo'
         works:
           type: array
           items:
             $ref: '#/components/schemas/WorkExperienceInfo'
-        projects:
-          type: array
-          items:
-            $ref: '#/components/schemas/Project'
+        # projects:
+        #   type: array
+        #   items:
+        #     $ref: '#/components/schemas/Project'
         extracurriculars:
           type: array
           items:
             $ref: '#/components/schemas/Extracurricular'
-        certifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/Certification'
+        # certifications:
+        #   type: array
+        #   items:
+        #     $ref: '#/components/schemas/Certification'
     JobResponse:
       allOf:
-        - $ref: '#/components/schemas/Job'
-        - properties:
-            status:
-              $ref: '#/components/schemas/Status'
+      - $ref: '#/components/schemas/Job'
+      - properties:
+          status:
+            $ref: '#/components/schemas/Status'
     JobWithMail:
       allOf:
-        - $ref: '#/components/schemas/Job'
-        - properties:
-            mail:
-              type: string
-              description: 只有创建者访问时才会返回mail
+      - $ref: '#/components/schemas/Job'
+      - properties:
+          mail:
+            type: string
+            description: 只有创建者访问时才会返回mail
     Company:
       allOf:
-        - $ref: '#/components/schemas/Organization'
+      - $ref: '#/components/schemas/Organization'
     CompanyRequest:
       type: object
       properties:
@@ -7291,10 +7321,10 @@ components:
     Application:
       type: object
       required:
-        - id
-        - companyId
-        - positionId
-        - status
+      - id
+      - companyId
+      - positionId
+      - status
       properties:
         id:
           type: integer
@@ -7305,13 +7335,13 @@ components:
     CollectionStatus:
       type: string
       enum:
-        - active
-        - inactive
+      - active
+      - inactive
     AnswerRequest:
       type: object
       required:
-        - body
-        - is_anonymous
+      - body
+      - is_anonymous
       properties:
         body:
           $ref: '#/components/schemas/RichText'
@@ -7320,23 +7350,23 @@ components:
           default: false
     AnswerBasic:
       allOf:
-        - $ref: '#/components/schemas/AnswerRequest'
-        - properties:
-            creator:
-              $ref: '#/components/schemas/User'
-            modified_at:
-              type: string
-            create_at:
-              type: string
-            id:
-              type: integer
-              description: answer id
+      - $ref: '#/components/schemas/AnswerRequest'
+      - properties:
+          creator:
+            $ref: '#/components/schemas/User'
+          modified_at:
+            type: string
+          create_at:
+            type: string
+          id:
+            type: integer
+            description: answer id
     QuestionRequest:
       type: object
       required:
-        - title
-        - body
-        - is_anonymous
+      - title
+      - body
+      - is_anonymous
       properties:
         title:
           type: string
@@ -7353,39 +7383,39 @@ components:
           type: integer
     QuestionBasic:
       allOf:
-        - $ref: '#/components/schemas/QuestionRequest'
-        - properties:
-            id:
-              type: integer
-              description: question id
-            create_at:
-              type: string
-            modified_at:
-              type: string
-            creator:
-              $ref: '#/components/schemas/User'
+      - $ref: '#/components/schemas/QuestionRequest'
+      - properties:
+          id:
+            type: integer
+            description: question id
+          create_at:
+            type: string
+          modified_at:
+            type: string
+          creator:
+            $ref: '#/components/schemas/User'
     Question:
       allOf:
-        - $ref: '#/components/schemas/QuestionBasic'
-        - type: object
-          properties:
-            answers:
-              type: array
-              items:
-                $ref: '#/components/schemas/AnswerBasic'
+      - $ref: '#/components/schemas/QuestionBasic'
+      - type: object
+        properties:
+          answers:
+            type: array
+            items:
+              $ref: '#/components/schemas/AnswerBasic'
     Answer:
       allOf:
-        - $ref: '#/components/schemas/AnswerBasic'
-        - type: object
-          properties:
-            question:
-              $ref: '#/components/schemas/QuestionBasic'
+      - $ref: '#/components/schemas/AnswerBasic'
+      - type: object
+        properties:
+          question:
+            $ref: '#/components/schemas/QuestionBasic'
     RichText:
       type: object
       required:
-        - braftEditorRaw
-        - previewText
-        - compiletype
+      - braftEditorRaw
+      - previewText
+      - compiletype
       properties:
         braftEditorRaw:
           type: string
@@ -7417,11 +7447,11 @@ components:
           type: integer
     CommentRequest:
       allOf:
-        - $ref: '#/components/schemas/ContentRequest'
-        - properties:
-            is_anonymous:
-              type: boolean
-              default: false
+      - $ref: '#/components/schemas/ContentRequest'
+      - properties:
+          is_anonymous:
+            type: boolean
+            default: false
     ArticleRequest:
       type: object
       properties:
@@ -7439,10 +7469,10 @@ components:
     Article:
       type: object
       required:
-        - id
-        - title
-        - body
-        - company
+      - id
+      - title
+      - body
+      - company
       properties:
         id:
           type: integer
@@ -7500,8 +7530,8 @@ components:
     Location:
       type: object
       required:
-        - nation_code
-        - location_code
+      - nation_code
+      - location_code
       properties:
         nation_code:
           type: string
@@ -7510,16 +7540,16 @@ components:
     Reply:
       type: object
       required:
-        - id
-        - commentId
-        - creator
-        - body
-        - create_at
-        - is_anonymous
-        - modified_at
-        - upvoteCount
-        - downvoteCount
-        - evaluateStatus
+      - id
+      - commentId
+      - creator
+      - body
+      - create_at
+      - is_anonymous
+      - modified_at
+      - upvoteCount
+      - downvoteCount
+      - evaluateStatus
       properties:
         id:
           type: integer
@@ -7544,10 +7574,10 @@ components:
     FriendApplication:
       type: object
       required:
-        - reference_id
-        - create_at
-        - applicant
-        - is_read
+      - reference_id
+      - create_at
+      - applicant
+      - is_read
       properties:
         reference_id:
           type: integer

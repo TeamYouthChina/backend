@@ -103,7 +103,7 @@ public class SearchServiceImplememt implements SearchService {
             case "QUESTION":
                 queryString = "body:" + (body == null ? "*" : body);
                 break;
-            case "ESSAY":
+            case "ARTICLE":
                 queryString = "body:" + (body == null ? "*" : body) + " OR title:" + (title == null ? "*" : title);
                 break;
             case "*":
@@ -183,7 +183,7 @@ public class SearchServiceImplememt implements SearchService {
         String queryType = null;
         switch (type) {
             case SearchType.ARTICLE: {
-                queryType = "ESSAY";
+                queryType = "ARTICLE";
                 break;
             }
             case SearchType.QUESTION: {
@@ -228,7 +228,7 @@ public class SearchServiceImplememt implements SearchService {
 
         String queryType = null;
         switch (type) {
-            case "ESSAY": {
+            case "ARTICLE": {
                 queryType = SearchType.ARTICLE;
                 break;
             }

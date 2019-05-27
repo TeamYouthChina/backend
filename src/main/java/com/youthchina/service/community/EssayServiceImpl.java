@@ -106,7 +106,7 @@ public class EssayServiceImpl implements EssayService {
             throw new NotFoundException(4040, 404, "this essay does not exist");//todo
         }
         richTextService.getComRichText(comEssay);
-        comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
+        comEssay.setAuthor(userMapper.findOne(comEssay.getAuthor().getId()));
         comEssay.setAttentionCount(attentionService.countAttention(comEssay));
         if(LoggedInUserUtil.currentUser().getId()!=null)
         comEssay.setEvaluateStatus(evaluateService.evaluateStatus(comEssay, LoggedInUserUtil.currentUser().getId()));
@@ -164,7 +164,7 @@ public class EssayServiceImpl implements EssayService {
             throw new NotFoundException(4040, 404, "this essay does not exist");//todo
         }
         richTextService.getComRichText(comEssay);
-        comEssay.setUser(userMapper.findOne(comEssay.getUser().getId()));
+        comEssay.setAuthor(userMapper.findOne(comEssay.getAuthor().getId()));
         return comEssay;
     }
 

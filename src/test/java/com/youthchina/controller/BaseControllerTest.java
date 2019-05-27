@@ -39,7 +39,7 @@ public class BaseControllerTest {
 
     protected AuthGenerator authGenerator = new AuthGenerator();
 
-    MockMvc mvc;
+    protected MockMvc mvc;
 
     @Before
     public void setup() {
