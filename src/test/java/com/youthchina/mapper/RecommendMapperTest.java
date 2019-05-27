@@ -1,3 +1,4 @@
+/*
 package com.youthchina.mapper;
 
 import com.youthchina.dao.jinhao.RecommendMapper;
@@ -166,3 +167,4 @@ public class RecommendMapperTest {
         }
     }
 }
+*/

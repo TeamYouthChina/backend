@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -89,18 +90,41 @@ public class DiscoveryControllerTest extends BaseControllerTest {
     @Test
     public void testaddTag() throws Exception {
         TagRequestDTO tagRequestDTO = new TagRequestDTO();
-        tagRequestDTO.setId(6);
-        tagRequestDTO.setLabelCode(6);
+        tagRequestDTO.setTargetId(6);
+        tagRequestDTO.setLabelCode("6");
         tagRequestDTO.setTargetType(6);
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         java.lang.String requestJson = ow.writeValueAsString(tagRequestDTO);
         this.mvc.perform(
-                post(this.urlPrefix + "/Tags")
+                post(this.urlPrefix + "/labels")
                         .content(requestJson)
                         .with(authGenerator.authentication())
 
         )
                 .andDo(print());
+    }
+
+    @Test
+    public void testgetTag() throws Exception {
+        this.mvc.perform(
+                get(this.urlPrefix + "/labels/1")
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":[{\"labelId\":7,\"labelCode\":\"7\",\"labelChn\":\"运营\",\"labelEng\":\"---\"},{\"labelId\":8,\"labelCode\":\"8\",\"labelChn\":\"翻译\",\"labelEng\":\"---\"},{\"labelId\":9,\"labelCode\":\"9\",\"labelChn\":\"编辑\",\"labelEng\":\"---\"},{\"labelId\":10,\"labelCode\":\"10\",\"labelChn\":\"客服\",\"labelEng\":\"---\"},{\"labelId\":11,\"labelCode\":\"11\",\"labelChn\":\"技术支持\",\"labelEng\":\"---\"},{\"labelId\":12,\"labelCode\":\"12\",\"labelChn\":\"IT技术\",\"labelEng\":\"---\"}],\"status\":{\"code\":201,\"reason\":\"success\"}}", false));
+
+    }
+
+    @Test
+    public void testdeleteTag() throws Exception {
+        this.mvc.perform(
+                delete(this.urlPrefix + "/labels/11/100/1")
+                        .with(authGenerator.authentication())
+
+        )
+                .andDo(print())
+                .andExpect(content().json("{\"content\":{\"code\":200,\"reason\":\"success\"},\"status\":{\"code\":2000,\"reason\":\"\"}}", false));
     }
 }

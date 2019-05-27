@@ -3,18 +3,25 @@ package com.youthchina.dto.tag;
 import com.youthchina.domain.jinhao.Label;
 
 public class TagResponseDTO {
-    private Integer targetId;
+    private Integer labelId;
     private String labelCode;
     private String labelChn;
     private String labelEng;
 
     public TagResponseDTO(){}
-    public Integer getTargetId() {
-        return targetId;
+    public TagResponseDTO(Label label){
+        this.labelId = label.getLabelId();
+        this.labelCode = label.getLabelCode();
+        this.labelChn = label.getLabelChn();
+        this.labelEng = label.getLabelEng();
     }
 
-    public void setTargetId(Integer targetId) {
-        this.targetId = targetId;
+    public Integer getLabelId() {
+        return labelId;
+    }
+
+    public void setLabelId(Integer labelId) {
+        this.labelId = labelId;
     }
 
     public String getLabelCode() {
