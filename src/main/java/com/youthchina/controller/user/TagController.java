@@ -28,9 +28,9 @@ public class TagController {
     private RecommendServiceImpl recommendService;
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity getTags(@PathVariable Integer id){
-        List<Label> labelList = recommendService.getUserLabels(id);
+    @GetMapping("/{type}/{id}")
+    public ResponseEntity getTags(@PathVariable Integer id, @PathVariable Integer type){
+        List<Label> labelList = recommendService.getLabels(type,id);
         List<TagResponseDTO> tagResponseDTOS = new ArrayList<>();
         Iterator iterator = labelList.iterator();
         while (iterator.hasNext()){
@@ -42,7 +42,7 @@ public class TagController {
     }
     @PostMapping
     public ResponseEntity addTags(@RequestBody TagRequestDTO tagRequestDTO)throws NotFoundException{
-        recommendService.addTag(tagRequestDTO.getLabelCode(),tagRequestDTO.getTargetType(),tagRequestDTO.getTargetId());
+        recommendService.addTag(tagRequestDTO.getLabel_code(),tagRequestDTO.getTarget_type(),tagRequestDTO.getTarget_id());
         return ResponseEntity.ok(new Response(new StatusDTO(201, "success")));
     }
 

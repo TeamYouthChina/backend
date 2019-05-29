@@ -19,9 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RecommendServiceImpl implements RecommendService {
@@ -72,11 +70,11 @@ public class RecommendServiceImpl implements RecommendService {
     }
 
     @Override
-    public List<Label> getUserLabels(int userId) {
-        List<String> userLabels = recommendMapper.getUserLabel(userId);
+    public List<Label> getLabels(int targetType, int targetId) {
+        List<String> labelCodes = recommendMapper.getLabelCode(targetType,targetId);
         List<Label> labels = new ArrayList<>();
-        if(userLabels.size() == 0) return labels;
-        labels = recommendMapper.getLabel(userLabels);
+        if(labelCodes.size() == 0) return labels;
+        labels = recommendMapper.getLabel(labelCodes);
         return labels;
     }
 
@@ -88,8 +86,9 @@ public class RecommendServiceImpl implements RecommendService {
             throw new NotFoundException(404,404,"User do not have any labels");
         }
         List<Integer> userIds = recommendMapper.getRecommendUser(userLabels);
+        Set<Integer> nonRepeatIds = new HashSet<>(userIds);
         List<User> users = new LinkedList<>();
-        for(Integer id : userIds){
+        for(Integer id : nonRepeatIds){
             if(id == userId) continue;
             try {
                 users.add(userService.get(id));
@@ -108,6 +107,8 @@ public class RecommendServiceImpl implements RecommendService {
             throw new NotFoundException(404,404,"User do not have any labels");
         }
         List<Integer> ids = recommendMapper.getRecommendCompany(userLabels);
+        Set<Integer> reduceRepeat = new HashSet<>(ids);
+        ids = new ArrayList<>(reduceRepeat);
         return companyCURDService.get(ids);
     }
 
@@ -119,6 +120,8 @@ public class RecommendServiceImpl implements RecommendService {
             throw new NotFoundException(404,404,"User do not have any labels");
         }
         List<Integer> ids = recommendMapper.getRecommendEassy(userLabels);
+        Set<Integer> reduceRepeat = new HashSet<>(ids);
+        ids = new ArrayList<>(reduceRepeat);
         return essayService.get(ids);
     }
 
@@ -129,6 +132,8 @@ public class RecommendServiceImpl implements RecommendService {
             throw new NotFoundException(404,404,"User do not have any labels");
         }
         List<Integer> ids = recommendMapper.getRecommendQuestion(userLabels);
+        Set<Integer> reduceRepeat = new HashSet<>(ids);
+        ids = new ArrayList<>(reduceRepeat);
         return questionService.get(ids);
     }
 
@@ -139,6 +144,8 @@ public class RecommendServiceImpl implements RecommendService {
             throw new NotFoundException(404,404,"User do not have any labels");
         }
         List<Integer> ids = recommendMapper.getRecommendJob(userLabels);
+        Set<Integer> reduceRepeat = new HashSet<>(ids);
+        ids = new ArrayList<>(reduceRepeat);
         return jobService.get(ids);
     }
 
@@ -149,6 +156,8 @@ public class RecommendServiceImpl implements RecommendService {
             throw new NotFoundException(404,404,"User do not have any labels");
         }
         List<Integer> ids = recommendMapper.getRecommendBriefReview(userLabels);
+        Set<Integer> reduceRepeat = new HashSet<>(ids);
+        ids = new ArrayList<>(reduceRepeat);
         return briefReviewService.get(ids);
     }
 

@@ -6710,15 +6710,21 @@ paths:
                         type: string
                   status:
                     $ref: '#/components/schemas/Status'
-  '/labels/{id}':
+  '/labels/{type}/{id}':
     get:
-      summary: 获得用户标签
+      summary: 获得某种实体的标签
       tags:
         - Label
       parameters:
+        - name: type
+          in: path
+          description: type of domain
+          required: true
+          schema:
+            type: integer
         - name: id
           in: path
-          description: user id
+          description: id of domain
           required: true
           schema:
             type: integer
@@ -6730,7 +6736,7 @@ paths:
             type: string
       responses:
         '200':
-          description: the label list of the user
+          description: the label list of the domain
           content:
             application/json:
               schema:

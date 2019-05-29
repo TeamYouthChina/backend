@@ -69,4 +69,7 @@
         </foreach>
         and IS_DELETE = 0
     </select>
+    <select id="getLabelCode" resultType="java.lang.String">
+        select LAB_CODE from SYS_LABEL_MAP where TARGET_TYPE = #{targetType} and TARGET_ID = #{targetId}
+    </select>
 </mapper>

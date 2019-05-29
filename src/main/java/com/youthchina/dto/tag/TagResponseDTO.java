@@ -3,48 +3,48 @@ package com.youthchina.dto.tag;
 import com.youthchina.domain.jinhao.Label;
 
 public class TagResponseDTO {
-    private Integer labelId;
-    private String labelCode;
-    private String labelChn;
-    private String labelEng;
+    private Integer label_id;
+    private String label_code;
+    private String label_chn;
+    private String label_eng;
 
     public TagResponseDTO(){}
     public TagResponseDTO(Label label){
-        this.labelId = label.getLabelId();
-        this.labelCode = label.getLabelCode();
-        this.labelChn = label.getLabelChn();
-        this.labelEng = label.getLabelEng();
+        this.label_id = label.getLabelId();
+        this.label_code = label.getLabelCode();
+        this.label_chn = label.getLabelChn();
+        this.label_eng = label.getLabelEng();
     }
 
-    public Integer getLabelId() {
-        return labelId;
+    public Integer getLabel_id() {
+        return label_id;
     }
 
-    public void setLabelId(Integer labelId) {
-        this.labelId = labelId;
+    public void setLabel_id(Integer label_id) {
+        this.label_id = label_id;
     }
 
-    public String getLabelCode() {
-        return labelCode;
+    public String getLabel_code() {
+        return label_code;
     }
 
-    public void setLabelCode(String labelCode) {
-        this.labelCode = labelCode;
+    public void setLabel_code(String label_code) {
+        this.label_code = label_code;
     }
 
-    public String getLabelChn() {
-        return labelChn;
+    public String getLabel_chn() {
+        return label_chn;
     }
 
-    public void setLabelChn(String labelChn) {
-        this.labelChn = labelChn;
+    public void setLabel_chn(String label_chn) {
+        this.label_chn = label_chn;
     }
 
-    public String getLabelEng() {
-        return labelEng;
+    public String getLabel_eng() {
+        return label_eng;
     }
 
-    public void setLabelEng(String labelEng) {
-        this.labelEng = labelEng;
+    public void setLabel_eng(String label_eng) {
+        this.label_eng = label_eng;
     }
 }
