@@ -72,11 +72,11 @@ public class RecommendServiceImpl implements RecommendService {
     }
 
     @Override
-    public List<Label> getUserLabels(int userId) {
-        List<String> userLabels = recommendMapper.getUserLabel(userId);
+    public List<Label> getLabels(int targetType, int targetId) {
+        List<String> labelCodes = recommendMapper.getLabelCode(targetType,targetId);
         List<Label> labels = new ArrayList<>();
-        if(userLabels.size() == 0) return labels;
-        labels = recommendMapper.getLabel(userLabels);
+        if(labelCodes.size() == 0) return labels;
+        labels = recommendMapper.getLabel(labelCodes);
         return labels;
     }
 

@@ -14,7 +14,8 @@ public interface RecommendMapper {
     void addTag(@Param("labelCode") String labelCode, @Param("targetType") Integer targetType, @Param("targetId") Integer targetId);
     String isTagExist(@Param("labelCode") String labelCode, @Param("targetType") Integer targetType, @Param("targetId") Integer targetId);
     void deleteTag(@Param("labelCode") String labelCode, @Param("targetType") Integer targetType, @Param("targetId") Integer targetId);
-    List<Label> getLabel(List<String> userLabels);
+    List<Label> getLabel(List<String> labelCodes);
+    List<String> getLabelCode(@Param("targetType") Integer targetType, @Param("targetId") Integer targetId);
     List<String> getUserLabel(Integer userId);
     List<Integer> getRecommendQuestion(List<String> userLabels);
     List<Integer> getRecommendEassy(List<String> userLabels);
