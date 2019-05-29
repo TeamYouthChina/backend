@@ -2,7 +2,7 @@
 package com.youthchina.mapper;
 
 import com.youthchina.dao.jinhao.RecommendMapper;
-import com.youthchina.domain.zhongyang.User;
+import com.youthchina.domain.jinhao.Label;
 import com.youthchina.exception.zhongyang.exception.NotFoundException;
 import com.youthchina.service.recommendation.RecommendService;
 import org.junit.Assert;
@@ -36,11 +36,8 @@ public class RecommendMapperTest {
 
     @Test
     public void getUserLabel() {
-        recommendMapper.addTag("1", 100, 2);
-        recommendMapper.addTag("2", 100, 2);
-        recommendMapper.addTag("46", 100, 2);
         List<String> labels = recommendMapper.getUserLabel(2);
-        Assert.assertEquals(8, labels.size());
+        Assert.assertEquals(5, labels.size());
     }
 
     @Test
@@ -154,16 +151,12 @@ public class RecommendMapperTest {
 
     @Test
     public void getTag() throws NotFoundException {
-        recommendService.addTag("1", 100, 1);
-        recommendService.addTag("2", 100, 1);
-        recommendService.addTag("3", 100, 1);
-        recommendService.addTag("3", 100, 2);
-        recommendService.addTag("3", 100, 3);
-        recommendService.addTag("3", 100, 4);
-        List<User> labels = recommendService.getRecommendUser(1);
-        Assert.assertEquals(7, labels.size());
-        for (User user : labels) {
-            System.out.println(user.getId());
+        List<Label> labels = recommendService.getLabels(1,1);
+        Assert.assertEquals(2,labels.size());
+        for(Label label : labels){
+            if(!label.getLabelCode().equals("12")&& !label.getLabelCode().equals("13")){
+                Assert.fail();
+            }
         }
     }
 }
