@@ -1,4 +1,4 @@
-/*update log
+﻿/*update log
 1. disable advan_label
 2. add sys_label
 3. update sys_user
@@ -1651,18 +1651,18 @@ create table IF NOT EXISTS `RECOM_CAMPUS_RECRUIT`(
 ############################################系统层数据###########################################################
 TRUNCATE TABLE `youthchina`.`SYS_USER`  ;
 INSERT INTO `youthchina`.`SYS_USER` (`USER_ID`, `USER_MAIL`, `MAIL_VERIFY`, `USER_PHONE`, `PHONE_VERIFY`, `USER_PASS`, `USER_NICKNAME`, `USER_FIRST_NAME`, `USER_LAST_NAME`, `USER_GENDER`, `USER_DATE_OF_BIRTH`, `USER_PHOTO`, `USER_LOCATION`, `USER_ON_JOB`, `USER_REGIST_TIME`, `CONTENT_CHANGE_TIME`, `IS_DELETE`, `IS_DELETE_TIME`) VALUES 
-('1', 'Admin1', '1', '12345', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Admin1', 'Admin1', 'Male', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('2', 'Admin2', '1', '23456', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Admin2', 'Admin2', 'Female', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('3', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'Male', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('4', '123456@123.com', '1', '1234657890123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'AAA', 'AAABBBCCC', 'Male', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('5', '123456@456.com', '1', '9876543210123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'DDD', 'DDDEEEFFF', 'Female', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('6', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'Male', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('7', '123456@123.com', '1', '1234657890123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'AAA', 'AAABBBCCC', 'Male', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('8', '123456@456.com', '1', '9876543210123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'DDD', 'DDDEEEFFF', 'Female', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('9', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'Male', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('10', 'anniewu123@gwu.edu', '1', '2022944356', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Wu', 'Danni', 'Female', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('11', 'carmenwu@gwu.edu', '1', '135-3261-1999', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', '吴', '嘉敏', 'Female', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
-('12', 'ruisixia99@gwu.edu', '1', '2027060507', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', '夏', '锐思', 'Female', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
+('1', 'Admin1', '1', '12345', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Admin1', 'Admin1', 'MALE', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('2', 'Admin2', '1', '23456', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Admin2', 'Admin2', 'FEMALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('3', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'MALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('4', '123456@123.com', '1', '1234657890123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'AAA', 'AAABBBCCC', 'MALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('5', '123456@456.com', '1', '9876543210123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'DDD', 'DDDEEEFFF', 'FEMALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('6', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'MALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('7', '123456@123.com', '1', '1234657890123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'AAA', 'AAABBBCCC', 'MALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('8', '123456@456.com', '1', '9876543210123', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'DDD', 'DDDEEEFFF', 'FEMALE', '1970-01-01', '---', '110000', '1', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('9', '123456@789.com', '1', '1112223334445', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'GGG', 'GGGHHHIII', 'MALE', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('10', 'anniewu123@gwu.edu', '1', '2022944356', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', 'Wu', 'Danni', 'FEMALE', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('11', 'carmenwu@gwu.edu', '1', '135-3261-1999', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', '吴', '嘉敏', 'FEMALE', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00'),
+('12', 'ruisixia99@gwu.edu', '1', '2027060507', '1', '$2a$10$E8En9IcX0Rau2BhhXub7suHwTyDylb3KvqQlsSqdJ8k2LLyDu1UbG', '---', '夏', '锐思', 'FEMALE', '1970-01-01', '---', '110000', '0', '2019-01-01 00:00:00', '2019-01-01 00:00:00', '0', '2019-01-01 00:00:00');
 
 
 TRUNCATE TABLE `youthchina`.`SYS_ROLE`  ;
