@@ -23,9 +23,9 @@ public class ListResponse implements HasStatus {
         this.content = content;
     }
 
-    public ListResponse(PageRequest pageRequest, List data){
+    public ListResponse(PageRequest pageRequest, List data) {
         this();
-        this.content = new PageResponse(pageRequest, data.size(), data.subList(pageRequest.getStart(), Math.min(pageRequest.getEnd() + 1, data.size())));
+        this.content = new PageResponse(pageRequest, data.size(), data.subList(Math.min(pageRequest.getStart(), data.size()), Math.min(pageRequest.getEnd() + 1, data.size())));
     }
 
     public ListResponse(PageRequest pageRequest, int count, Object data) {
