@@ -3441,7 +3441,7 @@ INSERT INTO `youthchina`.`SYS_LABEL` (`LABEL_ID`, `LABEL_LEVEL`, `LABEL_CODE`, `
 
 
 TRUNCATE TABLE `youthchina`.`SYS_LABEL_MAP`;
-INSERT INTO `youthchina`.`sys_label_map` (`LABEL_ID`, `LAB_CODE`, `TARGET_ID`, `TARGET_TYPE`, `RELA_TIME`) VALUES 
+INSERT INTO `youthchina`.`SYS_LABEL_MAP` (`LABEL_ID`, `LAB_CODE`, `TARGET_ID`, `TARGET_TYPE`, `RELA_TIME`) VALUES
 ('1', '12', '1', '1', '2019-01-01 00:00:00'),
 ('2', '12', '1', '2', '2019-01-01 00:00:00'),
 ('3', '12', '1', '3', '2019-01-01 00:00:00'),
