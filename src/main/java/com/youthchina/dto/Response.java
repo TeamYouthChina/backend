@@ -21,10 +21,7 @@ public class Response implements HasStatus {
         this.status = status;
     }
 
-    public Response(StatusDTO statusDTO) {
-        this.content = null;
-        this.status = statusDTO;
-    }
+
 
     public Response(Object content, int code, String reason) {
         this.content = content;
