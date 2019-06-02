@@ -81,7 +81,7 @@ public class TagController {
     @PostMapping
     public ResponseEntity addTags(@RequestBody TagRequestDTO tagRequestDTO, @AuthenticationPrincipal User user) throws NotFoundException, ForbiddenException, ClientException {
         //role control
-        if (this.allowAccess(tagRequestDTO, user)) {
+        if (!this.allowAccess(tagRequestDTO, user)) {
             throw new ForbiddenException(InternalStatusCode.ACCESS_DENY);
         }
         if (!recommendService.isTagExist(tagRequestDTO.getLabel_code(), tagRequestDTO.getTarget_type(), tagRequestDTO.getTarget_id())) {

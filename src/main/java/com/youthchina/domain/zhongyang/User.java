@@ -111,7 +111,7 @@ public class User implements UserDetails, HasId<Integer> {
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(this.role.toString()));
+        this.role.spliterator().forEachRemaining(r -> authorities.add(new SimpleGrantedAuthority(r.toString())));
         return authorities;
     }
 
