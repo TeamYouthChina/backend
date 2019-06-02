@@ -50,26 +50,34 @@ public class RecommendServiceImpl implements RecommendService {
     @Transactional
     public void addTag(String labelCode, int targetType, int targetId) throws NotFoundException {
         //check whether targetId exist
-        if (targetType == TagTargetType.QUESTION) {
-            questionService.get(targetId);
-        }
-        if (targetType == TagTargetType.ARTICLE) {
-            essayService.get(targetId);
-        }
-        if (targetType == TagTargetType.EDITORIAL) {
-            briefReviewService.get(targetId);
-        }
-        if (targetType == TagTargetType.USER) {
-            userService.get(targetId);
-        }
-        if (targetType == TagTargetType.COMPANY) {
-            companyCURDService.get(targetId);
-        }
-        if (targetType == TagTargetType.JOB) {
-            jobService.get(targetId);
-        } else {
-            //default
-            throw new NotFoundException(404, 404, "The target type does not exist!");
+        switch (targetType) {
+            case TagTargetType.QUESTION: {
+                questionService.get(targetId);
+                break;
+            }
+            case TagTargetType.ARTICLE: {
+                essayService.get(targetId);
+                break;
+            }
+            case TagTargetType.EDITORIAL: {
+                briefReviewService.get(targetId);
+                break;
+            }
+            case TagTargetType.COMPANY: {
+                companyCURDService.get(targetId);
+                break;
+            }
+            case TagTargetType.JOB: {
+                jobService.get(targetId);
+                break;
+            }
+            case TagTargetType.USER: {
+                userService.exist(targetId);
+                break;
+
+            }
+            default:
+                throw new NotFoundException(4040, 404, "The target type does not exist!");
         }
         recommendMapper.addTag(labelCode, targetType, targetId);
     }
