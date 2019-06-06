@@ -33,11 +33,17 @@
           and TARGET_ID = #{userId}
     </select>
     <select id="getRecommendQuestion" resultType="java.lang.Integer">
-        select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
+        select TARGET_ID from SYS_LABEL_MAP
+        where LAB_CODE in
         <foreach collection="list" item="labelCode" index="index" open="(" close=")" separator=",">
             #{labelCode}
         </foreach>
         and TARGET_TYPE = 1
+        AND TARGET_ID IN (
+          SELECT DISTINCT(QUES_ID)
+          FROM COM_QUESTION
+          WHERE COM_QUESTION.IS_DELETE = 0
+        )
     </select>
     <select id="getRecommendEassy" resultType="java.lang.Integer">
         select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
@@ -45,6 +51,11 @@
             #{labelCode}
         </foreach>
         and TARGET_TYPE = 2
+        AND TARGET_ID IN (
+            SELECT distinct(ESSAY_ID)
+            FROM COM_ESSAY
+            WHERE COM_ESSAY.IS_DELETE = 0
+        )
     </select>
     <select id="getRecommendBriefReview" resultType="java.lang.Integer">
         select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
@@ -52,6 +63,11 @@
             #{labelCode}
         </foreach>
         and TARGET_TYPE = 3
+        AND TARGET_ID IN (
+            SELECT distinct(REVIEW_ID)
+            FROM COM_BRIEF_REVIEW
+            WHERE COM_BRIEF_REVIEW.IS_DELETE = 0
+        )
     </select>
     <select id="getRecommendJob" resultType="java.lang.Integer">
         select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
@@ -59,6 +75,11 @@
             #{labelCode}
         </foreach>
         and TARGET_TYPE = 300
+        AND TARGET_ID IN (
+            SELECT distinct(JOB_ID)
+            FROM JOB_INFO
+            WHERE JOB_INFO.IS_DELETE = 0
+        )
     </select>
     <select id="getRecommendCompany" resultType="java.lang.Integer">
         select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
@@ -66,6 +87,11 @@
             #{labelCode}
         </foreach>
         and TARGET_TYPE = 200
+        AND TARGET_ID IN(
+            SELECT distinct(COMPANY_ID)
+            FROM COMPANY_INFO
+            WHERE COMPANY_INFO.IS_DELETE = 0
+        )
     </select>
     <select id="getRecommendUser" resultType="java.lang.Integer">
         select TARGET_ID from SYS_LABEL_MAP where LAB_CODE in
@@ -73,6 +99,11 @@
             #{labelCode}
         </foreach>
         and TARGET_TYPE = 100
+        AND TARGET_ID IN(
+            SELECT distinct(USER_ID)
+            FROM SYS_USER
+            WHERE SYS_USER.IS_DELETE = 0
+        )
     </select>
     <select id="getLabel" resultMap="label">
         select * from SYS_LABEL where LABEL_CODE in
