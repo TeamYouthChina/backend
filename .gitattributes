@@ -1,2 +1,2 @@
-*.sql linguist-vendored
-*.xml linguist-vendored
+*.sql linguist-detectable=false
+*.xml linguist-detectable=false
