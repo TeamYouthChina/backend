@@ -132,8 +132,20 @@ public class TagController {
         }
     }
 
+    private boolean allowAccess(@Nonnull String labelCode, @Nonnull Integer targetType, @Nonnull Integer targetId, @Nonnull User user) throws NotFoundException, ClientException {
+        TagRequestDTO tagRequestDTO = new TagRequestDTO();
+        tagRequestDTO.setLabel_code(labelCode);
+        tagRequestDTO.setTarget_id(targetId);
+        tagRequestDTO.setTarget_type(targetType);
+        return this.allowAccess(tagRequestDTO, user);
+
+    }
+
     @DeleteMapping("/{labelCode}/{targetType}/{targetId}")
-    public ResponseEntity deleteTags(@PathVariable String labelCode, @PathVariable Integer targetType, @PathVariable Integer targetId) throws NotFoundException {
+    public ResponseEntity deleteTags(@PathVariable String labelCode, @PathVariable Integer targetType, @PathVariable Integer targetId, @AuthenticationPrincipal User user) throws NotFoundException, ForbiddenException, ClientException {
+        if (!this.allowAccess(labelCode, targetType, targetId, user)) {
+            throw new ForbiddenException(InternalStatusCode.ACCESS_DENY);
+        }
         recommendService.deleteTag(labelCode, targetType, targetId);
         return ResponseEntity.ok(new Response(new StatusDTO(200, "success")));
     }
