@@ -339,7 +339,7 @@ public class StudentServiceImpl implements StudentService {
         ResumePDF resumePDF = resumePDFService.get(resume_id);
         URL url = staticFileService.getFileUrl(resumePDF.getDocuLocalId());
         emailSendingDTO.setUrl(url);
-        emailSendingDTO.setFileName(resumePDF.getResumeName());
+        emailSendingDTO.setFileName(resumePDF.getResumeName() + ".pdf");
         messageSendService.sendMessage(emailSendingDTO);
     }
 
